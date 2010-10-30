@@ -1,0 +1,58 @@
+Ideen:
+
+- Kamera bereitstellen
+- Model laden
+- Model anzeigen im wireframe
+- Model an vorgegebener Ebene in 2 Teile splitten
+- 2 Teile anzeigen
+
+Zerlegung:
+
+Betrachte eins der Dreiecke, es gibt 3 Fälle:
+
+1. Dreieck ist ganz oberhalb der Ebene
+2. Dreieck ist ganz unterhalb der Ebene
+3. Dreieck schneidet Ebene
+
+Mit den Fällen 1 und 2 kriegt man direkt eine Zuordnung von Dreiecken
+zu zwei Körpern A, B. Bei Fall 3 muss man neue Dreiecke erstellen und
+die A und B zuordnen.
+
+Fall 3:
+
+Beim Schnitt einer Ebene mit einem Dreieck entstehen entweder...
+
+1. ...zwei Dreiecke, wenn die Ebene durch einen Punkt des Dreiecks
+   geht und eine Kante schneidet
+2. ...ein Dreieck und ein konvexes Viereck
+
+Algorithmus zum Abschneiden eines Dreiecks: Es entstehen ein oder zwei
+Dreiecke, also allgemeiner ein Container von Dreiecken.
+
+- Suche den einen Punkt p_i, der entweder
+	- oberhalb der Ebene ist und die restlichen beiden unterhalb (Fall 1)
+	- unterhalb der Ebene ist und die restlichen beiden oberhalb (Fall 2)
+
+- Bilde s_1 = Schnitt(p_{i-1},p_i),s_2 = Schnitt(p_i,p_{i+1})
+  (natürlich mit modulo)
+
+- Fall 1:
+	- Bilde Dreieck aus s_1,p_i,s_2
+- Fall 2:
+	- Bilde Dreieck aus p_{i-1},s_1,p_{i+1}
+	- Bilde Dreieck aus s_1,s_2,p_{i+1}
+
+
+- Gebe triangle einen weiteren Parameter, der Zusatzdaten speichert
+- Lese Model ein und erstelle Liste von Dreiecken mit Zusatzdaten:
+  Normalen und Texturkoordinaten
+- Erstelle Funktion, die aus diesen Daten einen VB erzeugt.
+- =cut_triangle_at_plane= benötigt noch einen Interpolatorfunktor. Der
+  muss zweimal die Metadaten bekommen und einen float, der angibt, wo
+  auf der Kante man sich befindet.
+
+- Boundingrect von Punktwolke
+	- Wechsle Koordinatensystem von Ebene zu Standardkoordinatensystem?
+
+- Dreiecke "schwach" formulieren: Enthalten nur Indizes. Algorithmen
+  kriegen Funktoren, die Indizes Daten zuordnen.
