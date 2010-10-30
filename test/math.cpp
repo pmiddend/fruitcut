@@ -5,6 +5,7 @@
 #include <fcppt/io/cout.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/math/range_compare.hpp>
+#include <fcppt/algorithm/shift_compare.hpp>
 #include <boost/test/unit_test.hpp>
 #include <algorithm>
 
@@ -34,9 +35,47 @@ typedef
 scalar
 data_type;
 
+struct triangle3
+{
+public:
+	typedef
+	vector3
+	vector;
+
+	typedef
+	vector3
+	value_type;
+
+	typedef
+	std::array<vector3,3>
+	array_type;
+
+	typedef
+	array_type::size_type
+	size_type;
+
+	array_type points;
+
+	triangle3(std::initializer_list<vector3> const &_points)
+	{
+		std::copy(_points.begin(),_points.end(),points.begin());
+	}
+};
+
+fcppt::io::ostream &operator<<(fcppt::io::ostream &s,triangle3 const &p)
+{
+	return 
+		s 
+			<< s.widen('(') 
+			<< p.points[0] << s.widen(',')
+			<< p.points[1] << s.widen(',')
+			<< p.points[2] 
+			<< s.widen(')');
+}
+
 typedef
-fruitcut::math::triangle::basic<scalar,N,data_type>
-triangle3;
+fruitcut::math::triangle_plane_intersection<triangle3>
+intersection_type;
 }
 
 BOOST_AUTO_TEST_CASE(line_plane)
@@ -132,8 +171,7 @@ BOOST_AUTO_TEST_CASE(cut_triangle_test)
 				vector3(1.5,-1,0),
 				vector3(6.0,-2,0),
 				vector3(4.0,3.5,0)
-			},
-			{ 1,2,3 }
+			}
 		),
 		upper_triangle
 		(
@@ -141,8 +179,7 @@ BOOST_AUTO_TEST_CASE(cut_triangle_test)
 				vector3(2,1,0),
 				vector3(5.5,1,0),
 				vector3(4,5,0)
-			},
-			{ 1,2,3 }
+			}
 		),
 		lower_triangle
 		(
@@ -150,23 +187,47 @@ BOOST_AUTO_TEST_CASE(cut_triangle_test)
 			vector3(2,-1,0),
 			vector3(5.5,-1,0),
 			vector3(4,-5,0)
-		},
-		{1,2,3});
+		});
 
-	std::function<data_type(data_type,data_type,scalar)> interpolator = 
-		[](data_type a, data_type b,scalar c) 
-		{ 
-			return data_type(a * c + (1.0-c) * b);
-		};
+	std::function<vector3 const &(triangle3 const &,triangle3::size_type)> 
+		get_position = 
+			[](triangle3 const &t,triangle3::size_type const i)
+			{
+				return t.points[i];
+			},
+		get_data = 
+			[](triangle3 const &t,triangle3::size_type const i) -> vector3
+			{
+				//fcppt::io::cout << "returning data: " << t.points[i] << "\n";
+				return t.points[i];
+			};
+
+	std::function<vector3 const(vector3 const &,vector3 const &,scalar)> 
+		interpolator = 
+			[](vector3 const &a, vector3 const &b,scalar c) -> vector3
+			{ 
+				//fcppt::io::cout << "a: " << a << ", b: " << b << "\n";
+				return a * c + (1.0-c) * b;
+			};
+
+	std::function<triangle3 const (vector3 const &,vector3 const &,vector3 const &)> 
+		create_triangle = 
+			[](vector3 const &a,vector3 const &b,vector3 const &c)
+			{
+				return triangle3({a,b,c});
+			};
 
 	{
 		fcppt::io::cout << FCPPT_TEXT("Cutting a triangle which shouldn't be cut\n");
 
-		fruitcut::math::triangle_plane_intersection<scalar,N,data_type> const is = 
-			fruitcut::math::cut_triangle_at_plane<scalar,N,data_type>(
+		intersection_type const is =
+			fruitcut::math::cut_triangle_at_plane(
 				upper_triangle,
 				p,
-				interpolator);
+				get_position,
+				get_data,
+				interpolator,
+				create_triangle);
 
 		fcppt::io::cout << FCPPT_TEXT("Expected 0 border points and 1 triangle\n");
 
@@ -183,9 +244,9 @@ BOOST_AUTO_TEST_CASE(cut_triangle_test)
 
 		BOOST_CHECK(
 			std::inner_product(
-				is.triangles().front().points().begin(),
-				is.triangles().front().points().end(),
-				upper_triangle.points().begin(),
+				is.triangles().front().points.begin(),
+				is.triangles().front().points.end(),
+				upper_triangle.points.begin(),
 				true,
 				std::logical_and<bool>(),
 				[&epsilon](vector3 const &a,vector3 const &b) 
@@ -198,11 +259,14 @@ BOOST_AUTO_TEST_CASE(cut_triangle_test)
 	{
 		fcppt::io::cout << FCPPT_TEXT("Cutting a triangle should be cut completely\n");
 
-		fruitcut::math::triangle_plane_intersection<scalar,N,data_type> const is = 
-			fruitcut::math::cut_triangle_at_plane<scalar,N>(
+		intersection_type const is = 
+			fruitcut::math::cut_triangle_at_plane(
 				lower_triangle,
 				p,
-				interpolator);
+				get_position,
+				get_data,
+				interpolator,
+				create_triangle);
 
 		fcppt::io::cout << FCPPT_TEXT("Expected 0 border points and 0 triangles\n");
 
@@ -221,11 +285,14 @@ BOOST_AUTO_TEST_CASE(cut_triangle_test)
 	{
 		fcppt::io::cout << FCPPT_TEXT("Cutting a triangle should be cut in half\n");
 
-		fruitcut::math::triangle_plane_intersection<scalar,N,data_type> const is = 
-			fruitcut::math::cut_triangle_at_plane<scalar,N>(
+		intersection_type const is = 
+			fruitcut::math::cut_triangle_at_plane(
 				middle_triangle,
 				p,
-				interpolator);
+				get_position,
+				get_data,
+				interpolator,
+				create_triangle);
 
 		fcppt::io::cout << FCPPT_TEXT("Expected 2 border points and 1 triangle\n");
 
@@ -240,13 +307,20 @@ BOOST_AUTO_TEST_CASE(cut_triangle_test)
 			is.points().size() == 2
 				&& is.triangles().size() == 1);
 
+		fcppt::io::cout 
+			<< FCPPT_TEXT("Border points are ") 
+			<< is.points()[0]
+			<< FCPPT_TEXT(", ")
+			<< is.points()[1]
+			<< FCPPT_TEXT("\n");
+
 		// We cannot test for the exact triangle since it could be permuted
 		triangle3 const expected_triangle(
 			{
 				vector3(2.05556,0,0),
 				vector3(5.27273,0,0),
 				vector3(4,3.5,0),
-			},{1,2,3});
+			});
 
 		fcppt::io::cout 
 			<< FCPPT_TEXT("Expected the triangle to be: ")
@@ -258,12 +332,15 @@ BOOST_AUTO_TEST_CASE(cut_triangle_test)
 			<< is.triangles()[0]
 			<< FCPPT_TEXT("\n");
 
-		BOOST_CHECK(
-			(
-			fruitcut::math::triangle::weak_compare<scalar,N,data_type>(
-				expected_triangle,
-				is.triangles()[0],
-				epsilon)));
+		BOOST_CHECK( 
+			fcppt::algorithm::shift_compare(
+				is.triangles()[0].points,
+				expected_triangle.points,
+				std::bind(
+					&fcppt::math::range_compare<vector3,vector3,scalar>,
+					std::placeholders::_1,
+					std::placeholders::_2,
+					epsilon)) );
 	}
 
 	{
@@ -273,11 +350,14 @@ BOOST_AUTO_TEST_CASE(cut_triangle_test)
 		
 		fcppt::io::cout << FCPPT_TEXT("Cutting the same triangle in the other half\n");
 
-		fruitcut::math::triangle_plane_intersection<scalar,N,data_type> const is = 
-			fruitcut::math::cut_triangle_at_plane<scalar,N,data_type>(
+		intersection_type const is = 
+			fruitcut::math::cut_triangle_at_plane(
 				middle_triangle,
 				new_plane,
-				interpolator);
+				get_position,
+				get_data,
+				interpolator,
+				create_triangle);
 
 		fcppt::io::cout << FCPPT_TEXT("Expected 2 border points and 2 triangles\n");
 

@@ -9,12 +9,12 @@ namespace fruitcut
 {
 namespace math
 {
-template<typename T,fcppt::math::size_type N,typename Data>
+template<typename Triangle>
 class triangle_plane_intersection
 {
 public:
 	typedef
-	triangle::basic<T,N,Data>
+	Triangle
 	triangle_type;
 
 	typedef

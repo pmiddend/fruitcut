@@ -7,6 +7,7 @@
 #include "triangle_plane_intersection.hpp"
 #include <fcppt/math/size_type.hpp>
 #include <fcppt/algorithm/map.hpp>
+#include <fcppt/io/cout.hpp>
 #include <vector>
 #include <algorithm>
 
@@ -16,53 +17,79 @@ namespace math
 {
 template
 <
-	typename T,
-	fcppt::math::size_type N,
-	typename Data,
-	typename Interpolator
+	typename Triangle,
+	typename Plane,
+	typename GetPosition,
+	typename GetData,
+	typename InterpolateVertex,
+	typename CreateTriangle
 >
-triangle_plane_intersection<T,N,Data> const
+triangle_plane_intersection<Triangle> const
 cut_triangle_at_plane(
-	triangle::basic<T,N,Data> const &t,
-	plane::basic<T,N> const &p,
-	Interpolator const &interp)
+	Triangle const &t,
+	Plane const &p,
+	GetPosition const &position,
+	GetData const &data,
+	InterpolateVertex const &interpolate,
+	CreateTriangle const &create_triangle)
 {
-	triangle_plane_intersection<T,N,Data> result;
-
 	typedef
-	std::vector<T>
-	scalar_sequence;
-
-	typedef typename
-	scalar_sequence::size_type
-	size_type;
-
-	typedef
-	triangle::basic<T,N,Data>
+	Triangle
 	triangle_type;
 
 	typedef typename
 	triangle_type::vector
 	vector;
 
+	typedef typename
+	vector::value_type
+	scalar;
+
+	typedef
+	triangle_plane_intersection<triangle_type> 
+	result_type;
+
+	typedef
+	std::vector<scalar>
+	scalar_sequence;
+
+	typedef typename
+	scalar_sequence::size_type
+	size_type;
+
+	typename vector::size_type const N = vector::dim_wrapper::value;
+
+	result_type result;
+
+	std::array<vector,3> const points = 
+	{{
+		position(t,0),
+		position(t,1),
+		position(t,2)
+	}};
+
+	std::array<vector,3> const datas = 
+	{{
+		data(t,0),
+		data(t,1),
+		data(t,2)
+	}};
+
 	scalar_sequence const signs = 
 		fcppt::algorithm::map<scalar_sequence>(
-			t.points(),
-			[&p](vector const &v) 
-			{
-				return plane::distance_to_point(p,v);
-			});
+			points,
+			[&p](vector const &v) { return plane::distance_to_point(p,v); });
 
 	size_type const culled_vertices = 
 		static_cast<size_type>(
 			std::count_if(
 				signs.begin(),
 				signs.end(),
-				[](T const &t) { return t < static_cast<T>(0); }));
+				[](scalar const &t) { return t < static_cast<scalar>(0); }));
 
 	// Two trivial cases
 	// All of the vertices are below the plane => cull everything
-	if (culled_vertices == t.points().size())
+	if (culled_vertices == static_cast<size_type>(3))
 		return result;
 
 	// None of the vertices are below the plane => cull nothing
@@ -84,14 +111,14 @@ cut_triangle_at_plane(
 					std::find_if(
 						signs.begin(),
 						signs.end(),
-						[&culled_vertices](T const &t) 
+						[&culled_vertices](scalar const &t) 
 						{ 
 							return 
 								culled_vertices == static_cast<size_type>(1)
 								?
-									t < static_cast<T>(0)
+									t < static_cast<scalar>(0)
 								:
-									t >= static_cast<T>(0);
+									t >= static_cast<scalar>(0);
 						}))),
 		vnext = 
 			static_cast<size_type>(v+1) % signs.size(),
@@ -104,35 +131,35 @@ cut_triangle_at_plane(
 
 	vector const
 		s_1 = 
-			*line_plane_intersection<T,N>(
-				line::basic<T,N>(
-					t.points()[vprev],
-					t.points()[v] - t.points()[vprev]),
+			*line_plane_intersection<scalar,N>(
+				line::basic<scalar,N>(
+					points[vprev],
+					points[v] - points[vprev]),
 				p),
 		s_2 = 
-			*line_plane_intersection<T,N>(
-				line::basic<T,N>(
-					t.points()[vnext],
-					t.points()[v] - t.points()[vnext]),
+			*line_plane_intersection<scalar,N>(
+				line::basic<scalar,N>(
+					points[vnext],
+					points[v] - points[vnext]),
 				p);
 
-	Data const
+	typename triangle_type::value_type const
 		s_1_data = 
-			interp(
-				t.data()[vprev],
-				t.data()[v],
+			interpolate(
+				datas[v],
+				datas[vprev],
 				fcppt::math::vector::length(
-					s_1-t.points()[vprev])/
+					s_1-points[vprev])/
 				fcppt::math::vector::length(
-					t.points()[vprev]-t.points()[v])),
+					points[vprev]-points[v])),
 		s_2_data = 
-			interp(
-				t.data()[vnext],
-				t.data()[v],
+			interpolate(
+				datas[v],
+				datas[vnext],
 				fcppt::math::vector::length(
-					s_2-t.points()[vnext])/
+					s_2-points[vnext])/
 				fcppt::math::vector::length(
-					t.points()[vnext]-t.points()[v]));
+					points[vnext]-points[v]));
 
 	result.push_back(
 		s_1);
@@ -142,45 +169,24 @@ cut_triangle_at_plane(
 	if (culled_vertices == static_cast<size_type>(2))
 	{
 		result.push_back(
-			triangle_type(
-				{
-					s_1,
-					t.points()[v],
-					s_2
-				},
-				{
-					s_1_data,
-					t.data()[v],
-					s_2_data
-				}));
+			create_triangle(
+				s_1_data,
+				datas[v],
+				s_2_data));
 	}
 	else
 	{
 		result.push_back(
-			triangle_type(
-				{
-					t.points()[vprev],
-					s_1,
-					t.points()[vnext]
-				},
-				{
-					t.data()[vprev],
-					s_1_data,
-					t.data()[vnext]
-				}));
+			create_triangle(
+				datas[vprev],
+				s_1_data,
+				datas[vnext]));
 
 		result.push_back(
-			triangle_type(
-				{
-					s_1,
-					s_2,
-					t.points()[vnext]
-				},
-				{
+			create_triangle(
 					s_1_data,
 					s_2_data,
-					t.data()[vnext]
-				}));
+					datas[vnext]));
 	}
 	
 	return result;
