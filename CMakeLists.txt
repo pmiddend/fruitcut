@@ -82,21 +82,21 @@ SET_SOURCE_FILES_PROPERTIES(
 ENABLE_TESTING()
 ADD_SUBDIRECTORY(test)
 
-#ADD_EXECUTABLE(
-#	sanguis
-#	${basefiles}
-#	${collectionsfiles})
+SET(files 
+	media_path.cpp mesh_to_vertex_buffer.cpp model_to_mesh.cpp
+	graphics/shader/variable.cpp graphics/shader/sampler.cpp 
+	graphics/shader/object.cpp)
 
-#TARGET_LINK_LIBRARIES(
-#	sanguis
-#	${FCPPT_LIBRARIES}
-#	${SGE_CORE_LIBRARY}
-#	${SGE_GUI_LIBRARY}
-#)
+ADD_EXECUTABLE(
+	cut_test
+	cut_test.cpp
+	${files})
 
-#IF(NOT MSVC)
-#	TARGET_LINK_LIBRARIES(sanguis ${Boost_LIBRARIES})
-#ENDIF()
+TARGET_LINK_LIBRARIES(
+	cut_test
+	${FCPPT_LIBRARIES}
+	${SGE_CORE_LIBRARY}
+	${Boost_LIBRARIES})
 
 # TODO
 #INSTALL (DIRECTORY media/ DESTINATION share/games/sanguis/media/)

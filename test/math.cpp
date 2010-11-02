@@ -1,10 +1,9 @@
 #include "../math/line_plane_intersection.hpp"
 #include "../math/cut_triangle_at_plane.hpp"
-#include "../math/triangle/basic.hpp"
-#include "../math/triangle/weak_compare.hpp"
 #include <fcppt/io/cout.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/math/range_compare.hpp>
+#include <fcppt/math/vector/orthogonalize.hpp>
 #include <fcppt/algorithm/shift_compare.hpp>
 #include <boost/test/unit_test.hpp>
 #include <algorithm>
@@ -18,6 +17,10 @@ scalar;
 scalar const epsilon = 0.00001;
 
 fcppt::math::size_type const N = 3;
+
+typedef
+fcppt::math::vector::static_<scalar,2>::type
+vector2;
 
 typedef
 fruitcut::math::line::basic<scalar,N>
@@ -383,4 +386,52 @@ BOOST_AUTO_TEST_CASE(cut_triangle_test)
 		// ((6,-2,0),(5.27273,0,0),(1.5,-1,0))
 		// ((5.27273,0,0),(2.05556,0,0),(1.5,-1,0))
 	}
+}
+
+BOOST_AUTO_TEST_CASE(orthonorm)
+{
+	typedef
+	std::vector<vector2>
+	container; 
+
+	fcppt::io::cout << FCPPT_TEXT("Orthonormalizing two 2D vectors\n");
+
+	container const 
+		wiki_example
+		{
+			vector2(3,1),
+			vector2(2,2)
+		},
+		result = 
+			fcppt::math::vector::orthogonalize(
+				wiki_example),
+		expected_result
+		{
+			vector2(3,1),
+			vector2(-0.4,1.2)
+		};
+
+	fcppt::io::cout 
+		<< FCPPT_TEXT("Expecting ")
+		<< expected_result[0]
+		<< FCPPT_TEXT(" and ") 
+		<< expected_result[1]
+		<< FCPPT_TEXT("\n");
+
+	fcppt::io::cout 
+		<< FCPPT_TEXT("Got ")
+		<< result[0]
+		<< FCPPT_TEXT(" and ") 
+		<< result[1]
+		<< FCPPT_TEXT("\n");
+
+	BOOST_CHECK((
+		fcppt::math::range_compare(
+			result[0],
+			expected_result[0],
+			epsilon) && 
+		fcppt::math::range_compare(
+			result[1],
+			expected_result[1],
+			epsilon)));
 }

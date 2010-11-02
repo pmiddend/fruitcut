@@ -1,0 +1,11 @@
+#ifndef FRUITCUT_MATH_TESSELATE_CONVEX_CLOUD_HPP_INCLUDED
+#define FRUITCUT_MATH_TESSELATE_CONVEX_CLOUD_HPP_INCLUDED
+
+namespace fruitcut
+{
+namespace math
+{
+}
+}
+
+#endif

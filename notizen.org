@@ -1,58 +1,51 @@
-Ideen:
+* Aufbau
 
-- Kamera bereitstellen
-- Model laden
-- Model anzeigen im wireframe
-- Model an vorgegebener Ebene in 2 Teile splitten
-- 2 Teile anzeigen
+** Mesh
+- Lese Mesh aus Datei ein, speichere in Datenstruktur =mesh=. Diese
+  enthält einen =vector<triangle>=, wobei =triangle= ein Typ ist, der
+  3 Arrays beinhaltet: Punkte, Normalen, Texturkoordinaten.
+	/Alternativ könnte man ein Mesh auch definieren mit 3 Arrays insgesamt, ohne ein explizites Dreieck als Datenstruktur/
+- Speichere diese Meshes in einem Array =prototypes=. Dieses Array
+  enthält alle Prototypen, aus denen später die Instanzen der Objekte
+  gemacht werden. Speichere auch die Texturen in diesem Array.
+- Das Spiel verwaltet eine Liste von instanziierten Objekten. Ein
+  instanziiertes Objekt enthält:
+	- Ein Mesh (das wird anfangs aus Prototypes genommen und später verändert)
+	- Einen VB (später vielleicht einen Indexbuffer)
+	- Eine Textur (ebenfalls aus dem Prototyp)
+	- Ein Physik-Modell
 
-Zerlegung:
+** Maus
+- Für die Maus verwaltet das Spiel eine =list<point>=. Alle /n/
+  Millisekunden wird ein Element hinzugefügt (die aktuelle Position
+  halt), wenn es nicht schon am Ende drin ist. Zur selben Zeit wird
+  auch ein Element wieder gelöscht.
+- Man bildet dann eine Gerade aus dem ersten Punkt in der Liste und
+  dem zweiten Punkt.
+*** TODO Funktion Abstand =line= zu =vector=
+- Für alle weiteren Punkte wird der Abstand zur Gerade berechnet,
+  quadriert und summiert.
+- Ist der unter einem gewissen Schwellenwert, bildet man eine Ebene
+  daraus und...
+- ...gucken, mit was sich der Geradenabschnitt schneidet: 
+	- Projiziere Boundingbox auf xy-Ebene (es ergibt sich ein
+    Boundingrect)
+	- Teste Geradenabschnitt auf Schnittpunkt mit diesem Rect.
+- Wenn man (mindestens) zwei Schnittpunkte findet...
+- ...
 
-Betrachte eins der Dreiecke, es gibt 3 Fälle:
+** Splitten
 
-1. Dreieck ist ganz oberhalb der Ebene
-2. Dreieck ist ganz unterhalb der Ebene
-3. Dreieck schneidet Ebene
-
-Mit den Fällen 1 und 2 kriegt man direkt eine Zuordnung von Dreiecken
-zu zwei Körpern A, B. Bei Fall 3 muss man neue Dreiecke erstellen und
-die A und B zuordnen.
-
-Fall 3:
-
-Beim Schnitt einer Ebene mit einem Dreieck entstehen entweder...
-
-1. ...zwei Dreiecke, wenn die Ebene durch einen Punkt des Dreiecks
-   geht und eine Kante schneidet
-2. ...ein Dreieck und ein konvexes Viereck
-
-Algorithmus zum Abschneiden eines Dreiecks: Es entstehen ein oder zwei
-Dreiecke, also allgemeiner ein Container von Dreiecken.
-
-- Suche den einen Punkt p_i, der entweder
-	- oberhalb der Ebene ist und die restlichen beiden unterhalb (Fall 1)
-	- unterhalb der Ebene ist und die restlichen beiden oberhalb (Fall 2)
-
-- Bilde s_1 = Schnitt(p_{i-1},p_i),s_2 = Schnitt(p_i,p_{i+1})
-  (natürlich mit modulo)
-
-- Fall 1:
-	- Bilde Dreieck aus s_1,p_i,s_2
-- Fall 2:
-	- Bilde Dreieck aus p_{i-1},s_1,p_{i+1}
-	- Bilde Dreieck aus s_1,s_2,p_{i+1}
-
-
-- Gebe triangle einen weiteren Parameter, der Zusatzdaten speichert
-- Lese Model ein und erstelle Liste von Dreiecken mit Zusatzdaten:
-  Normalen und Texturkoordinaten
-- Erstelle Funktion, die aus diesen Daten einen VB erzeugt.
-- =cut_triangle_at_plane= benötigt noch einen Interpolatorfunktor. Der
-  muss zweimal die Metadaten bekommen und einen float, der angibt, wo
-  auf der Kante man sich befindet.
-
-- Boundingrect von Punktwolke
-	- Wechsle Koordinatensystem von Ebene zu Standardkoordinatensystem?
-
-- Dreiecke "schwach" formulieren: Enthalten nur Indizes. Algorithmen
-  kriegen Funktoren, die Indizes Daten zuordnen.
+- Die Funktion sollte ein Mesh bekommen, sowie eine Ebene (und kümmert
+  sich nur um einen Split-Vorgang)
+- Die Funktion splittet das Mesh zunächst an der Ebene, Dreieck für
+  Dreieck (Dreiecksstruktur siehe oben) und sammelt die Schnittpunkte
+  im Hintergrund.
+- Die Schnittpunkte kriegen dann Texturkoordinaten...
+- ...und werden dann tesseliert, wobei neue Dreiecke entstehen
+	Die Tesselierungsfunktion müsste folglich Punkte mit
+  Texturkoordinaten kriegen und Dreiecke ausspucken
+- Das neu entstandene Mesh muss jetzt noch komplett translatiert
+  werden, und zwar um das Baryzentrum
+- Das ganze wird natürlich zweimal gemacht und es entstehen zwei neue
+  Instanzen.
