@@ -5,7 +5,7 @@ fruitcut::graphics::camera::parameters::parameters(
 	scalar const _movement_speed,
 	scalar const _rotation_speed,
 	vec3 const &_position,
-	input::state_manager &_state_manager)
+	input::state &_state)
 :
 	projection_(
 		_projection),
@@ -15,8 +15,8 @@ fruitcut::graphics::camera::parameters::parameters(
 		_rotation_speed),
 	position_(
 		_position),
-	state_manager_(
-		_state_manager)
+	state_(
+		_state)
 {
 	
 }
@@ -45,8 +45,8 @@ fruitcut::graphics::camera::parameters::position() const
 	return position_;
 }
 
-fruitcut::input::state_manager &
-fruitcut::graphics::camera::parameters::state_manager() const
+fruitcut::input::state &
+fruitcut::graphics::camera::parameters::state() const
 {
-	return state_manager_;
+	return state_;
 }

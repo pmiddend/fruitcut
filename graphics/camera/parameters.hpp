@@ -4,7 +4,7 @@
 #include "projection/object.hpp"
 #include "../../scalar.hpp"
 #include "../../vec3.hpp"
-#include "../../input/state_manager_fwd.hpp"
+#include "../../input/state_fwd.hpp"
 
 namespace fruitcut
 {
@@ -21,7 +21,7 @@ public:
 		scalar movement_speed,
 		scalar rotation_speed,
 		vec3 const &position,
-		input::state_manager &);
+		input::state &);
 
 	projection::object const &
 	projection() const;
@@ -35,14 +35,14 @@ public:
 	vec3 const &
 	position() const;
 
-	input::state_manager &
-	state_manager() const;
+	input::state &
+	state() const;
 private:
 	projection::object projection_;
 	scalar movement_speed_;
 	scalar rotation_speed_;
 	vec3 position_;
-	input::state_manager &state_manager_;
+	input::state &state_;
 };
 }
 }

@@ -3,6 +3,11 @@
 
 #include "parameters_fwd.hpp"
 #include "projection/object.hpp"
+#include "../../mat4.hpp"
+#include "../../vec3.hpp"
+#include "../../scalar.hpp"
+#include "../../gizmo.hpp"
+#include "../../input/state_connection.hpp"
 
 namespace fruitcut
 {
@@ -44,18 +49,27 @@ public:
 	mat4 const 
 	mvp() const;
 
-	math::gizmo const &
+	fruitcut::gizmo const &
 	gizmo() const;
 
-	math::gizmo &
+	fruitcut::gizmo &
 	gizmo();
 private:
-	fcppt::signal::scoped_connection key_callback_,mouse_axis_callback_;
-	scalar aspect_,fov_,near_,far_;
-	scalar movement_speed_,rotation_speed_;
+	// Currently, the camera belongs to exactly one state.
+	// Alternatively, this could be a state connection vector and the
+	// camera could be in multiple states (shouldn't be too hard since
+	// state_connection is copyable)
+	input::state_connection state_connection_;
+	projection::object const projection_;
+	mat4 const projection_matrix_;
+	// Rotation speed means mouse sensitivity, movement-speed should be
+	// self-explanatory
+	scalar const movement_speed_,rotation_speed_;
+	// The camera's position and orientation
+	fruitcut::gizmo gizmo_;
+	// Those are the directions the camera currently moves in
+	// (corresponds to the movement keys currently pressed)
 	vec3 dirs_;
-	insula::graphics::gizmo gizmo_;
-	bool movement_;
 
 	void
 	key_callback(

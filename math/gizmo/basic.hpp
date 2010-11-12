@@ -1,6 +1,7 @@
-#ifndef FRUITCUT_MATH_GIZMO_HPP_INCLUDED
-#define FRUITCUT_MATH_GIZMO_HPP_INCLUDED
+#ifndef FRUITCUT_MATH_GIZMO_BASIC_HPP_INCLUDED
+#define FRUITCUT_MATH_GIZMO_BASIC_HPP_INCLUDED
 
+#include <fcppt/math/size_type.hpp>
 #include <fcppt/math/vector/vector.hpp>
 #include <array>
 
@@ -8,8 +9,10 @@ namespace fruitcut
 {
 namespace math
 {
-template<typename Scalar,size_type N>
-class gizmo
+namespace gizmo
+{
+template<typename Scalar,fcppt::math::size_type N>
+class basic
 {
 public:
 	typedef 
@@ -60,37 +63,42 @@ public:
 		return array_;
 	}
 
-	gizmo &
+	basic &
 	position(
 		vector const &p)
 	{
 		position_ = p;
+		return *this;
 	}
 
-	gizmo &
+	basic &
 	right(
 		vector const &p)
 	{
 		array_[0] = p;
+		return *this;
 	}
 
-	gizmo &
+	basic &
 	up(
 		vector const &p)
 	{
 		array_[1] = p;
+		return *this;
 	}
 
-	gizmo &
+	basic &
 	forward(
 		vector const &p)
 	{
 		array_[2] = p;
+		return *this;
 	}
 private:
 	vector position_;
 	array_type array_;
 };
+}
 }
 }
 

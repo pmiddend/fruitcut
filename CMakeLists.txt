@@ -86,6 +86,7 @@ SET(files
 	media_path.cpp mesh_to_vertex_buffer.cpp model_to_mesh.cpp
 	input/state.cpp input/state_manager.cpp input/state_connection.cpp
 	graphics/shader/variable.cpp graphics/shader/sampler.cpp 
+	graphics/camera/projection/to_matrix.cpp graphics/camera/projection/perspective.cpp graphics/camera/object.cpp graphics/camera/parameters.cpp
 	graphics/shader/object.cpp)
 
 ADD_EXECUTABLE(
