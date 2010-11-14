@@ -3,6 +3,7 @@
 #include <fcppt/math/matrix/orthogonal_xy.hpp>
 #include <fcppt/math/matrix/perspective.hpp>
 #include <fcppt/variant/apply_unary.hpp>
+#include <fcppt/io/cout.hpp>
 
 namespace
 {
@@ -14,7 +15,7 @@ public:
 	result_type;
 
 	fruitcut::mat4 const
-	operator()(fruitcut::graphics::camera::projection::orthogonal const &o) const
+	operator()(fruitcut::graphics::camera::projection::orthogonal const &) const
 	{
 		return fcppt::math::matrix::orthogonal_xy<fruitcut::scalar>();
 	}

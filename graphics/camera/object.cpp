@@ -8,6 +8,8 @@
 #include <sge/input/mouse/axis_event.hpp>
 #include <fcppt/math/matrix/translation.hpp>
 #include <fcppt/math/matrix/rotation_axis.hpp>
+#include <fcppt/io/cout.hpp>
+#include <fcppt/math/vector/output.hpp>
 #include <functional>
 #include <algorithm>
 
@@ -55,6 +57,7 @@ void
 fruitcut::graphics::camera::object::update(
 	scalar const time_delta)
 {
+	//fcppt::io::cout << "camera position: " << gizmo_.position() << "\n";
 	gizmo_.position( 
 		gizmo_.position() + 
 		movement_speed_ * 

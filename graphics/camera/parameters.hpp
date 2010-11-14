@@ -5,7 +5,6 @@
 #include "../../scalar.hpp"
 #include "../../vec3.hpp"
 #include "../../input/state_fwd.hpp"
-
 namespace fruitcut
 {
 namespace graphics

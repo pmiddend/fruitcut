@@ -5,6 +5,7 @@
 #include <sge/model/object.hpp>
 #include <sge/model/vertex_sequence.hpp>
 #include <sge/model/texcoord_sequence.hpp>
+#include <boost/foreach.hpp>
 #include <fcppt/assert.hpp>
 #include <fcppt/string.hpp>
 
@@ -23,37 +24,41 @@ fruitcut::model_to_mesh(
 		model->texcoords(
 			part_name));
 	sge::model::texcoord_sequence const texcoords = 
-		*model->texcoords(part_name);
+		*model->texcoords(
+			part_name);
 
-	sge::model::vertex_sequence::const_iterator vit = vertices.begin();
-	// Gnihihi
-	sge::model::texcoord_sequence::const_iterator tit = texcoords.begin();
+	sge::model::index_sequence const indices = 
+		model->indices(
+			part_name);
 
 	FCPPT_ASSERT(
 		vertices.size() == texcoords.size());
 
 	FCPPT_ASSERT(
-		vertices.size() % 3 == 0);
+		indices.size() % 3 == 0);
 
-	for (; vit != vertices.end(); vit += 3,tit += 3)
+	for(
+		sge::model::index_sequence::const_iterator index = indices.begin();
+		index != indices.end();
+		index += 3)
 	{
 		result.triangles.push_back(
 			triangle(
 				{
 					fcppt::math::vector::structure_cast<vec3>(
-						*vit),
+						vertices[*index]),
 					fcppt::math::vector::structure_cast<vec3>(
-						*(vit+1)),
+						vertices[*(index+1)]),
 					fcppt::math::vector::structure_cast<vec3>(
-						*(vit+2))
+						vertices[*(index+2)])
 				},
 				{
 					fcppt::math::vector::structure_cast<vec2>(
-						*tit),
+						texcoords[*index]),
 					fcppt::math::vector::structure_cast<vec2>(
-						*(tit+1)),
+						texcoords[*(index+1)]),
 					fcppt::math::vector::structure_cast<vec2>(
-						*(tit+2))
+						texcoords[*(index+2)])
 				}));
 	}
 

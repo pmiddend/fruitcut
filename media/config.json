@@ -1,0 +1,15 @@
+{
+	"graphics" :
+	{
+		"screen-size" : [640,480],
+		"camera" : 
+		{
+			"fov" : 90.0,
+			"near" : 1.0,
+			"far" : 100.0,
+			"movement-speed" : 1.0,
+			"rotation-speed" : 100.0
+		}
+	},
+	"test-model" : "cannonball.md3"
+}

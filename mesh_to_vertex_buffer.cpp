@@ -1,7 +1,6 @@
 #include "mesh_to_vertex_buffer.hpp"
 #include "mesh.hpp"
 #include "triangle.hpp"
-#include "graphics/shader/object.hpp"
 #include "model/vf/format.hpp"
 #include "model/vf/position.hpp"
 #include <sge/renderer/device.hpp>
@@ -16,6 +15,7 @@
 #include <sge/renderer/scoped_vertex_lock.hpp>
 #include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/vf/view.hpp>
+#include <sge/shader/object.hpp>
 #include <boost/foreach.hpp>
 
 namespace
@@ -31,7 +31,7 @@ vertex_view;
 sge::renderer::vertex_buffer_ptr const
 fruitcut::mesh_to_vertex_buffer(
 	sge::renderer::device_ptr const renderer,
-	graphics::shader::object &model_shader,
+	sge::shader::object &model_shader,
 	mesh const &m)
 {
 	sge::renderer::vertex_buffer_ptr const vb = 

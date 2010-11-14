@@ -83,11 +83,18 @@ ENABLE_TESTING()
 ADD_SUBDIRECTORY(test)
 
 SET(files 
-	media_path.cpp mesh_to_vertex_buffer.cpp model_to_mesh.cpp
+	# base 
+	media_path.cpp mesh_to_vertex_buffer.cpp model_to_mesh.cpp machine.cpp
+	# input
 	input/state.cpp input/state_manager.cpp input/state_connection.cpp
-	graphics/shader/variable.cpp graphics/shader/sampler.cpp 
+	# json
+	json/config_wrapper.cpp json/merge_trees.cpp json/process_option.cpp json/string_to_value.cpp
+	# camera
 	graphics/camera/projection/to_matrix.cpp graphics/camera/projection/perspective.cpp graphics/camera/object.cpp graphics/camera/parameters.cpp
-	graphics/shader/object.cpp)
+	# events
+	events/tick.cpp
+	# states
+	states/running.cpp)
 
 ADD_EXECUTABLE(
 	cut_test
@@ -98,6 +105,7 @@ TARGET_LINK_LIBRARIES(
 	cut_test
 	${FCPPT_LIBRARIES}
 	${SGE_CORE_LIBRARY}
+	${SGE_SHADER_LIBRARY}
 	${Boost_LIBRARIES})
 
 # TODO
