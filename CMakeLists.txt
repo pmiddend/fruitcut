@@ -84,7 +84,7 @@ ADD_SUBDIRECTORY(test)
 
 SET(files 
 	# base 
-	media_path.cpp mesh_to_vertex_buffer.cpp model_to_mesh.cpp machine.cpp
+	media_path.cpp mesh_to_vertex_buffer.cpp model_to_mesh.cpp machine.cpp cut_mesh.cpp
 	# input
 	input/state.cpp input/state_manager.cpp input/state_connection.cpp
 	# json
@@ -106,6 +106,7 @@ TARGET_LINK_LIBRARIES(
 	${FCPPT_LIBRARIES}
 	${SGE_CORE_LIBRARY}
 	${SGE_SHADER_LIBRARY}
+	${SGE_CONSOLE_LIBRARY}
 	${Boost_LIBRARIES})
 
 # TODO

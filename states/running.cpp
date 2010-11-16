@@ -1,4 +1,7 @@
 #include "running.hpp"
+#include "../cut_mesh.hpp"
+#include "../plane.hpp"
+#include "../vec3.hpp"
 #include "../media_path.hpp"
 #include "../model/vf/format.hpp"
 #include "../json/find_member.hpp"
@@ -20,6 +23,7 @@
 #include <sge/model/loader.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/string.hpp>
+#include <fcppt/math/vector/normalize.hpp>
 
 fruitcut::states::running::running(
 	my_context const ctx)
@@ -46,8 +50,13 @@ fruitcut::states::running::running(
 				context<machine>().config_file(),
 				FCPPT_TEXT("test-model")))),
 	mesh_(
-		model_to_mesh(
-			model_)),
+		cut_mesh(
+			model_to_mesh(
+				model_),
+			plane(
+				fcppt::math::vector::normalize(
+					vec3(1,0,0)),
+				0))),
 	mesh_vb_(
 		mesh_to_vertex_buffer(
 			context<machine>().systems().renderer(),

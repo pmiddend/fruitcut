@@ -47,10 +47,10 @@ public:
 
 	typedef
 	vector3
-	value_type;
+	data_type;
 
 	typedef
-	std::array<vector3,3>
+	std::array<vector,3>
 	array_type;
 
 	typedef
@@ -59,7 +59,7 @@ public:
 
 	array_type points;
 
-	triangle3(std::initializer_list<vector3> const &_points)
+	triangle3(std::initializer_list<vector> const &_points)
 	{
 		std::copy(_points.begin(),_points.end(),points.begin());
 	}
@@ -213,9 +213,15 @@ BOOST_AUTO_TEST_CASE(cut_triangle_test)
 				return a * c + (1.0-c) * b;
 			};
 
-	std::function<triangle3 const (vector3 const &,vector3 const &,vector3 const &)> 
+	std::function<triangle3 const (vector3 const &,vector3 const &,vector3 const &,vector3 const &,vector3 const &,vector3 const &)> 
 		create_triangle = 
-			[](vector3 const &a,vector3 const &b,vector3 const &c)
+			[](
+				vector3 const &a,
+				vector3 const &/*adata*/,
+				vector3 const &b,
+				vector3 const &/*bdata*/,
+				vector3 const &c,
+				vector3 const &/*cdata*/)
 			{
 				return triangle3({a,b,c});
 			};

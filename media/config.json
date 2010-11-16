@@ -8,8 +8,8 @@
 			"near" : 1.0,
 			"far" : 100.0,
 			"movement-speed" : 1.0,
-			"rotation-speed" : 100.0
+			"rotation-speed" : 200.0
 		}
 	},
-	"test-model" : "cannonball.md3"
+	"test-model" : "arrow.md3"
 }

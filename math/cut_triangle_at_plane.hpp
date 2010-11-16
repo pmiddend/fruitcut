@@ -42,6 +42,10 @@ cut_triangle_at_plane(
 	vector;
 
 	typedef typename
+	triangle_type::data_type
+	data_type;
+
+	typedef typename
 	vector::value_type
 	scalar;
 
@@ -68,7 +72,7 @@ cut_triangle_at_plane(
 		position(t,2)
 	}};
 
-	std::array<vector,3> const datas = 
+	std::array<data_type,3> const datas = 
 	{{
 		data(t,0),
 		data(t,1),
@@ -143,7 +147,7 @@ cut_triangle_at_plane(
 					points[v] - points[vnext]),
 				p);
 
-	typename triangle_type::value_type const
+	data_type const
 		s_1_data = 
 			interpolate(
 				datas[v],
@@ -170,23 +174,32 @@ cut_triangle_at_plane(
 	{
 		result.push_back(
 			create_triangle(
+				s_1,
 				s_1_data,
+				points[v],
 				datas[v],
+				s_2,
 				s_2_data));
 	}
 	else
 	{
 		result.push_back(
 			create_triangle(
+				points[vprev],
 				datas[vprev],
+				s_1,
 				s_1_data,
+				points[vnext],
 				datas[vnext]));
 
 		result.push_back(
 			create_triangle(
-					s_1_data,
-					s_2_data,
-					datas[vnext]));
+				s_1,
+				s_1_data,
+				s_2,
+				s_2_data,
+				points[vnext],
+				datas[vnext]));
 	}
 	
 	return result;

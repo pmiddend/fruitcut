@@ -14,19 +14,31 @@ class triangle
 {
 public:
 	typedef
-	std::array<vec3,3>
+	vec3
+	vector;
+
+	typedef
+	vec2
+	data_type;
+
+	typedef
+	std::array<vector,3>
 	vertex_array;
 
 	typedef
-	std::array<vec2,3>
+	std::array<data_type,3>
 	texcoord_array;
+
+	typedef
+	vertex_array::size_type
+	size_type;
 
 	vertex_array vertices;
 	texcoord_array texcoords;
 
 	triangle(
-		std::initializer_list<vec3> const &_vertices,
-		std::initializer_list<vec2> const &_texcoords)
+		std::initializer_list<vector> const &_vertices,
+		std::initializer_list<data_type> const &_texcoords)
 	{
 		FCPPT_ASSERT(
 			_vertices.size() == _texcoords.size() && _vertices.size() == 3);
