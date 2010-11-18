@@ -229,9 +229,15 @@ fruitcut::states::cut::mouse_button_callback(
 						unproject<scalar>(
 							vec3(
 								static_cast<scalar>(
-									point1_.x()),
+									point1_.x() + point1_.w()/2),
+								// NOTE: We have to switch the viewport here, taken from:
+								// http://nehe.gamedev.net/data/articles/article.asp?article=13
+								// Now Windows coordinates start with (0, 0) being at
+								// the top left whereas OpenGL coords start at the
+								// lower left. To convert to OpenGL coordinates we do
+								// the following:
 								ss.h() - static_cast<scalar>(
-									point1_.y()),
+									point1_.y() + point1_.h()/2),
 								0),
 							inverse_mvp,
 							vec2::null(),
@@ -241,9 +247,10 @@ fruitcut::states::cut::mouse_button_callback(
 						unproject<scalar>(
 							vec3(
 								static_cast<scalar>(
-									point2_.x()),
+									point2_.x() + point2_.w()/2),
+								// See above
 								ss.h() - static_cast<scalar>(
-									point2_.y()),
+									point2_.y() + point2_.h()/2),
 								0),
 							inverse_mvp,
 							vec2::null(),
@@ -253,9 +260,10 @@ fruitcut::states::cut::mouse_button_callback(
 						unproject<scalar>(
 							vec3(
 								static_cast<scalar>(
-									point1_.x()),
+									point1_.x() + point1_.w()/2),
+								// See above
 								ss.h() - static_cast<scalar>(
-									point1_.y()),
+									point1_.y() + point1_.h()/2),
 								0.5),
 							inverse_mvp,
 							vec2::null(),
