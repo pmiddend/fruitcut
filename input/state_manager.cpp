@@ -5,6 +5,7 @@
 #include <sge/input/mouse/collector.hpp>
 #include <sge/input/keyboard/key_event.hpp>
 #include <sge/input/keyboard/key.hpp>
+#include <fcppt/assert.hpp>
 #include <functional>
 
 fruitcut::input::state_manager::state_manager(
@@ -64,6 +65,8 @@ void
 fruitcut::input::state_manager::key_callback_internal(
 	sge::input::keyboard::key_event const &c)
 {
+	FCPPT_ASSERT(
+		current_state_);
 	current_state_->key_callback_internal(
 		c);
 }
@@ -72,6 +75,8 @@ void
 fruitcut::input::state_manager::mouse_axis_callback_internal(
 	sge::input::mouse::axis_event const &e)
 {
+	FCPPT_ASSERT(
+		current_state_);
 	current_state_->mouse_axis_callback_internal( 
 		e);
 }
@@ -80,6 +85,8 @@ void
 fruitcut::input::state_manager::mouse_button_callback_internal(
 	sge::input::mouse::button_event const &b)
 {
+	FCPPT_ASSERT(
+		current_state_);
 	current_state_->mouse_button_callback_internal( 
 		b);
 }

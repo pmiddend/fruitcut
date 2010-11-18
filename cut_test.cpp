@@ -9,7 +9,7 @@
 #include "json/find_member.hpp"
 #include "machine.hpp"
 // Has to be here, first state
-#include "states/running.hpp"
+#include "states/freelook.hpp"
 #include <sge/log/global.hpp>
 #include <sge/exception.hpp>
 #include <fcppt/exception.hpp>

@@ -94,7 +94,7 @@ SET(files
 	# events
 	events/tick.cpp
 	# states
-	states/running.cpp)
+	states/ingame.cpp states/freelook.cpp states/cut.cpp)
 
 ADD_EXECUTABLE(
 	cut_test
