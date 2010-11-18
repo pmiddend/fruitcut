@@ -5,9 +5,12 @@
 #include "../events/render_overlay.hpp"
 #include "../sprite/system.hpp"
 #include "../sprite/object.hpp"
+#include <sge/input/mouse/axis_event_fwd.hpp>
+#include <sge/input/mouse/button_event_fwd.hpp>
 #include <boost/statechart/state.hpp>
 #include <boost/statechart/custom_reaction.hpp>
 #include <boost/mpl/vector/vector10.hpp>
+#include <fcppt/signal/scoped_connection.hpp>
 
 namespace fruitcut
 {
@@ -35,6 +38,16 @@ public:
 private:
 	sprite::system ss_;
 	sprite::object cursor_;
+	fcppt::signal::scoped_connection 
+		mouse_axis_connection_,mouse_button_connection_;
+
+	void
+	mouse_axis_callback(
+		sge::input::mouse::axis_event const &);
+
+	void
+	mouse_button_callback(
+		sge::input::mouse::button_event const &);
 };
 }
 }
