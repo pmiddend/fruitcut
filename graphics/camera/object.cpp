@@ -57,7 +57,7 @@ void
 fruitcut::graphics::camera::object::update(
 	scalar const time_delta)
 {
-	//fcppt::io::cout << "camera position: " << gizmo_.position() << "\n";
+//	fcppt::io::cout << "Gizmo is: " << gizmo_.forward() << ", " << gizmo_.up() << ", " << gizmo_.right() << ", position: " << gizmo_.position() << "\n";
 	gizmo_.position( 
 		gizmo_.position() + 
 		movement_speed_ * 

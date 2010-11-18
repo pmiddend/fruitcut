@@ -8,6 +8,7 @@
 #include "../events/render_overlay.hpp"
 #include "../events/render.hpp"
 #include "../mesh.hpp"
+#include "../plane.hpp"
 #include <sge/console/object.hpp>
 #include <sge/console/gfx.hpp>
 #include <sge/console/arg_list.hpp>
@@ -60,6 +61,10 @@ public:
 	react(
 		events::render_overlay const &);
 
+	// Called by the...you guessed it - cut state!
+	void
+	cut(
+		plane const &);
 private:
 	typedef
 	boost::ptr_array

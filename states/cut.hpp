@@ -3,6 +3,7 @@
 
 #include "ingame.hpp"
 #include "../events/render_overlay.hpp"
+#include "../events/toggle_mode.hpp"
 #include "../sprite/system.hpp"
 #include "../sprite/object.hpp"
 #include <sge/input/mouse/axis_event_fwd.hpp>
@@ -22,9 +23,10 @@ class cut
 {
 public:
 	typedef 
-	boost::mpl::vector1
+	boost::mpl::vector2
 	<
-		boost::statechart::custom_reaction<events::render_overlay>
+		boost::statechart::custom_reaction<events::render_overlay>,
+		boost::statechart::custom_reaction<events::toggle_mode>
 	> 
 	reactions;
 
@@ -35,11 +37,16 @@ public:
 	boost::statechart::result
 	react(
 		events::render_overlay const &);
+
+	boost::statechart::result
+	react(
+		events::toggle_mode const &);
 private:
 	sprite::system ss_;
 	sprite::object cursor_;
 	fcppt::signal::scoped_connection 
 		mouse_axis_connection_,mouse_button_connection_;
+	sprite::object point1_,point2_;
 
 	void
 	mouse_axis_callback(

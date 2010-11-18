@@ -183,13 +183,7 @@ fruitcut::states::ingame::ingame(
 				context<machine>().config_file(),
 				FCPPT_TEXT("test-model")))),
 	mesh_(
-		cut_mesh(
-			model_to_mesh(
-				model_),
-			plane(
-				fcppt::math::vector::normalize(
-					vec3(1,0,0)),
-				0))),
+		model_to_mesh(model_)),
 	mesh_vb_(
 		mesh_to_vertex_buffer(
 			context<machine>().systems().renderer(),
@@ -256,6 +250,21 @@ fruitcut::states::ingame::react(
 		console_gfx_.draw();
 
 	return discard_event();
+}
+
+void
+fruitcut::states::ingame::cut(
+	plane const &p)
+{
+	mesh_ = 
+		cut_mesh(
+			mesh_,
+			p);
+	mesh_vb_ = 
+		mesh_to_vertex_buffer(
+			context<machine>().systems().renderer(),
+			shader_,
+			mesh_);
 }
 
 fruitcut::graphics::camera::object &
