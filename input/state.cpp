@@ -1,5 +1,7 @@
 #include "state.hpp"
 #include "state_manager.hpp"
+#include <sge/input/keyboard/mod_state.hpp>
+#include <fcppt/container/bitfield/basic_impl.hpp>
 
 fruitcut::input::state::state(
 	state_manager &_manager)
@@ -11,20 +13,39 @@ fruitcut::input::state::state(
 		*this);
 }
 
-fruitcut::input::state_connection const
-fruitcut::input::state::create_connection(
-	optional_key_callback const &a,
-	optional_mouse_axis_callback const &b,
-	optional_mouse_button_callback const &c)
+fcppt::signal::auto_connection
+fruitcut::input::state::button_callback(
+	sge::input::mouse::button_callback const &e)
 {
-	return 
-		std::make_shared<state_connection_impl>(
-			*this,
-			a,
-			b,
-			c);
+	return mouse_button_signal_.connect(e);
 }
 
+fcppt::signal::auto_connection
+fruitcut::input::state::axis_callback(
+	sge::input::mouse::axis_callback const &e)
+{
+	return mouse_axis_signal_.connect(e);
+}
+
+fcppt::signal::auto_connection
+fruitcut::input::state::key_callback(
+	sge::input::keyboard::key_callback const &e)
+{
+	return key_signal_.connect(e);
+}
+
+// NOT IMPLEMENTED YET!
+fcppt::signal::auto_connection
+fruitcut::input::state::key_repeat_callback(
+	sge::input::keyboard::key_repeat_callback const &)
+{
+}
+
+// NOT IMPLEMENTED YET!
+sge::input::keyboard::mod_state const
+fruitcut::input::state::mod_state() const
+{
+}
 
 fruitcut::input::state::~state()
 {

@@ -31,5 +31,5 @@ fruitcut::json::string_to_value(
 			result.members.begin(),
 			result.members.end(),
 			member_name_equal(
-				FCPPT_TEXT("value")))->value_;
+				FCPPT_TEXT("value")))->value;
 }

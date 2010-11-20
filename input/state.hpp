@@ -2,23 +2,27 @@
 #define FRUITCUT_INPUT_STATE_HPP_INCLUDED
 
 #include "state_manager_fwd.hpp"
-#include "state_connection.hpp"
-#include "optional_key_callback.hpp"
-#include "optional_mouse_axis_callback.hpp"
-#include "optional_mouse_button_callback.hpp"
+#include <sge/input/keyboard/device.hpp>
 #include <sge/input/keyboard/key_callback.hpp>
 #include <sge/input/keyboard/key_function.hpp>
+#include <sge/input/keyboard/key_repeat_callback.hpp>
+#include <sge/input/keyboard/mod_state.hpp>
+#include <sge/input/mouse/device.hpp>
 #include <sge/input/mouse/axis_callback.hpp>
 #include <sge/input/mouse/button_callback.hpp>
 #include <sge/input/mouse/axis_function.hpp>
 #include <sge/input/mouse/button_function.hpp>
 #include <fcppt/signal/object.hpp>
+#include <fcppt/signal/auto_connection.hpp>
 
 namespace fruitcut
 {
 namespace input
 {
 class state
+:
+	public sge::input::mouse::device,
+	public sge::input::keyboard::device
 {
 public:
 	state(state const &) = delete;
@@ -28,16 +32,30 @@ public:
 	state(
 		state_manager &);
 
-	state_connection const
-	create_connection(
-		optional_key_callback const &,
-		optional_mouse_axis_callback const &,
-		optional_mouse_button_callback const &);
+	fcppt::signal::auto_connection
+	button_callback(
+		sge::input::mouse::button_callback const &);
+
+	fcppt::signal::auto_connection
+	axis_callback(
+		sge::input::mouse::axis_callback const &);
+
+	fcppt::signal::auto_connection
+	key_callback(
+		sge::input::keyboard::key_callback const &);
+
+	// NOT IMPLEMENTED YET!
+	fcppt::signal::auto_connection
+	key_repeat_callback(
+		sge::input::keyboard::key_repeat_callback const &);
+
+	// NOT IMPLEMENTED YET!
+	sge::input::keyboard::mod_state const
+	mod_state() const;
 
 	~state();
 private:
 	friend class state_manager;
-	friend class state_connection_impl;
 
 	typedef 
 	fcppt::signal::object<sge::input::keyboard::key_function> 
@@ -54,7 +72,6 @@ private:
 	key_signal key_signal_;
 	mouse_axis_signal mouse_axis_signal_;
 	mouse_button_signal mouse_button_signal_;
-	
 	state_manager &manager_;
 
 	// Called by state_manager

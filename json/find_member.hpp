@@ -71,7 +71,7 @@ find_member(
 	try
 	{
 		sge::parse::json::get<sge::parse::json::null>(
-			it->value_);
+			it->value);
 		throw sge::exception(FCPPT_TEXT("The member \"")+path+FCPPT_TEXT("\" is null"));
 	}
 	catch (sge::parse::json::invalid_get const &)
@@ -80,7 +80,7 @@ find_member(
 		{
 			return 
 				fruitcut::json::convert<T>(
-					it->value_);
+					it->value);
 		}
 		catch (sge::parse::json::invalid_get const &e)
 		{

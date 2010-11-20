@@ -6,6 +6,8 @@
 #include <sge/input/keyboard/key_code.hpp>
 #include <sge/input/keyboard/key_event.hpp>
 #include <sge/input/mouse/axis_event.hpp>
+#include <sge/input/keyboard/device.hpp>
+#include <sge/input/mouse/device.hpp>
 #include <fcppt/math/matrix/translation.hpp>
 #include <fcppt/math/matrix/rotation_axis.hpp>
 #include <fcppt/io/cout.hpp>
@@ -16,19 +18,18 @@
 fruitcut::graphics::camera::object::object(
 	parameters const &params)
 :
-	state_connection_(
-		params.state().create_connection(
-			input::optional_key_callback(
-				std::bind(
-					&object::key_callback,
-					this,
-					std::placeholders::_1)),
-			input::optional_mouse_axis_callback(
-				std::bind(
-					&object::mouse_axis_callback,
-					this,
-					std::placeholders::_1)),
-			input::optional_mouse_button_callback())),
+	keyboard_connection_(
+		params.keyboard().key_callback(
+			std::bind(
+				&object::key_callback,
+				this,
+				std::placeholders::_1))),
+	mouse_axis_connection_(
+		params.mouse().axis_callback(
+			std::bind(
+				&object::mouse_axis_callback,
+				this,
+				std::placeholders::_1))),
 	projection_(
 		params.projection()),
 	projection_matrix_(
@@ -152,7 +153,7 @@ fruitcut::graphics::camera::object::mouse_axis_callback(
 	sge::input::mouse::axis_event const &k)
 {
 	scalar const angle = 
-		static_cast<scalar>(k.axis_position())/rotation_speed_;
+		static_cast<scalar>(k.axis_value())/rotation_speed_;
 
 	switch (k.axis())
 	{

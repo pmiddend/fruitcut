@@ -92,7 +92,7 @@ fruitcut::json::process_option(
 					}),
 				element));
 
-	it->value_ = 
+	it->value = 
 			string_to_value(
 				boost::fusion::at_c<1>(
 					result));

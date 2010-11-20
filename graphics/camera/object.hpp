@@ -7,7 +7,9 @@
 #include "../../vec3.hpp"
 #include "../../scalar.hpp"
 #include "../../gizmo.hpp"
-#include "../../input/state_connection.hpp"
+#include <sge/input/keyboard/key_event_fwd.hpp>
+#include <sge/input/mouse/axis_event_fwd.hpp>
+#include <fcppt/signal/scoped_connection.hpp>
 
 namespace fruitcut
 {
@@ -55,11 +57,7 @@ public:
 	fruitcut::gizmo &
 	gizmo();
 private:
-	// Currently, the camera belongs to exactly one state.
-	// Alternatively, this could be a state connection vector and the
-	// camera could be in multiple states (shouldn't be too hard since
-	// state_connection is copyable)
-	input::state_connection state_connection_;
+	fcppt::signal::scoped_connection keyboard_connection_,mouse_axis_connection_;
 	projection::object const projection_;
 	mat4 const projection_matrix_;
 	// Rotation speed means mouse sensitivity, movement-speed should be

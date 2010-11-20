@@ -132,8 +132,8 @@ fruitcut::json::merge_trees(
 				key,
 				boost::apply_visitor(
 					visitor(),
-					original_it->value_,
-					update_it->value_)));
+					original_it->value,
+					update_it->value)));
 	}
 
 	return result;

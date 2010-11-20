@@ -5,7 +5,8 @@ fruitcut::graphics::camera::parameters::parameters(
 	scalar const _movement_speed,
 	scalar const _rotation_speed,
 	vec3 const &_position,
-	input::state &_state)
+	sge::input::keyboard::device &_keyboard,
+	sge::input::mouse::device &_mouse)
 :
 	projection_(
 		_projection),
@@ -15,8 +16,10 @@ fruitcut::graphics::camera::parameters::parameters(
 		_rotation_speed),
 	position_(
 		_position),
-	state_(
-		_state)
+	keyboard_(
+		_keyboard),
+	mouse_(
+		_mouse)
 {
 	
 }
@@ -45,8 +48,14 @@ fruitcut::graphics::camera::parameters::position() const
 	return position_;
 }
 
-fruitcut::input::state &
-fruitcut::graphics::camera::parameters::state() const
+sge::input::keyboard::device &
+fruitcut::graphics::camera::parameters::keyboard() const
 {
-	return state_;
+	return keyboard_;
+}
+
+sge::input::mouse::device &
+fruitcut::graphics::camera::parameters::mouse() const
+{
+	return mouse_;
 }

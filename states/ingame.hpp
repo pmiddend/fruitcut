@@ -8,6 +8,8 @@
 #include "../events/render_overlay.hpp"
 #include "../events/render.hpp"
 #include "../mesh.hpp"
+#include "../vec4.hpp"
+#include "../mat4.hpp"
 #include "../plane.hpp"
 #include <sge/console/object.hpp>
 #include <sge/console/gfx.hpp>
@@ -89,6 +91,8 @@ private:
 	mesh mesh_;
 	sge::renderer::vertex_buffer_ptr mesh_vb_;
 	sge::renderer::state::scoped scoped_state_;
+	vec4 mesh_translation_;
+	mat4 mesh_rotation_;
 
 	void
 	console_callback(

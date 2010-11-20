@@ -86,7 +86,8 @@ SET(files
 	# base 
 	media_path.cpp mesh_to_vertex_buffer.cpp model_to_mesh.cpp machine.cpp cut_mesh.cpp
 	# input
-	input/state.cpp input/state_manager.cpp input/state_connection.cpp
+	#input/state.cpp input/state_manager.cpp input/state_connection.cpp
+	input/state.cpp input/state_manager.cpp
 	# json
 	json/config_wrapper.cpp json/merge_trees.cpp json/process_option.cpp json/string_to_value.cpp
 	# camera
@@ -107,6 +108,7 @@ TARGET_LINK_LIBRARIES(
 	${SGE_CORE_LIBRARY}
 	${SGE_SHADER_LIBRARY}
 	${SGE_CONSOLE_LIBRARY}
+	${SGE_SYSTEMS_LIBRARY}
 	${Boost_LIBRARIES})
 
 # TODO

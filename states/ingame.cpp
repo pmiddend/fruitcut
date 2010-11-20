@@ -112,6 +112,7 @@ fruitcut::states::ingame::ingame(
 				context<machine>().config_file(),
 				FCPPT_TEXT("graphics/camera/rotation-speed")),
 			vec3::null(),
+			input_states_[input_states::freelook],
 			input_states_[input_states::freelook])),
 	console_(
 		FCPPT_TEXT('/')),

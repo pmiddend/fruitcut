@@ -4,7 +4,9 @@
 #include "projection/object.hpp"
 #include "../../scalar.hpp"
 #include "../../vec3.hpp"
-#include "../../input/state_fwd.hpp"
+#include <sge/input/keyboard/device_fwd.hpp>
+#include <sge/input/mouse/device_fwd.hpp>
+
 namespace fruitcut
 {
 namespace graphics
@@ -20,7 +22,8 @@ public:
 		scalar movement_speed,
 		scalar rotation_speed,
 		vec3 const &position,
-		input::state &);
+		sge::input::keyboard::device &,
+		sge::input::mouse::device &);
 
 	projection::object const &
 	projection() const;
@@ -34,14 +37,18 @@ public:
 	vec3 const &
 	position() const;
 
-	input::state &
-	state() const;
+	sge::input::keyboard::device &
+	keyboard() const;
+
+	sge::input::mouse::device &
+	mouse() const;
 private:
 	projection::object projection_;
 	scalar movement_speed_;
 	scalar rotation_speed_;
 	vec3 position_;
-	input::state &state_;
+	sge::input::keyboard::device &keyboard_;
+	sge::input::mouse::device &mouse_;
 };
 }
 }

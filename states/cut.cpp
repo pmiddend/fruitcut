@@ -181,13 +181,13 @@ fruitcut::states::cut::mouse_axis_callback(
 			static_cast<sprite::object::point::value_type>(
 				e.axis() == sge::input::mouse::axis::x
 				?
-					e.axis_position()
+					e.axis_value()
 				:
 					0),
 			static_cast<sprite::object::point::value_type>(
 				e.axis() == sge::input::mouse::axis::y
 				?
-					e.axis_position()
+					e.axis_value()
 				:
 					0)));
 }
