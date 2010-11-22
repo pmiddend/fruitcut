@@ -3,14 +3,14 @@
 
 #include "freelook_fwd.hpp"
 #include "../machine.hpp"
-#include "../graphics/camera/object.hpp"
 #include "../input_states.hpp"
 #include "../events/render_overlay.hpp"
 #include "../events/render.hpp"
 #include "../mesh.hpp"
-#include "../vec4.hpp"
-#include "../mat4.hpp"
-#include "../plane.hpp"
+#include <sge/renderer/vector3.hpp>
+#include <sge/renderer/vector4.hpp>
+#include <sge/renderer/matrix4.hpp>
+#include <sge/camera/object.hpp>
 #include <sge/console/object.hpp>
 #include <sge/console/gfx.hpp>
 #include <sge/console/arg_list.hpp>
@@ -20,6 +20,8 @@
 #include <sge/model/object_ptr.hpp>
 #include <sge/renderer/state/scoped.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
+#include <fcppt/math/matrix/basic_impl.hpp>
+#include <fcppt/math/vector/basic_impl.hpp>
 #include <boost/statechart/state.hpp>
 #include <boost/statechart/custom_reaction.hpp>
 #include <boost/ptr_container/ptr_array.hpp>
@@ -48,7 +50,7 @@ public:
 		my_context);
 
 	// Ingame needs to update the camera
-	graphics::camera::object &
+	sge::camera::object &
 	camera();
 
 	void
@@ -66,7 +68,9 @@ public:
 	// Called by the...you guessed it - cut state!
 	void
 	cut(
-		plane const &);
+		sge::renderer::vector3 const &,
+		sge::renderer::vector3 const &,
+		sge::renderer::vector3 const &);
 private:
 	typedef
 	boost::ptr_array
@@ -79,7 +83,7 @@ private:
 	input::state_manager input_manager_;
 	input_state_map input_states_;
 	input_states::type current_input_state_;
-	graphics::camera::object camera_;
+	sge::camera::object camera_;
 	sge::console::object console_;
 	sge::console::gfx console_gfx_;
 	fcppt::signal::scoped_connection console_connection_;
@@ -91,8 +95,8 @@ private:
 	mesh mesh_;
 	sge::renderer::vertex_buffer_ptr mesh_vb_;
 	sge::renderer::state::scoped scoped_state_;
-	vec4 mesh_translation_;
-	mat4 mesh_rotation_;
+	sge::renderer::vector4 mesh_translation_;
+	sge::renderer::matrix4 mesh_rotation_;
 
 	void
 	console_callback(

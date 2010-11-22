@@ -1,7 +1,7 @@
 #ifndef FRUITCUT_EVENTS_TICK_HPP_INCLUDED
 #define FRUITCUT_EVENTS_TICK_HPP_INCLUDED
 
-#include "../scalar.hpp"
+#include <sge/renderer/scalar.hpp>
 #include <boost/statechart/event.hpp>
 
 namespace fruitcut
@@ -15,12 +15,12 @@ class tick
 public:
 	explicit
 	tick(
-		scalar);
+		sge::renderer::scalar);
 
-	scalar
+	sge::renderer::scalar
 	time_delta() const;
 private:
-	scalar time_delta_;
+	sge::renderer::scalar time_delta_;
 };
 }
 }

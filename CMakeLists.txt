@@ -91,7 +91,7 @@ SET(files
 	# json
 	json/config_wrapper.cpp json/merge_trees.cpp json/process_option.cpp json/string_to_value.cpp
 	# camera
-	graphics/camera/projection/to_matrix.cpp graphics/camera/projection/perspective.cpp graphics/camera/object.cpp graphics/camera/parameters.cpp
+	# graphics/camera/projection/to_matrix.cpp graphics/camera/projection/perspective.cpp graphics/camera/object.cpp graphics/camera/parameters.cpp
 	# events
 	events/tick.cpp
 	# states
@@ -109,6 +109,8 @@ TARGET_LINK_LIBRARIES(
 	${SGE_SHADER_LIBRARY}
 	${SGE_CONSOLE_LIBRARY}
 	${SGE_SYSTEMS_LIBRARY}
+	${SGE_CAMERA_LIBRARY}
+	${SGE_PARSE_LIBRARY}
 	${Boost_LIBRARIES})
 
 # TODO

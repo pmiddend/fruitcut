@@ -3,8 +3,6 @@
 #include "input/optional_key_callback.hpp"
 #include "input/optional_mouse_axis_callback.hpp"
 #include "input/optional_mouse_button_callback.hpp"
-#include "graphics/camera/object.hpp"
-#include "graphics/camera/parameters.hpp"
 #include "json/config_wrapper.hpp"
 #include "json/find_member.hpp"
 #include "machine.hpp"

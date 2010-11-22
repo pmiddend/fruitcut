@@ -1,7 +1,9 @@
 #include "cut_mesh.hpp"
 #include "math/cut_triangle_at_plane.hpp"
-#include "vec3.hpp"
 #include "triangle.hpp"
+#include <sge/renderer/vector3.hpp>
+#include <sge/renderer/vector2.hpp>
+#include <sge/renderer/scalar.hpp>
 #include <fcppt/algorithm/std/copy.hpp>
 #include <fcppt/algorithm/std/accumulate.hpp>
 #include <boost/foreach.hpp>
@@ -30,17 +32,17 @@ fruitcut::cut_mesh(
 				{
 					return t.texcoords[i];
 				},
-				[](vec2 const &a, vec2 const &b,scalar c)
+				[](sge::renderer::vector2 const &a, sge::renderer::vector2 const &b,sge::renderer::scalar c)
 				{ 
-					return a * c + (static_cast<scalar>(1)-c) * b;
+					return a * c + (static_cast<sge::renderer::scalar>(1)-c) * b;
 				},
 				[](
-					vec3 const &p0,
-					vec2 const &t0,
-					vec3 const &p1,
-					vec2 const &t1,
-					vec3 const &p2,
-					vec2 const &t2)
+					sge::renderer::vector3 const &p0,
+					sge::renderer::vector2 const &t0,
+					sge::renderer::vector3 const &p1,
+					sge::renderer::vector2 const &t1,
+					sge::renderer::vector3 const &p2,
+					sge::renderer::vector2 const &t2)
 				{
 					return 
 						triangle(

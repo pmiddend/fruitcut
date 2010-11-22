@@ -1,8 +1,9 @@
 #ifndef FRUITCUT_TRIANGLE_HPP_INCLUDED
 #define FRUITCUT_TRIANGLE_HPP_INCLUDED
 
-#include "vec2.hpp"
-#include "vec3.hpp"
+#include <sge/renderer/vector3.hpp>
+#include <sge/renderer/vector2.hpp>
+#include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/assert.hpp>
 #include <array>
 #include <algorithm>
@@ -14,11 +15,11 @@ class triangle
 {
 public:
 	typedef
-	vec3
+	sge::renderer::vector3
 	vector;
 
 	typedef
-	vec2
+	sge::renderer::vector2
 	data_type;
 
 	typedef

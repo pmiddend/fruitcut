@@ -2,12 +2,12 @@
 #define FRUITCUT_PLANE_HPP_INCLUDED
 
 #include "math/plane/basic.hpp"
-#include "scalar.hpp"
+#include <sge/renderer/scalar.hpp>
 
 namespace fruitcut
 {
 typedef
-math::plane::basic<scalar,3>
+math::plane::basic<sge::renderer::scalar,3>
 plane;
 }
 

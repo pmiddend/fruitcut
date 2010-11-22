@@ -4,32 +4,30 @@
 #include "../sprite/parameters.hpp"
 #include "../sprite/object.hpp"
 #include "../dim2.hpp"
-#include "../plane.hpp"
-#include "../math/plane/normalize.hpp"
 #include <sge/sprite/external_system_impl.hpp>
 #include <sge/sprite/render_one.hpp>
 #include <sge/sprite/parameters.hpp>
 #include <sge/image/multi_loader.hpp>
 #include <sge/renderer/filter/linear.hpp>
 #include <sge/renderer/resource_flags_none.hpp>
+#include <sge/renderer/vector2.hpp>
+#include <sge/renderer/vector3.hpp>
+#include <sge/renderer/matrix4.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/texture/part_raw.hpp>
 #include <sge/texture/part_ptr.hpp>
 #include <sge/input/mouse/collector.hpp>
 #include <sge/input/mouse/axis.hpp>
-#include <sge/input/mouse/axis_position.hpp>
-#include <sge/image/file.hpp>
 #include <sge/input/mouse/axis_event.hpp>
 #include <sge/input/mouse/button_event.hpp>
 #include <sge/input/mouse/button_code.hpp>
+#include <sge/image/file.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/math/vector/dim.hpp>
 #include <fcppt/math/dim/arithmetic.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/math/matrix/inverse.hpp>
-#include <fcppt/math/vector/cross.hpp>
-#include <fcppt/math/vector/dot.hpp>
-#include <fcppt/math/vector/normalize.hpp>
+#include <fcppt/math/matrix/arithmetic.hpp>
 #include <fcppt/math/vector/output.hpp>
 #include <fcppt/io/cout.hpp>
 #include <functional>
@@ -221,14 +219,14 @@ fruitcut::states::cut::mouse_button_callback(
 					fcppt::math::dim::structure_cast<dim2>(
 						context<machine>().systems().renderer()->screen_size());
 
-				mat4 const inverse_mvp =
+				sge::renderer::matrix4 const inverse_mvp =
 					fcppt::math::matrix::inverse(
 						context<ingame>().camera().mvp());
-				vec3 const 
+				sge::renderer::vector3 const 
 					point1_projected = 
-						unproject<scalar>(
-							vec3(
-								static_cast<scalar>(
+						unproject<sge::renderer::scalar>(
+							sge::renderer::vector3(
+								static_cast<sge::renderer::scalar>(
 									point1_.x() + point1_.w()/2),
 								// NOTE: We have to switch the viewport here, taken from:
 								// http://nehe.gamedev.net/data/articles/article.asp?article=13
@@ -236,59 +234,48 @@ fruitcut::states::cut::mouse_button_callback(
 								// the top left whereas OpenGL coords start at the
 								// lower left. To convert to OpenGL coordinates we do
 								// the following:
-								ss.h() - static_cast<scalar>(
+								ss.h() - static_cast<sge::renderer::scalar>(
 									point1_.y() + point1_.h()/2),
 								0),
 							inverse_mvp,
-							vec2::null(),
+							sge::renderer::vector2::null(),
 							fcppt::math::dim::structure_cast<dim2>(
 								context<machine>().systems().renderer()->screen_size())),
 					point2_projected = 
-						unproject<scalar>(
-							vec3(
-								static_cast<scalar>(
+						unproject<sge::renderer::scalar>(
+							sge::renderer::vector3(
+								static_cast<sge::renderer::scalar>(
 									point2_.x() + point2_.w()/2),
 								// See above
-								ss.h() - static_cast<scalar>(
+								ss.h() - static_cast<sge::renderer::scalar>(
 									point2_.y() + point2_.h()/2),
 								0),
 							inverse_mvp,
-							vec2::null(),
+							sge::renderer::vector2::null(),
 							fcppt::math::dim::structure_cast<dim2>(
 								context<machine>().systems().renderer()->screen_size())),
 					point3_projected = 
-						unproject<scalar>(
-							vec3(
-								static_cast<scalar>(
+						unproject<sge::renderer::scalar>(
+							sge::renderer::vector3(
+								static_cast<sge::renderer::scalar>(
 									point1_.x() + point1_.w()/2),
 								// See above
-								ss.h() - static_cast<scalar>(
+								ss.h() - static_cast<sge::renderer::scalar>(
 									point1_.y() + point1_.h()/2),
 								0.5),
 							inverse_mvp,
-							vec2::null(),
+							sge::renderer::vector2::null(),
 							fcppt::math::dim::structure_cast<dim2>(
 								context<machine>().systems().renderer()->screen_size())),
 					first_plane_vector = 
 						point2_projected - point1_projected,
 					second_plane_vector = 
-						point3_projected - point1_projected,
-					plane_normal = 
-						fcppt::math::vector::normalize(
-							fcppt::math::vector::cross(
-								first_plane_vector,
-								second_plane_vector));
-
-				fcppt::io::cout << "first point projected: " << point1_projected << "\n";
-				fcppt::io::cout << "second point projected: " << point2_projected << "\n";
+						point3_projected - point1_projected;
 
 				context<ingame>().cut(
-					math::plane::normalize(
-						plane(
-							plane_normal,
-							fcppt::math::vector::dot(
-								plane_normal,
-								point1_projected))));
+					point1_projected,
+					first_plane_vector,
+					second_plane_vector);
 			}
 			break;
 		default:

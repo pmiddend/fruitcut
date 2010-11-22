@@ -1,13 +1,14 @@
 #include "model_to_mesh.hpp"
 #include "triangle.hpp"
-#include "vec2.hpp"
-#include "vec3.hpp"
+#include <sge/renderer/vector2.hpp>
+#include <sge/renderer/vector3.hpp>
 #include <sge/model/object.hpp>
 #include <sge/model/vertex_sequence.hpp>
 #include <sge/model/texcoord_sequence.hpp>
-#include <boost/foreach.hpp>
+#include <fcppt/math/vector/structure_cast.hpp>
 #include <fcppt/assert.hpp>
 #include <fcppt/string.hpp>
+#include <boost/foreach.hpp>
 
 fruitcut::mesh const
 fruitcut::model_to_mesh(
@@ -45,19 +46,19 @@ fruitcut::model_to_mesh(
 		result.triangles.push_back(
 			triangle(
 				{
-					fcppt::math::vector::structure_cast<vec3>(
+					fcppt::math::vector::structure_cast<sge::renderer::vector3>(
 						vertices[*index]),
-					fcppt::math::vector::structure_cast<vec3>(
+					fcppt::math::vector::structure_cast<sge::renderer::vector3>(
 						vertices[*(index+1)]),
-					fcppt::math::vector::structure_cast<vec3>(
+					fcppt::math::vector::structure_cast<sge::renderer::vector3>(
 						vertices[*(index+2)])
 				},
 				{
-					fcppt::math::vector::structure_cast<vec2>(
+					fcppt::math::vector::structure_cast<sge::renderer::vector2>(
 						texcoords[*index]),
-					fcppt::math::vector::structure_cast<vec2>(
+					fcppt::math::vector::structure_cast<sge::renderer::vector2>(
 						texcoords[*(index+1)]),
-					fcppt::math::vector::structure_cast<vec2>(
+					fcppt::math::vector::structure_cast<sge::renderer::vector2>(
 						texcoords[*(index+2)])
 				}));
 	}

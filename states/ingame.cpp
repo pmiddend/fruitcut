@@ -1,18 +1,17 @@
 #include "ingame.hpp"
 #include "../media_path.hpp"
-#include "../graphics/camera/parameters.hpp"
-#include "../graphics/camera/projection/perspective.hpp"
-#include "../scalar.hpp"
 #include "../json/find_member.hpp"
 #include "../events/toggle_mode.hpp"
 #include "../events/render.hpp"
 #include "../cut_mesh.hpp"
 #include "../plane.hpp"
-#include "../vec3.hpp"
 #include "../media_path.hpp"
 #include "../model/vf/format.hpp"
 #include "../model_to_mesh.hpp"
 #include "../mesh_to_vertex_buffer.hpp"
+#include "../math/plane/normalize.hpp"
+#include <sge/camera/parameters.hpp>
+#include <sge/camera/projection/perspective.hpp>
 #include <sge/font/system.hpp>
 #include <sge/image/colors.hpp>
 #include <sge/font/size_type.hpp>
@@ -28,6 +27,8 @@
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/texture.hpp>
 #include <sge/renderer/aspect.hpp>
+#include <sge/renderer/scalar.hpp>
+#include <sge/renderer/vector3.hpp>
 #include <sge/input/keyboard/collector.hpp>
 #include <sge/image/file.hpp>
 #include <sge/input/keyboard/key_event.hpp>
@@ -49,6 +50,8 @@
 #include <fcppt/text.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/math/deg_to_rad.hpp>
+#include <fcppt/math/vector/cross.hpp>
+#include <fcppt/math/vector/dot.hpp>
 #include <fcppt/math/vector/normalize.hpp>
 #include <functional>
 
@@ -90,28 +93,28 @@ fruitcut::states::ingame::ingame(
 	current_input_state_(
 		input_states::freelook),
 	camera_(
-		graphics::camera::parameters(
+		sge::camera::parameters(
 			//graphics::camera::projection::orthogonal()
-			graphics::camera::projection::perspective(
-				sge::renderer::aspect<scalar>(
+			sge::camera::projection::perspective(
+				sge::renderer::aspect<sge::renderer::scalar>(
 					context<machine>().systems().renderer()->screen_size()),
 				fcppt::math::deg_to_rad(
-					fruitcut::json::find_member<scalar>(
+					fruitcut::json::find_member<sge::renderer::scalar>(
 						context<machine>().config_file(),
 						FCPPT_TEXT("graphics/camera/fov"))),
-				fruitcut::json::find_member<scalar>(
+				fruitcut::json::find_member<sge::renderer::scalar>(
 					context<machine>().config_file(),
 					FCPPT_TEXT("graphics/camera/near")),
-				fruitcut::json::find_member<scalar>(
+				fruitcut::json::find_member<sge::renderer::scalar>(
 					context<machine>().config_file(),
 					FCPPT_TEXT("graphics/camera/far"))),
-			fruitcut::json::find_member<scalar>(
+			fruitcut::json::find_member<sge::renderer::scalar>(
 				context<machine>().config_file(),
 				FCPPT_TEXT("graphics/camera/movement-speed")),
-			fruitcut::json::find_member<scalar>(
+			fruitcut::json::find_member<sge::renderer::scalar>(
 				context<machine>().config_file(),
 				FCPPT_TEXT("graphics/camera/rotation-speed")),
-			vec3::null(),
+			sge::renderer::vector3::null(),
 			input_states_[input_states::freelook],
 			input_states_[input_states::freelook])),
 	console_(
@@ -255,8 +258,22 @@ fruitcut::states::ingame::react(
 
 void
 fruitcut::states::ingame::cut(
-	plane const &p)
+	sge::renderer::vector3 const &position,
+	sge::renderer::vector3 const &direction1,
+	sge::renderer::vector3 const &direction2)
 {
+	sge::renderer::vector3 const plane_normal = 
+		fcppt::math::vector::normalize(
+			fcppt::math::vector::cross(
+				direction1,
+				direction2));
+
+	plane const p(
+		plane_normal,
+		fcppt::math::vector::dot(
+			position,
+			plane_normal));
+
 	mesh_ = 
 		cut_mesh(
 			mesh_,
@@ -268,7 +285,7 @@ fruitcut::states::ingame::cut(
 			mesh_);
 }
 
-fruitcut::graphics::camera::object &
+sge::camera::object &
 fruitcut::states::ingame::camera()
 {
 	return camera_;
