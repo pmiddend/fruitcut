@@ -50,9 +50,12 @@
 #include <fcppt/text.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/math/deg_to_rad.hpp>
+#include <fcppt/math/vector/arithmetic.hpp>
 #include <fcppt/math/vector/cross.hpp>
 #include <fcppt/math/vector/dot.hpp>
 #include <fcppt/math/vector/normalize.hpp>
+#include <fcppt/math/matrix/translation.hpp>
+#include <fcppt/math/matrix/arithmetic.hpp>
 #include <functional>
 
 namespace
@@ -196,7 +199,14 @@ fruitcut::states::ingame::ingame(
 	scoped_state_(
 		context<machine>().systems().renderer(),
 		sge::renderer::state::list
-			(sge::renderer::state::bool_::clear_backbuffer = true))
+			(sge::renderer::state::bool_::clear_backbuffer = true)),
+	mesh_translation_(
+		sge::renderer::vector3(
+			3,
+			0,
+			0)),
+	mesh_rotation_(
+		sge::renderer::matrix4::identity())
 {
 	input_manager_.current_state(
 		input_states_[
@@ -231,7 +241,8 @@ fruitcut::states::ingame::react(
 
 	shader_.set_uniform(
 		"mvp",
-		camera_.mvp());
+		camera_.mvp() 
+			* fcppt::math::matrix::translation(mesh_translation_));
 
 	sge::renderer::scoped_vertex_buffer scoped_vb(
 		context<machine>().systems().renderer(),
@@ -271,7 +282,7 @@ fruitcut::states::ingame::cut(
 	plane const p(
 		plane_normal,
 		fcppt::math::vector::dot(
-			position,
+			position - mesh_translation_, 
 			plane_normal));
 
 	mesh_ = 

@@ -8,7 +8,6 @@
 #include "../events/render.hpp"
 #include "../mesh.hpp"
 #include <sge/renderer/vector3.hpp>
-#include <sge/renderer/vector4.hpp>
 #include <sge/renderer/matrix4.hpp>
 #include <sge/camera/object.hpp>
 #include <sge/console/object.hpp>
@@ -95,7 +94,7 @@ private:
 	mesh mesh_;
 	sge::renderer::vertex_buffer_ptr mesh_vb_;
 	sge::renderer::state::scoped scoped_state_;
-	sge::renderer::vector4 mesh_translation_;
+	sge::renderer::vector3 mesh_translation_;
 	sge::renderer::matrix4 mesh_rotation_;
 
 	void
