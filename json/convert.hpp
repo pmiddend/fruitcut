@@ -8,7 +8,8 @@
 #include <fcppt/string.hpp>
 #include <fcppt/algorithm/map.hpp>
 #include <boost/mpl/and.hpp>
-#include <type_traits>
+#include <boost/utility/enable_if.hpp>
+#include <boost/type_traits/is_floating_point.hpp>
 
 namespace fruitcut
 {
@@ -24,9 +25,9 @@ apply_convert(
 // Assume float_type
 template<typename T>
 typename
-std::enable_if
+boost::enable_if_c
 <
-	std::is_floating_point<T>::value,
+	boost::is_floating_point<T>::value,
 	T const
 >::type
 convert(
@@ -41,9 +42,9 @@ convert(
 // Assume int_type
 template<typename T>
 typename
-std::enable_if
+boost::enable_if_c
 <
-	std::is_integral<T>::value && !std::is_same<T,bool>::value,
+	boost::is_integral<T>::value && !boost::is_same<T,bool>::value,
 	T const
 >::type
 convert(
@@ -58,9 +59,9 @@ convert(
 // Assume bool
 template<typename T>
 typename
-std::enable_if
+boost::enable_if_c
 <
-	std::is_same<T,bool>::value,
+	boost::is_same<T,bool>::value,
 	bool
 >::type
 convert(
@@ -73,10 +74,10 @@ convert(
 // Assume array_type (exception string)
 template<typename T>
 typename
-std::enable_if
+boost::enable_if_c
 <
 	fcppt::type_traits::is_iterable<T>::value 
-		&& !std::is_same<T,sge::parse::json::string>::value,
+		&& !boost::is_same<T,sge::parse::json::string>::value,
 	T const
 >::type
 convert(
@@ -87,7 +88,7 @@ convert(
 	// "reach" more containers when you only demand iterator
 	// initialization (and the existance of ::value_type)
 	std::vector<typename T::value_type> const temp = 
-		fcppt::algorithm::map<std::vector<typename T::value_type>>(
+		fcppt::algorithm::map<std::vector<typename T::value_type> >(
 			sge::parse::json::get<sge::parse::json::array>(
 				v).elements,
 			&apply_convert<typename T::value_type>);
@@ -99,9 +100,9 @@ convert(
 // seen as an array
 template<typename T>
 typename
-std::enable_if
+boost::enable_if_c
 <
-	std::is_same<T,sge::parse::json::string>::value,
+	boost::is_same<T,sge::parse::json::string>::value,
 	T const
 >::type
 convert(
@@ -116,9 +117,9 @@ convert(
 // this special case
 template<typename T>
 typename
-std::enable_if
+boost::enable_if_c
 <
-	std::is_same<T,sge::parse::json::value>::value,
+	boost::is_same<T,sge::parse::json::value>::value,
 	sge::parse::json::value const
 >::type
 convert(
@@ -130,10 +131,10 @@ convert(
 // Everything else -> has to be a json type!
 template<typename T>
 typename
-std::enable_if
+boost::enable_if_c
 <
-	!std::is_floating_point<T>::value 
-		&& !std::is_integral<T>::value
+	!boost::is_floating_point<T>::value 
+		&& !boost::is_integral<T>::value
 		&& !fcppt::type_traits::is_iterable<T>::value,
 	T const
 >::type

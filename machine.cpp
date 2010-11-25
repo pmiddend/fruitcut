@@ -29,8 +29,15 @@
 #include <sge/input/keyboard/action.hpp>
 #include <sge/input/keyboard/key_code.hpp>
 #include <sge/input/keyboard/key_event.hpp>
+#include <sge/extension_set.hpp>
+#include <fcppt/assign/make_container.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert.hpp>
+#include <fcppt/string.hpp>
+#include <boost/spirit/home/phoenix/core/reference.hpp>
+
+#include <vector>
 
 fruitcut::machine::machine(
 	int const argc,
@@ -38,7 +45,7 @@ fruitcut::machine::machine(
 :
 	config_file_(
 		json::config_wrapper(
-			{},
+			std::vector<fcppt::string>(),
 			argc,
 			argv)),
 	systems_(
@@ -67,14 +74,14 @@ fruitcut::machine::machine(
 		(sge::systems::parameterless::md3_loader)
 		(sge::systems::image_loader(
 			sge::image::capabilities_field::null(),
-			{FCPPT_TEXT("png")}))
+			fcppt::assign::make_container<sge::extension_set>(FCPPT_TEXT("png"))))
 		(sge::systems::parameterless::font)),
 	dead_(false),
 	escape_connection_(
 		systems_.keyboard_collector()->key_callback(
 			sge::input::keyboard::action(
 				sge::input::keyboard::key_code::escape,
-				[&dead_]() { dead_ = true; }))),
+				boost::phoenix::ref(dead_) = true))),
 	frame_timer_(
 		sge::time::second(1))
 {

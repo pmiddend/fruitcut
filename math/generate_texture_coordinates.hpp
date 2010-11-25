@@ -5,7 +5,11 @@
 #include <fcppt/math/vector/orthogonalize.hpp>
 #include <fcppt/math/vector/normalize.hpp>
 #include <fcppt/algorithm/map.hpp>
+#include <fcppt/assign/make_container.hpp>
 #include <boost/foreach.hpp>
+#include <boost/spirit/home/phoenix/operator/self.hpp> 
+#include <boost/spirit/home/phoenix/core/argument.hpp> 
+#include <boost/spirit/home/phoenix/object/construct.hpp>
 #include <vector>
 
 namespace fruitcut
@@ -43,17 +47,12 @@ generate_texture_coordinates(
 	// vectors from the first point to the second and third. Then,
 	// orthonormalize the direction vectors.
 	std::vector<point> const parametrization = 
-		fcppt::algorithm::map<std::vector<point>>(
+		fcppt::algorithm::map<std::vector<point> >(
 			fcppt::math::vector::orthogonalize(
-				std::vector<point>
-				{
-					c[1] - c[0],
-					c[2] - c[0]
-				}),
-			[](point const &a)
-			{
-				return fcppt::math::vector::normalize(a);
-			});
+				fcppt::assign::make_container<std::vector<point> >
+					(c[1] - c[0])
+					(c[2] - c[0])),
+			&fcppt::math::vector::normalize<point>);
 
 	// That's the parametric equation: a + f * b + g * c with (f,g) as
 	// the parameters
@@ -62,18 +61,16 @@ generate_texture_coordinates(
 		b = parametrization[0],
 		c = parametrization[1];
 
+	using boost::phoenix::arg_names;
+
 	// This scary looking statement assigns (f,g) (the plane parameters)
 	// to each point.
 	TargetContainer result = 
 		fcppt::algorithm::map<TargetContainer>(
 			c,
-			[&a,&b,&c](point const &x) 
-			{
-				return 
-					texcoord(
-						(a[1]*c[0] - a[0]*c[1] + c[1]*x[0] - c[0]*x[1])/(b[0]*c[1] - b[1]*c[0]),
-						(a[1]*b[0] - a[0]*b[1] + b[1]*x[0] - b[0]*x[1])/(b[1]*c[0] - b[0]*c[1]));
-			});
+			boost::phoenix::construct<texcoord>(
+				(a[1]*c[0] - a[0]*c[1] + c[1]*arg1[0] - c[0]*arg1[1])/(b[0]*c[1] - b[1]*c[0]),
+				(a[1]*b[0] - a[0]*b[1] + b[1]*arg1[0] - b[0]*arg1[1])/(b[1]*c[0] - b[0]*c[1])));
 
 	// We're interested in the "bounding rectangle" of the points in the
 	// plane, so we take the minimum texture coordinates to determine

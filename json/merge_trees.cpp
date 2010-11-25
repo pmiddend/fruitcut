@@ -8,6 +8,8 @@
 #include <fcppt/algorithm/map.hpp>
 #include <boost/foreach.hpp>
 #include <boost/variant/apply_visitor.hpp>
+#include <boost/spirit/home/phoenix/core/argument.hpp>
+#include <boost/spirit/home/phoenix/bind.hpp>
 #include <set>
 #include <algorithm>
 
@@ -72,9 +74,11 @@ key_set(
 	sge::parse::json::object const &o)
 {
 	return 
-		fcppt::algorithm::map<std::set<fcppt::string>>(
+		fcppt::algorithm::map<std::set<fcppt::string> >(
 			o.members,
-			[](sge::parse::json::member const &m) { return m.name; });
+			boost::phoenix::bind(
+				&sge::parse::json::member::name,
+				boost::phoenix::arg_names::arg1));
 }
 }
 }

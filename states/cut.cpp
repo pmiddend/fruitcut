@@ -30,7 +30,8 @@
 #include <fcppt/math/matrix/arithmetic.hpp>
 #include <fcppt/math/vector/output.hpp>
 #include <fcppt/io/cout.hpp>
-#include <functional>
+#include <boost/spirit/home/phoenix/bind.hpp>
+#include <boost/spirit/home/phoenix/core/argument.hpp>
 
 
 #include <fcppt/math/vector/static.hpp>
@@ -112,16 +113,16 @@ fruitcut::states::cut::cut(
 			.elements()),
 	mouse_axis_connection_(
 		context<machine>().systems().mouse_collector()->axis_callback(
-			std::bind(
+			boost::phoenix::bind(
 				&cut::mouse_axis_callback,
 				this,
-				std::placeholders::_1))),
+				boost::phoenix::arg_names::arg1))),
 	mouse_button_connection_(
 		context<machine>().systems().mouse_collector()->button_callback(
-			std::bind(
+			boost::phoenix::bind(
 				&cut::mouse_button_callback,
 				this,
-				std::placeholders::_1))),
+				boost::phoenix::arg_names::arg1))),
 	point1_(
 		sprite::parameters()
 			.texture_size()

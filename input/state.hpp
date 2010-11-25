@@ -14,6 +14,7 @@
 #include <sge/input/mouse/button_function.hpp>
 #include <fcppt/signal/object.hpp>
 #include <fcppt/signal/auto_connection.hpp>
+#include <fcppt/noncopyable.hpp>
 
 namespace fruitcut
 {
@@ -24,10 +25,8 @@ class state
 	public sge::input::mouse::device,
 	public sge::input::keyboard::device
 {
+FCPPT_NONCOPYABLE(state)
 public:
-	state(state const &) = delete;
-	state &operator=(state const &) = delete;
-
 	explicit
 	state(
 		state_manager &);

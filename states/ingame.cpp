@@ -61,7 +61,9 @@
 #include <fcppt/math/matrix/rotation_axis.hpp>
 #include <fcppt/math/matrix/vector.hpp>
 #include <fcppt/math/matrix/transpose.hpp>
-#include <functional>
+#include <fcppt/assign/make_container.hpp>
+#include <boost/spirit/home/phoenix/bind.hpp>
+#include <boost/spirit/home/phoenix/core/argument.hpp>
 
 namespace
 {
@@ -85,6 +87,27 @@ make_state_vector(
 		new fruitcut::input::state(
 			stm));
 	return pa;
+}
+
+// NOTE: Could this find its way to fcppt?
+template<typename T>
+typename
+fcppt::math::vector::static_<T,3>::type const
+multiply_matrix4_vector3(
+	typename
+	fcppt::math::matrix::static_<T,4,4>::type const &m,
+	typename
+	fcppt::math::vector::static_<T,3>::type const &v)
+{
+	return 
+		fcppt::math::vector::narrow_cast
+		<
+			typename fcppt::math::vector::static_<T,3>::type
+		>(
+			m * 
+			fcppt::math::vector::construct(
+				v,
+				static_cast<T>(0)));
 }
 }
 
@@ -162,31 +185,30 @@ fruitcut::states::ingame::ingame(
 			1000)),
 	console_connection_(
 		context<machine>().systems().keyboard_collector()->key_callback(
-			std::bind(
+			boost::phoenix::bind(
 				&ingame::console_callback,
 				this,
-				std::placeholders::_1))),
+				boost::phoenix::arg_names::arg1))),
 	state_change_connection_(
 		console_.insert(
 			FCPPT_TEXT("tm"),
-			std::bind(
+			boost::phoenix::bind(
 				&ingame::toggle_mode,
 				this,
-				std::placeholders::_1,
-				std::placeholders::_2),
+				boost::phoenix::arg_names::arg1,
+				boost::phoenix::arg_names::arg2),
 			FCPPT_TEXT("Toggles between freelook mode and \"cut\" mode"))),
 	shader_(
 		context<machine>().systems().renderer(),
 		media_path()/FCPPT_TEXT("shaders")/FCPPT_TEXT("vertex.glsl"),
 		media_path()/FCPPT_TEXT("shaders")/FCPPT_TEXT("fragment.glsl"),
 		sge::shader::vf_to_string<model::vf::format>(),
-		{
+		fcppt::assign::make_container<sge::shader::variable_sequence>(
 			sge::shader::variable(
-				"mvp",
-				sge::shader::variable_type::uniform,
-				sge::shader::mat4())
-		},
-		{}),
+					"mvp",
+					sge::shader::variable_type::uniform,
+					sge::shader::mat4())),
+		sge::shader::sampler_sequence()),
 	model_(
 		context<machine>().systems().md3_loader()->load(
 			media_path()/
@@ -282,29 +304,23 @@ fruitcut::states::ingame::cut(
 	sge::renderer::vector3 const &direction1,
 	sge::renderer::vector3 const &direction2)
 {
+	// NOTE: For rotation matrices M and vectors a,b the following holds:
+	// cross(M*a,M*b) = M*cross(a,b)
 	sge::renderer::vector3 const plane_normal = 
-		fcppt::math::vector::normalize(
+		multiply_matrix4_vector3<sge::renderer::scalar>(
+			fcppt::math::matrix::transpose(
+				mesh_rotation_),
 			fcppt::math::vector::cross(
-				fcppt::math::vector::narrow_cast<sge::renderer::vector3>(
-					fcppt::math::matrix::transpose(mesh_rotation_) * 
-					fcppt::math::vector::construct(
-						direction1,
-						sge::renderer::scalar(0))),
-				fcppt::math::vector::narrow_cast<sge::renderer::vector3>(
-					fcppt::math::matrix::transpose(mesh_rotation_) * 
-					fcppt::math::vector::construct(
-						direction2,
-						sge::renderer::scalar(0)))));
+				direction1,
+				direction2));
 
 	plane const p(
 		plane_normal,
 		fcppt::math::vector::dot(
-			fcppt::math::vector::narrow_cast<sge::renderer::vector3>(
-				fcppt::math::matrix::transpose(mesh_rotation_) * 
-				fcppt::math::vector::construct(
-					position - mesh_translation_,
-					sge::renderer::scalar(0))),
-			//position - mesh_translation_, 
+			multiply_matrix4_vector3<sge::renderer::scalar>(
+				fcppt::math::matrix::transpose(
+					mesh_rotation_),
+				position - mesh_translation_),
 			plane_normal));
 
 	mesh_ = 

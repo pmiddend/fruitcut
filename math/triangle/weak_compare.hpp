@@ -3,6 +3,9 @@
 
 #include "basic.hpp"
 #include <fcppt/math/range_compare.hpp>
+#include <fcppt/algorithm/inner_product.hpp>
+#include <boost/spirit/home/phoenix/bind.hpp>
+#include <boost/spirit/home/phoenix/core/argument.hpp>
 #include <algorithm>
 
 namespace fruitcut
@@ -32,11 +35,16 @@ weak_compare(
 			std::find_if(
 				bcopy.begin(),
 				bcopy.end(),
-				[&epsilon,&a](
-					typename value_type::vector const &v) 
-				{ 
-					return fcppt::math::range_compare(v,a.points().front(),epsilon); 
-				});
+				boost::phoenix::bind(
+					&fcppt::math::range_compare
+					<
+						typename value_type::vector,
+						typename value_type::vector,
+						T
+					>,
+					boost::phoenix::arg_names::arg1,
+					a.points().front(),
+					epsilon));
 
 	if (first_in_second == bcopy.end())
 		return false;
@@ -47,19 +55,21 @@ weak_compare(
 		bcopy.end());
 
 	return 
-		std::inner_product(
-			a.points().begin(),
-			a.points().end(),
-			bcopy.begin(),
+		fcppt::algorithm::inner_product(
+			a.points(),
+			bcopy,
 			true,
 			std::logical_and<bool>(),
-			[&epsilon](
-				typename value_type::vector const &a,
-				typename value_type::vector const &b) 
-			{
-				return 
-					fcppt::math::range_compare(a,b,epsilon);
-			});
+			boost::phoenix::bind(
+				&fcppt::math::range_compare
+				<
+					typename value_type::vector,
+					typename value_type::vector,
+					T
+				>,
+				boost::phoenix::arg_names::arg1,
+				boost::phoenix::arg_names::arg2,
+				epsilon));
 }
 }
 }

@@ -12,6 +12,9 @@
 #include <boost/spirit/include/qi.hpp>
 #include <boost/fusion/container/vector.hpp>
 #include <boost/fusion/sequence/intrinsic/at.hpp>
+#include <boost/spirit/home/phoenix/bind.hpp>
+#include <boost/spirit/home/phoenix/core/argument.hpp>
+#include <boost/spirit/home/phoenix/operator/self.hpp>
 #include <boost/foreach.hpp>
 #include <string>
 #include <vector>
@@ -61,15 +64,16 @@ fruitcut::json::process_option(
 			boost::fusion::at_c<0>(
 				result),
 			&o,
-			[](
-				sge::parse::json::object *o,
-				fcppt::string const &s)
-			{
-				return 
-					&sge::parse::json::find_member_exn<sge::parse::json::object>(
-						o->members,
-						s);
-			});
+			&boost::phoenix::bind(
+				&sge::parse::json::find_member_exn
+				<
+					sge::parse::json::object,
+					sge::parse::json::member_vector
+				>,
+				boost::phoenix::bind(
+					&sge::parse::json::object::members,
+					boost::phoenix::arg_names::arg1),
+				boost::phoenix::arg_names::arg2));
 
 	sge::parse::json::member_vector::iterator it = 
 		std::find_if(
@@ -84,12 +88,11 @@ fruitcut::json::process_option(
 			element+
 			FCPPT_TEXT("\", did you mean: ")+
 			fcppt::algorithm::shortest_levenshtein(
-				fcppt::algorithm::map<std::vector<fcppt::string>>(
+				fcppt::algorithm::map<std::vector<fcppt::string> >(
 					target->members,
-					[](sge::parse::json::member const &m) 
-					{ 
-						return m.name; 
-					}),
+					boost::phoenix::bind(
+						&sge::parse::json::member::name,
+						boost::phoenix::arg_names::arg1)),
 				element));
 
 	it->value = 

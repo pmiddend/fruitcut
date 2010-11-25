@@ -3,10 +3,9 @@
 
 #include <fcppt/math/vector/vector.hpp>
 #include <fcppt/math/size_type.hpp>
-#include <fcppt/assert.hpp>
 #include <fcppt/io/ostream.hpp>
 #include <initializer_list>
-#include <array>
+#include <boost/array.hpp>
 #include <algorithm>
 
 namespace fruitcut
@@ -29,20 +28,17 @@ public:
 	vector;
 
 	typedef 
-	std::array<vector,3>
+	boost::array<vector,3>
 	point_array;
 
 	typedef
-	std::array<Data,3>
+	boost::array<Data,3>
 	data_array;
 
 	basic(
-		std::initializer_list<vector> const &_points,
-		std::initializer_list<Data> const &_data)
+		point_array const &_points,
+		data_array const &_data)
 	{
-		FCPPT_ASSERT(
-			_points.size() == 3 &&
-			_data.size() == 3);
 		std::copy(
 			_points.begin(),
 			_points.end(),

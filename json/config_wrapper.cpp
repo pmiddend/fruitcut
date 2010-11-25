@@ -9,6 +9,9 @@
 #include <fcppt/text.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/algorithm/std/accumulate.hpp>
+#include <boost/spirit/home/phoenix/core/argument.hpp>
+#include <boost/spirit/home/phoenix/operator/arithmetic.hpp>
+#include <boost/spirit/home/phoenix/bind.hpp>
 #include <iostream>
 #include <ostream>
 #include <string>
@@ -24,16 +27,12 @@ fruitcut::json::config_wrapper(
 			additional_files,
 			sge::parse::json::parse_file_exn(
 				fruitcut::media_path()/FCPPT_TEXT("config.json")),
-			[](
-				sge::parse::json::object const &o,
-				fcppt::string const &s)
-			{
-				return 
-					merge_trees(
-						o,
-						sge::parse::json::parse_file_exn(
-							media_path()/s));
-			});
+			boost::phoenix::bind(
+				&merge_trees,
+				boost::phoenix::arg_names::arg1,
+				boost::phoenix::bind(
+					&sge::parse::json::parse_file_exn,
+					media_path()/boost::phoenix::arg_names::arg2)));
 
 	if (argc >= 2 && std::string(argv[1]) == "--help")
 	{

@@ -8,6 +8,11 @@
 #include <fcppt/math/size_type.hpp>
 #include <fcppt/algorithm/map.hpp>
 #include <fcppt/io/cout.hpp>
+#include <boost/spirit/home/phoenix/operator/comparison.hpp> 
+#include <boost/spirit/home/phoenix/operator/if_else.hpp> 
+#include <boost/spirit/home/phoenix/core/argument.hpp>
+#include <boost/spirit/home/phoenix/bind.hpp>
+#include <boost/array.hpp>
 #include <vector>
 #include <algorithm>
 
@@ -65,14 +70,14 @@ cut_triangle_at_plane(
 
 	result_type result;
 
-	std::array<vector,3> const points = 
+	boost::array<vector,3> const points = 
 	{{
 		position(t,0),
 		position(t,1),
 		position(t,2)
 	}};
 
-	std::array<data_type,3> const datas = 
+	boost::array<data_type,3> const datas = 
 	{{
 		data(t,0),
 		data(t,1),
@@ -82,14 +87,18 @@ cut_triangle_at_plane(
 	scalar_sequence const signs = 
 		fcppt::algorithm::map<scalar_sequence>(
 			points,
-			[&p](vector const &v) { return plane::distance_to_point(p,v); });
+			boost::phoenix::bind(
+				&plane::distance_to_point<scalar,3>,
+				boost::phoenix::val(
+					p),
+				boost::phoenix::arg_names::arg1));
 
 	size_type const culled_vertices = 
 		static_cast<size_type>(
 			std::count_if(
 				signs.begin(),
 				signs.end(),
-				[](scalar const &t) { return t < static_cast<scalar>(0); }));
+				boost::phoenix::arg_names::arg1 < static_cast<scalar>(0)));
 
 	// Two trivial cases
 	// All of the vertices are below the plane => cull everything
@@ -115,6 +124,13 @@ cut_triangle_at_plane(
 					std::find_if(
 						signs.begin(),
 						signs.end(),
+						boost::phoenix::if_else(
+							boost::phoenix::val(
+								culled_vertices == static_cast<size_type>(1)),
+							boost::phoenix::arg_names::arg1 < static_cast<scalar>(0),
+							boost::phoenix::arg_names::arg1 >= static_cast<scalar>(0))
+							
+						/*
 						[&culled_vertices](scalar const &t) 
 						{ 
 							return 
@@ -123,7 +139,7 @@ cut_triangle_at_plane(
 									t < static_cast<scalar>(0)
 								:
 									t >= static_cast<scalar>(0);
-						}))),
+						}*/))),
 		vnext = 
 			static_cast<size_type>(v+1) % signs.size(),
 		vprev = 

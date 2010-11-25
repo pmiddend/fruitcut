@@ -8,16 +8,20 @@
 #include <sge/parse/json/array.hpp>
 #include <sge/parse/json/get.hpp>
 #include <sge/parse/json/member_name_equal.hpp>
+#include <sge/parse/json/member_vector.hpp>
 #include <sge/exception.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/algorithm/std/accumulate.hpp>
 #include <boost/algorithm/string/split.hpp>
+#include <boost/spirit/home/phoenix/operator/self.hpp> 
+#include <boost/spirit/home/phoenix/operator/member.hpp> 
+#include <boost/spirit/home/phoenix/bind.hpp> 
+#include <boost/spirit/home/phoenix/core/argument.hpp>
+#include <boost/spirit/home/phoenix/core/reference.hpp>
 #include <boost/algorithm/string/classification.hpp>
 #include <vector>
 #include <algorithm>
 
-#include <boost/foreach.hpp>
-#include <fcppt/io/cout.hpp>
 namespace fruitcut
 {
 namespace json
@@ -47,15 +51,14 @@ find_member(
 		fcppt::algorithm::std::accumulate(
 			parts,
 			&o,
-			[](
-				sge::parse::json::object const *o,
-				fcppt::string const &s)
-			{
-				return 
-					&sge::parse::json::find_member_exn<sge::parse::json::object>(
-						o->members,
-						s);
-			});
+			&boost::phoenix::bind(
+				&sge::parse::json::find_member_exn
+				<
+					sge::parse::json::object const,
+					sge::parse::json::member_vector const
+				>,
+				boost::phoenix::arg_names::arg1->*&sge::parse::json::object::members,
+				boost::phoenix::arg_names::arg2));
 
 	sge::parse::json::member_vector::const_iterator it = 
 		std::find_if(

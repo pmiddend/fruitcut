@@ -4,10 +4,8 @@
 #include <sge/renderer/vector3.hpp>
 #include <sge/renderer/vector2.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
-#include <fcppt/assert.hpp>
-#include <array>
+#include <boost/array.hpp>
 #include <algorithm>
-#include <initializer_list>
 
 namespace fruitcut
 {
@@ -23,11 +21,11 @@ public:
 	data_type;
 
 	typedef
-	std::array<vector,3>
+	boost::array<vector,3>
 	vertex_array;
 
 	typedef
-	std::array<data_type,3>
+	boost::array<data_type,3>
 	texcoord_array;
 
 	typedef
@@ -38,16 +36,17 @@ public:
 	texcoord_array texcoords;
 
 	triangle(
-		std::initializer_list<vector> const &_vertices,
-		std::initializer_list<data_type> const &_texcoords)
+		vertex_array const &_vertices,
+		texcoord_array const &_texcoords)
+	/*
+	:
+		vertices(
+			_vertices),
+		texcoords(
+			_texcoords)*/
 	{
-		FCPPT_ASSERT(
-			_vertices.size() == _texcoords.size() && _vertices.size() == 3);
-
-		std::copy(
-			_vertices.begin(),_vertices.end(),vertices.begin());
-		std::copy(
-			_texcoords.begin(),_texcoords.end(),texcoords.begin());
+		std::copy(_vertices.begin(),_vertices.end(),vertices.begin());
+		std::copy(_texcoords.begin(),_texcoords.end(),texcoords.begin());
 	}
 };
 }

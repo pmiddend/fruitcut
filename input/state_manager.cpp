@@ -6,29 +6,30 @@
 #include <sge/input/keyboard/key_event.hpp>
 #include <sge/input/keyboard/key.hpp>
 #include <fcppt/assert.hpp>
-#include <functional>
+#include <boost/spirit/home/phoenix/bind.hpp>
+#include <boost/spirit/home/phoenix/core/argument.hpp>
 
 fruitcut::input::state_manager::state_manager(
 	sge::systems::instance const &systems)
 :
 	c1(
 		systems.keyboard_collector()->key_callback(
-			std::bind(
+			boost::phoenix::bind(
 				&state_manager::key_callback_internal,
 				this,
-				std::placeholders::_1))),
+				boost::phoenix::arg_names::arg1))),
 	c2(
 		systems.mouse_collector()->axis_callback(
-			std::bind(
+			boost::phoenix::bind(
 				&state_manager::mouse_axis_callback_internal,
 				this,
-				std::placeholders::_1))),
+				boost::phoenix::arg_names::arg1))),
 	c3(
 		systems.mouse_collector()->button_callback(
-			std::bind(
+			boost::phoenix::bind(
 				&state_manager::mouse_button_callback_internal,
 				this,
-				std::placeholders::_1))),
+				boost::phoenix::arg_names::arg1))),
 	current_state_(
 		0)
 {

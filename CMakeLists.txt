@@ -52,8 +52,7 @@ IF (${CMAKE_COMPILER_IS_GNUCXX})
 		"-Wextra -Wconversion -Wfloat-equal -Wredundant-decls"
 		"-Wstrict-null-sentinel -Winit-self -Woverloaded-virtual"
 		"-Wold-style-cast -Wnon-virtual-dtor -Wctor-dtor-privacy -Wsign-promo"
-		"-Wstrict-aliasing=1 -Wmissing-declarations -Wno-long-long"
-		"-std=c++0x")
+		"-Wstrict-aliasing=1 -Wmissing-declarations -Wno-long-long")
 	# we don't use long long but boost does :(
 
 	ADD_DEFINITIONS(-D BOOST_FILESYSTEM_NO_DEPRECATED)
@@ -86,12 +85,9 @@ SET(files
 	# base 
 	media_path.cpp mesh_to_vertex_buffer.cpp model_to_mesh.cpp machine.cpp cut_mesh.cpp
 	# input
-	#input/state.cpp input/state_manager.cpp input/state_connection.cpp
 	input/state.cpp input/state_manager.cpp
 	# json
 	json/config_wrapper.cpp json/merge_trees.cpp json/process_option.cpp json/string_to_value.cpp
-	# camera
-	# graphics/camera/projection/to_matrix.cpp graphics/camera/projection/perspective.cpp graphics/camera/object.cpp graphics/camera/parameters.cpp
 	# events
 	events/tick.cpp
 	# states
@@ -111,6 +107,7 @@ TARGET_LINK_LIBRARIES(
 	${SGE_SYSTEMS_LIBRARY}
 	${SGE_CAMERA_LIBRARY}
 	${SGE_PARSE_LIBRARY}
+	${SGE_SPRITE_LIBRARY}
 	${Boost_LIBRARIES})
 
 # TODO

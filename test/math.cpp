@@ -5,7 +5,13 @@
 #include <fcppt/math/range_compare.hpp>
 #include <fcppt/math/vector/orthogonalize.hpp>
 #include <fcppt/algorithm/shift_compare.hpp>
+#include <fcppt/algorithm/inner_product.hpp>
+#include <fcppt/assign/make_container.hpp>
 #include <boost/test/unit_test.hpp>
+#include <boost/array.hpp>
+#include <boost/spirit/home/phoenix/function/function.hpp>
+#include <boost/spirit/home/phoenix/core/argument.hpp>
+#include <boost/spirit/home/phoenix/bind.hpp>
 #include <algorithm>
 
 namespace
@@ -50,7 +56,7 @@ public:
 	data_type;
 
 	typedef
-	std::array<vector,3>
+	boost::array<vector,3>
 	array_type;
 
 	typedef
@@ -59,9 +65,15 @@ public:
 
 	array_type points;
 
-	triangle3(std::initializer_list<vector> const &_points)
+	explicit
+	triangle3(
+		vector const &a,
+		vector const &b,
+		vector const &c)
 	{
-		std::copy(_points.begin(),_points.end(),points.begin());
+		points[0] = a;
+		points[1] = b;
+		points[2] = c;
 	}
 };
 
@@ -79,6 +91,43 @@ fcppt::io::ostream &operator<<(fcppt::io::ostream &s,triangle3 const &p)
 typedef
 fruitcut::math::triangle_plane_intersection<triangle3>
 intersection_type;
+
+vector3 const
+get_position(
+	triangle3 const &t,
+	triangle3::size_type const i)
+{
+	return t.points[i];
+}
+
+vector3 const
+get_data(
+	triangle3 const &t,
+	triangle3::size_type const i)
+{
+	return t.points[i];
+}
+
+vector3 const 
+interpolator(
+	vector3 const &a, 
+	vector3 const &b,
+	scalar const c)
+{ 
+	return a * c + (1.0-c) * b;
+}
+
+triangle3 const
+create_triangle(
+	vector3 const &a,
+	vector3 const &/*adata*/,
+	vector3 const &b,
+	vector3 const &/*bdata*/,
+	vector3 const &c,
+	vector3 const &/*cdata*/)
+{
+	return triangle3(a,b,c);
+}
 }
 
 BOOST_AUTO_TEST_CASE(line_plane)
@@ -170,61 +219,21 @@ BOOST_AUTO_TEST_CASE(cut_triangle_test)
 	triangle3 const 
 		middle_triangle
 		(
-			{
-				vector3(1.5,-1,0),
-				vector3(6.0,-2,0),
-				vector3(4.0,3.5,0)
-			}
+			vector3(1.5,-1,0),
+			vector3(6.0,-2,0),
+			vector3(4.0,3.5,0)
 		),
 		upper_triangle
 		(
-			{
-				vector3(2,1,0),
-				vector3(5.5,1,0),
-				vector3(4,5,0)
-			}
+			vector3(2,1,0),
+			vector3(5.5,1,0),
+			vector3(4,5,0)
 		),
 		lower_triangle
 		(
-		{
 			vector3(2,-1,0),
 			vector3(5.5,-1,0),
-			vector3(4,-5,0)
-		});
-
-	std::function<vector3 const &(triangle3 const &,triangle3::size_type)> 
-		get_position = 
-			[](triangle3 const &t,triangle3::size_type const i)
-			{
-				return t.points[i];
-			},
-		get_data = 
-			[](triangle3 const &t,triangle3::size_type const i) -> vector3
-			{
-				//fcppt::io::cout << "returning data: " << t.points[i] << "\n";
-				return t.points[i];
-			};
-
-	std::function<vector3 const(vector3 const &,vector3 const &,scalar)> 
-		interpolator = 
-			[](vector3 const &a, vector3 const &b,scalar c) -> vector3
-			{ 
-				//fcppt::io::cout << "a: " << a << ", b: " << b << "\n";
-				return a * c + (1.0-c) * b;
-			};
-
-	std::function<triangle3 const (vector3 const &,vector3 const &,vector3 const &,vector3 const &,vector3 const &,vector3 const &)> 
-		create_triangle = 
-			[](
-				vector3 const &a,
-				vector3 const &/*adata*/,
-				vector3 const &b,
-				vector3 const &/*bdata*/,
-				vector3 const &c,
-				vector3 const &/*cdata*/)
-			{
-				return triangle3({a,b,c});
-			};
+			vector3(4,-5,0));
 
 	{
 		fcppt::io::cout << FCPPT_TEXT("Cutting a triangle which shouldn't be cut\n");
@@ -252,17 +261,21 @@ BOOST_AUTO_TEST_CASE(cut_triangle_test)
 				&& is.triangles().size() == 1);
 
 		BOOST_CHECK(
-			std::inner_product(
-				is.triangles().front().points.begin(),
-				is.triangles().front().points.end(),
-				upper_triangle.points.begin(),
+			fcppt::algorithm::inner_product(
+				is.triangles().front().points,
+				upper_triangle.points,
 				true,
 				std::logical_and<bool>(),
-				[&epsilon](vector3 const &a,vector3 const &b) 
-				{
-					return 
-						fcppt::math::range_compare(a,b,epsilon);
-				}));
+				boost::phoenix::bind(
+					&fcppt::math::range_compare
+					<
+						vector3,
+						vector3,
+						scalar
+					>,
+					boost::phoenix::arg_names::arg1,
+					boost::phoenix::arg_names::arg2,
+					epsilon)));
 	}
 
 	{
@@ -325,11 +338,9 @@ BOOST_AUTO_TEST_CASE(cut_triangle_test)
 
 		// We cannot test for the exact triangle since it could be permuted
 		triangle3 const expected_triangle(
-			{
 				vector3(2.05556,0,0),
 				vector3(5.27273,0,0),
-				vector3(4,3.5,0),
-			});
+				vector3(4,3.5,0));
 
 		fcppt::io::cout 
 			<< FCPPT_TEXT("Expected the triangle to be: ")
@@ -345,10 +356,10 @@ BOOST_AUTO_TEST_CASE(cut_triangle_test)
 			fcppt::algorithm::shift_compare(
 				is.triangles()[0].points,
 				expected_triangle.points,
-				std::bind(
+				boost::phoenix::bind(
 					&fcppt::math::range_compare<vector3,vector3,scalar>,
-					std::placeholders::_1,
-					std::placeholders::_2,
+					boost::phoenix::arg_names::arg1,
+					boost::phoenix::arg_names::arg2,
 					epsilon)) );
 	}
 
@@ -403,19 +414,17 @@ BOOST_AUTO_TEST_CASE(orthonorm)
 	fcppt::io::cout << FCPPT_TEXT("Orthonormalizing two 2D vectors\n");
 
 	container const 
-		wiki_example
-		{
-			vector2(3,1),
-			vector2(2,2)
-		},
+		wiki_example = 
+			fcppt::assign::make_container<container>
+				(vector2(3,1))
+				(vector2(2,2)),
 		result = 
 			fcppt::math::vector::orthogonalize(
 				wiki_example),
-		expected_result
-		{
-			vector2(3,1),
-			vector2(-0.4,1.2)
-		};
+		expected_result = 
+			fcppt::assign::make_container<container>
+				(vector2(3,1))
+				(vector2(-0.4,1.2));
 
 	fcppt::io::cout 
 		<< FCPPT_TEXT("Expecting ")
