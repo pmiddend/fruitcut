@@ -12,6 +12,7 @@
 #include <boost/spirit/home/phoenix/function/function.hpp>
 #include <boost/spirit/home/phoenix/core/argument.hpp>
 #include <boost/spirit/home/phoenix/bind.hpp>
+#include <boost/bind.hpp>
 #include <algorithm>
 
 namespace
@@ -356,10 +357,10 @@ BOOST_AUTO_TEST_CASE(cut_triangle_test)
 			fcppt::algorithm::shift_compare(
 				is.triangles()[0].points,
 				expected_triangle.points,
-				boost::phoenix::bind(
+				boost::bind(
 					&fcppt::math::range_compare<vector3,vector3,scalar>,
-					boost::phoenix::arg_names::arg1,
-					boost::phoenix::arg_names::arg2,
+					_1,
+					_2,
 					epsilon)) );
 	}
 
