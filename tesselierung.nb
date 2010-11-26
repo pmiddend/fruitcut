@@ -1,0 +1,189 @@
+(* Content-type: application/mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 7.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       145,          7]
+NotebookDataLength[      6852,        180]
+NotebookOptionsPosition[      6491,        163]
+NotebookOutlinePosition[      6827,        178]
+CellTagsIndexPosition[      6784,        175]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"points", "=", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"1.5", ",", "1.5", ",", "1"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"3.5", ",", "4", ",", "1"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"-", "1"}], ",", "3.5", ",", "1"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"1", ",", "5", ",", "1"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"4.5", ",", "2.5", ",", "1"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"4.5", ",", "1", ",", "1"}], "}"}]}], 
+    RowBox[{"(*", 
+     RowBox[{",", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"-", "0.5"}], ",", 
+        RowBox[{"-", "1"}], ",", "1"}], "}"}]}], "*)"}], "}"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"arrows", "=", "\[IndentingNewLine]", 
+   RowBox[{"Drop", "[", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"Map", "[", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"Normalize", "[", 
+         RowBox[{"#1", " ", "-", " ", 
+          RowBox[{"points", "[", 
+           RowBox[{"[", "1", "]"}], "]"}]}], "]"}], "&"}], ",", 
+       "\[IndentingNewLine]", "points"}], "]"}], ",", "\[IndentingNewLine]", 
+     "1"}], "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"normal", " ", "=", " ", "\[IndentingNewLine]", 
+   RowBox[{"Normalize", "[", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"arrows", "[", 
+      RowBox[{"[", "1", "]"}], "]"}], " ", "\[Cross]", 
+     RowBox[{"arrows", "[", 
+      RowBox[{"[", "2", "]"}], "]"}]}], "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"reference", "=", 
+   RowBox[{"arrows", "[", 
+    RowBox[{"[", "1", "]"}], "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"secondnormal", "=", "\[IndentingNewLine]", 
+   RowBox[{"normal", " ", "\[Cross]", "reference"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"angles", "=", "\[IndentingNewLine]", 
+   RowBox[{"Map", "[", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{
+      RowBox[{
+       RowBox[{"If", "[", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"secondnormal", ".", "#1"}], ">", " ", "0"}], " ", ",", 
+         "\[IndentingNewLine]", 
+         RowBox[{"-", "1"}], ",", "\[IndentingNewLine]", "1"}], "]"}], "*", 
+       "\[IndentingNewLine]", 
+       RowBox[{"VectorAngle", "[", 
+        RowBox[{"reference", ",", "#1"}], "]"}]}], "\[IndentingNewLine]", 
+      "&"}], ",", "\[IndentingNewLine]", "arrows"}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{"Graphics3D", "[", 
+  RowBox[{"Map", "[", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"Arrow", "[", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"points", "[", 
+         RowBox[{"[", "1", "]"}], "]"}], ",", "#1"}], "}"}], "]"}], "&"}], 
+    ",", 
+    RowBox[{"Drop", "[", 
+     RowBox[{"points", ",", "1"}], "]"}]}], "]"}], 
+  "]"}], "\[IndentingNewLine]", 
+ RowBox[{"Map", "[", "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"#1", "/", "Degree"}], "&"}], ",", "\[IndentingNewLine]", 
+   "angles"}], "]"}]}], "Input",
+ CellChangeTimes->{{3.499777411075286*^9, 3.4997775012275763`*^9}, {
+   3.499777537457775*^9, 3.499777602458107*^9}, {3.499777638419791*^9, 
+   3.499777664733639*^9}, {3.499777938210232*^9, 3.499777943477754*^9}, 
+   3.499777975448492*^9, {3.499778011718952*^9, 3.499778012706894*^9}, {
+   3.499778044036084*^9, 3.4997780515340023`*^9}, {3.499778183475514*^9, 
+   3.499778294914854*^9}, {3.499778336586265*^9, 3.499778384049512*^9}, {
+   3.499778431945403*^9, 3.499778434053941*^9}, {3.499778496985394*^9, 
+   3.4997784994482317`*^9}, {3.4997785831651373`*^9, 
+   3.4997785836790257`*^9}, {3.4997806258980083`*^9, 
+   3.4997806514049997`*^9}, {3.4997806870877934`*^9, 3.49978074761605*^9}, {
+   3.499780787743586*^9, 3.499780794724429*^9}, {3.499780843051359*^9, 
+   3.499780850616983*^9}, {3.499780881681509*^9, 3.499780969576849*^9}, {
+   3.499781160611969*^9, 3.499781183249134*^9}, {3.49978123160577*^9, 
+   3.499781250985508*^9}, {3.499781281111765*^9, 3.499781322247069*^9}, {
+   3.499781412684589*^9, 3.499781416728363*^9}, {3.4997814772661123`*^9, 
+   3.4997814773518*^9}, 3.499781587654068*^9, {3.499781712775105*^9, 
+   3.499781730164521*^9}, {3.499781778132824*^9, 3.499781794043365*^9}, {
+   3.499781866442816*^9, 3.4997819051228857`*^9}, {3.499781939266362*^9, 
+   3.499782039330902*^9}, {3.4997821363690453`*^9, 3.499782139872094*^9}, {
+   3.499782310062912*^9, 3.4997823135673103`*^9}, {3.499782344538547*^9, 
+   3.4997823810400143`*^9}, {3.499782493170576*^9, 3.4997824997494164`*^9}, {
+   3.499783760972638*^9, 3.499783773433423*^9}, {3.499783897358343*^9, 
+   3.499783924743929*^9}, {3.499783976949601*^9, 3.49978409079569*^9}, {
+   3.499784126772532*^9, 3.499784157475978*^9}, {3.4997842309677896`*^9, 
+   3.4997842758263073`*^9}, {3.499784387385614*^9, 3.499784415922186*^9}, {
+   3.499784568606656*^9, 3.4997845711068487`*^9}, {3.499784636552784*^9, 
+   3.499784651292736*^9}, {3.499784859879285*^9, 3.4997848952280197`*^9}, {
+   3.4997849379057693`*^9, 3.499784939577096*^9}, {3.499785028632496*^9, 
+   3.499785031368565*^9}, {3.499785093837878*^9, 3.499785098063236*^9}}],
+
+Cell[BoxData[
+ Graphics3DBox[{Arrow3DBox[{{1.5, 1.5, 1}, {3.5, 4, 1}}], 
+   Arrow3DBox[{{1.5, 1.5, 1}, {-1, 3.5, 1}}], 
+   Arrow3DBox[{{1.5, 1.5, 1}, {1, 5, 1}}], 
+   Arrow3DBox[{{1.5, 1.5, 1}, {4.5, 2.5, 1}}], 
+   Arrow3DBox[{{1.5, 1.5, 1}, {4.5, 1, 1}}]},
+  ImageSize->{513., 393.},
+  ViewPoint->{0.19543641305022869`, -0.15592353191342753`, 
+   3.3745358881851746`},
+  ViewVertical->{0.5432285739828049, 0.8228670183713721, 
+   1.6193783600957905`}]], "Output",
+ CellChangeTimes->{3.499785031705921*^9}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"0.`", ",", 
+   RowBox[{"-", "90.`"}], ",", 
+   RowBox[{"-", "46.78991060824607`"}], ",", "32.90524292298788`", ",", 
+   "60.80251395393553`"}], "}"}]], "Output",
+ CellChangeTimes->{3.499785031779563*^9}]
+}, Open  ]]
+},
+WindowSize->{638, 1022},
+WindowMargins->{{Automatic, 2}, {Automatic, 0}},
+FrontEndVersion->"7.0 for Linux x86 (64-bit) (November 11, 2008)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[567, 22, 5153, 117, 506, "Input"],
+Cell[5723, 141, 506, 11, 408, "Output"],
+Cell[6232, 154, 243, 6, 30, "Output"]
+}, Open  ]]
+}
+]
+*)
+
+(* End of internal cache information *)
