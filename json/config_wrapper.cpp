@@ -8,10 +8,10 @@
 #include <sge/exception.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/from_std_string.hpp>
-#include <fcppt/algorithm/std/accumulate.hpp>
 #include <boost/spirit/home/phoenix/core/argument.hpp>
 #include <boost/spirit/home/phoenix/operator/arithmetic.hpp>
 #include <boost/spirit/home/phoenix/bind.hpp>
+#include <boost/range/numeric.hpp>
 #include <iostream>
 #include <ostream>
 #include <string>
@@ -23,7 +23,7 @@ fruitcut::json::config_wrapper(
 	char *argv[])
 {
 	sge::parse::json::object config_file =
-		fcppt::algorithm::std::accumulate(
+		boost::accumulate(
 			additional_files,
 			sge::parse::json::parse_file_exn(
 				fruitcut::media_path()/FCPPT_TEXT("config.json")),

@@ -5,13 +5,12 @@
 #include <sge/renderer/vector3.hpp>
 #include <sge/renderer/vector2.hpp>
 #include <sge/renderer/scalar.hpp>
-#include <fcppt/algorithm/std/copy.hpp>
 #include <fcppt/algorithm/map.hpp>
-#include <fcppt/algorithm/std/accumulate.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/math/vector/cross.hpp>
 #include <fcppt/math/vector/static.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
+#include <fcppt/math/vector/angle_between.hpp>
 #include <fcppt/math/vector/length.hpp>
 #include <fcppt/math/vector/normalize.hpp>
 #include <fcppt/math/vector/dot.hpp>
@@ -31,6 +30,7 @@
 #include <boost/range/algorithm_ext/iota.hpp>
 #include <boost/range/algorithm/sort.hpp>
 #include <boost/mpl/integral_c.hpp>
+#include <boost/range/algorithm/copy.hpp>
 #include <boost/bind.hpp>
 #include <algorithm>
 #include <vector>
@@ -81,19 +81,6 @@ interpolate(
 {
 	return a * c + (static_cast<sge::renderer::scalar>(1)-c) * b;
 }
-
-template<typename T,fcppt::math::size_type N>
-T const
-angle(
-	typename fcppt::math::vector::static_<T,N>::type const &a,
-	typename fcppt::math::vector::static_<T,N>::type const &b)
-{
-	std::cerr << "In angle\n";
-	return 
-		std::acos(
-			fcppt::math::vector::dot(a,b)
-				/(fcppt::math::vector::length(a)*fcppt::math::vector::length(b)));
-}
 }
 
 fruitcut::mesh const
@@ -124,12 +111,12 @@ fruitcut::cut_mesh(
 				&interpolate,
 				&create_triangle);
 
-		fcppt::algorithm::std::copy(
+		boost::range::copy(
 			single_result.points(),
 			std::back_inserter(
 				border));
 
-		fcppt::algorithm::std::copy(
+		boost::range::copy(
 			single_result.triangles(),
 			std::back_inserter(
 				result.triangles));
@@ -181,7 +168,13 @@ fruitcut::cut_mesh(
 				boost::phoenix::val(
 					static_cast<sge::renderer::scalar>(1))) * 
 			boost::phoenix::bind(
-				&angle<sge::renderer::scalar,3>,
+				&fcppt::math::vector::angle_between
+				<
+					sge::renderer::scalar,
+					boost::mpl::integral_c<fcppt::math::size_type,3>,
+					fcppt::math::detail::static_storage<sge::renderer::scalar,3>::type,
+					fcppt::math::detail::static_storage<sge::renderer::scalar,3>::type
+				>,
 				boost::phoenix::val(
 					arrows[1]),
 				boost::phoenix::arg_names::arg1));

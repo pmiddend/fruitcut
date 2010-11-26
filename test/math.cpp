@@ -5,10 +5,10 @@
 #include <fcppt/math/range_compare.hpp>
 #include <fcppt/math/vector/orthogonalize.hpp>
 #include <fcppt/algorithm/shift_compare.hpp>
-#include <fcppt/algorithm/inner_product.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <boost/test/unit_test.hpp>
 #include <boost/array.hpp>
+#include <boost/range/numeric.hpp>
 #include <boost/spirit/home/phoenix/function/function.hpp>
 #include <boost/spirit/home/phoenix/core/argument.hpp>
 #include <boost/spirit/home/phoenix/bind.hpp>
@@ -262,7 +262,7 @@ BOOST_AUTO_TEST_CASE(cut_triangle_test)
 				&& is.triangles().size() == 1);
 
 		BOOST_CHECK(
-			fcppt::algorithm::inner_product(
+			boost::inner_product(
 				is.triangles().front().points,
 				upper_triangle.points,
 				true,

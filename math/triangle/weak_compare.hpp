@@ -3,7 +3,7 @@
 
 #include "basic.hpp"
 #include <fcppt/math/range_compare.hpp>
-#include <fcppt/algorithm/inner_product.hpp>
+#include <boost/range/numeric.hpp>
 #include <boost/spirit/home/phoenix/bind.hpp>
 #include <boost/spirit/home/phoenix/core/argument.hpp>
 #include <algorithm>
@@ -55,7 +55,7 @@ weak_compare(
 		bcopy.end());
 
 	return 
-		fcppt::algorithm::inner_product(
+		boost::inner_product(
 			a.points(),
 			bcopy,
 			true,

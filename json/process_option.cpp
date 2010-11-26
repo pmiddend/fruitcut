@@ -6,7 +6,6 @@
 #include <sge/exception.hpp>
 #include <fcppt/assert.hpp>
 #include <fcppt/algorithm/map.hpp>
-#include <fcppt/algorithm/std/accumulate.hpp>
 #include <fcppt/algorithm/shortest_levenshtein.hpp>
 #include <fcppt/io/cout.hpp>
 #include <boost/spirit/include/qi.hpp>
@@ -15,6 +14,7 @@
 #include <boost/spirit/home/phoenix/bind.hpp>
 #include <boost/spirit/home/phoenix/core/argument.hpp>
 #include <boost/spirit/home/phoenix/operator/self.hpp>
+#include <boost/range/numeric.hpp>
 #include <boost/foreach.hpp>
 #include <string>
 #include <vector>
@@ -60,7 +60,7 @@ fruitcut::json::process_option(
 	boost::fusion::at_c<0>(result).pop_back();
 
 	sge::parse::json::object *target = 
-		fcppt::algorithm::std::accumulate(
+		boost::accumulate(
 			boost::fusion::at_c<0>(
 				result),
 			&o,
