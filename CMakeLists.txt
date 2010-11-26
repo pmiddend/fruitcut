@@ -1,4 +1,4 @@
-CMAKE_MINIMUM_REQUIRED(VERSION 2.4)
+CMAKE_MINIMUM_REQUIRED(VERSION 2.6)
 
 PROJECT(fruitcut)
 
@@ -46,11 +46,28 @@ INCLUDE_DIRECTORIES(${SGE_INCLUDE_DIRS})
 ADD_DEFINITIONS(${SGE_CFLAGS})
 # sge end
 
-IF (${CMAKE_COMPILER_IS_GNUCXX})
+# clang check begin
+INCLUDE (CheckCXXSourceRuns)
+
+CHECK_CXX_SOURCE_RUNS(
+	"#include <cstdlib>
+	int main()
+	{
+	#ifdef __clang__
+		return EXIT_SUCCESS;
+	#else
+		return EXIT_FAILURE;
+	#endif
+	}
+	"
+	COMPILER_IS_CLANGPP)
+# clang check end
+
+IF (CMAKE_COMPILER_IS_GNUCXX OR COMPILER_IS_CLANGPP)
 	ADD_DEFINITIONS("
 		-fvisibility=hidden -ansi -pedantic-errors -Wall"
 		"-Wextra -Wconversion -Wfloat-equal -Wredundant-decls"
-		"-Wstrict-null-sentinel -Winit-self -Woverloaded-virtual"
+		"-Winit-self -Woverloaded-virtual"
 		"-Wold-style-cast -Wnon-virtual-dtor -Wctor-dtor-privacy -Wsign-promo"
 		"-Wstrict-aliasing=1 -Wmissing-declarations -Wno-long-long")
 	# we don't use long long but boost does :(

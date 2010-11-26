@@ -62,8 +62,7 @@
 #include <fcppt/math/matrix/vector.hpp>
 #include <fcppt/math/matrix/transpose.hpp>
 #include <fcppt/assign/make_container.hpp>
-#include <boost/spirit/home/phoenix/bind.hpp>
-#include <boost/spirit/home/phoenix/core/argument.hpp>
+#include <boost/bind.hpp>
 
 namespace
 {
@@ -177,26 +176,28 @@ fruitcut::states::ingame::ingame(
         sge::console::sprite_object::point::null())
       .size(
         sge::console::sprite_object::dim(
-          context<machine>().systems().renderer()->screen_size().w(),
+					static_cast<sge::console::sprite_object::unit>(
+						context<machine>().systems().renderer()->screen_size().w()),
           static_cast<sge::console::sprite_object::unit>(
             context<machine>().systems().renderer()->screen_size().h() / 2)))
       .elements()),
 		static_cast<sge::console::output_line_limit>(
 			1000)),
 	console_connection_(
+		// FIXME: phoenix doesn't play along with fcppt::function, so boost::bind here
 		context<machine>().systems().keyboard_collector()->key_callback(
-			boost::phoenix::bind(
+			boost::bind(
 				&ingame::console_callback,
 				this,
-				boost::phoenix::arg_names::arg1))),
+				_1))),
 	state_change_connection_(
 		console_.insert(
 			FCPPT_TEXT("tm"),
-			boost::phoenix::bind(
+			boost::bind(
 				&ingame::toggle_mode,
 				this,
-				boost::phoenix::arg_names::arg1,
-				boost::phoenix::arg_names::arg2),
+				_1,
+				_2),
 			FCPPT_TEXT("Toggles between freelook mode and \"cut\" mode"))),
 	shader_(
 		context<machine>().systems().renderer(),
@@ -217,7 +218,8 @@ fruitcut::states::ingame::ingame(
 				context<machine>().config_file(),
 				FCPPT_TEXT("test-model")))),
 	mesh_(
-		model_to_mesh(model_)),
+		model_to_mesh(
+			model_)),
 	mesh_vb_(
 		mesh_to_vertex_buffer(
 			context<machine>().systems().renderer(),

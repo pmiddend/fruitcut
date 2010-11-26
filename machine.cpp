@@ -35,9 +35,20 @@
 #include <fcppt/text.hpp>
 #include <fcppt/assert.hpp>
 #include <fcppt/string.hpp>
-#include <boost/spirit/home/phoenix/core/reference.hpp>
-
+#include <boost/bind.hpp>
 #include <vector>
+
+namespace
+{
+// phoenix ref is broken with booleans or something, hence this ugly
+// hack
+void
+set_to_true(
+	bool &var)
+{
+	var = true;
+}
+}
 
 fruitcut::machine::machine(
 	int const argc,
@@ -81,7 +92,10 @@ fruitcut::machine::machine(
 		systems_.keyboard_collector()->key_callback(
 			sge::input::keyboard::action(
 				sge::input::keyboard::key_code::escape,
-				boost::phoenix::ref(dead_) = true))),
+				boost::bind(
+					&set_to_true,
+					boost::ref(
+						dead_))))),
 	frame_timer_(
 		sge::time::second(1))
 {

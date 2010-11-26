@@ -57,7 +57,9 @@ find_member(
 					sge::parse::json::object const,
 					sge::parse::json::member_vector const
 				>,
-				boost::phoenix::arg_names::arg1->*&sge::parse::json::object::members,
+				boost::phoenix::bind(
+					&sge::parse::json::object::members,
+					boost::phoenix::arg_names::arg1),
 				boost::phoenix::arg_names::arg2));
 
 	sge::parse::json::member_vector::const_iterator it = 

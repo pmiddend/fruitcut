@@ -38,12 +38,6 @@ public:
 	triangle(
 		vertex_array const &_vertices,
 		texcoord_array const &_texcoords)
-	/*
-	:
-		vertices(
-			_vertices),
-		texcoords(
-			_texcoords)*/
 	{
 		std::copy(_vertices.begin(),_vertices.end(),vertices.begin());
 		std::copy(_texcoords.begin(),_texcoords.end(),texcoords.begin());

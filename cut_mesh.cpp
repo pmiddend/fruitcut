@@ -64,8 +64,6 @@ fruitcut::cut_mesh(
 {
 	mesh result;
 
-	using namespace boost::phoenix::arg_names;
-
 	BOOST_FOREACH(
 		mesh::triangle_sequence::const_reference t,
 		m.triangles)
