@@ -11,7 +11,7 @@
 #include <sge/parse/json/member_vector.hpp>
 #include <sge/exception.hpp>
 #include <fcppt/string.hpp>
-#include <fcppt/algorithm/std/accumulate.hpp>
+#include <boost/range/numeric.hpp>
 #include <boost/algorithm/string/split.hpp>
 #include <boost/spirit/home/phoenix/operator/self.hpp> 
 #include <boost/spirit/home/phoenix/operator/member.hpp> 
@@ -48,7 +48,7 @@ find_member(
 	parts.pop_back();
 
 	sge::parse::json::object const *target = 
-		fcppt::algorithm::std::accumulate(
+		boost::accumulate(
 			parts,
 			&o,
 			&boost::phoenix::bind(
