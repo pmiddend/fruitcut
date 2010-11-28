@@ -5,8 +5,8 @@
 		"camera" : 
 		{
 			"fov" : 90.0,
-			"near" : 1.0,
-			"far" : 100.0,
+			"near" : 0.1,
+			"far" : 10.0,
 			"movement-speed" : 1.0,
 			"rotation-speed" : 200.0
 		}

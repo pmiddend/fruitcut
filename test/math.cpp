@@ -1,5 +1,7 @@
 #include "../math/line_plane_intersection.hpp"
 #include "../math/cut_triangle_at_plane.hpp"
+#include "../math/line/basic.hpp"
+#include "../math/line/distance_to_point.hpp"
 #include <fcppt/io/cout.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/math/range_compare.hpp>
@@ -450,4 +452,65 @@ BOOST_AUTO_TEST_CASE(orthonorm)
 			result[1],
 			expected_result[1],
 			epsilon)));
+}
+
+BOOST_AUTO_TEST_CASE(d_to_point)
+{
+	typedef
+	fruitcut::math::line::basic<scalar,2>
+	line_type;
+
+	typedef
+	line_type::vector
+	vector_type;
+
+	line_type const l(
+		vector_type(
+			1.5,1),
+		vector_type(
+			1,0.5));
+
+	scalar const epsilon = static_cast<scalar>(0.001);
+
+	fcppt::io::cout 
+		<< FCPPT_TEXT("Checking if a point is on a line (it should be)...\n");
+
+	BOOST_CHECK((
+		fruitcut::math::line::distance_to_point<scalar,2>(
+			vector_type(
+				4.5,2.5),
+			l) < epsilon));
+
+	fcppt::io::cout 
+		<< FCPPT_TEXT("Now checking if a point which is not on the line has the right distance...\n");
+
+	fcppt::io::cout 
+		<< FCPPT_TEXT("Distance should be 1.11803, is ") 
+		<< 
+			fruitcut::math::line::distance_to_point<scalar,2>(
+				vector_type(
+					3,3),
+				l) 
+		<< FCPPT_TEXT("\n");
+
+	BOOST_CHECK((
+		fruitcut::math::line::distance_to_point<scalar,2>(
+			vector_type(
+				3,3),
+			l) - static_cast<scalar>(1.11803) < epsilon));
+
+	fcppt::io::cout 
+		<< FCPPT_TEXT("Another test: this time, the distance should be 1.78885 and is ") 
+		<< 
+			fruitcut::math::line::distance_to_point<scalar,2>(
+				vector_type(
+					0.5,-1.5),
+				l) 
+		<< FCPPT_TEXT("...\n");
+
+	BOOST_CHECK((
+		fruitcut::math::line::distance_to_point<scalar,2>(
+			vector_type(
+				0.5,-1.5),
+			l) - static_cast<scalar>(1.78885) < epsilon));
 }

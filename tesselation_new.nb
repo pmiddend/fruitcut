@@ -1,0 +1,142 @@
+(* Content-type: application/mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 7.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       145,          7]
+NotebookDataLength[      3891,        132]
+NotebookOptionsPosition[      3494,        114]
+NotebookOutlinePosition[      3830,        129]
+CellTagsIndexPosition[      3787,        126]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"points", "=", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"1.5", ",", "1.5"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"3.5", ",", "4"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"-", "1"}], ",", "3.5"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"1", ",", "5"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"4.5", ",", "2.5"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"4.5", ",", "1"}], "}"}]}], "}"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{"arrows", "=", "\[IndentingNewLine]", 
+  RowBox[{"Drop", "[", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"Map", "[", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"#1", " ", "-", " ", 
+        RowBox[{"points", "[", 
+         RowBox[{"[", "1", "]"}], "]"}]}], "&"}], ",", "\[IndentingNewLine]", 
+      "points"}], "]"}], ",", "\[IndentingNewLine]", "1"}], 
+   "]"}]}], "\[IndentingNewLine]", 
+ RowBox[{"Graphics", "[", 
+  RowBox[{"Map", "[", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"Arrow", "[", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"points", "[", 
+         RowBox[{"[", "1", "]"}], "]"}], ",", "#1"}], "}"}], "]"}], "&"}], 
+    ",", 
+    RowBox[{"Drop", "[", 
+     RowBox[{"points", ",", "1"}], "]"}]}], "]"}], 
+  "]"}], "\[IndentingNewLine]", 
+ RowBox[{"angles", "=", "\[IndentingNewLine]", 
+  RowBox[{"Map", "[", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"VectorAngle", "[", 
+      RowBox[{"#1", ",", 
+       RowBox[{"{", 
+        RowBox[{"1", ",", "0"}], "}"}]}], "]"}], "&"}], ",", 
+    "\[IndentingNewLine]", "arrows"}], "]"}]}]}], "Input",
+ CellChangeTimes->{{3.499869741387917*^9, 3.499869839928795*^9}, {
+  3.4998699480517473`*^9, 3.499869948809938*^9}}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{"2.`", ",", "2.5`"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"-", "2.5`"}], ",", "2.`"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"-", "0.5`"}], ",", "3.5`"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"3.`", ",", "1.`"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"3.`", ",", 
+     RowBox[{"-", "0.5`"}]}], "}"}]}], "}"}]], "Output",
+ CellChangeTimes->{3.499869778953014*^9, 3.499869840342553*^9, 
+  3.499869949728857*^9}],
+
+Cell[BoxData[
+ GraphicsBox[{ArrowBox[{{1.5, 1.5}, {3.5, 4}}], 
+   ArrowBox[{{1.5, 1.5}, {-1, 3.5}}], ArrowBox[{{1.5, 1.5}, {1, 5}}], 
+   ArrowBox[{{1.5, 1.5}, {4.5, 2.5}}], 
+   ArrowBox[{{1.5, 1.5}, {4.5, 1}}]}]], "Output",
+ CellChangeTimes->{3.499869778953014*^9, 3.499869840342553*^9, 
+  3.499869949732052*^9}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+  "0.8960553845713439`", ",", "2.4668517113662407`", ",", 
+   "1.7126933813990606`", ",", "0.3217505543966423`", ",", 
+   "0.16514867741462674`"}], "}"}]], "Output",
+ CellChangeTimes->{3.499869778953014*^9, 3.499869840342553*^9, 
+  3.4998699497482443`*^9}]
+}, Open  ]]
+},
+WindowSize->{1278, 510},
+WindowMargins->{{0, Automatic}, {Automatic, 0}},
+FrontEndVersion->"7.0 for Linux x86 (64-bit) (November 11, 2008)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[567, 22, 1769, 53, 240, "Input"],
+Cell[2339, 77, 525, 17, 30, "Output"],
+Cell[2867, 96, 312, 6, 280, "Output"],
+Cell[3182, 104, 296, 7, 30, "Output"]
+}, Open  ]]
+}
+]
+*)
+
+(* End of internal cache information *)
+
