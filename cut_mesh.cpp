@@ -10,6 +10,7 @@
 #include <fcppt/math/vector/static.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
 #include <fcppt/math/vector/length.hpp>
+#include <fcppt/assign/make_array.hpp>
 #include <boost/foreach.hpp>
 #include <boost/next_prior.hpp>
 #include <boost/spirit/home/phoenix/bind.hpp>
@@ -29,110 +30,6 @@
 #include <iterator>
 #include <iostream>
 #include <cmath>
-
-namespace
-{
-// TODO: Use this instead of explicit loop below
-#if 0
-template<typename Iterator>
-class pair_iterator
-:
-	public 
-		boost::iterator_facade
-		<
-			pair_iterator<Iterator>,
-			std::pair<Iterator,Iterator>,
-			// NOTE: Where does this come from (which header)?
-			boost::forward_traversal_tag
-		>
-{
-public:
-	typedef
-	Iterator
-	iterator_impl;
-
-	typedef
-	std::pair<iterator_impl,iterator_impl>
-	value_type;
-
-	// We need this to satisfy the forward traversal iterator
-	// requirements
-	explicit
-	pair_iterator()
-	:
-		its_(),
-		end_()
-	{
-	}
-
-	explicit
-	pair_iterator(
-		iterator_impl const &it,
-		iterator_impl const &_end)
-	:
-		its_(
-			value_type(
-				it,
-				boost::next(
-					it))),
-		end_(
-			_end)
-	{
-	}
-
-	bool
-	at_end() const
-	{
-		return its_.first == end_;
-	}
-private:
-	value_type its_;
-	iterator_impl end_;
-
-	friend class boost::iterator_core_access;
-
-	void 
-	increment() 
-	{ 
-		if (its_.second == boost::prior(end_) && its_.first != end_)
-		{
-			its_.first++;
-			its_.second = 
-				boost::next(
-					its_.first);
-		}
-		else
-			its_.second++;
-	}
-
-	bool 
-	equal(
-		pair_iterator const& other) const
-	{
-		return its_ == other.its_ && end_ == other.end_;
-	}
-
-	value_type &
-	dereference() const 
-	{ 
-		// FIXME
-		return const_cast<pair_iterator &>(*this).its_;
-	}
-};
-
-for(
-	pair_it pit(
-		s.begin(),
-		s.end()); 
-	pit != pair_it(boost::prior(s.end()),s.end()); 
-	++pit)
-{
-	std::cout << *(pit->first) << ", " << *(pit->second) << "\n";
-}
-
-}
-#endif
-}
 
 namespace
 {
@@ -204,7 +101,9 @@ transform_texcoord(
 {
 	return 
 		sge::renderer::vector2(
-			t.x()/static_cast<sge::renderer::scalar>(2) + static_cast<sge::renderer::scalar>(0.5),
+			t.x()/
+				static_cast<sge::renderer::scalar>(2) + 
+				static_cast<sge::renderer::scalar>(0.5),
 			t.y());
 }
 }
@@ -274,10 +173,6 @@ fruitcut::cut_mesh(
 	std::vector<sge::renderer::vector2>
 	texcoord_vector;
 
-	std::cout << "input points before: \n";
-	BOOST_FOREACH(point_sequence::const_reference r,border)
-		std::cout << "{" <<  r[0] << "," << r[1] << "," << r[2] << "}," << "\n";
-
 	// No const here, we want to delete some of the points
 	texcoord_vector texcoords = 
 		math::generate_texture_coordinates<texcoord_vector>(
@@ -295,10 +190,6 @@ fruitcut::cut_mesh(
 	boost::iota(
 		indices,
 		static_cast<index_sequence::value_type>(0));
-
-	std::cout << "texcoords before:\n";
-	BOOST_FOREACH(texcoord_vector::const_reference r,texcoords)
-		std::cout << "{" << r[0] << "," << r[1] << "}," << "\n";
 
 	// Step 1: Find the point with the lowest y coordinate (note the
 	// sloppy equality and the lexicographical comparison)
@@ -323,9 +214,6 @@ fruitcut::cut_mesh(
 
 	sge::renderer::vector2 const min_y = 
 		*texcoords.begin();
-
-	std::cout << "minimum texcoord:\n";
-	std::cout << "{" << min_y[0] << "," << min_y[1] << "}," << "\n";
 
 	// This is a set because maybe we delete a point more than once
 	typedef
@@ -362,14 +250,7 @@ fruitcut::cut_mesh(
 			border.begin() + static_cast<texcoord_vector::difference_type>(r));
 	}
 
-	std::cout << "texcoords after:\n";
-	BOOST_FOREACH(texcoord_vector::const_reference r,texcoords)
-		std::cout << "{" << r[0] << "," << r[1] << "}," << "\n";
-
-	std::cout << "input points after: \n";
-	BOOST_FOREACH(point_sequence::const_reference r,border)
-		std::cout << "{" <<  r[0] << "," << r[1] << "," << r[2] << "}," << "\n";
-
+	// Finally, sort the indices by the texcoord angles
 	std::sort(
 		boost::next(
 			indices.begin()),
@@ -385,43 +266,21 @@ fruitcut::cut_mesh(
 		index_sequence::const_iterator i = boost::next(indices.begin()); 
 		i != boost::prior(indices.end()); 
 		++i)
-	{
-		/* Too verbose
-		std::cout 
-			<< "Adding triangle: " 
-			<< indices.front()
-			<< ","
-			<< (*i)
-			<< ","
-			<< (*boost::next(i))
-			<< "\n";
-		*/
-		triangle::vertex_array const vertices = 
-			{{
-				border[indices.front()],
-				border[*i],
-				border[
-					*boost::next(
-						i)]
-			}};
-
-		triangle::texcoord_array const newtexcoords = 
-			{{
-				transform_texcoord(
-					texcoords[indices.front()]),
-				transform_texcoord(
-					texcoords[*i]),
-				transform_texcoord(
-					texcoords[
-						*boost::next(
-							i)])
-			}};
-
 		result.triangles.push_back(
 			triangle(
-				vertices,
-				newtexcoords));
-	}
+				fcppt::assign::make_array<triangle::vector>
+					(border[indices.front()])
+					(border[*i])
+					(border[*boost::next(i)]),
+				fcppt::assign::make_array<triangle::data_type>
+					(transform_texcoord(
+						texcoords[indices.front()]))
+					(transform_texcoord(
+						texcoords[*i]))
+					(transform_texcoord(
+						texcoords[
+							*boost::next(
+								i)]))));
 	
 	return result;
 }

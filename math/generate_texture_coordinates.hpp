@@ -18,7 +18,6 @@
 #include <boost/spirit/home/phoenix/operator/comparison.hpp> 
 #include <boost/next_prior.hpp> 
 #include <algorithm>
-#include <iostream>
 #include <vector>
 
 namespace fruitcut
@@ -87,38 +86,6 @@ generate_texture_coordinates(
 					input[0],
 					input[1] - input[0])) > epsilon);
 
-	std::cout << "Original arrows:\n";
-
-	std::cout 
-		<< "Arrow[{{" 
-		<< input[0][0]
-		<< "," 
-		<< input[0][1]
-		<< "," 
-		<< input[0][2]
-		<< "},{" 
-		<< input[1][0]
-		<< "," 
-		<< input[1][1]
-		<< "," 
-		<< input[1][2]
-		<< "}}]\n";
-
-	std::cout 
-		<< "Arrow[{{" 
-		<< input[0][0]
-		<< "," 
-		<< input[0][1]
-		<< "," 
-		<< input[0][2]
-		<< "},{" 
-		<< (*second_point)[0]
-		<< "," 
-		<< (*second_point)[1]
-		<< "," 
-		<< (*second_point)[2]
-		<< "}}]\n";
-
 	FCPPT_ASSERT_MESSAGE(
 		second_point != input.end(),
 		FCPPT_TEXT("Degenerate triangle found"));
@@ -147,38 +114,6 @@ generate_texture_coordinates(
 		b = parametrization[0],
 		c = parametrization[1];
 
-	std::cout << "Orthonormalized arrows:\n";
-
-	std::cout 
-		<< "Arrow[{{" 
-		<< a[0]
-		<< "," 
-		<< a[1]
-		<< "," 
-		<< a[2]
-		<< "},{" 
-		<< (a+b)[0]
-		<< "," 
-		<< (a+b)[1]
-		<< "," 
-		<< (a+b)[2]
-		<< "}}]\n";
-
-	std::cout 
-		<< "Arrow[{{" 
-		<< a[0]
-		<< "," 
-		<< a[1]
-		<< "," 
-		<< a[2]
-		<< "},{" 
-		<< (a+c)[0]
-		<< "," 
-		<< (a+c)[1]
-		<< "," 
-		<< (a+c)[2]
-		<< "}}]\n";
-
 	// This scary looking statement assigns (f,g) (the plane parameters)
 	// to each point.
 	TargetContainer result = 
@@ -201,16 +136,6 @@ generate_texture_coordinates(
 	// That's the new origin
 	a = a + min[0] * b + min[1] * c;
 
-	/*
-	std::cout 
-		<< "New Origin:\n"
-		<< "Disk[{" 
-		<< a[0] << ","
-		<< a[1] << ","
-		<< a[2]
-		<< "},sr]\n";
-	*/
-
 	// To normalize the values to [0,1], we also need to know the
 	// maximum distance from the origin to a point
 	texcoord maxdist = texcoord::null();
@@ -230,38 +155,6 @@ generate_texture_coordinates(
 		maxdist[0] = std::max(result.back()[0],maxdist[0]);
 		maxdist[1] = std::max(result.back()[1],maxdist[1]);
 	}
-
-	std::cout << "Bounding arrows:\n";
-
-	std::cout 
-		<< "Arrow[{{" 
-		<< a[0]
-		<< "," 
-		<< a[1]
-		<< "," 
-		<< a[2]
-		<< "},{" 
-		<< (a+maxdist[0] * b)[0]
-		<< "," 
-		<< (a+maxdist[0] * b)[1]
-		<< "," 
-		<< (a+maxdist[0] * b)[2]
-		<< "}}]\n";
-
-	std::cout 
-		<< "Arrow[{{" 
-		<< a[0]
-		<< "," 
-		<< a[1]
-		<< "," 
-		<< a[2]
-		<< "},{" 
-		<< (a+maxdist[1] * c)[0]
-		<< "," 
-		<< (a+maxdist[1] * c)[1]
-		<< "," 
-		<< (a+maxdist[1] * c)[2]
-		<< "}}]\n";
 
 	// And here's the normalization
 	BOOST_FOREACH(texcoord &x,result)

@@ -5,7 +5,6 @@
 #include <sge/renderer/vector2.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
 #include <boost/array.hpp>
-#include <algorithm>
 
 namespace fruitcut
 {
@@ -35,12 +34,16 @@ public:
 	vertex_array vertices;
 	texcoord_array texcoords;
 
+	explicit
 	triangle(
 		vertex_array const &_vertices,
 		texcoord_array const &_texcoords)
+	:
+		vertices(
+			_vertices),
+		texcoords(
+			_texcoords)
 	{
-		std::copy(_vertices.begin(),_vertices.end(),vertices.begin());
-		std::copy(_texcoords.begin(),_texcoords.end(),texcoords.begin());
 	}
 };
 }
