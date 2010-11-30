@@ -11,5 +11,6 @@
 			"rotation-speed" : 200.0
 		}
 	},
-	"test-model" : "melon.md3"
+	"test-model" : "melon.md3",
+	"test-model-texture" : "melon.png"
 }

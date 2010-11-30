@@ -13,6 +13,7 @@
 #include <sge/camera/parameters.hpp>
 #include <sge/camera/projection/perspective.hpp>
 #include <sge/font/system.hpp>
+#include <sge/font/text/lit.hpp>
 #include <sge/image/colors.hpp>
 #include <sge/font/size_type.hpp>
 #include <sge/console/sprite_object.hpp>
@@ -31,6 +32,7 @@
 #include <sge/renderer/vector3.hpp>
 #include <sge/input/keyboard/collector.hpp>
 #include <sge/image/file.hpp>
+#include <sge/image/create_texture.hpp>
 #include <sge/input/keyboard/key_event.hpp>
 #include <sge/renderer/resource_flags_none.hpp>
 #include <sge/shader/vf_to_string.hpp>
@@ -40,6 +42,8 @@
 #include <sge/shader/variable_type.hpp>
 #include <sge/renderer/state/trampoline.hpp>
 #include <sge/renderer/state/draw_mode.hpp>
+#include <sge/renderer/state/depth_func.hpp>
+#include <sge/renderer/state/float.hpp>
 #include <sge/renderer/state/scoped.hpp>
 #include <sge/renderer/state/list.hpp>
 #include <sge/renderer/state/bool.hpp>
@@ -192,13 +196,44 @@ fruitcut::states::ingame::ingame(
 				_1))),
 	state_change_connection_(
 		console_.insert(
-			FCPPT_TEXT("tm"),
+			SGE_FONT_TEXT_LIT("tm"),
 			boost::bind(
 				&ingame::toggle_mode,
 				this,
 				_1,
 				_2),
-			FCPPT_TEXT("Toggles between freelook mode and \"cut\" mode"))),
+			SGE_FONT_TEXT_LIT("Toggles between freelook mode and \"cut\" mode"))),
+	wireframe_(
+		false),
+	wireframe_connection_(
+		console_.insert(
+			SGE_FONT_TEXT_LIT("wireframe"),
+			// This could, again, be a phoenix actor, but phoenix doesn't
+			// like fcppt::function
+			boost::bind(
+				&ingame::toggle_wireframe,
+				this,
+				_1,
+				_2),
+			SGE_FONT_TEXT_LIT("Toggle wireframe on/off"))),
+	model_(
+		context<machine>().systems().md3_loader()->load(
+			media_path()/
+			FCPPT_TEXT("models")/
+			json::find_member<fcppt::string>(
+				context<machine>().config_file(),
+				FCPPT_TEXT("test-model")))),
+	model_texture_(
+		sge::image::create_texture(
+			media_path()/
+			FCPPT_TEXT("textures")/
+			json::find_member<fcppt::string>(
+				context<machine>().config_file(),
+				FCPPT_TEXT("test-model-texture")),
+			context<machine>().systems().renderer(),
+			context<machine>().systems().image_loader(),
+			sge::renderer::filter::linear,
+			sge::renderer::resource_flags::none)),
 	shader_(
 		context<machine>().systems().renderer(),
 		media_path()/FCPPT_TEXT("shaders")/FCPPT_TEXT("vertex.glsl"),
@@ -209,14 +244,10 @@ fruitcut::states::ingame::ingame(
 					"mvp",
 					sge::shader::variable_type::uniform,
 					sge::shader::mat4())),
-		sge::shader::sampler_sequence()),
-	model_(
-		context<machine>().systems().md3_loader()->load(
-			media_path()/
-			FCPPT_TEXT("models")/
-			json::find_member<fcppt::string>(
-				context<machine>().config_file(),
-				FCPPT_TEXT("test-model")))),
+		fcppt::assign::make_container<sge::shader::sampler_sequence>(
+			sge::shader::sampler(
+				"texture",
+				model_texture_))),
 	mesh_(
 		model_to_mesh(
 			model_)),
@@ -228,7 +259,10 @@ fruitcut::states::ingame::ingame(
 	scoped_state_(
 		context<machine>().systems().renderer(),
 		sge::renderer::state::list
-			(sge::renderer::state::bool_::clear_backbuffer = true)),
+			(sge::renderer::state::bool_::clear_backbuffer = true)
+			(sge::renderer::state::bool_::clear_zbuffer = true)
+			(sge::renderer::state::depth_func::less)
+			(sge::renderer::state::float_::zbuffer_clear_val = 1.0f)),
 	mesh_translation_(
 		sge::renderer::vector3(
 			3,
@@ -266,10 +300,6 @@ fruitcut::states::ingame::react(
 {
 	sge::shader::scoped scoped_shader(
 		shader_);
-
-	context<machine>().systems().renderer()->state(
-		sge::renderer::state::list
-			(sge::renderer::state::draw_mode::line));
 
 	shader_.set_uniform(
 		"mvp",
@@ -374,4 +404,18 @@ fruitcut::states::ingame::toggle_mode(
 {
 	post_event(
 		events::toggle_mode());
+}
+
+void
+fruitcut::states::ingame::toggle_wireframe(
+	sge::console::arg_list const &,
+	sge::console::object &)
+{
+	context<machine>().systems().renderer()->state(
+		sge::renderer::state::list(
+			wireframe_
+			? 
+				sge::renderer::state::draw_mode::fill 
+			: sge::renderer::state::draw_mode::line));
+	wireframe_ = !wireframe_;
 }

@@ -18,6 +18,7 @@
 #include <sge/shader/object.hpp>
 #include <sge/model/object_ptr.hpp>
 #include <sge/renderer/state/scoped.hpp>
+#include <sge/renderer/texture_ptr.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/math/matrix/basic_impl.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
@@ -87,10 +88,13 @@ private:
 	sge::console::gfx console_gfx_;
 	fcppt::signal::scoped_connection console_connection_;
 	fcppt::signal::scoped_connection state_change_connection_;
+	bool wireframe_;
+	fcppt::signal::scoped_connection wireframe_connection_;
 
 	// game relevant stuff
-	sge::shader::object shader_;
 	sge::model::object_ptr model_;
+	sge::renderer::texture_ptr model_texture_;
+	sge::shader::object shader_;
 	mesh mesh_;
 	sge::renderer::vertex_buffer_ptr mesh_vb_;
 	sge::renderer::state::scoped scoped_state_;
@@ -103,6 +107,11 @@ private:
 
 	void
 	toggle_mode(
+		sge::console::arg_list const &,
+		sge::console::object &);
+
+	void
+	toggle_wireframe(
 		sge::console::arg_list const &,
 		sge::console::object &);
 };

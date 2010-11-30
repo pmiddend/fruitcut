@@ -3,6 +3,7 @@
 #include "triangle.hpp"
 #include "model/vf/format.hpp"
 #include "model/vf/position.hpp"
+#include "model/vf/texcoord.hpp"
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/vf/dynamic/make_format.hpp>
 #include <sge/renderer/size_type.hpp>
@@ -64,12 +65,18 @@ fruitcut::mesh_to_vertex_buffer(
 		triangle const &t,
 		m.triangles)
 	{
-		(vb_it++)->set<model::vf::position>(
+		(vb_it)->set<model::vf::position>(
 			t.vertices[0]);
-		(vb_it++)->set<model::vf::position>(
+		(vb_it++)->set<model::vf::texcoord>(
+			t.texcoords[0]);
+		(vb_it)->set<model::vf::position>(
 			t.vertices[1]);
-		(vb_it++)->set<model::vf::position>(
+		(vb_it++)->set<model::vf::texcoord>(
+			t.texcoords[1]);
+		(vb_it)->set<model::vf::position>(
 			t.vertices[2]);
+		(vb_it++)->set<model::vf::texcoord>(
+			t.texcoords[2]);
 	}
 
 	return vb;

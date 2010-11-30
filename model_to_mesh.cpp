@@ -49,10 +49,22 @@ fruitcut::model_to_mesh(
 		{
 			vt[i] = 
 				fcppt::math::vector::structure_cast<sge::renderer::vector3>(
-					vertices[*(index+static_cast<sge::model::index_sequence::const_iterator::difference_type>(i))]);
-			tc[i] = 
+					vertices[
+						*boost::next(
+							index,
+							i)]);
+
+			sge::renderer::vector2 const current_coord = 
 				fcppt::math::vector::structure_cast<sge::renderer::vector2>(
-					texcoords[*(index+static_cast<sge::model::index_sequence::const_iterator::difference_type>(i))]);
+					texcoords[
+						*boost::next(
+							index,
+							i)]);
+				
+			tc[i] = 
+				sge::renderer::vector2(
+					current_coord.x() / 2,
+					current_coord.y());
 		}
 		result.triangles.push_back(
 			triangle(
