@@ -2,7 +2,7 @@
 #define FRUITCUT_SPRITE_TYPE_CHOICES_HPP_INCLUDED
 
 #include <sge/sprite/type_choices.hpp>
-#include <sge/sprite/no_color.hpp>
+#include <sge/image/color/rgba8_format.hpp>
 
 namespace fruitcut
 {
@@ -13,7 +13,7 @@ sge::sprite::type_choices
 <
 	int,
 	float,
-	sge::sprite::no_color
+	sge::image::color::rgba8_format
 >
 type_choices;
 }

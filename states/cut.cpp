@@ -7,6 +7,7 @@
 #include <sge/sprite/external_system_impl.hpp>
 #include <sge/sprite/render_one.hpp>
 #include <sge/sprite/parameters.hpp>
+#include <sge/sprite/default_equal.hpp>
 #include <sge/image/multi_loader.hpp>
 #include <sge/renderer/filter/linear.hpp>
 #include <sge/renderer/resource_flags_none.hpp>
@@ -22,6 +23,7 @@
 #include <sge/input/mouse/button_event.hpp>
 #include <sge/input/mouse/button_code.hpp>
 #include <sge/image/file.hpp>
+#include <sge/image/color/init.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/math/vector/dim.hpp>
 #include <fcppt/math/dim/arithmetic.hpp>
@@ -97,6 +99,14 @@ fruitcut::states::cut::cut(
 			// default value is false (or undefined - both wrong)
 			.visible(
 				true)
+			.color(
+				sprite::object::color_type(
+					(sge::image::color::init::red %= 1.0)
+					(sge::image::color::init::green %= 1.0)
+					(sge::image::color::init::blue %= 1.0)
+					(sge::image::color::init::alpha %= 1.0)))
+			.system(
+				&ss_)
 			.texture(
 				sge::texture::part_ptr(
 					new sge::texture::part_raw(
@@ -127,6 +137,14 @@ fruitcut::states::cut::cut(
 			.texture_size()
 			.visible(
 				false)
+			.color(
+				sprite::object::color_type(
+					(sge::image::color::init::red %= 1.0)
+					(sge::image::color::init::green %= 1.0)
+					(sge::image::color::init::blue %= 1.0)
+					(sge::image::color::init::alpha %= 1.0)))
+			.system(
+				&ss_)
 			.texture(
 				sge::texture::part_ptr(
 					new sge::texture::part_raw(
@@ -149,15 +167,8 @@ boost::statechart::result
 fruitcut::states::cut::react(
 	events::render_overlay const &)
 {
-	sge::sprite::render_one(
-		ss_,
-		cursor_);
-	sge::sprite::render_one(
-		ss_,
-		point1_);
-	sge::sprite::render_one(
-		ss_,
-		point2_);
+	ss_.render_all(
+		sge::sprite::default_equal());
 	return forward_event();
 }
 

@@ -8,6 +8,7 @@
 #include "../sprite/object.hpp"
 #include <sge/input/mouse/axis_event_fwd.hpp>
 #include <sge/input/mouse/button_event_fwd.hpp>
+#include <sge/sprite/intrusive/system_impl.hpp>
 #include <boost/statechart/state.hpp>
 #include <boost/statechart/custom_reaction.hpp>
 #include <boost/mpl/vector/vector10.hpp>
