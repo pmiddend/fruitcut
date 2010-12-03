@@ -24,10 +24,10 @@ fruitcut::sandbox::particle::update()
 		(sge::image::color::init::green %= 1.0)
 		(sge::image::color::init::blue %= 1.0)
 		(sge::image::color::init::alpha %= 
-			static_cast<double>(
+			(1.0 - static_cast<double>(
 				(fcppt::chrono::high_resolution_clock::now() - birth_).count())/
 			static_cast<double>(
-				life_time_.count())));
+				life_time_.count()))));
 }
 
 bool 
@@ -35,4 +35,8 @@ fruitcut::sandbox::particle::dead() const
 {
 	return 
 		(fcppt::chrono::high_resolution_clock::now() - birth_).count() > life_time_.count();
+}
+
+fruitcut::sandbox::particle::~particle()
+{
 }

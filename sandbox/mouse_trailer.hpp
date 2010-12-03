@@ -9,9 +9,12 @@
 #include <sge/input/mouse/axis_event_fwd.hpp>
 #include <sge/sprite/object_impl.hpp>
 #include <sge/sprite/intrusive/system_impl.hpp>
+#include <sge/time/timer.hpp>
 #include <sge/texture/part_ptr.hpp>
-#include <sge/input/mouse/device_fwd.hpp>
+#include <sge/renderer/vector2.hpp>
+#include <sge/input/mouse/device_ptr.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
+#include <fcppt/math/vector/basic_impl.hpp>
 #include <vector>
 
 namespace fruitcut
@@ -25,13 +28,15 @@ public:
 	mouse_trailer(
 		sge::renderer::device_ptr,
 		sge::image::multi_loader &,
-		sge::input::mouse::device &);
+		sge::input::mouse::device_ptr);
 
 	void
 	update();
 
 	void
 	render();
+
+	~mouse_trailer();
 private:
 	typedef
 	std::vector<particle>
@@ -42,6 +47,8 @@ private:
 	particle_sequence particles_;
 	fcppt::signal::scoped_connection mouse_axis_connection_;
 	sge::texture::part_ptr particle_texture_;
+	sge::time::timer update_timer_;
+	sge::renderer::vector2 old_position_;
 
 	void
 	callback(

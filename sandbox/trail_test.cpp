@@ -98,7 +98,7 @@ try
 	fruitcut::sandbox::mouse_trailer mouse_trailer(
 		sys.renderer(),
 		sys.image_loader(),
-		*sys.mouse_collector());
+		sys.mouse_collector());
 
 	bool running = true;
 
@@ -125,6 +125,7 @@ try
 			rend
 		);
 
+		mouse_trailer.update();
 		mouse_trailer.render();
 	}
 }

@@ -33,6 +33,8 @@ public:
 
 	bool
 	dead() const;
+
+	~particle();
 private:
 	sprite::object sprite_;
 	time_point birth_;
