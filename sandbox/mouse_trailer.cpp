@@ -19,7 +19,7 @@
 #include <sge/sprite/default_equal.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/chrono/duration_cast.hpp>
-#include <fcppt/chrono/seconds.hpp>
+#include <fcppt/chrono/milliseconds.hpp>
 #include <fcppt/math/vector/structure_cast.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
 #include <fcppt/math/vector/length.hpp>
@@ -79,7 +79,7 @@ fruitcut::sandbox::mouse_trailer::mouse_trailer(
 				sge::renderer::resource_flags::none))),
 	update_timer_(
 		sge::time::millisecond(
-			10)),
+			5)),
 	old_position_(
 		fcppt::math::vector::structure_cast<sge::renderer::vector2>(
 			cursor_.pos() + cursor_.size()/2))
@@ -101,7 +101,7 @@ fruitcut::sandbox::mouse_trailer::update()
 		sge::renderer::scalar const
 			particle_length = 
 				static_cast<sge::renderer::scalar>(
-					particle_texture_->dim().w()) / 3,
+					particle_texture_->dim().w()) / 10,
 			length = 
 				std::max(
 					fcppt::math::vector::length(
@@ -134,8 +134,8 @@ fruitcut::sandbox::mouse_trailer::update()
 								(sge::image::color::init::blue %= 1.0)
 								(sge::image::color::init::alpha %= 1.0))),
 					fcppt::chrono::duration_cast<particle::duration>(
-						fcppt::chrono::seconds(
-							1))));
+						fcppt::chrono::milliseconds(
+							200))));
 		}
 	
 		old_position_ = 
