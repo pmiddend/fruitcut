@@ -8,8 +8,8 @@
 #include <fcppt/math/vector/orthogonalize.hpp>
 #include <fcppt/algorithm/shift_compare.hpp>
 #include <fcppt/assign/make_container.hpp>
+#include <fcppt/tr1/array.hpp>
 #include <boost/test/unit_test.hpp>
-#include <boost/array.hpp>
 #include <boost/range/numeric.hpp>
 #include <boost/spirit/home/phoenix/function/function.hpp>
 #include <boost/spirit/home/phoenix/core/argument.hpp>
@@ -59,7 +59,7 @@ public:
 	data_type;
 
 	typedef
-	boost::array<vector,3>
+	std::tr1::array<vector,3>
 	array_type;
 
 	typedef

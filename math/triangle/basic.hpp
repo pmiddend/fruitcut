@@ -4,8 +4,7 @@
 #include <fcppt/math/vector/vector.hpp>
 #include <fcppt/math/size_type.hpp>
 #include <fcppt/io/ostream.hpp>
-#include <initializer_list>
-#include <boost/array.hpp>
+#include <fcppt/tr1/array.hpp>
 #include <algorithm>
 
 namespace fruitcut
@@ -28,11 +27,11 @@ public:
 	vector;
 
 	typedef 
-	boost::array<vector,3>
+	std::tr1::array<vector,3>
 	point_array;
 
 	typedef
-	boost::array<Data,3>
+	std::tr1::array<Data,3>
 	data_array;
 
 	basic(

@@ -4,7 +4,7 @@
 #include <sge/renderer/vector3.hpp>
 #include <sge/renderer/vector2.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
-#include <boost/array.hpp>
+#include <fcppt/tr1/array.hpp>
 
 namespace fruitcut
 {
@@ -20,11 +20,11 @@ public:
 	data_type;
 
 	typedef
-	boost::array<vector,3>
+	std::tr1::array<vector,3>
 	vertex_array;
 
 	typedef
-	boost::array<data_type,3>
+	std::tr1::array<data_type,3>
 	texcoord_array;
 
 	typedef

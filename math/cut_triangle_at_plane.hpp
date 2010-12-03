@@ -12,7 +12,7 @@
 #include <boost/spirit/home/phoenix/operator/if_else.hpp> 
 #include <boost/spirit/home/phoenix/core/argument.hpp>
 #include <boost/spirit/home/phoenix/bind.hpp>
-#include <boost/array.hpp>
+#include <fcppt/tr1/array.hpp>
 #include <vector>
 #include <algorithm>
 
@@ -70,14 +70,14 @@ cut_triangle_at_plane(
 
 	result_type result;
 
-	boost::array<vector,3> const points = 
+	std::tr1::array<vector,3> const points = 
 	{{
 		position(t,0),
 		position(t,1),
 		position(t,2)
 	}};
 
-	boost::array<data_type,3> const datas = 
+	std::tr1::array<data_type,3> const datas = 
 	{{
 		data(t,0),
 		data(t,1),
