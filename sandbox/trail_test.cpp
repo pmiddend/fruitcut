@@ -6,6 +6,7 @@
 #include <sge/renderer/system.hpp>
 #include <sge/renderer/scoped_block.hpp>
 #include <sge/renderer/state/list.hpp>
+#include <sge/renderer/state/color.hpp>
 #include <sge/renderer/state/var.hpp>
 #include <sge/renderer/state/trampoline.hpp>
 #include <sge/renderer/filter/linear.hpp>
@@ -13,6 +14,7 @@
 #include <sge/input/keyboard/device.hpp>
 #include <sge/image/multi_loader.hpp>
 #include <sge/image/capabilities.hpp>
+#include <sge/image/colors.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
 #include <sge/systems/viewport/manage_resize.hpp>
@@ -93,10 +95,6 @@ try
 		sys.renderer()
 	);
 
-	sge::image::multi_loader &image_loader(
-		sys.image_loader()
-	);
-
 	fruitcut::sandbox::mouse_trailer mouse_trailer(
 		sys.renderer(),
 		sys.image_loader(),
@@ -116,6 +114,7 @@ try
 	rend->state(
 		sge::renderer::state::list
 			(sge::renderer::state::bool_::clear_backbuffer = true)
+			(sge::renderer::state::color::clear_color = sge::image::colors::black())
 	);
 
 	while(running)

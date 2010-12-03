@@ -29,3 +29,10 @@ fruitcut::sandbox::particle::update()
 			static_cast<double>(
 				life_time_.count())));
 }
+
+bool 
+fruitcut::sandbox::particle::dead() const
+{
+	return 
+		(fcppt::chrono::high_resolution_clock::now() - birth_).count() > life_time_.count();
+}

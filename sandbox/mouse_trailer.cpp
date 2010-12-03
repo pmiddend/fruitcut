@@ -15,6 +15,8 @@
 #include <sge/image/multi_loader.hpp>
 #include <sge/sprite/default_equal.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/chrono/duration_cast.hpp>
+#include <fcppt/chrono/seconds.hpp>
 #include <boost/bind.hpp>
 
 fruitcut::sandbox::mouse_trailer::mouse_trailer(
@@ -58,7 +60,16 @@ fruitcut::sandbox::mouse_trailer::mouse_trailer(
 			boost::bind(
 				&mouse_trailer::callback,
 				this,
-				_1)))
+				_1))),
+	particle_texture_(
+		new sge::texture::part_raw(
+			renderer->create_texture(
+				image_loader.load(
+					media_path() 
+						/ FCPPT_TEXT("textures") 
+						/ FCPPT_TEXT("particle.png"))->view(),
+				sge::renderer::filter::linear,
+				sge::renderer::resource_flags::none)))
 {
 }
 
@@ -83,15 +94,43 @@ fruitcut::sandbox::mouse_trailer::callback(
 			:
 				static_cast<sprite::object::unit>(
 					e.axis_value())));
+
+	particles_.push_back(
+		particle(
+			sprite::parameters()
+				.texture_size()
+				.visible(
+					true)
+				.texture(
+					particle_texture_)
+				.center(
+					cursor_.pos() + cursor_.size()/2)
+				.system(
+					&ss_)
+				.color(
+					sprite::object::color_type(
+						(sge::image::color::init::red %= 1.0)
+						(sge::image::color::init::green %= 1.0)
+						(sge::image::color::init::blue %= 1.0)
+						(sge::image::color::init::alpha %= 1.0))),
+			fcppt::chrono::duration_cast<particle::duration>(
+				fcppt::chrono::seconds(
+					1))));
 }
 
 void
 fruitcut::sandbox::mouse_trailer::update()
 {
-	BOOST_FOREACH(
-		particle_sequence::reference r,
-		particles_)
-		r.update();
+	for (particle_sequence::iterator i = particles_.begin(); i != particles_.end();)
+	{
+		i->update();
+		if (i->dead())
+			i = 
+				particles_.erase(
+					i);
+		else
+			++i;
+	}
 }
 
 void

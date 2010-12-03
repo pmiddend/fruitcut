@@ -30,10 +30,13 @@ public:
 
 	void
 	update();
+
+	bool
+	dead() const;
 private:
 	sprite::object sprite_;
 	time_point birth_;
-	duration const life_time_;
+	duration life_time_;
 };
 }
 }

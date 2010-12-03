@@ -9,6 +9,7 @@
 #include <sge/input/mouse/axis_event_fwd.hpp>
 #include <sge/sprite/object_impl.hpp>
 #include <sge/sprite/intrusive/system_impl.hpp>
+#include <sge/texture/part_ptr.hpp>
 #include <sge/input/mouse/device_fwd.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <vector>
@@ -40,6 +41,7 @@ private:
 	fruitcut::sprite::object cursor_;
 	particle_sequence particles_;
 	fcppt::signal::scoped_connection mouse_axis_connection_;
+	sge::texture::part_ptr particle_texture_;
 
 	void
 	callback(
