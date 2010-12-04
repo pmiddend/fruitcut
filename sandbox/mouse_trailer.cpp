@@ -16,6 +16,7 @@
 #include <sge/image/multi_loader.hpp>
 #include <sge/renderer/vector2.hpp>
 #include <sge/texture/part.hpp>
+#include <sge/renderer/texture.hpp>
 #include <sge/sprite/default_equal.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/chrono/duration_cast.hpp>
@@ -23,6 +24,7 @@
 #include <fcppt/math/vector/structure_cast.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
 #include <fcppt/math/vector/length.hpp>
+#include <fcppt/math/vector/atan2.hpp>
 #include <fcppt/math/range_compare.hpp>
 #include <boost/bind.hpp>
 #include <iostream>
@@ -110,7 +112,7 @@ fruitcut::sandbox::mouse_trailer::update()
 			sge::renderer::scalar const
 				particle_length = 
 					static_cast<sge::renderer::scalar>(
-						particle_texture_->dim().w()) / 10,
+						particle_texture_->dim().w()) / 5,
 				length = 
 					std::max(
 						fcppt::math::vector::length(
@@ -131,6 +133,9 @@ fruitcut::sandbox::mouse_trailer::update()
 								true)
 							.texture(
 								particle_texture_)
+							.rotation(
+								fcppt::math::vector::atan2(
+									direction))
 							.center(
 								fcppt::math::vector::structure_cast<fruitcut::sprite::object::point>(
 									old_position_ + lambda * direction))

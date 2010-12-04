@@ -7,6 +7,7 @@
 #include <fcppt/chrono/high_resolution_clock.hpp>
 #include <fcppt/chrono/time_point.hpp>
 #include <fcppt/chrono/duration.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
 
 namespace fruitcut
 {
@@ -37,6 +38,7 @@ public:
 	~particle();
 private:
 	sprite::object sprite_;
+	sprite::object::dim const initial_size_;
 	time_point birth_;
 	duration life_time_;
 };

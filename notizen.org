@@ -1,6 +1,7 @@
 * Brainstorming
 - Links oben Schriftzug "Score: xxx"
 - Die ersten paar Sekunden erscheint unten in der Mitte ein Schriftzug...
+
 	Press and hold mouse, then drag to swing, release to start cutting
 	
 	...der langsam verschwindet
@@ -40,6 +41,18 @@
 - Es werden Feuerwerkspartikel abgefeuert
 - Es wird in der Mitte der Name des Spielers (in der json-Datei) und
   der Punktestand eingetragen.
+- =events::prerender= (was immernoch nötig ist, um eine
+  Zeichenreihenfolge reinzukriegen) und =events::render= rendern nicht
+  in den Framebuffer, sondern erstmal in 'ne Textur, so kann man noch
+  Postprocessing machen. =machine= kann das Postprocessing später
+  machen. Nach dem Postprocessing wird die entstandene Textur in den
+  Framebuffer gerendert. Danach wird =events::overlay= geschickt.
+- Man muss sich die Decalsprites in einem separaten Spritesystem
+  sammeln, wo auch das Hintergrundsprite drin ist. Dann muss es eine
+  Funktion geben, die alle diese Sprites in eine Textur rendert. Diese
+  Textur wird für den Hintergrund genommen. Die Funktion wird
+  aufgerufen, wenn ein Decal neu hinzukommt (oder mehrere Decals). Das
+  ganze kapselt man am besten.
 
 * States nötig
 - =ingame=

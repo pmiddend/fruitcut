@@ -55,10 +55,7 @@ try
 		(
 			sge::systems::window(
 				sge::renderer::window_parameters(
-					FCPPT_TEXT("trail test")
-				)
-			)
-		)
+					FCPPT_TEXT("trail test"))))
 		(
 			sge::systems::renderer(
 				sge::renderer::parameters(
@@ -76,9 +73,7 @@ try
 					sge::renderer::vsync::on,
 					sge::renderer::no_multi_sampling
 				),
-				sge::systems::viewport::manage_resize()
-			)
-		)
+				sge::systems::viewport::manage_resize()))
 		(
 			sge::systems::input(
 				sge::systems::input_helper_field(
@@ -86,10 +81,7 @@ try
 		(
 			sge::systems::image_loader(
 				sge::image::capabilities_field::null(),
-				sge::all_extensions
-			)
-		)
-	);
+				sge::all_extensions)));
 
 	sge::renderer::device_ptr const rend(
 		sys.renderer()

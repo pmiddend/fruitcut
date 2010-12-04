@@ -2,6 +2,11 @@
 #include <sge/image/color/init.hpp>
 #include <sge/sprite/parameters_impl.hpp>
 #include <fcppt/chrono/high_resolution_clock.hpp>
+#include <fcppt/math/dim/static.hpp>
+#include <fcppt/math/dim/structure_cast.hpp>
+#include <fcppt/math/dim/arithmetic.hpp>
+#include <fcppt/math/vector/arithmetic.hpp>
+#include <fcppt/math/vector/basic_impl.hpp>
 
 fruitcut::sandbox::particle::particle(
 	sprite::parameters const &params,
@@ -9,6 +14,8 @@ fruitcut::sandbox::particle::particle(
 :
 	sprite_(
 		params.elements()),
+	initial_size_(
+		sprite_.size()),
 	birth_(
 		fcppt::chrono::high_resolution_clock::now()),
 	life_time_(
@@ -19,15 +26,40 @@ fruitcut::sandbox::particle::particle(
 void
 fruitcut::sandbox::particle::update()
 {
+	double const life_percentage = 
+		1.0 - 
+		static_cast<double>(
+			(fcppt::chrono::high_resolution_clock::now() - birth_).count())/ 
+		static_cast<double>(
+			life_time_.count());
+
+	sprite::object::point const center = 
+		sprite_.pos() + sprite_.size()/2;
+
+	sprite_.size(
+		sprite::object::dim(
+			sprite_.size().w(),
+			static_cast<sprite::object::unit>(
+				static_cast<double>(initial_size_.h()) * life_percentage)));
+	/*
+	sprite_.size(
+		fcppt::math::dim::structure_cast<sprite::object::dim>(
+			life_percentage * 
+			fcppt::math::dim::structure_cast<fcppt::math::dim::static_<double,2>::type>(
+				initial_size_)));
+	*/
+
+	sprite_.pos(
+		center - sprite_.size()/2);
+
+	/*
 	sprite_.color(
 		(sge::image::color::init::red %= 1.0)
 		(sge::image::color::init::green %= 1.0)
 		(sge::image::color::init::blue %= 1.0)
 		(sge::image::color::init::alpha %= 
-			(1.0 - static_cast<double>(
-				(fcppt::chrono::high_resolution_clock::now() - birth_).count())/
-			static_cast<double>(
-				life_time_.count()))));
+			life_percentage));
+	*/
 }
 
 bool 
