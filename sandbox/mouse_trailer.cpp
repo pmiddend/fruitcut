@@ -112,7 +112,7 @@ fruitcut::sandbox::mouse_trailer::update()
 			sge::renderer::scalar const
 				particle_length = 
 					static_cast<sge::renderer::scalar>(
-						particle_texture_->dim().w()) / 5,
+						particle_texture_->dim().w()/5),
 				length = 
 					std::max(
 						fcppt::math::vector::length(

@@ -116,16 +116,31 @@ ADD_LIBRARY(
 
 ADD_EXECUTABLE(
 	cut_test
-	cut_test.cpp
-	${files})
+	cut_test.cpp)
 
 ADD_EXECUTABLE(
 	trail_test
-	sandbox/trail_test.cpp sandbox/mouse_trailer.cpp sandbox/particle.cpp
-	${files})
+	sandbox/trail_test.cpp sandbox/mouse_trailer.cpp sandbox/particle.cpp)
 
 TARGET_LINK_LIBRARIES(
 	trail_test
+	fruitcut_library
+	${FCPPT_LIBRARIES}
+	${SGE_CORE_LIBRARY}
+	${SGE_SHADER_LIBRARY}
+	${SGE_CONSOLE_LIBRARY}
+	${SGE_SYSTEMS_LIBRARY}
+	${SGE_CAMERA_LIBRARY}
+	${SGE_PARSE_LIBRARY}
+	${SGE_SPRITE_LIBRARY}
+	${Boost_LIBRARIES})
+
+ADD_EXECUTABLE(
+	bloom_test
+	sandbox/bloom.cpp sandbox/bloom_shader.cpp)
+
+TARGET_LINK_LIBRARIES(
+	bloom_test
 	fruitcut_library
 	${FCPPT_LIBRARIES}
 	${SGE_CORE_LIBRARY}
