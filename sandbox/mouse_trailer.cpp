@@ -23,6 +23,7 @@
 #include <fcppt/math/vector/structure_cast.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
 #include <fcppt/math/vector/length.hpp>
+#include <fcppt/math/range_compare.hpp>
 #include <boost/bind.hpp>
 #include <iostream>
 
@@ -79,7 +80,10 @@ fruitcut::sandbox::mouse_trailer::mouse_trailer(
 				sge::renderer::resource_flags::none))),
 	update_timer_(
 		sge::time::millisecond(
-			5)),
+			50)),
+	output_timer_(
+		sge::time::millisecond(
+			1000)),
 	old_position_(
 		fcppt::math::vector::structure_cast<sge::renderer::vector2>(
 			cursor_.pos() + cursor_.size()/2))
@@ -89,6 +93,9 @@ fruitcut::sandbox::mouse_trailer::mouse_trailer(
 void
 fruitcut::sandbox::mouse_trailer::update()
 {
+	if (output_timer_.update_b())
+		std::cout << "Current number of sprites: " << particles_.size() << "\n";	
+
 	if (update_timer_.update_b())
 	{
 		sge::renderer::vector2 const
@@ -98,44 +105,47 @@ fruitcut::sandbox::mouse_trailer::update()
 			direction = 
 				new_position - old_position_;
 
-		sge::renderer::scalar const
-			particle_length = 
-				static_cast<sge::renderer::scalar>(
-					particle_texture_->dim().w()) / 10,
-			length = 
-				std::max(
-					fcppt::math::vector::length(
-						direction),
-					particle_length + 1);
-
-		for(
-			sge::renderer::scalar lambda = 
-				static_cast<sge::renderer::scalar>(0); 
-			lambda < static_cast<sge::renderer::scalar>(1);
-			lambda += particle_length/length)
+		if (!fcppt::math::range_compare(old_position_,new_position,static_cast<sge::renderer::scalar>(0.001)))
 		{
-			particles_.push_back(
-				particle(
-					sprite::parameters()
-						.texture_size()
-						.visible(
-							true)
-						.texture(
-							particle_texture_)
-						.center(
-							fcppt::math::vector::structure_cast<fruitcut::sprite::object::point>(
-								old_position_ + lambda * direction))
-						.system(
-							&ss_)
-						.color(
-							sprite::object::color_type(
-								(sge::image::color::init::red %= 1.0)
-								(sge::image::color::init::green %= 1.0)
-								(sge::image::color::init::blue %= 1.0)
-								(sge::image::color::init::alpha %= 1.0))),
-					fcppt::chrono::duration_cast<particle::duration>(
-						fcppt::chrono::milliseconds(
-							200))));
+			sge::renderer::scalar const
+				particle_length = 
+					static_cast<sge::renderer::scalar>(
+						particle_texture_->dim().w()) / 10,
+				length = 
+					std::max(
+						fcppt::math::vector::length(
+							direction),
+						particle_length + 1);
+
+			for(
+				sge::renderer::scalar lambda = 
+					static_cast<sge::renderer::scalar>(0); 
+				lambda < static_cast<sge::renderer::scalar>(1);
+				lambda += particle_length/length)
+			{
+				particles_.push_back(
+					particle(
+						sprite::parameters()
+							.texture_size()
+							.visible(
+								true)
+							.texture(
+								particle_texture_)
+							.center(
+								fcppt::math::vector::structure_cast<fruitcut::sprite::object::point>(
+									old_position_ + lambda * direction))
+							.system(
+								&ss_)
+							.color(
+								sprite::object::color_type(
+									(sge::image::color::init::red %= 1.0)
+									(sge::image::color::init::green %= 1.0)
+									(sge::image::color::init::blue %= 1.0)
+									(sge::image::color::init::alpha %= 1.0))),
+						fcppt::chrono::duration_cast<particle::duration>(
+							fcppt::chrono::milliseconds(
+								200))));
+			}
 		}
 	
 		old_position_ = 

@@ -63,7 +63,7 @@ fruitcut::model_to_mesh(
 				
 			tc[i] = 
 				sge::renderer::vector2(
-					current_coord.x() / 2,
+					current_coord.x()/* / 2*/,
 					current_coord.y());
 		}
 		result.triangles.push_back(
