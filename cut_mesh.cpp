@@ -169,6 +169,13 @@ fruitcut::cut_mesh(
 				result.triangles));
 	}
 
+	std::cout << "------------------- Input points begin \n";
+	BOOST_FOREACH(
+		point_sequence::const_reference r,
+		border)
+		std::cout << "{" << r[0] << "," << r[1] << "," << r[2] << "},\n";
+	std::cout << "------------------- Input points end\n";
+
 	typedef
 	std::vector<sge::renderer::vector2>
 	texcoord_vector;
@@ -177,6 +184,13 @@ fruitcut::cut_mesh(
 	texcoord_vector texcoords = 
 		math::generate_texture_coordinates<texcoord_vector>(
 			border);
+
+	std::cout << "------------------- Texcoords begin \n";
+	BOOST_FOREACH(
+		texcoord_vector::const_reference r,
+		texcoords)
+		std::cout << "{" << r[0] << "," << r[1] << "},\n";
+	std::cout << "------------------- Texcoords end \n";
 
 	typedef
 	std::vector<texcoord_vector::size_type>
@@ -207,17 +221,26 @@ fruitcut::cut_mesh(
 				boost::phoenix::arg_names::arg1[1] < 
 					boost::phoenix::arg_names::arg2[1]));
 
+	std::cout << "Minimalpunkt: " << "{" << (*min_y_it)[0] << "," << (*min_y_it)[1] << "},\n";
+
 	// WLOG, the first element is the one with the lowest y coordinates
 	std::swap(
 		*min_y_it,
 		*texcoords.begin());
+	std::swap(
+		*(border.begin() + std::distance(texcoords.begin(),min_y_it)),
+		*border.begin());
 
 	sge::renderer::vector2 const min_y = 
 		*texcoords.begin();
 
 	// This is a set because maybe we delete a point more than once
 	typedef
-	std::set<index_sequence::value_type>
+	std::set
+	<
+		index_sequence::value_type,
+		std::greater<index_sequence::value_type>
+	>
 	index_set;
 
 	// I think this is technically an optimization: If "min_y" and two
@@ -240,15 +263,25 @@ fruitcut::cut_mesh(
 					:
 						j);
 
+	std::cout << "Deleted texcoords begin\n";
 	BOOST_FOREACH(
 		index_set::const_reference r,
 		to_delete)
 	{
+		std::cout << "{" << (*(texcoords.begin() + static_cast<texcoord_vector::difference_type>(r)))[0] << "," << (*(texcoords.begin() + static_cast<texcoord_vector::difference_type>(r)))[1] << "},\n";
 		texcoords.erase(
 			texcoords.begin() + static_cast<texcoord_vector::difference_type>(r));
 		border.erase(
 			border.begin() + static_cast<texcoord_vector::difference_type>(r));
 	}
+	std::cout << "Deleted texcoords end\n";
+
+	// Now we have to create a new index array!
+	indices.resize(
+		border.size());
+	boost::iota(
+		indices,
+		static_cast<index_sequence::value_type>(0));
 
 	// Finally, sort the indices by the texcoord angles
 	std::sort(
@@ -261,6 +294,13 @@ fruitcut::cut_mesh(
 			boost::phoenix::ref(texcoords)[boost::phoenix::arg_names::arg1],
 			boost::phoenix::ref(texcoords)[boost::phoenix::arg_names::arg2]) 
 			< static_cast<sge::renderer::scalar>(0));
+
+	std::cout << "Sorted points begin\n";
+	BOOST_FOREACH(
+		index_sequence::const_reference r,
+		indices)
+		std::cout << "{" << border[r][0] << "," << border[r][1] << "," << border[r][2] << "},\n";
+	std::cout << "Sorted points end\n";
 
 	for(
 		index_sequence::const_iterator i = boost::next(indices.begin()); 
