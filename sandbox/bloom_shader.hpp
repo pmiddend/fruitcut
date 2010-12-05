@@ -33,12 +33,16 @@ private:
 	render_callback const render_callback_;
 	sge::renderer::texture_ptr screen_texture_;
 	sge::renderer::texture_ptr tone_mapped_texture_;
+	//sge::renderer::texture_ptr blur_texture_;
 	sge::renderer::target_ptr screen_target_;
 	sge::renderer::target_ptr tone_mapped_target_;
+	//sge::renderer::target_ptr blur_target_;
 	sge::renderer::vertex_buffer_ptr quad_vb_;
 	sge::renderer::vertex_buffer_ptr quad_vb2_;
+	//sge::renderer::vertex_buffer_ptr quad_vb3_;
 	sge::shader::object tone_mapped_shader_;
 	sge::shader::object combining_shader_;
+	//sge::shader::object blur_shader_;
 };
 }
 }

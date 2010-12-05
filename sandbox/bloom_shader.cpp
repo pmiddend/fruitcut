@@ -79,6 +79,60 @@ sge::renderer::vf::view
 	vf_format
 > 
 vf_vertex_view;
+
+void
+create_quad(
+	sge::shader::object &shader,
+	sge::renderer::device_ptr const renderer,
+	sge::renderer::vertex_buffer_ptr const vb)
+{
+	sge::shader::scoped scoped_shader(
+		shader);
+	
+	sge::renderer::scoped_vertex_buffer const scoped_vb_(
+		renderer,
+		vb);
+
+	sge::renderer::scoped_vertex_lock const vblock(
+		vb,
+		sge::renderer::lock_mode::writeonly);
+
+	vf_vertex_view const vertices(
+		vblock.value());
+
+	vf_vertex_view::iterator vb_it(
+		vertices.begin());
+
+	// Left top
+	(vb_it++)->set<vf_position>(
+		vf_position::packed_type(
+			-1, 1));
+
+	// Left bottom
+	(vb_it++)->set<vf_position>(
+		vf_position::packed_type(
+			-1,-1));
+
+	// Right top
+	(vb_it++)->set<vf_position>(
+		vf_position::packed_type(
+			1,1));
+
+	// Right top
+	(vb_it++)->set<vf_position>(
+		vf_position::packed_type(
+			1,1));
+
+	// Left bottom
+	(vb_it++)->set<vf_position>(
+		vf_position::packed_type(
+			-1,-1));
+
+	// Right bottom
+	(vb_it++)->set<vf_position>(
+		vf_position::packed_type(
+			1,-1));
+}
 }
 
 fruitcut::sandbox::bloom_shader::bloom_shader(
@@ -104,6 +158,16 @@ fruitcut::sandbox::bloom_shader::bloom_shader(
 			sge::image::color::format::rgb8,
 			sge::renderer::filter::linear,
 			sge::renderer::resource_flags::none)),
+	/*
+	blur_texture_(
+		renderer_->create_texture(
+			sge::renderer::dim2(
+				256,
+				256),
+			sge::image::color::format::rgb8,
+			sge::renderer::filter::linear,
+			sge::renderer::resource_flags::none)),
+	*/
 	screen_target_(
 		renderer_->create_target(
 			screen_texture_,
@@ -150,108 +214,26 @@ fruitcut::sandbox::bloom_shader::bloom_shader(
 				"tone_mapped",
 				tone_mapped_texture_)))
 {
-	{
-	sge::shader::scoped scoped_shader(
-		tone_mapped_shader_);
-	
-	sge::renderer::scoped_vertex_buffer const scoped_vb_(
+	create_quad(
+		tone_mapped_shader_,
 		renderer_,
 		quad_vb_);
-
-	sge::renderer::scoped_vertex_lock const vblock(
-		quad_vb_,
-		sge::renderer::lock_mode::writeonly);
-
-	vf_vertex_view const vertices(
-		vblock.value());
-
-	vf_vertex_view::iterator vb_it(
-		vertices.begin());
-
-	// Left top
-	(vb_it++)->set<vf_position>(
-		vf_position::packed_type(
-			-1, 1));
-
-	// Left bottom
-	(vb_it++)->set<vf_position>(
-		vf_position::packed_type(
-			-1,-1));
-
-	// Right top
-	(vb_it++)->set<vf_position>(
-		vf_position::packed_type(
-			1,1));
-
-	// Right top
-	(vb_it++)->set<vf_position>(
-		vf_position::packed_type(
-			1,1));
-
-	// Left bottom
-	(vb_it++)->set<vf_position>(
-		vf_position::packed_type(
-			-1,-1));
-
-	// Right bottom
-	(vb_it++)->set<vf_position>(
-		vf_position::packed_type(
-			1,-1));
-	}
-
-	{
-	sge::shader::scoped scoped_shader(
-		combining_shader_);
-	
-	sge::renderer::scoped_vertex_buffer const scoped_vb_(
+	create_quad(
+		combining_shader_,
 		renderer_,
 		quad_vb2_);
-
-	sge::renderer::scoped_vertex_lock const vblock(
-		quad_vb2_,
-		sge::renderer::lock_mode::writeonly);
-
-	vf_vertex_view const vertices(
-		vblock.value());
-
-	vf_vertex_view::iterator vb_it(
-		vertices.begin());
-
-	// Left top
-	(vb_it++)->set<vf_position>(
-		vf_position::packed_type(
-			-1, 1));
-
-	// Left bottom
-	(vb_it++)->set<vf_position>(
-		vf_position::packed_type(
-			-1,-1));
-
-	// Right top
-	(vb_it++)->set<vf_position>(
-		vf_position::packed_type(
-			1,1));
-
-	// Right top
-	(vb_it++)->set<vf_position>(
-		vf_position::packed_type(
-			1,1));
-
-	// Left bottom
-	(vb_it++)->set<vf_position>(
-		vf_position::packed_type(
-			-1,-1));
-
-	// Right bottom
-	(vb_it++)->set<vf_position>(
-		vf_position::packed_type(
-			1,-1));
-	}
+	/*
+	create_quad(
+		blur_shader_,
+		renderer_,
+		quad_vb3_);
+	*/
 }
 
 void
 fruitcut::sandbox::bloom_shader::render()
 {
+	// Step 1: Render scene to screen_texture
 	{
 		sge::renderer::scoped_target const target_(
 			renderer_,
@@ -263,6 +245,8 @@ fruitcut::sandbox::bloom_shader::render()
 		render_callback_();
 	}
 
+	// Step 2: Transfer screen_texture to tone_mapped_texture and do
+	// tone-mapping on it
 	{
 		sge::shader::scoped scoped_shader(
 			tone_mapped_shader_);
@@ -285,6 +269,36 @@ fruitcut::sandbox::bloom_shader::render()
 				quad_vb_->size()),
 			sge::renderer::nonindexed_primitive_type::triangle);
 	}
+
+	// Step 3: Render tone-mapped texture to blur_texture, blur it
+	// Coming soon
+
+
+	// Step 4: Combine screen texture and blurred_texture to final image
+	/*
+	{
+		sge::shader::scoped scoped_shader(
+			blur_shader_);
+
+		sge::renderer::scoped_vertex_buffer const scoped_vb_(
+			renderer_,
+			quad_vb_);
+
+		sge::renderer::scoped_target const target_(
+			renderer_,
+			tone_mapped_target_); 
+
+		sge::renderer::scoped_block const block_(
+			renderer_);
+
+		renderer_->render(
+			sge::renderer::first_vertex(
+				0),
+			sge::renderer::vertex_count(
+				quad_vb_->size()),
+			sge::renderer::nonindexed_primitive_type::triangle);
+	}
+	*/
 
 	{
 		sge::shader::scoped scoped_shader(

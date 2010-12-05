@@ -46,6 +46,10 @@ INCLUDE_DIRECTORIES(${SGE_INCLUDE_DIRS})
 ADD_DEFINITIONS(${SGE_CFLAGS})
 # sge end
 
+# phoenix begin
+INCLUDE_DIRECTORIES(${CMAKE_SOURCE_DIR}/phoenix3)
+# phoenix end
+
 # clang check begin
 INCLUDE (CheckCXXSourceRuns)
 
