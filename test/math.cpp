@@ -23,8 +23,6 @@ typedef
 double
 scalar;
 
-scalar const epsilon = 0.00001;
-
 fcppt::math::size_type const N = 3;
 
 typedef
@@ -135,6 +133,8 @@ create_triangle(
 
 BOOST_AUTO_TEST_CASE(line_plane)
 {
+	scalar const epsilon = 0.00001;
+
 	vector3 const 
 		plane_direction = 
 			fcppt::math::vector::normalize(
@@ -210,6 +210,9 @@ BOOST_AUTO_TEST_CASE(line_plane_no_intersection)
 
 BOOST_AUTO_TEST_CASE(cut_triangle_test)
 {
+	scalar const epsilon = 
+		static_cast<scalar>(0.0001);
+
 	vector3 const plane_normal = 
 		vector3(0,1,0);
 
@@ -410,6 +413,9 @@ BOOST_AUTO_TEST_CASE(cut_triangle_test)
 
 BOOST_AUTO_TEST_CASE(orthonorm)
 {
+	scalar const epsilon = 
+		static_cast<scalar>(0.0001);
+	
 	typedef
 	std::vector<vector2>
 	container; 
