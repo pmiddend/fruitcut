@@ -151,7 +151,7 @@ fruitcut::sandbox::bloom_shader::bloom_shader(
 			fcppt::math::dim::structure_cast<sge::renderer::dim2>(
 				renderer_->screen_size()),
 			sge::image::color::format::rgb8,
-			sge::renderer::filter::point,
+			sge::renderer::filter::linear,
 			sge::renderer::resource_flags::none)),
 	highlighted_texture_(
 		renderer_->create_texture(
