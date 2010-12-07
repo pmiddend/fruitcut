@@ -154,7 +154,7 @@ fruitcut::sandbox::bloom_shader::bloom_shader(
 		renderer_->create_texture(
 			sge::renderer::dim2(
 				256,
-				255),
+				256),
 			sge::image::color::format::rgb8,
 			sge::renderer::filter::linear,
 			sge::renderer::resource_flags::none)),
@@ -162,7 +162,7 @@ fruitcut::sandbox::bloom_shader::bloom_shader(
 		renderer_->create_texture(
 			sge::renderer::dim2(
 				256,
-				255),
+				256),
 			sge::image::color::format::rgb8,
 			sge::renderer::filter::linear,
 			sge::renderer::resource_flags::none)),
@@ -170,7 +170,7 @@ fruitcut::sandbox::bloom_shader::bloom_shader(
 		renderer_->create_texture(
 			sge::renderer::dim2(
 				256,
-				255),
+				256),
 			sge::image::color::format::rgb8,
 			sge::renderer::filter::linear,
 			sge::renderer::resource_flags::none)),
@@ -270,8 +270,7 @@ fruitcut::sandbox::bloom_shader::bloom_shader(
 				screen_texture_))
 			(sge::shader::sampler(
 				"blurred",
-//				blurred_both_texture_)))
-				highlighted_texture_)))
+				blurred_both_texture_)))
 {
 	create_quad(
 		highlight_shader_,
