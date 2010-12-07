@@ -23,6 +23,7 @@
 #include <sge/renderer/resource_flags_none.hpp>
 #include <sge/renderer/nonindexed_primitive_type.hpp>
 #include <sge/renderer/default_target.hpp>
+#include <sge/renderer/vector2.hpp>
 #include <sge/shader/variable_sequence.hpp>
 #include <sge/shader/sampler_sequence.hpp>
 #include <sge/shader/sampler.hpp>
@@ -133,6 +134,8 @@ create_quad(
 		vf_position::packed_type(
 			1,-1));
 }
+
+sge::renderer::dim2 const texture_size(256,256);
 }
 
 fruitcut::sandbox::bloom_shader::bloom_shader(
@@ -152,29 +155,22 @@ fruitcut::sandbox::bloom_shader::bloom_shader(
 			sge::renderer::resource_flags::none)),
 	highlighted_texture_(
 		renderer_->create_texture(
-			sge::renderer::dim2(
-				256,
-				256),
+			texture_size,
 			sge::image::color::format::rgb8,
 			sge::renderer::filter::linear,
 			sge::renderer::resource_flags::none)),
 	blurred_vertical_texture_(
 		renderer_->create_texture(
-			sge::renderer::dim2(
-				256,
-				256),
+			texture_size,
 			sge::image::color::format::rgb8,
 			sge::renderer::filter::linear,
 			sge::renderer::resource_flags::none)),
 	blurred_both_texture_(
 		renderer_->create_texture(
-			sge::renderer::dim2(
-				256,
-				256),
+			texture_size,
 			sge::image::color::format::rgb8,
 			sge::renderer::filter::linear,
 			sge::renderer::resource_flags::none)),
-
 
 
 	screen_target_(
@@ -200,7 +196,6 @@ fruitcut::sandbox::bloom_shader::bloom_shader(
 		renderer_->create_target(
 			blurred_both_texture_,
 			sge::renderer::no_depth_stencil_texture())),
-
 
 
 
@@ -233,7 +228,12 @@ fruitcut::sandbox::bloom_shader::bloom_shader(
 		media_path()/FCPPT_TEXT("shaders")/FCPPT_TEXT("bloom")/FCPPT_TEXT("highlight_vertex.glsl"),
 		media_path()/FCPPT_TEXT("shaders")/FCPPT_TEXT("bloom")/FCPPT_TEXT("highlight_fragment.glsl"),
 		sge::shader::vf_to_string<vf_format>(),
-		sge::shader::variable_sequence(),
+		fcppt::assign::make_container<sge::shader::variable_sequence>(
+			sge::shader::variable(
+				"texture_size",
+				sge::shader::variable_type::const_,
+				fcppt::math::dim::structure_cast<sge::renderer::vector2>(
+					texture_size))),
 		fcppt::assign::make_container<sge::shader::sampler_sequence>(
 			sge::shader::sampler(
 				"texture",
@@ -243,7 +243,12 @@ fruitcut::sandbox::bloom_shader::bloom_shader(
 		media_path()/FCPPT_TEXT("shaders")/FCPPT_TEXT("bloom")/FCPPT_TEXT("blur_vertical_vertex.glsl"),
 		media_path()/FCPPT_TEXT("shaders")/FCPPT_TEXT("bloom")/FCPPT_TEXT("blur_vertical_fragment.glsl"),
 		sge::shader::vf_to_string<vf_format>(),
-		sge::shader::variable_sequence(),
+		fcppt::assign::make_container<sge::shader::variable_sequence>(
+			sge::shader::variable(
+				"texture_size",
+				sge::shader::variable_type::const_,
+				fcppt::math::dim::structure_cast<sge::renderer::vector2>(
+					texture_size))),
 		fcppt::assign::make_container<sge::shader::sampler_sequence>(
 			sge::shader::sampler(
 				"texture",
@@ -253,7 +258,12 @@ fruitcut::sandbox::bloom_shader::bloom_shader(
 		media_path()/FCPPT_TEXT("shaders")/FCPPT_TEXT("bloom")/FCPPT_TEXT("blur_horizontal_vertex.glsl"),
 		media_path()/FCPPT_TEXT("shaders")/FCPPT_TEXT("bloom")/FCPPT_TEXT("blur_horizontal_fragment.glsl"),
 		sge::shader::vf_to_string<vf_format>(),
-		sge::shader::variable_sequence(),
+		fcppt::assign::make_container<sge::shader::variable_sequence>(
+			sge::shader::variable(
+				"texture_size",
+				sge::shader::variable_type::const_,
+				fcppt::math::dim::structure_cast<sge::renderer::vector2>(
+					texture_size))),
 		fcppt::assign::make_container<sge::shader::sampler_sequence>(
 			sge::shader::sampler(
 				"texture",
@@ -263,7 +273,12 @@ fruitcut::sandbox::bloom_shader::bloom_shader(
 		media_path()/FCPPT_TEXT("shaders")/FCPPT_TEXT("bloom")/FCPPT_TEXT("combining_vertex.glsl"),
 		media_path()/FCPPT_TEXT("shaders")/FCPPT_TEXT("bloom")/FCPPT_TEXT("combining_fragment.glsl"),
 		sge::shader::vf_to_string<vf_format>(),
-		sge::shader::variable_sequence(),
+		fcppt::assign::make_container<sge::shader::variable_sequence>(
+			sge::shader::variable(
+				"texture_size",
+				sge::shader::variable_type::const_,
+				fcppt::math::dim::structure_cast<sge::renderer::vector2>(
+					renderer_->screen_size()))),
 		fcppt::assign::make_container<sge::shader::sampler_sequence>
 			(sge::shader::sampler(
 				"original",

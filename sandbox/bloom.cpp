@@ -1,4 +1,5 @@
 #include "bloom_shader.hpp"
+#include "../media_path.hpp"
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
 #include <sge/window/instance.hpp>
@@ -218,8 +219,8 @@ try
 	sge::image::file_ptr const
 		image_bg(
 			sys.image_loader().load(
-				sge::config::media_path()
-				/ FCPPT_TEXT("grass.png")
+				fruitcut::media_path()
+				/ FCPPT_TEXT("textures")/FCPPT_TEXT("bloom_test.png")
 			)
 		),
 		image_vectorer(

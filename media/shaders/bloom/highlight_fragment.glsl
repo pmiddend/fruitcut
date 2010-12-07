@@ -8,13 +8,12 @@ void
 main()
 {
 	vec2 normalized = 
-		gl_FragCoord.xy/vec2(256.0,256.0);
+		gl_FragCoord.xy/texture_size;
 
 	vec3 t = 
 		vec3(
 			texture2D(
 				texture,
-//				vec2(0.0,1.0) - normalized));
 				normalized));
 
 	t = 
