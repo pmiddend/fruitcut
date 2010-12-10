@@ -6,6 +6,7 @@ out vec4 frag_color;
 
 float	lumRGB(vec3 v)
 {
+	// Calculate luminance according to the YUV coefficients
 	return dot(v, vec3(0.212, 0.716, 0.072));	
 }
 
@@ -122,11 +123,10 @@ main()
 
 	//frag_color.xyz = normalize(vec3(first, second , 1.0) * 0.5 + 0.5);
 
-	/*
 	frag_color += 
 		texture2D(
 			blurred,
-			normalized);*/
+			normalized);
 
 /*
 
