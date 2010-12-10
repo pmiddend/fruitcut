@@ -44,9 +44,32 @@
 #include <fcppt/math/vector/dim.hpp>
 #include <sge/time/timer.hpp>
 #include <sge/time/second.hpp>
+#include <cmath>
 
 namespace
 {
+template<typename T>
+T const
+jag(
+	T const &t)
+{
+	return 
+		t < static_cast<T>(0.5) 
+		? t
+		: (static_cast<T>(1.0)-t);
+}
+
+template<typename T>
+T const
+bump(
+	T const &t)
+{
+	return 
+		std::abs(t) < static_cast<T>(1.0) 
+		? std::exp(-static_cast<T>(1.0)/(static_cast<T>(1.0)-t*t))
+		: 0;
+}
+
 std::pair<sge::font::pos,sge::font::dim> const
 font_transformation(
 	sge::font::pos const &total_pos,
@@ -60,8 +83,9 @@ font_transformation(
 		total_pos + total_size/2;
 	frame_timer.update();
 	double const s = 
-		static_cast<double>(
-			frame_timer.elapsed_frames());
+		3.0 * bump(
+			static_cast<double>(
+				frame_timer.elapsed_frames()) * 2.0 - 1.0);
 	return 
 		std::make_pair(
 			sge::font::pos(
