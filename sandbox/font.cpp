@@ -10,6 +10,8 @@
 #include <sge/renderer/state/list.hpp>
 #include <sge/renderer/state/trampoline.hpp>
 #include <sge/image/colors.hpp>
+#include <sge/image/color/init.hpp>
+#include <sge/image/color/rgba8.hpp>
 #include <sge/image/capabilities_field.hpp>
 #include <sge/font/bitmap/create.hpp>
 #include <sge/font/text/drawer_3d.hpp>
@@ -70,6 +72,12 @@ bump(
 		: 0;
 }
 
+sge::time::timer &global_timer()
+{
+	static sge::time::timer t(sge::time::second(1));
+	return t;
+}
+
 std::pair<sge::font::pos,sge::font::dim> const
 font_transformation(
 	sge::font::pos const &total_pos,
@@ -77,15 +85,13 @@ font_transformation(
 	sge::font::pos const &character_pos,
 	sge::font::dim const &character_dim)
 {
-	static sge::time::timer frame_timer(sge::time::second(1));
-	
 	sge::font::pos const c = 
 		total_pos + total_size/2;
-	frame_timer.update();
+	global_timer().update();
 	double const s = 
 		3.0 * bump(
 			static_cast<double>(
-				frame_timer.elapsed_frames()) * 2.0 - 1.0);
+				global_timer().elapsed_frames()) * 2.0 - 1.0);
 	return 
 		std::make_pair(
 			sge::font::pos(
@@ -168,6 +174,13 @@ try
 
 		sge::renderer::scoped_block const block_(
 			sys.renderer());
+
+		static_cast<fruitcut::sandbox::font_drawer &>(*font_drawer).color(
+			sge::image::color::rgba8(
+			(sge::image::color::init::red %= 1.0)
+			(sge::image::color::init::green %= 1.0)
+			(sge::image::color::init::blue %= 1.0)
+			(sge::image::color::init::alpha %= (1.0 - global_timer().elapsed_frames()))));
 
 		sge::font::text::draw(
 			font_metrics,

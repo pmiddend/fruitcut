@@ -46,14 +46,12 @@ public:
 		font_transform_callback const &);
 	
 	~font_drawer();
-
 	
 	void
 	begin_rendering(
 		sge::font::text::drawer::size_type buffer_chars,
 		sge::font::pos const &start,
 		sge::font::dim const &size);
-
 	
 	void
 	draw_char(
@@ -61,11 +59,9 @@ public:
 		sge::font::pos const &,
 		sge::font::const_image_view const &);
 
-	
 	void
 	end_rendering();
 
-	
 	void
 	color(
 		sge::image::color::any::object const &);
