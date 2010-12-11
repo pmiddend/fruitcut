@@ -122,6 +122,19 @@ ADD_EXECUTABLE(
 	cut_test
 	cut_test.cpp)
 
+TARGET_LINK_LIBRARIES(
+	cut_test
+	fruitcut_library
+	${FCPPT_LIBRARIES}
+	${SGE_CORE_LIBRARY}
+	${SGE_SHADER_LIBRARY}
+	${SGE_CONSOLE_LIBRARY}
+	${SGE_SYSTEMS_LIBRARY}
+	${SGE_CAMERA_LIBRARY}
+	${SGE_PARSE_LIBRARY}
+	${SGE_SPRITE_LIBRARY}
+	${Boost_LIBRARIES})
+
 ADD_EXECUTABLE(
 	trail_test
 	sandbox/trail_test.cpp sandbox/mouse_trailer.cpp sandbox/particle.cpp)
@@ -157,11 +170,11 @@ TARGET_LINK_LIBRARIES(
 	${Boost_LIBRARIES})
 
 ADD_EXECUTABLE(
-	font
+	font_test
 	sandbox/font.cpp sandbox/font_drawer.cpp)
 
 TARGET_LINK_LIBRARIES(
-	font
+	font_test
 	fruitcut_library
 	${FCPPT_LIBRARIES}
 	${SGE_CORE_LIBRARY}
@@ -175,8 +188,12 @@ TARGET_LINK_LIBRARIES(
 	${SGE_SPRITE_LIBRARY}
 	${Boost_LIBRARIES})
 
+ADD_EXECUTABLE(
+	splat_test
+	sandbox/splat.cpp sandbox/splat_collector.cpp)
+
 TARGET_LINK_LIBRARIES(
-	cut_test
+	splat_test
 	fruitcut_library
 	${FCPPT_LIBRARIES}
 	${SGE_CORE_LIBRARY}
@@ -185,6 +202,8 @@ TARGET_LINK_LIBRARIES(
 	${SGE_SYSTEMS_LIBRARY}
 	${SGE_CAMERA_LIBRARY}
 	${SGE_PARSE_LIBRARY}
+	${SGE_FONTTEXT_LIBRARY}
+	${SGE_FONTBITMAP_LIBRARY}
 	${SGE_SPRITE_LIBRARY}
 	${Boost_LIBRARIES})
 
