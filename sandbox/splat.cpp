@@ -77,6 +77,7 @@ private:
 	fruitcut::sprite::object canvas_;
 	texture_vector textures_;
 	fcppt::random::uniform<texture_vector::size_type> rng_;
+	fcppt::random::uniform<double> color_rng_;
 	fcppt::signal::scoped_connection move_connection_,click_connection_;
 public:
 	explicit
@@ -92,6 +93,9 @@ public:
 		cursor_(
 			fruitcut::sprite::parameters()
 				.texture_size()
+				.order(
+					static_cast<fruitcut::sprite::object::order_type>(
+						-100))
 				.visible(
 					true)
 				.texture(
@@ -123,6 +127,9 @@ public:
 				.texture_size()
 				.visible(
 					true)
+				.order(
+					static_cast<fruitcut::sprite::object::order_type>(
+						100))
 				.texture(
 					sge::texture::part_ptr(
 						new sge::texture::part_raw(
@@ -146,6 +153,10 @@ public:
 				static_cast<texture_vector::size_type>(0),
 				static_cast<texture_vector::size_type>(
 					textures_.size()-1))),
+		color_rng_(
+			fcppt::random::make_inclusive_range(
+				0.0,
+				1.0)),
 		move_connection_(
 			_mouse.axis_callback(
 				boost::bind(
@@ -184,6 +195,9 @@ private:
 		splat_collector_.insert(
 			fruitcut::sprite::parameters()
 				.texture_size()
+				.order(
+					static_cast<fruitcut::sprite::object::order_type>(
+						0))
 				.visible(
 					true)
 				.texture(
@@ -198,9 +212,9 @@ private:
 					&ss_)
 				.color(
 					fruitcut::sprite::object::color_type(
-						(sge::image::color::init::red %= 1.0)
-						(sge::image::color::init::green %= 1.0)
-						(sge::image::color::init::blue %= 1.0)
+						(sge::image::color::init::red %= color_rng_())
+						(sge::image::color::init::green %= color_rng_())
+						(sge::image::color::init::blue %= color_rng_())
 						(sge::image::color::init::alpha %= 1.0))));
 	}
 

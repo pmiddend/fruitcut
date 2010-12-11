@@ -3,6 +3,7 @@
 #include "../media_path.hpp"
 #include <sge/sprite/parameters_impl.hpp>
 #include <sge/renderer/filter/linear.hpp>
+#include <sge/renderer/filter/point.hpp>
 #include <sge/renderer/resource_flags_none.hpp>
 #include <sge/renderer/dim2.hpp>
 #include <sge/renderer/device.hpp>
@@ -142,15 +143,15 @@ fruitcut::sandbox::splat_collector::splat_collector(
 		renderer_->create_texture(
 			fcppt::math::dim::structure_cast<sge::renderer::dim2>(
 				renderer_->screen_size()),
-			sge::image::color::format::rgba8,
-			sge::renderer::filter::linear,
+			sge::image::color::format::rgb8,
+			sge::renderer::filter::point,
 			sge::renderer::resource_flags::none)),
 	temp_texture_(
 		renderer_->create_texture(
 			fcppt::math::dim::structure_cast<sge::renderer::dim2>(
 				renderer_->screen_size()),
-			sge::image::color::format::rgba8,
-			sge::renderer::filter::linear,
+			sge::image::color::format::rgb8,
+			sge::renderer::filter::point,
 			sge::renderer::resource_flags::none)),
 	texture_target_(
 		renderer_->create_target(
