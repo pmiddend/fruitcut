@@ -7,6 +7,7 @@
 #include <sge/texture/part_ptr.hpp>
 #include <sge/image/file.hpp>
 #include <sge/texture/part_raw.hpp>
+#include <sge/renderer/texture.hpp>
 #include <sge/image/multi_loader.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/filter/linear.hpp>
@@ -23,6 +24,7 @@
 #include <fcppt/math/vector/arithmetic.hpp>
 #include <fcppt/math/vector/normalize.hpp>
 #include <fcppt/math/vector/atan2.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/math/deg_to_rad.hpp>
 #include <fcppt/filesystem/directory_iterator.hpp>
 #include <fcppt/text.hpp>
@@ -114,13 +116,15 @@ fruitcut::sandbox::splatter::splatter(
 				-30.0),
 			static_cast<sge::renderer::scalar>(
 				30.0))),
+	speed_range_(
+		std::make_pair(
+			static_cast<sge::renderer::scalar>(100),
+			static_cast<sge::renderer::scalar>(1000))),
 	// And this is in pixels per second
 	speed_rng_(
 		fcppt::random::make_inclusive_range(
-			static_cast<sge::renderer::scalar>(
-				100.0),
-			static_cast<sge::renderer::scalar>(
-				1000.0))),
+			speed_range_.first,
+			speed_range_.second)),
 	// And this is in seconds
 	lifetime_rng_(
 		fcppt::random::make_inclusive_range(
@@ -146,8 +150,6 @@ fruitcut::sandbox::splatter::splatter(
 void
 fruitcut::sandbox::splatter::update()
 {
-	splat_collector_.update();
-
 	for (particle_list::iterator i = particles_.begin(); i != particles_.end();)
 	{
 		i->update();
@@ -155,7 +157,8 @@ fruitcut::sandbox::splatter::update()
 		{
 			splat_collector_.insert(
 				sprite::parameters()
-					.texture_size()
+					.size(
+						i->sprite().size())
 					.order(
 						static_cast<sprite::object::order_type>(
 							0))
@@ -174,6 +177,8 @@ fruitcut::sandbox::splatter::update()
 		else
 			++i;
 	}
+
+	splat_collector_.update();
 }
 
 void
@@ -211,9 +216,12 @@ fruitcut::sandbox::splatter::click_callback(
 			direction.x() * std::cos(rotation) - direction.y() * std::sin(rotation),	
 			direction.y() * std::cos(rotation) + direction.x() * std::sin(rotation));
 
+		sge::renderer::scalar const speed_scalar = 
+			speed_rng_();
+
 		sge::renderer::vector2 const 
 			speed = 
-				speed_rng_() * rotated,
+				speed_scalar * rotated,
 			acceleration = 
 				static_cast<sge::renderer::scalar>(-0.8) * speed;
 
@@ -225,7 +233,19 @@ fruitcut::sandbox::splatter::click_callback(
 		particles_.push_back(
 			new splat_particle(
 				sprite::parameters()
-					.texture_size()
+					.size(
+						sprite::object::dim(
+							static_cast<sprite::object::unit>(
+								texture->dim().w()),
+							static_cast<sprite::object::unit>(
+								static_cast<sge::renderer::scalar>(texture->dim().h()) * 
+									std::max(
+										static_cast<sge::renderer::scalar>(
+											0.2),
+										(static_cast<sge::renderer::scalar>(1.0) - 
+											(speed_scalar - speed_range_.first) / 
+												(speed_range_.second - speed_range_.first))))
+							))
 					.order(
 						static_cast<sprite::object::order_type>(
 							-101))
@@ -243,11 +263,17 @@ fruitcut::sandbox::splatter::click_callback(
 					.system(
 						&ss_)
 					.color(
+						/*
+						sprite::object::color_type(
+							(sge::image::color::init::red %= 1.0)
+							(sge::image::color::init::green %= 1.0)
+							(sge::image::color::init::blue %= 1.0)
+							(sge::image::color::init::alpha %= 1.0))*/
 						sprite::object::color_type(
 							(sge::image::color::init::red %= color_rng_())
 							(sge::image::color::init::green %= color_rng_())
 							(sge::image::color::init::blue %= color_rng_())
-							(sge::image::color::init::alpha %= 1.0))),
+							(sge::image::color::init::alpha %= 0.5))),
 				sge::time::second_f(
 					lifetime_rng_()),
 				speed,

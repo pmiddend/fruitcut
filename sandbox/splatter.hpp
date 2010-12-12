@@ -18,6 +18,7 @@
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
 #include <boost/ptr_container/ptr_list.hpp>
+#include <utility>
 #include <vector>
 
 namespace fruitcut
@@ -57,6 +58,7 @@ private:
 	fcppt::random::uniform<texture_vector::size_type> texture_rng_;
 	fcppt::random::uniform<double> color_rng_;
 	fcppt::random::uniform<sge::renderer::scalar> rotation_rng_;
+	std::pair<sge::renderer::scalar,sge::renderer::scalar> speed_range_;
 	fcppt::random::uniform<sge::renderer::scalar> speed_rng_;
 	fcppt::random::uniform<sge::time::funit> lifetime_rng_;
 	fcppt::signal::scoped_connection move_connection_,click_connection_;
