@@ -1,4 +1,4 @@
-#include "particle.hpp"
+#include "sword_particle.hpp"
 #include <sge/image/color/init.hpp>
 #include <sge/sprite/parameters_impl.hpp>
 #include <fcppt/chrono/high_resolution_clock.hpp>
@@ -8,7 +8,7 @@
 #include <fcppt/math/vector/arithmetic.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
 
-fruitcut::sandbox::particle::particle(
+fruitcut::sandbox::sword_particle::sword_particle(
 	sprite::parameters const &params,
 	duration const &_life_time)
 :
@@ -24,7 +24,7 @@ fruitcut::sandbox::particle::particle(
 }
 
 void
-fruitcut::sandbox::particle::update()
+fruitcut::sandbox::sword_particle::update()
 {
 	double const life_percentage = 
 		1.0 - 
@@ -63,12 +63,12 @@ fruitcut::sandbox::particle::update()
 }
 
 bool 
-fruitcut::sandbox::particle::dead() const
+fruitcut::sandbox::sword_particle::dead() const
 {
 	return 
 		(fcppt::chrono::high_resolution_clock::now() - birth_).count() > life_time_.count();
 }
 
-fruitcut::sandbox::particle::~particle()
+fruitcut::sandbox::sword_particle::~sword_particle()
 {
 }

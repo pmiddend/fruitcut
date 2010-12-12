@@ -137,7 +137,7 @@ TARGET_LINK_LIBRARIES(
 
 ADD_EXECUTABLE(
 	trail_test
-	sandbox/trail_test.cpp sandbox/mouse_trailer.cpp sandbox/particle.cpp)
+	sandbox/trail_test.cpp sandbox/mouse_trailer.cpp sandbox/sword_particle.cpp)
 
 TARGET_LINK_LIBRARIES(
 	trail_test
@@ -190,7 +190,7 @@ TARGET_LINK_LIBRARIES(
 
 ADD_EXECUTABLE(
 	splat_test
-	sandbox/splat.cpp sandbox/splat_collector.cpp)
+	sandbox/splat.cpp sandbox/splat_collector.cpp sandbox/splatter.cpp)
 
 TARGET_LINK_LIBRARIES(
 	splat_test

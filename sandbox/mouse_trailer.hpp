@@ -3,7 +3,7 @@
 
 #include "../sprite/system.hpp"
 #include "../sprite/object.hpp"
-#include "particle.hpp"
+#include "sword_particle.hpp"
 #include <sge/renderer/device_ptr.hpp>
 #include <sge/image/multi_loader_fwd.hpp>
 #include <sge/input/mouse/axis_event_fwd.hpp>
@@ -39,7 +39,7 @@ public:
 	~mouse_trailer();
 private:
 	typedef
-	std::list<particle>
+	std::list<sword_particle>
 	particle_sequence;
 
 	fruitcut::sprite::system ss_;

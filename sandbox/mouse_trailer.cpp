@@ -126,7 +126,7 @@ fruitcut::sandbox::mouse_trailer::update()
 				lambda += particle_length/length)
 			{
 				particles_.push_back(
-					particle(
+					sword_particle(
 						sprite::parameters()
 							.texture_size()
 							.visible(
@@ -147,7 +147,7 @@ fruitcut::sandbox::mouse_trailer::update()
 									(sge::image::color::init::green %= 1.0)
 									(sge::image::color::init::blue %= 1.0)
 									(sge::image::color::init::alpha %= 1.0))),
-						fcppt::chrono::duration_cast<particle::duration>(
+						fcppt::chrono::duration_cast<sword_particle::duration>(
 							fcppt::chrono::milliseconds(
 								200))));
 			}

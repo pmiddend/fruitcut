@@ -1,5 +1,5 @@
-#ifndef FRUITCUT_SANDBOX_PARTICLE_HPP_INCLUDED
-#define FRUITCUT_SANDBOX_PARTICLE_HPP_INCLUDED
+#ifndef FRUITCUT_SANDBOX_SWORD_PARTICLE_HPP_INCLUDED
+#define FRUITCUT_SANDBOX_SWORD_PARTICLE_HPP_INCLUDED
 
 #include "../sprite/parameters.hpp"
 #include "../sprite/object.hpp"
@@ -13,7 +13,7 @@ namespace fruitcut
 {
 namespace sandbox
 {
-class particle
+class sword_particle
 {
 public:
 	typedef
@@ -25,7 +25,7 @@ public:
 	duration;
 
 	explicit
-	particle(
+	sword_particle(
 		sprite::parameters const &,
 		duration const &life_time);
 
@@ -35,7 +35,7 @@ public:
 	bool
 	dead() const;
 
-	~particle();
+	~sword_particle();
 private:
 	sprite::object sprite_;
 	sprite::object::dim const initial_size_;
