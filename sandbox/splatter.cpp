@@ -145,6 +145,34 @@ fruitcut::sandbox::splatter::splatter(
 				this,
 				_1)))
 {
+	splat_collector_.insert(
+		sprite::parameters()
+			.size(
+				fcppt::math::dim::structure_cast<sprite::object::dim>(
+					_renderer->screen_size()))
+			.order(
+				static_cast<sprite::object::order_type>(
+					0))
+			.visible(
+				true)
+			.texture(
+				sge::texture::part_ptr(
+					new sge::texture::part_raw(
+						_renderer->create_texture(
+							_image_loader.load(
+								media_path() 
+									/ FCPPT_TEXT("textures") 
+									/ FCPPT_TEXT("wood.png"))->view(),
+							sge::renderer::filter::linear,
+							sge::renderer::resource_flags::none))))
+			.pos(
+				sprite::object::point::null())
+			.color(
+				sprite::object::color_type(
+					(sge::image::color::init::red %= 1.0)
+					(sge::image::color::init::green %= 1.0)
+					(sge::image::color::init::blue %= 1.0)
+					(sge::image::color::init::alpha %= 1.0))));
 }
 
 void
