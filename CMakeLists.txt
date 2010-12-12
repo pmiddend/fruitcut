@@ -190,7 +190,7 @@ TARGET_LINK_LIBRARIES(
 
 ADD_EXECUTABLE(
 	splat_test
-	sandbox/splat.cpp sandbox/splat_collector.cpp sandbox/splatter.cpp)
+	sandbox/splat.cpp sandbox/splat_collector.cpp sandbox/splatter.cpp sandbox/splat_particle.cpp)
 
 TARGET_LINK_LIBRARIES(
 	splat_test

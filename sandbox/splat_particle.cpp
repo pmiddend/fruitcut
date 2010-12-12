@@ -11,9 +11,11 @@
 #include <fcppt/math/vector/arithmetic.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/math/vector/structure_cast.hpp>
+#include <fcppt/math/vector/output.hpp>
+#include <iostream>
 
 fruitcut::sandbox::splat_particle::splat_particle(
-	sprite::parameters const &params,
+	fruitcut::sprite::parameters const &params,
 	sge::time::duration const &_life_time,
 	sge::renderer::vector2 const &_velocity,
 	sge::renderer::vector2 const &_acceleration)
@@ -46,12 +48,21 @@ fruitcut::sandbox::splat_particle::update()
 		delta * velocity_;
 	velocity_ += 
 		delta * acceleration_;
+	sprite_.pos(
+		fcppt::math::vector::structure_cast<sprite::object::point>(
+			position_));
 }
 
 bool 
 fruitcut::sandbox::splat_particle::dead() const
 {
 	return timer_.expired();
+}
+
+fruitcut::sprite::object const &
+fruitcut::sandbox::splat_particle::sprite() const
+{
+	return sprite_;
 }
 
 fruitcut::sandbox::splat_particle::~splat_particle()

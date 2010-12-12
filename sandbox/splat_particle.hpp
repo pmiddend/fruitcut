@@ -30,7 +30,7 @@ public:
 
 	explicit
 	splat_particle(
-		sprite::parameters const &,
+		fruitcut::sprite::parameters const &,
 		sge::time::duration const &life_time,
 		sge::renderer::vector2 const &velocity,
 		sge::renderer::vector2 const &acceleration);
@@ -41,9 +41,12 @@ public:
 	bool
 	dead() const;
 
+	fruitcut::sprite::object const &
+	sprite() const;
+
 	~splat_particle();
 private:
-	sprite::object sprite_;
+	fruitcut::sprite::object sprite_;
 	sge::time::timer timer_;
 	sge::time::timer second_timer_;
 	sge::renderer::vector2 position_;

@@ -16,12 +16,20 @@
 #include <sge/input/mouse/button_event.hpp>
 #include <sge/input/mouse/axis.hpp>
 #include <sge/image/color/init.hpp>
+#include <sge/time/funit.hpp>
+#include <sge/time/second_f.hpp>
 #include <fcppt/random/make_inclusive_range.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
+#include <fcppt/math/vector/normalize.hpp>
+#include <fcppt/math/vector/atan2.hpp>
+#include <fcppt/math/deg_to_rad.hpp>
 #include <fcppt/filesystem/directory_iterator.hpp>
 #include <fcppt/text.hpp>
 #include <boost/bind.hpp>
+#include <boost/next_prior.hpp>
+#include <iostream>
+#include <cmath>
 
 fruitcut::sandbox::splatter::splatter(
 	sge::renderer::device_ptr const _renderer,
@@ -90,7 +98,7 @@ fruitcut::sandbox::splatter::splatter(
 		load_textures(
 			_renderer,
 			_image_loader)),
-	rng_(
+	texture_rng_(
 		fcppt::random::make_inclusive_range(
 			static_cast<texture_vector::size_type>(0),
 			static_cast<texture_vector::size_type>(
@@ -99,6 +107,27 @@ fruitcut::sandbox::splatter::splatter(
 		fcppt::random::make_inclusive_range(
 			0.0,
 			1.0)),
+	// NOTE: This is in _degrees_
+	rotation_rng_(
+		fcppt::random::make_inclusive_range(
+			static_cast<sge::renderer::scalar>(
+				-30.0),
+			static_cast<sge::renderer::scalar>(
+				30.0))),
+	// And this is in pixels per second
+	speed_rng_(
+		fcppt::random::make_inclusive_range(
+			static_cast<sge::renderer::scalar>(
+				100.0),
+			static_cast<sge::renderer::scalar>(
+				1000.0))),
+	// And this is in seconds
+	lifetime_rng_(
+		fcppt::random::make_inclusive_range(
+			static_cast<sge::time::funit>(
+				0.1),
+			static_cast<sge::time::funit>(
+				1.5))),
 	move_connection_(
 		_mouse.axis_callback(
 			boost::bind(
@@ -118,6 +147,33 @@ void
 fruitcut::sandbox::splatter::update()
 {
 	splat_collector_.update();
+
+	for (particle_list::iterator i = particles_.begin(); i != particles_.end();)
+	{
+		i->update();
+		if (i->dead())
+		{
+			splat_collector_.insert(
+				sprite::parameters()
+					.texture_size()
+					.order(
+						static_cast<sprite::object::order_type>(
+							0))
+					.rotation(
+						i->sprite().rotation())
+					.visible(
+						true)
+					.texture(
+						i->sprite().texture())
+					.pos(
+						i->sprite().pos())
+					.color(
+						i->sprite().color()));
+			i = particles_.erase(i);
+		}
+		else
+			++i;
+	}
 }
 
 void
@@ -131,33 +187,72 @@ void
 fruitcut::sandbox::splatter::click_callback(
 	sge::input::mouse::button_event const &e)
 {
-	if (!e.pressed())
+	if (e.pressed())
+	{
+		first_position_ = cursor_.pos() + cursor_.size()/2;
 		return;
+	}
 
-	splat_collector_.insert(
-		sprite::parameters()
-			.texture_size()
-			.order(
-				static_cast<sprite::object::order_type>(
-					0))
-			.visible(
-				true)
-			.texture(
-				sge::texture::part_ptr(
-					new sge::texture::part_raw(
-						*boost::next(
-							textures_.begin(),
-							rng_()))))
-			.center(
-				cursor_.pos() + cursor_.size()/2)
-			.system(
-				&ss_)
-			.color(
-				sprite::object::color_type(
-					(sge::image::color::init::red %= color_rng_())
-					(sge::image::color::init::green %= color_rng_())
-					(sge::image::color::init::blue %= color_rng_())
-					(sge::image::color::init::alpha %= 1.0))));
+	unsigned const particle_count = 
+		20;
+
+	sge::renderer::vector2 const direction = 
+		fcppt::math::vector::normalize(
+			fcppt::math::vector::structure_cast<sge::renderer::vector2>(
+				(cursor_.pos() + cursor_.size()/2) - first_position_));
+
+	for (unsigned i = 0; i < particle_count; ++i)
+	{
+		sge::renderer::scalar const rotation = 
+			fcppt::math::deg_to_rad(
+				rotation_rng_());
+	
+		sge::renderer::vector2 const rotated(
+			direction.x() * std::cos(rotation) - direction.y() * std::sin(rotation),	
+			direction.y() * std::cos(rotation) + direction.x() * std::sin(rotation));
+
+		sge::renderer::vector2 const 
+			speed = 
+				speed_rng_() * rotated,
+			acceleration = 
+				static_cast<sge::renderer::scalar>(-0.8) * speed;
+
+		sge::renderer::texture_ptr const texture = 
+			*boost::next(
+				textures_.begin(),
+				texture_rng_());
+		
+		particles_.push_back(
+			new splat_particle(
+				sprite::parameters()
+					.texture_size()
+					.order(
+						static_cast<sprite::object::order_type>(
+							-101))
+					.visible(
+						true)
+					.rotation(
+						fcppt::math::vector::atan2(
+							rotated))
+					.texture(
+						sge::texture::part_ptr(
+							new sge::texture::part_raw(
+								texture)))
+					.center(
+						cursor_.pos() + cursor_.size()/2)
+					.system(
+						&ss_)
+					.color(
+						sprite::object::color_type(
+							(sge::image::color::init::red %= color_rng_())
+							(sge::image::color::init::green %= color_rng_())
+							(sge::image::color::init::blue %= color_rng_())
+							(sge::image::color::init::alpha %= 1.0))),
+				sge::time::second_f(
+					lifetime_rng_()),
+				speed,
+				acceleration));
+	}
 }
 
 void
