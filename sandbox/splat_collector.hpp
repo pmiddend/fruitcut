@@ -51,8 +51,8 @@ private:
 	sprite::system ss_;
 	sprite::object background_;
 	sprite_sequence sprites_;
-	sge::renderer::vertex_buffer_ptr quad_;
 	sge::shader::object copy_shader_;
+	sge::renderer::vertex_buffer_ptr quad_;
 };
 }
 }

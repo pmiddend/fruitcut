@@ -227,7 +227,7 @@ fruitcut::sandbox::splatter::click_callback(
 	}
 
 	unsigned const particle_count = 
-		20;
+		200;
 
 	sge::renderer::vector2 const direction = 
 		fcppt::math::vector::normalize(
@@ -301,7 +301,7 @@ fruitcut::sandbox::splatter::click_callback(
 							(sge::image::color::init::red %= color_rng_())
 							(sge::image::color::init::green %= color_rng_())
 							(sge::image::color::init::blue %= color_rng_())
-							(sge::image::color::init::alpha %= 0.5))),
+							(sge::image::color::init::alpha %= 0.1))),
 				sge::time::second_f(
 					lifetime_rng_()),
 				speed,

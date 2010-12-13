@@ -1,6 +1,8 @@
 #include "splat_collector.hpp"
 #include "../sprite/parameters.hpp"
 #include "../media_path.hpp"
+#include "screen_vf/create_quad.hpp"
+#include "screen_vf/format.hpp"
 #include <sge/sprite/parameters_impl.hpp>
 #include <sge/renderer/filter/linear.hpp>
 #include <sge/renderer/filter/point.hpp>
@@ -11,8 +13,6 @@
 #include <sge/renderer/scoped_block.hpp>
 #include <sge/renderer/scoped_vertex_buffer.hpp>
 #include <sge/renderer/no_depth_stencil_texture.hpp>
-#include <sge/renderer/vf/dynamic/make_format.hpp>
-#include <sge/renderer/size_type.hpp>
 #include <sge/texture/part_ptr.hpp>
 #include <sge/texture/part_raw.hpp>
 #include <sge/renderer/first_vertex.hpp>
@@ -31,108 +31,6 @@
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/text.hpp>
-
-#include <sge/renderer/vf/format.hpp>
-#include <sge/renderer/scalar.hpp>
-#include <sge/renderer/vf/make_unspecified_tag.hpp>
-#include <sge/renderer/vf/unspecified.hpp>
-#include <sge/renderer/vf/vector.hpp>
-#include <sge/renderer/vf/view.hpp>
-#include <sge/renderer/vf/view.hpp>
-#include <sge/renderer/vf/vertex.hpp>
-#include <sge/renderer/vf/iterator.hpp>
-#include <boost/mpl/vector/vector10.hpp>
-
-namespace
-{
-namespace tags
-{
-SGE_RENDERER_VF_MAKE_UNSPECIFIED_TAG(position)
-}
-
-typedef 
-sge::renderer::vf::unspecified
-<
-	sge::renderer::vf::vector
-	<
-		sge::renderer::scalar,
-		2
-	>,
-	tags::position
-> 
-vf_position;
-
-typedef 
-sge::renderer::vf::format
-<
-	boost::mpl::vector1
-	<
-		vf_position
-	>
-> 
-vf_format;
-
-typedef 
-sge::renderer::vf::view
-<
-	vf_format
-> 
-vf_vertex_view;
-
-void
-create_quad(
-	sge::renderer::device_ptr const renderer,
-	sge::shader::object &shader,
-	sge::renderer::vertex_buffer_ptr const vb)
-{
-	sge::shader::scoped scoped_shader(
-		shader);
-	
-	sge::renderer::scoped_vertex_buffer const scoped_vb_(
-		renderer,
-		vb);
-
-	sge::renderer::scoped_vertex_lock const vblock(
-		vb,
-		sge::renderer::lock_mode::writeonly);
-
-	vf_vertex_view const vertices(
-		vblock.value());
-
-	vf_vertex_view::iterator vb_it(
-		vertices.begin());
-
-	// Left top
-	(vb_it++)->set<vf_position>(
-		vf_position::packed_type(
-			-1, 1));
-
-	// Left bottom
-	(vb_it++)->set<vf_position>(
-		vf_position::packed_type(
-			-1,-1));
-
-	// Right top
-	(vb_it++)->set<vf_position>(
-		vf_position::packed_type(
-			1,1));
-
-	// Right top
-	(vb_it++)->set<vf_position>(
-		vf_position::packed_type(
-			1,1));
-
-	// Left bottom
-	(vb_it++)->set<vf_position>(
-		vf_position::packed_type(
-			-1,-1));
-
-	// Right bottom
-	(vb_it++)->set<vf_position>(
-		vf_position::packed_type(
-			1,-1));
-}
-}
 
 fruitcut::sandbox::splat_collector::splat_collector(
 	sge::renderer::device_ptr const _renderer)
@@ -182,17 +80,11 @@ fruitcut::sandbox::splat_collector::splat_collector(
 					(sge::image::color::init::green %= 1.0)
 					(sge::image::color::init::blue %= 1.0)
 					(sge::image::color::init::alpha %= 1.0))).elements()),
-	quad_(
-		renderer_->create_vertex_buffer(
-			sge::renderer::vf::dynamic::make_format<vf_format>(),
-			static_cast<sge::renderer::size_type>(
-				6),
-			sge::renderer::resource_flags::none)),
 	copy_shader_(
 		renderer_,
 		media_path()/FCPPT_TEXT("shaders")/FCPPT_TEXT("copy_vertex.glsl"),
 		media_path()/FCPPT_TEXT("shaders")/FCPPT_TEXT("copy_fragment.glsl"),
-		sge::shader::vf_to_string<vf_format>(),
+		sge::shader::vf_to_string<screen_vf::format>(),
 		fcppt::assign::make_container<sge::shader::variable_sequence>(
 			sge::shader::variable(
 				"texture_size",
@@ -202,12 +94,12 @@ fruitcut::sandbox::splat_collector::splat_collector(
 		fcppt::assign::make_container<sge::shader::sampler_sequence>(
 			sge::shader::sampler(
 				"texture",
-				texture_)))
+				texture_))),
+	quad_(
+		screen_vf::create_quad(
+			copy_shader_,
+			renderer_))
 {
-	create_quad(
-		renderer_,
-		copy_shader_,
-		quad_);
 }
 
 sge::renderer::texture_ptr const

@@ -39,14 +39,14 @@ private:
 	sge::renderer::target_ptr highlighted_target_;
 	sge::renderer::target_ptr blurred_vertical_target_;
 	sge::renderer::target_ptr blurred_both_target_;
-	sge::renderer::vertex_buffer_ptr quad_vb1_;
-	sge::renderer::vertex_buffer_ptr quad_vb2_;
-	sge::renderer::vertex_buffer_ptr quad_vb3_;
-	sge::renderer::vertex_buffer_ptr quad_vb4_;
 	sge::shader::object highlight_shader_;
 	sge::shader::object blur_shader_vertical_;
 	sge::shader::object blur_shader_horizontal_;
 	sge::shader::object combining_shader_;
+	sge::renderer::vertex_buffer_ptr quad_vb1_;
+	sge::renderer::vertex_buffer_ptr quad_vb2_;
+	sge::renderer::vertex_buffer_ptr quad_vb3_;
+	sge::renderer::vertex_buffer_ptr quad_vb4_;
 };
 }
 }

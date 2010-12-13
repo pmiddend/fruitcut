@@ -154,10 +154,27 @@ TARGET_LINK_LIBRARIES(
 
 ADD_EXECUTABLE(
 	bloom_test
-	sandbox/bloom.cpp sandbox/bloom_shader.cpp)
+	sandbox/bloom.cpp sandbox/bloom_shader.cpp sandbox/screen_vf/create_quad.cpp)
 
 TARGET_LINK_LIBRARIES(
 	bloom_test
+	fruitcut_library
+	${FCPPT_LIBRARIES}
+	${SGE_CORE_LIBRARY}
+	${SGE_SHADER_LIBRARY}
+	${SGE_CONSOLE_LIBRARY}
+	${SGE_SYSTEMS_LIBRARY}
+	${SGE_CAMERA_LIBRARY}
+	${SGE_PARSE_LIBRARY}
+	${SGE_SPRITE_LIBRARY}
+	${Boost_LIBRARIES})
+
+ADD_EXECUTABLE(
+	blur_test
+	sandbox/blur.cpp)
+
+TARGET_LINK_LIBRARIES(
+	blur_test
 	fruitcut_library
 	${FCPPT_LIBRARIES}
 	${SGE_CORE_LIBRARY}
@@ -190,7 +207,7 @@ TARGET_LINK_LIBRARIES(
 
 ADD_EXECUTABLE(
 	splat_test
-	sandbox/splat.cpp sandbox/splat_collector.cpp sandbox/splatter.cpp sandbox/splat_particle.cpp)
+	sandbox/splat.cpp sandbox/splat_collector.cpp sandbox/splatter.cpp sandbox/splat_particle.cpp sandbox/screen_vf/create_quad.cpp)
 
 TARGET_LINK_LIBRARIES(
 	splat_test
