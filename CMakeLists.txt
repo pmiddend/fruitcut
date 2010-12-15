@@ -171,7 +171,7 @@ TARGET_LINK_LIBRARIES(
 
 ADD_EXECUTABLE(
 	blur_test
-	sandbox/blur.cpp)
+	sandbox/blur.cpp sandbox/blur_filter.cpp sandbox/screen_vf/create_quad.cpp)
 
 TARGET_LINK_LIBRARIES(
 	blur_test

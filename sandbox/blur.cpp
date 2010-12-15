@@ -1,4 +1,5 @@
 #include "../media_path.hpp"
+#include "blur_filter.hpp"
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
 #include <sge/window/instance.hpp>
@@ -39,9 +40,13 @@
 #include <sge/sprite/with_depth.hpp>
 #include <sge/sprite/default_sort.hpp>
 #include <sge/sprite/default_equal.hpp>
+#include <sge/time/timer.hpp>
+#include <sge/time/millisecond.hpp>
 #include <sge/systems/viewport/manage_resize.hpp>
 #include <sge/texture/manager.hpp>
 #include <sge/texture/add_image.hpp>
+#include <sge/texture/part_ptr.hpp>
+#include <sge/texture/part_raw.hpp>
 #include <sge/texture/no_fragmented.hpp>
 #include <sge/exception.hpp>
 #include <sge/renderer/device.hpp>
@@ -69,7 +74,6 @@
 
 namespace
 {
-
 typedef sge::image::color::rgba8_format sprite_color;
 
 typedef sge::sprite::choices<
@@ -278,74 +282,48 @@ try
 	sprite_object bg(
 		sprite_parameters()
 		.texture(
-			tex_bg
-		)
+			tex_bg)
 		.pos(
-			sprite_object::point::null()
-		)
+			sprite_object::point::null())
 		.size(
-			fcppt::math::dim::structure_cast<
-				sprite_object::dim
-			>(
-				screen_size
-			)
-		)
+			fcppt::math::dim::structure_cast<sprite_object::dim>(
+				screen_size))
 		.depth(
-			static_cast<
-				sprite_object::depth_type
-			>(-2)
-		)
+			static_cast<sprite_object::depth_type>(-2))
 		.default_color()
-		.elements()
-	);
+		.elements());
 
 	sprite_object vectorer(
 		sprite_parameters()
 		.texture(
-			tex_vectorer
-		)
+			tex_vectorer)
 		.depth(
-			static_cast<
-				sprite_object::depth_type
-			>(0)
-		)
+			static_cast<sprite_object::depth_type>(0))
 		.pos(
-			sprite_object::point::null()
-		)
+			sprite_object::point::null())
 		.default_color()
 		.texture_size()
-		.elements()
-	);
+		.elements());
 
 	sprite_object tux(
 		sprite_parameters()
 		.pos(
 			sprite_object::point(
 				static_cast<sprite_object::unit>(screen_size.w()/2-16),
-				static_cast<sprite_object::unit>(screen_size.h()/2-16)
-			)
-		)
+				static_cast<sprite_object::unit>(screen_size.h()/2-16)))
 		.texture(
-			tex_tux
-		)
+			tex_tux)
 		.size(
-			sprite_object::dim(32,32)
-		)
+			sprite_object::dim(32,32))
 		.color(
 			sge::image::color::rgba8(
 				(sge::image::color::init::red %= 1.0)
 				(sge::image::color::init::green %= 1.0)
 				(sge::image::color::init::blue %= 1.0)
-				(sge::image::color::init::alpha %= 1.0)
-			)
-		)
+				(sge::image::color::init::alpha %= 1.0)))
 		.depth(
-			static_cast<
-				sprite_object::depth_type
-			>(1)
-		)
-		.elements()
-	);
+			static_cast<sprite_object::depth_type>(1))
+		.elements());
 
 	bool running = true;
 
@@ -353,18 +331,12 @@ try
 		sys.keyboard_collector()->key_callback(
 			sge::input::keyboard::action(
 				sge::input::keyboard::key_code::escape,
-				boost::phoenix::ref(running) = false
-			)
-		)
-	);
+				boost::phoenix::ref(running) = false)));
 
 	fcppt::signal::scoped_connection const pc(
 		sys.mouse_collector()->axis_callback(
 			::sprite_functor(
-				vectorer
-			)
-		)
-	);
+				vectorer)));
 
 	sys.renderer()->state(
 		sge::renderer::state::list
@@ -373,14 +345,57 @@ try
 
 	std::vector<sprite_object> sprites;
 
+	fruitcut::sandbox::blur_filter blur(
+		sys.renderer(),
+		fcppt::math::dim::structure_cast<sge::renderer::dim2>(
+			sys.renderer()->screen_size()));
+
+	sprites.push_back(
+		bg);
+	sprites.push_back(
+		vectorer);
+	sprites.push_back(
+		tux);
+
+	blur.render(
+		boost::bind(
+			&render_callback,
+			boost::ref(
+				ss),
+			boost::ref(
+				sprites)));
+
+	sprite_object blurred(
+		sprite_parameters()
+		.texture_size()
+		.pos(
+			sprite_object::point::null())
+		.texture(
+			sge::texture::part_ptr(
+				new sge::texture::part_raw(
+					blur.texture())))
+		.color(
+			sge::image::color::rgba8(
+				(sge::image::color::init::red %= 1.0)
+				(sge::image::color::init::green %= 1.0)
+				(sge::image::color::init::blue %= 1.0)
+				(sge::image::color::init::alpha %= 1.0)))
+		.elements());
+
+	sprites.clear();
+	sprites.push_back(
+		blurred);
+
+	sge::time::timer blur_timer(
+		sge::time::millisecond(
+			50));
+
 	while(running)
 	{
 		sys.window()->dispatch();
 
-		sprites.clear();
-		sprites.push_back(bg);
-		sprites.push_back(vectorer);
-		sprites.push_back(tux);
+		if (blur_timer.update_b())
+			blur.iterate();
 
 		sge::renderer::scoped_block scoped_block(
 			sys.renderer());
