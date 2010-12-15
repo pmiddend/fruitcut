@@ -154,7 +154,7 @@ TARGET_LINK_LIBRARIES(
 
 ADD_EXECUTABLE(
 	bloom_test
-	sandbox/bloom.cpp sandbox/bloom_shader.cpp sandbox/screen_vf/create_quad.cpp)
+	sandbox/bloom.cpp sandbox/bloom_shader.cpp sandbox/screen_vf/create_quad.cpp sandbox/blur_filter.cpp)
 
 TARGET_LINK_LIBRARIES(
 	bloom_test

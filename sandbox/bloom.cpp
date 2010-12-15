@@ -375,13 +375,7 @@ try
 	std::vector<sprite_object> sprites;
 
 	fruitcut::sandbox::bloom_shader bloom(
-		sys.renderer(),
-		boost::bind(
-			&render_callback,
-			boost::ref(
-				ss),
-			boost::ref(
-				sprites)));
+		sys.renderer());
 
 	while(running)
 	{
@@ -392,7 +386,13 @@ try
 		sprites.push_back(vectorer);
 		sprites.push_back(tux);
 
-		bloom.render();
+		bloom.render(
+			boost::bind(
+				&render_callback,
+				boost::ref(
+					ss),
+				boost::ref(
+					sprites)));
 	}
 }
 catch(sge::exception const &e)
