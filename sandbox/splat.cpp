@@ -15,7 +15,7 @@
 #include <sge/renderer/filter/linear.hpp>
 #include <sge/input/keyboard/action.hpp>
 #include <sge/input/keyboard/device.hpp>
-#include <sge/image/multi_loader.hpp>
+#include <sge/image2d/multi_loader.hpp>
 #include <sge/input/mouse/device.hpp>
 #include <sge/image/capabilities.hpp>
 #include <sge/input/mouse/button_event.hpp>
@@ -23,7 +23,7 @@
 #include <sge/renderer/filter/linear.hpp>
 #include <sge/renderer/resource_flags_none.hpp>
 #include <sge/image/colors.hpp>
-#include <sge/image/file.hpp>
+#include <sge/image2d/file.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
 #include <sge/systems/viewport/manage_resize.hpp>

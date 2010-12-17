@@ -8,7 +8,7 @@
 #include <sge/sprite/intrusive/system_impl.hpp>
 #include <sge/renderer/device_ptr.hpp>
 #include <sge/renderer/scalar.hpp>
-#include <sge/image/multi_loader_fwd.hpp>
+#include <sge/image2d/multi_loader_fwd.hpp>
 #include <sge/renderer/texture_ptr.hpp>
 #include <sge/input/mouse/device_fwd.hpp>
 #include <sge/input/mouse/button_event_fwd.hpp>
@@ -31,7 +31,7 @@ public:
 	explicit
 	splatter(
 		sge::renderer::device_ptr,
-		sge::image::multi_loader &,
+		sge::image2d::multi_loader &,
 		sge::input::mouse::device &);
 
 	void
@@ -76,7 +76,7 @@ private:
 	texture_vector const
 	load_textures(
 		sge::renderer::device_ptr,
-		sge::image::multi_loader &);
+		sge::image2d::multi_loader &);
 };
 }
 }

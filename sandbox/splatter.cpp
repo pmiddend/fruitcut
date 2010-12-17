@@ -5,10 +5,10 @@
 #include <sge/sprite/parameters_impl.hpp>
 #include <sge/sprite/default_equal.hpp>
 #include <sge/texture/part_ptr.hpp>
-#include <sge/image/file.hpp>
+#include <sge/image2d/file.hpp>
 #include <sge/texture/part_raw.hpp>
 #include <sge/renderer/texture.hpp>
-#include <sge/image/multi_loader.hpp>
+#include <sge/image2d/multi_loader.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/filter/linear.hpp>
 #include <sge/renderer/resource_flags_none.hpp>
@@ -35,7 +35,7 @@
 
 fruitcut::sandbox::splatter::splatter(
 	sge::renderer::device_ptr const _renderer,
-	sge::image::multi_loader &_image_loader,
+	sge::image2d::multi_loader &_image_loader,
 	sge::input::mouse::device &_mouse)
 :
 	splat_collector_(
@@ -335,7 +335,7 @@ fruitcut::sandbox::splatter::move_callback(
 fruitcut::sandbox::splatter::texture_vector const
 fruitcut::sandbox::splatter::load_textures(
 	sge::renderer::device_ptr const renderer,
-	sge::image::multi_loader &image_loader)
+	sge::image2d::multi_loader &image_loader)
 {
 	texture_vector t;
 	for(

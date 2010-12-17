@@ -5,7 +5,7 @@
 #include "../sprite/object.hpp"
 #include "sword_particle.hpp"
 #include <sge/renderer/device_ptr.hpp>
-#include <sge/image/multi_loader_fwd.hpp>
+#include <sge/image2d/multi_loader_fwd.hpp>
 #include <sge/input/mouse/axis_event_fwd.hpp>
 #include <sge/sprite/object_impl.hpp>
 #include <sge/sprite/intrusive/system_impl.hpp>
@@ -27,7 +27,7 @@ public:
 	explicit
 	mouse_trailer(
 		sge::renderer::device_ptr,
-		sge::image::multi_loader &,
+		sge::image2d::multi_loader &,
 		sge::input::mouse::device_ptr);
 
 	void

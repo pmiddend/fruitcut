@@ -12,8 +12,8 @@
 #include <sge/image/colors.hpp>
 #include <sge/image/color/init.hpp>
 #include <sge/image/color/rgba8.hpp>
-#include <sge/image/file.hpp>
-#include <sge/image/multi_loader.hpp>
+#include <sge/image2d/file.hpp>
+#include <sge/image2d/multi_loader.hpp>
 #include <sge/renderer/vector2.hpp>
 #include <sge/texture/part.hpp>
 #include <sge/renderer/texture.hpp>
@@ -31,7 +31,7 @@
 
 fruitcut::sandbox::mouse_trailer::mouse_trailer(
 	sge::renderer::device_ptr const renderer,
-	sge::image::multi_loader &image_loader,
+	sge::image2d::multi_loader &image_loader,
 	sge::input::mouse::device_ptr mouse)
 :
 	ss_(
