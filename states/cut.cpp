@@ -8,7 +8,7 @@
 #include <sge/sprite/render_one.hpp>
 #include <sge/sprite/parameters.hpp>
 #include <sge/sprite/default_equal.hpp>
-#include <sge/image/multi_loader.hpp>
+#include <sge/image2d/multi_loader.hpp>
 #include <sge/renderer/filter/linear.hpp>
 #include <sge/renderer/resource_flags_none.hpp>
 #include <sge/renderer/vector2.hpp>
@@ -22,7 +22,7 @@
 #include <sge/input/mouse/axis_event.hpp>
 #include <sge/input/mouse/button_event.hpp>
 #include <sge/input/mouse/button_code.hpp>
-#include <sge/image/file.hpp>
+#include <sge/image2d/file.hpp>
 #include <sge/image/color/init.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/math/vector/dim.hpp>

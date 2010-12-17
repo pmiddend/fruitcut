@@ -24,15 +24,15 @@
 #include <sge/renderer/filter/linear.hpp>
 #include <sge/texture/part_ptr.hpp>
 #include <sge/texture/part_raw.hpp>
-#include <sge/image/multi_loader.hpp>
+#include <sge/image2d/multi_loader.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/texture.hpp>
 #include <sge/renderer/aspect.hpp>
 #include <sge/renderer/scalar.hpp>
 #include <sge/renderer/vector3.hpp>
 #include <sge/input/keyboard/collector.hpp>
-#include <sge/image/file.hpp>
-#include <sge/image/create_texture.hpp>
+#include <sge/image2d/file.hpp>
+#include <sge/image2d/create_texture.hpp>
 #include <sge/input/keyboard/key_event.hpp>
 #include <sge/renderer/resource_flags_none.hpp>
 #include <sge/shader/vf_to_string.hpp>
@@ -224,7 +224,7 @@ fruitcut::states::ingame::ingame(
 				context<machine>().config_file(),
 				FCPPT_TEXT("test-model")))),
 	model_texture_(
-		sge::image::create_texture(
+		sge::image2d::create_texture(
 			media_path()/
 			FCPPT_TEXT("textures")/
 			json::find_member<fcppt::string>(

@@ -3,7 +3,8 @@
 #include <sge/renderer/filter/linear.hpp>
 #include <sge/renderer/state/scoped.hpp>
 #include <sge/renderer/caps.hpp>
-#include <sge/image/view/dim.hpp>
+#include <sge/image2d/view/dim.hpp>
+#include <sge/image2d/dim.hpp>
 #include <sge/image/color/any/convert.hpp>
 #include <sge/sprite/object_impl.hpp>
 #include <sge/sprite/parameters_impl.hpp>
@@ -70,8 +71,8 @@ fruitcut::sandbox::font_drawer::draw_char(
 	sge::font::const_image_view const &_data
 )
 {
-	sge::image::dim_type const dim(
-		sge::image::view::dim(
+	sge::image2d::dim const d(
+		sge::image2d::view::dim(
 			_data));
 
 	typedef 
@@ -84,7 +85,7 @@ fruitcut::sandbox::font_drawer::draw_char(
 			bounding_size_,
 			_pos,
 			fcppt::math::dim::structure_cast<sge::font::dim>(
-				dim));
+				d));
 
 	sprites_.push_back(
 		sprite_object(
@@ -93,7 +94,7 @@ fruitcut::sandbox::font_drawer::draw_char(
 				fcppt::math::vector::structure_cast<sprite_object::point>(
 					transformation.first))
 			.texture(
-				dim.content()
+				d.content()
 				?
 					cached_texture(
 						_char,

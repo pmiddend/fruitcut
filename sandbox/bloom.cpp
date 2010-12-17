@@ -18,7 +18,7 @@
 #include <sge/input/keyboard/device.hpp>
 #include <sge/input/mouse/axis_event.hpp>
 #include <sge/input/mouse/device.hpp>
-#include <sge/image/multi_loader.hpp>
+#include <sge/image2d/multi_loader.hpp>
 #include <sge/image/colors.hpp>
 #include <sge/renderer/scoped_target.hpp>
 #include <sge/image/color/format.hpp>
@@ -216,7 +216,7 @@ try
 		)
 	);
 
-	sge::image::file_ptr const
+	sge::image2d::file_ptr const
 		image_bg(
 			sys.image_loader().load(
 				fruitcut::media_path()
