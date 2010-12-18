@@ -1,19 +1,28 @@
 #include <sge/renderer/texture_ptr.hpp>
 #include <fcppt/container/array.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/assert.hpp>
+#include <fcppt/assert_message.hpp>
+#include <fcppt/algorithm/map.hpp>
 #include <boost/graph/graph_traits.hpp>
 #include <boost/graph/adjacency_list.hpp>
 #include <boost/graph/topological_sort.hpp>
+#include <boost/range/adaptors.hpp>
+#include <boost/spirit/home/phoenix/bind.hpp>
+#include <boost/spirit/home/phoenix/operator.hpp>
 #include <boost/foreach.hpp>
+#include <boost/lexical_cast.hpp>
+#include <boost/range/iterator_range.hpp>
+#include <boost/next_prior.hpp>
 #include <iostream>
+#include <string>
 #include <vector>
 #include <utility>
 #include <map>
 #include <algorithm>
 #include <iterator>
+#include <stdexcept>
 
-int main() {}
-#if 0
 namespace
 {
 namespace filters
@@ -45,18 +54,6 @@ public:
 		sge::renderer::texture_ptr) = 0;
 };
 
-class ternary
-:
-	public base
-{
-public:
-	virtual sge::renderer::texture_ptr const
-	apply(
-		sge::renderer::texture_ptr,
-		sge::renderer::texture_ptr,
-		sge::renderer::texture_ptr) = 0;
-};
-
 class ssaa 
 :
 	public unary
@@ -67,7 +64,7 @@ public:
 
 	sge::renderer::texture_ptr const
 	apply(
-		sge::renderer::texture_ptr);
+		sge::renderer::texture_ptr) { std::cout << "ssaa apply\n";  return sge::renderer::texture_ptr();}
 };
 
 class blur 
@@ -80,7 +77,7 @@ public:
 
 	sge::renderer::texture_ptr const
 	apply(
-		sge::renderer::texture_ptr);
+		sge::renderer::texture_ptr) {std::cout << "blur apply\n"; return sge::renderer::texture_ptr();}
 };
 
 class highlight 
@@ -93,7 +90,7 @@ public:
 
 	sge::renderer::texture_ptr const
 	apply(
-		sge::renderer::texture_ptr);
+		sge::renderer::texture_ptr) {std::cout << "highlight apply\n"; return sge::renderer::texture_ptr();}
 };
 
 class add 
@@ -107,7 +104,7 @@ public:
 	sge::renderer::texture_ptr const
 	apply(
 		sge::renderer::texture_ptr,
-		sge::renderer::texture_ptr);
+		sge::renderer::texture_ptr) {std::cout << "add apply\n"; return sge::renderer::texture_ptr();}
 };
 
 class desaturate 
@@ -120,29 +117,102 @@ public:
 
 	sge::renderer::texture_ptr const
 	apply(
-		sge::renderer::texture_ptr);
+		sge::renderer::texture_ptr) {std::cout << "desaturate apply\n"; return sge::renderer::texture_ptr();}
 };
 }
 
 class filter_wrapper
 {
 public:
+	typedef
+	std::vector<sge::renderer::texture_ptr>
+	texture_sequence;
+
+	explicit
+	filter_wrapper()
+	:
+		filter_(0),
+		name_()
+	{
+	}
+
 	explicit
 	filter_wrapper(
 		filters::base &_filter,
-		std::string const &_name)
+		std::string const &_name,
+		bool _active = true)
 	:
 		filter_(
 			&_filter),
 		name_(
-			_name)
+			_name),
+		active_(
+			_active)
 	{
 	}
 
-	std::string const name() const { return name_; }
+	bool 
+	active() const 
+	{ 
+		return active_; 
+	}
+
+	sge::renderer::texture_ptr const
+	apply(
+		texture_sequence const &textures)
+	{
+		FCPPT_ASSERT_MESSAGE(
+			!textures.empty(),
+			FCPPT_TEXT("A filter didn't get any input textures!"));
+
+		FCPPT_ASSERT_MESSAGE(
+			textures.size() <= static_cast<texture_sequence::size_type>(2),
+			FCPPT_TEXT("Currently, only unary and binary filters are allowed"));
+
+		sge::renderer::texture_ptr const first = 
+			*textures.begin();
+
+		if (textures.size() == static_cast<texture_sequence::size_type>(1))
+		{
+			filters::unary &f = 
+				dynamic_cast<filters::unary &>(
+					*filter_);
+			if (!active_)
+				return first;
+			return 
+				f.apply(
+					first);
+		}
+
+		if (textures.size() == static_cast<texture_sequence::size_type>(2))
+		{
+			sge::renderer::texture_ptr const second = 
+				*boost::next(
+					textures.begin());
+
+			filters::binary &f = 
+				dynamic_cast<filters::binary &>(
+					*filter_);
+
+			if (!active_)
+			{
+				FCPPT_ASSERT_MESSAGE(
+					&(*first) == &(*second),
+					FCPPT_TEXT("A deactivated binary filter didn't get the same two textures.\nProbably means that the dependencies aren't resolved correctly.\nTime to debug!"));
+				
+				return first;
+			}
+			
+			return 
+				f.apply(
+					first,
+					second);
+		}
+	}
 private:
 	filters::base *filter_;
 	std::string name_;
+	bool active_;
 };
 
 typedef 
@@ -150,7 +220,7 @@ boost::adjacency_list
 <
 	boost::vecS, 
 	boost::vecS, 
-	boost::directedS,
+	boost::bidirectionalS,
 	boost::property
 	<
 		boost::vertex_name_t,
@@ -164,6 +234,10 @@ boost::graph_traits<graph>::vertex_descriptor
 vertex_descriptor;
 
 typedef
+boost::graph_traits<graph>::edge_descriptor
+edge_descriptor;
+
+typedef
 boost::graph_traits<graph>::in_edge_iterator
 in_edge_iterator;
 
@@ -174,6 +248,14 @@ std::map
 	filter_wrapper
 >
 vertex_map;
+
+typedef 
+std::map
+<
+	vertex_descriptor,
+	sge::renderer::texture_ptr
+>
+texture_map;
 
 vertex_descriptor
 add_vertex(
@@ -192,13 +274,8 @@ add_vertex(
 }
 
 int main()
+try
 {
-	typedef 
-	std::pair<int, int> 
-	edge;
-
-	enum { filter_ssaa, filter_highlight, filter_blur, filter_add, filter_desaturate };
-
 	filters::ssaa ssaa_;
 	filters::highlight highlight_;
 	filters::blur blur_;
@@ -208,6 +285,7 @@ int main()
 	graph g;
 
 	vertex_map vertex_to_filter;
+	texture_map filter_result;
 
 	vertex_descriptor 
 		ssaa_vertex = 
@@ -283,53 +361,39 @@ int main()
 			sorted));
 
 	BOOST_FOREACH(
-		vertex_descriptor const v,
-		sorted)
+		vertex_descriptor current_vertex,
+		boost::adaptors::reverse(
+			sorted))
 	{
 		std::pair<in_edge_iterator,in_edge_iterator> ie = 
 			boost::in_edges(
-				v,
+				current_vertex,
 				g);
 
-		std::cout << "Vertex " << vertex_to_filter[v].name() << " has predecessors: ";
-		for (; ie.first != ie.second; ++ie.first)
-			std::cout << vertex_to_filter[boost::source(*ie.first)].name() << "\n";
-		// - get filter_wrapper 'f' for current element
-		// - get predecessors
-		// - if none, f.apply(root_texture());
-		// - if one (called 'g'), f.apply(g.texture())
-		// - if two (called 'g', 'h'), f.apply(g.texture(),h.texture());
-		// - and so on
+		filter_wrapper::texture_sequence textures;
+
+		if (ie.first == ie.second)
+		{
+			sge::renderer::texture_ptr rendered_scene;
+			textures.push_back(
+				rendered_scene);
+		}
+	
+		BOOST_FOREACH(
+			edge_descriptor const &e,
+			ie)
+			textures.push_back(
+				filter_result[
+					boost::source(
+						e,
+						g)]);
+
+		filter_result[current_vertex] = 
+			vertex_to_filter[current_vertex].apply(
+				textures);
 	}
-	/*
-	ssaa_filter ssaa;
-	highlight_filter highlight;
-	blur_filter blur;
-	add_filter add;
-	desaturate_filter desaturate;
-
-	depgraph.insert(
-		highlight,
-		ssaa);
-
-	depgraph.insert(
-		blur,
-		highlight);
-
-	depgraph.insert(
-		add,
-		blur);
-
-	depgraph.insert(
-		add,
-		ssaa);
-
-	depgraph.insert(
-		desaturate,
-		add);
-
-	render(
-		desaturate.texture());
-	*/
 }
-#endif
+catch (fcppt::exception const &e)
+{
+	std::cout << e.string() << "\n";
+}
