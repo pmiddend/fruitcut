@@ -8,6 +8,7 @@
 #include <sge/renderer/refresh_rate_dont_care.hpp>
 #include <sge/renderer/no_multi_sampling.hpp>
 #include <sge/input/keyboard/key_event.hpp>
+#include <sge/font/text/to_fcppt_string.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/system.hpp>
 #include <sge/renderer/scoped_block.hpp>
@@ -17,6 +18,7 @@
 #include <sge/renderer/default_target.hpp>
 #include <sge/renderer/filter/linear.hpp>
 #include <sge/console/gfx.hpp>
+#include <sge/font/text/lit.hpp>
 #include <sge/console/object.hpp>
 #include <sge/log/global.hpp>
 #include <sge/input/keyboard/action.hpp>
@@ -186,6 +188,24 @@ render_callback(
 		sprites.end(),
 		sge::sprite::default_sort(),
 		sge::sprite::default_equal());
+}
+
+void
+toggle_filter(
+	fruitcut::sandbox::pp::system &postprocessing,
+	sge::console::arg_list const &args,
+	sge::console::object &obj)
+{
+	if (args.size() != 2)
+	{
+		obj.emit_error(
+			SGE_FONT_TEXT_LIT("Expected one argument, the name of the filter"));
+		return;
+	}
+
+	postprocessing.toggle_filter(
+		sge::font::text::to_fcppt_string(
+			args[1]));
 }
 }
 
@@ -441,12 +461,10 @@ try
 			::sprite_functor(
 				vectorer)));
 
-	/*
 	sys.renderer()->state(
 		sge::renderer::state::list
-			//(sge::renderer::state::bool_::clear_backbuffer = true)
+			(sge::renderer::state::bool_::clear_backbuffer = true)
 			(sge::renderer::state::color::clear_color = sge::image::colors::red()));
-	*/
 
 	std::vector<sprite_object> sprites;
 
@@ -461,47 +479,48 @@ try
 
 	postprocessing.add_filter(
 		blur_filter,
-		FCPPT_TEXT("blur, baby!"),
+		FCPPT_TEXT("blur"),
 		fruitcut::sandbox::pp::dependency_set());
+
+	fcppt::signal::scoped_connection pipeline_connection(
+		console_object.insert(
+			SGE_FONT_TEXT_LIT("toggle_filter"),
+			boost::bind(
+				&toggle_filter,
+				boost::ref(
+					postprocessing),
+				_1,
+				_2),
+			SGE_FONT_TEXT_LIT("Toggles a given filter on/off")));
 
 	while(running)
 	{
 		sys.window()->dispatch();
 
 		sprites.clear();
-		sprites.push_back(bg);
-		sprites.push_back(vectorer);
-		sprites.push_back(tux);
+		sprites.push_back(
+			bg);
+		sprites.push_back(
+			vectorer);
+		sprites.push_back(
+			tux);
 
-		sge::renderer::state::scoped scoped_state(
-			sys.renderer(),
-			sge::renderer::state::list
-				(sge::renderer::state::bool_::clear_backbuffer = false));
-
-		{
-			sge::renderer::scoped_block scoped_block(
-				sys.renderer());
-
-			render_callback(
-				ss,
-				sprites);
-		}
-
-		/*
-		postprocessing.render(
+		postprocessing.update(
 			boost::bind(
 				&render_callback,
 				boost::ref(
 					ss),
 				boost::ref(
 					sprites)));
-		*/
+
+		sge::renderer::scoped_block scoped_block(
+			sys.renderer());
+
+		postprocessing.render_result();
 
 		if (!console_gfx.active())
 			continue;
 
-		sge::renderer::scoped_block scoped_block(
-			sys.renderer());
 		console_gfx.draw();
 	}
 }

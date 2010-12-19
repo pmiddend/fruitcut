@@ -231,7 +231,6 @@ ADD_EXECUTABLE(
 	sandbox/pp/filter/base.cpp 
 	sandbox/pp/filter/wrapper.cpp
 	sandbox/pp/system.cpp
-	sandbox/pp/filter/copy.cpp
 	sandbox/pp/filter/blur.cpp
 	sandbox/screen_vf/create_quad.cpp)
 
