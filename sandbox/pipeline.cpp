@@ -168,8 +168,6 @@ console_callback(
 	switch (e.key().code())
 	{
 		case sge::input::keyboard::key_code::f1:
-			std::cout << "Switching!\n";
-
 			console_gfx_.active(
 				!console_gfx_.active());
 			break;
@@ -443,10 +441,12 @@ try
 			::sprite_functor(
 				vectorer)));
 
+	/*
 	sys.renderer()->state(
 		sge::renderer::state::list
-			(sge::renderer::state::bool_::clear_backbuffer = true)
-			(sge::renderer::state::color::clear_color = sge::image::colors::black()));
+			//(sge::renderer::state::bool_::clear_backbuffer = true)
+			(sge::renderer::state::color::clear_color = sge::image::colors::red()));
+	*/
 
 	std::vector<sprite_object> sprites;
 
@@ -473,6 +473,20 @@ try
 		sprites.push_back(vectorer);
 		sprites.push_back(tux);
 
+		sge::renderer::state::scoped scoped_state(
+			sys.renderer(),
+			sge::renderer::state::list
+				(sge::renderer::state::bool_::clear_backbuffer = false));
+
+		{
+			sge::renderer::scoped_block scoped_block(
+				sys.renderer());
+
+			render_callback(
+				ss,
+				sprites);
+		}
+
 		/*
 		postprocessing.render(
 			boost::bind(
@@ -486,18 +500,8 @@ try
 		if (!console_gfx.active())
 			continue;
 
-		sge::renderer::state::scoped scoped_state(
-			sys.renderer(),
-			sge::renderer::state::list
-				(sge::renderer::state::bool_::clear_backbuffer = false));
-
-		sge::renderer::scoped_target scoped_target(
-			sys.renderer(),
-			sge::renderer::default_target());
-
 		sge::renderer::scoped_block scoped_block(
 			sys.renderer());
-
 		console_gfx.draw();
 	}
 }
