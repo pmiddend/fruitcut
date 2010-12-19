@@ -226,7 +226,14 @@ TARGET_LINK_LIBRARIES(
 
 ADD_EXECUTABLE(
 	pipeline_test
-	sandbox/pipeline.cpp)
+	sandbox/pipeline.cpp 
+	media_path.cpp 
+	sandbox/pp/filter/base.cpp 
+	sandbox/pp/filter/wrapper.cpp
+	sandbox/pp/system.cpp
+	sandbox/pp/filter/copy.cpp
+	sandbox/pp/filter/blur.cpp
+	sandbox/screen_vf/create_quad.cpp)
 
 TARGET_LINK_LIBRARIES(
 	pipeline_test

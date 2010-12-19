@@ -15,8 +15,8 @@ main()
 	{
 		sum += 
 			distributions[i] * vec3(
-				texture2D(
-					texture,
+				texture(
+					tex,
 					vec2(
 						gl_FragCoord.x,
 						clamp(coord,1.0,texture_size.y-1.0))/texture_size));
