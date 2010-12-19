@@ -231,6 +231,8 @@ ADD_EXECUTABLE(
 	sandbox/pp/filter/base.cpp 
 	sandbox/pp/filter/wrapper.cpp
 	sandbox/pp/filter/render_to_texture.cpp
+	sandbox/pp/filter/highlight.cpp
+	sandbox/pp/filter/add.cpp
 	sandbox/pp/system.cpp
 	sandbox/pp/filter/blur.cpp
 	sandbox/pp/filter/ssaa.cpp

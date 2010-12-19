@@ -1,8 +1,10 @@
 #include "../media_path.hpp"
 #include "pp/system.hpp"
 #include "pp/filter/blur.hpp"
+#include "pp/filter/highlight.hpp"
 #include "pp/filter/ssaa.hpp"
 #include "pp/filter/render_to_texture.hpp"
+#include "pp/filter/add.hpp"
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
 #include <sge/window/instance.hpp>
@@ -501,13 +503,25 @@ try
 			boost::ref(
 				sprites)));
 
-	fruitcut::sandbox::pp::filter::blur blur_filter(
+	fruitcut::sandbox::pp::filter::ssaa ssaa_filter(
 		sys.renderer(),
 		fcppt::math::dim::structure_cast<sge::renderer::dim2>(
-			sys.renderer()->screen_size()),
-		10);
+			sys.renderer()->screen_size()));
 
-	fruitcut::sandbox::pp::filter::ssaa ssaa_filter(
+	fruitcut::sandbox::pp::filter::highlight highlight_filter(
+		sys.renderer(),
+		sge::renderer::dim2(
+			512,
+			512));
+
+	fruitcut::sandbox::pp::filter::blur blur_filter(
+		sys.renderer(),
+		sge::renderer::dim2(
+			512,
+			512),
+		2);
+
+	fruitcut::sandbox::pp::filter::add add_filter(
 		sys.renderer(),
 		fcppt::math::dim::structure_cast<sge::renderer::dim2>(
 			sys.renderer()->screen_size()));
@@ -524,10 +538,23 @@ try
 			("the_source"));
 
 	postprocessing.add_filter(
+		highlight_filter,
+		FCPPT_TEXT("highlight"),
+		fcppt::assign::make_container<fruitcut::sandbox::pp::dependency_set>
+			("ssaa"));
+
+	postprocessing.add_filter(
 		blur_filter,
 		FCPPT_TEXT("blur"),
 		fcppt::assign::make_container<fruitcut::sandbox::pp::dependency_set>
-			("ssaa"));
+			("highlight"));
+
+	postprocessing.add_filter(
+		add_filter,
+		FCPPT_TEXT("add"),
+		fcppt::assign::make_container<fruitcut::sandbox::pp::dependency_set>
+			("ssaa")
+			("blur"));
 
 	fcppt::signal::scoped_connection list_filter_connection(
 		console_object.insert(
