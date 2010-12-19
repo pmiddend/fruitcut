@@ -2,6 +2,7 @@
 #include "pp/system.hpp"
 #include "pp/filter/blur.hpp"
 #include "pp/filter/ssaa.hpp"
+#include "pp/filter/render_to_texture.hpp"
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
 #include <sge/window/instance.hpp>
@@ -488,6 +489,18 @@ try
 	fruitcut::sandbox::pp::system postprocessing(
 		sys.renderer());
 
+	// This is the data source
+	fruitcut::sandbox::pp::filter::render_to_texture rtt_filter(
+		sys.renderer(),
+		fcppt::math::dim::structure_cast<sge::renderer::dim2>(
+			sys.renderer()->screen_size()),
+		boost::bind(
+			&render_callback,
+			boost::ref(
+				ss),
+			boost::ref(
+				sprites)));
+
 	fruitcut::sandbox::pp::filter::blur blur_filter(
 		sys.renderer(),
 		fcppt::math::dim::structure_cast<sge::renderer::dim2>(
@@ -500,9 +513,15 @@ try
 			sys.renderer()->screen_size()));
 
 	postprocessing.add_filter(
+		rtt_filter,
+		FCPPT_TEXT("the_source"),
+		fruitcut::sandbox::pp::dependency_set());
+
+	postprocessing.add_filter(
 		ssaa_filter,
 		FCPPT_TEXT("ssaa"),
-		fruitcut::sandbox::pp::dependency_set());
+		fcppt::assign::make_container<fruitcut::sandbox::pp::dependency_set>
+			("the_source"));
 
 	postprocessing.add_filter(
 		blur_filter,
@@ -544,13 +563,7 @@ try
 		sprites.push_back(
 			tux);
 
-		postprocessing.update(
-			boost::bind(
-				&render_callback,
-				boost::ref(
-					ss),
-				boost::ref(
-					sprites)));
+		postprocessing.update();
 
 		sge::renderer::scoped_block scoped_block(
 			sys.renderer());

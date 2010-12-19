@@ -230,6 +230,7 @@ ADD_EXECUTABLE(
 	media_path.cpp 
 	sandbox/pp/filter/base.cpp 
 	sandbox/pp/filter/wrapper.cpp
+	sandbox/pp/filter/render_to_texture.cpp
 	sandbox/pp/system.cpp
 	sandbox/pp/filter/blur.cpp
 	sandbox/pp/filter/ssaa.cpp

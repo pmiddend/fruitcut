@@ -2,6 +2,7 @@
 #include "filter/base.hpp"
 #include "filter/unary.hpp"
 #include "filter/binary.hpp"
+#include "filter/nullary.hpp"
 #include "../../media_path.hpp"
 #include "../screen_vf/format.hpp"
 #include "../screen_vf/create_quad.hpp"
@@ -47,17 +48,6 @@ fruitcut::sandbox::pp::system::system(
 :
 	renderer_(
 		_renderer),
-	screen_texture_(
-		renderer_->create_texture(
-			fcppt::math::dim::structure_cast<sge::renderer::dim2>(
-				renderer_->screen_size()),
-			sge::image::color::format::rgb8,
-			sge::renderer::filter::linear,
-			sge::renderer::resource_flags::none)),
-	screen_target_(
-		renderer_->create_target(
-			screen_texture_,
-			sge::renderer::no_depth_stencil_texture())),
 	shader_(
 		renderer_,
 		media_path()/FCPPT_TEXT("shaders")/FCPPT_TEXT("copy_vertex.glsl"),
@@ -80,12 +70,151 @@ fruitcut::sandbox::pp::system::system(
 }
 
 void
-fruitcut::sandbox::pp::system::update(
-	scene_render_callback const &callback)
+fruitcut::sandbox::pp::system::update()
 {
-	render_scene(
-		callback);
-	apply_postprocessing();
+	typedef
+	std::list<vertex_descriptor>
+	vertex_list;
+
+	vertex_list sorted;
+
+	boost::topological_sort(
+		graph_,
+		std::front_inserter(
+			sorted));
+
+	// No filters found...
+	if (sorted.empty())
+		return;
+
+	// We store the result of the filters in this map.
+	typedef
+	std::map
+	<
+		vertex_descriptor,
+		sge::renderer::texture_ptr
+	>
+	filter_result;
+
+	filter_result filter_result_;
+
+	BOOST_FOREACH(
+		vertex_list::const_reference current_vertex,
+		sorted)
+	{
+		std::pair<in_edge_iterator,in_edge_iterator> ie = 
+			boost::in_edges(
+				current_vertex,
+				graph_);
+
+		// This might be a bit pedantic. "sorted" is created by
+		// topological_search, which should only output elements which are
+		// in the graph
+		FCPPT_ASSERT(
+			vertex_to_filter_.find(current_vertex) != vertex_to_filter_.end());
+
+		filter::wrapper const &current_filter = 
+			vertex_to_filter_[current_vertex];
+
+		// This try catches bad_casts from the double-dispatch
+		try
+		{
+			if (ie.first == ie.second)
+			{
+				// This is a bit controversial: Should it be possible to
+				// deactivate a nullary filter?
+				if (!current_filter.active())
+					filter_result_[current_vertex] = 
+						sge::renderer::texture_ptr();
+				else
+					filter_result_[current_vertex] = 
+						dynamic_cast<filter::nullary &>(
+							vertex_to_filter_[current_vertex].filter()).apply();
+			}
+			else if (std::distance(ie.first,ie.second) == 1)
+			{
+				vertex_descriptor const 
+					v1 = 
+						boost::source(
+							*ie.first,
+							graph_);
+
+				FCPPT_ASSERT(
+					filter_result_.find(
+						v1) != filter_result_.end());
+
+				if (!current_filter.active())
+				{
+					filter_result_[current_vertex] = 
+						filter_result_[
+							v1];
+				}
+				else
+				{
+					filter_result_[current_vertex] = 
+						dynamic_cast<filter::unary &>(current_filter.filter()).apply(
+							filter_result_[
+								v1]);
+				}
+			}
+			else if (std::distance(ie.first,ie.second) == 2)
+			{
+				vertex_descriptor const 
+					v1 = 
+						boost::source(
+							*ie.first,
+							graph_),
+					v2 = 
+						boost::source(
+							*boost::next(
+								ie.first),
+							graph_);
+
+				FCPPT_ASSERT(
+					filter_result_.find(v1) != filter_result_.end() &&
+					filter_result_.find(v2) != filter_result_.end());
+
+				if (!current_filter.active())
+				{
+					FCPPT_ASSERT_MESSAGE(
+						&(*filter_result_[v1]) == &(*filter_result_[v2]),
+						FCPPT_TEXT("Encountered a deactivated binary filter ")+
+						current_filter.name()+
+						FCPPT_TEXT(" with two distinct dependencies. Don't know what to do here. :("));
+
+					filter_result_[current_vertex] = 
+						filter_result_[
+							v1];
+				}
+				else
+				{
+					filter_result_[current_vertex] = 
+						dynamic_cast<filter::binary &>(current_filter.filter()).apply(
+							filter_result_[
+								v1],
+							filter_result_[
+								v2]);
+				}
+			}
+			else
+				throw 
+					fcppt::exception(
+						FCPPT_TEXT("The filter ")+
+						current_filter.name()+
+						FCPPT_TEXT(" has more than 3 dependencies, that's not possible"));
+		}
+		catch (std::bad_cast const &)
+		{
+			throw 
+				fcppt::exception(
+					FCPPT_TEXT("The filter ")+
+					current_filter.name()+
+					FCPPT_TEXT(" has more than dependencies than he can handle"));
+		}
+	}
+
+	result_texture_ = 
+		filter_result_[sorted.back()];
 }
 
 void
@@ -116,6 +245,17 @@ fruitcut::sandbox::pp::system::add_filter(
 	fcppt::string const &name,
 	dependency_set const &deps)
 {
+	FCPPT_ASSERT_MESSAGE(
+		name_to_vertex_.find(name) == name_to_vertex_.end(),
+		FCPPT_TEXT("A filter named ")+
+		name+
+		FCPPT_TEXT(" already exists!"));
+
+	// - add vertex
+	// - add filter wrapper for vertex
+	// - add name association,
+	// - add dependencies
+
 	vertex_descriptor const new_vertex = 
 		boost::add_vertex(
 			graph_);
@@ -175,173 +315,4 @@ fruitcut::sandbox::pp::system::filter_names() const
 		key_set.insert(
 			r.first);
 	return key_set;
-}
-
-void
-fruitcut::sandbox::pp::system::render_scene(
-	scene_render_callback const &callback)
-{
-	sge::renderer::scoped_target scoped_target(
-		renderer_,
-		screen_target_);
-
-	sge::renderer::scoped_block scoped_block(
-		renderer_);
-
-	callback();
-}
-
-void
-fruitcut::sandbox::pp::system::apply_postprocessing()
-{
-	// Special case: There is no filter defined (yet)
-	if (name_to_vertex_.empty())
-	{
-		result_texture_ = screen_texture_;
-		return;
-	}
-	
-	typedef
-	std::list<vertex_descriptor>
-	vertex_list;
-
-	vertex_list sorted;
-
-	boost::topological_sort(
-		graph_,
-		std::front_inserter(
-			sorted));
-
-	bool scene_texture_used = false;
-
-	typedef
-	std::map
-	<
-		vertex_descriptor,
-		sge::renderer::texture_ptr
-	>
-	filter_result;
-
-	filter_result filter_result_;
-
-	BOOST_FOREACH(
-		vertex_list::const_reference current_vertex,
-		sorted)
-	{
-		std::pair<in_edge_iterator,in_edge_iterator> ie = 
-			boost::in_edges(
-				current_vertex,
-				graph_);
-
-		FCPPT_ASSERT(
-			vertex_to_filter_.find(current_vertex) != vertex_to_filter_.end());
-
-		filter::wrapper const &current_filter = 
-			vertex_to_filter_[current_vertex];
-
-		try
-		{
-			if (ie.first == ie.second)
-			{
-				FCPPT_ASSERT_MESSAGE(
-					!scene_texture_used,
-					FCPPT_TEXT("Seems like we've got two filters without dependencies (one of them is ")+
-					current_filter.name()+
-					FCPPT_TEXT("). That's not possible."));
-
-				scene_texture_used = true;
-
-				if (!current_filter.active())
-					filter_result_[current_vertex] = screen_texture_;
-				else
-					filter_result_[current_vertex] = 
-						dynamic_cast<filter::unary &>(
-							vertex_to_filter_[current_vertex].filter()).apply(
-							screen_texture_);
-			}
-			else if (std::distance(ie.first,ie.second) == 1)
-			{
-				FCPPT_ASSERT(
-					filter_result_.find(
-						boost::source(
-							*ie.first,
-							graph_)) != filter_result_.end());
-
-				if (!current_filter.active())
-				{
-					filter_result_[current_vertex] = 
-						filter_result_[
-							boost::source(
-								*ie.first,
-								graph_)];
-				}
-				else
-				{
-					filter_result_[current_vertex] = 
-						dynamic_cast<filter::unary &>(current_filter.filter()).apply(
-							filter_result_[
-								boost::source(
-									*ie.first,
-									graph_)]);
-				}
-			}
-			else if (std::distance(ie.first,ie.second) == 2)
-			{
-				vertex_descriptor const 
-					v1 = 
-						boost::source(
-							*ie.first,
-							graph_),
-					v2 = 
-						boost::source(
-							*boost::next(
-								ie.first),
-							graph_);
-
-				FCPPT_ASSERT(
-					filter_result_.find(v1) != filter_result_.end() &&
-					filter_result_.find(v2) != filter_result_.end());
-
-				if (!current_filter.active())
-				{
-					FCPPT_ASSERT_MESSAGE(
-						&(*filter_result_[v1]) == &(*filter_result_[v2]),
-						FCPPT_TEXT("Encountered a deactivated binary filter ")+
-						current_filter.name()+
-						FCPPT_TEXT(" with two distinct dependencies. That's not possible right now"));
-
-					filter_result_[current_vertex] = 
-						filter_result_[
-							v1];
-				}
-				else
-				{
-					filter_result_[current_vertex] = 
-						dynamic_cast<filter::binary &>(current_filter.filter()).apply(
-							filter_result_[
-								v1],
-							filter_result_[
-								v2]);
-				}
-			}
-			else
-				throw 
-					fcppt::exception(
-						FCPPT_TEXT("The filter ")+
-						current_filter.name()+
-						FCPPT_TEXT(" has more than 3 dependencies, that's not possible"));
-				
-		}
-		catch (std::bad_cast const &)
-		{
-			throw 
-				fcppt::exception(
-					FCPPT_TEXT("The filter ")+
-					current_filter.name()+
-					FCPPT_TEXT(" has more than dependencies than he can handle"));
-		}
-	}
-
-	result_texture_ = 
-		filter_result_[sorted.back()];
 }

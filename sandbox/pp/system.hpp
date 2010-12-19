@@ -3,7 +3,6 @@
 
 #include "filter/base_fwd.hpp"
 #include "filter/wrapper.hpp"
-#include "scene_render_callback.hpp"
 #include "dependency_set.hpp"
 #include <sge/renderer/device_ptr.hpp>
 #include <sge/renderer/texture_ptr.hpp>
@@ -37,8 +36,7 @@ public:
 		sge::renderer::device_ptr);
 
 	void
-	update(
-		scene_render_callback const &);
+	update();
 
 	void
 	render_result();
@@ -94,21 +92,12 @@ private:
 	name_to_vertex;
 
 	sge::renderer::device_ptr const renderer_;
-	sge::renderer::texture_ptr const screen_texture_;
-	sge::renderer::target_ptr const screen_target_;
 	graph graph_;
 	vertex_to_filter vertex_to_filter_;
 	name_to_vertex name_to_vertex_;
 	sge::shader::object shader_;
 	sge::renderer::vertex_buffer_ptr quad_;
 	sge::renderer::texture_ptr result_texture_;
-
-	void
-	render_scene(
-		scene_render_callback const &);
-
-	void
-	apply_postprocessing();
 };
 }
 }
