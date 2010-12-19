@@ -132,7 +132,7 @@ fruitcut::sandbox::pp::system::add_filter(
 		deps)
 	{
 		FCPPT_ASSERT_MESSAGE(
-			name_to_vertex_.find(r) == name_to_vertex_.end(),
+			name_to_vertex_.find(r) != name_to_vertex_.end(),
 			FCPPT_TEXT("Filter ")+
 			r+
 			FCPPT_TEXT(" which was specified as the dependency for ")+

@@ -232,6 +232,7 @@ ADD_EXECUTABLE(
 	sandbox/pp/filter/wrapper.cpp
 	sandbox/pp/system.cpp
 	sandbox/pp/filter/blur.cpp
+	sandbox/pp/filter/ssaa.cpp
 	sandbox/screen_vf/create_quad.cpp)
 
 TARGET_LINK_LIBRARIES(

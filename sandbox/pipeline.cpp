@@ -1,6 +1,7 @@
 #include "../media_path.hpp"
 #include "pp/system.hpp"
 #include "pp/filter/blur.hpp"
+#include "pp/filter/ssaa.hpp"
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
 #include <sge/window/instance.hpp>
@@ -477,10 +478,21 @@ try
 			sys.renderer()->screen_size()),
 		10);
 
+	fruitcut::sandbox::pp::filter::ssaa ssaa_filter(
+		sys.renderer(),
+		fcppt::math::dim::structure_cast<sge::renderer::dim2>(
+			sys.renderer()->screen_size()));
+
+	postprocessing.add_filter(
+		ssaa_filter,
+		FCPPT_TEXT("ssaa"),
+		fruitcut::sandbox::pp::dependency_set());
+
 	postprocessing.add_filter(
 		blur_filter,
 		FCPPT_TEXT("blur"),
-		fruitcut::sandbox::pp::dependency_set());
+		fcppt::assign::make_container<fruitcut::sandbox::pp::dependency_set>
+			("ssaa"));
 
 	fcppt::signal::scoped_connection pipeline_connection(
 		console_object.insert(
@@ -529,8 +541,13 @@ catch(sge::exception const &e)
 	fcppt::io::cerr << e.string() << FCPPT_TEXT('\n');
 	return EXIT_FAILURE;
 }
+catch (fcppt::exception const &e)
+{
+	fcppt::io::cerr << e.string() << FCPPT_TEXT('\n');
+	return EXIT_FAILURE;
+}
 catch(std::exception const &e)
 {
-	fcppt::io::cerr << e.what() << FCPPT_TEXT('\n');
+	std::cerr << e.what() << FCPPT_TEXT('\n');
 	return EXIT_FAILURE;
 }
