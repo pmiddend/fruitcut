@@ -15,6 +15,7 @@
 #include <boost/graph/adjacency_list.hpp>
 #include <boost/graph/graph_traits.hpp>
 #include <boost/unordered/unordered_map.hpp>
+#include <boost/unordered/unordered_set.hpp>
 #include <map>
 
 namespace fruitcut
@@ -27,6 +28,10 @@ class system
 {
 FCPPT_NONCOPYABLE(system)
 public:
+	typedef
+	boost::unordered_set<fcppt::string>
+	filter_name_set;
+
 	explicit
 	system(
 		sge::renderer::device_ptr);
@@ -47,6 +52,9 @@ public:
 	void
 	toggle_filter(
 		fcppt::string const &name);
+
+	filter_name_set const
+	filter_names() const;
 private:
 	typedef 
 	boost::adjacency_list

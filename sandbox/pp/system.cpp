@@ -159,9 +159,22 @@ fruitcut::sandbox::pp::system::toggle_filter(
 	FCPPT_ASSERT(
 		vertex_to_filter_.find(name_to_vertex_[name]) != vertex_to_filter_.end());
 
-	filter::wrapper &current_filter = vertex_to_filter_[name_to_vertex_[name]];
+	filter::wrapper &current_filter = 
+		vertex_to_filter_[name_to_vertex_[name]];
 	current_filter.active(
 		!current_filter.active());
+}
+
+fruitcut::sandbox::pp::system::filter_name_set const
+fruitcut::sandbox::pp::system::filter_names() const
+{
+	fruitcut::sandbox::pp::system::filter_name_set key_set;
+	BOOST_FOREACH(
+		name_to_vertex::const_reference r,
+		name_to_vertex_)
+		key_set.insert(
+			r.first);
+	return key_set;
 }
 
 void

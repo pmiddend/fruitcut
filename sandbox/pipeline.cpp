@@ -10,6 +10,7 @@
 #include <sge/renderer/no_multi_sampling.hpp>
 #include <sge/input/keyboard/key_event.hpp>
 #include <sge/font/text/to_fcppt_string.hpp>
+#include <sge/font/text/from_fcppt_string.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/system.hpp>
 #include <sge/renderer/scoped_block.hpp>
@@ -78,6 +79,7 @@
 #include <boost/spirit/home/phoenix/operator/self.hpp>
 #include <boost/assign/list_of.hpp>
 #include <boost/mpl/vector/vector10.hpp>
+#include <boost/foreach.hpp>
 #include <boost/bind.hpp>
 #include <exception>
 #include <ostream>
@@ -207,6 +209,20 @@ toggle_filter(
 	postprocessing.toggle_filter(
 		sge::font::text::to_fcppt_string(
 			args[1]));
+}
+
+void
+list_filters(
+	fruitcut::sandbox::pp::system &postprocessing,
+	sge::console::arg_list const &,
+	sge::console::object &obj)
+{
+	BOOST_FOREACH(
+		fcppt::string const &s,
+		postprocessing.filter_names())
+		obj.emit_message(
+			sge::font::text::from_fcppt_string(
+				s));
 }
 }
 
@@ -493,6 +509,17 @@ try
 		FCPPT_TEXT("blur"),
 		fcppt::assign::make_container<fruitcut::sandbox::pp::dependency_set>
 			("ssaa"));
+
+	fcppt::signal::scoped_connection list_filter_connection(
+		console_object.insert(
+			SGE_FONT_TEXT_LIT("list_filters"),
+			boost::bind(
+				&list_filters,
+				boost::ref(
+					postprocessing),
+				_1,
+				_2),
+			SGE_FONT_TEXT_LIT("List all filters")));
 
 	fcppt::signal::scoped_connection pipeline_connection(
 		console_object.insert(
