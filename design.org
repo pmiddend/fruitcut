@@ -1,0 +1,110 @@
+* Ablauf
+** Intro
+Das Spiel braucht eventuell einen _Ladebildschirm_, darüber hab ich mir
+noch keine Gedanken gemacht. Auch übers _Menü_ nicht. Die GUI brauch eh
+noch 'n bisschen.
+
+Beim Spielstart sieht man schon den Hintergrund, wo später
+draufgesplattert wird. Material: Bambus, Holz (andere
+Vorschläge?). Der Hintergrund ist allerdings erst noch in Graustufen
+und kriegt später Farbe. Im Vordergrund wird zentriert das
+fruitcut-[[Logo]] angezeigt. Wenn die Logo-Animation vorbei ist, gewinnt
+das Logo an Transparenz und der "[[Kantenpartikeleffekt]]" wird
+abgespielt.
+
+Quasi gleichzeitig wird der Hintergrund farbig und ein "instructional"
+Text wird unten dezent eingeblendet (truetype-Font, weiß von mir
+aus). Der Text verschwindet dann langsam wieder.
+
+** Spiel selber
+Die Früchte kommen bei Fruit Ninja nur von unten und fliegen
+parabelförmig. Fürs erste könnte man das genauso machen, aber ich seh
+keinen Grund, der dagegen spricht, dass die auch von oben herabfallen
+können.
+
+Die Frequenz, in der die Früchte kommen, sollte anfangs noch langsam
+sein, sonst wird man so ins Spiel hereingeworfen.
+
+Um eine Frucht zu zerschneiden, muss man nicht die Maustaste drücken,
+sondern nur schnell genug ziehen. So hat man die Maustasten noch für
+andere Dinge frei.
+
+Nach dem Zerschneiden wird natürlich der Splatter-Effekt abgespielt;
+wobei die Splatter in der Farbe sind, die für die Frucht in der
+Konfigurationsdatei eingestellt wurde (sollte man da evtl. mehrere
+Farben angeben?). Außerdem wird ein Sound abgespielt aus einer
+Sammlung von Sounds, damit das nicht immer gleich klingt (sollte man
+auch pro Frucht Sounds definieren?)
+
+Die Frucht-Teile kriegen danach 'nen Impuls, der normal zur
+Schneide-Ebene ist, sodass die voneinander wegfliegen.
+
+Spielmodus weiß ich noch nicht. Fruit Ninja hat im Wesentlichen zwei:
+
+1. Zeitbegrenzt, z.B. 60 Sekunden
+2. "Fehlerbegrenzt", wer 3 Früchte nicht zerschneidet, verliert
+
+Aber andere Sachen wären möglich. Müsste man sich nochmal drüber
+unterhalten.
+
+Was ist mit Musik? Soll es Ingame-Musik geben? Ich wäre an sich dafür.
+** Punktverteilung/Bonsu
+Die Punkte für eine Frucht werden anhand der Schnittfläche berechnet.
+
+Bonsu sollte es auf jeden Fall für _Combos_ geben. Das heißt, man kriegt
+nicht direkt nach dem Zerschneiden Punkte zugewiesen. Statdessen wird
+nach jeder Zerschneidung ein Counter hochgezählt und ein Timer auf =n=
+Millisekunden (zurück)gesetzt. Außerdem werden die Punkte
+akkumuliert. Wenn der Timer abläuft, wird der Counter angeguckt und
+die akkumulierten Punkte mit dem Counter multipliziert (ist das
+vielleicht zu viel des Guten?).
+
+Man könnte noch 'nen "Straight Cut"-Bonsu dafür geben, dass alle
+Früchte, die man in Reihe zerschnitten hat, vom selben Typ waren.
+
+Außerdem sollte es Bonsu geben, wenn man über 9000 Punkte hat und
+ggf. über 1337 usw. usf.
+
+Fraglich ist, ob es auch Malsu geben sollte. Man könnte natürlich
+einen "Karnivoren-Malsu" geben, wenn man ein Fleischstück
+zerschneidet.
+
+Außerdem noch offen: Wie macht man deutlich, dass man einen Bonsu
+bekommen hat? Eine Idee wäre, dort, wo man die letzte Frucht
+zerschnitten hat, die Schrift mit der Bonsu-Beschreibung
+einzublenden. Außerdem wollte ich noch Partikel einbauen, vielleicht
+dort?
+** Spielende
+Hier ist noch am meisten offen:
+
+Wenn die Zeit abläuft oder man sonstwie verloren hat, wird ein
+Ende-Sound abgespielt, das Bild bleibt stehen und wird langsam
+rausgeblurrt (evtl. noch desaturated? Sepia-Effekt? sonstwas?).
+
+Danach weiß ich noch nicht: Soll man seine Highscores mit anderen
+abgleichen können? Dann bräuchte man 'nen Online-Server, wäre aber
+denkbar. Soll man mehrere Spieler pro Rechner zulassen? Dann bräuchte
+man 'ne Namenseingabe am Anfang des Spiels oder per
+Kommandozeile. Ansonsten müsste der Endpunktestand angezeigt werden
+sowie je nach Spielmodus noch andere Details. Aber wie? Man könnte
+auch noch irgendwie grafisch deutlich machen, wie viele Punkte man
+durch welche Frucht erhalten hat. Effekt dafür?
+** HUD
+Oben links wird mit einer schönen Bitmapfont der Punktestand
+angedeutet. Kommen Punkte hinzu, werden die nicht sofort gesetzt,
+sondern "langsam" hochgezählt. Außerdem wird bei einer Erhöhung die
+Font kurzzeitig 'n bisschen dicker (Aufpopeffekt).
+* <<Logo>>
+
+Das Logo sollte animiert sein und mit Sound unterlegt. Man könnte
+z.B. den Schriftzug "fruitcut" unterbringen, der dann durchgeschnitten
+wird (vielleicht nicht explizit mit einer Klinge, sondern wie im Spiel
+angedeutet durch eine weiße Spur). Dazu kommt dann ein Schneidesound.
+
+* <<Kantenpartikeleffekt>>
+
+Bei dem Effekt gehts darum, Kanten in Bildern (also z.B. die Ränder
+von Schrift, wie beim Logo) zu erkennen und daraus Partikel zu
+machen. Diese Partikel können dann sanft runterfallen oder auf der
+Stelle stehenblieben und an Transparenz gewinnen. Müssen wir mal
+gucken ob das gut aussieht.
