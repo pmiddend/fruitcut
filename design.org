@@ -108,3 +108,10 @@ von Schrift, wie beim Logo) zu erkennen und daraus Partikel zu
 machen. Diese Partikel können dann sanft runterfallen oder auf der
 Stelle stehenblieben und an Transparenz gewinnen. Müssen wir mal
 gucken ob das gut aussieht.
+
+* <<Schrifteffekt>>
+
+Schrift wird von 0% der Größe angefangen immer größer und immer
+untransparenter, bis auf 110% der eigentlichen Größe. Dann fällt sie
+zurück auf 100% der Größe. Dann bleibt sie ein paar Sekunden auf dem
+Bildschirm, dann wieder 110%, dann 0%.
