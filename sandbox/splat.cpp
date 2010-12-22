@@ -129,10 +129,11 @@ try
 	{
 		sys.window()->dispatch();
 
+		splatter_.update();
+
 		sge::renderer::scoped_block const block_(
 			rend);
 
-		splatter_.update();
 		splatter_.render();
 	}
 }

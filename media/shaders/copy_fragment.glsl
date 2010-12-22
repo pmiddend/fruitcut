@@ -10,7 +10,7 @@ main()
 	vec2 normalized = 
 		gl_FragCoord.xy/target_size;
 
-	normalized = vec2(normalized.x,1.0 - normalized.y);
+	//normalized = vec2(normalized.x,1.0 - normalized.y);
 
 	frag_color = 
 		texture(

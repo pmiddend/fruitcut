@@ -87,13 +87,13 @@ fruitcut::sandbox::splat_collector::splat_collector(
 		sge::shader::vf_to_string<screen_vf::format>(),
 		fcppt::assign::make_container<sge::shader::variable_sequence>(
 			sge::shader::variable(
-				"texture_size",
+				"target_size",
 				sge::shader::variable_type::const_,
 				fcppt::math::dim::structure_cast<sge::renderer::vector2>(
 					renderer_->screen_size()))),
 		fcppt::assign::make_container<sge::shader::sampler_sequence>(
 			sge::shader::sampler(
-				"texture",
+				"tex",
 				texture_))),
 	quad_(
 		screen_vf::create_quad(

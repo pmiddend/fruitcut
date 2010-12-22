@@ -519,7 +519,7 @@ try
 		sge::renderer::dim2(
 			512,
 			512),
-		2);
+		3);
 
 	fruitcut::sandbox::pp::filter::add add_filter(
 		sys.renderer(),

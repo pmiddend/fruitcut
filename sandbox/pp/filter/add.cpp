@@ -51,7 +51,7 @@ fruitcut::sandbox::pp::filter::add::add(
 		sge::shader::vf_to_string<screen_vf::format>(),
 		fcppt::assign::make_container<sge::shader::variable_sequence>(
 			sge::shader::variable(
-				"texture_size",
+				"target_size",
 				sge::shader::variable_type::const_,
 				fcppt::math::dim::structure_cast<sge::renderer::vector2>(
 					d))),
