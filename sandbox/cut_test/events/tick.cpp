@@ -1,6 +1,6 @@
 #include "tick.hpp"
 
-fruitcut::events::tick::tick(
+fruitcut::sandbox::cut_test::events::tick::tick(
 	sge::renderer::scalar const _time_delta)
 :
 	time_delta_(
@@ -9,7 +9,7 @@ fruitcut::events::tick::tick(
 }
 
 sge::renderer::scalar
-fruitcut::events::tick::time_delta() const
+fruitcut::sandbox::cut_test::events::tick::time_delta() const
 {
 	return time_delta_;
 }

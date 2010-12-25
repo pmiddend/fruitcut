@@ -1,10 +1,14 @@
-#ifndef FRUITCUT_EVENTS_TICK_HPP_INCLUDED
-#define FRUITCUT_EVENTS_TICK_HPP_INCLUDED
+#ifndef FRUITCUT_SANDBOX_CUT_TEST_EVENTS_TICK_HPP_INCLUDED
+#define FRUITCUT_SANDBOX_CUT_TEST_EVENTS_TICK_HPP_INCLUDED
 
 #include <sge/renderer/scalar.hpp>
 #include <boost/statechart/event.hpp>
 
 namespace fruitcut
+{
+namespace sandbox
+{
+namespace cut_test
 {
 namespace events
 {
@@ -22,6 +26,8 @@ public:
 private:
 	sge::renderer::scalar time_delta_;
 };
+}
+}
 }
 }
 

@@ -1,9 +1,9 @@
-#ifndef FRUITCUT_MACHINE_HPP_INCLUDED
-#define FRUITCUT_MACHINE_HPP_INCLUDED
+#ifndef FRUITCUT_SANDBOX_CUT_TEST_MACHINE_HPP_INCLUDED
+#define FRUITCUT_SANDBOX_CUT_TEST_MACHINE_HPP_INCLUDED
 
 #include "states/ingame_fwd.hpp"
-#include "input/state.hpp"
-#include "input/state_manager.hpp"
+#include "../../input/state.hpp"
+#include "../../input/state_manager.hpp"
 #include <sge/systems/instance.hpp>
 #include <sge/parse/json/object.hpp>
 #include <sge/time/timer.hpp>
@@ -11,6 +11,10 @@
 #include <boost/statechart/state_machine.hpp>
 
 namespace fruitcut
+{
+namespace sandbox
+{
+namespace cut_test
 {
 class machine
 :
@@ -48,6 +52,8 @@ private:
 	void
 	render();
 };
+}
+}
 }
 
 #endif

@@ -1,11 +1,11 @@
-#ifndef FRUITCUT_STATES_CUT_HPP_INCLUDED
-#define FRUITCUT_STATES_CUT_HPP_INCLUDED
+#ifndef FRUITCUT_SANDBOX_CUT_TEST_STATES_CUT_HPP_INCLUDED
+#define FRUITCUT_SANDBOX_CUT_TEST_STATES_CUT_HPP_INCLUDED
 
 #include "ingame.hpp"
 #include "../events/render_overlay.hpp"
 #include "../events/toggle_mode.hpp"
-#include "../sprite/system.hpp"
-#include "../sprite/object.hpp"
+#include "../../../sprite/system.hpp"
+#include "../../../sprite/object.hpp"
 #include <sge/input/mouse/axis_event_fwd.hpp>
 #include <sge/input/mouse/button_event_fwd.hpp>
 #include <sge/sprite/intrusive/system_impl.hpp>
@@ -15,6 +15,10 @@
 #include <fcppt/signal/scoped_connection.hpp>
 
 namespace fruitcut
+{
+namespace sandbox
+{
+namespace cut_test
 {
 namespace states
 {
@@ -57,6 +61,8 @@ private:
 	mouse_button_callback(
 		sge::input::mouse::button_event const &);
 };
+}
+}
 }
 }
 

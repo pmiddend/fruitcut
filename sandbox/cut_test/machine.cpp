@@ -1,10 +1,10 @@
 #include "machine.hpp"
-#include "json/config_wrapper.hpp"
-#include "json/find_member.hpp"
+#include "../../json/config_wrapper.hpp"
+#include "../../json/find_member.hpp"
+#include "../../media_path.hpp"
 #include "events/tick.hpp"
 #include "events/render.hpp"
 #include "events/render_overlay.hpp"
-#include "media_path.hpp"
 #include <sge/systems/list.hpp>
 #include <sge/systems/window.hpp>
 #include <sge/systems/renderer.hpp>
@@ -50,7 +50,7 @@ set_to_true(
 }
 }
 
-fruitcut::machine::machine(
+fruitcut::sandbox::cut_test::machine::machine(
 	int const argc,
 	char *argv[])
 :
@@ -102,13 +102,13 @@ fruitcut::machine::machine(
 }
 
 bool
-fruitcut::machine::dead() const
+fruitcut::sandbox::cut_test::machine::dead() const
 {
 	return dead_;
 }
 
 void
-fruitcut::machine::run_once()
+fruitcut::sandbox::cut_test::machine::run_once()
 {
 	FCPPT_ASSERT(!dead_);
 	systems_.window()->dispatch();
@@ -119,19 +119,19 @@ fruitcut::machine::run_once()
 }
 
 sge::parse::json::object const &
-fruitcut::machine::config_file() const
+fruitcut::sandbox::cut_test::machine::config_file() const
 {
 	return config_file_;
 }
 
 sge::systems::instance const &
-fruitcut::machine::systems() const
+fruitcut::sandbox::cut_test::machine::systems() const
 {
 	return systems_;
 }
 
 void
-fruitcut::machine::render()
+fruitcut::sandbox::cut_test::machine::render()
 {
 	sge::renderer::scoped_block const block_(
 		systems_.renderer());

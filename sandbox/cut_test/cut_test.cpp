@@ -1,10 +1,10 @@
-#include "input/state_manager.hpp"
-#include "input/state.hpp"
-#include "input/optional_key_callback.hpp"
-#include "input/optional_mouse_axis_callback.hpp"
-#include "input/optional_mouse_button_callback.hpp"
-#include "json/config_wrapper.hpp"
-#include "json/find_member.hpp"
+#include "../../input/state_manager.hpp"
+#include "../../input/state.hpp"
+#include "../../input/optional_key_callback.hpp"
+#include "../../input/optional_mouse_axis_callback.hpp"
+#include "../../input/optional_mouse_button_callback.hpp"
+#include "../../json/config_wrapper.hpp"
+#include "../../json/find_member.hpp"
 #include "machine.hpp"
 // Has to be here, first state
 #include "states/freelook.hpp"
@@ -28,11 +28,11 @@ try
 		sge::log::global(),
 		fcppt::log::level::debug);
 
-	fruitcut::machine m(
+	fruitcut::sandbox::cut_test::machine m(
 		argc,
 		argv);
 
-	fcppt::scoped_state_machine<fruitcut::machine> scoped_machine(
+	fcppt::scoped_state_machine<fruitcut::sandbox::cut_test::machine> scoped_machine(
 		m);
 
 	while (!m.dead())

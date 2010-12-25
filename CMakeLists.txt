@@ -108,6 +108,10 @@ SET(files
 	media_path.cpp 
 	# json
 	json/config_wrapper.cpp json/merge_trees.cpp json/process_option.cpp json/string_to_value.cpp
+	# input 
+	input/state.cpp input/state_manager.cpp
+	# mesh
+	mesh_to_vertex_buffer.cpp model_to_mesh.cpp cut_mesh.cpp 
 	# sprite
 	sprite/render_flipped.cpp)
 
@@ -116,15 +120,12 @@ ADD_LIBRARY(
 
 ADD_EXECUTABLE(
 	cut_test
-	cut_test.cpp 
-	# mesh
-	mesh_to_vertex_buffer.cpp model_to_mesh.cpp machine.cpp cut_mesh.cpp 
-	# input 
-	input/state.cpp input/state_manager.cpp
+	sandbox/cut_test/machine.cpp 
+	sandbox/cut_test/cut_test.cpp 
 	# events
-	events/tick.cpp
+	sandbox/cut_test/events/tick.cpp
 	# states
-	states/ingame.cpp states/freelook.cpp states/cut.cpp)
+	sandbox/cut_test/states/ingame.cpp sandbox/cut_test/states/freelook.cpp sandbox/cut_test/states/cut.cpp)
 
 TARGET_LINK_LIBRARIES(
 	cut_test

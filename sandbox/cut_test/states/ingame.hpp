@@ -1,12 +1,12 @@
-#ifndef FRUITCUT_STATES_INGAME_HPP_INCLUDED
-#define FRUITCUT_STATES_INGAME_HPP_INCLUDED
+#ifndef FRUITCUT_SANDBOX_CUT_TEST_STATES_INGAME_HPP_INCLUDED
+#define FRUITCUT_SANDBOX_CUT_TEST_STATES_INGAME_HPP_INCLUDED
 
 #include "freelook_fwd.hpp"
 #include "../machine.hpp"
 #include "../input_states.hpp"
 #include "../events/render_overlay.hpp"
 #include "../events/render.hpp"
-#include "../mesh.hpp"
+#include "../../../mesh.hpp"
 #include <sge/renderer/vector3.hpp>
 #include <sge/renderer/matrix4.hpp>
 #include <sge/camera/object.hpp>
@@ -29,6 +29,10 @@
 #include <cstddef>
 
 namespace fruitcut
+{
+namespace sandbox
+{
+namespace cut_test
 {
 namespace states
 {
@@ -115,6 +119,8 @@ private:
 		sge::console::arg_list const &,
 		sge::console::object &);
 };
+}
+}
 }
 }
 

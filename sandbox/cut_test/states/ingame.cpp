@@ -1,15 +1,15 @@
 #include "ingame.hpp"
-#include "../media_path.hpp"
-#include "../json/find_member.hpp"
+#include "../../../media_path.hpp"
+#include "../../../json/find_member.hpp"
+#include "../../../cut_mesh.hpp"
+#include "../../../plane.hpp"
+#include "../../../media_path.hpp"
+#include "../../../model/vf/format.hpp"
+#include "../../../model_to_mesh.hpp"
+#include "../../../mesh_to_vertex_buffer.hpp"
+#include "../../../math/plane/normalize.hpp"
 #include "../events/toggle_mode.hpp"
 #include "../events/render.hpp"
-#include "../cut_mesh.hpp"
-#include "../plane.hpp"
-#include "../media_path.hpp"
-#include "../model/vf/format.hpp"
-#include "../model_to_mesh.hpp"
-#include "../mesh_to_vertex_buffer.hpp"
-#include "../math/plane/normalize.hpp"
 #include <sge/camera/parameters.hpp>
 #include <sge/camera/projection/perspective.hpp>
 #include <sge/font/system.hpp>
@@ -114,7 +114,7 @@ multiply_matrix4_vector3(
 }
 }
 
-fruitcut::states::ingame::ingame(
+fruitcut::sandbox::cut_test::states::ingame::ingame(
 	my_context const my_ctx)
 :
 	my_base(
@@ -283,7 +283,7 @@ fruitcut::states::ingame::ingame(
 // the current input state, a variable which holds the information
 // which state is active when the console isn't active.
 void
-fruitcut::states::ingame::current_input_state(
+fruitcut::sandbox::cut_test::states::ingame::current_input_state(
 	input_states::type const _current_input_state)
 {
 	current_input_state_ =
@@ -295,7 +295,7 @@ fruitcut::states::ingame::current_input_state(
 }
 
 boost::statechart::result
-fruitcut::states::ingame::react(
+fruitcut::sandbox::cut_test::states::ingame::react(
 	events::render const &)
 {
 	sge::shader::scoped scoped_shader(
@@ -321,7 +321,7 @@ fruitcut::states::ingame::react(
 }
 
 boost::statechart::result
-fruitcut::states::ingame::react(
+fruitcut::sandbox::cut_test::states::ingame::react(
 	events::render_overlay const &)
 {
 	if (console_gfx_.active())
@@ -331,7 +331,7 @@ fruitcut::states::ingame::react(
 }
 
 void
-fruitcut::states::ingame::cut(
+fruitcut::sandbox::cut_test::states::ingame::cut(
 	sge::renderer::vector3 const &position,
 	sge::renderer::vector3 const &direction1,
 	sge::renderer::vector3 const &direction2)
@@ -367,13 +367,13 @@ fruitcut::states::ingame::cut(
 }
 
 sge::camera::object &
-fruitcut::states::ingame::camera()
+fruitcut::sandbox::cut_test::states::ingame::camera()
 {
 	return camera_;
 }
 
 void
-fruitcut::states::ingame::console_callback(
+fruitcut::sandbox::cut_test::states::ingame::console_callback(
 	sge::input::keyboard::key_event const &e)
 {
 	if (!e.pressed())
@@ -398,7 +398,7 @@ fruitcut::states::ingame::console_callback(
 }
 
 void
-fruitcut::states::ingame::toggle_mode(
+fruitcut::sandbox::cut_test::states::ingame::toggle_mode(
 	sge::console::arg_list const &,
 	sge::console::object &)
 {
@@ -407,7 +407,7 @@ fruitcut::states::ingame::toggle_mode(
 }
 
 void
-fruitcut::states::ingame::toggle_wireframe(
+fruitcut::sandbox::cut_test::states::ingame::toggle_wireframe(
 	sge::console::arg_list const &,
 	sge::console::object &)
 {

@@ -1,9 +1,9 @@
 #include "cut.hpp"
 #include "freelook.hpp"
-#include "../media_path.hpp"
-#include "../sprite/parameters.hpp"
-#include "../sprite/object.hpp"
-#include "../dim2.hpp"
+#include "../../../media_path.hpp"
+#include "../../../sprite/parameters.hpp"
+#include "../../../sprite/object.hpp"
+#include "../../../dim2.hpp"
 #include <sge/sprite/external_system_impl.hpp>
 #include <sge/sprite/render_one.hpp>
 #include <sge/sprite/parameters.hpp>
@@ -86,7 +86,7 @@ unproject(
 }
 }
 
-fruitcut::states::cut::cut(
+fruitcut::sandbox::cut_test::states::cut::cut(
 	my_context ctx)
 :
 	my_base(
@@ -164,7 +164,7 @@ fruitcut::states::cut::cut(
 }
 
 boost::statechart::result
-fruitcut::states::cut::react(
+fruitcut::sandbox::cut_test::states::cut::react(
 	events::render_overlay const &)
 {
 	ss_.render_all(
@@ -173,14 +173,14 @@ fruitcut::states::cut::react(
 }
 
 boost::statechart::result
-fruitcut::states::cut::react(
+fruitcut::sandbox::cut_test::states::cut::react(
 	events::toggle_mode const &)
 {
 	return transit<freelook>();
 }
 
 void
-fruitcut::states::cut::mouse_axis_callback(
+fruitcut::sandbox::cut_test::states::cut::mouse_axis_callback(
 	sge::input::mouse::axis_event const &e)
 {
 	// Yeah, no switch for axis_type here. TODO!
@@ -202,7 +202,7 @@ fruitcut::states::cut::mouse_axis_callback(
 }
 
 void
-fruitcut::states::cut::mouse_button_callback(
+fruitcut::sandbox::cut_test::states::cut::mouse_button_callback(
 	sge::input::mouse::button_event const &e)
 {
 	if (!e.pressed())

@@ -1,5 +1,5 @@
-#ifndef FRUITCUT_STATES_FREELOOK_HPP_INCLUDED
-#define FRUITCUT_STATES_FREELOOK_HPP_INCLUDED
+#ifndef FRUITCUT_SANDBOX_CUT_TEST_STATES_FREELOOK_HPP_INCLUDED
+#define FRUITCUT_SANDBOX_CUT_TEST_STATES_FREELOOK_HPP_INCLUDED
 
 #include "ingame.hpp"
 #include "../events/tick.hpp"
@@ -10,6 +10,10 @@
 #include <boost/mpl/vector/vector10.hpp>
 
 namespace fruitcut
+{
+namespace sandbox
+{
+namespace cut_test
 {
 namespace states
 {
@@ -40,6 +44,8 @@ public:
 	react(
 		events::toggle_mode const &);
 };
+}
+}
 }
 }
 

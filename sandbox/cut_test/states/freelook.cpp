@@ -3,7 +3,7 @@
 #include "../input_states.hpp"
 #include <fcppt/io/cout.hpp>
 
-fruitcut::states::freelook::freelook(
+fruitcut::sandbox::cut_test::states::freelook::freelook(
 	my_context const ctx)
 :
 	my_base(
@@ -14,7 +14,7 @@ fruitcut::states::freelook::freelook(
 }
 
 boost::statechart::result
-fruitcut::states::freelook::react(
+fruitcut::sandbox::cut_test::states::freelook::react(
 	events::tick const &t)
 {
 	context<ingame>().camera().update(
@@ -23,7 +23,7 @@ fruitcut::states::freelook::react(
 }
 
 boost::statechart::result
-fruitcut::states::freelook::react(
+fruitcut::sandbox::cut_test::states::freelook::react(
 	events::toggle_mode const &)
 {
 	return transit<cut>();
