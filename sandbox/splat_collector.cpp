@@ -1,8 +1,8 @@
 #include "splat_collector.hpp"
 #include "../sprite/parameters.hpp"
 #include "../media_path.hpp"
-#include "screen_vf/create_quad.hpp"
-#include "screen_vf/format.hpp"
+#include "../pp/screen_vf/create_quad.hpp"
+#include "../pp/screen_vf/format.hpp"
 #include <sge/sprite/parameters_impl.hpp>
 #include <sge/renderer/filter/linear.hpp>
 #include <sge/renderer/filter/point.hpp>
@@ -84,7 +84,7 @@ fruitcut::sandbox::splat_collector::splat_collector(
 		renderer_,
 		media_path()/FCPPT_TEXT("shaders")/FCPPT_TEXT("copy_vertex.glsl"),
 		media_path()/FCPPT_TEXT("shaders")/FCPPT_TEXT("copy_fragment.glsl"),
-		sge::shader::vf_to_string<screen_vf::format>(),
+		sge::shader::vf_to_string<pp::screen_vf::format>(),
 		fcppt::assign::make_container<sge::shader::variable_sequence>
 			(sge::shader::variable(
 				"target_size",
@@ -102,7 +102,7 @@ fruitcut::sandbox::splat_collector::splat_collector(
 				"tex",
 				texture_))),
 	quad_(
-		screen_vf::create_quad(
+		pp::screen_vf::create_quad(
 			copy_shader_,
 			renderer_))
 {

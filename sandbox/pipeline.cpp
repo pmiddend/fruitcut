@@ -1,10 +1,10 @@
 #include "../media_path.hpp"
-#include "pp/system.hpp"
-#include "pp/filter/blur.hpp"
-#include "pp/filter/highlight.hpp"
-#include "pp/filter/ssaa.hpp"
-#include "pp/filter/render_to_texture.hpp"
-#include "pp/filter/add.hpp"
+#include "../pp/system.hpp"
+#include "../pp/filter/blur.hpp"
+#include "../pp/filter/highlight.hpp"
+#include "../pp/filter/ssaa.hpp"
+#include "../pp/filter/render_to_texture.hpp"
+#include "../pp/filter/add.hpp"
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
 #include <sge/window/instance.hpp>
@@ -198,7 +198,7 @@ render_callback(
 
 void
 toggle_filter(
-	fruitcut::sandbox::pp::system &postprocessing,
+	fruitcut::pp::system &postprocessing,
 	sge::console::arg_list const &args,
 	sge::console::object &obj)
 {
@@ -216,7 +216,7 @@ toggle_filter(
 
 void
 list_filters(
-	fruitcut::sandbox::pp::system &postprocessing,
+	fruitcut::pp::system &postprocessing,
 	sge::console::arg_list const &,
 	sge::console::object &obj)
 {
@@ -488,11 +488,11 @@ try
 
 	std::vector<sprite_object> sprites;
 
-	fruitcut::sandbox::pp::system postprocessing(
+	fruitcut::pp::system postprocessing(
 		sys.renderer());
 
 	// This is the data source
-	fruitcut::sandbox::pp::filter::render_to_texture rtt_filter(
+	fruitcut::pp::filter::render_to_texture rtt_filter(
 		sys.renderer(),
 		fcppt::math::dim::structure_cast<sge::renderer::dim2>(
 			sys.renderer()->screen_size()),
@@ -503,25 +503,25 @@ try
 			boost::ref(
 				sprites)));
 
-	fruitcut::sandbox::pp::filter::ssaa ssaa_filter(
+	fruitcut::pp::filter::ssaa ssaa_filter(
 		sys.renderer(),
 		fcppt::math::dim::structure_cast<sge::renderer::dim2>(
 			sys.renderer()->screen_size()));
 
-	fruitcut::sandbox::pp::filter::highlight highlight_filter(
+	fruitcut::pp::filter::highlight highlight_filter(
 		sys.renderer(),
 		sge::renderer::dim2(
 			512,
 			512));
 
-	fruitcut::sandbox::pp::filter::blur blur_filter(
+	fruitcut::pp::filter::blur blur_filter(
 		sys.renderer(),
 		sge::renderer::dim2(
 			512,
 			512),
 		3);
 
-	fruitcut::sandbox::pp::filter::add add_filter(
+	fruitcut::pp::filter::add add_filter(
 		sys.renderer(),
 		fcppt::math::dim::structure_cast<sge::renderer::dim2>(
 			sys.renderer()->screen_size()));
@@ -529,30 +529,30 @@ try
 	postprocessing.add_filter(
 		rtt_filter,
 		FCPPT_TEXT("the_source"),
-		fruitcut::sandbox::pp::dependency_set());
+		fruitcut::pp::dependency_set());
 
 	postprocessing.add_filter(
 		ssaa_filter,
 		FCPPT_TEXT("ssaa"),
-		fcppt::assign::make_container<fruitcut::sandbox::pp::dependency_set>
+		fcppt::assign::make_container<fruitcut::pp::dependency_set>
 			("the_source"));
 
 	postprocessing.add_filter(
 		highlight_filter,
 		FCPPT_TEXT("highlight"),
-		fcppt::assign::make_container<fruitcut::sandbox::pp::dependency_set>
+		fcppt::assign::make_container<fruitcut::pp::dependency_set>
 			("ssaa"));
 
 	postprocessing.add_filter(
 		blur_filter,
 		FCPPT_TEXT("blur"),
-		fcppt::assign::make_container<fruitcut::sandbox::pp::dependency_set>
+		fcppt::assign::make_container<fruitcut::pp::dependency_set>
 			("highlight"));
 
 	postprocessing.add_filter(
 		add_filter,
 		FCPPT_TEXT("add"),
-		fcppt::assign::make_container<fruitcut::sandbox::pp::dependency_set>
+		fcppt::assign::make_container<fruitcut::pp::dependency_set>
 			("ssaa")
 			("blur"));
 

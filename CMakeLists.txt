@@ -110,6 +110,16 @@ SET(files
 	json/config_wrapper.cpp json/merge_trees.cpp json/process_option.cpp json/string_to_value.cpp
 	# input 
 	input/state.cpp input/state_manager.cpp
+	# pp 
+	pp/filter/base.cpp 
+	pp/filter/wrapper.cpp
+	pp/filter/render_to_texture.cpp
+	pp/filter/highlight.cpp
+	pp/filter/add.cpp
+	pp/system.cpp
+	pp/filter/blur.cpp
+	pp/filter/ssaa.cpp
+	pp/screen_vf/create_quad.cpp
 	# mesh
 	mesh_to_vertex_buffer.cpp model_to_mesh.cpp cut_mesh.cpp 
 	# sprite
@@ -158,40 +168,6 @@ TARGET_LINK_LIBRARIES(
 	${Boost_LIBRARIES})
 
 ADD_EXECUTABLE(
-	bloom_test
-	sandbox/bloom.cpp sandbox/bloom_shader.cpp sandbox/screen_vf/create_quad.cpp sandbox/blur_filter.cpp)
-
-TARGET_LINK_LIBRARIES(
-	bloom_test
-	fruitcut_library
-	${FCPPT_LIBRARIES}
-	${SGE_CORE_LIBRARY}
-	${SGE_SHADER_LIBRARY}
-	${SGE_CONSOLE_LIBRARY}
-	${SGE_SYSTEMS_LIBRARY}
-	${SGE_CAMERA_LIBRARY}
-	${SGE_PARSE_LIBRARY}
-	${SGE_SPRITE_LIBRARY}
-	${Boost_LIBRARIES})
-
-ADD_EXECUTABLE(
-	blur_test
-	sandbox/blur.cpp sandbox/blur_filter.cpp sandbox/screen_vf/create_quad.cpp)
-
-TARGET_LINK_LIBRARIES(
-	blur_test
-	fruitcut_library
-	${FCPPT_LIBRARIES}
-	${SGE_CORE_LIBRARY}
-	${SGE_SHADER_LIBRARY}
-	${SGE_CONSOLE_LIBRARY}
-	${SGE_SYSTEMS_LIBRARY}
-	${SGE_CAMERA_LIBRARY}
-	${SGE_PARSE_LIBRARY}
-	${SGE_SPRITE_LIBRARY}
-	${Boost_LIBRARIES})
-
-ADD_EXECUTABLE(
 	font_test
 	sandbox/font.cpp sandbox/font_drawer.cpp)
 
@@ -212,7 +188,7 @@ TARGET_LINK_LIBRARIES(
 
 ADD_EXECUTABLE(
 	splat_test
-	sandbox/splat.cpp sandbox/splat_collector.cpp sandbox/splatter.cpp sandbox/splat_particle.cpp sandbox/screen_vf/create_quad.cpp)
+	sandbox/splat.cpp sandbox/splat_collector.cpp sandbox/splatter.cpp sandbox/splat_particle.cpp pp/screen_vf/create_quad.cpp)
 
 TARGET_LINK_LIBRARIES(
 	splat_test
@@ -231,20 +207,11 @@ TARGET_LINK_LIBRARIES(
 
 ADD_EXECUTABLE(
 	pipeline_test
-	sandbox/pipeline.cpp 
-	media_path.cpp 
-	sandbox/pp/filter/base.cpp 
-	sandbox/pp/filter/wrapper.cpp
-	sandbox/pp/filter/render_to_texture.cpp
-	sandbox/pp/filter/highlight.cpp
-	sandbox/pp/filter/add.cpp
-	sandbox/pp/system.cpp
-	sandbox/pp/filter/blur.cpp
-	sandbox/pp/filter/ssaa.cpp
-	sandbox/screen_vf/create_quad.cpp)
+	sandbox/pipeline.cpp)
 
 TARGET_LINK_LIBRARIES(
 	pipeline_test
+	fruitcut_library
 	${FCPPT_LIBRARIES}
 	${SGE_CORE_LIBRARY}
 	${SGE_SHADER_LIBRARY}
