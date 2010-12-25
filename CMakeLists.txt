@@ -105,22 +105,26 @@ ADD_SUBDIRECTORY(test)
 
 SET(files 
 	# base 
-	media_path.cpp mesh_to_vertex_buffer.cpp model_to_mesh.cpp machine.cpp cut_mesh.cpp
-	# input
-	input/state.cpp input/state_manager.cpp
+	media_path.cpp 
 	# json
 	json/config_wrapper.cpp json/merge_trees.cpp json/process_option.cpp json/string_to_value.cpp
-	# events
-	events/tick.cpp
-	# states
-	states/ingame.cpp states/freelook.cpp states/cut.cpp)
+	# sprite
+	sprite/render_flipped.cpp)
 
 ADD_LIBRARY(
 	fruitcut_library STATIC ${files})
 
 ADD_EXECUTABLE(
 	cut_test
-	cut_test.cpp)
+	cut_test.cpp 
+	# mesh
+	mesh_to_vertex_buffer.cpp model_to_mesh.cpp machine.cpp cut_mesh.cpp 
+	# input 
+	input/state.cpp input/state_manager.cpp
+	# events
+	events/tick.cpp
+	# states
+	states/ingame.cpp states/freelook.cpp states/cut.cpp)
 
 TARGET_LINK_LIBRARIES(
 	cut_test

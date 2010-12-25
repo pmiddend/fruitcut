@@ -1,6 +1,7 @@
 #include "splatter.hpp"
 #include "../media_path.hpp"
 #include "../sprite/parameters.hpp"
+#include "../sprite/render_flipped.hpp"
 #include "../sprite/object.hpp"
 #include <sge/sprite/parameters_impl.hpp>
 #include <sge/sprite/default_equal.hpp>

@@ -85,12 +85,18 @@ fruitcut::sandbox::splat_collector::splat_collector(
 		media_path()/FCPPT_TEXT("shaders")/FCPPT_TEXT("copy_vertex.glsl"),
 		media_path()/FCPPT_TEXT("shaders")/FCPPT_TEXT("copy_fragment.glsl"),
 		sge::shader::vf_to_string<screen_vf::format>(),
-		fcppt::assign::make_container<sge::shader::variable_sequence>(
-			sge::shader::variable(
+		fcppt::assign::make_container<sge::shader::variable_sequence>
+			(sge::shader::variable(
 				"target_size",
 				sge::shader::variable_type::const_,
 				fcppt::math::dim::structure_cast<sge::renderer::vector2>(
-					renderer_->screen_size()))),
+					renderer_->screen_size())))
+			(sge::shader::variable(
+				"flip",
+				sge::shader::variable_type::const_,
+				// bool not supported in sge
+				static_cast<int>(
+					1))),
 		fcppt::assign::make_container<sge::shader::sampler_sequence>(
 			sge::shader::sampler(
 				"tex",
@@ -105,7 +111,7 @@ fruitcut::sandbox::splat_collector::splat_collector(
 sge::renderer::texture_ptr const
 fruitcut::sandbox::splat_collector::texture()
 {
-	return texture_;
+	return temp_texture_;
 }
 
 void
@@ -124,6 +130,7 @@ fruitcut::sandbox::splat_collector::update()
 	if (sprites_.size() == 0)
 		return;
 
+	// This renders using no shader, and the result is stored backwards
 	{
 		sge::renderer::scoped_target const target_(
 			renderer_,
@@ -138,6 +145,9 @@ fruitcut::sandbox::splat_collector::update()
 		sprites_.clear();
 	}
 
+	// This uses the copy shader and copies to the temp texture (which
+	// is then used by the internal sprite system, so the above call
+	// uses it again)
 	{
 		sge::shader::scoped scoped_shader(
 			copy_shader_);
