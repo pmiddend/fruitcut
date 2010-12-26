@@ -7,6 +7,9 @@
 #include "../sprite/object.hpp"
 #include "../sprite/parameters.hpp"
 #include "../grid/collect_points.hpp"
+#include "../particle/system.hpp"
+#include "../particle/objects/simple.hpp"
+#include "animation.hpp"
 #include <sge/sprite/intrusive/system_impl.hpp>
 #include <sge/sprite/parameters_impl.hpp>
 #include <sge/systems/instance.hpp>
@@ -74,6 +77,7 @@
 
 namespace
 {
+
 typedef
 float
 scalar;
@@ -107,101 +111,6 @@ gray_grid_to_scalar_grid(
 				std::numeric_limits<gray_grid::value_type>::max() - std::numeric_limits<gray_grid::value_type>::min()));
 }
 
-class particle
-{
-public:
-	explicit
-	particle(
-		fruitcut::sprite::parameters const &,
-		sge::time::duration const &life_time,
-		sge::renderer::vector2 const &velocity,
-		sge::renderer::vector2 const &acceleration);
-
-	void
-	update();
-
-	bool
-	dead() const;
-
-	fruitcut::sprite::object const &
-	sprite() const;
-
-	void
-	acceleration(
-		sge::renderer::vector2 const &);
-
-	~particle();
-private:
-	fruitcut::sprite::object sprite_;
-	sge::time::timer life_timer_;
-	sge::time::timer seconds_timer_;
-	sge::renderer::vector2 position_;
-	sge::renderer::vector2 velocity_;
-	sge::renderer::vector2 acceleration_;
-};
-
-particle::particle(
-	fruitcut::sprite::parameters const &params,
-	sge::time::duration const &_life_time,
-	sge::renderer::vector2 const &_velocity,
-	sge::renderer::vector2 const &_acceleration)
-:
-	sprite_(
-		params.elements()),
-	life_timer_(
-		_life_time),
-	seconds_timer_(
-		sge::time::second_f(
-			static_cast<sge::time::funit>(
-				1))),
-	position_(
-		fcppt::math::vector::structure_cast<sge::renderer::vector2>(
-			sprite_.pos())),
-	velocity_(
-		_velocity),
-	acceleration_(
-		_acceleration)
-{
-}
-
-void
-particle::update()
-{
-	sge::renderer::scalar const delta = 
-		static_cast<sge::renderer::scalar>(
-			seconds_timer_.reset());
-	position_ += 
-		delta * velocity_;
-	velocity_ += 
-		delta * acceleration_;
-	sprite_.pos(
-		fcppt::math::vector::structure_cast<fruitcut::sprite::object::point>(
-			position_));
-}
-
-bool 
-particle::dead() const
-{
-	return life_timer_.expired();
-}
-
-fruitcut::sprite::object const &
-particle::sprite() const
-{
-	return sprite_;
-}
-
-void
-particle::acceleration(
-	sge::renderer::vector2 const &_acceleration)
-{
-	acceleration_ = _acceleration;
-}
-
-particle::~particle()
-{
-}
-
 class particles
 {
 public:
@@ -219,57 +128,16 @@ public:
 	void
 	render();
 private:
-	typedef
-	boost::ptr_list<particle>
-	particle_sequence;
-
-	fruitcut::sprite::system ss_;
-	fruitcut::sprite::object logo_;
-
-	sge::time::timer logo_timer_;
-
+	fruitcut::particle::system system_;
 	sge::texture::part_ptr particle_texture_;
-	particle_sequence particles_;
+	fruitcut::sprite::object::point logo_pos_;
 };
 
 particles::particles(
 	sge::systems::instance const &sys)
 :
-	ss_(
+	system_(
 		sys.renderer()),
-	logo_(
-		fruitcut::sprite::parameters()
-			.texture_size()
-			.visible(
-				true)
-			.texture(
-				sge::texture::part_ptr(
-					new sge::texture::part_raw(
-						sys.renderer()->create_texture(
-							sys.image_loader().load(
-								fruitcut::media_path() 
-									/ FCPPT_TEXT("textures") 
-									/ FCPPT_TEXT("logo.png"))->view(),
-							sge::renderer::filter::linear,
-							sge::renderer::resource_flags::none))))
-			.center(
-				fruitcut::sprite::object::point(
-					static_cast<fruitcut::sprite::object::unit>(
-						sys.renderer()->screen_size().w()/2),
-					static_cast<fruitcut::sprite::object::unit>(
-						sys.renderer()->screen_size().h()/2)))
-			.system(
-				&ss_)
-			.color(
-				fruitcut::sprite::object::color_type(
-					(sge::image::color::init::red %= 1.0)
-					(sge::image::color::init::green %= 1.0)
-					(sge::image::color::init::blue %= 1.0)
-					(sge::image::color::init::alpha %= 1.0))).elements()),
-	logo_timer_(
-		sge::time::second_f(
-			static_cast<sge::time::funit>(
-				1))),
 	particle_texture_(
 		new sge::texture::part_raw(
 			sys.renderer()->create_texture(
@@ -278,15 +146,79 @@ particles::particles(
 						/ FCPPT_TEXT("textures") 
 						/ FCPPT_TEXT("smooth_particle.png"))->view(),
 				sge::renderer::filter::linear,
-				sge::renderer::resource_flags::none)))
+				sge::renderer::resource_flags::none))),
+	logo_pos_()
 {
+	sge::image2d::file_ptr const logo_image = 
+		sys.image_loader().load(
+			fruitcut::media_path() 
+				/ FCPPT_TEXT("textures") 
+				/ FCPPT_TEXT("logo.png"));
+
+	logo_pos_ = 
+		fruitcut::sprite::object::point(
+			static_cast<fruitcut::sprite::object::unit>(
+				sys.renderer()->screen_size().w()/2),
+			static_cast<fruitcut::sprite::object::unit>(
+				sys.renderer()->screen_size().h()/2)) - 
+		fcppt::math::dim::structure_cast<fruitcut::sprite::object::point>(
+			logo_image->dim())/static_cast<fruitcut::sprite::object::point::value_type>(2);
+
+	system_.insert(
+		fruitcut::particle::objects::unique_base_ptr(
+			new fruitcut::particle::objects::simple(
+				fruitcut::sprite::parameters()
+					.texture_size()
+					.visible(
+						true)
+					.texture(
+						sge::texture::part_ptr(
+							new sge::texture::part_raw(
+								sys.renderer()->create_texture(
+									logo_image->view(),
+									sge::renderer::filter::linear,
+									sge::renderer::resource_flags::none))))
+					.center(
+						fruitcut::sprite::object::point(
+							static_cast<fruitcut::sprite::object::unit>(
+								sys.renderer()->screen_size().w()/2),
+							static_cast<fruitcut::sprite::object::unit>(
+								sys.renderer()->screen_size().h()/2)))
+					.system(
+						&system_.sprite_system())
+					.color(
+						fruitcut::sprite::object::color_type(
+							(sge::image::color::init::red %= 1.0)
+							(sge::image::color::init::green %= 1.0)
+							(sge::image::color::init::blue %= 1.0)
+							(sge::image::color::init::alpha %= 1.0))),
+				fcppt::assign::make_container<fruitcut::sandbox::animation::value_sequence>
+					(fruitcut::sandbox::animation::value_type(
+						sge::time::second_f(
+							static_cast<sge::time::funit>(
+								3)),
+						fruitcut::sprite::object::color_type(
+							(sge::image::color::init::red %= 1.0)
+							(sge::image::color::init::green %= 1.0)
+							(sge::image::color::init::blue %= 1.0)
+							(sge::image::color::init::alpha %= 1.0))))
+					(fruitcut::sandbox::animation::value_type(
+						sge::time::second_f(
+							static_cast<sge::time::funit>(
+								0)),
+						fruitcut::sprite::object::color_type(
+							(sge::image::color::init::red %= 1.0)
+							(sge::image::color::init::green %= 1.0)
+							(sge::image::color::init::blue %= 1.0)
+							(sge::image::color::init::alpha %= 0.0)))),
+				sge::renderer::vector2::null(),
+				sge::renderer::vector2::null())));
 }
 
 void
 particles::render()
 {
-	ss_.render_all(
-		sge::sprite::default_equal());
+	system_.render();
 }
 
 void
@@ -319,74 +251,73 @@ particles::from_image(
 		points.begin(),
 		points.end());
 
-	points.resize(200);
+	points.resize(300);
 
 	BOOST_FOREACH(
 		point_sequence::const_reference p,
 		points)
-		particles_.push_back(
-			new particle(
-				fruitcut::sprite::parameters()
-					.texture_size()
-					.visible(
-						true)
-					.texture(
-						particle_texture_)
-					.center(
-						logo_.pos() + 
-						fruitcut::sprite::object::point(
-							static_cast<fruitcut::sprite::object::unit>(
-								p.w()),
-							static_cast<fruitcut::sprite::object::unit>(
-								p.h())))
-					.system(
-						&ss_)
-					.color(
-						fruitcut::sprite::object::color_type(
-							(sge::image::color::init::red %= 1.0)
-							(sge::image::color::init::green %= 1.0)
-							(sge::image::color::init::blue %= 1.0)
-							(sge::image::color::init::alpha %= 1.0))),
-				sge::time::second_f(
-					static_cast<sge::time::funit>(
-						5)),
-				sge::renderer::vector2::null(),
-				sge::renderer::vector2(
-					0,
-					/*20*/0)));
+		system_.insert(
+			fruitcut::particle::objects::unique_base_ptr(
+				new fruitcut::particle::objects::simple(
+					fruitcut::sprite::parameters()
+						.texture_size()
+						.visible(
+							true)
+						.texture(
+							particle_texture_)
+						.center(
+							logo_pos_ + 
+							fruitcut::sprite::object::point(
+								static_cast<fruitcut::sprite::object::unit>(
+									p.w()),
+								static_cast<fruitcut::sprite::object::unit>(
+									p.h())))
+						.system(
+							&system_.sprite_system())
+						.color(
+							fruitcut::sprite::object::color_type(
+								(sge::image::color::init::red %= 1.0)
+								(sge::image::color::init::green %= 1.0)
+								(sge::image::color::init::blue %= 1.0)
+								(sge::image::color::init::alpha %= 0.0))),
+					fcppt::assign::make_container<fruitcut::sandbox::animation::value_sequence>
+						(fruitcut::sandbox::animation::value_type(
+							sge::time::second_f(
+								static_cast<sge::time::funit>(
+									3)),
+							fruitcut::sprite::object::color_type(
+								(sge::image::color::init::red %= 1.0)
+								(sge::image::color::init::green %= 1.0)
+								(sge::image::color::init::blue %= 1.0)
+								(sge::image::color::init::alpha %= 0.0))))
+						(fruitcut::sandbox::animation::value_type(
+							sge::time::second_f(
+								static_cast<sge::time::funit>(
+									2)),
+							fruitcut::sprite::object::color_type(
+								(sge::image::color::init::red %= 1.0)
+								(sge::image::color::init::green %= 1.0)
+								(sge::image::color::init::blue %= 1.0)
+								(sge::image::color::init::alpha %= 1.0))))
+						(fruitcut::sandbox::animation::value_type(
+							sge::time::second_f(
+								static_cast<sge::time::funit>(
+									1)),
+							fruitcut::sprite::object::color_type(
+								(sge::image::color::init::red %= 1.0)
+								(sge::image::color::init::green %= 1.0)
+								(sge::image::color::init::blue %= 1.0)
+								(sge::image::color::init::alpha %= 0.0)))),
+					sge::renderer::vector2::null(),
+					sge::renderer::vector2(
+						0,
+						0))));
 }
 
 void
 particles::update()
 {
-	logo_.color(
-		(sge::image::color::init::red %= 1.0)
-		(sge::image::color::init::green %= 1.0)
-		(sge::image::color::init::blue %= 1.0)
-		(sge::image::color::init::alpha %= 
-			logo_timer_.expired() ? 0.0 : (static_cast<double>(1) - static_cast<double>(logo_timer_.elapsed_frames()))));
-
-	if (logo_timer_.expired())
-	{
-		static bool inited = false;
-		if (!inited)
-		{
-			for (particle_sequence::iterator i = particles_.begin(); i != particles_.end(); ++i)
-				i->acceleration(sge::renderer::vector2(0,20));
-			inited = true;
-		}
-	}
-
-	for (particle_sequence::iterator i = particles_.begin(); i != particles_.end();)
-	{
-		i->update();
-		if (i->dead())
-			i = 
-				particles_.erase(
-					i);
-		else
-			++i;
-	}
+	system_.update();
 }
 }
 

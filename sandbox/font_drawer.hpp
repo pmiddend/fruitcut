@@ -16,6 +16,7 @@
 #include <sge/sprite/external_system_decl.hpp>
 #include <sge/sprite/object_decl.hpp>
 #include <sge/sprite/with_color.hpp>
+#include <sge/sprite/with_dim.hpp>
 #include <sge/sprite/with_texture.hpp>
 #include <sge/sprite/type_choices.hpp>
 #include <sge/sprite/choices.hpp>
@@ -96,9 +97,10 @@ private:
 			float,
 			sge::image::color::rgba8_format
 		>,
-		boost::mpl::vector2
+		boost::mpl::vector3
 		<
 			sge::sprite::with_color,
+			sge::sprite::with_dim,
 			sge::sprite::with_texture
 		>
 	> 

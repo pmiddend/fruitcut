@@ -55,6 +55,7 @@
 #include <sge/sprite/choices.hpp>
 #include <sge/sprite/type_choices.hpp>
 #include <sge/sprite/with_texture.hpp>
+#include <sge/sprite/with_dim.hpp>
 #include <sge/sprite/with_color.hpp>
 #include <sge/sprite/with_depth.hpp>
 #include <sge/sprite/default_sort.hpp>
@@ -101,9 +102,10 @@ typedef sge::sprite::choices<
 		float,
 		sprite_color
 	>,
-	boost::mpl::vector3<
+	boost::mpl::vector4<
 		sge::sprite::with_color,
 		sge::sprite::with_texture,
+		sge::sprite::with_dim,
 		sge::sprite::with_depth
 	> 
 > sprite_choices;

@@ -120,6 +120,10 @@ SET(files
 	pp/filter/blur.cpp
 	pp/filter/ssaa.cpp
 	pp/screen_vf/create_quad.cpp
+	# particle
+	particle/system.cpp
+	particle/objects/base.cpp
+	particle/objects/simple.cpp
 	# mesh
 	mesh_to_vertex_buffer.cpp model_to_mesh.cpp cut_mesh.cpp 
 	# sprite
@@ -231,6 +235,7 @@ ADD_EXECUTABLE(
 
 TARGET_LINK_LIBRARIES(
 	convolution_test
+	fruitcut_library
 	${FCPPT_LIBRARIES}
 	${SGE_CORE_LIBRARY}
 	${SGE_SHADER_LIBRARY}
