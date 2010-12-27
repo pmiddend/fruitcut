@@ -1,4 +1,5 @@
 #include "render_flipped.hpp"
+#include "choices.hpp"
 #include <sge/sprite/intrusive/system_impl.hpp>
 #include <sge/sprite/default_equal.hpp>
 #include <sge/sprite/render_states.hpp>
@@ -17,7 +18,7 @@ fruitcut::particle::point_sprite::render_flipped(
 {
 	sge::renderer::state::scoped const state(
 		ss.renderer(),
-		sge::sprite::render_states());
+		sge::sprite::render_states<choices>());
 
 	ss.renderer()->transform(
 		sge::renderer::matrix_mode::world,

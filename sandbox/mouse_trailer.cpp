@@ -37,7 +37,7 @@ fruitcut::sandbox::mouse_trailer::mouse_trailer(
 	ss_(
 		renderer),
 	cursor_(
-		sprite::parameters()
+		particle::sprite::parameters()
 			.texture_size()
 			.visible(
 				true)
@@ -52,15 +52,15 @@ fruitcut::sandbox::mouse_trailer::mouse_trailer(
 							sge::renderer::filter::linear,
 							sge::renderer::resource_flags::none))))
 			.center(
-				sprite::object::point(
-					static_cast<sprite::object::unit>(
+				particle::sprite::object::point(
+					static_cast<particle::sprite::object::unit>(
 						renderer->screen_size().w()/2),
-					static_cast<sprite::object::unit>(
+					static_cast<particle::sprite::object::unit>(
 						renderer->screen_size().h()/2)))
 			.system(
 				&ss_)
 			.color(
-				sprite::object::color_type(
+				particle::sprite::object::color_type(
 					(sge::image::color::init::red %= 1.0)
 					(sge::image::color::init::green %= 1.0)
 					(sge::image::color::init::blue %= 1.0)
@@ -127,7 +127,7 @@ fruitcut::sandbox::mouse_trailer::update()
 			{
 				particles_.push_back(
 					sword_particle(
-						sprite::parameters()
+						particle::sprite::parameters()
 							.texture_size()
 							.visible(
 								true)
@@ -137,12 +137,12 @@ fruitcut::sandbox::mouse_trailer::update()
 								fcppt::math::vector::atan2(
 									direction))
 							.center(
-								fcppt::math::vector::structure_cast<fruitcut::sprite::object::point>(
+								fcppt::math::vector::structure_cast<fruitcut::particle::sprite::object::point>(
 									old_position_ + lambda * direction))
 							.system(
 								&ss_)
 							.color(
-								sprite::object::color_type(
+								particle::sprite::object::color_type(
 									(sge::image::color::init::red %= 1.0)
 									(sge::image::color::init::green %= 1.0)
 									(sge::image::color::init::blue %= 1.0)
@@ -187,20 +187,20 @@ fruitcut::sandbox::mouse_trailer::callback(
 {
 	cursor_.pos(
 		cursor_.pos() + 
-		sprite::object::point(
+		particle::sprite::object::point(
 			e.axis() == sge::input::mouse::axis::x 
 			? 
-				static_cast<sprite::object::unit>(
+				static_cast<particle::sprite::object::unit>(
 					e.axis_value())
 			:
-				static_cast<sprite::object::unit>(
+				static_cast<particle::sprite::object::unit>(
 					0),
 			e.axis() == sge::input::mouse::axis::x 
 			? 
-				static_cast<sprite::object::unit>(
+				static_cast<particle::sprite::object::unit>(
 					0)
 			:
-				static_cast<sprite::object::unit>(
+				static_cast<particle::sprite::object::unit>(
 					e.axis_value())));
 
 }

@@ -1,5 +1,4 @@
 #include "splatter.hpp"
-#include "../sprite/system.hpp"
 #include "../media_path.hpp"
 #include <sge/config/media_path.hpp>
 #include <sge/sprite/parameters_impl.hpp>

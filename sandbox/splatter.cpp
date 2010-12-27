@@ -1,8 +1,8 @@
 #include "splatter.hpp"
 #include "../media_path.hpp"
-#include "../sprite/parameters.hpp"
-#include "../sprite/render_flipped.hpp"
-#include "../sprite/object.hpp"
+#include "../particle/sprite/parameters.hpp"
+#include "../particle/sprite/render_flipped.hpp"
+#include "../particle/sprite/object.hpp"
 #include <sge/sprite/parameters_impl.hpp>
 #include <sge/sprite/default_equal.hpp>
 #include <sge/texture/part_ptr.hpp>
@@ -44,10 +44,10 @@ fruitcut::sandbox::splatter::splatter(
 	ss_(
 		_renderer),
 	cursor_(
-		sprite::parameters()
+		particle::sprite::parameters()
 			.texture_size()
 			.order(
-				static_cast<sprite::object::order_type>(
+				static_cast<particle::sprite::object::order_type>(
 					-100))
 			.visible(
 				true)
@@ -62,37 +62,37 @@ fruitcut::sandbox::splatter::splatter(
 							sge::renderer::filter::linear,
 							sge::renderer::resource_flags::none))))
 			.center(
-				sprite::object::point(
-					static_cast<sprite::object::unit>(
+				particle::sprite::object::point(
+					static_cast<particle::sprite::object::unit>(
 						_renderer->screen_size().w()/2),
-					static_cast<sprite::object::unit>(
+					static_cast<particle::sprite::object::unit>(
 						_renderer->screen_size().h()/2)))
 			.system(
 				&ss_)
 			.color(
-				sprite::object::color_type(
+				particle::sprite::object::color_type(
 					(sge::image::color::init::red %= 1.0)
 					(sge::image::color::init::green %= 1.0)
 					(sge::image::color::init::blue %= 1.0)
 					(sge::image::color::init::alpha %= 1.0))).elements()),
 	canvas_(
-		sprite::parameters()
+		particle::sprite::parameters()
 			.texture_size()
 			.visible(
 				true)
 			.order(
-				static_cast<sprite::object::order_type>(
+				static_cast<particle::sprite::object::order_type>(
 					100))
 			.texture(
 				sge::texture::part_ptr(
 					new sge::texture::part_raw(
 						splat_collector_.texture())))
 			.pos(
-				sprite::object::point::null())
+				particle::sprite::object::point::null())
 			.system(
 				&ss_)
 			.color(
-				sprite::object::color_type(
+				particle::sprite::object::color_type(
 					(sge::image::color::init::red %= 1.0)
 					(sge::image::color::init::green %= 1.0)
 					(sge::image::color::init::blue %= 1.0)
@@ -147,12 +147,12 @@ fruitcut::sandbox::splatter::splatter(
 				_1)))
 {
 	splat_collector_.insert(
-		sprite::parameters()
+		particle::sprite::parameters()
 			.size(
-				fcppt::math::dim::structure_cast<sprite::object::dim>(
+				fcppt::math::dim::structure_cast<particle::sprite::object::dim>(
 					_renderer->screen_size()))
 			.order(
-				static_cast<sprite::object::order_type>(
+				static_cast<particle::sprite::object::order_type>(
 					0))
 			.visible(
 				true)
@@ -167,9 +167,9 @@ fruitcut::sandbox::splatter::splatter(
 							sge::renderer::filter::linear,
 							sge::renderer::resource_flags::none))))
 			.pos(
-				sprite::object::point::null())
+				particle::sprite::object::point::null())
 			.color(
-				sprite::object::color_type(
+				particle::sprite::object::color_type(
 					(sge::image::color::init::red %= 1.0)
 					(sge::image::color::init::green %= 1.0)
 					(sge::image::color::init::blue %= 1.0)
@@ -185,11 +185,11 @@ fruitcut::sandbox::splatter::update()
 		if (i->dead())
 		{
 			splat_collector_.insert(
-				sprite::parameters()
+				particle::sprite::parameters()
 					.size(
 						i->sprite().size())
 					.order(
-						static_cast<sprite::object::order_type>(
+						static_cast<particle::sprite::object::order_type>(
 							0))
 					.rotation(
 						i->sprite().rotation())
@@ -261,12 +261,12 @@ fruitcut::sandbox::splatter::click_callback(
 		
 		particles_.push_back(
 			new splat_particle(
-				sprite::parameters()
+				particle::sprite::parameters()
 					.size(
-						sprite::object::dim(
-							static_cast<sprite::object::unit>(
+						particle::sprite::object::dim(
+							static_cast<particle::sprite::object::unit>(
 								texture->dim().w()),
-							static_cast<sprite::object::unit>(
+							static_cast<particle::sprite::object::unit>(
 								static_cast<sge::renderer::scalar>(texture->dim().h()) * 
 									std::max(
 										static_cast<sge::renderer::scalar>(
@@ -276,7 +276,7 @@ fruitcut::sandbox::splatter::click_callback(
 												(speed_range_.second - speed_range_.first))))
 							))
 					.order(
-						static_cast<sprite::object::order_type>(
+						static_cast<particle::sprite::object::order_type>(
 							-101))
 					.visible(
 						true)
@@ -293,12 +293,12 @@ fruitcut::sandbox::splatter::click_callback(
 						&ss_)
 					.color(
 						/*
-						sprite::object::color_type(
+						particle::sprite::object::color_type(
 							(sge::image::color::init::red %= 1.0)
 							(sge::image::color::init::green %= 1.0)
 							(sge::image::color::init::blue %= 1.0)
 							(sge::image::color::init::alpha %= 1.0))*/
-						sprite::object::color_type(
+						particle::sprite::object::color_type(
 							(sge::image::color::init::red %= color_rng_())
 							(sge::image::color::init::green %= color_rng_())
 							(sge::image::color::init::blue %= color_rng_())
@@ -316,20 +316,20 @@ fruitcut::sandbox::splatter::move_callback(
 {
 	cursor_.pos(
 		cursor_.pos() + 
-		sprite::object::point(
+		particle::sprite::object::point(
 			e.axis() == sge::input::mouse::axis::x 
 			? 
-				static_cast<sprite::object::unit>(
+				static_cast<particle::sprite::object::unit>(
 					e.axis_value())
 			:
-				static_cast<sprite::object::unit>(
+				static_cast<particle::sprite::object::unit>(
 					0),
 			e.axis() == sge::input::mouse::axis::x 
 			? 
-				static_cast<sprite::object::unit>(
+				static_cast<particle::sprite::object::unit>(
 					0)
 			:
-				static_cast<sprite::object::unit>(
+				static_cast<particle::sprite::object::unit>(
 					e.axis_value())));
 }
 

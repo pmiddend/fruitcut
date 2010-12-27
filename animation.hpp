@@ -1,18 +1,14 @@
 #ifndef FRUITCUT_ANIMATION_HPP_INCLUDED
 #define FRUITCUT_ANIMATION_HPP_INCLUDED
 
-#include "sprite/object.hpp"
 #include <sge/time/timer.hpp>
 #include <sge/time/duration.hpp>
-#include <sge/sprite/object_impl.hpp>
 #include <fcppt/scoped_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/chrono/duration.hpp>
 #include <fcppt/math/lerp.hpp>
 #include <fcppt/assert.hpp>
 #include <boost/next_prior.hpp>
-#include <mizuiro/color/operators/add.hpp>
-#include <mizuiro/color/operators/scalar_multiply.hpp>
 #include <vector>
 #include <utility>
 
@@ -69,7 +65,7 @@ public:
 				current_value_->first));
 	}
 
-	sprite::object::color_type const
+	T const
 	current_value() const
 	{
 		if (current_value_ == boost::prior(values_.end()))

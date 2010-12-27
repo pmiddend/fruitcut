@@ -1,10 +1,12 @@
-#ifndef FRUITCUT_SPRITE_SYSTEM_HPP_INCLUDED
-#define FRUITCUT_SPRITE_SYSTEM_HPP_INCLUDED
+#ifndef FRUITCUT_PARTICLE_SPRITE_SYSTEM_HPP_INCLUDED
+#define FRUITCUT_PARTICLE_SPRITE_SYSTEM_HPP_INCLUDED
 
 #include "choices.hpp"
 #include <sge/sprite/system.hpp>
 
 namespace fruitcut
+{
+namespace particle
 {
 namespace sprite
 {
@@ -14,6 +16,7 @@ sge::sprite::system
 	choices
 >::type 
 system;
+}
 }
 }
 

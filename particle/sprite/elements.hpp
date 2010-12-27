@@ -1,5 +1,5 @@
-#ifndef FRUITCUT_SPRITE_ELEMENTS_HPP_INCLUDED
-#define FRUITCUT_SPRITE_ELEMENTS_HPP_INCLUDED
+#ifndef FRUITCUT_PARTICLE_SPRITE_ELEMENTS_HPP_INCLUDED
+#define FRUITCUT_PARTICLE_SPRITE_ELEMENTS_HPP_INCLUDED
 
 #include <sge/sprite/with_texture.hpp>
 #include <sge/sprite/with_color.hpp>
@@ -10,6 +10,8 @@
 #include <boost/mpl/vector/vector10.hpp>
 
 namespace fruitcut
+{
+namespace particle
 {
 namespace sprite
 {
@@ -24,6 +26,7 @@ boost::mpl::vector6
 	sge::sprite::intrusive::tag
 > 
 elements;
+}
 }
 }
 

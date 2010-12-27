@@ -1,10 +1,12 @@
-#ifndef FRUITCUT_SPRITE_TYPE_CHOICES_HPP_INCLUDED
-#define FRUITCUT_SPRITE_TYPE_CHOICES_HPP_INCLUDED
+#ifndef FRUITCUT_PARTICLE_SPRITE_TYPE_CHOICES_HPP_INCLUDED
+#define FRUITCUT_PARTICLE_SPRITE_TYPE_CHOICES_HPP_INCLUDED
 
 #include <sge/sprite/type_choices.hpp>
 #include <sge/image/color/rgba8_format.hpp>
 
 namespace fruitcut
+{
+namespace particle
 {
 namespace sprite
 {
@@ -16,6 +18,7 @@ sge::sprite::type_choices
 	sge::image::color::rgba8_format
 >
 type_choices;
+}
 }
 }
 

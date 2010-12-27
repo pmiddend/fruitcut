@@ -1,5 +1,5 @@
 #include "splat_collector.hpp"
-#include "../sprite/parameters.hpp"
+#include "../particle/sprite/parameters.hpp"
 #include "../media_path.hpp"
 #include "../pp/screen_vf/create_quad.hpp"
 #include "../pp/screen_vf/format.hpp"
@@ -62,7 +62,7 @@ fruitcut::sandbox::splat_collector::splat_collector(
 	ss_(
 		renderer_),
 	background_(
-		sprite::parameters()
+		particle::sprite::parameters()
 			.texture_size()
 			.visible(
 				true)
@@ -71,11 +71,11 @@ fruitcut::sandbox::splat_collector::splat_collector(
 					new sge::texture::part_raw(
 						temp_texture_)))
 			.pos(
-				sprite::object::point::null())
+				particle::sprite::object::point::null())
 			.system(
 				&ss_)
 			.color(
-				sprite::object::color_type(
+				particle::sprite::object::color_type(
 					(sge::image::color::init::red %= 1.0)
 					(sge::image::color::init::green %= 1.0)
 					(sge::image::color::init::blue %= 1.0)
@@ -116,10 +116,10 @@ fruitcut::sandbox::splat_collector::texture()
 
 void
 fruitcut::sandbox::splat_collector::insert(
-	sprite::parameters params)
+	particle::sprite::parameters params)
 {
 	sprites_.push_back(
-		sprite::object(
+		particle::sprite::object(
 			params.system(
 				&ss_).elements()));
 }

@@ -1,8 +1,8 @@
 #include "cut.hpp"
 #include "freelook.hpp"
 #include "../../../media_path.hpp"
-#include "../../../sprite/parameters.hpp"
-#include "../../../sprite/object.hpp"
+#include "../../../particle/sprite/parameters.hpp"
+#include "../../../particle/sprite/object.hpp"
 #include "../../../dim2.hpp"
 #include <sge/sprite/external_system_impl.hpp>
 #include <sge/sprite/render_one.hpp>
@@ -94,13 +94,13 @@ fruitcut::sandbox::cut_test::states::cut::cut(
 	ss_(
 		context<machine>().systems().renderer()),
 	cursor_(
-		sprite::parameters()
+		particle::sprite::parameters()
 			.texture_size()
 			// default value is false (or undefined - both wrong)
 			.visible(
 				true)
 			.color(
-				sprite::object::color_type(
+				particle::sprite::object::color_type(
 					(sge::image::color::init::red %= 1.0)
 					(sge::image::color::init::green %= 1.0)
 					(sge::image::color::init::blue %= 1.0)
@@ -118,7 +118,7 @@ fruitcut::sandbox::cut_test::states::cut::cut(
 							sge::renderer::filter::linear,
 							sge::renderer::resource_flags::none))))
 			.pos(
-				sprite::object::point(100,100))
+				particle::sprite::object::point(100,100))
 			.elements()),
 	mouse_axis_connection_(
 		context<machine>().systems().mouse_collector()->axis_callback(
@@ -133,12 +133,12 @@ fruitcut::sandbox::cut_test::states::cut::cut(
 				this,
 				_1))),
 	point1_(
-		sprite::parameters()
+		particle::sprite::parameters()
 			.texture_size()
 			.visible(
 				false)
 			.color(
-				sprite::object::color_type(
+				particle::sprite::object::color_type(
 					(sge::image::color::init::red %= 1.0)
 					(sge::image::color::init::green %= 1.0)
 					(sge::image::color::init::blue %= 1.0)
@@ -186,14 +186,14 @@ fruitcut::sandbox::cut_test::states::cut::mouse_axis_callback(
 	// Yeah, no switch for axis_type here. TODO!
 	cursor_.pos( 
 		cursor_.pos() + 
-		sprite::object::point(
-			static_cast<sprite::object::point::value_type>(
+		particle::sprite::object::point(
+			static_cast<particle::sprite::object::point::value_type>(
 				e.axis() == sge::input::mouse::axis::x
 				?
 					e.axis_value()
 				:
 					0),
-			static_cast<sprite::object::point::value_type>(
+			static_cast<particle::sprite::object::point::value_type>(
 				e.axis() == sge::input::mouse::axis::y
 				?
 					e.axis_value()

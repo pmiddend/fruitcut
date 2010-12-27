@@ -124,10 +124,10 @@ SET(files
 	particle/system.cpp
 	particle/objects/base.cpp
 	particle/objects/simple.cpp
+	particle/sprite/render_flipped.cpp
+	particle/point_sprite/render_flipped.cpp
 	# mesh
-	mesh_to_vertex_buffer.cpp model_to_mesh.cpp cut_mesh.cpp 
-	# sprite
-	sprite/render_flipped.cpp)
+	mesh_to_vertex_buffer.cpp model_to_mesh.cpp cut_mesh.cpp)
 
 ADD_LIBRARY(
 	fruitcut_library STATIC ${files})

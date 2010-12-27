@@ -9,7 +9,7 @@
 #include <fcppt/math/vector/basic_impl.hpp>
 
 fruitcut::sandbox::sword_particle::sword_particle(
-	sprite::parameters const &params,
+	particle::sprite::parameters const &params,
 	duration const &_life_time)
 :
 	sprite_(
@@ -33,17 +33,17 @@ fruitcut::sandbox::sword_particle::update()
 		static_cast<double>(
 			life_time_.count());
 
-	sprite::object::point const center = 
+	particle::sprite::object::point const center = 
 		sprite_.pos() + sprite_.size()/2;
 
 	sprite_.size(
-		sprite::object::dim(
+		particle::sprite::object::dim(
 			sprite_.size().w(),
-			static_cast<sprite::object::unit>(
+			static_cast<particle::sprite::object::unit>(
 				static_cast<double>(initial_size_.h()) * life_percentage)));
 	/*
 	sprite_.size(
-		fcppt::math::dim::structure_cast<sprite::object::dim>(
+		fcppt::math::dim::structure_cast<particle::sprite::object::dim>(
 			life_percentage * 
 			fcppt::math::dim::structure_cast<fcppt::math::dim::static_<double,2>::type>(
 				initial_size_)));

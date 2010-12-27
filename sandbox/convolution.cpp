@@ -6,10 +6,13 @@
 #include "../particle/point_sprite/system.hpp"
 #include "../particle/point_sprite/object.hpp"
 #include "../particle/point_sprite/parameters.hpp"
+#include "../particle/sprite/system.hpp"
+#include "../particle/sprite/object.hpp"
+#include "../particle/sprite/parameters.hpp"
 #include "../grid/collect_points.hpp"
 #include "../particle/system.hpp"
 #include "../particle/objects/simple.hpp"
-#include "animation.hpp"
+#include "../animation.hpp"
 #include <sge/sprite/intrusive/system_impl.hpp>
 #include <sge/sprite/parameters_impl.hpp>
 #include <sge/systems/instance.hpp>
@@ -78,6 +81,14 @@
 namespace
 {
 typedef
+fruitcut::animation<fruitcut::particle::sprite::object::color_type>
+sprite_animation;
+
+typedef
+fruitcut::animation<fruitcut::particle::point_sprite::object::color_type>
+point_sprite_animation;
+
+typedef
 float
 scalar;
 
@@ -112,13 +123,13 @@ gray_grid_to_scalar_grid(
 
 class explosion_particle
 :
-	public fruitcut::particle::objects::simple
+	public fruitcut::particle::objects::simple<fruitcut::particle::point_sprite::choices>
 {
 public:
 	explicit
 	explosion_particle(
-		fruitcut::sprite::parameters const &_params,
-		color_animation::value_sequence const &_animation,
+		fruitcut::particle::point_sprite::parameters const &_params,
+		point_sprite_animation::value_sequence const &_animation,
 		sge::renderer::vector2 const &_velocity,
 		sge::renderer::vector2 const &_acceleration,
 		sge::time::duration const &_timer)
@@ -176,7 +187,7 @@ public:
 private:
 	fruitcut::particle::system system_;
 	sge::texture::part_ptr particle_texture_;
-	fruitcut::sprite::object::point logo_pos_;
+	fruitcut::particle::point_sprite::object::point logo_pos_;
 };
 
 particles::particles(
@@ -202,18 +213,18 @@ particles::particles(
 				/ FCPPT_TEXT("logo.png"));
 
 	logo_pos_ = 
-		fruitcut::sprite::object::point(
-			static_cast<fruitcut::sprite::object::unit>(
+		fruitcut::particle::point_sprite::object::point(
+			static_cast<fruitcut::particle::point_sprite::object::unit>(
 				sys.renderer()->screen_size().w()/2),
-			static_cast<fruitcut::sprite::object::unit>(
+			static_cast<fruitcut::particle::point_sprite::object::unit>(
 				sys.renderer()->screen_size().h()/2)) - 
-		fcppt::math::dim::structure_cast<fruitcut::sprite::object::point>(
-			logo_image->dim())/static_cast<fruitcut::sprite::object::point::value_type>(2);
+		fcppt::math::dim::structure_cast<fruitcut::particle::point_sprite::object::point>(
+			logo_image->dim())/static_cast<fruitcut::particle::point_sprite::object::point::value_type>(2);
 
 	system_.insert(
 		fruitcut::particle::objects::unique_base_ptr(
-			new fruitcut::particle::objects::simple(
-				fruitcut::sprite::parameters()
+			new fruitcut::particle::objects::simple<fruitcut::particle::sprite::choices>(
+				fruitcut::particle::sprite::parameters()
 					.texture_size()
 					.visible(
 						true)
@@ -225,34 +236,34 @@ particles::particles(
 									sge::renderer::filter::linear,
 									sge::renderer::resource_flags::none))))
 					.center(
-						fruitcut::sprite::object::point(
-							static_cast<fruitcut::sprite::object::unit>(
+						fruitcut::particle::sprite::object::point(
+							static_cast<fruitcut::particle::sprite::object::unit>(
 								sys.renderer()->screen_size().w()/2),
-							static_cast<fruitcut::sprite::object::unit>(
+							static_cast<fruitcut::particle::sprite::object::unit>(
 								sys.renderer()->screen_size().h()/2)))
 					.system(
 						&system_.sprite_system())
 					.color(
-						fruitcut::sprite::object::color_type(
+						fruitcut::particle::sprite::object::color_type(
 							(sge::image::color::init::red %= 1.0)
 							(sge::image::color::init::green %= 1.0)
 							(sge::image::color::init::blue %= 1.0)
 							(sge::image::color::init::alpha %= 1.0))),
-				fcppt::assign::make_container<fruitcut::sandbox::animation::value_sequence>
-					(fruitcut::sandbox::animation::value_type(
+				fcppt::assign::make_container<sprite_animation::value_sequence>
+					(sprite_animation::value_type(
 						sge::time::second_f(
 							static_cast<sge::time::funit>(
 								3)),
-						fruitcut::sprite::object::color_type(
+						fruitcut::particle::sprite::object::color_type(
 							(sge::image::color::init::red %= 1.0)
 							(sge::image::color::init::green %= 1.0)
 							(sge::image::color::init::blue %= 1.0)
 							(sge::image::color::init::alpha %= 1.0))))
-					(fruitcut::sandbox::animation::value_type(
+					(sprite_animation::value_type(
 						sge::time::second_f(
 							static_cast<sge::time::funit>(
 								0)),
-						fruitcut::sprite::object::color_type(
+						fruitcut::particle::sprite::object::color_type(
 							(sge::image::color::init::red %= 1.0)
 							(sge::image::color::init::green %= 1.0)
 							(sge::image::color::init::blue %= 1.0)
@@ -303,57 +314,57 @@ particles::from_image(
 		point_sequence::const_reference p,
 		points)
 	{
-		fruitcut::sprite::object::point const center = 
+		fruitcut::particle::point_sprite::object::point const center = 
 			logo_pos_ + 
-				fruitcut::sprite::object::point(
-					static_cast<fruitcut::sprite::object::unit>(
+				fruitcut::particle::point_sprite::object::point(
+					static_cast<fruitcut::particle::point_sprite::object::unit>(
 						p.w()),
-					static_cast<fruitcut::sprite::object::unit>(
+					static_cast<fruitcut::particle::point_sprite::object::unit>(
 						p.h()));
 
 		system_.insert(
 			fruitcut::particle::objects::unique_base_ptr(
 				new explosion_particle(
-					fruitcut::sprite::parameters()
-						.texture_size()
-						.visible(
-							true)
+					fruitcut::particle::point_sprite::parameters()
 						.texture(
 							particle_texture_)
 						.center(
 							center)
+						.point_size(
+							static_cast<fruitcut::particle::point_sprite::object::unit>(
+								particle_texture_->dim().w()))
 						.system(
-							&system_.sprite_system())
+							&system_.point_sprite_system())
 						.color(
-							fruitcut::sprite::object::color_type(
+							fruitcut::particle::point_sprite::object::color_type(
 								(sge::image::color::init::red %= 1.0)
 								(sge::image::color::init::green %= 1.0)
 								(sge::image::color::init::blue %= 1.0)
 								(sge::image::color::init::alpha %= 0.0))),
-					fcppt::assign::make_container<fruitcut::sandbox::animation::value_sequence>
-						(fruitcut::sandbox::animation::value_type(
+					fcppt::assign::make_container<point_sprite_animation::value_sequence>
+						(point_sprite_animation::value_type(
 							sge::time::second_f(
 								static_cast<sge::time::funit>(
 									2)),
-							fruitcut::sprite::object::color_type(
+							fruitcut::particle::point_sprite::object::color_type(
 								(sge::image::color::init::red %= 1.0)
 								(sge::image::color::init::green %= 1.0)
 								(sge::image::color::init::blue %= 1.0)
 								(sge::image::color::init::alpha %= 0.0))))
-						(fruitcut::sandbox::animation::value_type(
+						(point_sprite_animation::value_type(
 							sge::time::second_f(
 								static_cast<sge::time::funit>(
 									0.5)),
-							fruitcut::sprite::object::color_type(
+							fruitcut::particle::point_sprite::object::color_type(
 								(sge::image::color::init::red %= 1.0)
 								(sge::image::color::init::green %= 1.0)
 								(sge::image::color::init::blue %= 1.0)
 								(sge::image::color::init::alpha %= 1.0))))
-						(fruitcut::sandbox::animation::value_type(
+						(point_sprite_animation::value_type(
 							sge::time::second_f(
 								static_cast<sge::time::funit>(
 									1)),
-							fruitcut::sprite::object::color_type(
+							fruitcut::particle::point_sprite::object::color_type(
 								(sge::image::color::init::red %= 1.0)
 								(sge::image::color::init::green %= 1.0)
 								(sge::image::color::init::blue %= 1.0)

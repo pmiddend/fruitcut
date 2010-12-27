@@ -1,9 +1,9 @@
 #ifndef FRUITCUT_SANDBOX_SPLAT_COLLECTOR_HPP_INCLUDED
 #define FRUITCUT_SANDBOX_SPLAT_COLLECTOR_HPP_INCLUDED
 
-#include "../sprite/system.hpp"
-#include "../sprite/object.hpp"
-#include "../sprite/parameters.hpp"
+#include "../particle/sprite/system.hpp"
+#include "../particle/sprite/object.hpp"
+#include "../particle/sprite/parameters.hpp"
 #include <sge/renderer/device_ptr.hpp>
 #include <sge/sprite/object_impl.hpp>
 #include <sge/sprite/intrusive/system_impl.hpp>
@@ -31,7 +31,7 @@ public:
 
 	void
 	insert(
-		sprite::parameters);
+		particle::sprite::parameters);
 
 	void
 	update();
@@ -39,7 +39,7 @@ public:
 	~splat_collector();
 private:
 	typedef
-	std::vector<sprite::object>
+	std::vector<particle::sprite::object>
 	sprite_sequence;
 
 	sge::renderer::device_ptr renderer_;
@@ -48,8 +48,8 @@ private:
 	// texture and the new sprites
 	sge::renderer::texture_ptr texture_,temp_texture_;
 	sge::renderer::target_ptr texture_target_,temp_texture_target_;
-	sprite::system ss_;
-	sprite::object background_;
+	particle::sprite::system ss_;
+	particle::sprite::object background_;
 	sprite_sequence sprites_;
 	sge::shader::object copy_shader_;
 	sge::renderer::vertex_buffer_ptr quad_;

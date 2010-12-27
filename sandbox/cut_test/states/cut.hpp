@@ -4,8 +4,8 @@
 #include "ingame.hpp"
 #include "../events/render_overlay.hpp"
 #include "../events/toggle_mode.hpp"
-#include "../../../sprite/system.hpp"
-#include "../../../sprite/object.hpp"
+#include "../../../particle/sprite/system.hpp"
+#include "../../../particle/sprite/object.hpp"
 #include <sge/input/mouse/axis_event_fwd.hpp>
 #include <sge/input/mouse/button_event_fwd.hpp>
 #include <sge/sprite/intrusive/system_impl.hpp>
@@ -47,11 +47,11 @@ public:
 	react(
 		events::toggle_mode const &);
 private:
-	sprite::system ss_;
-	sprite::object cursor_;
+	particle::sprite::system ss_;
+	particle::sprite::object cursor_;
 	fcppt::signal::scoped_connection 
 		mouse_axis_connection_,mouse_button_connection_;
-	sprite::object point1_,point2_;
+	particle::sprite::object point1_,point2_;
 
 	void
 	mouse_axis_callback(
