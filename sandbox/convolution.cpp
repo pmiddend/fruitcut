@@ -3,9 +3,9 @@
 #include "../grid/to_ppm.hpp"
 #include "../grid/map.hpp"
 #include "../grid/sobel_ignore_borders.hpp"
-#include "../sprite/system.hpp"
-#include "../sprite/object.hpp"
-#include "../sprite/parameters.hpp"
+#include "../particle/point_sprite/system.hpp"
+#include "../particle/point_sprite/object.hpp"
+#include "../particle/point_sprite/parameters.hpp"
 #include "../grid/collect_points.hpp"
 #include "../particle/system.hpp"
 #include "../particle/objects/simple.hpp"
@@ -77,7 +77,6 @@
 
 namespace
 {
-
 typedef
 float
 scalar;
@@ -110,6 +109,53 @@ gray_grid_to_scalar_grid(
 			static_cast<scalar_grid::value_type>(
 				std::numeric_limits<gray_grid::value_type>::max() - std::numeric_limits<gray_grid::value_type>::min()));
 }
+
+class explosion_particle
+:
+	public fruitcut::particle::objects::simple
+{
+public:
+	explicit
+	explosion_particle(
+		fruitcut::sprite::parameters const &_params,
+		color_animation::value_sequence const &_animation,
+		sge::renderer::vector2 const &_velocity,
+		sge::renderer::vector2 const &_acceleration,
+		sge::time::duration const &_timer)
+	:
+		simple(
+			_params,
+			_animation,
+			sge::renderer::vector2::null(),
+			sge::renderer::vector2::null()),
+		velocity_(
+			_velocity),
+		acceleration_(
+			_acceleration),
+		timer_(
+			_timer)
+	{
+	}
+
+	void
+	update()
+	{
+		simple::update();
+		
+		if (timer_.expired() && timer_.active())
+		{
+			timer_.deactivate();
+			velocity(
+				velocity_);
+			acceleration(
+				acceleration_);
+		}
+	}
+private:
+	sge::renderer::vector2 const velocity_;
+	sge::renderer::vector2 const acceleration_;
+	sge::time::timer timer_;
+};
 
 class particles
 {
@@ -256,9 +302,18 @@ particles::from_image(
 	BOOST_FOREACH(
 		point_sequence::const_reference p,
 		points)
+	{
+		fruitcut::sprite::object::point const center = 
+			logo_pos_ + 
+				fruitcut::sprite::object::point(
+					static_cast<fruitcut::sprite::object::unit>(
+						p.w()),
+					static_cast<fruitcut::sprite::object::unit>(
+						p.h()));
+
 		system_.insert(
 			fruitcut::particle::objects::unique_base_ptr(
-				new fruitcut::particle::objects::simple(
+				new explosion_particle(
 					fruitcut::sprite::parameters()
 						.texture_size()
 						.visible(
@@ -266,12 +321,7 @@ particles::from_image(
 						.texture(
 							particle_texture_)
 						.center(
-							logo_pos_ + 
-							fruitcut::sprite::object::point(
-								static_cast<fruitcut::sprite::object::unit>(
-									p.w()),
-								static_cast<fruitcut::sprite::object::unit>(
-									p.h())))
+							center)
 						.system(
 							&system_.sprite_system())
 						.color(
@@ -293,7 +343,7 @@ particles::from_image(
 						(fruitcut::sandbox::animation::value_type(
 							sge::time::second_f(
 								static_cast<sge::time::funit>(
-									2)),
+									0.5)),
 							fruitcut::sprite::object::color_type(
 								(sge::image::color::init::red %= 1.0)
 								(sge::image::color::init::green %= 1.0)
@@ -308,10 +358,20 @@ particles::from_image(
 								(sge::image::color::init::green %= 1.0)
 								(sge::image::color::init::blue %= 1.0)
 								(sge::image::color::init::alpha %= 0.0)))),
-					sge::renderer::vector2::null(),
+					sge::renderer::vector2(
+						static_cast<sge::renderer::scalar>(
+							system_.sprite_system().renderer()->screen_size().w()/2),
+						static_cast<sge::renderer::scalar>(
+							system_.sprite_system().renderer()->screen_size().h()/2)) - 
+						fcppt::math::vector::structure_cast<sge::renderer::vector2>(
+							center),
 					sge::renderer::vector2(
 						0,
-						0))));
+						0),
+					sge::time::second_f(
+						static_cast<sge::time::funit>(
+							3)))));
+	}
 }
 
 void

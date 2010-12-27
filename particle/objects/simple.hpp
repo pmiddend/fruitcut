@@ -19,10 +19,14 @@ class simple
 	public base
 {
 public:
+	typedef
+	animation<sprite::object::color_type>
+	color_animation;
+
 	explicit
 	simple(
 		sprite::parameters const &,
-		animation::value_sequence const &,
+		color_animation::value_sequence const &,
 		sge::renderer::vector2 const &velocity,
 		sge::renderer::vector2 const &acceleration);
 
@@ -33,13 +37,17 @@ public:
 	dead() const;
 
 	void
+	velocity(
+		sge::renderer::vector2 const &);
+
+	void
 	acceleration(
 		sge::renderer::vector2 const &);
 
 	~simple();
 private:
 	sprite::object sprite_;
-	animation animation_;
+	color_animation animation_;
 	sge::time::timer seconds_timer_;
 	sge::renderer::vector2 position_;
 	sge::renderer::vector2 velocity_;

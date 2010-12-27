@@ -6,6 +6,8 @@
 fruitcut::particle::system::system(
 	sge::renderer::device_ptr const _renderer)
 :
+	pss_(
+		_renderer),
 	ss_(
 		_renderer)
 {
@@ -37,6 +39,12 @@ fruitcut::sprite::system &
 fruitcut::particle::system::sprite_system()
 {
 	return ss_;
+}
+
+fruitcut::particle::point_sprite::system &
+fruitcut::particle::system::point_sprite_system()
+{
+	return pss_;
 }
 
 void 

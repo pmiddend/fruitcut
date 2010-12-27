@@ -18,6 +18,7 @@
 
 namespace fruitcut
 {
+template<typename T>
 class animation
 {
 FCPPT_NONCOPYABLE(
@@ -27,7 +28,7 @@ public:
 	std::pair
 	<
 		sge::time::duration,
-		sprite::object::color_type
+		T
 	>
 	value_type;
 
@@ -102,7 +103,7 @@ public:
 private:
 	value_sequence const values_;
 	fcppt::scoped_ptr<sge::time::timer> current_timer_;
-	value_sequence::const_iterator current_value_;
+	typename value_sequence::const_iterator current_value_;
 };
 }
 

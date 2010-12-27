@@ -1,6 +1,7 @@
 #ifndef FRUITCUT_PARTICLE_SYSTEM_HPP_INCLUDED
 #define FRUITCUT_PARTICLE_SYSTEM_HPP_INCLUDED
 
+#include "point_sprite/system.hpp"
 #include "../sprite/system.hpp"
 #include "objects/unique_base_ptr.hpp"
 #include "objects/base.hpp"
@@ -28,6 +29,9 @@ public:
 	sprite::system &
 	sprite_system();
 
+	point_sprite::system &
+	point_sprite_system();
+
 	void
 	insert(
 		objects::unique_base_ptr);
@@ -38,6 +42,7 @@ private:
 	boost::ptr_list<objects::base>
 	particle_sequence;
 
+	point_sprite::system pss_;
 	sprite::system ss_;
 	particle_sequence particles_;
 };

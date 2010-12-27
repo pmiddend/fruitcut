@@ -5,12 +5,14 @@
 #include <sge/renderer/vector2.hpp>
 #include <sge/renderer/scalar.hpp>
 #include <sge/sprite/parameters.hpp>
+#include <mizuiro/color/operators/add.hpp>
+#include <mizuiro/color/operators/scalar_multiply.hpp>
 #include <fcppt/math/vector/structure_cast.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
 
 fruitcut::particle::objects::simple::simple(
 	sprite::parameters const &params,
-	animation::value_sequence const &_animation,
+	color_animation::value_sequence const &_animation,
 	sge::renderer::vector2 const &_velocity,
 	sge::renderer::vector2 const &_acceleration)
 :
@@ -54,6 +56,13 @@ bool
 fruitcut::particle::objects::simple::dead() const
 {
 	return animation_.finished();
+}
+
+void
+fruitcut::particle::objects::simple::velocity(
+	sge::renderer::vector2 const &_velocity)
+{
+	velocity_ = _velocity;
 }
 
 void
