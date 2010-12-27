@@ -297,7 +297,7 @@ particles::from_image(
 		points.begin(),
 		points.end());
 
-	points.resize(300);
+	points.resize(400);
 
 	BOOST_FOREACH(
 		point_sequence::const_reference p,
@@ -334,7 +334,7 @@ particles::from_image(
 						(fruitcut::sandbox::animation::value_type(
 							sge::time::second_f(
 								static_cast<sge::time::funit>(
-									3)),
+									2)),
 							fruitcut::sprite::object::color_type(
 								(sge::image::color::init::red %= 1.0)
 								(sge::image::color::init::green %= 1.0)
@@ -358,19 +358,19 @@ particles::from_image(
 								(sge::image::color::init::green %= 1.0)
 								(sge::image::color::init::blue %= 1.0)
 								(sge::image::color::init::alpha %= 0.0)))),
+					fcppt::math::vector::structure_cast<sge::renderer::vector2>(
+						center) - 
 					sge::renderer::vector2(
 						static_cast<sge::renderer::scalar>(
 							system_.sprite_system().renderer()->screen_size().w()/2),
 						static_cast<sge::renderer::scalar>(
-							system_.sprite_system().renderer()->screen_size().h()/2)) - 
-						fcppt::math::vector::structure_cast<sge::renderer::vector2>(
-							center),
+							system_.sprite_system().renderer()->screen_size().h()/2)),
 					sge::renderer::vector2(
 						0,
 						0),
 					sge::time::second_f(
 						static_cast<sge::time::funit>(
-							3)))));
+							2.0)))));
 	}
 }
 
