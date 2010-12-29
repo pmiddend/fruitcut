@@ -74,6 +74,12 @@ fruitcut::sandbox::splat_collector::splat_collector(
 				particle::sprite::object::point::null())
 			.system(
 				&ss_)
+			.repetition(
+				static_cast<particle::sprite::object::repetition_type>(
+					1))
+			.rotation(
+				static_cast<particle::sprite::object::rotation_type>(
+					0))
 			.color(
 				particle::sprite::object::color_type(
 					(sge::image::color::init::red %= 1.0)

@@ -39,6 +39,12 @@ fruitcut::sandbox::mouse_trailer::mouse_trailer(
 	cursor_(
 		particle::sprite::parameters()
 			.texture_size()
+			.repetition(
+				static_cast<particle::sprite::object::repetition_type>(
+					1))
+			.rotation(
+				static_cast<particle::sprite::object::rotation_type>(
+					0))
 			.visible(
 				true)
 			.texture(
@@ -133,6 +139,9 @@ fruitcut::sandbox::mouse_trailer::update()
 								true)
 							.texture(
 								particle_texture_)
+							.repetition(
+								static_cast<fruitcut::particle::sprite::object::repetition_type>(
+									1))
 							.rotation(
 								fcppt::math::vector::atan2(
 									direction))

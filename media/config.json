@@ -11,6 +11,18 @@
 			"rotation-speed" : 200.0
 		}
 	},
+	"textures" : 
+	{
+		"background" : "wood.png"
+	},
+	"console" :
+	{
+		"font" : "default.ttf",
+		"font-size" : 16,
+		"background-texture" : "console_back.png",
+		"line-limit" : 1000
+	},
 	"test-model" : "melon.md3",
+	"background-repeat" : 3.0,
 	"test-model-texture" : "melon.png"
 }

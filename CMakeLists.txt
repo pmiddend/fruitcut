@@ -124,6 +124,7 @@ SET(files
 	particle/system.cpp
 	particle/objects/base.cpp
 	particle/objects/simple.cpp
+	particle/objects/permanent_sprite.cpp
 	particle/sprite/render_flipped.cpp
 	particle/point_sprite/render_flipped.cpp
 	# mesh
@@ -192,7 +193,7 @@ TARGET_LINK_LIBRARIES(
 
 ADD_EXECUTABLE(
 	splat_test
-	sandbox/splat.cpp sandbox/splat_collector.cpp sandbox/splatter.cpp sandbox/splat_particle.cpp pp/screen_vf/create_quad.cpp)
+	sandbox/splat.cpp sandbox/splat_collector.cpp sandbox/splatter.cpp sandbox/splat_particle.cpp)
 
 TARGET_LINK_LIBRARIES(
 	splat_test
@@ -230,8 +231,7 @@ TARGET_LINK_LIBRARIES(
 
 ADD_EXECUTABLE(
 	convolution_test
-	sandbox/convolution.cpp 
-	media_path.cpp)
+	sandbox/convolution.cpp)
 
 TARGET_LINK_LIBRARIES(
 	convolution_test
@@ -248,6 +248,25 @@ TARGET_LINK_LIBRARIES(
 	${SGE_SPRITE_LIBRARY}
 	${Boost_LIBRARIES})
 
-# TODO
-#INSTALL (DIRECTORY media/ DESTINATION share/games/sanguis/media/)
-#INSTALL (TARGETS sanguis DESTINATION ${CMAKE_INSTALL_PREFIX}/bin/)
+ADD_EXECUTABLE(
+	app
+	app/fruitcut.cpp
+	app/machine.cpp 
+	app/name.cpp
+	app/events/tick.cpp
+	app/states/intro.cpp)
+
+TARGET_LINK_LIBRARIES(
+	app
+	fruitcut_library
+	${FCPPT_LIBRARIES}
+	${SGE_CORE_LIBRARY}
+	${SGE_SHADER_LIBRARY}
+	${SGE_CONSOLE_LIBRARY}
+	${SGE_SYSTEMS_LIBRARY}
+	${SGE_CAMERA_LIBRARY}
+	${SGE_PARSE_LIBRARY}
+	${SGE_FONTTEXT_LIBRARY}
+	${SGE_FONTBITMAP_LIBRARY}
+	${SGE_SPRITE_LIBRARY}
+	${Boost_LIBRARIES})

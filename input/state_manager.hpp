@@ -35,6 +35,8 @@ namespace input
 class state_manager
 {
 public:
+	// Initialized current_state to 0. It stays that way until someone
+	// calls current_state
 	explicit 
 	state_manager(
 		sge::systems::instance const &);
@@ -43,6 +45,7 @@ public:
 	current_state(
 		state &);
 
+	// Can, of course, be 0
 	state const *
 	current_state() const;
 private:

@@ -21,6 +21,23 @@ namespace fruitcut
 {
 namespace pp
 {
+/**
+	All that is in 'pp' represents some kind of postprocessing. In
+	postprocessing, there are one or more texture "sources" and
+	(currently) exactly one texture sink. Every filter inbetween somehow
+	combines the different sources to a resulting image (this happens in
+	update()), which can then be drawn on the screen with
+	render_result().
+
+	The concept is based on a filter graph. Filters are functions getting
+	zero or more textures as argument and returning another texture as
+	output. A nullary filter is a source, because it gets no input and
+	returns a texture. There are unary and binary filters, too.
+
+	Currently, "render_to_texture" is the only nullary filter. It gets a
+	render callback and calls this to render everything to a texture of
+	the specified size.
+ */
 class system
 {
 FCPPT_NONCOPYABLE(system)

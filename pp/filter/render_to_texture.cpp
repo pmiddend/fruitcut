@@ -6,6 +6,7 @@
 #include <sge/renderer/scoped_target.hpp>
 #include <sge/renderer/scoped_block.hpp>
 #include <sge/renderer/resource_flags_none.hpp>
+#include <iostream>
 
 fruitcut::pp::filter::render_to_texture::render_to_texture(
 	sge::renderer::device_ptr const _renderer,

@@ -225,9 +225,6 @@ particles::particles(
 		fruitcut::particle::objects::unique_base_ptr(
 			new fruitcut::particle::objects::simple<fruitcut::particle::sprite::choices>(
 				fruitcut::particle::sprite::parameters()
-					.texture_size()
-					.visible(
-						true)
 					.texture(
 						sge::texture::part_ptr(
 							new sge::texture::part_raw(
@@ -235,6 +232,15 @@ particles::particles(
 									logo_image->view(),
 									sge::renderer::filter::linear,
 									sge::renderer::resource_flags::none))))
+					.repetition(
+						static_cast<fruitcut::particle::sprite::object::repetition_type>(
+							1))
+					.visible(
+						true)
+					.texture_size()
+					.rotation(
+						static_cast<fruitcut::particle::sprite::object::rotation_type>(
+							0))
 					.center(
 						fruitcut::particle::sprite::object::point(
 							static_cast<fruitcut::particle::sprite::object::unit>(
@@ -308,7 +314,12 @@ particles::from_image(
 		points.begin(),
 		points.end());
 
-	points.resize(400);
+	std::cout << "point size: " << points.size() << "\n";
+	points.resize(
+		std::min(
+			static_cast<point_sequence::size_type>(
+				800),
+			points.size()));
 
 	BOOST_FOREACH(
 		point_sequence::const_reference p,

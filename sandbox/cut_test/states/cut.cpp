@@ -95,18 +95,6 @@ fruitcut::sandbox::cut_test::states::cut::cut(
 		context<machine>().systems().renderer()),
 	cursor_(
 		particle::sprite::parameters()
-			.texture_size()
-			// default value is false (or undefined - both wrong)
-			.visible(
-				true)
-			.color(
-				particle::sprite::object::color_type(
-					(sge::image::color::init::red %= 1.0)
-					(sge::image::color::init::green %= 1.0)
-					(sge::image::color::init::blue %= 1.0)
-					(sge::image::color::init::alpha %= 1.0)))
-			.system(
-				&ss_)
 			.texture(
 				sge::texture::part_ptr(
 					new sge::texture::part_raw(
@@ -117,6 +105,23 @@ fruitcut::sandbox::cut_test::states::cut::cut(
 									/ FCPPT_TEXT("cursor.png"))->view(),
 							sge::renderer::filter::linear,
 							sge::renderer::resource_flags::none))))
+			.repetition(
+				static_cast<particle::sprite::object::repetition_type>(
+					1))
+			.visible(
+				true)
+			.texture_size()
+			.rotation(
+				static_cast<particle::sprite::object::rotation_type>(
+					0))
+			.color(
+				particle::sprite::object::color_type(
+					(sge::image::color::init::red %= 1.0)
+					(sge::image::color::init::green %= 1.0)
+					(sge::image::color::init::blue %= 1.0)
+					(sge::image::color::init::alpha %= 1.0)))
+			.system(
+				&ss_)
 			.pos(
 				particle::sprite::object::point(100,100))
 			.elements()),
@@ -135,8 +140,12 @@ fruitcut::sandbox::cut_test::states::cut::cut(
 	point1_(
 		particle::sprite::parameters()
 			.texture_size()
-			.visible(
-				false)
+			.repetition(
+				static_cast<particle::sprite::object::repetition_type>(
+					1))
+			.rotation(
+				static_cast<particle::sprite::object::rotation_type>(
+					0))
 			.color(
 				particle::sprite::object::color_type(
 					(sge::image::color::init::red %= 1.0)

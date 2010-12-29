@@ -51,6 +51,12 @@ fruitcut::sandbox::splatter::splatter(
 					-100))
 			.visible(
 				true)
+			.repetition(
+				static_cast<particle::sprite::object::repetition_type>(
+					1))
+			.rotation(
+				static_cast<particle::sprite::object::rotation_type>(
+					0))
 			.texture(
 				sge::texture::part_ptr(
 					new sge::texture::part_raw(
@@ -91,6 +97,12 @@ fruitcut::sandbox::splatter::splatter(
 				particle::sprite::object::point::null())
 			.system(
 				&ss_)
+			.repetition(
+				static_cast<particle::sprite::object::repetition_type>(
+					1))
+			.rotation(
+				static_cast<particle::sprite::object::rotation_type>(
+					0))
 			.color(
 				particle::sprite::object::color_type(
 					(sge::image::color::init::red %= 1.0)
@@ -156,6 +168,12 @@ fruitcut::sandbox::splatter::splatter(
 					0))
 			.visible(
 				true)
+			.repetition(
+				static_cast<particle::sprite::object::repetition_type>(
+					1))
+			.rotation(
+				static_cast<particle::sprite::object::rotation_type>(
+					0))
 			.texture(
 				sge::texture::part_ptr(
 					new sge::texture::part_raw(
@@ -283,6 +301,9 @@ fruitcut::sandbox::splatter::click_callback(
 					.rotation(
 						fcppt::math::vector::atan2(
 							rotated))
+					.repetition(
+						static_cast<particle::sprite::object::repetition_type>(
+							1))
 					.texture(
 						sge::texture::part_ptr(
 							new sge::texture::part_raw(
