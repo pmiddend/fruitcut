@@ -31,6 +31,8 @@ public:
 		events::render const &);
 
 	~intro();
+private:
+	
 };
 }
 }

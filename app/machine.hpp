@@ -4,6 +4,7 @@
 #include "../particle/system.hpp"
 #include "../pp/system.hpp"
 #include "../pp/filter/render_to_texture.hpp"
+#include "../pp/filter/desaturate.hpp"
 #include "../input/state_manager.hpp"
 #include "../input/state.hpp"
 #include "states/intro_fwd.hpp"
@@ -12,11 +13,17 @@
 #include <sge/systems/instance.hpp>
 #include <sge/texture/manager.hpp>
 #include <sge/texture/part_ptr.hpp>
+#include <sge/time/duration.hpp>
+#include <sge/time/unit.hpp>
+#include <sge/time/point.hpp>
 #include <sge/console/object.hpp>
 #include <sge/console/gfx.hpp>
 #include <fcppt/filesystem/path.hpp>
+#include <fcppt/chrono/time_point.hpp>
+#include <fcppt/chrono/duration.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <boost/statechart/state_machine.hpp>
+#include <boost/function.hpp>
 
 namespace fruitcut
 {
@@ -32,6 +39,10 @@ class machine
 		>
 {
 public:
+	typedef
+	boost::function<sge::time::duration const (sge::time::duration const &)>
+	time_transform_function;
+
 	explicit
 	machine(
 		int argc,
@@ -54,8 +65,14 @@ public:
 	create_texture(
 		fcppt::filesystem::path const &);
 
+	pp::filter::desaturate &
+	desaturate_filter();
+
 	void
 	run();
+
+	sge::time::callback const 
+	timer_callback() const;
 
 	~machine();
 private:
@@ -68,9 +85,12 @@ private:
 	sge::console::gfx console_gfx_;
 	pp::system postprocessing_;
 	pp::filter::render_to_texture rtt_filter_;
+	pp::filter::desaturate desaturate_filter_;
 	particle::system particle_system_;
 	bool running_;
 	fcppt::signal::scoped_connection exit_connection_;
+	sge::time::point current_time_,transformed_time_;
+	time_transform_function time_transform_;
 };
 }
 }

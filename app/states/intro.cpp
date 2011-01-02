@@ -5,6 +5,7 @@
 #include "../../media_path.hpp"
 #include <sge/sprite/parameters_impl.hpp>
 #include <sge/image/color/init.hpp>
+#include <sge/renderer/scalar.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/string.hpp>
@@ -16,6 +17,10 @@ fruitcut::app::states::intro::intro(
 	my_base(
 		ctx)
 {
+	context<machine>().desaturate_filter().factor(
+		static_cast<sge::renderer::scalar>(
+			0.0));
+
 	context<machine>().particle_system().insert(
 		particle::objects::unique_base_ptr(
 			new particle::objects::permanent_sprite(

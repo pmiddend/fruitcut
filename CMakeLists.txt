@@ -111,6 +111,7 @@ SET(files
 	pp/filter/wrapper.cpp
 	pp/filter/render_to_texture.cpp
 	pp/filter/highlight.cpp
+	pp/filter/desaturate.cpp
 	pp/filter/add.cpp
 	pp/system.cpp
 	pp/filter/blur.cpp

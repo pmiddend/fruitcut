@@ -55,6 +55,7 @@
 #include <sge/input/keyboard/action.hpp>
 #include <sge/input/keyboard/device.hpp>
 #include <sge/input/keyboard/key_code.hpp>
+#include <sge/time/clock.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
 #include <fcppt/math/dim/quad.hpp>
@@ -62,7 +63,9 @@
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <boost/spirit/home/phoenix/object/new.hpp>
+#include <boost/spirit/home/phoenix/bind.hpp>
 #include <boost/spirit/home/phoenix/core/reference.hpp>
+#include <boost/spirit/home/phoenix/core/argument.hpp>
 #include <boost/spirit/home/phoenix/operator/self.hpp>
 #include <boost/spirit/home/phoenix/object/construct.hpp>
 #include <boost/bind.hpp>
@@ -180,6 +183,12 @@ fruitcut::app::machine::machine(
 			&machine::process_event,
 			this,
 			events::render())),
+	desaturate_filter_(
+		systems_.renderer(),
+		fcppt::math::dim::structure_cast<sge::renderer::dim2>(
+			systems_.renderer()->screen_size()),
+		static_cast<sge::renderer::scalar>(
+			0.0)),
 	particle_system_(
 		systems_.renderer()),
 	running_(
@@ -192,13 +201,25 @@ fruitcut::app::machine::machine(
 					&mytest,
 					boost::ref(running_))
 				// This doesn't work, WHHYYYYYYYYY?
-//				boost::phoenix::ref(running_) = false
-)))
+//				boost::phoenix::ref(running_) = false 
+				))),
+	current_time_(
+		sge::time::clock::now()),
+	transformed_time_(
+		current_time_),
+	time_transform_(
+		boost::phoenix::arg_names::arg1)
 {
 	postprocessing_.add_filter(
 		rtt_filter_,
 		FCPPT_TEXT("source"),
 		fruitcut::pp::dependency_set());
+
+	postprocessing_.add_filter(
+		desaturate_filter_,
+		FCPPT_TEXT("desaturate"),
+		fcppt::assign::make_container<fruitcut::pp::dependency_set>
+			(FCPPT_TEXT("source")));
 }
 
 sge::parse::json::object const &
@@ -244,21 +265,34 @@ fruitcut::app::machine::create_texture(
 				p));
 }
 
+fruitcut::pp::filter::desaturate &
+fruitcut::app::machine::desaturate_filter()
+{
+	return desaturate_filter_;
+}
+
 void
 fruitcut::app::machine::run()
 {
-	sge::time::timer second_timer(
-		sge::time::second(
-			static_cast<sge::time::unit>(
-				1)));
-
 	while (running_)
 	{
 		systems_.window()->dispatch();
 
+		sge::time::point const latest_time = 
+			sge::time::clock::now();
+
+		sge::time::duration const diff = 
+			time_transform_(
+				latest_time - current_time_);
+
+		transformed_time_ += 
+			diff;
+
+		current_time_ = latest_time;
+
 		process_event(
 			events::tick(
-				second_timer.reset()));
+				diff));
 
 		// This implicitly sends events::render through the
 		// render-to-texture filter
@@ -279,6 +313,17 @@ fruitcut::app::machine::run()
 		console_gfx_.draw();
 		*/
 	}
+}
+
+sge::time::callback const 
+fruitcut::app::machine::timer_callback() const
+{
+	return 
+		boost::phoenix::bind(
+			&sge::time::duration::count,
+			boost::phoenix::bind(
+				&sge::time::point::time_since_epoch,
+				&transformed_time_));
 }
 
 fruitcut::app::machine::~machine()
