@@ -84,7 +84,7 @@ fruitcut::pp::filter::desaturate::factor(
 
 	shader_.set_uniform(
 		"factor",
-		static_cast<sge::renderer::scalar>(0));
+		_factor);
 }
 
 sge::renderer::texture_ptr const

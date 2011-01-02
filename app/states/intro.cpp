@@ -6,6 +6,8 @@
 #include <sge/sprite/parameters_impl.hpp>
 #include <sge/image/color/init.hpp>
 #include <sge/renderer/scalar.hpp>
+#include <sge/time/second.hpp>
+#include <sge/time/activation_state.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/string.hpp>
@@ -15,7 +17,12 @@ fruitcut::app::states::intro::intro(
 	my_context ctx)
 :
 	my_base(
-		ctx)
+		ctx),
+	saturation_timer_(
+		sge::time::second(
+			3),
+		sge::time::activation_state::active,
+		context<machine>().timer_callback())
 {
 	context<machine>().desaturate_filter().factor(
 		static_cast<sge::renderer::scalar>(
@@ -63,6 +70,20 @@ fruitcut::app::states::intro::react(
 	events::render const &)
 {
 	context<machine>().particle_system().render();
+	return discard_event();
+}
+
+boost::statechart::result
+fruitcut::app::states::intro::react(
+	events::tick const &)
+{
+	context<machine>().desaturate_filter().factor(
+		static_cast<sge::renderer::scalar>(
+			saturation_timer_.expired()
+			?
+				static_cast<sge::renderer::scalar>(1.0)
+			:
+				saturation_timer_.elapsed_frames()));
 	return discard_event();
 }
 

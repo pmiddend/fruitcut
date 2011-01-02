@@ -3,8 +3,11 @@
 
 #include "../machine.hpp"
 #include "../events/render.hpp"
+#include "../events/tick.hpp"
+#include <sge/time/timer.hpp>
 #include <boost/statechart/state.hpp>
 #include <boost/statechart/custom_reaction.hpp>
+#include <boost/mpl/vector/vector10.hpp>
 
 namespace fruitcut
 {
@@ -19,7 +22,11 @@ class intro
 {
 public:
 	typedef
-	boost::statechart::custom_reaction<events::render>
+	boost::mpl::vector2
+	<
+		boost::statechart::custom_reaction<events::render>,
+		boost::statechart::custom_reaction<events::tick>
+	>
 	reactions;
 
 	explicit
@@ -30,9 +37,13 @@ public:
 	react(
 		events::render const &);
 
+	boost::statechart::result
+	react(
+		events::tick const &);
+
 	~intro();
 private:
-	
+	sge::time::timer saturation_timer_;
 };
 }
 }

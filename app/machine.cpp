@@ -66,7 +66,7 @@
 #include <boost/spirit/home/phoenix/bind.hpp>
 #include <boost/spirit/home/phoenix/core/reference.hpp>
 #include <boost/spirit/home/phoenix/core/argument.hpp>
-#include <boost/spirit/home/phoenix/operator/self.hpp>
+#include <boost/spirit/home/phoenix/operator.hpp>
 #include <boost/spirit/home/phoenix/object/construct.hpp>
 #include <boost/bind.hpp>
 #include <iostream>
@@ -278,6 +278,11 @@ fruitcut::app::machine::run()
 	{
 		systems_.window()->dispatch();
 
+		// So what does this do? Well, we effectively manage two "clocks"
+		// here. One goes along with the real clock (with
+		// sge::time::clock) and knows the "real" current time. The other
+		// one (transformed_time) might be faster or slower than the real
+		// clock. The real clock acts as a "duration difference" giver.
 		sge::time::point const latest_time = 
 			sge::time::clock::now();
 
@@ -319,9 +324,16 @@ sge::time::callback const
 fruitcut::app::machine::timer_callback() const
 {
 	return 
+		/* Why doesn't this work?
 		boost::phoenix::bind(
 			&sge::time::duration::count,
 			boost::phoenix::bind(
+				&sge::time::point::time_since_epoch,
+				&transformed_time_));
+		*/
+		boost::bind(
+			&sge::time::duration::count,
+			boost::bind(
 				&sge::time::point::time_since_epoch,
 				&transformed_time_));
 }
