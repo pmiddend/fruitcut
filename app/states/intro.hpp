@@ -29,6 +29,8 @@ public:
 	boost::statechart::result
 	react(
 		events::render const &);
+
+	~intro();
 };
 }
 }

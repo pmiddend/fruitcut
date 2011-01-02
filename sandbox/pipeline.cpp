@@ -305,7 +305,7 @@ try
 			/ FCPPT_TEXT("default.ttf"),
 			static_cast<sge::font::size_type>(
 				15)),
-		sys.keyboard_collector(),
+		*sys.keyboard_collector(),
 		sge::console::sprite_object(
       sge::console::sprite_parameters()
       .texture(

@@ -4,6 +4,7 @@
 #include "state_fwd.hpp"
 #include <sge/systems/instance_fwd.hpp>
 #include <sge/input/keyboard/key_function.hpp>
+#include <sge/input/keyboard/device_fwd.hpp>
 #include <sge/input/mouse/axis_function.hpp>
 #include <sge/input/mouse/button_function.hpp>
 #include <sge/input/keyboard/key_callback.hpp>
@@ -48,9 +49,12 @@ public:
 	// Can, of course, be 0
 	state const *
 	current_state() const;
+
+	~state_manager();
 private:
 	friend class state;
 
+	sge::input::keyboard::device &keyboard_;
 	fcppt::signal::scoped_connection c1,c2,c3;
 
 	// We don't store all the states, but we keep track of destruction,

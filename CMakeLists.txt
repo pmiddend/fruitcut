@@ -19,7 +19,7 @@ IF(${CMAKE_BINARY_DIR} STREQUAL ${CMAKE_SOURCE_DIR})
 ENDIF()
 
 # boost begin
-SET(Boost_ADDITIONAL_VERSIONS "1.41" "1.41.0" "1.42" "1.42.0" "1.43" "1.43.0" "1.44" "1.44.0")
+SET(Boost_ADDITIONAL_VERSIONS "1.41" "1.41.0" "1.42" "1.42.0" "1.43" "1.43.0" "1.44" "1.44.0" "1.45.0")
 
 FIND_PACKAGE(
 	Boost 1.41.0 REQUIRED COMPONENTS
@@ -45,10 +45,6 @@ INCLUDE_DIRECTORIES(${SGE_INCLUDE_DIRS})
 
 ADD_DEFINITIONS(${SGE_CFLAGS})
 # sge end
-
-# phoenix begin
-INCLUDE_DIRECTORIES(${CMAKE_SOURCE_DIR}/phoenix3)
-# phoenix end
 
 # clang check begin
 INCLUDE (CheckCXXSourceRuns)

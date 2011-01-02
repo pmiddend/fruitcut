@@ -6,11 +6,9 @@
 #include "../pp/dependency_set.hpp"
 #include "../json/config_wrapper.hpp"
 #include "../json/find_member.hpp"
-#include "../particle/sprite/parameters.hpp"
-#include "../particle/objects/permanent_sprite.hpp"
 #include "../media_path.hpp"
-#include <sge/sprite/parameters_impl.hpp>
 #include <sge/window/instance.hpp>
+#include <sge/sprite/parameters_impl.hpp>
 #include <sge/systems/list.hpp>
 #include <sge/systems/window.hpp>
 #include <sge/systems/renderer.hpp>
@@ -41,6 +39,7 @@
 #include <sge/texture/part_ptr.hpp>
 #include <sge/texture/add_image.hpp>
 #include <sge/image/colors.hpp>
+#include <sge/image/color/format.hpp>
 #include <sge/texture/rect_fragmented.hpp>
 #include <sge/image2d/multi_loader.hpp>
 #include <sge/console/sprite_object.hpp>
@@ -64,6 +63,7 @@
 #include <fcppt/text.hpp>
 #include <boost/spirit/home/phoenix/object/new.hpp>
 #include <boost/spirit/home/phoenix/core/reference.hpp>
+#include <boost/spirit/home/phoenix/operator/self.hpp>
 #include <boost/spirit/home/phoenix/object/construct.hpp>
 #include <boost/bind.hpp>
 #include <iostream>
@@ -121,10 +121,16 @@ fruitcut::app::machine::machine(
 		boost::phoenix::construct<sge::texture::fragmented_unique_ptr>(
 			boost::phoenix::new_<sge::texture::rect_fragmented>(
 				systems_.renderer(),
-				systems_.renderer()->caps().preferred_texture_format(),
+				sge::image::color::format::rgba8,
 				sge::renderer::filter::linear,
 				fcppt::math::dim::quad<sge::renderer::dim2>(
 					1024)))),
+	input_manager_(
+		systems_),
+	console_state_(
+		input_manager_),
+	game_state_(
+		input_manager_),
 	console_object_(
 		SGE_FONT_TEXT_LIT('/')),
 	console_gfx_(
@@ -141,7 +147,7 @@ fruitcut::app::machine::machine(
 			json::find_member<sge::font::size_type>(
 				config_file(),
 				FCPPT_TEXT("console/font-size"))),
-		systems_.keyboard_collector(),
+		console_state_,
 		sge::console::sprite_object(
       sge::console::sprite_parameters()
       .texture(
@@ -185,55 +191,26 @@ fruitcut::app::machine::machine(
 				boost::bind(
 					&mytest,
 					boost::ref(running_))
-				/*
-				boost::phoenix::ref(running_) = false*/)))
+				// This doesn't work, WHHYYYYYYYYY?
+//				boost::phoenix::ref(running_) = false
+)))
 {
 	postprocessing_.add_filter(
 		rtt_filter_,
 		FCPPT_TEXT("source"),
 		fruitcut::pp::dependency_set());
-
-	particle_system_.insert(
-		particle::objects::unique_base_ptr(
-			new particle::objects::permanent_sprite(
-				particle::sprite::parameters()
-					.visible(
-						true)
-					.repetition(
-						json::find_member<particle::sprite::object::repetition_type>(
-							config_file(),
-							FCPPT_TEXT("background-repeat")))
-					.rotation(
-						static_cast<particle::sprite::object::rotation_type>(
-							0))
-					.size(
-						fcppt::math::dim::structure_cast<particle::sprite::object::dim>(
-							systems_.renderer()->screen_size()))
-					// Texture is too big, can't use the texture manager here. Also the texture has repetition
-					.texture(
-						create_single_texture(	
-							media_path()
-								/ FCPPT_TEXT("textures")
-								/ 
-									json::find_member<fcppt::string>(
-										config_file(),
-										FCPPT_TEXT("textures/background"))))
-					.pos(
-						particle::sprite::object::point::null())
-					.system(
-						&particle_system_.sprite_system())
-					.color(
-						fruitcut::particle::sprite::object::color_type(
-							(sge::image::color::init::red %= 1.0)
-							(sge::image::color::init::green %= 1.0)
-							(sge::image::color::init::blue %= 1.0)
-							(sge::image::color::init::alpha %= 1.0))))));
 }
 
 sge::parse::json::object const &
 fruitcut::app::machine::config_file() const
 {
 	return config_file_;
+}
+
+sge::systems::instance const &
+fruitcut::app::machine::systems()
+{
+	return systems_;
 }
 
 fruitcut::particle::system &
@@ -292,14 +269,18 @@ fruitcut::app::machine::run()
 
 		postprocessing_.render_result();
 
-		/*
 		process_event(
 			events::render_overlay());
 
+		/*
 		if (!console_gfx_.active())
 			continue;
 
 		console_gfx_.draw();
 		*/
 	}
+}
+
+fruitcut::app::machine::~machine()
+{
 }

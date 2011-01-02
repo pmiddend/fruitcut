@@ -11,6 +11,8 @@
 fruitcut::input::state_manager::state_manager(
 	sge::systems::instance const &systems)
 :
+	keyboard_(
+		*systems.keyboard_collector()),
 	c1(
 		systems.keyboard_collector()->key_callback(
 			boost::bind(
@@ -47,6 +49,10 @@ fruitcut::input::state_manager::current_state() const
 	return current_state_;
 }
 
+fruitcut::input::state_manager::~state_manager()
+{
+}
+
 void
 fruitcut::input::state_manager::add(
 	state const &)
@@ -65,30 +71,28 @@ void
 fruitcut::input::state_manager::key_callback_internal(
 	sge::input::keyboard::key_event const &c)
 {
-	FCPPT_ASSERT(
-		current_state_);
-	current_state_->key_callback_internal(
-		c);
+	if (current_state_)
+		current_state_->key_callback_internal(
+			c);
 }
+
 
 void
 fruitcut::input::state_manager::mouse_axis_callback_internal(
 	sge::input::mouse::axis_event const &e)
 {
-	FCPPT_ASSERT(
-		current_state_);
-	current_state_->mouse_axis_callback_internal( 
-		e);
+	if (current_state_)
+		current_state_->mouse_axis_callback_internal( 
+			e);
 }
 
 void
 fruitcut::input::state_manager::mouse_button_callback_internal(
 	sge::input::mouse::button_event const &b)
 {
-	FCPPT_ASSERT(
-		current_state_);
-	current_state_->mouse_button_callback_internal( 
-		b);
+	if (current_state_)
+		current_state_->mouse_button_callback_internal( 
+			b);
 }
 
 

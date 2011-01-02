@@ -163,7 +163,7 @@ fruitcut::sandbox::cut_test::states::ingame::ingame(
 			/ FCPPT_TEXT("default.ttf"),
 			static_cast<sge::font::size_type>(
 				15)),
-		context<machine>().systems().keyboard_collector(),
+		*context<machine>().systems().keyboard_collector(),
 		sge::console::sprite_object(
       sge::console::sprite_parameters()
       .texture(

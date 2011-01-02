@@ -2,6 +2,7 @@
 #include "state_manager.hpp"
 #include <sge/input/keyboard/mod_state.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
+#include <iostream>
 
 fruitcut::input::state::state(
 	state_manager &_manager)
@@ -34,17 +35,17 @@ fruitcut::input::state::key_callback(
 	return key_signal_.connect(e);
 }
 
-// NOT IMPLEMENTED YET!
 fcppt::signal::auto_connection
 fruitcut::input::state::key_repeat_callback(
-	sge::input::keyboard::key_repeat_callback const &)
+	sge::input::keyboard::key_repeat_callback const &e)
 {
+	return key_repeat_signal_.connect(e);
 }
 
-// NOT IMPLEMENTED YET!
 sge::input::keyboard::mod_state const
 fruitcut::input::state::mod_state() const
 {
+	return manager_.keyboard_.mod_state();
 }
 
 fruitcut::input::state::~state()
@@ -58,6 +59,13 @@ fruitcut::input::state::key_callback_internal(
 	sge::input::keyboard::key_event const &e)
 {
 	key_signal_(e);
+}
+
+void
+fruitcut::input::state::key_repeat_callback_internal(
+	sge::input::keyboard::key const &e)
+{
+	key_repeat_signal_(e);
 }
 
 void
