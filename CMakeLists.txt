@@ -189,6 +189,18 @@ TARGET_LINK_LIBRARIES(
 	${Boost_LIBRARIES})
 
 ADD_EXECUTABLE(
+	doppler_test
+	sandbox/doppler.cpp)
+
+TARGET_LINK_LIBRARIES(
+	doppler_test
+	${FCPPT_LIBRARIES}
+	${SGE_CORE_LIBRARY}
+	${SGE_SYSTEMS_LIBRARY}
+	${SGE_PARSE_LIBRARY}
+	${Boost_LIBRARIES})
+
+ADD_EXECUTABLE(
 	splat_test
 	sandbox/splat.cpp sandbox/splat_collector.cpp sandbox/splatter.cpp sandbox/splat_particle.cpp)
 

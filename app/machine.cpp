@@ -201,7 +201,7 @@ fruitcut::app::machine::machine(
 					&mytest,
 					boost::ref(running_))
 				// This doesn't work, WHHYYYYYYYYY?
-//				boost::phoenix::ref(running_) = false 
+				//boost::phoenix::ref(running_) = false 
 				))),
 	current_time_(
 		sge::time::clock::now()),
@@ -311,12 +311,10 @@ fruitcut::app::machine::run()
 		process_event(
 			events::render_overlay());
 
-		/*
 		if (!console_gfx_.active())
 			continue;
 
 		console_gfx_.draw();
-		*/
 	}
 }
 
