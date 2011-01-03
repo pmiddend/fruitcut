@@ -80,8 +80,7 @@ try
 
 	sys.audio_player()->listener().linear_velocity(
 		sge::audio::vector(
-			boost::lexical_cast<sge::audio::scalar>(
-				argv[1]),
+			1,
 			0,
 			0));
 
@@ -101,14 +100,24 @@ try
 					0))));
 
 	// pitched_frequency = frequency * (speed_of_sound - doppler_factor * vls) / (speed_of_sound - doppler_factor * vss)
-	// set speed of sound to 1, doppler factor to 1:
-	// pitched_frequency = frequency * (1 - vls) / (1 - vss)
-	// Set vss = 0 by setting the source velocity orthogonal to the vector from the source to the listener:
-	// pitched_frequency = frequency * (1 - vls)
-	// Voila, you can now modulate a sound by setting the listener velocity.
+	// first method
+		// set speed of sound to 1, doppler factor to 1:
+		// pitched_frequency = frequency * (1 - vls) / (1 - vss)
+		// Set vss = 0 by setting the source velocity orthogonal to the vector from the source to the listener:
+		// pitched_frequency = frequency * (1 - vls)
+		// Voila, you can now modulate a sound by setting the listener velocity.
+	// second method
+		// set speed of sound to 1, vss to zero:
+		// pitched_frequency = frequency * (1 - doppler_factor * vls)
+		// set vls to 1
+		// pitched_frequency = frequency * (1 - doppler_factor)
 	sys.audio_player()->speed_of_sound(
 		static_cast<sge::audio::scalar>(
 			1));
+
+	sys.audio_player()->doppler_factor(
+		boost::lexical_cast<sge::audio::scalar>(
+			argv[1]));
 
 	sound_siren->play(
 		sge::audio::sound::repeat::loop);
