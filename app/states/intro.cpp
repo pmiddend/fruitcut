@@ -53,7 +53,7 @@ fruitcut::app::states::intro::intro(
 					.repetition(
 						json::find_member<particle::sprite::object::repetition_type>(
 							context<machine>().config_file(),
-							FCPPT_TEXT("background-repeat")))
+							FCPPT_TEXT("intro/background-repeat")))
 					.size(
 						fcppt::math::dim::structure_cast<particle::sprite::object::dim>(
 							context<machine>().systems().renderer()->screen_size()))
@@ -78,7 +78,10 @@ fruitcut::app::states::intro::intro(
 		context<machine>().systems().image_loader().load(
 			fruitcut::media_path() 
 				/ FCPPT_TEXT("textures") 
-				/ FCPPT_TEXT("logo.png"));
+				/ 
+					json::find_member<fcppt::string>(
+						context<machine>().config_file(),
+						FCPPT_TEXT("textures/logo")));
 
 	particle::point_sprite::object::point const logo_pos = 
 		fcppt::math::dim::structure_cast<particle::point_sprite::object::point>(
@@ -145,7 +148,10 @@ fruitcut::app::states::intro::intro(
 						context<machine>().create_single_texture(
 							fruitcut::media_path() 
 								/ FCPPT_TEXT("textures") 
-								/ FCPPT_TEXT("logo_shadow.png")))
+								/ 
+									json::find_member<fcppt::string>(
+										context<machine>().config_file(),
+										FCPPT_TEXT("textures/logo-shadow"))))
 					.texture_size()
 					.order(
 						static_cast<particle::sprite::object::order_type>(
@@ -155,7 +161,7 @@ fruitcut::app::states::intro::intro(
 							context<machine>().systems().renderer()->screen_size())/2 + 
 						json::find_member<fruitcut::particle::sprite::object::point>(
 							context<machine>().config_file(),
-							FCPPT_TEXT("logo-shadow-offset")))
+							FCPPT_TEXT("intro/logo-shadow-offset")))
 					.system(
 						&context<machine>().particle_system().sprite_system()),
 				fcppt::assign::make_container<particle::sprite::animation::value_sequence>
@@ -170,7 +176,7 @@ fruitcut::app::states::intro::intro(
 							(sge::image::color::init::alpha %= 
 								json::find_member<double>(
 									context<machine>().config_file(),
-									FCPPT_TEXT("logo-shadow-transparency"))))))
+									FCPPT_TEXT("intro/logo-shadow-transparency"))))))
 					(particle::sprite::animation::value_type(
 						sge::time::second_f(
 							static_cast<sge::time::funit>(
@@ -198,13 +204,14 @@ fruitcut::app::states::intro::react(
 	events::tick const &)
 {
 	context<machine>().particle_system().update();
+	/*
 	context<machine>().desaturate_filter().factor(
 		static_cast<sge::renderer::scalar>(
 			saturation_timer_.expired()
 			?
 				static_cast<sge::renderer::scalar>(1.0)
 			:
-				saturation_timer_.elapsed_frames()));
+				saturation_timer_.elapsed_frames()));*/
 	return discard_event();
 }
 

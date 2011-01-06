@@ -13,7 +13,9 @@
 	},
 	"textures" : 
 	{
-		"background" : "wood.png"
+		"background" : "wood.png",
+		"logo" : "logo.png",
+		"logo-shadow" : "logo_shadow.png"
 	},
 	"console" :
 	{
@@ -23,8 +25,11 @@
 		"line-limit" : 1000
 	},
 	"test-model" : "melon.md3",
-	"background-repeat" : 3.0,
-	"test-model-texture" : "melon.png",
-	"logo-shadow-offset" : [10,10],
-	"logo-shadow-transparency" : 0.2
+	"intro" : 
+	{
+		"background-repeat" : 3.0,
+		"logo-shadow-offset" : [10,10],
+		"logo-shadow-transparency" : 0.2
+	},
+	"test-model-texture" : "melon.png"
 }
