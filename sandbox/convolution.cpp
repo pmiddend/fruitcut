@@ -126,6 +126,11 @@ class explosion_particle
 	public fruitcut::particle::objects::simple<fruitcut::particle::point_sprite::choices>
 {
 public:
+	// gcc-4.4 doesn't like "simple(" in the constructor
+	typedef
+	fruitcut::particle::objects::simple<fruitcut::particle::point_sprite::choices>
+	base;
+
 	explicit
 	explosion_particle(
 		fruitcut::particle::point_sprite::parameters const &_params,
@@ -134,7 +139,7 @@ public:
 		sge::renderer::vector2 const &_acceleration,
 		sge::time::duration const &_timer)
 	:
-		simple(
+		base(
 			_params,
 			_animation,
 			sge::renderer::vector2::null(),

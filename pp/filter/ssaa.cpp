@@ -57,7 +57,8 @@ fruitcut::pp::filter::ssaa::ssaa(
 					d))),
 		fcppt::assign::make_container<sge::shader::sampler_sequence>(
 			sge::shader::sampler(
-				"tex"))),
+				"tex",
+				sge::renderer::texture_ptr()))),
 	quad_(
 		screen_vf::create_quad(
 			shader_,

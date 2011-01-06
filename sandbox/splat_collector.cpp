@@ -4,6 +4,8 @@
 #include "../pp/screen_vf/create_quad.hpp"
 #include "../pp/screen_vf/format.hpp"
 #include <sge/sprite/parameters_impl.hpp>
+#include <sge/sprite/default_parameters.hpp>
+#include <sge/sprite/defaults.hpp>
 #include <sge/renderer/filter/linear.hpp>
 #include <sge/renderer/filter/point.hpp>
 #include <sge/renderer/resource_flags_none.hpp>
@@ -62,30 +64,18 @@ fruitcut::sandbox::splat_collector::splat_collector(
 	ss_(
 		renderer_),
 	background_(
-		particle::sprite::parameters()
+		sge::sprite::default_parameters<particle::sprite::choices>()
 			.texture_size()
-			.visible(
-				true)
 			.texture(
 				sge::texture::part_ptr(
 					new sge::texture::part_raw(
 						temp_texture_)))
-			.pos(
-				particle::sprite::object::point::null())
 			.system(
 				&ss_)
 			.repetition(
 				static_cast<particle::sprite::object::repetition_type>(
 					1))
-			.rotation(
-				static_cast<particle::sprite::object::rotation_type>(
-					0))
-			.color(
-				particle::sprite::object::color_type(
-					(sge::image::color::init::red %= 1.0)
-					(sge::image::color::init::green %= 1.0)
-					(sge::image::color::init::blue %= 1.0)
-					(sge::image::color::init::alpha %= 1.0))).elements()),
+			.elements()),
 	copy_shader_(
 		renderer_,
 		media_path()/FCPPT_TEXT("shaders")/FCPPT_TEXT("copy_vertex.glsl"),

@@ -16,6 +16,7 @@
 #include <sge/renderer/scoped_block.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/texture.hpp>
+#include <sge/renderer/texture_ptr.hpp>
 #include <sge/renderer/filter/linear.hpp>
 #include <sge/renderer/vector2.hpp>
 #include <sge/renderer/resource_flags_none.hpp>
@@ -56,8 +57,8 @@ fruitcut::pp::filter::add::add(
 				fcppt::math::dim::structure_cast<sge::renderer::vector2>(
 					d))),
 		fcppt::assign::make_container<sge::shader::sampler_sequence>
-			(sge::shader::sampler("tex1"))
-			(sge::shader::sampler("tex2"))), 
+			(sge::shader::sampler("tex1",sge::renderer::texture_ptr()))
+			(sge::shader::sampler("tex2",sge::renderer::texture_ptr()))), 
 		quad_(
 			screen_vf::create_quad(
 				shader_,
