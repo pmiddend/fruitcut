@@ -21,6 +21,7 @@
 #include <sge/renderer/device.hpp>
 #include <sge/texture/part_raw.hpp>
 #include <sge/texture/part_ptr.hpp>
+#include <sge/image/color/init.hpp>
 #include <sge/time/second.hpp>
 #include <sge/time/activation_state.hpp>
 #include <fcppt/assign/make_container.hpp>
@@ -56,6 +57,9 @@ fruitcut::app::states::intro::intro(
 					.size(
 						fcppt::math::dim::structure_cast<particle::sprite::object::dim>(
 							context<machine>().systems().renderer()->screen_size()))
+					.order(
+						static_cast<particle::sprite::object::order_type>(
+							-101))
 					// Texture is too big, can't use the texture manager here. Also the texture has repetition
 					.texture(
 						context<machine>().create_single_texture(	
@@ -101,6 +105,9 @@ fruitcut::app::states::intro::intro(
 									sge::renderer::filter::linear,
 									sge::renderer::resource_flags::none))))
 					.texture_size()
+					.order(
+						static_cast<particle::sprite::object::order_type>(
+							-99))
 					.center(
 						fcppt::math::dim::structure_cast<fruitcut::particle::sprite::object::point>(
 							context<machine>().systems().renderer()->screen_size())/2)
@@ -125,6 +132,55 @@ fruitcut::app::states::intro::intro(
 							(sge::image::color::init::green %= 1.0)
 							(sge::image::color::init::blue %= 1.0)
 							(sge::image::color::init::alpha %= 0.0)))),
+				context<machine>().timer_callback(),
+				sge::renderer::vector2::null(),
+				sge::renderer::vector2::null())));
+
+	// The logo shadow
+	context<machine>().particle_system().insert(
+		fruitcut::particle::objects::unique_base_ptr(
+			new fruitcut::particle::objects::simple<fruitcut::particle::sprite::choices>(
+				sge::sprite::default_parameters<fruitcut::particle::sprite::choices>()
+					.texture(
+						context<machine>().create_single_texture(
+							fruitcut::media_path() 
+								/ FCPPT_TEXT("textures") 
+								/ FCPPT_TEXT("logo_shadow.png")))
+					.texture_size()
+					.order(
+						static_cast<particle::sprite::object::order_type>(
+							-100))
+					.center(
+						fcppt::math::dim::structure_cast<fruitcut::particle::sprite::object::point>(
+							context<machine>().systems().renderer()->screen_size())/2 + 
+						json::find_member<fruitcut::particle::sprite::object::point>(
+							context<machine>().config_file(),
+							FCPPT_TEXT("logo-shadow-offset")))
+					.system(
+						&context<machine>().particle_system().sprite_system()),
+				fcppt::assign::make_container<particle::sprite::animation::value_sequence>
+					(particle::sprite::animation::value_type(
+						sge::time::second_f(
+							static_cast<sge::time::funit>(
+								3)),
+						fruitcut::particle::sprite::object::color_type(
+							(sge::image::color::init::red %= 1.0)
+							(sge::image::color::init::green %= 1.0)
+							(sge::image::color::init::blue %= 1.0)
+							(sge::image::color::init::alpha %= 
+								json::find_member<double>(
+									context<machine>().config_file(),
+									FCPPT_TEXT("logo-shadow-transparency"))))))
+					(particle::sprite::animation::value_type(
+						sge::time::second_f(
+							static_cast<sge::time::funit>(
+								0)),
+						fruitcut::particle::sprite::object::color_type(
+							(sge::image::color::init::red %= 1.0)
+							(sge::image::color::init::green %= 1.0)
+							(sge::image::color::init::blue %= 1.0)
+							(sge::image::color::init::alpha %= 0.0)))),
+				context<machine>().timer_callback(),
 				sge::renderer::vector2::null(),
 				sge::renderer::vector2::null())));
 }
@@ -141,6 +197,7 @@ boost::statechart::result
 fruitcut::app::states::intro::react(
 	events::tick const &)
 {
+	context<machine>().particle_system().update();
 	context<machine>().desaturate_filter().factor(
 		static_cast<sge::renderer::scalar>(
 			saturation_timer_.expired()

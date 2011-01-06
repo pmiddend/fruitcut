@@ -24,5 +24,7 @@
 	},
 	"test-model" : "melon.md3",
 	"background-repeat" : 3.0,
-	"test-model-texture" : "melon.png"
+	"test-model-texture" : "melon.png",
+	"logo-shadow-offset" : [10,10],
+	"logo-shadow-transparency" : 0.2
 }

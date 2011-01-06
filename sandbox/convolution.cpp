@@ -52,6 +52,7 @@
 #include <sge/systems/list.hpp>
 #include <sge/systems/viewport/manage_resize.hpp>
 #include <sge/extension_set.hpp>
+#include <sge/time/default_callback.hpp>
 #include <sge/texture/part_ptr.hpp>
 #include <sge/texture/part_raw.hpp>
 #include <fcppt/container/grid/object.hpp>
@@ -142,6 +143,7 @@ public:
 		base(
 			_params,
 			_animation,
+			sge::time::default_callback(),
 			sge::renderer::vector2::null(),
 			sge::renderer::vector2::null()),
 		velocity_(
@@ -279,6 +281,7 @@ particles::particles(
 							(sge::image::color::init::green %= 1.0)
 							(sge::image::color::init::blue %= 1.0)
 							(sge::image::color::init::alpha %= 0.0)))),
+				sge::time::default_callback(),
 				sge::renderer::vector2::null(),
 				sge::renderer::vector2::null())));
 }

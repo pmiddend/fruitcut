@@ -13,7 +13,6 @@ fruitcut::particle::objects::permanent_sprite::permanent_sprite(
 void
 fruitcut::particle::objects::permanent_sprite::update()
 {
-	std::cout << "update\n";
 }
 
 bool

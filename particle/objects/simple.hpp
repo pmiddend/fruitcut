@@ -44,6 +44,7 @@ public:
 	simple(
 		sprite_parameters const &,
 		typename color_animation::value_sequence const &,
+		sge::time::callback const &,
 		sge::renderer::vector2 const &velocity,
 		sge::renderer::vector2 const &acceleration);
 

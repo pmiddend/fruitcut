@@ -15,6 +15,7 @@ template<typename Choices>
 fruitcut::particle::objects::simple<Choices>::simple(
 	sprite_parameters const &params,
 	typename color_animation::value_sequence const &_animation,
+	sge::time::callback const &_callback,
 	sge::renderer::vector2 const &_velocity,
 	sge::renderer::vector2 const &_acceleration)
 :
@@ -25,7 +26,9 @@ fruitcut::particle::objects::simple<Choices>::simple(
 	seconds_timer_(
 		sge::time::second_f(
 			static_cast<sge::time::funit>(
-				1))),
+				1)),
+		sge::time::activation_state::active,
+		_callback),
 	position_(
 		fcppt::math::vector::structure_cast<sge::renderer::vector2>(
 			sprite_.pos())),
