@@ -43,7 +43,8 @@ find_member(
 		path,
 		boost::algorithm::is_any_of(FCPPT_TEXT("/")));
 
-	fcppt::string const last_element = parts.back();
+	fcppt::string const last_element = 
+		parts.back();
 
 	parts.pop_back();
 

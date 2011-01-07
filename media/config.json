@@ -29,7 +29,14 @@
 	{
 		"background-repeat" : 3.0,
 		"logo-shadow-offset" : [10,10],
-		"logo-shadow-transparency" : 0.2
+		"logo-shadow-transparency" : 0.2,
+		"desaturation-secs" : 2.5,
+		"logo-animation" : 
+			[
+				{ "time" : 2.0,"color" : [1.0,1.0,1.0,1.0] },
+				{ "time" : 1.0,"color" : [1.0,1.0,1.0,1.0] },
+				{ "time" : 0.0,"color" : [1.0,1.0,1.0,0.0] }
+			]
 	},
 	"test-model-texture" : "melon.png"
 }

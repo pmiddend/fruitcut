@@ -135,7 +135,8 @@ boost::enable_if_c
 <
 	!boost::is_floating_point<T>::value 
 		&& !boost::is_integral<T>::value
-		&& !fcppt::type_traits::is_iterable<T>::value,
+		&& !fcppt::type_traits::is_iterable<T>::value
+		&& !boost::is_same<T,sge::parse::json::value>::value,
 	T const
 >::type
 convert(

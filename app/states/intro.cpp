@@ -6,6 +6,8 @@
 #include "../../particle/objects/simple.hpp"
 #include "../../particle/objects/unique_base_ptr.hpp"
 #include "../../json/find_member.hpp"
+#include "../../json/parse_animation.hpp"
+#include "../../json/parse_color.hpp"
 #include "../../media_path.hpp"
 #include <sge/sprite/parameters_impl.hpp>
 #include <sge/sprite/defaults.hpp>
@@ -15,7 +17,6 @@
 #include <sge/image2d/file.hpp>
 #include <sge/image2d/multi_loader.hpp>
 #include <sge/renderer/scalar.hpp>
-#include <sge/time/second_f.hpp>
 #include <sge/renderer/filter/linear.hpp>
 #include <sge/renderer/resource_flags_none.hpp>
 #include <sge/renderer/device.hpp>
@@ -23,7 +24,9 @@
 #include <sge/texture/part_ptr.hpp>
 #include <sge/image/color/init.hpp>
 #include <sge/time/second.hpp>
+#include <sge/time/funit.hpp>
 #include <sge/time/activation_state.hpp>
+#include <sge/time/second_f.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
@@ -37,8 +40,10 @@ fruitcut::app::states::intro::intro(
 	my_base(
 		ctx),
 	saturation_timer_(
-		sge::time::second(
-			3),
+		sge::time::second_f(
+			json::find_member<sge::time::funit>(
+				context<machine>().config_file(),
+				FCPPT_TEXT("intro/desaturation-secs"))),
 		sge::time::activation_state::active,
 		context<machine>().timer_callback())
 {
@@ -116,25 +121,11 @@ fruitcut::app::states::intro::intro(
 							context<machine>().systems().renderer()->screen_size())/2)
 					.system(
 						&context<machine>().particle_system().sprite_system()),
-				fcppt::assign::make_container<particle::sprite::animation::value_sequence>
-					(particle::sprite::animation::value_type(
-						sge::time::second_f(
-							static_cast<sge::time::funit>(
-								3)),
-						fruitcut::particle::sprite::object::color_type(
-							(sge::image::color::init::red %= 1.0)
-							(sge::image::color::init::green %= 1.0)
-							(sge::image::color::init::blue %= 1.0)
-							(sge::image::color::init::alpha %= 1.0))))
-					(particle::sprite::animation::value_type(
-						sge::time::second_f(
-							static_cast<sge::time::funit>(
-								0)),
-						fruitcut::particle::sprite::object::color_type(
-							(sge::image::color::init::red %= 1.0)
-							(sge::image::color::init::green %= 1.0)
-							(sge::image::color::init::blue %= 1.0)
-							(sge::image::color::init::alpha %= 0.0)))),
+				json::parse_animation<particle::sprite::animation>(
+					json::find_member<sge::parse::json::array>(
+						context<machine>().config_file(),
+						FCPPT_TEXT("intro/logo-animation")),
+					&json::parse_color<particle::sprite::object::color_type>),
 				context<machine>().timer_callback(),
 				sge::renderer::vector2::null(),
 				sge::renderer::vector2::null())));
@@ -164,28 +155,11 @@ fruitcut::app::states::intro::intro(
 							FCPPT_TEXT("intro/logo-shadow-offset")))
 					.system(
 						&context<machine>().particle_system().sprite_system()),
-				fcppt::assign::make_container<particle::sprite::animation::value_sequence>
-					(particle::sprite::animation::value_type(
-						sge::time::second_f(
-							static_cast<sge::time::funit>(
-								3)),
-						fruitcut::particle::sprite::object::color_type(
-							(sge::image::color::init::red %= 1.0)
-							(sge::image::color::init::green %= 1.0)
-							(sge::image::color::init::blue %= 1.0)
-							(sge::image::color::init::alpha %= 
-								json::find_member<double>(
-									context<machine>().config_file(),
-									FCPPT_TEXT("intro/logo-shadow-transparency"))))))
-					(particle::sprite::animation::value_type(
-						sge::time::second_f(
-							static_cast<sge::time::funit>(
-								0)),
-						fruitcut::particle::sprite::object::color_type(
-							(sge::image::color::init::red %= 1.0)
-							(sge::image::color::init::green %= 1.0)
-							(sge::image::color::init::blue %= 1.0)
-							(sge::image::color::init::alpha %= 0.0)))),
+				json::parse_animation<particle::sprite::animation>(
+					json::find_member<sge::parse::json::array>(
+						context<machine>().config_file(),
+						FCPPT_TEXT("intro/logo-animation")),
+					&json::parse_color<particle::sprite::object::color_type>),
 				context<machine>().timer_callback(),
 				sge::renderer::vector2::null(),
 				sge::renderer::vector2::null())));
@@ -204,14 +178,13 @@ fruitcut::app::states::intro::react(
 	events::tick const &)
 {
 	context<machine>().particle_system().update();
-	/*
 	context<machine>().desaturate_filter().factor(
 		static_cast<sge::renderer::scalar>(
 			saturation_timer_.expired()
 			?
 				static_cast<sge::renderer::scalar>(1.0)
 			:
-				saturation_timer_.elapsed_frames()));*/
+				saturation_timer_.elapsed_frames()));
 	return discard_event();
 }
 
