@@ -44,6 +44,7 @@ public:
 	~intro();
 private:
 	sge::time::timer saturation_timer_;
+	sge::time::timer intro_timer_;
 };
 }
 }

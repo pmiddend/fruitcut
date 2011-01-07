@@ -1,4 +1,5 @@
 #include "intro.hpp"
+#include "../postprocessing.hpp"
 #include "../../particle/sprite/choices.hpp"
 #include "../../particle/sprite/animation.hpp"
 #include "../../particle/point_sprite/object.hpp"
@@ -45,9 +46,16 @@ fruitcut::app::states::intro::intro(
 				context<machine>().config_file(),
 				FCPPT_TEXT("intro/desaturation-secs"))),
 		sge::time::activation_state::active,
+		context<machine>().timer_callback()),
+	intro_timer_(
+		sge::time::second_f(
+			json::find_member<sge::time::funit>(
+				context<machine>().config_file(),
+				FCPPT_TEXT("intro/total-duration-secs"))),
+		sge::time::activation_state::active,
 		context<machine>().timer_callback())
 {
-	context<machine>().desaturate_filter().factor(
+	context<machine>().postprocessing().desaturate_filter().factor(
 		static_cast<sge::renderer::scalar>(
 			0.0));
 
@@ -180,13 +188,15 @@ fruitcut::app::states::intro::react(
 	events::tick const &)
 {
 	context<machine>().particle_system().update();
-	context<machine>().desaturate_filter().factor(
+	context<machine>().postprocessing().desaturate_filter().factor(
 		static_cast<sge::renderer::scalar>(
 			saturation_timer_.expired()
 			?
 				static_cast<sge::renderer::scalar>(1.0)
 			:
 				saturation_timer_.elapsed_frames()));
+	//if (intro_timer_.expired())
+	//	return transit<running>();
 	return discard_event();
 }
 

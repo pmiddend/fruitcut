@@ -11,6 +11,15 @@
 			"rotation-speed" : 200.0
 		}
 	},
+	"pp" : 
+	{
+		"bloom-size" : [512,512],
+		"bloom-iterations" : 3
+	},
+	"sounds" : 
+	{
+		"intro" : "swoosh.wav"
+	},
 	"textures" : 
 	{
 		"background" : "wood.png",
@@ -27,6 +36,7 @@
 	"test-model" : "melon.md3",
 	"intro" : 
 	{
+		"total-duration-secs" : 3.0,
 		"background-repeat" : 3.0,
 		"logo-shadow-offset" : [10,10],
 		"logo-shadow-transparency" : 0.2,

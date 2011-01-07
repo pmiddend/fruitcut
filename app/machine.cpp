@@ -174,21 +174,15 @@ fruitcut::app::machine::machine(
 			config_file(),
 			FCPPT_TEXT("console/line-limit"))),
 	postprocessing_(
-		systems_.renderer()),
-	rtt_filter_(
 		systems_.renderer(),
-		fcppt::math::dim::structure_cast<sge::renderer::dim2>(
-			systems_.renderer()->screen_size()),
+		console_object_,
 		boost::bind(
 			&machine::process_event,
 			this,
-			events::render())),
-	desaturate_filter_(
-		systems_.renderer(),
-		fcppt::math::dim::structure_cast<sge::renderer::dim2>(
-			systems_.renderer()->screen_size()),
-		static_cast<sge::renderer::scalar>(
-			0.0)),
+			events::render()),
+		json::find_member<sge::parse::json::object>(
+			config_file(),
+			FCPPT_TEXT("pp"))),
 	particle_system_(
 		systems_.renderer()),
 	running_(
@@ -208,18 +202,15 @@ fruitcut::app::machine::machine(
 	transformed_time_(
 		current_time_),
 	time_transform_(
-		boost::phoenix::arg_names::arg1)
+		boost::phoenix::arg_names::arg1),
+	console_switch_connection_(
+		systems_.keyboard_collector()->key_callback(
+			sge::input::keyboard::action(
+				sge::input::keyboard::key_code::f1,
+				boost::bind(
+					&machine::console_switch,
+					this))))
 {
-	postprocessing_.add_filter(
-		rtt_filter_,
-		FCPPT_TEXT("source"),
-		fruitcut::pp::dependency_set());
-
-	postprocessing_.add_filter(
-		desaturate_filter_,
-		FCPPT_TEXT("desaturate"),
-		fcppt::assign::make_container<fruitcut::pp::dependency_set>
-			(FCPPT_TEXT("source")));
 }
 
 sge::parse::json::object const &
@@ -265,10 +256,10 @@ fruitcut::app::machine::create_texture(
 				p));
 }
 
-fruitcut::pp::filter::desaturate &
-fruitcut::app::machine::desaturate_filter()
+fruitcut::app::postprocessing &
+fruitcut::app::machine::postprocessing()
 {
-	return desaturate_filter_;
+	return postprocessing_;
 }
 
 void
@@ -338,4 +329,18 @@ fruitcut::app::machine::timer_callback() const
 
 fruitcut::app::machine::~machine()
 {
+}
+
+void
+fruitcut::app::machine::console_switch()
+{
+	console_gfx_.active(
+		!console_gfx_.active());
+
+	if (console_gfx_.active())
+		input_manager_.current_state(
+			console_state_);
+	else
+		input_manager_.current_state(
+			game_state_);
 }

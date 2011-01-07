@@ -2,9 +2,7 @@
 #define FRUITCUT_APP_MACHINE_HPP_INCLUDED
 
 #include "../particle/system.hpp"
-#include "../pp/system.hpp"
-#include "../pp/filter/render_to_texture.hpp"
-#include "../pp/filter/desaturate.hpp"
+#include "postprocessing.hpp"
 #include "../input/state_manager.hpp"
 #include "../input/state.hpp"
 #include "states/intro_fwd.hpp"
@@ -65,8 +63,8 @@ public:
 	create_texture(
 		fcppt::filesystem::path const &);
 
-	pp::filter::desaturate &
-	desaturate_filter();
+	fruitcut::app::postprocessing &
+	postprocessing();
 
 	void
 	run();
@@ -83,14 +81,16 @@ private:
 	input::state console_state_,game_state_;
 	sge::console::object console_object_;
 	sge::console::gfx console_gfx_;
-	pp::system postprocessing_;
-	pp::filter::render_to_texture rtt_filter_;
-	pp::filter::desaturate desaturate_filter_;
+	fruitcut::app::postprocessing postprocessing_;
 	particle::system particle_system_;
 	bool running_;
 	fcppt::signal::scoped_connection exit_connection_;
 	sge::time::point current_time_,transformed_time_;
 	time_transform_function time_transform_;
+	fcppt::signal::scoped_connection console_switch_connection_;
+
+	void
+	console_switch();
 };
 }
 }

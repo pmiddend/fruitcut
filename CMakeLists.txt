@@ -106,6 +106,7 @@ SET(files
 	json/config_wrapper.cpp json/merge_trees.cpp json/process_option.cpp json/string_to_value.cpp
 	# input 
 	input/state.cpp input/state_manager.cpp
+	sound_controller.cpp
 	# pp 
 	pp/filter/base.cpp 
 	pp/filter/wrapper.cpp
@@ -261,6 +262,7 @@ ADD_EXECUTABLE(
 	app
 	app/fruitcut.cpp
 	app/machine.cpp 
+	app/postprocessing.cpp 
 	app/name.cpp
 	app/events/tick.cpp
 	app/states/intro.cpp)
