@@ -158,11 +158,13 @@ fruitcut::app::states::intro::intro(
 				json::parse_animation<particle::sprite::animation>(
 					json::find_member<sge::parse::json::array>(
 						context<machine>().config_file(),
-						FCPPT_TEXT("intro/logo-animation")),
+						FCPPT_TEXT("intro/logo-shadow-animation")),
 					&json::parse_color<particle::sprite::object::color_type>),
 				context<machine>().timer_callback(),
 				sge::renderer::vector2::null(),
 				sge::renderer::vector2::null())));
+
+	
 }
 
 boost::statechart::result

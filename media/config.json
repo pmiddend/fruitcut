@@ -36,6 +36,12 @@
 				{ "time" : 2.0,"color" : [1.0,1.0,1.0,1.0] },
 				{ "time" : 1.0,"color" : [1.0,1.0,1.0,1.0] },
 				{ "time" : 0.0,"color" : [1.0,1.0,1.0,0.0] }
+			],
+		"logo-shadow-animation" : 
+			[
+				{ "time" : 2.0,"color" : [1.0,1.0,1.0,0.2] },
+				{ "time" : 1.0,"color" : [1.0,1.0,1.0,0.2] },
+				{ "time" : 0.0,"color" : [1.0,1.0,1.0,0.0] }
 			]
 	},
 	"test-model-texture" : "melon.png"
