@@ -55,6 +55,9 @@ fruitcut::app::states::intro::intro(
 		sge::time::activation_state::active,
 		context<machine>().timer_callback())
 {
+	context<machine>().play_sound(
+		FCPPT_TEXT("intro"));
+	
 	context<machine>().postprocessing().desaturate_filter().factor(
 		static_cast<sge::renderer::scalar>(
 			0.0));

@@ -2,5 +2,6 @@
 	"graphics" : 
 	{
 		"screen-size" : [1024,768]
-	}
+	},
+	"audio-volume" : 0.0
 }

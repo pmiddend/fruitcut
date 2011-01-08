@@ -12,6 +12,8 @@
 #include <sge/systems/audio_player_default.hpp>
 #include <sge/systems/cursor_grab.hpp>
 #include <sge/systems/list.hpp>
+#include <sge/audio/scalar.hpp>
+#include <sge/audio/player.hpp>
 #include <sge/systems/window.hpp>
 #include <sge/systems/renderer.hpp>
 #include <sge/systems/viewport/manage_resize.hpp>
@@ -118,7 +120,12 @@ fruitcut::app::machine::machine(
 					sge::systems::input_helper::keyboard_collector) | sge::systems::input_helper::mouse_collector,
 					sge::systems::cursor_grab::automatic)) 
 			(sge::systems::audio_player_default())
-			(sge::systems::parameterless::font) 
+			(sge::systems::audio_loader(
+				sge::audio::loader_capabilities_field::null(),
+				fcppt::assign::make_container<sge::extension_set>
+					//(FCPPT_TEXT("ogg"))
+					(FCPPT_TEXT("wav"))))
+			(sge::systems::parameterless::font) 	
 			(sge::systems::image_loader(
 					sge::image::capabilities_field::null(),
 					fcppt::assign::make_container<sge::extension_set>
@@ -213,8 +220,18 @@ fruitcut::app::machine::machine(
 				sge::input::keyboard::key_code::f1,
 				boost::bind(
 					&machine::console_switch,
-					this))))
+					this)))),
+	sound_controller_(
+		json::find_member<sge::parse::json::object>(
+			config_file(),
+			FCPPT_TEXT("sounds")),
+		systems_.audio_loader(),
+		systems_.audio_player())
 {
+	systems_.audio_player()->gain(
+		json::find_member<sge::audio::scalar>(
+			config_file(),
+			FCPPT_TEXT("audio-volume")));
 }
 
 sge::parse::json::object const &
@@ -294,6 +311,8 @@ fruitcut::app::machine::run()
 			events::tick(
 				diff));
 
+		sound_controller_.update();
+
 		// This implicitly sends events::render through the
 		// render-to-texture filter
 		postprocessing_.update();
@@ -329,6 +348,14 @@ fruitcut::app::machine::timer_callback() const
 			boost::bind(
 				&sge::time::point::time_since_epoch,
 				&transformed_time_));
+}
+
+void
+fruitcut::app::machine::play_sound(
+	fcppt::string const &name)
+{
+	sound_controller_.play(
+		name);
 }
 
 fruitcut::app::machine::~machine()

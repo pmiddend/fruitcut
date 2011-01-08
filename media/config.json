@@ -18,7 +18,10 @@
 	},
 	"sounds" : 
 	{
-		"intro" : "swoosh.wav"
+		"events" : 
+		{
+			"intro" : "swoosh.wav"
+		}
 	},
 	"textures" : 
 	{
@@ -34,6 +37,7 @@
 		"line-limit" : 1000
 	},
 	"test-model" : "melon.md3",
+	"audio-volume" : 1.0,
 	"intro" : 
 	{
 		"total-duration-secs" : 3.0,

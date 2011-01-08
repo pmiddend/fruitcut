@@ -3,6 +3,7 @@
 
 #include "../particle/system.hpp"
 #include "postprocessing.hpp"
+#include "../sound_controller.hpp"
 #include "../input/state_manager.hpp"
 #include "../input/state.hpp"
 #include "states/intro_fwd.hpp"
@@ -72,6 +73,10 @@ public:
 	sge::time::callback const 
 	timer_callback() const;
 
+	void
+	play_sound(
+		fcppt::string const &name);
+
 	~machine();
 private:
 	sge::parse::json::object const config_file_;
@@ -88,6 +93,7 @@ private:
 	sge::time::point current_time_,transformed_time_;
 	time_transform_function time_transform_;
 	fcppt::signal::scoped_connection console_switch_connection_;
+	sound_controller sound_controller_;
 
 	void
 	console_switch();
