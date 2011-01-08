@@ -369,8 +369,10 @@ fruitcut::app::machine::console_switch()
 		!console_gfx_.active());
 
 	if (console_gfx_.active())
+	{
 		input_manager_.current_state(
 			console_state_);
+	}
 	else
 		input_manager_.current_state(
 			game_state_);

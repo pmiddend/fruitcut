@@ -1,4 +1,5 @@
 #include "intro.hpp"
+#include "running.hpp"
 #include "../postprocessing.hpp"
 #include "../../particle/sprite/choices.hpp"
 #include "../../particle/sprite/animation.hpp"
@@ -198,8 +199,8 @@ fruitcut::app::states::intro::react(
 				static_cast<sge::renderer::scalar>(1.0)
 			:
 				saturation_timer_.elapsed_frames()));
-	//if (intro_timer_.expired())
-	//	return transit<running>();
+	if (intro_timer_.expired())
+		return transit<running>();
 	return discard_event();
 }
 

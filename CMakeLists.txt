@@ -265,7 +265,9 @@ ADD_EXECUTABLE(
 	app/postprocessing.cpp 
 	app/name.cpp
 	app/events/tick.cpp
-	app/states/intro.cpp)
+	app/states/intro.cpp
+	app/states/ingame.cpp
+	app/states/running.cpp)
 
 TARGET_LINK_LIBRARIES(
 	app
