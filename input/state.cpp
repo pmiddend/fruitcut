@@ -63,7 +63,7 @@ fruitcut::input::state::key_callback_internal(
 
 void
 fruitcut::input::state::key_repeat_callback_internal(
-	sge::input::keyboard::key const &e)
+	sge::input::keyboard::key_repeat_event const &e)
 {
 	key_repeat_signal_(e);
 }

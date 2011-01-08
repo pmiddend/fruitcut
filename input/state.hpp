@@ -6,13 +6,17 @@
 #include <sge/input/keyboard/key_callback.hpp>
 #include <sge/input/keyboard/key_function.hpp>
 #include <sge/input/keyboard/key_repeat_callback.hpp>
+#include <sge/input/keyboard/key_event_fwd.hpp>
+#include <sge/input/keyboard/key_repeat_event_fwd.hpp>
 #include <sge/input/keyboard/key_repeat_function.hpp>
 #include <sge/input/keyboard/key_fwd.hpp>
 #include <sge/input/keyboard/mod_state.hpp>
 #include <sge/input/mouse/device.hpp>
 #include <sge/input/mouse/axis_callback.hpp>
+#include <sge/input/mouse/axis_event_fwd.hpp>
 #include <sge/input/mouse/button_callback.hpp>
 #include <sge/input/mouse/axis_function.hpp>
+#include <sge/input/mouse/button_event_fwd.hpp>
 #include <sge/input/mouse/button_function.hpp>
 #include <fcppt/signal/object.hpp>
 #include <fcppt/signal/auto_connection.hpp>
@@ -87,7 +91,7 @@ private:
 
 	void
 	key_repeat_callback_internal(
-		sge::input::keyboard::key const &);
+		sge::input::keyboard::key_repeat_event const &);
 
 	void
 	mouse_axis_callback_internal(

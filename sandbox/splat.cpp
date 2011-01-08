@@ -96,7 +96,8 @@ try
 		(
 			sge::systems::input(
 				sge::systems::input_helper_field(
-					sge::systems::input_helper::keyboard_collector) | sge::systems::input_helper::mouse_collector)) 
+					sge::systems::input_helper::keyboard_collector) | sge::systems::input_helper::mouse_collector,
+				sge::systems::cursor_grab::automatic)) 
 		(
 			sge::systems::image_loader(
 				sge::image::capabilities_field::null(),

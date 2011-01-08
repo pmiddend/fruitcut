@@ -9,6 +9,8 @@
 #include "../media_path.hpp"
 #include <sge/window/instance.hpp>
 #include <sge/sprite/parameters_impl.hpp>
+#include <sge/systems/audio_player_default.hpp>
+#include <sge/systems/cursor_grab.hpp>
 #include <sge/systems/list.hpp>
 #include <sge/systems/window.hpp>
 #include <sge/systems/renderer.hpp>
@@ -113,7 +115,9 @@ fruitcut::app::machine::machine(
 				sge::systems::viewport::manage_resize()))
 			(sge::systems::input(
 				sge::systems::input_helper_field(
-					sge::systems::input_helper::keyboard_collector) | sge::systems::input_helper::mouse_collector)) 
+					sge::systems::input_helper::keyboard_collector) | sge::systems::input_helper::mouse_collector,
+					sge::systems::cursor_grab::automatic)) 
+			(sge::systems::audio_player_default())
 			(sge::systems::parameterless::font) 
 			(sge::systems::image_loader(
 					sge::image::capabilities_field::null(),
