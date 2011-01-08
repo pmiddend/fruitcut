@@ -27,7 +27,8 @@
 
 fruitcut::pp::filter::highlight::highlight(
 	sge::renderer::device_ptr const _renderer,
-	sge::renderer::dim2 const &d)
+	sge::renderer::dim2 const &d,
+	sge::renderer::scalar const _threshold)
 :
 	renderer_(
 		_renderer),
@@ -50,12 +51,16 @@ fruitcut::pp::filter::highlight::highlight(
 			/FCPPT_TEXT("shaders")
 			/FCPPT_TEXT("highlight_fragment.glsl"),
 		sge::shader::vf_to_string<screen_vf::format>(),
-		fcppt::assign::make_container<sge::shader::variable_sequence>(
-			sge::shader::variable(
+		fcppt::assign::make_container<sge::shader::variable_sequence>
+			(sge::shader::variable(
 				"texture_size",
 				sge::shader::variable_type::const_,
 				fcppt::math::dim::structure_cast<sge::renderer::vector2>(
-					d))),
+					d)))
+			(sge::shader::variable(
+				"threshold",
+				sge::shader::variable_type::const_,
+				_threshold)),
 		fcppt::assign::make_container<sge::shader::sampler_sequence>(
 			sge::shader::sampler(
 				"tex",

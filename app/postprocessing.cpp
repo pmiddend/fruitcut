@@ -36,7 +36,10 @@ fruitcut::app::postprocessing::postprocessing(
 		_renderer,
 		json::find_member<sge::renderer::dim2>(
 			config,
-			FCPPT_TEXT("bloom-size"))),
+			FCPPT_TEXT("bloom-size")),
+		json::find_member<sge::renderer::scalar>(
+			config,
+			FCPPT_TEXT("highlight-threshold"))),
 	blur_filter_(
 		_renderer,
 		json::find_member<sge::renderer::dim2>(

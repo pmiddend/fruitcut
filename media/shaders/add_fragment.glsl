@@ -13,5 +13,5 @@ main()
 	// Final color
 	frag_color = 
 		texture(tex1,normalized) + 
-		0.2 * texture(tex2,normalized);
+		texture(tex2,normalized);
 }

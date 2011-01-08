@@ -7,6 +7,7 @@
 #include <sge/renderer/target_ptr.hpp>
 #include <sge/renderer/vertex_buffer_ptr.hpp>
 #include <sge/renderer/dim2.hpp>
+#include <sge/renderer/scalar.hpp>
 #include <sge/shader/object.hpp>
 
 namespace fruitcut
@@ -23,7 +24,8 @@ public:
 	explicit
 	highlight(
 		sge::renderer::device_ptr,
-		sge::renderer::dim2 const &);
+		sge::renderer::dim2 const &,
+		sge::renderer::scalar threshold);
 
 	sge::renderer::texture_ptr const
 	apply(

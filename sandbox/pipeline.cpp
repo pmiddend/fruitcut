@@ -513,7 +513,8 @@ try
 		sys.renderer(),
 		sge::renderer::dim2(
 			512,
-			512));
+			512),
+		static_cast<sge::renderer::scalar>(0.7));
 
 	fruitcut::pp::filter::blur blur_filter(
 		sys.renderer(),

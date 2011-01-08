@@ -4,6 +4,12 @@ $$$HEADER$$$
 
 out vec4 frag_color;
 
+float	luminance(vec3 v)
+{
+	// Calculate luminance according to the YUV coefficients
+	return dot(v, vec3(0.212, 0.716, 0.072));	
+}
+
 void
 main()
 {
@@ -16,20 +22,14 @@ main()
 				tex,
 				normalized));
 
-	t = 
-		vec3(
-			2*t.r*t.r*t.r,
-			2*t.g*t.g*t.g,
-			2*t.b*t.b*t.b);
-	/*
-	t = 
-		max(
-			vec3(0.0,0.0,0.0),
-			2.0 * t - 1.0);
-	*/
+	float gray = 
+		luminance(
+			t);
+
+	gray = clamp((gray - threshold)/(1.0-threshold),0.0,1.0);
 
 	frag_color = 
 		vec4(
-			t,
+			gray,gray,gray,
 			1.0);
 }
