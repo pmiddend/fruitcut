@@ -224,6 +224,12 @@ fruitcut::pp::system::update()
 		filter_result_[sorted.back()];
 }
 
+sge::renderer::texture_ptr const
+fruitcut::pp::system::result_texture()
+{
+	return result_texture_;
+}
+
 void
 fruitcut::pp::system::render_result()
 {

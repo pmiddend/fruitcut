@@ -1,4 +1,5 @@
 #include "running.hpp"
+#include "paused.hpp"
 #include <iostream>
 
 fruitcut::app::states::running::running(
@@ -7,7 +8,8 @@ fruitcut::app::states::running::running(
 	my_base(
 		ctx)
 {
-	std::cout << "In running state\n";
+	context<machine>().postprocessing().active(
+		true);
 }
 
 boost::statechart::result
@@ -16,6 +18,13 @@ fruitcut::app::states::running::react(
 {
 	context<machine>().particle_system().render();
 	return discard_event();
+}
+
+boost::statechart::result
+fruitcut::app::states::running::react(
+	events::toggle_pause const &)
+{
+	return transit<paused>();
 }
 
 boost::statechart::result

@@ -3,6 +3,7 @@
 
 #include "../machine.hpp"
 #include "running_fwd.hpp"
+#include <fcppt/signal/scoped_connection.hpp>
 #include <boost/statechart/state.hpp>
 
 namespace fruitcut
@@ -23,6 +24,8 @@ public:
 		my_context);
 
 	~ingame();
+private:
+	fcppt::signal::scoped_connection toggle_pause_connection_;
 };
 }
 }

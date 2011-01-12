@@ -37,6 +37,13 @@ public:
 
 	pp::filter::desaturate &
 	desaturate_filter();
+
+	sge::renderer::texture_ptr const
+	result_texture();
+
+	void
+	active(
+		bool);
 private:
 	pp::system system_;
 	pp::filter::render_to_texture rtt_filter_;
@@ -47,6 +54,7 @@ private:
 	pp::filter::desaturate desaturate_filter_;
 	fcppt::signal::scoped_connection list_connection_;
 	fcppt::signal::scoped_connection toggle_connection_;
+	bool active_;
 
 	void
 	list_filters(

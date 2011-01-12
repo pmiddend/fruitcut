@@ -267,6 +267,7 @@ ADD_EXECUTABLE(
 	app/events/tick.cpp
 	app/states/intro.cpp
 	app/states/ingame.cpp
+	app/states/paused.cpp
 	app/states/running.cpp)
 
 TARGET_LINK_LIBRARIES(

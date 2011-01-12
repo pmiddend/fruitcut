@@ -7,6 +7,7 @@
 #include <sge/input/keyboard/key.hpp>
 #include <fcppt/assert.hpp>
 #include <boost/bind.hpp>
+#include <iostream>
 
 fruitcut::input::state_manager::state_manager(
 	sge::systems::instance const &systems)
@@ -72,8 +73,11 @@ fruitcut::input::state_manager::key_callback_internal(
 	sge::input::keyboard::key_event const &c)
 {
 	if (current_state_)
+	{
+		std::cout << "There is a current state\n";
 		current_state_->key_callback_internal(
 			c);
+	}
 }
 
 

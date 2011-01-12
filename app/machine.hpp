@@ -77,6 +77,9 @@ public:
 	play_sound(
 		fcppt::string const &name);
 
+	input::state &
+	game_input_state();
+
 	~machine();
 private:
 	sge::parse::json::object const config_file_;

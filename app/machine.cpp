@@ -228,6 +228,8 @@ fruitcut::app::machine::machine(
 		systems_.audio_loader(),
 		systems_.audio_player())
 {
+	input_manager_.current_state(
+		game_state_);
 	systems_.audio_player()->gain(
 		json::find_member<sge::audio::scalar>(
 			config_file(),
@@ -356,6 +358,12 @@ fruitcut::app::machine::play_sound(
 {
 	sound_controller_.play(
 		name);
+}
+
+fruitcut::input::state &
+fruitcut::app::machine::game_input_state()
+{
+	return game_state_;
 }
 
 fruitcut::app::machine::~machine()

@@ -117,7 +117,8 @@ fruitcut::app::postprocessing::postprocessing(
 void
 fruitcut::app::postprocessing::update()
 {
-	system_.update();
+	if (active_)
+		system_.update();
 }
 
 void
@@ -130,6 +131,20 @@ fruitcut::pp::filter::desaturate &
 fruitcut::app::postprocessing::desaturate_filter()
 {
 	return desaturate_filter_;
+}
+
+sge::renderer::texture_ptr const
+fruitcut::app::postprocessing::result_texture()
+{
+	return system_.result_texture();
+}
+
+void
+fruitcut::app::postprocessing::active(
+	bool const _active)
+{
+	active_ = 
+		_active;
 }
 
 void

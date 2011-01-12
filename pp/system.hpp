@@ -53,6 +53,9 @@ public:
 	void
 	update();
 
+	sge::renderer::texture_ptr const
+	result_texture();
+
 	void
 	render_result();
 

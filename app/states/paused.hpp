@@ -1,11 +1,10 @@
-#ifndef FRUITCUT_APP_STATES_RUNNING_HPP_INCLUDED
-#define FRUITCUT_APP_STATES_RUNNING_HPP_INCLUDED
+#ifndef FRUITCUT_APP_STATES_PAUSED_HPP_INCLUDED
+#define FRUITCUT_APP_STATES_PAUSED_HPP_INCLUDED
 
 #include "ingame.hpp"
 #include "../events/render.hpp"
 #include "../events/tick.hpp"
 #include "../events/toggle_pause.hpp"
-#include <fcppt/signal/scoped_connection.hpp>
 #include <boost/statechart/state.hpp>
 #include <boost/statechart/custom_reaction.hpp>
 #include <boost/mpl/vector/vector10.hpp>
@@ -16,10 +15,10 @@ namespace app
 {
 namespace states
 {
-class running
+class paused
 :
 	// The second argument has to be a complete type
-	public boost::statechart::state<running,ingame>
+	public boost::statechart::state<paused,ingame>
 {
 public:
 	typedef
@@ -31,7 +30,7 @@ public:
 	>
 	reactions;
 	explicit
-	running(
+	paused(
 		my_context);
 
 	boost::statechart::result
@@ -46,7 +45,7 @@ public:
 	react(
 		events::toggle_pause const &);
 
-	~running();
+	~paused();
 };
 }
 }
