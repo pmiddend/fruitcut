@@ -37,6 +37,28 @@ namespace pp
 	Currently, "render_to_texture" is the only nullary filter. It gets a
 	render callback and calls this to render everything to a texture of
 	the specified size.
+
+	Internally, a graph is built with the filters as nodes and
+	dependencies as the edges. When update is called, the graph is
+	sorted topologically. Then, in this topological order, all nodes are
+	visited and filter::base::dispatch is called on them. This function
+	analyzes the internal texture queue. 
+
+	The size of this queue determines the arity of the filter. If it
+	contains no textures, dispatch casts to "nullary" and passes no
+	arguments. If it contains one texture, a cast to "unary" is made and
+	the single texture is passed, and so on. The internal queue is
+	emptied after the dispatch() call, which might lead to an unlock on
+	a texture which is now not referenced from any filter anymore.
+
+	The result from the dispatch call is put into the internal queues of
+	the successor filters, so the process can be repeated with those
+	nodes.
+
+	A filter can request a texture with a target attached from the
+	texture_manager. The texture_manager checks if a texture with the
+	desired size/filter and color format already exists and is not
+	locked. If none exists, a new one is created.
  */
 class system
 {
@@ -92,6 +114,10 @@ private:
 	typedef
 	boost::graph_traits<graph>::in_edge_iterator
 	in_edge_iterator;
+
+	typedef
+	boost::graph_traits<graph>::out_edge_iterator
+	out_edge_iterator;
 
 	typedef 
 	std::map

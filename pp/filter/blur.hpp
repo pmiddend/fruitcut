@@ -2,6 +2,8 @@
 #define FRUITCUT_PP_FILTER_BLUR_HPP_INCLUDED
 
 #include "unary.hpp"
+#include "../texture/manager_fwd.hpp"
+#include "../texture/counted_instance.hpp"
 #include <sge/renderer/target_ptr.hpp>
 #include <sge/renderer/texture_ptr.hpp>
 #include <sge/renderer/device_ptr.hpp>
@@ -9,6 +11,7 @@
 #include <sge/renderer/dim2.hpp>
 #include <sge/shader/object_ptr.hpp>
 #include <fcppt/container/array.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
 #include <cstddef>
 
 namespace fruitcut
@@ -29,26 +32,31 @@ public:
 	explicit	
 	blur(
 		sge::renderer::device_ptr,
+		texture::manager &,
 		sge::renderer::dim2 const &,
 		size_type iterations);
 
-	sge::renderer::texture_ptr const
+	texture::counted_instance const
 	apply(
-		sge::renderer::texture_ptr);
+		texture::counted_instance);
 
 	~blur();
 private:
+	typedef
+	fcppt::container::array<texture::counted_instance,2>
+	instance_array;
+
 	sge::renderer::device_ptr renderer_;
+	texture::manager &texture_manager_;
+	sge::renderer::dim2 const texture_size_;
 	size_type const iterations_;
 
-	// First textures, then targets!
-	fcppt::container::array<sge::renderer::texture_ptr,2> textures_;
-	fcppt::container::array<sge::renderer::target_ptr,2> targets_;
 	fcppt::container::array<sge::shader::object_ptr,2> shaders_;
 	fcppt::container::array<sge::renderer::vertex_buffer_ptr,2> quads_;
 
 	void
 	render(
+		instance_array &,
 		size_type);
 };
 }

@@ -2,6 +2,8 @@
 #include "../screen_vf/create_quad.hpp"
 #include "../screen_vf/format.hpp"
 #include "../../media_path.hpp"
+#include "../texture/instance.hpp"
+#include "../texture/manager.hpp"
 #include <sge/shader/vf_to_string.hpp>
 #include <sge/shader/sampler.hpp>
 #include <sge/shader/variable.hpp>
@@ -26,20 +28,15 @@
 
 fruitcut::pp::filter::ssaa::ssaa(
 	sge::renderer::device_ptr const _renderer,
-	sge::renderer::dim2 const &d)
+	texture::manager &_texture_manager,
+	sge::renderer::dim2 const &_texture_size)
 :
 	renderer_(
 		_renderer),
-	texture_(
-		renderer_->create_texture(
-			d,
-			sge::image::color::format::rgb8,
-			sge::renderer::filter::linear,
-			sge::renderer::resource_flags::none)),
-	target_(
-		renderer_->create_target(
-			texture_,
-			sge::renderer::no_depth_stencil_texture())),
+	texture_manager_(
+		_texture_manager),
+	texture_size_(
+		_texture_size),
 	shader_(
 		renderer_,
 		media_path()
@@ -54,7 +51,7 @@ fruitcut::pp::filter::ssaa::ssaa(
 				"texture_size",
 				sge::shader::variable_type::const_,
 				fcppt::math::dim::structure_cast<sge::renderer::vector2>(
-					d))),
+					texture_size_))),
 		fcppt::assign::make_container<sge::shader::sampler_sequence>(
 			sge::shader::sampler(
 				"tex",
@@ -66,13 +63,20 @@ fruitcut::pp::filter::ssaa::ssaa(
 {
 }
 
-sge::renderer::texture_ptr const
+fruitcut::pp::texture::counted_instance const
 fruitcut::pp::filter::ssaa::apply(
-	sge::renderer::texture_ptr const input)
+	fruitcut::pp::texture::counted_instance const input)
 {
 	shader_.update_texture(
 		"tex",
-		input);
+		input->texture());
+
+	texture::counted_instance const result = 
+		texture_manager_.query(
+			texture::descriptor(
+				texture_size_,
+				sge::image::color::format::rgb8,
+				sge::renderer::filter::linear));
 
 	sge::shader::scoped scoped_shader(
 		shader_);
@@ -83,7 +87,7 @@ fruitcut::pp::filter::ssaa::apply(
 
 	sge::renderer::scoped_target const scoped_target(
 		renderer_,
-		target_); 
+		result->target()); 
 
 	sge::renderer::scoped_block const block(
 		renderer_);
@@ -95,7 +99,7 @@ fruitcut::pp::filter::ssaa::apply(
 			quad_->size()),
 		sge::renderer::nonindexed_primitive_type::triangle);
 
-	return texture_;
+	return result;
 }
 
 fruitcut::pp::filter::ssaa::~ssaa()

@@ -2,6 +2,7 @@
 #define FRUITCUT_APP_POSTPROCESSING_HPP_INCLUDED
 
 #include "../pp/system.hpp"
+#include "../pp/texture/manager.hpp"
 #include "../pp/filter/render_to_texture.hpp"
 #include "../pp/filter/ssaa.hpp"
 #include "../pp/filter/highlight.hpp"
@@ -46,6 +47,7 @@ public:
 		bool);
 private:
 	pp::system system_;
+	pp::texture::manager texture_manager_;
 	pp::filter::render_to_texture rtt_filter_;
 	pp::filter::ssaa ssaa_filter_;
 	pp::filter::highlight highlight_filter_;

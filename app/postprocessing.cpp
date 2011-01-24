@@ -23,17 +23,22 @@ fruitcut::app::postprocessing::postprocessing(
 :
 	system_(
 		_renderer),
+	texture_manager_(
+		_renderer),
 	rtt_filter_(
 		_renderer,
+		texture_manager_,
 		fcppt::math::dim::structure_cast<sge::renderer::dim2>(
 			_renderer->screen_size()),
 		render_callback),
 	ssaa_filter_(
 		_renderer,
+		texture_manager_,
 		fcppt::math::dim::structure_cast<sge::renderer::dim2>(
 			_renderer->screen_size())),
 	highlight_filter_(
 		_renderer,
+		texture_manager_,
 		json::find_member<sge::renderer::dim2>(
 			config,
 			FCPPT_TEXT("bloom-size")),
@@ -42,6 +47,7 @@ fruitcut::app::postprocessing::postprocessing(
 			FCPPT_TEXT("highlight-threshold"))),
 	blur_filter_(
 		_renderer,
+		texture_manager_,
 		json::find_member<sge::renderer::dim2>(
 			config,
 			FCPPT_TEXT("bloom-size")),
@@ -50,10 +56,12 @@ fruitcut::app::postprocessing::postprocessing(
 			FCPPT_TEXT("bloom-iterations"))),
 	add_filter_(
 		_renderer,
+		texture_manager_,
 		fcppt::math::dim::structure_cast<sge::renderer::dim2>(
 			_renderer->screen_size())),
 	desaturate_filter_(
 		_renderer,
+		texture_manager_,
 		fcppt::math::dim::structure_cast<sge::renderer::dim2>(
 			_renderer->screen_size()),
 		static_cast<sge::renderer::scalar>(
@@ -70,12 +78,12 @@ fruitcut::app::postprocessing::postprocessing(
 	toggle_connection_(
 		console.insert(
 			SGE_FONT_TEXT_LIT("pptoggle"),
-			boost::bind(
-				&postprocessing::toggle_filter,
-				this,
-				_1,
-				_2),
-			SGE_FONT_TEXT_LIT("Toggle a specific filter")))
+				boost::bind(
+					&postprocessing::toggle_filter,
+					this,
+					_1,
+					_2),
+				SGE_FONT_TEXT_LIT("Toggle a specific filter")))
 {
 	system_.add_filter(
 		rtt_filter_,

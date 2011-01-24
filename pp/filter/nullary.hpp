@@ -2,7 +2,7 @@
 #define FRUITCUT_PP_FILTER_NULLARY_HPP_INCLUDED
 
 #include "base.hpp"
-#include <sge/renderer/texture_ptr.hpp>
+#include "../texture/counted_instance.hpp"
 
 namespace fruitcut
 {
@@ -15,7 +15,7 @@ class nullary
 	public base
 {
 public:
-	virtual sge::renderer::texture_ptr const
+	virtual texture::counted_instance const
 	apply() = 0;
 };
 }

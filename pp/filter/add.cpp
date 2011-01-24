@@ -1,6 +1,9 @@
 #include "add.hpp"
 #include "../screen_vf/create_quad.hpp"
 #include "../screen_vf/format.hpp"
+#include "../texture/instance.hpp"
+#include "../texture/manager.hpp"
+#include "../texture/descriptor.hpp"
 #include "../../media_path.hpp"
 #include <sge/shader/vf_to_string.hpp>
 #include <sge/shader/sampler.hpp>
@@ -19,28 +22,17 @@
 #include <sge/renderer/texture_ptr.hpp>
 #include <sge/renderer/filter/linear.hpp>
 #include <sge/renderer/vector2.hpp>
-#include <sge/renderer/resource_flags_none.hpp>
-#include <sge/renderer/no_depth_stencil_texture.hpp>
 #include <sge/image/color/format.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 
 fruitcut::pp::filter::add::add(
 	sge::renderer::device_ptr const _renderer,
-	sge::renderer::dim2 const &d)
+	texture::manager &_texture_manager,
+	sge::renderer::dim2 const &_dimension)
 :
 	renderer_(
 		_renderer),
-	texture_(
-		renderer_->create_texture(
-			d,
-			sge::image::color::format::rgb8,
-			sge::renderer::filter::linear,
-			sge::renderer::resource_flags::none)),
-	target_(
-		renderer_->create_target(
-			texture_,
-			sge::renderer::no_depth_stencil_texture())),
 	shader_(
 		renderer_,
 		media_path()
@@ -55,29 +47,33 @@ fruitcut::pp::filter::add::add(
 				"target_size",
 				sge::shader::variable_type::const_,
 				fcppt::math::dim::structure_cast<sge::renderer::vector2>(
-					d))),
+					dimension_))),
 		fcppt::assign::make_container<sge::shader::sampler_sequence>
 			(sge::shader::sampler("tex1",sge::renderer::texture_ptr()))
 			(sge::shader::sampler("tex2",sge::renderer::texture_ptr()))), 
 		quad_(
 			screen_vf::create_quad(
 				shader_,
-				renderer_))
+				renderer_)),
+	texture_manager_(
+		_texture_manager),
+	dimension_(
+		_dimension)
 {
 }
 
-sge::renderer::texture_ptr const
+fruitcut::pp::texture::counted_instance const
 fruitcut::pp::filter::add::apply(
-	sge::renderer::texture_ptr const input1,
-	sge::renderer::texture_ptr const input2)
+	texture::counted_instance const input1,
+	texture::counted_instance const input2)
 {
 	shader_.update_texture(
 		"tex1",
-		input1);
+		input1->texture());
 
 	shader_.update_texture(
 		"tex2",
-		input2);
+		input2->texture());
 
 	sge::shader::scoped scoped_shader(
 		shader_);
@@ -86,9 +82,16 @@ fruitcut::pp::filter::add::apply(
 		renderer_,
 		quad_);
 
+	texture::counted_instance const result = 
+		texture_manager_.query(
+			texture::descriptor(
+				dimension_,
+				sge::image::color::format::rgb8,
+				sge::renderer::filter::linear));
+
 	sge::renderer::scoped_target const scoped_target(
 		renderer_,
-		target_); 
+		result->target()); 
 
 	sge::renderer::scoped_block const block(
 		renderer_);
@@ -100,7 +103,7 @@ fruitcut::pp::filter::add::apply(
 			quad_->size()),
 		sge::renderer::nonindexed_primitive_type::triangle);
 
-	return texture_;
+	return result;
 }
 
 fruitcut::pp::filter::add::~add()

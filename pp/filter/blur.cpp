@@ -2,6 +2,9 @@
 #include "../screen_vf/create_quad.hpp"
 #include "../screen_vf/format.hpp"
 #include "../../media_path.hpp"
+#include "../texture/manager.hpp"
+#include "../texture/instance.hpp"
+#include "../texture/descriptor.hpp"
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/no_depth_stencil_texture.hpp>
 #include <sge/renderer/vector2.hpp>
@@ -30,33 +33,18 @@
 
 fruitcut::pp::filter::blur::blur(
 	sge::renderer::device_ptr const _renderer,
-	sge::renderer::dim2 const &texture_size,
+	texture::manager &_texture_manager,
+	sge::renderer::dim2 const &_texture_size,
 	size_type const _iterations)
 :
 	renderer_(
 		_renderer),
+	texture_manager_(
+		_texture_manager),
+	texture_size_(
+		_texture_size),
 	iterations_(
 		_iterations),
-	textures_(
-		fcppt::assign::make_array<sge::renderer::texture_ptr>
-			(renderer_->create_texture(
-					texture_size,
-					sge::image::color::format::rgb8,
-					sge::renderer::filter::linear,
-					sge::renderer::resource_flags::none))
-			(renderer_->create_texture(
-					texture_size,
-					sge::image::color::format::rgb8,
-					sge::renderer::filter::linear,
-					sge::renderer::resource_flags::none))),
-	targets_(
-		fcppt::assign::make_array<sge::renderer::target_ptr>
-			(renderer_->create_target(
-				textures_[1],
-				sge::renderer::no_depth_stencil_texture()))
-			(renderer_->create_target(
-				textures_[0],
-				sge::renderer::no_depth_stencil_texture()))),
 	shaders_(
 		fcppt::assign::make_array<sge::shader::object_ptr>
 			(sge::shader::object_ptr(
@@ -74,11 +62,11 @@ fruitcut::pp::filter::blur::blur(
 							"texture_size",
 							sge::shader::variable_type::const_,
 							fcppt::math::dim::structure_cast<sge::renderer::vector2>(
-								texture_size))),
+								texture_size_))),
 					fcppt::assign::make_container<sge::shader::sampler_sequence>(
 						sge::shader::sampler(
 							"tex",
-							textures_[0])))))
+							sge::renderer::texture_ptr())))))
 			(sge::shader::object_ptr(
 				new sge::shader::object(
 					renderer_,
@@ -94,11 +82,11 @@ fruitcut::pp::filter::blur::blur(
 							"texture_size",
 							sge::shader::variable_type::const_,
 							fcppt::math::dim::structure_cast<sge::renderer::vector2>(
-								texture_size))),
+								texture_size_))),
 					fcppt::assign::make_container<sge::shader::sampler_sequence>(
 						sge::shader::sampler(
 							"tex",
-							textures_[1])))))),
+							sge::renderer::texture_ptr())))))),
 	quads_(
 		fcppt::assign::make_array<sge::renderer::vertex_buffer_ptr>
 			(screen_vf::create_quad(
@@ -112,9 +100,9 @@ fruitcut::pp::filter::blur::blur(
 		iterations_);
 }
 
-sge::renderer::texture_ptr const
+fruitcut::pp::texture::counted_instance const
 fruitcut::pp::filter::blur::apply(
-	sge::renderer::texture_ptr const input)
+	texture::counted_instance const input)
 {
 	// Step 1: Set input texture of shader 0 to "input"
 	// Step 2: Render using shader 0 to texture 1 and blur
@@ -122,29 +110,51 @@ fruitcut::pp::filter::blur::apply(
 	// Step 4: Render using shader 1 to texture 0 and blur again
 	// Proceed as neccessary, just flipping between 1 and 0 and
 	// forgetting "input"
+
+	instance_array instances = 
+		{{
+			texture_manager_.query(
+				texture::descriptor(
+					texture_size_,
+					sge::image::color::format::rgb8,
+					sge::renderer::filter::linear)),
+			texture_manager_.query(
+				texture::descriptor(
+					texture_size_,
+					sge::image::color::format::rgb8,
+					sge::renderer::filter::linear))
+		}};
+
 	shaders_[0]->update_texture(
 		"tex",
-		input);
+		input->texture());
+	shaders_[1]->update_texture(
+		"tex",
+		instances[1]->texture());
 
 	render(
+		instances,
 		0);
 
 	shaders_[0]->update_texture(
 		"tex",
-		textures_[0]);
+		instances[0]->texture());
 
 	render(
+		instances,
 		1);
 
 	for(size_type i = 0; i < static_cast<size_type>(iterations_-1); ++i)
 	{
 		render(
+			instances,
 			0);
 		render(
+			instances,
 			1);
 	}
 
-	return textures_[0];
+	return instances[0];
 }
 
 fruitcut::pp::filter::blur::~blur()
@@ -153,6 +163,7 @@ fruitcut::pp::filter::blur::~blur()
 
 void
 fruitcut::pp::filter::blur::render(
+	instance_array &textures,
 	size_type const i)
 {
 	sge::shader::scoped scoped_shader(
@@ -164,7 +175,7 @@ fruitcut::pp::filter::blur::render(
 
 	sge::renderer::scoped_target const target_(
 		renderer_,
-		targets_[i]); 
+		textures[i]->target()); 
 
 	sge::renderer::scoped_block const block_(
 		renderer_);

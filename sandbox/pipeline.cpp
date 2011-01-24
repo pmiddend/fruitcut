@@ -5,6 +5,7 @@
 #include "../pp/filter/ssaa.hpp"
 #include "../pp/filter/render_to_texture.hpp"
 #include "../pp/filter/add.hpp"
+#include "../pp/texture/manager.hpp"
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
 #include <sge/window/instance.hpp>
@@ -275,7 +276,7 @@ try
 				sge::systems::input_helper_field(
 					sge::systems::input_helper::keyboard_collector) |
 				sge::systems::input_helper::mouse_collector,
-				sge::systems::cursor_grab::automatic
+				sge::systems::cursor_option_field()
 			)
 		)
 		(sge::systems::parameterless::font)
@@ -492,9 +493,13 @@ try
 	fruitcut::pp::system postprocessing(
 		sys.renderer());
 
+	fruitcut::pp::texture::manager texture_manager(
+		sys.renderer());
+
 	// This is the data source
 	fruitcut::pp::filter::render_to_texture rtt_filter(
 		sys.renderer(),
+		texture_manager,
 		fcppt::math::dim::structure_cast<sge::renderer::dim2>(
 			sys.renderer()->screen_size()),
 		boost::bind(
@@ -506,11 +511,13 @@ try
 
 	fruitcut::pp::filter::ssaa ssaa_filter(
 		sys.renderer(),
+		texture_manager,
 		fcppt::math::dim::structure_cast<sge::renderer::dim2>(
 			sys.renderer()->screen_size()));
 
 	fruitcut::pp::filter::highlight highlight_filter(
 		sys.renderer(),
+		texture_manager,
 		sge::renderer::dim2(
 			512,
 			512),
@@ -518,6 +525,7 @@ try
 
 	fruitcut::pp::filter::blur blur_filter(
 		sys.renderer(),
+		texture_manager,
 		sge::renderer::dim2(
 			512,
 			512),
@@ -525,6 +533,7 @@ try
 
 	fruitcut::pp::filter::add add_filter(
 		sys.renderer(),
+		texture_manager,
 		fcppt::math::dim::structure_cast<sge::renderer::dim2>(
 			sys.renderer()->screen_size()));
 

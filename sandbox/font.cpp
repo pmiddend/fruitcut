@@ -112,12 +112,10 @@ try
 {
 	sge::systems::instance const sys(
 		sge::systems::list()
-		(
-			sge::systems::window(
+		(sge::systems::window(
 				sge::renderer::window_parameters(
 					FCPPT_TEXT("sge animtest"))))
-		(
-			sge::systems::renderer(
+		(sge::systems::renderer(
 				sge::renderer::parameters(
 					sge::renderer::display_mode(
 						sge::renderer::screen_size(
@@ -131,13 +129,11 @@ try
 					sge::renderer::vsync::on,
 					sge::renderer::no_multi_sampling),
 				sge::systems::viewport::manage_resize()))
-		(
-			sge::systems::input(
+		(sge::systems::input(
 				sge::systems::input_helper_field(
 					sge::systems::input_helper::keyboard_collector),
-				sge::systems::cursor_grab::off))
-		(
-			sge::systems::image_loader(
+				sge::systems::cursor_option_field()))
+		(sge::systems::image_loader(
 				sge::image::capabilities_field::null(),
 				fcppt::assign::make_container<sge::extension_set>(
 					FCPPT_TEXT("png")))));

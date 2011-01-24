@@ -2,7 +2,7 @@
 #define FRUITCUT_PP_FILTER_BINARY_HPP_INCLUDED
 
 #include "base.hpp"
-#include <sge/renderer/texture_ptr.hpp>
+#include "../texture/counted_instance.hpp"
 
 namespace fruitcut
 {
@@ -15,10 +15,10 @@ class binary
 	public base
 {
 public:
-	virtual sge::renderer::texture_ptr const
+	virtual texture::counted_instance const
 	apply(
-		sge::renderer::texture_ptr,
-		sge::renderer::texture_ptr) = 0;
+		texture::counted_instance,
+		texture::counted_instance) = 0;
 };
 }
 }

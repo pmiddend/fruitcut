@@ -11,6 +11,7 @@
 #include "../events/toggle_mode.hpp"
 #include "../events/render.hpp"
 #include <sge/camera/parameters.hpp>
+#include <sge/camera/identity_gizmo.hpp>
 #include <sge/camera/projection/perspective.hpp>
 #include <sge/font/system.hpp>
 #include <sge/font/text/lit.hpp>
@@ -148,7 +149,7 @@ fruitcut::sandbox::cut_test::states::ingame::ingame(
 			fruitcut::json::find_member<sge::renderer::scalar>(
 				context<machine>().config_file(),
 				FCPPT_TEXT("graphics/camera/rotation-speed")),
-			sge::renderer::vector3::null(),
+			sge::camera::identity_gizmo(),
 			input_states_[input_states::freelook],
 			input_states_[input_states::freelook])),
 	console_(

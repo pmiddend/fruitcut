@@ -6,6 +6,8 @@
 #include "screen_vf/format.hpp"
 #include "screen_vf/create_quad.hpp"
 #include "../media_path.hpp"
+#include "texture/counted_instance.hpp"
+#include "texture/instance.hpp"
 #include <sge/renderer/dim2.hpp>
 #include <sge/renderer/filter/linear.hpp>
 #include <sge/renderer/resource_flags_none.hpp>
@@ -93,6 +95,42 @@ fruitcut::pp::system::update()
 	// No filters found...
 	if (sorted.empty())
 		return;
+	
+	BOOST_FOREACH(
+		vertex_list::const_reference current_vertex,
+		sorted)
+	{
+		texture::counted_instance const result = 
+			vertex_to_filter_[current_vertex].filter().dispatch();
+
+		BOOST_FOREACH(
+			out_edge_iterator::value_type r,
+			boost::out_edges(
+				current_vertex,
+				graph_))
+		{
+			vertex_to_filter_[boost::target(r,graph_)].filter().enqueue(
+				result);
+		}
+	}
+
+	result_texture_ = 
+		vertex_to_filter_[sorted.back()].filter().textures_.front()->texture();
+#if 0
+	typedef
+	std::list<vertex_descriptor>
+	vertex_list;
+
+	vertex_list sorted;
+
+	boost::topological_sort(
+		graph_,
+		std::front_inserter(
+			sorted));
+
+	// No filters found...
+	if (sorted.empty())
+		return;
 
 	// We store the result of the filters in this map.
 	typedef
@@ -103,22 +141,26 @@ fruitcut::pp::system::update()
 	>
 	filter_result;
 
+	typedef
+	std::set
+	<
+		vertex_descriptor,
+		bool
+	>
+	filter_done;
+
 	filter_result filter_result_;
+	filter_done filter_done_;
 
 	BOOST_FOREACH(
 		vertex_list::const_reference current_vertex,
 		sorted)
 	{
+		// Get the current node's predecessors
 		std::pair<in_edge_iterator,in_edge_iterator> ie = 
 			boost::in_edges(
 				current_vertex,
 				graph_);
-
-		// This might be a bit pedantic. "sorted" is created by
-		// topological_search, which should only output elements which are
-		// in the graph
-		FCPPT_ASSERT(
-			vertex_to_filter_.find(current_vertex) != vertex_to_filter_.end());
 
 		filter::wrapper const &current_filter = 
 			vertex_to_filter_[current_vertex];
@@ -126,6 +168,7 @@ fruitcut::pp::system::update()
 		// This try catches bad_casts from the double-dispatch
 		try
 		{
+			// No predecessors, has to a nullary filter
 			if (ie.first == ie.second)
 			{
 				// This is a bit controversial: Should it be possible to
@@ -209,6 +252,45 @@ fruitcut::pp::system::update()
 						FCPPT_TEXT("The filter ")+
 						current_filter.name()+
 						FCPPT_TEXT(" has more than 3 dependencies, that's not possible"));
+			
+			filter_done_.insert(
+				current_vertex);
+
+			// Iterate over all predecessors, check if their out edges are
+			// all finished. If so, clean up the textures
+			BOOST_FOREACH(in_edge_iterator::value_type r,ie)
+			{
+				vertex_descriptor const 
+					pred_of_current = 
+						boost::source(
+							r,
+							graph_);
+
+				bool all_done = true;
+				BOOST_FOREACH(
+					out_edge_iterator::value_type r,
+					boost::out_edges(
+						pred_of_current,
+						graph_))
+				{
+					vertex_descriptor const from_pred =  
+						boost::target(
+							r,
+							graph_);
+
+					if (filter_done_.find(from_pred) == filter_done_.end())
+					{
+						all_done = false;
+						break;
+					}
+				}
+
+				// Not all predecessors are done, so we can't release the texture.
+				if (!all_done)
+					continue;
+
+				vertex_to_filter_[pred_of_current].filter().release_textures();
+			}
 		}
 		catch (std::bad_cast const &)
 		{
@@ -222,6 +304,7 @@ fruitcut::pp::system::update()
 
 	result_texture_ = 
 		filter_result_[sorted.back()];
+#endif
 }
 
 sge::renderer::texture_ptr const

@@ -2,11 +2,12 @@
 #define FRUITCUT_PP_FILTER_ADD_HPP_INCLUDED
 
 #include "binary.hpp"
-#include <sge/renderer/texture_ptr.hpp>
-#include <sge/renderer/target_ptr.hpp>
+#include "../texture/counted_instance.hpp"
+#include "../texture/manager_fwd.hpp"
 #include <sge/renderer/vertex_buffer_ptr.hpp>
 #include <sge/renderer/dim2.hpp>
 #include <sge/shader/object.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
 
 namespace fruitcut
 {
@@ -22,20 +23,21 @@ public:
 	explicit
 	add(
 		sge::renderer::device_ptr,
+		texture::manager &,
 		sge::renderer::dim2 const &);
 
-	sge::renderer::texture_ptr const
+	texture::counted_instance const
 	apply(
-		sge::renderer::texture_ptr,
-		sge::renderer::texture_ptr);
+		texture::counted_instance,
+		texture::counted_instance);
 
 	~add();
 private:
 	sge::renderer::device_ptr renderer_;
-	sge::renderer::texture_ptr texture_;
-	sge::renderer::target_ptr target_;
 	sge::shader::object shader_;
 	sge::renderer::vertex_buffer_ptr quad_;
+	texture::manager &texture_manager_;
+	sge::renderer::dim2 dimension_;
 };
 }
 }

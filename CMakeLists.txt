@@ -115,6 +115,10 @@ SET(files
 	pp/filter/desaturate.cpp
 	pp/filter/add.cpp
 	pp/system.cpp
+	pp/texture/descriptor.cpp
+	pp/texture/filter_wrapper.cpp
+	pp/texture/manager.cpp
+	pp/texture/instance.cpp
 	pp/filter/blur.cpp
 	pp/filter/ssaa.cpp
 	pp/screen_vf/create_quad.cpp
