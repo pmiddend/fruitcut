@@ -27,6 +27,15 @@ public:
 	query(
 		descriptor const &);
 
+	// This is used in situations where you want the output of one
+	// filter chain to be the input of another filter chain without
+	// losing the first result. You just hold a reference to the
+	// original and fire up the second filter chain which will then not
+	// use the locked texture.
+	counted_instance const
+	query(
+		sge::renderer::texture_ptr);
+
 	~manager();
 private:
 	typedef

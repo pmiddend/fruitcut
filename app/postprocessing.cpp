@@ -14,6 +14,7 @@
 #include <fcppt/assign/make_container.hpp>
 #include <boost/bind.hpp>
 #include <boost/foreach.hpp>
+#include <iostream>
 
 fruitcut::app::postprocessing::postprocessing(
 	sge::renderer::device_ptr const &_renderer,
@@ -132,7 +133,16 @@ fruitcut::app::postprocessing::update()
 void
 fruitcut::app::postprocessing::render_result()
 {
-	system_.render_result();
+	if (active_)
+		system_.render_result();
+}
+
+fruitcut::pp::texture::counted_instance const
+fruitcut::app::postprocessing::result_texture()
+{
+	return 
+		texture_manager_.query(
+			system_.result_texture());
 }
 
 fruitcut::pp::filter::desaturate &
@@ -141,10 +151,10 @@ fruitcut::app::postprocessing::desaturate_filter()
 	return desaturate_filter_;
 }
 
-sge::renderer::texture_ptr const
-fruitcut::app::postprocessing::result_texture()
+fruitcut::pp::texture::manager &
+fruitcut::app::postprocessing::texture_manager()
 {
-	return system_.result_texture();
+	return texture_manager_;
 }
 
 void

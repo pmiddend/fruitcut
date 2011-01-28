@@ -10,7 +10,6 @@
 #include <sge/window/instance.hpp>
 #include <sge/sprite/parameters_impl.hpp>
 #include <sge/systems/audio_player_default.hpp>
-#include <sge/systems/cursor_grab.hpp>
 #include <sge/systems/list.hpp>
 #include <sge/audio/scalar.hpp>
 #include <sge/audio/player.hpp>

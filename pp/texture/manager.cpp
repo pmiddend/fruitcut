@@ -6,6 +6,9 @@
 #include <sge/renderer/no_depth_stencil_texture.hpp>
 #include <boost/range/iterator_range.hpp>
 #include <boost/bind.hpp>
+#include <fcppt/assert.hpp>
+#include <fcppt/assert_message.hpp>
+#include <fcppt/text.hpp>
 #include <utility>
 #include <memory>
 
@@ -76,6 +79,34 @@ fruitcut::pp::texture::manager::query(
 				&instance::locked,
 				_1,
 				false));
+}
+
+fruitcut::pp::texture::counted_instance const
+fruitcut::pp::texture::manager::query(
+	sge::renderer::texture_ptr const t)
+{
+	FCPPT_ASSERT(
+		t);
+
+	for (texture_map::iterator i = textures_.begin(); i != textures_.end(); ++i)
+	{
+		if (i->second->texture() == t)
+		{
+			i->second->locked(
+				true);
+			return 
+				counted_instance(
+					*(i->second),
+					boost::bind(
+						&instance::locked,
+						_1,
+						false));
+		}
+	}
+
+	FCPPT_ASSERT_MESSAGE(
+		false,
+		FCPPT_TEXT("Tried to lock a texture which isn't there!"));
 }
 
 fruitcut::pp::texture::manager::~manager()
