@@ -89,6 +89,7 @@ fruitcut::pp::texture::counted_instance const
 fruitcut::pp::filter::desaturate::apply(
 	fruitcut::pp::texture::counted_instance const input)
 {
+	//std::cout << "desaturate::apply\n";
 	shader_.update_texture(
 		"tex",
 		input->texture());

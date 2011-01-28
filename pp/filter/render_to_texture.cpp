@@ -7,6 +7,7 @@
 #include <sge/renderer/filter/linear.hpp>
 #include <sge/renderer/scoped_target.hpp>
 #include <sge/renderer/scoped_block.hpp>
+#include <fcppt/io/cout.hpp>
 #include <iostream>
 
 fruitcut::pp::filter::render_to_texture::render_to_texture(
@@ -29,6 +30,7 @@ fruitcut::pp::filter::render_to_texture::render_to_texture(
 fruitcut::pp::texture::counted_instance const
 fruitcut::pp::filter::render_to_texture::apply()
 {
+	//std::cerr << "rtt::apply\n";
 	texture::counted_instance const result = 
 		texture_manager_.query(
 			texture::descriptor(

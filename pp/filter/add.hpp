@@ -34,10 +34,10 @@ public:
 	~add();
 private:
 	sge::renderer::device_ptr renderer_;
+	sge::renderer::dim2 dimension_;
 	sge::shader::object shader_;
 	sge::renderer::vertex_buffer_ptr quad_;
 	texture::manager &texture_manager_;
-	sge::renderer::dim2 dimension_;
 };
 }
 }

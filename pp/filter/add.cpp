@@ -33,6 +33,8 @@ fruitcut::pp::filter::add::add(
 :
 	renderer_(
 		_renderer),
+	dimension_(
+		_dimension),
 	shader_(
 		renderer_,
 		media_path()
@@ -56,9 +58,7 @@ fruitcut::pp::filter::add::add(
 				shader_,
 				renderer_)),
 	texture_manager_(
-		_texture_manager),
-	dimension_(
-		_dimension)
+		_texture_manager)
 {
 }
 

@@ -91,7 +91,9 @@ counted_reference<T>::counted_reference(
 	ptr_(
 		other.ptr_),
 	count_(
-		other.count_)
+		other.count_),
+	deleter_(
+		other.deleter_)
 {
 	++(*count_);
 }
@@ -112,6 +114,7 @@ counted_reference<T>::operator=(
 		dispose();
 		ptr_ = other.ptr_;
 		count_ = other.count_;
+		deleter_ = other.deleter_;
 		++(*count_);
 	}
 	return *this;
@@ -132,8 +135,10 @@ counted_reference<T>::dispose()
 	if (--(*count_) == 0u)
 	{
 		if (deleter_ && ptr_)
+		{
 			deleter_(
 				*ptr_);
+		}
 		delete count_;
 	}
 }
