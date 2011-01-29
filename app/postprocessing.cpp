@@ -137,12 +137,11 @@ fruitcut::app::postprocessing::render_result()
 		system_.render_result();
 }
 
-fruitcut::pp::texture::counted_instance const
+sge::renderer::texture_ptr const
 fruitcut::app::postprocessing::result_texture()
 {
 	return 
-		texture_manager_.query(
-			system_.result_texture());
+		system_.result_texture();
 }
 
 fruitcut::pp::filter::desaturate &

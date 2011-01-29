@@ -113,6 +113,7 @@ SET(files
 	pp/filter/render_to_texture.cpp
 	pp/filter/highlight.cpp
 	pp/filter/desaturate.cpp
+	pp/filter/inject_texture.cpp
 	pp/filter/add.cpp
 	pp/system.cpp
 	pp/texture/descriptor.cpp

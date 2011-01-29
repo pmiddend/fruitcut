@@ -9,8 +9,8 @@
 #include "../pp/filter/blur.hpp"
 #include "../pp/filter/add.hpp"
 #include "../pp/filter/desaturate.hpp"
-#include "../pp/texture/counted_instance.hpp"
 #include <sge/renderer/device_ptr.hpp>
+#include <sge/renderer/texture_ptr.hpp>
 #include <sge/console/object_fwd.hpp>
 #include <sge/console/arg_list.hpp>
 #include <sge/parse/json/object_fwd.hpp>
@@ -37,7 +37,7 @@ public:
 	void
 	render_result();
 
-	pp::texture::counted_instance const
+	sge::renderer::texture_ptr const
 	result_texture();
 
 	pp::filter::desaturate &

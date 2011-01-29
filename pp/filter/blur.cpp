@@ -130,7 +130,7 @@ fruitcut::pp::filter::blur::apply(
 		input->texture());
 	shaders_[1]->update_texture(
 		"tex",
-		instances[1]->texture());
+		instances[0]->texture());
 
 	render(
 		instances,
@@ -138,7 +138,7 @@ fruitcut::pp::filter::blur::apply(
 
 	shaders_[0]->update_texture(
 		"tex",
-		instances[0]->texture());
+		instances[1]->texture());
 
 	render(
 		instances,
@@ -154,7 +154,7 @@ fruitcut::pp::filter::blur::apply(
 			1);
 	}
 
-	return instances[0];
+	return instances[1];
 }
 
 fruitcut::pp::filter::blur::~blur()

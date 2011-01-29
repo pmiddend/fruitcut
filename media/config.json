@@ -15,7 +15,7 @@
 	{
 		"bloom-size" : [512,512],
 		"highlight-threshold" : 0.7,
-		"bloom-iterations" : 3
+		"bloom-iterations" : 2
 	},
 	"sounds" : 
 	{
