@@ -62,7 +62,6 @@ boost::statechart::result
 fruitcut::app::states::paused::react(
 	events::render_overlay const &)
 {
-	context<machine>().particle_system().render();
 	system_.render_result();
 	return discard_event();
 }
@@ -71,7 +70,6 @@ boost::statechart::result
 fruitcut::app::states::paused::react(
 	events::tick const &)
 {
-	context<machine>().particle_system().update();
 	if(!blur_iterations_ || (blur_iterations_ < max_blur_iterations_ && blur_timer_.update_b()))
 	{
 		inject_texture_.texture(
