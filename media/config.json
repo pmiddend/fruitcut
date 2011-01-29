@@ -59,5 +59,10 @@
 				{ "time" : 0.0,"color" : [1.0,1.0,1.0,0.0] }
 			]
 	},
+	"paused" :
+	{
+		"max-blur-iterations" : 10,
+		"blur-frequency-secs" : 0.5
+	},
 	"test-model-texture" : "melon.png"
 }
