@@ -176,7 +176,7 @@ console_callback(
 	if (!e.pressed())
 		return;
 
-	switch (e.key().code())
+	switch (e.key_code())
 	{
 		case sge::input::keyboard::key_code::f1:
 			console_gfx_.active(

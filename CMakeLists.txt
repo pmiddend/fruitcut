@@ -37,6 +37,11 @@ INCLUDE_DIRECTORIES(${FCPPT_INCLUDE_DIRS})
 LINK_DIRECTORIES(${FCPPT_LIBRARY_DIRS})
 # fcppt end
 
+# bullet begin
+FIND_PACKAGE(Bullet REQUIRED)
+INCLUDE_DIRECTORIES(SYSTEM ${BULLET_INCLUDE_DIRS})
+# bullet end
+
 # sge begin
 FIND_PACKAGE(
 	SGE REQUIRED)
@@ -130,6 +135,12 @@ SET(files
 	particle/objects/permanent_sprite.cpp
 	particle/sprite/render_flipped.cpp
 	particle/point_sprite/render_flipped.cpp
+	# physics
+	physics/world.cpp
+	physics/debug_drawer.cpp
+	physics/rigid_body/parameters.cpp
+	physics/rigid_body/scoped_body.cpp
+	physics/rigid_body/object.cpp
 	# mesh
 	mesh_to_vertex_buffer.cpp model_to_mesh.cpp cut_mesh.cpp)
 
@@ -286,6 +297,7 @@ TARGET_LINK_LIBRARIES(
 	${SGE_CAMERA_LIBRARY}
 	${SGE_PARSE_LIBRARY}
 	${SGE_FONTTEXT_LIBRARY}
+	${BULLET_LIBRARIES}
 	${SGE_FONTBITMAP_LIBRARY}
 	${SGE_SPRITE_LIBRARY}
 	${Boost_LIBRARIES})

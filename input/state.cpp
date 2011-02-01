@@ -42,6 +42,13 @@ fruitcut::input::state::key_repeat_callback(
 	return key_repeat_signal_.connect(e);
 }
 
+fcppt::signal::auto_connection
+fruitcut::input::state::char_callback(
+	sge::input::keyboard::char_callback const &e)
+{
+	return char_signal_.connect(e);
+}
+
 sge::input::keyboard::mod_state const
 fruitcut::input::state::mod_state() const
 {
@@ -66,6 +73,13 @@ fruitcut::input::state::key_repeat_callback_internal(
 	sge::input::keyboard::key_repeat_event const &e)
 {
 	key_repeat_signal_(e);
+}
+
+void
+fruitcut::input::state::char_callback_internal(
+	sge::input::keyboard::char_event const &e)
+{
+	char_signal_(e);
 }
 
 void

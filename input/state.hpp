@@ -7,8 +7,10 @@
 #include <sge/input/keyboard/key_function.hpp>
 #include <sge/input/keyboard/key_repeat_callback.hpp>
 #include <sge/input/keyboard/key_event_fwd.hpp>
+#include <sge/input/keyboard/char_callback.hpp>
 #include <sge/input/keyboard/key_repeat_event_fwd.hpp>
 #include <sge/input/keyboard/key_repeat_function.hpp>
+#include <sge/input/keyboard/char_function.hpp>
 #include <sge/input/keyboard/key_fwd.hpp>
 #include <sge/input/keyboard/mod_state.hpp>
 #include <sge/input/mouse/device.hpp>
@@ -49,10 +51,13 @@ public:
 	key_callback(
 		sge::input::keyboard::key_callback const &);
 
-	// NOT IMPLEMENTED YET!
 	fcppt::signal::auto_connection
 	key_repeat_callback(
 		sge::input::keyboard::key_repeat_callback const &);
+
+	fcppt::signal::auto_connection
+	char_callback(
+		sge::input::keyboard::char_callback const &);
 
 	// NOT IMPLEMENTED YET!
 	sge::input::keyboard::mod_state const
@@ -71,6 +76,10 @@ private:
 	key_repeat_signal;
 
 	typedef 
+	fcppt::signal::object<sge::input::keyboard::char_function> 
+	char_signal;
+
+	typedef 
 	fcppt::signal::object<sge::input::mouse::axis_function>
 	mouse_axis_signal;
 
@@ -80,6 +89,7 @@ private:
 
 	key_signal key_signal_;
 	key_repeat_signal key_repeat_signal_;
+	char_signal char_signal_;
 	mouse_axis_signal mouse_axis_signal_;
 	mouse_button_signal mouse_button_signal_;
 	state_manager &manager_;
@@ -92,6 +102,10 @@ private:
 	void
 	key_repeat_callback_internal(
 		sge::input::keyboard::key_repeat_event const &);
+
+	void
+	char_callback_internal(
+		sge::input::keyboard::char_event const &);
 
 	void
 	mouse_axis_callback_internal(
