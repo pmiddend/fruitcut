@@ -4,7 +4,6 @@
 #include <sge/input/keyboard/collector.hpp>
 #include <sge/input/mouse/collector.hpp>
 #include <sge/input/keyboard/key_event.hpp>
-#include <sge/input/keyboard/key.hpp>
 #include <fcppt/assert.hpp>
 #include <boost/bind.hpp>
 #include <iostream>
