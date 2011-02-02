@@ -1,5 +1,5 @@
-#ifndef FRUITCUT_TRIANGLE_HPP_INCLUDED
-#define FRUITCUT_TRIANGLE_HPP_INCLUDED
+#ifndef FRUITCUT_APP_TRIANGLE_HPP_INCLUDED
+#define FRUITCUT_APP_TRIANGLE_HPP_INCLUDED
 
 #include <sge/renderer/vector3.hpp>
 #include <sge/renderer/vector2.hpp>
@@ -7,6 +7,8 @@
 #include <fcppt/container/array.hpp>
 
 namespace fruitcut
+{
+namespace app
 {
 class triangle
 {
@@ -46,6 +48,7 @@ public:
 	{
 	}
 };
+}
 }
 
 #endif

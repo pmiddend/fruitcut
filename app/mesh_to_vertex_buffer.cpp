@@ -1,9 +1,9 @@
 #include "mesh_to_vertex_buffer.hpp"
 #include "mesh.hpp"
 #include "triangle.hpp"
-#include "model/vf/format.hpp"
-#include "model/vf/position.hpp"
-#include "model/vf/texcoord.hpp"
+#include "model_vf/format.hpp"
+#include "model_vf/position.hpp"
+#include "model_vf/texcoord.hpp"
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/vf/dynamic/make_format.hpp>
 #include <sge/renderer/size_type.hpp>
@@ -24,20 +24,20 @@ namespace
 typedef 
 sge::renderer::vf::view
 <
-	fruitcut::model::vf::format
+	fruitcut::model_vf::format
 > 
 vertex_view;
 }
 
 sge::renderer::vertex_buffer_ptr const
-fruitcut::mesh_to_vertex_buffer(
+fruitcut::app::mesh_to_vertex_buffer(
 	sge::renderer::device_ptr const renderer,
 	sge::shader::object &model_shader,
 	mesh const &m)
 {
 	sge::renderer::vertex_buffer_ptr const vb = 
 		renderer->create_vertex_buffer(
-			sge::renderer::vf::dynamic::make_format<model::vf::format>(),
+			sge::renderer::vf::dynamic::make_format<model_vf::format>(),
 			static_cast<sge::renderer::size_type>(
 				m.triangles.size() * 3),
 			sge::renderer::resource_flags::none);
@@ -65,17 +65,17 @@ fruitcut::mesh_to_vertex_buffer(
 		triangle const &t,
 		m.triangles)
 	{
-		(vb_it)->set<model::vf::position>(
+		(vb_it)->set<model_vf::position>(
 			t.vertices[0]);
-		(vb_it++)->set<model::vf::texcoord>(
+		(vb_it++)->set<model_vf::texcoord>(
 			t.texcoords[0]);
-		(vb_it)->set<model::vf::position>(
+		(vb_it)->set<model_vf::position>(
 			t.vertices[1]);
-		(vb_it++)->set<model::vf::texcoord>(
+		(vb_it++)->set<model_vf::texcoord>(
 			t.texcoords[1]);
-		(vb_it)->set<model::vf::position>(
+		(vb_it)->set<model_vf::position>(
 			t.vertices[2]);
-		(vb_it++)->set<model::vf::texcoord>(
+		(vb_it++)->set<model_vf::texcoord>(
 			t.texcoords[2]);
 	}
 

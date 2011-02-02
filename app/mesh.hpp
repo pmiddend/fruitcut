@@ -1,10 +1,12 @@
-#ifndef FRUITCUT_MESH_HPP_INCLUDED
-#define FRUITCUT_MESH_HPP_INCLUDED
+#ifndef FRUITCUT_APP_MESH_HPP_INCLUDED
+#define FRUITCUT_APP_MESH_HPP_INCLUDED
 
 #include "triangle.hpp"
 #include <vector>
 
 namespace fruitcut
+{
+namespace app
 {
 class mesh
 {
@@ -15,6 +17,7 @@ public:
 
 	triangle_sequence triangles;
 };
+}
 }
 
 #endif

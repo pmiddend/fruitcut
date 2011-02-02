@@ -38,6 +38,7 @@
 		"line-limit" : 1000
 	},
 	"test-model" : "melon.md3",
+	"test-model-texture" : "melon.png",
 	"audio-volume" : 1.0,
 	"intro" : 
 	{
@@ -64,5 +65,11 @@
 		"max-blur-iterations" : 10,
 		"blur-frequency-secs" : 0.5
 	},
-	"test-model-texture" : "melon.png"
+	"fruits" : 
+	[
+		{
+			"model" : "melon.md3",
+			"texture" : "melon.png"
+		}
+	]
 }

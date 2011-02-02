@@ -140,34 +140,32 @@ SET(files
 	physics/debug_drawer.cpp
 	physics/rigid_body/parameters.cpp
 	physics/rigid_body/scoped_body.cpp
-	physics/rigid_body/object.cpp
-	# mesh
-	mesh_to_vertex_buffer.cpp model_to_mesh.cpp cut_mesh.cpp)
+	physics/rigid_body/object.cpp)
 
 ADD_LIBRARY(
 	fruitcut_library STATIC ${files})
 
-ADD_EXECUTABLE(
-	cut_test
-	sandbox/cut_test/machine.cpp 
-	sandbox/cut_test/cut_test.cpp 
-	# events
-	sandbox/cut_test/events/tick.cpp
-	# states
-	sandbox/cut_test/states/ingame.cpp sandbox/cut_test/states/freelook.cpp sandbox/cut_test/states/cut.cpp)
+#ADD_EXECUTABLE(
+#	cut_test
+#	sandbox/cut_test/machine.cpp 
+#	sandbox/cut_test/cut_test.cpp 
+#	# events
+#	sandbox/cut_test/events/tick.cpp
+#	# states
+#	sandbox/cut_test/states/ingame.cpp sandbox/cut_test/states/freelook.cpp sandbox/cut_test/states/cut.cpp)
 
-TARGET_LINK_LIBRARIES(
-	cut_test
-	fruitcut_library
-	${FCPPT_LIBRARIES}
-	${SGE_CORE_LIBRARY}
-	${SGE_SHADER_LIBRARY}
-	${SGE_CONSOLE_LIBRARY}
-	${SGE_SYSTEMS_LIBRARY}
-	${SGE_CAMERA_LIBRARY}
-	${SGE_PARSE_LIBRARY}
-	${SGE_SPRITE_LIBRARY}
-	${Boost_LIBRARIES})
+#TARGET_LINK_LIBRARIES(
+#	cut_test
+#	fruitcut_library
+#	${FCPPT_LIBRARIES}
+#	${SGE_CORE_LIBRARY}
+#	${SGE_SHADER_LIBRARY}
+#	${SGE_CONSOLE_LIBRARY}
+#	${SGE_SYSTEMS_LIBRARY}
+#	${SGE_CAMERA_LIBRARY}
+#	${SGE_PARSE_LIBRARY}
+#	${SGE_SPRITE_LIBRARY}
+#	${Boost_LIBRARIES})
 
 ADD_EXECUTABLE(
 	trail_test
@@ -277,10 +275,15 @@ TARGET_LINK_LIBRARIES(
 ADD_EXECUTABLE(
 	app
 	app/fruitcut.cpp
+	app/fruit_prototype.cpp
+	app/fruit.cpp
 	app/machine.cpp 
 	app/postprocessing.cpp 
 	app/name.cpp
 	app/events/tick.cpp
+	app/mesh_to_shape.cpp
+	app/model_to_mesh.cpp
+	app/mesh_to_vertex_buffer.cpp
 	app/states/intro.cpp
 	app/states/ingame.cpp
 	app/states/paused.cpp

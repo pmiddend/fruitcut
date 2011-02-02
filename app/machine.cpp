@@ -126,6 +126,7 @@ fruitcut::app::machine::machine(
 					//(FCPPT_TEXT("ogg"))
 					(FCPPT_TEXT("wav"))))
 			(sge::systems::parameterless::font) 	
+			(sge::systems::parameterless::md3_loader) 	
 			(sge::systems::image_loader(
 					sge::image::capabilities_field::null(),
 					fcppt::assign::make_container<sge::extension_set>

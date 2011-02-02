@@ -3,8 +3,10 @@
 
 #include "../machine.hpp"
 #include "running_fwd.hpp"
+#include "../fruit_prototype.hpp"
 #include <fcppt/signal/scoped_connection.hpp>
 #include <boost/statechart/state.hpp>
+#include <vector>
 
 namespace fruitcut
 {
@@ -25,7 +27,12 @@ public:
 
 	~ingame();
 private:
+	typedef
+	std::vector<fruit_prototype>
+	prototype_sequence;
+
 	fcppt::signal::scoped_connection toggle_pause_connection_;
+	prototype_sequence prototypes_;
 };
 }
 }

@@ -9,9 +9,10 @@
 #include <fcppt/assert.hpp>
 #include <fcppt/string.hpp>
 #include <boost/foreach.hpp>
+#include <boost/next_prior.hpp>
 
-fruitcut::mesh const
-fruitcut::model_to_mesh(
+fruitcut::app::mesh const
+fruitcut::app::model_to_mesh(
 	sge::model::object_ptr const model)
 {
 	mesh result;

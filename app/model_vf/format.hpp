@@ -8,9 +8,7 @@
 
 namespace fruitcut
 {
-namespace model
-{
-namespace vf
+namespace model_vf
 {
 typedef 
 sge::renderer::vf::format
@@ -22,7 +20,6 @@ sge::renderer::vf::format
 	>
 > 
 format;
-}
 }
 }
 
