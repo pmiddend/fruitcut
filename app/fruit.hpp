@@ -12,7 +12,9 @@
 #include <sge/renderer/texture_ptr.hpp>
 #include <sge/renderer/device_ptr.hpp>
 #include <sge/renderer/texture_ptr.hpp>
+#include <sge/renderer/matrix4.hpp>
 #include <sge/shader/object_fwd.hpp>
+#include <fcppt/math/matrix/basic_impl.hpp>
 #include <fcppt/noncopyable.hpp>
 
 namespace fruitcut
@@ -30,12 +32,20 @@ public:
 		physics::world &,
 		sge::renderer::device_ptr,
 		sge::shader::object &,
-		sge::renderer::texture_ptr,
 		physics::scalar mass,
 		physics::vector3 const &position,
 		physics::matrix4 const &transformation,
 		physics::vector3 const &linear_velocity);
 
+	sge::renderer::vertex_buffer_ptr const
+	vb() const;
+
+	sge::renderer::texture_ptr const
+	texture() const;
+
+	sge::renderer::matrix4 const
+	world_transform() const;
+	
 	~fruit();
 private:
 	mesh mesh_;

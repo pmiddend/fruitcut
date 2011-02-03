@@ -1,5 +1,7 @@
 #include "running.hpp"
 #include "paused.hpp"
+#include "../events/tick.hpp"
+#include "../../physics/world.hpp"
 #include <iostream>
 
 fruitcut::app::states::running::running(
@@ -29,9 +31,11 @@ fruitcut::app::states::running::react(
 
 boost::statechart::result
 fruitcut::app::states::running::react(
-	events::tick const &)
+	events::tick const &d)
 {
 	context<machine>().particle_system().update();
+	context<ingame>().physics_world().update(
+		d.delta());
 	return discard_event();
 }
 

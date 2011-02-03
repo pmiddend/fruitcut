@@ -65,6 +65,17 @@
 		"max-blur-iterations" : 10,
 		"blur-frequency-secs" : 0.5
 	},
+	"ingame" :
+	{
+		"camera" : 
+		{
+			"fov" : 60.0,
+			"near" : 0.1,
+			"far" : 10.0,
+			"movement-speed" : 0.3,
+			"mouse-speed" : 300.0
+		}
+	},
 	"fruits" : 
 	[
 		{

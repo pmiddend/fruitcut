@@ -12,7 +12,6 @@ fruitcut::app::fruit::fruit(
 	physics::world &_world,
 	sge::renderer::device_ptr const _renderer,
 	sge::shader::object &_shader,
-	sge::renderer::texture_ptr const _texture,
 	physics::scalar const _mass,
 	physics::vector3 const &_position,
 	physics::matrix4 const &_transformation,
@@ -36,8 +35,26 @@ fruitcut::app::fruit::fruit(
 			_shader,
 			mesh_)),
 	texture_(
-		_texture)
+		proto.texture())
 {
+}
+
+sge::renderer::vertex_buffer_ptr const
+fruitcut::app::fruit::vb() const
+{
+	return vb_;
+}
+
+sge::renderer::texture_ptr const
+fruitcut::app::fruit::texture() const
+{
+	return texture_;
+}
+
+sge::renderer::matrix4 const
+fruitcut::app::fruit::world_transform() const
+{
+	return body_.world_transform();
 }
 
 fruitcut::app::fruit::~fruit()
