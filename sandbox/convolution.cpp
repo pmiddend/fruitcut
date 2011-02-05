@@ -158,7 +158,7 @@ public:
 	void
 	update()
 	{
-		simple::update();
+		base::update();
 		
 		if (timer_.expired() && timer_.active())
 		{
