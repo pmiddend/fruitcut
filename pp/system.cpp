@@ -14,7 +14,6 @@
 #include <sge/renderer/scoped_target.hpp>
 #include <sge/renderer/scoped_block.hpp>
 #include <sge/renderer/device.hpp>
-#include <sge/renderer/no_depth_stencil_texture.hpp>
 #include <sge/shader/vf_to_string.hpp>
 #include <sge/shader/variable.hpp>
 #include <sge/shader/variable_type.hpp>

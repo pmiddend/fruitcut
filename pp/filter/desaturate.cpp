@@ -24,7 +24,6 @@
 #include <sge/renderer/filter/linear.hpp>
 #include <sge/renderer/vector2.hpp>
 #include <sge/renderer/resource_flags_none.hpp>
-#include <sge/renderer/no_depth_stencil_texture.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/text.hpp>

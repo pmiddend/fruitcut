@@ -49,6 +49,12 @@ fruitcut::input::state_manager::current_state() const
 	return current_state_;
 }
 
+fruitcut::input::state *
+fruitcut::input::state_manager::current_state()
+{
+	return current_state_;
+}
+
 fruitcut::input::state_manager::~state_manager()
 {
 }

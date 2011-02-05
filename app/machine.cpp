@@ -146,6 +146,8 @@ fruitcut::app::machine::machine(
 		input_manager_),
 	game_state_(
 		input_manager_),
+	previous_state_(
+		0),
 	console_object_(
 		SGE_FONT_TEXT_LIT('/')),
 	console_gfx_(
@@ -367,6 +369,13 @@ fruitcut::app::machine::game_input_state()
 	return game_state_;
 }
 
+fruitcut::input::state_manager &
+fruitcut::app::machine::input_manager()
+{
+	return input_manager_;
+}
+
+
 fruitcut::app::machine::~machine()
 {
 }
@@ -379,10 +388,14 @@ fruitcut::app::machine::console_switch()
 
 	if (console_gfx_.active())
 	{
+		previous_state_ = 
+			input_manager_.current_state();
 		input_manager_.current_state(
 			console_state_);
 	}
 	else
+	{
 		input_manager_.current_state(
-			game_state_);
+			*previous_state_);
+	}
 }

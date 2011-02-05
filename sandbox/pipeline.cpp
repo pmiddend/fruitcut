@@ -21,7 +21,6 @@
 #include <sge/renderer/state/list.hpp>
 #include <sge/renderer/state/var.hpp>
 #include <sge/renderer/state/trampoline.hpp>
-#include <sge/renderer/default_target.hpp>
 #include <sge/renderer/filter/linear.hpp>
 #include <sge/console/gfx.hpp>
 #include <sge/font/text/lit.hpp>
@@ -39,7 +38,6 @@
 #include <sge/console/sprite_parameters.hpp>
 #include <sge/sprite/parameters_impl.hpp>
 #include <sge/sprite/object.hpp>
-#include <sge/renderer/scoped_target.hpp>
 #include <sge/image/color/format.hpp>
 #include <sge/renderer/dim2.hpp>
 #include <sge/renderer/filter/point.hpp>
@@ -69,7 +67,6 @@
 #include <sge/texture/part_raw.hpp>
 #include <sge/exception.hpp>
 #include <sge/renderer/device.hpp>
-#include <sge/renderer/no_depth_stencil_texture.hpp>
 #include <sge/extension_set.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>

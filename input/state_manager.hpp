@@ -50,6 +50,10 @@ public:
 	state const *
 	current_state() const;
 
+	// Can, of course, be 0
+	state *
+	current_state();
+
 	~state_manager();
 private:
 	friend class state;

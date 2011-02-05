@@ -80,6 +80,9 @@ public:
 	input::state &
 	game_input_state();
 
+	input::state_manager &
+	input_manager();
+
 	~machine();
 private:
 	sge::parse::json::object const config_file_;
@@ -87,6 +90,7 @@ private:
 	sge::texture::manager texture_manager_;
 	input::state_manager input_manager_;
 	input::state console_state_,game_state_;
+	input::state *previous_state_;
 	sge::console::object console_object_;
 	sge::console::gfx console_gfx_;
 	fruitcut::app::postprocessing postprocessing_;

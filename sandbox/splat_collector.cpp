@@ -14,11 +14,11 @@
 #include <sge/renderer/scoped_target.hpp>
 #include <sge/renderer/scoped_block.hpp>
 #include <sge/renderer/scoped_vertex_buffer.hpp>
-#include <sge/renderer/no_depth_stencil_texture.hpp>
 #include <sge/texture/part_ptr.hpp>
 #include <sge/texture/part_raw.hpp>
 #include <sge/renderer/first_vertex.hpp>
 #include <sge/renderer/vertex_count.hpp>
+#include <sge/renderer/target_from_texture.hpp>
 #include <sge/renderer/nonindexed_primitive_type.hpp>
 #include <sge/image/color/format.hpp>
 #include <sge/shader/scoped.hpp>
@@ -54,13 +54,13 @@ fruitcut::sandbox::splat_collector::splat_collector(
 			sge::renderer::filter::point,
 			sge::renderer::resource_flags::none)),
 	texture_target_(
-		renderer_->create_target(
-			texture_,
-			sge::renderer::no_depth_stencil_texture())),
+		sge::renderer::target_from_texture(
+			renderer_,
+			texture_)),
 	temp_texture_target_(
-		renderer_->create_target(
-			temp_texture_,
-			sge::renderer::no_depth_stencil_texture())),
+		sge::renderer::target_from_texture(
+			renderer_,
+			temp_texture_)),
 	ss_(
 		renderer_),
 	background_(

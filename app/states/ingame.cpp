@@ -23,6 +23,7 @@
 #include <sge/renderer/nonindexed_primitive_type.hpp>
 #include <sge/renderer/matrix4.hpp>
 #include <sge/renderer/filter/linear.hpp>
+#include <sge/renderer/stage_type.hpp>
 #include <sge/shader/scoped.hpp>
 #include <sge/renderer/resource_flags_none.hpp>
 #include <sge/renderer/scoped_texture.hpp>
@@ -114,6 +115,8 @@ fruitcut::app::states::ingame::ingame(
 						&ingame::post_event),
 					this,
 					events::toggle_pause())))),
+	camera_state_(
+		context<machine>().input_manager()),
 	camera_(
 		sge::camera::parameters(
 			sge::camera::projection::perspective(
@@ -231,7 +234,9 @@ fruitcut::app::states::ingame::render_fruits()
 
 		sge::renderer::scoped_texture scoped_tex(
 			context<machine>().systems().renderer(),
-			i->texture());
+			i->texture(),
+			static_cast<sge::renderer::stage_type>(
+				0));
 
 		fruit_shader_.set_uniform(
 			"mvp",

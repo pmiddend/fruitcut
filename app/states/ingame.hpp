@@ -6,6 +6,7 @@
 #include "../fruit_prototype.hpp"
 #include "../fruit.hpp"
 #include "../../physics/world.hpp"
+#include "../../input/state.hpp"
 #include <sge/shader/object.hpp>
 #include <sge/camera/object.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
@@ -56,6 +57,7 @@ private:
 	fruit_sequence;
 
 	fcppt::signal::scoped_connection toggle_pause_connection_;
+	input::state camera_state_;
 	sge::camera::object camera_;
 	prototype_sequence prototypes_;
 	physics::world physics_world_;

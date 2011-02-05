@@ -6,7 +6,6 @@
 #include "../texture/instance.hpp"
 #include "../texture/descriptor.hpp"
 #include <sge/renderer/device.hpp>
-#include <sge/renderer/no_depth_stencil_texture.hpp>
 #include <sge/renderer/vector2.hpp>
 #include <sge/shader/vf_to_string.hpp>
 #include <sge/shader/sampler.hpp>

@@ -3,7 +3,7 @@
 #include "counted_instance.hpp"
 #include <sge/renderer/resource_flags_none.hpp>
 #include <sge/renderer/device.hpp>
-#include <sge/renderer/no_depth_stencil_texture.hpp>
+#include <sge/renderer/target_from_texture.hpp>
 #include <boost/range/iterator_range.hpp>
 #include <boost/bind.hpp>
 #include <fcppt/assert.hpp>
@@ -57,9 +57,9 @@ fruitcut::pp::texture::manager::query(
 			sge::renderer::resource_flags::none);
 
 	sge::renderer::target_ptr new_target = 
-		renderer_->create_target(
-			new_texture,
-			sge::renderer::no_depth_stencil_texture());
+		sge::renderer::target_from_texture(
+			renderer_,
+			new_texture);
 
 	// There are no matching textures? Gotta create a new one!
 	texture_map::iterator const result = 
