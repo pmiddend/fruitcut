@@ -10,6 +10,7 @@
 #include <sge/font/text/from_fcppt_string.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/system.hpp>
+#include <sge/renderer/glsl/scoped_program.hpp>
 #include <sge/renderer/scoped_block.hpp>
 #include <sge/renderer/state/list.hpp>
 #include <sge/renderer/state/var.hpp>
@@ -288,7 +289,7 @@ try
 		sge::systems::list()
 		(sge::systems::window(
 				sge::renderer::window_parameters(
-					FCPPT_TEXT("sge dopplertest"))))
+					FCPPT_TEXT("mouse cut test"))))
 		(sge::systems::renderer(
 				sge::renderer::parameters(
 					sge::renderer::display_mode(
@@ -305,7 +306,9 @@ try
 				sge::systems::input_helper_field(
 					sge::systems::input_helper::keyboard_collector) |
 				sge::systems::input_helper::mouse_collector,
-				sge::systems::cursor_option_field(sge::systems::cursor_option::confine) | sge::systems::cursor_option::hide))
+				sge::systems::cursor_option_field(
+					sge::systems::cursor_option::confine) 
+					| sge::systems::cursor_option::hide))
 		(sge::systems::image_loader(
 				sge::image::capabilities_field::null(),
 				fcppt::assign::make_container<sge::extension_set>( 
@@ -439,9 +442,9 @@ try
 					static_cast<sge::renderer::scalar>(
 						sys.renderer()->screen_size().w()),
 					static_cast<sge::renderer::scalar>(
-						0),
-					static_cast<sge::renderer::scalar>(
 						sys.renderer()->screen_size().h()),
+					static_cast<sge::renderer::scalar>(
+						0),
 					static_cast<sge::renderer::scalar>(
 						0),
 					static_cast<sge::renderer::scalar>(
@@ -477,6 +480,10 @@ try
 
 		if (sf.mouse_positions_.size() > 1)
 		{
+			sge::renderer::glsl::scoped_program scoped_shader(
+				sys.renderer(),
+				main_shader.program());
+
 			sge::renderer::scoped_vertex_lock const vblock(
 				vb,
 				sge::renderer::lock_mode::writeonly);
@@ -501,6 +508,10 @@ try
 		sge::renderer::scoped_block scoped_block(
 			sys.renderer());
 
+		render_callback(
+			ss,
+			sprites);
+
 		if (sf.mouse_positions_.size() > 1)
 		{
 			sge::renderer::scoped_vertex_buffer scoped_vb(
@@ -515,9 +526,6 @@ try
 				sge::renderer::nonindexed_primitive_type::line);
 		}
 
-		render_callback(
-			ss,
-			sprites);
 	}
 }
 catch(sge::exception const &e)

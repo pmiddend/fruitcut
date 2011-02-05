@@ -7,6 +7,7 @@
 #include <bullet/BulletDynamics/ConstraintSolver/btSequentialImpulseConstraintSolver.h>
 #include <bullet/BulletDynamics/Dynamics/btDiscreteDynamicsWorld.h>
 #include <fcppt/chrono/duration_cast.hpp>
+#include <fcppt/chrono/duration_impl.hpp>
 #include <fcppt/chrono/milliseconds.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
