@@ -1,5 +1,6 @@
 #include "../media_path.hpp"
 #include "../line_simplifier.hpp"
+#include "../line_drawer/object.hpp"
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
 #include <sge/window/instance.hpp>
@@ -315,10 +316,6 @@ try
 					FCPPT_TEXT("png")))));
 
 	sge::image2d::file_ptr const
-		image_bg(
-			sys.image_loader().load(
-				fruitcut::media_path()
-				/ FCPPT_TEXT("textures")/FCPPT_TEXT("bloom_test.png"))),
 		image_vectorer(
 			sys.image_loader().load(
 				sge::config::media_path()
@@ -338,10 +335,6 @@ try
 				sge::renderer::filter::linear)));
 
 	sge::texture::const_part_ptr const
-		tex_bg(
-			sge::texture::add_image(
-				tex_man,
-				image_bg)),
 		tex_vectorer(
 			sge::texture::add_image(
 				tex_man,
@@ -353,21 +346,6 @@ try
 
 	sprite_system ss(
 		sys.renderer());
-
-	sprite_object bg(
-		sprite_parameters()
-		.texture(
-			tex_bg)
-		.pos(
-			sprite_object::point::null() )
-		.size(
-			fcppt::math::dim::structure_cast<sprite_object::dim>(
-				screen_size))
-		.depth(
-			static_cast<sprite_object::depth_type>(
-				-2))
-		.default_color()
-		.elements());
 
 	sprite_object vectorer(
 		sprite_parameters()
@@ -431,6 +409,7 @@ try
 			(sge::renderer::state::bool_::clear_backbuffer = true)
 			(sge::renderer::state::color::clear_color = sge::image::colors::black()));
 
+	/*
 	sge::shader::object main_shader(
 		sys.renderer(),
 		fruitcut::media_path()/FCPPT_TEXT("shaders")/FCPPT_TEXT("line_vertex.glsl"),
@@ -454,9 +433,12 @@ try
 					static_cast<sge::renderer::scalar>(
 						10)))),
 		sge::shader::sampler_sequence());
+	*/
 
 	std::vector<sprite_object> sprites;
 
+	fruitcut::line_drawer::object ld(
+		sys.renderer());
 	
 	while(running)
 	{
@@ -465,8 +447,6 @@ try
 		sf.update();
 
 		sprites.clear();
-		sprites.push_back(
-			bg);
 		sprites.push_back(
 			vectorer);
 		sprites.push_back(
@@ -479,47 +459,23 @@ try
 		mouse_point_sequence ps = 
 			sf.simplifier_.simplify<mouse_point_sequence>();
 
-		sge::renderer::vertex_buffer_ptr vb = 
-			ps.size() <= 1
-			?
-				sge::renderer::vertex_buffer_ptr()
-			:
-				sys.renderer()->create_vertex_buffer(
-					sge::renderer::vf::dynamic::make_format<vertex_format>(),
-					static_cast<sge::renderer::size_type>(
-						//(ps.size() - 1) * 2),
-						ps.size()),
-					sge::renderer::resource_flags::none);
+		ld.lines().clear();
 
-		if (ps.size() > 1)
+		for (mouse_point_sequence::const_iterator it = ps.begin(); it != ps.end(); it += 2)
 		{
-			sge::renderer::glsl::scoped_program scoped_shader(
-				sys.renderer(),
-				main_shader.program());
-
-			sge::renderer::scoped_vertex_lock const vblock(
-				vb,
-				sge::renderer::lock_mode::writeonly);
-
-			vertex_view const vertices(
-				vblock.value());
-
-			vertex_view::iterator vb_it(
-				vertices.begin());
-
-			//for (mouse_point_sequence::iterator i = ps.begin(); i != boost::prior(ps.end()); ++i)
-			for (mouse_point_sequence::iterator i = ps.begin(); i != ps.end(); ++i)
-			{
-				(vb_it++)->set<vf_position>(
-					fcppt::math::vector::structure_cast<vf_position::packed_type>(
-						*i));
-				/*
-				(vb_it++)->set<vf_position>(
-					fcppt::math::vector::structure_cast<vf_position::packed_type>(
-						*boost::next(i)));
-				*/
-			}
+			ld.lines().push_back(
+				fruitcut::line_drawer::line(
+					sge::renderer::vector3(
+						(*it)[0],
+						(*it)[1],
+						0),
+					sge::renderer::vector3(
+						(*boost::next(it))[0],
+						(*boost::next(it))[1],
+						0)));
 		}
+
+		ld.update();
 
 		sge::renderer::scoped_block scoped_block(
 			sys.renderer());
@@ -528,20 +484,7 @@ try
 			ss,
 			sprites);
 
-		if (ps.size() > 1)
-		{
-			sge::renderer::scoped_vertex_buffer scoped_vb(
-				sys.renderer(),
-				vb);
-			sge::shader::scoped scoped_shader(
-				main_shader);
-			sys.renderer()->render(
-				sge::renderer::first_vertex(0),
-				sge::renderer::vertex_count(
-					vb->size()),
-				sge::renderer::nonindexed_primitive_type::line);
-		}
-
+		ld.render_screen_space();
 	}
 }
 catch(sge::exception const &e)

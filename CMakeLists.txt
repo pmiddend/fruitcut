@@ -26,6 +26,7 @@ FIND_PACKAGE(
 	system)
 
 INCLUDE_DIRECTORIES(SYSTEM ${Boost_INCLUDE_DIR})
+INCLUDE_DIRECTORIES(SYSTEM ${CMAKE_SOURCE_DIR}/geometry)
 LINK_DIRECTORIES(${Boost_LIBRARY_DIRS})
 # boost end
 
@@ -135,6 +136,9 @@ SET(files
 	particle/objects/permanent_sprite.cpp
 	particle/sprite/render_flipped.cpp
 	particle/point_sprite/render_flipped.cpp
+	# line drawer
+	line_drawer/object.cpp
+	line_drawer/line.cpp
 	# physics
 	physics/world.cpp
 	physics/debug_drawer.cpp
@@ -249,6 +253,15 @@ TARGET_LINK_LIBRARIES(
 	${SGE_time_LIBRARY}
 	${SGE_texture_LIBRARY}
 	${SGE_sprite_LIBRARY}
+	${Boost_LIBRARIES})
+
+ADD_EXECUTABLE(
+	geometry
+	sandbox/geometry.cpp)
+
+TARGET_LINK_LIBRARIES(
+	geometry
+	${FCPPT_LIBRARIES}
 	${Boost_LIBRARIES})
 
 ADD_EXECUTABLE(
