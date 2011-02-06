@@ -18,7 +18,7 @@ template<typename T>
 class animation
 {
 FCPPT_NONCOPYABLE(
-	animation)
+	animation);
 public:
 	typedef
 	std::pair

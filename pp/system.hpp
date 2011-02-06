@@ -62,7 +62,8 @@ namespace pp
  */
 class system
 {
-FCPPT_NONCOPYABLE(system)
+FCPPT_NONCOPYABLE(
+	system);
 public:
 	typedef
 	boost::unordered_set<fcppt::string>

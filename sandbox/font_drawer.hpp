@@ -38,7 +38,8 @@ class  font_drawer
 :
 	public sge::font::text::drawer
 {
-FCPPT_NONCOPYABLE(font_drawer)
+FCPPT_NONCOPYABLE(
+	font_drawer);
 public:
 	explicit
 	font_drawer(

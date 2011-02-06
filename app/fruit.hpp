@@ -24,7 +24,7 @@ namespace app
 class fruit
 {
 FCPPT_NONCOPYABLE(
-	fruit)
+	fruit);
 public:
 	explicit
 	fruit(

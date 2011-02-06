@@ -32,7 +32,8 @@ class state
 	public sge::input::mouse::device,
 	public sge::input::keyboard::device
 {
-FCPPT_NONCOPYABLE(state)
+FCPPT_NONCOPYABLE(
+	state);
 public:
 	explicit
 	state(

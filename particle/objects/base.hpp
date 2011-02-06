@@ -12,7 +12,7 @@ namespace objects
 class base
 {
 FCPPT_NONCOPYABLE(
-	base)
+	base);
 public:
 	explicit
 	base();

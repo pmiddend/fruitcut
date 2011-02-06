@@ -19,7 +19,7 @@ namespace rigid_body
 class object
 {
 FCPPT_NONCOPYABLE(
-	object)
+	object);
 public:
 	explicit
 	object(

@@ -28,8 +28,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/audio/file.hpp>
 #include <sge/audio/sound/base.hpp>
 #include <sge/audio/sound/positional.hpp>
+#include <sge/audio/sound/positional_parameters.hpp>
 #include <sge/audio/exception.hpp>
 #include <sge/audio/multi_loader.hpp>
+#include <sge/audio/vector.hpp>
 #include <sge/input/keyboard/action.hpp>
 #include <sge/input/keyboard/device.hpp>
 #include <sge/input/mouse/axis_event.hpp>
@@ -38,6 +40,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/exception.hpp>
 #include <sge/extension_set.hpp>
 #include <fcppt/assign/make_container.hpp>
+#include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/log/activate_levels.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <boost/lexical_cast.hpp>

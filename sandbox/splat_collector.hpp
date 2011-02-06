@@ -20,7 +20,8 @@ namespace sandbox
 {
 class splat_collector
 {
-FCPPT_NONCOPYABLE(splat_collector)
+FCPPT_NONCOPYABLE(
+	splat_collector);
 public:
 	explicit
 	splat_collector(

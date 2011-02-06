@@ -1,4 +1,5 @@
 #include "../media_path.hpp"
+#include "../line_simplifier.hpp"
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
 #include <sge/window/instance.hpp>
@@ -86,6 +87,7 @@
 #include <fcppt/nonassignable.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/math/matrix/orthogonal.hpp>
+#include <fcppt/math/deg_to_rad.hpp>
 #include <boost/spirit/home/phoenix/core/reference.hpp>
 #include <boost/spirit/home/phoenix/object/construct.hpp>
 #include <boost/spirit/home/phoenix/object/new.hpp>
@@ -171,18 +173,35 @@ typedef sge::sprite::object<
 class sprite_functor
 {
 public:
+	typedef 
+	fcppt::math::vector::static_<float,2>::type
+	float_point;
+
+	typedef
+	fruitcut::line_simplifier<boost::circular_buffer<float_point> >
+	simplifier;
+
+	simplifier simplifier_;
+
 	explicit 
 	sprite_functor(
 		sprite_object &_sprite,
-		sge::time::duration const &d)
+		sge::time::duration const &d,
+		unsigned positions,
+		float angle_threshold)
 	:
-		mouse_positions_(
-			30),
+		simplifier_(
+			boost::circular_buffer<float_point>(
+				positions),
+			0.001f,
+			fcppt::math::deg_to_rad(
+				angle_threshold)),
 		sprite_(
 			_sprite),
 		frame_timer_(
 			d)
-	{}
+	{
+	}
 
 	void
 	input_callback(
@@ -204,34 +223,15 @@ public:
 		}
 	}
 
-	typedef 
-	fcppt::math::vector::static_<float,2>::type
-	float_point;
-
-	typedef
-	boost::circular_buffer<float_point>
-	mouse_position_buffer;
-
-	mouse_position_buffer mouse_positions_;
-
 	void
 	update()
 	{
 		if (!frame_timer_.update_b())
 			return;
 
-		float_point const current_pos =
+		simplifier_.push_back(
 			fcppt::math::vector::structure_cast<float_point>(
-				sprite_.pos() + sprite_.size()/2);
-
-		if(
-			!mouse_positions_.empty() &&
-			fcppt::math::vector::length(
-				mouse_positions_.back() - current_pos) < static_cast<float_point::value_type>(0.001))
-			return;
-
-		mouse_positions_.push_back(
-			current_pos);
+				sprite_.pos() + sprite_.size()/2));
 	}
 private:
 	sprite_object &sprite_;
@@ -270,9 +270,9 @@ main(
 	char *argv[])
 try
 {
-	if (argc != 2)
+	if (argc != 4)
 	{
-		std::cerr << "usage: mouse_cut_test <timer-secs>\n";
+		std::cerr << "usage: mouse_cut_test <timer-secs> <angle-threshold> <mouse-positions>\n";
 		return EXIT_FAILURE;
 	}
 
@@ -413,7 +413,11 @@ try
 		vectorer,
 		sge::time::millisecond(
 			boost::lexical_cast<sge::time::unit>(
-				argv[1])));
+				argv[1])),
+		boost::lexical_cast<unsigned>(
+			argv[2]),
+		boost::lexical_cast<float>(
+			argv[3]));
 
 	fcppt::signal::scoped_connection const pc(
 		sys.mouse_collector()->axis_callback(
@@ -453,6 +457,7 @@ try
 
 	std::vector<sprite_object> sprites;
 
+	
 	while(running)
 	{
 		sys.window()->dispatch();
@@ -467,18 +472,26 @@ try
 		sprites.push_back(
 			tux);
 
+		typedef
+		std::vector < sprite_functor::simplifier::point >
+		mouse_point_sequence;
+
+		mouse_point_sequence ps = 
+			sf.simplifier_.simplify<mouse_point_sequence>();
+
 		sge::renderer::vertex_buffer_ptr vb = 
-			sf.mouse_positions_.size() <= 1
+			ps.size() <= 1
 			?
 				sge::renderer::vertex_buffer_ptr()
 			:
 				sys.renderer()->create_vertex_buffer(
 					sge::renderer::vf::dynamic::make_format<vertex_format>(),
 					static_cast<sge::renderer::size_type>(
-						(sf.mouse_positions_.size() - 1) * 2),
+						//(ps.size() - 1) * 2),
+						ps.size()),
 					sge::renderer::resource_flags::none);
 
-		if (sf.mouse_positions_.size() > 1)
+		if (ps.size() > 1)
 		{
 			sge::renderer::glsl::scoped_program scoped_shader(
 				sys.renderer(),
@@ -494,14 +507,17 @@ try
 			vertex_view::iterator vb_it(
 				vertices.begin());
 
-			for (sprite_functor::mouse_position_buffer::iterator i = sf.mouse_positions_.begin(); i != boost::prior(sf.mouse_positions_.end()); ++i)
+			//for (mouse_point_sequence::iterator i = ps.begin(); i != boost::prior(ps.end()); ++i)
+			for (mouse_point_sequence::iterator i = ps.begin(); i != ps.end(); ++i)
 			{
 				(vb_it++)->set<vf_position>(
 					fcppt::math::vector::structure_cast<vf_position::packed_type>(
 						*i));
+				/*
 				(vb_it++)->set<vf_position>(
 					fcppt::math::vector::structure_cast<vf_position::packed_type>(
 						*boost::next(i)));
+				*/
 			}
 		}
 
@@ -512,7 +528,7 @@ try
 			ss,
 			sprites);
 
-		if (sf.mouse_positions_.size() > 1)
+		if (ps.size() > 1)
 		{
 			sge::renderer::scoped_vertex_buffer scoped_vb(
 				sys.renderer(),

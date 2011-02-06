@@ -17,7 +17,8 @@ namespace texture
 {
 class manager
 {
-FCPPT_NONCOPYABLE(manager)
+FCPPT_NONCOPYABLE(
+	manager);
 public:
 	explicit
 	manager(

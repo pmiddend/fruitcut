@@ -20,7 +20,7 @@ namespace physics
 class world
 {
 FCPPT_NONCOPYABLE(
-	world)
+	world);
 public:
 	explicit
 	world(

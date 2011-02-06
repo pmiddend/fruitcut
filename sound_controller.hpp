@@ -35,9 +35,9 @@ namespace fruitcut
 /// isn't really appropriate
 class sound_controller
 {
-FCPPT_NONCOPYABLE(sound_controller)
+FCPPT_NONCOPYABLE(
+	sound_controller);
 public:
-
 	explicit 
 	sound_controller(
 		// This is just the "sounds" section of some global config file,
