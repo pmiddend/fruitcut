@@ -4,6 +4,8 @@
 #include <sge/renderer/resource_flags_none.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/target_from_texture.hpp>
+#include <sge/renderer/depth_stencil_format.hpp>
+#include <sge/renderer/target.hpp>
 #include <boost/range/iterator_range.hpp>
 #include <boost/bind.hpp>
 #include <fcppt/assert.hpp>
@@ -60,6 +62,30 @@ fruitcut::pp::texture::manager::query(
 		sge::renderer::target_from_texture(
 			renderer_,
 			new_texture);
+
+	switch (d.depth_stencil())
+	{
+		case depth_stencil_format::off:
+			break;
+		case depth_stencil_format::d16:
+			new_target->depth_stencil_surface(
+				renderer_->create_depth_stencil_surface(
+					d.size(),
+					sge::renderer::depth_stencil_format::d16));
+			break;
+		case depth_stencil_format::d32:
+			new_target->depth_stencil_surface(
+				renderer_->create_depth_stencil_surface(
+					d.size(),
+					sge::renderer::depth_stencil_format::d32));
+			break;
+		case depth_stencil_format::d24s8:
+			new_target->depth_stencil_surface(
+				renderer_->create_depth_stencil_surface(
+					d.size(),
+					sge::renderer::depth_stencil_format::d24s8));
+			break;
+	}
 
 	// There are no matching textures? Gotta create a new one!
 	texture_map::iterator const result = 

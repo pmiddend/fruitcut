@@ -2,6 +2,7 @@
 #define FRUITCUT_PP_TEXTURE_DESCRIPTOR_HPP_INCLUDED
 
 #include "filter_wrapper.hpp"
+#include "depth_stencil_format.hpp"
 #include <sge/renderer/dim2.hpp>
 #include <sge/image/color/format.hpp>
 #include <sge/renderer/filter/texture.hpp>
@@ -23,7 +24,8 @@ public:
 	descriptor(
 		sge::renderer::dim2 const &,
 		sge::image::color::format::type,
-		sge::renderer::filter::texture const &);
+		sge::renderer::filter::texture const &,
+		depth_stencil_format::type);
 
 	sge::renderer::dim2 const &
 	size() const;
@@ -34,6 +36,9 @@ public:
 	sge::renderer::filter::texture const &
 	filter() const;
 
+	depth_stencil_format::type
+	depth_stencil() const;
+
 	bool 
 	operator<(
 		descriptor const &) const;
@@ -43,7 +48,8 @@ private:
 	<
 		sge::renderer::dim2,
 		sge::image::color::format::type,
-		filter_wrapper
+		filter_wrapper,
+		depth_stencil_format::type
 	>
 	tuple_type;
 

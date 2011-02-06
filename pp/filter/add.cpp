@@ -87,7 +87,8 @@ fruitcut::pp::filter::add::apply(
 			texture::descriptor(
 				dimension_,
 				sge::image::color::format::rgb8,
-				sge::renderer::filter::linear));
+				sge::renderer::filter::linear,
+				texture::depth_stencil_format::off));
 
 	sge::renderer::scoped_target const scoped_target(
 		renderer_,

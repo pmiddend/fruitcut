@@ -503,7 +503,8 @@ try
 			boost::ref(
 				ss),
 			boost::ref(
-				sprites)));
+				sprites)),
+		fruitcut::pp::texture::depth_stencil_format::d32);
 
 	fruitcut::pp::filter::ssaa ssaa_filter(
 		sys.renderer(),

@@ -4,6 +4,7 @@
 #include "nullary.hpp"
 #include "../texture/counted_instance.hpp"
 #include "../texture/manager_fwd.hpp"
+#include "../texture/depth_stencil_format.hpp"
 #include <sge/renderer/device_ptr.hpp>
 #include <sge/renderer/texture_ptr.hpp>
 #include <sge/renderer/target_ptr.hpp>
@@ -31,7 +32,8 @@ public:
 		sge::renderer::device_ptr,
 		texture::manager &,
 		sge::renderer::dim2 const &,
-		callback const &);
+		callback const &,
+		texture::depth_stencil_format::type);
 
 	texture::counted_instance const
 	apply();
@@ -42,6 +44,7 @@ private:
 	texture::manager &texture_manager_;
 	sge::renderer::dim2 const texture_size_;
 	callback const callback_;
+	texture::depth_stencil_format::type depth_stencil_;
 };
 }
 }

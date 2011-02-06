@@ -14,7 +14,8 @@ fruitcut::pp::filter::render_to_texture::render_to_texture(
 	sge::renderer::device_ptr const _renderer,
 	texture::manager &_texture_manager,
 	sge::renderer::dim2 const &_texture_size,
-	callback const &_callback)
+	callback const &_callback,
+	texture::depth_stencil_format::type const _depth_stencil)
 :
 	renderer_(
 		_renderer),
@@ -23,7 +24,9 @@ fruitcut::pp::filter::render_to_texture::render_to_texture(
 	texture_size_(
 		_texture_size),
 	callback_(
-		_callback)
+		_callback),
+	depth_stencil_(
+		_depth_stencil)
 {
 }
 
@@ -36,7 +39,8 @@ fruitcut::pp::filter::render_to_texture::apply()
 			texture::descriptor(
 				texture_size_,
 				sge::image::color::format::rgb8,
-				sge::renderer::filter::linear));
+				sge::renderer::filter::linear,
+				depth_stencil_));
 
 	sge::renderer::scoped_target scoped_target(
 		renderer_,

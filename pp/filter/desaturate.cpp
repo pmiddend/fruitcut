@@ -98,7 +98,8 @@ fruitcut::pp::filter::desaturate::apply(
 			texture::descriptor(
 				texture_size_,
 				sge::image::color::format::rgb8,
-				sge::renderer::filter::linear));
+				sge::renderer::filter::linear,
+				texture::depth_stencil_format::off));
 
 	sge::shader::scoped scoped_shader(
 		shader_);

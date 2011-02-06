@@ -1,6 +1,7 @@
 #include "postprocessing.hpp"
 #include "../json/find_member.hpp"
 #include "../pp/dependency_set.hpp"
+#include "../pp/texture/depth_stencil_format.hpp"
 #include <sge/font/text/lit.hpp>
 #include <sge/font/text/from_fcppt_string.hpp>
 #include <sge/font/text/to_fcppt_string.hpp>
@@ -31,7 +32,8 @@ fruitcut::app::postprocessing::postprocessing(
 		texture_manager_,
 		fcppt::math::dim::structure_cast<sge::renderer::dim2>(
 			_renderer->screen_size()),
-		render_callback),
+		render_callback,
+		pp::texture::depth_stencil_format::d32),
 	ssaa_filter_(
 		_renderer,
 		texture_manager_,
