@@ -2,6 +2,7 @@
 #define FRUITCUT_APP_FRUIT_HPP_INCLUDED
 
 #include "mesh.hpp"
+#include "box3.hpp"
 #include "fruit_prototype_fwd.hpp"
 #include "../physics/rigid_body/object.hpp"
 #include "../physics/world_fwd.hpp"
@@ -15,6 +16,7 @@
 #include <sge/renderer/matrix4.hpp>
 #include <sge/shader/object_fwd.hpp>
 #include <fcppt/math/matrix/basic_impl.hpp>
+#include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/noncopyable.hpp>
 
 namespace fruitcut
@@ -49,9 +51,11 @@ public:
 	~fruit();
 private:
 	mesh mesh_;
+	box3 bounding_box_;
 	physics::rigid_body::object body_;
 	sge::renderer::vertex_buffer_ptr vb_;
 	sge::renderer::texture_ptr texture_;
+	
 };
 }
 }

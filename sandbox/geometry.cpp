@@ -1,92 +1,182 @@
 #include <iostream>
+#include "../geometry_traits/vector.hpp"
+#include "../geometry_traits/box.hpp"
+#include <boost/geometry/geometries/box.hpp>
+#include <boost/geometry/algorithms/length.hpp>
+#include <boost/geometry/algorithms/envelope.hpp>
+#include <boost/geometry/strategies/strategies.hpp>
+#include <boost/geometry/geometries/adapted/std_as_linestring.hpp>
+#include <fcppt/math/vector/static.hpp>
+#include <fcppt/math/box/basic_impl.hpp>
+#include <fcppt/math/box/output.hpp>
+#include <fcppt/math/vector/basic_impl.hpp>
+#include <vector>
 
-#include <boost/geometry/geometry.hpp>
-#include <boost/geometry/geometries/adapted/tuple_cartesian.hpp>
-#include <boost/geometry/geometries/adapted/c_array_cartesian.hpp>
-#include <boost/geometry/geometries/cartesian2d.hpp>
+#if 0
+namespace boost 
+{ 
+namespace geometry 
+{ 
+namespace traits 
+{
+
+template<typename T,fcppt::math::size_type N>
+struct tag<fcppt::math::box::basic<T,N> >
+{
+	typedef box_tag type;
+};
+
+template<typename T,fcppt::math::size_type N>
+struct point_type< fcppt::math::box::basic<T,N> >
+{
+    typedef typename fcppt::math::box::basic<T,N>::vector type;
+};
+
+template<typename T,fcppt::math::size_type N, std::size_t Dimension>
+struct indexed_access<fcppt::math::box::basic<T,N>, boost::geometry::min_corner, Dimension>
+{
+	static inline T 
+	get(
+		fcppt::math::box::basic<T,N> const &b)
+	{
+		return b.pos()[Dimension];
+	}
+
+	static inline void 
+	set(
+		fcppt::math::box::basic<T,N> &b, 
+		T const& value)
+	{
+		typename fcppt::math::box::basic<T,N>::vector p = 
+			b.pos();
+		typename fcppt::math::box::basic<T,N>::dim d = 
+			b.dimension();
+		d[Dimension] += 
+			p[Dimension] - value;
+		p[Dimension] = 
+			value;
+		b.pos(
+			p);
+		b.dimension(
+			d);
+	}
+};
+
+template<typename T,fcppt::math::size_type N, std::size_t Dimension>
+struct indexed_access<fcppt::math::box::basic<T,N>, boost::geometry::max_corner, Dimension>
+{
+	static inline T 
+	get(
+		fcppt::math::box::basic<T,N> const &b)
+	{
+		return (b.pos() + b.dimension())[Dimension];
+	}
+
+	static inline void 
+	set(
+		fcppt::math::box::basic<T,N> &b, 
+		T const& value)
+	{
+		typename fcppt::math::box::basic<T,N>::dim d = 
+			b.dimension();
+		d[Dimension] = 
+			value - (b.pos()[Dimension] + b.dimension()[Dimension]);
+		b.dimension(
+			d);
+	}
+};
+
+}
+}
+}
+
+namespace boost 
+{ 
+namespace geometry 
+{ 
+namespace traits 
+{
+template<typename T,typename N,typename S>
+struct tag<fcppt::math::vector::basic<T,N,S> >
+{
+	typedef point_tag type;
+};
+
+template<typename T,typename N,typename S> 
+struct coordinate_type<fcppt::math::vector::basic<T,N,S> >
+{ 
+	typedef T type; 
+};
+
+template<typename T,typename N,typename S> 
+struct coordinate_system<fcppt::math::vector::basic<T,N,S> >
+{ 
+	typedef boost::geometry::cs::cartesian type; 
+};
+
+template<typename T,typename N,typename S> 
+struct dimension<fcppt::math::vector::basic<T,N,S> > 
+	: N
+{};
+
+template<typename T,typename N,typename S,std::size_t Dim>
+struct access<fcppt::math::vector::basic<T,N,S>,Dim>
+{
+	static T
+	get(
+		fcppt::math::vector::basic<T,N,S> const &p)
+	{
+			return p[Dim];
+	}
+
+	static void 
+	set(
+		fcppt::math::vector::basic<T,N,S> &p, 
+		T const& value)
+	{
+			p[Dim] = value;
+	}
+};
+
+}
+}
+}
+#endif
+
 
 
 int main()
 {
-    using namespace boost::geometry;
+	typedef
+	fcppt::math::vector::static_<float,3>::type
+	vector3;
 
-    // GGL contains several point types:
-    // 1: it's own generic type
-    point<double, 2, cs::cartesian> pt1;
+	typedef
+	fcppt::math::vector::static_<float,2>::type
+	vector2;
 
-    // 2: it's own type targetted to Cartesian (x,y) coordinates
-    point_2d pt2;
+	typedef 
+	std::vector<vector2> 
+	ln;
 
-    // 3: it supports Boost tuple's (by including the headerfile)
-    boost::tuple<double, double> pt3;
+	ln myline;
+	myline.push_back(
+		vector2(
+			-1,-1));
+	myline.push_back(
+		vector2(
+			0.5f,-0.5f));
+	myline.push_back(
+		vector2(
+			-0.5f,3.0f));
 
-    // 4: it supports normal arrays
-    double pt4[2];
+	typedef
+	fcppt::math::box::basic<float,2>
+	box;
 
-    // 5: there are more variants, and you can create your own.
-    //    (see therefore the custom_point example)
+	box env = 
+		boost::geometry::make_envelope<box>(
+			myline);
 
-    // All these types are handled the same way. We show here
-    // assigning them and calculating distances.
-    assign(pt1, 1, 1);
-    assign(pt2, 2, 2);
-    assign(pt3, 3, 3);
-    assign(pt4, 4, 4);
-
-    double d1 = distance(pt1, pt2);
-    double d2 = distance(pt3, pt4);
-    std::cout << "Distances: " << d1 << " and " << d2 << std::endl;
-
-    // (in case you didn't note, distances can be calculated
-    //  from points with different point-types)
-
-
-    // Several ways of construction and setting point values
-    // 1: default, empty constructor, causing no initialization at all
-    point_2d p1;
-
-    // 2: as shown above, assign
-    point_2d p2;
-    assign(p2, 1, 1);
-
-    // 3: using "set" function
-    //    set uses the concepts behind, such that it can be applied for
-    //    every point-type (like assign)
-    point_2d p3;
-    set<0>(p3, 1);
-    set<1>(p3, 1);
-    // set<2>(p3, 1); //will result in compile-error
-
-
-    // 3: for any point type, and other geometry objects:
-    //    there is the "make" object generator
-    //    (this one requires to specify the point-type).
-    point_2d p4 = make<point_2d>(1,1);
-
-
-    // 5: for the point_2d type only: constructor with two values
-    point_2d p5(1,1);
-
-    // 6: for boost tuples you can of course use make_tuple
-
-
-    // Some ways of getting point values
-
-    // 1: using the "get" function following the concepts behind
-    std::cout << get<0>(p2) << "," << get<1>(p2) << std::endl;
-
-    // 2: for point-2d only
-    std::cout << p2.x() << "," << p2.y() << std::endl;
-
-    // 3: using boost-tuples you of course can boost-tuple-methods
-    std::cout << pt3.get<0>() << "," << pt3.get<1>() << std::endl;
-
-    // 4: GGL supports various output formats, e.g. DSV
-    //    (delimiter separated values)
-    std::cout << dsv(pt3) << std::endl;
-
-
-    // Other examples show other types of points, geometries and more algorithms
-
-    return 0;
+	std::cout << env << std::endl;
 }
