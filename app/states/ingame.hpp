@@ -56,13 +56,16 @@ private:
 	boost::ptr_list<fruit>
 	fruit_sequence;
 
-	fcppt::signal::scoped_connection toggle_pause_connection_;
+	fcppt::signal::scoped_connection toggle_pause_connection_,toggle_camera_;
 	input::state camera_state_;
 	sge::camera::object camera_;
 	prototype_sequence prototypes_;
 	physics::world physics_world_;
 	fruit_sequence fruits_; 
 	sge::shader::object fruit_shader_;
+
+	void
+	toggle_camera();
 };
 }
 }

@@ -5,6 +5,8 @@
 #include "../events/render.hpp"
 #include "../events/tick.hpp"
 #include "../events/toggle_pause.hpp"
+#include <sge/renderer/state/scoped.hpp>
+#include <sge/renderer/state/trampoline.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <boost/statechart/state.hpp>
 #include <boost/statechart/custom_reaction.hpp>
@@ -47,6 +49,8 @@ public:
 		events::toggle_pause const &);
 
 	~running();
+private:
+	sge::renderer::state::scoped scoped_render_state_;
 };
 }
 }

@@ -115,6 +115,13 @@ fruitcut::app::states::ingame::ingame(
 						&ingame::post_event),
 					this,
 					events::toggle_pause())))),
+	toggle_camera_(
+		context<machine>().game_input_state().key_callback(
+			sge::input::keyboard::action(
+				sge::input::keyboard::key_code::f2, 
+				boost::bind(
+					&ingame::toggle_camera,
+					this)))),
 	camera_state_(
 		context<machine>().input_manager()),
 	camera_(
@@ -143,7 +150,8 @@ fruitcut::app::states::ingame::ingame(
 			sge::camera::identity_gizmo(),
 			// Maus und Keyboard
 			context<machine>().game_input_state(),
-			context<machine>().game_input_state())),
+			context<machine>().game_input_state(),
+			false)),
 	prototypes_(
 		fcppt::algorithm::map<prototype_sequence>(
 			json::find_member<sge::parse::json::array>(
@@ -168,14 +176,9 @@ fruitcut::app::states::ingame::ingame(
 				world_size,
 				world_size,
 				world_size)),
-		physics::vector3(
-			static_cast<physics::scalar>(
-				0),
-			// g is exactly 10! :P
-			static_cast<physics::scalar>(
-				-10),
-			static_cast<physics::scalar>(
-				0))),
+		json::find_member<physics::vector3>(
+			context<machine>().config_file(),
+			FCPPT_TEXT("physics/gravity"))),
 	fruits_(),
 	fruit_shader_(
 		context<machine>().systems().renderer(),
@@ -223,6 +226,11 @@ fruitcut::app::states::ingame::physics_world() const
 void
 fruitcut::app::states::ingame::render_fruits()
 {
+	sge::renderer::state::scoped scoped_state(
+		context<machine>().systems().renderer(),
+		sge::renderer::state::list
+			(sge::renderer::state::depth_func::less));
+
 	sge::renderer::glsl::scoped_program scoped_shader(
 		context<machine>().systems().renderer(),
 		fruit_shader_.program());
@@ -252,6 +260,26 @@ fruitcut::app::states::ingame::render_fruits()
 	}
 }
 
+sge::camera::object &
+fruitcut::app::states::ingame::camera()
+{
+	return camera_;
+}
+
+sge::camera::object const &
+fruitcut::app::states::ingame::camera() const
+{
+	return camera_;
+}
+
 fruitcut::app::states::ingame::~ingame()
 {
+}
+
+// FIXME: This could be a nice phoenix actor
+void
+fruitcut::app::states::ingame::toggle_camera()
+{
+	camera_.active(
+		!camera_.active());
 }
