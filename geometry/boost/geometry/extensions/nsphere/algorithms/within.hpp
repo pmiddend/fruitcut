@@ -10,8 +10,10 @@
 #define BOOST_GEOMETRY_EXTENSIONS_NSPHERE_ALGORITHMS_WITHIN_HPP
 
 
+#include <boost/geometry/algorithms/distance.hpp>
 #include <boost/geometry/algorithms/make.hpp>
 #include <boost/geometry/algorithms/within.hpp>
+#include <boost/geometry/strategies/distance.hpp>
 
 #include <boost/geometry/multi/core/tags.hpp>
 
@@ -24,7 +26,8 @@ namespace boost { namespace geometry
 {
 
 #ifndef DOXYGEN_NO_DETAIL
-namespace detail { namespace within {
+namespace detail { namespace within
+{
 
 
 
@@ -36,28 +39,31 @@ namespace detail { namespace within {
 template<typename P, typename C>
 inline bool point_in_circle(P const& p, C const& c)
 {
+    namespace services = strategy::distance::services;
+
     assert_dimension<C, 2>();
 
     typedef typename point_type<C>::type point_type;
-    typedef typename strategy_distance
+    typedef typename services::default_strategy
         <
-            typename cs_tag<P>::type,
-            typename cs_tag<point_type>::type,
-            P,
-            point_type
+            point_tag, P, point_type
         >::type strategy_type;
-    typedef typename strategy_type::return_type return_type;
+    typedef typename services::return_type<strategy_type>::type return_type;
+
+    strategy_type strategy;
 
     P const center = geometry::make<P>(get<0>(c), get<1>(c));
-    strategy_type distance;
-    return_type const r = distance(p, center);
-    return_type const rad = make_distance_result<return_type>(get_radius<0>(c));
+    return_type const r = geometry::distance(p, center, strategy);
+    return_type const rad = services::result_from_distance
+        <
+            strategy_type
+        >::apply(strategy, get_radius<0>(c));
 
     return r < rad;
 }
 /// 2D version
 template<typename T, typename C>
-inline bool point_in_circle(const T& c1, const T& c2, C const& c)
+inline bool point_in_circle(T const& c1, T const& c2, C const& c)
 {
     typedef typename point_type<C>::type point_type;
 
@@ -90,7 +96,7 @@ inline bool range_in_circle(R const& range, C const& c)
     assert_dimension<R, 2>();
     assert_dimension<C, 2>();
 
-    for (typename boost::range_const_iterator<R>::type it = boost::begin(range);
+    for (typename boost::range_iterator<R const>::type it = boost::begin(range);
          it != boost::end(range); ++it)
     {
         if (! point_in_circle(*it, c))
@@ -111,7 +117,7 @@ inline bool polygon_in_circle(Y const& poly, C const& c)
 
 
 template<typename I, typename C>
-inline bool multi_polygon_in_circle(const I& m, const C& c)
+inline bool multi_polygon_in_circle(I const& m, C const& c)
 {
     for (typename I::const_iterator i = m.begin(); i != m.end(); i++)
     {
@@ -134,57 +140,57 @@ namespace dispatch
 {
 
 
-template <typename P, typename Circle>
-struct within<point_tag, nsphere_tag, P, Circle>
+template <typename P, typename Circle, typename Strategy>
+struct within<point_tag, nsphere_tag, P, Circle, Strategy>
 {
-    static inline bool apply(P const& p, Circle const& c)
+    static inline bool apply(P const& p, Circle const& c, Strategy const&)
     {
         return detail::within::point_in_circle(p, c);
     }
 };
 
-template <typename Box, typename Circle>
-struct within<box_tag, nsphere_tag, Box, Circle>
+template <typename Box, typename Circle, typename Strategy>
+struct within<box_tag, nsphere_tag, Box, Circle, Strategy>
 {
-    static inline bool apply(Box const& b, Circle const& c)
+    static inline bool apply(Box const& b, Circle const& c, Strategy const&)
     {
         return detail::within::box_in_circle(b, c);
     }
 };
 
-template <typename Linestring, typename Circle>
-struct within<linestring_tag, nsphere_tag, Linestring, Circle>
+template <typename Linestring, typename Circle, typename Strategy>
+struct within<linestring_tag, nsphere_tag, Linestring, Circle, Strategy>
 {
-    static inline bool apply(Linestring const& ln, Circle const& c)
+    static inline bool apply(Linestring const& ln, Circle const& c, Strategy const&)
     {
         return detail::within::range_in_circle(ln, c);
     }
 };
 
-template <typename Ring, typename Circle>
-struct within<ring_tag, nsphere_tag, Ring, Circle>
+template <typename Ring, typename Circle, typename Strategy>
+struct within<ring_tag, nsphere_tag, Ring, Circle, Strategy>
 {
-    static inline bool apply(Ring const& r, Circle const& c)
+    static inline bool apply(Ring const& r, Circle const& c, Strategy const&)
     {
         return detail::within::range_in_circle(r, c);
     }
 };
 
-template <typename Polygon, typename Circle>
-struct within<polygon_tag, nsphere_tag, Polygon, Circle>
+template <typename Polygon, typename Circle, typename Strategy>
+struct within<polygon_tag, nsphere_tag, Polygon, Circle, Strategy>
 {
-    static inline bool apply(Polygon const& poly, Circle const& c)
+    static inline bool apply(Polygon const& poly, Circle const& c, Strategy const&)
     {
         return detail::within::polygon_in_circle(poly, c);
     }
 };
 
-template <typename M, typename C>
-struct within<multi_polygon_tag, nsphere_tag, M, C>
+template <typename M, typename C, typename Strategy>
+struct within<multi_polygon_tag, nsphere_tag, M, C, Strategy>
 {
-    static inline bool apply(const M& m, const C& c)
+    static inline bool apply(M const& m, C const& c)
     {
-        return detail::within::multi_polygon_in_circle(m, c);
+        return detail::within::multi_polygon_in_circle(m, c, Strategy const&);
     }
 };
 

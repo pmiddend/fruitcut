@@ -9,6 +9,9 @@
 #define BOOST_GEOMETRY_MULTI_ALGORITHMS_FOR_EACH_HPP
 
 
+#include <boost/range.hpp>
+#include <boost/typeof/typeof.hpp>
+
 #include <boost/geometry/multi/core/tags.hpp>
 #include <boost/geometry/multi/core/is_multi.hpp>
 #include <boost/geometry/multi/core/point_type.hpp>
@@ -23,7 +26,8 @@ namespace boost { namespace geometry
 
 
 #ifndef DOXYGEN_NO_DETAIL
-namespace detail { namespace for_each {
+namespace detail { namespace for_each
+{
 
 // Implementation of multi, for both point and segment,
 // just calling the single version.
@@ -40,15 +44,7 @@ struct for_each_multi
                     typename add_const_if_c<IsConst, MultiGeometry>::type& multi,
                     Functor f)
     {
-        typedef typename range_iterator_const_if_c
-            <
-                IsConst,
-                MultiGeometry
-            >::type iterator_type;
-
-        for(iterator_type it = boost::begin(multi);
-            it != boost::end(multi);
-            ++it)
+        for(BOOST_AUTO(it, boost::begin(multi)); it != boost::end(multi); ++it)
         {
             f = Policy::apply(*it, f);
         }

@@ -39,7 +39,10 @@
 #include <vector>
 
 #include <boost/algorithm/string.hpp>
-#include <boost/range/functions.hpp>
+#include <boost/range.hpp>
+
+#include <boost/geometry/util/math.hpp>
+
 
 #include <boost/geometry/extensions/gis/projections/impl/pj_datum_set.hpp>
 #include <boost/geometry/extensions/gis/projections/impl/pj_datums.hpp>
@@ -51,9 +54,13 @@
 
 #include <boost/geometry/extensions/gis/geographic/strategies/dms_parser.hpp>
 
-namespace boost { namespace geometry { namespace projection {
 
-namespace detail {
+namespace boost { namespace geometry { namespace projection
+{
+
+
+namespace detail
+{
 
 /************************************************************************/
 /*                              pj_init()                               */
@@ -64,7 +71,7 @@ namespace detail {
 /*      large enough to hold projection specific parameters.            */
 /************************************************************************/
 template <typename R>
-parameters pj_init(const R& arguments, bool use_defaults = true)
+parameters pj_init(R const& arguments, bool use_defaults = true)
 {
     parameters pin;
     for (std::vector<std::string>::const_iterator it = boost::begin(arguments);
@@ -136,7 +143,7 @@ parameters pj_init(const R& arguments, bool use_defaults = true)
         && pin.datum_params[1] == 0.0
         && pin.datum_params[2] == 0.0
         && pin.a == 6378137.0
-        && fabs(pin.es - 0.006694379990) < 0.000000000050 )/*WGS84/GRS80*/
+        && geometry::math::abs(pin.es - 0.006694379990) < 0.000000000050 )/*WGS84/GRS80*/
     {
         pin.datum_type = PJD_WGS84;
     }
@@ -248,7 +255,7 @@ parameters pj_init(const R& arguments, bool use_defaults = true)
 /*      +zone=11 +ellps=WGS84".                                         */
 /************************************************************************/
 
-inline parameters pj_init_plus(const std::string& definition, bool use_defaults = true)
+inline parameters pj_init_plus(std::string const& definition, bool use_defaults = true)
 {
     static const char* sep = " +";
 

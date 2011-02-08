@@ -1,9 +1,8 @@
 #ifndef FRUITCUT_GEOMETRY_TRAITS_VECTOR_HPP_INCLUDED
 #define FRUITCUT_GEOMETRY_TRAITS_VECTOR_HPP_INCLUDED
 
-#include <boost/geometry/geometries/point.hpp>
-#include <boost/geometry/strategies/strategies.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
+#include <boost/geometry/geometry.hpp>
 #include <cstddef>
 
 namespace boost 

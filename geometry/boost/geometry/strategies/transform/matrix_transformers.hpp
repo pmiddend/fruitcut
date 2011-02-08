@@ -9,6 +9,9 @@
 #ifndef BOOST_GEOMETRY_STRATEGIES_TRANSFORM_MATRIX_TRANSFORMERS_HPP
 #define BOOST_GEOMETRY_STRATEGIES_TRANSFORM_MATRIX_TRANSFORMERS_HPP
 
+
+#include <cstddef>
+
 // Remove the ublas checking, otherwise the inverse might fail
 // (while nothing seems to be wrong)
 #define BOOST_UBLAS_TYPE_CHECK 0
@@ -24,21 +27,24 @@
 #include <boost/geometry/util/select_coordinate_type.hpp>
 #include <boost/geometry/util/select_most_precise.hpp>
 
-namespace boost { namespace geometry {
 
-namespace strategy { namespace transform {
+namespace boost { namespace geometry
+{
+
+namespace strategy { namespace transform
+{
 
 /*!
-    \brief Affine transformation strategy in Cartesian system.
-    \details The strategy serves as a generic definition of affine transformation matrix
-             and procedure of application it to given point.
-    \see http://en.wikipedia.org/wiki/Affine_transformation
-         and http://www.devmaster.net/wiki/Transformation_matrices
-    \ingroup transform
-    \tparam P1 first point type (source)
-    \tparam P2 second point type (target)
-    \tparam Dimension1 number of dimensions to transform from first point, optional
-    \tparam Dimension1 number of dimensions to transform to second point, optional
+\brief Affine transformation strategy in Cartesian system.
+\details The strategy serves as a generic definition of affine transformation matrix
+         and procedure of application it to given point.
+\see http://en.wikipedia.org/wiki/Affine_transformation
+     and http://www.devmaster.net/wiki/Transformation_matrices
+\ingroup strategies
+\tparam P1 first point type (source)
+\tparam P2 second point type (target)
+\tparam Dimension1 number of dimensions to transform from first point
+\tparam Dimension1 number of dimensions to transform to second point
  */
 template
 <
@@ -88,20 +94,13 @@ public :
         coordinate_type const& c1 = get<0>(p1);
         coordinate_type const& c2 = get<1>(p1);
 
-        typedef typename geometry::coordinate_type<P2>::type ct2;
-
-        /*
-        set<0>(p2, boost::numeric_cast<ct2>(
-            c1 * m_matrix(0,0) + c2 * m_matrix(0,1) + m_matrix(0,2)));
-        set<1>(p2, boost::numeric_cast<ct2>(
-            c1 * m_matrix(1,0) + c2 * m_matrix(1,1) + m_matrix(1,2)));
-            */
 
         coordinate_type p2x = c1 * m_matrix(0,0) + c2 * m_matrix(0,1) + m_matrix(0,2);
         coordinate_type p2y = c1 * m_matrix(1,0) + c2 * m_matrix(1,1) + m_matrix(1,2);
 
-        set<0>(p2, p2x);
-        set<1>(p2, p2y);
+        typedef typename geometry::coordinate_type<P2>::type ct2;
+        set<0>(p2, boost::numeric_cast<ct2>(p2x));
+        set<1>(p2, boost::numeric_cast<ct2>(p2y));
 
         return true;
     }
@@ -112,11 +111,12 @@ public :
 
 // It IS possible to go from 3 to 2 coordinates
 template <typename P1, typename P2>
-struct ublas_transformer<P1, P2, 3, 2> : public ublas_transformer<P1, P2, 2, 2>
+class ublas_transformer<P1, P2, 3, 2> : public ublas_transformer<P1, P2, 2, 2>
 {
     typedef typename select_coordinate_type<P1, P2>::type coordinate_type;
     typedef coordinate_type ct; // Abbreviation
 
+public :
     inline ublas_transformer(
                 ct const& m_0_0, ct const& m_0_1, ct const& m_0_2,
                 ct const& m_1_0, ct const& m_1_1, ct const& m_1_2,
@@ -183,14 +183,14 @@ public :
 
 
 /*!
-    \brief Strategy of translate transformation in Cartesian system.
-    \details Translate moves a geometry a fixed distance in 2 or 3 dimensions.
-    \see http://en.wikipedia.org/wiki/Translation_%28geometry%29
-    \ingroup transform
-    \tparam P1 first point type
-    \tparam P2 second point type
-    \tparam Dimension1 number of dimensions to transform from first point, optional
-    \tparam Dimension1 number of dimensions to transform to second point, optional
+\brief Strategy of translate transformation in Cartesian system.
+\details Translate moves a geometry a fixed distance in 2 or 3 dimensions.
+\see http://en.wikipedia.org/wiki/Translation_%28geometry%29
+\ingroup strategies
+\tparam P1 first point type
+\tparam P2 second point type
+\tparam Dimension1 number of dimensions to transform from first point
+\tparam Dimension1 number of dimensions to transform to second point
  */
 template
 <
@@ -198,16 +198,17 @@ template
     std::size_t Dimension1 = geometry::dimension<P1>::type::value,
     std::size_t Dimension2 = geometry::dimension<P2>::type::value
 >
-struct translate_transformer
+class translate_transformer
 {
 };
 
 
 template <typename P1, typename P2>
-struct translate_transformer<P1, P2, 2, 2> : ublas_transformer<P1, P2, 2, 2>
+class translate_transformer<P1, P2, 2, 2> : public ublas_transformer<P1, P2, 2, 2>
 {
     typedef typename select_coordinate_type<P1, P2>::type coordinate_type;
 
+public :
     // To have translate transformers compatible for 2/3 dimensions, the
     // constructor takes an optional third argument doing nothing.
     inline translate_transformer(coordinate_type const& translate_x,
@@ -222,10 +223,11 @@ struct translate_transformer<P1, P2, 2, 2> : ublas_transformer<P1, P2, 2, 2>
 
 
 template <typename P1, typename P2>
-struct translate_transformer<P1, P2, 3, 3> : ublas_transformer<P1, P2, 3, 3>
+class translate_transformer<P1, P2, 3, 3> : public ublas_transformer<P1, P2, 3, 3>
 {
     typedef typename select_coordinate_type<P1, P2>::type coordinate_type;
 
+public :
     inline translate_transformer(coordinate_type const& translate_x,
                 coordinate_type const& translate_y,
                 coordinate_type const& translate_z)
@@ -240,14 +242,14 @@ struct translate_transformer<P1, P2, 3, 3> : ublas_transformer<P1, P2, 3, 3>
 
 
 /*!
-    \brief Strategy of scale transformation in Cartesian system.
-    \details Scale scales a geometry up or down in all its dimensions.
-    \see http://en.wikipedia.org/wiki/Scaling_%28geometry%29
-    \ingroup transform
-    \tparam P1 first point type
-    \tparam P2 second point type
-    \tparam Dimension1 number of dimensions to transform from first point, optional
-    \tparam Dimension1 number of dimensions to transform to second point, optional
+\brief Strategy of scale transformation in Cartesian system.
+\details Scale scales a geometry up or down in all its dimensions.
+\see http://en.wikipedia.org/wiki/Scaling_%28geometry%29
+\ingroup strategies
+\tparam P1 first point type
+\tparam P2 second point type
+\tparam Dimension1 number of dimensions to transform from first point
+\tparam Dimension1 number of dimensions to transform to second point
 */
 template
 <
@@ -255,16 +257,17 @@ template
     std::size_t Dimension1 = geometry::dimension<P1>::type::value,
     std::size_t Dimension2 = geometry::dimension<P2>::type::value
 >
-struct scale_transformer
+class scale_transformer
 {
 };
 
 
 template <typename P1, typename P2>
-struct scale_transformer<P1, P2, 2, 2> : ublas_transformer<P1, P2, 2, 2>
+class scale_transformer<P1, P2, 2, 2> : public ublas_transformer<P1, P2, 2, 2>
 {
     typedef typename select_coordinate_type<P1, P2>::type coordinate_type;
 
+public :
     inline scale_transformer(coordinate_type const& scale_x,
                 coordinate_type const& scale_y,
                 coordinate_type const& dummy = 0)
@@ -285,7 +288,7 @@ struct scale_transformer<P1, P2, 2, 2> : ublas_transformer<P1, P2, 2, 2>
 
 
 template <typename P1, typename P2>
-struct scale_transformer<P1, P2, 3, 3> : ublas_transformer<P1, P2, 3, 3>
+class scale_transformer<P1, P2, 3, 3> : public ublas_transformer<P1, P2, 3, 3>
 {
     typedef typename select_coordinate_type<P1, P2>::type coordinate_type;
 
@@ -311,12 +314,14 @@ struct scale_transformer<P1, P2, 3, 3> : ublas_transformer<P1, P2, 3, 3>
 
 
 #ifndef DOXYGEN_NO_DETAIL
-namespace detail {
+namespace detail
+{
+
 
 template <typename DegreeOrRadian>
 struct as_radian
-{
-};
+{};
+
 
 template <>
 struct as_radian<radian>
@@ -346,8 +351,8 @@ template
     std::size_t Dimension1 = geometry::dimension<P1>::type::value,
     std::size_t Dimension2 = geometry::dimension<P2>::type::value
 >
-struct rad_rotate_transformer
-    : ublas_transformer<P1, P2, Dimension1, Dimension2>
+class rad_rotate_transformer
+    : public ublas_transformer<P1, P2, Dimension1, Dimension2>
 {
     // Angle has type of coordinate type, but at least a double
     typedef typename select_most_precise
@@ -356,6 +361,7 @@ struct rad_rotate_transformer
             double
         >::type angle_type;
 
+public :
     inline rad_rotate_transformer(angle_type const& angle)
         : ublas_transformer<P1, P2, Dimension1, Dimension2>(
                  cos(angle), sin(angle), 0,
@@ -364,25 +370,26 @@ struct rad_rotate_transformer
     {}
 };
 
+
 } // namespace detail
 #endif // DOXYGEN_NO_DETAIL
 
 
 /*!
-    \brief Strategy of rotate transformation in Cartesian system.
-    \details Rotate rotates a geometry of specified angle about a fixed point (e.g. origin).
-    \see http://en.wikipedia.org/wiki/Rotation_%28mathematics%29
-    \ingroup transform
-    \tparam P1 first point type
-    \tparam P2 second point type
-    \tparam DegreeOrRadian degree/or/radian, type of rotation angle specification
-    \note A single angle is needed to specify a rotation in 2D.
-          Not yet in 3D, the 3D version requires special things to allow
-          for rotation around X, Y, Z or arbitrary axis.
-    \todo The 3D version will not compile.
+\brief Strategy of rotate transformation in Cartesian system.
+\details Rotate rotates a geometry of specified angle about a fixed point (e.g. origin).
+\see http://en.wikipedia.org/wiki/Rotation_%28mathematics%29
+\ingroup strategies
+\tparam P1 first point type
+\tparam P2 second point type
+\tparam DegreeOrRadian degree/or/radian, type of rotation angle specification
+\note A single angle is needed to specify a rotation in 2D.
+      Not yet in 3D, the 3D version requires special things to allow
+      for rotation around X, Y, Z or arbitrary axis.
+\todo The 3D version will not compile.
  */
 template <typename P1, typename P2, typename DegreeOrRadian>
-struct rotate_transformer : detail::rad_rotate_transformer<P1, P2>
+class rotate_transformer : public detail::rad_rotate_transformer<P1, P2>
 {
     // Angle has type of coordinate type, but at least a double
     typedef typename select_most_precise
@@ -391,6 +398,7 @@ struct rotate_transformer : detail::rad_rotate_transformer<P1, P2>
             double
         >::type angle_type;
 
+public :
     inline rotate_transformer(angle_type const& angle)
         : detail::rad_rotate_transformer
             <
@@ -399,8 +407,11 @@ struct rotate_transformer : detail::rad_rotate_transformer<P1, P2>
     {}
 };
 
+
 }} // namespace strategy::transform
 
+
 }} // namespace boost::geometry
+
 
 #endif // BOOST_GEOMETRY_STRATEGIES_TRANSFORM_MATRIX_TRANSFORMERS_HPP

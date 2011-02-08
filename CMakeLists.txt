@@ -272,9 +272,11 @@ ADD_EXECUTABLE(
 	app/machine.cpp 
 	app/postprocessing.cpp 
 	app/name.cpp
+	app/fruit_projected_hull.cpp
 	app/events/tick.cpp
 	app/mesh_to_shape.cpp
 	app/model_to_mesh.cpp
+	app/fruit_projected_hull.cpp
 	app/mesh_to_vertex_buffer.cpp
 	app/states/intro.cpp
 	app/states/ingame.cpp

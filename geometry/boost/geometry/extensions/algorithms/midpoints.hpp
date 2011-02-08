@@ -14,19 +14,11 @@
 #include <cstddef>
 #include <iterator>
 
-#include <boost/range/functions.hpp>
-#include <boost/range/metafunctions.hpp>
+#include <boost/range.hpp>
 
 #include <boost/geometry/core/cs.hpp>
 #include <boost/geometry/geometries/concepts/check.hpp>
 
-/*!
-\defgroup midpoints midpoints calculation
-The midpoints algorithm calculate points IN BETWEEN of other points
-\par Purpose:
-- Remove corners in rectangular lines / polygons. Calling them several times will result in smooth lines
-- Creating 3D models
-*/
 
 namespace boost { namespace geometry
 {
@@ -60,7 +52,7 @@ struct range_midpoints
             bool start_and_end, Iterator out)
     {
         typedef typename point_type<Range>::type point_type;
-        typedef typename boost::range_const_iterator<Range>::type iterator_type;
+        typedef typename boost::range_iterator<Range const>::type iterator_type;
 
         iterator_type it = boost::begin(range);
 
@@ -121,7 +113,7 @@ template<typename Geometry, typename Iterator>
 inline void midpoints(Geometry const& geometry,
         bool start_and_end, Iterator out)
 {
-    concept::check<const Geometry>();
+    concept::check<Geometry const>();
 
     dispatch::midpoints
         <

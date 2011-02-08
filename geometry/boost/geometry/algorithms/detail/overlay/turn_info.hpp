@@ -8,15 +8,17 @@
 #ifndef BOOST_GEOMETRY_ALGORITHMS_DETAIL_OVERLAY_TURN_INFO_HPP
 #define BOOST_GEOMETRY_ALGORITHMS_DETAIL_OVERLAY_TURN_INFO_HPP
 
+
 #include <boost/array.hpp>
 
-#include <boost/geometry/algorithms/overlay/segment_identifier.hpp>
+#include <boost/geometry/algorithms/detail/overlay/segment_identifier.hpp>
 
 namespace boost { namespace geometry
 {
 
 #ifndef DOXYGEN_NO_DETAIL
-namespace detail { namespace overlay {
+namespace detail { namespace overlay
+{
 
 
 enum operation_type
@@ -56,7 +58,7 @@ struct turn_operation
     segment_identifier seg_id;
     segment_identifier other_id;
 
-    turn_operation()
+    inline turn_operation()
         : operation(operation_none)
     {}
 };
@@ -80,24 +82,53 @@ template
 struct turn_info
 {
     typedef Point point_type;
-    typedef Operation operation_type;
+    typedef Operation turn_operation_type;
     typedef Container container_type;
 
     Point point;
     method_type method;
-    bool ignore;
-    bool rejected;
+    bool discarded;
+
 
     Container operations;
 
-    turn_info()
+    inline turn_info()
         : method(method_none)
-        , ignore(false)
-        , rejected(false)
+        , discarded(false)
     {}
 
-};
+    inline bool both(operation_type type) const
+    {
+        return has12(type, type);
+    }
 
+    inline bool combination(operation_type type1, operation_type type2) const
+    {
+        return has12(type1, type2) || has12(type2, type1);
+    }
+
+
+    inline bool is_discarded() const { return discarded; }
+    inline bool blocked() const
+    {
+        return both(operation_blocked);
+    }
+    inline bool any_blocked() const
+    {
+        return this->operations[0].operation == operation_blocked 
+            || this->operations[1].operation == operation_blocked;
+    }
+
+
+private :
+    inline bool has12(operation_type type1, operation_type type2) const
+    {
+        return this->operations[0].operation == type1 
+            && this->operations[1].operation == type2
+            ;
+    }
+
+};
 
 
 }} // namespace detail::overlay

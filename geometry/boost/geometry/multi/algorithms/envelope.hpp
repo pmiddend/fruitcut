@@ -11,6 +11,9 @@
 
 #include <vector>
 
+#include <boost/range/metafunctions.hpp>
+
+
 #include <boost/geometry/core/exterior_ring.hpp>
 #include <boost/geometry/algorithms/envelope.hpp>
 
@@ -22,7 +25,8 @@ namespace boost { namespace geometry
 
 #ifndef DOXYGEN_NO_DETAIL
 
-namespace detail { namespace envelope {
+namespace detail { namespace envelope
+{
 
 
 template<typename MultiLinestring, typename Box>
@@ -31,7 +35,7 @@ struct envelope_multi_linestring
     static inline void apply(MultiLinestring const& mp, Box& mbr)
     {
         assign_inverse(mbr);
-        for (typename boost::range_const_iterator<MultiLinestring>::type
+        for (typename boost::range_iterator<MultiLinestring const>::type
                     it = mp.begin();
             it != mp.end();
             ++it)
@@ -100,8 +104,6 @@ struct envelope<multi_polygon_tag, box_tag, Multi, Box, StrategyLess, StrategyGr
 
 } // namespace dispatch
 #endif
-
-
 
 
 }} // namespace boost::geometry

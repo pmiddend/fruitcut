@@ -20,13 +20,8 @@
 #include <boost/geometry/extensions/gis/projections/impl/pj_fwd.hpp>
 #include <boost/geometry/extensions/gis/projections/impl/pj_inv.hpp>
 
-namespace boost { namespace geometry { namespace projection {
-
-
-
-
-
-
+namespace boost { namespace geometry { namespace projection
+{
 
 
 #ifndef DOXYGEN_NO_DETAIL
@@ -39,13 +34,13 @@ struct base_t_f
 {
 public:
 
-    inline base_t_f(const Prj& prj, const P& params)
+    inline base_t_f(Prj const& prj, P const& params)
         : m_par(params), m_prj(prj)
     {}
 
     inline P params() const {return m_par;}
 
-    inline bool forward(const LL& lp, XY& xy) const
+    inline bool forward(LL const& lp, XY& xy) const
     {
         try
         {
@@ -82,11 +77,11 @@ template <typename Prj, typename LL, typename XY, typename P>
 struct base_t_fi : public base_t_f<Prj, LL, XY, P>
 {
 public :
-    inline base_t_fi(const Prj& prj, const P& params)
+    inline base_t_fi(Prj const& prj, P const& params)
         : base_t_f<Prj, LL, XY, P>(prj, params)
     {}
 
-    inline bool inverse(const XY& xy, LL& lp) const
+    inline bool inverse(XY const& xy, LL& lp) const
     {
         try
         {
@@ -103,6 +98,8 @@ public :
 } // namespace detail
 #endif // DOXYGEN_NO_DETAIL
 
+
 }}} // namespace boost::geometry::projection
+
 
 #endif // BOOST_GEOMETRY_PROJECTIONS_IMPL_BASE_STATIC_HPP

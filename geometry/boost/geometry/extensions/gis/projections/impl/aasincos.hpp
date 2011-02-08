@@ -35,11 +35,17 @@
 #ifndef BOOST_GEOMETRY_PROJECTIONS_IMPL_AASINCOS_HPP
 #define BOOST_GEOMETRY_PROJECTIONS_IMPL_AASINCOS_HPP
 
+
 #include <cmath>
 
-namespace boost { namespace geometry { namespace projection {
+#include <boost/geometry/util/math.hpp>
 
-namespace detail {
+
+namespace boost { namespace geometry { namespace projection
+{
+
+namespace detail
+{
 
 namespace aasincos
 {
@@ -52,7 +58,7 @@ inline double aasin(double v)
 {
     double av = 0;
 
-    if ((av = std::fabs(v)) >= 1.0)
+    if ((av = geometry::math::abs(v)) >= 1.0)
     {
         if (av > aasincos::ONE_TOL)
         {
@@ -61,14 +67,14 @@ inline double aasin(double v)
         return (v < 0.0 ? -HALFPI : HALFPI);
     }
 
-    return std::asin(v);
+    return asin(v);
 }
 
 inline double aacos(double v)
 {
     double av = 0;
 
-    if ((av = std::fabs(v)) >= 1.0)
+    if ((av = geometry::math::abs(v)) >= 1.0)
     {
         if (av > aasincos::ONE_TOL)
         {
@@ -82,15 +88,20 @@ inline double aacos(double v)
 
 inline double asqrt(double v)
 {
-    return ((v <= 0) ? 0. : std::sqrt(v));
+    return ((v <= 0) ? 0 : sqrt(v));
 }
 
 inline double aatan2(double n, double d)
 {
-    return ((std::fabs(n) < aasincos::ATOL && std::fabs(d) < aasincos::ATOL) ? 0.0 : std::atan2(n, d));
+    return ((geometry::math::abs(n) < aasincos::ATOL
+        && geometry::math::abs(d) < aasincos::ATOL) ? 0.0 : atan2(n, d));
 }
 
+
 } // namespace detail
+
+
 }}} // namespace boost::geometry::projection
+
 
 #endif // BOOST_GEOMETRY_PROJECTIONS_IMPL_AASINCOS_HPP

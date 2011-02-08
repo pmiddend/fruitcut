@@ -17,7 +17,6 @@
 #include <boost/geometry/multi/core/tags.hpp>
 
 
-
 namespace boost { namespace geometry
 {
 
@@ -27,15 +26,29 @@ namespace core_dispatch
 {
 
 template <typename MultiPolygon>
-struct ring_type<multi_polygon_tag, MultiPolygon>
+struct ring_return_type<multi_polygon_tag, MultiPolygon>
 {
-    typedef typename geometry::ring_type
+    typedef typename ring_return_type
         <
-            typename boost::range_value<MultiPolygon>::type
+            polygon_tag,
+            typename mpl::if_
+                <
+                    boost::is_const<MultiPolygon>,
+                    typename boost::range_value<MultiPolygon>::type const,
+                    typename boost::range_value<MultiPolygon>::type
+                >::type
         >::type type;
 };
 
 
+template <typename MultiPolygon>
+struct ring_type<multi_polygon_tag, MultiPolygon>
+{
+    typedef typename boost::remove_reference
+        <
+            typename ring_return_type<multi_polygon_tag, MultiPolygon>::type
+        >::type type;
+};
 
 
 } // namespace core_dispatch

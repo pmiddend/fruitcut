@@ -9,6 +9,9 @@
 #ifndef BOOST_GEOMETRY_GEOMETRY_POLICIES_RELATE_INTERSECTION_POINTS_HPP
 #define BOOST_GEOMETRY_GEOMETRY_POLICIES_RELATE_INTERSECTION_POINTS_HPP
 
+
+#include <string>
+
 #include <boost/concept_check.hpp>
 #include <boost/numeric/conversion/cast.hpp>
 
@@ -21,7 +24,8 @@
 namespace boost { namespace geometry
 {
 
-namespace policies { namespace relate {
+namespace policies { namespace relate
+{
 
 
 template <typename S1, typename S2, typename ReturnType, typename CalculationType = void>

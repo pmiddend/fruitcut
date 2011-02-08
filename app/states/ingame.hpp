@@ -27,6 +27,14 @@ class ingame
 	public boost::statechart::state<ingame,machine,running>
 {
 public:
+	typedef
+	std::vector<fruit_prototype>
+	prototype_sequence;
+
+	typedef
+	boost::ptr_list<fruit>
+	fruit_sequence;
+
 	explicit
 	ingame(
 		my_context);
@@ -46,16 +54,14 @@ public:
 	sge::camera::object const &
 	camera() const;
 
+	fruit_sequence &
+	fruits();
+
+	fruit_sequence const &
+	fruits() const;
+
 	~ingame();
 private:
-	typedef
-	std::vector<fruit_prototype>
-	prototype_sequence;
-
-	typedef
-	boost::ptr_list<fruit>
-	fruit_sequence;
-
 	fcppt::signal::scoped_connection toggle_pause_connection_,toggle_camera_;
 	input::state camera_state_;
 	sge::camera::object camera_;

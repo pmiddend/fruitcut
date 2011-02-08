@@ -47,10 +47,6 @@ struct base_turn_handler
     {
         ti.operations[0].operation = op;
         ti.operations[1].operation = op;
-        if (op == operation_union)
-        {
-            ti.ignore = true;
-        }
     }
 
     // If condition, first union/second intersection, else vice versa
@@ -107,7 +103,7 @@ struct touch_interior : public base_turn_handler
         static int const index_p = Index;
         static int const index_q = 1 - Index;
 
-        int const side_qi_p = dir_info.sides.get<index_q, 0>();
+        int const side_qi_p = dir_info.sides.template get<index_q, 0>();
         int const side_qk_p = SideStrategy::apply(pi, pj, qk);
 
         if (side_qi_p == -side_qk_p)
@@ -217,7 +213,7 @@ struct touch : public base_turn_handler
         ti.method = method_touch;
         copy_coordinates(intersection_info.intersections[0], ti.point);
 
-        int const side_qi_p1 = dir_info.sides.get<1, 0>();
+        int const side_qi_p1 = dir_info.sides.template get<1, 0>();
         int const side_qk_p1 = SideStrategy::apply(pi, pj, qk);
 
 
@@ -292,7 +288,6 @@ struct touch : public base_turn_handler
                     uu_else_ii(! q_turns_left, ti);
                     if (block_q)
                     {
-                        ti.ignore = false;
                         ti.operations[1].operation = operation_blocked;
                     }
                     //block_second(block_q, ti);
@@ -313,12 +308,6 @@ struct touch : public base_turn_handler
                             : side_qi_p1 == 1 || side_qk_p1 == 1
                             ? operation_union
                             : operation_intersection;
-
-                if (ti.operations[0].operation == operation_union
-                    && ti.operations[1].operation == operation_union)
-                {
-                    ti.ignore = true;
-                }
 
                 return;
             }
@@ -372,7 +361,17 @@ struct touch : public base_turn_handler
             return;
         }
 
-        std::cout << "Not yet handled" << std::endl;
+        // Normally a robustness issue.
+        // TODO: solve this!
+        std::cout << "Not yet handled" << std::endl
+            << "pi " << get<0>(pi) << " , " << get<1>(pi)
+            << " pj " << get<0>(pj) << " , " << get<1>(pj)
+            << " pk " << get<0>(pk) << " , " << get<1>(pk)
+            << std::endl
+            << "qi " << get<0>(qi) << " , " << get<1>(qi)
+            << " qj " << get<0>(qj) << " , " << get<1>(qj)
+            << " qk " << get<0>(qk) << " , " << get<1>(qk)
+            << std::endl;
     }
 };
 
@@ -664,7 +663,7 @@ struct crosses : public base_turn_handler
         // Union: take P
         // Intersection: take Q
         // Otherwise: vice versa
-        int const side_qi_p1 = dir_info.sides.get<1, 0>();
+        int const side_qi_p1 = dir_info.sides.template get<1, 0>();
         int const index = side_qi_p1 == 1 ? 0 : 1;
         ti.operations[index].operation = operation_union;
         ti.operations[1 - index].operation = operation_intersection;
@@ -673,10 +672,10 @@ struct crosses : public base_turn_handler
 
 
 /*!
-    \brief Policy doing nothing
-    \details get_turn_info can have an optional policy to get/assign some
-        extra information. By default it does not, and this class
-        is that default.
+\brief Policy doing nothing
+\details get_turn_info can have an optional policy to get/assign some
+    extra information. By default it does not, and this class
+    is that default.
  */
 struct assign_null_policy
 {
@@ -695,7 +694,7 @@ struct assign_null_policy
     \tparam Point1 point type of first segment
     \tparam Point2 point type of second segment
     \tparam TurnInfo type of class getting intersection and turn info
-    \tparam AssignPolicy optional policy to assign extra info,
+    \tparam AssignPolicy policy to assign extra info,
         e.g. to calculate distance from segment's first points
         to intersection points
  */
@@ -721,20 +720,20 @@ struct get_turn_info
 
 
     template <typename OutputIterator>
-    static inline void apply(
+    static inline OutputIterator apply(
                 Point1 const& pi, Point1 const& pj, Point1 const& pk,
                 Point2 const& qi, Point2 const& qj, Point2 const& qk,
                 TurnInfo const& tp_model,
                 OutputIterator out)
     {
-        typedef segment<Point1 const> segment_type1;
-        typedef segment<Point1 const> segment_type2;
+        typedef model::referring_segment<Point1 const> segment_type1;
+        typedef model::referring_segment<Point1 const> segment_type2;
         segment_type1 p1(pi, pj), p2(pj, pk);
         segment_type2 q1(qi, qj), q2(qj, qk);
 
         typename strategy::return_type result = strategy::apply(p1, q1);
 
-        char const method = result.get<1>().how;
+        char const method = result.template get<1>().how;
 
         // Copy, to copy possibly extended fields
         TurnInfo tp = tp_model;
@@ -758,16 +757,16 @@ struct get_turn_info
                     > policy;
 
                 // If Q (1) arrives (1)
-                if (result.get<1>().arrival[1] == 1)
+                if (result.template get<1>().arrival[1] == 1)
                 {
                     policy::template apply<0>(pi, pj, pk, qi, qj, qk,
-                                tp, result.get<0>(), result.get<1>());
+                                tp, result.template get<0>(), result.template get<1>());
                 }
                 else
                 {
                     // Swap p/q
                     policy::template apply<1>(qi, qj, qk, pi, pj, pk,
-                                tp, result.get<0>(), result.get<1>());
+                                tp, result.template get<0>(), result.template get<1>());
                 }
                 AssignPolicy::apply(tp, pi, qi);
                 *out++ = tp;
@@ -782,7 +781,7 @@ struct get_turn_info
                     > policy;
 
                 policy::apply(pi, pj, pk, qi, qj, qk,
-                    tp, result.get<0>(), result.get<1>());
+                    tp, result.template get<0>(), result.template get<1>());
                 AssignPolicy::apply(tp, pi, qi);
                 *out++ = tp;
             }
@@ -797,14 +796,14 @@ struct get_turn_info
                     > policy;
 
                 policy::apply(pi, pj, pk, qi, qj, qk,
-                    tp, result.get<0>(), result.get<1>());
+                    tp, result.template get<0>(), result.template get<1>());
                 AssignPolicy::apply(tp, pi, qi);
                 *out++ = tp;
             }
             break;
             case 'e':
             {
-                if (! result.get<1>().opposite)
+                if (! result.template get<1>().opposite)
                 {
                     // Both equal
                     // or collinear-and-ending at intersection point
@@ -815,7 +814,7 @@ struct get_turn_info
                         > policy;
 
                     policy::apply(pi, pj, pk, qi, qj, qk,
-                        tp, result.get<0>(), result.get<1>());
+                        tp, result.template get<0>(), result.template get<1>());
                     AssignPolicy::apply(tp, pi, qi);
                     *out++ = tp;
                 }
@@ -825,10 +824,10 @@ struct get_turn_info
             case 'c' :
             {
                 // Collinear
-                if (! result.get<1>().opposite)
+                if (! result.template get<1>().opposite)
                 {
 
-                    if (result.get<1>().arrival[0] == 0)
+                    if (result.template get<1>().arrival[0] == 0)
                     {
                         // Collinear, but similar thus handled as equal
                         equal
@@ -836,7 +835,7 @@ struct get_turn_info
                                 TurnInfo,
                                 typename si::side_strategy_type
                             >::apply(pi, pj, pk, qi, qj, qk,
-                                tp, result.get<0>(), result.get<1>());
+                                tp, result.template get<0>(), result.template get<1>());
 
                         // override assigned method
                         tp.method = method_collinear;
@@ -848,7 +847,7 @@ struct get_turn_info
                                 TurnInfo,
                                 typename si::side_strategy_type
                             >::apply(pi, pj, pk, qi, qj, qk,
-                                tp, result.get<0>(), result.get<1>());
+                                tp, result.template get<0>(), result.template get<1>());
                     }
 
                     AssignPolicy::apply(tp, pi, qi);
@@ -862,7 +861,7 @@ struct get_turn_info
                             typename si::side_strategy_type,
                             AssignPolicy
                         >::apply(pi, pj, pk, qi, qj, qk,
-                            tp, out, result.get<0>(), result.get<1>());
+                            tp, out, result.template get<0>(), result.template get<1>());
                 }
             }
             break;
@@ -872,6 +871,8 @@ struct get_turn_info
             default :
                 std::cout << "get_turns, nyi: " << method << std::endl;
         }
+
+        return out;
     }
 };
 

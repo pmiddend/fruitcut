@@ -13,7 +13,7 @@
 #include <vector>
 
 #include <boost/concept/assert.hpp>
-#include <boost/range/functions.hpp>
+#include <boost/range.hpp>
 
 #include <boost/geometry/core/tag.hpp>
 #include <boost/geometry/core/tags.hpp>
@@ -24,27 +24,48 @@
 namespace boost { namespace geometry
 {
 
+namespace model
+{
+
 /*!
-    \brief A linestring (named so by OGC) is a collection (default a vector) of points.
-    \ingroup geometries
-    \tparam P point type
-    \tparam V optional container type, for example std::vector, std::list, std::deque
-    \tparam A optional container-allocator-type
-    (see http://accu.org/index.php/journals/427#ftn.d0e249 )
-    \par Concepts:
-    All algorithms work on ranges, based on a container with point types fulfilling
-    the point concepts. They will take linestring, but also vector, std::pair, or other containers.
+\brief A linestring (named so by OGC) is a collection (default a vector) of points.
+\ingroup geometries
+\tparam Point \tparam_point
+\tparam Container \tparam_container
+\tparam Allocator \tparam_allocator
+
+\qbk{before.synopsis,
+[heading Model of]
+[link geometry.reference.concepts.concept_linestring Linestring Concept]
+}
+
 */
 template
 <
-    typename P,
-    template<typename,typename> class V = std::vector,
-    template<typename> class A = std::allocator
+    typename Point,
+    template<typename,typename> class Container = std::vector,
+    template<typename> class Allocator = std::allocator
 >
-class linestring : public V<P, A<P> >
+class linestring : public Container<Point, Allocator<Point> >
 {
-    BOOST_CONCEPT_ASSERT( (concept::Point<P>) );
+    BOOST_CONCEPT_ASSERT( (concept::Point<Point>) );
+
+    typedef Container<Point, Allocator<Point> > base_type;
+
+public :
+    /// \constructor_default{linestring}
+    inline linestring()
+        : base_type()
+    {}
+
+    /// \constructor_begin_end{linestring}
+    template <typename Iterator>
+    inline linestring(Iterator begin, Iterator end)
+        : base_type(begin, end)
+    {}
 };
+
+} // namespace model
 
 #ifndef DOXYGEN_NO_TRAITS_SPECIALIZATIONS
 namespace traits
@@ -52,11 +73,11 @@ namespace traits
 
 template
 <
-    typename P,
-    template<typename,typename> class V,
-    template<typename> class A
+    typename Point,
+    template<typename,typename> class Container,
+    template<typename> class Allocator
 >
-struct tag<linestring<P, V, A> >
+struct tag<model::linestring<Point, Container, Allocator> >
 {
     typedef linestring_tag type;
 };

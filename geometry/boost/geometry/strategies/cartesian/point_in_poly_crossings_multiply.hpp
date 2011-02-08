@@ -14,14 +14,23 @@
 
 
 namespace boost { namespace geometry
-
 {
-namespace strategy { namespace within {
+
+namespace strategy { namespace within
+{
 
 /*!
-    \brief Within detection using cross counting,
-    \see http://tog.acm.org/resources/GraphicsGems/gemsiv/ptpoly_haines/ptinpoly.c
-    \note Does NOT work correctly for point ON border
+\brief Within detection using cross counting,
+\ingroup strategies
+\tparam Point \tparam_point
+\tparam PointOfSegment \tparam_segment_point
+\tparam CalculationType \tparam_calculation
+\see http://tog.acm.org/resources/GraphicsGems/gemsiv/ptpoly_haines/ptinpoly.c
+\note Does NOT work correctly for point ON border
+\qbk{
+[heading See also]
+[link geometry.reference.algorithms.within.within_3_with_strategy within (with strategy)]
+}
  */
 
 template
@@ -92,9 +101,9 @@ public :
         return true;
     }
 
-    static inline bool result(flags const& state)
+    static inline int result(flags const& state)
     {
-        return state.inside_flag;
+        return state.inside_flag ? 1 : -1;
     }
 };
 

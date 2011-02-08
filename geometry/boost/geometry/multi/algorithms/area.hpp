@@ -9,18 +9,23 @@
 #ifndef BOOST_GEOMETRY_MULTI_ALGORITHMS_AREA_HPP
 #define BOOST_GEOMETRY_MULTI_ALGORITHMS_AREA_HPP
 
+
+#include <boost/range/metafunctions.hpp>
+
 #include <boost/geometry/algorithms/area.hpp>
 #include <boost/geometry/multi/core/point_type.hpp>
 #include <boost/geometry/multi/algorithms/detail/multi_sum.hpp>
 
-namespace boost { namespace geometry {
+
+namespace boost { namespace geometry
+{
 
 
 #ifndef DOXYGEN_NO_DISPATCH
 namespace dispatch
 {
-template <typename MultiGeometry, order_selector Order, typename Strategy>
-struct area<multi_polygon_tag, MultiGeometry, Order, Strategy>
+template <typename MultiGeometry, typename Strategy>
+struct area<multi_polygon_tag, MultiGeometry, Strategy>
     : detail::multi_sum
         <
             typename Strategy::return_type,
@@ -30,7 +35,6 @@ struct area<multi_polygon_tag, MultiGeometry, Order, Strategy>
                 <
                     polygon_tag,
                     typename boost::range_value<MultiGeometry>::type,
-                    Order,
                     Strategy
                 >
     >

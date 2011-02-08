@@ -9,7 +9,9 @@
 #define BOOST_GEOMETRY_ALGORITHMS_DETAIL_POINT_ON_BORDER_HPP
 
 
-#include <boost/range/functions.hpp>
+#include <cstddef>
+
+#include <boost/range.hpp>
 
 #include <boost/geometry/core/point_type.hpp>
 #include <boost/geometry/core/ring_type.hpp>

@@ -8,8 +8,9 @@
 #include "../physics/world_fwd.hpp"
 #include <sge/renderer/device_ptr.hpp>
 #include <sge/shader/object_fwd.hpp>
-#include <boost/geometry/algorithms/envelope.hpp>
-#include <boost/geometry/geometries/adapted/std_as_linestring.hpp>
+#include <fcppt/math/matrix/structure_cast.hpp>
+#include <boost/geometry/geometry.hpp>
+#include <boost/geometry/multi/multi.hpp>
 #include <boost/foreach.hpp>
 #include <vector>
 
@@ -21,16 +22,16 @@ namespace
 // to the current point and an index to the current triangle, should
 // be pretty simple
 typedef
-std::vector<fruitcut::app::triangle::vector>
-point_sequence;
+boost::geometry::model::multi_point<fruitcut::app::triangle::vector>
+point_cloud;
 
-point_sequence const
+point_cloud const
 mesh_to_point_sequence(
 	fruitcut::app::mesh const &m)
 {
-	point_sequence output;
+	point_cloud output;
 	output.reserve(
-		static_cast<point_sequence::size_type>(
+		static_cast<point_cloud::size_type>(
 			m.triangles.size() * 3));
 
 	BOOST_FOREACH(
@@ -97,7 +98,15 @@ fruitcut::app::fruit::texture() const
 sge::renderer::matrix4 const
 fruitcut::app::fruit::world_transform() const
 {
-	return body_.world_transform();
+	return 
+		fcppt::math::matrix::structure_cast<sge::renderer::matrix4>(
+			body_.world_transform());
+}
+
+fruitcut::app::box3 const &
+fruitcut::app::fruit::bounding_box() const
+{
+	return bounding_box_;
 }
 
 fruitcut::app::fruit::~fruit()

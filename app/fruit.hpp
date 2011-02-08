@@ -47,6 +47,9 @@ public:
 
 	sge::renderer::matrix4 const
 	world_transform() const;
+
+	box3 const &
+	bounding_box() const;
 	
 	~fruit();
 private:
@@ -55,7 +58,6 @@ private:
 	physics::rigid_body::object body_;
 	sge::renderer::vertex_buffer_ptr vb_;
 	sge::renderer::texture_ptr texture_;
-	
 };
 }
 }

@@ -266,6 +266,18 @@ fruitcut::app::states::ingame::camera()
 	return camera_;
 }
 
+fruitcut::app::states::ingame::fruit_sequence &
+fruitcut::app::states::ingame::fruits()
+{
+	return fruits_;
+}
+
+fruitcut::app::states::ingame::fruit_sequence const &
+fruitcut::app::states::ingame::fruits() const
+{
+	return fruits_;
+}
+
 sge::camera::object const &
 fruitcut::app::states::ingame::camera() const
 {

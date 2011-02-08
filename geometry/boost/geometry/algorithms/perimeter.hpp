@@ -11,24 +11,13 @@
 
 
 #include <boost/geometry/core/cs.hpp>
-
+#include <boost/geometry/core/closure.hpp>
 #include <boost/geometry/geometries/concepts/check.hpp>
-
 #include <boost/geometry/strategies/length_result.hpp>
-
 #include <boost/geometry/algorithms/length.hpp>
 #include <boost/geometry/algorithms/detail/calculate_null.hpp>
 #include <boost/geometry/algorithms/detail/calculate_sum.hpp>
 
-
-/*!
-\defgroup perimeter perimeter: calculate perimeter of a geometry
-\par Geometries:
-- \b polygon
-- \b box
-- \b linear_ring
-- \b multi_polygon
-*/
 
 namespace boost { namespace geometry
 {
@@ -49,7 +38,12 @@ struct perimeter : detail::calculate_null
 
 template <typename Geometry, typename Strategy>
 struct perimeter<ring_tag, Geometry, Strategy>
-    : detail::length::range_length<Geometry, Strategy>
+    : detail::length::range_length
+        <
+            Geometry,
+            Strategy,
+            closure<Geometry>::value
+        >
 {};
 
 template <typename Polygon, typename Strategy>
@@ -62,7 +56,8 @@ struct perimeter<polygon_tag, Polygon, Strategy>
             detail::length::range_length
                 <
                     typename ring_type<Polygon>::type,
-                    Strategy
+                    Strategy,
+                    closure<Polygon>::value
                 >
         >
 {};
@@ -75,28 +70,26 @@ struct perimeter<polygon_tag, Polygon, Strategy>
 
 
 /*!
-    \brief Calculate perimeter of a geometry
-    \ingroup perimeter
-    \details The function perimeter returns the perimeter of a geometry,
-        using the default distance-calculation-strategy
-    \param geometry the geometry, be it a geometry::ring, vector, iterator pair,
-        or any other boost compatible range
-    \return the perimeter
+\brief \brief_calc{perimeter}
+\ingroup perimeter
+\details The function perimeter returns the perimeter of a geometry,
+    using the default distance-calculation-strategy
+\tparam Geometry \tparam_geometry
+\param geometry \param_geometry
+\return \return_calc{perimeter}
+
+\qbk{[include ref/algorithms/perimeter.qbk]}
  */
 template<typename Geometry>
 inline typename length_result<Geometry>::type perimeter(
         Geometry const& geometry)
 {
-    concept::check<const Geometry>();
+    concept::check<Geometry const>();
 
     typedef typename point_type<Geometry>::type point_type;
-    typedef typename cs_tag<point_type>::type cs_tag;
-    typedef typename strategy_distance
+    typedef typename strategy::distance::services::default_strategy
         <
-            cs_tag,
-            cs_tag,
-            point_type,
-            point_type
+            point_tag, point_type
         >::type strategy_type;
 
     return dispatch::perimeter
@@ -108,20 +101,24 @@ inline typename length_result<Geometry>::type perimeter(
 }
 
 /*!
-    \brief Calculate perimeter of a geometry
-    \ingroup perimeter
-    \details The function perimeter returns the perimeter of a geometry,
-        using specified strategy
-    \param geometry the geometry, be it a geometry::ring, vector, iterator pair,
-        or any other boost compatible range
-    \param strategy strategy to be used for distance calculations.
-    \return the perimeter
+\brief \brief_calc{perimeter} \brief_strategy
+\ingroup perimeter
+\details The function perimeter returns the perimeter of a geometry,
+    using specified strategy
+\tparam Geometry \tparam_geometry
+\tparam Strategy \tparam_strategy{distance}
+\param geometry \param_geometry
+\param strategy strategy to be used for distance calculations.
+\return \return_calc{perimeter}
+
+\qbk{distinguish,with strategy}
+\qbk{[include ref/algorithms/perimeter.qbk]}
  */
 template<typename Geometry, typename Strategy>
 inline typename length_result<Geometry>::type perimeter(
         Geometry const& geometry, Strategy const& strategy)
 {
-    concept::check<const Geometry>();
+    concept::check<Geometry const>();
 
     return dispatch::perimeter
         <

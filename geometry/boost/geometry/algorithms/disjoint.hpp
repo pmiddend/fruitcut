@@ -9,29 +9,12 @@
 #ifndef BOOST_GEOMETRY_ALGORITHMS_DISJOINT_HPP
 #define BOOST_GEOMETRY_ALGORITHMS_DISJOINT_HPP
 
-
-/*!
-\defgroup disjoint disjoint: detect if geometries are not spatially related
-\details disjoint means spatially disjoint, there is no overlap of interiors
-    and boundaries, the intersection of interiors or boundaries is empty.
-
-\par Geometries:
-- \b point + \b point (= ! equals)
-- \b point + \b box (= not within or on border)
-- \b box + \b box
-- \b ring + \b box
-- \b polygon + \b box
-- \b polygon + \b ring
-- \b polygon + \b polygon
-
-*/
-
+#include <cstddef>
 #include <deque>
 
-
 #include <boost/mpl/if.hpp>
-#include <boost/range/functions.hpp>
-#include <boost/range/metafunctions.hpp>
+#include <boost/range.hpp>
+
 #include <boost/static_assert.hpp>
 
 #include <boost/geometry/core/access.hpp>
@@ -41,7 +24,7 @@
 
 #include <boost/geometry/algorithms/detail/disjoint.hpp>
 #include <boost/geometry/algorithms/detail/point_on_border.hpp>
-#include <boost/geometry/algorithms/overlay/get_turns.hpp>
+#include <boost/geometry/algorithms/detail/overlay/get_turns.hpp>
 #include <boost/geometry/algorithms/within.hpp>
 
 #include <boost/geometry/geometries/concepts/check.hpp>
@@ -49,41 +32,16 @@
 #include <boost/geometry/util/math.hpp>
 
 
-
 namespace boost { namespace geometry
 {
 
 
 #ifndef DOXYGEN_NO_DETAIL
-namespace detail { namespace disjoint 
+namespace detail { namespace disjoint
 {
-
-
-struct disjoint_interrupt_policy
-{
-    static bool const enabled = true;
-    bool has_intersections;
-
-    inline disjoint_interrupt_policy()
-        : has_intersections(false)
-    {}
-
-    template <typename Range>
-    inline bool apply(Range const& range)
-    {
-        // If there is any IP in the range, it is NOT disjoint
-        if (boost::size(range) > 0)
-        {
-            has_intersections = true;
-            return true;
-        }
-        return false;
-    }
-};
-
 
 template <typename Geometry1, typename Geometry2>
-struct general
+struct disjoint_linear
 {
     static inline bool apply(Geometry1 const& geometry1, Geometry2 const& geometry2)
     {
@@ -96,12 +54,53 @@ struct general
         disjoint_interrupt_policy policy;
         geometry::get_turns
             <
+                false, false,
                 overlay::assign_null_policy
             >(geometry1, geometry2, turns, policy);
         if (policy.has_intersections)
         {
             return false;
         }
+
+        return true;
+    }
+};
+
+template <typename Segment1, typename Segment2>
+struct disjoint_segment
+{
+    static inline bool apply(Segment1 const& segment1, Segment2 const& segment2)
+    {
+        typedef typename point_type<Segment1>::type point_type;
+
+        segment_intersection_points<point_type> is
+            = strategy::intersection::relate_cartesian_segments
+            <
+                policies::relate::segments_intersection_points
+                    <
+                        Segment1,
+                        Segment2,
+                        segment_intersection_points<point_type>
+                    >
+            >::apply(segment1, segment2);
+
+        return is.count == 0;
+    }
+};
+
+
+
+template <typename Geometry1, typename Geometry2>
+struct general_areal
+{
+    static inline bool apply(Geometry1 const& geometry1, Geometry2 const& geometry2)
+    {
+        if (! disjoint_linear<Geometry1, Geometry2>::apply(geometry1, geometry2))
+        {
+            return false;
+        }
+
+        typedef typename geometry::point_type<Geometry1>::type point_type;
 
         // If there is no intersection of segments, they might located
         // inside each other
@@ -141,7 +140,7 @@ template
     std::size_t DimensionCount
 >
 struct disjoint
-    : detail::disjoint::general<Geometry1, Geometry2>
+    : detail::disjoint::general_areal<Geometry1, Geometry2>
 {};
 
 
@@ -160,6 +159,21 @@ struct disjoint<box_tag, box_tag, Box1, Box2, false, false, DimensionCount>
 template <typename Point, typename Box, std::size_t DimensionCount>
 struct disjoint<point_tag, box_tag, Point, Box, false, false, DimensionCount>
     : detail::disjoint::point_box<Point, Box, 0, DimensionCount>
+{};
+
+template <typename Linestring1, typename Linestring2>
+struct disjoint<linestring_tag, linestring_tag, Linestring1, Linestring2, false, false, 2>
+    : detail::disjoint::disjoint_linear<Linestring1, Linestring2>
+{};
+
+template <typename Linestring1, typename Linestring2>
+struct disjoint<segment_tag, segment_tag, Linestring1, Linestring2, false, false, 2>
+    : detail::disjoint::disjoint_segment<Linestring1, Linestring2>
+{};
+
+template <typename Linestring, typename Segment>
+struct disjoint<linestring_tag, segment_tag, Linestring, Segment, false, false, 2>
+    : detail::disjoint::disjoint_linear<Linestring, Segment>
 {};
 
 
@@ -191,54 +205,52 @@ struct disjoint_reversed
 
 
 /*!
-    \brief Calculate if two geometries are disjoint
-    \ingroup disjoint
-    \tparam Geometry1 first geometry type
-    \tparam Geometry2 second geometry type
-    \param geometry1 first geometry
-    \param geometry2 second geometry
-    \return true if disjoint, else false
+\brief \brief_check2{are disjoint}
+\ingroup disjoint
+\tparam Geometry1 \tparam_geometry
+\tparam Geometry2 \tparam_geometry
+\param geometry1 \param_geometry
+\param geometry2 \param_geometry
+\return \return_check2{are disjoint}
  */
 template <typename Geometry1, typename Geometry2>
-inline bool disjoint(const Geometry1& geometry1,
-            const Geometry2& geometry2)
+inline bool disjoint(Geometry1 const& geometry1,
+            Geometry2 const& geometry2)
 {
     concept::check_concepts_and_equal_dimensions
         <
-            const Geometry1,
-            const Geometry2
+            Geometry1 const,
+            Geometry2 const
         >();
-
-    typedef typename boost::remove_const<Geometry1>::type ncg1_type;
-    typedef typename boost::remove_const<Geometry2>::type ncg2_type;
 
     return boost::mpl::if_c
         <
             reverse_dispatch<Geometry1, Geometry2>::type::value,
             dispatch::disjoint_reversed
             <
-                typename tag<ncg1_type>::type,
-                typename tag<ncg2_type>::type,
-                ncg1_type,
-                ncg2_type,
-                is_multi<ncg1_type>::type::value,
-                is_multi<ncg2_type>::type::value,
-                dimension<ncg1_type>::type::value
+                typename tag<Geometry1>::type,
+                typename tag<Geometry2>::type,
+                Geometry1,
+                Geometry2,
+                is_multi<Geometry1>::type::value,
+                is_multi<Geometry2>::type::value,
+                dimension<Geometry1>::type::value
             >,
             dispatch::disjoint
             <
-                typename tag<ncg1_type>::type,
-                typename tag<ncg2_type>::type,
-                ncg1_type,
-                ncg2_type,
-                is_multi<ncg1_type>::type::value,
-                is_multi<ncg2_type>::type::value,
-                dimension<ncg1_type>::type::value
+                typename tag<Geometry1>::type,
+                typename tag<Geometry2>::type,
+                Geometry1,
+                Geometry2,
+                is_multi<Geometry1>::type::value,
+                is_multi<Geometry2>::type::value,
+                dimension<Geometry1>::type::value
             >
         >::type::apply(geometry1, geometry2);
 }
 
 
 }} // namespace boost::geometry
+
 
 #endif // BOOST_GEOMETRY_ALGORITHMS_DISJOINT_HPP

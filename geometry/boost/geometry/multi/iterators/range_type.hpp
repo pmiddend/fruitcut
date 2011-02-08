@@ -9,14 +9,15 @@
 #define BOOST_GEOMETRY_MULTI_ITERATORS_RANGE_TYPE_HPP
 
 
-#include <boost/range/functions.hpp>
-#include <boost/range/metafunctions.hpp>
+#include <boost/range.hpp>
 
 #include <boost/geometry/multi/core/is_multi.hpp>
 
 #include <boost/geometry/iterators/range_type.hpp>
 
-namespace boost { namespace geometry {
+
+namespace boost { namespace geometry
+{
 
 #ifndef DOXYGEN_NO_DISPATCH
 namespace dispatch

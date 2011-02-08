@@ -10,8 +10,9 @@
 #define BOOST_GEOMETRY_MULTI_CORE_INTERIOR_RINGS_HPP
 
 
-#include <boost/range/functions.hpp>
-#include <boost/range/metafunctions.hpp>
+#include <cstddef>
+
+#include <boost/range.hpp>
 
 #include <boost/geometry/core/interior_rings.hpp>
 #include <boost/geometry/multi/core/tags.hpp>

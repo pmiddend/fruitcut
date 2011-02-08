@@ -12,8 +12,8 @@
 #include <string>
 
 #include <boost/concept/assert.hpp>
-#include <boost/range/functions.hpp>
-#include <boost/range/metafunctions.hpp>
+#include <boost/range.hpp>
+
 
 #include <boost/geometry/core/exterior_ring.hpp>
 #include <boost/geometry/core/interior_rings.hpp>
@@ -24,16 +24,13 @@
 #include <boost/geometry/algorithms/convert.hpp>
 
 
-/*!
-\defgroup veshape veshape: stream VEShape (Virtual Earth shapes for in VE Ajax Control)
-\note VE assumes points in LatLong, Lat first
-*/
 
 namespace boost { namespace geometry
 {
 
 #ifndef DOXYGEN_NO_DETAIL
-namespace detail { namespace veshape {
+namespace detail { namespace veshape
+{
 
 
 // Define the coordinate streamer, specialized for either 2 or 3 dimensions.
@@ -135,7 +132,7 @@ struct veshape_range
     template <typename Char, typename Traits>
     static inline void stream(std::basic_ostream<Char, Traits>& os, R const& range)
     {
-        typedef typename boost::range_const_iterator<R>::type iterator;
+        typedef typename boost::range_iterator<R const>::type iterator;
 
         bool first = true;
 
@@ -165,8 +162,6 @@ struct veshape_poly
     static inline void stream(std::basic_ostream<Char, Traits>& os, P const& poly)
     {
         typedef typename ring_type<P>::type ring;
-        typedef typename boost::range_const_iterator<
-                    typename interior_type<P>::type>::type iterator;
 
         veshape_range<ring, Policy>::stream(os, exterior_ring(poly));
 
@@ -193,7 +188,8 @@ struct veshape_poly
 
 
 #ifndef DOXYGEN_NO_DISPATCH
-namespace dispatch {
+namespace dispatch
+{
 
 /*!
 \brief Dispatching base struct for VEShape streaming, specialized below per geometry type

@@ -20,7 +20,8 @@ namespace boost { namespace geometry
 {
 
 #ifndef DOXYGEN_NO_DETAIL
-namespace detail { namespace wkt {
+namespace detail { namespace wkt
+{
 
 
 template <typename Multi, typename StreamPolicy, typename PrefixPolicy>
@@ -34,7 +35,7 @@ struct wkt_multi
         // TODO: check EMPTY here
         os << "(";
 
-        for (typename boost::range_const_iterator<Multi>::type
+        for (typename boost::range_iterator<Multi const>::type
                     it = boost::begin(geometry);
             it != boost::end(geometry);
             ++it)
@@ -55,7 +56,8 @@ struct wkt_multi
 
 
 #ifndef DOXYGEN_NO_DISPATCH
-namespace dispatch {
+namespace dispatch
+{
 
 
 template <typename Multi>

@@ -19,11 +19,11 @@
 #include <boost/geometry/strategies/distance.hpp>
 #include <boost/geometry/strategies/intersection.hpp>
 #include <boost/geometry/strategies/parse.hpp>
-#include <boost/geometry/strategies/point_in_poly.hpp>
 #include <boost/geometry/strategies/side.hpp>
 #include <boost/geometry/strategies/transform.hpp>
+#include <boost/geometry/strategies/within.hpp>
 
-#include <boost/geometry/strategies/cartesian/area_by_triangles.hpp>
+#include <boost/geometry/strategies/cartesian/area_surveyor.hpp>
 #include <boost/geometry/strategies/cartesian/centroid_bashein_detmer.hpp>
 #include <boost/geometry/strategies/cartesian/distance_pythagoras.hpp>
 #include <boost/geometry/strategies/cartesian/distance_projected_point.hpp>

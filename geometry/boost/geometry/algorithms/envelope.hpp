@@ -9,8 +9,9 @@
 #ifndef BOOST_GEOMETRY_ALGORITHMS_ENVELOPE_HPP
 #define BOOST_GEOMETRY_ALGORITHMS_ENVELOPE_HPP
 
-#include <boost/range/functions.hpp>
-#include <boost/range/metafunctions.hpp>
+#include <boost/mpl/assert.hpp>
+#include <boost/range.hpp>
+
 #include <boost/numeric/conversion/cast.hpp>
 
 #include <boost/geometry/algorithms/combine.hpp>
@@ -19,48 +20,13 @@
 #include <boost/geometry/core/exterior_ring.hpp>
 #include <boost/geometry/geometries/concepts/check.hpp>
 
-/*!
-\defgroup envelope envelope: calculate envelope (minimum bounding rectangle) of a geometry
-\par Source descriptions:
-- OGC: Envelope (): Geometry - The minimum bounding rectangle (MBR) for this
-    Geometry,
-returned as a Geometry. The polygon is defined by the corner points of the
-    bounding box
-    [(MINX, MINY), (MAXX, MINY), (MAXX, MAXY), (MINX, MAXY), (MINX, MINY)].
-
-\note Implemented in the Generic Geometry Library: The minimum bounding box,
-    always as a box, having min <= max
-
-The envelope algorithm calculates the bounding box, or envelope, of a geometry.
-There are two versions:
-- envelope, taking a reference to a box as second parameter
-- make_envelope, returning a newly constructed box (type as a template parameter
-    in the function call)
-
-\par Geometries:
-- \b point: a box with zero area, the maximum and the minimum point of the box are
-set to the point itself.
-- \b linestring, \b ring or \b range is the smallest box that contains all points of the
-    specified point sequence.
-If the linestring is empty, the envelope is the inverse infinite box, that is,
-    the minimum point is very large (max infinite) and the maximum point is
-    very small (min infinite).
-- \b polygon, the envelope of the outer ring
-\image html envelope_polygon.png
-
-\par Example:
-Example showing envelope calculation
-\dontinclude doxygen_1.cpp
-\skip example_envelope_linestring
-\line {
-\until }
-*/
 
 namespace boost { namespace geometry
 {
 
 #ifndef DOXYGEN_NO_DETAIL
-namespace detail { namespace envelope {
+namespace detail { namespace envelope
+{
 
 
 /// Calculate envelope of an 2D or 3D segment
@@ -79,7 +45,7 @@ struct envelope_combine_one
 template<typename Range, typename Box>
 inline void envelope_range_additional(Range const& range, Box& mbr)
 {
-    typedef typename boost::range_const_iterator<Range>::type iterator_type;
+    typedef typename boost::range_iterator<Range const>::type iterator_type;
 
     for (iterator_type it = boost::begin(range);
         it != boost::end(range);
@@ -121,7 +87,14 @@ template
     typename Geometry, typename Box,
     typename StrategyLess, typename StrategyGreater
 >
-struct envelope {};
+struct envelope 
+{
+    BOOST_MPL_ASSERT_MSG
+        (
+            false, NOT_OR_NOT_YET_IMPLEMENTED_FOR_THIS_GEOMETRY_TYPE
+            , (types<Geometry>)
+        );
+};
 
 
 template
@@ -230,10 +203,14 @@ struct envelope
 
 
 /*!
-\brief Calculate envelope of a geometry
+\brief \brief_calc{envelope}
 \ingroup envelope
-\param geometry the geometry
-\param mbr the box receiving the envelope
+\details \details_calc{envelope,\det_envelope}.
+\tparam Geometry \tparam_geometry
+\tparam Box \tparam_box
+\param geometry \param_geometry
+\param mbr \param_box \param_set{envelope}
+
 \par Example:
 Example showing envelope calculation, using point_ll latlong points
 \dontinclude doxygen_1.cpp
@@ -244,7 +221,7 @@ Example showing envelope calculation, using point_ll latlong points
 template<typename Geometry, typename Box>
 inline void envelope(Geometry const& geometry, Box& mbr)
 {
-    concept::check<const Geometry>();
+    concept::check<Geometry const>();
     concept::check<Box>();
 
     dispatch::envelope
@@ -257,14 +234,18 @@ inline void envelope(Geometry const& geometry, Box& mbr)
 
 
 /*!
-\brief Calculate and return envelope of a geometry
+\brief \brief_calc{envelope}
 \ingroup envelope
-\param geometry the geometry
+\details \details_calc{make_envelope,\det_envelope}. \details_make{envelope}
+\tparam Box \tparam_box
+\tparam Geometry \tparam_geometry
+\param geometry \param_geometry
+\return \return_calc{envelope}
 */
 template<typename Box, typename Geometry>
 inline Box make_envelope(Geometry const& geometry)
 {
-    concept::check<const Geometry>();
+    concept::check<Geometry const>();
     concept::check<Box>();
 
     Box mbr;

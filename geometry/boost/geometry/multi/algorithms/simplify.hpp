@@ -9,14 +9,14 @@
 #ifndef BOOST_GEOMETRY_MULTI_ALGORITHMS_SIMPLIFY_HPP
 #define BOOST_GEOMETRY_MULTI_ALGORITHMS_SIMPLIFY_HPP
 
-#include <boost/range/functions.hpp>
-#include <boost/range/metafunctions.hpp>
+#include <boost/range.hpp>
 
 #include <boost/geometry/multi/core/tags.hpp>
 #include <boost/geometry/multi/core/is_multi.hpp>
 
 #include <boost/geometry/multi/iterators/range_type.hpp>
 
+#include <boost/geometry/multi/algorithms/clear.hpp>
 #include <boost/geometry/algorithms/simplify.hpp>
 
 
@@ -24,7 +24,8 @@ namespace boost { namespace geometry
 {
 
 #ifndef DOXYGEN_NO_DETAIL
-namespace detail { namespace simplify {
+namespace detail { namespace simplify
+{
 
 template<typename MultiGeometry, typename Strategy, typename Policy>
 struct simplify_multi
@@ -36,7 +37,7 @@ struct simplify_multi
 
         typename boost::range_iterator<MultiGeometry>::type it_out
                 = boost::begin(out);
-        for (typename boost::range_const_iterator<MultiGeometry>::type it_in
+        for (typename boost::range_iterator<MultiGeometry const>::type it_in
                     = boost::begin(multi);
             it_in != boost::end(multi);
             ++it_in, ++it_out)

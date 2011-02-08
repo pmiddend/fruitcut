@@ -9,8 +9,11 @@
 #ifndef BOOST_GEOMETRY_STRATEGY_AGNOSTIC_SIMPLIFY_DOUGLAS_PEUCKER_HPP
 #define BOOST_GEOMETRY_STRATEGY_AGNOSTIC_SIMPLIFY_DOUGLAS_PEUCKER_HPP
 
+
+#include <cstddef>
 #include <vector>
-#include <boost/range/functions.hpp>
+
+#include <boost/range.hpp>
 
 #include <boost/geometry/core/cs.hpp>
 #include <boost/geometry/strategies/distance_result.hpp>
@@ -27,7 +30,8 @@
 namespace boost { namespace geometry
 {
 
-namespace strategy { namespace simplify {
+namespace strategy { namespace simplify
+{
 
 
 #ifndef DOXYGEN_NO_DETAIL
@@ -63,19 +67,19 @@ namespace detail
 
 
 /*!
-    \brief Implements the simplify algorithm.
-    \ingroup simplify
-    \details The douglas_peucker strategy simplifies a linestring, ring or
-        vector of points using the well-known Douglas-Peucker algorithm.
-        For the algorithm, see for example:
-    \see http://en.wikipedia.org/wiki/Ramer-Douglas-Peucker_algorithm
-    \see http://www2.dcs.hull.ac.uk/CISRG/projects/Royal-Inst/demos/dp.html
-    \tparam Point the point type
-    \tparam PointDistanceStrategy point-segment distance strategy to be used
-    \note This strategy uses itself a point-segment-distance strategy which
-        can be specified
-    \author Barend and Maarten, 1995/1996
-    \author Barend, revised for Generic Geometry Library, 2008
+\brief Implements the simplify algorithm.
+\ingroup strategies
+\details The douglas_peucker strategy simplifies a linestring, ring or
+    vector of points using the well-known Douglas-Peucker algorithm.
+    For the algorithm, see for example:
+\see http://en.wikipedia.org/wiki/Ramer-Douglas-Peucker_algorithm
+\see http://www2.dcs.hull.ac.uk/CISRG/projects/Royal-Inst/demos/dp.html
+\tparam Point the point type
+\tparam PointDistanceStrategy point-segment distance strategy to be used
+\note This strategy uses itself a point-segment-distance strategy which
+    can be specified
+\author Barend and Maarten, 1995/1996
+\author Barend, revised for Generic Geometry Library, 2008
 */
 template
 <
@@ -84,15 +88,20 @@ template
 >
 class douglas_peucker
 {
+public :
+
+    typedef typename strategy::distance::services::comparable_type<PointDistanceStrategy>::type distance_strategy_type;
+    typedef typename strategy::distance::services::return_type<distance_strategy_type>::type return_type;
+
+private :
     typedef detail::douglas_peucker_point<Point> dp_point_type;
     typedef typename std::vector<dp_point_type>::iterator iterator_type;
 
-    typedef typename PointDistanceStrategy::return_type return_type;
 
     static inline void consider(iterator_type begin,
                 iterator_type end,
                 return_type const& max_dist, int& n,
-                PointDistanceStrategy const& ps_distance_strategy)
+                distance_strategy_type const& ps_distance_strategy)
     {
         std::size_t size = end - begin;
 
@@ -121,8 +130,8 @@ class douglas_peucker
 #endif
 
 
-        // Find most distance point, compare to the current segment
-        //geometry::segment<const Point> s(begin->p, last->p);
+        // Find most far point, compare to the current segment
+        //geometry::segment<Point const> s(begin->p, last->p);
         return_type md(-1.0); // any value < 0
         iterator_type candidate;
         for(iterator_type it = begin + 1; it != last; ++it)
@@ -162,14 +171,11 @@ class douglas_peucker
 
 public :
 
-    typedef PointDistanceStrategy distance_strategy_type;
-
-
     template <typename Range, typename OutputIterator>
     static inline OutputIterator apply(Range const& range,
                     OutputIterator out, double max_distance)
     {
-        PointDistanceStrategy strategy;
+        distance_strategy_type strategy;
 
         // Copy coordinates, a vector of references to all points
         std::vector<dp_point_type> ref_candidates(boost::begin(range),
@@ -183,10 +189,9 @@ public :
 
         // Get points, recursively, including them if they are further away
         // than the specified distance
-        typedef typename PointDistanceStrategy::return_type return_type;
+        typedef typename strategy::distance::services::return_type<distance_strategy_type>::type return_type;
 
-        consider(boost::begin(ref_candidates), boost::end(ref_candidates),
-            make_distance_result<return_type>(max_distance), n, strategy);
+        consider(boost::begin(ref_candidates), boost::end(ref_candidates), max_distance, n, strategy);
 
         // Copy included elements to the output
         for(typename std::vector<dp_point_type>::const_iterator it

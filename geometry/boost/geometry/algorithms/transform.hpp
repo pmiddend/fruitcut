@@ -12,8 +12,8 @@
 #include <cmath>
 #include <iterator>
 
-#include <boost/range/functions.hpp>
-#include <boost/range/metafunctions.hpp>
+#include <boost/range.hpp>
+#include <boost/typeof/typeof.hpp>
 
 #include <boost/geometry/algorithms/clear.hpp>
 #include <boost/geometry/algorithms/assign.hpp>
@@ -22,51 +22,16 @@
 #include <boost/geometry/core/exterior_ring.hpp>
 #include <boost/geometry/core/interior_rings.hpp>
 #include <boost/geometry/core/ring_type.hpp>
-
 #include <boost/geometry/geometries/concepts/check.hpp>
-
 #include <boost/geometry/strategies/transform.hpp>
 
-
-/*!
-\defgroup transform transform: apply transformations on geometries
-\brief Transforms from one geometry to another geometry, optionally using a strategy
-\details The transform algorithm automatically transforms from one coordinate system to another coordinate system.
-If the coordinate system of both geometries are the same, the geometry is copied. All point(s of the geometry)
-are transformed.
-
-There is a version without a strategy, transforming automatically, and there is a version with a strategy.
-
-This function has a lot of appliances, for example
-- transform from spherical coordinates to cartesian coordinates, and back
-- transform from geographic coordinates to cartesian coordinates (projections) and back
-- transform from degree to radian, and back
-- transform from and to cartesian coordinates (mapping, translations, etc)
-
-The automatic transformations look to the coordinate system family, and dimensions, of the point type and by this
-apply the strategy (internally bounded by traits classes).
-
-\par Examples:
-The example below shows automatic transformations to go from one coordinate system to another one:
-\dontinclude doxygen_2.cpp
-\skip example_for_transform()
-\skipline XYZ
-\until endl;
-
-The next example takes another approach and transforms from Cartesian to Cartesian:
-\skipline XY
-\until endl;
-
-\note Not every possibility is yet worked out, e.g. polar coordinate system is ignored until now
-\note This "transform" is broader then geodetic datum transformations, those are currently not worked out
-
-*/
 
 namespace boost { namespace geometry
 {
 
 #ifndef DOXYGEN_NO_DETAIL
-namespace detail { namespace transform {
+namespace detail { namespace transform
+{
 
 template <typename Point1, typename Point2, typename Strategy>
 struct transform_point
@@ -77,6 +42,7 @@ struct transform_point
         return strategy.apply(p1, p2);
     }
 };
+
 
 template <typename Box1, typename Box2, typename Strategy>
 struct transform_box
@@ -117,6 +83,7 @@ struct transform_box
     }
 };
 
+
 template
 <
     typename PointOut,
@@ -128,7 +95,7 @@ inline bool transform_range_out(Range const& range,
     OutputIterator out, Strategy const& strategy)
 {
     PointOut point_out;
-    for(typename boost::range_const_iterator<Range>::type
+    for(typename boost::range_iterator<Range const>::type
         it = boost::begin(range);
         it != boost::end(range);
         ++it)
@@ -142,20 +109,18 @@ inline bool transform_range_out(Range const& range,
         {
             return false;
         }
-        *out = point_out;
-        ++out;
+        *out++ = point_out;
     }
     return true;
 }
 
+
 template <typename Polygon1, typename Polygon2, typename Strategy>
 struct transform_polygon
 {
-    static inline bool apply(const Polygon1& poly1, Polygon2& poly2,
+    static inline bool apply(Polygon1 const& poly1, Polygon2& poly2,
                 Strategy const& strategy)
     {
-        typedef typename interior_type<Polygon1>::type interior1_type;
-        typedef typename interior_type<Polygon2>::type interior2_type;
         typedef typename ring_type<Polygon1>::type ring1_type;
         typedef typename ring_type<Polygon2>::type ring2_type;
         typedef typename point_type<Polygon2>::type point2_type;
@@ -168,21 +133,17 @@ struct transform_polygon
             return false;
         }
 
+        // Note: here a resizeable container is assumed.
+        // TODO: we should make this part of the concept.
         interior_rings(poly2).resize(num_interior_rings(poly1));
 
-        typedef typename boost::range_const_iterator
-            <
-                interior1_type
-            >::type iterator1_type;
-        typedef typename boost::range_iterator
-            <
-                interior2_type
-            >::type iterator2_type;
-
-        iterator1_type it1 = boost::begin(interior_rings(poly1));
-        iterator2_type it2 = boost::begin(interior_rings(poly2));
-        for ( ; it1 != boost::end(interior_rings(poly1));
-            ++it1, ++it2)
+        typename interior_return_type<Polygon1 const>::type rings1
+                    = interior_rings(poly1);
+        typename interior_return_type<Polygon2>::type rings2
+                    = interior_rings(poly2);
+        BOOST_AUTO(it1, boost::begin(rings1));
+        BOOST_AUTO(it2, boost::begin(rings2));
+        for ( ; it1 != boost::end(interior_rings(poly1)); ++it1, ++it2)
         {
             if (!transform_range_out<point2_type>(*it1,
                 std::back_inserter(*it2), strategy))
@@ -199,16 +160,16 @@ struct transform_polygon
 template <typename Point1, typename Point2>
 struct select_strategy
 {
-    typedef typename strategy_transform
+    typedef typename strategy::transform::services::default_strategy
         <
-        typename cs_tag<Point1>::type,
-        typename cs_tag<Point2>::type,
-        typename coordinate_system<Point1>::type,
-        typename coordinate_system<Point2>::type,
-        dimension<Point1>::type::value,
-        dimension<Point2>::type::value,
-        typename point_type<Point1>::type,
-        typename point_type<Point2>::type
+            typename cs_tag<Point1>::type,
+            typename cs_tag<Point2>::type,
+            typename coordinate_system<Point1>::type,
+            typename coordinate_system<Point2>::type,
+            dimension<Point1>::type::value,
+            dimension<Point2>::type::value,
+            typename point_type<Point1>::type,
+            typename point_type<Point2>::type
         >::type type;
 };
 
@@ -220,7 +181,8 @@ struct transform_range
     {
         typedef typename point_type<Range2>::type point_type;
 
-        geometry::clear(range2);
+        // Should NOT be done here!
+        // geometry::clear(range2);
         return transform_range_out<point_type>(range1,
                 std::back_inserter(range2), strategy);
     }
@@ -283,20 +245,20 @@ struct transform<box_tag, box_tag, Box1, Box2, Strategy>
 
 
 /*!
-    \brief Transforms from one geometry to another geometry using a strategy
-    \ingroup transform
-    \tparam Geometry1 first geometry type
-    \tparam Geometry2 second geometry type
-    \tparam Strategy strategy
-    \param geometry1 first geometry
-    \param geometry2 second geometry
-    \param strategy the strategy to be used for transformation
+\brief Transforms from one geometry to another geometry using a strategy
+\ingroup transform
+\tparam Geometry1 \tparam_geometry
+\tparam Geometry2 \tparam_geometry
+\tparam Strategy strategy
+\param geometry1 \param_geometry
+\param geometry2 \param_geometry
+\param strategy the strategy to be used for transformation
  */
 template <typename Geometry1, typename Geometry2, typename Strategy>
 inline bool transform(Geometry1 const& geometry1, Geometry2& geometry2,
             Strategy const& strategy)
 {
-    concept::check<const Geometry1>();
+    concept::check<Geometry1 const>();
     concept::check<Geometry2>();
 
     typedef dispatch::transform
@@ -311,25 +273,28 @@ inline bool transform(Geometry1 const& geometry1, Geometry2& geometry2,
     return transform_type::apply(geometry1, geometry2, strategy);
 }
 
+
 /*!
-    \brief Transforms from one geometry to another geometry using a strategy
-    \ingroup transform
-    \tparam Geometry1 first geometry type
-    \tparam Geometry2 second geometry type
-    \param geometry1 first geometry
-    \param geometry2 second geometry
-    \return true if the transformation could be done
+\brief Transforms from one geometry to another geometry using a strategy
+\ingroup transform
+\tparam Geometry1 \tparam_geometry
+\tparam Geometry2 \tparam_geometry
+\param geometry1 \param_geometry
+\param geometry2 \param_geometry
+\return true if the transformation could be done
  */
 template <typename Geometry1, typename Geometry2>
 inline bool transform(Geometry1 const& geometry1, Geometry2& geometry2)
 {
-    concept::check<const Geometry1>();
+    concept::check<Geometry1 const>();
     concept::check<Geometry2>();
 
     typename detail::transform::select_strategy<Geometry1, Geometry2>::type strategy;
     return transform(geometry1, geometry2, strategy);
 }
 
+
 }} // namespace boost::geometry
+
 
 #endif // BOOST_GEOMETRY_ALGORITHMS_TRANSFORM_HPP

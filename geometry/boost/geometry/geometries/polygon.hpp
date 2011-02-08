@@ -19,32 +19,45 @@
 #include <boost/geometry/core/point_type.hpp>
 #include <boost/geometry/core/ring_type.hpp>
 #include <boost/geometry/geometries/concepts/point_concept.hpp>
-#include <boost/geometry/geometries/linear_ring.hpp>
+#include <boost/geometry/geometries/ring.hpp>
 
 namespace boost { namespace geometry
 {
 
+namespace model
+{
+
 /*!
-    \brief The \b polygon contains an outer ring and zero or more inner rings.
-    \ingroup geometries
-    \tparam P point type
-    \tparam PointList optional container type for points,
-                for example std::vector, std::list, std::deque
-    \tparam RingList optional container type for inner rings,
-                for example std::vector, std::list, std::deque
-    \tparam ClockWise optional parameter, true for clockwise direction,
-                false for CounterClockWise direction
-    \tparam PointAlloc container-allocator-type
-    \tparam RingAlloc container-allocator-type
-    \note The container collecting the points in the rings can be different
-        from the container collecting the inner rings. They all default to vector.
+\brief The polygon contains an outer ring and zero or more inner rings.
+\ingroup geometries
+\tparam Point point type
+\tparam ClockWise true for clockwise direction,
+            false for CounterClockWise direction
+\tparam Closed true for closed polygons (last point == first point),
+            false open points
+\tparam PointList container type for points,
+            for example std::vector, std::list, std::deque
+\tparam RingList container type for inner rings,
+            for example std::vector, std::list, std::deque
+\tparam PointAlloc container-allocator-type, for the points
+\tparam RingAlloc container-allocator-type, for the rings
+\note The container collecting the points in the rings can be different
+    from the container collecting the inner rings. They all default to vector.
+
+\qbk{before.synopsis,
+[heading Model of]
+[link geometry.reference.concepts.concept_polygon Polygon Concept]
+}
+
+
 */
 template
 <
     typename Point,
+    bool ClockWise = true,
+    bool Closed = true,
     template<typename, typename> class PointList = std::vector,
     template<typename, typename> class RingList = std::vector,
-    bool ClockWise = true,
     template<typename> class PointAlloc = std::allocator,
     template<typename> class RingAlloc = std::allocator
 >
@@ -56,7 +69,7 @@ public:
 
     // Member types
     typedef Point point_type;
-    typedef linear_ring<Point, PointList, ClockWise, PointAlloc> ring_type;
+    typedef ring<Point, ClockWise, Closed, PointList, PointAlloc> ring_type;
     typedef RingList<ring_type , RingAlloc<ring_type > > inner_container_type;
 
     inline ring_type const& outer() const { return m_outer; }
@@ -79,6 +92,9 @@ private:
 };
 
 
+} // namespace model
+
+
 #ifndef DOXYGEN_NO_TRAITS_SPECIALIZATIONS
 namespace traits
 {
@@ -86,13 +102,20 @@ namespace traits
 template
 <
     typename Point,
+    bool ClockWise, bool Closed,
     template<typename, typename> class PointList,
     template<typename, typename> class RingList,
-    bool ClockWise,
     template<typename> class PointAlloc,
     template<typename> class RingAlloc
 >
-struct tag<polygon<Point, PointList, RingList, ClockWise, PointAlloc, RingAlloc> >
+struct tag
+<
+    model::polygon
+        <
+            Point, ClockWise, Closed,
+            PointList, RingList, PointAlloc, RingAlloc
+        >
+>
 {
     typedef polygon_tag type;
 };
@@ -100,56 +123,144 @@ struct tag<polygon<Point, PointList, RingList, ClockWise, PointAlloc, RingAlloc>
 template
 <
     typename Point,
+    bool ClockWise, bool Closed,
     template<typename, typename> class PointList,
     template<typename, typename> class RingList,
-    bool ClockWise,
     template<typename> class PointAlloc,
     template<typename> class RingAlloc
 >
-struct ring_type<polygon<Point, PointList, RingList, ClockWise, PointAlloc, RingAlloc> >
-{
-    typedef typename polygon
+struct ring_const_type
+<
+    model::polygon
         <
-            Point, PointList, RingList, ClockWise, PointAlloc, RingAlloc
-        >::ring_type type;
+            Point, ClockWise, Closed,
+            PointList, RingList, PointAlloc, RingAlloc
+        >
+>
+{
+    typedef typename model::polygon
+        <
+            Point, ClockWise, Closed,
+            PointList, RingList,
+            PointAlloc, RingAlloc
+        >::ring_type const& type;
+};
+
+
+template
+<
+    typename Point,
+    bool ClockWise, bool Closed,
+    template<typename, typename> class PointList,
+    template<typename, typename> class RingList,
+    template<typename> class PointAlloc,
+    template<typename> class RingAlloc
+>
+struct ring_mutable_type
+<
+    model::polygon
+        <
+            Point, ClockWise, Closed,
+            PointList, RingList, PointAlloc, RingAlloc
+        >
+>
+{
+    typedef typename model::polygon
+        <
+            Point, ClockWise, Closed,
+            PointList, RingList,
+            PointAlloc, RingAlloc
+        >::ring_type& type;
 };
 
 template
 <
     typename Point,
+    bool ClockWise, bool Closed,
     template<typename, typename> class PointList,
     template<typename, typename> class RingList,
-    bool ClockWise,
     template<typename> class PointAlloc,
     template<typename> class RingAlloc
 >
-struct interior_type< polygon<Point, PointList, RingList, ClockWise, PointAlloc, RingAlloc> >
-{
-    typedef typename polygon
+struct interior_const_type
+<
+    model::polygon
         <
-            Point, PointList, RingList, ClockWise, PointAlloc, RingAlloc
-        >::inner_container_type type;
+            Point, ClockWise, Closed,
+            PointList, RingList,
+            PointAlloc, RingAlloc
+        >
+>
+{
+    typedef typename model::polygon
+        <
+            Point, ClockWise, Closed,
+            PointList, RingList,
+            PointAlloc, RingAlloc
+        >::inner_container_type const& type;
 };
+
 
 template
 <
     typename Point,
+    bool ClockWise, bool Closed,
     template<typename, typename> class PointList,
     template<typename, typename> class RingList,
-    bool ClockWise,
     template<typename> class PointAlloc,
     template<typename> class RingAlloc
 >
-struct exterior_ring< polygon<Point, PointList, RingList, ClockWise, PointAlloc, RingAlloc> >
+struct interior_mutable_type
+<
+    model::polygon
+        <
+            Point, ClockWise, Closed,
+            PointList, RingList,
+            PointAlloc, RingAlloc
+        >
+>
 {
-    typedef polygon<Point, PointList, RingList, ClockWise, PointAlloc, RingAlloc> polygon_type;
+    typedef typename model::polygon
+        <
+            Point, ClockWise, Closed,
+            PointList, RingList,
+            PointAlloc, RingAlloc
+        >::inner_container_type& type;
+};
+
+
+template
+<
+    typename Point,
+    bool ClockWise, bool Closed,
+    template<typename, typename> class PointList,
+    template<typename, typename> class RingList,
+    template<typename> class PointAlloc,
+    template<typename> class RingAlloc
+>
+struct exterior_ring
+<
+    model::polygon
+        <
+            Point, ClockWise, Closed,
+            PointList, RingList, PointAlloc, RingAlloc
+        >
+>
+{
+    typedef model::polygon
+        <
+            Point, ClockWise, Closed,
+            PointList, RingList,
+            PointAlloc, RingAlloc
+        > polygon_type;
 
     static inline typename polygon_type::ring_type& get(polygon_type& p)
     {
         return p.outer();
     }
 
-    static inline typename polygon_type::ring_type const & get(polygon_type const& p)
+    static inline typename polygon_type::ring_type const& get(
+                    polygon_type const& p)
     {
         return p.outer();
     }
@@ -158,15 +269,27 @@ struct exterior_ring< polygon<Point, PointList, RingList, ClockWise, PointAlloc,
 template
 <
     typename Point,
+    bool ClockWise, bool Closed,
     template<typename, typename> class PointList,
     template<typename, typename> class RingList,
-    bool ClockWise,
     template<typename> class PointAlloc,
     template<typename> class RingAlloc
 >
-struct interior_rings< polygon<Point, PointList, RingList, ClockWise, PointAlloc, RingAlloc> >
+struct interior_rings
+<
+    model::polygon
+        <
+            Point, ClockWise, Closed,
+            PointList, RingList,
+            PointAlloc, RingAlloc
+        >
+>
 {
-    typedef polygon<Point, PointList, RingList, ClockWise, PointAlloc, RingAlloc> polygon_type;
+    typedef model::polygon
+        <
+            Point, ClockWise, Closed, PointList, RingList,
+            PointAlloc, RingAlloc
+        > polygon_type;
 
     static inline typename polygon_type::inner_container_type& get(
                     polygon_type& p)
@@ -183,6 +306,8 @@ struct interior_rings< polygon<Point, PointList, RingList, ClockWise, PointAlloc
 
 } // namespace traits
 #endif // DOXYGEN_NO_TRAITS_SPECIALIZATIONS
+
+
 
 }} // namespace boost::geometry
 

@@ -9,6 +9,7 @@
 #ifndef BOOST_GEOMETRY_EXTENSIONS_NSPHERE_ALGORITHMS_AREA_HPP
 #define BOOST_GEOMETRY_EXTENSIONS_NSPHERE_ALGORITHMS_AREA_HPP
 
+#include <boost/math/constants/constants.hpp>
 
 #include <boost/geometry/algorithms/area.hpp>
 
@@ -20,7 +21,8 @@ namespace boost { namespace geometry
 {
 
 #ifndef DOXYGEN_NO_DETAIL
-namespace detail { namespace area {
+namespace detail { namespace area
+{
 
 template<typename C, typename S>
 struct circle_area
@@ -43,7 +45,7 @@ struct circle_area
         assert_dimension<C, 2>();
 
         return_type r = get_radius<0>(c);
-        r *= r * geometry::math::pi;
+        r *= r * boost::math::constants::pi<return_type>();
         return r;
     }
 };
@@ -55,11 +57,12 @@ struct circle_area
 #endif // DOXYGEN_NO_DETAIL
 
 #ifndef DOXYGEN_NO_DISPATCH
-namespace dispatch {
+namespace dispatch
+{
 
 
-template <typename Geometry, order_selector Order, typename Strategy>
-struct area<nsphere_tag, Geometry, Order, Strategy>
+template <typename Geometry, typename Strategy>
+struct area<nsphere_tag, Geometry, Strategy>
     : detail::area::circle_area<Geometry, Strategy>
 {};
 

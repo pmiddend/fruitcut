@@ -12,37 +12,14 @@
 
 #include <boost/mpl/if.hpp>
 
-#include <boost/geometry/core/interior_rings.hpp>
+#include <boost/range/metafunctions.hpp>
+
+#include <boost/geometry/core/is_areal.hpp>
+#include <boost/geometry/core/point_order.hpp>
 #include <boost/geometry/core/reverse_dispatch.hpp>
 #include <boost/geometry/geometries/concepts/check.hpp>
-#include <boost/geometry/algorithms/overlay/assemble.hpp>
-#include <boost/geometry/algorithms/within.hpp>
+#include <boost/geometry/algorithms/detail/overlay/overlay.hpp>
 
-
-
-/*!
-\defgroup union union: calculate new geometry containing geometries A or B
-\details The union of two geometries A and B is the geometry containing
-    all points belong to either of A or B, but no other elements.
-\par Source description:
-- OGC: Returns a geometric object that represents the Point set union of
-    this geometric object with another Geometry.
-\see http://en.wikipedia.org/wiki/Union_(set_theory)
-\note A union of two rings can result in a polygon having a hole
-
-\par Geometries:
-- \b polygon + \b box -> \b polygon(s)
-\image html svg_union_polygon_box.png
-- \b ring + \b box -> \b polygon(s)
-\image html svg_union_ring_box.png
-- \b ring + \b ring -> \b polygon(s)
-\image html svg_union_ring_ring.png
-- \b polygon + \b ring -> \b polygon(s)
-\image html svg_union_polygon_ring.png
-- combinations above -> \b ring(s).
-    <i>If the output is an ouput iterator of rings, holes are omitted</i>
-
-*/
 
 namespace boost { namespace geometry
 {
@@ -53,23 +30,56 @@ namespace dispatch
 
 template
 <
-    typename Tag1, typename Tag2, typename Tag3,
-    typename G1, typename G2,
+    // tag dispatching:
+    typename TagIn1, typename TagIn2, typename TagOut,
+    // metafunction finetuning helpers:
+    bool Areal1, bool Areal2, bool ArealOut, 
+    // real types
+    typename Geometry1, typename Geometry2,
+    bool Reverse1, bool Reverse2, bool ReverseOut,
     typename OutputIterator,
     typename GeometryOut,
     typename Strategy
 >
 struct union_inserter
-    : detail::overlay::overlay
-        <G1, G2, OutputIterator, GeometryOut, 1, Strategy>
 {
+    BOOST_MPL_ASSERT_MSG
+        (
+            false, NOT_OR_NOT_YET_IMPLEMENTED_FOR_THIS_GEOMETRY_TYPES
+            , (types<Geometry1, Geometry2, GeometryOut>)
+        );
 };
 
 
 template
 <
-    typename GeometryTag1, typename GeometryTag2, typename GeometryTag3,
+    typename TagIn1, typename TagIn2, typename TagOut,
     typename Geometry1, typename Geometry2,
+    bool Reverse1, bool Reverse2, bool ReverseOut,
+    typename OutputIterator,
+    typename GeometryOut,
+    typename Strategy
+>
+struct union_inserter
+    <
+        TagIn1, TagIn2, TagOut,
+        true, true, true,
+        Geometry1, Geometry2,
+        Reverse1, Reverse2, ReverseOut,
+        OutputIterator, GeometryOut,
+        Strategy
+    > : detail::overlay::overlay
+        <Geometry1, Geometry2, Reverse1, Reverse2, ReverseOut, OutputIterator, GeometryOut, overlay_union, Strategy>
+{};
+
+
+
+template
+<
+    typename GeometryTag1, typename GeometryTag2, typename GeometryTag3,
+    bool Areal1, bool Areal2, bool ArealOut, 
+    typename Geometry1, typename Geometry2,
+    bool Reverse1, bool Reverse2, bool ReverseOut,
     typename OutputIterator, typename GeometryOut,
     typename Strategy
 >
@@ -82,7 +92,9 @@ struct union_inserter_reversed
         return union_inserter
             <
                 GeometryTag2, GeometryTag1, GeometryTag3,
+                Areal2, Areal1, ArealOut, 
                 Geometry2, Geometry1,
+                Reverse2, Reverse1, ReverseOut,
                 OutputIterator, GeometryOut,
                 Strategy
             >::apply(g2, g1, out, strategy);
@@ -93,20 +105,76 @@ struct union_inserter_reversed
 } // namespace dispatch
 #endif // DOXYGEN_NO_DISPATCH
 
+#ifndef DOXYGEN_NO_DETAIL
+namespace detail { namespace union_
+{
+
+template
+<
+    typename GeometryOut,
+    bool Reverse1, bool Reverse2, bool ReverseOut,
+    typename Geometry1, typename Geometry2,
+    typename OutputIterator,
+    typename Strategy
+>
+inline OutputIterator inserter(Geometry1 const& geometry1,
+            Geometry2 const& geometry2,
+            OutputIterator out,
+            Strategy const& strategy)
+{
+    return boost::mpl::if_c
+        <
+            geometry::reverse_dispatch<Geometry1, Geometry2>::type::value,
+            dispatch::union_inserter_reversed
+            <
+                typename tag<Geometry1>::type,
+                typename tag<Geometry2>::type,
+                typename tag<GeometryOut>::type,
+                geometry::is_areal<Geometry1>::value,
+                geometry::is_areal<Geometry2>::value,
+                geometry::is_areal<GeometryOut>::value,
+                Geometry1, Geometry2,
+                overlay::do_reverse<geometry::point_order<Geometry1>::value, Reverse1>::value, 
+                overlay::do_reverse<geometry::point_order<Geometry2>::value, Reverse2>::value, 
+                ReverseOut,
+                OutputIterator, GeometryOut,
+                Strategy
+            >,
+            dispatch::union_inserter
+            <
+                typename tag<Geometry1>::type,
+                typename tag<Geometry2>::type,
+                typename tag<GeometryOut>::type,
+                geometry::is_areal<Geometry1>::value,
+                geometry::is_areal<Geometry2>::value,
+                geometry::is_areal<GeometryOut>::value,
+                Geometry1, Geometry2,
+                overlay::do_reverse<geometry::point_order<Geometry1>::value, Reverse1>::value, 
+                overlay::do_reverse<geometry::point_order<Geometry2>::value, Reverse2>::value, 
+                ReverseOut,
+                OutputIterator, GeometryOut,
+                Strategy
+            >
+        >::type::apply(geometry1, geometry2, out, strategy);
+}
+
+}} // namespace detail::intersection
+#endif // DOXYGEN_NO_DETAIL
+
 
 /*!
-    \brief Combines two geometries which each other
-    \ingroup union
-    \tparam GeometryOut output geometry type, must be specified
-    \tparam Geometry1 first geometry type
-    \tparam Geometry2 second geometry type
-    \tparam OutputIterator output iterator
-    \tparam Strategy compound strategy for intersection
-    \param geometry1 first geometry
-    \param geometry2 second geometry
-    \param out the output iterator, outputting polygons
-    \param strategy the strategy
-    \return the output iterator
+\brief Combines two geometries which each other
+\ingroup union
+\tparam GeometryOut output geometry type, must be specified
+\tparam Geometry1 \tparam_geometry
+\tparam Geometry2 \tparam_geometry
+\tparam OutputIterator output iterator
+\tparam Strategy compound strategy for intersection
+\param geometry1 \param_geometry
+\param geometry2 \param_geometry
+\param out the output iterator, outputting polygons
+\param strategy the strategy
+\return the output iterator
 */
 template
 <
@@ -121,46 +189,20 @@ inline OutputIterator union_inserter(Geometry1 const& geometry1,
             OutputIterator out,
             Strategy const& strategy)
 {
-    concept::check<const Geometry1>();
-    concept::check<const Geometry2>();
-
-    return boost::mpl::if_c
-        <
-            reverse_dispatch<Geometry1, Geometry2>::type::value,
-            dispatch::union_inserter_reversed
-            <
-                typename tag<Geometry1>::type,
-                typename tag<Geometry2>::type,
-                typename tag<GeometryOut>::type,
-                Geometry1,
-                Geometry2,
-                OutputIterator, GeometryOut,
-                Strategy
-            >,
-            dispatch::union_inserter
-            <
-                typename tag<Geometry1>::type,
-                typename tag<Geometry2>::type,
-                typename tag<GeometryOut>::type,
-                Geometry1,
-                Geometry2,
-                OutputIterator, GeometryOut,
-                Strategy
-            >
-        >::type::apply(geometry1, geometry2, out, strategy);
+    return detail::union_::inserter<GeometryOut, false, false, true>(geometry1, geometry2, out, strategy);
 }
 
 /*!
-    \brief Combines two geometries which each other
-    \ingroup union
-    \tparam GeometryOut output geometry type, must be specified
-    \tparam Geometry1 first geometry type
-    \tparam Geometry2 second geometry type
-    \tparam OutputIterator output iterator
-    \param geometry1 first geometry
-    \param geometry2 second geometry
-    \param out the output iterator, outputting polygons
-    \return the output iterator
+\brief Combines two geometries which each other
+\ingroup union
+\tparam GeometryOut output geometry type, must be specified
+\tparam Geometry1 \tparam_geometry
+\tparam Geometry2 \tparam_geometry
+\tparam OutputIterator output iterator
+\param geometry1 \param_geometry
+\param geometry2 \param_geometry
+\param out the output iterator, outputting polygons
+\return the output iterator
 */
 template
 <
@@ -173,8 +215,8 @@ inline OutputIterator union_inserter(Geometry1 const& geometry1,
             Geometry2 const& geometry2,
             OutputIterator out)
 {
-    concept::check<const Geometry1>();
-    concept::check<const Geometry2>();
+    concept::check<Geometry1 const>();
+    concept::check<Geometry2 const>();
 
     typedef strategy_intersection
         <
@@ -185,6 +227,48 @@ inline OutputIterator union_inserter(Geometry1 const& geometry1,
         > strategy;
 
     return union_inserter<GeometryOut>(geometry1, geometry2, out, strategy());
+}
+
+
+/*!
+\brief Combines two geometries which each other
+\ingroup union
+\tparam Geometry1 \tparam_geometry
+\tparam Geometry2 \tparam_geometry
+\tparam Collection output collection, either a multi-geometry,
+    or a std::vector<Geometry> / std::deque<Geometry> etc
+\param geometry1 \param_geometry
+\param geometry2 \param_geometry
+\param output_collection the output collection
+\note Called union_ because union is a reserved word.
+*/
+template
+<
+    typename Geometry1,
+    typename Geometry2,
+    typename Collection
+>
+inline void union_(Geometry1 const& geometry1,
+            Geometry2 const& geometry2,
+            Collection& output_collection)
+{
+    concept::check<Geometry1 const>();
+    concept::check<Geometry2 const>();
+
+    typedef typename boost::range_value<Collection>::type geometry_out;
+    concept::check<geometry_out>();
+
+    typedef strategy_intersection
+        <
+            typename cs_tag<geometry_out>::type,
+            Geometry1,
+            Geometry2,
+            typename geometry::point_type<geometry_out>::type
+        > strategy;
+
+    union_inserter<geometry_out>(geometry1, geometry2,
+                std::back_inserter(output_collection),
+                strategy());
 }
 
 

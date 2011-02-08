@@ -27,72 +27,80 @@ namespace boost { namespace geometry
 // Note: when calling the namespace "centroid", it sometimes,
 // somehow, in gcc, gives compilation problems (confusion with function centroid).
 
-namespace strategy { namespace centroid_ {
+namespace strategy { namespace centroid
+{
 
 
 
 /*!
-    \brief Centroid calculation using algorith Bashein / Detmer
-    \details Calculates centroid using triangulation method published by
-        Bashein / Detmer
-    \tparam Point point type of centroid to calculate
-    \tparam PointOfSegment point type of segments, defaults to Point
-    \par Concepts for Point and PointOfSegment:
-    - specialized point_traits class
-    \author Adapted from  "Centroid of a Polygon" by
-        Gerard Bashein and Paul R. Detmer<em>,
-    in "Graphics Gems IV", Academic Press, 1994</em>
-    \par Research notes
-    The algorithm gives the same results as Oracle and PostGIS but
-        differs from MySQL
-    (tried 5.0.21 / 5.0.45 / 5.0.51a / 5.1.23).
+\brief Centroid calculation using algorith Bashein / Detmer
+\ingroup strategies
+\details Calculates centroid using triangulation method published by
+    Bashein / Detmer
+\tparam Point point type of centroid to calculate
+\tparam PointOfSegment point type of segments, defaults to Point
+\par Concepts for Point and PointOfSegment:
+- specialized point_traits class
+\author Adapted from  "Centroid of a Polygon" by
+    Gerard Bashein and Paul R. Detmer<em>,
+in "Graphics Gems IV", Academic Press, 1994</em>
+\par Research notes
+The algorithm gives the same results as Oracle and PostGIS but
+    differs from MySQL
+(tried 5.0.21 / 5.0.45 / 5.0.51a / 5.1.23).
 
-    Without holes:
-    - this:       POINT(4.06923363095238 1.65055803571429)
-    - geolib:     POINT(4.07254 1.66819)
-    - MySQL:      POINT(3.6636363636364  1.6272727272727)'
-    - PostGIS:    POINT(4.06923363095238 1.65055803571429)
-    - Oracle:           4.06923363095238 1.65055803571429
-    - SQL Server: POINT(4.06923362245959 1.65055804168294)
+Without holes:
+- this:       POINT(4.06923363095238 1.65055803571429)
+- geolib:     POINT(4.07254 1.66819)
+- MySQL:      POINT(3.6636363636364  1.6272727272727)'
+- PostGIS:    POINT(4.06923363095238 1.65055803571429)
+- Oracle:           4.06923363095238 1.65055803571429
+- SQL Server: POINT(4.06923362245959 1.65055804168294)
 
-    Statements:
-    - \b MySQL/PostGIS: select AsText(Centroid(GeomFromText(
-        'POLYGON((2 1.3,2.4 1.7,2.8 1.8,3.4 1.2,3.7 1.6,3.4 2,4.1 3,5.3 2.6
-            ,5.4 1.2,4.9 0.8,2.9 0.7,2 1.3))')))
-    - \b Oracle: select sdo_geom.sdo_centroid(sdo_geometry(2003, null, null,
-            sdo_elem_info_array(1, 1003, 1), sdo_ordinate_array(
-                2,1.3,2.4,1.7,2.8,1.8,3.4,1.2,3.7,1.6,3.4,2,4.1,3,5.3,2.6
-                ,5.4,1.2,4.9,0.8,2.9,0.7,2,1.3))
-            , mdsys.sdo_dim_array(mdsys.sdo_dim_element('x',0,10,.00000005)
-            ,mdsys.sdo_dim_element('y',0,10,.00000005)))
-            from dual
-    - \b SQL Server 2008: select geometry::STGeomFromText(
-        'POLYGON((2 1.3,2.4 1.7,2.8 1.8,3.4 1.2,3.7 1.6,3.4 2,4.1 3,5.3 2.6
-            ,5.4 1.2,4.9 0.8,2.9 0.7,2 1.3))',0)
-                    .STCentroid()
-                    .STAsText()
+Statements:
+- \b MySQL/PostGIS: select AsText(Centroid(GeomFromText(
+    'POLYGON((2 1.3,2.4 1.7,2.8 1.8,3.4 1.2,3.7 1.6,3.4 2,4.1 3,5.3 2.6
+        ,5.4 1.2,4.9 0.8,2.9 0.7,2 1.3))')))
+- \b Oracle: select sdo_geom.sdo_centroid(sdo_geometry(2003, null, null,
+        sdo_elem_info_array(1, 1003, 1), sdo_ordinate_array(
+            2,1.3,2.4,1.7,2.8,1.8,3.4,1.2,3.7,1.6,3.4,2,4.1,3,5.3,2.6
+            ,5.4,1.2,4.9,0.8,2.9,0.7,2,1.3))
+        , mdsys.sdo_dim_array(mdsys.sdo_dim_element('x',0,10,.00000005)
+        ,mdsys.sdo_dim_element('y',0,10,.00000005)))
+        from dual
+- \b SQL Server 2008: select geometry::STGeomFromText(
+    'POLYGON((2 1.3,2.4 1.7,2.8 1.8,3.4 1.2,3.7 1.6,3.4 2,4.1 3,5.3 2.6
+        ,5.4 1.2,4.9 0.8,2.9 0.7,2 1.3))',0)
+                .STCentroid()
+                .STAsText()
 
-    With holes:
-    - this:       POINT(4.04663 1.6349)
-    - geolib:     POINT(4.04675 1.65735)
-    - MySQL:      POINT(3.6090580503834 1.607573932092)
-    - PostGIS:    POINT(4.0466265060241 1.63489959839357)
-    - Oracle:           4.0466265060241 1.63489959839357
-    - SQL Server: POINT(4.0466264962959677 1.6348996057331333)
+With holes:
+- this:       POINT(4.04663 1.6349)
+- geolib:     POINT(4.04675 1.65735)
+- MySQL:      POINT(3.6090580503834 1.607573932092)
+- PostGIS:    POINT(4.0466265060241 1.63489959839357)
+- Oracle:           4.0466265060241 1.63489959839357
+- SQL Server: POINT(4.0466264962959677 1.6348996057331333)
 
-    Statements:
-    - \b MySQL/PostGIS: select AsText(Centroid(GeomFromText(
-        'POLYGON((2 1.3,2.4 1.7,2.8 1.8,3.4 1.2
-            ,3.7 1.6,3.4 2,4.1 3,5.3 2.6,5.4 1.2,4.9 0.8,2.9 0.7,2 1.3)
-            ,(4 2,4.2 1.4,4.8 1.9,4.4 2.2,4 2))')));
-    - \b Oracle: select sdo_geom.sdo_centroid(sdo_geometry(2003, null, null
-            , sdo_elem_info_array(1, 1003, 1, 25, 2003, 1)
-            , sdo_ordinate_array(2,1.3,2.4,1.7,2.8,1.8,3.4,1.2,3.7,1.6,3.4,
-            2,4.1,3,5.3,2.6,5.4,1.2,4.9,0.8,2.9,0.7,2,1.3,4,2, 4.2,1.4,
-            4.8,1.9, 4.4,2.2, 4,2))
-            , mdsys.sdo_dim_array(mdsys.sdo_dim_element('x',0,10,.00000005)
-            ,mdsys.sdo_dim_element('y',0,10,.00000005)))
-            from dual
+Statements:
+- \b MySQL/PostGIS: select AsText(Centroid(GeomFromText(
+    'POLYGON((2 1.3,2.4 1.7,2.8 1.8,3.4 1.2
+        ,3.7 1.6,3.4 2,4.1 3,5.3 2.6,5.4 1.2,4.9 0.8,2.9 0.7,2 1.3)
+        ,(4 2,4.2 1.4,4.8 1.9,4.4 2.2,4 2))')));
+- \b Oracle: select sdo_geom.sdo_centroid(sdo_geometry(2003, null, null
+        , sdo_elem_info_array(1, 1003, 1, 25, 2003, 1)
+        , sdo_ordinate_array(2,1.3,2.4,1.7,2.8,1.8,3.4,1.2,3.7,1.6,3.4,
+        2,4.1,3,5.3,2.6,5.4,1.2,4.9,0.8,2.9,0.7,2,1.3,4,2, 4.2,1.4,
+        4.8,1.9, 4.4,2.2, 4,2))
+        , mdsys.sdo_dim_array(mdsys.sdo_dim_element('x',0,10,.00000005)
+        ,mdsys.sdo_dim_element('y',0,10,.00000005)))
+        from dual
+
+\qbk{
+[heading See also]
+[link geometry.reference.algorithms.centroid.centroid_3_with_strategy centroid (with strategy)]
+}
+
  */
 template
 <
@@ -180,7 +188,8 @@ public :
 
     static inline bool result(sums const& state, Point& centroid)
     {
-        if (state.count > 0 && state.sum_a2 != 0)
+        calculation_type const zero = calculation_type();
+        if (state.count > 0 && state.sum_a2 != zero)
         {
             calculation_type const v3 = 3;
             calculation_type const a3 = v3 * state.sum_a2;
@@ -202,17 +211,16 @@ public :
 
 };
 
-
-}} // namespace strategy::centroid
-
-
 #ifndef DOXYGEN_NO_STRATEGY_SPECIALIZATIONS
+
+namespace services
+{
 
 // Register this strategy for rings and polygons, in two dimensions
 template <typename Point, typename Geometry>
-struct strategy_centroid<cartesian_tag, ring_tag, 2, Point, Geometry>
+struct default_strategy<cartesian_tag, ring_tag, 2, Point, Geometry>
 {
-    typedef strategy::centroid_::bashein_detmer
+    typedef bashein_detmer
         <
             Point,
             typename point_type<Geometry>::type
@@ -220,16 +228,23 @@ struct strategy_centroid<cartesian_tag, ring_tag, 2, Point, Geometry>
 };
 
 template <typename Point, typename Geometry>
-struct strategy_centroid<cartesian_tag, polygon_tag, 2, Point, Geometry>
+struct default_strategy<cartesian_tag, polygon_tag, 2, Point, Geometry>
 {
-    typedef strategy::centroid_::bashein_detmer
+    typedef bashein_detmer
         <
             Point,
             typename point_type<Geometry>::type
         > type;
 };
 
-#endif
+
+} // namespace services
+
+
+#endif // DOXYGEN_NO_STRATEGY_SPECIALIZATIONS
+
+
+}} // namespace strategy::centroid
 
 
 }} // namespace boost::geometry

@@ -9,6 +9,7 @@
 #ifndef BOOST_GEOMETRY_ALGORITHMS_COMBINE_HPP
 #define BOOST_GEOMETRY_ALGORITHMS_COMBINE_HPP
 
+
 #include <cstddef>
 
 #include <boost/numeric/conversion/cast.hpp>
@@ -22,21 +23,12 @@
 #include <boost/geometry/policies/compare.hpp>
 
 
-/*!
-\defgroup combine combine: add a geometry to a bounding box
-\par Geometries:
-- \b box + \b box -> \b box: the box will be combined with the other box
-    \image html combine_box_box.png
-    \note Also if the input box is incorrect, the box will correctly updated
-- \b box + \b point -> \b box: the box will combined with the point
-    \image html combine_box_point.png
-- \b box + \b segment -> \b box
-*/
 namespace boost { namespace geometry
 {
 
 #ifndef DOXYGEN_NO_DETAIL
-namespace detail { namespace combine {
+namespace detail { namespace combine
+{
 
 
 template
@@ -281,7 +273,7 @@ inline void combine(Box& box, Geometry const& geometry,
             StrategyLess const& strategy_less,
             StrategyGreater const& strategy_greater)
 {
-    concept::check_concepts_and_equal_dimensions<Box, const Geometry>();
+    concept::check_concepts_and_equal_dimensions<Box, Geometry const>();
 
     dispatch::combine
         <
@@ -295,17 +287,17 @@ inline void combine(Box& box, Geometry const& geometry,
 
 
 /*!
-    \brief Combines a box with another geometry (box, point)
-    \ingroup combine
-    \tparam Box type of the box
-    \tparam Geometry of second geometry, to be combined with the box
-    \param box box to combine another geometry with, might be changed
-    \param geometry other geometry
+\brief Combines a box with another geometry (box, point)
+\ingroup combine
+\tparam Box type of the box
+\tparam Geometry \tparam_geometry
+\param box box to combine another geometry with, might be changed
+\param geometry \param_geometry
  */
 template <typename Box, typename Geometry>
 inline void combine(Box& box, Geometry const& geometry)
 {
-    concept::check_concepts_and_equal_dimensions<Box, const Geometry>();
+    concept::check_concepts_and_equal_dimensions<Box, Geometry const>();
 
     dispatch::combine
         <

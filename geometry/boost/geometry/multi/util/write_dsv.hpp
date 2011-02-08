@@ -9,8 +9,7 @@
 #ifndef BOOST_GEOMETRY_MULTI_UTIL_WRITE_DSV_HPP
 #define BOOST_GEOMETRY_MULTI_UTIL_WRITE_DSV_HPP
 
-#include <boost/range/functions.hpp>
-#include <boost/range/metafunctions.hpp>
+#include <boost/range.hpp>
 
 #include <boost/geometry/util/write_dsv.hpp>
 
@@ -18,7 +17,8 @@ namespace boost { namespace geometry
 {
 
 #ifndef DOXYGEN_NO_DETAIL
-namespace detail { namespace dsv {
+namespace detail { namespace dsv
+{
 
 
 template <typename MultiGeometry>
@@ -31,9 +31,9 @@ struct dsv_multi
     {
         os << settings.list_open;
 
-        typedef typename boost::range_const_iterator
+        typedef typename boost::range_iterator
             <
-                MultiGeometry
+                MultiGeometry const
             >::type iterator;
         for(iterator it = boost::begin(multi);
             it != boost::end(multi);
@@ -53,7 +53,8 @@ struct dsv_multi
 
 
 #ifndef DOXYGEN_NO_DISPATCH
-namespace dispatch {
+namespace dispatch
+{
 
 
 template <typename Tag, typename Geometry>

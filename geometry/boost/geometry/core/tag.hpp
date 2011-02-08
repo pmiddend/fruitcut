@@ -9,13 +9,12 @@
 #ifndef BOOST_GEOMETRY_CORE_TAG_HPP
 #define BOOST_GEOMETRY_CORE_TAG_HPP
 
+
+#include <boost/mpl/assert.hpp>
 #include <boost/type_traits/remove_const.hpp>
 
 #include <boost/geometry/core/tags.hpp>
 
-/*!
-\defgroup core core: meta-functions for geometry types
-*/
 
 namespace boost { namespace geometry
 {
@@ -34,10 +33,10 @@ namespace traits
         - typedef XXX_tag type; (point_tag, box_tag, ...)
     \tparam Geometry geometry
 */
-template <typename Geometry>
+template <typename Geometry, typename Enable = void>
 struct tag
 {
-    typedef geometry_not_recognized_tag type;
+    typedef void type;
 };
 
 } // namespace traits
@@ -56,7 +55,7 @@ struct tag
 {
     typedef typename traits::tag
         <
-        typename boost::remove_const<Geometry>::type
+            typename boost::remove_const<Geometry>::type
         >::type type;
 };
 

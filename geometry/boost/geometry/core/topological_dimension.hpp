@@ -12,18 +12,19 @@
 
 
 #include <boost/mpl/int.hpp>
-#include <boost/type_traits/remove_const.hpp>
 
 
 #include <boost/geometry/core/tag.hpp>
 #include <boost/geometry/core/tags.hpp>
 
 
-namespace boost { namespace geometry {
+namespace boost { namespace geometry
+{
 
 
 #ifndef DOXYGEN_NO_DISPATCH
-namespace core_dispatch {
+namespace core_dispatch
+{
 
 
 template <typename GeometryTag>

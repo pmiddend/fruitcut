@@ -19,9 +19,12 @@
 namespace boost { namespace geometry
 {
 
+namespace math
+{
 
 #ifndef DOXYGEN_NO_DETAIL
-namespace detail { namespace math {
+namespace detail
+{
 
 
 template <typename T, bool Floating>
@@ -45,11 +48,26 @@ struct equals<T, true>
 };
 
 
-}} // namespace detail::math
+/*!
+\brief Short construct to enable partial specialization for PI, currently not possible in Math.
+*/
+template <typename T>
+struct define_pi
+{
+    static inline T apply()
+    {
+        // Default calls Boost.Math
+        return boost::math::constants::pi<T>();
+    }
+};
+
+
+} // namespace detail
 #endif
 
-namespace math
-{
+
+template <typename T>
+inline T pi() { return detail::define_pi<T>::apply(); }
 
 
 // Maybe replace this by boost equals or boost ublas numeric equals or so
@@ -71,7 +89,7 @@ template <typename T1, typename T2>
 inline bool equals(T1 const& a, T2 const& b)
 {
     typedef typename select_most_precise<T1, T2>::type select_type;
-    return detail::math::equals
+    return detail::equals
         <
             select_type,
             boost::is_floating_point<select_type>::type::value
@@ -79,23 +97,7 @@ inline bool equals(T1 const& a, T2 const& b)
 }
 
 
-// TODO: The idea is to replace "double const globals" with inline
-// template functions, so code/data is not generated if not necessary.
-// --mloskot
-//template <typename T>
-//inline T pi()
-//{
-//   return boost::math::constants::pi<T>();
-//}
-//
-//template <>
-//inline double pi<double>()
-//{
-//   return boost::math::constants::pi<double>();
-//}
-double const pi = boost::math::constants::pi<double>();
-double const two_pi = 2.0 * pi;
-double const d2r = pi / 180.0;
+double const d2r = geometry::math::pi<double>() / 180.0;
 double const r2d = 1.0 / d2r;
 
 /*!
@@ -107,8 +109,8 @@ double const r2d = 1.0 / d2r;
 template <typename T>
 inline T hav(T const& theta)
 {
-    using boost::math::constants::half;
-    T const sn = std::sin(half<T>() * theta);
+    T const half = T(0.5);
+    T const sn = sin(half * theta);
     return sn * sn;
 }
 
@@ -123,6 +125,19 @@ inline T sqr(T const& value)
 {
     return value * value;
 }
+
+
+/*!
+\brief Short utility to workaround gcc/clang problem that abs is converting to integer
+\ingroup utility
+*/
+template<typename T>
+inline T abs(const T& t)
+{
+    using std::abs;
+    return abs(t);
+}
+
 
 } // namespace math
 

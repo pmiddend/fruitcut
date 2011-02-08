@@ -11,13 +11,16 @@
 
 #include <boost/geometry/algorithms/distance.hpp>
 
+#include <boost/geometry/strategies/intersection.hpp>
+
 
 namespace boost { namespace geometry
 {
 
 
 #ifndef DOXYGEN_NO_DETAIL
-namespace detail { namespace overlay {
+namespace detail { namespace overlay
+{
 
 
 /*!

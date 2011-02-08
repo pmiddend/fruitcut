@@ -12,8 +12,7 @@
 #include <cmath>
 #include <cstddef>
 
-#include <boost/range/functions.hpp>
-#include <boost/range/metafunctions.hpp>
+#include <boost/range.hpp>
 
 #include <boost/geometry/strategies/strategies.hpp>
 
@@ -23,20 +22,9 @@
 
 #include <boost/geometry/geometries/concepts/check.hpp>
 
+#include <boost/geometry/util/math.hpp>
 #include <boost/geometry/util/select_coordinate_type.hpp>
 
-/*!
-\defgroup selected selection: check if a geometry is "selected" by a point
-
-Checks if one geometry is selected by a point lying within or in the neighborhood of that geometry
-
-\par Geometries:
-- POINT: checks if points are CLOSE TO each other (< search_radius)
-- LINESTRING: checks if selection point is CLOSE TO linestring (< search_radius)
-- RING: checks if selection point is INSIDE the ring, search radius is ignored
-- POLYGON: checks if selection point is INSIDE the polygon, but not inside any of its holes
-
-*/
 
 namespace boost { namespace geometry
 {
@@ -62,7 +50,7 @@ struct differences_loop
         coordinate_type const c1 = boost::numeric_cast<coordinate_type>(get<D>(p1));
         coordinate_type const c2 = boost::numeric_cast<coordinate_type>(get<D>(p2));
 
-        T const d = std::abs(c1 - c2);
+        T const d = geometry::math::abs(c1 - c2);
         if (d > distance)
         {
             return false;
@@ -149,14 +137,11 @@ struct close_to_segment
         {
             // Not outside, calculate dot product/square distance to segment.
             // Call corresponding strategy
-            typedef typename strategy_distance_segment
+            typedef typename strategy::distance::services::default_strategy
                 <
-                    typename cs_tag<P>::type,
-                    typename cs_tag<PS>::type,
-                    P,
-                    PS
+                    segment_tag, P, PS
                 >::type strategy_type;
-            typedef typename strategy_type::return_type return_type;
+            typedef typename strategy::distance::services::return_type<strategy_type>::type return_type;
 
             strategy_type strategy;
             return_type result = strategy.apply(selection_point, seg1, seg2);
@@ -182,7 +167,7 @@ struct close_to_range
         }
 
         typedef typename point_type<R>::type point_type;
-        typedef typename boost::range_const_iterator<R>::type iterator_type;
+        typedef typename boost::range_iterator<R const>::type iterator_type;
 
         iterator_type it = boost::begin(range);
         if (n == 1)
@@ -194,7 +179,7 @@ struct close_to_range
         iterator_type previous = it++;
         while(it != boost::end(range))
         {
-            //typedef segment<const point_type> segment_type;
+            //typedef segment<point_type const> segment_type;
             //segment_type s(*previous, *it);
             if (close_to_segment
                     <
@@ -267,8 +252,8 @@ inline bool selected(Geometry const& geometry,
         Point const& selection_point,
         RadiusType const& search_radius)
 {
-    concept::check<const Geometry>();
-    concept::check<const Point>();
+    concept::check<Geometry const>();
+    concept::check<Point const>();
 
     typedef dispatch::selected
         <

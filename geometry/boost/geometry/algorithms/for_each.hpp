@@ -9,16 +9,11 @@
 #ifndef BOOST_GEOMETRY_ALGORITHMS_FOR_EACH_HPP
 #define BOOST_GEOMETRY_ALGORITHMS_FOR_EACH_HPP
 
-/*!
-\defgroup for_each for_each: apply a functor to each point or segment of a geometry
-\details There are two algorithms provided which walk through the points or segments
-of linestrings and polygons. They are called for_each_point, for_each_segment,
-after the standard library
-\note For both for_each algorithms there is a \b const and a non-const version provided.
-*/
 
 #include <algorithm>
 
+#include <boost/range.hpp>
+#include <boost/typeof/typeof.hpp>
 
 #include <boost/geometry/core/exterior_ring.hpp>
 #include <boost/geometry/core/interior_rings.hpp>
@@ -29,14 +24,14 @@ after the standard library
 #include <boost/geometry/geometries/segment.hpp>
 
 #include <boost/geometry/util/add_const_if_c.hpp>
-#include <boost/geometry/util/range_iterator_const_if_c.hpp>
 
 
 namespace boost { namespace geometry
 {
 
 #ifndef DOXYGEN_NO_DETAIL
-namespace detail { namespace for_each {
+namespace detail { namespace for_each
+{
 
 
 template <typename Point, typename Functor, bool IsConst>
@@ -81,23 +76,17 @@ struct fe_range_per_segment
                 typename add_const_if_c<IsConst, Range>::type& range,
                 Functor f)
     {
-        typedef typename range_iterator_const_if_c
-            <
-                IsConst,
-                Range
-            >::type iterator_type;
-
         typedef typename add_const_if_c
             <
                 IsConst,
                 typename point_type<Range>::type
             >::type point_type;
 
-        iterator_type it = boost::begin(range);
-        iterator_type previous = it++;
+        BOOST_AUTO(it, boost::begin(range));
+        BOOST_AUTO(previous, it++);
         while(it != boost::end(range))
         {
-            segment<point_type> s(*previous, *it);
+            model::referring_segment<point_type> s(*previous, *it);
             f(s);
             previous = it++;
         }
@@ -110,16 +99,10 @@ struct fe_range_per_segment
 template <typename Polygon, typename Functor, bool IsConst>
 struct fe_polygon_per_point
 {
-    static inline Functor apply(
-                typename add_const_if_c<IsConst, Polygon>::type& poly,
-                Functor f)
-    {
-        typedef typename range_iterator_const_if_c
-            <
-                IsConst,
-                typename interior_type<Polygon>::type
-            >::type iterator_type;
+    typedef typename add_const_if_c<IsConst, Polygon>::type poly_type;
 
+    static inline Functor apply(poly_type& poly, Functor f)
+    {
         typedef fe_range_per_point
                 <
                     typename ring_type<Polygon>::type,
@@ -129,9 +112,9 @@ struct fe_polygon_per_point
 
         f = per_ring::apply(exterior_ring(poly), f);
 
-        for (iterator_type it = boost::begin(interior_rings(poly));
-             it != boost::end(interior_rings(poly));
-             ++it)
+        typename interior_return_type<poly_type>::type rings
+                    = interior_rings(poly);
+        for (BOOST_AUTO(it, boost::begin(rings)); it != boost::end(rings); ++it)
         {
             f = per_ring::apply(*it, f);
         }
@@ -145,16 +128,10 @@ struct fe_polygon_per_point
 template <typename Polygon, typename Functor, bool IsConst>
 struct fe_polygon_per_segment
 {
-    static inline Functor apply(
-                typename add_const_if_c<IsConst, Polygon>::type& poly,
-                Functor f)
-    {
-        typedef typename range_iterator_const_if_c
-            <
-                IsConst,
-                typename interior_type<Polygon>::type
-            >::type iterator_type;
+    typedef typename add_const_if_c<IsConst, Polygon>::type poly_type;
 
+    static inline Functor apply(poly_type& poly, Functor f)
+    {
         typedef fe_range_per_segment
             <
                 typename ring_type<Polygon>::type,
@@ -164,9 +141,9 @@ struct fe_polygon_per_segment
 
         f = per_ring::apply(exterior_ring(poly), f);
 
-        for (iterator_type it = boost::begin(interior_rings(poly));
-             it != boost::end(interior_rings(poly));
-             ++it)
+        typename interior_return_type<poly_type>::type rings
+                    = interior_rings(poly);
+        for (BOOST_AUTO(it, boost::begin(rings)); it != boost::end(rings); ++it)
         {
             f = per_ring::apply(*it, f);
         }
@@ -268,7 +245,7 @@ struct for_each_segment<polygon_tag, false, Polygon, Functor, IsConst>
 template<typename Geometry, typename Functor>
 inline Functor for_each_point(Geometry const& geometry, Functor f)
 {
-    concept::check<const Geometry>();
+    concept::check<Geometry const>();
 
     return dispatch::for_each_point
         <
@@ -315,7 +292,7 @@ inline Functor for_each_point(Geometry& geometry, Functor f)
 template<typename Geometry, typename Functor>
 inline Functor for_each_segment(Geometry const& geometry, Functor f)
 {
-    concept::check<const Geometry>();
+    concept::check<Geometry const>();
 
     return dispatch::for_each_segment
         <

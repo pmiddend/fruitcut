@@ -12,8 +12,11 @@
 #include <ostream>
 #include <string>
 
-#include <boost/range/functions.hpp>
-#include <boost/range/metafunctions.hpp>
+#include <boost/config.hpp>
+#include <boost/mpl/assert.hpp>
+#include <boost/range.hpp>
+#include <boost/typeof/typeof.hpp>
+
 
 #include <boost/geometry/core/exterior_ring.hpp>
 #include <boost/geometry/core/interior_rings.hpp>
@@ -21,15 +24,14 @@
 
 #include <boost/geometry/geometries/concepts/check.hpp>
 
-/*!
-\defgroup svg x Extension svg: Stream SVG (Scalable Vector Graphics)
-*/
 
 namespace boost { namespace geometry
 {
 
+
 #ifndef DOXYGEN_NO_DETAIL
-namespace detail { namespace svg {
+namespace detail { namespace svg
+{
 
 
 template <typename Point>
@@ -39,8 +41,8 @@ struct svg_point
     static inline void apply(std::basic_ostream<Char, Traits>& os,
                 Point const& p, std::string const& style, int size)
     {
-        os << "<circle cx=\"" << p.x()
-            << "\" cy=\"" << p.y()
+        os << "<circle cx=\"" << geometry::get<0>(p)
+            << "\" cy=\"" << geometry::get<1>(p)
             << "\" r=\"" << (size < 0 ? 5 : size)
             << "\" style=\"" << style << "\"/>";
     }
@@ -54,16 +56,19 @@ struct svg_box
     static inline void apply(std::basic_ostream<Char, Traits>& os,
                 Box const& box, std::string const& style, int size)
     {
-        typedef typename coordinate_type<Box>::type coord_type;
-        coord_type x = geometry::get<geometry::min_corner, 0>(box);
-        coord_type y = geometry::get<geometry::min_corner, 1>(box);
-        coord_type width = std::abs(geometry::get<geometry::max_corner, 0>(box) - x);
-        coord_type height = std::abs(geometry::get<geometry::max_corner, 1>(box) - y);
+        // Prevent invisible boxes, making them >=1, using "max"
+        BOOST_USING_STD_MAX();
 
-        os << "<rect x=\"" << static_cast<int>(x)
-           << "\" y=\"" << static_cast<int>(y)
-           << "\" width=\"" << static_cast<int>(width)
-           << "\" height=\"" << static_cast<int>(height)
+        typedef typename coordinate_type<Box>::type ct;
+        ct x = geometry::get<geometry::min_corner, 0>(box);
+        ct y = geometry::get<geometry::min_corner, 1>(box);
+        ct width = max BOOST_PREVENT_MACRO_SUBSTITUTION(1,
+                    geometry::get<geometry::max_corner, 0>(box) - x);
+        ct height = max BOOST_PREVENT_MACRO_SUBSTITUTION (1,
+                    geometry::get<geometry::max_corner, 1>(box) - y);
+
+        os << "<rect x=\"" << x << "\" y=\"" << y
+           << "\" width=\"" << width << "\" height=\"" << height
            << "\" style=\"" << style << "\"/>";
     }
 };
@@ -80,7 +85,7 @@ struct svg_range
     static inline void apply(std::basic_ostream<Char, Traits>& os,
         Range const& range, std::string const& style, int size)
     {
-        typedef typename boost::range_const_iterator<Range>::type iterator;
+        typedef typename boost::range_iterator<Range const>::type iterator;
 
         bool first = true;
 
@@ -90,7 +95,10 @@ struct svg_range
             it != boost::end(range);
             ++it, first = false)
         {
-            os << (first ? "" : " " ) << it->x() << "," << it->y();
+            os << (first ? "" : " " )
+                << geometry::get<0>(*it)
+                << ","
+                << geometry::get<1>(*it);
         }
         os << "\" style=\"" << style << Policy::style() << "\"/>";
     }
@@ -106,7 +114,7 @@ struct svg_poly
         Polygon const& polygon, std::string const& style, int size)
     {
         typedef typename geometry::ring_type<Polygon>::type ring_type;
-        typedef typename boost::range_const_iterator<ring_type>::type iterator_type;
+        typedef typename boost::range_iterator<ring_type const>::type iterator_type;
 
         bool first = true;
         os << "<g fill-rule=\"evenodd\"><path d=\"";
@@ -116,25 +124,27 @@ struct svg_poly
             it != boost::end(ring);
             ++it, first = false)
         {
-            os << (first ? "M" : " L") << " " << it->x() << "," << it->y();
+            os << (first ? "M" : " L") << " "
+                << geometry::get<0>(*it)
+                << ","
+                << geometry::get<1>(*it);
         }
 
         // Inner rings:
         {
-            typedef typename boost::range_const_iterator
-                <
-                    typename geometry::interior_type<Polygon>::type
-                >::type ring_iterator_type;
-            for (ring_iterator_type rit = boost::begin(interior_rings(polygon));
-                 rit != boost::end(interior_rings(polygon));
-                 ++rit)
+            typename interior_return_type<Polygon const>::type rings
+                        = interior_rings(polygon);
+            for (BOOST_AUTO(rit, boost::begin(rings));
+                rit != boost::end(rings); ++rit)
             {
                 first = true;
-                for (iterator_type it = boost::begin(*rit);
-                    it != boost::end(*rit);
+                for (BOOST_AUTO(it, boost::begin(*rit)); it != boost::end(*rit);
                     ++it, first = false)
                 {
-                    os << (first ? "M" : " L") << " " << it->x() << "," << it->y();
+                    os << (first ? "M" : " L") << " "
+                        << geometry::get<0>(*it)
+                        << ","
+                        << geometry::get<1>(*it);
                 }
             }
         }
@@ -165,7 +175,8 @@ struct prefix_ring
 
 
 #ifndef DOXYGEN_NO_DISPATCH
-namespace dispatch {
+namespace dispatch
+{
 
 /*!
 \brief Dispatching base struct for SVG streaming, specialized below per geometry type
@@ -173,10 +184,17 @@ namespace dispatch {
 The static method should have the signature:
 
 template <typename Char, typename Traits>
-static inline void apply(std::basic_ostream<Char, Traits>& os, const G& geometry)
+static inline void apply(std::basic_ostream<Char, Traits>& os, G const& geometry)
 */
 template <typename GeometryTag, typename Geometry>
-struct svg {};
+struct svg
+{
+    BOOST_MPL_ASSERT_MSG
+        (
+            false, NOT_OR_NOT_YET_IMPLEMENTED_FOR_THIS_GEOMETRY_TYPE
+            , (Geometry)
+        );
+};
 
 template <typename Point>
 struct svg<point_tag, Point> : detail::svg::svg_point<Point> {};
@@ -241,7 +259,7 @@ private:
 template <typename Geometry>
 inline svg_manipulator<Geometry> svg(Geometry const& t, std::string const& style, int size = -1)
 {
-    concept::check<const Geometry>();
+    concept::check<Geometry const>();
 
     return svg_manipulator<Geometry>(t, style, size);
 }

@@ -10,7 +10,19 @@
 
 
 #include <boost/geometry/algorithms/union.hpp>
-#include <boost/geometry/multi/algorithms/overlay/assemble.hpp>
+#include <boost/geometry/multi/core/closure.hpp>
+#include <boost/geometry/multi/core/geometry_id.hpp>
+#include <boost/geometry/multi/core/is_areal.hpp>
+#include <boost/geometry/multi/core/point_order.hpp>
+#include <boost/geometry/multi/algorithms/envelope.hpp>
+#include <boost/geometry/multi/algorithms/num_points.hpp>
+#include <boost/geometry/multi/algorithms/detail/overlay/get_ring.hpp>
+#include <boost/geometry/multi/algorithms/detail/overlay/get_turns.hpp>
+#include <boost/geometry/multi/algorithms/detail/overlay/copy_segments.hpp>
+#include <boost/geometry/multi/algorithms/detail/overlay/copy_segment_point.hpp>
+#include <boost/geometry/multi/algorithms/detail/overlay/add_to_containment.hpp>
+#include <boost/geometry/multi/algorithms/detail/sections/range_by_section.hpp>
+#include <boost/geometry/multi/algorithms/detail/sections/sectionalize.hpp>
 
 namespace boost { namespace geometry
 {

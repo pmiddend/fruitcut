@@ -14,10 +14,13 @@
 #include <boost/geometry/algorithms/area.hpp>
 #include <boost/geometry/algorithms/perimeter.hpp>
 
+#include <boost/geometry/core/closure.hpp>
 #include <boost/geometry/core/interior_rings.hpp>
+#include <boost/geometry/util/math.hpp>
 
 #include <boost/geometry/geometries/concepts/check.hpp>
 
+#include <boost/geometry/multi/core/closure.hpp>
 #include <boost/geometry/multi/core/tags.hpp>
 #include <boost/geometry/multi/algorithms/detail/modify_with_predicate.hpp>
 
@@ -28,7 +31,8 @@ namespace boost { namespace geometry
 
 
 #ifndef DOXYGEN_NO_DETAIL
-namespace detail { namespace remove_holes_if {
+namespace detail { namespace remove_holes_if
+{
 
 
 template<typename Polygon, typename Predicate>
@@ -36,7 +40,8 @@ struct polygon_remove_holes_if
 {
     static inline void apply(Polygon& poly, Predicate const& predicate)
     {
-        typename interior_type<Polygon>::type& rings = interior_rings(poly);
+        // TODO: evaluate this behaviour w.r.t. writable concepts
+        typename interior_return_type<Polygon>::type rings = interior_rings(poly);
 
         // Remove rings using erase-remove-idiom
         // http://en.wikipedia.org/wiki/Erase-remove_idiom
@@ -53,7 +58,8 @@ struct polygon_remove_holes_if
 
 
 #ifndef DOXYGEN_NO_DISPATCH
-namespace dispatch {
+namespace dispatch
+{
 
 // Default implementation does nothing
 template <typename Tag, typename Geometry, typename Predicate>
@@ -118,11 +124,15 @@ struct elongated_hole
 
     inline bool operator()(Ring const& ring) const
     {
-        if (ring.size() >= 4)
+        if (ring.size() >=
+                core_detail::closure::minimum_ring_size
+                    <
+                       geometry::closure<Ring>::value
+                    >::value)
         {
             double a = area(ring);
             double p = perimeter(ring);
-            return std::abs(a/p) < m_ratio;
+            return geometry::math::abs(a / p) < m_ratio;
         }
         // Rings with less then 4 points (including closing)
         // are also considered as small and thus removed
@@ -138,7 +148,11 @@ struct invalid_hole
 {
     inline bool operator()(Ring const& ring) const
     {
-        return ring.size() < 4;
+        return ring.size()
+                < core_detail::closure::minimum_ring_size
+                        <
+                            geometry::closure<Ring>::value
+                        >::value;
     }
 };
 

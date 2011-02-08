@@ -38,12 +38,15 @@
 
 #include <boost/geometry/extensions/gis/projections/impl/adjlon.hpp>
 #include <boost/geometry/core/radian_access.hpp>
+#include <boost/geometry/util/math.hpp>
 
 /* general inverse projection */
 
-namespace boost { namespace geometry { namespace projection {
+namespace boost { namespace geometry { namespace projection
+{
 
-namespace detail {
+namespace detail
+{
 
 namespace inv
 {
@@ -52,7 +55,7 @@ namespace inv
 
  /* inverse projection entry */
 template <typename PRJ, typename LL, typename XY, typename PAR>
-void pj_inv(const PRJ& prj, const PAR& par, const XY& xy, LL& ll)
+void pj_inv(PRJ const& prj, PAR const& par, XY const& xy, LL& ll)
 {
     /* can't do as much preliminary checking as with forward */
     /* descale and de-offset */
@@ -63,7 +66,7 @@ void pj_inv(const PRJ& prj, const PAR& par, const XY& xy, LL& ll)
     lon += par.lam0; /* reduce from del lp.lam */
     if (!par.over)
         lon = adjlon(lon); /* adjust longitude to CM */
-    if (par.geoc && fabs(fabs(lat)-HALFPI) > inv::EPS)
+    if (par.geoc && geometry::math::abs(fabs(lat)-HALFPI) > inv::EPS)
         lat = atan(par.one_es * tan(lat));
 
     geometry::set_from_radian<0>(ll, lon);

@@ -9,6 +9,7 @@
 #ifndef BOOST_GEOMETRY_ALGORITHMS_ASSIGN_HPP
 #define BOOST_GEOMETRY_ALGORITHMS_ASSIGN_HPP
 
+
 #include <cstddef>
 
 #include <boost/concept/requires.hpp>
@@ -35,7 +36,8 @@ namespace boost { namespace geometry
 {
 
 #ifndef DOXYGEN_NO_DETAIL
-namespace detail { namespace assign {
+namespace detail { namespace assign
+{
 
 template <typename CoordinateType>
 struct assign_operation
@@ -58,7 +60,7 @@ private:
 
 /*!
     \brief Assigns all coordinates of a specific point to a value
-    \ingroup access
+    \ingroup assign
     \details
     \param p Point
     \param value Value which is assigned to all coordinates of point p
@@ -357,7 +359,7 @@ struct assign_inverse<box_tag, Box>
 
 /*!
     \brief assign two values to a 2D point
-    \ingroup access
+    \ingroup assign
  */
 template <typename Geometry, typename Type>
 inline void assign(Geometry& geometry, Type const& c1, Type const& c2)
@@ -374,7 +376,7 @@ inline void assign(Geometry& geometry, Type const& c1, Type const& c2)
 
 /*!
     \brief assign three values to a 3D point [or the center + radius to a circle]
-    \ingroup access
+    \ingroup assign
  */
 template <typename Geometry, typename Type>
 inline void assign(Geometry& geometry,
@@ -392,7 +394,7 @@ inline void assign(Geometry& geometry,
 
 /*!
     \brief assign center + radius to a sphere [for extension]
-    \ingroup access
+    \ingroup assign
  */
 template <typename Geometry, typename Type>
 inline void assign(Geometry& geometry,
@@ -412,7 +414,7 @@ inline void assign(Geometry& geometry,
 /*!
     \brief assign a range of points to a linestring, ring or polygon
     \note The point-type of the range might be different from the point-type of the geometry
-    \ingroup access
+    \ingroup assign
  */
 template <typename Geometry, typename Range>
 inline void assign(Geometry& geometry, Range const& range)
@@ -429,7 +431,7 @@ inline void assign(Geometry& geometry, Range const& range)
     \details The assign_inverse function initialize a 2D or 3D box with large coordinates, the
     min corner is very large, the max corner is very small. This is a convenient starting point to
     collect the minimum bounding box of a geometry.
-    \ingroup access
+    \ingroup assign
  */
 template <typename Geometry>
 inline void assign_inverse(Geometry& geometry)
@@ -445,7 +447,7 @@ inline void assign_inverse(Geometry& geometry)
 
 /*!
     \brief assign zero values to a box, point
-    \ingroup access
+    \ingroup assign
     \details The assign_zero function initializes a 2D or 3D point or box with coordinates of zero
     \tparam Geometry the geometry type
  */
@@ -464,7 +466,7 @@ inline void assign_zero(Geometry& geometry)
 
 /*!
     \brief Assign the 4 points of a 2D box
-    \ingroup access
+    \ingroup assign
     \note The order is crucial. Most logical is LOWER, UPPER and sub-order LEFT, RIGHT
         so this is how it is implemented.
 */
@@ -473,7 +475,7 @@ inline void assign_box_corners(Box const& box,
         Point& lower_left, Point& lower_right,
         Point& upper_left, Point& upper_right)
 {
-    concept::check<const Box>();
+    concept::check<Box const>();
     concept::check<Point>();
 
     detail::assign::assign_box_2d_corner
@@ -490,14 +492,14 @@ inline void assign_box_corners(Box const& box,
 
 /*!
     \brief Assign a box or segment with the value of a point
-    \ingroup access
+    \ingroup assign
     \tparam Index indicates which box-corner, min_corner (0) or max_corner (1)
         or which point of segment (0/1)
 */
 template <std::size_t Index, typename Geometry, typename Point>
 inline void assign_point_to_index(Point const& point, Geometry& geometry)
 {
-    concept::check<const Point>();
+    concept::check<Point const>();
     concept::check<Geometry>();
 
     detail::assign::assign_point_to_index
@@ -509,14 +511,14 @@ inline void assign_point_to_index(Point const& point, Geometry& geometry)
 
 /*!
     \brief Assign a point with a point of a box or segment
-    \ingroup access
+    \ingroup assign
     \tparam Index indicates which box-corner, min_corner (0) or max_corner (1)
         or which point of segment (0/1)
 */
 template <std::size_t Index, typename Point, typename Geometry>
 inline void assign_point_from_index(Geometry const& geometry, Point& point)
 {
-    concept::check<const Geometry>();
+    concept::check<Geometry const>();
     concept::check<Point>();
 
     detail::assign::assign_point_from_index
@@ -527,5 +529,6 @@ inline void assign_point_from_index(Geometry const& geometry, Point& point)
 
 
 }} // namespace boost::geometry
+
 
 #endif // BOOST_GEOMETRY_ALGORITHMS_ASSIGN_HPP

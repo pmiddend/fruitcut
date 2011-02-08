@@ -20,10 +20,11 @@
 
 
 
-namespace boost { namespace geometry { namespace concept {
+namespace boost { namespace geometry { namespace concept
+{
 
 /*!
-\brief Point concept
+\brief Point concept.
 \ingroup concepts
 
 \par Formal definition:
@@ -117,10 +118,13 @@ public:
 
 
 /*!
-\brief point concept (const version)
+\brief point concept (const version).
+
 \ingroup const_concepts
+
 \details The ConstPoint concept apply the same as the Point concept,
 but does not apply write access.
+
 */
 template <typename Geometry>
 class ConstPoint

@@ -6,7 +6,6 @@
 // Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef BOOST_GEOMETRY_GEOMETRIES_CONCEPTS_SEGMENT_CONCEPT_HPP
 #define BOOST_GEOMETRY_GEOMETRIES_CONCEPTS_SEGMENT_CONCEPT_HPP
 
@@ -15,20 +14,18 @@
 
 #include <boost/geometry/geometries/concepts/point_concept.hpp>
 
-
-
 #include <boost/geometry/core/access.hpp>
 #include <boost/geometry/core/point_type.hpp>
 
 
-
-namespace boost { namespace geometry { namespace concept {
+namespace boost { namespace geometry { namespace concept
+{
 
 
 /*!
-\brief segment concept
+\brief Segment concept.
 \ingroup concepts
-\par Formal definition:
+\details Formal definition:
 The segment concept is defined as following:
 - there must be a specialization of traits::tag defining segment_tag as type
 - there must be a specialization of traits::point_type to define the
@@ -82,7 +79,7 @@ public :
 
 
 /*!
-\brief Segment concept (const version)
+\brief Segment concept (const version).
 \ingroup const_concepts
 \details The ConstSegment concept verifies the same as the Segment concept,
 but does not verify write access.

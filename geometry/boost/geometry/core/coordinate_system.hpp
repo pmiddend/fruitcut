@@ -6,11 +6,11 @@
 // Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef BOOST_GEOMETRY_CORE_COORDINATE_SYSTEM_HPP
 #define BOOST_GEOMETRY_CORE_COORDINATE_SYSTEM_HPP
 
 
+#include <boost/mpl/assert.hpp>
 #include <boost/type_traits/remove_const.hpp>
 #include <boost/geometry/core/point_type.hpp>
 
@@ -18,19 +18,26 @@
 namespace boost { namespace geometry
 {
 
+
 namespace traits
 {
 
-    /*!
-        \brief Traits class defining the coordinate system of a point, important for strategy selection
-        \ingroup traits
-        \par Geometries:
-            - point
-        \par Specializations should provide:
-            - typedef CS type; (cs::cartesian, cs::spherical, etc)
-    */
-    template <typename P>
-    struct coordinate_system {};
+/*!
+\brief Traits class defining the coordinate system of a point, important for strategy selection
+\ingroup traits
+\par Geometries:
+    - point
+\par Specializations should provide:
+    - typedef CS type; (cs::cartesian, cs::spherical, etc)
+*/
+template <typename Point, typename Enable = void>
+struct coordinate_system
+{
+    BOOST_MPL_ASSERT_MSG
+        (
+            false, NOT_IMPLEMENTED_FOR_THIS_POINT_TYPE, (types<Point>)
+        );
+};
 
 } // namespace traits
 
@@ -74,6 +81,7 @@ struct coordinate_system
             ncg
         >::type type;
 };
+
 
 }} // namespace boost::geometry
 

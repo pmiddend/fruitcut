@@ -11,12 +11,17 @@
 
 #include <cstddef>
 
+#include <boost/mpl/assert.hpp>
 #include <boost/range.hpp>
-#include <boost/type_traits/remove_const.hpp>
+#include <boost/typeof/typeof.hpp>
 
+#include <boost/geometry/core/closure.hpp>
 #include <boost/geometry/core/is_linear.hpp>
+#include <boost/geometry/core/exterior_ring.hpp>
 #include <boost/geometry/core/interior_rings.hpp>
+#include <boost/geometry/core/ring_type.hpp>
 
+#include <boost/geometry/algorithms/disjoint.hpp>
 #include <boost/geometry/geometries/concepts/check.hpp>
 
 
@@ -24,22 +29,36 @@ namespace boost { namespace geometry
 {
 
 #ifndef DOXYGEN_NO_DETAIL
-namespace detail { namespace num_points {
+namespace detail { namespace num_points
+{
 
 
 template <typename Range>
 struct range_count
 {
-    static inline std::size_t apply(Range const& range)
+    static inline std::size_t apply(Range const& range, bool add_for_open)
     {
-        return boost::size(range);
+        std::size_t n = boost::size(range);
+        if (add_for_open && n > 0)
+        {
+            closure_selector const s = geometry::closure<Range>::value;
+
+            if (s == open)
+            {
+                if (geometry::disjoint(*boost::begin(range), *(boost::begin(range) + n - 1)))
+                {
+                    return n + 1;
+                }
+            }
+        }
+        return n;
     }
 };
 
 template <typename Geometry, std::size_t D>
 struct other_count
 {
-    static inline std::size_t apply(Geometry const& )
+    static inline std::size_t apply(Geometry const&, bool)
     {
         return D;
     }
@@ -48,19 +67,18 @@ struct other_count
 template <typename Polygon>
 struct polygon_count
 {
-    static inline std::size_t apply(Polygon const& poly)
+    static inline std::size_t apply(Polygon const& poly, bool add_for_open)
     {
-        std::size_t n = boost::size(exterior_ring(poly));
-        typedef typename boost::range_const_iterator
-            <
-                typename interior_type<Polygon>::type
-            >::type iterator;
+        typedef typename geometry::ring_type<Polygon>::type ring_type;
 
-        for (iterator it = boost::begin(interior_rings(poly));
-             it != boost::end(interior_rings(poly));
-             ++it)
+        std::size_t n = range_count<ring_type>::apply(
+                    exterior_ring(poly), add_for_open);
+
+        typename interior_return_type<Polygon const>::type rings
+                    = interior_rings(poly);
+        for (BOOST_AUTO(it, boost::begin(rings)); it != boost::end(rings); ++it)
         {
-            n += boost::size(*it);
+            n += range_count<ring_type>::apply(*it, add_for_open);
         }
 
         return n;
@@ -78,6 +96,11 @@ namespace dispatch
 template <typename GeometryTag, bool Linear, typename Geometry>
 struct num_points
 {
+    BOOST_MPL_ASSERT_MSG
+        (
+            false, NOT_OR_NOT_YET_IMPLEMENTED_FOR_THIS_GEOMETRY_TYPE
+            , (types<Geometry>)
+        );
 };
 
 template <typename GeometryTag, typename Geometry>
@@ -116,28 +139,27 @@ struct num_points<polygon_tag, false, Geometry>
 
 
 /*!
-    \brief get number of points
-    \ingroup access
-    \tparam Geometry geometry type
-    \param geometry the geometry to get number of points from
-    \return number of points
-    \note For linestrings/rings also boost::size or .size() could be used, however,
-        for polygons this is less obvious. So this function is provided. Besides that
-        it is described by OGC (numPoints)
+\brief \brief_calc{number of points}
+\ingroup num_points
+\details \details_calc{num_points, number of points}.
+\tparam Geometry \tparam_geometry
+\param geometry \param_geometry
+\param add_for_open add one for open geometries (i.e. polygon types which are not closed)
+\return \return_calc{number of points}
+
+\qbk{[include ref/algorithms/num_points.qbk]}
 */
 template <typename Geometry>
-inline std::size_t num_points(Geometry const& geometry)
+inline std::size_t num_points(Geometry const& geometry, bool add_for_open = false)
 {
-    concept::check<const Geometry>();
-
-    typedef typename boost::remove_const<Geometry>::type ncg_type;
+    concept::check<Geometry const>();
 
     return dispatch::num_points
         <
             typename tag<Geometry>::type,
-            is_linear<ncg_type>::value,
-            ncg_type
-        >::apply(geometry);
+            is_linear<Geometry>::value,
+            Geometry
+        >::apply(geometry, add_for_open);
 }
 
 }} // namespace boost::geometry

@@ -9,8 +9,7 @@
 #ifndef BOOST_GEOMETRY_MULTI_ALGORITHMS_TRANSFORM_HPP
 #define BOOST_GEOMETRY_MULTI_ALGORITHMS_TRANSFORM_HPP
 
-#include <boost/range/functions.hpp>
-#include <boost/range/metafunctions.hpp>
+#include <boost/range.hpp>
 
 #include <boost/geometry/algorithms/transform.hpp>
 
@@ -20,7 +19,8 @@ namespace boost { namespace geometry
 {
 
 #ifndef DOXYGEN_NO_DETAIL
-namespace detail { namespace transform {
+namespace detail { namespace transform
+{
 
 /*!
     \brief Is able to transform any multi-geometry, calling the single-version as policy
@@ -33,7 +33,7 @@ struct transform_multi
     {
         multi2.resize(boost::size(multi1));
 
-        typename boost::range_const_iterator<Multi1>::type it1
+        typename boost::range_iterator<Multi1 const>::type it1
                 = boost::begin(multi1);
         typename boost::range_iterator<Multi2>::type it2
                 = boost::begin(multi2);

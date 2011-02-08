@@ -9,64 +9,36 @@
 #ifndef BOOST_GEOMETRY_ALGORITHMS_WITHIN_HPP
 #define BOOST_GEOMETRY_ALGORITHMS_WITHIN_HPP
 
-/*!
-\defgroup within within: detect if a geometry is inside another geometry, a.o. point-in-polygon
-
-\par Source descriptions:
-- OGC: Returns 1 (TRUE) if this geometric object is "spatially within"
-        another Geometry.
-
-\par Performance
-- 2776 within determinations using bounding box and polygon are done
-    in 0.05 seconds (http://trac.osgeo.org/ggl/wiki/Performance#Within1)
-- note that using another strategy the performance can be increased:
-  - winding            : 0.093 s
-  - franklin           : 0.062 s
-  - Crossings-multiply : 0.047 s
-- but note also that the last two do not detect point-on-border cases
-
-\par Geometries:
-- \b point + \b polygon: The well-known point-in-polygon, returning true if
-    a point falls within a polygon (and not
-within one of its holes) \image html within_polygon.png
-- \b point + \b ring: returns true if point is completely within
-    a ring \image html within_ring.png
-- \b point + \b box
-- \b box + \b box
-
-\par Example:
-The within algorithm is used as following:
-\dontinclude doxygen_1.cpp
-\skip example_within
-\line {
-\until }
-
-*/
-
 
 #include <cstddef>
 
-#include <boost/range/functions.hpp>
-#include <boost/range/metafunctions.hpp>
+#include <boost/mpl/assert.hpp>
+#include <boost/range.hpp>
+#include <boost/typeof/typeof.hpp>
 
 #include <boost/geometry/algorithms/make.hpp>
 
 #include <boost/geometry/core/access.hpp>
+#include <boost/geometry/core/closure.hpp>
+#include <boost/geometry/core/cs.hpp>
 #include <boost/geometry/core/exterior_ring.hpp>
 #include <boost/geometry/core/interior_rings.hpp>
-#include <boost/geometry/core/cs.hpp>
-
+#include <boost/geometry/core/point_order.hpp>
+#include <boost/geometry/core/ring_type.hpp>
 #include <boost/geometry/geometries/concepts/check.hpp>
-
-#include <boost/geometry/strategies/point_in_poly.hpp>
+#include <boost/geometry/strategies/within.hpp>
 #include <boost/geometry/strategies/concepts/within_concept.hpp>
+#include <boost/geometry/util/order_as_direction.hpp>
+#include <boost/geometry/views/closeable_view.hpp>
+#include <boost/geometry/views/reversible_view.hpp>
 
 
 namespace boost { namespace geometry
 {
 
 #ifndef DOXYGEN_NO_DETAIL
-namespace detail { namespace within {
+namespace detail { namespace within
+{
 
 
 /*!
@@ -84,14 +56,14 @@ template
 >
 struct point_in_box
 {
-    static inline bool apply(Point const& p, Box const& b, Strategy const& s)
+    static inline int apply(Point const& p, Box const& b, Strategy const& s)
     {
         assert_dimension_equal<Point, Box>();
 
         if (get<Dimension>(p) <= get<min_corner, Dimension>(b)
             || get<Dimension>(p) >= get<max_corner, Dimension>(b))
         {
-            return false;
+            return -1;
         }
 
         return point_in_box
@@ -114,9 +86,9 @@ template
 >
 struct point_in_box<Point, Box, Strategy, DimensionCount, DimensionCount>
 {
-    static inline bool apply(Point const& , Box const& , Strategy const& )
+    static inline int apply(Point const& , Box const& , Strategy const& )
     {
-        return true;
+        return 1;
     }
 };
 
@@ -131,14 +103,14 @@ template
 >
 struct box_in_box
 {
-    static inline bool apply(Box1 const& b1, Box2 const& b2, Strategy const& s)
+    static inline int apply(Box1 const& b1, Box2 const& b2, Strategy const& s)
     {
         assert_dimension_equal<Box1, Box2>();
 
         if (get<min_corner, Dimension>(b1) <= get<min_corner, Dimension>(b2)
             || get<max_corner, Dimension>(b1) >= get<max_corner, Dimension>(b2))
         {
-            return false;
+            return -1;
         }
 
         return box_in_box
@@ -161,79 +133,115 @@ template
 >
 struct box_in_box<Box1, Box2, Strategy, DimensionCount, DimensionCount>
 {
-    static inline bool apply(Box1 const& , Box2 const& , Strategy const&)
+    static inline int apply(Box1 const& , Box2 const& , Strategy const&)
     {
-        return true;
+        return 1;
     }
 };
 
 
-template<typename Point, typename Ring, typename Strategy>
+template
+<
+    typename Point,
+    typename Ring,
+    iterate_direction Direction,
+    closure_selector Closure,
+    typename Strategy
+>
 struct point_in_ring
 {
     BOOST_CONCEPT_ASSERT( (geometry::concept::WithinStrategy<Strategy>) );
 
-    static inline bool apply(Point const& point, Ring const& ring,
+    static inline int apply(Point const& point, Ring const& ring,
             Strategy const& strategy)
     {
-        if (boost::size(ring) < 4)
+        if (boost::size(ring)
+                < core_detail::closure::minimum_ring_size<Closure>::value)
         {
-            return false;
+            return -1;
         }
 
-        typedef typename boost::range_const_iterator<Ring>::type iterator_type;
+        typedef typename reversible_view<Ring const, Direction>::type rev_view_type;
+        typedef typename closeable_view
+            <
+                rev_view_type const, Closure
+            >::type cl_view_type;
+        typedef typename boost::range_iterator<cl_view_type const>::type iterator_type;
 
+        rev_view_type rev_view(ring);
+        cl_view_type view(rev_view);
         typename Strategy::state_type state;
+        iterator_type it = boost::begin(view);
+        iterator_type end = boost::end(view);
 
-        iterator_type it = boost::begin(ring);
         for (iterator_type previous = it++;
-            it != boost::end(ring);
-            previous = it++)
+            it != end;
+            ++previous, ++it)
         {
             if (! strategy.apply(point, *previous, *it, state))
             {
                 return false;
             }
         }
+
         return strategy.result(state);
     }
 };
 
+
+
 // Polygon: in exterior ring, and if so, not within interior ring(s)
-template<typename Point, typename Polygon, typename Strategy>
+template
+<
+    typename Point,
+    typename Polygon,
+    iterate_direction Direction,
+    closure_selector Closure,
+    typename Strategy
+>
 struct point_in_polygon
 {
     BOOST_CONCEPT_ASSERT( (geometry::concept::WithinStrategy<Strategy>) );
 
-    static inline bool apply(Point const& point, Polygon const& poly,
+    static inline int apply(Point const& point, Polygon const& poly,
             Strategy const& strategy)
     {
-
-        typedef point_in_ring
+        int const code = point_in_ring
             <
                 Point,
                 typename ring_type<Polygon>::type,
+                Direction,
+                Closure,
                 Strategy
-            > per_ring;
+            >::apply(point, exterior_ring(poly), strategy);
 
-        if (per_ring::apply(point, exterior_ring(poly), strategy))
+        if (code == 1)
         {
-
-            for (typename boost::range_const_iterator
-                    <
-                        typename interior_type<Polygon>::type
-                    >::type it = boost::begin(interior_rings(poly));
-                 it != boost::end(interior_rings(poly));
-                 ++it)
+            typename interior_return_type<Polygon const>::type rings
+                        = interior_rings(poly);
+            for (BOOST_AUTO(it, boost::begin(rings));
+                it != boost::end(rings);
+                ++it)
             {
-                if (per_ring::apply(point, *it, strategy))
+                int const interior_code = point_in_ring
+                    <
+                        Point,
+                        typename ring_type<Polygon>::type,
+                        Direction,
+                        Closure,
+                        Strategy
+                    >::apply(point, *it, strategy);
+
+                if (interior_code != -1)
                 {
-                    return false;
+                    // If 0, return 0 (touch)
+                    // If 1 (inside hole) return -1 (outside polygon)
+                    // If -1 (outside hole) check other holes if any
+                    return -interior_code;
                 }
             }
-            return true;
         }
-        return false;
+        return code;
     }
 };
 
@@ -254,7 +262,13 @@ template
     typename Strategy
 >
 struct within
-{};
+{
+    BOOST_MPL_ASSERT_MSG
+        (
+            false, NOT_OR_NOT_YET_IMPLEMENTED_FOR_THIS_GEOMETRY_TYPE
+            , (types<Geometry1, Geometry2>)
+        );
+};
 
 
 template <typename Point, typename Box, typename Strategy>
@@ -286,13 +300,25 @@ struct within<box_tag, box_tag, Box1, Box2, Strategy>
 template <typename Point, typename Ring, typename Strategy>
 struct within<point_tag, ring_tag, Point, Ring, Strategy>
     : detail::within::point_in_ring
-        <Point, Ring, Strategy>
+        <
+            Point,
+            Ring,
+            order_as_direction<geometry::point_order<Ring>::value>::value,
+            geometry::closure<Ring>::value,
+            Strategy
+        >
 {};
 
 template <typename Point, typename Polygon, typename Strategy>
 struct within<point_tag, polygon_tag, Point, Polygon, Strategy>
     : detail::within::point_in_polygon
-        <Point, Polygon, Strategy>
+        <
+            Point,
+            Polygon,
+            order_as_direction<geometry::point_order<Polygon>::value>::value,
+            geometry::closure<Polygon>::value,
+            Strategy
+        >
 {};
 
 } // namespace dispatch
@@ -300,26 +326,32 @@ struct within<point_tag, polygon_tag, Point, Polygon, Strategy>
 
 
 /*!
-    \brief Within, examine if a geometry is within another geometry
-    \ingroup within
-    \param geometry1 geometry which might be within the second geometry
-    \param geometry2 geometry which might contain the first geometry
-    \return true if geometry1 is completely contained within geometry2,
-        else false
-    \note The default strategy is used for within detection
-
+\brief \brief_check12{is completely inside}
+\ingroup within
+\details \details_check12{within, is completely inside}.
+\tparam Geometry1 \tparam_geometry
+\tparam Geometry2 \tparam_geometry
+\param geometry1 \param_geometry
+\param geometry2 \param_geometry
+\param geometry1 geometry which might be within the second geometry
+\param geometry2 geometry which might contain the first geometry
+\return true if geometry1 is completely contained within geometry2,
+    else false
+\note The default strategy is used for within detection
  */
 template<typename Geometry1, typename Geometry2>
 inline bool within(Geometry1 const& geometry1, Geometry2 const& geometry2)
 {
-    concept::check<const Geometry1>();
-    concept::check<const Geometry2>();
+    concept::check<Geometry1 const>();
+    concept::check<Geometry2 const>();
 
     typedef typename point_type<Geometry1>::type point_type1;
     typedef typename point_type<Geometry2>::type point_type2;
 
-    typedef typename strategy_within
+    typedef typename strategy::within::services::default_strategy
         <
+            typename tag<Geometry1>::type,
+            typename tag<Geometry2>::type,
             typename cs_tag<point_type1>::type,
             typename cs_tag<point_type2>::type,
             point_type1,
@@ -333,19 +365,31 @@ inline bool within(Geometry1 const& geometry1, Geometry2 const& geometry2)
             Geometry1,
             Geometry2,
             strategy_type
-        >::apply(geometry1, geometry2, strategy_type());
+        >::apply(geometry1, geometry2, strategy_type()) == 1;
 }
 
 /*!
-    \brief Within, examine if a geometry is within another geometry,
-        using a specified strategy
-    \ingroup within
-    \param geometry1 geometry which might be within the second geometry
-    \param geometry2 geometry which might contain the first geometry
-    \param strategy strategy to be used
-    \return true if geometry1 is completely contained within geometry2,
-        else false
- */
+\brief \brief_check12{is completely inside} \brief_strategy
+\ingroup within
+\details \details_check12{within, is completely inside}, \brief_strategy. \details_strategy_reasons
+\tparam Geometry1 \tparam_geometry
+\tparam Geometry2 \tparam_geometry
+\param geometry1 \param_geometry
+\param geometry2 \param_geometry
+\param geometry1 \param_geometry geometry which might be within the second geometry
+\param geometry2 \param_geometry which might contain the first geometry
+\param strategy strategy to be used
+\return true if geometry1 is completely contained within geometry2,
+    else false
+
+\qbk{distinguish,with strategy}
+\qbk{
+[heading Available Strategies]
+\* [link geometry.reference.strategies.strategy_within_winding Winding (coordinate system agnostic)]
+\* [link geometry.reference.strategies.strategy_within_franklin Franklin (cartesian)]
+\* [link geometry.reference.strategies.strategy_within_crossings_multiply Crossings Multiply (cartesian)]
+}
+*/
 template<typename Geometry1, typename Geometry2, typename Strategy>
 inline bool within(Geometry1 const& geometry1, Geometry2 const& geometry2,
         Strategy const& strategy)
@@ -354,8 +398,8 @@ inline bool within(Geometry1 const& geometry1, Geometry2 const& geometry2,
     // Because for point-in-box, it makes no sense to specify one.
     BOOST_CONCEPT_ASSERT( (geometry::concept::WithinStrategy<Strategy>) );
 
-    concept::check<const Geometry1>();
-    concept::check<const Geometry2>();
+    concept::check<Geometry1 const>();
+    concept::check<Geometry2 const>();
 
     return dispatch::within
         <
@@ -364,7 +408,7 @@ inline bool within(Geometry1 const& geometry1, Geometry2 const& geometry2,
             Geometry1,
             Geometry2,
             Strategy
-        >::apply(geometry1, geometry2, strategy);
+        >::apply(geometry1, geometry2, strategy) == 1;
 }
 
 }} // namespace boost::geometry

@@ -9,12 +9,17 @@
 #ifndef BOOST_GEOMETRY_ALGORITHMS_DISTANCE_HPP
 #define BOOST_GEOMETRY_ALGORITHMS_DISTANCE_HPP
 
+
 #include <boost/mpl/if.hpp>
-#include <boost/range/functions.hpp>
-#include <boost/range/metafunctions.hpp>
+#include <boost/range.hpp>
+#include <boost/typeof/typeof.hpp>
+
 #include <boost/static_assert.hpp>
 
+#include <boost/mpl/assert.hpp>
+
 #include <boost/geometry/core/cs.hpp>
+#include <boost/geometry/core/closure.hpp>
 #include <boost/geometry/core/is_multi.hpp>
 #include <boost/geometry/core/reverse_dispatch.hpp>
 
@@ -23,49 +28,27 @@
 
 #include <boost/geometry/strategies/distance.hpp>
 #include <boost/geometry/strategies/distance_result.hpp>
+#include <boost/geometry/algorithms/assign.hpp>
 #include <boost/geometry/algorithms/within.hpp>
 
-/*!
-\defgroup distance distance: calculate distance between two geometries
-The distance algorithm returns the distance between two geometries.
-\par Coordinate systems and strategies:
-With help of strategies the distance function returns the appropriate distance.
-If the input is in cartesian coordinates, the Euclidian distance (Pythagoras) is calculated.
-If the input is in spherical coordinates (either degree or radian), the distance over the sphere is returned.
-If the input is in geographic coordinates, distance is calculated over the globe and returned in meters.
+#include <boost/geometry/views/closeable_view.hpp>
+#include <boost/geometry/util/math.hpp>
 
-\par Distance result:
-Depending on calculation type the distance result is either a structure, convertable
-to a double, or a double value. In case of Pythagoras it makes sense to not draw the square root in the
-strategy itself. Taking a square root is relative expensive and is not necessary when comparing distances.
-
-\par Geometries:
-Currently implemented, for both cartesian and spherical/geographic:
-- POINT - POINT
-- POINT - SEGMENT and v.v.
-- POINT - LINESTRING and v.v.
-
-Not yet implemented:
-- POINT - RING etc, note that it will return a zero if the point is anywhere within the ring
-
-\par Example:
-Example showing distance calculation of two points, in xy and in latlong coordinates
-\dontinclude doxygen_1.cpp
-\skip example_distance_point_point
-\line {
-\until }
-*/
 
 namespace boost { namespace geometry
 {
 
 #ifndef DOXYGEN_NO_DETAIL
-namespace detail { namespace distance {
+namespace detail { namespace distance
+{
+
+// To avoid spurious namespaces here:
+using strategy::distance::services::return_type;
 
 template <typename P1, typename P2, typename Strategy>
 struct point_to_point
 {
-    static inline typename Strategy::return_type apply(P1 const& p1,
+    static inline typename return_type<Strategy>::type apply(P1 const& p1,
                 P2 const& p2, Strategy const& strategy)
     {
         return strategy.apply(p1, p2);
@@ -76,79 +59,106 @@ struct point_to_point
 template<typename Point, typename Segment, typename Strategy>
 struct point_to_segment
 {
-    static inline typename Strategy::return_type apply(Point const& point,
+    static inline typename return_type<Strategy>::type apply(Point const& point,
                 Segment const& segment, Strategy const& strategy)
     {
-        typename strategy_distance_segment
+        typename strategy::distance::services::default_strategy
             <
-                typename cs_tag<Point>::type,
-                typename cs_tag<Segment>::type,
+                segment_tag,
                 Point,
-                typename point_type<Segment>::type
+                typename point_type<Segment>::type,
+                typename cs_tag<Point>::type,
+                typename cs_tag<typename point_type<Segment>::type>::type,
+                Strategy
             >::type segment_strategy;
 
-        // See remark below.
-        // TODO: avoid .first, .second
-        return segment_strategy.apply(point, segment.first, segment.second);
+        typename point_type<Segment>::type p[2];
+        geometry::assign_point_from_index<0>(segment, p[0]);
+        geometry::assign_point_from_index<1>(segment, p[1]);
+        return segment_strategy.apply(point, p[0], p[1]);
     }
 };
 
 
-template<typename Point, typename Range, typename PPStrategy, typename PSStrategy>
+template
+<
+    typename Point,
+    typename Range,
+    closure_selector Closure,
+    typename PPStrategy,
+    typename PSStrategy
+>
 struct point_to_range
 {
-    typedef typename PPStrategy::return_type return_type;
+    typedef typename return_type<PSStrategy>::type return_type;
 
     static inline return_type apply(Point const& point, Range const& range,
             PPStrategy const& pp_strategy, PSStrategy const& ps_strategy)
     {
-        typedef segment<const typename point_type<Range>::type> segment_type;
+        return_type const zero = return_type(0);
 
         if (boost::size(range) == 0)
         {
-            return return_type(0);
+            return zero;
         }
 
-        // line of one point: return point square_distance
-        typedef typename boost::range_const_iterator<Range>::type iterator_type;
-        iterator_type it = boost::begin(range);
+        typedef typename closeable_view<Range const, Closure>::type view_type;
+
+        view_type view(range);
+
+        // line of one point: return point distance
+        typedef typename boost::range_iterator<view_type const>::type iterator_type;
+        iterator_type it = boost::begin(view);
         iterator_type prev = it++;
-        if (it == boost::end(range))
+        if (it == boost::end(view))
         {
-            return pp_strategy.apply(point, *boost::begin(range));
+            return pp_strategy.apply(point, *boost::begin(view));
         }
 
+        // Create comparable (more efficient) strategy
+        typedef typename strategy::distance::services::comparable_type<PSStrategy>::type eps_strategy_type;
+        eps_strategy_type eps_strategy = strategy::distance::services::get_comparable<PSStrategy>::apply(ps_strategy);
 
         // start with first segment distance
-        return_type d = ps_strategy.apply(point, *prev, *it);
+        return_type d = eps_strategy.apply(point, *prev, *it);
+        return_type rd = ps_strategy.apply(point, *prev, *it);
 
         // check if other segments are closer
-        prev = it++;
-        while(it != boost::end(range))
+        for (++prev, ++it; it != boost::end(view); ++prev, ++it)
         {
-            return_type ds = ps_strategy.apply(point, *prev, *it);
-            if (geometry::close_to_zero(ds))
+            return_type const ds = ps_strategy.apply(point, *prev, *it);
+            if (geometry::math::equals(ds, zero))
             {
-                return return_type(0);
+                return ds;
             }
             else if (ds < d)
             {
                 d = ds;
+                rd = ps_strategy.apply(point, *prev, *it);
             }
-            prev = it++;
         }
 
-        return d;
+        return rd;
     }
 };
 
 
-template<typename Point, typename Ring, typename PPStrategy, typename PSStrategy>
+template
+<
+    typename Point,
+    typename Ring,
+    closure_selector Closure,
+    typename PPStrategy,
+    typename PSStrategy
+>
 struct point_to_ring
 {
-    typedef std::pair<typename PPStrategy::return_type, bool> distance_containment;
+    typedef std::pair
+        <
+            typename return_type<PPStrategy>::type, bool
+        > distance_containment;
 
-    static inline distance_containment apply(Point const& point, 
+    static inline distance_containment apply(Point const& point,
                 Ring const& ring,
                 PPStrategy const& pp_strategy, PSStrategy const& ps_strategy)
     {
@@ -158,9 +168,10 @@ struct point_to_ring
                     <
                         Point,
                         Ring,
+                        Closure,
                         PPStrategy,
                         PSStrategy
-                    >::apply(point, ring, pp_strategy, ps_strategy), 
+                    >::apply(point, ring, pp_strategy, ps_strategy),
                 geometry::within(point, ring)
             );
     }
@@ -168,13 +179,20 @@ struct point_to_ring
 
 
 
-template<typename Point, typename Polygon, typename PPStrategy, typename PSStrategy>
+template
+<
+    typename Point,
+    typename Polygon,
+    closure_selector Closure,
+    typename PPStrategy,
+    typename PSStrategy
+>
 struct point_to_polygon
 {
-    typedef typename PPStrategy::return_type return_type;
-    typedef std::pair<typename PPStrategy::return_type, bool> distance_containment;
+    typedef typename return_type<PPStrategy>::type return_type;
+    typedef std::pair<return_type, bool> distance_containment;
 
-    static inline distance_containment apply(Point const& point, 
+    static inline distance_containment apply(Point const& point,
                 Polygon const& polygon,
                 PPStrategy const& pp_strategy, PSStrategy const& ps_strategy)
     {
@@ -183,21 +201,19 @@ struct point_to_polygon
             <
                 Point,
                 typename ring_type<Polygon>::type,
+                Closure,
                 PPStrategy,
                 PSStrategy
             > per_ring;
 
-        distance_containment dc = per_ring::apply(point, 
+        distance_containment dc = per_ring::apply(point,
                         exterior_ring(polygon), pp_strategy, ps_strategy);
 
-        for (typename boost::range_const_iterator
-                <
-                    typename interior_type<Polygon>::type
-                >::type it = boost::begin(interior_rings(polygon));
-             it != boost::end(interior_rings(polygon));
-             ++it)
+        typename interior_return_type<Polygon const>::type rings
+                    = interior_rings(polygon);
+        for (BOOST_AUTO(it, boost::begin(rings)); it != boost::end(rings); ++it)
         {
-            distance_containment dcr = per_ring::apply(point, 
+            distance_containment dcr = per_ring::apply(point,
                             *it, pp_strategy, ps_strategy);
             if (dcr.first < dc.first)
             {
@@ -223,15 +239,24 @@ struct point_to_polygon
 namespace dispatch
 {
 
+using strategy::distance::services::return_type;
+
+
 template
 <
     typename GeometryTag1, typename GeometryTag2,
-    typename G1, typename G2,
+    typename Geometry1, typename Geometry2,
     typename StrategyTag, typename Strategy,
     bool IsMulti1, bool IsMulti2
 >
 struct distance
-{};
+{
+    BOOST_MPL_ASSERT_MSG
+        (
+            false, NOT_OR_NOT_YET_IMPLEMENTED_FOR_THIS_GEOMETRY_TYPE
+            , (types<Geometry1, Geometry2>)
+        );
+};
 
 
 template <typename P1, typename P2, typename Strategy>
@@ -244,7 +269,7 @@ struct distance
 > : detail::distance::point_to_point<P1, P2, Strategy>
 {};
 
-/// Point-line version 1, where point-point strategy is specified
+// Point-line version 1, where point-point strategy is specified
 template <typename Point, typename Linestring, typename Strategy>
 struct distance
 <
@@ -255,28 +280,26 @@ struct distance
 >
 {
 
-    static inline typename Strategy::return_type apply(Point const& point,
+    static inline typename return_type<Strategy>::type apply(Point const& point,
             Linestring const& linestring,
             Strategy const& strategy)
     {
-        //typedef segment<const > segment_type;
-        typedef typename geometry::strategy_distance_segment
+        typedef typename strategy::distance::services::default_strategy
                     <
-                            typename cs_tag<Point>::type,
-                            typename cs_tag<Linestring>::type,
-                            Point,
-                            typename point_type<Linestring>::type
+                        segment_tag,
+                        Point,
+                        typename point_type<Linestring>::type
                     >::type ps_strategy_type;
 
         return detail::distance::point_to_range
             <
-                Point, Linestring, Strategy, ps_strategy_type
+                Point, Linestring, closed, Strategy, ps_strategy_type
             >::apply(point, linestring, strategy, ps_strategy_type());
     }
 };
 
 
-/// Point-line version 2, where point-segment strategy is specified
+// Point-line version 2, where point-segment strategy is specified
 template <typename Point, typename Linestring, typename Strategy>
 struct distance
 <
@@ -286,19 +309,55 @@ struct distance
     false, false
 >
 {
-    static inline typename Strategy::return_type apply(Point const& point,
+    static inline typename return_type<Strategy>::type apply(Point const& point,
             Linestring const& linestring,
             Strategy const& strategy)
     {
         typedef typename Strategy::point_strategy_type pp_strategy_type;
         return detail::distance::point_to_range
             <
-                Point, Linestring, pp_strategy_type, Strategy
+                Point, Linestring, closed, pp_strategy_type, Strategy
             >::apply(point, linestring, pp_strategy_type(), strategy);
     }
 };
 
-/// Point-polygon , where point-segment strategy is specified
+// Point-ring , where point-segment strategy is specified
+template <typename Point, typename Ring, typename Strategy>
+struct distance
+<
+    point_tag, ring_tag,
+    Point, Ring,
+    strategy_tag_distance_point_point, Strategy,
+    false, false
+>
+{
+    typedef typename return_type<Strategy>::type return_type;
+
+    static inline return_type apply(Point const& point,
+            Ring const& ring,
+            Strategy const& strategy)
+    {
+        typedef typename strategy::distance::services::default_strategy
+            <
+                segment_tag,
+                Point,
+                typename point_type<Ring>::type
+            >::type ps_strategy_type;
+
+        std::pair<return_type, bool>
+            dc = detail::distance::point_to_ring
+            <
+                Point, Ring,
+                geometry::closure<Ring>::value,
+                Strategy, ps_strategy_type
+            >::apply(point, ring, strategy, ps_strategy_type());
+
+        return dc.second ? return_type(0) : dc.first;
+    }
+};
+
+
+// Point-polygon , where point-segment strategy is specified
 template <typename Point, typename Polygon, typename Strategy>
 struct distance
 <
@@ -308,24 +367,25 @@ struct distance
     false, false
 >
 {
-    typedef typename Strategy::return_type return_type;
+    typedef typename return_type<Strategy>::type return_type;
 
     static inline return_type apply(Point const& point,
             Polygon const& polygon,
             Strategy const& strategy)
     {
-        typedef typename geometry::strategy_distance_segment
-                    <
-                            typename cs_tag<Point>::type,
-                            typename cs_tag<Polygon>::type,
-                            Point,
-                            typename point_type<Polygon>::type
-                    >::type ps_strategy_type;
+        typedef typename strategy::distance::services::default_strategy
+            <
+                segment_tag,
+                Point,
+                typename point_type<Polygon>::type
+            >::type ps_strategy_type;
 
         std::pair<return_type, bool>
             dc = detail::distance::point_to_polygon
             <
-                Point, Polygon, Strategy, ps_strategy_type
+                Point, Polygon,
+                geometry::closure<Polygon>::value,
+                Strategy, ps_strategy_type
             >::apply(point, polygon, strategy, ps_strategy_type());
 
         return dc.second ? return_type(0) : dc.first;
@@ -355,7 +415,7 @@ struct distance
     false, false
 >
 {
-    static inline typename Strategy::return_type apply(Point const& point,
+    static inline typename return_type<Strategy>::type apply(Point const& point,
                 Segment const& segment, Strategy const& strategy)
     {
         // TODO: We cannot use .first and .second here.
@@ -382,7 +442,7 @@ template
 >
 struct distance_reversed
 {
-    static inline typename Strategy::return_type apply(G1 const& g1,
+    static inline typename return_type<Strategy>::type apply(G1 const& g1,
                 G2 const& g2, Strategy const& strategy)
     {
         return distance
@@ -399,76 +459,94 @@ struct distance_reversed
 #endif // DOXYGEN_NO_DISPATCH
 
 /*!
-    \brief Calculate distance between two geometries with a specified strategy
-    \ingroup distance
-    \tparam Geometry1 first geometry type
-    \tparam Geometry2 second geometry type
-    \tparam S point-point-distance strategy type
-    \param geometry1 first geometry
-    \param geometry2 second geometry
-    \param strategy strategy to calculate distance between two points
-    \return the distance (either a double or a distance_result, (convertable to double))
-    \note The strategy can be a point-point strategy. In case of distance point-line/point-polygon
-        it may also be a point-segment strategy.
-    \par Example:
-    Example showing distance calculation of two lat long points, using the accurate Vincenty approximation
-    \dontinclude doxygen_1.cpp
-    \skip example_distance_point_point_strategy
-    \line {
-    \until }
+\brief \brief_calc2{distance} \brief_strategy
+\ingroup distance
+\details
+\details \details_calc{area}. \brief_strategy. \details_strategy_reasons
+
+\tparam Geometry1 \tparam_geometry
+\tparam Geometry2 \tparam_geometry
+\tparam Strategy \tparam_strategy{Distance}
+\param geometry1 \param_geometry
+\param geometry2 \param_geometry
+\param strategy \param_strategy{distance}
+\return \return_calc{distance}
+\note The strategy can be a point-point strategy. In case of distance point-line/point-polygon
+    it may also be a point-segment strategy.
+
+\qbk{distinguish,with strategy}
+
+\qbk{
+[heading Available Strategies]
+\* [link geometry.reference.strategies.strategy_distance_pythagoras Pythagoras (cartesian)]
+\* [link geometry.reference.strategies.strategy_distance_haversine Haversine (spherical)]
+\* [link geometry.reference.strategies.strategy_distance_cross_track Cross track (spherical\, point-to-segment)]
+\* [link geometry.reference.strategies.strategy_distance_projected_point Projected point (cartesian\, point-to-segment)]
+\* more (currently extensions): Vincenty\, Andoyer (geographic)
+}
  */
+
+/*
+Note, in case of a Compilation Error:
+if you get:
+ - "Failed to specialize function template ..."
+ - "error: no matching function for call to ..."
+for distance, it is probably so that there is no specialization
+for return_type<...> for your strategy.
+*/
 template <typename Geometry1, typename Geometry2, typename Strategy>
-inline typename Strategy::return_type distance(Geometry1 const& geometry1,
-            Geometry2 const& geometry2, Strategy const& strategy)
+inline typename strategy::distance::services::return_type<Strategy>::type distance(
+                Geometry1 const& geometry1,
+                Geometry2 const& geometry2, Strategy const& strategy)
 {
-    typedef typename boost::remove_const<Geometry1>::type ncg1_type;
-    typedef typename boost::remove_const<Geometry2>::type ncg2_type;
+    concept::check<Geometry1 const>();
+    concept::check<Geometry2 const>();
 
     return boost::mpl::if_
         <
             typename geometry::reverse_dispatch<Geometry1, Geometry2>::type,
             dispatch::distance_reversed
                 <
-                    typename tag<ncg1_type>::type,
-                    typename tag<ncg2_type>::type,
-                    ncg1_type,
-                    ncg2_type,
-                    typename strategy_tag<Strategy>::type,
+                    typename tag<Geometry1>::type,
+                    typename tag<Geometry2>::type,
+                    Geometry1,
+                    Geometry2,
+                    typename strategy::distance::services::tag<Strategy>::type,
                     Strategy,
-                    is_multi<ncg1_type>::value,
-                    is_multi<ncg2_type>::value
+                    is_multi<Geometry1>::value,
+                    is_multi<Geometry2>::value
                 >,
                 dispatch::distance
                 <
-                    typename tag<ncg1_type>::type,
-                    typename tag<ncg2_type>::type,
-                    ncg1_type,
-                    ncg2_type,
-                    typename strategy_tag<Strategy>::type,
+                    typename tag<Geometry1>::type,
+                    typename tag<Geometry2>::type,
+                    Geometry1,
+                    Geometry2,
+                    typename strategy::distance::services::tag<Strategy>::type,
                     Strategy,
-                    is_multi<ncg1_type>::value,
-                    is_multi<ncg2_type>::value
+                    is_multi<Geometry1>::value,
+                    is_multi<Geometry2>::value
                 >
         >::type::apply(geometry1, geometry2, strategy);
 }
 
 
 /*!
-    \brief Calculate distance between two geometries
-    \ingroup distance
-    \details The default strategy is used, belonging to the corresponding coordinate system of the geometries
-    \tparam G1 first geometry type
-    \tparam G2 second geometry type
-    \param geometry1 first geometry
-    \param geometry2 second geometry
-    \return the distance (either a double or a distance result, convertable to double)
+\brief \brief_calc2{distance}
+\ingroup distance
+\details The default strategy is used, belonging to the corresponding coordinate system of the geometries
+\tparam Geometry1 \tparam_geometry
+\tparam Geometry2 \tparam_geometry
+\param geometry1 \param_geometry
+\param geometry2 \param_geometry
+\return \return_calc{distance}
  */
 template <typename Geometry1, typename Geometry2>
 inline typename distance_result<Geometry1, Geometry2>::type distance(
                 Geometry1 const& geometry1, Geometry2 const& geometry2)
 {
-    concept::check<const Geometry1>();
-    concept::check<const Geometry2>();
+    concept::check<Geometry1 const>();
+    concept::check<Geometry2 const>();
 
     typedef typename point_type<Geometry1>::type point1_type;
     typedef typename point_type<Geometry2>::type point2_type;
@@ -478,17 +556,15 @@ inline typename distance_result<Geometry1, Geometry2>::type distance(
     typedef typename boost::mpl::if_c
         <
             geometry::reverse_dispatch<Geometry1, Geometry2>::type::value,
-            typename strategy_distance
+            typename strategy::distance::services::default_strategy
                 <
-                    typename cs_tag<point2_type>::type,
-                    typename cs_tag<point1_type>::type,
+                    point_tag,
                     point2_type,
                     point1_type
                 >::type,
-            typename strategy_distance
+            typename strategy::distance::services::default_strategy
                 <
-                    typename cs_tag<point1_type>::type,
-                    typename cs_tag<point2_type>::type,
+                    point_tag,
                     point1_type,
                     point2_type
                 >::type

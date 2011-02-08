@@ -9,17 +9,10 @@
 #ifndef BOOST_GEOMETRY_ALGORITHMS_OVERLAPS_HPP
 #define BOOST_GEOMETRY_ALGORITHMS_OVERLAPS_HPP
 
-/*!
-\defgroup overlaps overlaps: detect overlap between two geometries
-\par Source descriptions:
-- Egenhofer: Two objects overlap if they have common interior faces and the bounding faces have common parts
-with the opposite interior faces.
 
-\par Geometries:
-- \b box + \b box
+#include <cstddef>
 
-*/
-
+#include <boost/mpl/assert.hpp>
 
 #include <boost/geometry/core/access.hpp>
 
@@ -29,7 +22,8 @@ namespace boost { namespace geometry
 {
 
 #ifndef DOXYGEN_NO_DETAIL
-namespace detail { namespace overlaps {
+namespace detail { namespace overlaps
+{
 
 template
 <
@@ -140,10 +134,12 @@ struct box_box
 }} // namespace detail::overlaps
 #endif // DOXYGEN_NO_DETAIL
 
+//struct not_implemented_for_this_geometry_type : public boost::false_type {};
 
 #ifndef DOXYGEN_NO_DISPATCH
 namespace dispatch
 {
+
 
 template
 <
@@ -153,7 +149,13 @@ template
     typename Geometry2
 >
 struct overlaps
-{};
+{
+    BOOST_MPL_ASSERT_MSG
+        (
+            false, NOT_OR_NOT_YET_IMPLEMENTED_FOR_THIS_GEOMETRY_TYPE
+            , (types<Geometry1, Geometry2>)
+        );
+};
 
 
 template <typename Box1, typename Box2>
@@ -169,15 +171,15 @@ struct overlaps<box_tag, box_tag, Box1, Box2>
 
 
 /*!
-    \brief Determines overlap between two geometries
-    \ingroup overlaps
-    \return true if there is overlap
+\brief \brief_check2{overlap}
+\ingroup overlaps
+\return \return_check2{overlap}
  */
 template <typename Geometry1, typename Geometry2>
 inline bool overlaps(Geometry1 const& geometry1, Geometry2 const& geometry2)
 {
-    concept::check<const Geometry1>();
-    concept::check<const Geometry2>();
+    concept::check<Geometry1 const>();
+    concept::check<Geometry2 const>();
 
     return dispatch::overlaps
         <

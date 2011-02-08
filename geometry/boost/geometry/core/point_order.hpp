@@ -8,34 +8,52 @@
 #ifndef BOOST_GEOMETRY_CORE_POINT_ORDER_HPP
 #define BOOST_GEOMETRY_CORE_POINT_ORDER_HPP
 
-#include <boost/range/functions.hpp>
-#include <boost/range/metafunctions.hpp>
+
+#include <boost/mpl/assert.hpp>
+#include <boost/range.hpp>
 #include <boost/type_traits/remove_const.hpp>
 
 #include <boost/geometry/core/ring_type.hpp>
 #include <boost/geometry/core/tag.hpp>
 #include <boost/geometry/core/tags.hpp>
 
-namespace boost { namespace geometry {
-
-
-enum order_selector { clockwise = 1, counterclockwise = 2, order_undetermined = 0 };
-
-namespace traits {
+namespace boost { namespace geometry
+{
 
 /*!
-    \brief Traits class indicating the order of contained points within a
-        ring or (multi)polygon, clockwise, counter clockwise or not known.
-    \ingroup traits
-    \par Geometries:
-        - ring
-        - polygon
-        - multi polygon
-    \par Specializations should provide:
-        - typedef P type (where P should fulfil the Point concept)
-    \tparam G geometry
+\brief Enumerates options for the order of points within polygons
+\ingroup enum
+\details The enumeration order_selector describes options for the order of points
+    within a polygon. Polygons can be ordered either clockwise or counterclockwise.
+    The specific order of a polygon type is defined by the point_order metafunction.
+    The point_order metafunction defines a value, which is one of the values enumerated
+    in the order_selector
+
+\qbk{
+[heading See also]
+[link geometry.reference.core.point_order The point_order metafunction]
+}
 */
-template <typename G>
+enum order_selector
+{
+    /// Points are ordered clockwise
+    clockwise = 1,
+    /// Points are ordered counter clockwise
+    counterclockwise = 2,
+    /// Points might be stored in any order, the algorithm will find out (not yet supported)
+    order_undetermined = 0
+};
+
+namespace traits
+{
+
+/*!
+\brief Traits class indicating the order of contained points within a
+    ring or (multi)polygon, clockwise, counter clockwise or not known.
+\ingroup traits
+\tparam Ring ring
+*/
+template <typename Ring>
 struct point_order
 {
     static const order_selector value = clockwise;
@@ -45,6 +63,21 @@ struct point_order
 } // namespace traits
 
 
+#ifndef DOXYGEN_NO_DETAIL
+namespace detail { namespace point_order
+{
+
+struct clockwise
+{
+    static const order_selector value = geometry::clockwise;
+};
+
+
+}} // namespace detail::point_order
+#endif // DOXYGEN_NO_DETAIL
+
+
+
 #ifndef DOXYGEN_NO_DISPATCH
 namespace core_dispatch
 {
@@ -52,9 +85,29 @@ namespace core_dispatch
 template <typename Tag, typename Geometry>
 struct point_order
 {
-    static const order_selector value = clockwise;
+    BOOST_MPL_ASSERT_MSG
+        (
+            false, NOT_IMPLEMENTED_FOR_THIS_GEOMETRY_TYPE
+            , (types<Geometry>)
+        );
 };
 
+template <typename Point>
+struct point_order<point_tag, Point>
+    : public detail::point_order::clockwise {};
+
+template <typename Segment>
+struct point_order<segment_tag, Segment>
+    : public detail::point_order::clockwise {};
+
+
+template <typename Box>
+struct point_order<box_tag, Box>
+    : public detail::point_order::clockwise {};
+
+template <typename LineString>
+struct point_order<linestring_tag, LineString>
+    : public detail::point_order::clockwise {};
 
 
 template <typename Ring>
@@ -79,17 +132,23 @@ struct point_order<polygon_tag, Polygon>
 
 
 /*!
-    \brief Meta-function which defines point type of any geometry
-    \ingroup core
+\brief Metafunction which defines point order of a geometry type
+\ingroup core
+\details
+
+\qbk{
+[heading See also]
+[link geometry.reference.enumerations.closure_selector The closure_selector enumeration]
+}
 */
 template <typename Geometry>
 struct point_order
 {
-    typedef typename boost::remove_const<Geometry>::type ncg;
+    /// metafunction implementation
     static const order_selector value = core_dispatch::point_order
         <
             typename tag<Geometry>::type,
-            ncg
+            typename boost::remove_const<Geometry>::type
         >::value;
 };
 

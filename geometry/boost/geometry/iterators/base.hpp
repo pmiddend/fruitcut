@@ -15,13 +15,19 @@
 #include <boost/mpl/if.hpp>
 
 #ifndef DOXYGEN_NO_DETAIL
-namespace boost { namespace geometry { namespace detail { namespace iterators {
+namespace boost { namespace geometry { namespace detail { namespace iterators
+{
 
-template <typename T, typename Iterator>
-struct iterator_base :
-    public  boost::iterator_adaptor
+template
+<
+    typename DerivedClass,
+    typename Iterator,
+    typename TraversalFlag = boost::bidirectional_traversal_tag
+>
+struct iterator_base
+    : public boost::iterator_adaptor
     <
-        T,
+        DerivedClass,
         Iterator,
         boost::use_default,
         typename boost::mpl::if_
@@ -31,7 +37,7 @@ struct iterator_base :
                 typename boost::iterator_traversal<Iterator>::type,
                 boost::random_access_traversal_tag
             >,
-            boost::bidirectional_traversal_tag,
+            TraversalFlag,
             boost::use_default
         >::type
     >
@@ -42,11 +48,11 @@ struct iterator_base :
         return this->base();
     }
 
-    /*inline bool operator==(const Iterator& other) const
+    /*inline bool operator==(Iterator const& other) const
     {
         return this->base() == other;
     }
-    inline bool operator!=(const Iterator& other) const
+    inline bool operator!=(Iterator const& other) const
     {
         return ! operator==(other);
     }*/

@@ -203,9 +203,9 @@ fruitcut::line_drawer::object::render_screen_space()
 			static_cast<sge::renderer::scalar>(
 				renderer_->screen_size().w()),
 			static_cast<sge::renderer::scalar>(
-				renderer_->screen_size().h()),
-			static_cast<sge::renderer::scalar>(
 				0),
+			static_cast<sge::renderer::scalar>(
+				renderer_->screen_size().h()),
 			static_cast<sge::renderer::scalar>(
 				0),
 			static_cast<sge::renderer::scalar>(

@@ -11,8 +11,7 @@
 
 
 #include <boost/numeric/conversion/bounds.hpp>
-#include <boost/range/functions.hpp>
-#include <boost/range/metafunctions.hpp>
+#include <boost/range.hpp>
 
 #include <boost/geometry/multi/core/tags.hpp>
 #include <boost/geometry/multi/core/is_multi.hpp>
@@ -23,41 +22,38 @@
 #include <boost/geometry/util/select_coordinate_type.hpp>
 
 
-namespace boost { namespace geometry {
+namespace boost { namespace geometry
+{
 
 #ifndef DOXYGEN_NO_DETAIL
-namespace detail { namespace distance {
+namespace detail { namespace distance
+{
 
 
 template<typename Geometry, typename MultiGeometry, typename Strategy>
 struct distance_single_to_multi
 {
-    typedef typename Strategy::return_type return_type;
+    typedef typename strategy::distance::services::return_type<Strategy>::type return_type;
+
     static inline return_type apply(Geometry const& geometry,
                 MultiGeometry const& multi,
                 Strategy const& strategy)
     {
         using namespace boost;
 
-        return_type mindist = make_distance_result<return_type>(
-                numeric::bounds
-                    <
-                        typename select_coordinate_type
-                            <
-                                Geometry,
-                                MultiGeometry
-                            >::type
-                    >::highest());
+        bool first = true;
+        return_type mindist;
 
-        for(typename range_const_iterator<MultiGeometry>::type it = begin(multi);
+        for(typename range_iterator<MultiGeometry const>::type it = begin(multi);
                 it != end(multi);
                 ++it)
         {
             return_type dist = geometry::distance(geometry, *it);
-            if (dist < mindist)
+            if (first || dist < mindist)
             {
                 mindist = dist;
             }
+            first = false;
         }
 
         return mindist;
@@ -67,24 +63,17 @@ struct distance_single_to_multi
 template<typename Multi1, typename Multi2, typename Strategy>
 struct distance_multi_to_multi
 {
-    typedef typename Strategy::return_type return_type;
+    typedef typename strategy::distance::services::return_type<Strategy>::type return_type;
 
     static inline return_type apply(Multi1 const& multi1,
                 Multi2 const& multi2, Strategy const& strategy)
     {
         using namespace boost;
 
-        return_type mindist = make_distance_result<return_type>(
-                numeric::bounds
-                    <
-                        typename select_coordinate_type
-                            <
-                                Multi1,
-                                Multi2
-                            >::type
-                    >::highest());
+        bool first = true;
+        return_type mindist;
 
-        for(typename range_const_iterator<Multi1>::type it = begin(multi1);
+        for(typename range_iterator<Multi1 const>::type it = begin(multi1);
                 it != end(multi1);
                 ++it)
         {
@@ -94,10 +83,11 @@ struct distance_multi_to_multi
                     Multi2,
                     Strategy
                 >::apply(*it, multi2, strategy);
-            if (dist < mindist)
+            if (first || dist < mindist)
             {
                 mindist = dist;
             }
+            first = false;
         }
 
         return mindist;

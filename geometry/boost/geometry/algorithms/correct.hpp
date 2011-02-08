@@ -9,13 +9,16 @@
 #ifndef BOOST_GEOMETRY_ALGORITHMS_CORRECT_HPP
 #define BOOST_GEOMETRY_ALGORITHMS_CORRECT_HPP
 
-#include <cstddef>
+
 #include <algorithm>
+#include <cstddef>
 #include <functional>
 
-#include <boost/range/functions.hpp>
-#include <boost/range/metafunctions.hpp>
+#include <boost/mpl/assert.hpp>
+#include <boost/range.hpp>
+#include <boost/typeof/typeof.hpp>
 
+#include <boost/geometry/core/closure.hpp>
 #include <boost/geometry/core/cs.hpp>
 #include <boost/geometry/core/ring_type.hpp>
 #include <boost/geometry/core/exterior_ring.hpp>
@@ -25,13 +28,22 @@
 
 #include <boost/geometry/algorithms/area.hpp>
 #include <boost/geometry/algorithms/disjoint.hpp>
+#include <boost/geometry/util/order_as_direction.hpp>
 
 
 namespace boost { namespace geometry
 {
 
 #ifndef DOXYGEN_NO_DETAIL
-namespace detail { namespace correct {
+namespace detail { namespace correct
+{
+
+template <typename Geometry>
+struct correct_nop
+{
+    static inline void apply(Geometry& )
+    {}
+};
 
 
 template <typename Box, std::size_t Dimension, std::size_t DimensionCount>
@@ -90,8 +102,9 @@ template <typename Ring, typename Predicate>
 struct correct_ring
 {
     typedef typename point_type<Ring>::type point_type;
+    typedef typename coordinate_type<Ring>::type coordinate_type;
 
-    typedef typename strategy_area
+    typedef typename strategy::area::services::default_strategy
         <
             typename cs_tag<point_type>::type,
             point_type
@@ -100,7 +113,8 @@ struct correct_ring
     typedef detail::area::ring_area
             <
                 Ring,
-                geometry::point_order<Ring>::value,
+                order_as_direction<geometry::point_order<Ring>::value>::value,
+                geometry::closure<Ring>::value,
                 strategy_type
             > ring_area_type;
 
@@ -111,16 +125,23 @@ struct correct_ring
         if (boost::size(r) > 2)
         {
             // check if closed, if not, close it
-            if (geometry::disjoint(*boost::begin(r), *(boost::end(r) - 1)))
+            bool const disjoint = geometry::disjoint(*boost::begin(r), *(boost::end(r) - 1));
+            closure_selector const s = geometry::closure<Ring>::value;
+
+            if (disjoint && (s == closed))
             {
-                point_type first;
-                geometry::copy_coordinates(*boost::begin(r), first);
-                *(std::back_inserter(r)++) = first;
+                geometry::append(r, *boost::begin(r));
+            }
+            if (! disjoint && geometry::closure<Ring>::value != closed)
+            {
+                // Open it by removing last point
+                r.resize(boost::size(r) - 1);
             }
         }
         // Check area
         Predicate predicate;
-        if (predicate(ring_area_type::apply(r, strategy_type()), 0))
+        coordinate_type const zero = 0;
+        if (predicate(ring_area_type::apply(r, strategy_type()), zero))
         {
             std::reverse(boost::begin(r), boost::end(r));
         }
@@ -133,20 +154,25 @@ template <typename Polygon>
 struct correct_polygon
 {
     typedef typename ring_type<Polygon>::type ring_type;
+    typedef typename coordinate_type<Polygon>::type coordinate_type;
 
     static inline void apply(Polygon& poly)
     {
-        correct_ring<ring_type, std::less<double> >::apply(exterior_ring(poly));
-
-        typedef typename boost::range_iterator
+        correct_ring
             <
-                typename interior_type<Polygon>::type
-            >::type iterator_type;
+                ring_type,
+                std::less<coordinate_type>
+            >::apply(exterior_ring(poly));
 
-        for (iterator_type it = boost::begin(interior_rings(poly));
-             it != boost::end(interior_rings(poly)); ++it)
+        typename interior_return_type<Polygon>::type rings
+                    = interior_rings(poly);
+        for (BOOST_AUTO(it, boost::begin(rings)); it != boost::end(rings); ++it)
         {
-            correct_ring<ring_type, std::greater<double> >::apply(*it);
+            correct_ring
+                <
+                    ring_type,
+                    std::greater<coordinate_type>
+                >::apply(*it);
         }
     }
 };
@@ -160,7 +186,30 @@ namespace dispatch
 {
 
 template <typename Tag, typename Geometry>
-struct correct {};
+struct correct
+{
+    BOOST_MPL_ASSERT_MSG
+        (
+            false, NOT_OR_NOT_YET_IMPLEMENTED_FOR_THIS_GEOMETRY_TYPE
+            , (types<Geometry>)
+        );
+};
+
+template <typename Point>
+struct correct<point_tag, Point>
+    : detail::correct::correct_nop<Point>
+{};
+
+template <typename LineString>
+struct correct<linestring_tag, LineString>
+    : detail::correct::correct_nop<LineString>
+{};
+
+template <typename Segment>
+struct correct<segment_tag, Segment>
+    : detail::correct::correct_nop<Segment>
+{};
+
 
 template <typename Box>
 struct correct<box_tag, Box>
@@ -181,14 +230,24 @@ struct correct<polygon_tag, Polygon>
 } // namespace dispatch
 #endif // DOXYGEN_NO_DISPATCH
 
+
+/*!
+\brief Corrects a geometry
+\details Corrects a geometry
+\ingroup correct
+\tparam Geometry \tparam_geometry
+\param geometry \param_geometry
+*/
 template <typename Geometry>
 inline void correct(Geometry& geometry)
 {
-    concept::check<const Geometry>();
+    concept::check<Geometry const>();
 
     dispatch::correct<typename tag<Geometry>::type, Geometry>::apply(geometry);
 }
 
+
 }} // namespace boost::geometry
+
 
 #endif // BOOST_GEOMETRY_ALGORITHMS_CORRECT_HPP

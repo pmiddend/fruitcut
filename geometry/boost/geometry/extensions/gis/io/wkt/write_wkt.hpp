@@ -12,8 +12,9 @@
 #include <string>
 
 #include <boost/concept/assert.hpp>
-#include <boost/range/functions.hpp>
-#include <boost/range/metafunctions.hpp>
+#include <boost/range.hpp>
+#include <boost/typeof/typeof.hpp>
+
 
 #include <boost/geometry/algorithms/convert.hpp>
 #include <boost/geometry/core/exterior_ring.hpp>
@@ -21,23 +22,17 @@
 #include <boost/geometry/core/ring_type.hpp>
 
 #include <boost/geometry/geometries/concepts/check.hpp>
-#include <boost/geometry/geometries/linear_ring.hpp>
+#include <boost/geometry/geometries/ring.hpp>
 
 #include <boost/geometry/extensions/gis/io/wkt/detail/wkt.hpp>
 
-/*!
-\defgroup wkt wkt: parse and stream WKT (Well-Known Text)
-The wkt classes stream the specified geometry as \ref OGC Well Known Text (\ref WKT). It is defined for OGC geometries.
-It is therefore not defined for all geometries (e.g. not for circle)
-\note The implementation is independant from point type, point_xy and point_ll are supported,
-as well as points with more than two coordinates.
-*/
 
 namespace boost { namespace geometry
 {
 
 #ifndef DOXYGEN_NO_DETAIL
-namespace detail { namespace wkt {
+namespace detail { namespace wkt
+{
 
 template <typename P, int I, int Count>
 struct stream_coordinate
@@ -113,7 +108,7 @@ struct wkt_range
     static inline void apply(std::basic_ostream<Char, Traits>& os,
                 Range const& range)
     {
-        typedef typename boost::range_const_iterator<Range>::type iterator_type;
+        typedef typename boost::range_iterator<Range const>::type iterator_type;
 
         bool first = true;
 
@@ -166,16 +161,15 @@ struct wkt_poly
                 Polygon const& poly)
     {
         typedef typename ring_type<Polygon>::type ring;
-        typedef typename boost::range_const_iterator<
-                    typename interior_type<Polygon>::type>::type iterator;
 
         os << PrefixPolicy::apply();
         // TODO: check EMPTY here
         os << "(";
         wkt_sequence<ring>::apply(os, exterior_ring(poly));
-        for (iterator it = boost::begin(interior_rings(poly));
-            it != boost::end(interior_rings(poly));
-            ++it)
+
+        typename interior_return_type<Polygon const>::type rings
+                    = interior_rings(poly);
+        for (BOOST_AUTO(it, boost::begin(rings)); it != boost::end(rings); ++it)
         {
             os << ",";
             wkt_sequence<ring>::apply(os, *it);
@@ -195,7 +189,7 @@ struct wkt_box
                 Box const& box)
     {
         // Convert to linear ring, then stream
-        typedef linear_ring<point_type> ring_type;
+        typedef model::ring<point_type> ring_type;
         ring_type ring;
         geometry::convert(box, ring);
         os << "POLYGON(";
@@ -217,10 +211,18 @@ struct wkt_box
 
 
 #ifndef DOXYGEN_NO_DISPATCH
-namespace dispatch {
+namespace dispatch
+{
 
 template <typename Tag, typename Geometry>
-struct wkt {};
+struct wkt
+{
+   BOOST_MPL_ASSERT_MSG
+        (
+            false, NOT_YET_IMPLEMENTED_FOR_THIS_GEOMETRY_TYPE
+            , (types<Geometry>)
+        );
+};
 
 
 template <typename Point>
@@ -340,7 +342,7 @@ Small example showing how to use the wkt helper function
 template <typename Geometry>
 inline wkt_manipulator<Geometry> wkt(Geometry const& geometry)
 {
-    concept::check<const Geometry>();
+    concept::check<Geometry const>();
 
     return wkt_manipulator<Geometry>(geometry);
 }
@@ -350,7 +352,7 @@ inline wkt_manipulator<Geometry> wkt(Geometry const& geometry)
 template <typename Geometry>
 inline wkt_manipulator<Geometry> make_wkt(Geometry const& geometry)
 {
-    concept::check<const Geometry>();
+    concept::check<Geometry const>();
 
     return wkt_manipulator<Geometry>(geometry);
 }

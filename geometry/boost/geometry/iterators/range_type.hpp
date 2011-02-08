@@ -8,15 +8,16 @@
 #ifndef BOOST_GEOMETRY_ITERATORS_RANGE_TYPE_HPP
 #define BOOST_GEOMETRY_ITERATORS_RANGE_TYPE_HPP
 
+
 #include <boost/type_traits.hpp>
-#include <boost/type_traits/remove_const.hpp>
 
 #include <boost/geometry/core/ring_type.hpp>
 #include <boost/geometry/core/tag.hpp>
 #include <boost/geometry/core/tags.hpp>
 
 
-namespace boost { namespace geometry {
+namespace boost { namespace geometry
+{
 
 
 #ifndef DOXYGEN_NO_DISPATCH

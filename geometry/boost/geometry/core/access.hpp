@@ -10,32 +10,9 @@
 #define BOOST_GEOMETRY_CORE_ACCESS_HPP
 
 
-
-/*!
-\defgroup access access: get/set coordinate values, make objects, clear geometries, append point(s)
-\details There are many ways to edit geometries. It is possible to:
-- use the geometries themselves, so access point.x(). This is not done inside the library because it is agnostic
- to geometry type. However, library users can use this as it is intuitive.
-- use the standard library, so use .push_back(point) or use inserters. This is also avoided inside the library.
-However, library users can use it if they are used to the standard library
-- use the functionality provided in this geometry library. These are the functions in this module.
-
-The library provides the following functions to edit geometries:
-- set to set one coordinate value
-- assign to set two or more coordinate values
-- make to construct and return geometries with specified coordinates.
-- append to append one or more points to a geometry
-- clear to remove all points from a geometry
-
-For getting coordinates it is similar:
-- get to get a coordinate value
-- or use the standard library
-- or use the geometries themselves
-
-*/
-
 #include <cstddef>
 
+#include <boost/mpl/assert.hpp>
 #include <boost/type_traits/remove_const.hpp>
 #include <boost/concept_check.hpp>
 
@@ -47,25 +24,34 @@ For getting coordinates it is similar:
 namespace boost { namespace geometry
 {
 
-const int min_corner = 0;
-const int max_corner = 1;
+/// Index of minimum corner of the box.
+int const min_corner = 0;
+
+/// Index of maximum corner of the box.
+int const max_corner = 1;
 
 namespace traits
 {
 
 /*!
-\brief Traits class which gives access (get,set) to points
+\brief Traits class which gives access (get,set) to points.
 \ingroup traits
 \par Geometries:
-    - point
+///     @li point
 \par Specializations should provide, per Dimension
-    - static inline T get(const G&)
-    - static inline void set(G&, T const&)
+///     @li static inline T get(G const&)
+///     @li static inline void set(G&, T const&)
 \tparam Geometry geometry-type
 \tparam Dimension dimension to access
 */
-template <typename Geometry, std::size_t Dimension>
-struct access {};
+template <typename Geometry, std::size_t Dimension, typename Enable = void>
+struct access
+{
+   BOOST_MPL_ASSERT_MSG
+        (
+            false, NOT_IMPLEMENTED_FOR_THIS_POINT_TYPE, (types<Geometry>)
+        );
+};
 
 
 /*!
@@ -78,66 +64,12 @@ struct access {};
     - box
     - segment
 \par Specializations should provide:
-    - static inline T get(const G&)
+    - static inline T get(G const&)
     - static inline void set(G&, T const&)
 \ingroup traits
 */
 template <typename Geometry, std::size_t Index, std::size_t Dimension>
 struct indexed_access {};
-
-
-/*!
-\brief Traits class, optional, indicating that the std-library should be used
-\details The default geometry (linestring, ring, multi*) follow std:: for
-    its modifying operations (push_back, clear, size, resize, reserve, etc)
-    If they NOT follow the std:: library they should specialize this traits
-    class
-\ingroup traits
-\par Geometries:
-    - linestring
-    - linear_ring
-\par Specializations should provide:
-    - value (defaults to true)
- */
-template <typename Geometry>
-struct use_std
-{
-    static const bool value = true;
-};
-
-
-/*!
-\brief Traits class, optional, might be implemented to clear a geometry
-\details If a geometry type should not use the std ".clear()"
-    then it can specialize the "use_std" traits class to false,
-    it should then implement (a.o.) clear
-\ingroup traits
-\par Geometries:
-    - linestring
-    - linear_ring
-\par Specializations should provide:
-    - apply
- */
-template <typename Geometry>
-struct clear
-{};
-
-
-/*!
-\brief Traits class, optional, might be implemented to append a point
-\details If a geometry type should not use the std "push_back"
-    then it can specialize the "use_std" traits class to false,
-    it should then implement (a.o.) append_point
-\ingroup traits
-\par Geometries:
-    - linestring
-    - linear_ring
-\par Specializations should provide:
-    - apply
- */
-template <typename Geometry, typename Point>
-struct append_point
-{};
 
 
 } // namespace traits
@@ -156,7 +88,7 @@ template
 >
 struct access
 {
-    //static inline T get(const G& ) {}
+    //static inline T get(G const&) {}
     //static inline void set(G& g, T const& value) {}
 };
 
@@ -170,7 +102,7 @@ template
 >
 struct indexed_access
 {
-    //static inline T get(const G& ) {}
+    //static inline T get(G const&) {}
     //static inline void set(G& g, T const& value) {}
 };
 
@@ -244,26 +176,20 @@ struct signature_getset_index_dimension {};
 #endif // DOXYGEN_NO_DETAIL
 
 
-// Note the comments below tell Doxygen to create one function with doc for both
-
 /*!
-\brief
-- get coordinate value of a Point ( / Sphere)
-\ingroup access
-\return coordinate value
-\tparam Index index
-- for Point: don't specify
-- for Box: min_corner or max_corner
-- for Segment: 0 / 1
-\tparam Dimension dimension
-\tparam Geometry geometry
-\param geometry geometry to get coordinate value from
+\brief Get coordinate value of a geometry (usually a point)
+\details \details_get_set
+\ingroup get
+\tparam Dimension \tparam_dimension_required
+\tparam Geometry \tparam_geometry (usually a Point Concept)
+\param geometry \param_geometry (usually a point)
+\param dummy \qbk_skip
+\return The coordinate value of specified dimension of specified geometry
+\qbk{[include ref/core/get_point.qbk]}
 */
 template <std::size_t Dimension, typename Geometry>
 inline typename coordinate_type<Geometry>::type get(Geometry const& geometry
-#ifndef DOXYGEN_SHOULD_SKIP_THIS
         , detail::signature_getset_dimension* dummy = 0
-#endif
         )
 {
     boost::ignore_unused_variable_warning(dummy);
@@ -283,24 +209,22 @@ inline typename coordinate_type<Geometry>::type get(Geometry const& geometry
 
 
 /*!
-\brief
-- set coordinate value of a Point ( / Sphere)
-\ingroup access
-\tparam Index index
-- for Point: don't specify
-- for Box: min_corner or max_corner
-- for Segment: 0 / 1
-\tparam Dimension dimension
-\tparam Geometry geometry
+\brief Set coordinate value of a geometry (usually a point)
+\details \details_get_set
+\tparam Dimension \tparam_dimension_required
+\tparam Geometry \tparam_geometry (usually a Point Concept)
 \param geometry geometry to assign coordinate to
-\param value coordinate value to assign
+\param geometry \param_geometry (usually a point)
+\param value The coordinate value to set
+\param dummy \qbk_skip
+\ingroup set
+
+\qbk{[include ref/core/set_point.qbk]}
 */
 template <std::size_t Dimension, typename Geometry>
 inline void set(Geometry& geometry
         , typename coordinate_type<Geometry>::type const& value
-#ifndef DOXYGEN_SHOULD_SKIP_THIS
         , detail::signature_getset_dimension* dummy = 0
-#endif
         )
 {
     boost::ignore_unused_variable_warning(dummy);
@@ -318,18 +242,24 @@ inline void set(Geometry& geometry
     coord_access_type::set(geometry, value);
 }
 
-// Note: doxygen needs a construct to distinguish get/set (like the gcc compiler)
 
 /*!
-\brief
-- get coordinate value of a Box / Segment
-\ingroup access
+\brief get coordinate value of a Box or Segment
+\details \details_get_set
+\tparam Index \tparam_index_required
+\tparam Dimension \tparam_dimension_required
+\tparam Geometry \tparam_box_or_segment
+\param geometry \param_geometry
+\param dummy \qbk_skip
+\return coordinate value
+\ingroup get
+
+\qbk{distinguish,with index}
+\qbk{[include ref/core/get_box.qbk]}
 */
 template <std::size_t Index, std::size_t Dimension, typename Geometry>
 inline typename coordinate_type<Geometry>::type get(Geometry const& geometry
-#ifndef DOXYGEN_SHOULD_SKIP_THIS
         , detail::signature_getset_index_dimension* dummy = 0
-#endif
         )
 {
     boost::ignore_unused_variable_warning(dummy);
@@ -349,16 +279,24 @@ inline typename coordinate_type<Geometry>::type get(Geometry const& geometry
 }
 
 /*!
-\brief
-- set coordinate value of a Box / Segment
-\ingroup access
+\brief set coordinate value of a Box / Segment
+\details \details_get_set
+\tparam Index \tparam_index_required
+\tparam Dimension \tparam_dimension_required
+\tparam Geometry \tparam_box_or_segment
+\param geometry geometry to assign coordinate to
+\param geometry \param_geometry
+\param value The coordinate value to set
+\param dummy \qbk_skip
+\ingroup set
+
+\qbk{distinguish,with index}
+\qbk{[include ref/core/set_box.qbk]}
 */
 template <std::size_t Index, std::size_t Dimension, typename Geometry>
 inline void set(Geometry& geometry
         , typename coordinate_type<Geometry>::type const& value
-#ifndef DOXYGEN_SHOULD_SKIP_THIS
         , detail::signature_getset_index_dimension* dummy = 0
-#endif
         )
 {
     boost::ignore_unused_variable_warning(dummy);

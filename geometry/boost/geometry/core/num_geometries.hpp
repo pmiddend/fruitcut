@@ -43,12 +43,14 @@ struct num_geometries
 
 
 /*!
-    \brief Function to get the number of geometries of a composite geometry.
-        For a single geometry it is always 0 (also for a polygon with holes)
-    \ingroup access
-    \tparam Geometry geometry type
-    \param geometry the polygon or other geometry
-    \return the number of interior rings of the geometry
+\brief \brief_calc{number of geometries}
+\ingroup num_geometries
+\details \details_calc{num_geometries, number of geometries}.
+\tparam Geometry \tparam_geometry
+\param geometry \param_geometry
+\return \return_calc{number of geometries}
+
+\qbk{[include ref/algorithms/num_geometries.qbk]}
 */
 template <typename Geometry>
 inline std::size_t num_geometries(Geometry const& geometry)

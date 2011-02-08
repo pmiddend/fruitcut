@@ -17,21 +17,25 @@
 
 #include <boost/geometry/core/access.hpp>
 #include <boost/geometry/core/cs.hpp>
+#include <boost/geometry/core/coordinate_type.hpp>
 
 
 #include <boost/geometry/util/math.hpp>
 
 
-namespace boost { namespace geometry {
+
+namespace boost { namespace geometry
+{
 
 
 #ifndef DOXYGEN_NO_DETAIL
-namespace detail {
+namespace detail
+{
 
 template<std::size_t Dimension, typename Geometry>
 struct degree_radian_converter
 {
-    typedef typename coordinate_type<Geometry>::type coordinate_type;
+    typedef typename fp_coordinate_type<Geometry>::type coordinate_type;
 
     static inline coordinate_type get(Geometry const& geometry)
     {
@@ -56,7 +60,7 @@ struct degree_radian_converter
 template <std::size_t Dimension, typename Geometry, typename DegreeOrRadian>
 struct radian_access
 {
-    typedef typename coordinate_type<Geometry>::type coordinate_type;
+    typedef typename fp_coordinate_type<Geometry>::type coordinate_type;
 
     static inline coordinate_type get(Geometry const& geometry)
     {
@@ -97,19 +101,19 @@ struct radian_access<1, Geometry, CoordinateSystem<degree> >
 
 
 /*!
-    \brief get coordinate value of a point, result is in Radian
-    \details Result is in Radian, even if source coordinate system
-        is in Degrees
-    \return coordinate value
-    \ingroup access
-    \tparam Dimension dimension
-    \tparam Geometry geometry
-    \param geometry geometry to get coordinate value from
-    \note Only applicable to coordinate systems templatized by units,
-        e.g. spherical or geographic coordinate systems
+\brief get coordinate value of a point, result is in Radian
+\details Result is in Radian, even if source coordinate system
+    is in Degrees
+\return coordinate value
+\ingroup get
+\tparam Dimension dimension
+\tparam Geometry geometry
+\param geometry geometry to get coordinate value from
+\note Only applicable to coordinate systems templatized by units,
+    e.g. spherical or geographic coordinate systems
 */
 template <std::size_t Dimension, typename Geometry>
-inline typename coordinate_type<Geometry>::type get_as_radian(const Geometry& geometry)
+inline typename fp_coordinate_type<Geometry>::type get_as_radian(Geometry const& geometry)
 {
     return detail::radian_access<Dimension, Geometry,
             typename coordinate_system<Geometry>::type>::get(geometry);
@@ -117,20 +121,20 @@ inline typename coordinate_type<Geometry>::type get_as_radian(const Geometry& ge
 
 
 /*!
-    \brief set coordinate value (in radian) to a point
-    \details Coordinate value will be set correctly, if coordinate system of
-        point is in Degree, Radian value will be converted to Degree
-    \ingroup access
-    \tparam Dimension dimension
-    \tparam Geometry geometry
-    \param geometry geometry to assign coordinate to
-    \param radians coordinate value to assign
-    \note Only applicable to coordinate systems templatized by units,
-        e.g. spherical or geographic coordinate systems
+\brief set coordinate value (in radian) to a point
+\details Coordinate value will be set correctly, if coordinate system of
+    point is in Degree, Radian value will be converted to Degree
+\ingroup set
+\tparam Dimension dimension
+\tparam Geometry geometry
+\param geometry geometry to assign coordinate to
+\param radians coordinate value to assign
+\note Only applicable to coordinate systems templatized by units,
+    e.g. spherical or geographic coordinate systems
 */
 template <std::size_t Dimension, typename Geometry>
 inline void set_from_radian(Geometry& geometry,
-            const typename coordinate_type<Geometry>::type& radians)
+            typename fp_coordinate_type<Geometry>::type const& radians)
 {
     detail::radian_access<Dimension, Geometry,
             typename coordinate_system<Geometry>::type>::set(geometry, radians);

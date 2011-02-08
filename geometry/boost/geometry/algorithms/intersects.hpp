@@ -10,48 +10,28 @@
 #define BOOST_GEOMETRY_ALGORITHMS_INTERSECTS_HPP
 
 
-/*!
-\defgroup intersects intersects: detect if a geometry self-intersects or if two geometries intersect
-\par Source descriptions:
-- OGC description: Returns 1 (TRUE) if  this geometric object spatially
-    intersects anotherGeometry.
-- OGC: a.Intersects(b) <=> ! a.Disjoint(b)
-\note There are two overloaded versions:
-- with one geometry, detecting self-intersections
-- with two geometries, deferring to disjoint, returning !disjoint
-
-\par Geometries:
-- \b ring
-- \b polygon
-- for two geometries: same is disjoint
-
-\note if one geometry is completely within another geometry, it "intersects"
-
-*/
-
+#include <deque>
 
 #include <boost/geometry/geometries/concepts/check.hpp>
-
-
-#include <boost/geometry/algorithms/overlay/self_turn_points.hpp>
-
+#include <boost/geometry/algorithms/detail/overlay/self_turn_points.hpp>
 #include <boost/geometry/algorithms/disjoint.hpp>
-
 
 
 namespace boost { namespace geometry
 {
 
 /*!
-    \brief Determine if there is at least one intersection
-        (crossing or self-tangency)
-    \note This function can be called for one geometry (self-intersection) and
-        also for two geometries (intersection)
-    \ingroup intersects
-    \tparam Geometry geometry type
-    \param geometry geometry
-    \return true if there are intersections, else false
- */
+\brief \brief_check{has at least one intersection (crossing or self-tangency)}
+\note This function can be called for one geometry (self-intersection) and
+    also for two geometries (intersection)
+\ingroup intersects
+\tparam Geometry \tparam_geometry
+\param geometry \param_geometry
+\return \return_check{is self-intersecting}
+
+\qbk{distinguish,one geometry}
+\qbk{[include ref/algorithms/intersects.qbk]}
+*/
 template <typename Geometry>
 inline bool intersects(Geometry const& geometry)
 {
@@ -72,13 +52,20 @@ inline bool intersects(Geometry const& geometry)
             typename geometry::point_type<Geometry>::type
         >::segment_intersection_strategy_type segment_intersection_strategy_type;
 
+    typedef detail::overlay::get_turn_info
+        <
+            typename point_type<Geometry>::type,
+            typename point_type<Geometry>::type,
+            turn_info,
+            detail::overlay::assign_null_policy
+        > TurnPolicy;
+
     detail::disjoint::disjoint_interrupt_policy policy;
     detail::self_get_turn_points::get_turns
             <
                 Geometry,
                 std::deque<turn_info>,
-                segment_intersection_strategy_type,
-                detail::overlay::assign_null_policy,
+                TurnPolicy,
                 detail::disjoint::disjoint_interrupt_policy
             >::apply(geometry, turns, policy);
     return policy.has_intersections;
@@ -86,19 +73,22 @@ inline bool intersects(Geometry const& geometry)
 
 
 /*!
-    \brief Determine if there is at least one intersection
-    \ingroup intersects
-    \tparam Geometry1 first geometry type
-    \tparam Geometry2 second geometry type
-    \param geometry1 first geometry
-    \param geometry2 second geometry
-    \return true if there are intersection(s), else false
+\brief \brief_check2{have at least one intersection}
+\ingroup intersects
+\tparam Geometry1 \tparam_geometry
+\tparam Geometry2 \tparam_geometry
+\param geometry1 \param_geometry
+\param geometry2 \param_geometry
+\return \return_check2{intersect each other}
+
+\qbk{distinguish,two geometries}
+\qbk{[include ref/algorithms/intersects.qbk]}
  */
 template <typename Geometry1, typename Geometry2>
 inline bool intersects(Geometry1 const& geometry1, Geometry2 const& geometry2)
 {
-    concept::check<const Geometry1>();
-    concept::check<const Geometry2>();
+    concept::check<Geometry1 const>();
+    concept::check<Geometry2 const>();
 
     return ! geometry::disjoint(geometry1, geometry2);
 }

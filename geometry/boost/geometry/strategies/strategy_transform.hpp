@@ -26,7 +26,8 @@
 namespace boost { namespace geometry
 {
 
-namespace strategy { namespace transform {
+namespace strategy { namespace transform
+{
 
 #ifndef DOXYGEN_NO_DETAIL
 namespace detail
@@ -153,10 +154,10 @@ namespace detail
 
         // http://en.wikipedia.org/wiki/List_of_canonical_coordinate_transformations#From_spherical_coordinates
         // Phi = first, theta is second, r is third, see documentation on cs::spherical
-        double const sin_theta = std::sin(theta);
-        set<0>(p, r * sin_theta * std::cos(phi));
-        set<1>(p, r * sin_theta * std::sin(phi));
-        set<2>(p, r * std::cos(theta));
+        double const sin_theta = sin(theta);
+        set<0>(p, r * sin_theta * cos(phi));
+        set<1>(p, r * sin_theta * sin(phi));
+        set<2>(p, r * cos(theta));
     }
 
     /// Helper function for conversion
@@ -167,19 +168,20 @@ namespace detail
 
         // http://en.wikipedia.org/wiki/List_of_canonical_coordinate_transformations#From_Cartesian_coordinates
 
+#if defined(BOOST_GEOMETRY_TRANSFORM_CHECK_UNIT_SPHERE)
         // TODO: MAYBE ONLY IF TO BE CHECKED?
-        double const r = std::sqrt(x * x + y * y + z * z);
+        double const r = /*sqrt not necessary, sqrt(1)=1*/ (x * x + y * y + z * z);
 
-        // Unit sphere, r should be 1
-        typedef typename coordinate_type<P>::type coordinate_type;
-        if (std::abs(r - 1.0) > std::numeric_limits<coordinate_type>::epsilon())
+        // Unit sphere, so r should be 1
+        if (geometry::math::abs(r - 1.0) > double(1e-6))
         {
             return false;
         }
         // end todo
+#endif
 
-        set_from_radian<0>(p, std::atan2(y, x));
-        set_from_radian<1>(p, std::acos(z));
+        set_from_radian<0>(p, atan2(y, x));
+        set_from_radian<1>(p, acos(z));
         return true;
     }
 
@@ -189,12 +191,12 @@ namespace detail
         assert_dimension<P, 3>();
 
         // http://en.wikipedia.org/wiki/List_of_canonical_coordinate_transformations#From_Cartesian_coordinates
-        double const r = std::sqrt(x * x + y * y + z * z);
+        double const r = sqrt(x * x + y * y + z * z);
         set<2>(p, r);
-        set_from_radian<0>(p, std::atan2(y, x));
+        set_from_radian<0>(p, atan2(y, x));
         if (r > 0.0)
         {
-            set_from_radian<1>(p, std::acos(z / r));
+            set_from_radian<1>(p, acos(z / r));
             return true;
         }
         return false;
@@ -275,83 +277,91 @@ struct from_cartesian_3_to_spherical_3
     }
 };
 
-}} // namespace strategy::transform
-
-
 #ifndef DOXYGEN_NO_STRATEGY_SPECIALIZATIONS
+
+namespace services
+{
 
 /// Specialization for same coordinate system family, same system, same dimension, same point type, can be copied
 template <typename CoordSysTag, typename CoordSys, std::size_t D, typename P>
-struct strategy_transform<CoordSysTag, CoordSysTag, CoordSys, CoordSys, D, D, P, P>
+struct default_strategy<CoordSysTag, CoordSysTag, CoordSys, CoordSys, D, D, P, P>
 {
-    typedef strategy::transform::copy_direct<P> type;
+    typedef copy_direct<P> type;
 };
 
 /// Specialization for same coordinate system family and system, same dimension, different point type, copy per coordinate
 template <typename CoordSysTag, typename CoordSys, std::size_t D, typename P1, typename P2>
-struct strategy_transform<CoordSysTag, CoordSysTag, CoordSys, CoordSys, D, D, P1, P2>
+struct default_strategy<CoordSysTag, CoordSysTag, CoordSys, CoordSys, D, D, P1, P2>
 {
-    typedef strategy::transform::copy_per_coordinate<P1, P2> type;
+    typedef copy_per_coordinate<P1, P2> type;
 };
 
 /// Specialization to convert from degree to radian for any coordinate system / point type combination
 template <typename CoordSysTag, template<typename> class CoordSys, typename P1, typename P2>
-struct strategy_transform<CoordSysTag, CoordSysTag, CoordSys<degree>, CoordSys<radian>, 2, 2, P1, P2>
+struct default_strategy<CoordSysTag, CoordSysTag, CoordSys<degree>, CoordSys<radian>, 2, 2, P1, P2>
 {
-    typedef strategy::transform::degree_radian_vv<P1, P2, std::multiplies> type;
+    typedef degree_radian_vv<P1, P2, std::multiplies> type;
 };
 
 /// Specialization to convert from radian to degree for any coordinate system / point type combination
 template <typename CoordSysTag, template<typename> class CoordSys, typename P1, typename P2>
-struct strategy_transform<CoordSysTag, CoordSysTag, CoordSys<radian>, CoordSys<degree>, 2, 2, P1, P2>
+struct default_strategy<CoordSysTag, CoordSysTag, CoordSys<radian>, CoordSys<degree>, 2, 2, P1, P2>
 {
-    typedef strategy::transform::degree_radian_vv<P1, P2, std::divides> type;
+    typedef degree_radian_vv<P1, P2, std::divides> type;
 };
 
 
 /// Specialization degree->radian in 3D
 template <typename CoordSysTag, template<typename> class CoordSys, typename P1, typename P2>
-struct strategy_transform<CoordSysTag, CoordSysTag, CoordSys<degree>, CoordSys<radian>, 3, 3, P1, P2>
+struct default_strategy<CoordSysTag, CoordSysTag, CoordSys<degree>, CoordSys<radian>, 3, 3, P1, P2>
 {
-    typedef strategy::transform::degree_radian_vv_3<P1, P2, std::multiplies> type;
+    typedef degree_radian_vv_3<P1, P2, std::multiplies> type;
 };
 
 /// Specialization radian->degree in 3D
 template <typename CoordSysTag, template<typename> class CoordSys, typename P1, typename P2>
-struct strategy_transform<CoordSysTag, CoordSysTag, CoordSys<radian>, CoordSys<degree>, 3, 3, P1, P2>
+struct default_strategy<CoordSysTag, CoordSysTag, CoordSys<radian>, CoordSys<degree>, 3, 3, P1, P2>
 {
-    typedef strategy::transform::degree_radian_vv_3<P1, P2, std::divides> type;
+    typedef degree_radian_vv_3<P1, P2, std::divides> type;
 };
 
 /// Specialization to convert from unit sphere(phi,theta) to XYZ
 template <typename CoordSys1, typename CoordSys2, typename P1, typename P2>
-struct strategy_transform<spherical_tag, cartesian_tag, CoordSys1, CoordSys2, 2, 3, P1, P2>
+struct default_strategy<spherical_tag, cartesian_tag, CoordSys1, CoordSys2, 2, 3, P1, P2>
 {
-    typedef strategy::transform::from_spherical_2_to_cartesian_3<P1, P2> type;
+    typedef from_spherical_2_to_cartesian_3<P1, P2> type;
 };
 
 /// Specialization to convert from sphere(phi,theta,r) to XYZ
 template <typename CoordSys1, typename CoordSys2, typename P1, typename P2>
-struct strategy_transform<spherical_tag, cartesian_tag, CoordSys1, CoordSys2, 3, 3, P1, P2>
+struct default_strategy<spherical_tag, cartesian_tag, CoordSys1, CoordSys2, 3, 3, P1, P2>
 {
-    typedef strategy::transform::from_spherical_3_to_cartesian_3<P1, P2> type;
+    typedef from_spherical_3_to_cartesian_3<P1, P2> type;
 };
 
 /// Specialization to convert from XYZ to unit sphere(phi,theta)
 template <typename CoordSys1, typename CoordSys2, typename P1, typename P2>
-struct strategy_transform<cartesian_tag, spherical_tag, CoordSys1, CoordSys2, 3, 2, P1, P2>
+struct default_strategy<cartesian_tag, spherical_tag, CoordSys1, CoordSys2, 3, 2, P1, P2>
 {
-    typedef strategy::transform::from_cartesian_3_to_spherical_2<P1, P2> type;
+    typedef from_cartesian_3_to_spherical_2<P1, P2> type;
 };
 
 /// Specialization to convert from XYZ to sphere(phi,theta,r)
 template <typename CoordSys1, typename CoordSys2, typename P1, typename P2>
-struct strategy_transform<cartesian_tag, spherical_tag, CoordSys1, CoordSys2, 3, 3, P1, P2>
+struct default_strategy<cartesian_tag, spherical_tag, CoordSys1, CoordSys2, 3, 3, P1, P2>
 {
-    typedef strategy::transform::from_cartesian_3_to_spherical_3<P1, P2> type;
+    typedef from_cartesian_3_to_spherical_3<P1, P2> type;
 };
 
+
+} // namespace services
+
+
 #endif // DOXYGEN_NO_STRATEGY_SPECIALIZATIONS
+
+
+}} // namespace strategy::transform
+
 
 }} // namespace boost::geometry
 

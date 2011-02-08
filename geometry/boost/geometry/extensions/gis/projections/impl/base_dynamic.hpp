@@ -15,7 +15,8 @@
 
 #include <boost/geometry/extensions/gis/projections/projection.hpp>
 
-namespace boost { namespace geometry { namespace projection {
+namespace boost { namespace geometry { namespace projection
+{
 
 #ifndef DOXYGEN_NO_DETAIL
 namespace detail
@@ -32,11 +33,11 @@ protected:
 
 public:
 
-    base_v_f(const P& params) : m_proj(params) {}
+    base_v_f(P const& params) : m_proj(params) {}
 
     virtual P params() const {return m_proj.params();}
 
-    virtual bool forward(const LL& ll, XY& xy) const
+    virtual bool forward(LL const& ll, XY& xy) const
     {
         return m_proj.forward(ll, xy);
     }
@@ -46,7 +47,7 @@ public:
         m_proj.fwd(lp_lon, lp_lat, xy_x, xy_y);
     }
 
-    virtual bool inverse(const XY& xy, LL& ll) const
+    virtual bool inverse(XY const& xy, LL& ll) const
     {
         boost::ignore_unused_variable_warning(xy);
         boost::ignore_unused_variable_warning(ll);
@@ -84,9 +85,9 @@ private:
 
 public :
 
-    base_v_fi(const P& params) : base_v_f<C, LL, XY, P>(params) {}
+    base_v_fi(P const& params) : base_v_f<C, LL, XY, P>(params) {}
 
-    virtual bool inverse(const XY& xy, LL& ll) const
+    virtual bool inverse(XY const& xy, LL& ll) const
     {
         return this->m_proj.inverse(xy, ll);
     }

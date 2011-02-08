@@ -15,9 +15,10 @@
 #include <boost/range/metafunctions.hpp>
 
 
-#include <boost/geometry/core/point_order.hpp>
+#include <boost/geometry/core/closure.hpp>
 #include <boost/geometry/core/exterior_ring.hpp>
 #include <boost/geometry/core/interior_rings.hpp>
+#include <boost/geometry/core/point_order.hpp>
 #include <boost/geometry/core/ring_type.hpp>
 
 #include <boost/geometry/geometries/concepts/check.hpp>
@@ -31,37 +32,17 @@
 #include <boost/geometry/strategies/concepts/area_concept.hpp>
 
 #include <boost/geometry/util/math.hpp>
+#include <boost/geometry/util/order_as_direction.hpp>
+#include <boost/geometry/views/closeable_view.hpp>
+#include <boost/geometry/views/reversible_view.hpp>
 
-/*!
-\defgroup area area: calculate area of a geometry
 
-\par Performance
-2776 * 1000 area calculations are done in 0.11 seconds
-(http://trac.osgeo.org/ggl/wiki/Performance#Area1)
-
-\par Coordinate systems and strategies
-Area calculation can be done in Cartesian and in spherical/geographic
-coordinate systems.
-
-\par Geometries
-The area algorithm calculates the surface area of all geometries
-having a surface: box, polygon, multi_polygon. The units are the square of
-the units used for the points defining the surface. If the polygon is defined
-in meters, the area is in square meters.
-
-\par Example:
-Example showing area calculation of polygons built
-\dontinclude doxygen_1.cpp
-\skip example_area_polygon()
-\line {
-\until }
-
-*/
 namespace boost { namespace geometry
 {
 
 #ifndef DOXYGEN_NO_DETAIL
-namespace detail { namespace area {
+namespace detail { namespace area
+{
 
 template<typename Box, typename Strategy>
 struct box_area
@@ -83,24 +64,14 @@ struct box_area
 };
 
 
-
-
-/*!
-    \brief Calculate area of a ring, specialized per order
- */
 template
 <
     typename Ring,
-    order_selector Order,
-    // closing_selector Closed -- for now assuming CLOSED, p(0) == p(n-1)
+    iterate_direction Direction,
+    closure_selector Closure,
     typename Strategy
 >
 struct ring_area
-{};
-
-
-template<typename Ring, typename Strategy>
-struct ring_area<Ring, clockwise, Strategy>
 {
     BOOST_CONCEPT_ASSERT( (geometry::concept::AreaStrategy<Strategy>) );
 
@@ -113,55 +84,54 @@ struct ring_area<Ring, clockwise, Strategy>
         // Ignore warning (because using static method sometimes) on strategy
         boost::ignore_unused_variable_warning(strategy);
 
-
+        // An open linear_ring has at least three points,
         // A closed linear_ring has at least four points,
         // if not, there is no (zero) area
-        if (boost::size(ring) < 4)
+        if (boost::size(ring)
+                < core_detail::closure::minimum_ring_size<Closure>::value)
         {
             return type();
         }
 
-        typedef typename boost::range_const_iterator<Ring>::type iterator_type;
+        typedef typename reversible_view<Ring const, Direction>::type rview_type;
+        typedef typename closeable_view
+            <
+                rview_type const, Closure
+            >::type view_type;
+        typedef typename boost::range_iterator<view_type const>::type iterator_type;
 
+        rview_type rview(ring);
+        view_type view(rview);
         typename Strategy::state_type state;
+        iterator_type it = boost::begin(view);
+        iterator_type end = boost::end(view);
 
-        iterator_type it = boost::begin(ring);
         for (iterator_type previous = it++;
-            it != boost::end(ring);
-            previous = it++)
+            it != end;
+            ++previous, ++it)
         {
             strategy.apply(*previous, *it, state);
         }
+
         return strategy.result(state);
-
-    }
-};
-
-template<typename Ring, typename Strategy>
-struct ring_area<Ring, counterclockwise, Strategy>
-{
-    typedef typename Strategy::return_type type;
-    static inline type apply(Ring const& ring, Strategy const& strategy)
-    {
-        // Counter clockwise rings negate the area result
-        return -ring_area<Ring, clockwise, Strategy>::apply(ring, strategy);
     }
 };
 
 
 }} // namespace detail::area
 
+
 #endif // DOXYGEN_NO_DETAIL
 
 
 #ifndef DOXYGEN_NO_DISPATCH
-namespace dispatch {
+namespace dispatch
+{
 
 template
 <
     typename Tag,
     typename Geometry,
-    order_selector Order,
     typename Strategy
 >
 struct area
@@ -173,21 +143,38 @@ struct area
         > {};
 
 
-template <typename Geometry, order_selector Order, typename Strategy>
-struct area<box_tag, Geometry, Order, Strategy>
+template
+<
+    typename Geometry,
+    typename Strategy
+>
+struct area<box_tag, Geometry, Strategy>
     : detail::area::box_area<Geometry, Strategy>
 {};
 
 
-// Area of ring currently returns area of closed rings but it might be argued
-// that it is 0.0, because a ring is just a line.
-template <typename Geometry, order_selector Order, typename Strategy>
-struct area<ring_tag, Geometry, Order, Strategy>
-    : detail::area::ring_area<Geometry, Order, Strategy>
+template
+<
+    typename Ring,
+    typename Strategy
+>
+struct area<ring_tag, Ring, Strategy>
+    : detail::area::ring_area
+        <
+            Ring,
+            order_as_direction<geometry::point_order<Ring>::value>::value,
+            geometry::closure<Ring>::value,
+            Strategy
+        >
 {};
 
-template <typename Polygon, order_selector Order, typename Strategy>
-struct area<polygon_tag, Polygon, Order, Strategy>
+
+template
+<
+    typename Polygon,
+    typename Strategy
+>
+struct area<polygon_tag, Polygon, Strategy>
     : detail::calculate_polygon_sum
         <
             typename Strategy::return_type,
@@ -195,8 +182,9 @@ struct area<polygon_tag, Polygon, Order, Strategy>
             Strategy,
             detail::area::ring_area
                 <
-                    typename ring_type<Polygon>::type,
-                    Order,
+                    typename ring_type<Polygon const>::type,
+                    order_as_direction<geometry::point_order<Polygon>::value>::value,
+                    geometry::closure<Polygon>::value,
                     Strategy
                 >
         >
@@ -209,56 +197,86 @@ struct area<polygon_tag, Polygon, Order, Strategy>
 
 
 /*!
-    \brief Calculate area of a geometry
-    \ingroup area
-    \details The function area returns the area of a polygon, ring, box
-    using the default area-calculation strategy. Strategies are
-    provided for cartesian and spherical coordinate systems
-    The geometries should correct, polygons should be closed
-    and according to the specified orientation (clockwise/counter clockwise)
-    \param geometry a geometry
-    \return the area
- */
+\brief \brief_calc{area}
+\ingroup area
+\details \details_calc{area}. \details_default_strategy
+
+The area algorithm calculates the surface area of all geometries having a surface, namely
+box, polygon, ring, multipolygon. The units are the square of the units used for the points
+defining the surface. If subject geometry is defined in meters, then area is calculated
+in square meters.
+
+The area calculation can be done in all three common coordinate systems, Cartesian, Spherical
+and Geographic as well.
+
+\tparam Geometry \tparam_geometry
+\param geometry \param_geometry
+\return \return_calc{area}
+
+\qbk{[include ref/algorithms/area.qbk]}
+\qbk{[heading Examples]}
+\qbk{[area] [area_output]}
+*/
 template <typename Geometry>
 inline typename area_result<Geometry>::type area(Geometry const& geometry)
 {
-    concept::check<const Geometry>();
+    concept::check<Geometry const>();
 
-    typedef typename area_result<Geometry>::strategy_type strategy_type;
+    typedef typename point_type<Geometry>::type point_type;
+    typedef typename strategy::area::services::default_strategy
+        <
+            typename cs_tag<point_type>::type,
+            point_type
+        >::type strategy_type;
 
     return dispatch::area
         <
             typename tag<Geometry>::type,
             Geometry,
-            geometry::point_order<Geometry>::value,
             strategy_type
         >::apply(geometry, strategy_type());
 }
 
 /*!
-    \brief Calculate area of a geometry using a specified strategy
-    \ingroup area
-    \details This version of area calculation takes a strategy
-    \param geometry a geometry
-    \param strategy the strategy to calculate area.
-        Especially for spherical areas there are some approaches.
-    \return the area
+\brief \brief_calc{area} \brief_strategy
+\ingroup area
+\details \details_calc{area} \brief_strategy. \details_strategy_reasons
+\tparam Geometry \tparam_geometry
+\tparam Strategy \tparam_strategy{Area}
+\param geometry \param_geometry
+\param strategy \param_strategy{area}
+\return \return_calc{area}
+
+\qbk{distinguish,with strategy}
+
+\qbk{
+[include ref/algorithms/area.qbk]
+
+[heading Example]
+[area_with_strategy]
+[area_with_strategy_output]
+
+[heading Available Strategies]
+\* [link geometry.reference.strategies.strategy_area_surveyor Surveyor (cartesian)]
+\* [link geometry.reference.strategies.strategy_area_huiller Huiller (spherical)]
+}
  */
 template <typename Geometry, typename Strategy>
 inline typename Strategy::return_type area(
         Geometry const& geometry, Strategy const& strategy)
 {
-    concept::check<const Geometry>();
+    concept::check<Geometry const>();
 
     return dispatch::area
         <
             typename tag<Geometry>::type,
             Geometry,
-            geometry::point_order<Geometry>::value,
             Strategy
         >::apply(geometry, strategy);
 }
 
+
 }} // namespace boost::geometry
+
 
 #endif // BOOST_GEOMETRY_ALGORITHMS_AREA_HPP

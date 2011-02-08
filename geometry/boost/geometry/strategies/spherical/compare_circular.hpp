@@ -8,16 +8,25 @@
 #ifndef BOOST_GEOMETRY_STRATEGIES_SPHERICAL_COMPARE_SPHERICAL_HPP
 #define BOOST_GEOMETRY_STRATEGIES_SPHERICAL_COMPARE_SPHERICAL_HPP
 
+#include <boost/math/constants/constants.hpp>
+
 #include <boost/geometry/core/cs.hpp>
 #include <boost/geometry/core/tags.hpp>
 #include <boost/geometry/strategies/compare.hpp>
+#include <boost/geometry/util/math.hpp>
 
-namespace boost { namespace geometry {
 
-namespace strategy { namespace compare {
+namespace boost { namespace geometry
+{
+
+
+namespace strategy { namespace compare
+{
+
 
 #ifndef DOXYGEN_NO_DETAIL
-namespace detail {
+namespace detail
+{
 
 template <typename Units>
 struct shift
@@ -34,18 +43,18 @@ struct shift<degree>
 template <>
 struct shift<radian>
 {
-    static inline double full() { return geometry::math::two_pi; }
-    static inline double half() { return geometry::math::pi; }
+    static inline double full() { return 2.0 * boost::math::constants::pi<double>(); }
+    static inline double half() { return boost::math::constants::pi<double>(); }
 };
 
 } // namespace detail
 #endif
 
 /*!
-    \brief Compare (in one direction) strategy for spherical coordinates
-    \ingroup util
-    \tparam Point point-type
-    \tparam Dimension dimension
+\brief Compare (in one direction) strategy for spherical coordinates
+\ingroup strategies
+\tparam Point point-type
+\tparam Dimension dimension
 */
 template <typename CoordinateType, typename Units, typename Compare>
 struct circular_comparator
@@ -85,7 +94,7 @@ struct circular_comparator
         // Two coordinates on a circle are
         // at max <= half a circle away from each other.
         // So if it is more, shift origin.
-        CoordinateType diff = std::abs(v1 - v2);
+        CoordinateType diff = geometry::math::abs(v1 - v2);
         if (diff > half)
         {
             v1 = put_in_range(v1, 0, full);

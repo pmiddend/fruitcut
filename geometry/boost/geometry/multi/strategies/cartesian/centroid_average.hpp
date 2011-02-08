@@ -23,22 +23,27 @@
 namespace boost { namespace geometry
 {
 
-namespace strategy { namespace centroid_ {
+namespace strategy { namespace centroid
+{
 
 
+/*!
+\brief Centroid calculation taking average of points
+\ingroup strategies
+*/
 template
 <
     typename PointCentroid,
     typename Point = PointCentroid
 >
-class centroid_average
+class average
 {
 private :
 
     /*! subclass to keep state */
     class sum
     {
-        friend class centroid_average;
+        friend class average;
         int count;
         PointCentroid centroid;
 
@@ -70,24 +75,28 @@ public :
 };
 
 
-}} // namespace strategy::centroid
-
-
 #ifndef DOXYGEN_NO_STRATEGY_SPECIALIZATIONS
 
 
+namespace services
+{
 
 template <typename Point, typename Geometry>
-struct strategy_centroid<cartesian_tag, multi_point_tag, 2, Point, Geometry>
+struct default_strategy<cartesian_tag, multi_point_tag, 2, Point, Geometry>
 {
-    typedef strategy::centroid_::centroid_average
+    typedef average
         <
             Point,
             typename point_type<Geometry>::type
         > type;
 };
 
+} // namespace services
+
 #endif
+
+
+}} // namespace strategy::centroid
 
 
 }} // namespace boost::geometry

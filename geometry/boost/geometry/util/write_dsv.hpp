@@ -8,12 +8,14 @@
 #ifndef BOOST_GEOMETRY_UTIL_WRITE_DSV_HPP
 #define BOOST_GEOMETRY_UTIL_WRITE_DSV_HPP
 
+
+#include <cstddef>
 #include <ostream>
 #include <string>
 
 #include <boost/concept_check.hpp>
-#include <boost/range/functions.hpp>
-#include <boost/range/metafunctions.hpp>
+#include <boost/range.hpp>
+#include <boost/typeof/typeof.hpp>
 
 #include <boost/geometry/algorithms/convert.hpp>
 
@@ -25,13 +27,12 @@
 #include <boost/geometry/geometries/concepts/check.hpp>
 
 
-
-
 namespace boost { namespace geometry
 {
 
 #ifndef DOXYGEN_NO_DETAIL
-namespace detail { namespace dsv {
+namespace detail { namespace dsv
+{
 
 
 struct dsv_settings
@@ -162,7 +163,7 @@ struct dsv_range
             Range const& range,
             dsv_settings const& settings)
     {
-        typedef typename boost::range_const_iterator<Range>::type iterator_type;
+        typedef typename boost::range_iterator<Range const>::type iterator_type;
 
         bool first = true;
 
@@ -206,17 +207,14 @@ struct dsv_poly
                 dsv_settings const& settings)
     {
         typedef typename ring_type<Polygon>::type ring;
-        typedef typename boost::range_const_iterator
-            <
-                typename interior_type<Polygon>::type
-            >::type iterator_type;
 
         os << settings.list_open;
 
         dsv_range<ring>::apply(os, exterior_ring(poly), settings);
-        for (iterator_type it = boost::begin(interior_rings(poly));
-            it != boost::end(interior_rings(poly));
-            ++it)
+
+        typename interior_return_type<Polygon const>::type rings
+                    = interior_rings(poly);
+        for (BOOST_AUTO(it, boost::begin(rings)); it != boost::end(rings); ++it)
         {
             os << settings.list_separator;
             dsv_range<ring>::apply(os, *it, settings);
@@ -268,7 +266,8 @@ struct dsv_indexed
 
 
 #ifndef DOXYGEN_NO_DISPATCH
-namespace dispatch {
+namespace dispatch
+{
 
 template <typename Tag, bool IsMulti, typename Geometry>
 struct dsv {};
@@ -314,8 +313,8 @@ struct dsv<polygon_tag, false, Polygon>
 
 
 #ifndef DOXYGEN_NO_DETAIL
-namespace detail { namespace dsv {
-
+namespace detail { namespace dsv
+{
 
 
 // FIXME: This class is not copyable/assignable but it is used as such --mloskot
@@ -350,6 +349,7 @@ private:
     dsv_settings m_settings;
 };
 
+
 }} // namespace detail::dsv
 #endif // DOXYGEN_NO_DETAIL
 
@@ -374,7 +374,7 @@ inline detail::dsv::dsv_manipulator<Geometry> dsv(Geometry const& geometry
     , std::string const& list_separator = ", "
     )
 {
-    concept::check<const Geometry>();
+    concept::check<Geometry const>();
 
     return detail::dsv::dsv_manipulator<Geometry>(geometry,
         detail::dsv::dsv_settings(coordinate_separator,
@@ -383,7 +383,7 @@ inline detail::dsv::dsv_manipulator<Geometry> dsv(Geometry const& geometry
 }
 
 
-
 }} // namespace boost::geometry
+
 
 #endif // BOOST_GEOMETRY_UTIL_WRITE_DSV_HPP

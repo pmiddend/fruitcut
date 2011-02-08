@@ -10,17 +10,19 @@
 #define BOOST_GEOMETRY_MULTI_ALGORITHMS_WITHIN_HPP
 
 
-#include <boost/range/functions.hpp>
-#include <boost/range/metafunctions.hpp>
+#include <boost/range.hpp>
 
 #include <boost/geometry/algorithms/within.hpp>
+#include <boost/geometry/multi/core/closure.hpp>
+#include <boost/geometry/multi/core/point_order.hpp>
 #include <boost/geometry/multi/core/tags.hpp>
 
 namespace boost { namespace geometry
 {
 
 #ifndef DOXYGEN_NO_DETAIL
-namespace detail { namespace within {
+namespace detail { namespace within
+{
 
 
 template
@@ -32,27 +34,30 @@ template
 >
 struct geometry_in_multi
 {
-    static inline bool apply(Geometry const& geometry,
+    static inline int apply(Geometry const& geometry,
             MultiGeometry const& multi,
             Strategy const& strategy)
     {
-        for (typename boost::range_const_iterator<MultiGeometry>::type it
+        for (typename boost::range_iterator<MultiGeometry const>::type it
                     = boost::begin(multi);
             it != boost::end(multi);
             ++it)
         {
             // Geometry within a multi: true if within one of them
-            if (Policy::apply(geometry, *it, strategy))
+            int const code = Policy::apply(geometry, *it, strategy);
+            if (code != -1)
             {
-                return true;
+                return code;
             }
         }
-        return false;
+        return -1;
     }
 };
 
+
 }} // namespace detail::within
 #endif // DOXYGEN_NO_DETAIL
+
 
 #ifndef DOXYGEN_NO_DISPATCH
 namespace dispatch
@@ -69,6 +74,8 @@ struct within<point_tag, multi_polygon_tag, Point, MultiPolygon, Strategy>
                     <
                         Point,
                         typename boost::range_value<MultiPolygon>::type,
+                        order_as_direction<geometry::point_order<MultiPolygon>::value>::value,
+                        geometry::closure<MultiPolygon>::value,
                         Strategy
                     >
         >

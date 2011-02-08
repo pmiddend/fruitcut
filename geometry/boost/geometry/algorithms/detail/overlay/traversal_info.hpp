@@ -12,14 +12,15 @@
 #include <boost/geometry/algorithms/detail/overlay/turn_info.hpp>
 #include <boost/geometry/algorithms/detail/overlay/enrichment_info.hpp>
 #include <boost/geometry/algorithms/detail/overlay/visit_info.hpp>
-#include <boost/geometry/algorithms/overlay/segment_identifier.hpp>
+#include <boost/geometry/algorithms/detail/overlay/segment_identifier.hpp>
 
 
 namespace boost { namespace geometry
 {
 
 #ifndef DOXYGEN_NO_DETAIL
-namespace detail { namespace overlay {
+namespace detail { namespace overlay
+{
 
 
 template <typename P>

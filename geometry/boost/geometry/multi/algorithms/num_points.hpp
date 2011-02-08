@@ -11,6 +11,8 @@
 #define BOOST_GEOMETRY_MULTI_ALGORITHMS_NUM_POINTS_HPP
 
 
+#include <boost/range.hpp>
+
 #include <boost/geometry/multi/core/tags.hpp>
 #include <boost/geometry/algorithms/num_points.hpp>
 
@@ -19,28 +21,32 @@ namespace boost { namespace geometry
 {
 
 #ifndef DOXYGEN_NO_DETAIL
-namespace detail { namespace num_points {
+namespace detail { namespace num_points
+{
 
 
 template <typename MultiGeometry>
 struct multi_count
 {
-    static inline size_t apply(MultiGeometry const& geometry)
+    static inline size_t apply(MultiGeometry const& geometry, bool add_for_open)
     {
         typedef typename boost::range_value<MultiGeometry>::type geometry_type;
-        typedef typename boost::remove_const<geometry_type>::type ncg;
-        typedef typename boost::range_const_iterator
+        typedef typename boost::range_iterator
             <
-                MultiGeometry
+                MultiGeometry const
             >::type iterator_type;
 
-        size_t n = 0;
+        std::size_t n = 0;
         for (iterator_type it = boost::begin(geometry);
             it != boost::end(geometry);
             ++it)
         {
-            n += dispatch::num_points<typename tag<ncg>::type,
-                geometry::is_linear<ncg>::value, ncg>::apply(*it);
+            n += dispatch::num_points
+                <
+                    typename tag<geometry_type>::type,
+                    geometry::is_linear<geometry_type>::value,
+                    geometry_type
+                >::apply(*it, add_for_open);
         }
         return n;
     }
@@ -52,7 +58,8 @@ struct multi_count
 
 
 #ifndef DOXYGEN_NO_DISPATCH
-namespace dispatch {
+namespace dispatch
+{
 
 
 template <typename Geometry>

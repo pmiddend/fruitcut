@@ -23,13 +23,14 @@
 // TODO: take "const" into account
 #include <boost/geometry/geometries/point.hpp>
 #include <boost/geometry/geometries/linestring.hpp>
-#include <boost/geometry/geometries/linear_ring.hpp>
+#include <boost/geometry/geometries/ring.hpp>
 #include <boost/geometry/geometries/polygon.hpp>
 #include <boost/geometry/geometries/segment.hpp>
 #include <boost/geometry/geometries/box.hpp>
 
 
-namespace boost { namespace geometry {
+namespace boost { namespace geometry
+{
 
 #ifndef DOXYGEN_NO_DISPATCH
 namespace core_dispatch
@@ -46,31 +47,31 @@ struct replace_point_type<point_tag, Geometry, NewPointType>
 template <typename Geometry, typename NewPointType>
 struct replace_point_type<linestring_tag, Geometry, NewPointType>
 {
-    typedef linestring<NewPointType> type;
+    typedef model::linestring<NewPointType> type;
 };
 
 template <typename Geometry, typename NewPointType>
 struct replace_point_type<segment_tag, Geometry, NewPointType>
 {
-    typedef segment<NewPointType> type;
+    typedef model::segment<NewPointType> type;
 };
 
 template <typename Geometry, typename NewPointType>
 struct replace_point_type<ring_tag, Geometry, NewPointType>
 {
-    typedef linear_ring<NewPointType> type;
+    typedef model::ring<NewPointType> type;
 };
 
 template <typename Geometry, typename NewPointType>
 struct replace_point_type<box_tag, Geometry, NewPointType>
 {
-    typedef box<NewPointType> type;
+    typedef model::box<NewPointType> type;
 };
 
 template <typename Geometry, typename NewPointType>
 struct replace_point_type<polygon_tag, Geometry, NewPointType>
 {
-    typedef polygon<NewPointType> type;
+    typedef model::polygon<NewPointType> type;
 };
 
 
@@ -81,9 +82,9 @@ struct replace_point_type<polygon_tag, Geometry, NewPointType>
 template <typename Geometry, typename NewPointType>
 struct replace_point_type : core_dispatch::replace_point_type
         <
-        typename tag<Geometry>::type,
-        typename boost::remove_const<Geometry>::type,
-        NewPointType
+            typename tag<Geometry>::type,
+            typename boost::remove_const<Geometry>::type,
+            NewPointType
         >
 {};
 

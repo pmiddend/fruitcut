@@ -10,7 +10,6 @@
 #define BOOST_GEOMETRY_ALGORITHMS_CONVEX_HULL_HPP
 
 
-#include <boost/type_traits/remove_const.hpp>
 
 #include <boost/geometry/core/cs.hpp>
 #include <boost/geometry/core/is_multi.hpp>
@@ -27,53 +26,12 @@
 #include <boost/geometry/util/as_range.hpp>
 
 
-/*!
-\defgroup convex_hull convex hull: calculate the convex hull of a geometry
-\par Source descriptions:
-- OGC description: Returns a geometric object that represents the convex hull of
-    this geometric object. Convex hulls, being dependent on straight lines, can
-    be accurately represented in linear interpolations
-    for any geometry restricted to linear interpolations.
-\see http://en.wikipedia.org/wiki/Convex_hull
-
-\par Performance
-2776 counties of US are "hulled" in 0.9 seconds
-(http://trac.osgeo.org/ggl/wiki/Performance#Convexhull1)
-
-\note The convex hull is always a ring, holes are not possible. Therefore it is
-    can also be used in combination with an output iterator.
-
-\par Geometries supported:
-In the images below the convex hull is painted in red.
-
-- \b point: will not compile
-
-- \b linestring:
-
-- \b polygon: will deliver a polygon without holes
-    \image html svg_convex_hull_country.png
-
-- \b multi_point:
-    \image html svg_convex_hull_cities.png
-
-- \b multi_linestring:
-
-- \b multi_polygon:
-
-\par Output geometries supported:
-
-- \b polygon
-
-- \b ring
-
-- inserter version (with output iterator) can output to any array supporting
-    points of same type as the input geometry type
-
-*/
-namespace boost { namespace geometry {
+namespace boost { namespace geometry
+{
 
 #ifndef DOXYGEN_NO_DETAIL
-namespace detail { namespace convex_hull {
+namespace detail { namespace convex_hull
+{
 
 template
 <
@@ -188,16 +146,17 @@ inline void convex_hull(Geometry1 const& geometry,
 
 
 /*!
-    \brief Calculate the convex hull of a geometry
-    \ingroup convex_hull
-    \tparam Geometry1 the input geometry type
-    \tparam Geometry2: the output geometry type
-    \param geometry the geometry to calculate convex hull from
-    \param out a geometry receiving points of the convex hull
+\brief \brief_calc{convex hull}
+\ingroup convex_hull
+\details \details_calc{convex_hull,convex hull}.
+\tparam Geometry1 \tparam_geometry
+\tparam Geometry2 \tparam_geometry
+\param geometry \param_geometry,  used for input
+\param hull \param_geometry \param_set{convex hull}
  */
 template<typename Geometry1, typename Geometry2>
 inline void convex_hull(Geometry1 const& geometry,
-            Geometry2& out)
+            Geometry2& hull)
 {
     concept::check_concepts_and_equal_dimensions
         <
@@ -215,7 +174,7 @@ inline void convex_hull(Geometry1 const& geometry,
             point_type
         >::type strategy_type;
 
-    convex_hull(geometry, out, strategy_type());
+    convex_hull(geometry, hull, strategy_type());
 }
 
 
@@ -224,7 +183,7 @@ inline OutputIterator convex_hull_inserter(Geometry const& geometry,
             OutputIterator out, Strategy const& strategy)
 {
     // Concept: output point type = point type of input geometry
-    concept::check<const Geometry>();
+    concept::check<Geometry const>();
     concept::check<typename point_type<Geometry>::type>();
 
     BOOST_CONCEPT_ASSERT( (geometry::concept::ConvexHullStrategy<Strategy>) );
@@ -240,16 +199,16 @@ inline OutputIterator convex_hull_inserter(Geometry const& geometry,
 
 
 /*!
-    \brief Calculate the convex hull of a geometry, output-iterator version
-    \ingroup convex_hull
-    \tparam Geometry the input geometry type
-    \tparam OutputIterator: an output-iterator
-    \param geometry the geometry to calculate convex hull from
-    \param out an output iterator outputing points of the convex hull
-    \note This overloaded version outputs to an output iterator.
-    In this case, nothing is known about its point-type or
-        about its clockwise order. Therefore, the input point-type
-        and order are copied
+\brief Calculate the convex hull of a geometry, output-iterator version
+\ingroup convex_hull
+\tparam Geometry the input geometry type
+\tparam OutputIterator: an output-iterator
+\param geometry the geometry to calculate convex hull from
+\param out an output iterator outputing points of the convex hull
+\note This overloaded version outputs to an output iterator.
+In this case, nothing is known about its point-type or
+    about its clockwise order. Therefore, the input point-type
+    and order are copied
 
  */
 template<typename Geometry, typename OutputIterator>
@@ -257,7 +216,7 @@ inline OutputIterator convex_hull_inserter(Geometry const& geometry,
             OutputIterator out)
 {
     // Concept: output point type = point type of input geometry
-    concept::check<const Geometry>();
+    concept::check<Geometry const>();
     concept::check<typename point_type<Geometry>::type>();
 
     typedef typename range_type<Geometry>::type range_type;
@@ -275,5 +234,6 @@ inline OutputIterator convex_hull_inserter(Geometry const& geometry,
 
 
 }} // namespace boost::geometry
+
 
 #endif // BOOST_GEOMETRY_ALGORITHMS_CONVEX_HULL_HPP

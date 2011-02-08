@@ -11,44 +11,30 @@
 
 #include <iterator>
 
-#include <boost/range/functions.hpp>
-#include <boost/range/metafunctions.hpp>
+#include <boost/range.hpp>
 
 #include <boost/mpl/if.hpp>
 #include <boost/type_traits.hpp>
 
-
 #include <boost/geometry/core/cs.hpp>
+#include <boost/geometry/core/closure.hpp>
 
 #include <boost/geometry/geometries/concepts/check.hpp>
 
 #include <boost/geometry/algorithms/assign.hpp>
 #include <boost/geometry/algorithms/detail/calculate_null.hpp>
-
+#include <boost/geometry/views/closeable_view.hpp>
 #include <boost/geometry/strategies/distance.hpp>
 #include <boost/geometry/strategies/length_result.hpp>
 
-/*!
-\defgroup length length: calculate length of a linear geometry
-The length algorithm is implemented for the linestring and the multi_linestring
-geometry and results in the length of the linestring. If the points of
-a linestring have coordinates expressed in kilometers,
-the length of the line is expressed in kilometers as well.
-\par Example:
-Example showing length calculation
-\dontinclude doxygen_1.cpp
-\skip example_length_linestring_iterators1
-\line {
-\until }
-*/
 
 namespace boost { namespace geometry
 {
 
 
-
 #ifndef DOXYGEN_NO_DETAIL
-namespace detail { namespace length {
+namespace detail { namespace length
+{
 
 
 template<typename Segment, typename Strategy>
@@ -71,7 +57,7 @@ struct segment_length
 \note for_each could be used here, now that point_type is changed by boost
     range iterator
 */
-template<typename Range, typename Strategy>
+template<typename Range, typename Strategy, closure_selector Closure>
 struct range_length
 {
     typedef typename length_result<Range>::type return_type;
@@ -79,19 +65,24 @@ struct range_length
     static inline return_type apply(
             Range const& range, Strategy const& strategy)
     {
-        return_type sum = return_type();
+        typedef typename closeable_view<Range const, Closure>::type view_type;
+        typedef typename boost::range_iterator
+            <
+                view_type const
+            >::type iterator_type;
 
-        typedef typename boost::range_const_iterator<Range>::type iterator_type;
-        iterator_type it = boost::begin(range);
-        if (it != boost::end(range))
+        return_type sum = return_type();
+        view_type view(range);
+        iterator_type it = boost::begin(view), end = boost::end(view);
+        if(it != end)
         {
-            iterator_type previous = it++;
-            while(it != boost::end(range))
+            for(iterator_type previous = it++;
+                    it != end;
+                    ++previous, ++it)
             {
                 // Add point-point distance using the return type belonging
                 // to strategy
                 sum += strategy.apply(*previous, *it);
-                previous = it++;
             }
         }
 
@@ -99,8 +90,10 @@ struct range_length
     }
 };
 
+
 }} // namespace detail::length
 #endif // DOXYGEN_NO_DETAIL
+
 
 #ifndef DOXYGEN_NO_DISPATCH
 namespace dispatch
@@ -119,7 +112,7 @@ struct length : detail::calculate_null
 
 template <typename Geometry, typename Strategy>
 struct length<linestring_tag, Geometry, Strategy>
-    : detail::length::range_length<Geometry, Strategy>
+    : detail::length::range_length<Geometry, Strategy, closed>
 {};
 
 
@@ -137,33 +130,25 @@ struct length<segment_tag, Geometry, Strategy>
 
 
 /*!
-    \brief Calculate length of a geometry
-    \ingroup length
-    \details The function length returns the length of a geometry, using the
-        default distance-calculation-strategy
-    \param geometry the geometry, being a geometry::linestring, vector,
-        iterator pair, or any other boost compatible range
-    \return the length
-    Example showing length calculation on a vector
-    \dontinclude doxygen_1.cpp
-    \skip example_length_linestring_iterators2
-    \line {
-    \until }
+\brief \brief_calc{length}
+\ingroup length
+\details \details_calc{length, length (the sum of distances between consecutive points)}. \details_default_strategy
+\tparam Geometry \tparam_geometry
+\param geometry \param_geometry
+\return \return_calc{length}
+
+\qbk{[include ref/algorithms/length.qbk]}
+\qbk{[length] [length_output]}
  */
 template<typename Geometry>
 inline typename length_result<Geometry>::type length(
         Geometry const& geometry)
 {
-    concept::check<const Geometry>();
+    concept::check<Geometry const>();
 
-    typedef typename point_type<Geometry>::type point_type;
-    typedef typename cs_tag<point_type>::type cs_tag;
-    typedef typename strategy_distance
+    typedef typename strategy::distance::services::default_strategy
         <
-            cs_tag,
-            cs_tag,
-            point_type,
-            point_type
+            point_tag, typename point_type<Geometry>::type
         >::type strategy_type;
 
     return dispatch::length
@@ -176,27 +161,24 @@ inline typename length_result<Geometry>::type length(
 
 
 /*!
-    \brief Calculate length of a geometry
-    \ingroup length
-    \details The function length returns the length of a geometry,
-        using specified strategy
-    \param geometry the geometry, being a geometry::linestring, vector,
-        iterator pair, or any other boost compatible range
-    \param strategy strategy to be used for distance calculations.
-    \return the length
-    \par Example:
-    Example showing length calculation using iterators
-        and the Vincenty strategy
-    \dontinclude doxygen_1.cpp
-    \skip example_length_linestring_iterators3
-    \line {
-    \until }
+\brief \brief_calc{length} \brief_strategy
+\ingroup length
+\details \details_calc{length, length (the sum of distances between consecutive points)} \brief_strategy. \details_strategy_reasons
+\tparam Geometry \tparam_geometry
+\tparam Strategy \tparam_strategy{distance}
+\param geometry \param_geometry
+\param strategy \param_strategy{distance}
+\return \return_calc{length}
+
+\qbk{distinguish,with strategy}
+\qbk{[include ref/algorithms/length.qbk]}
+\qbk{[length_with_strategy] [length_with_strategy_output]}
  */
 template<typename Geometry, typename Strategy>
 inline typename length_result<Geometry>::type length(
         Geometry const& geometry, Strategy const& strategy)
 {
-    concept::check<const Geometry>();
+    concept::check<Geometry const>();
 
     return dispatch::length
         <

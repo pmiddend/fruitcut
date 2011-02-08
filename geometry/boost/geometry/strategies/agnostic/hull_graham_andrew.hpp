@@ -13,8 +13,7 @@
 #include <algorithm>
 #include <vector>
 
-#include <boost/range/functions.hpp>
-#include <boost/range/metafunctions.hpp>
+#include <boost/range.hpp>
 
 #include <boost/geometry/core/cs.hpp>
 #include <boost/geometry/core/point_type.hpp>
@@ -25,19 +24,21 @@
 #include <boost/geometry/policies/compare.hpp>
 
 #include <boost/geometry/util/for_each_range.hpp>
+#include <boost/geometry/views/reversible_view.hpp>
 
 
 // Temporary, comparing sorting, this can be removed in the end
 //#define BOOST_GEOMETRY_USE_FLEX_SORT
 //#define BOOST_GEOMETRY_USE_FLEX_SORT2
-#if defined(GGL_USE_FLEX_SORT)
+#if defined(BOOST_GEOMETRY_USE_FLEX_SORT)
 #  include <boost/algorithm/sorting/flex_sort.hpp>
 #endif
 
 namespace boost { namespace geometry
 {
 
-namespace strategy { namespace convex_hull {
+namespace strategy { namespace convex_hull
+{
 
 #ifndef DOXYGEN_NO_DETAIL
 namespace detail
@@ -229,12 +230,11 @@ static inline void sort(Range& range)
 
 
 /*!
-    \brief Graham scan strategy to calculate convex hull
-    \ingroup convex_hull
-    \note Completely reworked version inspired on the sources listed below
-    \see http://www.ddj.com/architect/201806315
-    \see http://marknelson.us/2007/08/22/convex
-
+\brief Graham scan strategy to calculate convex hull
+\ingroup strategies
+\note Completely reworked version inspired on the sources listed below
+\see http://www.ddj.com/architect/201806315
+\see http://marknelson.us/2007/08/22/convex
  */
 template <typename InputGeometry, typename OutputPoint>
 class graham_andrew
@@ -275,9 +275,9 @@ public:
 
         typedef typename range_type<InputGeometry>::type range_type;
 
-        typedef typename boost::range_const_iterator
+        typedef typename boost::range_iterator
             <
-                range_type
+                range_type const
             >::type range_iterator;
 
         detail::get_extremes
@@ -324,13 +324,13 @@ public:
     {
         if (clockwise)
         {
-            get_range_forward(state.m_upper_hull, out);
-            get_range_reverse(state.m_lower_hull, out);
+            output_range<iterate_forward>(state.m_upper_hull, out, false);
+            output_range<iterate_reverse>(state.m_lower_hull, out, true);
         }
         else
         {
-            get_range_forward(state.m_lower_hull, out);
-            get_range_reverse(state.m_upper_hull, out);
+            output_range<iterate_forward>(state.m_lower_hull, out, false);
+            output_range<iterate_reverse>(state.m_upper_hull, out, true);
         }
     }
 
@@ -381,29 +381,24 @@ private:
     }
 
 
-    template <typename OutputIterator>
-    static inline void get_range_forward(container_type const& range, OutputIterator out)
+    template <iterate_direction Direction, typename OutputIterator>
+    static inline void output_range(container_type const& range, 
+        OutputIterator out, bool skip_first)
     {
-        for (iterator it = boost::begin(range);
-            it != boost::end(range);
-            ++it, ++out)
+        typedef typename reversible_view<container_type const, Direction>::type view_type;
+        view_type view(range);
+        bool first = true;
+        for (typename boost::range_iterator<view_type const>::type it = boost::begin(view);
+            it != boost::end(view); ++it)
         {
-            *out = *it;
-        }
-    }
-
-
-    template <typename OutputIterator>
-    static inline void get_range_reverse(container_type const& range, OutputIterator out)
-    {
-        // STL Port does not accept iterating from rbegin+1 to rend
-        std::size_t size = range.size();
-        if (size > 0)
-        {
-            rev_iterator it = range.rbegin() + 1;
-            for (std::size_t i = 1; i < size; ++i, ++it, ++out)
+            if (first && skip_first)
+            {
+                first = false;
+            }
+            else
             {
                 *out = *it;
+                ++out;
             }
         }
     }

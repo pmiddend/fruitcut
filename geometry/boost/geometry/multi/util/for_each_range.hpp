@@ -10,8 +10,10 @@
 #define BOOST_GEOMETRY_MULTI_UTIL_FOR_EACH_RANGE_HPP
 
 
+#include <boost/range.hpp>
+#include <boost/typeof/typeof.hpp>
+
 #include <boost/geometry/util/for_each_range.hpp>
-#include <boost/geometry/util/range_iterator_const_if_c.hpp>
 
 #include <boost/geometry/multi/core/tags.hpp>
 
@@ -21,7 +23,8 @@ namespace boost { namespace geometry
 
 
 #ifndef DOXYGEN_NO_DETAIL
-namespace detail { namespace for_each {
+namespace detail { namespace for_each
+{
 
 
 template <typename Multi, typename Actor, bool IsConst>
@@ -31,10 +34,7 @@ struct fe_range_multi
                     typename add_const_if_c<IsConst, Multi>::type& multi,
                     Actor& actor)
     {
-        for (typename range_iterator_const_if_c<IsConst, Multi>::type
-                it = boost::begin(multi);
-            it != boost::end(multi);
-            ++it)
+        for(BOOST_AUTO(it, boost::begin(multi)); it != boost::end(multi); ++it)
         {
             geometry::for_each_range(*it, actor);
         }

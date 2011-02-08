@@ -11,19 +11,11 @@
 #include <algorithm>
 
 #include <boost/range.hpp>
-#include <boost/range/functions.hpp>
-#include <boost/range/metafunctions.hpp>
+#include <boost/typeof/typeof.hpp>
 
 #include <boost/geometry/core/interior_rings.hpp>
 #include <boost/geometry/geometries/concepts/check.hpp>
 #include <boost/geometry/policies/compare.hpp>
-
-
-/*!
-\defgroup unique unique: make a geometry unique w.r.t. points,
-        so no duplicate consecutive points
-
-*/
 
 
 namespace boost { namespace geometry
@@ -65,12 +57,9 @@ struct polygon_unique
         typedef range_unique<ring_type, ComparePolicy> per_range;
         per_range::apply(exterior_ring(polygon), policy);
 
-        for (typename boost::range_iterator
-                <
-                    typename interior_type<Polygon>::type
-                >::type it = boost::begin(interior_rings(polygon));
-             it != boost::end(interior_rings(polygon));
-             ++it)
+        typename interior_return_type<Polygon>::type rings
+                    = interior_rings(polygon);
+        for (BOOST_AUTO(it, boost::begin(rings)); it != boost::end(rings); ++it)
         {
             per_range::apply(*it, policy);
         }
@@ -125,9 +114,11 @@ struct unique<polygon_tag, Polygon, ComparePolicy>
 
 
 /*!
-    \ingroup unique
-    \tparam Geometry geometry type
-    \param geometry the geometry to make unique
+\brief \brief_calc{minimal set}
+\ingroup unique
+\details \details_calc{unique,minimal set (where duplicate consecutive points are removed)}.
+\tparam Geometry \tparam_geometry
+\param geometry \param_geometry which will be made unique
 */
 template <typename Geometry>
 inline void unique(Geometry& geometry)

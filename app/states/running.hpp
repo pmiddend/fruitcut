@@ -5,6 +5,8 @@
 #include "../events/render.hpp"
 #include "../events/tick.hpp"
 #include "../events/toggle_pause.hpp"
+#include "../events/render_overlay.hpp"
+#include "../../line_drawer/object.hpp"
 #include <sge/renderer/state/scoped.hpp>
 #include <sge/renderer/state/trampoline.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
@@ -25,9 +27,10 @@ class running
 {
 public:
 	typedef
-	boost::mpl::vector3
+	boost::mpl::vector4
 	<
 		boost::statechart::custom_reaction<events::render>,
+		boost::statechart::custom_reaction<events::render_overlay>,
 		boost::statechart::custom_reaction<events::tick>,
 		boost::statechart::custom_reaction<events::toggle_pause>
 	>
@@ -42,6 +45,10 @@ public:
 
 	boost::statechart::result
 	react(
+		events::render_overlay const &);
+
+	boost::statechart::result
+	react(
 		events::tick const &);
 
 	boost::statechart::result
@@ -51,6 +58,7 @@ public:
 	~running();
 private:
 	sge::renderer::state::scoped scoped_render_state_;
+	line_drawer::object line_drawer_;
 };
 }
 }
