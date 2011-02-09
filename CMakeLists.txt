@@ -113,6 +113,7 @@ SET(files
 	# input 
 	input/state.cpp input/state_manager.cpp
 	sound_controller.cpp
+	cursor_trail.cpp
 	# pp 
 	pp/filter/base.cpp 
 	pp/filter/wrapper.cpp
@@ -150,121 +151,6 @@ ADD_LIBRARY(
 	fruitcut_library STATIC ${files})
 
 ADD_EXECUTABLE(
-	mouse_cut_test
-	sandbox/mouse_cut.cpp)
-
-TARGET_LINK_LIBRARIES(
-	mouse_cut_test
-	fruitcut_library
-	${FCPPT_LIBRARIES}
-	${SGE_CORE_LIBRARY}
-	${SGE_shader_LIBRARY}
-	${SGE_systems_LIBRARY}
-	${SGE_texture_LIBRARY}
-	${SGE_sprite_LIBRARY}
-	${SGE_time_LIBRARY}
-	${Boost_LIBRARIES})
-
-ADD_EXECUTABLE(
-	trail_test
-	sandbox/trail_test.cpp sandbox/mouse_trailer.cpp sandbox/sword_particle.cpp)
-
-TARGET_LINK_LIBRARIES(
-	trail_test
-	fruitcut_library
-	${FCPPT_LIBRARIES}
-	${SGE_CORE_LIBRARY}
-	${SGE_systems_LIBRARY}
-	${SGE_sprite_LIBRARY}
-	${SGE_time_LIBRARY}
-	${SGE_texture_LIBRARY}
-	${Boost_LIBRARIES})
-
-ADD_EXECUTABLE(
-	font_test
-	sandbox/font.cpp sandbox/font_drawer.cpp)
-
-TARGET_LINK_LIBRARIES(
-	font_test
-	fruitcut_library
-	${FCPPT_LIBRARIES}
-	${SGE_CORE_LIBRARY}
-	${SGE_systems_LIBRARY}
-	${SGE_fonttext_LIBRARY}
-	${SGE_fontbitmap_LIBRARY}
-	${SGE_time_LIBRARY}
-	${SGE_sprite_LIBRARY}
-	${Boost_LIBRARIES})
-
-ADD_EXECUTABLE(
-	doppler_test
-	sandbox/doppler.cpp)
-
-TARGET_LINK_LIBRARIES(
-	doppler_test
-	${FCPPT_LIBRARIES}
-	${SGE_CORE_LIBRARY}
-	${SGE_systems_LIBRARY}
-	${Boost_LIBRARIES})
-
-ADD_EXECUTABLE(
-	splat_test
-	sandbox/splat.cpp sandbox/splat_collector.cpp sandbox/splatter.cpp sandbox/splat_particle.cpp)
-
-TARGET_LINK_LIBRARIES(
-	splat_test
-	fruitcut_library
-	${FCPPT_LIBRARIES}
-	${SGE_CORE_LIBRARY}
-	${SGE_systems_LIBRARY}
-	${SGE_sprite_LIBRARY}
-	${SGE_shader_LIBRARY}
-	${SGE_time_LIBRARY}
-	${SGE_texture_LIBRARY}
-	${Boost_LIBRARIES})
-
-ADD_EXECUTABLE(
-	pipeline_test
-	sandbox/pipeline.cpp)
-
-TARGET_LINK_LIBRARIES(
-	pipeline_test
-	fruitcut_library
-	${FCPPT_LIBRARIES}
-	${SGE_CORE_LIBRARY}
-	${SGE_shader_LIBRARY}
-	${SGE_console_LIBRARY}
-	${SGE_systems_LIBRARY}
-	${SGE_sprite_LIBRARY}
-	${SGE_texture_LIBRARY}
-	${Boost_LIBRARIES})
-
-ADD_EXECUTABLE(
-	convolution_test
-	sandbox/convolution.cpp)
-
-TARGET_LINK_LIBRARIES(
-	convolution_test
-	fruitcut_library
-	${FCPPT_LIBRARIES}
-	${SGE_CORE_LIBRARY}
-	${SGE_shader_LIBRARY}
-	${SGE_systems_LIBRARY}
-	${SGE_time_LIBRARY}
-	${SGE_texture_LIBRARY}
-	${SGE_sprite_LIBRARY}
-	${Boost_LIBRARIES})
-
-ADD_EXECUTABLE(
-	geometry
-	sandbox/geometry.cpp)
-
-TARGET_LINK_LIBRARIES(
-	geometry
-	${FCPPT_LIBRARIES}
-	${Boost_LIBRARIES})
-
-ADD_EXECUTABLE(
 	app
 	app/fruitcut.cpp
 	app/fruit_prototype.cpp
@@ -296,3 +182,6 @@ TARGET_LINK_LIBRARIES(
 	${SGE_sprite_LIBRARY}
 	${BULLET_LIBRARIES}
 	${Boost_LIBRARIES})
+
+ADD_SUBDIRECTORY(
+	sandbox)

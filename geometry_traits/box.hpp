@@ -45,8 +45,8 @@ struct indexed_access<fcppt::math::box::basic<T,N>, boost::geometry::min_corner,
 			b.pos();
 		typename fcppt::math::box::basic<T,N>::dim d = 
 			b.dimension();
-		d[Dimension] += 
-			p[Dimension] - value;
+		d[Dimension] = 
+			(p[Dimension] + d[Dimension]) - value;
 		p[Dimension] = 
 			value;
 		b.pos(
@@ -74,7 +74,7 @@ struct indexed_access<fcppt::math::box::basic<T,N>, boost::geometry::max_corner,
 		typename fcppt::math::box::basic<T,N>::dim d = 
 			b.dimension();
 		d[Dimension] = 
-			value - (b.pos()[Dimension] + b.dimension()[Dimension]);
+			value - b.pos()[Dimension];
 		b.dimension(
 			d);
 	}

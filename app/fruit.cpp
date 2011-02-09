@@ -9,24 +9,24 @@
 #include <sge/renderer/device_ptr.hpp>
 #include <sge/shader/object_fwd.hpp>
 #include <fcppt/math/matrix/structure_cast.hpp>
+#include <fcppt/math/box/output.hpp>
 #include <boost/geometry/geometry.hpp>
 #include <boost/geometry/multi/multi.hpp>
 #include <boost/foreach.hpp>
 #include <vector>
 
+#include <fcppt/math/vector/structure_cast.hpp>
+#include <fcppt/math/vector/dim.hpp>
+#include <fcppt/math/vector/arithmetic.hpp>
+
 namespace
 {
-// The make_envelope function only accepts ranges, to we convert the
-// mesh to one here.
-// TODO: We could also write a range adapter for mesh: Keep an index
-// to the current point and an index to the current triangle, should
-// be pretty simple
 typedef
 boost::geometry::model::multi_point<fruitcut::app::triangle::vector>
 point_cloud;
 
 point_cloud const
-mesh_to_point_sequence(
+mesh_to_point_cloud(
 	fruitcut::app::mesh const &m)
 {
 	point_cloud output;
@@ -61,7 +61,7 @@ fruitcut::app::fruit::fruit(
 		proto.mesh()),
 	bounding_box_(
 		boost::geometry::make_envelope<box3>(
-			mesh_to_point_sequence(
+			mesh_to_point_cloud(
 				mesh_))),
 	body_(
 		physics::rigid_body::parameters(

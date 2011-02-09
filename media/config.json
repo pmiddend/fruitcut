@@ -1,4 +1,10 @@
 {
+	"mouse" : 
+	{
+		"confine-cursor" : true,
+		"trail-update-rate-ms" : 50,
+		"trail-samples" : 5
+	},
 	"graphics" :
 	{
 		"screen-size" : [640,480],

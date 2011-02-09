@@ -2,6 +2,7 @@
 #define FRUITCUT_APP_STATES_RUNNING_HPP_INCLUDED
 
 #include "ingame.hpp"
+#include "../cursor_trail.hpp"
 #include "../events/render.hpp"
 #include "../events/tick.hpp"
 #include "../events/toggle_pause.hpp"
@@ -59,6 +60,7 @@ public:
 private:
 	sge::renderer::state::scoped scoped_render_state_;
 	line_drawer::object line_drawer_;
+	cursor_trail cursor_trail_;
 };
 }
 }

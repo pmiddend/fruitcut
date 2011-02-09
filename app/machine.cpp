@@ -116,9 +116,17 @@ fruitcut::app::machine::machine(
 				sge::systems::viewport::manage_resize()))
 			(sge::systems::input(
 				sge::systems::input_helper_field(
-					sge::systems::input_helper::keyboard_collector) | sge::systems::input_helper::mouse_collector,
-					sge::systems::cursor_option_field(
-						sge::systems::cursor_option::confine) | sge::systems::cursor_option::hide)) 
+					sge::systems::input_helper::keyboard_collector) 
+					| sge::systems::input_helper::mouse_collector
+					| sge::systems::input_helper::cursor_demuxer,
+					json::find_member<bool>(
+						config_file_,
+						FCPPT_TEXT("mouse/confine-cursor"))
+					?
+						sge::systems::cursor_option_field(
+							sge::systems::cursor_option::confine)
+					:
+						sge::systems::cursor_option_field())) 
 			(sge::systems::audio_player_default())
 			(sge::systems::audio_loader(
 				sge::audio::loader_capabilities_field::null(),

@@ -4,17 +4,47 @@
 #include "../fruit_projected_hull.hpp"
 #include "../events/tick.hpp"
 #include "../geometry_traits/vector.hpp"
+#include "../json/find_member.hpp"
 #include "../../physics/world.hpp"
 #include <sge/renderer/onscreen_target.hpp>
 #include <sge/renderer/state/list.hpp>
 #include <sge/renderer/state/bool.hpp>
 #include <sge/renderer/state/depth_func.hpp>
 #include <sge/renderer/state/float.hpp>
+#include <sge/renderer/pixel_rect.hpp>
+#include <sge/renderer/device.hpp>
+#include <sge/renderer/onscreen_target.hpp>
+#include <sge/input/cursor/position_unit.hpp>
+#include <sge/image/colors.hpp>
+#include <sge/time/unit.hpp>
+#include <sge/time/millisecond.hpp>
 #include <fcppt/math/vector/output.hpp>
+#include <fcppt/math/vector/construct.hpp>
+#include <fcppt/math/vector/structure_cast.hpp>
+#include <fcppt/text.hpp>
 #include <boost/geometry/geometries/ring.hpp>
 #include <boost/geometry/algorithms/convex_hull.hpp>
 #include <boost/foreach.hpp>
+#include <boost/next_prior.hpp>
 #include <iostream>
+
+namespace
+{
+sge::renderer::vector3 const
+transform_cursor_position(
+	sge::input::cursor::position const &p,
+	sge::renderer::pixel_rect const &viewport)
+{
+	return 
+		sge::renderer::vector3(
+			static_cast<sge::renderer::scalar>(
+				p.x()),
+			static_cast<sge::renderer::scalar>(
+				viewport.h() - p.y()),
+			static_cast<sge::renderer::scalar>(
+				0));
+}
+}
 
 fruitcut::app::states::running::running(
 	my_context ctx)
@@ -29,7 +59,16 @@ fruitcut::app::states::running::running(
 			(sge::renderer::state::bool_::clear_zbuffer = true)
 			(sge::renderer::state::float_::zbuffer_clear_val = 1.0f)),
 	line_drawer_(
-		context<machine>().systems().renderer())
+		context<machine>().systems().renderer()),
+	cursor_trail_(
+		*context<machine>().systems().cursor_demuxer(),
+		sge::time::millisecond(
+			json::find_member<sge::time::unit>(
+				context<machine>().config_file(),
+				FCPPT_TEXT("mouse/trail-update-rate-ms"))),
+		json::find_member<cursor_trail::size_type>(
+				context<machine>().config_file(),
+				FCPPT_TEXT("mouse/trail-samples")))
 {
 	context<machine>().postprocessing().active(
 		true);
@@ -68,6 +107,7 @@ fruitcut::app::states::running::react(
 	context<machine>().particle_system().update();
 	context<ingame>().physics_world().update(
 		d.delta());
+	cursor_trail_.update();
 
 	line_drawer_.lines().clear();
 
@@ -88,25 +128,50 @@ fruitcut::app::states::running::react(
 				context<ingame>().camera().mvp()),
 			hull);
 
-	//	std::cout << "points begin\n";
 		for(
 			hull_ring::const_iterator hull_point = hull.begin(); 
 			hull_point != boost::prior(hull.end()); 
 			++hull_point)
 		{
-//			std::cout << (*hull_point) << "\n";
 			line_drawer_.lines().push_back(
 				line_drawer::line(
 					sge::renderer::vector3(
-						hull_point->x(),
-						hull_point->y(),
-						0),
+						static_cast<sge::renderer::scalar>(
+							hull_point->x()),
+						static_cast<sge::renderer::scalar>(
+							hull_point->y()),
+						static_cast<sge::renderer::scalar>(
+							0)),
 					sge::renderer::vector3(
-						boost::next(hull_point)->x(),
-						boost::next(hull_point)->y(),
-						0)));
+						static_cast<sge::renderer::scalar>(
+							boost::next(hull_point)->x()),
+						static_cast<sge::renderer::scalar>(
+							boost::next(hull_point)->y()),
+						static_cast<sge::renderer::scalar>(
+							0))));
 		}
-//		std::cout << "points end\n";
+	}
+
+	if (!cursor_trail_.positions().empty())
+	{
+		for(
+			cursor_trail::position_buffer::const_iterator i = 
+				cursor_trail_.positions().begin(); 
+			i != boost::prior(cursor_trail_.positions().end()); 
+			++i)
+		{
+			line_drawer_.lines().push_back(
+				line_drawer::line(
+					transform_cursor_position(
+						*i,
+						context<machine>().systems().renderer()->onscreen_target()->viewport().get()),
+					transform_cursor_position(
+						*boost::next(
+							i),
+						context<machine>().systems().renderer()->onscreen_target()->viewport().get()),
+					sge::image::colors::red(),
+					sge::image::colors::red()));
+		}
 	}
 
 	line_drawer_.update();
