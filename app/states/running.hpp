@@ -2,6 +2,7 @@
 #define FRUITCUT_APP_STATES_RUNNING_HPP_INCLUDED
 
 #include "ingame.hpp"
+#include "../fruit_fwd.hpp"
 #include "../cursor_trail.hpp"
 #include "../events/render.hpp"
 #include "../events/tick.hpp"
@@ -67,6 +68,10 @@ private:
 
 	void
 	draw_mouse_trail();
+
+	void
+	process_fruit(
+		fruit const &);
 };
 }
 }

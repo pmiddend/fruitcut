@@ -115,9 +115,9 @@ generate_texture_coordinates(
 		b = parametrization[0],
 		c = parametrization[1];
 
-	std::cout << "Aufpunkt: " << "{" << a[0] << "," << a[1] << "," << a[2] << "}\n";
-	std::cout << "Erster Pfeil: " << "{" << b[0] << "," << b[1] << "," << b[2] << "}\n";
-	std::cout << "Zweiter Pfeil: " << "{" << c[0] << "," << c[1] << "," << c[2] << "}\n";
+	//std::cout << "Aufpunkt: " << "{" << a[0] << "," << a[1] << "," << a[2] << "}\n";
+	//std::cout << "Erster Pfeil: " << "{" << b[0] << "," << b[1] << "," << b[2] << "}\n";
+	//std::cout << "Zweiter Pfeil: " << "{" << c[0] << "," << c[1] << "," << c[2] << "}\n";
 
 	// This scary looking statement assigns (f,g) (the plane parameters)
 	// to each point.
@@ -141,7 +141,7 @@ generate_texture_coordinates(
 	// That's the new origin
 	a = a + min[0] * b + min[1] * c;
 
-	std::cout << "Neuer Aufpunkt: " << "{" << a[0] << "," << a[1] << "," << a[2] << "}\n";
+	//std::cout << "Neuer Aufpunkt: " << "{" << a[0] << "," << a[1] << "," << a[2] << "}\n";
 
 	// To normalize the values to [0,1], we also need to know the
 	// maximum distance from the origin to a point
@@ -167,8 +167,8 @@ generate_texture_coordinates(
 	BOOST_FOREACH(texcoord &x,result)
 		x = texcoord(x[0]/maxdist[0],x[1]/maxdist[1]);
 
-	std::cout << "Erster Bounding-Arrow: " << "{" << (maxdist[0]*a[0]) << "," << (maxdist[0]*a[1]) << "," << (maxdist[0]*a[2]) << "}\n";
-	std::cout << "Zweiter Bounding-Arrow: " << "{" << (maxdist[1]*b[0]) << "," << (maxdist[1]*b[1]) << "," << (maxdist[1]*b[2]) << "}\n";
+	//std::cout << "Erster Bounding-Arrow: " << "{" << (maxdist[0]*a[0]) << "," << (maxdist[0]*a[1]) << "," << (maxdist[0]*a[2]) << "}\n";
+	//std::cout << "Zweiter Bounding-Arrow: " << "{" << (maxdist[1]*b[0]) << "," << (maxdist[1]*b[1]) << "," << (maxdist[1]*b[2]) << "}\n";
 
 	return result;
 }

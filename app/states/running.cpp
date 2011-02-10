@@ -1,6 +1,10 @@
 #include "running.hpp"
 #include "paused.hpp"
 #include "../hull_ring.hpp"
+#include "../cut_mesh.hpp"
+#include "../dim2.hpp"
+#include "../plane.hpp"
+#include "../hull_trail_intersection.hpp"
 #include "../fruit_projected_hull.hpp"
 #include "../events/tick.hpp"
 #include "../json/find_member.hpp"
@@ -18,12 +22,45 @@
 #include <sge/time/unit.hpp>
 #include <sge/time/millisecond.hpp>
 #include <fcppt/math/vector/output.hpp>
+#include <fcppt/math/vector/arithmetic.hpp>
+#include <fcppt/math/vector/dot.hpp>
+#include <fcppt/math/vector/narrow_cast.hpp>
 #include <fcppt/math/vector/construct.hpp>
 #include <fcppt/math/vector/structure_cast.hpp>
+#include <fcppt/math/vector/cross.hpp>
+#include <fcppt/math/dim/structure_cast.hpp>
+#include <fcppt/math/matrix/unproject.hpp>
+#include <fcppt/math/matrix/transpose.hpp>
+#include <fcppt/math/matrix/inverse.hpp>
+#include <fcppt/math/matrix/output.hpp>
 #include <fcppt/text.hpp>
 #include <boost/foreach.hpp>
 #include <boost/next_prior.hpp>
 #include <iostream>
+
+namespace
+{
+// NOTE: Could this find its way to fcppt?
+template<typename T>
+typename
+fcppt::math::vector::static_<T,3>::type const
+multiply_matrix4_vector3(
+	typename
+	fcppt::math::matrix::static_<T,4,4>::type const &m,
+	typename
+	fcppt::math::vector::static_<T,3>::type const &v)
+{
+	return 
+		fcppt::math::vector::narrow_cast
+		<
+			typename fcppt::math::vector::static_<T,3>::type
+		>(
+			m * 
+			fcppt::math::vector::construct(
+				v,
+				static_cast<T>(0)));
+}
+}
 
 fruitcut::app::states::running::running(
 	my_context ctx)
@@ -94,25 +131,11 @@ fruitcut::app::states::running::react(
 	draw_mouse_trail();
 	line_drawer_.update();
 
-	/*
 	BOOST_FOREACH(
 		ingame::fruit_sequence::const_reference r,
 		context<ingame>().fruits())
-	{
-		typedef
-		boost::geometry::model::ring<hull_point_sequence::value_type>
-		hull_ring;
-
-		hull_ring hull;
-
-		boost::geometry::convex_hull(
-			fruit_projected_hull(
-				r,
-				context<machine>().systems().renderer()->onscreen_target(),
-				context<ingame>().camera().mvp()),
-			hull);
-	}
-	*/
+		process_fruit(
+			r);
 
 	return discard_event();
 }
@@ -128,7 +151,7 @@ fruitcut::app::states::running::draw_fruit_bbs()
 		ingame::fruit_sequence::const_reference r,
 		context<ingame>().fruits())
 	{
-		hull_ring hull = 
+		hull_ring const hull = 
 			fruit_projected_hull(
 				r,
 				context<machine>().systems().renderer()->onscreen_target(),
@@ -188,4 +211,113 @@ fruitcut::app::states::running::draw_mouse_trail()
 						0)),
 				sge::image::colors::red(),
 				sge::image::colors::red()));
+}
+
+void
+fruitcut::app::states::running::process_fruit(
+	fruit const &current_fruit)
+{
+	fcppt::optional<fcppt::homogenous_pair<fruitcut::app::hull_ring::value_type> > const intersection = 
+		hull_trail_intersection(
+			fruit_projected_hull(
+				current_fruit,
+				context<machine>().systems().renderer()->onscreen_target(),
+				context<ingame>().camera().mvp()),
+			cursor_trail_.positions());
+
+	if (!intersection)
+		return;
+
+	static int counter = 0;
+	std::cout << ++counter << " doing something\n";
+
+	//std::cout <<  ++counter <<  "intersections at " << intersection->first << " and " << intersection->second << "\n";
+	
+	// Just for debugging purposes
+	dim2 const ss = 
+		fcppt::math::dim::structure_cast<dim2>(
+			context<machine>().systems().renderer()->screen_size());
+
+	sge::renderer::matrix4 const inverse_mvp =
+		fcppt::math::matrix::inverse(
+			context<ingame>().camera().mvp());
+
+	sge::renderer::vector3 const 
+		// Convert the points to 3D and to renderer::scalar
+		point1(
+			static_cast<sge::renderer::scalar>(
+				intersection->first[0]),
+			static_cast<sge::renderer::scalar>(
+				intersection->first[1]),
+			static_cast<sge::renderer::scalar>(
+				0)),
+		point2(
+			static_cast<sge::renderer::scalar>(
+				intersection->second[0]),
+			static_cast<sge::renderer::scalar>(
+				intersection->second[1]),
+			static_cast<sge::renderer::scalar>(
+				0)),
+		// unproject 'em
+		point1_unprojected = 
+			fcppt::math::matrix::unproject(
+				point1,
+				inverse_mvp,
+				// The points are already "un-viewported", but they are in
+				// screenspace, so use the screen rect here
+				fcppt::math::box::basic<sge::renderer::scalar,2>(
+					sge::renderer::vector2::null(),
+					fcppt::math::dim::structure_cast<dim2>(
+						context<machine>().systems().renderer()->screen_size()))),
+		point2_unprojected = 
+			fcppt::math::matrix::unproject(
+				point2,
+				inverse_mvp,
+				// The points are already "un-viewported", but they are in
+				// screenspace, so use the screen rect here
+				fcppt::math::box::basic<sge::renderer::scalar,2>(
+					sge::renderer::vector2::null(),
+					fcppt::math::dim::structure_cast<dim2>(
+						context<machine>().systems().renderer()->screen_size()))),
+		point3_unprojected = 
+			fcppt::math::matrix::unproject(
+				sge::renderer::vector3(
+					point1.x(),
+					point1.y(),
+					static_cast<sge::renderer::scalar>(
+						0.5)),
+				inverse_mvp,
+				fcppt::math::box::basic<sge::renderer::scalar,2>(
+					sge::renderer::vector2::null(),
+					fcppt::math::dim::structure_cast<dim2>(
+						context<machine>().systems().renderer()->screen_size()))),
+		first_plane_vector = 
+			point2_unprojected - point1_unprojected,
+		second_plane_vector = 
+			point3_unprojected - point1_unprojected,
+		// NOTE: For rotation matrices M and vectors a,b the following holds:
+		// cross(M*a,M*b) = M*cross(a,b)
+		plane_normal = 
+			multiply_matrix4_vector3<sge::renderer::scalar>(
+				fcppt::math::matrix::transpose(
+					current_fruit.rotation()),
+				fcppt::math::vector::cross(
+					first_plane_vector,
+					second_plane_vector));
+
+	sge::renderer::scalar const plane_scalar = 
+		fcppt::math::vector::dot(
+			multiply_matrix4_vector3<sge::renderer::scalar>(
+				fcppt::math::matrix::transpose(
+					current_fruit.rotation()),
+				point1_unprojected - current_fruit.position()),
+			plane_normal);
+		
+	context<ingame>().cut_fruit(
+		current_fruit,
+		plane(
+			plane_normal,
+			plane_scalar));
+
+	cursor_trail_.clear();
 }

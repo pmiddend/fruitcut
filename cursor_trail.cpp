@@ -7,6 +7,7 @@
 #include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
+#include <fcppt/math/vector/output.hpp>
 #include <iostream>
 
 namespace
@@ -47,7 +48,11 @@ fruitcut::cursor_trail::update()
 {
 	if (!update_timer_.update_b())
 		return;
-	
+
+	std::cout << "adding new position: " << transform_position(
+			cursor_.position(),
+			target_->viewport().get()) << "\n";
+
 	positions_.push_back(
 		transform_position(
 			cursor_.position(),
@@ -58,6 +63,12 @@ fruitcut::cursor_trail::position_buffer const &
 fruitcut::cursor_trail::positions() const
 {
 	return positions_;
+}
+
+void
+fruitcut::cursor_trail::clear()
+{
+	positions_.clear();
 }
 
 fruitcut::cursor_trail::~cursor_trail()

@@ -5,6 +5,7 @@
 #include "running_fwd.hpp"
 #include "../fruit_prototype.hpp"
 #include "../fruit.hpp"
+#include "../plane.hpp"
 #include "../../physics/world.hpp"
 #include "../../input/state.hpp"
 #include <sge/shader/object.hpp>
@@ -59,6 +60,11 @@ public:
 
 	fruit_sequence const &
 	fruits() const;
+
+	void
+	cut_fruit(
+		fruit const &,
+		plane const &);
 
 	~ingame();
 private:

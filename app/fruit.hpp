@@ -13,6 +13,7 @@
 #include <sge/renderer/texture_ptr.hpp>
 #include <sge/renderer/device_ptr.hpp>
 #include <sge/renderer/texture_ptr.hpp>
+#include <sge/renderer/vector3.hpp>
 #include <sge/renderer/matrix4.hpp>
 #include <sge/shader/object_fwd.hpp>
 #include <fcppt/math/matrix/basic_impl.hpp>
@@ -39,6 +40,18 @@ public:
 		physics::matrix4 const &transformation,
 		physics::vector3 const &linear_velocity);
 
+	explicit
+	fruit(
+		sge::renderer::texture_ptr,
+		physics::world &,
+		sge::renderer::device_ptr,
+		sge::shader::object &,
+		fruitcut::app::mesh const &,
+		physics::scalar mass,
+		physics::vector3 const &position,
+		physics::matrix4 const &transformation,
+		physics::vector3 const &linear_velocity);
+
 	sge::renderer::vertex_buffer_ptr const
 	vb() const;
 
@@ -48,12 +61,24 @@ public:
 	sge::renderer::matrix4 const
 	world_transform() const;
 
+	physics::rigid_body::object const &
+	body() const;
+
+	sge::renderer::matrix4 const 
+	rotation() const;
+
+	sge::renderer::vector3 const 
+	position() const;
+
 	box3 const &
 	bounding_box() const;
-	
+
+	fruitcut::app::mesh const &
+	mesh() const;
+
 	~fruit();
 private:
-	mesh mesh_;
+	fruitcut::app::mesh mesh_;
 	box3 bounding_box_;
 	physics::rigid_body::object body_;
 	sge::renderer::vertex_buffer_ptr vb_;

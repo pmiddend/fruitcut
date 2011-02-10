@@ -9,6 +9,7 @@
 #include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <boost/circular_buffer.hpp>
+#include <list>
 #include <cstddef>
 
 namespace fruitcut
@@ -38,6 +39,9 @@ public:
 
 	position_buffer const &
 	positions() const;
+
+	void
+	clear();
 
 	~cursor_trail();
 private:

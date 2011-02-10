@@ -81,6 +81,37 @@ fruitcut::physics::rigid_body::object::world_transform() const
 				deftr.getOrigin()));
 }
 
+fruitcut::physics::matrix4 const
+fruitcut::physics::rigid_body::object::rotation() const
+{
+	btTransform deftr;
+	motion_state_.getWorldTransform(
+		deftr);
+	return 
+		matrix3_to_matrix4<scalar>(
+			structure_cast<matrix3>(
+				deftr.getBasis()));
+}
+
+fruitcut::physics::vector3 const
+fruitcut::physics::rigid_body::object::linear_velocity() const
+{
+	return 
+		structure_cast<vector3>(
+			body_.getLinearVelocity());
+}
+
+fruitcut::physics::vector3 const
+fruitcut::physics::rigid_body::object::position() const
+{
+	btTransform deftr;
+	motion_state_.getWorldTransform(
+		deftr);
+	return 
+		structure_cast<vector3>(
+			deftr.getOrigin());
+}
+
 fruitcut::physics::rigid_body::object::~object()
 {
 }

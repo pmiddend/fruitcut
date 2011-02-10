@@ -3,6 +3,7 @@
 
 #include "scoped_body.hpp"
 #include "../matrix4.hpp"
+#include "../vector3.hpp"
 #include "parameters_fwd.hpp"
 #include "../shared_shape_ptr.hpp"
 #include <bullet/LinearMath/btDefaultMotionState.h>
@@ -27,6 +28,15 @@ public:
 
 	matrix4 const
 	world_transform() const;
+
+	matrix4 const
+	rotation() const;
+
+	vector3	const
+	linear_velocity() const;
+
+	vector3 const
+	position() const;
 
 	~object();
 private:

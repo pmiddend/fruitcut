@@ -1,7 +1,7 @@
 #include "cut_mesh.hpp"
-#include "math/cut_triangle_at_plane.hpp"
-#include "math/triangle_plane_intersection.hpp"
-#include "math/generate_texture_coordinates.hpp"
+#include "../math/cut_triangle_at_plane.hpp"
+#include "../math/triangle_plane_intersection.hpp"
+#include "../math/generate_texture_coordinates.hpp"
 #include "triangle.hpp"
 #include <sge/renderer/vector3.hpp>
 #include <sge/renderer/vector2.hpp>
@@ -10,6 +10,8 @@
 #include <fcppt/math/vector/static.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
 #include <fcppt/math/vector/length.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
+#include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/assign/make_array.hpp>
 #include <boost/foreach.hpp>
 #include <boost/next_prior.hpp>
@@ -33,7 +35,7 @@
 
 namespace
 {
-fruitcut::triangle const
+fruitcut::app::triangle const
 create_triangle(
 	sge::renderer::vector3 const &p0,
 	sge::renderer::vector2 const &t0,
@@ -42,26 +44,26 @@ create_triangle(
 	sge::renderer::vector3 const &p2,
 	sge::renderer::vector2 const &t2)
 {
-	fruitcut::triangle::vertex_array const vertices = {{ p0,p1,p2 }};
-	fruitcut::triangle::texcoord_array const texcoords = {{ t0,t1,t2 }};
+	fruitcut::app::triangle::vertex_array const vertices = {{ p0,p1,p2 }};
+	fruitcut::app::triangle::texcoord_array const texcoords = {{ t0,t1,t2 }};
 	return 
-		fruitcut::triangle(
+		fruitcut::app::triangle(
 			vertices,
 			texcoords);
 }
 
 sge::renderer::vector3 const
 get_position(
-	fruitcut::triangle const &t,
-	fruitcut::triangle::size_type const i)
+	fruitcut::app::triangle const &t,
+	fruitcut::app::triangle::size_type const i)
 {
 	return t.vertices[i];
 }
 
 sge::renderer::vector2 const
 get_data(
-	fruitcut::triangle const &t,
-	fruitcut::triangle::size_type const i)
+	fruitcut::app::triangle const &t,
+	fruitcut::app::triangle::size_type const i)
 {
 	return t.texcoords[i];
 }
@@ -108,13 +110,14 @@ transform_texcoord(
 }
 }
 
-fruitcut::mesh const
-fruitcut::cut_mesh(
+void
+fruitcut::app::cut_mesh(
 	mesh const &m,
-	plane const &p)
+	plane const &p,
+	mesh &result_mesh,
+	box3 &bounding_box,
+	sge::renderer::vector3 &barycenter)
 {
-	mesh result;
-
 	sge::renderer::scalar const epsilon = 
 		static_cast<sge::renderer::scalar>(
 			0.0001);
@@ -166,15 +169,65 @@ fruitcut::cut_mesh(
 		boost::range::copy(
 			single_result.triangles(),
 			std::back_inserter(
-				result.triangles));
+				result_mesh.triangles));
 	}
 
+	if(result_mesh.triangles.empty())
+		return;
+
+	barycenter = sge::renderer::vector3::null();
+	sge::renderer::vector3 
+		min_pos = result_mesh.triangles.front().vertices[0],
+		max_pos = min_pos;
+
+	BOOST_FOREACH(
+		triangle const &current_tri,
+		result_mesh.triangles)
+	{
+		BOOST_FOREACH(
+			triangle::vertex_array::const_reference current_vertex,
+			current_tri.vertices)
+		{
+			barycenter += current_vertex;
+			for (sge::renderer::vector3::size_type i = 0; i < 3; ++i)
+			{
+				min_pos[i] = std::min(min_pos[i],current_vertex[i]);
+				max_pos[i] = std::max(max_pos[i],current_vertex[i]);
+			}
+		}
+	}
+
+	bounding_box = 
+		box3(
+			min_pos,
+			fcppt::math::vector::structure_cast<box3::dim>(
+				max_pos - min_pos));
+
+	barycenter *= 
+		static_cast<sge::renderer::scalar>(1)/
+		static_cast<sge::renderer::scalar>(
+			result_mesh.triangles.size() * 3);
+
+	BOOST_FOREACH(
+		triangle &current_tri,
+		result_mesh.triangles)
+		BOOST_FOREACH(
+			triangle::vertex_array::reference current_vertex,
+			current_tri.vertices)
+			current_vertex -= barycenter;
+
+	if(border.empty())
+		return;
+
+	//std::cout << "border not empty!\n";
+	/*
 	std::cout << "------------------- Input points begin \n";
 	BOOST_FOREACH(
 		point_sequence::const_reference r,
 		border)
 		std::cout << "{" << r[0] << "," << r[1] << "," << r[2] << "},\n";
 	std::cout << "------------------- Input points end\n";
+	*/
 
 	typedef
 	std::vector<sge::renderer::vector2>
@@ -182,15 +235,21 @@ fruitcut::cut_mesh(
 
 	// No const here, we want to delete some of the points
 	texcoord_vector texcoords = 
-		math::generate_texture_coordinates<texcoord_vector>(
-			border);
+		border.empty()
+		?
+			texcoord_vector()
+		:
+			math::generate_texture_coordinates<texcoord_vector>(
+				border);
 
+	/*
 	std::cout << "------------------- Texcoords begin \n";
 	BOOST_FOREACH(
 		texcoord_vector::const_reference r,
 		texcoords)
 		std::cout << "{" << r[0] << "," << r[1] << "},\n";
 	std::cout << "------------------- Texcoords end \n";
+	*/
 
 	typedef
 	std::vector<texcoord_vector::size_type>
@@ -221,7 +280,7 @@ fruitcut::cut_mesh(
 				boost::phoenix::arg_names::arg1[1] < 
 					boost::phoenix::arg_names::arg2[1]));
 
-	std::cout << "Minimalpunkt: " << "{" << (*min_y_it)[0] << "," << (*min_y_it)[1] << "},\n";
+	//std::cout << "Minimalpunkt: " << "{" << (*min_y_it)[0] << "," << (*min_y_it)[1] << "},\n";
 
 	// WLOG, the first element is the one with the lowest y coordinates
 	std::swap(
@@ -263,18 +322,18 @@ fruitcut::cut_mesh(
 					:
 						j);
 
-	std::cout << "Deleted texcoords begin\n";
+//	std::cout << "Deleted texcoords begin\n";
 	BOOST_FOREACH(
 		index_set::const_reference r,
 		to_delete)
 	{
-		std::cout << "{" << (*(texcoords.begin() + static_cast<texcoord_vector::difference_type>(r)))[0] << "," << (*(texcoords.begin() + static_cast<texcoord_vector::difference_type>(r)))[1] << "},\n";
+	//	std::cout << "{" << (*(texcoords.begin() + static_cast<texcoord_vector::difference_type>(r)))[0] << "," << (*(texcoords.begin() + static_cast<texcoord_vector::difference_type>(r)))[1] << "},\n";
 		texcoords.erase(
 			texcoords.begin() + static_cast<texcoord_vector::difference_type>(r));
 		border.erase(
 			border.begin() + static_cast<texcoord_vector::difference_type>(r));
 	}
-	std::cout << "Deleted texcoords end\n";
+//	std::cout << "Deleted texcoords end\n";
 
 	// Now we have to create a new index array!
 	indices.resize(
@@ -295,23 +354,23 @@ fruitcut::cut_mesh(
 			boost::phoenix::ref(texcoords)[boost::phoenix::arg_names::arg2]) 
 			< static_cast<sge::renderer::scalar>(0));
 
-	std::cout << "Sorted points begin\n";
+//	std::cout << "Sorted points begin\n";
 	BOOST_FOREACH(
 		index_sequence::const_reference r,
 		indices)
 		std::cout << "{" << border[r][0] << "," << border[r][1] << "," << border[r][2] << "},\n";
-	std::cout << "Sorted points end\n";
+//	std::cout << "Sorted points end\n";
 
 	for(
 		index_sequence::const_iterator i = boost::next(indices.begin()); 
 		i != boost::prior(indices.end()); 
 		++i)
-		result.triangles.push_back(
+		result_mesh.triangles.push_back(
 			triangle(
 				fcppt::assign::make_array<triangle::vector>
-					(border[indices.front()])
-					(border[*i])
-					(border[*boost::next(i)]),
+					(border[indices.front()] - barycenter)
+					(border[*i] - barycenter)
+					(border[*boost::next(i)] - barycenter),
 				fcppt::assign::make_array<triangle::data_type>
 					(transform_texcoord(
 						texcoords[indices.front()]))
@@ -321,6 +380,4 @@ fruitcut::cut_mesh(
 						texcoords[
 							*boost::next(
 								i)]))));
-	
-	return result;
 }

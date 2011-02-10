@@ -9,6 +9,10 @@
 #include "../../physics/vector3.hpp"
 #include "../../physics/box.hpp"
 #include "../../physics/matrix4.hpp"
+#include "../../physics/scalar.hpp"
+#include "../mesh.hpp"
+#include "../box3.hpp"
+#include "../cut_mesh.hpp"
 #include <sge/model/loader.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/input/keyboard/action.hpp>
@@ -43,20 +47,26 @@
 #include <sge/shader/sampler_sequence.hpp>
 #include <sge/shader/sampler.hpp>
 #include <sge/renderer/scalar.hpp>
+#include <sge/renderer/vector3.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/algorithm/map.hpp>
 #include <fcppt/math/deg_to_rad.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
+#include <fcppt/math/vector/arithmetic.hpp>
 #include <fcppt/math/matrix/basic_impl.hpp>
 #include <fcppt/math/matrix/arithmetic.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/string.hpp>
+#include <fcppt/algorithm/ptr_container_erase.hpp>
 #include <fcppt/assert_message.hpp>
 #include <boost/bind.hpp>
 #include <boost/ref.hpp>
+#include <boost/foreach.hpp>
 #include <boost/statechart/event_base.hpp>
 #include <iostream>
+
+
 
 namespace
 {
@@ -260,12 +270,6 @@ fruitcut::app::states::ingame::render_fruits()
 	}
 }
 
-sge::camera::object &
-fruitcut::app::states::ingame::camera()
-{
-	return camera_;
-}
-
 fruitcut::app::states::ingame::fruit_sequence &
 fruitcut::app::states::ingame::fruits()
 {
@@ -278,10 +282,72 @@ fruitcut::app::states::ingame::fruits() const
 	return fruits_;
 }
 
+sge::camera::object &
+fruitcut::app::states::ingame::camera()
+{
+	return camera_;
+}
+
+
 sge::camera::object const &
 fruitcut::app::states::ingame::camera() const
 {
 	return camera_;
+}
+
+void
+fruitcut::app::states::ingame::cut_fruit(
+	fruit const &current_fruit,
+	plane const &original_plane)
+{
+	fcppt::container::array<plane,2> planes =
+		{{
+			original_plane,
+			plane(
+				-original_plane.normal(),
+				-original_plane.lambda())	
+		}};
+
+	// make_array here to be even cooler? :>
+	BOOST_FOREACH(
+		plane const &p,
+		planes)
+	{
+		mesh split_mesh;
+		box3 bounding_box;
+		sge::renderer::vector3 barycenter;
+		cut_mesh(
+			current_fruit.mesh(),
+			p,
+			split_mesh,
+			bounding_box,
+			barycenter);
+
+		if (split_mesh.triangles.empty())
+			continue;
+
+		/*
+		fruits_.push_back(
+			new fruit(
+				current_fruit.texture(),
+				physics_world_,
+				context<machine>().systems().renderer(),
+				fruit_shader_,
+				split_mesh,
+				static_cast<physics::scalar>(
+					current_fruit.bounding_box().dimension().content() / bounding_box.dimension().content()),
+				current_fruit.position() + barycenter,
+				current_fruit.body().rotation(),
+				current_fruit.body().linear_velocity()));
+			*/
+		std::cout << "adding new fruit\n";
+	}
+
+	/*
+	fcppt::algorithm::ptr_container_erase(
+		fruits_,
+		&current_fruit);
+	*/
 }
 
 fruitcut::app::states::ingame::~ingame()
