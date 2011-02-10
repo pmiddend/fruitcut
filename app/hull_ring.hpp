@@ -1,5 +1,5 @@
-#ifndef FRUITCUT_APP_HULL_POINT_SEQUENCE_HPP_INCLUDED
-#define FRUITCUT_APP_HULL_POINT_SEQUENCE_HPP_INCLUDED
+#ifndef FRUITCUT_APP_HULL_RING_HPP_INCLUDED
+#define FRUITCUT_APP_HULL_RING_HPP_INCLUDED
 
 #include "../geometry_traits/vector.hpp"
 #include <sge/renderer/vector2.hpp>
@@ -15,8 +15,8 @@ namespace app
 // renderer::vector2 is arbitrary. The hull could also be output as
 // integer vectors.
 typedef
-boost::geometry::model::multi_point<sge::renderer::vector2>
-hull_point_sequence;
+boost::geometry::model::ring<sge::renderer::vector2>
+hull_ring;
 }
 }
 

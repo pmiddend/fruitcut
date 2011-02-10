@@ -61,6 +61,12 @@ private:
 	sge::renderer::state::scoped scoped_render_state_;
 	line_drawer::object line_drawer_;
 	cursor_trail cursor_trail_;
+
+	void
+	draw_fruit_bbs();
+
+	void
+	draw_mouse_trail();
 };
 }
 }

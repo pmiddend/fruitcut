@@ -51,21 +51,10 @@ fruitcut::pp::system::system(
 		_renderer),
 	shader_(
 		renderer_,
-		media_path()/FCPPT_TEXT("shaders")/FCPPT_TEXT("copy_vertex.glsl"),
-		media_path()/FCPPT_TEXT("shaders")/FCPPT_TEXT("copy_fragment.glsl"),
+		media_path()/FCPPT_TEXT("shaders")/FCPPT_TEXT("pp_to_screen_vertex.glsl"),
+		media_path()/FCPPT_TEXT("shaders")/FCPPT_TEXT("pp_to_screen_fragment.glsl"),
 		sge::shader::vf_to_string<screen_vf::format>(),
-		fcppt::assign::make_container<sge::shader::variable_sequence>
-			(sge::shader::variable(
-				"target_size",
-				sge::shader::variable_type::const_,
-				fcppt::math::dim::structure_cast<sge::renderer::vector2>(
-					renderer_->screen_size())))
-			(sge::shader::variable(
-				"flip",
-				sge::shader::variable_type::const_,
-				// bool not supported in sge
-				static_cast<int>(
-					0))),
+		sge::shader::variable_sequence(),
 		fcppt::assign::make_container<sge::shader::sampler_sequence>(
 			sge::shader::sampler(
 				"tex",

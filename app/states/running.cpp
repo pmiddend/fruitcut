@@ -1,9 +1,8 @@
 #include "running.hpp"
 #include "paused.hpp"
-#include "../hull_point_sequence.hpp"
+#include "../hull_ring.hpp"
 #include "../fruit_projected_hull.hpp"
 #include "../events/tick.hpp"
-#include "../geometry_traits/vector.hpp"
 #include "../json/find_member.hpp"
 #include "../../physics/world.hpp"
 #include <sge/renderer/onscreen_target.hpp>
@@ -22,14 +21,15 @@
 #include <fcppt/math/vector/construct.hpp>
 #include <fcppt/math/vector/structure_cast.hpp>
 #include <fcppt/text.hpp>
-#include <boost/geometry/geometries/ring.hpp>
-#include <boost/geometry/algorithms/convex_hull.hpp>
 #include <boost/foreach.hpp>
 #include <boost/next_prior.hpp>
 #include <iostream>
 
 namespace
 {
+// There's some mixup here: The projected convex hull is "upside" down
+// (or the mouse coordinates are), so I decided to swap the cursor
+// position here.
 sge::renderer::vector3 const
 transform_cursor_position(
 	sge::input::cursor::position const &p,
@@ -38,12 +38,14 @@ transform_cursor_position(
 	return 
 		sge::renderer::vector3(
 			static_cast<sge::renderer::scalar>(
-				p.x()),
+				p.x() - viewport.pos().x()),
 			static_cast<sge::renderer::scalar>(
-				viewport.h() - p.y()),
+				viewport.dimension().h() - p.y() - viewport.pos().y()),
 			static_cast<sge::renderer::scalar>(
 				0));
 }
+
+
 }
 
 fruitcut::app::states::running::running(
@@ -110,7 +112,11 @@ fruitcut::app::states::running::react(
 	cursor_trail_.update();
 
 	line_drawer_.lines().clear();
+	draw_fruit_bbs();
+	draw_mouse_trail();
+	line_drawer_.update();
 
+	/*
 	BOOST_FOREACH(
 		ingame::fruit_sequence::const_reference r,
 		context<ingame>().fruits())
@@ -127,6 +133,28 @@ fruitcut::app::states::running::react(
 				context<machine>().systems().renderer()->onscreen_target(),
 				context<ingame>().camera().mvp()),
 			hull);
+	}
+	*/
+
+	return discard_event();
+}
+
+fruitcut::app::states::running::~running()
+{
+}
+
+void
+fruitcut::app::states::running::draw_fruit_bbs()
+{
+	BOOST_FOREACH(
+		ingame::fruit_sequence::const_reference r,
+		context<ingame>().fruits())
+	{
+		hull_ring hull = 
+			fruit_projected_hull(
+				r,
+				context<machine>().systems().renderer()->onscreen_target(),
+				context<ingame>().camera().mvp());
 
 		for(
 			hull_ring::const_iterator hull_point = hull.begin(); 
@@ -151,34 +179,28 @@ fruitcut::app::states::running::react(
 							0))));
 		}
 	}
-
-	if (!cursor_trail_.positions().empty())
-	{
-		for(
-			cursor_trail::position_buffer::const_iterator i = 
-				cursor_trail_.positions().begin(); 
-			i != boost::prior(cursor_trail_.positions().end()); 
-			++i)
-		{
-			line_drawer_.lines().push_back(
-				line_drawer::line(
-					transform_cursor_position(
-						*i,
-						context<machine>().systems().renderer()->onscreen_target()->viewport().get()),
-					transform_cursor_position(
-						*boost::next(
-							i),
-						context<machine>().systems().renderer()->onscreen_target()->viewport().get()),
-					sge::image::colors::red(),
-					sge::image::colors::red()));
-		}
-	}
-
-	line_drawer_.update();
-
-	return discard_event();
 }
 
-fruitcut::app::states::running::~running()
+void
+fruitcut::app::states::running::draw_mouse_trail()
 {
+	if (cursor_trail_.positions().empty())
+		return;
+
+	for(
+		cursor_trail::position_buffer::const_iterator i = 
+			cursor_trail_.positions().begin(); 
+		i != boost::prior(cursor_trail_.positions().end()); 
+		++i)
+		line_drawer_.lines().push_back(
+			line_drawer::line(
+				transform_cursor_position(
+					*i,
+					context<machine>().systems().renderer()->onscreen_target()->viewport().get()),
+				transform_cursor_position(
+					*boost::next(
+						i),
+					context<machine>().systems().renderer()->onscreen_target()->viewport().get()),
+				sge::image::colors::red(),
+				sge::image::colors::red()));
 }

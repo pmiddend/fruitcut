@@ -29,13 +29,17 @@
 #include <iostream>
 #include <vector>
 
-fruitcut::app::hull_point_sequence const
+fruitcut::app::hull_ring const
 fruitcut::app::fruit_projected_hull(
 	fruit const &f,
 	sge::renderer::target_base_ptr const target,
 	sge::renderer::matrix4 const &mvp)
 {
-	hull_point_sequence result;
+	typedef
+	boost::geometry::model::multi_point<hull_ring::value_type>
+	hull_point_cloud;
+
+	hull_point_cloud point_cloud;
 
 	BOOST_FOREACH(
 		box3::vector const &v,
@@ -53,7 +57,7 @@ fruitcut::app::fruit_projected_hull(
 							1));
 
 		sge::renderer::vector2 const divided = 
-			fcppt::math::vector::narrow_cast<hull_point_sequence::value_type>(
+			fcppt::math::vector::narrow_cast<hull_point_cloud::value_type>(
 				projected / projected[3]);
 
 		sge::renderer::vector2 const window_coordinates = 
@@ -68,9 +72,15 @@ fruitcut::app::fruit_projected_hull(
 						// Fucking strong typedef shit
 						target->viewport().get().pos());
 
-		result.push_back(
+		point_cloud.push_back(
 			window_coordinates);
 	}
+
+	hull_ring result;
+
+	boost::geometry::convex_hull(
+		point_cloud,
+		result);
 
 	return result;
 }
