@@ -159,6 +159,7 @@ ADD_EXECUTABLE(
 	app/postprocessing.cpp 
 	app/name.cpp
 	app/fruit_projected_hull.cpp
+	app/hull_trail_intersection.cpp
 	app/events/tick.cpp
 	app/mesh_to_shape.cpp
 	app/model_to_mesh.cpp

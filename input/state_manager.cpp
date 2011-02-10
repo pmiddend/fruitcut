@@ -31,6 +31,12 @@ fruitcut::input::state_manager::state_manager(
 				&state_manager::mouse_button_callback_internal,
 				this,
 				_1))),
+	c4(
+		systems.keyboard_collector()->char_callback(
+			boost::bind(
+				&state_manager::char_callback_internal,
+				this,
+				_1))),
 	current_state_(
 		0)
 {
@@ -82,6 +88,14 @@ fruitcut::input::state_manager::key_callback_internal(
 			c);
 }
 
+void
+fruitcut::input::state_manager::char_callback_internal(
+	sge::input::keyboard::char_event const &c)
+{
+	if (current_state_)
+		current_state_->char_callback_internal(
+			c);
+}
 
 void
 fruitcut::input::state_manager::mouse_axis_callback_internal(

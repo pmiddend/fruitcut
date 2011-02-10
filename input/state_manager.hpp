@@ -3,12 +3,11 @@
 
 #include "state_fwd.hpp"
 #include <sge/systems/instance_fwd.hpp>
-#include <sge/input/keyboard/key_function.hpp>
 #include <sge/input/keyboard/device_fwd.hpp>
-#include <sge/input/mouse/axis_function.hpp>
-#include <sge/input/mouse/button_function.hpp>
 #include <sge/input/keyboard/key_callback.hpp>
+#include <sge/input/keyboard/char_callback.hpp>
 #include <sge/input/keyboard/key_event_fwd.hpp>
+#include <sge/input/keyboard/char_event_fwd.hpp>
 #include <sge/input/mouse/axis_callback.hpp>
 #include <sge/input/mouse/button_callback.hpp>
 #include <sge/input/mouse/button_event_fwd.hpp>
@@ -59,7 +58,7 @@ private:
 	friend class state;
 
 	sge::input::keyboard::device &keyboard_;
-	fcppt::signal::scoped_connection c1,c2,c3;
+	fcppt::signal::scoped_connection c1,c2,c3,c4;
 
 	// We don't store all the states, but we keep track of destruction,
 	// so _this_ variable doesn't get invalid
@@ -83,6 +82,10 @@ private:
 	void
 	key_callback_internal(
 		sge::input::keyboard::key_event const &);
+
+	void
+	char_callback_internal(
+		sge::input::keyboard::char_event const &);
 
 	void
 	mouse_axis_callback_internal(
