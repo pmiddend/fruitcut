@@ -52,6 +52,7 @@
 #include <sge/time/timer.hpp>
 #include <sge/font/size_type.hpp>
 #include <sge/time/unit.hpp>
+#include <sge/exception.hpp>
 #include <sge/time/second.hpp>
 #include <sge/font/text/lit.hpp>
 #include <sge/font/system.hpp>
@@ -59,12 +60,18 @@
 #include <sge/input/keyboard/device.hpp>
 #include <sge/input/keyboard/key_code.hpp>
 #include <sge/time/clock.hpp>
+#include <awl/mainloop/asio/create_io_service.hpp>
+#include <awl/mainloop/asio/io_service.hpp>
+#include <awl/mainloop/io_service.hpp>
+#include <awl/mainloop/dispatcher.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
 #include <fcppt/math/dim/quad.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/from_std_string.hpp>
+#include <fcppt/tr1/functional.hpp>
 #include <boost/spirit/home/phoenix/object/new.hpp>
 #include <boost/spirit/home/phoenix/bind.hpp>
 #include <boost/spirit/home/phoenix/core/reference.hpp>
@@ -72,6 +79,9 @@
 #include <boost/spirit/home/phoenix/operator.hpp>
 #include <boost/spirit/home/phoenix/object/construct.hpp>
 #include <boost/bind.hpp>
+#include <boost/asio.hpp>
+#include <boost/system/error_code.hpp>
+#include <boost/date_time/posix_time/posix_time.hpp>
 #include <iostream>
 #include <string>
 
@@ -95,11 +105,13 @@ fruitcut::app::machine::machine(
 				FCPPT_TEXT("user_config.json")),
 		argc,
 		argv)),
+	io_service_(
+		awl::mainloop::asio::create_io_service()),
 	systems_(
 		sge::systems::list()
 			(sge::systems::window(
 				sge::renderer::window_parameters(
-					name())))
+					name())).io_service(io_service_))
 			(sge::systems::renderer(
 				sge::renderer::parameters(
 					sge::renderer::display_mode(
@@ -207,18 +219,14 @@ fruitcut::app::machine::machine(
 			FCPPT_TEXT("pp"))),
 	particle_system_(
 		systems_.renderer()),
-	running_(
-		true),
 	exit_connection_(
 		systems_.keyboard_collector()->key_callback(
 			sge::input::keyboard::action(
 				sge::input::keyboard::key_code::escape,
-				boost::bind(
-					&mytest,
-					boost::ref(running_))
-				// This doesn't work, WHHYYYYYYYYY?
-				//boost::phoenix::ref(running_) = false 
-				))),
+				// boost::bind doesn't get this
+				std::tr1::bind(
+					&awl::mainloop::dispatcher::stop,
+					systems_.window()->awl_dispatcher())))),
 	current_time_(
 		sge::time::clock::now()),
 	transformed_time_(
@@ -237,8 +245,15 @@ fruitcut::app::machine::machine(
 			config_file(),
 			FCPPT_TEXT("sounds")),
 		systems_.audio_loader(),
-		systems_.audio_player())
+		systems_.audio_player()),
+	frame_timer_(
+		io_service_->get(),
+		boost::posix_time::milliseconds(
+			json::find_member<long>(
+				config_file(),
+				FCPPT_TEXT("frame-timer-ms"))))
 {
+	systems_.window()->show();
 	input_manager_.current_state(
 		game_state_);
 	systems_.audio_player()->gain(
@@ -299,50 +314,12 @@ fruitcut::app::machine::postprocessing()
 void
 fruitcut::app::machine::run()
 {
-	while (running_)
-	{
-		systems_.window()->dispatch();
-
-		// So what does this do? Well, we effectively manage two "clocks"
-		// here. One goes along with the real clock (with
-		// sge::time::clock) and knows the "real" current time. The other
-		// one (transformed_time) might be faster or slower than the real
-		// clock. The real clock acts as a "duration difference" giver.
-		sge::time::point const latest_time = 
-			sge::time::clock::now();
-
-		sge::time::duration const diff = 
-			time_transform_(
-				latest_time - current_time_);
-
-		transformed_time_ += 
-			diff;
-
-		current_time_ = latest_time;
-
-		process_event(
-			events::tick(
-				diff));
-
-		sound_controller_.update();
-
-		// This implicitly sends events::render through the
-		// render-to-texture filter
-		postprocessing_.update();
-
-		sge::renderer::scoped_block scoped_block(
-			systems_.renderer());
-
-		postprocessing_.render_result();
-
-		process_event(
-			events::render_overlay());
-
-		if (!console_gfx_.active())
-			continue;
-
-		console_gfx_.draw();
-	}
+	frame_timer_.async_wait(
+		boost::bind(
+			&machine::run_once,
+			this,
+			boost::asio::placeholders::error));
+	io_service_->run();
 }
 
 sge::time::callback const 
@@ -407,3 +384,65 @@ fruitcut::app::machine::console_switch()
 			*previous_state_);
 	}
 }
+
+void
+fruitcut::app::machine::run_once(
+	boost::system::error_code const &e)
+{
+	if (e)
+		throw sge::exception(
+			FCPPT_TEXT("Error in deadline_timer handler: ")+
+			fcppt::from_std_string(
+				e.message()));
+//	systems_.window()->dispatch();
+
+	// So what does this do? Well, we effectively manage two "clocks"
+	// here. One goes along with the real clock (with
+	// sge::time::clock) and knows the "real" current time. The other
+	// one (transformed_time) might be faster or slower than the real
+	// clock. The real clock acts as a "duration difference" giver.
+	sge::time::point const latest_time = 
+		sge::time::clock::now();
+
+	sge::time::duration const diff = 
+		time_transform_(
+			latest_time - current_time_);
+
+	transformed_time_ += 
+		diff;
+
+	current_time_ = latest_time;
+
+	process_event(
+		events::tick(
+			diff));
+
+	sound_controller_.update();
+
+	// This implicitly sends events::render through the
+	// render-to-texture filter
+	postprocessing_.update();
+
+	sge::renderer::scoped_block scoped_block(
+		systems_.renderer());
+
+	postprocessing_.render_result();
+
+	process_event(
+		events::render_overlay());
+
+	if (console_gfx_.active())
+		console_gfx_.draw();
+
+	frame_timer_.expires_from_now(
+		boost::posix_time::milliseconds(
+			json::find_member<long>(
+				config_file(),
+				FCPPT_TEXT("frame-timer-ms"))));
+	frame_timer_.async_wait(
+		boost::bind(
+			&machine::run_once,
+			this,
+			boost::asio::placeholders::error));
+}
+

@@ -1,4 +1,5 @@
 {
+	"frame-timer-ms" : 10,
 	"mouse" : 
 	{
 		"confine-cursor" : true,

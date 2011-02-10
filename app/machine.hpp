@@ -7,6 +7,7 @@
 #include "../input/state_manager.hpp"
 #include "../input/state.hpp"
 #include "states/intro_fwd.hpp"
+#include <awl/mainloop/asio/io_service_ptr.hpp>
 #include <sge/parse/json/object.hpp>
 #include <sge/parse/json/array.hpp>
 #include <sge/systems/instance.hpp>
@@ -23,6 +24,8 @@
 #include <fcppt/signal/scoped_connection.hpp>
 #include <boost/statechart/state_machine.hpp>
 #include <boost/function.hpp>
+#include <boost/system/error_code.hpp>
+#include <boost/asio/deadline_timer.hpp>
 
 namespace fruitcut
 {
@@ -64,11 +67,11 @@ public:
 	create_texture(
 		fcppt::filesystem::path const &);
 
-	fruitcut::app::postprocessing &
-	postprocessing();
-
 	void
 	run();
+
+	fruitcut::app::postprocessing &
+	postprocessing();
 
 	sge::time::callback const 
 	timer_callback() const;
@@ -86,6 +89,7 @@ public:
 	~machine();
 private:
 	sge::parse::json::object const config_file_;
+	awl::mainloop::asio::io_service_ptr io_service_;
 	sge::systems::instance const systems_;
 	sge::texture::manager texture_manager_;
 	input::state_manager input_manager_;
@@ -95,15 +99,19 @@ private:
 	sge::console::gfx console_gfx_;
 	fruitcut::app::postprocessing postprocessing_;
 	particle::system particle_system_;
-	bool running_;
 	fcppt::signal::scoped_connection exit_connection_;
 	sge::time::point current_time_,transformed_time_;
 	time_transform_function time_transform_;
 	fcppt::signal::scoped_connection console_switch_connection_;
 	sound_controller sound_controller_;
+	boost::asio::deadline_timer frame_timer_;
 
 	void
 	console_switch();
+
+	void
+	run_once(
+		boost::system::error_code const &);
 };
 }
 }
