@@ -40,7 +40,7 @@ transform_cursor_position(
 			static_cast<sge::renderer::scalar>(
 				p.x() - viewport.pos().x()),
 			static_cast<sge::renderer::scalar>(
-				viewport.dimension().h() - p.y() - viewport.pos().y()),
+				viewport.dimension().h() - p.y() + viewport.pos().y()),
 			static_cast<sge::renderer::scalar>(
 				0));
 }
