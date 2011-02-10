@@ -1,4 +1,8 @@
 #include "hull_trail_intersection.hpp"
+#include <fcppt/optional.hpp>
+#include <fcppt/homogenous_pair.hpp>
+#include <fcppt/math/vector/basic_impl.hpp>
+#include <boost/geometry/geometry.hpp>
 
 fcppt::optional
 <
@@ -8,10 +12,19 @@ fruitcut::app::hull_trail_intersection(
 	hull_ring const &hull,
 	cursor_trail::position_buffer const &positions)
 {
-	fcppt::optional<hull_ring::value_type> first_intersection;
-	
-	for(hull_ring::const_iterator i = hull.begin(); i != hull.end(); ++i)
-	{
-		
-	}
+	/*
+	typedef
+	std::vector<hull_ring::value_type>
+	result_vector;
+
+	typedef
+	boost::geometry::model::linestring<hull_ring::value_type>
+	linestring_type;
+
+	result_vector result;
+
+	boost::geometry::intersection(
+		hull,
+		);
+	*/
 }

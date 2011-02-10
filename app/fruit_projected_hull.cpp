@@ -26,6 +26,8 @@
 #include <fcppt/math/dim/output.hpp>
 #include <fcppt/math/vector/output.hpp>
 #include <boost/foreach.hpp>
+#include <boost/geometry/multi/multi.hpp>
+#include <boost/geometry/geometry.hpp>
 #include <iostream>
 #include <vector>
 

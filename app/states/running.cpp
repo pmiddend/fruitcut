@@ -25,29 +25,6 @@
 #include <boost/next_prior.hpp>
 #include <iostream>
 
-namespace
-{
-// There's some mixup here: The projected convex hull is "upside" down
-// (or the mouse coordinates are), so I decided to swap the cursor
-// position here.
-sge::renderer::vector3 const
-transform_cursor_position(
-	sge::input::cursor::position const &p,
-	sge::renderer::pixel_rect const &viewport)
-{
-	return 
-		sge::renderer::vector3(
-			static_cast<sge::renderer::scalar>(
-				p.x() - viewport.pos().x()),
-			static_cast<sge::renderer::scalar>(
-				viewport.dimension().h() - p.y() + viewport.pos().y()),
-			static_cast<sge::renderer::scalar>(
-				0));
-}
-
-
-}
-
 fruitcut::app::states::running::running(
 	my_context ctx)
 :
@@ -70,7 +47,8 @@ fruitcut::app::states::running::running(
 				FCPPT_TEXT("mouse/trail-update-rate-ms"))),
 		json::find_member<cursor_trail::size_type>(
 				context<machine>().config_file(),
-				FCPPT_TEXT("mouse/trail-samples")))
+				FCPPT_TEXT("mouse/trail-samples")),
+		context<machine>().systems().renderer()->onscreen_target())
 {
 	context<machine>().postprocessing().active(
 		true);
@@ -194,13 +172,20 @@ fruitcut::app::states::running::draw_mouse_trail()
 		++i)
 		line_drawer_.lines().push_back(
 			line_drawer::line(
-				transform_cursor_position(
-					*i,
-					context<machine>().systems().renderer()->onscreen_target()->viewport().get()),
-				transform_cursor_position(
-					*boost::next(
-						i),
-					context<machine>().systems().renderer()->onscreen_target()->viewport().get()),
+				sge::renderer::vector3(
+					static_cast<sge::renderer::scalar>(
+						i->x()),
+					static_cast<sge::renderer::scalar>(
+						i->y()),
+					static_cast<sge::renderer::scalar>(
+						0)),
+				sge::renderer::vector3(
+					static_cast<sge::renderer::scalar>(
+						boost::next(i)->x()),
+					static_cast<sge::renderer::scalar>(
+						boost::next(i)->y()),
+					static_cast<sge::renderer::scalar>(
+						0)),
 				sge::image::colors::red(),
 				sge::image::colors::red()));
 }

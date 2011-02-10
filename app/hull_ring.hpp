@@ -5,17 +5,19 @@
 #include <sge/renderer/vector2.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
 #include <boost/geometry/geometry.hpp>
-#include <boost/geometry/multi/multi.hpp>
 #include <vector>
 
 namespace fruitcut
 {
 namespace app
 {
+typedef
 // renderer::vector2 is arbitrary. The hull could also be output as
 // integer vectors.
-typedef
-boost::geometry::model::ring<sge::renderer::vector2>
+// The intersection algorithm doesn't like "ring x linestring"
+// intersections, so I use a string here.
+//boost::geometry::model::ring<sge::renderer::vector2>
+boost::geometry::model::linestring<sge::renderer::vector2>
 hull_ring;
 }
 }
