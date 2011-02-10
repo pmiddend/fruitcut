@@ -1,13 +1,17 @@
 #include "hull_trail_intersection.hpp"
 
-// Returns either no or two intersection points (three or more
-// wouldn't do any good)
 fcppt::optional
 <
 	fcppt::homogenous_pair<fruitcut::app::hull_ring::value_type> 
 > const
 fruitcut::app::hull_trail_intersection(
-	hull_ring const &,
-	cursor_trail::position_buffer const &)
+	hull_ring const &hull,
+	cursor_trail::position_buffer const &positions)
 {
+	fcppt::optional<hull_ring::value_type> first_intersection;
+	
+	for(hull_ring::const_iterator i = hull.begin(); i != hull.end(); ++i)
+	{
+		
+	}
 }

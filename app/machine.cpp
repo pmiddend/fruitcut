@@ -434,15 +434,18 @@ fruitcut::app::machine::run_once(
 	if (console_gfx_.active())
 		console_gfx_.draw();
 
-	frame_timer_.expires_from_now(
-		boost::posix_time::milliseconds(
-			json::find_member<long>(
-				config_file(),
-				FCPPT_TEXT("frame-timer-ms"))));
-	frame_timer_.async_wait(
-		boost::bind(
-			&machine::run_once,
-			this,
-			boost::asio::placeholders::error));
+	if (!systems_.window()->awl_dispatcher()->is_stopped())
+	{
+		frame_timer_.expires_from_now(
+			boost::posix_time::milliseconds(
+				json::find_member<long>(
+					config_file(),
+					FCPPT_TEXT("frame-timer-ms"))));
+		frame_timer_.async_wait(
+			boost::bind(
+				&machine::run_once,
+				this,
+				boost::asio::placeholders::error));
+	}
 }
 
