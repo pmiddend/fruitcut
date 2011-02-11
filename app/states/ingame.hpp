@@ -62,12 +62,23 @@ public:
 	fruits() const;
 
 	void
+	update_caches();
+
+	void
 	cut_fruit(
 		fruit const &,
 		plane const &);
 
 	~ingame();
 private:
+	typedef
+	std::vector<fruit const*>
+	old_fruit_list;
+
+	typedef
+	boost::ptr_list<fruit>
+	new_fruit_list;
+
 	fcppt::signal::scoped_connection toggle_pause_connection_,toggle_camera_;
 	input::state camera_state_;
 	sge::camera::object camera_;
@@ -75,6 +86,8 @@ private:
 	physics::world physics_world_;
 	fruit_sequence fruits_; 
 	sge::shader::object fruit_shader_;
+	old_fruit_list old_fruits_;
+	new_fruit_list new_fruits_;
 
 	void
 	toggle_camera();

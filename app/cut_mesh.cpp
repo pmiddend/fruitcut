@@ -355,10 +355,12 @@ fruitcut::app::cut_mesh(
 			< static_cast<sge::renderer::scalar>(0));
 
 //	std::cout << "Sorted points begin\n";
+	/*
 	BOOST_FOREACH(
 		index_sequence::const_reference r,
 		indices)
-		std::cout << "{" << border[r][0] << "," << border[r][1] << "," << border[r][2] << "},\n";
+	*/
+	//	std::cout << "{" << border[r][0] << "," << border[r][1] << "," << border[r][2] << "},\n";
 //	std::cout << "Sorted points end\n";
 
 	for(

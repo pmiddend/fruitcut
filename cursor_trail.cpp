@@ -3,8 +3,11 @@
 #include <sge/input/cursor/position.hpp>
 #include <sge/input/cursor/position_unit.hpp>
 #include <sge/renderer/pixel_rect.hpp>
+#include <sge/renderer/vector2.hpp>
 #include <sge/renderer/target_base.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
+#include <fcppt/math/vector/length.hpp>
+#include <fcppt/math/vector/structure_cast.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/math/vector/output.hpp>
@@ -35,11 +38,13 @@ fruitcut::cursor_trail::cursor_trail(
 	cursor_(
 		_cursor),
 	positions_(
-		_sample_count),
+		/*_sample_count*/),
 	update_timer_(
 		_update_frequency),
 	target_(
-		_target)
+		_target),
+	capacity_(
+		_sample_count)
 {
 }
 
@@ -49,14 +54,25 @@ fruitcut::cursor_trail::update()
 	if (!update_timer_.update_b())
 		return;
 
+	if (fcppt::math::vector::length(fcppt::math::vector::structure_cast<sge::renderer::vector2>(transform_position(
+			cursor_.position(),
+			target_->viewport().get()))) < 10)
+		std::cout << "adding new position: " << transform_position(
+			cursor_.position(),
+			target_->viewport().get()) << "\n";
+	/*
 	std::cout << "adding new position: " << transform_position(
 			cursor_.position(),
 			target_->viewport().get()) << "\n";
+	*/
 
 	positions_.push_back(
 		transform_position(
 			cursor_.position(),
 			target_->viewport().get()));
+
+	if (positions_.size() > capacity_)
+		positions_.pop_front();
 }
 
 fruitcut::cursor_trail::position_buffer const &

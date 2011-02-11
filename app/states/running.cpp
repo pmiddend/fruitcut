@@ -136,6 +136,7 @@ fruitcut::app::states::running::react(
 		context<ingame>().fruits())
 		process_fruit(
 			r);
+	context<ingame>().update_caches();
 
 	return discard_event();
 }
@@ -228,11 +229,6 @@ fruitcut::app::states::running::process_fruit(
 	if (!intersection)
 		return;
 
-	static int counter = 0;
-	std::cout << ++counter << " doing something\n";
-
-	//std::cout <<  ++counter <<  "intersections at " << intersection->first << " and " << intersection->second << "\n";
-	
 	// Just for debugging purposes
 	dim2 const ss = 
 		fcppt::math::dim::structure_cast<dim2>(

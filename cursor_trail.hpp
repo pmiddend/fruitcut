@@ -20,7 +20,8 @@ FCPPT_NONCOPYABLE(
 	cursor_trail);
 public:
 	typedef	
-	boost::circular_buffer<sge::input::cursor::position>
+	//boost::circular_buffer<sge::input::cursor::position>
+	std::list<sge::input::cursor::position>
 	position_buffer;
 
 	typedef
@@ -49,6 +50,7 @@ private:
 	position_buffer positions_;
 	sge::time::timer update_timer_;
 	sge::renderer::target_base_ptr target_;
+	size_type capacity_;
 };
 }
 

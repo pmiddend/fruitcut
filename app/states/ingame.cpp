@@ -58,6 +58,7 @@
 #include <fcppt/math/matrix/arithmetic.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/string.hpp>
+#include <fcppt/assert.hpp>
 #include <fcppt/algorithm/ptr_container_erase.hpp>
 #include <fcppt/assert_message.hpp>
 #include <boost/bind.hpp>
@@ -70,6 +71,9 @@
 
 namespace
 {
+// I don't know what's sensible here, so I just fix it to 100. I could
+// also use the dbvt broadphase which doesn't have a size limit, but
+// that's overkill for just a few objects.
 fruitcut::physics::scalar const world_size = 
 	static_cast<fruitcut::physics::scalar>(
 		100);
@@ -192,8 +196,8 @@ fruitcut::app::states::ingame::ingame(
 	fruits_(),
 	fruit_shader_(
 		context<machine>().systems().renderer(),
-		media_path()/FCPPT_TEXT("shaders")/FCPPT_TEXT("vertex.glsl"),
-		media_path()/FCPPT_TEXT("shaders")/FCPPT_TEXT("fragment.glsl"),
+		media_path()/FCPPT_TEXT("shaders")/FCPPT_TEXT("model_vertex.glsl"),
+		media_path()/FCPPT_TEXT("shaders")/FCPPT_TEXT("model_fragment.glsl"),
 		sge::shader::vf_to_string<model_vf::format>(),
 		fcppt::assign::make_container<sge::shader::variable_sequence>(
 			sge::shader::variable(
@@ -203,7 +207,9 @@ fruitcut::app::states::ingame::ingame(
 		fcppt::assign::make_container<sge::shader::sampler_sequence>(
 			sge::shader::sampler(
 				"texture",
-				sge::renderer::texture_ptr())))
+				sge::renderer::texture_ptr()))),
+	old_fruits_(),
+	new_fruits_()
 {
 	FCPPT_ASSERT_MESSAGE(
 		!prototypes_.empty(),
@@ -282,6 +288,39 @@ fruitcut::app::states::ingame::fruits() const
 	return fruits_;
 }
 
+/**
+	This is a little complicated. Why this function? Well, "write
+	access" to the fruits should only occur in the ingame state. So
+	there's "cut_fruit()" to cut a fruit at a specified plane. We might,
+	however, iterate through all the fruits and call "cut_fruit" while
+	doing that, which results in undefined behaviour.
+
+	So there are two auxiliary containers: new_fruits and
+	old_fruits. You have to call the function below so new fruits are
+	inserted and old ones are deleted!
+ */
+void
+fruitcut::app::states::ingame::update_caches()
+{
+	BOOST_FOREACH(
+		fruit const *old_fruit,
+		old_fruits_)
+		fcppt::algorithm::ptr_container_erase(
+			fruits_,
+			// ptr_container_erase doesn't like it when it gets a "T const
+			// *", but we know it's safe because ingame is the only class
+			// having write-access to the fruits
+			const_cast<fruit *>(
+				old_fruit));
+	old_fruits_.clear();
+
+	fruits_.transfer(
+		fruits_.end(),
+		new_fruits_);
+	FCPPT_ASSERT(
+		new_fruits_.empty());
+}
+
 sge::camera::object &
 fruitcut::app::states::ingame::camera()
 {
@@ -325,9 +364,8 @@ fruitcut::app::states::ingame::cut_fruit(
 
 		if (split_mesh.triangles.empty())
 			continue;
-
-		/*
-		fruits_.push_back(
+		// push here, then move new_fruits to fruits (else we're inserting while we're iterating -> not good)
+		new_fruits_.push_back(
 			new fruit(
 				current_fruit.texture(),
 				physics_world_,
@@ -339,15 +377,12 @@ fruitcut::app::states::ingame::cut_fruit(
 				current_fruit.position() + barycenter,
 				current_fruit.body().rotation(),
 				current_fruit.body().linear_velocity()));
-			*/
-		std::cout << "adding new fruit\n";
 	}
 
-	/*
-	fcppt::algorithm::ptr_container_erase(
-		fruits_,
+	old_fruits_.push_back(
 		&current_fruit);
-	*/
+/*
+*/
 }
 
 fruitcut::app::states::ingame::~ingame()

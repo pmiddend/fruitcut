@@ -28,6 +28,7 @@ FIND_PACKAGE(
 INCLUDE_DIRECTORIES(SYSTEM ${Boost_INCLUDE_DIR})
 INCLUDE_DIRECTORIES(SYSTEM ${CMAKE_SOURCE_DIR}/geometry)
 LINK_DIRECTORIES(${Boost_LIBRARY_DIRS})
+ADD_DEFINITIONS(-D BOOST_ASIO_SEPARATE_COMPILATION)
 # boost end
 
 # fcppt begin
@@ -165,6 +166,7 @@ ADD_EXECUTABLE(
 	app/mesh_to_shape.cpp
 	app/model_to_mesh.cpp
 	app/fruit_projected_hull.cpp
+	app/asio.cpp
 	app/mesh_to_vertex_buffer.cpp
 	app/states/intro.cpp
 	app/states/ingame.cpp

@@ -314,6 +314,11 @@ fruitcut::app::machine::postprocessing()
 void
 fruitcut::app::machine::run()
 {
+	frame_timer_.expires_from_now(
+		boost::posix_time::milliseconds(
+			json::find_member<long>(
+				config_file(),
+				FCPPT_TEXT("frame-timer-ms"))));
 	frame_timer_.async_wait(
 		boost::bind(
 			&machine::run_once,
