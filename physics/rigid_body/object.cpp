@@ -64,6 +64,11 @@ fruitcut::physics::rigid_body::object::object(
 		params.world(),
 		body_)
 {
+	body_.setLinearVelocity(
+		structure_cast(
+			params.linear_velocity()));
+	body_.setActivationState(
+		DISABLE_DEACTIVATION);
 }
 
 fruitcut::physics::matrix4 const

@@ -7,6 +7,7 @@
 #include "../fruit.hpp"
 #include "../plane.hpp"
 #include "../../physics/world.hpp"
+#include "../../physics/null_collision_filter.hpp"
 #include "../../input/state.hpp"
 #include <sge/shader/object.hpp>
 #include <sge/camera/object.hpp>
@@ -84,6 +85,7 @@ private:
 	sge::camera::object camera_;
 	prototype_sequence prototypes_;
 	physics::world physics_world_;
+	physics::null_collision_filter collision_filter_;
 	fruit_sequence fruits_; 
 	sge::shader::object fruit_shader_;
 	old_fruit_list old_fruits_;

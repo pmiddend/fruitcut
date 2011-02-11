@@ -144,6 +144,7 @@ SET(files
 	# physics
 	physics/world.cpp
 	physics/debug_drawer.cpp
+	physics/null_collision_filter.cpp
 	physics/rigid_body/parameters.cpp
 	physics/rigid_body/scoped_body.cpp
 	physics/rigid_body/object.cpp)

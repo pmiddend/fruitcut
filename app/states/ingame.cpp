@@ -193,6 +193,8 @@ fruitcut::app::states::ingame::ingame(
 		json::find_member<physics::vector3>(
 			context<machine>().config_file(),
 			FCPPT_TEXT("physics/gravity"))),
+	collision_filter_(
+		physics_world_),
 	fruits_(),
 	fruit_shader_(
 		context<machine>().systems().renderer(),
@@ -376,13 +378,12 @@ fruitcut::app::states::ingame::cut_fruit(
 					current_fruit.bounding_box().dimension().content() / bounding_box.dimension().content()),
 				current_fruit.position() + barycenter,
 				current_fruit.body().rotation(),
-				current_fruit.body().linear_velocity()));
+				fcppt::math::vector::structure_cast<physics::vector3>(p.normal())
+				/*current_fruit.body().linear_velocity()*/));
 	}
 
 	old_fruits_.push_back(
 		&current_fruit);
-/*
-*/
 }
 
 fruitcut::app::states::ingame::~ingame()
