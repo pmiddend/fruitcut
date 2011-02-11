@@ -165,7 +165,7 @@ fruitcut::app::states::ingame::ingame(
 			// Maus und Keyboard
 			context<machine>().game_input_state(),
 			context<machine>().game_input_state(),
-			false)),
+			sge::camera::activation_state::inactive)),
 	prototypes_(
 		fcppt::algorithm::map<prototype_sequence>(
 			json::find_member<sge::parse::json::array>(
@@ -393,6 +393,10 @@ fruitcut::app::states::ingame::~ingame()
 void
 fruitcut::app::states::ingame::toggle_camera()
 {
-	camera_.active(
-		!camera_.active());
+	camera_.activation(
+		camera_.activation() == sge::camera::activation_state::active
+		?
+			sge::camera::activation_state::inactive
+		:
+			sge::camera::activation_state::active);
 }
