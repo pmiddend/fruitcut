@@ -34,7 +34,6 @@
 #include <fcppt/math/matrix/inverse.hpp>
 #include <fcppt/math/matrix/output.hpp>
 #include <fcppt/text.hpp>
-#include <boost/foreach.hpp>
 #include <boost/next_prior.hpp>
 #include <iostream>
 
@@ -134,11 +133,13 @@ fruitcut::app::states::running::react(
 	draw_mouse_trail();
 	line_drawer_.update();
 
-	BOOST_FOREACH(
-		fruit::object_sequence::const_reference r,
-		context<ingame>().fruit_manager().fruits())
+	for(
+		fruit::object_sequence::const_iterator i = 
+			context<ingame>().fruit_manager().fruits().begin(); 
+		i != context<ingame>().fruit_manager().fruits().end(); 
+		++i)
 		process_fruit(
-			r);
+			*i);
 	context<ingame>().fruit_manager().update();
 
 	return discard_event();
@@ -151,13 +152,15 @@ fruitcut::app::states::running::~running()
 void
 fruitcut::app::states::running::draw_fruit_bbs()
 {
-	BOOST_FOREACH(
-		fruit::object_sequence::const_reference r,
-		context<ingame>().fruit_manager().fruits())
+	for(
+		fruit::object_sequence::const_iterator i = 
+			context<ingame>().fruit_manager().fruits().begin(); 
+		i != context<ingame>().fruit_manager().fruits().end();
+		++i) 
 	{
 		fruit::hull::ring const hull = 
 			fruit::hull::projected(
-				r,
+				*i,
 				context<machine>().systems().renderer()->onscreen_target(),
 				context<ingame>().camera().mvp());
 
