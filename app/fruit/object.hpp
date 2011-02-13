@@ -1,14 +1,14 @@
-#ifndef FRUITCUT_APP_FRUIT_HPP_INCLUDED
-#define FRUITCUT_APP_FRUIT_HPP_INCLUDED
+#ifndef FRUITCUT_APP_FRUIT_OBJECT_HPP_INCLUDED
+#define FRUITCUT_APP_FRUIT_OBJECT_HPP_INCLUDED
 
-#include "mesh.hpp"
-#include "box3.hpp"
-#include "fruit_prototype_fwd.hpp"
-#include "../physics/rigid_body/object.hpp"
-#include "../physics/world_fwd.hpp"
-#include "../physics/scalar.hpp"
-#include "../physics/vector3.hpp"
-#include "../physics/matrix4.hpp"
+#include "../mesh.hpp"
+#include "../box3.hpp"
+#include "prototype_fwd.hpp"
+#include "../../physics/rigid_body/object.hpp"
+#include "../../physics/world_fwd.hpp"
+#include "../../physics/scalar.hpp"
+#include "../../physics/vector3.hpp"
+#include "../../physics/matrix4.hpp"
 #include <sge/renderer/vertex_buffer_ptr.hpp>
 #include <sge/renderer/texture_ptr.hpp>
 #include <sge/renderer/device_ptr.hpp>
@@ -24,14 +24,16 @@ namespace fruitcut
 {
 namespace app
 {
-class fruit
+namespace fruit
+{
+class object
 {
 FCPPT_NONCOPYABLE(
-	fruit);
+	object);
 public:
 	explicit
-	fruit(
-		fruit_prototype const &,
+	object(
+		prototype const &,
 		physics::world &,
 		sge::renderer::device_ptr,
 		sge::shader::object &,
@@ -41,7 +43,7 @@ public:
 		physics::vector3 const &linear_velocity);
 
 	explicit
-	fruit(
+	object(
 		sge::renderer::texture_ptr,
 		physics::world &,
 		sge::renderer::device_ptr,
@@ -76,7 +78,7 @@ public:
 	fruitcut::app::mesh const &
 	mesh() const;
 
-	~fruit();
+	~object();
 private:
 	fruitcut::app::mesh mesh_;
 	box3 bounding_box_;
@@ -84,6 +86,7 @@ private:
 	sge::renderer::vertex_buffer_ptr vb_;
 	sge::renderer::texture_ptr texture_;
 };
+}
 }
 }
 

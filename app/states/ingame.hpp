@@ -3,8 +3,8 @@
 
 #include "../machine.hpp"
 #include "running_fwd.hpp"
-#include "../fruit_prototype.hpp"
-#include "../fruit.hpp"
+#include "../fruit/prototype.hpp"
+#include "../fruit/object.hpp"
 #include "../plane.hpp"
 #include "../../physics/world.hpp"
 #include "../../physics/null_collision_filter.hpp"
@@ -31,11 +31,11 @@ class ingame
 {
 public:
 	typedef
-	std::vector<fruit_prototype>
+	std::vector<fruit::prototype>
 	prototype_sequence;
 
 	typedef
-	boost::ptr_list<fruit>
+	boost::ptr_list<fruit::object>
 	fruit_sequence;
 
 	explicit
@@ -71,17 +71,17 @@ public:
 
 	void
 	cut_fruit(
-		fruit const &,
+		fruit::object const &,
 		plane const &);
 
 	~ingame();
 private:
 	typedef
-	std::vector<fruit const*>
+	std::vector<fruit::object const*>
 	old_fruit_list;
 
 	typedef
-	boost::ptr_list<fruit>
+	boost::ptr_list<fruit::object>
 	new_fruit_list;
 
 	fcppt::signal::scoped_connection toggle_pause_connection_,toggle_camera_connection_;

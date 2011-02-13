@@ -1,4 +1,4 @@
-#include "hull_trail_intersection.hpp"
+#include "trail_intersection.hpp"
 #include <fcppt/optional.hpp>
 #include <fcppt/homogenous_pair.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
@@ -11,14 +11,14 @@
 
 fcppt::optional
 <
-	fcppt::homogenous_pair<fruitcut::app::hull_ring::value_type> 
+	fcppt::homogenous_pair<fruitcut::app::fruit::hull::ring::value_type> 
 > const
-fruitcut::app::hull_trail_intersection(
-	hull_ring const &hull,
+fruitcut::app::fruit::hull::trail_intersection(
+	ring const &hull,
 	cursor_trail::position_buffer const &positions)
 {
 	typedef
-	fcppt::homogenous_pair<fruitcut::app::hull_ring::value_type> 
+	fcppt::homogenous_pair<ring::value_type> 
 	pair_type;
 	
 	typedef
@@ -29,11 +29,11 @@ fruitcut::app::hull_trail_intersection(
 	result_type;
 
 	typedef
-	std::vector<hull_ring::value_type>
+	std::vector<ring::value_type>
 	result_points;
 
 	typedef
-	boost::geometry::model::linestring<hull_ring::value_type>
+	boost::geometry::model::linestring<ring::value_type>
 	linestring_type;
 
 	linestring_type cursor_lines;
@@ -47,7 +47,7 @@ fruitcut::app::hull_trail_intersection(
 		cursor_trail::position_buffer::const_reference cursor_pos,
 		positions)
 		cursor_lines.push_back(
-			fcppt::math::vector::structure_cast<hull_ring::value_type>(
+			fcppt::math::vector::structure_cast<ring::value_type>(
 				cursor_pos));
 
 	result_points result;

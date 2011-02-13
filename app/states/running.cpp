@@ -1,11 +1,11 @@
 #include "running.hpp"
 #include "paused.hpp"
-#include "../hull_ring.hpp"
 #include "../cut_mesh.hpp"
 #include "../dim2.hpp"
 #include "../plane.hpp"
-#include "../hull_trail_intersection.hpp"
-#include "../fruit_projected_hull.hpp"
+#include "../fruit/hull/trail_intersection.hpp"
+#include "../fruit/hull/projected.hpp"
+#include "../fruit/hull/ring.hpp"
 #include "../events/tick.hpp"
 #include "../json/find_member.hpp"
 #include "../../physics/world.hpp"
@@ -154,14 +154,14 @@ fruitcut::app::states::running::draw_fruit_bbs()
 		ingame::fruit_sequence::const_reference r,
 		context<ingame>().fruits())
 	{
-		hull_ring const hull = 
-			fruit_projected_hull(
+		fruit::hull::ring const hull = 
+			fruit::hull::projected(
 				r,
 				context<machine>().systems().renderer()->onscreen_target(),
 				context<ingame>().camera().mvp());
 
 		for(
-			hull_ring::const_iterator hull_point = hull.begin(); 
+			fruit::hull::ring::const_iterator hull_point = hull.begin(); 
 			hull_point != boost::prior(hull.end()); 
 			++hull_point)
 		{
@@ -220,11 +220,11 @@ fruitcut::app::states::running::draw_mouse_trail()
 
 void
 fruitcut::app::states::running::process_fruit(
-	fruit const &current_fruit)
+	fruit::object const &current_fruit)
 {
-	fcppt::optional<fcppt::homogenous_pair<fruitcut::app::hull_ring::value_type> > const intersection = 
-		hull_trail_intersection(
-			fruit_projected_hull(
+	fcppt::optional<fcppt::homogenous_pair<fruit::hull::ring::value_type> > const intersection = 
+		fruit::hull::trail_intersection(
+			fruit::hull::projected(
 				current_fruit,
 				context<machine>().systems().renderer()->onscreen_target(),
 				context<ingame>().camera().mvp()),

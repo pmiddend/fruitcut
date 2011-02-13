@@ -8,15 +8,7 @@
 	},
 	"graphics" :
 	{
-		"screen-size" : [640,480],
-		"camera" : 
-		{
-			"fov" : 90.0,
-			"near" : 0.1,
-			"far" : 100.0,
-			"movement-speed" : 1.0,
-			"rotation-speed" : 200.0
-		}
+		"screen-size" : [640,480]
 	},
 	"pp" : 
 	{
@@ -78,9 +70,10 @@
 		{
 			"fov" : 60.0,
 			"near" : 0.1,
-			"far" : 10.0,
+			"far" : 30.0,
 			"movement-speed" : 10.0,
-			"mouse-speed" : 300.0
+			"mouse-speed" : 300.0,
+			"initial-position" : [0.0,0.0,15.0]
 		}
 	},
 	"fruits" : 
@@ -92,6 +85,6 @@
 	],
 	"physics" : 
 	{
-		"gravity" : [0.0,0.0,0.0]
+		"gravity" : [0.0,-10.0,0.0]
 	}
 }

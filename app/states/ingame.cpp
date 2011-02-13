@@ -26,6 +26,7 @@
 #include <sge/renderer/vertex_count.hpp>
 #include <sge/renderer/nonindexed_primitive_type.hpp>
 #include <sge/renderer/matrix4.hpp>
+#include <sge/renderer/filter/trilinear.hpp>
 #include <sge/renderer/filter/linear.hpp>
 #include <sge/renderer/stage_type.hpp>
 #include <sge/shader/scoped.hpp>
@@ -71,7 +72,7 @@
 
 namespace
 {
-fruitcut::app::fruit_prototype const
+fruitcut::app::fruit::prototype const
 parse_fruit(
 	sge::parse::json::value const &v,
 	sge::model::loader &model_loader,
@@ -83,7 +84,7 @@ parse_fruit(
 			v);
 
 	return 
-		fruitcut::app::fruit_prototype(
+		fruitcut::app::fruit::prototype(
 			fruitcut::app::model_to_mesh(
 				model_loader.load(
 					fruitcut::media_path()
@@ -102,7 +103,7 @@ parse_fruit(
 							fruitcut::json::find_member<fcppt::string>(
 								o,
 								FCPPT_TEXT("texture")))->view(),
-				sge::renderer::filter::linear,
+				sge::renderer::filter::trilinear,
 				sge::renderer::resource_flags::none));
 }
 }
@@ -154,7 +155,11 @@ fruitcut::app::states::ingame::ingame(
 				context<machine>().config_file(),
 				FCPPT_TEXT("ingame/camera/mouse-speed")),
 			// position
-			sge::camera::identity_gizmo(),
+			sge::camera::identity_gizmo()
+				.position(
+					json::find_member<sge::renderer::vector3>(
+						context<machine>().config_file(),
+						FCPPT_TEXT("ingame/camera/initial-position"))),
 			// Maus und Keyboard
 			context<machine>().game_input_state(),
 			context<machine>().game_input_state(),
@@ -214,7 +219,7 @@ fruitcut::app::states::ingame::ingame(
 		!prototypes_.empty(),
 		FCPPT_TEXT("No fruits specified!"));
 	fruits_.push_back(
-		new fruit(
+		new fruit::object(
 			prototypes_.front(),
 			physics_world_,
 			context<machine>().systems().renderer(),
@@ -302,15 +307,11 @@ void
 fruitcut::app::states::ingame::update_caches()
 {
 	BOOST_FOREACH(
-		fruit const *old_fruit,
+		fruit::object const *old_fruit,
 		old_fruits_)
 		fcppt::algorithm::ptr_container_erase(
 			fruits_,
-			// ptr_container_erase doesn't like it when it gets a "T const
-			// *", but we know it's safe because ingame is the only class
-			// having write-access to the fruits
-			const_cast<fruit *>(
-				old_fruit));
+			old_fruit);
 	old_fruits_.clear();
 
 	fruits_.transfer(
@@ -341,7 +342,7 @@ fruitcut::app::states::ingame::camera() const
 
 void
 fruitcut::app::states::ingame::cut_fruit(
-	fruit const &current_fruit,
+	fruit::object const &current_fruit,
 	plane const &original_plane)
 {
 	fcppt::container::array<plane,2> planes =
@@ -371,7 +372,7 @@ fruitcut::app::states::ingame::cut_fruit(
 			continue;
 		// push here, then move new_fruits to fruits (else we're inserting while we're iterating -> not good)
 		new_fruits_.push_back(
-			new fruit(
+			new fruit::object(
 				current_fruit.texture(),
 				physics_world_,
 				context<machine>().systems().renderer(),

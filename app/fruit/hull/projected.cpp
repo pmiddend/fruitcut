@@ -1,8 +1,8 @@
-#include "fruit_projected_hull.hpp"
-#include "fruit.hpp"
-#include "box3.hpp"
-#include "../geometry_traits/vector.hpp"
-#include "../geometry_traits/box.hpp"
+#include "projected.hpp"
+#include "../../box3.hpp"
+#include "../object.hpp"
+#include "../../../geometry_traits/vector.hpp"
+#include "../../../geometry_traits/box.hpp"
 #include <sge/renderer/scalar.hpp>
 #include <sge/renderer/target_base_ptr.hpp>
 #include <sge/renderer/target_base.hpp>
@@ -31,14 +31,14 @@
 #include <iostream>
 #include <vector>
 
-fruitcut::app::hull_ring const
-fruitcut::app::fruit_projected_hull(
-	fruit const &f,
+fruitcut::app::fruit::hull::ring const
+fruitcut::app::fruit::hull::projected(
+	object const &f,
 	sge::renderer::target_base_ptr const target,
 	sge::renderer::matrix4 const &mvp)
 {
 	typedef
-	boost::geometry::model::multi_point<hull_ring::value_type>
+	boost::geometry::model::multi_point<ring::value_type>
 	hull_point_cloud;
 
 	hull_point_cloud point_cloud;
@@ -75,7 +75,7 @@ fruitcut::app::fruit_projected_hull(
 			window_coordinates);
 	}
 
-	hull_ring result;
+	ring result;
 
 	boost::geometry::convex_hull(
 		point_cloud,

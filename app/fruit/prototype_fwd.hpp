@@ -5,7 +5,10 @@ namespace fruitcut
 {
 namespace app
 {
-class fruit_prototype;
+namespace fruit
+{
+class prototype;
+}
 }
 }
 

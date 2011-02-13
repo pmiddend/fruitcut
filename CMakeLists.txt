@@ -155,18 +155,17 @@ ADD_LIBRARY(
 ADD_EXECUTABLE(
 	app
 	app/fruitcut.cpp
-	app/fruit_prototype.cpp
-	app/fruit.cpp
+	app/fruit/prototype.cpp
+	app/fruit/object.cpp
 	app/machine.cpp 
 	app/postprocessing.cpp 
 	app/name.cpp
-	app/fruit_projected_hull.cpp
+	app/fruit/hull/projected.cpp
 	app/cut_mesh.cpp
-	app/hull_trail_intersection.cpp
+	app/fruit/hull/trail_intersection.cpp
 	app/events/tick.cpp
 	app/mesh_to_shape.cpp
 	app/model_to_mesh.cpp
-	app/fruit_projected_hull.cpp
 	app/asio.cpp
 	app/mesh_to_vertex_buffer.cpp
 	app/states/intro.cpp

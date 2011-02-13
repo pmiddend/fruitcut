@@ -1,18 +1,20 @@
 #ifndef FRUITCUT_APP_FRUIT_PROTOTYPE_HPP_INCLUDED
 #define FRUITCUT_APP_FRUIT_PROTOTYPE_HPP_INCLUDED
 
-#include "mesh.hpp"
+#include "../mesh.hpp"
 #include <sge/renderer/texture_ptr.hpp>
 
 namespace fruitcut
 {
 namespace app
 {
-class fruit_prototype
+namespace fruit
+{
+class prototype
 {
 public:
 	explicit
-	fruit_prototype(
+	prototype(
 		fruitcut::app::mesh const &,
 		sge::renderer::texture_ptr);
 
@@ -25,6 +27,7 @@ private:
 	fruitcut::app::mesh mesh_;
 	sge::renderer::texture_ptr texture_;
 };
+}
 }
 }
 
