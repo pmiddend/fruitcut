@@ -411,5 +411,4 @@ fruitcut::app::states::ingame::toggle_physics_debugger()
 {
 	physics_debugger_.active(
 		!physics_debugger_.active());
-	std::cout << "Debug drawer is now: " << physics_debugger_.active() << "\n";
 }

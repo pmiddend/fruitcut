@@ -7,7 +7,9 @@
 #include <sge/renderer/vf/vertex.hpp>
 #include <sge/renderer/vf/iterator.hpp>
 #include <sge/renderer/lock_mode.hpp>
+#include <sge/renderer/matrix4.hpp>
 #include <sge/renderer/texture.hpp>
+#include <sge/renderer/scoped_transform.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/scalar.hpp>
 #include <sge/renderer/scoped_texture.hpp>
@@ -41,53 +43,6 @@
 #include <boost/foreach.hpp>
 #include <iostream>
 
-namespace
-{
-class scoped_transform
-{
-FCPPT_NONCOPYABLE(
-	scoped_transform);
-public:
-	explicit
-	scoped_transform(
-		sge::renderer::device_ptr const _renderer,
-		sge::renderer::matrix4 const &new_world,
-		sge::renderer::matrix4 const &new_projection)
-	:
-		renderer_(
-			_renderer),
-		old_world_(
-			renderer_->transform(
-				sge::renderer::matrix_mode::world)),
-		old_projection_(
-			renderer_->transform(
-				sge::renderer::matrix_mode::projection))
-	{
-		renderer_->transform(
-			sge::renderer::matrix_mode::world,
-			new_world);
-
-		renderer_->transform(
-			sge::renderer::matrix_mode::projection,
-			new_projection);
-	}
-
-	~scoped_transform()
-	{
-		renderer_->transform(
-			sge::renderer::matrix_mode::world,
-			old_world_);
-
-		renderer_->transform(
-			sge::renderer::matrix_mode::projection,
-			old_projection_);
-	}
-private:
-	sge::renderer::device_ptr renderer_;
-	sge::renderer::matrix4 old_world_,old_projection_;
-};
-}
-
 fruitcut::line_drawer::object::object(
 	sge::renderer::device_ptr const _renderer)
 :
@@ -114,15 +69,15 @@ fruitcut::line_drawer::object::update()
 	if (lines_.empty())
 		return;
 
-//	if (!vb_ || vb_->size() < static_cast<sge::renderer::size_type>(lines_.size()*2))
-//	{
+	if (!vb_ || vb_->size() < static_cast<sge::renderer::size_type>(lines_.size()*2))
+	{
 		vb_ = 
 			renderer_->create_vertex_buffer(
 				sge::renderer::vf::dynamic::make_format<vf::format>(),
 				static_cast<sge::renderer::size_type>(
 					lines_.size()*2),
 				sge::renderer::resource_flags::none);
-//	}
+	}
 
 	sge::renderer::scoped_vertex_lock const vblock(
 		vb_,
@@ -141,13 +96,11 @@ fruitcut::line_drawer::object::update()
 		(vb_it)->set<vf::position>(
 			fcppt::math::vector::structure_cast<vf::position::packed_type>(
 				l.begin()));
-		//std::cout << "vertex: " << l.begin() << "\n";
 		(vb_it++)->set<vf::color>(
 			l.begin_color());
 		(vb_it)->set<vf::position>(
 			fcppt::math::vector::structure_cast<vf::position::packed_type>(
 				l.end()));
-	//	std::cout << "vertex: " << l.end() << "\n";
 		(vb_it++)->set<vf::color>(
 			l.end_color());
 	}
@@ -194,9 +147,9 @@ fruitcut::line_drawer::object::render_screen_space()
 	if (!vb_ || lines_.empty())
 		return;
 
-	scoped_transform scoped_tr(
+	sge::renderer::scoped_transform projection_scope(
 		renderer_,
-		sge::renderer::matrix4::identity(),
+		sge::renderer::matrix_mode::projection,
 		fcppt::math::matrix::orthogonal(
 			static_cast<sge::renderer::scalar>(
 				0),
@@ -210,6 +163,11 @@ fruitcut::line_drawer::object::render_screen_space()
 				0),
 			static_cast<sge::renderer::scalar>(
 				10)));
+
+	sge::renderer::scoped_transform world_scope(
+		renderer_,
+		sge::renderer::matrix_mode::world,
+		sge::renderer::matrix4::identity());
 
 	render();
 }

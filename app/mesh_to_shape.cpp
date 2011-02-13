@@ -4,6 +4,7 @@
 #include <fcppt/container/raw_vector.hpp>
 #include <bullet/BulletCollision/CollisionShapes/btConvexHullShape.h>
 #include <boost/foreach.hpp>
+#include <iostream>
 
 fruitcut::physics::shared_shape_ptr const
 fruitcut::app::mesh_to_shape(
@@ -16,7 +17,7 @@ fruitcut::app::mesh_to_shape(
 	scalar_vector points;
 	points.reserve(
 		static_cast<scalar_vector::size_type>(
-			m.triangles.size() * 3));
+			m.triangles.size() * 3 * 3));
 
 	// Hehehehe
 	BOOST_FOREACH(
@@ -35,6 +36,10 @@ fruitcut::app::mesh_to_shape(
 		physics::shared_shape_ptr(
 			new btConvexHullShape(
 				points.data(),
+				// This is the number of _points_, not the number of scalars!
 				static_cast<int>(
-					points.size())));
+					points.size()/3),
+				// Stride. Is usually sizeof(btVector3), but I think this is safer
+				static_cast<int>(
+					3 * sizeof(btScalar))));
 }

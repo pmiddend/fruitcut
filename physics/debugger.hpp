@@ -2,16 +2,14 @@
 #define FRUITCUT_PHYSICS_DEBUGGER_HPP_INCLUDED
 
 #include "world_fwd.hpp"
+#include "../line_drawer/object.hpp"
 #include <sge/camera/object_fwd.hpp>
 #include <sge/renderer/device_ptr.hpp>
 #include <sge/renderer/vector3.hpp>
 #include <sge/renderer/vertex_buffer_ptr.hpp>
-#include <sge/shader/object.hpp>
 #include <LinearMath/btIDebugDraw.h>
 #include <LinearMath/btVector3.h>
 #include <fcppt/math/vector/basic_impl.hpp>
-#include <vector>
-#include <utility>
 
 namespace fruitcut
 {
@@ -31,6 +29,9 @@ public:
 		world &,
 		sge::renderer::device_ptr,
 		sge::camera::object &);
+
+	void
+	update();
 
 	void
 	render();
@@ -118,9 +119,8 @@ private:
 	world &world_;
 	sge::renderer::device_ptr const renderer_;
 	sge::camera::object &camera_;
-	sge::shader::object shader_;
 	int debug_mode_;
-	line_cache lines_;
+	line_drawer::object line_drawer_;
 };
 }
 }

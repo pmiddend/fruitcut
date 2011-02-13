@@ -125,6 +125,7 @@ fruitcut::app::states::running::react(
 	context<machine>().particle_system().update();
 	context<ingame>().physics_world().update(
 		d.delta());
+	context<ingame>().physics_debugger().update();
 	cursor_trail_.update();
 
 	line_drawer_.lines().clear();
@@ -179,7 +180,9 @@ fruitcut::app::states::running::draw_fruit_bbs()
 						static_cast<sge::renderer::scalar>(
 							boost::next(hull_point)->y()),
 						static_cast<sge::renderer::scalar>(
-							0))));
+							0)),
+					sge::image::colors::green(),
+					sge::image::colors::green()));
 		}
 	}
 }
