@@ -96,7 +96,8 @@ fruitcut::app::states::running::react(
 	events::render const &)
 {
 	context<machine>().particle_system().render();
-	context<ingame>().render_fruits();
+	context<ingame>().fruit_manager().render(
+		context<ingame>().camera().mvp());
 	return discard_event();
 }
 
@@ -134,11 +135,11 @@ fruitcut::app::states::running::react(
 	line_drawer_.update();
 
 	BOOST_FOREACH(
-		ingame::fruit_sequence::const_reference r,
-		context<ingame>().fruits())
+		fruit::object_sequence::const_reference r,
+		context<ingame>().fruit_manager().fruits())
 		process_fruit(
 			r);
-	context<ingame>().update_caches();
+	context<ingame>().fruit_manager().update();
 
 	return discard_event();
 }
@@ -151,8 +152,8 @@ void
 fruitcut::app::states::running::draw_fruit_bbs()
 {
 	BOOST_FOREACH(
-		ingame::fruit_sequence::const_reference r,
-		context<ingame>().fruits())
+		fruit::object_sequence::const_reference r,
+		context<ingame>().fruit_manager().fruits())
 	{
 		fruit::hull::ring const hull = 
 			fruit::hull::projected(
@@ -222,7 +223,7 @@ void
 fruitcut::app::states::running::process_fruit(
 	fruit::object const &current_fruit)
 {
-	fcppt::optional<fcppt::homogenous_pair<fruit::hull::ring::value_type> > const intersection = 
+	fruit::hull::intersection_pair const intersection = 
 		fruit::hull::trail_intersection(
 			fruit::hull::projected(
 				current_fruit,
@@ -313,7 +314,7 @@ fruitcut::app::states::running::process_fruit(
 				point1_unprojected - current_fruit.position()),
 			plane_normal);
 		
-	context<ingame>().cut_fruit(
+	context<ingame>().fruit_manager().cut_fruit(
 		current_fruit,
 		plane(
 			plane_normal,

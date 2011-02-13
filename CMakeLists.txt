@@ -163,6 +163,7 @@ ADD_EXECUTABLE(
 	app/fruit/hull/projected.cpp
 	app/cut_mesh.cpp
 	app/fruit/hull/trail_intersection.cpp
+	app/fruit/manager.cpp
 	app/events/tick.cpp
 	app/mesh_to_shape.cpp
 	app/model_to_mesh.cpp

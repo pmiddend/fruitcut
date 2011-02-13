@@ -1,4 +1,5 @@
 #include "trail_intersection.hpp"
+#include "intersection_pair.hpp"
 #include <fcppt/optional.hpp>
 #include <fcppt/homogenous_pair.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
@@ -9,25 +10,11 @@
 #include <boost/foreach.hpp>
 #include <iostream>
 
-fcppt::optional
-<
-	fcppt::homogenous_pair<fruitcut::app::fruit::hull::ring::value_type> 
-> const
+fruitcut::app::fruit::hull::intersection_pair const
 fruitcut::app::fruit::hull::trail_intersection(
 	ring const &hull,
 	cursor_trail::position_buffer const &positions)
 {
-	typedef
-	fcppt::homogenous_pair<ring::value_type> 
-	pair_type;
-	
-	typedef
-	fcppt::optional
-	<
-		pair_type
-	>
-	result_type;
-
 	typedef
 	std::vector<ring::value_type>
 	result_points;
@@ -62,10 +49,10 @@ fruitcut::app::fruit::hull::trail_intersection(
 		result);
 
 	if (result.size() < static_cast<result_points::size_type>(2))
-		return result_type();
+		return intersection_pair();
 
 	return 
-		pair_type(
+		intersection_pair::value_type(
 			result[0],
 			result[1]);
 }
