@@ -11,7 +11,7 @@ class btCollisionConfiguration;
 class btDispatcher;
 class btConstraintSolver;
 class btDiscreteDynamicsWorld;
-class btAxisSweep3;
+class btBroadphaseInterface;
 
 namespace fruitcut
 {
@@ -39,7 +39,7 @@ public:
 private:
 	fcppt::scoped_ptr<btCollisionConfiguration> configuration_;
 	fcppt::scoped_ptr<btDispatcher> dispatcher_;
-	fcppt::scoped_ptr<btAxisSweep3> broadphase_;
+	fcppt::scoped_ptr<btBroadphaseInterface> broadphase_;
 	fcppt::scoped_ptr<btConstraintSolver> constraint_solver_;
 	fcppt::scoped_ptr<btDiscreteDynamicsWorld> world_;
 };

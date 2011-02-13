@@ -2,7 +2,8 @@
 #include "structure_cast.hpp"
 #include <bullet/BulletCollision/CollisionDispatch/btDefaultCollisionConfiguration.h>
 #include <bullet/BulletCollision/CollisionDispatch/btCollisionDispatcher.h>
-#include <bullet/BulletCollision/BroadphaseCollision/btAxisSweep3.h>
+//#include <bullet/BulletCollision/BroadphaseCollision/btAxisSweep3.h>
+#include <bullet/BulletCollision/BroadphaseCollision/btDbvtBroadphase.h>
 #include <bullet/BulletCollision/CollisionDispatch/btCollisionDispatcher.h>
 #include <bullet/BulletDynamics/ConstraintSolver/btSequentialImpulseConstraintSolver.h>
 #include <bullet/BulletDynamics/Dynamics/btDiscreteDynamicsWorld.h>
@@ -15,7 +16,7 @@
 #include <fcppt/math/vector/dim.hpp>
 
 fruitcut::physics::world::world(
-	box const &world_size,
+	box const &/*world_size*/,
 	vector3 const &gravity)
 :
 	configuration_(
@@ -24,11 +25,13 @@ fruitcut::physics::world::world(
 		new btCollisionDispatcher(
 			configuration_.get())),
 	broadphase_(
+		new btDbvtBroadphase()
+		/*
 		new btAxisSweep3(
 			structure_cast(
 				world_size.pos()),
 			structure_cast(
-				world_size.pos() + world_size.dimension()))),
+				world_size.pos() + world_size.dimension()))*/),
 	constraint_solver_(
 		new btSequentialImpulseConstraintSolver()),
 	world_(

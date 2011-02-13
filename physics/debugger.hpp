@@ -1,5 +1,5 @@
-#ifndef FRUITCUT_PHYSICS_DEBUG_DRAWER_HPP_INCLUDED
-#define FRUITCUT_PHYSICS_DEBUG_DRAWER_HPP_INCLUDED
+#ifndef FRUITCUT_PHYSICS_DEBUGGER_HPP_INCLUDED
+#define FRUITCUT_PHYSICS_DEBUGGER_HPP_INCLUDED
 
 #include "world_fwd.hpp"
 #include <sge/camera/object_fwd.hpp>
@@ -21,13 +21,13 @@ namespace physics
 /// just shapes. This class implements this interface, caching all the
 /// lines and drawing them at once (if you don't do that, it'll be
 /// super-slow).
-class debug_drawer
+class debugger
 :
 	public btIDebugDraw
 {
 public:	
 	explicit
-	debug_drawer(
+	debugger(
 		world &,
 		sge::renderer::device_ptr,
 		sge::camera::object &);
@@ -35,7 +35,14 @@ public:
 	void
 	render();
 
-	~debug_drawer();
+	void
+	active(
+		bool);
+
+	bool 
+	active() const;
+
+	~debugger();
 private:
 	// @override
 	void

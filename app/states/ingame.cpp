@@ -71,13 +71,6 @@
 
 namespace
 {
-// I don't know what's sensible here, so I just fix it to 100. I could
-// also use the dbvt broadphase which doesn't have a size limit, but
-// that's overkill for just a few objects.
-fruitcut::physics::scalar const world_size = 
-	static_cast<fruitcut::physics::scalar>(
-		100);
-
 fruitcut::app::fruit_prototype const
 parse_fruit(
 	sge::parse::json::value const &v,
@@ -129,7 +122,7 @@ fruitcut::app::states::ingame::ingame(
 						&ingame::post_event),
 					this,
 					events::toggle_pause())))),
-	toggle_camera_(
+	toggle_camera_connection_(
 		context<machine>().game_input_state().key_callback(
 			sge::input::keyboard::action(
 				sge::input::keyboard::key_code::f2, 
@@ -181,18 +174,22 @@ fruitcut::app::states::ingame::ingame(
 				boost::ref(
 					*context<machine>().systems().renderer())))),
 	physics_world_(
-		physics::box(
-			physics::box::vector(
-				-world_size/2,
-				-world_size/2,
-				-world_size/2),
-			physics::box::dim(
-				world_size,
-				world_size,
-				world_size)),
+		// The box is ignored for now
+		physics::box(),
 		json::find_member<physics::vector3>(
 			context<machine>().config_file(),
 			FCPPT_TEXT("physics/gravity"))),
+	physics_debugger_(
+		physics_world_,
+		context<machine>().systems().renderer(),
+		camera_),
+	physics_debugger_connection_(
+		context<machine>().game_input_state().key_callback(
+			sge::input::keyboard::action(
+				sge::input::keyboard::key_code::f3, 
+				boost::bind(
+					&ingame::toggle_physics_debugger,
+					this)))),
 	collision_filter_(
 		physics_world_),
 	fruits_(),
@@ -323,6 +320,12 @@ fruitcut::app::states::ingame::update_caches()
 		new_fruits_.empty());
 }
 
+fruitcut::physics::debugger &
+fruitcut::app::states::ingame::physics_debugger()
+{
+	return physics_debugger_;
+}
+
 sge::camera::object &
 fruitcut::app::states::ingame::camera()
 {
@@ -400,4 +403,13 @@ fruitcut::app::states::ingame::toggle_camera()
 			sge::camera::activation_state::inactive
 		:
 			sge::camera::activation_state::active);
+}
+
+// FIXME: This could be a nice phoenix actor
+void
+fruitcut::app::states::ingame::toggle_physics_debugger()
+{
+	physics_debugger_.active(
+		!physics_debugger_.active());
+	std::cout << "Debug drawer is now: " << physics_debugger_.active() << "\n";
 }

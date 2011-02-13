@@ -1,4 +1,4 @@
-#include "debug_drawer.hpp"
+#include "debugger.hpp"
 #include "scalar.hpp"
 #include "world.hpp"
 #include "structure_cast.hpp"
@@ -13,6 +13,11 @@
 #include <sge/renderer/state/scoped.hpp>
 #include <sge/renderer/state/list.hpp>
 #include <sge/renderer/state/depth_func.hpp>
+#include <sge/renderer/state/draw_mode.hpp>
+#include <sge/renderer/state/var.hpp>
+#include <sge/renderer/state/bool.hpp>
+#include <sge/renderer/state/cull_mode.hpp>
+#include <sge/renderer/state/stencil_func.hpp>
 #include <sge/renderer/state/trampoline.hpp>
 #include <sge/renderer/scoped_vertex_lock.hpp>
 #include <sge/renderer/lock_mode.hpp>
@@ -91,7 +96,7 @@ sge::renderer::vf::view
 vertex_view;
 }
 
-fruitcut::physics::debug_drawer::debug_drawer(
+fruitcut::physics::debugger::debugger(
 	world &_world,
 	sge::renderer::device_ptr const _renderer,
 	sge::camera::object &_camera)
@@ -117,15 +122,15 @@ fruitcut::physics::debug_drawer::debug_drawer(
 		btIDebugDraw::DBG_NoDebug), // should be zero
 	lines_()
 {
-	world_.handle().setDebugDrawer(
-		this);
 }
 
 void
-fruitcut::physics::debug_drawer::render()
+fruitcut::physics::debugger::render()
 {
 	lines_.clear();
-	world_.handle().debugDrawWorld();
+
+	if (debug_mode_ != btIDebugDraw::DBG_NoDebug)
+		world_.handle().debugDrawWorld();
 
 	if (lines_.empty())
 		return;
@@ -136,7 +141,11 @@ fruitcut::physics::debug_drawer::render()
 	sge::renderer::state::scoped const sstate(
 		renderer_,
 		sge::renderer::state::list
-			(sge::renderer::state::depth_func::less));
+			(sge::renderer::state::depth_func::off)
+			(sge::renderer::state::bool_::enable_alpha_blending = false)
+			(sge::renderer::state::cull_mode::off)
+			(sge::renderer::state::stencil_func::off)
+			(sge::renderer::state::draw_mode::fill));
 
 	sge::shader::scoped scoped_shader_(
 		shader_);
@@ -184,7 +193,32 @@ fruitcut::physics::debug_drawer::render()
 		sge::renderer::nonindexed_primitive_type::line);
 }
 
-fruitcut::physics::debug_drawer::~debug_drawer()
+void
+fruitcut::physics::debugger::active(
+	bool const _active)
+{
+	switch(
+		debug_mode_)
+	{
+		case btIDebugDraw::DBG_DrawWireframe:
+			debug_mode_ = btIDebugDraw::DBG_NoDebug;
+			break;
+		case btIDebugDraw::DBG_NoDebug:
+			debug_mode_ = btIDebugDraw::DBG_DrawWireframe;
+			break;
+	}
+
+	setDebugMode(
+		debug_mode_);
+}
+
+bool 
+fruitcut::physics::debugger::active() const
+{
+	return debug_mode_ != btIDebugDraw::DBG_NoDebug;
+}
+
+fruitcut::physics::debugger::~debugger()
 {
 	world_.handle().setDebugDrawer(
 		0);
@@ -192,7 +226,7 @@ fruitcut::physics::debug_drawer::~debug_drawer()
 
 // @override
 void
-fruitcut::physics::debug_drawer::drawLine(
+fruitcut::physics::debugger::drawLine(
 	btVector3 const &from,
 	btVector3 const &to,
 	btVector3 const &color)
@@ -206,7 +240,7 @@ fruitcut::physics::debug_drawer::drawLine(
 
 // @override
 void
-fruitcut::physics::debug_drawer::drawLine(
+fruitcut::physics::debugger::drawLine(
 	btVector3 const &from,
 	btVector3 const &to,
 	btVector3 const &from_color,
@@ -229,7 +263,7 @@ fruitcut::physics::debug_drawer::drawLine(
 
 // @override
 void
-fruitcut::physics::debug_drawer::drawContactPoint(
+fruitcut::physics::debugger::drawContactPoint(
 	btVector3 const &point,
 	btVector3 const &normal,
 	btScalar distance,
@@ -244,7 +278,7 @@ fruitcut::physics::debug_drawer::drawContactPoint(
 
 // @override
 void	
-fruitcut::physics::debug_drawer::draw3dText(
+fruitcut::physics::debugger::draw3dText(
 	btVector3 const&,
 	char const*)
 {
@@ -252,7 +286,7 @@ fruitcut::physics::debug_drawer::draw3dText(
 
 // @override
 void
-fruitcut::physics::debug_drawer::reportErrorWarning(
+fruitcut::physics::debugger::reportErrorWarning(
 	char const* warningString)
 {
 	std::cerr 
@@ -263,7 +297,7 @@ fruitcut::physics::debug_drawer::reportErrorWarning(
 
 // @override
 void 
-fruitcut::physics::debug_drawer::setDebugMode(
+fruitcut::physics::debugger::setDebugMode(
 	int const _debug_mode)
 {
 	debug_mode_ = _debug_mode;
@@ -271,7 +305,7 @@ fruitcut::physics::debug_drawer::setDebugMode(
 
 // @override
 int 
-fruitcut::physics::debug_drawer::getDebugMode() const
+fruitcut::physics::debugger::getDebugMode() const
 {
 	return debug_mode_;
 }

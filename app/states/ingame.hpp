@@ -8,6 +8,7 @@
 #include "../plane.hpp"
 #include "../../physics/world.hpp"
 #include "../../physics/null_collision_filter.hpp"
+#include "../../physics/debugger.hpp"
 #include "../../input/state.hpp"
 #include <sge/shader/object.hpp>
 #include <sge/camera/object.hpp>
@@ -65,6 +66,9 @@ public:
 	void
 	update_caches();
 
+	physics::debugger &
+	physics_debugger();
+
 	void
 	cut_fruit(
 		fruit const &,
@@ -80,11 +84,13 @@ private:
 	boost::ptr_list<fruit>
 	new_fruit_list;
 
-	fcppt::signal::scoped_connection toggle_pause_connection_,toggle_camera_;
+	fcppt::signal::scoped_connection toggle_pause_connection_,toggle_camera_connection_;
 	input::state camera_state_;
 	sge::camera::object camera_;
 	prototype_sequence prototypes_;
 	physics::world physics_world_;
+	physics::debugger physics_debugger_;
+	fcppt::signal::scoped_connection physics_debugger_connection_;
 	physics::null_collision_filter collision_filter_;
 	fruit_sequence fruits_; 
 	sge::shader::object fruit_shader_;
@@ -93,6 +99,9 @@ private:
 
 	void
 	toggle_camera();
+
+	void
+	toggle_physics_debugger();
 };
 }
 }

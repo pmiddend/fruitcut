@@ -104,6 +104,7 @@ boost::statechart::result
 fruitcut::app::states::running::react(
 	events::render_overlay const &)
 {
+	context<ingame>().physics_debugger().render();
 	line_drawer_.render_screen_space();
 	return discard_event();
 }
