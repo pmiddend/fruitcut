@@ -2,7 +2,7 @@
 
 fruitcut::app::fruit::prototype::prototype(
 	fruitcut::app::mesh const &_mesh,
-	sge::renderer::texture_ptr const _texture)
+	sge::renderer::texture::planar_ptr const _texture)
 :
 	mesh_(
 		_mesh),
@@ -17,7 +17,7 @@ fruitcut::app::fruit::prototype::mesh() const
 	return mesh_;
 }
 
-sge::renderer::texture_ptr const 
+sge::renderer::texture::planar_ptr const 
 fruitcut::app::fruit::prototype::texture() const
 {
 	return texture_;

@@ -2,7 +2,7 @@
 #define FRUITCUT_PP_TEXTURE_INSTANCE_HPP_INCLUDED
 
 #include "descriptor.hpp"
-#include <sge/renderer/texture_ptr.hpp>
+#include <sge/renderer/texture/planar_ptr.hpp>
 #include <sge/renderer/target_ptr.hpp>
 
 namespace fruitcut
@@ -17,11 +17,11 @@ public:
 	explicit
 	instance(
 		fruitcut::pp::texture::descriptor const &,
-		sge::renderer::texture_ptr,
+		sge::renderer::texture::planar_ptr,
 		sge::renderer::target_ptr,
 		bool locked);
 
-	sge::renderer::texture_ptr const
+	sge::renderer::texture::planar_ptr const
 	texture();
 
 	sge::renderer::target_ptr const
@@ -40,7 +40,7 @@ public:
 	~instance();
 private:
 	fruitcut::pp::texture::descriptor descriptor_;
-	sge::renderer::texture_ptr texture_;
+	sge::renderer::texture::planar_ptr texture_;
 	sge::renderer::target_ptr target_;
 	bool locked_;
 };

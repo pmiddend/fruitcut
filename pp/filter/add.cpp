@@ -18,9 +18,8 @@
 #include <sge/renderer/scoped_vertex_buffer.hpp>
 #include <sge/renderer/scoped_block.hpp>
 #include <sge/renderer/device.hpp>
-#include <sge/renderer/texture.hpp>
-#include <sge/renderer/texture_ptr.hpp>
-#include <sge/renderer/filter/linear.hpp>
+#include <sge/renderer/texture/planar_ptr.hpp>
+#include <sge/renderer/texture/filter/linear.hpp>
 #include <sge/renderer/vector2.hpp>
 #include <sge/image/color/format.hpp>
 #include <fcppt/assign/make_container.hpp>
@@ -51,8 +50,8 @@ fruitcut::pp::filter::add::add(
 				fcppt::math::dim::structure_cast<sge::renderer::vector2>(
 					dimension_))),
 		fcppt::assign::make_container<sge::shader::sampler_sequence>
-			(sge::shader::sampler("tex1",sge::renderer::texture_ptr()))
-			(sge::shader::sampler("tex2",sge::renderer::texture_ptr()))), 
+			(sge::shader::sampler("tex1",sge::renderer::texture::planar_ptr()))
+			(sge::shader::sampler("tex2",sge::renderer::texture::planar_ptr()))), 
 		quad_(
 			screen_vf::create_quad(
 				shader_,
@@ -87,7 +86,7 @@ fruitcut::pp::filter::add::apply(
 			texture::descriptor(
 				dimension_,
 				sge::image::color::format::rgb8,
-				sge::renderer::filter::linear,
+				sge::renderer::texture::filter::linear,
 				texture::depth_stencil_format::off));
 
 	sge::renderer::scoped_target const scoped_target(

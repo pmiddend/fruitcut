@@ -5,7 +5,7 @@
 #include "depth_stencil_format.hpp"
 #include <sge/renderer/dim2.hpp>
 #include <sge/image/color/format.hpp>
-#include <sge/renderer/filter/texture.hpp>
+#include <sge/renderer/texture/filter/object.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
 #include <fcppt/container/bitfield/bitfield.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
@@ -24,7 +24,7 @@ public:
 	descriptor(
 		sge::renderer::dim2 const &,
 		sge::image::color::format::type,
-		sge::renderer::filter::texture const &,
+		sge::renderer::texture::filter::object const &,
 		depth_stencil_format::type);
 
 	sge::renderer::dim2 const &
@@ -33,7 +33,7 @@ public:
 	sge::image::color::format::type 
 	image_format() const;
 
-	sge::renderer::filter::texture const &
+	sge::renderer::texture::filter::object const &
 	filter() const;
 
 	depth_stencil_format::type

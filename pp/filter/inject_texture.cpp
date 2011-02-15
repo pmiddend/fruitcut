@@ -12,7 +12,7 @@ fruitcut::pp::filter::inject_texture::inject_texture(
 
 void
 fruitcut::pp::filter::inject_texture::texture(
-	sge::renderer::texture_ptr const _texture)
+	sge::renderer::texture::planar_ptr const _texture)
 {
 	texture_ = 
 		_texture;

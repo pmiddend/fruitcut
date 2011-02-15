@@ -5,7 +5,7 @@
 #include "instance.hpp"
 #include "counted_instance.hpp"
 #include <sge/renderer/device_ptr.hpp>
-#include <sge/renderer/texture_ptr.hpp>
+#include <sge/renderer/texture/planar_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <boost/ptr_container/ptr_map.hpp>
 
@@ -35,7 +35,7 @@ public:
 	// use the locked texture.
 	counted_instance const
 	query(
-		sge::renderer::texture_ptr);
+		sge::renderer::texture::planar_ptr);
 
 	~manager();
 private:

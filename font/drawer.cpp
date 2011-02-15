@@ -1,4 +1,4 @@
-#include "font_drawer.hpp"
+#include "drawer.hpp"
 #include <sge/texture/rect_fragmented.hpp>
 #include <sge/renderer/filter/linear.hpp>
 #include <sge/renderer/state/scoped.hpp>
@@ -22,10 +22,10 @@
 #include <utility>
 #include <iostream>
 
-fruitcut::sandbox::font_drawer::font_drawer(
+fruitcut::font::drawer::drawer(
 	sge::renderer::device_ptr const _rend,
 	sge::image::color::any::object const &_col,
-	font_transform_callback const &_transform)
+	font::transform_callback const &_transform)
 :
 	rend_(
 		_rend),
@@ -47,11 +47,11 @@ fruitcut::sandbox::font_drawer::font_drawer(
 		_transform)
 {}
 
-fruitcut::sandbox::font_drawer::~font_drawer()
+fruitcut::font::drawer::~drawer()
 {}
 
 void
-fruitcut::sandbox::font_drawer::begin_rendering(
+fruitcut::font::drawer::begin_rendering(
 	sge::font::text::drawer::size_type const buffer_chars,
 	sge::font::pos const &origin,
 	sge::font::dim const &size)
@@ -67,7 +67,7 @@ fruitcut::sandbox::font_drawer::begin_rendering(
 }
 
 void
-fruitcut::sandbox::font_drawer::draw_char(
+fruitcut::font::drawer::draw_char(
 	sge::font::text::char_type const _char,
 	sge::font::pos const &_pos,
 	sge::font::const_image_view const &_data
@@ -115,7 +115,7 @@ fruitcut::sandbox::font_drawer::draw_char(
 }
 
 void
-fruitcut::sandbox::font_drawer::end_rendering()
+fruitcut::font::drawer::end_rendering()
 {
 	sys_.render(
 		sprites_.begin(),
@@ -125,14 +125,14 @@ fruitcut::sandbox::font_drawer::end_rendering()
 }
 
 void
-fruitcut::sandbox::font_drawer::color(
+fruitcut::font::drawer::color(
 	sge::image::color::any::object const &_col)
 {
 	col_ = _col;
 }
 
 sge::texture::const_part_ptr const
-fruitcut::sandbox::font_drawer::cached_texture(
+fruitcut::font::drawer::cached_texture(
 	sge::font::text::char_type const _ch,
 	sge::font::const_image_view const &_data)
 {

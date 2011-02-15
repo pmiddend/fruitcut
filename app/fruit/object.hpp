@@ -10,9 +10,8 @@
 #include "../../physics/vector3.hpp"
 #include "../../physics/matrix4.hpp"
 #include <sge/renderer/vertex_buffer_ptr.hpp>
-#include <sge/renderer/texture_ptr.hpp>
 #include <sge/renderer/device_ptr.hpp>
-#include <sge/renderer/texture_ptr.hpp>
+#include <sge/renderer/texture/planar_ptr.hpp>
 #include <sge/renderer/vector3.hpp>
 #include <sge/renderer/matrix4.hpp>
 #include <sge/shader/object_fwd.hpp>
@@ -44,7 +43,7 @@ public:
 
 	explicit
 	object(
-		sge::renderer::texture_ptr,
+		sge::renderer::texture::planar_ptr,
 		physics::world &,
 		sge::renderer::device_ptr,
 		sge::shader::object &,
@@ -57,7 +56,7 @@ public:
 	sge::renderer::vertex_buffer_ptr const
 	vb() const;
 
-	sge::renderer::texture_ptr const
+	sge::renderer::texture::planar_ptr const
 	texture() const;
 
 	sge::renderer::matrix4 const
@@ -84,7 +83,7 @@ private:
 	box3 bounding_box_;
 	physics::rigid_body::object body_;
 	sge::renderer::vertex_buffer_ptr vb_;
-	sge::renderer::texture_ptr texture_;
+	sge::renderer::texture::planar_ptr texture_;
 };
 }
 }

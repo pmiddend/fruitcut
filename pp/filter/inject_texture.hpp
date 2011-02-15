@@ -4,7 +4,7 @@
 #include "../texture/manager_fwd.hpp"
 #include "../texture/counted_instance.hpp"
 #include "nullary.hpp"
-#include <sge/renderer/texture_ptr.hpp>
+#include <sge/renderer/texture/planar_ptr.hpp>
 
 namespace fruitcut
 {
@@ -23,7 +23,7 @@ public:
 
 	void
 	texture(
-		sge::renderer::texture_ptr);
+		sge::renderer::texture::planar_ptr);
 
 	texture::counted_instance const
 	apply();
@@ -31,7 +31,7 @@ public:
 	~inject_texture();
 private:
 	texture::manager &texture_manager_;
-	sge::renderer::texture_ptr texture_;
+	sge::renderer::texture::planar_ptr texture_;
 };
 }
 }

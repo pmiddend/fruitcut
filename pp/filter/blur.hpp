@@ -4,8 +4,6 @@
 #include "unary.hpp"
 #include "../texture/manager_fwd.hpp"
 #include "../texture/counted_instance.hpp"
-#include <sge/renderer/target_ptr.hpp>
-#include <sge/renderer/texture_ptr.hpp>
 #include <sge/renderer/device_ptr.hpp>
 #include <sge/renderer/vertex_buffer_ptr.hpp>
 #include <sge/renderer/dim2.hpp>

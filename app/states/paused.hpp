@@ -11,7 +11,7 @@
 #include <boost/statechart/state.hpp>
 #include <boost/statechart/custom_reaction.hpp>
 #include <boost/mpl/vector/vector10.hpp>
-#include <sge/renderer/texture_ptr.hpp>
+#include <sge/renderer/texture/planar_ptr.hpp>
 #include <sge/time/timer.hpp>
 
 namespace fruitcut
@@ -55,7 +55,7 @@ private:
 	pp::system system_;
 	pp::filter::inject_texture inject_texture_;
 	pp::filter::blur blur_;
-	sge::renderer::texture_ptr current_texture_;
+	sge::renderer::texture::planar_ptr current_texture_;
 	pp::filter::blur::size_type blur_iterations_;
 	pp::filter::blur::size_type const max_blur_iterations_;
 	sge::time::timer blur_timer_;

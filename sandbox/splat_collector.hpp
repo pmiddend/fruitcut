@@ -7,7 +7,7 @@
 #include <sge/renderer/device_ptr.hpp>
 #include <sge/sprite/object_impl.hpp>
 #include <sge/sprite/intrusive/system_impl.hpp>
-#include <sge/renderer/texture_ptr.hpp>
+#include <sge/renderer/texture/planar_ptr.hpp>
 #include <sge/renderer/target_ptr.hpp>
 #include <sge/renderer/vertex_buffer_ptr.hpp>
 #include <sge/shader/object.hpp>
@@ -27,7 +27,7 @@ public:
 	splat_collector(
 		sge::renderer::device_ptr);
 
-	sge::renderer::texture_ptr const
+	sge::renderer::texture::planar_ptr const
 	texture();
 
 	void
@@ -47,7 +47,7 @@ private:
 	// texture_ is what the user gets
 	// temp_texture_ is the texture we use to merge the "previous"
 	// texture and the new sprites
-	sge::renderer::texture_ptr texture_,temp_texture_;
+	sge::renderer::texture::planar_ptr texture_,temp_texture_;
 	sge::renderer::target_ptr texture_target_,temp_texture_target_;
 	particle::sprite::system ss_;
 	particle::sprite::object background_;

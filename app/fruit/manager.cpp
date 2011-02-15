@@ -16,14 +16,14 @@
 #include <sge/shader/scoped.hpp>
 #include <sge/renderer/matrix4.hpp>
 #include <sge/renderer/scoped_vertex_buffer.hpp>
-#include <sge/renderer/scoped_texture.hpp>
+#include <sge/renderer/texture/scoped.hpp>
 #include <sge/renderer/stage_type.hpp>
 #include <sge/renderer/state/scoped.hpp>
 #include <sge/renderer/state/var.hpp>
 #include <sge/renderer/state/trampoline.hpp>
 #include <sge/renderer/state/list.hpp>
 #include <sge/renderer/state/depth_func.hpp>
-#include <sge/renderer/texture_ptr.hpp>
+#include <sge/renderer/texture/planar_ptr.hpp>
 #include <sge/renderer/first_vertex.hpp>
 #include <sge/renderer/size_type.hpp>
 #include <sge/renderer/vertex_count.hpp>
@@ -31,8 +31,12 @@
 #include <sge/renderer/vertex_buffer.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/glsl/scoped_program.hpp>
-#include <sge/renderer/filter/linear.hpp>
-#include <sge/renderer/filter/trilinear.hpp>
+#include <sge/renderer/texture/filter/linear.hpp>
+#include <sge/renderer/texture/filter/trilinear.hpp>
+#include <sge/renderer/texture/create_planar_from_view.hpp>
+#include <sge/renderer/texture/address_mode.hpp>
+#include <sge/renderer/texture/address_mode2.hpp>
+#include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/resource_flags_none.hpp>
 #include <sge/renderer/vector3.hpp>
 #include <sge/parse/json/get.hpp>
@@ -63,7 +67,7 @@ parse_fruit(
 	sge::parse::json::value const &v,
 	sge::model::loader &model_loader,
 	sge::image2d::multi_loader &image_loader,
-	sge::renderer::device &renderer)
+	sge::renderer::device_ptr renderer)
 {
 	sge::parse::json::object const &o = 
 		sge::parse::json::get<sge::parse::json::object>(
@@ -80,7 +84,8 @@ parse_fruit(
 							fruitcut::json::find_member<fcppt::string>(
 								o,
 								FCPPT_TEXT("model")))),
-			renderer.create_texture(
+			sge::renderer::texture::create_planar_from_view(
+				renderer,
 				image_loader.load(
 					fruitcut::media_path()
 						/ FCPPT_TEXT("textures")
@@ -89,7 +94,9 @@ parse_fruit(
 							fruitcut::json::find_member<fcppt::string>(
 								o,
 								FCPPT_TEXT("texture")))->view(),
-				sge::renderer::filter::trilinear,
+				sge::renderer::texture::filter::trilinear,
+				sge::renderer::texture::address_mode2(
+					sge::renderer::texture::address_mode::clamp),
 				sge::renderer::resource_flags::none));
 }
 }
@@ -115,8 +122,7 @@ fruitcut::app::fruit::manager::manager(
 					model_loader),
 				boost::ref(
 					image_loader),
-				boost::ref(
-					*_renderer)))),
+				_renderer))),
 	fruits_(),
 	fruit_shader_(
 		_renderer,
@@ -131,7 +137,7 @@ fruitcut::app::fruit::manager::manager(
 		fcppt::assign::make_container<sge::shader::sampler_sequence>(
 			sge::shader::sampler(
 				"texture",
-				sge::renderer::texture_ptr()))),
+				sge::renderer::texture::planar_ptr()))),
 	old_fruits_(),
 	new_fruits_()
 {
@@ -169,7 +175,7 @@ fruitcut::app::fruit::manager::render(
 			renderer_,
 			i->vb());
 
-		sge::renderer::scoped_texture scoped_tex(
+		sge::renderer::texture::scoped scoped_tex(
 			renderer_,
 			i->texture(),
 			static_cast<sge::renderer::stage_type>(

@@ -139,7 +139,7 @@ fruitcut::app::postprocessing::render_result()
 		system_.render_result();
 }
 
-sge::renderer::texture_ptr const
+sge::renderer::texture::planar_ptr const
 fruitcut::app::postprocessing::result_texture()
 {
 	return 

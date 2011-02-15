@@ -6,8 +6,11 @@
 #include <sge/sprite/parameters_impl.hpp>
 #include <sge/sprite/default_parameters.hpp>
 #include <sge/sprite/defaults.hpp>
-#include <sge/renderer/filter/linear.hpp>
-#include <sge/renderer/filter/point.hpp>
+#include <sge/renderer/texture/filter/linear.hpp>
+#include <sge/renderer/texture/filter/point.hpp>
+#include <sge/renderer/texture/planar_parameters.hpp>
+#include <sge/renderer/texture/address_mode.hpp>
+#include <sge/renderer/texture/address_mode2.hpp>
 #include <sge/renderer/resource_flags_none.hpp>
 #include <sge/renderer/dim2.hpp>
 #include <sge/renderer/device.hpp>
@@ -40,19 +43,25 @@ fruitcut::sandbox::splat_collector::splat_collector(
 	renderer_(
 		_renderer),
 	texture_(
-		renderer_->create_texture(
-			fcppt::math::dim::structure_cast<sge::renderer::dim2>(
-				renderer_->screen_size()),
-			sge::image::color::format::rgb8,
-			sge::renderer::filter::point,
-			sge::renderer::resource_flags::none)),
+		renderer_->create_planar_texture(
+			sge::renderer::texture::planar_parameters(
+				fcppt::math::dim::structure_cast<sge::renderer::dim2>(
+					renderer_->screen_size()),
+				sge::image::color::format::rgb8,
+				sge::renderer::texture::filter::point,
+				sge::renderer::texture::address_mode2(
+					sge::renderer::texture::address_mode::clamp),
+				sge::renderer::resource_flags::none))),
 	temp_texture_(
-		renderer_->create_texture(
-			fcppt::math::dim::structure_cast<sge::renderer::dim2>(
-				renderer_->screen_size()),
-			sge::image::color::format::rgb8,
-			sge::renderer::filter::point,
-			sge::renderer::resource_flags::none)),
+		renderer_->create_planar_texture(
+			sge::renderer::texture::planar_parameters(
+				fcppt::math::dim::structure_cast<sge::renderer::dim2>(
+					renderer_->screen_size()),
+				sge::image::color::format::rgb8,
+				sge::renderer::texture::filter::point,
+				sge::renderer::texture::address_mode2(
+					sge::renderer::texture::address_mode::clamp),
+				sge::renderer::resource_flags::none))),
 	texture_target_(
 		sge::renderer::target_from_texture(
 			renderer_,
@@ -104,7 +113,7 @@ fruitcut::sandbox::splat_collector::splat_collector(
 {
 }
 
-sge::renderer::texture_ptr const
+sge::renderer::texture::planar_ptr const
 fruitcut::sandbox::splat_collector::texture()
 {
 	return temp_texture_;

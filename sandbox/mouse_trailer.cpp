@@ -4,7 +4,10 @@
 #include <sge/texture/part_ptr.hpp>
 #include <sge/texture/part_raw.hpp>
 #include <sge/renderer/device.hpp>
-#include <sge/renderer/filter/linear.hpp>
+#include <sge/renderer/texture/filter/linear.hpp>
+#include <sge/renderer/texture/create_planar_from_view.hpp>
+#include <sge/renderer/texture/address_mode2.hpp>
+#include <sge/renderer/texture/address_mode.hpp>
 #include <sge/renderer/resource_flags_none.hpp>
 #include <sge/input/mouse/device.hpp>
 #include <sge/input/mouse/axis_event.hpp>
@@ -16,7 +19,6 @@
 #include <sge/image2d/multi_loader.hpp>
 #include <sge/renderer/vector2.hpp>
 #include <sge/texture/part.hpp>
-#include <sge/renderer/texture.hpp>
 #include <sge/sprite/default_equal.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/chrono/duration_cast.hpp>
@@ -50,12 +52,15 @@ fruitcut::sandbox::mouse_trailer::mouse_trailer(
 			.texture(
 				sge::texture::part_ptr(
 					new sge::texture::part_raw(
-						renderer->create_texture(
+						sge::renderer::texture::create_planar_from_view(
+							renderer,
 							image_loader.load(
 								media_path() 
 									/ FCPPT_TEXT("textures") 
 									/ FCPPT_TEXT("cursor.png"))->view(),
-							sge::renderer::filter::linear,
+							sge::renderer::texture::filter::linear,
+							sge::renderer::texture::address_mode2(
+								sge::renderer::texture::address_mode::clamp),
 							sge::renderer::resource_flags::none))))
 			.center(
 				particle::sprite::object::point(
@@ -79,12 +84,15 @@ fruitcut::sandbox::mouse_trailer::mouse_trailer(
 				_1))),
 	particle_texture_(
 		new sge::texture::part_raw(
-			renderer->create_texture(
+			sge::renderer::texture::create_planar_from_view(
+				renderer,
 				image_loader.load(
 					media_path() 
 						/ FCPPT_TEXT("textures") 
 						/ FCPPT_TEXT("particle.png"))->view(),
-				sge::renderer::filter::linear,
+				sge::renderer::texture::filter::linear,
+				sge::renderer::texture::address_mode2(
+					sge::renderer::texture::address_mode::clamp),
 				sge::renderer::resource_flags::none))),
 	update_timer_(
 		sge::time::millisecond(

@@ -1,10 +1,8 @@
 #include "instance.hpp"
-#include <sge/renderer/texture.hpp>
-#include <sge/renderer/target.hpp>
 
 fruitcut::pp::texture::instance::instance(
 	fruitcut::pp::texture::descriptor const &_descriptor,
-	sge::renderer::texture_ptr const _texture,
+	sge::renderer::texture::planar_ptr const _texture,
 	sge::renderer::target_ptr const _target,
 	bool const _locked)
 :
@@ -19,7 +17,7 @@ fruitcut::pp::texture::instance::instance(
 {
 }
 
-sge::renderer::texture_ptr const
+sge::renderer::texture::planar_ptr const
 fruitcut::pp::texture::instance::texture()
 {
 	return texture_;

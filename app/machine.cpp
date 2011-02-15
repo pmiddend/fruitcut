@@ -32,7 +32,11 @@
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/stencil_buffer.hpp>
 #include <sge/renderer/window_mode.hpp>
-#include <sge/renderer/filter/linear.hpp>
+#include <sge/renderer/texture/filter/linear.hpp>
+#include <sge/renderer/texture/filter/linear.hpp>
+#include <sge/renderer/texture/create_planar_from_view.hpp>
+#include <sge/renderer/texture/address_mode2.hpp>
+#include <sge/renderer/texture/address_mode.hpp>
 #include <sge/renderer/resource_flags_none.hpp>
 #include <sge/renderer/vsync.hpp>
 #include <sge/renderer/no_multi_sampling.hpp>
@@ -157,7 +161,7 @@ fruitcut::app::machine::machine(
 			boost::phoenix::new_<sge::texture::rect_fragmented>(
 				systems_.renderer(),
 				sge::image::color::format::rgba8,
-				sge::renderer::filter::linear,
+				sge::renderer::texture::filter::linear,
 				fcppt::math::dim::quad<sge::renderer::dim2>(
 					1024)))),
 	input_manager_(
@@ -287,10 +291,13 @@ fruitcut::app::machine::create_single_texture(
 	return 
 		sge::texture::part_ptr(
 			new sge::texture::part_raw(
-				systems_.renderer()->create_texture(
+				sge::renderer::texture::create_planar_from_view(
+					systems_.renderer(),
 					systems_.image_loader().load(
 						p)->view(),
-					sge::renderer::filter::linear,
+					sge::renderer::texture::filter::linear,
+					sge::renderer::texture::address_mode2(
+						sge::renderer::texture::address_mode::clamp),
 					sge::renderer::resource_flags::none)));
 }
 

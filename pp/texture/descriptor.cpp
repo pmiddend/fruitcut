@@ -6,7 +6,7 @@
 fruitcut::pp::texture::descriptor::descriptor(
 	sge::renderer::dim2 const &_size,
 	sge::image::color::format::type const _image_format,
-	sge::renderer::filter::texture const &_filter,
+	sge::renderer::texture::filter::object const &_filter,
 	depth_stencil_format::type const _depth_stencil)
 :
 	tuple_(
@@ -30,7 +30,7 @@ fruitcut::pp::texture::descriptor::image_format() const
 	return tuple_.get<1>();
 }
 
-sge::renderer::filter::texture const &
+sge::renderer::texture::filter::object const &
 fruitcut::pp::texture::descriptor::filter() const
 {
 	return tuple_.get<2>().value();

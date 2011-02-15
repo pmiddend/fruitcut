@@ -1,5 +1,5 @@
-#ifndef FRUITCUT_SANDBOX_FONT_TRANSFORM_CALLBACK_HPP_INCLUDED
-#define FRUITCUT_SANDBOX_FONT_TRANSFORM_CALLBACK_HPP_INCLUDED
+#ifndef FRUITCUT_FONT_TRANSFORM_CALLBACK_HPP_INCLUDED
+#define FRUITCUT_FONT_TRANSFORM_CALLBACK_HPP_INCLUDED
 
 #include <sge/font/rect.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
@@ -7,7 +7,7 @@
 
 namespace fruitcut
 {
-namespace sandbox
+namespace font
 {
 typedef
 boost::function
@@ -18,7 +18,7 @@ boost::function
 		sge::font::rect const &,
 		sge::font::rect const &)
 >
-font_transform_callback;
+transform_callback;
 }
 }
 

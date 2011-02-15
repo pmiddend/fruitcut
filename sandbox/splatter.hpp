@@ -10,7 +10,7 @@
 #include <sge/renderer/device_ptr.hpp>
 #include <sge/renderer/scalar.hpp>
 #include <sge/image2d/multi_loader_fwd.hpp>
-#include <sge/renderer/texture_ptr.hpp>
+#include <sge/renderer/texture/planar_ptr.hpp>
 #include <sge/input/mouse/device_fwd.hpp>
 #include <sge/input/mouse/button_event_fwd.hpp>
 #include <sge/input/mouse/axis_event_fwd.hpp>
@@ -42,7 +42,7 @@ public:
 	render();
 private:
 	typedef
-	std::vector<sge::renderer::texture_ptr>
+	std::vector<sge::renderer::texture::planar_ptr>
 	texture_vector;
 
 	// Intentionally a list, I want to iterate and throw away dead

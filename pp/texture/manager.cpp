@@ -6,6 +6,9 @@
 #include <sge/renderer/target_from_texture.hpp>
 #include <sge/renderer/depth_stencil_format.hpp>
 #include <sge/renderer/target.hpp>
+#include <sge/renderer/texture/planar_parameters.hpp>
+#include <sge/renderer/texture/address_mode.hpp>
+#include <sge/renderer/texture/address_mode2.hpp>
 #include <boost/range/iterator_range.hpp>
 #include <boost/bind.hpp>
 #include <fcppt/assert.hpp>
@@ -51,12 +54,15 @@ fruitcut::pp::texture::manager::query(
 					false));
 	}
 
-	sge::renderer::texture_ptr new_texture = 
-		renderer_->create_texture(
-			d.size(),
-			d.image_format(),
-			d.filter(),
-			sge::renderer::resource_flags::none);
+	sge::renderer::texture::planar_ptr new_texture = 
+		renderer_->create_planar_texture(
+			sge::renderer::texture::planar_parameters(
+				d.size(),
+				d.image_format(),
+				d.filter(),
+				sge::renderer::texture::address_mode2(
+					sge::renderer::texture::address_mode::clamp),
+				sge::renderer::resource_flags::none));
 
 	sge::renderer::target_ptr new_target = 
 		sge::renderer::target_from_texture(
@@ -109,7 +115,7 @@ fruitcut::pp::texture::manager::query(
 
 fruitcut::pp::texture::counted_instance const
 fruitcut::pp::texture::manager::query(
-	sge::renderer::texture_ptr const t)
+	sge::renderer::texture::planar_ptr const t)
 {
 	FCPPT_ASSERT(
 		t);

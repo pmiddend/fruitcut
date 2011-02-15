@@ -11,7 +11,6 @@
 #include <sge/renderer/state/color.hpp>
 #include <sge/renderer/state/var.hpp>
 #include <sge/renderer/state/trampoline.hpp>
-#include <sge/renderer/filter/linear.hpp>
 #include <sge/input/keyboard/action.hpp>
 #include <sge/input/keyboard/device.hpp>
 #include <sge/image2d/multi_loader.hpp>
@@ -19,7 +18,6 @@
 #include <sge/image/capabilities.hpp>
 #include <sge/input/mouse/button_event.hpp>
 #include <sge/input/mouse/axis_event.hpp>
-#include <sge/renderer/filter/linear.hpp>
 #include <sge/renderer/resource_flags_none.hpp>
 #include <sge/image/colors.hpp>
 #include <sge/image2d/file.hpp>
@@ -29,14 +27,13 @@
 #include <sge/texture/manager.hpp>
 #include <sge/texture/add_image.hpp>
 #include <sge/texture/no_fragmented.hpp>
+#include <sge/texture/part_ptr.hpp>
+#include <sge/texture/part_raw.hpp>
 #include <sge/time/millisecond.hpp>
 #include <sge/time/second.hpp>
-#include <sge/renderer/texture.hpp>
 #include <sge/time/default_callback.hpp>
 #include <sge/log/global.hpp>
 #include <sge/window/instance.hpp>
-#include <sge/texture/part_ptr.hpp>
-#include <sge/texture/part_raw.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/sprite/default_equal.hpp>
 #include <sge/all_extensions.hpp>

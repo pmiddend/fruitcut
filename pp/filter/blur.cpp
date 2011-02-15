@@ -7,6 +7,7 @@
 #include "../texture/descriptor.hpp"
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/vector2.hpp>
+#include <sge/renderer/texture/planar_ptr.hpp>
 #include <sge/shader/vf_to_string.hpp>
 #include <sge/shader/sampler.hpp>
 #include <sge/shader/variable.hpp>
@@ -16,8 +17,7 @@
 #include <sge/shader/object.hpp>
 #include <sge/shader/scoped.hpp>
 #include <sge/image/color/format.hpp>
-#include <sge/renderer/filter/linear.hpp>
-#include <sge/renderer/texture.hpp>
+#include <sge/renderer/texture/filter/linear.hpp>
 #include <sge/renderer/scoped_target.hpp>
 #include <sge/renderer/vertex_buffer.hpp>
 #include <sge/renderer/scoped_block.hpp>
@@ -65,7 +65,7 @@ fruitcut::pp::filter::blur::blur(
 					fcppt::assign::make_container<sge::shader::sampler_sequence>(
 						sge::shader::sampler(
 							"tex",
-							sge::renderer::texture_ptr())))))
+							sge::renderer::texture::planar_ptr())))))
 			(sge::shader::object_ptr(
 				new sge::shader::object(
 					renderer_,
@@ -85,7 +85,7 @@ fruitcut::pp::filter::blur::blur(
 					fcppt::assign::make_container<sge::shader::sampler_sequence>(
 						sge::shader::sampler(
 							"tex",
-							sge::renderer::texture_ptr())))))),
+							sge::renderer::texture::planar_ptr())))))),
 	quads_(
 		fcppt::assign::make_array<sge::renderer::vertex_buffer_ptr>
 			(screen_vf::create_quad(
@@ -116,13 +116,13 @@ fruitcut::pp::filter::blur::apply(
 				texture::descriptor(
 					texture_size_,
 					sge::image::color::format::rgb8,
-					sge::renderer::filter::linear,
+					sge::renderer::texture::filter::linear,
 					texture::depth_stencil_format::off)),
 			texture_manager_.query(
 				texture::descriptor(
 					texture_size_,
 					sge::image::color::format::rgb8,
-					sge::renderer::filter::linear,
+					sge::renderer::texture::filter::linear,
 					texture::depth_stencil_format::off))
 		}};
 

@@ -41,6 +41,149 @@
 #include <exception>
 #include <cstdlib>
 
+#include <fcppt/unique_ptr.hpp>
+#include <fcppt/container/ptr/push_back_unique_ptr.hpp>
+#include <fcppt/move.hpp>
+#include <fcppt/noncopyable.hpp>
+#include <boost/ptr_container/ptr_list.hpp>
+#include <boost/intrusive/list.hpp>
+#include <boost/intrusive/list_hook.hpp>
+#include <boost/intrusive/link_mode.hpp>
+
+namespace
+{
+class particle_base
+{
+FCPPT_NONCOPYABLE(
+	particle_base);
+public:
+	explicit
+	particle_base()
+	{
+	}
+
+	virtual void
+	update() = 0;
+
+	virtual void
+	render() = 0;
+
+	virtual ~particle_base() {}
+};
+
+class intrusive_particle
+:
+	public
+		particle_base,
+	public 
+		boost::intrusive::list_base_hook
+		<
+			boost::intrusive::link_mode<boost::intrusive::auto_unlink>
+		>
+{
+public:	
+};
+
+class volatile_particle
+:
+	public particle_base
+{
+public:
+	virtual bool
+	dead() const = 0;
+};
+
+typedef
+fcppt::unique_ptr<volatile_particle>
+unique_volatile_particle_ptr;
+
+class system
+{
+public:
+	void
+	insert(
+		unique_volatile_particle_ptr o)
+	{
+		fcppt::container::ptr::push_back_unique_ptr(
+			volatile_particles_,
+			fcppt::move(
+				o));
+	}
+
+	void
+	insert(
+		intrusive_particle &o)
+	{
+		intrusive_particles_.push_back(
+			o);
+	}
+
+	void
+	update()
+	{
+		for(
+			volatile_particle_sequence::iterator i = 
+				volatile_particles_.begin(); 
+			i != volatile_particles_.end(); )
+		{
+			i->update();
+			if (i->dead())
+				i = 
+					volatile_particles_.erase(
+						i);
+			else
+				++i;
+		}
+
+		for(
+			intrusive_particle_sequence::iterator i = 
+				intrusive_particles_.begin(); 
+			i != intrusive_particles_.end(); 
+			++i)
+			i->update();
+	}
+
+	void
+	render()
+	{
+		for(
+			volatile_particle_sequence::iterator i = 
+				volatile_particles_.begin(); 
+			i != volatile_particles_.end(); 
+			++i)
+			i->render();
+
+		for(
+			intrusive_particle_sequence::iterator i = 
+				intrusive_particles_.begin(); 
+			i != intrusive_particles_.end(); 
+			++i)
+			i->render();
+	}
+private:
+	typedef
+	boost::ptr_list<volatile_particle>
+	volatile_particle_sequence;
+
+	typedef
+	boost::intrusive::list
+	<
+		intrusive_particle,
+		boost::intrusive::constant_time_size<false>
+	>
+	intrusive_particle_sequence;
+
+	volatile_particle_sequence volatile_particles_;
+	intrusive_particle_sequence intrusive_particles_;
+};
+
+class pulsating
+:
+	public intrusive_particle
+{
+};
+}
+
 #include <fcppt/math/dim/arithmetic.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
 #include <fcppt/math/vector/dim.hpp>
@@ -78,32 +221,30 @@ sge::time::timer &global_timer()
 	return t;
 }
 
-std::pair<sge::font::pos,sge::font::dim> const
+sge::font::rect const
 font_transformation(
-	sge::font::pos const &total_pos,
-	sge::font::dim const &total_size,
-	sge::font::pos const &character_pos,
-	sge::font::dim const &character_dim)
+	sge::font::rect const &total_rect,
+	sge::font::rect const &character_rect)
 {
 	sge::font::pos const c = 
-		total_pos + total_size/2;
+		total_rect.pos() + total_rect.dimension()/2;
 	global_timer().update();
 	double const s = 
 		3.0 * bump(
 			static_cast<double>(
 				global_timer().elapsed_frames()) * 2.0 - 1.0);
 	return 
-		std::make_pair(
+		sge::font::rect(
 			sge::font::pos(
 				static_cast<sge::font::pos::value_type>(
-					c.x() - c.x() * s + s * character_pos.x()),
+					c.x() - c.x() * s + s * character_rect.pos().x()),
 				static_cast<sge::font::pos::value_type>(
-					c.y() - c.y() * s + s * character_pos.y())),
+					c.y() - c.y() * s + s * character_rect.pos().y())),
 			sge::font::dim(
 				static_cast<sge::font::pos::value_type>(
-					s * character_dim.w()),
+					s * character_rect.dimension().w()),
 				static_cast<sge::font::pos::value_type>(
-					s * character_dim.h())));
+					s * character_rect.dimension().h())));
 }
 }
 

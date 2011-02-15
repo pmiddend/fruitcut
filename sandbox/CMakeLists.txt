@@ -13,22 +13,22 @@ TARGET_LINK_LIBRARIES(
 	${SGE_texture_LIBRARY}
 	${Boost_LIBRARIES})
 
-ADD_EXECUTABLE(
-	font_test
-	font.cpp font_drawer.cpp)
-
-TARGET_LINK_LIBRARIES(
-	font_test
-	fruitcut_library
-	${FCPPT_LIBRARIES}
-	${SGE_CORE_LIBRARY}
-	${SGE_systems_LIBRARY}
-	${SGE_fonttext_LIBRARY}
-	${SGE_fontbitmap_LIBRARY}
-	${SGE_time_LIBRARY}
-	${SGE_sprite_LIBRARY}
-	${Boost_LIBRARIES})
-
+#ADD_EXECUTABLE(
+#	font_test
+#	font.cpp font_drawer.cpp)
+#
+#TARGET_LINK_LIBRARIES(
+#	font_test
+#	fruitcut_library
+#	${FCPPT_LIBRARIES}
+#	${SGE_CORE_LIBRARY}
+#	${SGE_systems_LIBRARY}
+#	${SGE_fonttext_LIBRARY}
+#	${SGE_fontbitmap_LIBRARY}
+#	${SGE_time_LIBRARY}
+#	${SGE_sprite_LIBRARY}
+#	${Boost_LIBRARIES})
+#
 ADD_EXECUTABLE(
 	doppler_test
 	doppler.cpp)
@@ -53,22 +53,6 @@ TARGET_LINK_LIBRARIES(
 	${SGE_sprite_LIBRARY}
 	${SGE_shader_LIBRARY}
 	${SGE_time_LIBRARY}
-	${SGE_texture_LIBRARY}
-	${Boost_LIBRARIES})
-
-ADD_EXECUTABLE(
-	pipeline_test
-	pipeline.cpp)
-
-TARGET_LINK_LIBRARIES(
-	pipeline_test
-	fruitcut_library
-	${FCPPT_LIBRARIES}
-	${SGE_CORE_LIBRARY}
-	${SGE_shader_LIBRARY}
-	${SGE_console_LIBRARY}
-	${SGE_systems_LIBRARY}
-	${SGE_sprite_LIBRARY}
 	${SGE_texture_LIBRARY}
 	${Boost_LIBRARIES})
 

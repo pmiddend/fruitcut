@@ -28,11 +28,14 @@
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/system.hpp>
 #include <sge/renderer/scoped_block.hpp>
+#include <sge/renderer/texture/create_planar_from_view.hpp>
+#include <sge/renderer/texture/address_mode2.hpp>
+#include <sge/renderer/texture/address_mode.hpp>
 #include <sge/renderer/state/list.hpp>
 #include <sge/renderer/state/color.hpp>
 #include <sge/renderer/state/var.hpp>
 #include <sge/renderer/state/trampoline.hpp>
-#include <sge/renderer/filter/linear.hpp>
+#include <sge/renderer/texture/filter/linear.hpp>
 #include <sge/all_extensions.hpp>
 #include <sge/sprite/default_equal.hpp>
 #include <sge/input/keyboard/action.hpp>
@@ -44,7 +47,6 @@
 #include <sge/time/timer.hpp>
 #include <sge/time/second_f.hpp>
 #include <sge/renderer/resource_flags_none.hpp>
-#include <sge/renderer/filter/linear.hpp>
 #include <sge/image2d/multi_loader.hpp>
 #include <sge/image/capabilities.hpp>
 #include <sge/image/colors.hpp>
@@ -204,12 +206,15 @@ particles::particles(
 		sys.renderer()),
 	particle_texture_(
 		new sge::texture::part_raw(
-			sys.renderer()->create_texture(
+			sge::renderer::texture::create_planar_from_view(
+				sys.renderer(),
 				sys.image_loader().load(
 					fruitcut::media_path() 
 						/ FCPPT_TEXT("textures") 
 						/ FCPPT_TEXT("smooth_particle.png"))->view(),
-				sge::renderer::filter::linear,
+				sge::renderer::texture::filter::linear,
+				sge::renderer::texture::address_mode2(
+					sge::renderer::texture::address_mode::clamp),
 				sge::renderer::resource_flags::none))),
 	logo_pos_()
 {
@@ -235,9 +240,12 @@ particles::particles(
 					.texture(
 						sge::texture::part_ptr(
 							new sge::texture::part_raw(
-								sys.renderer()->create_texture(
+								sge::renderer::texture::create_planar_from_view(
+									sys.renderer(),
 									logo_image->view(),
-									sge::renderer::filter::linear,
+									sge::renderer::texture::filter::linear,
+									sge::renderer::texture::address_mode2(
+										sge::renderer::texture::address_mode::clamp),
 									sge::renderer::resource_flags::none))))
 					.repetition(
 						static_cast<fruitcut::particle::sprite::object::repetition_type>(

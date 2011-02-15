@@ -85,7 +85,7 @@ fruitcut::app::fruit::object::object(
 }
 
 fruitcut::app::fruit::object::object(
-	sge::renderer::texture_ptr const _texture,
+	sge::renderer::texture::planar_ptr const _texture,
 	physics::world &_world,
 	sge::renderer::device_ptr const _renderer,
 	sge::shader::object &_shader,
@@ -127,7 +127,7 @@ fruitcut::app::fruit::object::vb() const
 	return vb_;
 }
 
-sge::renderer::texture_ptr const
+sge::renderer::texture::planar_ptr const
 fruitcut::app::fruit::object::texture() const
 {
 	return texture_;

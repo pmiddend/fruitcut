@@ -6,7 +6,6 @@
 #include "../texture/manager_fwd.hpp"
 #include "../texture/depth_stencil_format.hpp"
 #include <sge/renderer/device_ptr.hpp>
-#include <sge/renderer/texture_ptr.hpp>
 #include <sge/renderer/target_ptr.hpp>
 #include <sge/renderer/dim2.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>

@@ -1,7 +1,7 @@
-#ifndef FRUITCUT_SANDBOX_FONT_DRAWER_HPP_INCLUDED
-#define FRUITCUT_SANDBOX_FONT_DRAWER_HPP_INCLUDED
+#ifndef FRUITCUT_FONT_DRAWER_HPP_INCLUDED
+#define FRUITCUT_FONT_DRAWER_HPP_INCLUDED
 
-#include "font_transform_callback.hpp"
+#include "transform_callback.hpp"
 #include <sge/font/text/drawer.hpp>
 #include <sge/font/text/symbol.hpp>
 #include <sge/font/text/char_type.hpp>
@@ -33,23 +33,22 @@
 
 namespace fruitcut
 {
-namespace sandbox
+namespace font
 {
-
-class  font_drawer
+class drawer
 :
 	public sge::font::text::drawer
 {
 FCPPT_NONCOPYABLE(
-	font_drawer);
+	drawer);
 public:
 	explicit
-	font_drawer(
+	drawer(
 		sge::renderer::device_ptr rend,
 		sge::image::color::any::object const &,
-		font_transform_callback const &);
+		font::transform_callback const &);
 	
-	~font_drawer();
+	~drawer();
 	
 	void
 	begin_rendering(
@@ -69,6 +68,10 @@ public:
 	void
 	color(
 		sge::image::color::any::object const &);
+
+	void
+	transform_callback(
+		font::transform_callback const &);
 private:
 	sge::texture::const_part_ptr const
 	cached_texture(
@@ -124,9 +127,8 @@ private:
 	sprite_system sys_;
 	sprite_container sprites_;
 	sge::font::rect bounding_rect_;
-	font_transform_callback transform_;
+	font::transform_callback transform_;
 };
-
 }
 }
 

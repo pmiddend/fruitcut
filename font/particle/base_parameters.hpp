@@ -1,0 +1,65 @@
+#ifndef FRUITCUT_FONT_PARTICLE_BASE_PARAMETERS_HPP_INCLUDED
+#define FRUITCUT_FONT_PARTICLE_BASE_PARAMETERS_HPP_INCLUDED
+
+#include "../drawer_fwd.hpp"
+#include <sge/font/metrics_ptr.hpp>
+#include <sge/font/text/string.hpp>
+#include <sge/font/rect.hpp>
+#include <sge/font/text/align_h.hpp>
+#include <sge/font/text/align_v.hpp>
+#include <sge/font/text/flags.hpp>
+#include <fcppt/math/box/basic_impl.hpp>
+
+namespace fruitcut
+{
+namespace font
+{
+namespace particle
+{
+class base_parameters
+{
+public:
+	explicit
+	base_parameters(
+		sge::font::metrics_ptr,
+		font::drawer &,
+		sge::font::text::string const &,
+		sge::font::rect const &,
+		sge::font::text::align_h::type,
+		sge::font::text::align_v::type,
+		sge::font::text::flags::type);
+
+	sge::font::metrics_ptr const
+	metrics() const;
+
+	font::drawer &
+	drawer() const;
+
+	sge::font::text::string const &
+	text() const;
+
+	sge::font::rect const &
+	bounding_box() const;
+
+	sge::font::text::align_h::type 
+	alignment_h() const;
+
+	sge::font::text::align_v::type 
+	alignment_v() const;
+
+	sge::font::text::flags::type 
+	flags() const;
+private:
+	sge::font::metrics_ptr metrics_;
+	font::drawer &drawer_;
+	sge::font::text::string text_;
+	sge::font::rect bounding_box_;
+	sge::font::text::align_h::type alignment_h_;
+	sge::font::text::align_v::type alignment_v_;
+	sge::font::text::flags::type flags_;
+};
+}
+}
+}
+
+#endif

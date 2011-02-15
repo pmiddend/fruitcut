@@ -8,11 +8,6 @@
 #include "../media_path.hpp"
 #include "texture/counted_instance.hpp"
 #include "texture/instance.hpp"
-#include <sge/renderer/dim2.hpp>
-#include <sge/renderer/filter/linear.hpp>
-#include <sge/renderer/resource_flags_none.hpp>
-#include <sge/renderer/scoped_target.hpp>
-#include <sge/renderer/scoped_block.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/shader/vf_to_string.hpp>
 #include <sge/shader/variable.hpp>
@@ -24,7 +19,6 @@
 #include <sge/image/color/format.hpp>
 #include <sge/renderer/vertex_buffer.hpp>
 #include <sge/renderer/vector2.hpp>
-#include <sge/renderer/texture.hpp>
 #include <sge/renderer/scoped_vertex_buffer.hpp>
 #include <sge/renderer/first_vertex.hpp>
 #include <sge/renderer/vertex_count.hpp>
@@ -58,7 +52,7 @@ fruitcut::pp::system::system(
 		fcppt::assign::make_container<sge::shader::sampler_sequence>(
 			sge::shader::sampler(
 				"tex",
-				sge::renderer::texture_ptr()))),
+				sge::renderer::texture::planar_ptr()))),
 	quad_(
 		screen_vf::create_quad(
 			shader_,
@@ -109,7 +103,7 @@ fruitcut::pp::system::update()
 	*/
 }
 
-sge::renderer::texture_ptr const
+sge::renderer::texture::planar_ptr const
 fruitcut::pp::system::result_texture()
 {
 	return result_texture_;

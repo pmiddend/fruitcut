@@ -5,7 +5,7 @@
 #include "filter/wrapper.hpp"
 #include "dependency_set.hpp"
 #include <sge/renderer/device_ptr.hpp>
-#include <sge/renderer/texture_ptr.hpp>
+#include <sge/renderer/texture/planar_ptr.hpp>
 #include <sge/renderer/target_ptr.hpp>
 #include <sge/renderer/vertex_buffer_ptr.hpp>
 #include <sge/shader/object.hpp>
@@ -76,7 +76,7 @@ public:
 	void
 	update();
 
-	sge::renderer::texture_ptr const
+	sge::renderer::texture::planar_ptr const
 	result_texture();
 
 	void
@@ -142,7 +142,7 @@ private:
 	name_to_vertex name_to_vertex_;
 	sge::shader::object shader_;
 	sge::renderer::vertex_buffer_ptr quad_;
-	sge::renderer::texture_ptr result_texture_;
+	sge::renderer::texture::planar_ptr result_texture_;
 };
 }
 }

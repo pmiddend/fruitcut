@@ -19,7 +19,10 @@
 #include <sge/image2d/file.hpp>
 #include <sge/image2d/multi_loader.hpp>
 #include <sge/renderer/scalar.hpp>
-#include <sge/renderer/filter/linear.hpp>
+#include <sge/renderer/texture/filter/linear.hpp>
+#include <sge/renderer/texture/create_planar_from_view.hpp>
+#include <sge/renderer/texture/address_mode.hpp>
+#include <sge/renderer/texture/address_mode2.hpp>
 #include <sge/renderer/resource_flags_none.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/texture/part_raw.hpp>
@@ -120,9 +123,12 @@ fruitcut::app::states::intro::intro(
 							// Can't use machine::create_single_texture here since
 							// we've loaded the image beforehand
 							new sge::texture::part_raw(
-								context<machine>().systems().renderer()->create_texture(
+								sge::renderer::texture::create_planar_from_view(
+									context<machine>().systems().renderer(),
 									logo_image->view(),
-									sge::renderer::filter::linear,
+									sge::renderer::texture::filter::linear,
+									sge::renderer::texture::address_mode2(
+										sge::renderer::texture::address_mode::clamp),
 									sge::renderer::resource_flags::none))))
 					.texture_size()
 					.order(

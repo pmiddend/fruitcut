@@ -8,11 +8,13 @@
 #include <sge/renderer/vf/iterator.hpp>
 #include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/matrix4.hpp>
-#include <sge/renderer/texture.hpp>
+// We use no_texture which returns something incompatible to what
+// scoped_texture takes as argument
+#include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/scoped_transform.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/scalar.hpp>
-#include <sge/renderer/scoped_texture.hpp>
+#include <sge/renderer/texture/scoped.hpp>
 #include <sge/renderer/vertex_buffer.hpp>
 #include <sge/renderer/nonindexed_primitive_type.hpp>
 #include <sge/renderer/scoped_vertex_buffer.hpp>
@@ -70,14 +72,12 @@ fruitcut::line_drawer::object::update()
 		return;
 
 	if (!vb_ || vb_->size() < static_cast<sge::renderer::size_type>(lines_.size()*2))
-	{
 		vb_ = 
 			renderer_->create_vertex_buffer(
 				sge::renderer::vf::dynamic::make_format<vf::format>(),
 				static_cast<sge::renderer::size_type>(
 					lines_.size()*2),
 				sge::renderer::resource_flags::none);
-	}
 
 	sge::renderer::scoped_vertex_lock const vblock(
 		vb_,
@@ -127,7 +127,7 @@ fruitcut::line_drawer::object::render()
 		renderer_,
 		vb_);
 
-	sge::renderer::scoped_texture scoped_tex(
+	sge::renderer::texture::scoped scoped_tex(
 		renderer_,
 		sge::renderer::no_texture(),
 		static_cast<sge::renderer::stage_type>(

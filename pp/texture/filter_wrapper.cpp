@@ -3,14 +3,14 @@
 #include <boost/tuple/tuple_comparison.hpp>
 
 fruitcut::pp::texture::filter_wrapper::filter_wrapper(
-	sge::renderer::filter::texture const &_value)
+	sge::renderer::texture::filter::object const &_value)
 :
 	value_(
 		_value)
 {
 }
 
-sge::renderer::filter::texture const &
+sge::renderer::texture::filter::object const &
 fruitcut::pp::texture::filter_wrapper::value() const
 {
 	return value_;
