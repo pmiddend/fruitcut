@@ -198,7 +198,8 @@ fruitcut::app::machine::machine(
 						/ 
 							json::find_member<fcppt::string>(
 								config_file(),
-								FCPPT_TEXT("console/background-texture"))))
+								FCPPT_TEXT("console/background-texture")),
+					sge::renderer::texture::address_mode::clamp))
       .pos(
         sge::console::sprite_object::point::null())
       .size(
@@ -286,7 +287,8 @@ fruitcut::app::machine::particle_system()
 
 sge::texture::part_ptr const
 fruitcut::app::machine::create_single_texture(
-	fcppt::filesystem::path const &p)
+	fcppt::filesystem::path const &p,
+	sge::renderer::texture::address_mode::type const address_mode)
 {
 	return 
 		sge::texture::part_ptr(
@@ -297,7 +299,7 @@ fruitcut::app::machine::create_single_texture(
 						p)->view(),
 					sge::renderer::texture::filter::linear,
 					sge::renderer::texture::address_mode2(
-						sge::renderer::texture::address_mode::clamp),
+						address_mode),
 					sge::renderer::resource_flags::none)));
 }
 

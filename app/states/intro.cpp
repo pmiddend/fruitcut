@@ -88,7 +88,8 @@ fruitcut::app::states::intro::intro(
 								/ 
 									json::find_member<fcppt::string>(
 										context<machine>().config_file(),
-										FCPPT_TEXT("textures/background"))))
+										FCPPT_TEXT("textures/background")),
+							sge::renderer::texture::address_mode::repeat))
 					.pos(
 						particle::sprite::object::point::null())
 					.system(
@@ -160,7 +161,8 @@ fruitcut::app::states::intro::intro(
 								/ 
 									json::find_member<fcppt::string>(
 										context<machine>().config_file(),
-										FCPPT_TEXT("textures/logo-shadow"))))
+										FCPPT_TEXT("textures/logo-shadow")),
+							sge::renderer::texture::address_mode::clamp))
 					.texture_size()
 					.order(
 						static_cast<particle::sprite::object::order_type>(

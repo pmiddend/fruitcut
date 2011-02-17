@@ -10,6 +10,7 @@
 #include <awl/mainloop/asio/io_service_ptr.hpp>
 #include <sge/parse/json/object.hpp>
 #include <sge/parse/json/array.hpp>
+#include <sge/renderer/texture/address_mode.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/texture/manager.hpp>
 #include <sge/texture/part_ptr.hpp>
@@ -61,7 +62,8 @@ public:
 
 	sge::texture::part_ptr const
 	create_single_texture(
-		fcppt::filesystem::path const &);
+		fcppt::filesystem::path const &,
+		sge::renderer::texture::address_mode::type);
 
 	sge::texture::part_ptr const
 	create_texture(

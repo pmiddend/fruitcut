@@ -94,7 +94,7 @@ parse_fruit(
 							fruitcut::json::find_member<fcppt::string>(
 								o,
 								FCPPT_TEXT("texture")))->view(),
-				sge::renderer::texture::filter::trilinear,
+				sge::renderer::texture::filter::linear,
 				sge::renderer::texture::address_mode2(
 					sge::renderer::texture::address_mode::clamp),
 				sge::renderer::resource_flags::none));
