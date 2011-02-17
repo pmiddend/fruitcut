@@ -69,6 +69,9 @@ public:
 	virtual bool
 	dead() const = 0;
 
+	sge::font::metrics_ptr const
+	metrics();
+
 	virtual 
 	~base();
 protected:

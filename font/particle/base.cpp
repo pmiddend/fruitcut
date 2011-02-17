@@ -39,6 +39,12 @@ fruitcut::font::particle::base::render(
 		flags_);
 }
 
+sge::font::metrics_ptr const
+fruitcut::font::particle::base::metrics()
+{
+	return metrics_;
+}
+
 fruitcut::font::particle::base::~base()
 {
 }

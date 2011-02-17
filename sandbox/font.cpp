@@ -158,6 +158,7 @@ try
 				fcppt::assign::make_container<sge::extension_set>(
 					FCPPT_TEXT("png")))));
 
+	/*
 	sge::font::metrics_ptr const bitmap_metrics(
 		sge::font::bitmap::create(
 			sge::config::media_path()
@@ -173,9 +174,27 @@ try
 			/ FCPPT_TEXT("default.ttf"),
 			static_cast<sge::font::size_type>(
 				32)));
+	*/
 
 	fruitcut::font::system font_system(
-		sys.renderer());
+		sys.renderer(),
+		sys.font_system(),
+		sys.image_loader());
+
+	sge::font::metrics_ptr 
+		bitmap_metrics = 
+			font_system.load_bitmap(
+				sge::config::media_path()
+					/ FCPPT_TEXT("fonts")
+					/ FCPPT_TEXT("bitmap")
+					/ FCPPT_TEXT("font.png")),
+		ttf_metrics = 
+			font_system.load_ttf(
+				sge::config::media_path()
+					/ FCPPT_TEXT("fonts")
+					/ FCPPT_TEXT("default.ttf"),
+				static_cast<sge::font::size_type>(
+					32));
 
 	sys.renderer()->onscreen_target()->viewport(
 		sge::renderer::viewport(
