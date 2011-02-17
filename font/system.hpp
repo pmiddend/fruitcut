@@ -54,6 +54,16 @@ public:
 
 	~system();
 private:
+	// Explanation: The drawer has "draw_char(char_type)" which checks
+	// if, for this char, there is a texture_part somewhere in the
+	// atlased texture. If not, create it and put it in the cache. If
+	// so, return it.
+	//
+	// This means that we have to have one drawer for each
+	// metrics_ptr. So we memorize which fonts have been loaded and
+	// create a drawer for each (we never delete the drawers,
+	// currently).
+
 	typedef
 	boost::ptr_list<particle::base>
 	nonintrusive_list;

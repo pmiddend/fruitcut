@@ -132,6 +132,13 @@ fruitcut::font::drawer::color(
 	col_ = _col;
 }
 
+void
+fruitcut::font::drawer::transform_callback(
+	font::transform_callback const &_transform)
+{
+	transform_ = _transform;
+}
+
 sge::texture::const_part_ptr const
 fruitcut::font::drawer::cached_texture(
 	sge::font::text::char_type const _ch,

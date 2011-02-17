@@ -5,6 +5,7 @@
 #include "base_parameters_fwd.hpp"
 #include "../drawer_fwd.hpp"
 #include "../color_animation.hpp"
+#include "../scale_animation.hpp"
 
 namespace fruitcut
 {
@@ -20,7 +21,8 @@ public:
 	explicit
 	animated(
 		base_parameters const &,
-		color_animation::value_sequence const &);
+		color_animation::value_sequence const &,
+		scale_animation::value_sequence const &);
 
 	void
 	update();
@@ -35,6 +37,7 @@ public:
 	~animated();
 private:
 	color_animation color_animation_;
+	scale_animation scale_animation_;
 };
 }
 }

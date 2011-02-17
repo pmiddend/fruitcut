@@ -196,6 +196,13 @@ try
 				static_cast<sge::font::size_type>(
 					32));
 
+	FCPPT_ASSERT(
+		font_system.load_bitmap(
+			sge::config::media_path()
+				/ FCPPT_TEXT("fonts")
+				/ FCPPT_TEXT("bitmap")
+				/ FCPPT_TEXT("font.png")) == bitmap_metrics);
+
 	sys.renderer()->onscreen_target()->viewport(
 		sge::renderer::viewport(
 			sge::renderer::pixel_rect(
@@ -205,7 +212,7 @@ try
 
 	font_system.insert(
 		fruitcut::font::particle::unique_base_ptr(
-			fcppt::make_unique_ptr<fruitcut::font::particle::animated>(
+			new fruitcut::font::particle::animated(
 				fruitcut::font::particle::base_parameters(
 					bitmap_metrics,
 					SGE_FONT_TEXT_LIT("Centered, should vanish soon"),
@@ -218,7 +225,12 @@ try
 					(fruitcut::font::color_animation::value_type(
 						sge::time::second(1),
 						sge::image::color::any::convert<fruitcut::font::color_format>(
-							sge::image::colors::white()))).container())));
+							sge::image::colors::white()))),
+				fcppt::assign::make_container<fruitcut::font::scale_animation::value_sequence>
+					(fruitcut::font::scale_animation::value_type(
+						sge::time::second(1),
+						static_cast<sge::renderer::scalar>(
+							1))))));
 
 	fruitcut::font::particle::animated ttf_font(
 		fruitcut::font::particle::base_parameters(
@@ -233,7 +245,16 @@ try
 			(fruitcut::font::color_animation::value_type(
 				sge::time::second(1),
 				sge::image::color::any::convert<fruitcut::font::color_format>(
-					sge::image::colors::white()))));
+					sge::image::colors::white()))),
+		fcppt::assign::make_container<fruitcut::font::scale_animation::value_sequence>
+			(fruitcut::font::scale_animation::value_type(
+				sge::time::second(1),
+				static_cast<sge::renderer::scalar>(
+					1)))
+			(fruitcut::font::scale_animation::value_type(
+				sge::time::second(1),
+				static_cast<sge::renderer::scalar>(
+					0.5))));
 
 	font_system.insert(
 		ttf_font);

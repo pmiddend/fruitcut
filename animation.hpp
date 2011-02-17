@@ -3,6 +3,8 @@
 
 #include <sge/time/timer.hpp>
 #include <sge/time/duration.hpp>
+#include <sge/time/callback.hpp>
+#include <sge/time/default_callback.hpp>
 #include <fcppt/scoped_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/chrono/duration.hpp>
@@ -34,13 +36,16 @@ public:
 
 	explicit
 	animation(
-		value_sequence const &_values)
+		value_sequence const &_values,
+		sge::time::callback const &cb = sge::time::default_callback())
 	:
 		values_(
 			_values),
 		current_timer_(
 			new sge::time::timer(
-				values_.front().first)),
+				values_.front().first,
+				sge::time::activation_state::active,
+				cb)),
 		current_value_(
 			values_.begin())
 	{
