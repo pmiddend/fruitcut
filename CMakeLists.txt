@@ -132,10 +132,11 @@ SET(files
 	pp/filter/ssaa.cpp
 	pp/screen_vf/create_quad.cpp
 	# font
-#	font/system.cpp
-#	font/particle/base.cpp
-#	font/particle/animated.cpp
-#	font/particle/base_parameters.cpp
+	font/system.cpp
+	font/drawer.cpp
+	font/particle/base.cpp
+	font/particle/animated.cpp
+	font/particle/base_parameters.cpp
 	# particle
 	particle/system.cpp
 	particle/objects/base.cpp

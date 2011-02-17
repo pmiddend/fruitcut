@@ -1,18 +1,14 @@
 #include "animated.hpp"
+#include "../drawer.hpp"
 #include <sge/font/text/draw.hpp>
+#include <iostream>
 
 fruitcut::font::particle::animated::animated(
-	sge::font::metrics_ptr const _metrics,
-	drawer &_drawer,
-	sge::font::text::string const &_text,
+	base_parameters const &params,
 	color_animation::value_sequence const &_color_animation)
 :
-	metrics_(
-		_metrics),
-	drawer_(
-		_drawer),
-	text_(
-		_text),
+	base(
+		params),
 	color_animation_(
 		_color_animation)
 {
@@ -25,18 +21,14 @@ fruitcut::font::particle::animated::update()
 }
 
 void
-fruitcut::font::particle::animated::render()
+fruitcut::font::particle::animated::render(
+	drawer &_drawer)
 {
-	sge::font::text::draw(
-		metrics_,
-		drawer_,
-		text_,
-		sge::font::pos::null(),
-		fcppt::math::dim::structure_cast<sge::font::dim>(
-			sys.renderer()->screen_size()),
-		sge::font::text::align_h::center,
-		sge::font::text::align_v::center,
-		sge::font::text::flags::none);
+	_drawer.color(
+		color_animation_.current_value());
+
+	base::render(
+		_drawer);
 }
 
 bool

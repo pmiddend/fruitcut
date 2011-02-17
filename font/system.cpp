@@ -1,7 +1,19 @@
 #include "system.hpp"
 #include "particle/unique_base_ptr.hpp"
+#include <sge/image/colors.hpp>
 #include <fcppt/container/ptr/push_back_unique_ptr.hpp>
 #include <fcppt/move.hpp>
+#include <boost/spirit/home/phoenix/core.hpp>
+
+fruitcut::font::system::system(
+	sge::renderer::device_ptr const _renderer)
+:
+	drawer_(
+		_renderer,
+		sge::image::colors::white(),
+		boost::phoenix::arg_names::arg2)
+{
+}
 
 void
 fruitcut::font::system::insert(
@@ -54,12 +66,14 @@ fruitcut::font::system::render()
 			nonintrusive_particles_.begin(); 
 		i != nonintrusive_particles_.end();
 		++i)
-		i->render();
+		i->render(
+			drawer_);
 
 	for(
 		intrusive_list::iterator i = 
 			intrusive_particles_.begin(); 
 		i != intrusive_particles_.end(); 
 		++i)
-		i->render();
+		i->render(
+			drawer_);
 }

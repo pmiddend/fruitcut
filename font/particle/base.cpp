@@ -12,8 +12,6 @@ fruitcut::font::particle::base::base(
 :
 	metrics_(
 		params.metrics()),
-	drawer_(
-		params.drawer()),
 	text_(
 		params.text()),
 	bounding_box_(
@@ -28,11 +26,12 @@ fruitcut::font::particle::base::base(
 }
 
 void
-fruitcut::font::particle::base::render()
+fruitcut::font::particle::base::render(
+	drawer &_drawer)
 {
 	sge::font::text::draw(
 		metrics_,
-		drawer_,
+		_drawer,
 		text_,
 		bounding_box_,
 		alignment_h_,

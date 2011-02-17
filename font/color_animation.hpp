@@ -3,6 +3,10 @@
 
 #include "../animation.hpp"
 #include "color.hpp"
+// Since animation needs a sge::time::funit "module" we include the
+// neccessary operators here (least surprise)
+#include <mizuiro/color/operators.hpp>
+#include <mizuiro/color/object.hpp>
 
 namespace fruitcut
 {

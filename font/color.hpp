@@ -1,15 +1,15 @@
 #ifndef FRUITCUT_FONT_COLOR_HPP_INCLUDED
 #define FRUITCUT_FONT_COLOR_HPP_INCLUDED
 
-#include <sge/image/color/rgba8.hpp>
+#include "color_format.hpp"
+#include <mizuiro/color/object_impl.hpp>
 
 namespace fruitcut
 {
 namespace font
 {
-typedef
-sge::image::color::rgba8
-color;
+typedef 
+mizuiro::color::object<color_format> color;
 }
 }
 

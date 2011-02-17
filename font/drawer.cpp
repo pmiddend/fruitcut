@@ -1,6 +1,6 @@
 #include "drawer.hpp"
 #include <sge/texture/rect_fragmented.hpp>
-#include <sge/renderer/filter/linear.hpp>
+#include <sge/renderer/texture/filter/linear.hpp>
 #include <sge/renderer/state/scoped.hpp>
 #include <sge/renderer/caps.hpp>
 #include <sge/image2d/view/dim.hpp>
@@ -36,8 +36,9 @@ fruitcut::font::drawer::drawer(
 		boost::phoenix::construct<sge::texture::fragmented_unique_ptr>(
 			boost::phoenix::new_<sge::texture::rect_fragmented>(
 				rend_,
+				// Is this safe? Could be a non-alpha format
 				rend_->caps().preferred_texture_format(),
-				sge::renderer::filter::linear,
+				sge::renderer::texture::filter::linear,
 				fcppt::math::dim::quad<sge::renderer::dim2>( 
 					256)))),
 	sys_(

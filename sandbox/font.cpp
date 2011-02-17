@@ -1,18 +1,26 @@
-#include "font_drawer.hpp"
+#include "../font/system.hpp"
+#include "../font/particle/base_parameters.hpp"
+#include "../font/color_format.hpp"
+#include "../font/particle/animated.hpp"
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
 #include <sge/systems/viewport/manage_resize.hpp>
+#include <sge/font/system.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/refresh_rate_dont_care.hpp>
 #include <sge/renderer/no_multi_sampling.hpp>
 #include <sge/renderer/scoped_block.hpp>
 #include <sge/renderer/state/var.hpp>
+#include <sge/renderer/onscreen_target.hpp>
 #include <sge/renderer/state/list.hpp>
 #include <sge/renderer/state/trampoline.hpp>
+#include <sge/font/text/lit.hpp>
 #include <sge/image/colors.hpp>
 #include <sge/image/color/init.hpp>
 #include <sge/image/color/rgba8.hpp>
 #include <sge/image/capabilities_field.hpp>
+#include <sge/image/colors.hpp>
+#include <sge/image/color/any/convert.hpp>
 #include <sge/font/bitmap/create.hpp>
 #include <sge/font/text/drawer_3d.hpp>
 #include <sge/font/text/part.hpp>
@@ -24,16 +32,18 @@
 #include <sge/input/keyboard/device.hpp>
 #include <sge/window/instance.hpp>
 #include <sge/extension_set.hpp>
+#include <sge/time/second.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
+#include <fcppt/math/box/structure_cast.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/exception.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/make_shared_ptr.hpp>
 #include <boost/spirit/home/phoenix/core/reference.hpp>
 #include <boost/spirit/home/phoenix/operator/self.hpp>
 #include <iostream>
@@ -50,140 +60,7 @@
 #include <boost/intrusive/list_hook.hpp>
 #include <boost/intrusive/link_mode.hpp>
 
-namespace
-{
-class particle_base
-{
-FCPPT_NONCOPYABLE(
-	particle_base);
-public:
-	explicit
-	particle_base()
-	{
-	}
-
-	virtual void
-	update() = 0;
-
-	virtual void
-	render() = 0;
-
-	virtual ~particle_base() {}
-};
-
-class intrusive_particle
-:
-	public
-		particle_base,
-	public 
-		boost::intrusive::list_base_hook
-		<
-			boost::intrusive::link_mode<boost::intrusive::auto_unlink>
-		>
-{
-public:	
-};
-
-class volatile_particle
-:
-	public particle_base
-{
-public:
-	virtual bool
-	dead() const = 0;
-};
-
-typedef
-fcppt::unique_ptr<volatile_particle>
-unique_volatile_particle_ptr;
-
-class system
-{
-public:
-	void
-	insert(
-		unique_volatile_particle_ptr o)
-	{
-		fcppt::container::ptr::push_back_unique_ptr(
-			volatile_particles_,
-			fcppt::move(
-				o));
-	}
-
-	void
-	insert(
-		intrusive_particle &o)
-	{
-		intrusive_particles_.push_back(
-			o);
-	}
-
-	void
-	update()
-	{
-		for(
-			volatile_particle_sequence::iterator i = 
-				volatile_particles_.begin(); 
-			i != volatile_particles_.end(); )
-		{
-			i->update();
-			if (i->dead())
-				i = 
-					volatile_particles_.erase(
-						i);
-			else
-				++i;
-		}
-
-		for(
-			intrusive_particle_sequence::iterator i = 
-				intrusive_particles_.begin(); 
-			i != intrusive_particles_.end(); 
-			++i)
-			i->update();
-	}
-
-	void
-	render()
-	{
-		for(
-			volatile_particle_sequence::iterator i = 
-				volatile_particles_.begin(); 
-			i != volatile_particles_.end(); 
-			++i)
-			i->render();
-
-		for(
-			intrusive_particle_sequence::iterator i = 
-				intrusive_particles_.begin(); 
-			i != intrusive_particles_.end(); 
-			++i)
-			i->render();
-	}
-private:
-	typedef
-	boost::ptr_list<volatile_particle>
-	volatile_particle_sequence;
-
-	typedef
-	boost::intrusive::list
-	<
-		intrusive_particle,
-		boost::intrusive::constant_time_size<false>
-	>
-	intrusive_particle_sequence;
-
-	volatile_particle_sequence volatile_particles_;
-	intrusive_particle_sequence intrusive_particles_;
-};
-
-class pulsating
-:
-	public intrusive_particle
-{
-};
-}
-
+#if 0
 #include <fcppt/math/dim/arithmetic.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
 #include <fcppt/math/vector/dim.hpp>
@@ -247,6 +124,7 @@ font_transformation(
 					s * character_rect.dimension().h())));
 }
 }
+#endif
 
 int main()
 try
@@ -255,7 +133,7 @@ try
 		sge::systems::list()
 		(sge::systems::window(
 				sge::renderer::window_parameters(
-					FCPPT_TEXT("sge animtest"))))
+					FCPPT_TEXT("fruitcut font test"))))
 		(sge::systems::renderer(
 				sge::renderer::parameters(
 					sge::renderer::display_mode(
@@ -270,6 +148,7 @@ try
 					sge::renderer::vsync::on,
 					sge::renderer::no_multi_sampling),
 				sge::systems::viewport::manage_resize()))
+		(sge::systems::parameterless::font)
 		(sge::systems::input(
 				sge::systems::input_helper_field(
 					sge::systems::input_helper::keyboard_collector),
@@ -279,7 +158,7 @@ try
 				fcppt::assign::make_container<sge::extension_set>(
 					FCPPT_TEXT("png")))));
 
-	sge::font::metrics_ptr const font_metrics(
+	sge::font::metrics_ptr const bitmap_metrics(
 		sge::font::bitmap::create(
 			sge::config::media_path()
 			/ FCPPT_TEXT("fonts")
@@ -287,11 +166,58 @@ try
 			/ FCPPT_TEXT("font.png"),
 			sys.image_loader()));
 
-	sge::font::text::drawer_ptr const font_drawer(
-		fcppt::make_shared_ptr<fruitcut::sandbox::font_drawer>(
-			sys.renderer(),
-			sge::image::colors::white(),
-			&font_transformation));
+	sge::font::metrics_ptr const ttf_metrics(
+		sys.font_system()->create_font(
+			sge::config::media_path()
+			/ FCPPT_TEXT("fonts")
+			/ FCPPT_TEXT("default.ttf"),
+			static_cast<sge::font::size_type>(
+				32)));
+
+	fruitcut::font::system font_system(
+		sys.renderer());
+
+	sys.renderer()->onscreen_target()->viewport(
+		sge::renderer::viewport(
+			sge::renderer::pixel_rect(
+				sge::renderer::pixel_rect::vector::null(),
+				fcppt::math::dim::structure_cast<sge::renderer::pixel_rect::dim>(
+					sys.renderer()->screen_size()))));
+
+	font_system.insert(
+		fruitcut::font::particle::unique_base_ptr(
+			fcppt::make_unique_ptr<fruitcut::font::particle::animated>(
+				fruitcut::font::particle::base_parameters(
+					bitmap_metrics,
+					SGE_FONT_TEXT_LIT("Centered, should vanish soon"),
+					fcppt::math::box::structure_cast<sge::font::rect>(
+						sys.renderer()->onscreen_target()->viewport().get()),
+					sge::font::text::align_h::center,
+					sge::font::text::align_v::center,
+					sge::font::text::flags::none),
+				fcppt::assign::make_container<fruitcut::font::color_animation::value_sequence>
+					(fruitcut::font::color_animation::value_type(
+						sge::time::second(1),
+						sge::image::color::any::convert<fruitcut::font::color_format>(
+							sge::image::colors::white()))).container())));
+
+	fruitcut::font::particle::animated ttf_font(
+		fruitcut::font::particle::base_parameters(
+			ttf_metrics,
+			SGE_FONT_TEXT_LIT("Top left corner, should be permanent"),
+			fcppt::math::box::structure_cast<sge::font::rect>(
+				sys.renderer()->onscreen_target()->viewport().get()),
+			sge::font::text::align_h::left,
+			sge::font::text::align_v::top,
+			sge::font::text::flags::none),
+		fcppt::assign::make_container<fruitcut::font::color_animation::value_sequence>
+			(fruitcut::font::color_animation::value_type(
+				sge::time::second(1),
+				sge::image::color::any::convert<fruitcut::font::color_format>(
+					sge::image::colors::white()))));
+
+	font_system.insert(
+		ttf_font);
 
 	sys.renderer()->state(
 		sge::renderer::state::list
@@ -313,23 +239,8 @@ try
 		sge::renderer::scoped_block const block_(
 			sys.renderer());
 
-		static_cast<fruitcut::sandbox::font_drawer &>(*font_drawer).color(
-			sge::image::color::rgba8(
-			(sge::image::color::init::red %= 1.0)
-			(sge::image::color::init::green %= 1.0)
-			(sge::image::color::init::blue %= 1.0)
-			(sge::image::color::init::alpha %= (1.0 - global_timer().elapsed_frames()))));
-
-		sge::font::text::draw(
-			font_metrics,
-			font_drawer,
-			SGE_FONT_TEXT_LIT("test abcd"),
-			sge::font::pos::null(),
-			fcppt::math::dim::structure_cast<sge::font::dim>(
-				sys.renderer()->screen_size()),
-			sge::font::text::align_h::center,
-			sge::font::text::align_v::center,
-			sge::font::text::flags::none);
+		font_system.update();
+		font_system.render();
 	}
 }
 catch(

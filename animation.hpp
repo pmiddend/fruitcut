@@ -51,15 +51,17 @@ public:
 	void
 	update()
 	{
-		if (current_value_ == values_.end())
+		if (current_value_ == boost::prior(values_.end()))
 			return;
 
 		if (!current_timer_->expired())
 			return;
 
 		++current_value_;
+
 		if (current_value_ == boost::prior(values_.end()))
 			return;
+
 		current_timer_.reset(
 			new sge::time::timer(
 				current_value_->first));

@@ -2,7 +2,9 @@
 #define FRUITCUT_FONT_SYSTEM_HPP_INCLUDED
 
 #include "particle/base.hpp"
+#include "drawer.hpp"
 #include "particle/unique_base_ptr.hpp"
+#include <sge/renderer/device_ptr.hpp>
 #include <boost/ptr_container/ptr_list.hpp>
 #include <boost/intrusive/list.hpp>
 
@@ -13,6 +15,10 @@ namespace font
 class system
 {
 public:
+	explicit
+	system(
+		sge::renderer::device_ptr);
+
 	void
 	insert(
 		particle::unique_base_ptr);
@@ -39,6 +45,7 @@ private:
 	>
 	intrusive_list;
 
+	drawer drawer_;
 	intrusive_list intrusive_particles_;
 	nonintrusive_list nonintrusive_particles_;
 };

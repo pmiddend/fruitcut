@@ -2,17 +2,14 @@
 
 fruitcut::font::particle::base_parameters::base_parameters(
 	sge::font::metrics_ptr const _metrics,
-	font::drawer &_drawer,
 	sge::font::text::string const &_text,
 	sge::font::rect const &_bounding_box,
 	sge::font::text::align_h::type const _alignment_h,
 	sge::font::text::align_v::type const _alignment_v,
-	sge::font::text::flags::type const _flags)
+	sge::font::text::flags_field const &_flags)
 :
 	metrics_(
 		_metrics),
-	drawer_(
-		_drawer),
 	text_(
 		_text),
 	bounding_box_(
@@ -30,12 +27,6 @@ sge::font::metrics_ptr const
 fruitcut::font::particle::base_parameters::metrics() const
 {
 	return metrics_;
-}
-
-fruitcut::font::drawer &
-fruitcut::font::particle::base_parameters::drawer() const
-{
-	return drawer_;
 }
 
 sge::font::text::string const &
@@ -62,7 +53,7 @@ fruitcut::font::particle::base_parameters::alignment_v() const
 	return alignment_v_;
 }
 
-sge::font::text::flags::type 
+sge::font::text::flags_field const &
 fruitcut::font::particle::base_parameters::flags() const
 {
 	return flags_;

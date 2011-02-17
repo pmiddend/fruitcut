@@ -10,7 +10,9 @@
 #include <sge/font/rect.hpp>
 #include <sge/font/text/align_h.hpp>
 #include <sge/font/text/align_v.hpp>
+#include <sge/font/text/flags_field.hpp>
 #include <sge/font/text/flags.hpp>
+#include <fcppt/container/bitfield/bitfield.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <boost/intrusive/list_hook.hpp>
@@ -61,21 +63,21 @@ public:
 	update() = 0;
 
 	virtual void
-	render();
+	render(
+		drawer &);
 
 	virtual bool
-	dead() = 0;
+	dead() const = 0;
 
 	virtual 
 	~base();
 protected:
 	sge::font::metrics_ptr metrics_;
-	font::drawer &drawer_;
 	sge::font::text::string text_;
 	sge::font::rect bounding_box_;
 	sge::font::text::align_h::type alignment_h_;
 	sge::font::text::align_v::type alignment_v_;
-	sge::font::text::flags::type flags_;
+	sge::font::text::flags_field flags_;
 };
 }
 }
