@@ -6,6 +6,8 @@
 #include "../drawer_fwd.hpp"
 #include "../color_animation.hpp"
 #include "../scale_animation.hpp"
+#include <sge/time/callback.hpp>
+#include <sge/time/default_callback.hpp>
 
 namespace fruitcut
 {
@@ -22,7 +24,8 @@ public:
 	animated(
 		base_parameters const &,
 		color_animation::value_sequence const &,
-		scale_animation::value_sequence const &);
+		scale_animation::value_sequence const &,
+		sge::time::callback const & = sge::time::default_callback());
 
 	void
 	update();

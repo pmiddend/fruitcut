@@ -17,14 +17,8 @@
 #include <sge/font/text/lit.hpp>
 #include <sge/image/colors.hpp>
 #include <sge/image/color/init.hpp>
-#include <sge/image/color/rgba8.hpp>
-#include <sge/image/capabilities_field.hpp>
-#include <sge/image/colors.hpp>
 #include <sge/image/color/any/convert.hpp>
-#include <sge/font/bitmap/create.hpp>
-#include <sge/font/text/drawer_3d.hpp>
-#include <sge/font/text/part.hpp>
-#include <sge/font/text/draw.hpp>
+#include <sge/image/capabilities_field.hpp>
 #include <sge/font/text/flags_none.hpp>
 #include <sge/font/text/lit.hpp>
 #include <sge/config/media_path.hpp>
@@ -42,7 +36,6 @@
 #include <fcppt/math/box/structure_cast.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/exception.hpp>
-#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <boost/spirit/home/phoenix/core/reference.hpp>
 #include <boost/spirit/home/phoenix/operator/self.hpp>
@@ -50,81 +43,6 @@
 #include <ostream>
 #include <exception>
 #include <cstdlib>
-
-#include <fcppt/unique_ptr.hpp>
-#include <fcppt/container/ptr/push_back_unique_ptr.hpp>
-#include <fcppt/move.hpp>
-#include <fcppt/noncopyable.hpp>
-#include <boost/ptr_container/ptr_list.hpp>
-#include <boost/intrusive/list.hpp>
-#include <boost/intrusive/list_hook.hpp>
-#include <boost/intrusive/link_mode.hpp>
-
-#if 0
-#include <fcppt/math/dim/arithmetic.hpp>
-#include <fcppt/math/vector/arithmetic.hpp>
-#include <fcppt/math/vector/dim.hpp>
-#include <sge/time/timer.hpp>
-#include <sge/time/second.hpp>
-#include <cmath>
-
-namespace
-{
-template<typename T>
-T const
-jag(
-	T const &t)
-{
-	return 
-		t < static_cast<T>(0.5) 
-		? t
-		: (static_cast<T>(1.0)-t);
-}
-
-template<typename T>
-T const
-bump(
-	T const &t)
-{
-	return 
-		std::abs(t) < static_cast<T>(1.0) 
-		? std::exp(-static_cast<T>(1.0)/(static_cast<T>(1.0)-t*t))
-		: 0;
-}
-
-sge::time::timer &global_timer()
-{
-	static sge::time::timer t(sge::time::second(1));
-	return t;
-}
-
-sge::font::rect const
-font_transformation(
-	sge::font::rect const &total_rect,
-	sge::font::rect const &character_rect)
-{
-	sge::font::pos const c = 
-		total_rect.pos() + total_rect.dimension()/2;
-	global_timer().update();
-	double const s = 
-		3.0 * bump(
-			static_cast<double>(
-				global_timer().elapsed_frames()) * 2.0 - 1.0);
-	return 
-		sge::font::rect(
-			sge::font::pos(
-				static_cast<sge::font::pos::value_type>(
-					c.x() - c.x() * s + s * character_rect.pos().x()),
-				static_cast<sge::font::pos::value_type>(
-					c.y() - c.y() * s + s * character_rect.pos().y())),
-			sge::font::dim(
-				static_cast<sge::font::pos::value_type>(
-					s * character_rect.dimension().w()),
-				static_cast<sge::font::pos::value_type>(
-					s * character_rect.dimension().h())));
-}
-}
-#endif
 
 int main()
 try
@@ -157,24 +75,6 @@ try
 				sge::image::capabilities_field::null(),
 				fcppt::assign::make_container<sge::extension_set>(
 					FCPPT_TEXT("png")))));
-
-	/*
-	sge::font::metrics_ptr const bitmap_metrics(
-		sge::font::bitmap::create(
-			sge::config::media_path()
-			/ FCPPT_TEXT("fonts")
-			/ FCPPT_TEXT("bitmap")
-			/ FCPPT_TEXT("font.png"),
-			sys.image_loader()));
-
-	sge::font::metrics_ptr const ttf_metrics(
-		sys.font_system()->create_font(
-			sge::config::media_path()
-			/ FCPPT_TEXT("fonts")
-			/ FCPPT_TEXT("default.ttf"),
-			static_cast<sge::font::size_type>(
-				32)));
-	*/
 
 	fruitcut::font::system font_system(
 		sys.renderer(),

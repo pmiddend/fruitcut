@@ -57,14 +57,17 @@ scale_transformation(
 fruitcut::font::particle::animated::animated(
 	base_parameters const &params,
 	color_animation::value_sequence const &_color_animation,
-	scale_animation::value_sequence const &_scale_animation)
+	scale_animation::value_sequence const &_scale_animation,
+	sge::time::callback const &cb)
 :
 	base(
 		params),
 	color_animation_(
-		_color_animation),
+		_color_animation,
+		cb),
 	scale_animation_(
-		_scale_animation)
+		_scale_animation,
+		cb)
 {
 }
 
