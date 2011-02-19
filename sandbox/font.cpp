@@ -132,6 +132,22 @@ try
 						static_cast<sge::renderer::scalar>(
 							1))))));
 
+	fruitcut::font::scale_animation::value_sequence scale_frames;
+	for (unsigned int t = 0; t < 10; ++t)
+	{
+		scale_frames.push_back(
+			fruitcut::font::scale_animation::value_type(
+				sge::time::millisecond(
+					static_cast<sge::time::unit>(200 * t)
+				),
+				static_cast<sge::renderer::scalar>(
+					((t % 2 == 0) 1.f : -1.f) *
+					std::exp(
+						-0.5f * static_cast<float>(t)
+					) +
+					1.0f)));
+	}
+
 	fruitcut::font::particle::animated ttf_font(
 		fruitcut::font::particle::base_parameters(
 			ttf_metrics,
@@ -146,15 +162,7 @@ try
 				sge::time::second(1),
 				sge::image::color::any::convert<fruitcut::font::color_format>(
 					sge::image::colors::white()))),
-		fcppt::assign::make_container<fruitcut::font::scale_animation::value_sequence>
-			(fruitcut::font::scale_animation::value_type(
-				sge::time::second(1),
-				static_cast<sge::renderer::scalar>(
-					1)))
-			(fruitcut::font::scale_animation::value_type(
-				sge::time::second(1),
-				static_cast<sge::renderer::scalar>(
-					0.5))));
+		scale_frames);
 
 	font_system.insert(
 		ttf_font);
