@@ -21,6 +21,8 @@
 #include <sge/renderer/scoped_block.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/texture/filter/linear.hpp>
+#include <sge/renderer/texture/planar_ptr.hpp>
+#include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/vector2.hpp>
 #include <sge/renderer/resource_flags_none.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
@@ -52,9 +54,8 @@ fruitcut::pp::filter::desaturate::desaturate(
 		fcppt::assign::make_container<sge::shader::variable_sequence>
 			(sge::shader::variable(
 				"texture_size",
-				sge::shader::variable_type::const_,
-				fcppt::math::dim::structure_cast<sge::renderer::vector2>(
-					texture_size_)))
+				sge::shader::variable_type::uniform,
+				sge::renderer::vector2()))
 			(sge::shader::variable(
 				"factor",
 				sge::shader::variable_type::uniform,
@@ -102,6 +103,11 @@ fruitcut::pp::filter::desaturate::apply(
 
 	sge::shader::scoped scoped_shader(
 		shader_);
+
+	shader_.set_uniform(
+		"texture_size",
+		fcppt::math::dim::structure_cast<sge::renderer::vector2>(
+			result->texture()->dim()));
 
 	sge::renderer::scoped_vertex_buffer const scoped_vb_(
 		renderer_,

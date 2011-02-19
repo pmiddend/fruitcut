@@ -32,6 +32,7 @@
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/stencil_buffer.hpp>
 #include <sge/renderer/window_mode.hpp>
+#include <sge/renderer/onscreen_target.hpp>
 #include <sge/renderer/texture/filter/linear.hpp>
 #include <sge/renderer/texture/filter/linear.hpp>
 #include <sge/renderer/texture/create_planar_from_view.hpp>
@@ -39,6 +40,8 @@
 #include <sge/renderer/texture/address_mode.hpp>
 #include <sge/renderer/resource_flags_none.hpp>
 #include <sge/renderer/vsync.hpp>
+#include <sge/renderer/pixel_rect.hpp>
+#include <sge/renderer/viewport.hpp>
 #include <sge/renderer/no_multi_sampling.hpp>
 #include <sge/renderer/dim2.hpp>
 #include <sge/renderer/caps.hpp>
@@ -72,6 +75,7 @@
 #include <fcppt/container/bitfield/basic_impl.hpp>
 #include <fcppt/math/dim/quad.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
+#include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/from_std_string.hpp>
@@ -147,7 +151,6 @@ fruitcut::app::machine::machine(
 			(sge::systems::audio_loader(
 				sge::audio::loader_capabilities_field::null(),
 				fcppt::assign::make_container<sge::extension_set>
-					//(FCPPT_TEXT("ogg"))
 					(FCPPT_TEXT("wav"))))
 			(sge::systems::parameterless::font) 	
 			(sge::systems::parameterless::md3_loader) 	
@@ -259,6 +262,12 @@ fruitcut::app::machine::machine(
 				FCPPT_TEXT("frame-timer-ms"))))
 {
 	systems_.window()->show();
+	systems_.renderer()->onscreen_target()->viewport(
+		sge::renderer::viewport(
+			sge::renderer::pixel_rect(
+				sge::renderer::pixel_rect::vector::null(),
+				fcppt::math::dim::structure_cast<sge::renderer::pixel_rect::dim>(
+					systems_.renderer()->screen_size()))));
 	input_manager_.current_state(
 		game_state_);
 	systems_.audio_player()->gain(

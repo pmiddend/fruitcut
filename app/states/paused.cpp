@@ -1,6 +1,8 @@
 #include "paused.hpp"
 #include "running.hpp"
 #include "../../json/find_member.hpp"
+#include "../../pp/texture/use_screen_size.hpp"
+#include "../../pp/filter/blur.hpp"
 #include <sge/renderer/device.hpp>
 #include <sge/time/second_f.hpp>
 #include <sge/time/activation_state.hpp>
@@ -22,8 +24,7 @@ fruitcut::app::states::paused::paused(
 	blur_(
 		context<machine>().systems().renderer(),
 		context<machine>().postprocessing().texture_manager(),
-		fcppt::math::dim::structure_cast<sge::renderer::dim2>(
-			context<machine>().systems().renderer()->screen_size()),
+		pp::texture::use_screen_size(),
 		static_cast<pp::filter::blur::size_type>(
 			1)),
 	current_texture_(

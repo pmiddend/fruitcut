@@ -19,11 +19,14 @@
 #include <sge/renderer/scoped_block.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/texture/planar_ptr.hpp>
+#include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/filter/linear.hpp>
 #include <sge/renderer/vector2.hpp>
 #include <sge/image/color/format.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
+#include <fcppt/math/dim/output.hpp>
+#include <iostream>
 
 fruitcut::pp::filter::add::add(
 	sge::renderer::device_ptr const _renderer,
@@ -45,10 +48,9 @@ fruitcut::pp::filter::add::add(
 		sge::shader::vf_to_string<screen_vf::format>(),
 		fcppt::assign::make_container<sge::shader::variable_sequence>(
 			sge::shader::variable(
-				"target_size",
-				sge::shader::variable_type::const_,
-				fcppt::math::dim::structure_cast<sge::renderer::vector2>(
-					dimension_))),
+				"texture_size",
+				sge::shader::variable_type::uniform,
+				sge::renderer::vector2())),
 		fcppt::assign::make_container<sge::shader::sampler_sequence>
 			(sge::shader::sampler("tex1",sge::renderer::texture::planar_ptr()))
 			(sge::shader::sampler("tex2",sge::renderer::texture::planar_ptr()))), 
@@ -88,6 +90,11 @@ fruitcut::pp::filter::add::apply(
 				sge::image::color::format::rgb8,
 				sge::renderer::texture::filter::linear,
 				texture::depth_stencil_format::off));
+
+	shader_.set_uniform(
+		"texture_size",
+		fcppt::math::dim::structure_cast<sge::renderer::vector2>(
+			result->texture()->dim()));
 
 	sge::renderer::scoped_target const scoped_target(
 		renderer_,

@@ -24,6 +24,12 @@ public:
 	manager(
 		sge::renderer::device_ptr);
 
+	// The texture descriptor may contain a dim thats equal to
+	// "use_screen_size()". If that is the case, the texture is inserted
+	// into the "screen_textures_" map instead of the normal texture
+	// map. This is because screen textures have to be deleted as the
+	// viewport changes (because they have to be exactly the same size
+	// as the viewport, else we wouldn't have a nice 1:1 pixel mapping).
 	counted_instance const
 	query(
 		descriptor const &);
@@ -49,6 +55,12 @@ private:
 
 	sge::renderer::device_ptr renderer_;
 	texture_map textures_;
+	texture_map screen_textures_;
+
+	counted_instance const
+	query_internal(
+		texture_map &,
+		descriptor const &);
 };
 }
 }

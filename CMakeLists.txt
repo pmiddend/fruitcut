@@ -128,6 +128,7 @@ SET(files
 	pp/texture/filter_wrapper.cpp
 	pp/texture/manager.cpp
 	pp/texture/instance.cpp
+	pp/texture/use_screen_size.cpp 
 	pp/filter/blur.cpp
 	pp/filter/ssaa.cpp
 	pp/screen_vf/create_quad.cpp

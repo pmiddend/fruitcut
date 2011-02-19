@@ -237,11 +237,6 @@ fruitcut::app::states::running::process_fruit(
 	if (!intersection)
 		return;
 
-	// Just for debugging purposes
-	dim2 const ss = 
-		fcppt::math::dim::structure_cast<dim2>(
-			context<machine>().systems().renderer()->screen_size());
-
 	sge::renderer::matrix4 const inverse_mvp =
 		fcppt::math::matrix::inverse(
 			context<ingame>().camera().mvp());

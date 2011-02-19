@@ -5,9 +5,6 @@
 #include "../texture/manager.hpp"
 #include "../texture/instance.hpp"
 #include "../texture/descriptor.hpp"
-#include <sge/renderer/device.hpp>
-#include <sge/renderer/vector2.hpp>
-#include <sge/renderer/texture/planar_ptr.hpp>
 #include <sge/shader/vf_to_string.hpp>
 #include <sge/shader/sampler.hpp>
 #include <sge/shader/variable.hpp>
@@ -17,18 +14,23 @@
 #include <sge/shader/object.hpp>
 #include <sge/shader/scoped.hpp>
 #include <sge/image/color/format.hpp>
+#include <sge/renderer/device.hpp>
+#include <sge/renderer/vector2.hpp>
+#include <sge/renderer/texture/planar_ptr.hpp>
+#include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/filter/linear.hpp>
 #include <sge/renderer/scoped_target.hpp>
 #include <sge/renderer/vertex_buffer.hpp>
 #include <sge/renderer/scoped_block.hpp>
 #include <sge/renderer/resource_flags_none.hpp>
 #include <sge/renderer/scoped_vertex_buffer.hpp>
+#include <sge/renderer/glsl/scoped_program.hpp>
 #include <fcppt/assign/make_array.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/assert.hpp>
-#include <cstddef>
+#include <iostream>
 
 fruitcut::pp::filter::blur::blur(
 	sge::renderer::device_ptr const _renderer,
@@ -59,9 +61,8 @@ fruitcut::pp::filter::blur::blur(
 					fcppt::assign::make_container<sge::shader::variable_sequence>(
 						sge::shader::variable(
 							"texture_size",
-							sge::shader::variable_type::const_,
-							fcppt::math::dim::structure_cast<sge::renderer::vector2>(
-								texture_size_))),
+							sge::shader::variable_type::uniform,
+							sge::renderer::vector2())),
 					fcppt::assign::make_container<sge::shader::sampler_sequence>(
 						sge::shader::sampler(
 							"tex",
@@ -79,9 +80,8 @@ fruitcut::pp::filter::blur::blur(
 					fcppt::assign::make_container<sge::shader::variable_sequence>(
 						sge::shader::variable(
 							"texture_size",
-							sge::shader::variable_type::const_,
-							fcppt::math::dim::structure_cast<sge::renderer::vector2>(
-								texture_size_))),
+							sge::shader::variable_type::uniform,
+							sge::renderer::vector2())),
 					fcppt::assign::make_container<sge::shader::sampler_sequence>(
 						sge::shader::sampler(
 							"tex",
@@ -132,6 +132,25 @@ fruitcut::pp::filter::blur::apply(
 	shaders_[1]->update_texture(
 		"tex",
 		instances[0]->texture());
+
+	{
+		sge::renderer::glsl::scoped_program scoped_p(
+			renderer_,
+			shaders_[0]->program());
+		shaders_[0]->set_uniform(
+			"texture_size",
+			fcppt::math::dim::structure_cast<sge::renderer::vector2>(
+				instances[0]->texture()->dim()));
+	}
+	{
+		sge::renderer::glsl::scoped_program scoped_p(
+			renderer_,
+			shaders_[1]->program());
+		shaders_[1]->set_uniform(
+			"texture_size",
+			fcppt::math::dim::structure_cast<sge::renderer::vector2>(
+				instances[1]->texture()->dim()));
+	}
 
 	render(
 		instances,

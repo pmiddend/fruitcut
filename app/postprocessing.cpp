@@ -2,6 +2,7 @@
 #include "../json/find_member.hpp"
 #include "../pp/dependency_set.hpp"
 #include "../pp/texture/depth_stencil_format.hpp"
+#include "../pp/texture/use_screen_size.hpp"
 #include <sge/font/text/lit.hpp>
 #include <sge/font/text/from_fcppt_string.hpp>
 #include <sge/font/text/to_fcppt_string.hpp>
@@ -30,15 +31,13 @@ fruitcut::app::postprocessing::postprocessing(
 	rtt_filter_(
 		_renderer,
 		texture_manager_,
-		fcppt::math::dim::structure_cast<sge::renderer::dim2>(
-			_renderer->screen_size()),
+		pp::texture::use_screen_size(),
 		render_callback,
 		pp::texture::depth_stencil_format::d32),
 	ssaa_filter_(
 		_renderer,
 		texture_manager_,
-		fcppt::math::dim::structure_cast<sge::renderer::dim2>(
-			_renderer->screen_size())),
+		pp::texture::use_screen_size()),
 	highlight_filter_(
 		_renderer,
 		texture_manager_,
@@ -60,13 +59,11 @@ fruitcut::app::postprocessing::postprocessing(
 	add_filter_(
 		_renderer,
 		texture_manager_,
-		fcppt::math::dim::structure_cast<sge::renderer::dim2>(
-			_renderer->screen_size())),
+		pp::texture::use_screen_size()),
 	desaturate_filter_(
 		_renderer,
 		texture_manager_,
-		fcppt::math::dim::structure_cast<sge::renderer::dim2>(
-			_renderer->screen_size()),
+		pp::texture::use_screen_size(),
 		static_cast<sge::renderer::scalar>(
 			0.0)),
 	list_connection_(

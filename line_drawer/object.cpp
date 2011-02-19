@@ -7,6 +7,8 @@
 #include <sge/renderer/vf/vertex.hpp>
 #include <sge/renderer/vf/iterator.hpp>
 #include <sge/renderer/lock_mode.hpp>
+#include <sge/renderer/onscreen_target.hpp>
+#include <sge/renderer/viewport.hpp>
 #include <sge/renderer/matrix4.hpp>
 // We use no_texture which returns something incompatible to what
 // scoped_texture takes as argument
@@ -40,6 +42,7 @@
 #include <fcppt/math/vector/structure_cast.hpp>
 #include <fcppt/math/matrix/basic_impl.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
+#include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/math/matrix/orthogonal.hpp>
 #include <fcppt/math/vector/output.hpp>
 #include <boost/foreach.hpp>
@@ -154,11 +157,11 @@ fruitcut::line_drawer::object::render_screen_space()
 			static_cast<sge::renderer::scalar>(
 				0),
 			static_cast<sge::renderer::scalar>(
-				renderer_->screen_size().w()),
+				renderer_->onscreen_target()->viewport().get().w()),
 			static_cast<sge::renderer::scalar>(
 				0),
 			static_cast<sge::renderer::scalar>(
-				renderer_->screen_size().h()),
+				renderer_->onscreen_target()->viewport().get().h()),
 			static_cast<sge::renderer::scalar>(
 				0),
 			static_cast<sge::renderer::scalar>(

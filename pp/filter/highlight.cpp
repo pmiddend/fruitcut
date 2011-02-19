@@ -20,11 +20,14 @@
 #include <sge/renderer/scoped_block.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/texture/filter/linear.hpp>
+#include <sge/renderer/texture/planar_ptr.hpp>
+#include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/vector2.hpp>
 #include <sge/renderer/resource_flags_none.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/text.hpp>
+#include <iostream>
 
 fruitcut::pp::filter::highlight::highlight(
 	sge::renderer::device_ptr const _renderer,
@@ -50,9 +53,8 @@ fruitcut::pp::filter::highlight::highlight(
 		fcppt::assign::make_container<sge::shader::variable_sequence>
 			(sge::shader::variable(
 				"texture_size",
-				sge::shader::variable_type::const_,
-				fcppt::math::dim::structure_cast<sge::renderer::vector2>(
-					texture_size_)))
+				sge::shader::variable_type::uniform,
+				sge::renderer::vector2()))
 			(sge::shader::variable(
 				"threshold",
 				sge::shader::variable_type::const_,
@@ -86,6 +88,11 @@ fruitcut::pp::filter::highlight::apply(
 
 	sge::shader::scoped scoped_shader(
 		shader_);
+
+	shader_.set_uniform(
+		"texture_size",
+		fcppt::math::dim::structure_cast<sge::renderer::vector2>(
+			result->texture()->dim()));
 
 	sge::renderer::scoped_vertex_buffer const scoped_vb_(
 		renderer_,

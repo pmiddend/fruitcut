@@ -8,7 +8,7 @@ void
 main()
 {
 	vec2 normalized = 
-		gl_FragCoord.xy / target_size;
+		gl_FragCoord.xy / texture_size;
 
 	// Final color
 	frag_color = 
