@@ -2,6 +2,7 @@
 #include "../font/particle/base_parameters.hpp"
 #include "../font/color_format.hpp"
 #include "../font/particle/animated.hpp"
+#include "../damped_oscillation.hpp"
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
 #include <sge/systems/viewport/center_on_resize.hpp>
@@ -133,10 +134,15 @@ try
 						static_cast<sge::renderer::scalar>(
 							1))))));
 
-	fruitcut::font::scale_animation::value_sequence scale_frames;
+	fruitcut::font::scale_animation::value_sequence scale_frames =
+		fruitcut::damped_oscillation(
+			static_cast<sge::time::unit>(200),
+			30,
+			0.5f);
+	/*
 	unsigned int const scale_periods = 30;
-	sge::time::unit const delay = static_cast<sge::time::unit>(100);
-	for (unsigned int t = 0; t < scale_periods; ++t)
+	sge::time::unit const delay = static_cast<sge::time::unit>(1000);
+	for (unsigned int t = 0; t < 2 * scale_periods; ++t)
 	{
 		scale_frames.push_back(
 			fruitcut::font::scale_animation::value_type(
@@ -146,13 +152,14 @@ try
 				static_cast<sge::renderer::scalar>(
 					1.0f + 
 					0.5f *
-					((t % 2 == 0)? -1.f : 1.f) *
+					((t % 2 == 0)? 1.f : -1.f) *
 					std::exp(
 						- static_cast<float>(t) *
-						static_cast<float>(10)/scale_periods
+						static_cast<float>(5)/scale_periods
 						)
 					)));
 	}
+	*/
 
 	fruitcut::font::particle::animated ttf_font(
 		fruitcut::font::particle::base_parameters(

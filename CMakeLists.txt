@@ -138,6 +138,7 @@ SET(files
 	font/particle/base.cpp
 	font/particle/animated.cpp
 	font/particle/base_parameters.cpp
+	damped_oscillation.cpp
 	# particle
 	particle/system.cpp
 	particle/objects/base.cpp
