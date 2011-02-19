@@ -27,6 +27,7 @@
 #include <sge/window/instance.hpp>
 #include <sge/extension_set.hpp>
 #include <sge/time/second.hpp>
+#include <sge/time/millisecond.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
 #include <fcppt/io/cerr.hpp>
@@ -133,19 +134,24 @@ try
 							1))))));
 
 	fruitcut::font::scale_animation::value_sequence scale_frames;
-	for (unsigned int t = 0; t < 10; ++t)
+	unsigned int const scale_periods = 30;
+	sge::time::unit const delay = static_cast<sge::time::unit>(100);
+	for (unsigned int t = 0; t < scale_periods; ++t)
 	{
 		scale_frames.push_back(
 			fruitcut::font::scale_animation::value_type(
 				sge::time::millisecond(
-					static_cast<sge::time::unit>(200 * t)
+					delay
 				),
 				static_cast<sge::renderer::scalar>(
-					((t % 2 == 0) 1.f : -1.f) *
+					1.0f + 
+					0.5f *
+					((t % 2 == 0)? -1.f : 1.f) *
 					std::exp(
-						-0.5f * static_cast<float>(t)
-					) +
-					1.0f)));
+						- static_cast<float>(t) *
+						static_cast<float>(10)/scale_periods
+						)
+					)));
 	}
 
 	fruitcut::font::particle::animated ttf_font(
