@@ -16,7 +16,7 @@
 #include <sge/image/colors.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
-#include <sge/systems/viewport/manage_resize.hpp>
+#include <sge/systems/viewport/center_on_resize.hpp>
 #include <sge/texture/manager.hpp>
 #include <sge/texture/add_image.hpp>
 #include <sge/texture/no_fragmented.hpp>
@@ -72,7 +72,7 @@ try
 					sge::renderer::vsync::on,
 					sge::renderer::no_multi_sampling
 				),
-				sge::systems::viewport::manage_resize()))
+				sge::systems::viewport::center_on_resize()))
 		(
 			sge::systems::input(
 				sge::systems::input_helper_field(

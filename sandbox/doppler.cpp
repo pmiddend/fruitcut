@@ -36,7 +36,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/keyboard/device.hpp>
 #include <sge/input/mouse/axis_event.hpp>
 #include <sge/input/mouse/device.hpp>
-#include <sge/systems/viewport/manage_resize.hpp>
 #include <sge/exception.hpp>
 #include <sge/extension_set.hpp>
 #include <fcppt/assign/make_container.hpp>
