@@ -4,7 +4,7 @@
 #include "../font/particle/animated.hpp"
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
-#include <sge/systems/viewport/manage_resize.hpp>
+#include <sge/systems/viewport/center_on_resize.hpp>
 #include <sge/font/system.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/refresh_rate_dont_care.hpp>
@@ -65,7 +65,7 @@ try
 					sge::renderer::window_mode::windowed,
 					sge::renderer::vsync::on,
 					sge::renderer::no_multi_sampling),
-				sge::systems::viewport::manage_resize()))
+				sge::systems::viewport::center_on_resize()))
 		(sge::systems::parameterless::font)
 		(sge::systems::input(
 				sge::systems::input_helper_field(

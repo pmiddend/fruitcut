@@ -5,6 +5,7 @@
 #include <sge/renderer/glsl/istream_ref.hpp>
 #include <sge/renderer/glsl/program.hpp>
 #include <sge/renderer/glsl/scoped_program.hpp>
+#include <sge/renderer/glsl/create_program_from_streams.hpp>
 #include <fcppt/container/ptr/push_back_unique_ptr.hpp>
 #include <fcppt/move.hpp>
 #include <fcppt/text.hpp>
@@ -27,7 +28,8 @@ create_point_shader(
 		/ FCPPT_TEXT("pointsprite_vertex.glsl"));
 
 	return 
-		rend->create_glsl_program(
+		sge::renderer::glsl::create_program_from_streams(
+			rend,
 			sge::renderer::glsl::istream_ref(
 				vertex_stream),
 			sge::renderer::glsl::istream_ref(

@@ -15,7 +15,7 @@
 #include <sge/audio/player.hpp>
 #include <sge/systems/window.hpp>
 #include <sge/systems/renderer.hpp>
-#include <sge/systems/viewport/manage_resize.hpp>
+#include <sge/systems/viewport/center_on_resize.hpp>
 #include <sge/systems/input.hpp>
 #include <sge/systems/input_helper_field.hpp>
 #include <sge/systems/input_helper.hpp>
@@ -129,7 +129,7 @@ fruitcut::app::machine::machine(
 					sge::renderer::window_mode::windowed,
 					sge::renderer::vsync::on,
 					sge::renderer::no_multi_sampling),
-				sge::systems::viewport::manage_resize()))
+				sge::systems::viewport::center_on_resize()))
 			(sge::systems::input(
 				sge::systems::input_helper_field(
 					sge::systems::input_helper::keyboard_collector) 
