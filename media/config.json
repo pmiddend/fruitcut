@@ -79,8 +79,8 @@
 	"fruits" : 
 	[
 		{
-			"model" : "melon.md3",
-			"texture" : "melon.png"
+			"model" : "pineapple.md3",
+			"texture" : "pineapple.png"
 		}
 	],
 	"physics" : 
