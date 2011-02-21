@@ -3,6 +3,7 @@
 
 #include "../machine.hpp"
 #include "../events/render.hpp"
+#include "../events/viewport_change.hpp"
 #include "../events/tick.hpp"
 #include <sge/time/timer.hpp>
 #include <boost/statechart/state.hpp>
@@ -22,9 +23,10 @@ class intro
 {
 public:
 	typedef
-	boost::mpl::vector2
+	boost::mpl::vector3
 	<
 		boost::statechart::custom_reaction<events::render>,
+		boost::statechart::custom_reaction<events::viewport_change>,
 		boost::statechart::custom_reaction<events::tick>
 	>
 	reactions;
@@ -40,6 +42,10 @@ public:
 	boost::statechart::result
 	react(
 		events::tick const &);
+
+	boost::statechart::result
+	react(
+		events::viewport_change const &);
 
 	~intro();
 private:

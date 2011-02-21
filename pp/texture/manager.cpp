@@ -4,6 +4,7 @@
 #include "counted_instance.hpp"
 #include <sge/renderer/resource_flags_none.hpp>
 #include <sge/renderer/device.hpp>
+#include <sge/renderer/dim2.hpp>
 #include <sge/renderer/target_from_texture.hpp>
 #include <sge/renderer/depth_stencil_format.hpp>
 #include <sge/renderer/target.hpp>
@@ -20,6 +21,7 @@
 #include <fcppt/assert.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
+#include <fcppt/math/dim/comparison.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/assert_message.hpp>
 #include <fcppt/text.hpp>
@@ -32,8 +34,7 @@ fruitcut::pp::texture::manager::manager(
 :
 	renderer_(
 		_renderer),
-	textures_(),
-	screen_textures_()
+	textures_()
 {
 }
 
@@ -43,11 +44,6 @@ fruitcut::pp::texture::manager::query(
 {
 	return 
 		query_internal(
-			d.size() == use_screen_size()
-			?
-				screen_textures_
-			:
-				textures_,
 			descriptor(
 				d.size() == use_screen_size()
 				?
@@ -88,17 +84,41 @@ fruitcut::pp::texture::manager::query(
 		FCPPT_TEXT("Tried to lock a texture which isn't there!"));
 }
 
+void
+fruitcut::pp::texture::manager::clear_screen_textures()
+{
+	sge::renderer::dim2 const onscreen_dim = 
+		fcppt::math::dim::structure_cast<sge::renderer::dim2>(
+			renderer_->onscreen_target()->viewport().get().dimension());
+
+	// From the standard about associative containers:
+	// "and the erase members shall invalidate only iterators and references to the erased elements."
+	for(
+		texture_map::iterator 
+			it = 
+				textures_.begin(), 
+			next = 
+				it; 
+		it != textures_.end(); 
+		it = next)
+	{
+		++next;
+		if(it->first.size() == onscreen_dim)
+			textures_.erase(
+				it);
+	}
+}
+
 fruitcut::pp::texture::manager::~manager()
 {
 }
 
 fruitcut::pp::texture::counted_instance const
 fruitcut::pp::texture::manager::query_internal(
-	texture_map &target_map,
 	descriptor const &d)
 {
 	boost::iterator_range<texture_map::iterator> eq_range = 
-		target_map.equal_range(
+		textures_.equal_range(
 			d);
 
 	for(
@@ -121,8 +141,6 @@ fruitcut::pp::texture::manager::query_internal(
 					_1,
 					false));
 	}
-
-	std::cout << "adding to map " << &target_map << "\n";
 
 	sge::renderer::texture::planar_ptr new_texture = 
 		renderer_->create_planar_texture(
@@ -165,7 +183,7 @@ fruitcut::pp::texture::manager::query_internal(
 
 	// There are no matching textures? Gotta create a new one!
 	texture_map::iterator const result = 
-		target_map.insert(
+		textures_.insert(
 			d,
 			std::auto_ptr<instance>(
 				new instance(

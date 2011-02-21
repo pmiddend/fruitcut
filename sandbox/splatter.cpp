@@ -1,7 +1,6 @@
 #include "splatter.hpp"
 #include "../media_path.hpp"
 #include "../particle/sprite/parameters.hpp"
-#include "../particle/sprite/render_flipped.hpp"
 #include "../particle/sprite/object.hpp"
 #include <sge/sprite/parameters_impl.hpp>
 #include <sge/sprite/default_equal.hpp>
@@ -10,6 +9,8 @@
 #include <sge/texture/part_raw.hpp>
 #include <sge/image2d/multi_loader.hpp>
 #include <sge/renderer/device.hpp>
+#include <sge/renderer/onscreen_target.hpp>
+#include <sge/renderer/viewport.hpp>
 #include <sge/renderer/texture/filter/linear.hpp>
 #include <sge/renderer/resource_flags_none.hpp>
 #include <sge/renderer/texture/create_planar_from_view.hpp>
@@ -70,9 +71,9 @@ fruitcut::sandbox::splatter::splatter(
 			.center(
 				particle::sprite::object::point(
 					static_cast<particle::sprite::object::unit>(
-						_renderer->screen_size().w()/2),
+						_renderer->onscreen_target()->viewport().get().dimension().w()/2),
 					static_cast<particle::sprite::object::unit>(
-						_renderer->screen_size().h()/2)))
+						_renderer->onscreen_target()->viewport().get().dimension().h()/2)))
 			.system(
 				&ss_)
 			.elements()),
@@ -142,7 +143,7 @@ fruitcut::sandbox::splatter::splatter(
 		sge::sprite::default_parameters<particle::sprite::choices>()
 			.size(
 				fcppt::math::dim::structure_cast<particle::sprite::object::dim>(
-					_renderer->screen_size()))
+					_renderer->onscreen_target()->viewport().get().dimension()))
 			.repetition(
 				static_cast<particle::sprite::object::repetition_type>(
 					3))

@@ -24,6 +24,8 @@
 #include <sge/renderer/texture/address_mode.hpp>
 #include <sge/renderer/texture/address_mode2.hpp>
 #include <sge/renderer/resource_flags_none.hpp>
+#include <sge/renderer/onscreen_target.hpp>
+#include <sge/renderer/viewport.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/texture/part_raw.hpp>
 #include <sge/texture/part_ptr.hpp>
@@ -76,7 +78,7 @@ fruitcut::app::states::intro::intro(
 							FCPPT_TEXT("intro/background-repeat")))
 					.size(
 						fcppt::math::dim::structure_cast<particle::sprite::object::dim>(
-							context<machine>().systems().renderer()->screen_size()))
+							context<machine>().systems().renderer()->onscreen_target()->viewport().get().dimension()))
 					.order(
 						static_cast<particle::sprite::object::order_type>(
 							-101))
@@ -106,7 +108,7 @@ fruitcut::app::states::intro::intro(
 
 	particle::point_sprite::object::point const logo_pos = 
 		fcppt::math::dim::structure_cast<particle::point_sprite::object::point>(
-			context<machine>().systems().renderer()->screen_size())/
+			context<machine>().systems().renderer()->onscreen_target()->viewport().get().dimension())/
 				static_cast<particle::point_sprite::object::point::value_type>(
 					2) - 
 		fcppt::math::dim::structure_cast<particle::point_sprite::object::point>(
@@ -137,7 +139,7 @@ fruitcut::app::states::intro::intro(
 							-99))
 					.center(
 						fcppt::math::dim::structure_cast<fruitcut::particle::sprite::object::point>(
-							context<machine>().systems().renderer()->screen_size())/2)
+							context<machine>().systems().renderer()->onscreen_target()->viewport().get().dimension())/2)
 					.system(
 						&context<machine>().particle_system().sprite_system()),
 				json::parse_animation<particle::sprite::animation>(
@@ -169,7 +171,7 @@ fruitcut::app::states::intro::intro(
 							-100))
 					.center(
 						fcppt::math::dim::structure_cast<fruitcut::particle::sprite::object::point>(
-							context<machine>().systems().renderer()->screen_size())/2 + 
+							context<machine>().systems().renderer()->onscreen_target()->viewport().get().dimension())/2 + 
 						json::find_member<fruitcut::particle::sprite::object::point>(
 							context<machine>().config_file(),
 							FCPPT_TEXT("intro/logo-shadow-offset")))
@@ -183,8 +185,6 @@ fruitcut::app::states::intro::intro(
 				context<machine>().timer_callback(),
 				sge::renderer::vector2::null(),
 				sge::renderer::vector2::null())));
-
-	
 }
 
 boost::statechart::result
@@ -209,6 +209,14 @@ fruitcut::app::states::intro::react(
 				saturation_timer_.elapsed_frames()));
 	if (intro_timer_.expired())
 		return transit<running>();
+	return discard_event();
+}
+
+boost::statechart::result
+fruitcut::app::states::intro::react(
+	events::viewport_change const &)
+{
+	std::cout << "Viewport has changed in intro. FIXME: Resize background and re-center font.\n";
 	return discard_event();
 }
 

@@ -49,6 +49,9 @@ public:
 	void
 	active(
 		bool);
+
+	void
+	viewport_changed();
 private:
 	pp::system system_;
 	pp::texture::manager texture_manager_;

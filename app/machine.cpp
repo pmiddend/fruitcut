@@ -3,82 +3,77 @@
 #include "events/render.hpp"
 #include "events/render_overlay.hpp"
 #include "events/tick.hpp"
+#include "events/viewport_change.hpp"
 #include "../pp/dependency_set.hpp"
 #include "../json/config_wrapper.hpp"
 #include "../json/find_member.hpp"
 #include "../media_path.hpp"
-#include <sge/window/instance.hpp>
-#include <sge/sprite/parameters_impl.hpp>
-#include <sge/systems/audio_player_default.hpp>
-#include <sge/systems/list.hpp>
-#include <sge/audio/scalar.hpp>
 #include <sge/audio/player.hpp>
-#include <sge/systems/window.hpp>
-#include <sge/systems/renderer.hpp>
-#include <sge/systems/viewport/center_on_resize.hpp>
-#include <sge/systems/input.hpp>
-#include <sge/systems/input_helper_field.hpp>
-#include <sge/systems/input_helper.hpp>
-#include <sge/systems/image_loader.hpp>
-#include <sge/renderer/scoped_block.hpp>
-#include <sge/image/capabilities_field.hpp>
-#include <sge/renderer/window_parameters.hpp>
-#include <sge/renderer/parameters.hpp>
-#include <sge/renderer/display_mode.hpp>
-#include <sge/renderer/screen_size.hpp>
-#include <sge/renderer/bit_depth.hpp>
-#include <sge/renderer/refresh_rate_dont_care.hpp>
-#include <sge/renderer/depth_buffer.hpp>
-#include <sge/renderer/device.hpp>
-#include <sge/renderer/stencil_buffer.hpp>
-#include <sge/renderer/window_mode.hpp>
-#include <sge/renderer/onscreen_target.hpp>
-#include <sge/renderer/texture/filter/linear.hpp>
-#include <sge/renderer/texture/filter/linear.hpp>
-#include <sge/renderer/texture/create_planar_from_view.hpp>
-#include <sge/renderer/texture/address_mode2.hpp>
-#include <sge/renderer/texture/address_mode.hpp>
-#include <sge/renderer/resource_flags_none.hpp>
-#include <sge/renderer/vsync.hpp>
-#include <sge/renderer/pixel_rect.hpp>
-#include <sge/renderer/viewport.hpp>
-#include <sge/renderer/no_multi_sampling.hpp>
-#include <sge/renderer/dim2.hpp>
-#include <sge/renderer/caps.hpp>
-#include <sge/texture/part_raw.hpp>
-#include <sge/texture/part_ptr.hpp>
-#include <sge/texture/add_image.hpp>
-#include <sge/image/colors.hpp>
-#include <sge/image/color/format.hpp>
-#include <sge/texture/rect_fragmented.hpp>
-#include <sge/image2d/multi_loader.hpp>
+#include <sge/audio/scalar.hpp>
 #include <sge/console/sprite_object.hpp>
 #include <sge/console/sprite_parameters.hpp>
-#include <sge/image2d/file.hpp>
-#include <sge/extension_set.hpp>
-#include <sge/time/timer.hpp>
-#include <sge/font/size_type.hpp>
-#include <sge/time/unit.hpp>
 #include <sge/exception.hpp>
-#include <sge/time/second.hpp>
-#include <sge/font/text/lit.hpp>
+#include <sge/extension_set.hpp>
+#include <sge/font/size_type.hpp>
 #include <sge/font/system.hpp>
+#include <sge/font/text/lit.hpp>
+#include <sge/image2d/file.hpp>
+#include <sge/image2d/multi_loader.hpp>
+#include <sge/image/capabilities_field.hpp>
+#include <sge/image/color/format.hpp>
+#include <sge/image/colors.hpp>
 #include <sge/input/keyboard/action.hpp>
 #include <sge/input/keyboard/device.hpp>
 #include <sge/input/keyboard/key_code.hpp>
+#include <sge/renderer/depth_buffer.hpp>
+#include <sge/renderer/device.hpp>
+#include <sge/renderer/dim2.hpp>
+#include <sge/renderer/no_multi_sampling.hpp>
+#include <sge/renderer/onscreen_target.hpp>
+#include <sge/renderer/optional_display_mode.hpp>
+#include <sge/renderer/parameters.hpp>
+#include <sge/renderer/resource_flags_none.hpp>
+#include <sge/renderer/scoped_block.hpp>
+#include <sge/renderer/stencil_buffer.hpp>
+#include <sge/renderer/texture/address_mode2.hpp>
+#include <sge/renderer/texture/address_mode.hpp>
+#include <sge/renderer/texture/create_planar_from_view.hpp>
+#include <sge/renderer/texture/filter/linear.hpp>
+#include <sge/renderer/viewport.hpp>
+#include <sge/renderer/vsync.hpp>
+#include <sge/sprite/parameters_impl.hpp>
+#include <sge/systems/audio_player_default.hpp>
+#include <sge/systems/image_loader.hpp>
+#include <sge/systems/input_helper_field.hpp>
+#include <sge/systems/input_helper.hpp>
+#include <sge/systems/input.hpp>
+#include <sge/systems/list.hpp>
+#include <sge/systems/renderer.hpp>
+#include <sge/systems/viewport/fill_on_resize.hpp>
+#include <sge/systems/window.hpp>
+#include <sge/texture/add_image.hpp>
+#include <sge/texture/part_ptr.hpp>
+#include <sge/texture/part_raw.hpp>
+#include <sge/texture/rect_fragmented.hpp>
 #include <sge/time/clock.hpp>
+#include <sge/time/second.hpp>
+#include <sge/time/timer.hpp>
+#include <sge/time/unit.hpp>
+#include <sge/window/dim.hpp>
+#include <sge/window/instance.hpp>
+#include <sge/window/simple_parameters.hpp>
 #include <awl/mainloop/asio/create_io_service.hpp>
 #include <awl/mainloop/asio/io_service.hpp>
 #include <awl/mainloop/io_service.hpp>
 #include <awl/mainloop/dispatcher.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
+#include <fcppt/from_std_string.hpp>
 #include <fcppt/math/dim/quad.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/from_std_string.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <boost/spirit/home/phoenix/object/new.hpp>
 #include <boost/spirit/home/phoenix/bind.hpp>
@@ -118,22 +113,19 @@ fruitcut::app::machine::machine(
 	systems_(
 		sge::systems::list()
 			(sge::systems::window(
-				sge::renderer::window_parameters(
-					name())).io_service(io_service_))
+				sge::window::simple_parameters(
+					name(),
+					json::find_member<sge::window::dim>(
+						config_file_,
+						FCPPT_TEXT("graphics/window-size")))).io_service(io_service_))
 			(sge::systems::renderer(
 				sge::renderer::parameters(
-					sge::renderer::display_mode(
-						json::find_member<sge::renderer::screen_size>(
-							config_file_,
-							FCPPT_TEXT("graphics/screen-size")),
-						sge::renderer::bit_depth::depth32,
-						sge::renderer::refresh_rate_dont_care),
+					sge::renderer::optional_display_mode(),
 					sge::renderer::depth_buffer::d24,
 					sge::renderer::stencil_buffer::off,
-					sge::renderer::window_mode::windowed,
 					sge::renderer::vsync::on,
 					sge::renderer::no_multi_sampling),
-				sge::systems::viewport::center_on_resize()))
+				sge::systems::viewport::fill_on_resize()))
 			(sge::systems::input(
 				sge::systems::input_helper_field(
 					sge::systems::input_helper::keyboard_collector) 
@@ -206,11 +198,8 @@ fruitcut::app::machine::machine(
       .pos(
         sge::console::sprite_object::point::null())
       .size(
-        sge::console::sprite_object::dim(
-					static_cast<sge::console::sprite_object::unit>(
-						systems_.renderer()->screen_size().w()),
-          static_cast<sge::console::sprite_object::unit>(
-            systems_.renderer()->screen_size().h() / 2)))
+				// We cannot specify a dimension here since we don't have a viewport yet
+        sge::console::sprite_object::dim::null())
       .elements()),
 		json::find_member<sge::console::output_line_limit>(
 			config_file(),
@@ -259,15 +248,15 @@ fruitcut::app::machine::machine(
 		boost::posix_time::milliseconds(
 			json::find_member<long>(
 				config_file(),
-				FCPPT_TEXT("frame-timer-ms"))))
+				FCPPT_TEXT("frame-timer-ms")))),
+	manage_viewport_connection_(
+		systems_.manage_viewport_callback(
+			boost::bind(
+				&machine::manage_viewport,
+				this,
+				_1)))
 {
 	systems_.window()->show();
-	systems_.renderer()->onscreen_target()->viewport(
-		sge::renderer::viewport(
-			sge::renderer::pixel_rect(
-				sge::renderer::pixel_rect::vector::null(),
-				fcppt::math::dim::structure_cast<sge::renderer::pixel_rect::dim>(
-					systems_.renderer()->screen_size()))));
 	input_manager_.current_state(
 		game_state_);
 	systems_.audio_player()->gain(
@@ -417,7 +406,6 @@ fruitcut::app::machine::run_once(
 			FCPPT_TEXT("Error in deadline_timer handler: ")+
 			fcppt::from_std_string(
 				e.message()));
-//	systems_.window()->dispatch();
 
 	// So what does this do? Well, we effectively manage two "clocks"
 	// here. One goes along with the real clock (with
@@ -442,20 +430,24 @@ fruitcut::app::machine::run_once(
 
 	sound_controller_.update();
 
-	// This implicitly sends events::render through the
-	// render-to-texture filter
-	postprocessing_.update();
+	// Do we even have a viewport?
+	if (systems_.renderer()->onscreen_target()->viewport().get().dimension().content())
+	{
+		// This implicitly sends events::render through the
+		// render-to-texture filter
+		postprocessing_.update();
 
-	sge::renderer::scoped_block scoped_block(
-		systems_.renderer());
+		sge::renderer::scoped_block scoped_block(
+			systems_.renderer());
 
-	postprocessing_.render_result();
+		postprocessing_.render_result();
 
-	process_event(
-		events::render_overlay());
+		process_event(
+			events::render_overlay());
 
-	if (console_gfx_.active())
-		console_gfx_.draw();
+		if (console_gfx_.active())
+			console_gfx_.draw();
+	}
 
 	if (!systems_.window()->awl_dispatcher()->is_stopped())
 	{
@@ -472,3 +464,14 @@ fruitcut::app::machine::run_once(
 	}
 }
 
+void
+fruitcut::app::machine::manage_viewport(
+	sge::renderer::device_ptr)
+{
+	postprocessing_.viewport_changed();
+	console_gfx_.background_sprite().size(
+		fcppt::math::dim::structure_cast<sge::console::sprite_object::dim>(
+			systems_.renderer()->onscreen_target()->viewport().get().dimension()));
+	process_event(
+		events::viewport_change());
+}

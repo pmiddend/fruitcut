@@ -94,7 +94,7 @@ parse_fruit(
 							fruitcut::json::find_member<fcppt::string>(
 								o,
 								FCPPT_TEXT("texture")))->view(),
-				sge::renderer::texture::filter::linear,
+				sge::renderer::texture::filter::trilinear,
 				sge::renderer::texture::address_mode2(
 					sge::renderer::texture::address_mode::clamp),
 				sge::renderer::resource_flags::none));
@@ -195,20 +195,11 @@ fruitcut::app::fruit::manager::render(
 	}
 }
 
-/**
-	This is a little complicated. Why this function? Well, "write
-	access" to the fruits should only occur in the ingame state. So
-	there's "cut_fruit()" to cut a fruit at a specified plane. We might,
-	however, iterate through all the fruits and call "cut_fruit" while
-	doing that, which results in undefined behaviour.
-
-	So there are two auxiliary containers: new_fruits and
-	old_fruits. You have to call the function below so new fruits are
-	inserted and old ones are deleted!
- */
 void
 fruitcut::app::fruit::manager::update()
 {
+	// Why those? Well, we don't know when cut_fruit is called. It could
+	// be while we're iterating through our array!
 	BOOST_FOREACH(
 		object const *old_fruit,
 		old_fruits_)

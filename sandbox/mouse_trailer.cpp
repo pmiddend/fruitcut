@@ -1,28 +1,28 @@
 #include "mouse_trailer.hpp"
 #include "../media_path.hpp"
+#include <sge/image2d/file.hpp>
+#include <sge/image2d/multi_loader.hpp>
+#include <sge/image/color/init.hpp>
+#include <sge/input/mouse/axis_event.hpp>
+#include <sge/input/mouse/device.hpp>
+#include <sge/renderer/device.hpp>
+#include <sge/renderer/onscreen_target.hpp>
+#include <sge/renderer/resource_flags_none.hpp>
+#include <sge/renderer/texture/address_mode2.hpp>
+#include <sge/renderer/texture/address_mode.hpp>
+#include <sge/renderer/texture/create_planar_from_view.hpp>
+#include <sge/renderer/texture/filter/linear.hpp>
+#include <sge/renderer/vector2.hpp>
+#include <sge/renderer/viewport.hpp>
+#include <sge/sprite/default_equal.hpp>
 #include <sge/sprite/parameters_impl.hpp>
 #include <sge/texture/part_ptr.hpp>
 #include <sge/texture/part_raw.hpp>
-#include <sge/renderer/device.hpp>
-#include <sge/renderer/texture/filter/linear.hpp>
-#include <sge/renderer/texture/create_planar_from_view.hpp>
-#include <sge/renderer/texture/address_mode2.hpp>
-#include <sge/renderer/texture/address_mode.hpp>
-#include <sge/renderer/resource_flags_none.hpp>
-#include <sge/input/mouse/device.hpp>
-#include <sge/input/mouse/axis_event.hpp>
 #include <sge/time/millisecond.hpp>
-#include <sge/image/colors.hpp>
-#include <sge/image/color/init.hpp>
-#include <sge/image/color/rgba8.hpp>
-#include <sge/image2d/file.hpp>
-#include <sge/image2d/multi_loader.hpp>
-#include <sge/renderer/vector2.hpp>
-#include <sge/texture/part.hpp>
-#include <sge/sprite/default_equal.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/chrono/duration_cast.hpp>
 #include <fcppt/chrono/milliseconds.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/math/vector/structure_cast.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
 #include <fcppt/math/vector/length.hpp>
@@ -65,9 +65,9 @@ fruitcut::sandbox::mouse_trailer::mouse_trailer(
 			.center(
 				particle::sprite::object::point(
 					static_cast<particle::sprite::object::unit>(
-						renderer->screen_size().w()/2),
+						renderer->onscreen_target()->viewport().get().dimension().w()/2),
 					static_cast<particle::sprite::object::unit>(
-						renderer->screen_size().h()/2)))
+						renderer->onscreen_target()->viewport().get().dimension().h()/2)))
 			.system(
 				&ss_)
 			.color(

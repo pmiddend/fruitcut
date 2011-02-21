@@ -92,7 +92,9 @@ public:
 private:
 	sge::parse::json::object const config_file_;
 	awl::mainloop::asio::io_service_ptr io_service_;
-	sge::systems::instance const systems_;
+	// This is nonconst because of manage_viewport_callback, which is
+	// nonconst (this might be a bug, though)
+	sge::systems::instance systems_;
 	sge::texture::manager texture_manager_;
 	input::state_manager input_manager_;
 	input::state console_state_,game_state_;
@@ -107,6 +109,7 @@ private:
 	fcppt::signal::scoped_connection console_switch_connection_;
 	sound_controller sound_controller_;
 	boost::asio::deadline_timer frame_timer_;
+	fcppt::signal::scoped_connection manage_viewport_connection_;
 
 	void
 	console_switch();
@@ -114,6 +117,10 @@ private:
 	void
 	run_once(
 		boost::system::error_code const &);
+
+	void
+	manage_viewport(
+		sge::renderer::device_ptr);
 };
 }
 }

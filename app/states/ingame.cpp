@@ -15,9 +15,14 @@
 #include <sge/camera/identity_gizmo.hpp>
 #include <sge/renderer/aspect.hpp>
 #include <sge/renderer/scalar.hpp>
+#include <sge/renderer/onscreen_target.hpp>
+#include <sge/renderer/viewport.hpp>
 #include <sge/renderer/vector3.hpp>
+#include <sge/renderer/screen_size.hpp>
 #include <fcppt/math/deg_to_rad.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
+#include <fcppt/math/dim/structure_cast.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
 #include <fcppt/text.hpp>
@@ -51,19 +56,8 @@ fruitcut::app::states::ingame::ingame(
 		context<machine>().input_manager()),
 	camera_(
 		sge::camera::parameters(
-			sge::camera::projection::perspective(
-				sge::renderer::aspect(
-					context<machine>().systems().renderer()->screen_size()),
-				fcppt::math::deg_to_rad(
-					json::find_member<sge::renderer::scalar>(
-						context<machine>().config_file(),
-						FCPPT_TEXT("ingame/camera/fov"))),
-				json::find_member<sge::renderer::scalar>(
-					context<machine>().config_file(),
-					FCPPT_TEXT("ingame/camera/near")),
-				json::find_member<sge::renderer::scalar>(
-					context<machine>().config_file(),
-					FCPPT_TEXT("ingame/camera/far"))),
+			// Leave projection object empty for now, we have to wait for a viewport change
+			sge::camera::projection::object(),
 			json::find_member<sge::renderer::scalar>(
 				context<machine>().config_file(),
 				FCPPT_TEXT("ingame/camera/movement-speed")),
@@ -109,6 +103,28 @@ fruitcut::app::states::ingame::ingame(
 		context<machine>().systems().renderer(),
 		physics_world_)
 {
+}
+
+boost::statechart::result
+fruitcut::app::states::ingame::react(
+	events::viewport_change const &)
+{
+	camera_.projection_object(
+		sge::camera::projection::perspective(
+			sge::renderer::aspect(
+				fcppt::math::dim::structure_cast<sge::renderer::screen_size>(
+					context<machine>().systems().renderer()->onscreen_target()->viewport().get().dimension())),
+			fcppt::math::deg_to_rad(
+				json::find_member<sge::renderer::scalar>(
+					context<machine>().config_file(),
+					FCPPT_TEXT("ingame/camera/fov"))),
+			json::find_member<sge::renderer::scalar>(
+				context<machine>().config_file(),
+				FCPPT_TEXT("ingame/camera/near")),
+			json::find_member<sge::renderer::scalar>(
+				context<machine>().config_file(),
+				FCPPT_TEXT("ingame/camera/far"))));
+	return discard_event();
 }
 
 fruitcut::physics::world &

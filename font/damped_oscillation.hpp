@@ -1,12 +1,14 @@
-#ifndef FRUITCUT_DAMPED_OSCILLATION_HPP_INCLUDED
-#define FRUITCUT_DAMPED_OSCILLATION_HPP_INCLUDED
+#ifndef FRUITCUT_FONT_DAMPED_OSCILLATION_HPP_INCLUDED
+#define FRUITCUT_FONT_DAMPED_OSCILLATION_HPP_INCLUDED
 
-#include "font/scale_animation.hpp"
+#include "scale_animation.hpp"
 #include <sge/time/millisecond.hpp>
 
 namespace fruitcut
 {
-fruitcut::font::scale_animation::value_sequence
+namespace font
+{
+scale_animation::value_sequence
 const
 damped_oscillation(
 	//length of one period in milliseconds
@@ -16,6 +18,7 @@ damped_oscillation(
 	//scaling factor, should be between 0 and 1
 	float const amplitude
 );
+}
 }
 
 #endif

@@ -3,6 +3,7 @@
 
 #include "running_fwd.hpp"
 #include "../machine.hpp"
+#include "../events/viewport_change.hpp"
 #include "../fruit/manager.hpp"
 #include "../../physics/world.hpp"
 #include "../../physics/null_collision_filter.hpp"
@@ -11,6 +12,8 @@
 #include <sge/camera/object.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <boost/statechart/state.hpp>
+#include <boost/statechart/custom_reaction.hpp>
+#include <boost/mpl/vector/vector10.hpp>
 
 namespace fruitcut
 {
@@ -25,9 +28,20 @@ class ingame
 	public boost::statechart::state<ingame,machine,running>
 {
 public:
+	typedef
+	boost::mpl::vector1
+	<
+		boost::statechart::custom_reaction<events::viewport_change>
+	>
+	reactions;
+
 	explicit
 	ingame(
 		my_context);
+
+	boost::statechart::result
+	react(
+		events::viewport_change const &);
 
 	physics::world &
 	physics_world();

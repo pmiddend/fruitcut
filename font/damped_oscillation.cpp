@@ -2,7 +2,7 @@
 
 fruitcut::font::scale_animation::value_sequence
 const
-fruitcut::damped_oscillation(
+fruitcut::font::damped_oscillation(
 	sge::time::unit const wavelength,
 	unsigned int const frames,
 	float const amplitude

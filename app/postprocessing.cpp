@@ -164,6 +164,12 @@ fruitcut::app::postprocessing::active(
 }
 
 void
+fruitcut::app::postprocessing::viewport_changed()
+{
+	texture_manager_.clear_screen_textures();
+}
+
+void
 fruitcut::app::postprocessing::list_filters(
 	sge::console::arg_list const &args,
 	sge::console::object &obj)

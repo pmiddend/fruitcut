@@ -2,33 +2,37 @@
 #include "../font/particle/base_parameters.hpp"
 #include "../font/color_format.hpp"
 #include "../font/particle/animated.hpp"
-#include "../damped_oscillation.hpp"
-#include <sge/systems/instance.hpp>
-#include <sge/systems/list.hpp>
-#include <sge/systems/viewport/center_on_resize.hpp>
-#include <sge/font/system.hpp>
-#include <sge/renderer/device.hpp>
-#include <sge/renderer/refresh_rate_dont_care.hpp>
-#include <sge/renderer/no_multi_sampling.hpp>
-#include <sge/renderer/scoped_block.hpp>
-#include <sge/renderer/state/var.hpp>
-#include <sge/renderer/onscreen_target.hpp>
-#include <sge/renderer/state/list.hpp>
-#include <sge/renderer/state/trampoline.hpp>
-#include <sge/font/text/lit.hpp>
-#include <sge/image/colors.hpp>
-#include <sge/image/color/init.hpp>
-#include <sge/image/color/any/convert.hpp>
-#include <sge/image/capabilities_field.hpp>
+#include "../font/damped_oscillation.hpp"
+#include <sge/config/media_path.hpp>
+#include <sge/extension_set.hpp>
 #include <sge/font/text/flags_none.hpp>
 #include <sge/font/text/lit.hpp>
-#include <sge/config/media_path.hpp>
+#include <sge/image/capabilities_field.hpp>
+#include <sge/image/color/any/convert.hpp>
+#include <sge/image/color/init.hpp>
+#include <sge/image/colors.hpp>
 #include <sge/input/keyboard/action.hpp>
 #include <sge/input/keyboard/device.hpp>
-#include <sge/window/instance.hpp>
-#include <sge/extension_set.hpp>
-#include <sge/time/second.hpp>
+#include <sge/renderer/depth_buffer.hpp>
+#include <sge/renderer/device.hpp>
+#include <sge/renderer/no_multi_sampling.hpp>
+#include <sge/renderer/onscreen_target.hpp>
+#include <sge/renderer/optional_display_mode.hpp>
+#include <sge/renderer/parameters.hpp>
+#include <sge/renderer/scoped_block.hpp>
+#include <sge/renderer/state/list.hpp>
+#include <sge/renderer/state/trampoline.hpp>
+#include <sge/renderer/state/var.hpp>
+#include <sge/renderer/stencil_buffer.hpp>
+#include <sge/renderer/vsync.hpp>
+#include <sge/systems/instance.hpp>
+#include <sge/systems/list.hpp>
+#include <sge/systems/viewport/fill_on_resize.hpp>
 #include <sge/time/millisecond.hpp>
+#include <sge/time/second.hpp>
+#include <sge/window/dim.hpp>
+#include <sge/window/instance.hpp>
+#include <sge/window/simple_parameters.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
 #include <fcppt/io/cerr.hpp>
@@ -52,22 +56,19 @@ try
 	sge::systems::instance const sys(
 		sge::systems::list()
 		(sge::systems::window(
-				sge::renderer::window_parameters(
-					FCPPT_TEXT("fruitcut font test"))))
+			sge::window::simple_parameters(
+				FCPPT_TEXT("font effect test"),
+				sge::window::dim(
+					1024,
+					768))))
 		(sge::systems::renderer(
-				sge::renderer::parameters(
-					sge::renderer::display_mode(
-						sge::renderer::screen_size(
-							1024,
-							768),
-						sge::renderer::bit_depth::depth32,
-						sge::renderer::refresh_rate_dont_care),
-					sge::renderer::depth_buffer::off,
-					sge::renderer::stencil_buffer::off,
-					sge::renderer::window_mode::windowed,
-					sge::renderer::vsync::on,
-					sge::renderer::no_multi_sampling),
-				sge::systems::viewport::center_on_resize()))
+			sge::renderer::parameters(
+				sge::renderer::optional_display_mode(),
+				sge::renderer::depth_buffer::off,
+				sge::renderer::stencil_buffer::off,
+				sge::renderer::vsync::on,
+				sge::renderer::no_multi_sampling),
+			sge::systems::viewport::fill_on_resize()))
 		(sge::systems::parameterless::font)
 		(sge::systems::input(
 				sge::systems::input_helper_field(
@@ -105,13 +106,6 @@ try
 				/ FCPPT_TEXT("bitmap")
 				/ FCPPT_TEXT("font.png")) == bitmap_metrics);
 
-	sys.renderer()->onscreen_target()->viewport(
-		sge::renderer::viewport(
-			sge::renderer::pixel_rect(
-				sge::renderer::pixel_rect::vector::null(),
-				fcppt::math::dim::structure_cast<sge::renderer::pixel_rect::dim>(
-					sys.renderer()->screen_size()))));
-
 	font_system.insert(
 		fruitcut::font::particle::unique_base_ptr(
 			new fruitcut::font::particle::animated(
@@ -135,7 +129,7 @@ try
 							1))))));
 
 	fruitcut::font::scale_animation::value_sequence scale_frames =
-		fruitcut::damped_oscillation(
+		fruitcut::font::damped_oscillation(
 			static_cast<sge::time::unit>(200),
 			30,
 			0.5f);

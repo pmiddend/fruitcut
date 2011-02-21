@@ -3,35 +3,37 @@
 #include "../media_path.hpp"
 #include "../pp/screen_vf/create_quad.hpp"
 #include "../pp/screen_vf/format.hpp"
-#include <sge/sprite/parameters_impl.hpp>
-#include <sge/sprite/default_parameters.hpp>
-#include <sge/sprite/defaults.hpp>
+#include <sge/image/color/format.hpp>
+#include <sge/renderer/device.hpp>
+#include <sge/renderer/dim2.hpp>
+#include <sge/renderer/first_vertex.hpp>
+#include <sge/renderer/nonindexed_primitive_type.hpp>
+#include <sge/renderer/onscreen_target.hpp>
+#include <sge/renderer/resource_flags_none.hpp>
+#include <sge/renderer/scoped_block.hpp>
+#include <sge/renderer/scoped_target.hpp>
+#include <sge/renderer/scoped_vertex_buffer.hpp>
+#include <sge/renderer/target_from_texture.hpp>
+#include <sge/renderer/texture/address_mode2.hpp>
+#include <sge/renderer/texture/address_mode.hpp>
 #include <sge/renderer/texture/filter/linear.hpp>
 #include <sge/renderer/texture/filter/point.hpp>
 #include <sge/renderer/texture/planar_parameters.hpp>
-#include <sge/renderer/texture/address_mode.hpp>
-#include <sge/renderer/texture/address_mode2.hpp>
-#include <sge/renderer/resource_flags_none.hpp>
-#include <sge/renderer/dim2.hpp>
-#include <sge/renderer/device.hpp>
-#include <sge/renderer/scoped_target.hpp>
-#include <sge/renderer/scoped_block.hpp>
-#include <sge/renderer/scoped_vertex_buffer.hpp>
+#include <sge/renderer/vector2.hpp>
+#include <sge/renderer/vertex_count.hpp>
+#include <sge/renderer/viewport.hpp>
+#include <sge/shader/sampler_sequence.hpp>
+#include <sge/shader/scoped.hpp>
+#include <sge/shader/variable.hpp>
+#include <sge/shader/variable_sequence.hpp>
+#include <sge/shader/variable_type.hpp>
+#include <sge/shader/vf_to_string.hpp>
+#include <sge/sprite/default_equal.hpp>
+#include <sge/sprite/default_parameters.hpp>
+#include <sge/sprite/defaults.hpp>
+#include <sge/sprite/parameters_impl.hpp>
 #include <sge/texture/part_ptr.hpp>
 #include <sge/texture/part_raw.hpp>
-#include <sge/renderer/first_vertex.hpp>
-#include <sge/renderer/vertex_count.hpp>
-#include <sge/renderer/target_from_texture.hpp>
-#include <sge/renderer/nonindexed_primitive_type.hpp>
-#include <sge/image/color/format.hpp>
-#include <sge/shader/scoped.hpp>
-#include <sge/sprite/default_equal.hpp>
-#include <sge/shader/vf_to_string.hpp>
-#include <sge/shader/variable_sequence.hpp>
-#include <sge/shader/sampler_sequence.hpp>
-#include <sge/shader/variable.hpp>
-#include <sge/shader/variable_type.hpp>
-#include <sge/renderer/vector2.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/assign/make_container.hpp>
@@ -46,7 +48,7 @@ fruitcut::sandbox::splat_collector::splat_collector(
 		renderer_->create_planar_texture(
 			sge::renderer::texture::planar_parameters(
 				fcppt::math::dim::structure_cast<sge::renderer::dim2>(
-					renderer_->screen_size()),
+					renderer_->onscreen_target()->viewport().get().dimension()),
 				sge::image::color::format::rgb8,
 				sge::renderer::texture::filter::point,
 				sge::renderer::texture::address_mode2(
@@ -56,7 +58,7 @@ fruitcut::sandbox::splat_collector::splat_collector(
 		renderer_->create_planar_texture(
 			sge::renderer::texture::planar_parameters(
 				fcppt::math::dim::structure_cast<sge::renderer::dim2>(
-					renderer_->screen_size()),
+					renderer_->onscreen_target()->viewport().get().dimension()),
 				sge::image::color::format::rgb8,
 				sge::renderer::texture::filter::point,
 				sge::renderer::texture::address_mode2(
@@ -95,7 +97,7 @@ fruitcut::sandbox::splat_collector::splat_collector(
 				"target_size",
 				sge::shader::variable_type::const_,
 				fcppt::math::dim::structure_cast<sge::renderer::vector2>(
-					renderer_->screen_size())))
+					renderer_->onscreen_target()->viewport().get().dimension())))
 			(sge::shader::variable(
 				"flip",
 				sge::shader::variable_type::const_,

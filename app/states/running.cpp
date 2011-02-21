@@ -9,18 +9,18 @@
 #include "../events/tick.hpp"
 #include "../json/find_member.hpp"
 #include "../../physics/world.hpp"
+#include <sge/image/colors.hpp>
+#include <sge/input/cursor/position_unit.hpp>
+#include <sge/renderer/device.hpp>
 #include <sge/renderer/onscreen_target.hpp>
-#include <sge/renderer/state/list.hpp>
+#include <sge/renderer/onscreen_target.hpp>
+#include <sge/renderer/pixel_rect.hpp>
 #include <sge/renderer/state/bool.hpp>
 #include <sge/renderer/state/depth_func.hpp>
 #include <sge/renderer/state/float.hpp>
-#include <sge/renderer/pixel_rect.hpp>
-#include <sge/renderer/device.hpp>
-#include <sge/renderer/onscreen_target.hpp>
-#include <sge/input/cursor/position_unit.hpp>
-#include <sge/image/colors.hpp>
-#include <sge/time/unit.hpp>
+#include <sge/renderer/state/list.hpp>
 #include <sge/time/millisecond.hpp>
+#include <sge/time/unit.hpp>
 #include <fcppt/math/vector/output.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
 #include <fcppt/math/vector/dot.hpp>
@@ -267,7 +267,7 @@ fruitcut::app::states::running::process_fruit(
 				fcppt::math::box::basic<sge::renderer::scalar,2>(
 					sge::renderer::vector2::null(),
 					fcppt::math::dim::structure_cast<dim2>(
-						context<machine>().systems().renderer()->screen_size()))),
+						context<machine>().systems().renderer()->onscreen_target()->viewport().get().dimension()))),
 		point2_unprojected = 
 			fcppt::math::matrix::unproject(
 				point2,
@@ -277,7 +277,7 @@ fruitcut::app::states::running::process_fruit(
 				fcppt::math::box::basic<sge::renderer::scalar,2>(
 					sge::renderer::vector2::null(),
 					fcppt::math::dim::structure_cast<dim2>(
-						context<machine>().systems().renderer()->screen_size()))),
+						context<machine>().systems().renderer()->onscreen_target()->viewport().get().dimension()))),
 		point3_unprojected = 
 			fcppt::math::matrix::unproject(
 				sge::renderer::vector3(
@@ -289,7 +289,7 @@ fruitcut::app::states::running::process_fruit(
 				fcppt::math::box::basic<sge::renderer::scalar,2>(
 					sge::renderer::vector2::null(),
 					fcppt::math::dim::structure_cast<dim2>(
-						context<machine>().systems().renderer()->screen_size()))),
+						context<machine>().systems().renderer()->onscreen_target()->viewport().get().dimension()))),
 		first_plane_vector = 
 			point2_unprojected - point1_unprojected,
 		second_plane_vector = 

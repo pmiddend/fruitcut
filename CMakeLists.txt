@@ -138,14 +138,12 @@ SET(files
 	font/particle/base.cpp
 	font/particle/animated.cpp
 	font/particle/base_parameters.cpp
-	damped_oscillation.cpp
+	font/damped_oscillation.cpp
 	# particle
 	particle/system.cpp
 	particle/objects/base.cpp
 	particle/objects/simple.cpp
 	particle/objects/permanent_sprite.cpp
-	particle/sprite/render_flipped.cpp
-	particle/point_sprite/render_flipped.cpp
 	# line drawer
 	line_drawer/object.cpp
 	line_drawer/line.cpp
