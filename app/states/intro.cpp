@@ -46,27 +46,77 @@ fruitcut::app::states::intro::intro(
 :
 	my_base(
 		ctx),
+	// Those timers will be activated as soon as we have a viewport
 	saturation_timer_(
 		sge::time::second_f(
 			json::find_member<sge::time::funit>(
 				context<machine>().config_file(),
 				FCPPT_TEXT("intro/desaturation-secs"))),
-		sge::time::activation_state::active,
+		sge::time::activation_state::inactive,
 		context<machine>().timer_callback()),
 	intro_timer_(
 		sge::time::second_f(
 			json::find_member<sge::time::funit>(
 				context<machine>().config_file(),
 				FCPPT_TEXT("intro/total-duration-secs"))),
-		sge::time::activation_state::active,
-		context<machine>().timer_callback())
+		sge::time::activation_state::inactive,
+		context<machine>().timer_callback()),
+	viewport_change_connection_(
+		context<machine>().systems().manage_viewport_callback(
+			boost::bind(
+				&intro::viewport_change,
+				this,
+				_1)))
 {
-	context<machine>().sound_controller().play(
-		FCPPT_TEXT("intro"));
-	
+	// We already have a viewport? Ok, then go
+	if(context<machine>().systems().renderer()->onscreen_target()->viewport().get().size().content())
+		viewport_change(
+			sge::renderer::device_ptr());
+}
+
+boost::statechart::result
+fruitcut::app::states::intro::react(
+	events::render const &)
+{
+	context<machine>().background().render();
+	context<machine>().particle_system().render();
+	return discard_event();
+}
+
+boost::statechart::result
+fruitcut::app::states::intro::react(
+	events::tick const &)
+{
+	context<machine>().sound_controller().update();
+	context<machine>().particle_system().update();
 	context<machine>().postprocessing().desaturate_filter().factor(
 		static_cast<sge::renderer::scalar>(
-			0.0));
+			saturation_timer_.expired()
+			?
+				static_cast<sge::renderer::scalar>(1.0)
+			:
+				saturation_timer_.elapsed_frames()));
+	if (intro_timer_.expired())
+		return transit<running>();
+	return discard_event();
+}
+
+fruitcut::app::states::intro::~intro()
+{
+}
+
+void
+fruitcut::app::states::intro::viewport_change(
+	sge::renderer::device_ptr)
+{
+	if (saturation_timer_.active())
+		return;
+
+	saturation_timer_.activate();
+	intro_timer_.activate();
+
+	context<machine>().sound_controller().play(
+		FCPPT_TEXT("intro"));
 
 	sge::image2d::file_ptr const logo_image = 
 		context<machine>().systems().image_loader().load(
@@ -156,35 +206,4 @@ fruitcut::app::states::intro::intro(
 				context<machine>().timer_callback(),
 				sge::renderer::vector2::null(),
 				sge::renderer::vector2::null())));
-}
-
-boost::statechart::result
-fruitcut::app::states::intro::react(
-	events::render const &)
-{
-	context<machine>().background().render();
-	context<machine>().particle_system().render();
-	return discard_event();
-}
-
-boost::statechart::result
-fruitcut::app::states::intro::react(
-	events::tick const &)
-{
-	context<machine>().sound_controller().update();
-	context<machine>().particle_system().update();
-	context<machine>().postprocessing().desaturate_filter().factor(
-		static_cast<sge::renderer::scalar>(
-			saturation_timer_.expired()
-			?
-				static_cast<sge::renderer::scalar>(1.0)
-			:
-				saturation_timer_.elapsed_frames()));
-	if (intro_timer_.expired())
-		return transit<running>();
-	return discard_event();
-}
-
-fruitcut::app::states::intro::~intro()
-{
 }

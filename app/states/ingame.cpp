@@ -109,6 +109,8 @@ fruitcut::app::states::ingame::ingame(
 		context<machine>().systems().renderer(),
 		physics_world_)
 {
+	viewport_change(
+		sge::renderer::device_ptr());
 }
 
 fruitcut::physics::world &

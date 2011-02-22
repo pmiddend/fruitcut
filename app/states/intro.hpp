@@ -5,6 +5,8 @@
 #include "../events/render.hpp"
 #include "../events/tick.hpp"
 #include <sge/time/timer.hpp>
+#include <sge/renderer/device_ptr.hpp>
+#include <fcppt/signal/scoped_connection.hpp>
 #include <boost/statechart/state.hpp>
 #include <boost/statechart/custom_reaction.hpp>
 #include <boost/mpl/vector/vector10.hpp>
@@ -45,7 +47,11 @@ public:
 private:
 	sge::time::timer saturation_timer_;
 	sge::time::timer intro_timer_;
+	fcppt::signal::scoped_connection viewport_change_connection_;
 
+	void
+	viewport_change(
+		sge::renderer::device_ptr);
 };
 }
 }
