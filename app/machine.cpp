@@ -3,7 +3,6 @@
 #include "events/render.hpp"
 #include "events/render_overlay.hpp"
 #include "events/tick.hpp"
-#include "events/viewport_change.hpp"
 #include "../pp/dependency_set.hpp"
 #include "../json/config_wrapper.hpp"
 #include "../json/find_member.hpp"
@@ -249,14 +248,17 @@ fruitcut::app::machine::machine(
 			json::find_member<long>(
 				config_file(),
 				FCPPT_TEXT("frame-timer-ms")))),
-	manage_viewport_connection_(
+	background_(
+		systems_.renderer(),
+		systems_.image_loader(),
+		config_file_),
+	viewport_change_connection_(
 		systems_.manage_viewport_callback(
 			boost::bind(
-				&machine::manage_viewport,
+				&machine::viewport_change,
 				this,
 				_1)))
 {
-	systems_.window()->show();
 	input_manager_.current_state(
 		game_state_);
 	systems_.audio_player()->gain(
@@ -272,6 +274,12 @@ fruitcut::app::machine::config_file() const
 }
 
 sge::systems::instance const &
+fruitcut::app::machine::systems() const
+{
+	return systems_;
+}
+
+sge::systems::instance &
 fruitcut::app::machine::systems()
 {
 	return systems_;
@@ -321,6 +329,7 @@ fruitcut::app::machine::postprocessing()
 void
 fruitcut::app::machine::run()
 {
+	systems_.window()->show();
 	frame_timer_.expires_from_now(
 		boost::posix_time::milliseconds(
 			json::find_member<long>(
@@ -352,12 +361,16 @@ fruitcut::app::machine::timer_callback() const
 				&transformed_time_));
 }
 
-void
-fruitcut::app::machine::play_sound(
-	fcppt::string const &name)
+fruitcut::sound_controller &
+fruitcut::app::machine::sound_controller()
 {
-	sound_controller_.play(
-		name);
+	return sound_controller_;
+}
+
+fruitcut::sound_controller const &
+fruitcut::app::machine::sound_controller() const
+{
+	return sound_controller_;
 }
 
 fruitcut::input::state &
@@ -372,6 +385,17 @@ fruitcut::app::machine::input_manager()
 	return input_manager_;
 }
 
+fruitcut::app::background &
+fruitcut::app::machine::background()
+{
+	return background_;
+}
+
+fruitcut::app::background const &
+fruitcut::app::machine::background() const
+{
+	return background_;
+}
 
 fruitcut::app::machine::~machine()
 {
@@ -407,6 +431,38 @@ fruitcut::app::machine::run_once(
 			fcppt::from_std_string(
 				e.message()));
 
+	manage_time();
+	manage_rendering();
+
+	if (!systems_.window()->awl_dispatcher()->is_stopped())
+	{
+		frame_timer_.expires_from_now(
+			boost::posix_time::milliseconds(
+				json::find_member<long>(
+					config_file(),
+					FCPPT_TEXT("frame-timer-ms"))));
+		frame_timer_.async_wait(
+			boost::bind(
+				&machine::run_once,
+				this,
+				boost::asio::placeholders::error));
+	}
+}
+
+void
+fruitcut::app::machine::viewport_change(
+	sge::renderer::device_ptr)
+{
+	postprocessing_.viewport_changed();
+	console_gfx_.background_sprite().size(
+		fcppt::math::dim::structure_cast<sge::console::sprite_object::dim>(
+			systems_.renderer()->onscreen_target()->viewport().get().size()));
+	background_.viewport_changed();
+}
+
+void
+fruitcut::app::machine::manage_time()
+{
 	// So what does this do? Well, we effectively manage two "clocks"
 	// here. One goes along with the real clock (with
 	// sge::time::clock) and knows the "real" current time. The other
@@ -427,9 +483,11 @@ fruitcut::app::machine::run_once(
 	process_event(
 		events::tick(
 			diff));
+}
 
-	sound_controller_.update();
-
+void
+fruitcut::app::machine::manage_rendering()
+{
 	// Do we even have a viewport?
 	if (systems_.renderer()->onscreen_target()->viewport().get().size().content())
 	{
@@ -448,30 +506,4 @@ fruitcut::app::machine::run_once(
 		if (console_gfx_.active())
 			console_gfx_.draw();
 	}
-
-	if (!systems_.window()->awl_dispatcher()->is_stopped())
-	{
-		frame_timer_.expires_from_now(
-			boost::posix_time::milliseconds(
-				json::find_member<long>(
-					config_file(),
-					FCPPT_TEXT("frame-timer-ms"))));
-		frame_timer_.async_wait(
-			boost::bind(
-				&machine::run_once,
-				this,
-				boost::asio::placeholders::error));
-	}
-}
-
-void
-fruitcut::app::machine::manage_viewport(
-	sge::renderer::device_ptr)
-{
-	postprocessing_.viewport_changed();
-	console_gfx_.background_sprite().size(
-		fcppt::math::dim::structure_cast<sge::console::sprite_object::dim>(
-			systems_.renderer()->onscreen_target()->viewport().get().size()));
-	process_event(
-		events::viewport_change());
 }

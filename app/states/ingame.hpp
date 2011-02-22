@@ -3,17 +3,15 @@
 
 #include "running_fwd.hpp"
 #include "../machine.hpp"
-#include "../events/viewport_change.hpp"
 #include "../fruit/manager.hpp"
 #include "../../physics/world.hpp"
 #include "../../physics/null_collision_filter.hpp"
 #include "../../physics/debugger.hpp"
 #include "../../input/state.hpp"
 #include <sge/camera/object.hpp>
+#include <sge/renderer/device_ptr.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <boost/statechart/state.hpp>
-#include <boost/statechart/custom_reaction.hpp>
-#include <boost/mpl/vector/vector10.hpp>
 
 namespace fruitcut
 {
@@ -28,20 +26,9 @@ class ingame
 	public boost::statechart::state<ingame,machine,running>
 {
 public:
-	typedef
-	boost::mpl::vector1
-	<
-		boost::statechart::custom_reaction<events::viewport_change>
-	>
-	reactions;
-
 	explicit
 	ingame(
 		my_context);
-
-	boost::statechart::result
-	react(
-		events::viewport_change const &);
 
 	physics::world &
 	physics_world();
@@ -66,7 +53,10 @@ public:
 
 	~ingame();
 private:
-	fcppt::signal::scoped_connection toggle_pause_connection_,toggle_camera_connection_;
+	fcppt::signal::scoped_connection 
+		toggle_pause_connection_,
+		toggle_camera_connection_,
+		viewport_change_connection_;
 	input::state camera_state_;
 	sge::camera::object camera_;
 	physics::world physics_world_;
@@ -80,6 +70,10 @@ private:
 
 	void
 	toggle_physics_debugger();
+
+	void
+	viewport_change(
+		sge::renderer::device_ptr);
 };
 }
 }

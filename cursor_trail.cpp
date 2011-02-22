@@ -54,18 +54,6 @@ fruitcut::cursor_trail::update()
 	if (!update_timer_.update_b())
 		return;
 
-	if (fcppt::math::vector::length(fcppt::math::vector::structure_cast<sge::renderer::vector2>(transform_position(
-			cursor_.position(),
-			target_->viewport().get()))) < 10)
-		std::cout << "adding new position: " << transform_position(
-			cursor_.position(),
-			target_->viewport().get()) << "\n";
-	/*
-	std::cout << "adding new position: " << transform_position(
-			cursor_.position(),
-			target_->viewport().get()) << "\n";
-	*/
-
 	positions_.push_back(
 		transform_position(
 			cursor_.position(),

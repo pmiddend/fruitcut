@@ -7,6 +7,8 @@
 #include "../fruit/hull/projected.hpp"
 #include "../fruit/hull/ring.hpp"
 #include "../events/tick.hpp"
+#include "../events/render.hpp"
+#include "../events/render_overlay.hpp"
 #include "../json/find_member.hpp"
 #include "../../physics/world.hpp"
 #include <sge/image/colors.hpp>
@@ -94,6 +96,7 @@ boost::statechart::result
 fruitcut::app::states::running::react(
 	events::render const &)
 {
+	context<machine>().background().render();
 	context<machine>().particle_system().render();
 	context<ingame>().fruit_manager().render(
 		context<ingame>().camera().mvp());
@@ -120,6 +123,7 @@ boost::statechart::result
 fruitcut::app::states::running::react(
 	events::tick const &d)
 {
+	context<machine>().sound_controller().update();
 	context<ingame>().camera().update(
 		d.delta_ms());
 	context<machine>().particle_system().update();

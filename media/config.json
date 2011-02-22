@@ -8,7 +8,7 @@
 	},
 	"graphics" :
 	{
-		"screen-size" : [640,480]
+		"window-size" : [640,480]
 	},
 	"pp" : 
 	{

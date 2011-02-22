@@ -1,32 +1,33 @@
 #ifndef FRUITCUT_APP_MACHINE_HPP_INCLUDED
 #define FRUITCUT_APP_MACHINE_HPP_INCLUDED
 
-#include "../particle/system.hpp"
+#include "background.hpp"
 #include "postprocessing.hpp"
-#include "../sound_controller.hpp"
-#include "../input/state_manager.hpp"
 #include "../input/state.hpp"
+#include "../input/state_manager.hpp"
+#include "../particle/system.hpp"
+#include "../sound_controller.hpp"
 #include "states/intro_fwd.hpp"
 #include <awl/mainloop/asio/io_service_ptr.hpp>
-#include <sge/parse/json/object.hpp>
+#include <sge/console/gfx.hpp>
+#include <sge/console/object.hpp>
 #include <sge/parse/json/array.hpp>
+#include <sge/parse/json/object.hpp>
 #include <sge/renderer/texture/address_mode.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/texture/manager.hpp>
 #include <sge/texture/part_ptr.hpp>
 #include <sge/time/duration.hpp>
-#include <sge/time/unit.hpp>
 #include <sge/time/point.hpp>
-#include <sge/console/object.hpp>
-#include <sge/console/gfx.hpp>
-#include <fcppt/filesystem/path.hpp>
-#include <fcppt/chrono/time_point.hpp>
+#include <sge/time/unit.hpp>
 #include <fcppt/chrono/duration.hpp>
+#include <fcppt/chrono/time_point.hpp>
+#include <fcppt/filesystem/path.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
-#include <boost/statechart/state_machine.hpp>
-#include <boost/function.hpp>
-#include <boost/system/error_code.hpp>
 #include <boost/asio/deadline_timer.hpp>
+#include <boost/function.hpp>
+#include <boost/statechart/state_machine.hpp>
+#include <boost/system/error_code.hpp>
 
 namespace fruitcut
 {
@@ -55,6 +56,10 @@ public:
 	config_file() const;
 
 	sge::systems::instance const &
+	systems() const;
+
+	// Needed for the viewport callback stuff
+	sge::systems::instance &
 	systems();
 
 	particle::system &
@@ -78,15 +83,23 @@ public:
 	sge::time::callback const 
 	timer_callback() const;
 
-	void
-	play_sound(
-		fcppt::string const &name);
+	fruitcut::sound_controller &
+	sound_controller();
+
+	fruitcut::sound_controller const &
+	sound_controller() const;
 
 	input::state &
 	game_input_state();
 
 	input::state_manager &
 	input_manager();
+
+	fruitcut::app::background &
+	background();
+
+	fruitcut::app::background const &
+	background() const;
 
 	~machine();
 private:
@@ -107,9 +120,10 @@ private:
 	sge::time::point current_time_,transformed_time_;
 	time_transform_function time_transform_;
 	fcppt::signal::scoped_connection console_switch_connection_;
-	sound_controller sound_controller_;
+	fruitcut::sound_controller sound_controller_;
 	boost::asio::deadline_timer frame_timer_;
-	fcppt::signal::scoped_connection manage_viewport_connection_;
+	fruitcut::app::background background_;
+	fcppt::signal::scoped_connection viewport_change_connection_;
 
 	void
 	console_switch();
@@ -119,8 +133,14 @@ private:
 		boost::system::error_code const &);
 
 	void
-	manage_viewport(
+	viewport_change(
 		sge::renderer::device_ptr);
+
+	void
+	manage_time();
+
+	void 
+	manage_rendering();
 };
 }
 }

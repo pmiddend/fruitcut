@@ -1,8 +1,8 @@
 #include "ingame.hpp"
 #include "running.hpp"
+#include "../events/toggle_pause.hpp"
 #include "../../input/state.hpp"
 #include "../../json/find_member.hpp"
-#include "../events/toggle_pause.hpp"
 #include "../../physics/vector3.hpp"
 #include "../../physics/box.hpp"
 #include <sge/systems/instance.hpp>
@@ -52,6 +52,12 @@ fruitcut::app::states::ingame::ingame(
 				boost::bind(
 					&ingame::toggle_camera,
 					this)))),
+	viewport_change_connection_(
+		context<machine>().systems().manage_viewport_callback(
+			boost::bind(
+				&ingame::viewport_change,
+				this,
+				_1))),
 	camera_state_(
 		context<machine>().input_manager()),
 	camera_(
@@ -103,28 +109,6 @@ fruitcut::app::states::ingame::ingame(
 		context<machine>().systems().renderer(),
 		physics_world_)
 {
-}
-
-boost::statechart::result
-fruitcut::app::states::ingame::react(
-	events::viewport_change const &)
-{
-	camera_.projection_object(
-		sge::camera::projection::perspective(
-			sge::renderer::aspect(
-				fcppt::math::dim::structure_cast<sge::renderer::screen_size>(
-					context<machine>().systems().renderer()->onscreen_target()->viewport().get().size())),
-			fcppt::math::deg_to_rad(
-				json::find_member<sge::renderer::scalar>(
-					context<machine>().config_file(),
-					FCPPT_TEXT("ingame/camera/fov"))),
-			json::find_member<sge::renderer::scalar>(
-				context<machine>().config_file(),
-				FCPPT_TEXT("ingame/camera/near")),
-			json::find_member<sge::renderer::scalar>(
-				context<machine>().config_file(),
-				FCPPT_TEXT("ingame/camera/far"))));
-	return discard_event();
 }
 
 fruitcut::physics::world &
@@ -191,4 +175,25 @@ fruitcut::app::states::ingame::toggle_physics_debugger()
 {
 	physics_debugger_.active(
 		!physics_debugger_.active());
+}
+
+void
+fruitcut::app::states::ingame::viewport_change(
+	sge::renderer::device_ptr)
+{
+	camera_.projection_object(
+		sge::camera::projection::perspective(
+			sge::renderer::aspect(
+				fcppt::math::dim::structure_cast<sge::renderer::screen_size>(
+					context<machine>().systems().renderer()->onscreen_target()->viewport().get().size())),
+			fcppt::math::deg_to_rad(
+				json::find_member<sge::renderer::scalar>(
+					context<machine>().config_file(),
+					FCPPT_TEXT("ingame/camera/fov"))),
+			json::find_member<sge::renderer::scalar>(
+				context<machine>().config_file(),
+				FCPPT_TEXT("ingame/camera/near")),
+			json::find_member<sge::renderer::scalar>(
+				context<machine>().config_file(),
+				FCPPT_TEXT("ingame/camera/far"))));
 }

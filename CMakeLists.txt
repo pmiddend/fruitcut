@@ -160,23 +160,24 @@ ADD_LIBRARY(
 
 ADD_EXECUTABLE(
 	app
-	app/fruitcut.cpp
-	app/fruit/prototype.cpp
-	app/fruit/object.cpp
-	app/machine.cpp 
-	app/postprocessing.cpp 
-	app/name.cpp
-	app/fruit/hull/projected.cpp
+	app/asio.cpp
+	app/background.cpp
 	app/cut_mesh.cpp
+	app/events/tick.cpp
+	app/fruitcut.cpp
+	app/fruit/hull/projected.cpp
 	app/fruit/hull/trail_intersection.cpp
 	app/fruit/manager.cpp
-	app/events/tick.cpp
+	app/fruit/object.cpp
+	app/fruit/prototype.cpp
+	app/machine.cpp 
 	app/mesh_to_shape.cpp
-	app/model_to_mesh.cpp
-	app/asio.cpp
 	app/mesh_to_vertex_buffer.cpp
-	app/states/intro.cpp
+	app/model_to_mesh.cpp
+	app/name.cpp
+	app/postprocessing.cpp 
 	app/states/ingame.cpp
+	app/states/intro.cpp
 	app/states/paused.cpp
 	app/states/running.cpp)
 

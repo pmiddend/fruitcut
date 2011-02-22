@@ -83,7 +83,9 @@ fruitcut::app::postprocessing::postprocessing(
 					this,
 					_1,
 					_2),
-				SGE_FONT_TEXT_LIT("Toggle a specific filter")))
+				SGE_FONT_TEXT_LIT("Toggle a specific filter"))),
+	active_(
+		true)
 {
 	system_.add_filter(
 		rtt_filter_,
