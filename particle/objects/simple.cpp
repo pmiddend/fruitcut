@@ -51,7 +51,7 @@ fruitcut::particle::objects::simple<Choices>::update()
 	velocity_ += 
 		delta * acceleration_;
 	sprite_.pos(
-		fcppt::math::vector::structure_cast<typename sprite_object::point>(
+		fcppt::math::vector::structure_cast<typename sprite_object::vector>(
 			position_));
 	animation_.update();
 	sprite_.color(

@@ -94,7 +94,7 @@ fruitcut::font::drawer::draw_char(
 		sprite_object(
 			sprite_parameters()
 			.pos(
-				fcppt::math::vector::structure_cast<sprite_object::point>(
+				fcppt::math::vector::structure_cast<sprite_object::vector>(
 					transformation.pos()))
 			.texture(
 				d.content()

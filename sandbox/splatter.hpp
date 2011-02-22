@@ -64,7 +64,7 @@ private:
 	fcppt::random::uniform<sge::time::funit> lifetime_rng_;
 	fcppt::signal::scoped_connection move_connection_,click_connection_;
 	particle_list particles_;
-	particle::sprite::object::point first_position_;
+	particle::sprite::object::vector first_position_;
 
 	void
 	click_callback(

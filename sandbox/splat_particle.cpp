@@ -49,7 +49,7 @@ fruitcut::sandbox::splat_particle::update()
 	velocity_ += 
 		delta * acceleration_;
 	sprite_.pos(
-		fcppt::math::vector::structure_cast<particle::sprite::object::point>(
+		fcppt::math::vector::structure_cast<particle::sprite::object::vector>(
 			position_));
 }
 

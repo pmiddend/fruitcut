@@ -69,7 +69,7 @@ fruitcut::sandbox::splatter::splatter(
 								sge::renderer::texture::address_mode::clamp),
 							sge::renderer::resource_flags::none))))
 			.center(
-				particle::sprite::object::point(
+				particle::sprite::object::vector(
 					static_cast<particle::sprite::object::unit>(
 						_renderer->onscreen_target()->viewport().get().size().w()/2),
 					static_cast<particle::sprite::object::unit>(
@@ -288,7 +288,7 @@ fruitcut::sandbox::splatter::move_callback(
 {
 	cursor_.pos(
 		cursor_.pos() + 
-		particle::sprite::object::point(
+		particle::sprite::object::vector(
 			e.axis() == sge::input::mouse::axis::x 
 			? 
 				static_cast<particle::sprite::object::unit>(

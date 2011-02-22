@@ -21,7 +21,7 @@
 #include <sge/image/colors.hpp>
 #include <sge/input/keyboard/action.hpp>
 #include <sge/input/keyboard/device.hpp>
-#include <sge/renderer/depth_buffer.hpp>
+#include <sge/renderer/depth_stencil_buffer.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/onscreen_target.hpp>
 #include <sge/renderer/no_multi_sampling.hpp>
@@ -34,7 +34,6 @@
 #include <sge/renderer/state/list.hpp>
 #include <sge/renderer/state/trampoline.hpp>
 #include <sge/renderer/state/var.hpp>
-#include <sge/renderer/stencil_buffer.hpp>
 #include <sge/renderer/system.hpp>
 #include <sge/renderer/texture/address_mode2.hpp>
 #include <sge/renderer/texture/address_mode.hpp>
@@ -203,7 +202,7 @@ public:
 private:
 	fruitcut::particle::system system_;
 	sge::texture::part_ptr particle_texture_;
-	fruitcut::particle::point_sprite::object::point logo_pos_;
+	fruitcut::particle::point_sprite::object::vector logo_pos_;
 };
 
 particles::particles(
@@ -233,10 +232,10 @@ particles::particles(
 				/ FCPPT_TEXT("logo.png"));
 
 	logo_pos_ = 
-		fcppt::math::dim::structure_cast<particle::point_sprite::object::point>(
-			window_size)/static_cast<particle::point_sprite::object::point::value_type>(2) - 
-		fcppt::math::dim::structure_cast<particle::point_sprite::object::point>(
-			logo_image->dim())/static_cast<particle::point_sprite::object::point::value_type>(2);
+		fcppt::math::dim::structure_cast<particle::point_sprite::object::vector>(
+			window_size)/static_cast<particle::point_sprite::object::vector::value_type>(2) - 
+		fcppt::math::dim::structure_cast<particle::point_sprite::object::vector>(
+			logo_image->dim())/static_cast<particle::point_sprite::object::vector::value_type>(2);
 
 	system_.insert(
 		particle::objects::unique_base_ptr(
@@ -262,8 +261,8 @@ particles::particles(
 						static_cast<particle::sprite::object::rotation_type>(
 							0))
 					.center(
-						fcppt::math::dim::structure_cast<particle::point_sprite::object::point>(
-							window_size)/static_cast<particle::point_sprite::object::point::value_type>(2))
+						fcppt::math::dim::structure_cast<particle::point_sprite::object::vector>(
+							window_size)/static_cast<particle::point_sprite::object::vector::value_type>(2))
 					.system(
 						&system_.sprite_system())
 					.color(
@@ -345,9 +344,9 @@ particles::from_image(
 		point_sequence::const_reference p,
 		points)
 	{
-		particle::point_sprite::object::point const center = 
+		particle::point_sprite::object::vector const center = 
 			logo_pos_ + 
-				particle::point_sprite::object::point(
+				particle::point_sprite::object::vector(
 					static_cast<particle::point_sprite::object::unit>(
 						p.w()),
 					static_cast<particle::point_sprite::object::unit>(
@@ -435,8 +434,7 @@ try
 		(sge::systems::renderer(
 			sge::renderer::parameters(
 				sge::renderer::visual_depth::depth32,
-				sge::renderer::depth_buffer::off,
-				sge::renderer::stencil_buffer::off,
+				sge::renderer::depth_stencil_buffer::off,
 				sge::renderer::vsync::on,
 				sge::renderer::no_multi_sampling),
 			sge::systems::viewport::dont_manage()))

@@ -33,7 +33,7 @@ fruitcut::sandbox::sword_particle::update()
 		static_cast<double>(
 			life_time_.count());
 
-	particle::sprite::object::point const center = 
+	particle::sprite::object::vector const center = 
 		sprite_.pos() + sprite_.size()/2;
 
 	sprite_.size(

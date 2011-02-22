@@ -9,8 +9,7 @@
 #include <sge/renderer/visual_depth.hpp>
 #include <sge/renderer/onscreen_target.hpp>
 #include <sge/renderer/viewport.hpp>
-#include <sge/renderer/depth_buffer.hpp>
-#include <sge/renderer/stencil_buffer.hpp>
+#include <sge/renderer/depth_stencil_buffer.hpp>
 #include <sge/renderer/vsync.hpp>
 #include <sge/renderer/no_multi_sampling.hpp>
 #include <sge/renderer/scoped_block.hpp>
@@ -60,8 +59,7 @@ try
 		(sge::systems::renderer(
 			sge::renderer::parameters(
 				sge::renderer::visual_depth::depth32,
-				sge::renderer::depth_buffer::off,
-				sge::renderer::stencil_buffer::off,
+				sge::renderer::depth_stencil_buffer::off,
 				sge::renderer::vsync::on,
 				sge::renderer::no_multi_sampling),
 			sge::systems::viewport::dont_manage()))

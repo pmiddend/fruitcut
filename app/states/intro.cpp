@@ -127,14 +127,14 @@ fruitcut::app::states::intro::viewport_change(
 						context<machine>().config_file(),
 						FCPPT_TEXT("textures/logo")));
 
-	particle::point_sprite::object::point const logo_pos = 
-		fcppt::math::dim::structure_cast<particle::point_sprite::object::point>(
+	particle::point_sprite::object::vector const logo_pos = 
+		fcppt::math::dim::structure_cast<particle::point_sprite::object::vector>(
 			context<machine>().systems().renderer()->onscreen_target()->viewport().get().size())/
-				static_cast<particle::point_sprite::object::point::value_type>(
+				static_cast<particle::point_sprite::object::vector::value_type>(
 					2) - 
-		fcppt::math::dim::structure_cast<particle::point_sprite::object::point>(
+		fcppt::math::dim::structure_cast<particle::point_sprite::object::vector>(
 			logo_image->dim())/
-				static_cast<particle::point_sprite::object::point::value_type>(
+				static_cast<particle::point_sprite::object::vector::value_type>(
 					2);
 
 	// The logo
@@ -159,7 +159,7 @@ fruitcut::app::states::intro::viewport_change(
 						static_cast<particle::sprite::object::order_type>(
 							-99))
 					.center(
-						fcppt::math::dim::structure_cast<fruitcut::particle::sprite::object::point>(
+						fcppt::math::dim::structure_cast<fruitcut::particle::sprite::object::vector>(
 							context<machine>().systems().renderer()->onscreen_target()->viewport().get().size())/2)
 					.system(
 						&context<machine>().particle_system().sprite_system()),
@@ -191,9 +191,9 @@ fruitcut::app::states::intro::viewport_change(
 						static_cast<particle::sprite::object::order_type>(
 							-100))
 					.center(
-						fcppt::math::dim::structure_cast<fruitcut::particle::sprite::object::point>(
+						fcppt::math::dim::structure_cast<fruitcut::particle::sprite::object::vector>(
 							context<machine>().systems().renderer()->onscreen_target()->viewport().get().size())/2 + 
-						json::find_member<fruitcut::particle::sprite::object::point>(
+						json::find_member<fruitcut::particle::sprite::object::vector>(
 							context<machine>().config_file(),
 							FCPPT_TEXT("intro/logo-shadow-offset")))
 					.system(

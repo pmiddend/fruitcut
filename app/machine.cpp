@@ -24,7 +24,7 @@
 #include <sge/input/keyboard/action.hpp>
 #include <sge/input/keyboard/device.hpp>
 #include <sge/input/keyboard/key_code.hpp>
-#include <sge/renderer/depth_buffer.hpp>
+#include <sge/renderer/depth_stencil_buffer.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/dim2.hpp>
 #include <sge/renderer/no_multi_sampling.hpp>
@@ -33,7 +33,6 @@
 #include <sge/renderer/parameters.hpp>
 #include <sge/renderer/resource_flags_none.hpp>
 #include <sge/renderer/scoped_block.hpp>
-#include <sge/renderer/stencil_buffer.hpp>
 #include <sge/renderer/texture/address_mode2.hpp>
 #include <sge/renderer/texture/address_mode.hpp>
 #include <sge/renderer/texture/create_planar_from_view.hpp>
@@ -120,8 +119,7 @@ fruitcut::app::machine::machine(
 			(sge::systems::renderer(
 				sge::renderer::parameters(
 					sge::renderer::visual_depth::depth32,
-					sge::renderer::depth_buffer::d24,
-					sge::renderer::stencil_buffer::off,
+					sge::renderer::depth_stencil_buffer::d24,
 					sge::renderer::vsync::on,
 					sge::renderer::no_multi_sampling),
 				sge::systems::viewport::fill_on_resize()))
@@ -195,7 +193,7 @@ fruitcut::app::machine::machine(
 								FCPPT_TEXT("console/background-texture")),
 					sge::renderer::texture::address_mode::clamp))
       .pos(
-        sge::console::sprite_object::point::null())
+        sge::console::sprite_object::vector::null())
       .size(
 				// We cannot specify a dimension here since we don't have a viewport yet
         sge::console::sprite_object::dim::null())

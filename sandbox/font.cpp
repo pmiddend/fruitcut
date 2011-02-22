@@ -15,7 +15,6 @@
 #include <sge/image/colors.hpp>
 #include <sge/input/keyboard/action.hpp>
 #include <sge/input/keyboard/device.hpp>
-#include <sge/renderer/depth_buffer.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/no_multi_sampling.hpp>
 #include <sge/renderer/onscreen_target.hpp>
@@ -25,7 +24,7 @@
 #include <sge/renderer/state/list.hpp>
 #include <sge/renderer/state/trampoline.hpp>
 #include <sge/renderer/state/var.hpp>
-#include <sge/renderer/stencil_buffer.hpp>
+#include <sge/renderer/depth_stencil_buffer.hpp>
 #include <sge/renderer/vsync.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
@@ -66,8 +65,7 @@ try
 		(sge::systems::renderer(
 			sge::renderer::parameters(
 				sge::renderer::visual_depth::depth32,
-				sge::renderer::depth_buffer::off,
-				sge::renderer::stencil_buffer::off,
+				sge::renderer::depth_stencil_buffer::off,
 				sge::renderer::vsync::on,
 				sge::renderer::no_multi_sampling),
 			sge::systems::viewport::dont_manage()))
