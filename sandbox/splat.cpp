@@ -5,6 +5,7 @@
 #include <sge/input/keyboard/device.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/no_multi_sampling.hpp>
+#include <sge/renderer/visual_depth.hpp>
 #include <sge/renderer/resource_flags_none.hpp>
 #include <sge/renderer/scoped_block.hpp>
 #include <sge/renderer/state/color.hpp>
@@ -12,11 +13,13 @@
 #include <sge/renderer/state/bool.hpp>
 #include <sge/renderer/state/trampoline.hpp>
 #include <sge/renderer/state/var.hpp>
+#include <sge/renderer/onscreen_target.hpp>
+#include <sge/renderer/viewport.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/window.hpp>
 #include <sge/systems/list.hpp>
-#include <sge/systems/viewport/fill_on_resize.hpp>
+#include <sge/systems/viewport/dont_manage.hpp>
 #include <sge/window/instance.hpp>
 #include <sge/window/dim.hpp>
 #include <sge/window/simple_parameters.hpp>
@@ -39,6 +42,8 @@
 int main()
 try
 {
+	sge::window::dim const window_size(1024,768);
+
 	fcppt::log::activate_levels(
 		sge::log::global(),
 		fcppt::log::level::debug);
@@ -48,17 +53,15 @@ try
 		(sge::systems::window(
 			sge::window::simple_parameters(
 				FCPPT_TEXT("splat effect test"),
-				sge::window::dim(
-					1024,
-					768))))
+				window_size)))
 		(sge::systems::renderer(
 			sge::renderer::parameters(
-				sge::renderer::optional_display_mode(),
+				sge::renderer::visual_depth::depth32,
 				sge::renderer::depth_buffer::off,
 				sge::renderer::stencil_buffer::off,
 				sge::renderer::vsync::on,
 				sge::renderer::no_multi_sampling),
-			sge::systems::viewport::fill_on_resize()))
+			sge::systems::viewport::dont_manage()))
 		(sge::systems::input(
 				sge::systems::input_helper_field(
 					sge::systems::input_helper::keyboard_collector) 
@@ -68,8 +71,12 @@ try
 		(sge::systems::image_loader(
 				sge::image::capabilities_field::null(),
 				sge::all_extensions)));
-
-	sys.window()->dispatch();
+	sys.renderer()->onscreen_target()->viewport(
+		sge::renderer::viewport(
+			sge::renderer::pixel_rect(
+				sge::renderer::pixel_rect::vector::null(),
+				fcppt::math::dim::structure_cast<sge::renderer::pixel_rect::dim>(
+					window_size))));
 
 	sge::renderer::device_ptr const rend(
 		sys.renderer());

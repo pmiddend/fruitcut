@@ -23,9 +23,9 @@
 #include <sge/input/keyboard/device.hpp>
 #include <sge/renderer/depth_buffer.hpp>
 #include <sge/renderer/device.hpp>
-#include <sge/renderer/no_multi_sampling.hpp>
 #include <sge/renderer/onscreen_target.hpp>
-#include <sge/renderer/optional_display_mode.hpp>
+#include <sge/renderer/no_multi_sampling.hpp>
+#include <sge/renderer/visual_depth.hpp>
 #include <sge/renderer/parameters.hpp>
 #include <sge/renderer/pixel_rect.hpp>
 #include <sge/renderer/resource_flags_none.hpp>
@@ -48,7 +48,7 @@
 #include <sge/systems/image_loader.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
-#include <sge/systems/viewport/fill_on_resize.hpp>
+#include <sge/systems/viewport/dont_manage.hpp>
 #include <sge/systems/window.hpp>
 #include <sge/texture/part_ptr.hpp>
 #include <sge/texture/part_raw.hpp>
@@ -65,6 +65,7 @@
 #include <fcppt/io/cout.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/math/clamp.hpp>
+#include <fcppt/math/box/output.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/math/dim/comparison.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
@@ -87,6 +88,8 @@
 
 namespace
 {
+sge::window::dim const window_size(1024,768);
+
 typedef
 fruitcut::animation<fruitcut::particle::sprite::object::color_type>
 sprite_animation;
@@ -229,12 +232,9 @@ particles::particles(
 				/ FCPPT_TEXT("textures") 
 				/ FCPPT_TEXT("logo.png"));
 
-	sge::renderer::pixel_rect const viewport_rect = 
-		sys.renderer()->onscreen_target()->viewport().get();
-
 	logo_pos_ = 
 		fcppt::math::dim::structure_cast<particle::point_sprite::object::point>(
-			viewport_rect.dimension()) - 
+			window_size)/static_cast<particle::point_sprite::object::point::value_type>(2) - 
 		fcppt::math::dim::structure_cast<particle::point_sprite::object::point>(
 			logo_image->dim())/static_cast<particle::point_sprite::object::point::value_type>(2);
 
@@ -263,7 +263,7 @@ particles::particles(
 							0))
 					.center(
 						fcppt::math::dim::structure_cast<particle::point_sprite::object::point>(
-							viewport_rect.dimension()))
+							window_size)/static_cast<particle::point_sprite::object::point::value_type>(2))
 					.system(
 						&system_.sprite_system())
 					.color(
@@ -404,9 +404,9 @@ particles::from_image(
 						center) - 
 					sge::renderer::vector2(
 						static_cast<sge::renderer::scalar>(
-							system_.sprite_system().renderer()->onscreen_target()->viewport().get().dimension().w()/2),
+							window_size.w()/2),
 						static_cast<sge::renderer::scalar>(
-							system_.sprite_system().renderer()->onscreen_target()->viewport().get().dimension().h()/2)),
+							window_size.h()/2)),
 					sge::renderer::vector2(
 						0,
 						0),
@@ -431,17 +431,15 @@ try
 		(sge::systems::window(
 			sge::window::simple_parameters(
 				FCPPT_TEXT("convolution particle effect"),
-				sge::window::dim(
-					1024,
-					768))))
+				window_size)))
 		(sge::systems::renderer(
 			sge::renderer::parameters(
-				sge::renderer::optional_display_mode(),
+				sge::renderer::visual_depth::depth32,
 				sge::renderer::depth_buffer::off,
 				sge::renderer::stencil_buffer::off,
 				sge::renderer::vsync::on,
 				sge::renderer::no_multi_sampling),
-			sge::systems::viewport::fill_on_resize()))
+			sge::systems::viewport::dont_manage()))
 		(sge::systems::input(
 				sge::systems::input_helper_field(
 					sge::systems::input_helper::keyboard_collector) | sge::systems::input_helper::mouse_collector,
@@ -450,6 +448,12 @@ try
 		(sge::systems::image_loader(
 				sge::image::capabilities_field::null(),
 				sge::all_extensions)));
+	sys.renderer()->onscreen_target()->viewport(
+		sge::renderer::viewport(
+			sge::renderer::pixel_rect(
+				sge::renderer::pixel_rect::vector::null(),
+				fcppt::math::dim::structure_cast<sge::renderer::pixel_rect::dim>(
+					window_size))));
 	
 	particles ps(
 		sys);

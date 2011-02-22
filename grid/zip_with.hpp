@@ -24,9 +24,9 @@ zip_with(
 	Functor const &f)
 {
 	FCPPT_ASSERT(
-		g.dimension() == h.dimension());
+		g.size() == h.size());
 	fcppt::container::grid::object<Dest,N> result(
-		g.dimension());
+		g.size());
 	std::transform(
 		g.begin(),
 		g.end(),

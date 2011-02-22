@@ -43,14 +43,14 @@ convolve_ignore_borders(
 			1 - axis);
 
 	grid result(
-		g.dimension(),
+		g.size(),
 		static_cast<T>(0));
 
 	FCPPT_ASSERT(
 		static_cast<size_type>(v.size()) % static_cast<size_type>(2));
 
 	FCPPT_ASSERT(
-		g.dimension()[axis] >= static_cast<dim_value_type>(v.size()));
+		g.size()[axis] >= static_cast<dim_value_type>(v.size()));
 
 	FCPPT_ASSERT(
 		!v.empty());
@@ -59,11 +59,11 @@ convolve_ignore_borders(
 		static_cast<dim_value_type>(
 			(v.size()-1)/2);
 
-	for (dim p(0,0); p[caxis] < g.dimension()[caxis]; ++p[caxis])
+	for (dim p(0,0); p[caxis] < g.size()[caxis]; ++p[caxis])
 	{
-		for (p[axis] = 0; p[axis] < g.dimension()[axis]; ++p[axis])
+		for (p[axis] = 0; p[axis] < g.size()[axis]; ++p[axis])
 		{
-			if (p[axis] < distance || p[axis] >= static_cast<dim_value_type>(g.dimension()[axis] - distance))
+			if (p[axis] < distance || p[axis] >= static_cast<dim_value_type>(g.size()[axis] - distance))
 			{
 				result[p] = g[p];
 				continue;

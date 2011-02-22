@@ -65,9 +65,9 @@ fruitcut::sandbox::mouse_trailer::mouse_trailer(
 			.center(
 				particle::sprite::object::point(
 					static_cast<particle::sprite::object::unit>(
-						renderer->onscreen_target()->viewport().get().dimension().w()/2),
+						renderer->onscreen_target()->viewport().get().size().w()/2),
 					static_cast<particle::sprite::object::unit>(
-						renderer->onscreen_target()->viewport().get().dimension().h()/2)))
+						renderer->onscreen_target()->viewport().get().size().h()/2)))
 			.system(
 				&ss_)
 			.color(

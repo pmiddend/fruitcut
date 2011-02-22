@@ -6,6 +6,8 @@
 #include <sge/config/media_path.hpp>
 #include <sge/extension_set.hpp>
 #include <sge/font/text/flags_none.hpp>
+#include <sge/font/rect.hpp>
+#include <sge/font/pos.hpp>
 #include <sge/font/text/lit.hpp>
 #include <sge/image/capabilities_field.hpp>
 #include <sge/image/color/any/convert.hpp>
@@ -17,7 +19,7 @@
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/no_multi_sampling.hpp>
 #include <sge/renderer/onscreen_target.hpp>
-#include <sge/renderer/optional_display_mode.hpp>
+#include <sge/renderer/visual_depth.hpp>
 #include <sge/renderer/parameters.hpp>
 #include <sge/renderer/scoped_block.hpp>
 #include <sge/renderer/state/list.hpp>
@@ -27,7 +29,7 @@
 #include <sge/renderer/vsync.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
-#include <sge/systems/viewport/fill_on_resize.hpp>
+#include <sge/systems/viewport/dont_manage.hpp>
 #include <sge/time/millisecond.hpp>
 #include <sge/time/second.hpp>
 #include <sge/window/dim.hpp>
@@ -39,7 +41,7 @@
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
-#include <fcppt/math/box/structure_cast.hpp>
+#include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/text.hpp>
@@ -53,22 +55,22 @@
 int main()
 try
 {
+	sge::window::dim const window_size(1024,768);
+
 	sge::systems::instance const sys(
 		sge::systems::list()
 		(sge::systems::window(
 			sge::window::simple_parameters(
 				FCPPT_TEXT("font effect test"),
-				sge::window::dim(
-					1024,
-					768))))
+				window_size)))
 		(sge::systems::renderer(
 			sge::renderer::parameters(
-				sge::renderer::optional_display_mode(),
+				sge::renderer::visual_depth::depth32,
 				sge::renderer::depth_buffer::off,
 				sge::renderer::stencil_buffer::off,
 				sge::renderer::vsync::on,
 				sge::renderer::no_multi_sampling),
-			sge::systems::viewport::fill_on_resize()))
+			sge::systems::viewport::dont_manage()))
 		(sge::systems::parameterless::font)
 		(sge::systems::input(
 				sge::systems::input_helper_field(
@@ -78,6 +80,12 @@ try
 				sge::image::capabilities_field::null(),
 				fcppt::assign::make_container<sge::extension_set>(
 					FCPPT_TEXT("png")))));
+	sys.renderer()->onscreen_target()->viewport(
+		sge::renderer::viewport(
+			sge::renderer::pixel_rect(
+				sge::renderer::pixel_rect::vector::null(),
+				fcppt::math::dim::structure_cast<sge::renderer::pixel_rect::dim>(
+					window_size))));
 
 	fruitcut::font::system font_system(
 		sys.renderer(),
@@ -112,8 +120,10 @@ try
 				fruitcut::font::particle::base_parameters(
 					bitmap_metrics,
 					SGE_FONT_TEXT_LIT("Centered, should vanish soon"),
-					fcppt::math::box::structure_cast<sge::font::rect>(
-						sys.renderer()->onscreen_target()->viewport().get()),
+					sge::font::rect(
+						sge::font::pos::null(),
+						fcppt::math::dim::structure_cast<sge::font::dim>(
+							window_size)),
 					sge::font::text::align_h::center,
 					sge::font::text::align_v::center,
 					sge::font::text::flags::none),
@@ -159,8 +169,10 @@ try
 		fruitcut::font::particle::base_parameters(
 			ttf_metrics,
 			SGE_FONT_TEXT_LIT("Top left corner, should be permanent"),
-			fcppt::math::box::structure_cast<sge::font::rect>(
-				sys.renderer()->onscreen_target()->viewport().get()),
+			sge::font::rect(
+				sge::font::pos(),
+				fcppt::math::dim::structure_cast<sge::font::dim>(
+					window_size)),
 			sge::font::text::align_h::left,
 			sge::font::text::align_v::top,
 			sge::font::text::flags::none),

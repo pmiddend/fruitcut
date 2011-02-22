@@ -48,7 +48,7 @@ fruitcut::sandbox::splat_collector::splat_collector(
 		renderer_->create_planar_texture(
 			sge::renderer::texture::planar_parameters(
 				fcppt::math::dim::structure_cast<sge::renderer::dim2>(
-					renderer_->onscreen_target()->viewport().get().dimension()),
+					renderer_->onscreen_target()->viewport().get().size()),
 				sge::image::color::format::rgb8,
 				sge::renderer::texture::filter::point,
 				sge::renderer::texture::address_mode2(
@@ -58,7 +58,7 @@ fruitcut::sandbox::splat_collector::splat_collector(
 		renderer_->create_planar_texture(
 			sge::renderer::texture::planar_parameters(
 				fcppt::math::dim::structure_cast<sge::renderer::dim2>(
-					renderer_->onscreen_target()->viewport().get().dimension()),
+					renderer_->onscreen_target()->viewport().get().size()),
 				sge::image::color::format::rgb8,
 				sge::renderer::texture::filter::point,
 				sge::renderer::texture::address_mode2(
@@ -97,7 +97,7 @@ fruitcut::sandbox::splat_collector::splat_collector(
 				"target_size",
 				sge::shader::variable_type::const_,
 				fcppt::math::dim::structure_cast<sge::renderer::vector2>(
-					renderer_->onscreen_target()->viewport().get().dimension())))
+					renderer_->onscreen_target()->viewport().get().size())))
 			(sge::shader::variable(
 				"flip",
 				sge::shader::variable_type::const_,

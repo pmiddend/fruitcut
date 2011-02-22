@@ -107,7 +107,7 @@ fruitcut::font::drawer::draw_char(
 					sge::texture::const_part_ptr())
 			.size(
 				fcppt::math::dim::structure_cast<sprite_object::dim>(
-					transformation.dimension()))
+					transformation.size()))
 			.color(
 				// TODO:
 				sge::image::color::any::convert<sprite_object::color_format>( 

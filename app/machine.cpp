@@ -30,7 +30,7 @@
 #include <sge/renderer/dim2.hpp>
 #include <sge/renderer/no_multi_sampling.hpp>
 #include <sge/renderer/onscreen_target.hpp>
-#include <sge/renderer/optional_display_mode.hpp>
+#include <sge/renderer/visual_depth.hpp>
 #include <sge/renderer/parameters.hpp>
 #include <sge/renderer/resource_flags_none.hpp>
 #include <sge/renderer/scoped_block.hpp>
@@ -120,7 +120,7 @@ fruitcut::app::machine::machine(
 						FCPPT_TEXT("graphics/window-size")))).io_service(io_service_))
 			(sge::systems::renderer(
 				sge::renderer::parameters(
-					sge::renderer::optional_display_mode(),
+					sge::renderer::visual_depth::depth32,
 					sge::renderer::depth_buffer::d24,
 					sge::renderer::stencil_buffer::off,
 					sge::renderer::vsync::on,
@@ -431,7 +431,7 @@ fruitcut::app::machine::run_once(
 	sound_controller_.update();
 
 	// Do we even have a viewport?
-	if (systems_.renderer()->onscreen_target()->viewport().get().dimension().content())
+	if (systems_.renderer()->onscreen_target()->viewport().get().size().content())
 	{
 		// This implicitly sends events::render through the
 		// render-to-texture filter
@@ -471,7 +471,7 @@ fruitcut::app::machine::manage_viewport(
 	postprocessing_.viewport_changed();
 	console_gfx_.background_sprite().size(
 		fcppt::math::dim::structure_cast<sge::console::sprite_object::dim>(
-			systems_.renderer()->onscreen_target()->viewport().get().dimension()));
+			systems_.renderer()->onscreen_target()->viewport().get().size()));
 	process_event(
 		events::viewport_change());
 }

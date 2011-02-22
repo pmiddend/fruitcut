@@ -22,7 +22,7 @@ map(
 	Functor const &f)
 {
 	fcppt::container::grid::object<Dest,N> result(
-		g.dimension());
+		g.size());
 	std::transform(
 		g.begin(),
 		g.end(),

@@ -113,7 +113,7 @@ fruitcut::app::states::ingame::react(
 		sge::camera::projection::perspective(
 			sge::renderer::aspect(
 				fcppt::math::dim::structure_cast<sge::renderer::screen_size>(
-					context<machine>().systems().renderer()->onscreen_target()->viewport().get().dimension())),
+					context<machine>().systems().renderer()->onscreen_target()->viewport().get().size())),
 			fcppt::math::deg_to_rad(
 				json::find_member<sge::renderer::scalar>(
 					context<machine>().config_file(),

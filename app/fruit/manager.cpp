@@ -254,7 +254,7 @@ fruitcut::app::fruit::manager::cut_fruit(
 				fruit_shader_,
 				split_mesh,
 				static_cast<physics::scalar>(
-					current_fruit.bounding_box().dimension().content() / bounding_box.dimension().content()),
+					current_fruit.bounding_box().size().content() / bounding_box.size().content()),
 				current_fruit.position() + barycenter,
 				current_fruit.body().rotation(),
 				fcppt::math::vector::structure_cast<physics::vector3>(p.normal())

@@ -267,7 +267,7 @@ fruitcut::app::states::running::process_fruit(
 				fcppt::math::box::basic<sge::renderer::scalar,2>(
 					sge::renderer::vector2::null(),
 					fcppt::math::dim::structure_cast<dim2>(
-						context<machine>().systems().renderer()->onscreen_target()->viewport().get().dimension()))),
+						context<machine>().systems().renderer()->onscreen_target()->viewport().get().size()))),
 		point2_unprojected = 
 			fcppt::math::matrix::unproject(
 				point2,
@@ -277,7 +277,7 @@ fruitcut::app::states::running::process_fruit(
 				fcppt::math::box::basic<sge::renderer::scalar,2>(
 					sge::renderer::vector2::null(),
 					fcppt::math::dim::structure_cast<dim2>(
-						context<machine>().systems().renderer()->onscreen_target()->viewport().get().dimension()))),
+						context<machine>().systems().renderer()->onscreen_target()->viewport().get().size()))),
 		point3_unprojected = 
 			fcppt::math::matrix::unproject(
 				sge::renderer::vector3(
@@ -289,7 +289,7 @@ fruitcut::app::states::running::process_fruit(
 				fcppt::math::box::basic<sge::renderer::scalar,2>(
 					sge::renderer::vector2::null(),
 					fcppt::math::dim::structure_cast<dim2>(
-						context<machine>().systems().renderer()->onscreen_target()->viewport().get().dimension()))),
+						context<machine>().systems().renderer()->onscreen_target()->viewport().get().size()))),
 		first_plane_vector = 
 			point2_unprojected - point1_unprojected,
 		second_plane_vector = 

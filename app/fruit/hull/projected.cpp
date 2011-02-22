@@ -69,7 +69,7 @@ fruitcut::app::fruit::hull::projected(
 					static_cast<sge::renderer::scalar>(1)))
 				* (fcppt::math::dim::structure_cast<sge::renderer::vector2>(
 					// Fucking strong typedef shit
-					target->viewport().get().dimension()) / static_cast<sge::renderer::scalar>(2));
+					target->viewport().get().size()) / static_cast<sge::renderer::scalar>(2));
 
 		point_cloud.push_back(
 			window_coordinates);

@@ -78,7 +78,7 @@ fruitcut::app::states::intro::intro(
 							FCPPT_TEXT("intro/background-repeat")))
 					.size(
 						fcppt::math::dim::structure_cast<particle::sprite::object::dim>(
-							context<machine>().systems().renderer()->onscreen_target()->viewport().get().dimension()))
+							context<machine>().systems().renderer()->onscreen_target()->viewport().get().size()))
 					.order(
 						static_cast<particle::sprite::object::order_type>(
 							-101))
@@ -108,7 +108,7 @@ fruitcut::app::states::intro::intro(
 
 	particle::point_sprite::object::point const logo_pos = 
 		fcppt::math::dim::structure_cast<particle::point_sprite::object::point>(
-			context<machine>().systems().renderer()->onscreen_target()->viewport().get().dimension())/
+			context<machine>().systems().renderer()->onscreen_target()->viewport().get().size())/
 				static_cast<particle::point_sprite::object::point::value_type>(
 					2) - 
 		fcppt::math::dim::structure_cast<particle::point_sprite::object::point>(
@@ -139,7 +139,7 @@ fruitcut::app::states::intro::intro(
 							-99))
 					.center(
 						fcppt::math::dim::structure_cast<fruitcut::particle::sprite::object::point>(
-							context<machine>().systems().renderer()->onscreen_target()->viewport().get().dimension())/2)
+							context<machine>().systems().renderer()->onscreen_target()->viewport().get().size())/2)
 					.system(
 						&context<machine>().particle_system().sprite_system()),
 				json::parse_animation<particle::sprite::animation>(
@@ -171,7 +171,7 @@ fruitcut::app::states::intro::intro(
 							-100))
 					.center(
 						fcppt::math::dim::structure_cast<fruitcut::particle::sprite::object::point>(
-							context<machine>().systems().renderer()->onscreen_target()->viewport().get().dimension())/2 + 
+							context<machine>().systems().renderer()->onscreen_target()->viewport().get().size())/2 + 
 						json::find_member<fruitcut::particle::sprite::object::point>(
 							context<machine>().config_file(),
 							FCPPT_TEXT("intro/logo-shadow-offset")))

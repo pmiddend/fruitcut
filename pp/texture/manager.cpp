@@ -48,7 +48,7 @@ fruitcut::pp::texture::manager::query(
 				d.size() == use_screen_size()
 				?
 					fcppt::math::dim::structure_cast<sge::renderer::dim2>(
-						renderer_->onscreen_target()->viewport().get().dimension())
+						renderer_->onscreen_target()->viewport().get().size())
 				:
 					d.size(),
 				d.image_format(),
@@ -89,7 +89,7 @@ fruitcut::pp::texture::manager::clear_screen_textures()
 {
 	sge::renderer::dim2 const onscreen_dim = 
 		fcppt::math::dim::structure_cast<sge::renderer::dim2>(
-			renderer_->onscreen_target()->viewport().get().dimension());
+			renderer_->onscreen_target()->viewport().get().size());
 
 	// From the standard about associative containers:
 	// "and the erase members shall invalidate only iterators and references to the erased elements."

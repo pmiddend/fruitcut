@@ -26,7 +26,7 @@ scale_transformation(
 	real;
 
 	sge::font::pos const c = 
-		total_rect.pos() + total_rect.dimension()/2;
+		total_rect.pos() + total_rect.size()/2;
 	return 
 		sge::font::rect(
 			sge::font::pos(
@@ -47,10 +47,10 @@ scale_transformation(
 			sge::font::dim(
 				static_cast<sge::font::pos::value_type>(
 					static_cast<real>(
-						character_rect.dimension().w()) * s),
+						character_rect.size().w()) * s),
 				static_cast<sge::font::pos::value_type>(
 					static_cast<real>(
-						character_rect.dimension().h()) * s)));
+						character_rect.size().h()) * s)));
 }
 }
 

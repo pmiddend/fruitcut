@@ -31,7 +31,7 @@ fruitcut::physics::world::world(
 			structure_cast(
 				world_size.pos()),
 			structure_cast(
-				world_size.pos() + world_size.dimension()))*/),
+				world_size.pos() + world_size.size()))*/),
 	constraint_solver_(
 		new btSequentialImpulseConstraintSolver()),
 	world_(

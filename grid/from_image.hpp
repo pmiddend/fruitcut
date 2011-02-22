@@ -34,7 +34,7 @@ from_image(
 		sge::image2d::view::make(
 			reinterpret_cast<sge::image::raw_pointer>(
 				result.data()),
-			result.dimension(),
+			result.size(),
 			f,
 			sge::image2d::view::optional_pitch()));
 	return result;

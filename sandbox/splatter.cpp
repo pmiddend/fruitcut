@@ -71,9 +71,9 @@ fruitcut::sandbox::splatter::splatter(
 			.center(
 				particle::sprite::object::point(
 					static_cast<particle::sprite::object::unit>(
-						_renderer->onscreen_target()->viewport().get().dimension().w()/2),
+						_renderer->onscreen_target()->viewport().get().size().w()/2),
 					static_cast<particle::sprite::object::unit>(
-						_renderer->onscreen_target()->viewport().get().dimension().h()/2)))
+						_renderer->onscreen_target()->viewport().get().size().h()/2)))
 			.system(
 				&ss_)
 			.elements()),
@@ -143,7 +143,7 @@ fruitcut::sandbox::splatter::splatter(
 		sge::sprite::default_parameters<particle::sprite::choices>()
 			.size(
 				fcppt::math::dim::structure_cast<particle::sprite::object::dim>(
-					_renderer->onscreen_target()->viewport().get().dimension()))
+					_renderer->onscreen_target()->viewport().get().size()))
 			.repetition(
 				static_cast<particle::sprite::object::repetition_type>(
 					3))
@@ -158,7 +158,7 @@ fruitcut::sandbox::splatter::splatter(
 									/ FCPPT_TEXT("wood.png"))->view(),
 							sge::renderer::texture::filter::linear,
 							sge::renderer::texture::address_mode2(
-								sge::renderer::texture::address_mode::clamp),
+								sge::renderer::texture::address_mode::repeat),
 							sge::renderer::resource_flags::none)))));
 }
 

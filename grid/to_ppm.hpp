@@ -31,12 +31,12 @@ to_ppm(
 
 	s 
 		<< s.widen('P') << s.widen('2') << s.widen('\n')
-		<< g.dimension().w() << s.widen(' ') << g.dimension().h() << s.widen('\n')
+		<< g.size().w() << s.widen(' ') << g.size().h() << s.widen('\n')
 		<< static_cast<numeric_type>(max_value) << s.widen('\n');
 
-	for (typename grid::dim d(0,0); d.h() < g.dimension().h(); ++d.h())
+	for (typename grid::dim d(0,0); d.h() < g.size().h(); ++d.h())
 	{
-		for (d.w() = 0; d.w() < g.dimension().w(); ++d.w())
+		for (d.w() = 0; d.w() < g.size().w(); ++d.w())
 			s << static_cast<numeric_type>(g[d]) << s.widen(' ');
 		s << s.widen('\n');
 	}

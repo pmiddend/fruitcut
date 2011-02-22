@@ -25,7 +25,7 @@ transform_position(
 			static_cast<sge::input::cursor::position_unit>(
 				p.x() - viewport.pos().x()),
 			static_cast<sge::input::cursor::position_unit>(
-				viewport.dimension().h() - p.y() + viewport.pos().y()));
+				viewport.size().h() - p.y() + viewport.pos().y()));
 }
 }
 

@@ -32,8 +32,8 @@ collect_points(
 		>::value));
 
 	DestContainer result;
-	for (typename fcppt::container::grid::object<T,N>::dim p(0,0); p.h() < g.dimension().h(); ++p.h())
-		for (p.w() = 0; p.w() < g.dimension().w(); ++p.w())
+	for (typename fcppt::container::grid::object<T,N>::dim p(0,0); p.h() < g.size().h(); ++p.h())
+		for (p.w() = 0; p.w() < g.size().w(); ++p.w())
 			if(test(g[p]))
 				result.push_back(
 					p);
