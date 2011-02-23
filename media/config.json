@@ -1,5 +1,6 @@
 {
 	"frame-timer-ms" : 10,
+	"desired-fps" : 60,
 	"mouse" : 
 	{
 		"confine-cursor" : true,

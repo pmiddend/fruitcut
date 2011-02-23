@@ -11,7 +11,6 @@
 #include <sge/audio/scalar.hpp>
 #include <sge/console/sprite_object.hpp>
 #include <sge/console/sprite_parameters.hpp>
-#include <sge/exception.hpp>
 #include <sge/extension_set.hpp>
 #include <sge/font/size_type.hpp>
 #include <sge/font/system.hpp>
@@ -45,6 +44,7 @@
 #include <sge/systems/input_helper_field.hpp>
 #include <sge/systems/input_helper.hpp>
 #include <sge/systems/input.hpp>
+#include <sge/systems/running_to_false.hpp>
 #include <sge/systems/list.hpp>
 #include <sge/systems/renderer.hpp>
 #include <sge/systems/viewport/fill_on_resize.hpp>
@@ -60,16 +60,18 @@
 #include <sge/window/dim.hpp>
 #include <sge/window/instance.hpp>
 #include <sge/window/simple_parameters.hpp>
-#include <awl/mainloop/asio/create_io_service.hpp>
-#include <awl/mainloop/asio/io_service.hpp>
 #include <awl/mainloop/io_service.hpp>
 #include <awl/mainloop/dispatcher.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
-#include <fcppt/from_std_string.hpp>
+#include <fcppt/thread/sleep.hpp>
 #include <fcppt/math/dim/quad.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
+#include <fcppt/chrono/duration.hpp>
+#include <fcppt/chrono/duration_cast.hpp>
+#include <fcppt/chrono/milliseconds.hpp>
+#include <fcppt/thread/sleep_duration.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/tr1/functional.hpp>
@@ -80,7 +82,6 @@
 #include <boost/spirit/home/phoenix/operator.hpp>
 #include <boost/spirit/home/phoenix/object/construct.hpp>
 #include <boost/bind.hpp>
-#include <boost/asio.hpp>
 #include <boost/system/error_code.hpp>
 #include <boost/date_time/posix_time/posix_time.hpp>
 #include <iostream>
@@ -100,14 +101,14 @@ fruitcut::app::machine::machine(
 	int argc,
 	char *argv[])
 :
+	// We init that in run()
+	running_(),
 	config_file_(
 		json::config_wrapper(
 			fcppt::assign::make_container<std::vector<fcppt::string> >(
 				FCPPT_TEXT("user_config.json")),
 		argc,
 		argv)),
-	io_service_(
-		awl::mainloop::asio::create_io_service()),
 	systems_(
 		sge::systems::list()
 			(sge::systems::window(
@@ -115,7 +116,7 @@ fruitcut::app::machine::machine(
 					name(),
 					json::find_member<sge::window::dim>(
 						config_file_,
-						FCPPT_TEXT("graphics/window-size")))).io_service(io_service_))
+						FCPPT_TEXT("graphics/window-size")))))
 			(sge::systems::renderer(
 				sge::renderer::parameters(
 					sge::renderer::visual_depth::depth32,
@@ -217,10 +218,8 @@ fruitcut::app::machine::machine(
 		systems_.keyboard_collector()->key_callback(
 			sge::input::keyboard::action(
 				sge::input::keyboard::key_code::escape,
-				// boost::bind doesn't get this
-				std::tr1::bind(
-					&awl::mainloop::dispatcher::stop,
-					systems_.window()->awl_dispatcher())))),
+				sge::systems::running_to_false(
+					running_)))),
 	current_time_(
 		sge::time::clock::now()),
 	transformed_time_(
@@ -240,12 +239,6 @@ fruitcut::app::machine::machine(
 			FCPPT_TEXT("sounds")),
 		systems_.audio_loader(),
 		systems_.audio_player()),
-	frame_timer_(
-		io_service_->get(),
-		boost::posix_time::milliseconds(
-			json::find_member<long>(
-				config_file(),
-				FCPPT_TEXT("frame-timer-ms")))),
 	background_(
 		systems_.renderer(),
 		systems_.image_loader(),
@@ -255,7 +248,11 @@ fruitcut::app::machine::machine(
 			boost::bind(
 				&machine::viewport_change,
 				this,
-				_1)))
+				_1))),
+	desired_fps_(
+		json::find_member<fcppt::chrono::milliseconds::rep>(
+			config_file(),
+			FCPPT_TEXT("desired-fps")))
 {
 	input_manager_.current_state(
 		game_state_);
@@ -327,18 +324,25 @@ fruitcut::app::machine::postprocessing()
 void
 fruitcut::app::machine::run()
 {
-	systems_.window()->show();
-	frame_timer_.expires_from_now(
-		boost::posix_time::milliseconds(
-			json::find_member<long>(
-				config_file(),
-				FCPPT_TEXT("frame-timer-ms"))));
-	frame_timer_.async_wait(
-		boost::bind(
-			&machine::run_once,
-			this,
-			boost::asio::placeholders::error));
-	io_service_->run();
+	running_ = true;
+	while (running_)
+	{
+		std::cout << "running\n";
+		sge::time::point const before_frame = 
+			sge::time::clock::now();
+		systems_.window()->dispatch();
+		run_once();
+		fcppt::chrono::milliseconds const diff = 
+			fcppt::chrono::duration_cast<fcppt::chrono::milliseconds>(
+				sge::time::clock::now() - before_frame);
+		if (diff.count() < static_cast<fcppt::chrono::milliseconds::rep>(1000/desired_fps_))
+		{
+			fcppt::thread::sleep(
+				fcppt::chrono::duration_cast<fcppt::thread::sleep_duration>(
+					fcppt::chrono::milliseconds(
+						static_cast<fcppt::chrono::milliseconds::rep>(1000/desired_fps_ - diff.count()))));
+		}
+	}
 }
 
 sge::time::callback const 
@@ -420,31 +424,10 @@ fruitcut::app::machine::console_switch()
 }
 
 void
-fruitcut::app::machine::run_once(
-	boost::system::error_code const &e)
+fruitcut::app::machine::run_once()
 {
-	if (e)
-		throw sge::exception(
-			FCPPT_TEXT("Error in deadline_timer handler: ")+
-			fcppt::from_std_string(
-				e.message()));
-
 	manage_time();
 	manage_rendering();
-
-	if (!systems_.window()->awl_dispatcher()->is_stopped())
-	{
-		frame_timer_.expires_from_now(
-			boost::posix_time::milliseconds(
-				json::find_member<long>(
-					config_file(),
-					FCPPT_TEXT("frame-timer-ms"))));
-		frame_timer_.async_wait(
-			boost::bind(
-				&machine::run_once,
-				this,
-				boost::asio::placeholders::error));
-	}
 }
 
 void

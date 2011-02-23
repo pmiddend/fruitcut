@@ -8,7 +8,6 @@
 #include "../particle/system.hpp"
 #include "../sound_controller.hpp"
 #include "states/intro_fwd.hpp"
-#include <awl/mainloop/asio/io_service_ptr.hpp>
 #include <sge/console/gfx.hpp>
 #include <sge/console/object.hpp>
 #include <sge/parse/json/array.hpp>
@@ -22,9 +21,9 @@
 #include <sge/time/unit.hpp>
 #include <fcppt/chrono/duration.hpp>
 #include <fcppt/chrono/time_point.hpp>
+#include <fcppt/chrono/milliseconds.hpp>
 #include <fcppt/filesystem/path.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
-#include <boost/asio/deadline_timer.hpp>
 #include <boost/function.hpp>
 #include <boost/statechart/state_machine.hpp>
 #include <boost/system/error_code.hpp>
@@ -103,8 +102,8 @@ public:
 
 	~machine();
 private:
+	bool running_;
 	sge::parse::json::object const config_file_;
-	awl::mainloop::asio::io_service_ptr io_service_;
 	// This is nonconst because of manage_viewport_callback, which is
 	// nonconst (this might be a bug, though)
 	sge::systems::instance systems_;
@@ -121,16 +120,15 @@ private:
 	time_transform_function time_transform_;
 	fcppt::signal::scoped_connection console_switch_connection_;
 	fruitcut::sound_controller sound_controller_;
-	boost::asio::deadline_timer frame_timer_;
 	fruitcut::app::background background_;
 	fcppt::signal::scoped_connection viewport_change_connection_;
+	fcppt::chrono::milliseconds::rep desired_fps_;
 
 	void
 	console_switch();
 
 	void
-	run_once(
-		boost::system::error_code const &);
+	run_once();
 
 	void
 	viewport_change(
