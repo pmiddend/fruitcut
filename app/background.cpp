@@ -19,8 +19,11 @@
 #include <sge/renderer/vf/view.hpp>
 #include <sge/renderer/vf/vertex.hpp>
 #include <sge/renderer/device.hpp>
+#include <sge/renderer/aspect_from_viewport.hpp>
+#include <sge/renderer/active_target.hpp>
 #include <sge/renderer/scoped_vertex_lock.hpp>
 #include <sge/renderer/lock_mode.hpp>
+#include <sge/renderer/target_base.hpp>
 #include <sge/renderer/scoped_transform.hpp>
 #include <sge/renderer/matrix4.hpp>
 #include <sge/renderer/matrix_mode.hpp>
@@ -44,6 +47,7 @@
 #include <sge/renderer/texture/planar.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/math/matrix/basic_impl.hpp>
+#include <fcppt/math/box/basic_impl.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
@@ -113,7 +117,11 @@ fruitcut::app::background::background(
 			sge::renderer::vf::dynamic::make_format<vf::format>(),
 			static_cast<sge::renderer::size_type>(
 				6),
-			sge::renderer::resource_flags::none))
+			sge::renderer::resource_flags::none)),
+	reps_(
+		json::find_member<sge::renderer::scalar>(
+			_config,
+			FCPPT_TEXT("background-repeat")))
 {
 	sge::renderer::scoped_vertex_lock const vblock(
 		vb_,
@@ -197,7 +205,11 @@ fruitcut::app::background::render()
 	sge::renderer::scoped_transform scoped_texture_matrix(
 		renderer_,
 		sge::renderer::matrix_mode::texture,
-		sge::renderer::matrix4::identity());
+		sge::renderer::matrix4(
+			reps_,0,0,0,
+			0,reps_ * sge::renderer::aspect_from_viewport(sge::renderer::active_target(renderer_)->viewport()),0,0,
+			0,0,1,0,
+			0,0,0,1));
 	sge::renderer::state::scoped scoped_state(
 		renderer_,
 		sge::renderer::state::list

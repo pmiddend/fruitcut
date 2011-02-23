@@ -87,16 +87,6 @@
 #include <iostream>
 #include <string>
 
-namespace
-{
-void
-mytest(
-	bool &r)
-{
-	r = false;
-}
-}
-
 fruitcut::app::machine::machine(
 	int argc,
 	char *argv[])
@@ -327,7 +317,6 @@ fruitcut::app::machine::run()
 	running_ = true;
 	while (running_)
 	{
-		std::cout << "running\n";
 		sge::time::point const before_frame = 
 			sge::time::clock::now();
 		systems_.window()->dispatch();
