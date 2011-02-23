@@ -54,14 +54,9 @@
 #include <sge/texture/part_raw.hpp>
 #include <sge/texture/rect_fragmented.hpp>
 #include <sge/time/clock.hpp>
-#include <sge/time/second.hpp>
-#include <sge/time/timer.hpp>
-#include <sge/time/unit.hpp>
 #include <sge/window/dim.hpp>
 #include <sge/window/instance.hpp>
 #include <sge/window/simple_parameters.hpp>
-#include <awl/mainloop/io_service.hpp>
-#include <awl/mainloop/dispatcher.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
 #include <fcppt/thread/sleep.hpp>
@@ -82,8 +77,6 @@
 #include <boost/spirit/home/phoenix/operator.hpp>
 #include <boost/spirit/home/phoenix/object/construct.hpp>
 #include <boost/bind.hpp>
-#include <boost/system/error_code.hpp>
-#include <boost/date_time/posix_time/posix_time.hpp>
 #include <iostream>
 #include <string>
 
