@@ -59,14 +59,13 @@
 #include <sge/window/simple_parameters.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
-#include <fcppt/thread/sleep.hpp>
+#include <fcppt/time/sleep_any.hpp>
 #include <fcppt/math/dim/quad.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/chrono/duration.hpp>
 #include <fcppt/chrono/duration_cast.hpp>
 #include <fcppt/chrono/milliseconds.hpp>
-#include <fcppt/thread/sleep_duration.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/tr1/functional.hpp>
@@ -312,17 +311,18 @@ fruitcut::app::machine::run()
 	{
 		sge::time::point const before_frame = 
 			sge::time::clock::now();
+		std::cerr << "dispatching\n";
 		systems_.window()->dispatch();
+		std::cerr << "end dispatching\n";
 		run_once();
 		fcppt::chrono::milliseconds const diff = 
 			fcppt::chrono::duration_cast<fcppt::chrono::milliseconds>(
 				sge::time::clock::now() - before_frame);
 		if (diff.count() < static_cast<fcppt::chrono::milliseconds::rep>(1000/desired_fps_))
 		{
-			fcppt::thread::sleep(
-				fcppt::chrono::duration_cast<fcppt::thread::sleep_duration>(
-					fcppt::chrono::milliseconds(
-						static_cast<fcppt::chrono::milliseconds::rep>(1000/desired_fps_ - diff.count()))));
+			fcppt::time::sleep_any(
+				fcppt::chrono::milliseconds(
+					static_cast<fcppt::chrono::milliseconds::rep>(1000/desired_fps_ - diff.count())));
 		}
 	}
 }
@@ -455,7 +455,8 @@ fruitcut::app::machine::manage_rendering()
 	if (systems_.renderer()->onscreen_target()->viewport().get().size().content())
 	{
 		// This implicitly sends events::render through the
-		// render-to-texture filter
+		// render-to-texture filter (and does nothing if the system is
+		// inactive)
 		postprocessing_.update();
 
 		sge::renderer::scoped_block scoped_block(

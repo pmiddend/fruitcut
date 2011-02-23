@@ -40,10 +40,13 @@ fruitcut::app::states::ingame::ingame(
 			sge::input::keyboard::action(
 				sge::input::keyboard::key_code::p, 
 				boost::bind(
-					// Fucking missing overload resolution
-					static_cast<void (ingame::*)(boost::statechart::event_base const &)>(
-						&ingame::post_event),
-					this,
+					// Note that using post_event does something unexpected. If
+					// you use that, you get a tick event first and _then_ the
+					// toggle_pause event, which is not the desired behaviour
+					// (post_event posts to the queue, process_event immediately
+					// processes it)
+					&machine::process_event,
+					&context<machine>(),
 					events::toggle_pause())))),
 	toggle_camera_connection_(
 		context<machine>().game_input_state().key_callback(

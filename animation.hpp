@@ -8,7 +8,7 @@
 #include <fcppt/scoped_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/chrono/duration.hpp>
-#include <fcppt/math/trig_lerp.hpp>
+#include <fcppt/math/interpolation/trigonometric.hpp>
 #include <fcppt/assert.hpp>
 #include <boost/next_prior.hpp>
 #include <vector>
@@ -87,11 +87,11 @@ public:
 				current_timer_->elapsed_frames();
 
 		return 
-			fcppt::math::trig_lerp(
+			fcppt::math::interpolation::trigonometric(
 				v,
+				current_value_->second,
 				boost::next(
-					current_value_)->second,
-				current_value_->second);
+					current_value_)->second);
 	}
 
 	bool 

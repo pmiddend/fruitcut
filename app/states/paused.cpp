@@ -44,6 +44,7 @@ fruitcut::app::states::paused::paused(
 		sge::time::activation_state::active,
 		context<machine>().timer_callback())
 {
+	std::cerr << "paused::paused\n";
 	context<machine>().postprocessing().active(
 		false);
 
