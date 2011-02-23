@@ -1,7 +1,7 @@
 {
 	"frame-timer-ms" : 10,
 	"desired-fps" : 60,
-	"background-repeat" : 2.0,
+	"background-repeat" : 3.0,
 	"mouse" : 
 	{
 		"confine-cursor" : true,

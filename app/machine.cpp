@@ -311,9 +311,7 @@ fruitcut::app::machine::run()
 	{
 		sge::time::point const before_frame = 
 			sge::time::clock::now();
-		std::cerr << "dispatching\n";
 		systems_.window()->dispatch();
-		std::cerr << "end dispatching\n";
 		run_once();
 		fcppt::chrono::milliseconds const diff = 
 			fcppt::chrono::duration_cast<fcppt::chrono::milliseconds>(

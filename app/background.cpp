@@ -20,12 +20,14 @@
 #include <sge/renderer/vf/vertex.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/aspect_from_viewport.hpp>
+#include <sge/renderer/viewport.hpp>
 #include <sge/renderer/active_target.hpp>
 #include <sge/renderer/scoped_vertex_lock.hpp>
 #include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/target_base.hpp>
 #include <sge/renderer/scoped_transform.hpp>
 #include <sge/renderer/matrix4.hpp>
+#include <sge/renderer/onscreen_target.hpp>
 #include <sge/renderer/matrix_mode.hpp>
 #include <sge/renderer/scalar.hpp>
 #include <sge/renderer/scoped_vertex_buffer.hpp>
@@ -189,6 +191,14 @@ fruitcut::app::background::render()
 	sge::renderer::scoped_vertex_buffer scoped_vb(
 		renderer_,
 		vb_);
+
+	sge::renderer::pixel_rect const viewport_rect =
+		renderer_->onscreen_target()->viewport().get();
+
+	sge::renderer::scalar const aspect = 
+		sge::renderer::aspect_from_viewport(
+			sge::renderer::active_target(renderer_)->viewport());
+
 	sge::renderer::texture::scoped scoped_texture(
 		renderer_,
 		texture_,
@@ -206,8 +216,8 @@ fruitcut::app::background::render()
 		renderer_,
 		sge::renderer::matrix_mode::texture,
 		sge::renderer::matrix4(
-			reps_,0,0,0,
-			0,reps_ * sge::renderer::aspect_from_viewport(sge::renderer::active_target(renderer_)->viewport()),0,0,
+			viewport_rect.w() > viewport_rect.h() ? reps_ : (reps_ * aspect),0,0,0,
+			0,viewport_rect.w() > viewport_rect.h() ? reps_ : (reps_ * aspect),0,0,
 			0,0,1,0,
 			0,0,0,1));
 	sge::renderer::state::scoped scoped_state(
