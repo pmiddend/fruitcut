@@ -317,11 +317,9 @@ fruitcut::app::machine::run()
 			fcppt::chrono::duration_cast<fcppt::chrono::milliseconds>(
 				sge::time::clock::now() - before_frame);
 		if (diff.count() < static_cast<fcppt::chrono::milliseconds::rep>(1000/desired_fps_))
-		{
 			fcppt::time::sleep_any(
 				fcppt::chrono::milliseconds(
 					static_cast<fcppt::chrono::milliseconds::rep>(1000/desired_fps_ - diff.count())));
-		}
 	}
 }
 

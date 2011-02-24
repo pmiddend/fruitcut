@@ -15,8 +15,13 @@
 #include <sge/renderer/vector3.hpp>
 #include <sge/renderer/matrix4.hpp>
 #include <sge/shader/object_fwd.hpp>
+#include <sge/time/timer.hpp>
+#include <sge/time/duration.hpp>
+#include <sge/time/callback.hpp>
 #include <fcppt/math/matrix/basic_impl.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
+#include <fcppt/chrono/time_point.hpp>
+#include <fcppt/chrono/duration.hpp>
 #include <fcppt/noncopyable.hpp>
 
 namespace fruitcut
@@ -51,7 +56,9 @@ public:
 		physics::scalar mass,
 		physics::vector3 const &position,
 		physics::matrix4 const &transformation,
-		physics::vector3 const &linear_velocity);
+		physics::vector3 const &linear_velocity,
+		sge::time::duration const &,
+		sge::time::callback const &);
 
 	sge::renderer::vertex_buffer_ptr const
 	vb() const;
@@ -77,6 +84,9 @@ public:
 	fruitcut::app::mesh const &
 	mesh() const;
 
+	bool
+	locked() const;
+
 	~object();
 private:
 	fruitcut::app::mesh mesh_;
@@ -84,6 +94,7 @@ private:
 	physics::rigid_body::object body_;
 	sge::renderer::vertex_buffer_ptr vb_;
 	sge::renderer::texture::planar_ptr texture_;
+	sge::time::timer lock_timer_;
 };
 }
 }

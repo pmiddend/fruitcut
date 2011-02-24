@@ -44,6 +44,12 @@ public:
 	void
 	clear();
 
+	// This is the time a cursor position sample has until it
+	// expires. The fruit manager uses this to determine when to unlock
+	// a fruit
+	sge::time::duration const
+	expiry_duration() const;
+
 	~cursor_trail();
 private:
 	sge::input::cursor::object &cursor_;

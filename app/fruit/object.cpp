@@ -80,7 +80,12 @@ fruitcut::app::fruit::object::object(
 			_shader,
 			mesh_)),
 	texture_(
-		proto.texture())
+		proto.texture()),
+	// A fruit obtained directly from a prototype shouldn't be locked,
+	// so set the lock time to "zero"
+	lock_timer_(
+		sge::time::duration(),
+		sge::time::activation_state::inactive)
 {
 }
 
@@ -93,7 +98,9 @@ fruitcut::app::fruit::object::object(
 	physics::scalar const _mass,
 	physics::vector3 const &_position,
 	physics::matrix4 const &_transformation,
-	physics::vector3 const &_linear_velocity)
+	physics::vector3 const &_linear_velocity,
+	sge::time::duration const &_lock_duration,
+	sge::time::callback const &_timer_callback)
 :
 	mesh_(
 		_mesh),
@@ -117,7 +124,12 @@ fruitcut::app::fruit::object::object(
 			_shader,
 			mesh_)),
 	texture_(
-		_texture)
+		_texture),
+	// A fruit originating from another fruit is banned for a specific duration
+	lock_timer_(
+		_lock_duration,
+		sge::time::activation_state::active,
+		_timer_callback)
 {
 }
 
@@ -174,6 +186,14 @@ fruitcut::app::mesh const &
 fruitcut::app::fruit::object::mesh() const
 {
 	return mesh_;
+}
+
+bool
+fruitcut::app::fruit::object::locked() const
+{
+	// Either we weren't locked in the first place or we were locked and
+	// are not locked anymore
+	return lock_timer_.active() && !lock_timer_.expired();
 }
 
 fruitcut::app::fruit::object::~object()

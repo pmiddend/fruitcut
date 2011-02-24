@@ -11,6 +11,7 @@
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/math/vector/output.hpp>
+#include <fcppt/chrono/duration.hpp>
 #include <iostream>
 
 namespace
@@ -73,6 +74,15 @@ void
 fruitcut::cursor_trail::clear()
 {
 	positions_.clear();
+}
+
+sge::time::duration const
+fruitcut::cursor_trail::expiry_duration() const
+{
+	return 
+		sge::time::duration(
+			static_cast<sge::time::duration::rep>(
+				static_cast<sge::time::duration::rep>(capacity_) * update_timer_.interval()));
 }
 
 fruitcut::cursor_trail::~cursor_trail()

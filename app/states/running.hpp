@@ -10,6 +10,7 @@
 #include "../events/render_overlay.hpp"
 #include "../../line_drawer/object.hpp"
 #include <sge/renderer/state/scoped.hpp>
+#include <sge/renderer/device_ptr.hpp>
 #include <sge/renderer/state/trampoline.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <boost/statechart/state.hpp>
@@ -62,6 +63,7 @@ private:
 	sge::renderer::state::scoped scoped_render_state_;
 	line_drawer::object line_drawer_;
 	cursor_trail cursor_trail_;
+	fcppt::signal::scoped_connection viewport_change_connection_;
 
 	void
 	draw_fruit_bbs();
@@ -72,6 +74,10 @@ private:
 	void
 	process_fruit(
 		fruit::object const &);
+
+	void
+	viewport_change(
+		sge::renderer::device_ptr);
 };
 }
 }

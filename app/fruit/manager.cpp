@@ -218,8 +218,13 @@ fruitcut::app::fruit::manager::update()
 void
 fruitcut::app::fruit::manager::cut_fruit(
 	fruit::object const &current_fruit,
-	plane const &original_plane)
+	plane const &original_plane,
+	sge::time::duration const &lock_duration,
+	sge::time::callback const &time_callback)
 {
+	if(current_fruit.locked())
+		return;
+
 	fcppt::container::array<plane,2> planes =
 		{{
 			original_plane,
@@ -257,8 +262,9 @@ fruitcut::app::fruit::manager::cut_fruit(
 					current_fruit.bounding_box().size().content() / bounding_box.size().content()),
 				current_fruit.position() + barycenter,
 				current_fruit.body().rotation(),
-				fcppt::math::vector::structure_cast<physics::vector3>(p.normal())
-				/*current_fruit.body().linear_velocity()*/));
+				fcppt::math::vector::structure_cast<physics::vector3>(p.normal()),
+				lock_duration,
+				time_callback));
 	}
 
 	old_fruits_.push_back(

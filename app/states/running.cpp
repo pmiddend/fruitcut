@@ -37,6 +37,7 @@
 #include <fcppt/math/matrix/output.hpp>
 #include <fcppt/text.hpp>
 #include <boost/next_prior.hpp>
+#include <boost/bind.hpp>
 #include <iostream>
 
 namespace
@@ -86,7 +87,13 @@ fruitcut::app::states::running::running(
 		json::find_member<cursor_trail::size_type>(
 				context<machine>().config_file(),
 				FCPPT_TEXT("mouse/trail-samples")),
-		context<machine>().systems().renderer()->onscreen_target())
+		context<machine>().systems().renderer()->onscreen_target()),
+	viewport_change_connection_(
+		context<machine>().systems().manage_viewport_callback(
+			boost::bind(
+				&running::viewport_change,
+				this,
+				_1)))
 {
 	context<machine>().postprocessing().active(
 		true);
@@ -320,7 +327,16 @@ fruitcut::app::states::running::process_fruit(
 		current_fruit,
 		plane(
 			plane_normal,
-			plane_scalar));
+			plane_scalar),
+		cursor_trail_.expiry_duration(),
+		context<machine>().timer_callback());
 
+	//cursor_trail_.clear();
+}
+
+void
+fruitcut::app::states::running::viewport_change(
+	sge::renderer::device_ptr)
+{
 	cursor_trail_.clear();
 }

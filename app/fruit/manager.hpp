@@ -12,7 +12,10 @@
 #include <sge/renderer/device_ptr.hpp>
 #include <sge/renderer/matrix4.hpp>
 #include <sge/shader/object.hpp>
+#include <sge/time/duration.hpp>
+#include <sge/time/callback.hpp>
 #include <boost/ptr_container/ptr_list.hpp>
+#include <fcppt/chrono/duration.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <vector>
 
@@ -22,6 +25,12 @@ namespace app
 {
 namespace fruit
 {
+/**
+	The fruit manager is supposed to provide read-only access to the
+	fruits and fruit prototypes. All modifying actions like "cut fruit"
+	and "add new fruit" and "remove fruit" ultimately land here. In the
+	future, this class might also "tag" fruits and track "double cuts".
+ */
 class manager
 {
 FCPPT_NONCOPYABLE(
@@ -43,10 +52,15 @@ public:
 	void
 	update();
 
+	// cut_fruit gets a duration indicating how long the new fruits are
+	// to be banned from further cutting (which would result in paper
+	// thin fruit slices)
 	void
 	cut_fruit(
 		object const &,
-		plane const &);
+		plane const &,
+		sge::time::duration const &,
+		sge::time::callback const &);
 
 	object_sequence const &
 	fruits() const;
