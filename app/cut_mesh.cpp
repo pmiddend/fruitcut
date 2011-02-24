@@ -128,6 +128,7 @@ fruitcut::app::cut_mesh(
 
 	point_sequence border;
 
+	// First step: Collect all the triangles and the border points.
 	BOOST_FOREACH(
 		mesh::triangle_sequence::const_reference t,
 		m.triangles)
@@ -172,9 +173,12 @@ fruitcut::app::cut_mesh(
 				result_mesh.triangles));
 	}
 
+	// If there were no triangles, we can return
 	if(result_mesh.triangles.empty())
 		return;
 
+	// Step 2: Calculate the bounding box and the barycenter (we can do
+	// that in one pass, luckily)
 	barycenter = sge::renderer::vector3::null();
 	sge::renderer::vector3 
 		min_pos = result_mesh.triangles.front().vertices[0],
@@ -208,6 +212,7 @@ fruitcut::app::cut_mesh(
 		static_cast<sge::renderer::scalar>(
 			result_mesh.triangles.size() * 3);
 
+	// Step 3: Center vertices
 	BOOST_FOREACH(
 		triangle &current_tri,
 		result_mesh.triangles)
@@ -216,7 +221,10 @@ fruitcut::app::cut_mesh(
 			current_tri.vertices)
 			current_vertex -= barycenter;
 
-	if(border.empty())
+	// If we've got no border, quit now. This happens when the cutting
+	// plane doesn't intersect with the fruit at all (we "miss", so to
+	// speak)
+	if(border.size() < static_cast<point_sequence::size_type>(3))
 		return;
 
 	//std::cout << "border not empty!\n";

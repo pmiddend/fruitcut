@@ -154,6 +154,7 @@ fruitcut::app::fruit::manager::manager(
 				100),
 			physics::vector3::null(),
 			physics::matrix4::identity(),
+			physics::vector3::null(),
 			physics::vector3::null()));
 }
 
@@ -198,7 +199,7 @@ fruitcut::app::fruit::manager::render(
 void
 fruitcut::app::fruit::manager::update()
 {
-	// Why those? Well, we don't know when cut_fruit is called. It could
+	// Why those? Well, we don't know when cut is called. It could
 	// be while we're iterating through our array!
 	BOOST_FOREACH(
 		object const *old_fruit,
@@ -216,7 +217,7 @@ fruitcut::app::fruit::manager::update()
 }
 
 void
-fruitcut::app::fruit::manager::cut_fruit(
+fruitcut::app::fruit::manager::cut(
 	fruit::object const &current_fruit,
 	plane const &original_plane,
 	sge::time::duration const &lock_duration,
@@ -263,6 +264,7 @@ fruitcut::app::fruit::manager::cut_fruit(
 				current_fruit.position() + barycenter,
 				current_fruit.body().rotation(),
 				fcppt::math::vector::structure_cast<physics::vector3>(p.normal()),
+				physics::vector3::null(),
 				lock_duration,
 				time_callback));
 	}
@@ -271,10 +273,23 @@ fruitcut::app::fruit::manager::cut_fruit(
 		&current_fruit);
 }
 
+void
+fruitcut::app::fruit::manager::spawn(
+	prototype const &)
+{
+	
+}
+
 fruitcut::app::fruit::object_sequence const &
 fruitcut::app::fruit::manager::fruits() const
 {
 	return fruits_;
+}
+
+fruitcut::app::fruit::prototype_sequence const &
+fruitcut::app::fruit::manager::prototypes() const
+{
+	return prototypes_;
 }
 
 fruitcut::app::fruit::manager::~manager()

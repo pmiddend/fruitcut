@@ -323,7 +323,7 @@ fruitcut::app::states::running::process_fruit(
 				point1_unprojected - current_fruit.position()),
 			plane_normal);
 		
-	context<ingame>().fruit_manager().cut_fruit(
+	context<ingame>().fruit_manager().cut(
 		current_fruit,
 		plane(
 			plane_normal,

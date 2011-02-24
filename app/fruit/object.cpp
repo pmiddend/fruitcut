@@ -56,7 +56,8 @@ fruitcut::app::fruit::object::object(
 	physics::scalar const _mass,
 	physics::vector3 const &_position,
 	physics::matrix4 const &_transformation,
-	physics::vector3 const &_linear_velocity)
+	physics::vector3 const &_linear_velocity,
+	physics::vector3 const &_angular_velocity)
 :
 	mesh_(
 		proto.mesh()),
@@ -70,6 +71,7 @@ fruitcut::app::fruit::object::object(
 			_position,
 			_transformation,
 			_linear_velocity,
+			_angular_velocity,
 			mesh_to_shape(
 				mesh_),
 			physics::rigid_body::solidity::solid,
@@ -99,6 +101,7 @@ fruitcut::app::fruit::object::object(
 	physics::vector3 const &_position,
 	physics::matrix4 const &_transformation,
 	physics::vector3 const &_linear_velocity,
+	physics::vector3 const &_angular_velocity,
 	sge::time::duration const &_lock_duration,
 	sge::time::callback const &_timer_callback)
 :
@@ -114,6 +117,7 @@ fruitcut::app::fruit::object::object(
 			_position,
 			_transformation,
 			_linear_velocity,
+			_angular_velocity,
 			mesh_to_shape(
 				mesh_),
 			physics::rigid_body::solidity::solid,

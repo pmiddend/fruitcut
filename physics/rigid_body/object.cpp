@@ -67,6 +67,9 @@ fruitcut::physics::rigid_body::object::object(
 	body_.setLinearVelocity(
 		structure_cast(
 			params.linear_velocity()));
+	body_.setAngularVelocity(
+		structure_cast(
+			params.angular_velocity()));
 	body_.setActivationState(
 		DISABLE_DEACTIVATION);
 }

@@ -25,6 +25,7 @@ public:
 		vector3 const &position,
 		matrix4 const &transformation,
 		vector3 const &linear_velocity,
+		vector3 const &angular_velocity,
 		shared_shape_ptr const &shape,
 		fruitcut::physics::rigid_body::solidity::type,
 		fcppt::optional<scalar> const &mass);
@@ -41,6 +42,9 @@ public:
 	vector3 const &
 	linear_velocity() const;
 
+	vector3 const &
+	angular_velocity() const;
+
 	shared_shape_ptr const
 	shape() const;
 
@@ -56,6 +60,7 @@ private:
 	vector3 position_;
 	matrix4 transformation_;
 	vector3 linear_velocity_;
+	vector3 angular_velocity_;
 	shared_shape_ptr shape_;
 	fruitcut::physics::rigid_body::solidity::type solidity_;
 	fcppt::optional<scalar> mass_;

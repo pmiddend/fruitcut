@@ -2,6 +2,7 @@
 #define FRUITCUT_APP_FRUIT_MANAGER_HPP_INCLUDED
 
 #include "prototype.hpp"
+#include "prototype_sequence.hpp"
 #include "object_sequence.hpp"
 #include "object_fwd.hpp"
 #include "../plane.hpp"
@@ -56,21 +57,27 @@ public:
 	// to be banned from further cutting (which would result in paper
 	// thin fruit slices)
 	void
-	cut_fruit(
+	cut(
 		object const &,
 		plane const &,
 		sge::time::duration const &,
 		sge::time::callback const &);
 
+	void
+	spawn(
+		prototype const &/*,
+		physics::vector3 const &position,
+		physics::vector3 const &linear_velocity,
+		physics::matrix4 const &transformation*/);
+
 	object_sequence const &
 	fruits() const;
 
+	prototype_sequence const &
+	prototypes() const;
+
 	~manager();
 private:
-	typedef
-	std::vector<prototype>
-	prototype_sequence;
-
 	typedef
 	std::vector<object const*>
 	old_fruit_list;

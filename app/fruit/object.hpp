@@ -35,6 +35,7 @@ class object
 FCPPT_NONCOPYABLE(
 	object);
 public:
+	// Create from prototype
 	explicit
 	object(
 		prototype const &,
@@ -44,8 +45,10 @@ public:
 		physics::scalar mass,
 		physics::vector3 const &position,
 		physics::matrix4 const &transformation,
-		physics::vector3 const &linear_velocity);
+		physics::vector3 const &linear_velocity,
+		physics::vector3 const &angular_velocity);
 
+	// Create from other fruit
 	explicit
 	object(
 		sge::renderer::texture::planar_ptr,
@@ -57,6 +60,7 @@ public:
 		physics::vector3 const &position,
 		physics::matrix4 const &transformation,
 		physics::vector3 const &linear_velocity,
+		physics::vector3 const &angular_velocity,
 		sge::time::duration const &,
 		sge::time::callback const &);
 

@@ -5,6 +5,7 @@ fruitcut::physics::rigid_body::parameters::parameters(
 	vector3 const &_position,
 	matrix4 const &_transformation,
 	vector3 const &_linear_velocity,
+	vector3 const &_angular_velocity,
 	shared_shape_ptr const &_shape,
 	fruitcut::physics::rigid_body::solidity::type const _solidity,
 	fcppt::optional<scalar> const &_mass)
@@ -17,6 +18,8 @@ fruitcut::physics::rigid_body::parameters::parameters(
 		_transformation),
 	linear_velocity_(
 		_linear_velocity),
+	angular_velocity_(
+		_angular_velocity),
 	shape_(
 		_shape),
 	solidity_(
@@ -48,6 +51,12 @@ fruitcut::physics::vector3 const &
 fruitcut::physics::rigid_body::parameters::linear_velocity() const
 {
 	return linear_velocity_;
+}
+
+fruitcut::physics::vector3 const &
+fruitcut::physics::rigid_body::parameters::angular_velocity() const
+{
+	return angular_velocity_;
 }
 
 fruitcut::physics::shared_shape_ptr const
