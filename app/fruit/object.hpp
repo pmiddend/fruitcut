@@ -9,15 +9,16 @@
 #include "../../physics/scalar.hpp"
 #include "../../physics/vector3.hpp"
 #include "../../physics/matrix4.hpp"
-#include <sge/renderer/vertex_buffer_ptr.hpp>
 #include <sge/renderer/device_ptr.hpp>
+#include <sge/renderer/matrix4.hpp>
 #include <sge/renderer/texture/planar_ptr.hpp>
 #include <sge/renderer/vector3.hpp>
-#include <sge/renderer/matrix4.hpp>
+#include <sge/renderer/vertex_declaration_ptr.hpp>
+#include <sge/renderer/vertex_buffer_ptr.hpp>
 #include <sge/shader/object_fwd.hpp>
-#include <sge/time/timer.hpp>
-#include <sge/time/duration.hpp>
 #include <sge/time/callback.hpp>
+#include <sge/time/duration.hpp>
+#include <sge/time/timer.hpp>
 #include <fcppt/math/matrix/basic_impl.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/chrono/time_point.hpp>
@@ -41,6 +42,7 @@ public:
 		prototype const &,
 		physics::world &,
 		sge::renderer::device_ptr,
+		sge::renderer::vertex_declaration_ptr,
 		sge::shader::object &,
 		physics::scalar mass,
 		physics::vector3 const &position,
@@ -54,6 +56,7 @@ public:
 		sge::renderer::texture::planar_ptr,
 		physics::world &,
 		sge::renderer::device_ptr,
+		sge::renderer::vertex_declaration_ptr,
 		sge::shader::object &,
 		fruitcut::app::mesh const &,
 		physics::scalar mass,

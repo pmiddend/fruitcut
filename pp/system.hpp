@@ -3,11 +3,11 @@
 
 #include "filter/base_fwd.hpp"
 #include "filter/wrapper.hpp"
+#include "screen_vf/declaration_buffer_pair.hpp"
 #include "dependency_set.hpp"
 #include <sge/renderer/device_ptr.hpp>
 #include <sge/renderer/texture/planar_ptr.hpp>
 #include <sge/renderer/target_ptr.hpp>
-#include <sge/renderer/vertex_buffer_ptr.hpp>
 #include <sge/shader/object.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/string.hpp>
@@ -141,7 +141,7 @@ private:
 	vertex_to_filter vertex_to_filter_;
 	name_to_vertex name_to_vertex_;
 	sge::shader::object shader_;
-	sge::renderer::vertex_buffer_ptr quad_;
+	screen_vf::declaration_buffer_pair quad_;
 	sge::renderer::texture::planar_ptr result_texture_;
 };
 }

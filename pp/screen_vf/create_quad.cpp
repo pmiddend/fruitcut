@@ -1,5 +1,6 @@
 #include "create_quad.hpp"
 #include "vertex_view.hpp"
+#include "format.hpp"
 #include <sge/shader/scoped.hpp>
 #include <sge/renderer/scoped_vertex_buffer.hpp>
 #include <sge/renderer/scoped_vertex_lock.hpp>
@@ -7,29 +8,32 @@
 #include <sge/renderer/size_type.hpp>
 #include <sge/renderer/resource_flags_none.hpp>
 #include <sge/renderer/device.hpp>
+#include <sge/renderer/vertex_declaration_ptr.hpp>
 #include <sge/renderer/vf/iterator.hpp>
 #include <sge/renderer/vf/vertex.hpp>
 #include <sge/renderer/vf/dynamic/make_format.hpp>
+#include <sge/renderer/vf/dynamic/part_index.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
 
-sge::renderer::vertex_buffer_ptr const
+fruitcut::pp::screen_vf::declaration_buffer_pair const
 fruitcut::pp::screen_vf::create_quad(
 	sge::shader::object &shader,
 	sge::renderer::device_ptr const renderer)
 {
+	sge::renderer::vertex_declaration_ptr const vertex_declaration(
+		renderer->create_vertex_declaration(
+			sge::renderer::vf::dynamic::make_format<format>()));
+
 	sge::renderer::vertex_buffer_ptr const vb(
 		renderer->create_vertex_buffer(
-			sge::renderer::vf::dynamic::make_format<format>(),
-			static_cast<sge::renderer::size_type>(
-				6),
+			vertex_declaration,
+			sge::renderer::vf::dynamic::part_index(
+				0u),
+			6,
 			sge::renderer::resource_flags::none));
 	
 	sge::shader::scoped scoped_shader(
 		shader);
-	
-	sge::renderer::scoped_vertex_buffer const scoped_vb_(
-		renderer,
-		vb);
 
 	sge::renderer::scoped_vertex_lock const vblock(
 		vb,
@@ -71,5 +75,8 @@ fruitcut::pp::screen_vf::create_quad(
 		position::packed_type(
 			1,-1));
 
-	return vb;
+	return 
+		declaration_buffer_pair(
+			vertex_declaration,
+			vb);
 }

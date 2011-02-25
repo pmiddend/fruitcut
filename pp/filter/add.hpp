@@ -4,7 +4,7 @@
 #include "binary.hpp"
 #include "../texture/counted_instance.hpp"
 #include "../texture/manager_fwd.hpp"
-#include <sge/renderer/vertex_buffer_ptr.hpp>
+#include "../screen_vf/declaration_buffer_pair.hpp"
 #include <sge/renderer/dim2.hpp>
 #include <sge/shader/object.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
@@ -36,7 +36,7 @@ private:
 	sge::renderer::device_ptr renderer_;
 	sge::renderer::dim2 dimension_;
 	sge::shader::object shader_;
-	sge::renderer::vertex_buffer_ptr quad_;
+	screen_vf::declaration_buffer_pair quad_;
 	texture::manager &texture_manager_;
 };
 }

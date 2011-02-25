@@ -15,7 +15,9 @@
 #include <sge/shader/sampler.hpp>
 #include <sge/shader/scoped.hpp>
 #include <sge/renderer/matrix4.hpp>
+#include <sge/renderer/vf/dynamic/make_format.hpp>
 #include <sge/renderer/scoped_vertex_buffer.hpp>
+#include <sge/renderer/scoped_vertex_declaration.hpp>
 #include <sge/renderer/texture/scoped.hpp>
 #include <sge/renderer/stage_type.hpp>
 #include <sge/renderer/state/scoped.hpp>
@@ -110,6 +112,9 @@ fruitcut::app::fruit::manager::manager(
 :
 	renderer_(
 		_renderer),
+	vertex_declaration_(
+		renderer_->create_vertex_declaration(
+			sge::renderer::vf::dynamic::make_format<model_vf::format>())),
 	physics_world_(
 		_physics_world),
 	prototypes_(
@@ -149,6 +154,7 @@ fruitcut::app::fruit::manager::manager(
 			prototypes_.front(),
 			physics_world_,
 			renderer_,
+			vertex_declaration_,
 			fruit_shader_,
 			static_cast<physics::scalar>(
 				100),
@@ -170,6 +176,11 @@ fruitcut::app::fruit::manager::render(
 	sge::renderer::glsl::scoped_program scoped_shader(
 		renderer_,
 		fruit_shader_.program());
+
+	sge::renderer::scoped_vertex_declaration scoped_decl(
+		renderer_,
+		vertex_declaration_);
+
 	for(object_sequence::iterator i = fruits_.begin(); i != fruits_.end(); ++i)
 	{
 		sge::renderer::scoped_vertex_buffer scoped_vb(
@@ -182,7 +193,7 @@ fruitcut::app::fruit::manager::render(
 			static_cast<sge::renderer::stage_type>(
 				0));
 
-		fruit_shader_.set_uniform(
+		fruit_shader_.update_uniform(
 			"mvp",
 			mvp * i->world_transform());
 
@@ -257,6 +268,7 @@ fruitcut::app::fruit::manager::cut(
 				current_fruit.texture(),
 				physics_world_,
 				renderer_,
+				vertex_declaration_,
 				fruit_shader_,
 				split_mesh,
 				static_cast<physics::scalar>(
@@ -275,9 +287,25 @@ fruitcut::app::fruit::manager::cut(
 
 void
 fruitcut::app::fruit::manager::spawn(
-	prototype const &)
+	prototype const &proto,
+	physics::scalar const mass,
+	physics::vector3 const &position,
+	physics::matrix4 const &transformation,
+	physics::vector3 const &linear_velocity,
+	physics::vector3 const &angular_velocity)
 {
-	
+	new_fruits_.push_back(
+		new object(
+			proto,
+			physics_world_,
+			renderer_,
+			vertex_declaration_,
+			fruit_shader_,
+			mass,
+			position,
+			transformation,
+			linear_velocity,
+			angular_velocity));
 }
 
 fruitcut::app::fruit::object_sequence const &

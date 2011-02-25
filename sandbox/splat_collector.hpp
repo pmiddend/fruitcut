@@ -4,12 +4,12 @@
 #include "../particle/sprite/system.hpp"
 #include "../particle/sprite/object.hpp"
 #include "../particle/sprite/parameters.hpp"
+#include "../pp/screen_vf/declaration_buffer_pair.hpp"
 #include <sge/renderer/device_ptr.hpp>
 #include <sge/sprite/object_impl.hpp>
 #include <sge/sprite/intrusive/system_impl.hpp>
 #include <sge/renderer/texture/planar_ptr.hpp>
 #include <sge/renderer/target_ptr.hpp>
-#include <sge/renderer/vertex_buffer_ptr.hpp>
 #include <sge/shader/object.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <vector>
@@ -53,7 +53,7 @@ private:
 	particle::sprite::object background_;
 	sprite_sequence sprites_;
 	sge::shader::object copy_shader_;
-	sge::renderer::vertex_buffer_ptr quad_;
+	pp::screen_vf::declaration_buffer_pair quad_;
 };
 }
 }

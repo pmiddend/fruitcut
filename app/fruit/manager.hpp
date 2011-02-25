@@ -7,14 +7,15 @@
 #include "object_fwd.hpp"
 #include "../plane.hpp"
 #include "../../physics/world_fwd.hpp"
-#include <sge/parse/json/array_fwd.hpp>
-#include <sge/model/loader_fwd.hpp>
 #include <sge/image2d/multi_loader_fwd.hpp>
+#include <sge/model/loader_fwd.hpp>
+#include <sge/parse/json/array_fwd.hpp>
 #include <sge/renderer/device_ptr.hpp>
 #include <sge/renderer/matrix4.hpp>
+#include <sge/renderer/vertex_declaration_ptr.hpp>
 #include <sge/shader/object.hpp>
-#include <sge/time/duration.hpp>
 #include <sge/time/callback.hpp>
+#include <sge/time/duration.hpp>
 #include <boost/ptr_container/ptr_list.hpp>
 #include <fcppt/chrono/duration.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -65,10 +66,12 @@ public:
 
 	void
 	spawn(
-		prototype const &/*,
+		prototype const &proto,
+		physics::scalar const mass,
 		physics::vector3 const &position,
+		physics::matrix4 const &transformation,
 		physics::vector3 const &linear_velocity,
-		physics::matrix4 const &transformation*/);
+		physics::vector3 const &angular_velocity);
 
 	object_sequence const &
 	fruits() const;
@@ -87,6 +90,7 @@ private:
 	new_fruit_list;
 
 	sge::renderer::device_ptr renderer_;
+	sge::renderer::vertex_declaration_ptr vertex_declaration_;
 	physics::world &physics_world_;
 	prototype_sequence prototypes_;
 	object_sequence fruits_; 

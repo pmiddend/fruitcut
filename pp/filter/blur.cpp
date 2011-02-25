@@ -15,6 +15,7 @@
 #include <sge/shader/scoped.hpp>
 #include <sge/image/color/format.hpp>
 #include <sge/renderer/device.hpp>
+#include <sge/renderer/scoped_vertex_declaration.hpp>
 #include <sge/renderer/vector2.hpp>
 #include <sge/renderer/texture/planar_ptr.hpp>
 #include <sge/renderer/texture/planar.hpp>
@@ -87,7 +88,7 @@ fruitcut::pp::filter::blur::blur(
 							"tex",
 							sge::renderer::texture::planar_ptr())))))),
 	quads_(
-		fcppt::assign::make_array<sge::renderer::vertex_buffer_ptr>
+		fcppt::assign::make_array<screen_vf::declaration_buffer_pair>
 			(screen_vf::create_quad(
 				*shaders_[0],
 				renderer_))
@@ -137,7 +138,7 @@ fruitcut::pp::filter::blur::apply(
 		sge::renderer::glsl::scoped_program scoped_p(
 			renderer_,
 			shaders_[0]->program());
-		shaders_[0]->set_uniform(
+		shaders_[0]->update_uniform(
 			"texture_size",
 			fcppt::math::dim::structure_cast<sge::renderer::vector2>(
 				instances[0]->texture()->dim()));
@@ -146,7 +147,7 @@ fruitcut::pp::filter::blur::apply(
 		sge::renderer::glsl::scoped_program scoped_p(
 			renderer_,
 			shaders_[1]->program());
-		shaders_[1]->set_uniform(
+		shaders_[1]->update_uniform(
 			"texture_size",
 			fcppt::math::dim::structure_cast<sge::renderer::vector2>(
 				instances[1]->texture()->dim()));
@@ -189,9 +190,13 @@ fruitcut::pp::filter::blur::render(
 	sge::shader::scoped scoped_shader(
 		*shaders_[i]);
 
+	sge::renderer::scoped_vertex_declaration const vb_declaration_context(
+		renderer_,
+		quads_[i].declaration());
+
 	sge::renderer::scoped_vertex_buffer const scoped_vb_(
 		renderer_,
-		quads_[i]);
+		quads_[i].buffer());
 
 	sge::renderer::scoped_target const target_(
 		renderer_,
@@ -204,6 +209,6 @@ fruitcut::pp::filter::blur::render(
 		sge::renderer::first_vertex(
 			0),
 		sge::renderer::vertex_count(
-			quads_[i]->size()),
+			quads_[i].buffer()->size()),
 		sge::renderer::nonindexed_primitive_type::triangle);
 }

@@ -1,7 +1,7 @@
 #ifndef FRUITCUT_PP_SCREEN_VF_FORMAT_HPP_INCLUDED
 #define FRUITCUT_PP_SCREEN_VF_FORMAT_HPP_INCLUDED
 
-#include "position.hpp"
+#include "part.hpp"
 #include <sge/renderer/vf/format.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 
@@ -16,7 +16,7 @@ sge::renderer::vf::format
 <
 	boost::mpl::vector1
 	<
-		position
+		part
 	>
 > 
 format;

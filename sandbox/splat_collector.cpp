@@ -11,6 +11,7 @@
 #include <sge/renderer/onscreen_target.hpp>
 #include <sge/renderer/resource_flags_none.hpp>
 #include <sge/renderer/scoped_block.hpp>
+#include <sge/renderer/scoped_vertex_declaration.hpp>
 #include <sge/renderer/scoped_target.hpp>
 #include <sge/renderer/scoped_vertex_buffer.hpp>
 #include <sge/renderer/target_from_texture.hpp>
@@ -159,9 +160,13 @@ fruitcut::sandbox::splat_collector::update()
 		sge::shader::scoped scoped_shader(
 			copy_shader_);
 
+		sge::renderer::scoped_vertex_declaration const scoped_decl(
+			renderer_,
+			quad_.declaration());
+
 		sge::renderer::scoped_vertex_buffer const scoped_vb_(
 			renderer_,
-			quad_);
+			quad_.buffer());
 
 		sge::renderer::scoped_target const target_(
 			renderer_,
@@ -174,7 +179,7 @@ fruitcut::sandbox::splat_collector::update()
 			sge::renderer::first_vertex(
 				0),
 			sge::renderer::vertex_count(
-				quad_->size()),
+				quad_.buffer()->size()),
 			sge::renderer::nonindexed_primitive_type::triangle);
 	}
 }

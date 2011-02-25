@@ -132,6 +132,7 @@ SET(files
 	pp/filter/blur.cpp
 	pp/filter/ssaa.cpp
 	pp/screen_vf/create_quad.cpp
+	pp/screen_vf/declaration_buffer_pair.cpp
 	# font
 	font/system.cpp
 	font/drawer.cpp

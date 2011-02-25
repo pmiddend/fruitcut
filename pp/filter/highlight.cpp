@@ -6,24 +6,25 @@
 #include "../texture/descriptor.hpp"
 #include "../texture/instance.hpp"
 #include <sge/image/color/format.hpp>
-#include <sge/shader/vf_to_string.hpp>
+#include <sge/renderer/device.hpp>
+#include <sge/renderer/resource_flags_none.hpp>
+#include <sge/renderer/scoped_block.hpp>
+#include <sge/renderer/scoped_target.hpp>
+#include <sge/renderer/scoped_vertex_buffer.hpp>
+#include <sge/renderer/scoped_vertex_declaration.hpp>
+#include <sge/renderer/texture/filter/linear.hpp>
+#include <sge/renderer/texture/planar.hpp>
+#include <sge/renderer/texture/planar_ptr.hpp>
+#include <sge/renderer/vector2.hpp>
+#include <sge/renderer/vertex_buffer.hpp>
+#include <sge/shader/object.hpp>
 #include <sge/shader/sampler.hpp>
+#include <sge/shader/sampler_sequence.hpp>
+#include <sge/shader/scoped.hpp>
 #include <sge/shader/variable.hpp>
 #include <sge/shader/variable_sequence.hpp>
-#include <sge/shader/sampler_sequence.hpp>
 #include <sge/shader/variable_type.hpp>
-#include <sge/shader/object.hpp>
-#include <sge/shader/scoped.hpp>
-#include <sge/renderer/scoped_target.hpp>
-#include <sge/renderer/vertex_buffer.hpp>
-#include <sge/renderer/scoped_vertex_buffer.hpp>
-#include <sge/renderer/scoped_block.hpp>
-#include <sge/renderer/device.hpp>
-#include <sge/renderer/texture/filter/linear.hpp>
-#include <sge/renderer/texture/planar_ptr.hpp>
-#include <sge/renderer/texture/planar.hpp>
-#include <sge/renderer/vector2.hpp>
-#include <sge/renderer/resource_flags_none.hpp>
+#include <sge/shader/vf_to_string.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/text.hpp>
@@ -89,14 +90,18 @@ fruitcut::pp::filter::highlight::apply(
 	sge::shader::scoped scoped_shader(
 		shader_);
 
-	shader_.set_uniform(
+	shader_.update_uniform(
 		"texture_size",
 		fcppt::math::dim::structure_cast<sge::renderer::vector2>(
 			result->texture()->dim()));
 
+	sge::renderer::scoped_vertex_declaration const vertex_declaration(
+		renderer_,
+		quad_.declaration());
+
 	sge::renderer::scoped_vertex_buffer const scoped_vb_(
 		renderer_,
-		quad_);
+		quad_.buffer());
 
 	sge::renderer::scoped_target const scoped_target(
 		renderer_,
@@ -109,7 +114,7 @@ fruitcut::pp::filter::highlight::apply(
 		sge::renderer::first_vertex(
 			0),
 		sge::renderer::vertex_count(
-			quad_->size()),
+			quad_.buffer()->size()),
 		sge::renderer::nonindexed_primitive_type::triangle);
 
 	return result;

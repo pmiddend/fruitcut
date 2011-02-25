@@ -15,6 +15,7 @@
 #include <sge/shader/scoped.hpp>
 #include <sge/renderer/scoped_target.hpp>
 #include <sge/renderer/vertex_buffer.hpp>
+#include <sge/renderer/scoped_vertex_declaration.hpp>
 #include <sge/renderer/scoped_vertex_buffer.hpp>
 #include <sge/renderer/scoped_block.hpp>
 #include <sge/renderer/device.hpp>
@@ -54,10 +55,10 @@ fruitcut::pp::filter::add::add(
 		fcppt::assign::make_container<sge::shader::sampler_sequence>
 			(sge::shader::sampler("tex1",sge::renderer::texture::planar_ptr()))
 			(sge::shader::sampler("tex2",sge::renderer::texture::planar_ptr()))), 
-		quad_(
-			screen_vf::create_quad(
-				shader_,
-				renderer_)),
+	quad_(
+		screen_vf::create_quad(
+			shader_,
+			renderer_)),
 	texture_manager_(
 		_texture_manager)
 {
@@ -79,9 +80,13 @@ fruitcut::pp::filter::add::apply(
 	sge::shader::scoped scoped_shader(
 		shader_);
 
+	sge::renderer::scoped_vertex_declaration const vb_declaration_context(
+		renderer_,
+		quad_.declaration());
+
 	sge::renderer::scoped_vertex_buffer const scoped_vb_(
 		renderer_,
-		quad_);
+		quad_.buffer());
 
 	texture::counted_instance const result = 
 		texture_manager_.query(
@@ -91,7 +96,7 @@ fruitcut::pp::filter::add::apply(
 				sge::renderer::texture::filter::linear,
 				texture::depth_stencil_format::off));
 
-	shader_.set_uniform(
+	shader_.update_uniform(
 		"texture_size",
 		fcppt::math::dim::structure_cast<sge::renderer::vector2>(
 			result->texture()->dim()));
@@ -107,7 +112,7 @@ fruitcut::pp::filter::add::apply(
 		sge::renderer::first_vertex(
 			0),
 		sge::renderer::vertex_count(
-			quad_->size()),
+			quad_.buffer()->size()),
 		sge::renderer::nonindexed_primitive_type::triangle);
 
 	return result;

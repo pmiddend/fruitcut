@@ -4,6 +4,7 @@
 #include <sge/renderer/device_ptr.hpp>
 #include <sge/renderer/scalar.hpp>
 #include <sge/renderer/vertex_buffer_ptr.hpp>
+#include <sge/renderer/vertex_declaration_ptr.hpp>
 #include <sge/renderer/texture/planar_ptr.hpp>
 #include <sge/image2d/multi_loader_fwd.hpp>
 #include <sge/parse/json/object_fwd.hpp>
@@ -38,6 +39,7 @@ public:
 private:
 	sge::renderer::device_ptr renderer_;
 	sge::renderer::texture::planar_ptr texture_;
+	sge::renderer::vertex_declaration_ptr vertex_declaration_;
 	sge::renderer::vertex_buffer_ptr vb_;
 	sge::renderer::scalar const reps_;
 };

@@ -3,42 +3,42 @@
 #include "vf/position.hpp"
 #include "vf/vertex_view.hpp"
 #include "vf/color.hpp"
-#include <sge/renderer/size_type.hpp>
-#include <sge/renderer/vf/vertex.hpp>
-#include <sge/renderer/vf/iterator.hpp>
-#include <sge/renderer/lock_mode.hpp>
-#include <sge/renderer/onscreen_target.hpp>
-#include <sge/renderer/viewport.hpp>
-#include <sge/renderer/matrix4.hpp>
-// We use no_texture which returns something incompatible to what
-// scoped_texture takes as argument
-#include <sge/renderer/texture/planar.hpp>
-#include <sge/renderer/scoped_transform.hpp>
 #include <sge/renderer/device.hpp>
-#include <sge/renderer/scalar.hpp>
-#include <sge/renderer/texture/scoped.hpp>
-#include <sge/renderer/vertex_buffer.hpp>
+#include <sge/renderer/first_vertex.hpp>
+#include <sge/renderer/lock_mode.hpp>
+#include <sge/renderer/matrix4.hpp>
+#include <sge/renderer/matrix_mode.hpp>
 #include <sge/renderer/nonindexed_primitive_type.hpp>
+#include <sge/renderer/no_texture.hpp>
+#include <sge/renderer/onscreen_target.hpp>
+#include <sge/renderer/resource_flags_none.hpp>
+#include <sge/renderer/scoped_vertex_declaration.hpp>
+#include <sge/renderer/scalar.hpp>
+#include <sge/renderer/scoped_transform.hpp>
 #include <sge/renderer/scoped_vertex_buffer.hpp>
 #include <sge/renderer/scoped_vertex_lock.hpp>
-#include <sge/renderer/vf/dynamic/make_format.hpp>
-#include <sge/renderer/resource_flags_none.hpp>
-#include <sge/renderer/first_vertex.hpp>
-#include <sge/renderer/vertex_count.hpp>
-#include <sge/renderer/state/list.hpp>
-#include <sge/renderer/matrix_mode.hpp>
-#include <sge/renderer/state/scoped.hpp>
-#include <sge/renderer/state/var.hpp>
-#include <sge/renderer/state/trampoline.hpp>
+#include <sge/renderer/size_type.hpp>
+#include <sge/renderer/stage_type.hpp>
 #include <sge/renderer/state/bool.hpp>
-#include <sge/renderer/state/source_blend_func.hpp>
-#include <sge/renderer/state/dest_blend_func.hpp>
 #include <sge/renderer/state/cull_mode.hpp>
 #include <sge/renderer/state/depth_func.hpp>
-#include <sge/renderer/state/stencil_func.hpp>
+#include <sge/renderer/state/dest_blend_func.hpp>
 #include <sge/renderer/state/draw_mode.hpp>
-#include <sge/renderer/no_texture.hpp>
-#include <sge/renderer/stage_type.hpp>
+#include <sge/renderer/state/list.hpp>
+#include <sge/renderer/state/scoped.hpp>
+#include <sge/renderer/state/source_blend_func.hpp>
+#include <sge/renderer/state/stencil_func.hpp>
+#include <sge/renderer/state/trampoline.hpp>
+#include <sge/renderer/state/var.hpp>
+#include <sge/renderer/texture/planar.hpp>
+#include <sge/renderer/texture/scoped.hpp>
+#include <sge/renderer/vertex_buffer.hpp>
+#include <sge/renderer/vertex_count.hpp>
+#include <sge/renderer/vf/dynamic/make_format.hpp>
+#include <sge/renderer/vf/dynamic/part_index.hpp>
+#include <sge/renderer/vf/iterator.hpp>
+#include <sge/renderer/vf/vertex.hpp>
+#include <sge/renderer/viewport.hpp>
 #include <fcppt/math/vector/structure_cast.hpp>
 #include <fcppt/math/matrix/basic_impl.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
@@ -52,7 +52,12 @@ fruitcut::line_drawer::object::object(
 	sge::renderer::device_ptr const _renderer)
 :
 	renderer_(
-		_renderer)
+		_renderer),
+	vertex_declaration_(
+		renderer_->create_vertex_declaration(
+			sge::renderer::vf::dynamic::make_format<vf::format>())),
+	vb_(),
+	lines_()
 {
 }
 
@@ -77,7 +82,9 @@ fruitcut::line_drawer::object::update()
 	if (!vb_ || vb_->size() < static_cast<sge::renderer::size_type>(lines_.size()*2))
 		vb_ = 
 			renderer_->create_vertex_buffer(
-				sge::renderer::vf::dynamic::make_format<vf::format>(),
+				vertex_declaration_,
+				sge::renderer::vf::dynamic::part_index(
+					0u),
 				static_cast<sge::renderer::size_type>(
 					lines_.size()*2),
 				sge::renderer::resource_flags::none);
@@ -125,6 +132,10 @@ fruitcut::line_drawer::object::render()
 			(sge::renderer::state::depth_func::off)
 			(sge::renderer::state::stencil_func::off)
 			(sge::renderer::state::draw_mode::fill));
+
+	sge::renderer::scoped_vertex_declaration scoped_decl(
+		renderer_,
+		vertex_declaration_);
 
 	sge::renderer::scoped_vertex_buffer scoped_vb(
 		renderer_,

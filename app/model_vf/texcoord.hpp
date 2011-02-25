@@ -1,5 +1,5 @@
-#ifndef FRUITCUT_MODEL_VF_TEXCOORD_HPP_INCLUDED
-#define FRUITCUT_MODEL_VF_TEXCOORD_HPP_INCLUDED
+#ifndef FRUITCUT_APP_MODEL_VF_TEXCOORD_HPP_INCLUDED
+#define FRUITCUT_APP_MODEL_VF_TEXCOORD_HPP_INCLUDED
 
 #include <sge/renderer/scalar.hpp>
 #include <sge/renderer/vf/make_unspecified_tag.hpp>
@@ -7,6 +7,8 @@
 #include <sge/renderer/vf/vector.hpp>
 
 namespace fruitcut
+{
+namespace app
 {
 namespace model_vf
 {
@@ -26,6 +28,7 @@ sge::renderer::vf::unspecified
 	tags::texcoord
 > 
 texcoord;
+}
 }
 }
 

@@ -2,10 +2,10 @@
 #define FRUITCUT_PP_FILTER_BLUR_HPP_INCLUDED
 
 #include "unary.hpp"
+#include "../screen_vf/declaration_buffer_pair.hpp"
 #include "../texture/manager_fwd.hpp"
 #include "../texture/counted_instance.hpp"
 #include <sge/renderer/device_ptr.hpp>
-#include <sge/renderer/vertex_buffer_ptr.hpp>
 #include <sge/renderer/dim2.hpp>
 #include <sge/shader/object_ptr.hpp>
 #include <fcppt/container/array.hpp>
@@ -50,7 +50,7 @@ private:
 	size_type const iterations_;
 
 	fcppt::container::array<sge::shader::object_ptr,2> shaders_;
-	fcppt::container::array<sge::renderer::vertex_buffer_ptr,2> quads_;
+	fcppt::container::array<screen_vf::declaration_buffer_pair,2> quads_;
 
 	void
 	render(

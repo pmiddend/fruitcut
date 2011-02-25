@@ -1,0 +1,117 @@
+(* Content-type: application/mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 7.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       145,          7]
+NotebookDataLength[      3729,        107]
+NotebookOptionsPosition[      3409,         91]
+NotebookOutlinePosition[      3745,        106]
+CellTagsIndexPosition[      3702,        103]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"links", " ", "=", " ", 
+   RowBox[{"-", "10"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"rechts", " ", "=", " ", "10"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"a", "=", "0.5"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"vx", "[", "x_", "]"}], ":=", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"-", "a"}], " ", 
+     RowBox[{"(", 
+      RowBox[{"x", "-", "links"}], ")"}]}], " ", "+", 
+    RowBox[{"a", " ", 
+     RowBox[{"(", 
+      RowBox[{"rechts", " ", "-", " ", "x"}], ")"}]}]}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{"Graphics", "[", "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{"Map", "[", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"Arrow", "[", "#1", "]"}], "&"}], ",", "\[IndentingNewLine]", 
+     RowBox[{"Table", "[", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"x", ",", "0"}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"vx", "[", "x", "]"}], ",", "10"}], "}"}]}], "}"}], ",", 
+       "\[IndentingNewLine]", 
+       RowBox[{"{", 
+        RowBox[{"x", ",", "links", ",", "rechts", ",", "1"}], "}"}]}], 
+      "\[IndentingNewLine]", "]"}]}], "\[IndentingNewLine]", "]"}], ",", 
+   "\[IndentingNewLine]", 
+   RowBox[{"Axes", "\[Rule]", "True"}]}], "\[IndentingNewLine]", 
+  "]"}]}], "Input",
+ CellChangeTimes->{{3.5075781223259773`*^9, 3.5075781335457973`*^9}, {
+  3.507578234298963*^9, 3.507578268408698*^9}, {3.50757835166768*^9, 
+  3.5075783619538813`*^9}, {3.507578423167392*^9, 3.5075784933447723`*^9}, {
+  3.507578533787532*^9, 3.50757856823059*^9}, {3.507578617622121*^9, 
+  3.507578643050661*^9}, {3.5075787043715897`*^9, 3.507578767643196*^9}, {
+  3.507578798166244*^9, 3.507578810752284*^9}, {3.50757890178904*^9, 
+  3.507578902154401*^9}}],
+
+Cell[BoxData[
+ GraphicsBox[{ArrowBox[{{-10, 0}, {10., 10}}], ArrowBox[{{-9, 0}, {9., 10}}], 
+   ArrowBox[{{-8, 0}, {8., 10}}], ArrowBox[{{-7, 0}, {7., 10}}], 
+   ArrowBox[{{-6, 0}, {6., 10}}], ArrowBox[{{-5, 0}, {5., 10}}], 
+   ArrowBox[{{-4, 0}, {4., 10}}], ArrowBox[{{-3, 0}, {3., 10}}], 
+   ArrowBox[{{-2, 0}, {2., 10}}], ArrowBox[{{-1, 0}, {1., 10}}], 
+   ArrowBox[{{0, 0}, {0., 10}}], ArrowBox[{{1, 0}, {-1., 10}}], 
+   ArrowBox[{{2, 0}, {-2., 10}}], ArrowBox[{{3, 0}, {-3., 10}}], 
+   ArrowBox[{{4, 0}, {-4., 10}}], ArrowBox[{{5, 0}, {-5., 10}}], 
+   ArrowBox[{{6, 0}, {-6., 10}}], ArrowBox[{{7, 0}, {-7., 10}}], 
+   ArrowBox[{{8, 0}, {-8., 10}}], ArrowBox[{{9, 0}, {-9., 10}}], 
+   ArrowBox[{{10, 0}, {-10., 10}}]},
+  Axes->True,
+  ImageSize->{803.9914, Automatic}]], "Output",
+ CellChangeTimes->{
+  3.507578644192111*^9, {3.507578705037373*^9, 3.5075787679614563`*^9}, {
+   3.507578800779352*^9, 3.507578810998487*^9}, 3.507578902454648*^9}]
+}, Open  ]]
+},
+WindowSize->{1918, 538},
+WindowMargins->{{0, Automatic}, {2, Automatic}},
+FrontEndVersion->"7.0 for Linux x86 (64-bit) (November 11, 2008)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[567, 22, 1874, 48, 319, "Input"],
+Cell[2444, 72, 949, 16, 433, "Output"]
+}, Open  ]]
+}
+]
+*)
+
+(* End of internal cache information *)
+

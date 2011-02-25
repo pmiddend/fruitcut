@@ -1,52 +1,55 @@
 #include "background.hpp"
 #include "../media_path.hpp"
 #include "../json/find_member.hpp"
-#include <sge/parse/json/object.hpp>
-#include <sge/parse/json/array.hpp>
-#include <sge/image2d/multi_loader.hpp>
 #include <sge/image2d/file.hpp>
-#include <sge/renderer/texture/create_planar_from_view.hpp>
-#include <sge/renderer/texture/filter/linear.hpp>
-#include <sge/renderer/texture/address_mode2.hpp>
-#include <sge/renderer/texture/address_mode.hpp>
-#include <sge/renderer/texture/scoped.hpp>
-#include <sge/renderer/resource_flags_none.hpp>
-#include <sge/renderer/vf/format.hpp>
-#include <sge/renderer/vf/pos.hpp>
-#include <sge/renderer/vf/texpos.hpp>
-#include <sge/renderer/vf/dynamic/make_format.hpp>
-#include <sge/renderer/vf/iterator.hpp>
-#include <sge/renderer/vf/view.hpp>
-#include <sge/renderer/vf/vertex.hpp>
-#include <sge/renderer/device.hpp>
-#include <sge/renderer/aspect_from_viewport.hpp>
-#include <sge/renderer/viewport.hpp>
+#include <sge/image2d/multi_loader.hpp>
+#include <sge/parse/json/array.hpp>
+#include <sge/parse/json/object.hpp>
 #include <sge/renderer/active_target.hpp>
-#include <sge/renderer/scoped_vertex_lock.hpp>
-#include <sge/renderer/lock_mode.hpp>
-#include <sge/renderer/target_base.hpp>
-#include <sge/renderer/scoped_transform.hpp>
-#include <sge/renderer/matrix4.hpp>
-#include <sge/renderer/onscreen_target.hpp>
-#include <sge/renderer/matrix_mode.hpp>
-#include <sge/renderer/scalar.hpp>
-#include <sge/renderer/scoped_vertex_buffer.hpp>
+#include <sge/renderer/aspect_from_viewport.hpp>
+#include <sge/renderer/device.hpp>
+#include <sge/renderer/scoped_vertex_declaration.hpp>
 #include <sge/renderer/first_vertex.hpp>
-#include <sge/renderer/vertex_count.hpp>
+#include <sge/renderer/lock_mode.hpp>
+#include <sge/renderer/matrix4.hpp>
+#include <sge/renderer/matrix_mode.hpp>
 #include <sge/renderer/nonindexed_primitive_type.hpp>
+#include <sge/renderer/onscreen_target.hpp>
+#include <sge/renderer/resource_flags_none.hpp>
+#include <sge/renderer/scalar.hpp>
+#include <sge/renderer/scoped_transform.hpp>
+#include <sge/renderer/scoped_vertex_buffer.hpp>
+#include <sge/renderer/scoped_vertex_lock.hpp>
 #include <sge/renderer/stage_type.hpp>
 #include <sge/renderer/state/bool.hpp>
 #include <sge/renderer/state/cull_mode.hpp>
 #include <sge/renderer/state/depth_func.hpp>
 #include <sge/renderer/state/dest_blend_func.hpp>
 #include <sge/renderer/state/draw_mode.hpp>
+#include <sge/renderer/state/list.hpp>
+#include <sge/renderer/state/scoped.hpp>
 #include <sge/renderer/state/source_blend_func.hpp>
 #include <sge/renderer/state/stencil_func.hpp>
-#include <sge/renderer/state/list.hpp>
-#include <sge/renderer/state/var.hpp>
-#include <sge/renderer/state/scoped.hpp>
 #include <sge/renderer/state/trampoline.hpp>
+#include <sge/renderer/state/var.hpp>
+#include <sge/renderer/target_base.hpp>
+#include <sge/renderer/texture/address_mode2.hpp>
+#include <sge/renderer/texture/address_mode.hpp>
+#include <sge/renderer/texture/create_planar_from_view.hpp>
+#include <sge/renderer/texture/filter/linear.hpp>
 #include <sge/renderer/texture/planar.hpp>
+#include <sge/renderer/texture/scoped.hpp>
+#include <sge/renderer/vertex_count.hpp>
+#include <sge/renderer/vf/dynamic/make_format.hpp>
+#include <sge/renderer/vf/dynamic/part_index.hpp>
+#include <sge/renderer/vf/format.hpp>
+#include <sge/renderer/vf/iterator.hpp>
+#include <sge/renderer/vf/part.hpp>
+#include <sge/renderer/vf/pos.hpp>
+#include <sge/renderer/vf/texpos.hpp>
+#include <sge/renderer/vf/vertex.hpp>
+#include <sge/renderer/vf/view.hpp>
+#include <sge/renderer/viewport.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/math/matrix/basic_impl.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
@@ -75,7 +78,7 @@ sge::renderer::vf::texpos
 texcoord;
 
 typedef 
-sge::renderer::vf::format
+sge::renderer::vf::part
 <
 	boost::mpl::vector2
 	<
@@ -83,10 +86,20 @@ sge::renderer::vf::format
 		texcoord
 	>
 > 
+part;
+
+typedef 
+sge::renderer::vf::format
+<
+	boost::mpl::vector1
+	<
+		part
+	>
+> 
 format;
 
 typedef 
-sge::renderer::vf::view<format> 
+sge::renderer::vf::view<part> 
 vertex_view;
 }
 }
@@ -114,11 +127,15 @@ fruitcut::app::background::background(
 			sge::renderer::texture::address_mode2(
 				sge::renderer::texture::address_mode::repeat),
 			sge::renderer::resource_flags::none)),
+	vertex_declaration_(
+		renderer_->create_vertex_declaration(
+			sge::renderer::vf::dynamic::make_format<vf::format>())),
 	vb_(
 		renderer_->create_vertex_buffer(
-			sge::renderer::vf::dynamic::make_format<vf::format>(),
-			static_cast<sge::renderer::size_type>(
-				6),
+			vertex_declaration_,
+			sge::renderer::vf::dynamic::part_index(
+				0u),
+			6,
 			sge::renderer::resource_flags::none)),
 	reps_(
 		json::find_member<sge::renderer::scalar>(
@@ -188,6 +205,10 @@ fruitcut::app::background::background(
 void
 fruitcut::app::background::render()
 {
+	sge::renderer::scoped_vertex_declaration scoped_decl(
+		renderer_,
+		vertex_declaration_);
+
 	sge::renderer::scoped_vertex_buffer scoped_vb(
 		renderer_,
 		vb_);

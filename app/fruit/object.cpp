@@ -52,6 +52,7 @@ fruitcut::app::fruit::object::object(
 	prototype const &proto,
 	physics::world &_world,
 	sge::renderer::device_ptr const _renderer,
+	sge::renderer::vertex_declaration_ptr const _vertex_declaration,
 	sge::shader::object &_shader,
 	physics::scalar const _mass,
 	physics::vector3 const &_position,
@@ -79,6 +80,7 @@ fruitcut::app::fruit::object::object(
 	vb_(
 		mesh_to_vertex_buffer(
 			_renderer,
+			_vertex_declaration,
 			_shader,
 			mesh_)),
 	texture_(
@@ -95,6 +97,7 @@ fruitcut::app::fruit::object::object(
 	sge::renderer::texture::planar_ptr const _texture,
 	physics::world &_world,
 	sge::renderer::device_ptr const _renderer,
+	sge::renderer::vertex_declaration_ptr const _vertex_declaration,
 	sge::shader::object &_shader,
 	fruitcut::app::mesh const &_mesh,
 	physics::scalar const _mass,
@@ -125,6 +128,7 @@ fruitcut::app::fruit::object::object(
 	vb_(
 		mesh_to_vertex_buffer(
 			_renderer,
+			_vertex_declaration,
 			_shader,
 			mesh_)),
 	texture_(

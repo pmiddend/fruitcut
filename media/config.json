@@ -88,5 +88,10 @@
 	"physics" : 
 	{
 		"gravity" : [0.0,0.0,0.0]
+	},
+	"fruit-spawner" :
+	{
+		"min-seconds" : 1.0,
+		"max-seconds" : 3.0
 	}
 }
