@@ -133,7 +133,7 @@ fruitcut::app::states::intro::viewport_change(
 				static_cast<particle::point_sprite::object::vector::value_type>(
 					2) - 
 		fcppt::math::dim::structure_cast<particle::point_sprite::object::vector>(
-			logo_image->dim())/
+			logo_image->size())/
 				static_cast<particle::point_sprite::object::vector::value_type>(
 					2);
 

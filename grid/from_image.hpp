@@ -28,7 +28,7 @@ from_image(
 
 	result_type result(
 		fcppt::math::dim::structure_cast<typename result_type::dim>(
-			input_file->dim()));
+			input_file->size()));
 	sge::image2d::algorithm::copy_and_convert(
 		input_file->view(),
 		sge::image2d::view::make(

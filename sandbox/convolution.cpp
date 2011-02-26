@@ -237,7 +237,7 @@ particles::particles(
 		fcppt::math::dim::structure_cast<particle::point_sprite::object::vector>(
 			window_size)/static_cast<particle::point_sprite::object::vector::value_type>(2) - 
 		fcppt::math::dim::structure_cast<particle::point_sprite::object::vector>(
-			logo_image->dim())/static_cast<particle::point_sprite::object::vector::value_type>(2);
+			logo_image->size())/static_cast<particle::point_sprite::object::vector::value_type>(2);
 
 	system_.insert(
 		particle::objects::unique_base_ptr(
