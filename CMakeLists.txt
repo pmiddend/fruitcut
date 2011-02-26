@@ -138,6 +138,7 @@ SET(files
 	pp/screen_vf/quad.cpp
 	# font
 	font/system.cpp
+	font/scoped_transformation.cpp
 	font/drawer.cpp
 	font/particle/base.cpp
 	font/particle/animated.cpp

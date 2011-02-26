@@ -1,5 +1,6 @@
 #include "animated.hpp"
 #include "../drawer.hpp"
+#include "../scoped_transformation.hpp"
 #include <sge/font/text/draw.hpp>
 #include <sge/font/rect.hpp>
 #include <sge/font/pos.hpp>
@@ -84,7 +85,9 @@ fruitcut::font::particle::animated::render(
 {
 	_drawer.color(
 		color_animation_.current_value());
-	_drawer.transform_callback(
+
+	scoped_transformation scoped_tr(
+		_drawer,
 		boost::bind(
 			&scale_transformation,
 			_1,
@@ -93,9 +96,6 @@ fruitcut::font::particle::animated::render(
 
 	base::render(
 		_drawer);
-
-	_drawer.transform_callback(
-		boost::phoenix::arg_names::arg2);
 }
 
 bool
