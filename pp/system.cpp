@@ -3,20 +3,12 @@
 #include "filter/nullary.hpp"
 #include "filter/unary.hpp"
 #include "../media_path.hpp"
-#include "screen_vf/create_quad.hpp"
 #include "screen_vf/format.hpp"
 #include "system.hpp"
 #include "texture/counted_instance.hpp"
 #include "texture/instance.hpp"
 #include <sge/image/color/format.hpp>
-#include <sge/renderer/device.hpp>
-#include <sge/renderer/first_vertex.hpp>
-#include <sge/renderer/nonindexed_primitive_type.hpp>
-#include <sge/renderer/scoped_vertex_buffer.hpp>
-#include <sge/renderer/scoped_vertex_declaration.hpp>
 #include <sge/renderer/vector2.hpp>
-#include <sge/renderer/vertex_buffer.hpp>
-#include <sge/renderer/vertex_count.hpp>
 #include <sge/shader/sampler.hpp>
 #include <sge/shader/sampler_sequence.hpp>
 #include <sge/shader/scoped.hpp>
@@ -24,20 +16,13 @@
 #include <sge/shader/variable_sequence.hpp>
 #include <sge/shader/variable_type.hpp>
 #include <sge/shader/vf_to_string.hpp>
-#include <fcppt/assert.hpp>
-#include <fcppt/assert_message.hpp>
 #include <fcppt/assign/make_container.hpp>
-#include <fcppt/exception.hpp>
 #include <fcppt/io/cerr.hpp>
-#include <fcppt/math/dim/structure_cast.hpp>
 #include <boost/foreach.hpp>
 #include <boost/graph/topological_sort.hpp>
-#include <boost/next_prior.hpp>
 #include <iostream>
 #include <iterator>
 #include <list>
-#include <typeinfo>
-#include <utility>
 
 fruitcut::pp::system::system(
 	sge::renderer::device_ptr const _renderer)
@@ -55,9 +40,8 @@ fruitcut::pp::system::system(
 				"tex",
 				sge::renderer::texture::planar_ptr()))),
 	quad_(
-		screen_vf::create_quad(
-			shader_,
-			renderer_))
+		renderer_,
+		shader_)
 {
 }
 
@@ -120,20 +104,7 @@ fruitcut::pp::system::render_result()
 	sge::shader::scoped scoped_shader(
 		shader_);
 
-	sge::renderer::scoped_vertex_declaration const scoped_decl_(
-		renderer_,
-		quad_.declaration());
-
-	sge::renderer::scoped_vertex_buffer const scoped_vb_(
-		renderer_,
-		quad_.buffer());
-
-	renderer_->render(
-		sge::renderer::first_vertex(
-			0),
-		sge::renderer::vertex_count(
-			quad_.buffer()->size()),
-		sge::renderer::nonindexed_primitive_type::triangle);
+	quad_.render();
 }
 
 void

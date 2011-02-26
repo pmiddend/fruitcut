@@ -135,8 +135,7 @@ SET(files
 	pp/texture/use_screen_size.cpp 
 	pp/filter/blur.cpp
 	pp/filter/ssaa.cpp
-	pp/screen_vf/create_quad.cpp
-	pp/screen_vf/declaration_buffer_pair.cpp
+	pp/screen_vf/quad.cpp
 	# font
 	font/system.cpp
 	font/drawer.cpp

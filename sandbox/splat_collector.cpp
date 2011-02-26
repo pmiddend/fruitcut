@@ -1,19 +1,14 @@
 #include "splat_collector.hpp"
 #include "../particle/sprite/parameters.hpp"
 #include "../media_path.hpp"
-#include "../pp/screen_vf/create_quad.hpp"
 #include "../pp/screen_vf/format.hpp"
 #include <sge/image/color/format.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/dim2.hpp>
-#include <sge/renderer/first_vertex.hpp>
-#include <sge/renderer/nonindexed_primitive_type.hpp>
 #include <sge/renderer/onscreen_target.hpp>
 #include <sge/renderer/resource_flags_none.hpp>
 #include <sge/renderer/scoped_block.hpp>
-#include <sge/renderer/scoped_vertex_declaration.hpp>
 #include <sge/renderer/scoped_target.hpp>
-#include <sge/renderer/scoped_vertex_buffer.hpp>
 #include <sge/renderer/target_from_texture.hpp>
 #include <sge/renderer/texture/address_mode2.hpp>
 #include <sge/renderer/texture/address_mode.hpp>
@@ -21,7 +16,6 @@
 #include <sge/renderer/texture/filter/point.hpp>
 #include <sge/renderer/texture/planar_parameters.hpp>
 #include <sge/renderer/vector2.hpp>
-#include <sge/renderer/vertex_count.hpp>
 #include <sge/renderer/viewport.hpp>
 #include <sge/shader/sampler_sequence.hpp>
 #include <sge/shader/scoped.hpp>
@@ -114,9 +108,8 @@ fruitcut::sandbox::splat_collector::splat_collector(
 				"tex",
 				texture_))),
 	quad_(
-		pp::screen_vf::create_quad(
-			copy_shader_,
-			renderer_))
+		renderer_,
+		copy_shader_)
 {
 }
 
@@ -164,14 +157,6 @@ fruitcut::sandbox::splat_collector::update()
 		sge::shader::scoped scoped_shader(
 			copy_shader_);
 
-		sge::renderer::scoped_vertex_declaration const scoped_decl(
-			renderer_,
-			quad_.declaration());
-
-		sge::renderer::scoped_vertex_buffer const scoped_vb_(
-			renderer_,
-			quad_.buffer());
-
 		sge::renderer::scoped_target const target_(
 			renderer_,
 			temp_texture_target_); 
@@ -179,12 +164,7 @@ fruitcut::sandbox::splat_collector::update()
 		sge::renderer::scoped_block const block_(
 			renderer_);
 
-		renderer_->render(
-			sge::renderer::first_vertex(
-				0),
-			sge::renderer::vertex_count(
-				quad_.buffer()->size()),
-			sge::renderer::nonindexed_primitive_type::triangle);
+		quad_.render();
 	}
 }
 

@@ -1,23 +1,17 @@
 #include "desaturate.hpp"
 #include "../../media_path.hpp"
-#include "../screen_vf/create_quad.hpp"
 #include "../screen_vf/format.hpp"
 #include "../texture/descriptor.hpp"
 #include "../texture/instance.hpp"
 #include "../texture/manager.hpp"
 #include <sge/image/color/format.hpp>
-#include <sge/renderer/device.hpp>
 #include <sge/renderer/glsl/scoped_program.hpp>
-#include <sge/renderer/resource_flags_none.hpp>
 #include <sge/renderer/scoped_block.hpp>
 #include <sge/renderer/scoped_target.hpp>
-#include <sge/renderer/scoped_vertex_buffer.hpp>
-#include <sge/renderer/scoped_vertex_declaration.hpp>
 #include <sge/renderer/texture/filter/linear.hpp>
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/planar_ptr.hpp>
 #include <sge/renderer/vector2.hpp>
-#include <sge/renderer/vertex_buffer.hpp>
 #include <sge/shader/object.hpp>
 #include <sge/shader/sampler.hpp>
 #include <sge/shader/sampler_sequence.hpp>
@@ -66,9 +60,8 @@ fruitcut::pp::filter::desaturate::desaturate(
 				"tex",
 				sge::renderer::texture::planar_ptr()))),
 	quad_(
-		screen_vf::create_quad(
-			shader_,
-			renderer_))
+		renderer_,
+		shader_)
 {
 }
 
@@ -110,14 +103,6 @@ fruitcut::pp::filter::desaturate::apply(
 		fcppt::math::dim::structure_cast<sge::renderer::vector2>(
 			result->texture()->dim()));
 
-	sge::renderer::scoped_vertex_declaration const vb_declaration_context(
-		renderer_,
-		quad_.declaration());
-
-	sge::renderer::scoped_vertex_buffer const scoped_vb_(
-		renderer_,
-		quad_.buffer());
-
 	sge::renderer::scoped_target const scoped_target(
 		renderer_,
 		result->target()); 
@@ -125,12 +110,7 @@ fruitcut::pp::filter::desaturate::apply(
 	sge::renderer::scoped_block const block(
 		renderer_);
 
-	renderer_->render(
-		sge::renderer::first_vertex(
-			0),
-		sge::renderer::vertex_count(
-			quad_.buffer()->size()),
-		sge::renderer::nonindexed_primitive_type::triangle);
+	quad_.render();
 
 	return result;
 }

@@ -1,31 +1,26 @@
 #include "blur.hpp"
-#include "../screen_vf/create_quad.hpp"
 #include "../screen_vf/format.hpp"
 #include "../../media_path.hpp"
 #include "../texture/manager.hpp"
 #include "../texture/instance.hpp"
 #include "../texture/descriptor.hpp"
-#include <sge/shader/vf_to_string.hpp>
+#include <sge/image/color/format.hpp>
+#include <sge/renderer/glsl/scoped_program.hpp>
+#include <sge/renderer/resource_flags_none.hpp>
+#include <sge/renderer/scoped_block.hpp>
+#include <sge/renderer/scoped_target.hpp>
+#include <sge/renderer/texture/filter/linear.hpp>
+#include <sge/renderer/texture/planar.hpp>
+#include <sge/renderer/texture/planar_ptr.hpp>
+#include <sge/renderer/vector2.hpp>
+#include <sge/shader/object.hpp>
 #include <sge/shader/sampler.hpp>
+#include <sge/shader/sampler_sequence.hpp>
+#include <sge/shader/scoped.hpp>
 #include <sge/shader/variable.hpp>
 #include <sge/shader/variable_sequence.hpp>
-#include <sge/shader/sampler_sequence.hpp>
 #include <sge/shader/variable_type.hpp>
-#include <sge/shader/object.hpp>
-#include <sge/shader/scoped.hpp>
-#include <sge/image/color/format.hpp>
-#include <sge/renderer/device.hpp>
-#include <sge/renderer/scoped_vertex_declaration.hpp>
-#include <sge/renderer/vector2.hpp>
-#include <sge/renderer/texture/planar_ptr.hpp>
-#include <sge/renderer/texture/planar.hpp>
-#include <sge/renderer/texture/filter/linear.hpp>
-#include <sge/renderer/scoped_target.hpp>
-#include <sge/renderer/vertex_buffer.hpp>
-#include <sge/renderer/scoped_block.hpp>
-#include <sge/renderer/resource_flags_none.hpp>
-#include <sge/renderer/scoped_vertex_buffer.hpp>
-#include <sge/renderer/glsl/scoped_program.hpp>
+#include <sge/shader/vf_to_string.hpp>
 #include <fcppt/assign/make_array.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
@@ -88,13 +83,13 @@ fruitcut::pp::filter::blur::blur(
 							"tex",
 							sge::renderer::texture::planar_ptr())))))),
 	quads_(
-		fcppt::assign::make_array<screen_vf::declaration_buffer_pair>
-			(screen_vf::create_quad(
-				*shaders_[0],
-				renderer_))
-			(screen_vf::create_quad(
-				*shaders_[1],
-				renderer_)))
+		fcppt::assign::make_array<screen_vf::quad>
+			(screen_vf::quad(
+				renderer_,
+				*shaders_[0]))
+			(screen_vf::quad(
+				renderer_,
+				*shaders_[1])))
 {
 	FCPPT_ASSERT(
 		iterations_);
@@ -190,14 +185,6 @@ fruitcut::pp::filter::blur::render(
 	sge::shader::scoped scoped_shader(
 		*shaders_[i]);
 
-	sge::renderer::scoped_vertex_declaration const vb_declaration_context(
-		renderer_,
-		quads_[i].declaration());
-
-	sge::renderer::scoped_vertex_buffer const scoped_vb_(
-		renderer_,
-		quads_[i].buffer());
-
 	sge::renderer::scoped_target const target_(
 		renderer_,
 		textures[i]->target()); 
@@ -205,10 +192,5 @@ fruitcut::pp::filter::blur::render(
 	sge::renderer::scoped_block const block_(
 		renderer_);
 
-	renderer_->render(
-		sge::renderer::first_vertex(
-			0),
-		sge::renderer::vertex_count(
-			quads_[i].buffer()->size()),
-		sge::renderer::nonindexed_primitive_type::triangle);
+	quads_[i].render();
 }

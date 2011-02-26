@@ -3,7 +3,7 @@
 
 #include "unary.hpp"
 #include "../texture/manager_fwd.hpp"
-#include "../screen_vf/declaration_buffer_pair.hpp"
+#include "../screen_vf/quad.hpp"
 #include <sge/renderer/device_ptr.hpp>
 #include <sge/renderer/target_ptr.hpp>
 #include <sge/renderer/scalar.hpp>
@@ -41,7 +41,7 @@ private:
 	texture::manager &texture_manager_;
 	sge::renderer::dim2 texture_size_;
 	sge::shader::object shader_;
-	screen_vf::declaration_buffer_pair quad_;
+	screen_vf::quad quad_;
 };
 }
 }

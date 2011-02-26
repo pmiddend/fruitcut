@@ -4,7 +4,7 @@
 #include "../particle/sprite/system.hpp"
 #include "../particle/sprite/object.hpp"
 #include "../particle/sprite/parameters.hpp"
-#include "../pp/screen_vf/declaration_buffer_pair.hpp"
+#include "../pp/screen_vf/quad.hpp"
 #include <sge/renderer/device_ptr.hpp>
 #include <sge/sprite/object_impl.hpp>
 #include <sge/sprite/intrusive/system_impl.hpp>
@@ -53,7 +53,7 @@ private:
 	particle::sprite::object background_;
 	sprite_sequence sprites_;
 	sge::shader::object copy_shader_;
-	pp::screen_vf::declaration_buffer_pair quad_;
+	pp::screen_vf::quad quad_;
 };
 }
 }

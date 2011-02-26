@@ -2,9 +2,9 @@
 #define FRUITCUT_PP_FILTER_ADD_HPP_INCLUDED
 
 #include "binary.hpp"
+#include "../screen_vf/quad.hpp"
 #include "../texture/counted_instance.hpp"
 #include "../texture/manager_fwd.hpp"
-#include "../screen_vf/declaration_buffer_pair.hpp"
 #include <sge/renderer/dim2.hpp>
 #include <sge/shader/object.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
@@ -36,7 +36,7 @@ private:
 	sge::renderer::device_ptr renderer_;
 	sge::renderer::dim2 dimension_;
 	sge::shader::object shader_;
-	screen_vf::declaration_buffer_pair quad_;
+	screen_vf::quad quad_;
 	texture::manager &texture_manager_;
 };
 }

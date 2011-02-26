@@ -1,6 +1,5 @@
 #include "ssaa.hpp"
 #include "../../media_path.hpp"
-#include "../screen_vf/create_quad.hpp"
 #include "../screen_vf/format.hpp"
 #include "../texture/instance.hpp"
 #include "../texture/manager.hpp"
@@ -57,9 +56,8 @@ fruitcut::pp::filter::ssaa::ssaa(
 				"tex",
 				sge::renderer::texture::planar_ptr()))),
 	quad_(
-		screen_vf::create_quad(
-			shader_,
-			renderer_))
+		renderer_,
+		shader_)
 {
 }
 
@@ -87,14 +85,6 @@ fruitcut::pp::filter::ssaa::apply(
 		fcppt::math::dim::structure_cast<sge::renderer::vector2>(
 			result->texture()->dim()));
 
-	sge::renderer::scoped_vertex_declaration const scoped_decl_(
-		renderer_,
-		quad_.declaration());
-
-	sge::renderer::scoped_vertex_buffer const scoped_vb_(
-		renderer_,
-		quad_.buffer());
-
 	sge::renderer::scoped_target const scoped_target(
 		renderer_,
 		result->target()); 
@@ -102,12 +92,7 @@ fruitcut::pp::filter::ssaa::apply(
 	sge::renderer::scoped_block const block(
 		renderer_);
 
-	renderer_->render(
-		sge::renderer::first_vertex(
-			0),
-		sge::renderer::vertex_count(
-			quad_.buffer()->size()),
-		sge::renderer::nonindexed_primitive_type::triangle);
+	quad_.render();
 
 	return result;
 }

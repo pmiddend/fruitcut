@@ -1,7 +1,7 @@
 #ifndef FRUITCUT_PP_FILTER_HIGHLIGHT_HPP_INCLUDED
 #define FRUITCUT_PP_FILTER_HIGHLIGHT_HPP_INCLUDED
 
-#include "../screen_vf/declaration_buffer_pair.hpp"
+#include "../screen_vf/quad.hpp"
 #include "../texture/counted_instance.hpp"
 #include "../texture/manager_fwd.hpp"
 #include "unary.hpp"
@@ -37,7 +37,7 @@ private:
 	texture::manager &texture_manager_;
 	sge::renderer::dim2 texture_size_;
 	sge::shader::object shader_;
-	screen_vf::declaration_buffer_pair quad_;
+	screen_vf::quad quad_;
 };
 }
 }

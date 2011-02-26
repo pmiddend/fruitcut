@@ -1,5 +1,4 @@
 #include "add.hpp"
-#include "../screen_vf/create_quad.hpp"
 #include "../screen_vf/format.hpp"
 #include "../texture/instance.hpp"
 #include "../texture/manager.hpp"
@@ -14,11 +13,7 @@
 #include <sge/shader/object.hpp>
 #include <sge/shader/scoped.hpp>
 #include <sge/renderer/scoped_target.hpp>
-#include <sge/renderer/vertex_buffer.hpp>
-#include <sge/renderer/scoped_vertex_declaration.hpp>
-#include <sge/renderer/scoped_vertex_buffer.hpp>
 #include <sge/renderer/scoped_block.hpp>
-#include <sge/renderer/device.hpp>
 #include <sge/renderer/texture/planar_ptr.hpp>
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/filter/linear.hpp>
@@ -56,9 +51,8 @@ fruitcut::pp::filter::add::add(
 			(sge::shader::sampler("tex1",sge::renderer::texture::planar_ptr()))
 			(sge::shader::sampler("tex2",sge::renderer::texture::planar_ptr()))), 
 	quad_(
-		screen_vf::create_quad(
-			shader_,
-			renderer_)),
+		renderer_,
+		shader_),
 	texture_manager_(
 		_texture_manager)
 {
@@ -80,14 +74,6 @@ fruitcut::pp::filter::add::apply(
 	sge::shader::scoped scoped_shader(
 		shader_);
 
-	sge::renderer::scoped_vertex_declaration const vb_declaration_context(
-		renderer_,
-		quad_.declaration());
-
-	sge::renderer::scoped_vertex_buffer const scoped_vb_(
-		renderer_,
-		quad_.buffer());
-
 	texture::counted_instance const result = 
 		texture_manager_.query(
 			texture::descriptor(
@@ -108,12 +94,7 @@ fruitcut::pp::filter::add::apply(
 	sge::renderer::scoped_block const block(
 		renderer_);
 
-	renderer_->render(
-		sge::renderer::first_vertex(
-			0),
-		sge::renderer::vertex_count(
-			quad_.buffer()->size()),
-		sge::renderer::nonindexed_primitive_type::triangle);
+	quad_.render();
 
 	return result;
 }

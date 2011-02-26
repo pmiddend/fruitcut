@@ -4,7 +4,7 @@
 #include "unary.hpp"
 #include "../texture/manager_fwd.hpp"
 #include "../texture/counted_instance.hpp"
-#include "../screen_vf/declaration_buffer_pair.hpp"
+#include "../screen_vf/quad.hpp"
 #include <sge/renderer/dim2.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <sge/shader/object.hpp>
@@ -36,7 +36,7 @@ private:
 	texture::manager &texture_manager_;
 	sge::renderer::dim2 const texture_size_;
 	sge::shader::object shader_;
-	screen_vf::declaration_buffer_pair quad_;
+	screen_vf::quad quad_;
 };
 }
 }
