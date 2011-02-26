@@ -16,10 +16,8 @@
 #include <sge/shader/object.hpp>
 #include <sge/time/callback.hpp>
 #include <sge/time/duration.hpp>
-#include <boost/ptr_container/ptr_list.hpp>
 #include <fcppt/chrono/duration.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <vector>
 
 namespace fruitcut
 {
@@ -81,22 +79,12 @@ public:
 
 	~manager();
 private:
-	typedef
-	std::vector<object const*>
-	old_fruit_list;
-
-	typedef
-	boost::ptr_list<object>
-	new_fruit_list;
-
 	sge::renderer::device_ptr renderer_;
 	sge::renderer::vertex_declaration_ptr vertex_declaration_;
 	physics::world &physics_world_;
 	prototype_sequence prototypes_;
 	object_sequence fruits_; 
 	sge::shader::object fruit_shader_;
-	old_fruit_list old_fruits_;
-	new_fruit_list new_fruits_;
 };
 }
 }

@@ -5,6 +5,7 @@
 #include <fcppt/move.hpp>
 #include <fcppt/container/ptr/push_back_unique_ptr.hpp>
 #include <fcppt/algorithm/ptr_container_erase.hpp>
+#include <fcppt/assert.hpp>
 #include <boost/ptr_container/clone_allocator.hpp>
 #include <memory>
 
@@ -122,10 +123,11 @@ public:
 
 	void
 	erase(
-		T &t)
+		T const &t)
 	{
 		old_values_.push_back(
-			&t);
+			&const_cast<T &>(
+				t));
 	}
 
 	void
@@ -137,10 +139,14 @@ public:
 			new_values_.end(),
 			new_values_);
 
-		for(iterator i = old_values_.begin(); i != old_values_.end(); ++i)
+		FCPPT_ASSERT(
+			new_values_.empty());
+
+		for(const_iterator i = old_values_.begin(); i != old_values_.end(); ++i)
 			fcppt::algorithm::ptr_container_erase(
 				implementation_,
 				&(*i));
+		old_values_.clear();
 	}
 private:
 	// Also because of lazyness, I used the same ptr_sequence here, but

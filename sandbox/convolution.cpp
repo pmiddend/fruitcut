@@ -125,9 +125,11 @@ gray_grid_to_scalar_grid(
 		fruitcut::grid::map<scalar_grid::value_type>(
 			input,
 			boost::phoenix::static_cast_<scalar_grid::value_type>(
-			boost::phoenix::arg_names::arg1 - std::numeric_limits<gray_grid::value_type>::min())/
+				boost::phoenix::arg_names::arg1 - std::numeric_limits<gray_grid::value_type>::min())/
+			(static_cast<scalar_grid::value_type>(
+				std::numeric_limits<gray_grid::value_type>::max()) - 
 			static_cast<scalar_grid::value_type>(
-				std::numeric_limits<gray_grid::value_type>::max() - std::numeric_limits<gray_grid::value_type>::min()));
+				std::numeric_limits<gray_grid::value_type>::min())));
 }
 
 class explosion_particle
@@ -319,6 +321,8 @@ particles::from_image(
 				_1,
 				static_cast<scalar>(0),
 				static_cast<scalar>(1)));
+
+	std::cout << "grid size: " << g.size() << "\n";
 
 	typedef
 	std::vector<scalar_grid::dim>

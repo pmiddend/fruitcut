@@ -50,7 +50,6 @@
 #include <sge/image2d/file.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/algorithm/map.hpp>
-#include <fcppt/algorithm/ptr_container_erase.hpp>
 #include <fcppt/math/matrix/basic_impl.hpp>
 #include <fcppt/math/matrix/arithmetic.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
@@ -58,7 +57,6 @@
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert_message.hpp>
-#include <fcppt/assert.hpp>
 #include <boost/foreach.hpp>
 #include <boost/bind.hpp>
 
@@ -142,26 +140,25 @@ fruitcut::app::fruit::manager::manager(
 		fcppt::assign::make_container<sge::shader::sampler_sequence>(
 			sge::shader::sampler(
 				"texture",
-				sge::renderer::texture::planar_ptr()))),
-	old_fruits_(),
-	new_fruits_()
+				sge::renderer::texture::planar_ptr())))
 {
 	FCPPT_ASSERT_MESSAGE(
 		!prototypes_.empty(),
 		FCPPT_TEXT("No fruits specified!"));
 	fruits_.push_back(
-		new fruit::object(
-			prototypes_.front(),
-			physics_world_,
-			renderer_,
-			vertex_declaration_,
-			fruit_shader_,
-			static_cast<physics::scalar>(
-				100),
-			physics::vector3::null(),
-			physics::matrix4::identity(),
-			physics::vector3::null(),
-			physics::vector3::null()));
+		object_sequence::unique_value_ptr(
+			new fruit::object(
+				prototypes_.front(),
+				physics_world_,
+				renderer_,
+				vertex_declaration_,
+				fruit_shader_,
+				static_cast<physics::scalar>(
+					100),
+				physics::vector3::null(),
+				physics::matrix4::identity(),
+				physics::vector3::null(),
+				physics::vector3::null())));
 }
 
 void
@@ -210,21 +207,7 @@ fruitcut::app::fruit::manager::render(
 void
 fruitcut::app::fruit::manager::update()
 {
-	// Why those? Well, we don't know when cut is called. It could
-	// be while we're iterating through our array!
-	BOOST_FOREACH(
-		object const *old_fruit,
-		old_fruits_)
-		fcppt::algorithm::ptr_container_erase(
-			fruits_,
-			old_fruit);
-	old_fruits_.clear();
-
-	fruits_.transfer(
-		fruits_.end(),
-		new_fruits_);
-	FCPPT_ASSERT(
-		new_fruits_.empty());
+	fruits_.update();
 }
 
 void
@@ -263,26 +246,27 @@ fruitcut::app::fruit::manager::cut(
 		if (split_mesh.triangles.empty())
 			continue;
 		// push here, then move new_fruits to fruits (else we're inserting while we're iterating -> not good)
-		new_fruits_.push_back(
-			new fruit::object(
-				current_fruit.texture(),
-				physics_world_,
-				renderer_,
-				vertex_declaration_,
-				fruit_shader_,
-				split_mesh,
-				static_cast<physics::scalar>(
-					current_fruit.bounding_box().size().content() / bounding_box.size().content()),
-				current_fruit.position() + barycenter,
-				current_fruit.body().rotation(),
-				fcppt::math::vector::structure_cast<physics::vector3>(p.normal()),
-				physics::vector3::null(),
-				lock_duration,
-				time_callback));
+		fruits_.push_back(
+			object_sequence::unique_value_ptr(
+				new fruit::object(
+					current_fruit.texture(),
+					physics_world_,
+					renderer_,
+					vertex_declaration_,
+					fruit_shader_,
+					split_mesh,
+					static_cast<physics::scalar>(
+						current_fruit.bounding_box().size().content() / bounding_box.size().content()),
+					current_fruit.position() + barycenter,
+					current_fruit.body().rotation(),
+					fcppt::math::vector::structure_cast<physics::vector3>(p.normal()),
+					physics::vector3::null(),
+					lock_duration,
+					time_callback)));
 	}
 
-	old_fruits_.push_back(
-		&current_fruit);
+	fruits_.erase(
+		current_fruit);
 }
 
 void
@@ -294,18 +278,19 @@ fruitcut::app::fruit::manager::spawn(
 	physics::vector3 const &linear_velocity,
 	physics::vector3 const &angular_velocity)
 {
-	new_fruits_.push_back(
-		new object(
-			proto,
-			physics_world_,
-			renderer_,
-			vertex_declaration_,
-			fruit_shader_,
-			mass,
-			position,
-			transformation,
-			linear_velocity,
-			angular_velocity));
+	fruits_.push_back(
+		object_sequence::unique_value_ptr(
+			new object(
+				proto,
+				physics_world_,
+				renderer_,
+				vertex_declaration_,
+				fruit_shader_,
+				mass,
+				position,
+				transformation,
+				linear_velocity,
+				angular_velocity)));
 }
 
 fruitcut::app::fruit::object_sequence const &
