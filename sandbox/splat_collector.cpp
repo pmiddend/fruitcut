@@ -54,7 +54,9 @@ fruitcut::sandbox::splat_collector::splat_collector(
 				sge::renderer::texture::filter::point,
 				sge::renderer::texture::address_mode2(
 					sge::renderer::texture::address_mode::clamp),
-				sge::renderer::resource_flags::none))),
+				sge::renderer::resource_flags::none,
+				sge::renderer::texture::capabilities_field(
+					sge::renderer::texture::capabilities::render_target)))),
 	temp_texture_(
 		renderer_->create_planar_texture(
 			sge::renderer::texture::planar_parameters(
@@ -64,7 +66,9 @@ fruitcut::sandbox::splat_collector::splat_collector(
 				sge::renderer::texture::filter::point,
 				sge::renderer::texture::address_mode2(
 					sge::renderer::texture::address_mode::clamp),
-				sge::renderer::resource_flags::none))),
+				sge::renderer::resource_flags::none,
+				sge::renderer::texture::capabilities_field(
+					sge::renderer::texture::capabilities::render_target)))),
 	texture_target_(
 		sge::renderer::target_from_texture(
 			renderer_,

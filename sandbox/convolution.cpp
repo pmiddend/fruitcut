@@ -23,9 +23,8 @@
 #include <sge/input/keyboard/device.hpp>
 #include <sge/renderer/depth_stencil_buffer.hpp>
 #include <sge/renderer/device.hpp>
-#include <sge/renderer/onscreen_target.hpp>
 #include <sge/renderer/no_multi_sampling.hpp>
-#include <sge/renderer/visual_depth.hpp>
+#include <sge/renderer/onscreen_target.hpp>
 #include <sge/renderer/parameters.hpp>
 #include <sge/renderer/pixel_rect.hpp>
 #include <sge/renderer/resource_flags_none.hpp>
@@ -40,6 +39,7 @@
 #include <sge/renderer/texture/create_planar_from_view.hpp>
 #include <sge/renderer/texture/filter/linear.hpp>
 #include <sge/renderer/vector2.hpp>
+#include <sge/renderer/visual_depth.hpp>
 #include <sge/renderer/vsync.hpp>
 #include <sge/sprite/default_equal.hpp>
 #include <sge/sprite/intrusive/system_impl.hpp>
