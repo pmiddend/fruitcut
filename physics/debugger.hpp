@@ -3,6 +3,7 @@
 
 #include "world_fwd.hpp"
 #include "../line_drawer/object.hpp"
+#include "../line_drawer/scoped_lock.hpp"
 #include <sge/camera/object_fwd.hpp>
 #include <sge/renderer/device_ptr.hpp>
 #include <sge/renderer/vector3.hpp>
@@ -10,6 +11,7 @@
 #include <LinearMath/btIDebugDraw.h>
 #include <LinearMath/btVector3.h>
 #include <fcppt/math/vector/basic_impl.hpp>
+#include <fcppt/scoped_ptr.hpp>
 
 namespace fruitcut
 {
@@ -121,6 +123,7 @@ private:
 	sge::camera::object &camera_;
 	int debug_mode_;
 	line_drawer::object line_drawer_;
+	fcppt::scoped_ptr<line_drawer::scoped_lock> scoped_lock_;
 };
 }
 }

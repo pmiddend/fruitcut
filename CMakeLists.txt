@@ -150,6 +150,7 @@ SET(files
 	particle/objects/permanent_sprite.cpp
 	# line drawer
 	line_drawer/object.cpp
+	line_drawer/scoped_lock.cpp
 	line_drawer/line.cpp
 	# physics
 	physics/world.cpp

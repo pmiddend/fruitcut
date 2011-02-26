@@ -20,15 +20,6 @@ public:
 	object(
 		sge::renderer::device_ptr);
 
-	line_sequence &
-	lines();
-
-	line_sequence const &
-	lines() const;
-
-	void
-	update();
-
 	void
 	render();
 
@@ -37,10 +28,18 @@ public:
 
 	~object();
 private:
+	friend class scoped_lock;
+
 	sge::renderer::device_ptr renderer_;
 	sge::renderer::vertex_declaration_ptr vertex_declaration_;
 	sge::renderer::vertex_buffer_ptr vb_;
 	line_sequence lines_;
+
+	void
+	lock();
+
+	void
+	unlock();
 };
 }
 }

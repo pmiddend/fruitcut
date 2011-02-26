@@ -1,6 +1,7 @@
 #include "running.hpp"
 #include "paused.hpp"
 #include "../dim2.hpp"
+#include "../line_drawer/scoped_lock.hpp"
 #include "../fruit/plane.hpp"
 #include "../fruit/cut_mesh.hpp"
 #include "../fruit/hull/trail_intersection.hpp"
@@ -139,10 +140,15 @@ fruitcut::app::states::running::react(
 	context<ingame>().physics_debugger().update();
 	cursor_trail_.update();
 
-	line_drawer_.lines().clear();
-	draw_fruit_bbs();
-	draw_mouse_trail();
-	line_drawer_.update();
+	{
+		line_drawer::scoped_lock slock(
+			line_drawer_);
+		slock.value().clear();
+		draw_fruit_bbs(
+			slock.value());
+		draw_mouse_trail(
+			slock.value());
+	}
 
 	for(
 		fruit::object_sequence::const_iterator i = 
@@ -161,7 +167,8 @@ fruitcut::app::states::running::~running()
 }
 
 void
-fruitcut::app::states::running::draw_fruit_bbs()
+fruitcut::app::states::running::draw_fruit_bbs(
+	line_drawer::line_sequence &lines)
 {
 	for(
 		fruit::object_sequence::const_iterator i = 
@@ -180,7 +187,7 @@ fruitcut::app::states::running::draw_fruit_bbs()
 			hull_point != boost::prior(hull.end()); 
 			++hull_point)
 		{
-			line_drawer_.lines().push_back(
+			lines.push_back(
 				line_drawer::line(
 					sge::renderer::vector3(
 						static_cast<sge::renderer::scalar>(
@@ -203,7 +210,8 @@ fruitcut::app::states::running::draw_fruit_bbs()
 }
 
 void
-fruitcut::app::states::running::draw_mouse_trail()
+fruitcut::app::states::running::draw_mouse_trail(
+	line_drawer::line_sequence &lines)
 {
 	if (cursor_trail_.positions().empty())
 		return;
@@ -213,7 +221,7 @@ fruitcut::app::states::running::draw_mouse_trail()
 			cursor_trail_.positions().begin(); 
 		i != boost::prior(cursor_trail_.positions().end()); 
 		++i)
-		line_drawer_.lines().push_back(
+		lines.push_back(
 			line_drawer::line(
 				sge::renderer::vector3(
 					static_cast<sge::renderer::scalar>(

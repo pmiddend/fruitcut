@@ -9,6 +9,7 @@
 #include "../events/toggle_pause.hpp"
 #include "../events/render_overlay.hpp"
 #include "../../line_drawer/object.hpp"
+#include "../../line_drawer/line_sequence.hpp"
 #include <sge/renderer/state/scoped.hpp>
 #include <sge/renderer/device_ptr.hpp>
 #include <sge/renderer/state/trampoline.hpp>
@@ -66,10 +67,12 @@ private:
 	fcppt::signal::scoped_connection viewport_change_connection_;
 
 	void
-	draw_fruit_bbs();
+	draw_fruit_bbs(
+		line_drawer::line_sequence &);
 
 	void
-	draw_mouse_trail();
+	draw_mouse_trail(
+		line_drawer::line_sequence &);
 
 	void
 	process_fruit(

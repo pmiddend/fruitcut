@@ -2,6 +2,7 @@
 #include "world.hpp"
 #include "structure_cast.hpp"
 #include "../line_drawer/line.hpp"
+#include "../line_drawer/scoped_lock.hpp"
 #include <bullet/BulletDynamics/Dynamics/btDiscreteDynamicsWorld.h>
 #include <sge/renderer/scoped_transform.hpp>
 #include <sge/image/color/rgb8.hpp>
@@ -35,12 +36,16 @@ fruitcut::physics::debugger::debugger(
 void
 fruitcut::physics::debugger::update()
 {
-	line_drawer_.lines().clear();
+	scoped_lock_.reset(
+		new line_drawer::scoped_lock(
+			line_drawer_));
+
+	scoped_lock_->value().clear();
 
 	if (debug_mode_ != btIDebugDraw::DBG_NoDebug)
 		world_.handle().debugDrawWorld();
 
-	line_drawer_.update();
+	scoped_lock_.reset();
 }
 
 void
@@ -109,7 +114,7 @@ fruitcut::physics::debugger::drawLine(
 	btVector3 const &to_color)
 {
 	//std::cout << "from " << structure_cast<sge::renderer::vector3>(from) << ", to " << structure_cast<sge::renderer::vector3>(to) << "\n";
-	line_drawer_.lines().push_back(
+	scoped_lock_->value().push_back(
 		line_drawer::line(
 			structure_cast<sge::renderer::vector3>(
 				from),

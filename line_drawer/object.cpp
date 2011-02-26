@@ -61,61 +61,6 @@ fruitcut::line_drawer::object::object(
 {
 }
 
-fruitcut::line_drawer::line_sequence &
-fruitcut::line_drawer::object::lines()
-{
-	return lines_;
-}
-
-fruitcut::line_drawer::line_sequence const &
-fruitcut::line_drawer::object::lines() const
-{
-	return lines_;
-}
-
-void
-fruitcut::line_drawer::object::update()
-{
-	if (lines_.empty())
-		return;
-
-	if (!vb_ || vb_->size() < static_cast<sge::renderer::size_type>(lines_.size()*2))
-		vb_ = 
-			renderer_->create_vertex_buffer(
-				vertex_declaration_,
-				sge::renderer::vf::dynamic::part_index(
-					0u),
-				static_cast<sge::renderer::size_type>(
-					lines_.size()*2),
-				sge::renderer::resource_flags::none);
-
-	sge::renderer::scoped_vertex_lock const vblock(
-		vb_,
-		sge::renderer::lock_mode::writeonly);
-
-	vf::vertex_view const vertices(
-		vblock.value());
-
-	vf::vertex_view::iterator vb_it(
-		vertices.begin());
-
-	BOOST_FOREACH(
-		line const &l,
-		lines_)
-	{
-		(vb_it)->set<vf::position>(
-			fcppt::math::vector::structure_cast<vf::position::packed_type>(
-				l.begin()));
-		(vb_it++)->set<vf::color>(
-			l.begin_color());
-		(vb_it)->set<vf::position>(
-			fcppt::math::vector::structure_cast<vf::position::packed_type>(
-				l.end()));
-		(vb_it++)->set<vf::color>(
-			l.end_color());
-	}
-}
-
 void
 fruitcut::line_drawer::object::render()
 {
@@ -188,4 +133,52 @@ fruitcut::line_drawer::object::render_screen_space()
 
 fruitcut::line_drawer::object::~object()
 {
+}
+
+void
+fruitcut::line_drawer::object::lock()
+{
+}
+
+void
+fruitcut::line_drawer::object::unlock()
+{
+	if (lines_.empty())
+		return;
+
+	if (!vb_ || vb_->size() < static_cast<sge::renderer::size_type>(lines_.size()*2))
+		vb_ = 
+			renderer_->create_vertex_buffer(
+				vertex_declaration_,
+				sge::renderer::vf::dynamic::part_index(
+					0u),
+				static_cast<sge::renderer::size_type>(
+					lines_.size()*2),
+				sge::renderer::resource_flags::none);
+
+	sge::renderer::scoped_vertex_lock const vblock(
+		vb_,
+		sge::renderer::lock_mode::writeonly);
+
+	vf::vertex_view const vertices(
+		vblock.value());
+
+	vf::vertex_view::iterator vb_it(
+		vertices.begin());
+
+	BOOST_FOREACH(
+		line const &l,
+		lines_)
+	{
+		(vb_it)->set<vf::position>(
+			fcppt::math::vector::structure_cast<vf::position::packed_type>(
+				l.begin()));
+		(vb_it++)->set<vf::color>(
+			l.begin_color());
+		(vb_it)->set<vf::position>(
+			fcppt::math::vector::structure_cast<vf::position::packed_type>(
+				l.end()));
+		(vb_it++)->set<vf::color>(
+			l.end_color());
+	}
 }
