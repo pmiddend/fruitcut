@@ -168,7 +168,7 @@ try
 			ttf_metrics,
 			SGE_FONT_TEXT_LIT("Top left corner, should be permanent"),
 			sge::font::rect(
-				sge::font::pos(),
+				sge::font::pos::null(),
 				fcppt::math::dim::structure_cast<sge::font::dim>(
 					window_size)),
 			sge::font::text::align_h::left,
