@@ -19,7 +19,7 @@
 #include <boost/foreach.hpp>
 
 sge::renderer::vertex_buffer_ptr const
-fruitcut::app::mesh_to_vertex_buffer(
+fruitcut::app::fruit::mesh_to_vertex_buffer(
 	sge::renderer::device_ptr const renderer,
 	sge::renderer::vertex_declaration_ptr const vertex_decl,
 	sge::shader::object &model_shader,

@@ -1,5 +1,5 @@
-#ifndef FRUITCUT_APP_MODEL_VF_PART_HPP_INCLUDED
-#define FRUITCUT_APP_MODEL_VF_PART_HPP_INCLUDED
+#ifndef FRUITCUT_APP_FRUIT_MODEL_VF_PART_HPP_INCLUDED
+#define FRUITCUT_APP_FRUIT_MODEL_VF_PART_HPP_INCLUDED
 
 #include "position.hpp"
 #include "texcoord.hpp"
@@ -9,6 +9,8 @@
 namespace fruitcut
 {
 namespace app
+{
+namespace fruit
 {
 namespace model_vf
 {
@@ -22,6 +24,7 @@ sge::renderer::vf::part
 	>
 > 
 part;
+}
 }
 }
 }

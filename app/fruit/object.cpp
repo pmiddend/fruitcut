@@ -1,7 +1,7 @@
 #include "object.hpp"
 #include "prototype.hpp"
-#include "../mesh_to_vertex_buffer.hpp"
-#include "../mesh_to_shape.hpp"
+#include "mesh_to_vertex_buffer.hpp"
+#include "mesh_to_shape.hpp"
 #include "../geometry_traits/box.hpp"
 #include "../geometry_traits/vector.hpp"
 #include "../physics/rigid_body/parameters.hpp"
@@ -23,12 +23,12 @@
 namespace
 {
 typedef
-boost::geometry::model::multi_point<fruitcut::app::triangle::vector>
+boost::geometry::model::multi_point<fruitcut::app::fruit::triangle::vector>
 point_cloud;
 
 point_cloud const
 mesh_to_point_cloud(
-	fruitcut::app::mesh const &m)
+	fruitcut::app::fruit::mesh const &m)
 {
 	point_cloud output;
 	output.reserve(
@@ -36,10 +36,10 @@ mesh_to_point_cloud(
 			m.triangles.size() * 3));
 
 	BOOST_FOREACH(
-		fruitcut::app::triangle const &t,
+		fruitcut::app::fruit::triangle const &t,
 		m.triangles)
 		BOOST_FOREACH(
-			fruitcut::app::triangle::vertex_array::const_reference r,
+			fruitcut::app::fruit::triangle::vertex_array::const_reference r,
 			t.vertices)
 			output.push_back(
 				r);
@@ -99,7 +99,7 @@ fruitcut::app::fruit::object::object(
 	sge::renderer::device_ptr const _renderer,
 	sge::renderer::vertex_declaration_ptr const _vertex_declaration,
 	sge::shader::object &_shader,
-	fruitcut::app::mesh const &_mesh,
+	fruitcut::app::fruit::mesh const &_mesh,
 	physics::scalar const _mass,
 	physics::vector3 const &_position,
 	physics::matrix4 const &_transformation,
@@ -184,13 +184,13 @@ fruitcut::app::fruit::object::position() const
 			body_.position());
 }
 
-fruitcut::app::box3 const &
+fruitcut::app::fruit::box3 const &
 fruitcut::app::fruit::object::bounding_box() const
 {
 	return bounding_box_;
 }
 
-fruitcut::app::mesh const &
+fruitcut::app::fruit::mesh const &
 fruitcut::app::fruit::object::mesh() const
 {
 	return mesh_;

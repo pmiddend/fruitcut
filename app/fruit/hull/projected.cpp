@@ -1,5 +1,5 @@
 #include "projected.hpp"
-#include "../../box3.hpp"
+#include "../box3.hpp"
 #include "../object.hpp"
 #include "../../../geometry_traits/vector.hpp"
 #include "../../../geometry_traits/box.hpp"

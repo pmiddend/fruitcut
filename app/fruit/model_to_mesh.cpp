@@ -11,8 +11,8 @@
 #include <boost/foreach.hpp>
 #include <boost/next_prior.hpp>
 
-fruitcut::app::mesh const
-fruitcut::app::model_to_mesh(
+fruitcut::app::fruit::mesh const
+fruitcut::app::fruit::model_to_mesh(
 	sge::model::object_ptr const model)
 {
 	mesh result;

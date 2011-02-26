@@ -1,7 +1,7 @@
 #ifndef FRUITCUT_APP_FRUIT_PROTOTYPE_HPP_INCLUDED
 #define FRUITCUT_APP_FRUIT_PROTOTYPE_HPP_INCLUDED
 
-#include "../mesh.hpp"
+#include "mesh.hpp"
 #include <sge/renderer/texture/planar_ptr.hpp>
 
 namespace fruitcut
@@ -15,16 +15,16 @@ class prototype
 public:
 	explicit
 	prototype(
-		fruitcut::app::mesh const &,
+		fruitcut::app::fruit::mesh const &,
 		sge::renderer::texture::planar_ptr);
 
-	fruitcut::app::mesh const &
+	fruitcut::app::fruit::mesh const &
 	mesh() const;
 
 	sge::renderer::texture::planar_ptr const 
 	texture() const;
 private:
-	fruitcut::app::mesh mesh_;
+	fruitcut::app::fruit::mesh mesh_;
 	sge::renderer::texture::planar_ptr texture_;
 };
 }

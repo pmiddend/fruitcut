@@ -1,13 +1,13 @@
 #include "mesh_to_shape.hpp"
 #include "mesh.hpp"
-#include "../physics/shared_shape_ptr.hpp"
+#include "../../physics/shared_shape_ptr.hpp"
 #include <fcppt/container/raw_vector.hpp>
 #include <bullet/BulletCollision/CollisionShapes/btConvexHullShape.h>
 #include <boost/foreach.hpp>
 #include <iostream>
 
 fruitcut::physics::shared_shape_ptr const
-fruitcut::app::mesh_to_shape(
+fruitcut::app::fruit::mesh_to_shape(
 	mesh const &m)
 {
 	typedef

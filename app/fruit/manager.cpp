@@ -1,12 +1,12 @@
 #include "manager.hpp"
 #include "../../media_path.hpp"
-#include "../plane.hpp"
-#include "../mesh.hpp"
-#include "../box3.hpp"
-#include "../cut_mesh.hpp"
-#include "../model_vf/format.hpp"
+#include "plane.hpp"
+#include "mesh.hpp"
+#include "box3.hpp"
+#include "cut_mesh.hpp"
+#include "model_vf/format.hpp"
 #include "../../json/find_member.hpp"
-#include "../model_to_mesh.hpp"
+#include "model_to_mesh.hpp"
 #include <sge/shader/vf_to_string.hpp>
 #include <sge/shader/variable_sequence.hpp>
 #include <sge/shader/variable.hpp>
@@ -75,7 +75,7 @@ parse_fruit(
 
 	return 
 		fruitcut::app::fruit::prototype(
-			fruitcut::app::model_to_mesh(
+			fruitcut::app::fruit::model_to_mesh(
 				model_loader.load(
 					fruitcut::media_path()
 						/ FCPPT_TEXT("models")

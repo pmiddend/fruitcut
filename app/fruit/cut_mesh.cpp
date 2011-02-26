@@ -1,7 +1,7 @@
 #include "cut_mesh.hpp"
-#include "../math/cut_triangle_at_plane.hpp"
-#include "../math/triangle_plane_intersection.hpp"
-#include "../math/generate_texture_coordinates.hpp"
+#include "../../math/cut_triangle_at_plane.hpp"
+#include "../../math/triangle_plane_intersection.hpp"
+#include "../../math/generate_texture_coordinates.hpp"
 #include "triangle.hpp"
 #include <sge/renderer/vector3.hpp>
 #include <sge/renderer/vector2.hpp>
@@ -35,7 +35,7 @@
 
 namespace
 {
-fruitcut::app::triangle const
+fruitcut::app::fruit::triangle const
 create_triangle(
 	sge::renderer::vector3 const &p0,
 	sge::renderer::vector2 const &t0,
@@ -44,26 +44,26 @@ create_triangle(
 	sge::renderer::vector3 const &p2,
 	sge::renderer::vector2 const &t2)
 {
-	fruitcut::app::triangle::vertex_array const vertices = {{ p0,p1,p2 }};
-	fruitcut::app::triangle::texcoord_array const texcoords = {{ t0,t1,t2 }};
+	fruitcut::app::fruit::triangle::vertex_array const vertices = {{ p0,p1,p2 }};
+	fruitcut::app::fruit::triangle::texcoord_array const texcoords = {{ t0,t1,t2 }};
 	return 
-		fruitcut::app::triangle(
+		fruitcut::app::fruit::triangle(
 			vertices,
 			texcoords);
 }
 
 sge::renderer::vector3 const
 get_position(
-	fruitcut::app::triangle const &t,
-	fruitcut::app::triangle::size_type const i)
+	fruitcut::app::fruit::triangle const &t,
+	fruitcut::app::fruit::triangle::size_type const i)
 {
 	return t.vertices[i];
 }
 
 sge::renderer::vector2 const
 get_data(
-	fruitcut::app::triangle const &t,
-	fruitcut::app::triangle::size_type const i)
+	fruitcut::app::fruit::triangle const &t,
+	fruitcut::app::fruit::triangle::size_type const i)
 {
 	return t.texcoords[i];
 }
@@ -111,7 +111,7 @@ transform_texcoord(
 }
 
 void
-fruitcut::app::cut_mesh(
+fruitcut::app::fruit::cut_mesh(
 	mesh const &m,
 	plane const &p,
 	mesh &result_mesh,

@@ -1,7 +1,7 @@
 #include "prototype.hpp"
 
 fruitcut::app::fruit::prototype::prototype(
-	fruitcut::app::mesh const &_mesh,
+	fruitcut::app::fruit::mesh const &_mesh,
 	sge::renderer::texture::planar_ptr const _texture)
 :
 	mesh_(
@@ -11,7 +11,7 @@ fruitcut::app::fruit::prototype::prototype(
 {
 }
 
-fruitcut::app::mesh const &
+fruitcut::app::fruit::mesh const &
 fruitcut::app::fruit::prototype::mesh() const
 {
 	return mesh_;

@@ -1,5 +1,5 @@
-#ifndef FRUITCUT_APP_MODEL_VF_POSITION_HPP_INCLUDED
-#define FRUITCUT_APP_MODEL_VF_POSITION_HPP_INCLUDED
+#ifndef FRUITCUT_APP_FRUIT_MODEL_VF_TEXCOORD_HPP_INCLUDED
+#define FRUITCUT_APP_FRUIT_MODEL_VF_TEXCOORD_HPP_INCLUDED
 
 #include <sge/renderer/scalar.hpp>
 #include <sge/renderer/vf/make_unspecified_tag.hpp>
@@ -10,11 +10,13 @@ namespace fruitcut
 {
 namespace app
 {
+namespace fruit
+{
 namespace model_vf
 {
 namespace tags
 {
-SGE_RENDERER_VF_MAKE_UNSPECIFIED_TAG(position)
+SGE_RENDERER_VF_MAKE_UNSPECIFIED_TAG(texcoord)
 }
 
 typedef 
@@ -23,11 +25,12 @@ sge::renderer::vf::unspecified
 	sge::renderer::vf::vector
 	<
 		sge::renderer::scalar,
-		3
+		2
 	>,
-	tags::position
+	tags::texcoord
 > 
-position;
+texcoord;
+}
 }
 }
 }

@@ -1,5 +1,5 @@
-#ifndef FRUITCUT_APP_TRIANGLE_HPP_INCLUDED
-#define FRUITCUT_APP_TRIANGLE_HPP_INCLUDED
+#ifndef FRUITCUT_APP_FRUIT_TRIANGLE_HPP_INCLUDED
+#define FRUITCUT_APP_FRUIT_TRIANGLE_HPP_INCLUDED
 
 #include <sge/renderer/vector3.hpp>
 #include <sge/renderer/vector2.hpp>
@@ -9,6 +9,8 @@
 namespace fruitcut
 {
 namespace app
+{
+namespace fruit
 {
 class triangle
 {
@@ -48,6 +50,7 @@ public:
 	{
 	}
 };
+}
 }
 }
 

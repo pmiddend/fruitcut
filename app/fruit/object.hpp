@@ -1,8 +1,8 @@
 #ifndef FRUITCUT_APP_FRUIT_OBJECT_HPP_INCLUDED
 #define FRUITCUT_APP_FRUIT_OBJECT_HPP_INCLUDED
 
-#include "../mesh.hpp"
-#include "../box3.hpp"
+#include "mesh.hpp"
+#include "box3.hpp"
 #include "prototype_fwd.hpp"
 #include "../../physics/rigid_body/object.hpp"
 #include "../../physics/world_fwd.hpp"
@@ -58,7 +58,7 @@ public:
 		sge::renderer::device_ptr,
 		sge::renderer::vertex_declaration_ptr,
 		sge::shader::object &,
-		fruitcut::app::mesh const &,
+		fruitcut::app::fruit::mesh const &,
 		physics::scalar mass,
 		physics::vector3 const &position,
 		physics::matrix4 const &transformation,
@@ -88,7 +88,7 @@ public:
 	box3 const &
 	bounding_box() const;
 
-	fruitcut::app::mesh const &
+	fruitcut::app::fruit::mesh const &
 	mesh() const;
 
 	bool
@@ -96,7 +96,7 @@ public:
 
 	~object();
 private:
-	fruitcut::app::mesh mesh_;
+	fruitcut::app::fruit::mesh mesh_;
 	box3 bounding_box_;
 	physics::rigid_body::object body_;
 	sge::renderer::vertex_buffer_ptr vb_;

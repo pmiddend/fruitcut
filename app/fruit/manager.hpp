@@ -5,7 +5,7 @@
 #include "prototype_sequence.hpp"
 #include "object_sequence.hpp"
 #include "object_fwd.hpp"
-#include "../plane.hpp"
+#include "plane.hpp"
 #include "../../physics/world_fwd.hpp"
 #include <sge/image2d/multi_loader_fwd.hpp>
 #include <sge/model/loader_fwd.hpp>

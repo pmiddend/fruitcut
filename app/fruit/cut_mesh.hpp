@@ -1,5 +1,5 @@
-#ifndef FRUITCUT_APP_CUT_MESH_HPP_INCLUDED
-#define FRUITCUT_APP_CUT_MESH_HPP_INCLUDED
+#ifndef FRUITCUT_FRUIT_APP_CUT_MESH_HPP_INCLUDED
+#define FRUITCUT_FRUIT_APP_CUT_MESH_HPP_INCLUDED
 
 #include "mesh.hpp"
 #include "plane.hpp"
@@ -11,6 +11,8 @@ namespace fruitcut
 {
 namespace app
 {
+namespace fruit
+{
 void
 cut_mesh(
 	mesh const &,
@@ -18,6 +20,7 @@ cut_mesh(
 	mesh &,
 	box3 &,
 	sge::renderer::vector3 &barycenter);
+}
 }
 }
 

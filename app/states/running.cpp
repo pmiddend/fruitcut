@@ -1,8 +1,8 @@
 #include "running.hpp"
 #include "paused.hpp"
-#include "../cut_mesh.hpp"
 #include "../dim2.hpp"
-#include "../plane.hpp"
+#include "../fruit/plane.hpp"
+#include "../fruit/cut_mesh.hpp"
 #include "../fruit/hull/trail_intersection.hpp"
 #include "../fruit/hull/projected.hpp"
 #include "../fruit/hull/ring.hpp"
@@ -325,7 +325,7 @@ fruitcut::app::states::running::process_fruit(
 		
 	context<ingame>().fruit_manager().cut(
 		current_fruit,
-		plane(
+		fruit::plane(
 			plane_normal,
 			plane_scalar),
 		cursor_trail_.expiry_duration(),
