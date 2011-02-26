@@ -39,13 +39,11 @@ fruitcut::cursor_trail::cursor_trail(
 	cursor_(
 		_cursor),
 	positions_(
-		/*_sample_count*/),
+		_sample_count),
 	update_timer_(
 		_update_frequency),
 	target_(
-		_target),
-	capacity_(
-		_sample_count)
+		_target)
 {
 }
 
@@ -59,9 +57,6 @@ fruitcut::cursor_trail::update()
 		transform_position(
 			cursor_.position(),
 			target_->viewport().get()));
-
-	if (positions_.size() > capacity_)
-		positions_.pop_front();
 }
 
 fruitcut::cursor_trail::position_buffer const &
@@ -82,7 +77,9 @@ fruitcut::cursor_trail::expiry_duration() const
 	return 
 		sge::time::duration(
 			static_cast<sge::time::duration::rep>(
-				static_cast<sge::time::duration::rep>(capacity_) * update_timer_.interval()));
+				static_cast<sge::time::duration::rep>(
+					positions_.capacity()) * 
+				update_timer_.interval()));
 }
 
 fruitcut::cursor_trail::~cursor_trail()
