@@ -3,10 +3,10 @@
 
 #include "convert.hpp"
 #include "member_has_type.hpp"
+#include "is_null.hpp"
 #include <sge/parse/json/object.hpp>
 #include <sge/parse/json/find_member_exn.hpp>
 #include <sge/parse/json/array.hpp>
-#include <sge/parse/json/get.hpp>
 #include <sge/parse/json/member_name_equal.hpp>
 #include <sge/parse/json/member_vector.hpp>
 #include <sge/exception.hpp>
@@ -74,30 +74,23 @@ find_member(
 		throw sge::exception(
 			FCPPT_TEXT("Couldn't find member \"")+last_element+FCPPT_TEXT("\""));
 
+	if(is_null(it->value))
+		throw sge::exception(FCPPT_TEXT("The member \"")+path+FCPPT_TEXT("\" is null"));
+
 	try
 	{
-		sge::parse::json::get<sge::parse::json::null>(
-			it->value);
-		throw sge::exception(FCPPT_TEXT("The member \"")+path+FCPPT_TEXT("\" is null"));
+		return 
+			fruitcut::json::convert<T>(
+				it->value);
 	}
-	catch (sge::parse::json::invalid_get const &)
+	catch (sge::parse::json::invalid_get const &e)
 	{
-		try
-		{
-			return 
-				fruitcut::json::convert<T>(
-					it->value);
-		}
-		catch (sge::parse::json::invalid_get const &e)
-		{
-			throw sge::exception(
-				FCPPT_TEXT("Unable to parse \"")+
-				it->name+
-				FCPPT_TEXT("\": ")+
-				e.string());
-		}
+		throw sge::exception(
+			FCPPT_TEXT("Unable to parse \"")+
+			it->name+
+			FCPPT_TEXT("\": ")+
+			e.string());
 	}
-
 }
 }
 }

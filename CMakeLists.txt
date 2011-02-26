@@ -110,7 +110,11 @@ SET(files
 	# base 
 	media_path.cpp 
 	# json
-	json/config_wrapper.cpp json/merge_trees.cpp json/process_option.cpp json/string_to_value.cpp
+	json/config_wrapper.cpp 
+	json/merge_trees.cpp 
+	json/process_option.cpp 
+	json/string_to_value.cpp
+	json/is_null.cpp
 	# input 
 	input/state.cpp input/state_manager.cpp
 	sound_controller.cpp
