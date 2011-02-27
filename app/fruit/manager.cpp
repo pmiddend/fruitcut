@@ -1,12 +1,13 @@
-#include "manager.hpp"
-#include "../../media_path.hpp"
-#include "plane.hpp"
-#include "mesh.hpp"
 #include "box3.hpp"
 #include "cut_mesh.hpp"
-#include "model_vf/format.hpp"
-#include "../../json/find_member.hpp"
+#include "manager.hpp"
+#include "mesh.hpp"
 #include "model_to_mesh.hpp"
+#include "model_vf/format.hpp"
+#include "plane.hpp"
+#include "../../json/find_member.hpp"
+#include "../../math/multiply_matrix4_vector3.hpp"
+#include "../../media_path.hpp"
 #include <sge/shader/vf_to_string.hpp>
 #include <sge/shader/variable_sequence.hpp>
 #include <sge/shader/variable.hpp>
@@ -53,6 +54,7 @@
 #include <fcppt/math/matrix/basic_impl.hpp>
 #include <fcppt/math/matrix/arithmetic.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
+#include <fcppt/math/vector/structure_cast.hpp>
 #include <fcppt/math/vector/length.hpp>
 #include <fcppt/container/array.hpp>
 #include <fcppt/string.hpp>
@@ -253,7 +255,11 @@ fruitcut::app::fruit::manager::cut(
 					split_mesh,
 					static_cast<physics::scalar>(
 						current_fruit.bounding_box().size().content() / bounding_box.size().content()),
-					current_fruit.position() + barycenter,
+					current_fruit.position() + 
+						math::multiply_matrix4_vector3(
+							current_fruit.body().rotation(),
+							fcppt::math::vector::structure_cast<physics::vector3>(
+								barycenter)),
 					current_fruit.body().rotation(),
 					current_fruit.body().linear_velocity() + 
 						(static_cast<physics::scalar>(0.25) * 

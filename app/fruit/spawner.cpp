@@ -129,7 +129,7 @@ fruitcut::app::fruit::spawner::update()
 
 	physics::vector3 const position(
 		zero_plane.left() + x_rng_() * zero_plane.size().w(),
-		zero_plane.pos().y(),/* - chosen_prototype.bounding_box().h()/2*/
+		zero_plane.pos().y(),
 		0);
 
 	physics::scalar const 
@@ -142,7 +142,8 @@ fruitcut::app::fruit::spawner::update()
 			linear_velocity_rng_();
 
 	physics::vector3 const linear_velocity(
-		-flatness * (position.x() - zero_plane.left()) + flatness * (zero_plane.right() - position.x()),
+		//-flatness * (position.x() - zero_plane.left()) + flatness * (zero_plane.right() - position.x()),
+		0,
 		magnitude,
 		0);
 

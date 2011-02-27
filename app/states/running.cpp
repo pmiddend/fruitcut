@@ -12,12 +12,11 @@
 #include "../events/render_overlay.hpp"
 #include "../json/find_member.hpp"
 #include "../../physics/world.hpp"
+#include "../../math/multiply_matrix4_vector3.hpp"
 #include <sge/image/colors.hpp>
 #include <sge/input/cursor/position_unit.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/onscreen_target.hpp>
-#include <sge/renderer/onscreen_target.hpp>
-#include <sge/renderer/pixel_rect.hpp>
 #include <sge/renderer/state/bool.hpp>
 #include <sge/renderer/state/depth_func.hpp>
 #include <sge/renderer/state/float.hpp>
@@ -27,9 +26,6 @@
 #include <fcppt/math/vector/output.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
 #include <fcppt/math/vector/dot.hpp>
-#include <fcppt/math/vector/narrow_cast.hpp>
-#include <fcppt/math/vector/construct.hpp>
-#include <fcppt/math/vector/structure_cast.hpp>
 #include <fcppt/math/vector/cross.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/math/matrix/unproject.hpp>
@@ -40,30 +36,6 @@
 #include <boost/next_prior.hpp>
 #include <boost/bind.hpp>
 #include <iostream>
-
-namespace
-{
-// NOTE: Could this find its way to fcppt?
-template<typename T>
-typename
-fcppt::math::vector::static_<T,3>::type const
-multiply_matrix4_vector3(
-	typename
-	fcppt::math::matrix::static_<T,4,4>::type const &m,
-	typename
-	fcppt::math::vector::static_<T,3>::type const &v)
-{
-	return 
-		fcppt::math::vector::narrow_cast
-		<
-			typename fcppt::math::vector::static_<T,3>::type
-		>(
-			m * 
-			fcppt::math::vector::construct(
-				v,
-				static_cast<T>(0)));
-}
-}
 
 fruitcut::app::states::running::running(
 	my_context ctx)
@@ -317,7 +289,7 @@ fruitcut::app::states::running::process_fruit(
 		// NOTE: For rotation matrices M and vectors a,b the following holds:
 		// cross(M*a,M*b) = M*cross(a,b)
 		plane_normal = 
-			multiply_matrix4_vector3<sge::renderer::scalar>(
+			math::multiply_matrix4_vector3(
 				fcppt::math::matrix::transpose(
 					current_fruit.rotation()),
 				fcppt::math::vector::cross(
@@ -326,7 +298,7 @@ fruitcut::app::states::running::process_fruit(
 
 	sge::renderer::scalar const plane_scalar = 
 		fcppt::math::vector::dot(
-			multiply_matrix4_vector3<sge::renderer::scalar>(
+			math::multiply_matrix4_vector3(
 				fcppt::math::matrix::transpose(
 					current_fruit.rotation()),
 				point1_unprojected - current_fruit.position()),
