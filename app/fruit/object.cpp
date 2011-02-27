@@ -1,6 +1,7 @@
 #include "object.hpp"
 #include "prototype.hpp"
 #include "mesh_to_vertex_buffer.hpp"
+#include "mesh_to_point_cloud.hpp"
 #include "mesh_to_shape.hpp"
 #include "../geometry_traits/box.hpp"
 #include "../geometry_traits/vector.hpp"
@@ -12,41 +13,12 @@
 #include <fcppt/math/vector/structure_cast.hpp>
 #include <fcppt/math/box/output.hpp>
 #include <boost/geometry/geometry.hpp>
-#include <boost/geometry/multi/multi.hpp>
 #include <boost/foreach.hpp>
 #include <vector>
 
 #include <fcppt/math/vector/structure_cast.hpp>
 #include <fcppt/math/vector/dim.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
-
-namespace
-{
-typedef
-boost::geometry::model::multi_point<fruitcut::app::fruit::triangle::vector>
-point_cloud;
-
-point_cloud const
-mesh_to_point_cloud(
-	fruitcut::app::fruit::mesh const &m)
-{
-	point_cloud output;
-	output.reserve(
-		static_cast<point_cloud::size_type>(
-			m.triangles.size() * 3));
-
-	BOOST_FOREACH(
-		fruitcut::app::fruit::triangle const &t,
-		m.triangles)
-		BOOST_FOREACH(
-			fruitcut::app::fruit::triangle::vertex_array::const_reference r,
-			t.vertices)
-			output.push_back(
-				r);
-
-	return output;
-}
-}
 
 fruitcut::app::fruit::object::object(
 	prototype const &proto,

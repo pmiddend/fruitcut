@@ -166,19 +166,21 @@ ADD_LIBRARY(
 
 ADD_EXECUTABLE(
 	app
-	app/asio.cpp
+	app/create_rng.cpp
 	app/background.cpp
 	app/events/tick.cpp
-	app/fruit/cut_mesh.cpp
 	app/fruitcut.cpp
+	app/fruit/cut_mesh.cpp
 	app/fruit/hull/projected.cpp
 	app/fruit/hull/trail_intersection.cpp
 	app/fruit/manager.cpp
-	app/fruit/object.cpp
-	app/fruit/prototype.cpp
+	app/fruit/spawner.cpp
+	app/fruit/mesh_to_point_cloud.cpp
 	app/fruit/mesh_to_shape.cpp
 	app/fruit/mesh_to_vertex_buffer.cpp
 	app/fruit/model_to_mesh.cpp
+	app/fruit/object.cpp
+	app/fruit/prototype.cpp
 	app/machine.cpp 
 	app/name.cpp
 	app/postprocessing.cpp 

@@ -81,12 +81,12 @@ fruitcut::physics::rigid_body::object::world_transform() const
 	motion_state_.getWorldTransform(
 		deftr);
 	return 
-		matrix3_to_matrix4<scalar>(
-			structure_cast<matrix3>(
-				deftr.getBasis())) * 
 		fcppt::math::matrix::translation(
 			structure_cast<vector3>(
-				deftr.getOrigin()));
+			 	deftr.getOrigin())) *
+		matrix3_to_matrix4<scalar>(
+			structure_cast<matrix3>(
+				deftr.getBasis()));
 }
 
 fruitcut::physics::matrix4 const

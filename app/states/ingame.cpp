@@ -110,7 +110,12 @@ fruitcut::app::states::ingame::ingame(
 		*context<machine>().systems().md3_loader(),
 		context<machine>().systems().image_loader(),
 		context<machine>().systems().renderer(),
-		physics_world_)
+		physics_world_),
+	fruit_spawner_(
+		fruit_manager_,
+		context<machine>().config_file(),
+		camera_,
+		context<machine>().timer_callback())
 {
 	viewport_change(
 		sge::renderer::device_ptr());
@@ -138,6 +143,18 @@ fruitcut::app::fruit::manager const &
 fruitcut::app::states::ingame::fruit_manager() const
 {
 	return fruit_manager_;
+}
+
+fruitcut::app::fruit::spawner &
+fruitcut::app::states::ingame::fruit_spawner()
+{
+	return fruit_spawner_;
+}
+
+fruitcut::app::fruit::spawner const &
+fruitcut::app::states::ingame::fruit_spawner() const
+{
+	return fruit_spawner_;
 }
 
 fruitcut::physics::debugger &

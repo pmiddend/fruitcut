@@ -145,20 +145,15 @@ fruitcut::app::fruit::manager::manager(
 	FCPPT_ASSERT_MESSAGE(
 		!prototypes_.empty(),
 		FCPPT_TEXT("No fruits specified!"));
-	fruits_.push_back(
-		object_sequence::unique_value_ptr(
-			new fruit::object(
-				prototypes_.front(),
-				physics_world_,
-				renderer_,
-				vertex_declaration_,
-				fruit_shader_,
-				static_cast<physics::scalar>(
-					100),
-				physics::vector3::null(),
-				physics::matrix4::identity(),
-				physics::vector3::null(),
-				physics::vector3::null())));
+	/*
+	spawn(
+		prototypes_.front(),
+		100,
+		physics::vector3::null(),
+		physics::matrix4::identity(),
+		physics::vector3::null(),
+		physics::vector3::null());
+	*/
 }
 
 void
@@ -274,7 +269,6 @@ fruitcut::app::fruit::manager::spawn(
 	prototype const &proto,
 	physics::scalar const mass,
 	physics::vector3 const &position,
-	physics::matrix4 const &transformation,
 	physics::vector3 const &linear_velocity,
 	physics::vector3 const &angular_velocity)
 {
@@ -288,7 +282,8 @@ fruitcut::app::fruit::manager::spawn(
 				fruit_shader_,
 				mass,
 				position,
-				transformation,
+				// I don't see any sense in specifying that here
+				physics::matrix4::identity(),
 				linear_velocity,
 				angular_velocity)));
 }

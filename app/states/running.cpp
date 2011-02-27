@@ -134,6 +134,7 @@ fruitcut::app::states::running::react(
 	context<machine>().sound_controller().update();
 	context<ingame>().camera().update(
 		d.delta_ms());
+	context<ingame>().fruit_spawner().update();
 	context<machine>().particle_system().update();
 	context<ingame>().physics_world().update(
 		d.delta());

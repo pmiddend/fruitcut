@@ -67,7 +67,6 @@ public:
 		prototype const &proto,
 		physics::scalar const mass,
 		physics::vector3 const &position,
-		physics::matrix4 const &transformation,
 		physics::vector3 const &linear_velocity,
 		physics::vector3 const &angular_velocity);
 

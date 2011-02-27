@@ -1,6 +1,8 @@
 #ifndef FRUITCUT_APP_FRUIT_SPAWNER_HPP_INCLUDED
 #define FRUITCUT_APP_FRUIT_SPAWNER_HPP_INCLUDED
 
+#include "prototype_sequence.hpp"
+#include "../../physics/scalar.hpp"
 #include "manager_fwd.hpp"
 #include <sge/camera/object_fwd.hpp>
 #include <sge/time/callback.hpp>
@@ -30,16 +32,16 @@ public:
 	void
 	update();
 private:
-	typedef
-	fcppt::random::uniform<sge::time::funit>
-	funit_uniform;
-
 	manager &manager_;
 	sge::camera::object const &camera_;
-	// sge::time::timer has no callback getter, so we have to store it
-	// here
-	//sge::time::callback const callback_;
-	funit_uniform seconds_rng_;
+	fcppt::random::uniform<sge::time::funit> seconds_rng_;
+	fcppt::random::uniform<prototype_sequence::size_type> prototype_rng_;
+	// x for x coordinate. This is a scalar rather than
+	// renderer::pixel_unit because the viewport might change and I
+	// don't want to reinitialize the rng then. A value in [0,1] suffices
+	fcppt::random::uniform<physics::scalar> x_rng_;
+	fcppt::random::uniform<physics::scalar> linear_velocity_rng_;
+	fcppt::random::uniform<physics::scalar> angular_velocity_rng_;
 	sge::time::timer timer_;
 
 	void

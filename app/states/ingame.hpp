@@ -4,6 +4,7 @@
 #include "running_fwd.hpp"
 #include "../machine.hpp"
 #include "../fruit/manager.hpp"
+#include "../fruit/spawner.hpp"
 #include "../../physics/world.hpp"
 #include "../../physics/null_collision_filter.hpp"
 #include "../../physics/debugger.hpp"
@@ -48,6 +49,12 @@ public:
 	fruit::manager const &
 	fruit_manager() const;
 
+	fruit::spawner &
+	fruit_spawner();
+
+	fruit::spawner const &
+	fruit_spawner() const;
+
 	physics::debugger &
 	physics_debugger();
 
@@ -64,6 +71,7 @@ private:
 	fcppt::signal::scoped_connection physics_debugger_connection_;
 	physics::null_collision_filter collision_filter_;
 	fruit::manager fruit_manager_;
+	fruit::spawner fruit_spawner_;
 
 	void
 	toggle_camera();
