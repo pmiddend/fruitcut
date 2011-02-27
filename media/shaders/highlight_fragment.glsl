@@ -26,7 +26,8 @@ main()
 		luminance(
 			t);
 
-	gray = clamp((gray - threshold)/(1.0-threshold),0.0,1.0);
+	//gray = clamp((gray - threshold)/(1.0-threshold),0.0,1.0);
+	gray = clamp(gray*gray*gray - 0.5,0.0,1.0);
 
 	frag_color = 
 		vec4(

@@ -6,6 +6,8 @@
 #include <sge/parse/json/array.hpp>
 #include <sge/parse/json/object.hpp>
 #include <sge/config/homedir.hpp>
+#include <sge/config/optional_string.hpp>
+#include <sge/config/getenv.hpp>
 #include <sge/exception.hpp>
 #include <boost/spirit/home/phoenix/core/argument.hpp>
 #include <boost/spirit/home/phoenix/operator/arithmetic.hpp>
@@ -18,24 +20,21 @@
 #include <iostream>
 #include <ostream>
 #include <string>
-#include <cstdlib>
-#include <cstring>
 
 namespace
 {
 fcppt::optional<fcppt::filesystem::path> const
 user_config_file()
 {
-	// Can't convert to std::string here since the pointer might be 0
-	char const * xdg_home = 
-		std::getenv("XDG_CONFIG_HOME");
+	sge::config::optional_string const xdg_home = 
+		sge::config::getenv(
+			FCPPT_TEXT("XDG_CONFIG_HOME"));
 
 	fcppt::filesystem::path const final_name = 
-		xdg_home && std::strlen(xdg_home)
+		xdg_home && !(xdg_home->empty())
 		?
 			fcppt::filesystem::path(
-				fcppt::from_std_string(
-					xdg_home))
+				*xdg_home)
 				/ FCPPT_TEXT("fruitcut") / FCPPT_TEXT("config.json")
 		:
 			sge::config::homedir()/FCPPT_TEXT(".fruitcut.json");
