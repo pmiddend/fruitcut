@@ -53,6 +53,7 @@
 #include <fcppt/math/matrix/basic_impl.hpp>
 #include <fcppt/math/matrix/arithmetic.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
+#include <fcppt/math/vector/length.hpp>
 #include <fcppt/container/array.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
@@ -240,7 +241,7 @@ fruitcut::app::fruit::manager::cut(
 
 		if (split_mesh.triangles.empty())
 			continue;
-		// push here, then move new_fruits to fruits (else we're inserting while we're iterating -> not good)
+
 		fruits_.push_back(
 			object_sequence::unique_value_ptr(
 				new fruit::object(
@@ -254,8 +255,13 @@ fruitcut::app::fruit::manager::cut(
 						current_fruit.bounding_box().size().content() / bounding_box.size().content()),
 					current_fruit.position() + barycenter,
 					current_fruit.body().rotation(),
-					fcppt::math::vector::structure_cast<physics::vector3>(p.normal()),
-					physics::vector3::null(),
+					current_fruit.body().linear_velocity() + 
+						(static_cast<physics::scalar>(0.25) * 
+							fcppt::math::vector::length(
+								current_fruit.body().linear_velocity()) * 
+							fcppt::math::vector::structure_cast<physics::vector3>(
+								p.normal())),
+					current_fruit.body().angular_velocity(),
 					lock_duration,
 					time_callback)));
 	}

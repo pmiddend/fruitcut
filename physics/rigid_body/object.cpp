@@ -110,6 +110,14 @@ fruitcut::physics::rigid_body::object::linear_velocity() const
 }
 
 fruitcut::physics::vector3 const
+fruitcut::physics::rigid_body::object::angular_velocity() const
+{
+	return 
+		structure_cast<vector3>(
+			body_.getAngularVelocity());
+}
+
+fruitcut::physics::vector3 const
 fruitcut::physics::rigid_body::object::position() const
 {
 	btTransform deftr;

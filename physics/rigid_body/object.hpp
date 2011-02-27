@@ -35,6 +35,9 @@ public:
 	vector3	const
 	linear_velocity() const;
 
+	vector3	const
+	angular_velocity() const;
+
 	vector3 const
 	position() const;
 

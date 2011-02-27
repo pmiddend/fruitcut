@@ -91,11 +91,11 @@
 	},
 	"fruit-spawner" :
 	{
-		"min-seconds" : 0.5,
-		"max-seconds" : 1.0,
+		"min-seconds" : 1.0,
+		"max-seconds" : 3.0,
 		"min-linear-velocity" : 10.0,
-		"max-linear-velocity" : 30.0,
+		"max-linear-velocity" : 20.0,
 		"min-angular-velocity" : 0.0,
-		"max-angular-velocity" : 10.0
+		"max-angular-velocity" : 2.0
 	}
 }
