@@ -77,7 +77,6 @@
 #include <boost/spirit/home/phoenix/object/construct.hpp>
 #include <boost/bind.hpp>
 #include <iostream>
-#include <string>
 
 fruitcut::app::machine::machine(
 	int argc,
@@ -87,10 +86,8 @@ fruitcut::app::machine::machine(
 	running_(),
 	config_file_(
 		json::config_wrapper(
-			fcppt::assign::make_container<std::vector<fcppt::string> >(
-				FCPPT_TEXT("user_config.json")),
-		argc,
-		argv)),
+			argc,
+			argv)),
 	systems_(
 		sge::systems::list()
 			(sge::systems::window(

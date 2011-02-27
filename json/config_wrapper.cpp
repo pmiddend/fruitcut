@@ -5,34 +5,67 @@
 #include <sge/parse/json/parse_file_exn.hpp>
 #include <sge/parse/json/array.hpp>
 #include <sge/parse/json/object.hpp>
+#include <sge/config/homedir.hpp>
 #include <sge/exception.hpp>
-#include <fcppt/text.hpp>
-#include <fcppt/from_std_string.hpp>
 #include <boost/spirit/home/phoenix/core/argument.hpp>
 #include <boost/spirit/home/phoenix/operator/arithmetic.hpp>
 #include <boost/spirit/home/phoenix/bind.hpp>
-#include <boost/range/numeric.hpp>
+#include <fcppt/optional.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/string.hpp>
+#include <fcppt/from_std_string.hpp>
+#include <fcppt/filesystem/exists.hpp>
 #include <iostream>
 #include <ostream>
 #include <string>
+#include <cstdlib>
+#include <cstring>
+
+namespace
+{
+fcppt::optional<fcppt::filesystem::path> const
+user_config_file()
+{
+	// Can't convert to std::string here since the pointer might be 0
+	char const * xdg_home = 
+		std::getenv("XDG_CONFIG_HOME");
+
+	fcppt::filesystem::path const final_name = 
+		xdg_home && std::strlen(xdg_home)
+		?
+			fcppt::filesystem::path(
+				fcppt::from_std_string(
+					xdg_home))
+				/ FCPPT_TEXT("fruitcut") / FCPPT_TEXT("config.json")
+		:
+			sge::config::homedir()/FCPPT_TEXT(".fruitcut.json");
+
+	return 
+		fcppt::filesystem::exists(
+			final_name)
+		?
+			fcppt::optional<fcppt::filesystem::path>(
+				final_name)
+		:
+			fcppt::optional<fcppt::filesystem::path>();
+}
+}
 
 sge::parse::json::object const
 fruitcut::json::config_wrapper(
-	std::vector<fcppt::string> const &additional_files,
 	int argc,
 	char *argv[])
 {
 	sge::parse::json::object config_file =
-		boost::accumulate(
-			additional_files,
-			sge::parse::json::parse_file_exn(
-				fruitcut::media_path()/FCPPT_TEXT("config.json")),
-			boost::phoenix::bind(
-				&merge_trees,
-				boost::phoenix::arg_names::arg1,
-				boost::phoenix::bind(
-					&sge::parse::json::parse_file_exn,
-					media_path()/boost::phoenix::arg_names::arg2)));
+		sge::parse::json::parse_file_exn(
+			fruitcut::media_path()/FCPPT_TEXT("config.json"));
+
+	if (user_config_file())
+		config_file = 
+			merge_trees(
+				config_file,
+				sge::parse::json::parse_file_exn(
+					*user_config_file()));
 
 	if (argc >= 2 && std::string(argv[1]) == "--help")
 	{

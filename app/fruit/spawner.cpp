@@ -142,8 +142,7 @@ fruitcut::app::fruit::spawner::update()
 			linear_velocity_rng_();
 
 	physics::vector3 const linear_velocity(
-		//-flatness * (position.x() - zero_plane.left()) + flatness * (zero_plane.right() - position.x()),
-		0,
+		-flatness * (position.x() - zero_plane.left()) + flatness * (zero_plane.right() - position.x()),
 		magnitude,
 		0);
 
