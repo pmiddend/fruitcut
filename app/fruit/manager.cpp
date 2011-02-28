@@ -262,11 +262,13 @@ fruitcut::app::fruit::manager::cut(
 								barycenter)),
 					current_fruit.body().rotation(),
 					current_fruit.body().linear_velocity() + 
-						(static_cast<physics::scalar>(0.25) * 
+						(static_cast<physics::scalar>(0.5) * 
 							fcppt::math::vector::length(
 								current_fruit.body().linear_velocity()) * 
-							fcppt::math::vector::structure_cast<physics::vector3>(
-								p.normal())),
+							math::multiply_matrix4_vector3(
+								current_fruit.body().rotation(),
+								fcppt::math::vector::structure_cast<physics::vector3>(
+									p.normal()))),
 					current_fruit.body().angular_velocity(),
 					lock_duration,
 					time_callback)));
