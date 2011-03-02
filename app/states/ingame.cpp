@@ -5,20 +5,23 @@
 #include "../../json/find_member.hpp"
 #include "../../physics/vector3.hpp"
 #include "../../physics/box.hpp"
-#include <sge/systems/instance.hpp>
+#include <sge/camera/identity_gizmo.hpp>
+#include <sge/camera/parameters.hpp>
+#include <sge/camera/projection/perspective.hpp>
 #include <sge/input/keyboard/action.hpp>
 #include <sge/input/keyboard/key_code.hpp>
 #include <sge/parse/json/array.hpp>
 #include <sge/parse/json/object.hpp>
-#include <sge/camera/parameters.hpp>
-#include <sge/camera/projection/perspective.hpp>
-#include <sge/camera/identity_gizmo.hpp>
 #include <sge/renderer/aspect.hpp>
-#include <sge/renderer/scalar.hpp>
 #include <sge/renderer/onscreen_target.hpp>
-#include <sge/renderer/viewport.hpp>
-#include <sge/renderer/vector3.hpp>
+#include <sge/renderer/scalar.hpp>
 #include <sge/renderer/screen_size.hpp>
+#include <sge/renderer/vector3.hpp>
+#include <sge/renderer/viewport.hpp>
+#include <sge/systems/instance.hpp>
+#include <sge/time/activation_state.hpp>
+#include <sge/time/second.hpp>
+#include <sge/time/unit.hpp>
 #include <fcppt/math/deg_to_rad.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
@@ -115,6 +118,13 @@ fruitcut::app::states::ingame::ingame(
 		fruit_manager_,
 		context<machine>().config_file(),
 		camera_,
+		context<machine>().timer_callback()),
+	turn_timer_(
+		sge::time::second(
+			json::find_member<sge::time::unit>(
+				context<machine>().config_file(),
+				FCPPT_TEXT("round-seconds"))),
+		sge::time::activation_state::active,
 		context<machine>().timer_callback())
 {
 	viewport_change(
@@ -149,6 +159,12 @@ fruitcut::app::fruit::spawner &
 fruitcut::app::states::ingame::fruit_spawner()
 {
 	return fruit_spawner_;
+}
+
+sge::time::timer const &
+fruitcut::app::states::ingame::turn_timer() const
+{
+	return turn_timer_;
 }
 
 fruitcut::app::fruit::spawner const &

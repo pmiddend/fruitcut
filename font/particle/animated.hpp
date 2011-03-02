@@ -6,6 +6,7 @@
 #include "../drawer_fwd.hpp"
 #include "../color_animation.hpp"
 #include "../scale_animation.hpp"
+#include <sge/font/metrics_ptr.hpp>
 #include <sge/time/callback.hpp>
 #include <sge/time/default_callback.hpp>
 
@@ -32,6 +33,7 @@ public:
 
 	void
 	render(
+		sge::font::metrics_ptr,
 		drawer &);
 
 	bool

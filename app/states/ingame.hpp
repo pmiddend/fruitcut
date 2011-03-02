@@ -10,6 +10,7 @@
 #include "../../physics/debugger.hpp"
 #include "../../input/state.hpp"
 #include <sge/camera/object.hpp>
+#include <sge/time/timer.hpp>
 #include <sge/renderer/device_ptr.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <boost/statechart/state.hpp>
@@ -55,6 +56,10 @@ public:
 	fruit::spawner const &
 	fruit_spawner() const;
 
+	// For now, no nonconst-getter
+	sge::time::timer const &
+	turn_timer() const;
+
 	physics::debugger &
 	physics_debugger();
 
@@ -72,6 +77,7 @@ private:
 	physics::null_collision_filter collision_filter_;
 	fruit::manager fruit_manager_;
 	fruit::spawner fruit_spawner_;
+	sge::time::timer turn_timer_;
 
 	void
 	toggle_camera();

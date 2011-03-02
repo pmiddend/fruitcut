@@ -6,6 +6,7 @@
 #include <sge/font/text/part.hpp>
 // Because font::flags is a bitfield *sigh*
 #include <fcppt/container/bitfield/basic_impl.hpp>
+#include <iostream>
 
 fruitcut::font::particle::base::base(
 	base_parameters const &params)
@@ -27,10 +28,11 @@ fruitcut::font::particle::base::base(
 
 void
 fruitcut::font::particle::base::render(
+	sge::font::metrics_ptr const _metrics,
 	drawer &_drawer)
 {
 	sge::font::text::draw(
-		metrics_,
+		_metrics,
 		_drawer,
 		text_,
 		bounding_box_,
@@ -39,8 +41,8 @@ fruitcut::font::particle::base::render(
 		flags_);
 }
 
-sge::font::metrics_ptr const
-fruitcut::font::particle::base::metrics()
+fruitcut::font::identifier const &
+fruitcut::font::particle::base::metrics() const
 {
 	return metrics_;
 }

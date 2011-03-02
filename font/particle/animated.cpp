@@ -81,6 +81,7 @@ fruitcut::font::particle::animated::update()
 
 void
 fruitcut::font::particle::animated::render(
+	sge::font::metrics_ptr const _metrics,
 	drawer &_drawer)
 {
 	_drawer.color(
@@ -95,6 +96,7 @@ fruitcut::font::particle::animated::render(
 			scale_animation_.current_value()));
 
 	base::render(
+		_metrics,
 		_drawer);
 }
 

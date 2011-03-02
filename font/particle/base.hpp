@@ -3,11 +3,10 @@
 
 #include "base_parameters_fwd.hpp"
 #include "../drawer_fwd.hpp"
-#include <sge/font/metrics_ptr.hpp>
-#include <sge/font/text/string.hpp>
-#include <sge/font/metrics_ptr.hpp>
+#include "../identifier.hpp"
 #include <sge/font/text/string.hpp>
 #include <sge/font/rect.hpp>
+#include <sge/font/metrics_ptr.hpp>
 #include <sge/font/text/align_h.hpp>
 #include <sge/font/text/align_v.hpp>
 #include <sge/font/text/flags_field.hpp>
@@ -64,18 +63,19 @@ public:
 
 	virtual void
 	render(
+		sge::font::metrics_ptr,
 		drawer &);
 
 	virtual bool
 	dead() const = 0;
 
-	sge::font::metrics_ptr const
-	metrics();
+	identifier const &
+	metrics() const;
 
 	virtual 
 	~base();
 protected:
-	sge::font::metrics_ptr metrics_;
+	fcppt::string metrics_;
 	sge::font::text::string text_;
 	sge::font::rect bounding_box_;
 	sge::font::text::align_h::type alignment_h_;

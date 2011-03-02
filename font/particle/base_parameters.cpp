@@ -1,7 +1,7 @@
 #include "base_parameters.hpp"
 
 fruitcut::font::particle::base_parameters::base_parameters(
-	sge::font::metrics_ptr const _metrics,
+	identifier const &_metrics,
 	sge::font::text::string const &_text,
 	sge::font::rect const &_bounding_box,
 	sge::font::text::align_h::type const _alignment_h,
@@ -23,7 +23,7 @@ fruitcut::font::particle::base_parameters::base_parameters(
 {
 }
 
-sge::font::metrics_ptr const
+fruitcut::font::identifier const &
 fruitcut::font::particle::base_parameters::metrics() const
 {
 	return metrics_;

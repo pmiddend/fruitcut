@@ -23,11 +23,13 @@
 #include <sge/sprite/choices.hpp>
 #include <sge/image/color/any/object.hpp>
 #include <sge/image/color/rgba8_format.hpp>
+#include <sge/image/colors.hpp>
 #include <fcppt/variant/object_impl.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
 #include <boost/mpl/vector/vector10.hpp>
+#include <boost/spirit/home/phoenix/core/argument.hpp>
 #include <map>
 #include <vector>
 
@@ -45,8 +47,8 @@ public:
 	explicit
 	drawer(
 		sge::renderer::device_ptr rend,
-		sge::image::color::any::object const &,
-		font::transform_callback const &);
+		sge::image::color::any::object const & = sge::image::colors::white(),
+		font::transform_callback const & = boost::phoenix::arg_names::arg2);
 	
 	~drawer();
 	

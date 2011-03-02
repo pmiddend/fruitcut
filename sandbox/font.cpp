@@ -1,13 +1,15 @@
 #include "../font/system.hpp"
+#include "../font/cache.hpp"
 #include "../font/particle/base_parameters.hpp"
 #include "../font/color_format.hpp"
 #include "../font/particle/animated.hpp"
 #include "../font/damped_oscillation.hpp"
-#include <sge/config/media_path.hpp>
+#include "../json/find_member.hpp"
+#include "../media_path.hpp"
 #include <sge/extension_set.hpp>
-#include <sge/font/text/flags_none.hpp>
-#include <sge/font/rect.hpp>
 #include <sge/font/pos.hpp>
+#include <sge/font/rect.hpp>
+#include <sge/font/text/flags_none.hpp>
 #include <sge/font/text/lit.hpp>
 #include <sge/image/capabilities_field.hpp>
 #include <sge/image/color/any/convert.hpp>
@@ -15,16 +17,19 @@
 #include <sge/image/colors.hpp>
 #include <sge/input/keyboard/action.hpp>
 #include <sge/input/keyboard/device.hpp>
+#include <sge/parse/json/array.hpp>
+#include <sge/parse/json/object.hpp>
+#include <sge/parse/json/parse_file_exn.hpp>
+#include <sge/renderer/depth_stencil_buffer.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/no_multi_sampling.hpp>
 #include <sge/renderer/onscreen_target.hpp>
-#include <sge/renderer/visual_depth.hpp>
 #include <sge/renderer/parameters.hpp>
 #include <sge/renderer/scoped_block.hpp>
 #include <sge/renderer/state/list.hpp>
 #include <sge/renderer/state/trampoline.hpp>
 #include <sge/renderer/state/var.hpp>
-#include <sge/renderer/depth_stencil_buffer.hpp>
+#include <sge/renderer/visual_depth.hpp>
 #include <sge/renderer/vsync.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
@@ -85,38 +90,24 @@ try
 				fcppt::math::dim::structure_cast<sge::renderer::pixel_rect::dim>(
 					window_size))));
 
-	fruitcut::font::system font_system(
-		sys.renderer(),
+	fruitcut::font::cache font_cache(
 		sys.font_system(),
-		sys.image_loader());
+		sys.renderer(),
+		sys.image_loader(),
+		fruitcut::json::find_member<sge::parse::json::object>(
+			sge::parse::json::parse_file_exn(
+				fruitcut::media_path()/FCPPT_TEXT("config.json")),
+			FCPPT_TEXT("fonts")));
 
-	sge::font::metrics_ptr 
-		bitmap_metrics = 
-			font_system.load_bitmap(
-				sge::config::media_path()
-					/ FCPPT_TEXT("fonts")
-					/ FCPPT_TEXT("bitmap")
-					/ FCPPT_TEXT("font.png")),
-		ttf_metrics = 
-			font_system.load_ttf(
-				sge::config::media_path()
-					/ FCPPT_TEXT("fonts")
-					/ FCPPT_TEXT("default.ttf"),
-				static_cast<sge::font::size_type>(
-					32));
+	fruitcut::font::system font_system(
+		font_cache);
 
-	FCPPT_ASSERT(
-		font_system.load_bitmap(
-			sge::config::media_path()
-				/ FCPPT_TEXT("fonts")
-				/ FCPPT_TEXT("bitmap")
-				/ FCPPT_TEXT("font.png")) == bitmap_metrics);
-
+	/*
 	font_system.insert(
 		fruitcut::font::particle::unique_base_ptr(
 			new fruitcut::font::particle::animated(
 				fruitcut::font::particle::base_parameters(
-					bitmap_metrics,
+					FCPPT_TEXT("score"),
 					SGE_FONT_TEXT_LIT("Centered, should vanish soon"),
 					sge::font::rect(
 						sge::font::pos::null(),
@@ -135,37 +126,17 @@ try
 						sge::time::second(1),
 						static_cast<sge::renderer::scalar>(
 							1))))));
+*/
 
 	fruitcut::font::scale_animation::value_sequence scale_frames =
 		fruitcut::font::damped_oscillation(
 			static_cast<sge::time::unit>(200),
 			30,
 			0.5f);
-	/*
-	unsigned int const scale_periods = 30;
-	sge::time::unit const delay = static_cast<sge::time::unit>(1000);
-	for (unsigned int t = 0; t < 2 * scale_periods; ++t)
-	{
-		scale_frames.push_back(
-			fruitcut::font::scale_animation::value_type(
-				sge::time::millisecond(
-					delay
-				),
-				static_cast<sge::renderer::scalar>(
-					1.0f + 
-					0.5f *
-					((t % 2 == 0)? 1.f : -1.f) *
-					std::exp(
-						- static_cast<float>(t) *
-						static_cast<float>(5)/scale_periods
-						)
-					)));
-	}
-	*/
 
 	fruitcut::font::particle::animated ttf_font(
 		fruitcut::font::particle::base_parameters(
-			ttf_metrics,
+			FCPPT_TEXT("instructional"),
 			SGE_FONT_TEXT_LIT("Top left corner, should be permanent"),
 			sge::font::rect(
 				sge::font::pos::null(),

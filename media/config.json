@@ -1,4 +1,21 @@
 {
+	"fonts" : 
+	{
+		"score" : 
+		{
+			"filename" : "sanguis.png"
+		},
+		"timer" : 
+		{
+			"filename" : "sanguis.png"
+		},
+		"instructional" : 
+		{
+			"filename" : "default.ttf",
+			"size" : 16
+		}
+	},
+	"round-seconds" : 60,
 	"frame-timer-ms" : 10,
 	"desired-fps" : 60,
 	"background-repeat" : 3.0,
