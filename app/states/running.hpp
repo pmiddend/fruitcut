@@ -66,6 +66,7 @@ private:
 	line_drawer::object line_drawer_;
 	cursor_trail cursor_trail_;
 	fcppt::signal::scoped_connection viewport_change_connection_;
+	font::particle::animated timer_font_;
 
 	void
 	draw_fruit_bbs(

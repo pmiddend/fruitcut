@@ -415,6 +415,4 @@ fruitcut::app::fruit::cut_mesh(
 			triangle_area(
 				result_mesh.triangles.back());
 	}
-
-	std::cout << "area: " << area << "\n";
 }

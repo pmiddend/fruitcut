@@ -88,7 +88,7 @@ private:
 	fruit::spawner fruit_spawner_;
 	sge::time::timer turn_timer_;
 	font::system font_system_;
-	font::particle::animated timer_font_;
+	font::particle::animated score_font_;
 	score score_;
 	fcppt::signal::scoped_connection cut_connection_;
 

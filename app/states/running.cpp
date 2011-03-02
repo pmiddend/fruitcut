@@ -12,7 +12,14 @@
 #include "../events/render_overlay.hpp"
 #include "../json/find_member.hpp"
 #include "../../physics/world.hpp"
+#include "../../time_format/duration_to_string.hpp"
+#include "../../time_format/milliseconds.hpp"
+#include "../../time_format/seconds.hpp"
 #include "../../math/multiply_matrix4_vector3.hpp"
+#include "../../font/color_animation.hpp"
+#include "../../font/color_format.hpp"
+#include "../../font/scale_animation.hpp"
+#include "../../font/particle/base_parameters.hpp"
 #include <sge/image/colors.hpp>
 #include <sge/input/cursor/position_unit.hpp>
 #include <sge/renderer/device.hpp>
@@ -26,6 +33,17 @@
 #include <sge/renderer/state/list.hpp>
 #include <sge/time/millisecond.hpp>
 #include <sge/time/unit.hpp>
+#include <sge/time/second.hpp>
+#include <sge/font/text/lit.hpp>
+#include <sge/font/rect.hpp>
+#include <sge/font/unit.hpp>
+#include <sge/font/pos.hpp>
+#include <sge/font/text/align_h.hpp>
+#include <sge/font/text/lit.hpp>
+#include <sge/font/text/align_v.hpp>
+#include <sge/font/text/flags_none.hpp>
+#include <sge/image/color/any/convert.hpp>
+#include <sge/image/colors.hpp>
 #include <fcppt/math/vector/output.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
@@ -36,6 +54,7 @@
 #include <fcppt/math/matrix/transpose.hpp>
 #include <fcppt/math/matrix/inverse.hpp>
 #include <fcppt/math/matrix/output.hpp>
+#include <fcppt/assign/make_container.hpp>
 #include <fcppt/text.hpp>
 #include <boost/next_prior.hpp>
 #include <boost/bind.hpp>
@@ -70,7 +89,28 @@ fruitcut::app::states::running::running(
 			boost::bind(
 				&running::viewport_change,
 				this,
-				_1)))
+				_1))),
+	timer_font_(
+		fruitcut::font::particle::base_parameters(
+			context<ingame>().font_system(),
+			FCPPT_TEXT("timer"),
+			SGE_FONT_TEXT_LIT("you shouldn't see this!"),
+			sge::font::rect::null(),
+			sge::font::text::align_h::center,
+			sge::font::text::align_v::center,
+			sge::font::text::flags::none),
+		fcppt::assign::make_container<font::color_animation::value_sequence>
+			(font::color_animation::value_type(
+				sge::time::second(1),
+				sge::image::color::any::convert<font::color_format>(
+					sge::image::colors::white()))),
+		fcppt::assign::make_container<font::scale_animation::value_sequence>
+			(font::scale_animation::value_type(
+				sge::time::second(
+					1),
+				static_cast<sge::renderer::scalar>(
+					1))),
+		context<machine>().timer_callback())
 {
 	context<machine>().postprocessing().active(
 		true);
@@ -118,6 +158,12 @@ fruitcut::app::states::running::react(
 	context<machine>().particle_system().update();
 	context<ingame>().physics_world().update(
 		d.delta());
+
+	timer_font_.text(
+		time_format::duration_to_string<sge::font::text::string>(
+			sge::time::duration(
+				context<ingame>().turn_timer().time_left()),
+			time_format::seconds + SGE_FONT_TEXT_LIT(":") + time_format::milliseconds));
 	context<ingame>().physics_debugger().update();
 	cursor_trail_.update();
 
@@ -328,4 +374,19 @@ fruitcut::app::states::running::viewport_change(
 	sge::renderer::device_ptr)
 {
 	cursor_trail_.clear();
+
+	sge::font::dim const &viewport_dim = 
+		fcppt::math::dim::structure_cast<sge::font::dim>(
+			context<machine>().systems().renderer()->onscreen_target()->viewport().get().size());
+
+	timer_font_.bounding_box(
+		sge::font::rect(
+			sge::font::pos::null(),
+			sge::font::dim(
+				viewport_dim.w(),
+				static_cast<sge::font::unit>(
+					static_cast<sge::renderer::scalar>(
+						viewport_dim.h()) * 
+					static_cast<sge::renderer::scalar>(
+						0.2)))));
 }
