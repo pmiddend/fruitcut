@@ -145,6 +145,9 @@ SET(files
 	font/particle/animated.cpp
 	font/particle/base_parameters.cpp
 	font/damped_oscillation.cpp
+	# time format
+	time_format/seconds.cpp
+	time_format/milliseconds.cpp
 	# particle
 	particle/system.cpp
 	particle/objects/base.cpp

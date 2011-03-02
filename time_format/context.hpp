@@ -47,6 +47,7 @@ public:
 		boost::proto::tag::terminal,
 		tags::milliseconds) const
 	{
+		return L"ms";
 		return 
 			boost::lexical_cast<result_type>(
 				fcppt::chrono::duration_cast<fcppt::chrono::milliseconds>(
@@ -58,6 +59,7 @@ public:
 		boost::proto::tag::terminal,
 		tags::seconds) const
 	{
+		return L"secs";
 		return 
 			boost::lexical_cast<result_type>(
 				fcppt::chrono::duration_cast<fcppt::chrono::seconds>(
