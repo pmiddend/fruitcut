@@ -3,11 +3,11 @@
 	{
 		"score" : 
 		{
-			"filename" : "sanguis.png"
+			"filename" : "sanguis.json"
 		},
 		"timer" : 
 		{
-			"filename" : "sanguis.png"
+			"filename" : "sanguis.json"
 		},
 		"instructional" : 
 		{
@@ -39,7 +39,8 @@
 	{
 		"events" : 
 		{
-			"intro" : "swoosh.wav"
+			"intro" : "swoosh.wav",
+			"throw" : "woosh.wav"
 		}
 	},
 	"textures" : 

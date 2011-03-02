@@ -310,7 +310,7 @@ fruitcut::app::states::ingame::fruit_was_cut(
 	score_ = 
 		static_cast<score>(
 			static_cast<sge::renderer::scalar>(
-				score_) + _area);
+				score_) + 1000 * _area);
 	timer_font_.text(
 		boost::lexical_cast<sge::font::text::string>(
 			score_));
