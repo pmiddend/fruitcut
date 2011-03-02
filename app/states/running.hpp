@@ -3,7 +3,6 @@
 
 #include "ingame.hpp"
 #include "../fruit/object_fwd.hpp"
-#include "../../font/particle/animated.hpp"
 #include "../cursor_trail.hpp"
 #include "../events/render.hpp"
 #include "../events/tick.hpp"
@@ -11,6 +10,7 @@
 #include "../events/render_overlay.hpp"
 #include "../../line_drawer/object.hpp"
 #include "../../line_drawer/line_sequence.hpp"
+#include "../../font/particle/animated.hpp"
 #include <sge/renderer/state/scoped.hpp>
 #include <sge/renderer/device_ptr.hpp>
 #include <sge/renderer/state/trampoline.hpp>
@@ -66,7 +66,6 @@ private:
 	line_drawer::object line_drawer_;
 	cursor_trail cursor_trail_;
 	fcppt::signal::scoped_connection viewport_change_connection_;
-	//font::particle::animated timer_font_;
 
 	void
 	draw_fruit_bbs(

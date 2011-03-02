@@ -19,6 +19,7 @@ cut_mesh(
 	plane const &,
 	mesh &,
 	box3 &,
+	sge::renderer::scalar &area,
 	sge::renderer::vector3 &barycenter);
 }
 }

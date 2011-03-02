@@ -5,6 +5,10 @@
 #include "../../json/find_member.hpp"
 #include "../../physics/vector3.hpp"
 #include "../../physics/box.hpp"
+#include "../../font/color_animation.hpp"
+#include "../../font/color_format.hpp"
+#include "../../font/scale_animation.hpp"
+#include "../../font/particle/base_parameters.hpp"
 #include <sge/camera/identity_gizmo.hpp>
 #include <sge/camera/parameters.hpp>
 #include <sge/camera/projection/perspective.hpp>
@@ -22,14 +26,27 @@
 #include <sge/time/activation_state.hpp>
 #include <sge/time/second.hpp>
 #include <sge/time/unit.hpp>
+#include <sge/font/text/lit.hpp>
+#include <sge/font/rect.hpp>
+#include <sge/font/pos.hpp>
+#include <sge/font/text/align_h.hpp>
+#include <sge/font/text/align_v.hpp>
+#include <sge/font/text/flags_none.hpp>
+#include <sge/time/second.hpp>
+#include <sge/image/color/any/convert.hpp>
+#include <sge/image/colors.hpp>
 #include <fcppt/math/deg_to_rad.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
+#include <fcppt/math/box/basic_impl.hpp>
+#include <fcppt/math/dim/structure_cast.hpp>
+#include <fcppt/assign/make_container.hpp>
 #include <fcppt/text.hpp>
 #include <boost/bind.hpp>
+#include <boost/lexical_cast.hpp>
 #include <boost/statechart/event_base.hpp>
 #include <iostream>
 
@@ -125,7 +142,39 @@ fruitcut::app::states::ingame::ingame(
 				context<machine>().config_file(),
 				FCPPT_TEXT("round-seconds"))),
 		sge::time::activation_state::active,
-		context<machine>().timer_callback())
+		context<machine>().timer_callback()),
+	font_system_(
+		context<machine>().font_cache()),
+	timer_font_(
+		fruitcut::font::particle::base_parameters(
+			context<ingame>().font_system(),
+			FCPPT_TEXT("score"),
+			SGE_FONT_TEXT_LIT("0"),
+			sge::font::rect::null(),
+			sge::font::text::align_h::left,
+			sge::font::text::align_v::top,
+			sge::font::text::flags::none),
+		fcppt::assign::make_container<font::color_animation::value_sequence>
+			(font::color_animation::value_type(
+				sge::time::second(1),
+				sge::image::color::any::convert<font::color_format>(
+					sge::image::colors::white()))),
+		fcppt::assign::make_container<font::scale_animation::value_sequence>
+			(font::scale_animation::value_type(
+				sge::time::second(
+					1),
+				static_cast<sge::renderer::scalar>(
+					1))),
+		context<machine>().timer_callback()),
+	score_(
+		static_cast<score>(
+			0)),
+	cut_connection_(
+		fruit_manager_.cut_callback(
+			boost::bind(
+				&ingame::fruit_was_cut,
+				this,
+				_1)))
 {
 	viewport_change(
 		sge::renderer::device_ptr());
@@ -165,6 +214,18 @@ sge::time::timer const &
 fruitcut::app::states::ingame::turn_timer() const
 {
 	return turn_timer_;
+}
+
+fruitcut::font::system &
+fruitcut::app::states::ingame::font_system()
+{
+	return font_system_;
+}
+
+fruitcut::font::system const &
+fruitcut::app::states::ingame::font_system() const
+{
+	return font_system_;
 }
 
 fruitcut::app::fruit::spawner const &
@@ -234,4 +295,23 @@ fruitcut::app::states::ingame::viewport_change(
 			json::find_member<sge::renderer::scalar>(
 				context<machine>().config_file(),
 				FCPPT_TEXT("ingame/camera/far"))));
+
+	timer_font_.bounding_box(
+		sge::font::rect(
+			sge::font::pos::null(),
+			fcppt::math::dim::structure_cast<sge::font::dim>(
+				context<machine>().systems().renderer()->onscreen_target()->viewport().get().size())));
+}
+
+void
+fruitcut::app::states::ingame::fruit_was_cut(
+	sge::renderer::scalar const _area)
+{
+	score_ = 
+		static_cast<score>(
+			static_cast<sge::renderer::scalar>(
+				score_) + _area);
+	timer_font_.text(
+		boost::lexical_cast<sge::font::text::string>(
+			score_));
 }

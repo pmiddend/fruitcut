@@ -1,6 +1,8 @@
 #ifndef FRUITCUT_APP_FRUIT_MANAGER_HPP_INCLUDED
 #define FRUITCUT_APP_FRUIT_MANAGER_HPP_INCLUDED
 
+#include "cut_callback.hpp"
+#include "cut_callback_fn.hpp"
 #include "prototype.hpp"
 #include "prototype_sequence.hpp"
 #include "object_sequence.hpp"
@@ -17,6 +19,8 @@
 #include <sge/time/callback.hpp>
 #include <sge/time/duration.hpp>
 #include <fcppt/chrono/duration.hpp>
+#include <fcppt/signal/object.hpp>
+#include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/noncopyable.hpp>
 
 namespace fruitcut
@@ -76,6 +80,10 @@ public:
 	prototype_sequence const &
 	prototypes() const;
 
+	fcppt::signal::auto_connection
+	cut_callback(
+		fruitcut::app::fruit::cut_callback const &);
+
 	~manager();
 private:
 	sge::renderer::device_ptr renderer_;
@@ -84,6 +92,7 @@ private:
 	prototype_sequence prototypes_;
 	object_sequence fruits_; 
 	sge::shader::object fruit_shader_;
+	fcppt::signal::object<cut_callback_fn> cut_signal_;
 };
 }
 }

@@ -13,20 +13,12 @@ fruitcut::font::system::system(
 }
 
 void
-fruitcut::font::system::insert(
-	particle::base &o)
-{
-	intrusive_particles_.push_back(
-		o);
-}
-
-void
 fruitcut::font::system::update()
 {
 	for(
 		intrusive_list::iterator i = 
-			intrusive_particles_.begin(); 
-		i != intrusive_particles_.end(); 
+			particles_.begin(); 
+		i != particles_.end(); 
 		++i)
 		i->update();
 }
@@ -36,8 +28,8 @@ fruitcut::font::system::render()
 {
 	for(
 		intrusive_list::iterator i = 
-			intrusive_particles_.begin(); 
-		i != intrusive_particles_.end(); 
+			particles_.begin(); 
+		i != particles_.end(); 
 		++i)
 	{
 		i->render(
@@ -51,3 +43,12 @@ fruitcut::font::system::render()
 fruitcut::font::system::~system()
 {
 }
+
+void
+fruitcut::font::system::insert(
+	particle::base &o)
+{
+	particles_.push_back(
+		o);
+}
+

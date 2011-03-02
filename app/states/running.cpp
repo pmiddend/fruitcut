@@ -16,6 +16,9 @@
 #include <sge/image/colors.hpp>
 #include <sge/input/cursor/position_unit.hpp>
 #include <sge/renderer/device.hpp>
+#include <sge/renderer/viewport.hpp>
+#include <sge/renderer/onscreen_target.hpp>
+#include <sge/renderer/scalar.hpp>
 #include <sge/renderer/onscreen_target.hpp>
 #include <sge/renderer/state/bool.hpp>
 #include <sge/renderer/state/depth_func.hpp>
@@ -23,8 +26,8 @@
 #include <sge/renderer/state/list.hpp>
 #include <sge/time/millisecond.hpp>
 #include <sge/time/unit.hpp>
-#include <fcppt/assign/make_container.hpp>
 #include <fcppt/math/vector/output.hpp>
+#include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
 #include <fcppt/math/vector/dot.hpp>
 #include <fcppt/math/vector/cross.hpp>
@@ -67,28 +70,7 @@ fruitcut::app::states::running::running(
 			boost::bind(
 				&running::viewport_change,
 				this,
-				_1)))/*,
-	timer_font_(
-		fruitcut::font::particle::base_parameters(
-			bitmap_metrics,
-			SGE_FONT_TEXT_LIT("lol"),
-			sge::font::rect::null(),
-			sge::font::text::align_h::center,
-			sge::font::text::align_v::center,
-			sge::font::text::flags::none),
-		fcppt::assign::make_container<color_animation::value_sequence>
-			(color_animation::value_type(
-				sge::time::second(1),
-				sge::image::color::any::convert<fruitcut::font::color_format>(
-					sge::image::colors::white()))),
-		fcppt::assign::make_container<scale_animation::value_sequence>
-			(scale_animation::value_type(
-				sge::time::second(
-					1),
-				static_cast<sge::renderer::scalar>(
-					1))),
-		context<machine>().timer_callback())
-	*/
+				_1)))
 {
 	context<machine>().postprocessing().active(
 		true);
@@ -113,6 +95,7 @@ fruitcut::app::states::running::react(
 {
 	context<ingame>().physics_debugger().render();
 	line_drawer_.render_screen_space();
+	context<ingame>().font_system().render();
 	return discard_event();
 }
 
@@ -131,6 +114,7 @@ fruitcut::app::states::running::react(
 	context<ingame>().camera().update(
 		d.delta_ms());
 	context<ingame>().fruit_spawner().update();
+	context<ingame>().font_system().update();
 	context<machine>().particle_system().update();
 	context<ingame>().physics_world().update(
 		d.delta());

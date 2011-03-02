@@ -127,6 +127,13 @@ fruitcut::app::machine::machine(
 					sge::image::capabilities_field::null(),
 					fcppt::assign::make_container<sge::extension_set>
 						(FCPPT_TEXT("png"))))),
+	font_cache_(
+		systems_.font_system(),
+		systems_.renderer(),
+		systems_.image_loader(),
+		json::find_member<sge::parse::json::object>(
+			config_file_,
+			FCPPT_TEXT("fonts"))),
 	texture_manager_(
 		systems_.renderer(),
 		boost::phoenix::construct<sge::texture::fragmented_unique_ptr>(
@@ -372,6 +379,18 @@ fruitcut::app::background const &
 fruitcut::app::machine::background() const
 {
 	return background_;
+}
+
+fruitcut::font::cache &
+fruitcut::app::machine::font_cache()
+{
+	return font_cache_;
+}
+
+fruitcut::font::cache const &
+fruitcut::app::machine::font_cache() const
+{
+	return font_cache_;
 }
 
 fruitcut::app::machine::~machine()

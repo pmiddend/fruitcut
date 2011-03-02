@@ -143,7 +143,8 @@ fruitcut::app::fruit::manager::manager(
 		fcppt::assign::make_container<sge::shader::sampler_sequence>(
 			sge::shader::sampler(
 				"texture",
-				sge::renderer::texture::planar_ptr())))
+				sge::renderer::texture::planar_ptr()))),
+	cut_signal_()
 {
 	FCPPT_ASSERT_MESSAGE(
 		!prototypes_.empty(),
@@ -226,6 +227,11 @@ fruitcut::app::fruit::manager::cut(
 				-original_plane.lambda())	
 		}};
 
+	// We have to check if we split the fruit into one or two parts. If
+	// it's just one, we leave it as is (still costs a bit of performance)
+	object_sequence::implementation_sequence fruit_cache;
+	sge::renderer::scalar area = 0;
+
 	// make_array here to be even cooler? :>
 	BOOST_FOREACH(
 		plane const &p,
@@ -239,43 +245,49 @@ fruitcut::app::fruit::manager::cut(
 			p,
 			split_mesh,
 			bounding_box,
+			area,
 			barycenter);
 
+		// Note the return here. If this condition is true, we only split
+		// to one fruit, so we didn't split at all!
 		if (split_mesh.triangles.empty())
-			continue;
+			return;
 
-		fruits_.push_back(
-			object_sequence::unique_value_ptr(
-				new fruit::object(
-					current_fruit.texture(),
-					physics_world_,
-					renderer_,
-					vertex_declaration_,
-					fruit_shader_,
-					split_mesh,
-					static_cast<physics::scalar>(
-						current_fruit.bounding_box().size().content() / bounding_box.size().content()),
-					current_fruit.position() + 
+		fruit_cache.push_back(
+			new fruit::object(
+				current_fruit.texture(),
+				physics_world_,
+				renderer_,
+				vertex_declaration_,
+				fruit_shader_,
+				split_mesh,
+				static_cast<physics::scalar>(
+					current_fruit.bounding_box().size().content() / bounding_box.size().content()),
+				current_fruit.position() + 
+					math::multiply_matrix4_vector3(
+						current_fruit.body().rotation(),
+						fcppt::math::vector::structure_cast<physics::vector3>(
+							barycenter)),
+				current_fruit.body().rotation(),
+				current_fruit.body().linear_velocity() + 
+					(static_cast<physics::scalar>(0.5) * 
+						fcppt::math::vector::length(
+							current_fruit.body().linear_velocity()) * 
 						math::multiply_matrix4_vector3(
 							current_fruit.body().rotation(),
 							fcppt::math::vector::structure_cast<physics::vector3>(
-								barycenter)),
-					current_fruit.body().rotation(),
-					current_fruit.body().linear_velocity() + 
-						(static_cast<physics::scalar>(0.5) * 
-							fcppt::math::vector::length(
-								current_fruit.body().linear_velocity()) * 
-							math::multiply_matrix4_vector3(
-								current_fruit.body().rotation(),
-								fcppt::math::vector::structure_cast<physics::vector3>(
-									p.normal()))),
-					current_fruit.body().angular_velocity(),
-					lock_duration,
-					time_callback)));
+								p.normal()))),
+				current_fruit.body().angular_velocity(),
+				lock_duration,
+				time_callback));
 	}
 
+	fruits_.transfer_from(
+		fruit_cache);
 	fruits_.erase(
 		current_fruit);
+	cut_signal_(
+		area);
 }
 
 void
@@ -312,6 +324,15 @@ fruitcut::app::fruit::prototype_sequence const &
 fruitcut::app::fruit::manager::prototypes() const
 {
 	return prototypes_;
+}
+
+fcppt::signal::auto_connection
+fruitcut::app::fruit::manager::cut_callback(
+	fruitcut::app::fruit::cut_callback const &cc)
+{
+	return 
+		cut_signal_.connect(
+			cc);
 }
 
 fruitcut::app::fruit::manager::~manager()

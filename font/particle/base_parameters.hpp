@@ -2,6 +2,7 @@
 #define FRUITCUT_FONT_PARTICLE_BASE_PARAMETERS_HPP_INCLUDED
 
 #include "../identifier.hpp"
+#include "../system_fwd.hpp"
 #include <sge/font/text/string.hpp>
 #include <sge/font/rect.hpp>
 #include <sge/font/text/align_h.hpp>
@@ -24,12 +25,16 @@ class base_parameters
 public:
 	explicit
 	base_parameters(
+		font::system &,
 		identifier const &,
 		sge::font::text::string const &,
 		sge::font::rect const &,
 		sge::font::text::align_h::type,
 		sge::font::text::align_v::type,
 		sge::font::text::flags_field const &);
+
+	font::system &
+	system() const;
 
 	identifier const &
 	metrics() const;
@@ -49,6 +54,7 @@ public:
 	sge::font::text::flags_field const &
 	flags() const;
 private:
+	font::system &system_;
 	identifier metrics_;
 	sge::font::text::string text_;
 	sge::font::rect bounding_box_;

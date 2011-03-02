@@ -108,6 +108,24 @@ transform_texcoord(
 				static_cast<sge::renderer::scalar>(0.5),
 			t.y());
 }
+
+sge::renderer::scalar
+triangle_area(
+	fruitcut::app::fruit::triangle const &t)
+{
+	using namespace fruitcut::app::fruit;
+	triangle::vector const 
+		ab =
+			t.vertices[1] - t.vertices[0],
+		ac = 
+			t.vertices[2] - t.vertices[0];
+
+	return 
+		static_cast<sge::renderer::scalar>(
+			0.5) * 
+		std::abs(
+			ab.x() * ac.y() - ac.x() * ab.y());
+}
 }
 
 void
@@ -116,6 +134,7 @@ fruitcut::app::fruit::cut_mesh(
 	plane const &p,
 	mesh &result_mesh,
 	box3 &bounding_box,
+	sge::renderer::scalar &area,
 	sge::renderer::vector3 &barycenter)
 {
 	sge::renderer::scalar const epsilon = 
@@ -375,6 +394,7 @@ fruitcut::app::fruit::cut_mesh(
 		index_sequence::const_iterator i = boost::next(indices.begin()); 
 		i != boost::prior(indices.end()); 
 		++i)
+	{
 		result_mesh.triangles.push_back(
 			triangle(
 				fcppt::assign::make_array<triangle::vector>
@@ -390,4 +410,9 @@ fruitcut::app::fruit::cut_mesh(
 						texcoords[
 							*boost::next(
 								i)]))));
+			
+		area += 
+			triangle_area(
+				result_mesh.triangles.back());
+	}
 }

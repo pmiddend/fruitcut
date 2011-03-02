@@ -1,5 +1,6 @@
 #include "base.hpp"
 #include "base_parameters.hpp"
+#include "../system.hpp"
 #include "../drawer.hpp"
 #include <sge/font/text/draw.hpp>
 // Because text::draw returns part. I don't use it, but I have to include this crap *sigh*
@@ -11,6 +12,8 @@
 fruitcut::font::particle::base::base(
 	base_parameters const &params)
 :
+	system_(
+		params.system()),
 	metrics_(
 		params.metrics()),
 	text_(
@@ -24,6 +27,8 @@ fruitcut::font::particle::base::base(
 	flags_(
 		params.flags())
 {
+	system_.insert(
+		*this);
 }
 
 void
@@ -45,6 +50,22 @@ fruitcut::font::identifier const &
 fruitcut::font::particle::base::metrics() const
 {
 	return metrics_;
+}
+
+void
+fruitcut::font::particle::base::text(
+	sge::font::text::string const &_text)
+{
+	text_ = 
+		_text;
+}
+
+void
+fruitcut::font::particle::base::bounding_box(
+	sge::font::rect const &_bounding_box)
+{
+	bounding_box_ = 
+		_bounding_box;
 }
 
 fruitcut::font::particle::base::~base()

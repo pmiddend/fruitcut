@@ -136,6 +136,7 @@ try
 
 	fruitcut::font::particle::animated ttf_font(
 		fruitcut::font::particle::base_parameters(
+			font_system,
 			FCPPT_TEXT("instructional"),
 			SGE_FONT_TEXT_LIT("Top left corner, should be permanent"),
 			sge::font::rect(
@@ -151,9 +152,6 @@ try
 				sge::image::color::any::convert<fruitcut::font::color_format>(
 					sge::image::colors::white()))),
 		scale_frames);
-
-	font_system.insert(
-		ttf_font);
 
 	sys.renderer()->state(
 		sge::renderer::state::list

@@ -18,10 +18,6 @@ public:
 		cache &);
 
 	void
-	insert(
-		particle::base &);
-
-	void
 	update();
 
 	void
@@ -29,6 +25,10 @@ public:
 
 	~system();
 private:
+	friend class particle::base;
+
+	// Technically unneccessary, we can insert and delete our sprites
+	// automatically, but this is slightly simpler.
 	typedef
 	boost::intrusive::list
 	<
@@ -38,7 +38,11 @@ private:
 	intrusive_list;
 
 	cache &cache_;
-	intrusive_list intrusive_particles_;
+	intrusive_list particles_;
+
+	void
+	insert(
+		particle::base &);
 };
 }
 }

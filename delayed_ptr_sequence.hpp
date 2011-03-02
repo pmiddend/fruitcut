@@ -121,6 +121,20 @@ public:
 				new_value));
 	}
 
+	// This is purely a helper function for me in a special case: I want
+	// to transfer a separate "implementation_sequence" to this sequence
+	// but without writing a getter for our implementation_
+	void
+	transfer_from(
+		implementation_sequence &other_implementation)
+	{
+		new_values_.transfer(
+			new_values_.end(),
+			other_implementation.begin(),
+			other_implementation.end(),
+			other_implementation);
+	}
+
 	void
 	erase(
 		T const &t)

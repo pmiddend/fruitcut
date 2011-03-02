@@ -2,6 +2,7 @@
 #define FRUITCUT_APP_STATES_INGAME_HPP_INCLUDED
 
 #include "running_fwd.hpp"
+#include "../score.hpp"
 #include "../machine.hpp"
 #include "../fruit/manager.hpp"
 #include "../fruit/spawner.hpp"
@@ -9,6 +10,8 @@
 #include "../../physics/null_collision_filter.hpp"
 #include "../../physics/debugger.hpp"
 #include "../../input/state.hpp"
+#include "../../font/system.hpp"
+#include "../../font/particle/animated.hpp"
 #include <sge/camera/object.hpp>
 #include <sge/time/timer.hpp>
 #include <sge/renderer/device_ptr.hpp>
@@ -60,6 +63,12 @@ public:
 	sge::time::timer const &
 	turn_timer() const;
 
+	font::system &
+	font_system();
+
+	font::system const &
+	font_system() const;
+
 	physics::debugger &
 	physics_debugger();
 
@@ -78,6 +87,10 @@ private:
 	fruit::manager fruit_manager_;
 	fruit::spawner fruit_spawner_;
 	sge::time::timer turn_timer_;
+	font::system font_system_;
+	font::particle::animated timer_font_;
+	score score_;
+	fcppt::signal::scoped_connection cut_connection_;
 
 	void
 	toggle_camera();
@@ -88,6 +101,10 @@ private:
 	void
 	viewport_change(
 		sge::renderer::device_ptr);
+
+	void
+	fruit_was_cut(
+		sge::renderer::scalar);
 };
 }
 }

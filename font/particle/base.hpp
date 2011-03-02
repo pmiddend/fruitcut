@@ -2,6 +2,7 @@
 #define FRUITCUT_FONT_BASE_HPP_INCLUDED
 
 #include "base_parameters_fwd.hpp"
+#include "../system_fwd.hpp"
 #include "../drawer_fwd.hpp"
 #include "../identifier.hpp"
 #include <sge/font/text/string.hpp>
@@ -72,9 +73,18 @@ public:
 	identifier const &
 	metrics() const;
 
+	void
+	text(
+		sge::font::text::string const &);
+
+	void
+	bounding_box(
+		sge::font::rect const &);
+
 	virtual 
 	~base();
 protected:
+	system &system_;
 	fcppt::string metrics_;
 	sge::font::text::string text_;
 	sge::font::rect bounding_box_;

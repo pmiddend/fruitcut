@@ -196,6 +196,8 @@ TARGET_LINK_LIBRARIES(
 	${FCPPT_LIBRARIES}
 	${SGE_CORE_LIBRARY}
 	${SGE_shader_LIBRARY}
+	${SGE_fonttext_LIBRARY}
+	${SGE_fontbitmap_LIBRARY}
 	${SGE_console_LIBRARY}
 	${SGE_systems_LIBRARY}
 	${SGE_camera_LIBRARY}
