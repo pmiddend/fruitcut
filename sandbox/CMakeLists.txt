@@ -80,3 +80,7 @@ TARGET_LINK_LIBRARIES(
 	geometry
 	${FCPPT_LIBRARIES}
 	${Boost_LIBRARIES})
+
+ADD_EXECUTABLE(
+	termcolor
+	termcolor.cpp)
