@@ -99,8 +99,28 @@
 	"fruits" : 
 	[
 		{
+			"model" : "coconut.md3",
+			"texture" : "coconut.png"
+		},
+		{
+			"model" : "melon.md3",
+			"texture" : "melon.png"
+		},
+		{
+			"model" : "kiwi.md3",
+			"texture" : "kiwi.png"
+		},
+		{
+			"model" : "orange.md3",
+			"texture" : "orange.png"
+		},
+		{
 			"model" : "pineapple.md3",
 			"texture" : "pineapple.png"
+		},
+		{
+			"model" : "papaya.md3",
+			"texture" : "papaya.png"
 		}
 	],
 	"physics" : 
