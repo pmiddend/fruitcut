@@ -189,7 +189,9 @@ ADD_EXECUTABLE(
 	app/name.cpp
 	app/postprocessing.cpp 
 	app/states/ingame.cpp
-	app/states/gameover.cpp
+	app/states/gameover/superstate.cpp
+	app/states/gameover/choose_name.cpp
+	app/states/gameover/highscore.cpp
 	app/states/intro.cpp
 	app/states/paused.cpp
 	app/states/running.cpp)

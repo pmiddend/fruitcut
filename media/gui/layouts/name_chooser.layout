@@ -50,12 +50,12 @@
                     <AutoWindow NameSuffix="__auto_thumb__" />
                 </AutoWindow>
             </Window>
-            <Window Type="TaharezLook/Editbox" Name="NameChooser/FrameWindow/Editbox" >
+            <Window Type="TaharezLook/Editbox" Name="NameChooser/NameBox" >
                 <Property Name="MaxTextLength" Value="1073741823" />
                 <Property Name="UnifiedAreaRect" Value="{{0.0195313,0},{0.6,0},{0.8,0},{0.75,0}}" />
                 <Property Name="TextParsingEnabled" Value="False" />
             </Window>
-            <Window Type="TaharezLook/Button" Name="NameChooser/FrameWindow/Button" >
+            <Window Type="TaharezLook/Button" Name="NameChooser/ContinueButton" >
                 <Property Name="Text" Value="Continue" />
                 <Property Name="UnifiedAreaRect" Value="{{0.332031,-6},{0.888774,4},{0.722656,-6},{0.962169,6}}" />
             </Window>

@@ -33,7 +33,7 @@
                     <AutoWindow NameSuffix="__auto_thumb__" />
                 </AutoWindow>
             </Window>
-            <Window Type="TaharezLook/MultiColumnList" Name="Highscore/FrameWindow/MultiColumnList" >
+            <Window Type="TaharezLook/MultiColumnList" Name="Highscore/List" >
                 <Property Name="UnifiedAreaRect" Value="{{0.01,0},{0.173153,0},{0.99,0},{0.869445,0}}" />
 
 								<Property Name="ColumnHeader" Value="text:Nr. width:{0.1,0} id:0" />
@@ -53,11 +53,11 @@
                     <AutoWindow NameSuffix="__auto_thumb__" />
                 </AutoWindow>
             </Window>
-            <Window Type="TaharezLook/Button" Name="Highscore/FrameWindow/Button" >
+            <Window Type="TaharezLook/Button" Name="Highscore/ResetButton" >
                 <Property Name="Text" Value="Restart" />
                 <Property Name="UnifiedAreaRect" Value="{{0.28125,0},{0.891204,0},{0.4375,0},{0.978241,0}}" />
             </Window>
-            <Window Type="TaharezLook/Button" Name="Highscore/FrameWindow/Button2" >
+            <Window Type="TaharezLook/Button" Name="Highscore/QuitButton" >
                 <Property Name="Text" Value="Quit" />
                 <Property Name="UnifiedAreaRect" Value="{{0.5625,0},{0.891204,0},{0.6875,0},{0.978241,0}}" />
             </Window>

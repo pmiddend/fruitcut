@@ -1,16 +1,15 @@
-#ifndef FRUITCUT_APP_STATES_GAMEOVER_HPP_INCLUDED
-#define FRUITCUT_APP_STATES_GAMEOVER_HPP_INCLUDED
+#ifndef FRUITCUT_APP_STATES_GAMEOVER_SUPERSTATE_HPP_INCLUDED
+#define FRUITCUT_APP_STATES_GAMEOVER_SUPERSTATE_HPP_INCLUDED
 
-#include "../machine.hpp"
-#include "../events/render.hpp"
-#include "../events/render_overlay.hpp"
-#include "../events/tick.hpp"
+#include "choose_name_fwd.hpp"
+#include "../../machine.hpp"
+#include "../../events/render.hpp"
+#include "../../events/render_overlay.hpp"
+#include "../../events/tick.hpp"
 #include <sge/time/timer.hpp>
 #include <sge/cegui/default_cursor.hpp>
 #include <sge/cegui/default_keyboard.hpp>
-#include <sge/cegui/toolbox/scoped_layout.hpp>
-#include <fcppt/signal/scoped_connection.hpp>
-#include <fcppt/scoped_ptr.hpp>
+#include <CEGUI/CEGUIString.h>
 #include <boost/statechart/state.hpp>
 #include <boost/statechart/custom_reaction.hpp>
 #include <boost/mpl/vector/vector10.hpp>
@@ -21,10 +20,12 @@ namespace app
 {
 namespace states
 {
-class gameover
+namespace gameover
+{
+class superstate
 :
 	// The second argument has to be a complete type
-	public boost::statechart::state<gameover,machine>
+	public boost::statechart::state<superstate,machine,choose_name>
 {
 public:
 	typedef
@@ -37,7 +38,7 @@ public:
 	reactions;
 
 	explicit
-	gameover(
+	superstate(
 		my_context);
 
 	boost::statechart::result
@@ -52,13 +53,21 @@ public:
 	react(
 		events::tick const &);
 
-	~gameover();
+	void
+	name(
+		CEGUI::String const &);
+
+	CEGUI::String const &
+	name() const;
+
+	~superstate();
 private:
 	sge::time::timer frame_timer_;
 	sge::cegui::default_keyboard gui_keyboard_;
 	sge::cegui::default_cursor gui_cursor_;
-	fcppt::scoped_ptr<sge::cegui::toolbox::scoped_layout> current_layout_;
+	CEGUI::String name_;
 };
+}
 }
 }
 }

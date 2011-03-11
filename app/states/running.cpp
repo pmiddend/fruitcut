@@ -1,6 +1,7 @@
 #include "running.hpp"
 #include "paused.hpp"
-#include "gameover.hpp"
+#include "gameover/superstate.hpp"
+#include "gameover/choose_name.hpp"
 #include "../dim2.hpp"
 #include "../line_drawer/scoped_lock.hpp"
 #include "../fruit/plane.hpp"
@@ -191,7 +192,7 @@ fruitcut::app::states::running::react(
 	{
 		context<machine>().last_game_score(
 			context<ingame>().score());
-		return transit<states::gameover>();
+		return transit<states::gameover::superstate>();
 	}
 	return discard_event();
 }
