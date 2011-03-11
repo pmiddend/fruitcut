@@ -1,5 +1,6 @@
 #include "running.hpp"
 #include "paused.hpp"
+#include "gameover.hpp"
 #include "../dim2.hpp"
 #include "../line_drawer/scoped_lock.hpp"
 #include "../fruit/plane.hpp"
@@ -186,7 +187,12 @@ fruitcut::app::states::running::react(
 			*i);
 	context<ingame>().fruit_manager().update();
 
-	return discard_event();
+	return 
+		context<ingame>().turn_timer().expired() 
+		?
+			transit<states::gameover>()
+		:
+			discard_event();
 }
 
 fruitcut::app::states::running::~running()

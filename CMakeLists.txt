@@ -46,7 +46,7 @@ INCLUDE_DIRECTORIES(SYSTEM ${BULLET_INCLUDE_DIRS})
 
 # sge begin
 FIND_PACKAGE(
-	SGE REQUIRED COMPONENTS console sprite shader config time texture systems camera fonttext fontbitmap)
+	SGE REQUIRED COMPONENTS console sprite shader config time texture systems camera fonttext fontbitmap cegui)
 
 INCLUDE_DIRECTORIES(${SGE_INCLUDE_DIRS})
 
@@ -189,6 +189,7 @@ ADD_EXECUTABLE(
 	app/name.cpp
 	app/postprocessing.cpp 
 	app/states/ingame.cpp
+	app/states/gameover.cpp
 	app/states/intro.cpp
 	app/states/paused.cpp
 	app/states/running.cpp)
@@ -199,6 +200,7 @@ TARGET_LINK_LIBRARIES(
 	${FCPPT_LIBRARIES}
 	${SGE_CORE_LIBRARY}
 	${SGE_shader_LIBRARY}
+	${SGE_cegui_LIBRARY}
 	${SGE_fonttext_LIBRARY}
 	${SGE_fontbitmap_LIBRARY}
 	${SGE_console_LIBRARY}

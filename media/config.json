@@ -15,7 +15,7 @@
 			"size" : 16
 		}
 	},
-	"round-seconds" : 60,
+	"round-seconds" : 3,
 	"frame-timer-ms" : 10,
 	"desired-fps" : 60,
 	"background-repeat" : 3.0,

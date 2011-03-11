@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<GUILayout >
+    <Window Type="DefaultWindow" Name="Highscore" >
+        <Property Name="UnifiedAreaRect" Value="{{0.15,0},{0.15,0},{0.85,0},{0.85,0}}" />
+        <Window Type="TaharezLook/FrameWindow" Name="Highscore/FrameWindow" >
+            <Property Name="FrameEnabled" Value="True" />
+            <Property Name="SizingEnabled" Value="False" />
+            <Property Name="RollUpEnabled" Value="False" />
+            <Property Name="DragMovingEnabled" Value="False" />
+            <Property Name="TitlebarEnabled" Value="True" />
+            <Property Name="UnifiedAreaRect" Value="{{0,0},{0,0},{1.0,0},{1,0}}" />
+            <Property Name="CloseButtonEnabled" Value="False" />
+            <AutoWindow NameSuffix="__auto_titlebar__" />
+            <AutoWindow NameSuffix="__auto_closebutton__" >
+                <Property Name="Visible" Value="False" />
+                <Property Name="Disabled" Value="True" />
+            </AutoWindow>
+            <Window Type="TaharezLook/StaticText" Name="Highscore/FrameWindow/StaticText" >
+                <Property Name="Text" Value="Highscore" />
+                <Property Name="FrameEnabled" Value="False" />
+                <Property Name="HorzFormatting" Value="HorzCentred" />
+                <Property Name="UnifiedAreaRect" Value="{{0,0},{-0.000919822,0},{1,0},{0.173153,0}}" />
+                <Property Name="BackgroundEnabled" Value="False" />
+                <AutoWindow NameSuffix="__auto_hscrollbar__" >
+                    <AutoWindow NameSuffix="__auto_incbtn__" />
+                    <AutoWindow NameSuffix="__auto_decbtn__" />
+                    <AutoWindow NameSuffix="__auto_thumb__" />
+                </AutoWindow>
+                <AutoWindow NameSuffix="__auto_vscrollbar__" >
+                    <AutoWindow NameSuffix="__auto_incbtn__" />
+                    <AutoWindow NameSuffix="__auto_decbtn__" />
+                    <AutoWindow NameSuffix="__auto_thumb__" />
+                </AutoWindow>
+            </Window>
+            <Window Type="TaharezLook/MultiColumnList" Name="Highscore/FrameWindow/MultiColumnList" >
+                <Property Name="UnifiedAreaRect" Value="{{0.01,0},{0.173153,0},{0.99,0},{0.869445,0}}" />
+
+								<Property Name="ColumnHeader" Value="text:Nr. width:{0.1,0} id:0" />
+								<Property Name="ColumnHeader" Value="text:Name width:{0.5,0} id:1" />
+								<Property Name="ColumnHeader" Value="text:Score width:{0.2,0} id:2" />
+								<Property Name="ColumnHeader" Value="text:Date width:{0.2,0} id:3" />
+
+                <AutoWindow NameSuffix="__auto_listheader__" />
+                <AutoWindow NameSuffix="__auto_hscrollbar__" >
+                    <AutoWindow NameSuffix="__auto_incbtn__" />
+                    <AutoWindow NameSuffix="__auto_decbtn__" />
+                    <AutoWindow NameSuffix="__auto_thumb__" />
+                </AutoWindow>
+                <AutoWindow NameSuffix="__auto_vscrollbar__" >
+                    <AutoWindow NameSuffix="__auto_incbtn__" />
+                    <AutoWindow NameSuffix="__auto_decbtn__" />
+                    <AutoWindow NameSuffix="__auto_thumb__" />
+                </AutoWindow>
+            </Window>
+            <Window Type="TaharezLook/Button" Name="Highscore/FrameWindow/Button" >
+                <Property Name="Text" Value="Restart" />
+                <Property Name="UnifiedAreaRect" Value="{{0.28125,0},{0.891204,0},{0.4375,0},{0.978241,0}}" />
+            </Window>
+            <Window Type="TaharezLook/Button" Name="Highscore/FrameWindow/Button2" >
+                <Property Name="Text" Value="Quit" />
+                <Property Name="UnifiedAreaRect" Value="{{0.5625,0},{0.891204,0},{0.6875,0},{0.978241,0}}" />
+            </Window>
+        </Window>
+    </Window>
+</GUILayout>
+
+

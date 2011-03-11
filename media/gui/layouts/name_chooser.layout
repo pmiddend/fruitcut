@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<GUILayout >
+    <Window Type="DefaultWindow" Name="NameChooser" >
+        <Property Name="UnifiedAreaRect" Value="{{0.25,0},{0.25,0},{0.75,0},{0.75,0}}" />
+        <Window Type="TaharezLook/FrameWindow" Name="NameChooser/FrameWindow" >
+            <Property Name="FrameEnabled" Value="True" />
+            <Property Name="SizingEnabled" Value="False" />
+            <Property Name="RollUpEnabled" Value="False" />
+            <Property Name="DragMovingEnabled" Value="False" />
+            <Property Name="TitlebarEnabled" Value="True" />
+            <Property Name="UnifiedAreaRect" Value="{{0,0},{0,0},{1,0},{1,0}}" />
+            <Property Name="CloseButtonEnabled" Value="False" />
+            <AutoWindow NameSuffix="__auto_titlebar__" />
+            <AutoWindow NameSuffix="__auto_closebutton__" >
+                <Property Name="Visible" Value="False" />
+                <Property Name="Disabled" Value="True" />
+            </AutoWindow>
+            <Window Type="TaharezLook/StaticText" Name="NameChooser/FrameWindow/StaticText" >
+                <Property Name="Text" >Congratulations! 
+Your Score:
+9001</Property>
+                <Property Name="FrameEnabled" Value="False" />
+                <Property Name="Font" Value="big" />
+                <Property Name="HorzFormatting" Value="HorzCentred" />
+                <Property Name="UnifiedAreaRect" Value="{{0.0585938,0},{0.0,0},{0.957031,0},{0.4,-1}}" />
+                <Property Name="BackgroundEnabled" Value="False" />
+                <AutoWindow NameSuffix="__auto_hscrollbar__" >
+                    <AutoWindow NameSuffix="__auto_incbtn__" />
+                    <AutoWindow NameSuffix="__auto_decbtn__" />
+                    <AutoWindow NameSuffix="__auto_thumb__" />
+                </AutoWindow>
+                <AutoWindow NameSuffix="__auto_vscrollbar__" >
+                    <AutoWindow NameSuffix="__auto_incbtn__" />
+                    <AutoWindow NameSuffix="__auto_decbtn__" />
+                    <AutoWindow NameSuffix="__auto_thumb__" />
+                </AutoWindow>
+            </Window>
+            <Window Type="TaharezLook/StaticText" Name="NameChooser/FrameWindow/StaticText2" >
+                <Property Name="Text" Value="Enter your name:" />
+                <Property Name="FrameEnabled" Value="False" />
+                <Property Name="UnifiedAreaRect" Value="{{0.0195313,0},{0.5,0},{0.976563,0},{0.55,0}}" />
+                <Property Name="BackgroundEnabled" Value="False" />
+                <AutoWindow NameSuffix="__auto_hscrollbar__" >
+                    <AutoWindow NameSuffix="__auto_incbtn__" />
+                    <AutoWindow NameSuffix="__auto_decbtn__" />
+                    <AutoWindow NameSuffix="__auto_thumb__" />
+                </AutoWindow>
+                <AutoWindow NameSuffix="__auto_vscrollbar__" >
+                    <AutoWindow NameSuffix="__auto_incbtn__" />
+                    <AutoWindow NameSuffix="__auto_decbtn__" />
+                    <AutoWindow NameSuffix="__auto_thumb__" />
+                </AutoWindow>
+            </Window>
+            <Window Type="TaharezLook/Editbox" Name="NameChooser/FrameWindow/Editbox" >
+                <Property Name="MaxTextLength" Value="1073741823" />
+                <Property Name="UnifiedAreaRect" Value="{{0.0195313,0},{0.6,0},{0.8,0},{0.75,0}}" />
+                <Property Name="TextParsingEnabled" Value="False" />
+            </Window>
+            <Window Type="TaharezLook/Button" Name="NameChooser/FrameWindow/Button" >
+                <Property Name="Text" Value="Continue" />
+                <Property Name="UnifiedAreaRect" Value="{{0.332031,-6},{0.888774,4},{0.722656,-6},{0.962169,6}}" />
+            </Window>
+        </Window>
+    </Window>
+</GUILayout>

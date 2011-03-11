@@ -7,6 +7,8 @@
 #include "../json/config_wrapper.hpp"
 #include "../json/find_member.hpp"
 #include "../media_path.hpp"
+#include <sge/cegui/cursor_visibility.hpp>
+#include <sge/cegui/load_context.hpp>
 #include <sge/audio/player.hpp>
 #include <sge/audio/scalar.hpp>
 #include <sge/console/sprite_object.hpp>
@@ -42,6 +44,7 @@
 #include <sge/systems/audio_player_default.hpp>
 #include <sge/systems/image_loader.hpp>
 #include <sge/systems/input_helper_field.hpp>
+#include <sge/systems/parameterless.hpp>
 #include <sge/systems/input_helper.hpp>
 #include <sge/systems/input.hpp>
 #include <sge/systems/running_to_false.hpp>
@@ -117,6 +120,7 @@ fruitcut::app::machine::machine(
 					:
 						sge::systems::cursor_option_field())) 
 			(sge::systems::audio_player_default())
+			(sge::systems::parameterless::charconv)
 			(sge::systems::audio_loader(
 				sge::audio::loader_capabilities_field::null(),
 				fcppt::assign::make_container<sge::extension_set>
@@ -238,7 +242,19 @@ fruitcut::app::machine::machine(
 	desired_fps_(
 		json::find_member<fcppt::chrono::milliseconds::rep>(
 			config_file(),
-			FCPPT_TEXT("desired-fps")))
+			FCPPT_TEXT("desired-fps"))),
+	gui_system_(
+		sge::cegui::load_context(
+			media_path()/FCPPT_TEXT("gui")/FCPPT_TEXT("TaharezLook.scheme"))
+			.font_directory(
+				media_path()/FCPPT_TEXT("fonts")),
+		systems_.renderer(),
+		systems_.image_loader(),
+		systems_.charconv_system(),
+		systems_,
+		sge::cegui::cursor_visibility::invisible),
+	gui_syringe_(
+		gui_system_)
 {
 	input_manager_.current_state(
 		game_state_);
@@ -391,6 +407,30 @@ fruitcut::font::cache const &
 fruitcut::app::machine::font_cache() const
 {
 	return font_cache_;
+}
+
+sge::cegui::system &
+fruitcut::app::machine::gui_system()
+{
+	return gui_system_;
+}
+
+sge::cegui::system const &
+fruitcut::app::machine::gui_system() const
+{
+	return gui_system_;
+}
+
+sge::cegui::syringe &
+fruitcut::app::machine::gui_syringe()
+{
+	return gui_syringe_;
+}
+
+sge::cegui::syringe const &
+fruitcut::app::machine::gui_syringe() const
+{
+	return gui_syringe_;
 }
 
 fruitcut::app::machine::~machine()

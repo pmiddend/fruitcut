@@ -11,6 +11,8 @@
 #include "states/intro_fwd.hpp"
 #include <sge/console/gfx.hpp>
 #include <sge/console/object.hpp>
+#include <sge/cegui/system.hpp>
+#include <sge/cegui/syringe.hpp>
 #include <sge/parse/json/array.hpp>
 #include <sge/parse/json/object.hpp>
 #include <sge/renderer/texture/address_mode.hpp>
@@ -107,6 +109,18 @@ public:
 	font::cache const &
 	font_cache() const;
 
+	sge::cegui::system &
+	gui_system();
+
+	sge::cegui::system const &
+	gui_system() const;
+
+	sge::cegui::syringe &
+	gui_syringe();
+
+	sge::cegui::syringe const &
+	gui_syringe() const;
+
 	~machine();
 private:
 	bool running_;
@@ -131,6 +145,8 @@ private:
 	fruitcut::app::background background_;
 	fcppt::signal::scoped_connection viewport_change_connection_;
 	fcppt::chrono::milliseconds::rep desired_fps_;
+	sge::cegui::system gui_system_;
+	sge::cegui::syringe gui_syringe_;
 
 	void
 	console_switch();
