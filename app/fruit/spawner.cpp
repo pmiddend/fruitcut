@@ -19,6 +19,7 @@
 #include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/math/vector/length.hpp>
 #include <fcppt/math/vector/output.hpp>
+#include <fcppt/math/pi.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert.hpp>
 #include <cmath>
@@ -73,6 +74,10 @@ fruitcut::app::fruit::spawner::spawner(
 				_config_file,
 				FCPPT_TEXT("fruit-spawner/max-angular-velocity"))),
 		create_rng()),
+	angle_rng_(
+		fcppt::random::make_inclusive_range(
+				0.0f,
+				1.0f)),
 	timer_(
 		sge::time::duration(),
 		sge::time::activation_state::inactive,
@@ -127,24 +132,34 @@ fruitcut::app::fruit::spawner::update()
 	prototype const &chosen_prototype = 
 		manager_.prototypes()[prototype_index];
 
+	physics::scalar const x(x_rng_());
+
 	physics::vector3 const position(
-		zero_plane.left() + x_rng_() * zero_plane.size().w(),
+		zero_plane.left() + x * zero_plane.size().w(),
 		zero_plane.pos().y(),
 		0);
 
-	physics::scalar const 
-		flatness = 
-			// 0.5 somehow means that we stay inside [left,right] for the x
-			// coordinate. Higher values mean more flat.
-			static_cast<physics::scalar>(
-				0.5),
-		magnitude = 
-			linear_velocity_rng_();
+	physics::scalar const magnitude = 
+		linear_velocity_rng_();
+
+	float const min_phi = 
+		std::min( 2.0f * x, 1.0f ) * 0.25f * fcppt::math::pi<float>();
+	float const max_phi =
+		- std::min( 2.0f * (1.0f - x), 1.0f ) * 0.25f * fcppt::math::pi<float>();
+	physics::scalar const phi =
+		static_cast<physics::scalar>(
+			angle_rng_() *
+			(
+				max_phi - 
+				min_phi) + 
+				min_phi +
+				fcppt::math::pi<float>() * 0.5f);
 
 	physics::vector3 const linear_velocity(
-		-flatness * (position.x() - zero_plane.left()) + flatness * (zero_plane.right() - position.x()),
-		magnitude,
-		0);
+		magnitude * std::cos(phi),
+		magnitude * std::sin(phi),
+		0.f
+		);
 
 	// Could be generated as well, not for now though
 	physics::vector3 const angular_velocity(

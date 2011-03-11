@@ -42,6 +42,7 @@ private:
 	fcppt::random::uniform<physics::scalar> x_rng_;
 	fcppt::random::uniform<physics::scalar> linear_velocity_rng_;
 	fcppt::random::uniform<physics::scalar> angular_velocity_rng_;
+	fcppt::random::uniform<physics::scalar> angle_rng_;
 	sge::time::timer timer_;
 
 	void
