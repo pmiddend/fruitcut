@@ -187,12 +187,13 @@ fruitcut::app::states::running::react(
 			*i);
 	context<ingame>().fruit_manager().update();
 
-	return 
-		context<ingame>().turn_timer().expired() 
-		?
-			transit<states::gameover>()
-		:
-			discard_event();
+	if(context<ingame>().turn_timer().expired())
+	{
+		context<machine>().last_game_score(
+			context<ingame>().score());
+		return transit<states::gameover>();
+	}
+	return discard_event();
 }
 
 fruitcut::app::states::running::~running()

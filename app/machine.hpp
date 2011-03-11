@@ -3,6 +3,7 @@
 
 #include "background.hpp"
 #include "postprocessing.hpp"
+#include "score.hpp"
 #include "../input/state.hpp"
 #include "../input/state_manager.hpp"
 #include "../particle/system.hpp"
@@ -121,6 +122,13 @@ public:
 	sge::cegui::syringe const &
 	gui_syringe() const;
 
+	score
+	last_game_score() const;
+
+	void
+	last_game_score(
+		score);
+
 	~machine();
 private:
 	bool running_;
@@ -147,6 +155,7 @@ private:
 	fcppt::chrono::milliseconds::rep desired_fps_;
 	sge::cegui::system gui_system_;
 	sge::cegui::syringe gui_syringe_;
+	score last_game_score_;
 
 	void
 	console_switch();

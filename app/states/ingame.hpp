@@ -72,6 +72,9 @@ public:
 	physics::debugger &
 	physics_debugger();
 
+	fruitcut::app::score
+	score() const;
+
 	~ingame();
 private:
 	fcppt::signal::scoped_connection 
@@ -89,7 +92,7 @@ private:
 	sge::time::timer turn_timer_;
 	font::system font_system_;
 	font::particle::animated score_font_;
-	score score_;
+	fruitcut::app::score score_;
 	fcppt::signal::scoped_connection cut_connection_;
 
 	void

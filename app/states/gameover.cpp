@@ -1,7 +1,11 @@
 #include "gameover.hpp"
 #include "../../media_path.hpp"
 #include <sge/time/second.hpp>
+#include <sge/cegui/to_cegui_string.hpp>
 #include <sge/time/second_f.hpp>
+#include <CEGUI/CEGUIWindowManager.h>
+#include <CEGUI/CEGUIWindow.h>
+#include <boost/lexical_cast.hpp>
 #include <fcppt/text.hpp>
 
 fruitcut::app::states::gameover::gameover(
@@ -23,6 +27,12 @@ fruitcut::app::states::gameover::gameover(
 			media_path()/FCPPT_TEXT("gui")/FCPPT_TEXT("layouts")/FCPPT_TEXT("name_chooser.layout"),
 			context<machine>().systems().charconv_system()))
 {
+	CEGUI::WindowManager::getSingleton().getWindow("NameChooser/Congratulations")->setText(
+		sge::cegui::to_cegui_string(
+			FCPPT_TEXT("Congratulations!\nYour score:\n")+
+			boost::lexical_cast<fcppt::string>(
+				context<machine>().last_game_score()),
+			context<machine>().systems().charconv_system()));
 }
 
 boost::statechart::result

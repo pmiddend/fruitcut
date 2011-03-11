@@ -16,10 +16,8 @@
                 <Property Name="Visible" Value="False" />
                 <Property Name="Disabled" Value="True" />
             </AutoWindow>
-            <Window Type="TaharezLook/StaticText" Name="NameChooser/FrameWindow/StaticText" >
-                <Property Name="Text" >Congratulations! 
-Your Score:
-9001</Property>
+            <Window Type="TaharezLook/StaticText" Name="NameChooser/Congratulations" >
+                <Property Name="Text" >You shouldn't see this - either</Property>
                 <Property Name="FrameEnabled" Value="False" />
                 <Property Name="Font" Value="big" />
                 <Property Name="HorzFormatting" Value="HorzCentred" />

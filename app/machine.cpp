@@ -254,7 +254,10 @@ fruitcut::app::machine::machine(
 		systems_,
 		sge::cegui::cursor_visibility::invisible),
 	gui_syringe_(
-		gui_system_)
+		gui_system_),
+	last_game_score_(
+		// Something invalid so you get the error (if there is one)
+		31337)
 {
 	input_manager_.current_state(
 		game_state_);
@@ -431,6 +434,19 @@ sge::cegui::syringe const &
 fruitcut::app::machine::gui_syringe() const
 {
 	return gui_syringe_;
+}
+
+fruitcut::app::score
+fruitcut::app::machine::last_game_score() const
+{
+	return last_game_score_;
+}
+
+void
+fruitcut::app::machine::last_game_score(
+	score const _last_game_score)
+{
+	last_game_score_ = _last_game_score;
 }
 
 fruitcut::app::machine::~machine()

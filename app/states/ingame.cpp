@@ -168,8 +168,7 @@ fruitcut::app::states::ingame::ingame(
 					1))),
 		context<machine>().timer_callback()),
 	score_(
-		static_cast<score>(
-			0)),
+		0),
 	cut_connection_(
 		fruit_manager_.cut_callback(
 			boost::bind(
@@ -239,6 +238,12 @@ fruitcut::physics::debugger &
 fruitcut::app::states::ingame::physics_debugger()
 {
 	return physics_debugger_;
+}
+
+fruitcut::app::score
+fruitcut::app::states::ingame::score() const
+{
+	return score_;
 }
 
 sge::camera::object &
@@ -312,7 +317,7 @@ fruitcut::app::states::ingame::fruit_was_cut(
 	sge::renderer::scalar const _area)
 {
 	score_ = 
-		static_cast<score>(
+		static_cast<fruitcut::app::score>(
 			static_cast<sge::renderer::scalar>(
 				score_) + 1000 * _area);
 	score_font_.text(
