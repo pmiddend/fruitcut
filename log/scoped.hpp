@@ -26,7 +26,7 @@ public:
 
 	~scoped();
 private:
-	fcppt::log::object * const object_;
+	fcppt::log::object *object_;
 	fcppt::log::enabled_level_array old_levels_;
 };
 }

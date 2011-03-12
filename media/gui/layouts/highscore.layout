@@ -18,6 +18,7 @@
             </AutoWindow>
             <Window Type="Fruitcut/StaticText" Name="Highscore/FrameWindow/StaticText" >
                 <Property Name="Text" Value="Highscore" />
+                <Property Name="Font" Value="big" />
                 <Property Name="FrameEnabled" Value="False" />
                 <Property Name="HorzFormatting" Value="HorzCentred" />
                 <Property Name="UnifiedAreaRect" Value="{{0,0},{-0.000919822,0},{1,0},{0.173153,0}}" />

@@ -21,7 +21,7 @@
                 <Property Name="FrameEnabled" Value="False" />
                 <Property Name="Font" Value="big" />
                 <Property Name="HorzFormatting" Value="HorzCentred" />
-                <Property Name="UnifiedAreaRect" Value="{{0.0585938,0},{0.0,0},{0.957031,0},{0.4,-1}}" />
+                <Property Name="UnifiedAreaRect" Value="{{0.0585938,0},{0.0,0},{0.957031,0},{0.45,-1}}" />
                 <Property Name="BackgroundEnabled" Value="False" />
                 <AutoWindow NameSuffix="__auto_hscrollbar__" >
                     <AutoWindow NameSuffix="__auto_incbtn__" />
@@ -37,7 +37,7 @@
             <Window Type="Fruitcut/StaticText" Name="NameChooser/FrameWindow/StaticText2" >
                 <Property Name="Text" Value="Enter your name:" />
                 <Property Name="FrameEnabled" Value="False" />
-                <Property Name="UnifiedAreaRect" Value="{{0.0195313,0},{0.5,0},{0.976563,0},{0.55,0}}" />
+                <Property Name="UnifiedAreaRect" Value="{{0.0195313,0},{0.45,0},{0.976563,0},{0.55,0}}" />
                 <Property Name="BackgroundEnabled" Value="False" />
                 <AutoWindow NameSuffix="__auto_hscrollbar__" >
                     <AutoWindow NameSuffix="__auto_incbtn__" />

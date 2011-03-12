@@ -1,8 +1,10 @@
 #include "scoped.hpp"
 #include <fcppt/log/context.hpp>
 #include <fcppt/log/object.hpp>
+#include <fcppt/log/activate_levels.hpp>
 #include <fcppt/exception.hpp>
 #include <boost/foreach.hpp>
+#include <iostream>
 
 fruitcut::log::scoped::scoped(
 	fcppt::log::context &_context,
@@ -22,6 +24,10 @@ fruitcut::log::scoped::scoped(
 
 	old_levels_ = 
 		object_->enabled_levels();
+
+	fcppt::log::activate_levels(
+		*object_,
+		_new_level);
 }
 
 fruitcut::log::scoped::~scoped()

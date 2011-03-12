@@ -9,6 +9,7 @@
 #include "../particle/system.hpp"
 #include "../sound_controller.hpp"
 #include "../font/cache.hpp"
+#include "../log/scoped_sequence_ptr.hpp"
 #include "states/intro_fwd.hpp"
 #include <sge/console/gfx.hpp>
 #include <sge/console/object.hpp>
@@ -139,6 +140,7 @@ private:
 	// This is nonconst because of manage_viewport_callback, which is
 	// nonconst (this might be a bug, though)
 	sge::systems::instance systems_;
+	log::scoped_sequence_ptr activated_loggers_;
 	font::cache font_cache_;
 	sge::texture::manager texture_manager_;
 	input::state_manager input_manager_;

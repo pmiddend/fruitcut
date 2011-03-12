@@ -7,8 +7,10 @@
 #include "../json/config_wrapper.hpp"
 #include "../json/find_member.hpp"
 #include "../media_path.hpp"
+#include "../log/scoped_sequence_from_json.hpp"
 #include <sge/cegui/cursor_visibility.hpp>
 #include <sge/cegui/load_context.hpp>
+#include <sge/log/global_context.hpp>
 #include <sge/audio/player.hpp>
 #include <sge/audio/scalar.hpp>
 #include <sge/log/global_context.hpp>
@@ -74,6 +76,7 @@
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/tr1/functional.hpp>
+#include <fcppt/move.hpp>
 #include <boost/spirit/home/phoenix/object/new.hpp>
 #include <boost/spirit/home/phoenix/bind.hpp>
 #include <boost/spirit/home/phoenix/core/reference.hpp>
@@ -92,14 +95,6 @@ fruitcut::app::machine::machine(
 		json::config_wrapper(
 			argc,
 			argv)),
-	/*
-	scoped_sge_logs_(
-		sge::log::global_context(),
-		fcppt::algorithm::map<>(
-			json::find_member<sge::parse::json::array>(
-				config_file_,
-				FCPPT_TEXT("loggers/sge"))),
-	*/
 	systems_(
 		sge::systems::list()
 			(sge::systems::window(
@@ -140,6 +135,12 @@ fruitcut::app::machine::machine(
 					sge::image::capabilities_field::null(),
 					fcppt::assign::make_container<sge::extension_set>
 						(FCPPT_TEXT("png"))))),
+	activated_loggers_(
+		log::scoped_sequence_from_json(
+			sge::log::global_context(),
+			json::find_member<sge::parse::json::array>(
+				config_file_,
+				FCPPT_TEXT("loggers/sge")))),
 	font_cache_(
 		systems_.font_system(),
 		systems_.renderer(),
