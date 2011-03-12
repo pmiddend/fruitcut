@@ -118,6 +118,7 @@ SET(files
 	# log
 	log/scoped.cpp
 	log/string_to_location.cpp
+	log/scoped_sequence_from_json.cpp
 	# input 
 	input/state.cpp input/state_manager.cpp
 	sound_controller.cpp
