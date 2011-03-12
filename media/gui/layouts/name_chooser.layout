@@ -3,7 +3,7 @@
 <GUILayout >
     <Window Type="DefaultWindow" Name="NameChooser" >
         <Property Name="UnifiedAreaRect" Value="{{0.25,0},{0.25,0},{0.75,0},{0.75,0}}" />
-        <Window Type="TaharezLook/FrameWindow" Name="NameChooser/FrameWindow" >
+        <Window Type="OgreTray/FrameWindow" Name="NameChooser/FrameWindow" >
             <Property Name="FrameEnabled" Value="True" />
             <Property Name="SizingEnabled" Value="False" />
             <Property Name="RollUpEnabled" Value="False" />
@@ -16,7 +16,7 @@
                 <Property Name="Visible" Value="False" />
                 <Property Name="Disabled" Value="True" />
             </AutoWindow>
-            <Window Type="TaharezLook/StaticText" Name="NameChooser/Congratulations" >
+            <Window Type="OgreTray/StaticText" Name="NameChooser/Congratulations" >
                 <Property Name="Text" >You shouldn't see this - either</Property>
                 <Property Name="FrameEnabled" Value="False" />
                 <Property Name="Font" Value="big" />
@@ -34,7 +34,7 @@
                     <AutoWindow NameSuffix="__auto_thumb__" />
                 </AutoWindow>
             </Window>
-            <Window Type="TaharezLook/StaticText" Name="NameChooser/FrameWindow/StaticText2" >
+            <Window Type="OgreTray/StaticText" Name="NameChooser/FrameWindow/StaticText2" >
                 <Property Name="Text" Value="Enter your name:" />
                 <Property Name="FrameEnabled" Value="False" />
                 <Property Name="UnifiedAreaRect" Value="{{0.0195313,0},{0.5,0},{0.976563,0},{0.55,0}}" />
@@ -50,12 +50,12 @@
                     <AutoWindow NameSuffix="__auto_thumb__" />
                 </AutoWindow>
             </Window>
-            <Window Type="TaharezLook/Editbox" Name="NameChooser/NameBox" >
+            <Window Type="OgreTray/Editbox" Name="NameChooser/NameBox" >
                 <Property Name="MaxTextLength" Value="1073741823" />
                 <Property Name="UnifiedAreaRect" Value="{{0.0195313,0},{0.6,0},{0.8,0},{0.75,0}}" />
                 <Property Name="TextParsingEnabled" Value="False" />
             </Window>
-            <Window Type="TaharezLook/Button" Name="NameChooser/ContinueButton" >
+            <Window Type="OgreTray/Button" Name="NameChooser/ContinueButton" >
                 <Property Name="Text" Value="Continue" />
                 <Property Name="UnifiedAreaRect" Value="{{0.332031,-6},{0.888774,4},{0.722656,-6},{0.962169,6}}" />
             </Window>

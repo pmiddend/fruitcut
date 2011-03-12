@@ -253,7 +253,7 @@ fruitcut::app::machine::machine(
 			FCPPT_TEXT("desired-fps"))),
 	gui_system_(
 		sge::cegui::load_context(
-			media_path()/FCPPT_TEXT("gui")/FCPPT_TEXT("TaharezLook.scheme"))
+			media_path()/FCPPT_TEXT("gui")/FCPPT_TEXT("fruitcut.scheme"))
 			.font_directory(
 				media_path()/FCPPT_TEXT("fonts")),
 		systems_.renderer(),

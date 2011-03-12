@@ -3,7 +3,7 @@
 <GUILayout >
     <Window Type="DefaultWindow" Name="Highscore" >
         <Property Name="UnifiedAreaRect" Value="{{0.15,0},{0.15,0},{0.85,0},{0.85,0}}" />
-        <Window Type="TaharezLook/FrameWindow" Name="Highscore/FrameWindow" >
+        <Window Type="OgreTray/FrameWindow" Name="Highscore/FrameWindow" >
             <Property Name="FrameEnabled" Value="True" />
             <Property Name="SizingEnabled" Value="False" />
             <Property Name="RollUpEnabled" Value="False" />
@@ -16,7 +16,7 @@
                 <Property Name="Visible" Value="False" />
                 <Property Name="Disabled" Value="True" />
             </AutoWindow>
-            <Window Type="TaharezLook/StaticText" Name="Highscore/FrameWindow/StaticText" >
+            <Window Type="OgreTray/StaticText" Name="Highscore/FrameWindow/StaticText" >
                 <Property Name="Text" Value="Highscore" />
                 <Property Name="FrameEnabled" Value="False" />
                 <Property Name="HorzFormatting" Value="HorzCentred" />
@@ -33,7 +33,7 @@
                     <AutoWindow NameSuffix="__auto_thumb__" />
                 </AutoWindow>
             </Window>
-            <Window Type="TaharezLook/MultiColumnList" Name="Highscore/List" >
+            <Window Type="OgreTray/MultiColumnList" Name="Highscore/List" >
                 <Property Name="UnifiedAreaRect" Value="{{0.01,0},{0.173153,0},{0.99,0},{0.869445,0}}" />
 
 								<Property Name="ColumnHeader" Value="text:Nr. width:{0.1,0} id:0" />
@@ -53,11 +53,11 @@
                     <AutoWindow NameSuffix="__auto_thumb__" />
                 </AutoWindow>
             </Window>
-            <Window Type="TaharezLook/Button" Name="Highscore/ResetButton" >
+            <Window Type="OgreTray/Button" Name="Highscore/ResetButton" >
                 <Property Name="Text" Value="Restart" />
                 <Property Name="UnifiedAreaRect" Value="{{0.28125,0},{0.891204,0},{0.4375,0},{0.978241,0}}" />
             </Window>
-            <Window Type="TaharezLook/Button" Name="Highscore/QuitButton" >
+            <Window Type="OgreTray/Button" Name="Highscore/QuitButton" >
                 <Property Name="Text" Value="Quit" />
                 <Property Name="UnifiedAreaRect" Value="{{0.5625,0},{0.891204,0},{0.6875,0},{0.978241,0}}" />
             </Window>
