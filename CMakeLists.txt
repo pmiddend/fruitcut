@@ -115,6 +115,9 @@ SET(files
 	json/process_option.cpp 
 	json/string_to_value.cpp
 	json/is_null.cpp
+	# log
+	log/scoped.cpp
+	log/string_to_location.cpp
 	# input 
 	input/state.cpp input/state_manager.cpp
 	sound_controller.cpp

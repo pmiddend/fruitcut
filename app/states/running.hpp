@@ -81,8 +81,7 @@ private:
 		fruit::object const &);
 
 	void
-	viewport_change(
-		sge::renderer::device_ptr);
+	viewport_change();
 };
 }
 }

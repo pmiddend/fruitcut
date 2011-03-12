@@ -20,7 +20,7 @@
 #include <sge/systems/instance.hpp>
 #include <sge/systems/window.hpp>
 #include <sge/systems/list.hpp>
-#include <sge/systems/viewport/dont_manage.hpp>
+#include <sge/viewport/dont_manage.hpp>
 #include <sge/window/instance.hpp>
 #include <sge/window/dim.hpp>
 #include <sge/window/simple_parameters.hpp>
@@ -61,7 +61,7 @@ try
 				sge::renderer::depth_stencil_buffer::off,
 				sge::renderer::vsync::on,
 				sge::renderer::no_multi_sampling),
-			sge::systems::viewport::dont_manage()))
+			sge::viewport::dont_manage()))
 		(sge::systems::input(
 				sge::systems::input_helper_field(
 					sge::systems::input_helper::keyboard_collector) 

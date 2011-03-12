@@ -47,7 +47,7 @@
 #include <sge/systems/image_loader.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
-#include <sge/systems/viewport/dont_manage.hpp>
+#include <sge/viewport/dont_manage.hpp>
 #include <sge/systems/window.hpp>
 #include <sge/texture/part_ptr.hpp>
 #include <sge/texture/part_raw.hpp>
@@ -441,7 +441,7 @@ try
 				sge::renderer::depth_stencil_buffer::off,
 				sge::renderer::vsync::on,
 				sge::renderer::no_multi_sampling),
-			sge::systems::viewport::dont_manage()))
+			sge::viewport::dont_manage()))
 		(sge::systems::input(
 				sge::systems::input_helper_field(
 					sge::systems::input_helper::keyboard_collector) | sge::systems::input_helper::mouse_collector,

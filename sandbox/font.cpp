@@ -33,7 +33,7 @@
 #include <sge/renderer/vsync.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
-#include <sge/systems/viewport/dont_manage.hpp>
+#include <sge/viewport/dont_manage.hpp>
 #include <sge/time/millisecond.hpp>
 #include <sge/time/second.hpp>
 #include <sge/window/dim.hpp>
@@ -73,7 +73,7 @@ try
 				sge::renderer::depth_stencil_buffer::off,
 				sge::renderer::vsync::on,
 				sge::renderer::no_multi_sampling),
-			sge::systems::viewport::dont_manage()))
+			sge::viewport::dont_manage()))
 		(sge::systems::parameterless::font)
 		(sge::systems::input(
 				sge::systems::input_helper_field(

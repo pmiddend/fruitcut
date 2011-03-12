@@ -44,6 +44,7 @@ boost::statechart::result
 fruitcut::app::states::gameover::highscore::react(
 	events::gameover::quit_button_pushed const &)
 {
+	context<machine>().quit();
 	return discard_event();
 }
 

@@ -23,6 +23,7 @@
 #include "../../font/scale_animation.hpp"
 #include "../../font/particle/base_parameters.hpp"
 #include <sge/image/colors.hpp>
+#include <sge/viewport/manager.hpp>
 #include <sge/input/cursor/position_unit.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/viewport.hpp>
@@ -87,11 +88,10 @@ fruitcut::app::states::running::running(
 				FCPPT_TEXT("mouse/trail-samples")),
 		context<machine>().systems().renderer()->onscreen_target()),
 	viewport_change_connection_(
-		context<machine>().systems().manage_viewport_callback(
+		context<machine>().systems().viewport_manager().manage_callback(
 			boost::bind(
 				&running::viewport_change,
-				this,
-				_1))),
+				this))),
 	timer_font_(
 		fruitcut::font::particle::base_parameters(
 			context<ingame>().font_system(),
@@ -116,8 +116,7 @@ fruitcut::app::states::running::running(
 {
 	context<machine>().postprocessing().active(
 		true);
-	viewport_change(
-		sge::renderer::device_ptr());
+	viewport_change();
 }
 
 boost::statechart::result
@@ -378,8 +377,7 @@ fruitcut::app::states::running::process_fruit(
 }
 
 void
-fruitcut::app::states::running::viewport_change(
-	sge::renderer::device_ptr)
+fruitcut::app::states::running::viewport_change()
 {
 	cursor_trail_.clear();
 

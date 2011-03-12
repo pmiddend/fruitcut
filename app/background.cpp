@@ -218,7 +218,7 @@ fruitcut::app::background::render()
 
 	sge::renderer::scalar const aspect = 
 		sge::renderer::aspect_from_viewport(
-			sge::renderer::active_target(renderer_)->viewport());
+			sge::renderer::active_target(*renderer_)->viewport());
 
 	sge::renderer::texture::scoped scoped_texture(
 		renderer_,

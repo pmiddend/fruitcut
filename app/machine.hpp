@@ -129,6 +129,9 @@ public:
 	last_game_score(
 		score);
 
+	void
+	quit();
+
 	~machine();
 private:
 	bool running_;
@@ -164,8 +167,7 @@ private:
 	run_once();
 
 	void
-	viewport_change(
-		sge::renderer::device_ptr);
+	viewport_change();
 
 	void
 	manage_time();

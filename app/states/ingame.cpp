@@ -22,6 +22,7 @@
 #include <sge/renderer/screen_size.hpp>
 #include <sge/renderer/vector3.hpp>
 #include <sge/renderer/viewport.hpp>
+#include <sge/viewport/manager.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/time/activation_state.hpp>
 #include <sge/time/second.hpp>
@@ -77,11 +78,10 @@ fruitcut::app::states::ingame::ingame(
 					&ingame::toggle_camera,
 					this)))),
 	viewport_change_connection_(
-		context<machine>().systems().manage_viewport_callback(
+		context<machine>().systems().viewport_manager().manage_callback(
 			boost::bind(
 				&ingame::viewport_change,
-				this,
-				_1))),
+				this))),
 	camera_state_(
 		context<machine>().input_manager()),
 	camera_(
@@ -176,8 +176,7 @@ fruitcut::app::states::ingame::ingame(
 				this,
 				_1)))
 {
-	viewport_change(
-		sge::renderer::device_ptr());
+	viewport_change();
 }
 
 fruitcut::physics::world &
@@ -283,8 +282,7 @@ fruitcut::app::states::ingame::toggle_physics_debugger()
 }
 
 void
-fruitcut::app::states::ingame::viewport_change(
-	sge::renderer::device_ptr)
+fruitcut::app::states::ingame::viewport_change()
 {
 	camera_.projection_object(
 		sge::camera::projection::perspective(

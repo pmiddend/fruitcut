@@ -135,5 +135,9 @@
 		"max-linear-velocity" : 20.0,
 		"min-angular-velocity" : 0.0,
 		"max-angular-velocity" : 2.0
+	},
+	"loggers" : 
+	{
+		"sge" : {}
 	}
 }

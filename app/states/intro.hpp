@@ -50,8 +50,7 @@ private:
 	fcppt::signal::scoped_connection viewport_change_connection_;
 
 	void
-	viewport_change(
-		sge::renderer::device_ptr);
+	viewport_change();
 };
 }
 }

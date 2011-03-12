@@ -11,6 +11,7 @@
 #include <sge/cegui/load_context.hpp>
 #include <sge/audio/player.hpp>
 #include <sge/audio/scalar.hpp>
+#include <sge/log/global_context.hpp>
 #include <sge/console/sprite_object.hpp>
 #include <sge/console/sprite_parameters.hpp>
 #include <sge/extension_set.hpp>
@@ -50,8 +51,9 @@
 #include <sge/systems/running_to_false.hpp>
 #include <sge/systems/list.hpp>
 #include <sge/systems/renderer.hpp>
-#include <sge/systems/viewport/fill_on_resize.hpp>
+#include <sge/viewport/fill_on_resize.hpp>
 #include <sge/systems/window.hpp>
+#include <sge/viewport/manager.hpp>
 #include <sge/texture/add_image.hpp>
 #include <sge/texture/part_ptr.hpp>
 #include <sge/texture/part_raw.hpp>
@@ -91,6 +93,14 @@ fruitcut::app::machine::machine(
 		json::config_wrapper(
 			argc,
 			argv)),
+	/*
+	scoped_sge_logs_(
+		sge::log::global_context(),
+		fcppt::algorithm::map<>(
+			json::find_member<sge::parse::json::array>(
+				config_file_,
+				FCPPT_TEXT("loggers/sge"))),
+	*/
 	systems_(
 		sge::systems::list()
 			(sge::systems::window(
@@ -105,7 +115,7 @@ fruitcut::app::machine::machine(
 					sge::renderer::depth_stencil_buffer::d24,
 					sge::renderer::vsync::on,
 					sge::renderer::no_multi_sampling),
-				sge::systems::viewport::fill_on_resize()))
+				sge::viewport::fill_on_resize()))
 			(sge::systems::input(
 				sge::systems::input_helper_field(
 					sge::systems::input_helper::keyboard_collector) 
@@ -234,11 +244,10 @@ fruitcut::app::machine::machine(
 		systems_.image_loader(),
 		config_file_),
 	viewport_change_connection_(
-		systems_.manage_viewport_callback(
+		systems_.viewport_manager().manage_callback(
 			boost::bind(
 				&machine::viewport_change,
-				this,
-				_1))),
+				this))),
 	desired_fps_(
 		json::find_member<fcppt::chrono::milliseconds::rep>(
 			config_file(),
@@ -251,7 +260,7 @@ fruitcut::app::machine::machine(
 		systems_.renderer(),
 		systems_.image_loader(),
 		systems_.charconv_system(),
-		systems_,
+		systems_.viewport_manager(),
 		sge::cegui::cursor_visibility::invisible),
 	gui_syringe_(
 		gui_system_),
@@ -449,6 +458,12 @@ fruitcut::app::machine::last_game_score(
 	last_game_score_ = _last_game_score;
 }
 
+void
+fruitcut::app::machine::quit()
+{
+	running_ = false;
+}
+
 fruitcut::app::machine::~machine()
 {
 }
@@ -481,8 +496,7 @@ fruitcut::app::machine::run_once()
 }
 
 void
-fruitcut::app::machine::viewport_change(
-	sge::renderer::device_ptr)
+fruitcut::app::machine::viewport_change()
 {
 	postprocessing_.viewport_changed();
 	console_gfx_.background_sprite().size(

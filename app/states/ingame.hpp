@@ -102,8 +102,7 @@ private:
 	toggle_physics_debugger();
 
 	void
-	viewport_change(
-		sge::renderer::device_ptr);
+	viewport_change();
 
 	void
 	fruit_was_cut(

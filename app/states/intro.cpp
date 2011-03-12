@@ -15,6 +15,7 @@
 #include <sge/image2d/file_ptr.hpp>
 #include <sge/image2d/multi_loader.hpp>
 #include <sge/image/color/init.hpp>
+#include <sge/viewport/manager.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/onscreen_target.hpp>
 #include <sge/renderer/resource_flags_none.hpp>
@@ -62,16 +63,14 @@ fruitcut::app::states::intro::intro(
 		sge::time::activation_state::inactive,
 		context<machine>().timer_callback()),
 	viewport_change_connection_(
-		context<machine>().systems().manage_viewport_callback(
+		context<machine>().systems().viewport_manager().manage_callback(
 			boost::bind(
 				&intro::viewport_change,
-				this,
-				_1)))
+				this)))
 {
 	// We already have a viewport? Ok, then go
 	if(context<machine>().systems().renderer()->onscreen_target()->viewport().get().size().content())
-		viewport_change(
-			sge::renderer::device_ptr());
+		viewport_change();
 }
 
 boost::statechart::result
@@ -106,8 +105,7 @@ fruitcut::app::states::intro::~intro()
 }
 
 void
-fruitcut::app::states::intro::viewport_change(
-	sge::renderer::device_ptr)
+fruitcut::app::states::intro::viewport_change()
 {
 	if (saturation_timer_.active())
 		return;
