@@ -2,14 +2,16 @@
 #define FRUITCUT_COUNTED_REFERENCE_HPP_INCLUDED
 
 #include <fcppt/safe_bool.hpp>
-#include <boost/function.hpp>
+#include <fcppt/function/object.hpp>
 
 namespace fruitcut
 {
 template<typename T>
 class counted_reference 
 {
-FCPPT_SAFE_BOOL(counted_reference)
+// NO COMMA HERE!
+FCPPT_SAFE_BOOL(
+	counted_reference)
 public:
 	typedef
 	T
@@ -20,7 +22,7 @@ public:
 	pointer;
 
 	typedef
-	boost::function<void (T&)>
+	fcppt::function::object<void (T&)>
 	deleter;
 
 	explicit 

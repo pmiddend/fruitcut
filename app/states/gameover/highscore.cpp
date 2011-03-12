@@ -8,10 +8,10 @@
 #include <CEGUI/CEGUIWindow.h>
 #include <CEGUI/CEGUIWindowManager.h>
 #include <CEGUI/elements/CEGUIPushButton.h>
-#include <boost/lexical_cast.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/tr1/functional.hpp>
 #include <fcppt/string.hpp>
-#include <boost/bind.hpp>
+#include <boost/lexical_cast.hpp>
 
 fruitcut::app::states::gameover::highscore::highscore(
 	my_context ctx)
@@ -25,18 +25,18 @@ fruitcut::app::states::gameover::highscore::highscore(
 		CEGUI::WindowManager::getSingleton().getWindow("Highscore/QuitButton")->subscribeEvent(
 			CEGUI::PushButton::EventClicked,
 			CEGUI::Event::Subscriber(
-				boost::bind(
+				std::tr1::bind(
 					&highscore::quit_button_pushed,
 					this,
-					_1)))),
+					std::tr1::placeholders::_1)))),
 	reset_button_connection_(
 		CEGUI::WindowManager::getSingleton().getWindow("Highscore/ResetButton")->subscribeEvent(
 			CEGUI::PushButton::EventClicked,
 			CEGUI::Event::Subscriber(
-				boost::bind(
+				std::tr1::bind(
 					&highscore::reset_button_pushed,
 					this,
-					_1))))
+					std::tr1::placeholders::_1))))
 {
 }
 

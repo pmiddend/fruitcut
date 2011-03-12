@@ -63,6 +63,7 @@
 #include <fcppt/exception.hpp>
 #include <fcppt/io/cout.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
+#include <fcppt/tr1/functional.hpp>
 #include <fcppt/math/clamp.hpp>
 #include <fcppt/math/box/output.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
@@ -79,7 +80,6 @@
 #include <boost/spirit/home/phoenix/core/reference.hpp>
 #include <boost/spirit/home/phoenix/object/static_cast.hpp>
 #include <boost/spirit/home/phoenix/operator/arithmetic.hpp>
-#include <boost/bind.hpp>
 #include <boost/foreach.hpp>
 #include <limits>
 #include <iostream>
@@ -316,9 +316,9 @@ particles::from_image(
 					grid::from_image<gray_grid::value_type>(
 						input_image,
 						sge::image::color::format::gray8))),
-			boost::bind(
+			std::tr1::bind(
 				&fcppt::math::clamp<scalar>,
-				_1,
+				std::tr1::placeholders::_1,
 				static_cast<scalar>(0),
 				static_cast<scalar>(1)));
 

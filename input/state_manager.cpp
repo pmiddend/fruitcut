@@ -5,7 +5,7 @@
 #include <sge/input/mouse/collector.hpp>
 #include <sge/input/keyboard/key_event.hpp>
 #include <fcppt/assert.hpp>
-#include <boost/bind.hpp>
+#include <fcppt/tr1/functional.hpp>
 #include <iostream>
 
 fruitcut::input::state_manager::state_manager(
@@ -15,28 +15,28 @@ fruitcut::input::state_manager::state_manager(
 		*systems.keyboard_collector()),
 	c1(
 		systems.keyboard_collector()->key_callback(
-			boost::bind(
+			std::tr1::bind(
 				&state_manager::key_callback_internal,
 				this,
-				_1))),
+				std::tr1::placeholders::_1))),
 	c2(
 		systems.mouse_collector()->axis_callback(
-			boost::bind(
+			std::tr1::bind(
 				&state_manager::mouse_axis_callback_internal,
 				this,
-				_1))),
+				std::tr1::placeholders::_1))),
 	c3(
 		systems.mouse_collector()->button_callback(
-			boost::bind(
+			std::tr1::bind(
 				&state_manager::mouse_button_callback_internal,
 				this,
-				_1))),
+				std::tr1::placeholders::_1))),
 	c4(
 		systems.keyboard_collector()->char_callback(
-			boost::bind(
+			std::tr1::bind(
 				&state_manager::char_callback_internal,
 				this,
-				_1))),
+				std::tr1::placeholders::_1))),
 	current_state_(
 		0)
 {

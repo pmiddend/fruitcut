@@ -10,6 +10,7 @@
 #include <fcppt/chrono/duration.hpp>
 #include <fcppt/math/interpolation/trigonometric.hpp>
 #include <fcppt/assert.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <boost/next_prior.hpp>
 #include <vector>
 #include <utility>
@@ -42,7 +43,7 @@ public:
 		values_(
 			_values),
 		current_timer_(
-			new sge::time::timer(
+			fcppt::make_unique_ptr<sge::time::timer>(
 				values_.front().first,
 				sge::time::activation_state::active,
 				cb)),
@@ -67,8 +68,8 @@ public:
 		if (current_value_ == boost::prior(values_.end()))
 			return;
 
-		current_timer_.reset(
-			new sge::time::timer(
+		current_timer_.take(
+			fcppt::make_unique_ptr<sge::time::timer>(
 				current_value_->first));
 	}
 

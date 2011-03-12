@@ -11,7 +11,7 @@
 #include <boost/lexical_cast.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/string.hpp>
-#include <boost/bind.hpp>
+#include <fcppt/tr1/functional.hpp>
 
 fruitcut::app::states::gameover::choose_name::choose_name(
 	my_context ctx)
@@ -25,10 +25,10 @@ fruitcut::app::states::gameover::choose_name::choose_name(
 		CEGUI::WindowManager::getSingleton().getWindow("NameChooser/ContinueButton")->subscribeEvent(
 			CEGUI::PushButton::EventClicked,
 			CEGUI::Event::Subscriber(
-				boost::bind(
+				std::tr1::bind(
 					&choose_name::continue_button_pushed,
 					this,
-					_1))))
+					std::tr1::placeholders::_1))))
 {
 	CEGUI::WindowManager::getSingleton().getWindow("NameChooser/Congratulations")->setText(
 		sge::cegui::to_cegui_string(

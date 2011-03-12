@@ -3,6 +3,7 @@
 
 #include <sge/font/rect.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
+#include <fcppt/function/object.hpp>
 #include <boost/function.hpp>
 
 namespace fruitcut

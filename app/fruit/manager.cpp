@@ -51,6 +51,7 @@
 #include <sge/image2d/file.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/algorithm/map.hpp>
+#include <fcppt/tr1/functional.hpp>
 #include <fcppt/math/matrix/basic_impl.hpp>
 #include <fcppt/math/matrix/arithmetic.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
@@ -61,7 +62,6 @@
 #include <fcppt/text.hpp>
 #include <fcppt/assert_message.hpp>
 #include <boost/foreach.hpp>
-#include <boost/bind.hpp>
 
 namespace
 {
@@ -121,12 +121,12 @@ fruitcut::app::fruit::manager::manager(
 	prototypes_(
 		fcppt::algorithm::map<prototype_sequence>(
 			prototype_array.elements,
-			boost::bind(
+			std::tr1::bind(
 				&parse_fruit,
-				_1,
-				boost::ref(
+				std::tr1::placeholders::_1,
+				std::tr1::ref(
 					model_loader),
-				boost::ref(
+				std::tr1::ref(
 					image_loader),
 				_renderer))),
 	fruits_(),

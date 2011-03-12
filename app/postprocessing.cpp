@@ -12,16 +12,16 @@
 #include <sge/renderer/scalar.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/string.hpp>
+#include <fcppt/tr1/functional.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/assign/make_container.hpp>
-#include <boost/bind.hpp>
 #include <boost/foreach.hpp>
 #include <iostream>
 
 fruitcut::app::postprocessing::postprocessing(
 	sge::renderer::device_ptr const &_renderer,
 	sge::console::object &console,
-	boost::function<void ()> const &render_callback,
+	fcppt::function::object<void ()> const &render_callback,
 	sge::parse::json::object const &config)
 :
 	system_(
@@ -69,20 +69,20 @@ fruitcut::app::postprocessing::postprocessing(
 	list_connection_(
 		console.insert(
 			SGE_FONT_TEXT_LIT("pplist"),
-			boost::bind(
+			std::tr1::bind(
 				&postprocessing::list_filters,
 				this,
-				_1,
-				_2),
+				std::tr1::placeholders::_1,
+				std::tr1::placeholders::_2),
 			SGE_FONT_TEXT_LIT("List all filters"))),
 	toggle_connection_(
 		console.insert(
 			SGE_FONT_TEXT_LIT("pptoggle"),
-				boost::bind(
+				std::tr1::bind(
 					&postprocessing::toggle_filter,
 					this,
-					_1,
-					_2),
+					std::tr1::placeholders::_1,
+					std::tr1::placeholders::_2),
 				SGE_FONT_TEXT_LIT("Toggle a specific filter"))),
 	active_(
 		true)

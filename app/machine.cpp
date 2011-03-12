@@ -80,7 +80,6 @@
 #include <boost/spirit/home/phoenix/core/argument.hpp>
 #include <boost/spirit/home/phoenix/operator.hpp>
 #include <boost/spirit/home/phoenix/object/construct.hpp>
-#include <boost/bind.hpp>
 #include <iostream>
 
 fruitcut::app::machine::machine(
@@ -205,7 +204,7 @@ fruitcut::app::machine::machine(
 	postprocessing_(
 		systems_.renderer(),
 		console_object_,
-		boost::bind(
+		std::tr1::bind(
 			&machine::process_event,
 			this,
 			events::render()),
@@ -230,7 +229,7 @@ fruitcut::app::machine::machine(
 		systems_.keyboard_collector()->key_callback(
 			sge::input::keyboard::action(
 				sge::input::keyboard::key_code::f1,
-				boost::bind(
+				std::tr1::bind(
 					&machine::console_switch,
 					this)))),
 	sound_controller_(
@@ -245,7 +244,7 @@ fruitcut::app::machine::machine(
 		config_file_),
 	viewport_change_connection_(
 		systems_.viewport_manager().manage_callback(
-			boost::bind(
+			std::tr1::bind(
 				&machine::viewport_change,
 				this))),
 	desired_fps_(
@@ -366,9 +365,9 @@ fruitcut::app::machine::timer_callback() const
 				&sge::time::point::time_since_epoch,
 				&transformed_time_));
 		*/
-		boost::bind(
+		std::tr1::bind(
 			&sge::time::duration::count,
-			boost::bind(
+			std::tr1::bind(
 				&sge::time::point::time_since_epoch,
 				&transformed_time_));
 }

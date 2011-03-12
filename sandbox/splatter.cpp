@@ -35,7 +35,7 @@
 #include <fcppt/math/deg_to_rad.hpp>
 #include <fcppt/filesystem/directory_iterator.hpp>
 #include <fcppt/text.hpp>
-#include <boost/bind.hpp>
+#include <fcppt/tr1/functional.hpp>
 #include <boost/next_prior.hpp>
 #include <iostream>
 #include <cmath>
@@ -128,16 +128,16 @@ fruitcut::sandbox::splatter::splatter(
 				1.5))),
 	move_connection_(
 		_mouse.axis_callback(
-			boost::bind(
+			std::tr1::bind(
 				&splatter::move_callback,
 				this,
-				_1))),
+				std::tr1::placeholders::_1))),
 	click_connection_(
 		_mouse.button_callback(
-			boost::bind(
+			std::tr1::bind(
 				&splatter::click_callback,
 				this,
-				_1)))
+				std::tr1::placeholders::_1)))
 {
 	splat_collector_.insert(
 		sge::sprite::default_parameters<particle::sprite::choices>()

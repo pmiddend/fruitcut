@@ -18,15 +18,15 @@
 #include <sge/renderer/onscreen_target.hpp>
 #include <sge/renderer/viewport.hpp>
 #include <sge/image/color/format.hpp>
-#include <boost/range/iterator_range.hpp>
-#include <boost/bind.hpp>
-#include <fcppt/assert.hpp>
+#include <fcppt/tr1/functional.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/math/dim/comparison.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/assert_message.hpp>
+#include <fcppt/assert.hpp>
 #include <fcppt/text.hpp>
+#include <boost/range/iterator_range.hpp>
 #include <iostream>
 #include <utility>
 #include <memory>
@@ -74,9 +74,10 @@ fruitcut::pp::texture::manager::query(
 			return 
 				counted_instance(
 					*(i->second),
-					boost::bind(
-						&instance::locked,
-						_1,
+					std::tr1::bind(
+						static_cast<void (instance::*)(bool)>(
+							&instance::locked),
+						std::tr1::placeholders::_1,
 						false));
 		}
 	}
@@ -138,9 +139,10 @@ fruitcut::pp::texture::manager::query_internal(
 		return 
 			counted_instance(
 				*(i->second),
-				boost::bind(
-					&instance::locked,
-					_1,
+				std::tr1::bind(
+					static_cast<void (instance::*)(bool)>(
+						&instance::locked),
+					std::tr1::placeholders::_1,
 					false));
 	}
 
@@ -199,8 +201,9 @@ fruitcut::pp::texture::manager::query_internal(
 	return 
 		counted_instance(
 			*result->second,
-			boost::bind(
-				&instance::locked,
-				_1,
+			std::tr1::bind(
+				static_cast<void (instance::*)(bool)>(
+					&instance::locked),
+				std::tr1::placeholders::_1,
 				false));
 }

@@ -10,8 +10,8 @@
 #include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/math/dim/arithmetic.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
+#include <fcppt/tr1/functional.hpp>
 #include <boost/spirit/home/phoenix/core.hpp>
-#include <boost/bind.hpp>
 #include <iostream>
 
 namespace
@@ -89,10 +89,10 @@ fruitcut::font::particle::animated::render(
 
 	scoped_transformation scoped_tr(
 		_drawer,
-		boost::bind(
+		std::tr1::bind(
 			&scale_transformation,
-			_1,
-			_2,
+			std::tr1::placeholders::_1,
+			std::tr1::placeholders::_2,
 			scale_animation_.current_value()));
 
 	base::render(

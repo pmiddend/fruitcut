@@ -47,6 +47,7 @@
 #include <sge/font/text/flags_none.hpp>
 #include <sge/image/color/any/convert.hpp>
 #include <sge/image/colors.hpp>
+#include <fcppt/tr1/functional.hpp>
 #include <fcppt/math/vector/output.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
@@ -60,7 +61,6 @@
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/text.hpp>
 #include <boost/next_prior.hpp>
-#include <boost/bind.hpp>
 #include <iostream>
 
 fruitcut::app::states::running::running(
@@ -89,7 +89,7 @@ fruitcut::app::states::running::running(
 		context<machine>().systems().renderer()->onscreen_target()),
 	viewport_change_connection_(
 		context<machine>().systems().viewport_manager().manage_callback(
-			boost::bind(
+			std::tr1::bind(
 				&running::viewport_change,
 				this))),
 	timer_font_(

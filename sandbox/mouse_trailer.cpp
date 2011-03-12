@@ -21,6 +21,7 @@
 #include <sge/time/millisecond.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/chrono/duration_cast.hpp>
+#include <fcppt/tr1/functional.hpp>
 #include <fcppt/chrono/milliseconds.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/math/vector/structure_cast.hpp>
@@ -28,7 +29,6 @@
 #include <fcppt/math/vector/length.hpp>
 #include <fcppt/math/vector/atan2.hpp>
 #include <fcppt/math/range_compare.hpp>
-#include <boost/bind.hpp>
 #include <iostream>
 
 fruitcut::sandbox::mouse_trailer::mouse_trailer(
@@ -78,10 +78,10 @@ fruitcut::sandbox::mouse_trailer::mouse_trailer(
 					(sge::image::color::init::alpha %= 1.0))).elements()),
 	mouse_axis_connection_(
 		mouse->axis_callback(
-			boost::bind(
+			std::tr1::bind(
 				&mouse_trailer::callback,
 				this,
-				_1))),
+				std::tr1::placeholders::_1))),
 	particle_texture_(
 		new sge::texture::part_raw(
 			sge::renderer::texture::create_planar_from_view(

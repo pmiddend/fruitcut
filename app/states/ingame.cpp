@@ -46,8 +46,8 @@
 #include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/assign/make_container.hpp>
+#include <fcppt/tr1/functional.hpp>
 #include <fcppt/text.hpp>
-#include <boost/bind.hpp>
 #include <boost/lexical_cast.hpp>
 #include <boost/statechart/event_base.hpp>
 #include <iostream>
@@ -61,7 +61,7 @@ fruitcut::app::states::ingame::ingame(
 		context<machine>().game_input_state().key_callback(
 			sge::input::keyboard::action(
 				sge::input::keyboard::key_code::p, 
-				boost::bind(
+				std::tr1::bind(
 					// Note that using post_event does something unexpected. If
 					// you use that, you get a tick event first and _then_ the
 					// toggle_pause event, which is not the desired behaviour
@@ -74,12 +74,12 @@ fruitcut::app::states::ingame::ingame(
 		context<machine>().game_input_state().key_callback(
 			sge::input::keyboard::action(
 				sge::input::keyboard::key_code::f2, 
-				boost::bind(
+				std::tr1::bind(
 					&ingame::toggle_camera,
 					this)))),
 	viewport_change_connection_(
 		context<machine>().systems().viewport_manager().manage_callback(
-			boost::bind(
+			std::tr1::bind(
 				&ingame::viewport_change,
 				this))),
 	camera_state_(
@@ -119,7 +119,7 @@ fruitcut::app::states::ingame::ingame(
 		context<machine>().game_input_state().key_callback(
 			sge::input::keyboard::action(
 				sge::input::keyboard::key_code::f3, 
-				boost::bind(
+				std::tr1::bind(
 					&ingame::toggle_physics_debugger,
 					this)))),
 	collision_filter_(
@@ -171,10 +171,10 @@ fruitcut::app::states::ingame::ingame(
 		0),
 	cut_connection_(
 		fruit_manager_.cut_callback(
-			boost::bind(
+			std::tr1::bind(
 				&ingame::fruit_was_cut,
 				this,
-				_1)))
+				std::tr1::placeholders::_1)))
 {
 	viewport_change();
 }
