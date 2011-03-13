@@ -79,15 +79,6 @@ private:
 	sge::audio::player_ptr player_;
 	audio_map sounds_;
 	sge::audio::pool pool_;
-
-	void
-	play(
-		sge::audio::buffer_ptr);
-
-	void
-	play_positional(
-		sge::audio::buffer_ptr,
-		sge::audio::sound::positional_parameters const &);
 };
 }
 }

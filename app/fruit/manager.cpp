@@ -149,15 +149,6 @@ fruitcut::app::fruit::manager::manager(
 	FCPPT_ASSERT_MESSAGE(
 		!prototypes_.empty(),
 		FCPPT_TEXT("No fruits specified!"));
-	/*
-	spawn(
-		prototypes_.front(),
-		100,
-		physics::vector3::null(),
-		physics::matrix4::identity(),
-		physics::vector3::null(),
-		physics::vector3::null());
-	*/
 }
 
 void
