@@ -13,6 +13,7 @@
 #include "../events/render.hpp"
 #include "../events/render_overlay.hpp"
 #include "../json/find_member.hpp"
+#include "../json/parse_color.hpp"
 #include "../../physics/world.hpp"
 #include "../../time_format/duration_to_string.hpp"
 #include "../../time_format/milliseconds.hpp"
@@ -105,7 +106,10 @@ fruitcut::app::states::running::running(
 			(font::color_animation::value_type(
 				sge::time::second(1),
 				sge::image::color::any::convert<font::color_format>(
-					sge::image::colors::white()))),
+					json::parse_color<sge::image::color::rgba8>(
+						json::find_member<sge::parse::json::value>(
+							context<machine>().config_file(),
+							FCPPT_TEXT("ingame/timer-font-color")))))),
 		fcppt::assign::make_container<font::scale_animation::value_sequence>
 			(font::scale_animation::value_type(
 				sge::time::second(

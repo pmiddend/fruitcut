@@ -122,7 +122,8 @@
 			"initial-position" : [0.0,0.0,15.0]
 		},
 		"round-seconds" : 60,
-		"score-font-color" : [0.0,1.0,0.0,0.5]
+		"score-font-color" : [0.0,1.0,0.0,0.5],
+		"timer-font-color" : [0.0,1.0,0.0,0.5]
 	},
 	"fruits" : 
 	[
