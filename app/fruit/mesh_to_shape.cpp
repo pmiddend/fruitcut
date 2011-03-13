@@ -2,7 +2,6 @@
 #include "mesh.hpp"
 #include "../../physics/shared_shape_ptr.hpp"
 #include <fcppt/container/raw_vector.hpp>
-#include <fcppt/make_shared_ptr.hpp>
 #include <bullet/BulletCollision/CollisionShapes/btConvexHullShape.h>
 #include <boost/foreach.hpp>
 #include <iostream>
@@ -35,7 +34,7 @@ fruitcut::app::fruit::mesh_to_shape(
 
 	return 
 		physics::shared_shape_ptr(
-			fcppt::make_shared_ptr<btConvexHullShape>(
+			new btConvexHullShape(
 				points.data(),
 				// This is the number of _points_, not the number of scalars!
 				static_cast<int>(

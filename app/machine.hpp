@@ -7,7 +7,7 @@
 #include "../input/state.hpp"
 #include "../input/state_manager.hpp"
 #include "../particle/system.hpp"
-#include "../sound_controller.hpp"
+#include "../audio/sound_controller.hpp"
 #include "../font/cache.hpp"
 #include "../log/scoped_sequence_ptr.hpp"
 #include "states/intro_fwd.hpp"
@@ -87,10 +87,10 @@ public:
 	sge::time::callback const 
 	timer_callback() const;
 
-	fruitcut::sound_controller &
+	fruitcut::audio::sound_controller &
 	sound_controller();
 
-	fruitcut::sound_controller const &
+	fruitcut::audio::sound_controller const &
 	sound_controller() const;
 
 	input::state &
@@ -154,7 +154,7 @@ private:
 	sge::time::point current_time_,transformed_time_;
 	time_transform_function time_transform_;
 	fcppt::signal::scoped_connection console_switch_connection_;
-	fruitcut::sound_controller sound_controller_;
+	fruitcut::audio::sound_controller sound_controller_;
 	fruitcut::app::background background_;
 	fcppt::signal::scoped_connection viewport_change_connection_;
 	fcppt::chrono::milliseconds::rep desired_fps_;

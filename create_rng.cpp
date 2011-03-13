@@ -2,8 +2,8 @@
 #include <fcppt/chrono/high_resolution_clock.hpp>
 #include <fcppt/chrono/time_point.hpp>
 
-fruitcut::app::random_generator const
-fruitcut::app::create_rng()
+fruitcut::random_generator const
+fruitcut::create_rng()
 {
 	static unsigned long init = 
 		static_cast<unsigned long>(

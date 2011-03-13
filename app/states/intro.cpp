@@ -35,7 +35,6 @@
 #include <sge/time/second.hpp>
 #include <sge/viewport/manager.hpp>
 #include <fcppt/assign/make_container.hpp>
-#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/move.hpp>
@@ -140,42 +139,42 @@ fruitcut::app::states::intro::viewport_change()
 	// The logo
 	context<machine>().particle_system().insert(
 		fruitcut::particle::objects::unique_base_ptr(
-		fcppt::make_unique_ptr<fruitcut::particle::objects::simple<fruitcut::particle::sprite::choices> >(
-			sge::sprite::default_parameters<fruitcut::particle::sprite::choices>()
-				.texture(
-					sge::texture::part_ptr(
-						// Can't use machine::create_single_texture here since
-						// we've loaded the image beforehand
-						new sge::texture::part_raw(
-							sge::renderer::texture::create_planar_from_view(
-								context<machine>().systems().renderer(),
-								logo_image->view(),
-								sge::renderer::texture::filter::linear,
-								sge::renderer::texture::address_mode2(
-									sge::renderer::texture::address_mode::clamp),
-								sge::renderer::resource_flags::none))))
-				.texture_size()
-				.order(
-					static_cast<particle::sprite::object::order_type>(
-						-99))
-				.center(
-					fcppt::math::dim::structure_cast<fruitcut::particle::sprite::object::vector>(
-						context<machine>().systems().renderer()->onscreen_target()->viewport().get().size())/2)
-				.system(
-					&context<machine>().particle_system().sprite_system()),
-			json::parse_animation<particle::sprite::animation>(
-				json::find_member<sge::parse::json::array>(
-					context<machine>().config_file(),
-					FCPPT_TEXT("intro/logo-animation")),
-				&json::parse_color<particle::sprite::object::color_type>),
-			context<machine>().timer_callback(),
-			sge::renderer::vector2::null(),
-			sge::renderer::vector2::null())));
+			new fruitcut::particle::objects::simple<fruitcut::particle::sprite::choices> (
+				sge::sprite::default_parameters<fruitcut::particle::sprite::choices>()
+					.texture(
+						sge::texture::part_ptr(
+							// Can't use machine::create_single_texture here since
+							// we've loaded the image beforehand
+							new sge::texture::part_raw(
+								sge::renderer::texture::create_planar_from_view(
+									context<machine>().systems().renderer(),
+									logo_image->view(),
+									sge::renderer::texture::filter::linear,
+									sge::renderer::texture::address_mode2(
+										sge::renderer::texture::address_mode::clamp),
+									sge::renderer::resource_flags::none))))
+					.texture_size()
+					.order(
+						static_cast<particle::sprite::object::order_type>(
+							-99))
+					.center(
+						fcppt::math::dim::structure_cast<fruitcut::particle::sprite::object::vector>(
+							context<machine>().systems().renderer()->onscreen_target()->viewport().get().size())/2)
+					.system(
+						&context<machine>().particle_system().sprite_system()),
+				json::parse_animation<particle::sprite::animation>(
+					json::find_member<sge::parse::json::array>(
+						context<machine>().config_file(),
+						FCPPT_TEXT("intro/logo-animation")),
+					&json::parse_color<particle::sprite::object::color_type>),
+				context<machine>().timer_callback(),
+				sge::renderer::vector2::null(),
+				sge::renderer::vector2::null())));
 
 	// The logo shadow
 	context<machine>().particle_system().insert(
 		fruitcut::particle::objects::unique_base_ptr(
-			fcppt::make_unique_ptr<fruitcut::particle::objects::simple<fruitcut::particle::sprite::choices> >(
+			new fruitcut::particle::objects::simple<fruitcut::particle::sprite::choices> (
 				sge::sprite::default_parameters<fruitcut::particle::sprite::choices>()
 					.texture(
 						context<machine>().create_single_texture(

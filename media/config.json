@@ -37,11 +37,8 @@
 	},
 	"sounds" : 
 	{
-		"events" : 
-		{
-			"intro" : "swoosh.wav",
-			"throw" : "woosh.wav"
-		}
+		"intro" : ["guitar.wav"],
+		"throw" : ["woosh.wav"]
 	},
 	"textures" : 
 	{

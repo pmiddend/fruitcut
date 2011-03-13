@@ -76,7 +76,7 @@ IF (CMAKE_COMPILER_IS_GNUCXX OR COMPILER_IS_CLANGPP)
 		"-Wextra -Wconversion -Wfloat-equal -Wredundant-decls"
 		"-Winit-self -Woverloaded-virtual"
 		"-Wshadow"
-		"-Wold-style-cast -Wnon-virtual-dtor -Wctor-dtor-privacy -Wsign-promo"
+		"-Wnon-virtual-dtor -Wsign-promo"
 		"-Wstrict-aliasing=1 -Wmissing-declarations -Wno-long-long")
 	# we don't use long long but boost does :(
 
@@ -121,7 +121,8 @@ SET(files
 	log/scoped_sequence_from_json.cpp
 	# input 
 	input/state.cpp input/state_manager.cpp
-	sound_controller.cpp
+	audio/sound_controller.cpp
+	audio/detail/sound_group.cpp
 	cursor_trail.cpp
 	# pp 
 	pp/filter/base.cpp 
@@ -140,6 +141,8 @@ SET(files
 	pp/filter/blur.cpp
 	pp/filter/ssaa.cpp
 	pp/screen_vf/quad.cpp
+	# random
+	create_rng.cpp
 	# font
 	font/system.cpp
 	font/cache.cpp
@@ -174,7 +177,6 @@ ADD_LIBRARY(
 
 ADD_EXECUTABLE(
 	app
-	app/create_rng.cpp
 	app/background.cpp
 	app/events/tick.cpp
 	app/fruitcut.cpp

@@ -1,3 +1,11 @@
 * bitmap font tweaked.png
 		based on Tweaked.ttf, used with permission
 		by Katie Harp, http://www.smileyhelper.com
+* sound file guitar.wav
+	distributed under the 
+	Creative Commons Sampling Plus 1.0 license
+	http://creativecommons.org/licenses/sampling+/1.0/
+	Work created by NoiseCollector
+	http://www.freesound.org/samplesViewSingle.php?id=14567
+	User page:
+	http://www.freesound.org/usersViewSingle.php?id=4948

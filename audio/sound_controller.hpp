@@ -1,17 +1,20 @@
-#ifndef FRUITCUT_SOUND_CONTROLLER_HPP_INCLUDED
-#define FRUITCUT_SOUND_CONTROLLER_HPP_INCLUDED
+#ifndef FRUITCUT_AUDIO_SOUND_CONTROLLER_HPP_INCLUDED
+#define FRUITCUT_AUDIO_SOUND_CONTROLLER_HPP_INCLUDED
 
+#include "detail/sound_group.hpp"
 #include <sge/audio/multi_loader_fwd.hpp>
 #include <sge/audio/player_ptr.hpp>
 #include <sge/audio/pool.hpp>
 #include <sge/audio/sound/positional_parameters.hpp>
-#include <sge/parse/json/object.hpp>
+#include <sge/parse/json/object_fwd.hpp>
 #include <sge/audio/buffer_ptr.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <map>
+#include <boost/unordered_map.hpp>
 
 namespace fruitcut
+{
+namespace audio
 {
 /// The sound_controller is very similar to the 
 /// music_controller. Sounds shouldn't be hard-coded, so we store a
@@ -21,7 +24,7 @@ namespace fruitcut
 /// 
 /// In a json file and convert it to a map
 ///
-/// sound_name -> buffer_ptr 
+/// sound_name -> sound_group 
 /// 
 /// In this controller. We use sound buffers, so the sounds are
 /// non-streaming. This class also includes the sound pool, which
@@ -33,6 +36,9 @@ namespace fruitcut
 /// since those are defined per vehicle; also they're looping and
 /// should end when the vehicle dies, so putting them in the pool
 /// isn't really appropriate
+/// 
+/// Also, we store "sound groups", which aggregate more than one sound
+/// so you can randomly play one of them.
 class sound_controller
 {
 FCPPT_NONCOPYABLE(
@@ -63,17 +69,27 @@ public:
 	~sound_controller();
 private:
 	typedef
-	std::map
+	boost::unordered_map
 	<
 		fcppt::string,
-		sge::audio::buffer_ptr
+		detail::sound_group
 	>
 	audio_map;
 
 	sge::audio::player_ptr player_;
 	audio_map sounds_;
 	sge::audio::pool pool_;
+
+	void
+	play(
+		sge::audio::buffer_ptr);
+
+	void
+	play_positional(
+		sge::audio::buffer_ptr,
+		sge::audio::sound::positional_parameters const &);
 };
+}
 }
 
 #endif

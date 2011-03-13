@@ -373,13 +373,13 @@ fruitcut::app::machine::timer_callback() const
 				&transformed_time_));
 }
 
-fruitcut::sound_controller &
+fruitcut::audio::sound_controller &
 fruitcut::app::machine::sound_controller()
 {
 	return sound_controller_;
 }
 
-fruitcut::sound_controller const &
+fruitcut::audio::sound_controller const &
 fruitcut::app::machine::sound_controller() const
 {
 	return sound_controller_;

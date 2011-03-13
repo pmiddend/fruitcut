@@ -1,6 +1,10 @@
 #include "sound_controller.hpp"
-#include "media_path.hpp"
+#include "detail/buffer_sequence.hpp"
+#include "detail/sound_group.hpp"
+#include "../media_path.hpp"
+#include "../json/array_to_vector.hpp"
 #include <sge/parse/json/find_member_exn.hpp>
+#include <sge/parse/json/member_vector.hpp>
 #include <sge/parse/json/object.hpp>
 #include <sge/parse/json/string.hpp>
 #include <sge/parse/json/get.hpp>
@@ -15,12 +19,14 @@
 #include <sge/exception.hpp>
 #include <fcppt/algorithm/map.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/assert_message.hpp>
+#include <fcppt/string.hpp>
 #include <boost/spirit/home/phoenix/core.hpp>
 #include <boost/spirit/home/phoenix/bind.hpp>
 #include <boost/foreach.hpp>
 
-fruitcut::sound_controller::sound_controller(
-	sge::parse::json::object const &o,
+fruitcut::audio::sound_controller::sound_controller(
+	sge::parse::json::object const &sound_array,
 	sge::audio::multi_loader &ml,
 	sge::audio::player_ptr const _player)
 :
@@ -30,31 +36,49 @@ fruitcut::sound_controller::sound_controller(
 	pool_()
 {
 	BOOST_FOREACH(
-		sge::parse::json::member const &v,
-		sge::parse::json::find_member_exn<sge::parse::json::object>(
-			o.members,
-			FCPPT_TEXT("events")).members)
-		sounds_.insert(
-			audio_map::value_type(
-				v.name,
+		sge::parse::json::member_vector::const_reference current_sound,
+		sound_array.members)
+	{
+		// This is an algorithm::map call, but I don't want to use phoenix
+		// here, too convoluted
+		detail::buffer_sequence buffers;
+		BOOST_FOREACH(
+			fcppt::string const &current_file,
+			json::array_to_vector<fcppt::string>(
+				sge::parse::json::get<sge::parse::json::array>(
+					current_sound.value)))
+		{
+			buffers.push_back(
 				player_->create_buffer(
 					ml.load(
 						media_path() 
 							/ FCPPT_TEXT("sounds")
 							/
-								sge::parse::json::get<sge::parse::json::string>(
-									v.value)))));
+								current_file)));
+		}
+		FCPPT_ASSERT_MESSAGE(
+			!buffers.empty(),
+			FCPPT_TEXT("Got an empty sound group!"));
+		sounds_.insert(
+			std::make_pair(
+				current_sound.name,
+				buffers));
+	}
 }
 
 void
-fruitcut::sound_controller::play(
+fruitcut::audio::sound_controller::play(
 	fcppt::string const &p)
 {
-	if (sounds_.find(p) == sounds_.end())
+	audio_map::iterator const current_sound = 
+		sounds_.find(
+			p);
+
+	if (current_sound == sounds_.end())
 		throw sge::exception(FCPPT_TEXT("Couldn't find sound effect \"")+p+FCPPT_TEXT("\""));
 
 	sge::audio::sound::base_ptr const b = 
-		sounds_[p]->create_nonpositional();
+		current_sound->second.random_element()->create_nonpositional();
 
 	b->play(
 		sge::audio::sound::repeat::once);
@@ -65,15 +89,19 @@ fruitcut::sound_controller::play(
 }
 
 void
-fruitcut::sound_controller::play_positional(
+fruitcut::audio::sound_controller::play_positional(
 	fcppt::string const &p,
 	sge::audio::sound::positional_parameters const &pp)
 {
-	if (sounds_.find(p) == sounds_.end())
+	audio_map::iterator const current_sound = 
+		sounds_.find(
+			p);
+
+	if (current_sound == sounds_.end())
 		throw sge::exception(FCPPT_TEXT("Couldn't find sound effect \"")+p+FCPPT_TEXT("\""));
 
 	sge::audio::sound::base_ptr const b = 
-		sounds_[p]->create_positional(
+		current_sound->second.random_element()->create_positional(
 			pp);
 
 	b->play(
@@ -85,9 +113,9 @@ fruitcut::sound_controller::play_positional(
 }
 
 void
-fruitcut::sound_controller::update()
+fruitcut::audio::sound_controller::update()
 {
 	pool_.update();
 }
 
-fruitcut::sound_controller::~sound_controller() {}
+fruitcut::audio::sound_controller::~sound_controller() {}
