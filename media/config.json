@@ -3,11 +3,11 @@
 	{
 		"score" : 
 		{
-			"filename" : "sanguis.json"
+			"filename" : "tweaked.json"
 		},
 		"timer" : 
 		{
-			"filename" : "sanguis.json"
+			"filename" : "tweaked.json"
 		},
 		"instructional" : 
 		{
@@ -71,8 +71,7 @@
 	"textures" : 
 	{
 		"background" : "wood.png",
-		"logo" : "logo.png",
-		"logo-shadow" : "logo_shadow.png"
+		"logo" : "logo.png"
 	},
 	"console" :
 	{
@@ -84,21 +83,13 @@
 	"audio-volume" : 1.0,
 	"intro" : 
 	{
-		"total-duration-secs" : 3.0,
+		"total-duration-secs" : 4.0,
 		"background-repeat" : 3.0,
-		"logo-shadow-offset" : [10,10],
-		"logo-shadow-transparency" : 0.2,
 		"desaturation-secs" : 2.5,
 		"logo-animation" : 
 			[
-				{ "time" : 2.0,"color" : [1.0,1.0,1.0,1.0] },
+				{ "time" : 3.0,"color" : [1.0,1.0,1.0,1.0] },
 				{ "time" : 1.0,"color" : [1.0,1.0,1.0,1.0] },
-				{ "time" : 0.0,"color" : [1.0,1.0,1.0,0.0] }
-			],
-		"logo-shadow-animation" : 
-			[
-				{ "time" : 2.0,"color" : [1.0,1.0,1.0,0.2] },
-				{ "time" : 1.0,"color" : [1.0,1.0,1.0,0.2] },
 				{ "time" : 0.0,"color" : [1.0,1.0,1.0,0.0] }
 			]
 	},
@@ -113,14 +104,14 @@
 		{
 			"fov" : 60.0,
 			"near" : 0.1,
-			"far" : 30.0,
+			"far" : 100.0,
 			"movement-speed" : 10.0,
 			"mouse-speed" : 300.0,
 			"initial-position" : [0.0,0.0,15.0]
 		},
 		"round-seconds" : 60,
-		"score-font-color" : [0.0,1.0,0.0,0.5],
-		"timer-font-color" : [0.0,1.0,0.0,0.5]
+		"score-font-color" : [1.0,0.9,0.7,1.0],
+		"timer-font-color" : [0.7,0.7,0.9,1.0]
 	},
 	"fruits" : 
 	[
@@ -155,12 +146,12 @@
 	},
 	"fruit-spawner" :
 	{
-		"min-seconds" : 1.0,
+		"min-seconds" : 0.5,
 		"max-seconds" : 3.0,
-		"min-linear-velocity" : 10.0,
-		"max-linear-velocity" : 20.0,
+		"min-linear-velocity" : 16.0,
+		"max-linear-velocity" : 22.0,
 		"min-angular-velocity" : 0.0,
-		"max-angular-velocity" : 2.0
+		"max-angular-velocity" : 3.0
 	},
 	"loggers" : 
 	{
