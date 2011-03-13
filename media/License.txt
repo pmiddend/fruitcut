@@ -1,7 +1,7 @@
 * bitmap font tweaked.png
 		based on Tweaked.ttf, used with permission
 		by Katie Harp, http://www.smileyhelper.com
-* sound file guitar.wav
+* sound file guitar.wav (guitar.ogg)
 	distributed under the 
 	Creative Commons Sampling Plus 1.0 license
 	http://creativecommons.org/licenses/sampling+/1.0/
@@ -9,3 +9,12 @@
 	http://www.freesound.org/samplesViewSingle.php?id=14567
 	User page:
 	http://www.freesound.org/usersViewSingle.php?id=4948
+* sound files slash/slash{1-5}.ogg are based on
+	"Knife Slits 1.mp3"
+	from http://www.freesound.org/samplesViewSingle.php?id=104045
+	distributed under the 
+	Creative Commons Sampling Plus 1.0 license
+	http://creativecommons.org/licenses/sampling+/1.0/
+	created by WillHiccups 
+	User page:
+	http://www.freesound.org/usersViewSingle.php?id=1662657
