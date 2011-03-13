@@ -111,6 +111,7 @@ SET(files
 	media_path.cpp 
 	# json
 	json/config_wrapper.cpp 
+	json/parse_rgba8_color.cpp 
 	json/merge_trees.cpp 
 	json/process_option.cpp 
 	json/string_to_value.cpp

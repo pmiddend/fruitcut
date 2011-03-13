@@ -105,11 +105,10 @@ fruitcut::app::states::running::running(
 		fcppt::assign::make_container<font::color_animation::value_sequence>
 			(font::color_animation::value_type(
 				sge::time::second(1),
-				sge::image::color::any::convert<font::color_format>(
-					json::parse_color<sge::image::color::rgba8>(
-						json::find_member<sge::parse::json::value>(
-							context<machine>().config_file(),
-							FCPPT_TEXT("ingame/timer-font-color")))))),
+				json::parse_color<sge::image::color::rgba8>(
+					json::find_member<sge::parse::json::value>(
+						context<machine>().config_file(),
+						FCPPT_TEXT("ingame/timer-font-color"))))),
 		fcppt::assign::make_container<font::scale_animation::value_sequence>
 			(font::scale_animation::value_type(
 				sge::time::second(

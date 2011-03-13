@@ -36,7 +36,7 @@
 #include <sge/font/text/align_v.hpp>
 #include <sge/font/text/flags_none.hpp>
 #include <sge/time/second.hpp>
-#include <sge/image/color/any/convert.hpp>
+#include <sge/image/color/convert.hpp>
 #include <sge/image/color/rgba8.hpp>
 #include <sge/image/colors.hpp>
 #include <fcppt/math/deg_to_rad.hpp>
@@ -177,8 +177,8 @@ fruitcut::app::states::ingame::ingame(
 		fcppt::assign::make_container<font::color_animation::value_sequence>
 			(font::color_animation::value_type(
 				sge::time::second(1),
-				sge::image::color::any::convert<font::color_format>(
-					json::parse_color<sge::image::color::rgba8>(
+				sge::image::color::convert<font::color_format>(
+					json::parse_color<font::color>(
 						json::find_member<sge::parse::json::value>(
 							context<machine>().config_file(),
 							FCPPT_TEXT("ingame/score-font-color")))))),
