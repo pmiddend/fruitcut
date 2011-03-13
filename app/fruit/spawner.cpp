@@ -81,7 +81,8 @@ fruitcut::app::fruit::spawner::spawner(
 	timer_(
 		sge::time::duration(),
 		sge::time::activation_state::inactive,
-		_callback)
+		_callback),
+	spawn_signal_()
 {
 	reset_timer();
 }
@@ -180,6 +181,17 @@ fruitcut::app::fruit::spawner::update()
 		position,
 		linear_velocity,
 		angular_velocity);
+
+	spawn_signal_();
+}
+
+fcppt::signal::auto_connection
+fruitcut::app::fruit::spawner::spawn_callback(
+	spawn_callback_function const &callback)
+{
+	return 
+		spawn_signal_.connect(
+			callback);
 }
 
 void

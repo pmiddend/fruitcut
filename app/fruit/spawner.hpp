@@ -10,6 +10,9 @@
 #include <sge/time/timer.hpp>
 #include <sge/parse/json/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/function/object.hpp>
+#include <fcppt/signal/object.hpp>
+#include <fcppt/signal/auto_connection.hpp>
 
 namespace fruitcut
 {
@@ -22,6 +25,15 @@ class spawner
 FCPPT_NONCOPYABLE(
 	spawner);
 public:
+	// This should have more info, for example the position of the
+	// spawned fruit, but there you go.
+	typedef
+	void spawn_callback_fn();
+
+	typedef
+	fcppt::function::object<spawn_callback_fn>
+	spawn_callback_function;
+
 	explicit
 	spawner(
 		manager &,
@@ -31,6 +43,10 @@ public:
 
 	void
 	update();
+
+	fcppt::signal::auto_connection
+	spawn_callback(
+		spawn_callback_function const &);
 private:
 	manager &manager_;
 	sge::camera::object const &camera_;
@@ -44,6 +60,7 @@ private:
 	uniform_random<physics::scalar>::type angular_velocity_rng_;
 	uniform_random<physics::scalar>::type angle_rng_;
 	sge::time::timer timer_;
+	fcppt::signal::object<spawn_callback_fn> spawn_signal_;
 
 	void
 	reset_timer();

@@ -15,7 +15,7 @@
 			"size" : 16
 		}
 	},
-	"round-seconds" : 3,
+	"round-seconds" : 60,
 	"frame-timer-ms" : 10,
 	"desired-fps" : 60,
 	"background-repeat" : 3.0,
@@ -38,7 +38,13 @@
 	"sounds" : 
 	{
 		"intro" : ["guitar.wav"],
-		"throw" : ["woosh.wav"]
+		"fruit-was-spawned" : 
+			[
+				"woosh/woosh.wav",
+				"woosh/woosh2.wav",
+				"woosh/woosh3.wav",
+				"woosh/woosh4.wav"
+			]
 	},
 	"textures" : 
 	{

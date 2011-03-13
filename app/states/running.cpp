@@ -112,7 +112,13 @@ fruitcut::app::states::running::running(
 					1),
 				static_cast<sge::renderer::scalar>(
 					1))),
-		context<machine>().timer_callback())
+		context<machine>().timer_callback()),
+	fruit_spawned_connection_(
+		context<ingame>().fruit_spawner().spawn_callback(
+			std::tr1::bind(
+				&audio::sound_controller::play,
+				&context<machine>().sound_controller(),
+				fcppt::string(FCPPT_TEXT("fruit-was-spawned")))))
 {
 	context<machine>().postprocessing().active(
 		true);
