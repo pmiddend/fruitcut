@@ -45,9 +45,9 @@
 				"woosh/woosh3.wav",
 				"woosh/woosh4.wav"
 			],
-		"button-clicked" : ["click.ogg"],
-		"button-hover" : ["hover.ogg"],
-		"no-name" : ["nope.ogg"]
+		"button-clicked" : ["click.wav"],
+		"button-hover" : ["hover.wav"],
+		"no-name" : ["nope.wav"]
 	},
 	"music" : 
 	{  
