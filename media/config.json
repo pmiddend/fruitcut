@@ -57,14 +57,12 @@
 	},
 	"music" : 
 	{  
-		"volume" : 0.25,
+		"volume" : 1.0,
 		"events" : 
 		{
 		},
 		"random" :
 		[
-			"epoq.ogg",
-			"hydrate.ogg"
 		],
 		"crossfade-secs" : 2
 	},

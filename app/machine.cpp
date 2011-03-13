@@ -240,6 +240,12 @@ fruitcut::app::machine::machine(
 			FCPPT_TEXT("sounds")),
 		systems_.audio_loader(),
 		systems_.audio_player()),
+	music_controller_(
+		json::find_member<sge::parse::json::object>(
+			config_file(),
+			FCPPT_TEXT("music")),
+		systems_.audio_loader(),
+		systems_.audio_player()),
 	background_(
 		systems_.renderer(),
 		systems_.image_loader(),
@@ -384,6 +390,18 @@ fruitcut::audio::sound_controller const &
 fruitcut::app::machine::sound_controller() const
 {
 	return sound_controller_;
+}
+
+fruitcut::audio::music_controller &
+fruitcut::app::machine::music_controller()
+{
+	return music_controller_;
+}
+
+fruitcut::audio::music_controller const &
+fruitcut::app::machine::music_controller() const
+{
+	return music_controller_;
 }
 
 fruitcut::input::state &

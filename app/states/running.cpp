@@ -125,6 +125,7 @@ fruitcut::app::states::running::running(
 {
 	context<machine>().postprocessing().active(
 		true);
+	context<machine>().music_controller().play_random();
 	viewport_change();
 }
 
@@ -161,6 +162,7 @@ fruitcut::app::states::running::react(
 	events::tick const &d)
 {
 	context<machine>().sound_controller().update();
+	context<machine>().music_controller().update();
 	context<ingame>().camera().update(
 		d.delta_ms());
 	context<ingame>().fruit_spawner().update();

@@ -8,6 +8,7 @@
 #include "../input/state_manager.hpp"
 #include "../particle/system.hpp"
 #include "../audio/sound_controller.hpp"
+#include "../audio/music_controller.hpp"
 #include "../font/cache.hpp"
 #include "../log/scoped_sequence_ptr.hpp"
 #include "states/intro_fwd.hpp"
@@ -93,6 +94,12 @@ public:
 	fruitcut::audio::sound_controller const &
 	sound_controller() const;
 
+	fruitcut::audio::music_controller &
+	music_controller();
+
+	fruitcut::audio::music_controller const &
+	music_controller() const;
+
 	input::state &
 	game_input_state();
 
@@ -155,6 +162,7 @@ private:
 	time_transform_function time_transform_;
 	fcppt::signal::scoped_connection console_switch_connection_;
 	fruitcut::audio::sound_controller sound_controller_;
+	fruitcut::audio::music_controller music_controller_;
 	fruitcut::app::background background_;
 	fcppt::signal::scoped_connection viewport_change_connection_;
 	fcppt::chrono::milliseconds::rep desired_fps_;
