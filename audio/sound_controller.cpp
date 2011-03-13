@@ -24,6 +24,7 @@
 #include <boost/spirit/home/phoenix/core.hpp>
 #include <boost/spirit/home/phoenix/bind.hpp>
 #include <boost/foreach.hpp>
+#include <iostream>
 
 fruitcut::audio::sound_controller::sound_controller(
 	sge::parse::json::object const &sound_array,
@@ -48,6 +49,7 @@ fruitcut::audio::sound_controller::sound_controller(
 				sge::parse::json::get<sge::parse::json::array>(
 					current_sound.value)))
 		{
+			std::cerr << "processing file " << current_file << "\n";
 			buffers.push_back(
 				player_->create_buffer(
 					ml.load(

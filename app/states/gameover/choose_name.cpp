@@ -56,7 +56,14 @@ fruitcut::app::states::gameover::choose_name::continue_button_pushed(
 	CEGUI::String const name = 
 		CEGUI::WindowManager::getSingleton().getWindow("NameChooser/NameBox")->getText();
 	if(name.empty())
+	{
+		context<machine>().sound_controller().play(
+			FCPPT_TEXT("no-name"));
 		return true;
+	}
+
+	context<machine>().sound_controller().play(
+		FCPPT_TEXT("button-clicked"));
 	context<superstate>().name(
 		name);
 	post_event(

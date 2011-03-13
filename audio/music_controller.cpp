@@ -1,5 +1,6 @@
 #include "music_controller.hpp"
 #include "../json/find_member.hpp"
+#include "../json/convert.hpp"
 #include "../media_path.hpp"
 #include "../create_rng.hpp"
 #include <sge/audio/sound/repeat.hpp>
@@ -18,6 +19,10 @@
 #include <fcppt/exception.hpp>
 #include <fcppt/random/make_last_exclusive_range.hpp>
 #include <boost/next_prior.hpp>
+#include <boost/spirit/home/phoenix/object.hpp>
+#include <boost/spirit/home/phoenix/bind.hpp>
+#include <boost/spirit/home/phoenix/core.hpp>
+#include <boost/spirit/home/phoenix/operator.hpp>
 
 fruitcut::audio::music_controller::music_controller(
 	sge::parse::json::object const &o,
@@ -29,28 +34,25 @@ fruitcut::audio::music_controller::music_controller(
 			o,
 			FCPPT_TEXT("volume"))),
 	event_sounds_(
-		/*
 		fcppt::algorithm::map<file_map>(
 			json::find_member<sge::parse::json::object>(
 				o,
-				FCPPT_TEXT("events")),
-			boost::phoenix::construct<>)*/
-		/*
-		stdlib::map<file_map>(
-			sge::parse::json::find_member_exn<sge::parse::json::object>(
-				o.members,
 				FCPPT_TEXT("events")).members,
-			[&ml](sge::parse::json::member const &v)
-			{
-				return 
-					file_map::value_type(
-						v.name,
-						ml.load(
-							create_path(
-								sge::parse::json::get<sge::parse::json::string>(
-									v.value_),
-								FCPPT_TEXT("sounds/music"))));
-			})*/),
+			boost::phoenix::construct<file_map::value_type>(
+				boost::phoenix::bind(
+					&sge::parse::json::member::name,
+					boost::phoenix::arg_names::arg1),
+				boost::phoenix::bind(
+					static_cast<sge::audio::file_ptr const (sge::audio::multi_loader::*)(fcppt::filesystem::path const &)>(
+						&sge::audio::multi_loader::load),
+					&ml,
+					boost::phoenix::val(
+						media_path() / FCPPT_TEXT("music")) / 
+					boost::phoenix::bind(
+						&json::convert<fcppt::string>,
+						boost::phoenix::bind(
+							&sge::parse::json::member::value,
+							boost::phoenix::arg_names::arg1)))))),
 	random_sounds_(
 		/*
 		stdlib::map<file_set>(
