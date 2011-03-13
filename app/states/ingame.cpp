@@ -49,6 +49,9 @@
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/text.hpp>
 #include <boost/lexical_cast.hpp>
+#include <boost/spirit/home/phoenix/core.hpp>
+#include <boost/spirit/home/phoenix/operator.hpp>
+#include <boost/spirit/home/phoenix/bind.hpp>
 #include <boost/statechart/event_base.hpp>
 #include <iostream>
 
@@ -76,7 +79,21 @@ fruitcut::app::states::ingame::ingame(
 				sge::input::keyboard::key_code::f2, 
 				std::tr1::bind(
 					&ingame::toggle_camera,
-					this)))),
+					this)
+				/*
+				boost::phoenix::bind(
+					static_cast<void (sge::camera::object::*)(sge::camera::activation_state::type)>(
+						&sge::camera::object::activation),
+					&camera_,
+					boost::phoenix::if_else(
+						boost::phoenix::bind(
+							static_cast<sge::camera::activation_state::type (sge::camera::object::*)() const>(
+								&sge::camera::object::activation),
+							&camera_) == sge::camera::activation_state::active,
+						sge::camera::activation_state::inactive,
+						sge::camera::activation_state::active))*/))),
+	/*
+				*/
 	viewport_change_connection_(
 		context<machine>().systems().viewport_manager().manage_callback(
 			std::tr1::bind(
@@ -321,4 +338,6 @@ fruitcut::app::states::ingame::fruit_was_cut(
 	score_font_.text(
 		boost::lexical_cast<sge::font::text::string>(
 			score_));
+	context<machine>().sound_controller().play(
+		FCPPT_TEXT("fruit-was-cut"));
 }
