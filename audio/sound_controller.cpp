@@ -48,8 +48,6 @@ fruitcut::audio::sound_controller::sound_controller(
 			json::array_to_vector<fcppt::string>(
 				sge::parse::json::get<sge::parse::json::array>(
 					current_sound.value)))
-		{
-			std::cerr << "processing file " << current_file << "\n";
 			buffers.push_back(
 				player_->create_buffer(
 					ml.load(
@@ -57,7 +55,6 @@ fruitcut::audio::sound_controller::sound_controller(
 							/ FCPPT_TEXT("sounds")
 							/
 								current_file)));
-		}
 		FCPPT_ASSERT_MESSAGE(
 			!buffers.empty(),
 			FCPPT_TEXT("Got an empty sound group!"));

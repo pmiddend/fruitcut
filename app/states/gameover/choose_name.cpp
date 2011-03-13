@@ -9,9 +9,13 @@
 #include <CEGUI/CEGUIWindowManager.h>
 #include <CEGUI/elements/CEGUIPushButton.h>
 #include <boost/lexical_cast.hpp>
+#include <boost/spirit/home/phoenix/bind.hpp>
+#include <boost/spirit/home/phoenix/core.hpp>
+#include <boost/spirit/home/phoenix/statement.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/tr1/functional.hpp>
+#include <iostream>
 
 fruitcut::app::states::gameover::choose_name::choose_name(
 	my_context ctx)

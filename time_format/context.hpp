@@ -13,6 +13,8 @@
 #include <boost/lexical_cast.hpp>
 #include <boost/type_traits/make_unsigned.hpp>
 #include <boost/proto/proto.hpp>
+#include <sstream>
+#include <iomanip>
 
 namespace fruitcut
 {
@@ -83,9 +85,14 @@ public:
 		boost::proto::tag::terminal,
 		tags::milliseconds) const
 	{
+		std::basic_ostringstream<typename String::value_type> oss;
+		oss << std::setfill(oss.widen('0')) << std::setw(2) << (milliseconds_/10);
+		return oss.str();
+		/*
 		return 
 			boost::lexical_cast<result_type>(
 				milliseconds_);
+		*/
 	}
 
 	result_type

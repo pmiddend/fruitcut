@@ -46,7 +46,7 @@ public:
 	~choose_name();
 private:
 	sge::cegui::toolbox::scoped_layout layout_;
-	CEGUI::Event::Connection continue_button_connection_;
+	CEGUI::Event::ScopedConnection continue_button_connection_;
 
 	bool
 	continue_button_pushed(

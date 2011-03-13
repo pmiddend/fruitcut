@@ -47,7 +47,7 @@ public:
 	~highscore();
 private:
 	sge::cegui::toolbox::scoped_layout layout_;
-	CEGUI::Event::Connection 
+	CEGUI::Event::ScopedConnection 
 		quit_button_connection_,
 		reset_button_connection_;
 

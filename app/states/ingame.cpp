@@ -3,6 +3,7 @@
 #include "../events/toggle_pause.hpp"
 #include "../../input/state.hpp"
 #include "../../json/find_member.hpp"
+#include "../../json/parse_color.hpp"
 #include "../../physics/vector3.hpp"
 #include "../../physics/box.hpp"
 #include "../../font/color_animation.hpp"
@@ -36,6 +37,7 @@
 #include <sge/font/text/flags_none.hpp>
 #include <sge/time/second.hpp>
 #include <sge/image/color/any/convert.hpp>
+#include <sge/image/color/rgba8.hpp>
 #include <sge/image/colors.hpp>
 #include <fcppt/math/deg_to_rad.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
@@ -158,7 +160,7 @@ fruitcut::app::states::ingame::ingame(
 		sge::time::second(
 			json::find_member<sge::time::unit>(
 				context<machine>().config_file(),
-				FCPPT_TEXT("round-seconds"))),
+				FCPPT_TEXT("ingame/round-seconds"))),
 		sge::time::activation_state::active,
 		context<machine>().timer_callback()),
 	font_system_(
@@ -176,7 +178,10 @@ fruitcut::app::states::ingame::ingame(
 			(font::color_animation::value_type(
 				sge::time::second(1),
 				sge::image::color::any::convert<font::color_format>(
-					sge::image::colors::white()))),
+					json::parse_color<sge::image::color::rgba8>(
+						json::find_member<sge::parse::json::value>(
+							context<machine>().config_file(),
+							FCPPT_TEXT("ingame/score-font-color")))))),
 		fcppt::assign::make_container<font::scale_animation::value_sequence>
 			(font::scale_animation::value_type(
 				sge::time::second(

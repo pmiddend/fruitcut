@@ -15,7 +15,6 @@
 			"size" : 16
 		}
 	},
-	"round-seconds" : 60,
 	"frame-timer-ms" : 10,
 	"desired-fps" : 60,
 	"background-repeat" : 3.0,
@@ -121,7 +120,9 @@
 			"movement-speed" : 10.0,
 			"mouse-speed" : 300.0,
 			"initial-position" : [0.0,0.0,15.0]
-		}
+		},
+		"round-seconds" : 60,
+		"score-font-color" : [0.0,1.0,0.0,0.5]
 	},
 	"fruits" : 
 	[

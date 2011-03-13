@@ -54,20 +54,19 @@ fruitcut::audio::music_controller::music_controller(
 							&sge::parse::json::member::value,
 							boost::phoenix::arg_names::arg1)))))),
 	random_sounds_(
-		/*
-		stdlib::map<file_set>(
-			sge::parse::json::find_member_exn<sge::parse::json::array>(
-				o.members,
+		fcppt::algorithm::map<file_set>(
+			json::find_member<sge::parse::json::array>(
+				o,
 				FCPPT_TEXT("random")).elements,
-			[&ml](sge::parse::json::value const &v)
-			{
-				return 
-					ml.load(
-						create_path(
-							sge::parse::json::get<sge::parse::json::string>(
-								v),
-							FCPPT_TEXT("sounds/music")));
-			})*/),
+			boost::phoenix::bind(
+				static_cast<sge::audio::file_ptr const (sge::audio::multi_loader::*)(fcppt::filesystem::path const &)>(
+					&sge::audio::multi_loader::load),
+				&ml,
+				boost::phoenix::val(
+					media_path() / FCPPT_TEXT("music")) / 
+				boost::phoenix::bind(
+					&json::convert<fcppt::string>,
+					boost::phoenix::arg_names::arg1)))),
 	crossfade_(
 		sge::time::second(
 			json::find_member<sge::time::unit>(
