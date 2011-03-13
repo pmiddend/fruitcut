@@ -132,7 +132,10 @@ fruitcut::app::fruit::spawner::update()
 	prototype const &chosen_prototype = 
 		manager_.prototypes()[prototype_index];
 
-	physics::scalar const x(x_rng_());
+	physics::scalar const x(
+		0.25f +
+		0.5f *
+		x_rng_());
 
 	physics::vector3 const position(
 		zero_plane.left() + x * zero_plane.size().w(),
