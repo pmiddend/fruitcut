@@ -122,6 +122,7 @@ SET(files
 	# input 
 	input/state.cpp input/state_manager.cpp
 	audio/sound_controller.cpp
+	audio/music_controller.cpp
 	audio/detail/sound_group.cpp
 	cursor_trail.cpp
 	# pp 

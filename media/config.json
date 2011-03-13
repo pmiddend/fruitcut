@@ -49,6 +49,19 @@
 		"button-hover" : ["hover.ogg"],
 		"no-name" : ["nope.ogg"]
 	},
+	"music" : 
+	{  
+		"volume" : 0.25,
+		"events" : 
+		{
+		},
+		"random" :
+		[
+			"epoq.ogg",
+			"hydrate.ogg"
+		],
+		"crossfade-secs" : 2
+	},
 	"textures" : 
 	{
 		"background" : "wood.png",

@@ -170,39 +170,4 @@ fruitcut::app::states::intro::viewport_change()
 				context<machine>().timer_callback(),
 				sge::renderer::vector2::null(),
 				sge::renderer::vector2::null())));
-
-	// The logo shadow
-	context<machine>().particle_system().insert(
-		fruitcut::particle::objects::unique_base_ptr(
-			new fruitcut::particle::objects::simple<fruitcut::particle::sprite::choices> (
-				sge::sprite::default_parameters<fruitcut::particle::sprite::choices>()
-					.texture(
-						context<machine>().create_single_texture(
-							fruitcut::media_path() 
-								/ FCPPT_TEXT("textures") 
-								/ 
-									json::find_member<fcppt::string>(
-										context<machine>().config_file(),
-										FCPPT_TEXT("textures/logo-shadow")),
-							sge::renderer::texture::address_mode::clamp))
-					.texture_size()
-					.order(
-						static_cast<particle::sprite::object::order_type>(
-							-100))
-					.center(
-						fcppt::math::dim::structure_cast<fruitcut::particle::sprite::object::vector>(
-							context<machine>().systems().renderer()->onscreen_target()->viewport().get().size())/2 + 
-						json::find_member<fruitcut::particle::sprite::object::vector>(
-							context<machine>().config_file(),
-							FCPPT_TEXT("intro/logo-shadow-offset")))
-					.system(
-						&context<machine>().particle_system().sprite_system()),
-				json::parse_animation<particle::sprite::animation>(
-					json::find_member<sge::parse::json::array>(
-						context<machine>().config_file(),
-						FCPPT_TEXT("intro/logo-shadow-animation")),
-					&json::parse_color<particle::sprite::object::color_type>),
-				context<machine>().timer_callback(),
-				sge::renderer::vector2::null(),
-				sge::renderer::vector2::null())));
 }
