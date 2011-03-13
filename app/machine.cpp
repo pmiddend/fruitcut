@@ -252,7 +252,7 @@ fruitcut::app::machine::machine(
 	desired_fps_(
 		json::find_member<fcppt::chrono::milliseconds::rep>(
 			config_file(),
-			FCPPT_TEXT("desired-fps"))),
+			FCPPT_TEXT("graphics/desired-fps"))),
 	gui_system_(
 		sge::cegui::load_context(
 			media_path()/FCPPT_TEXT("gui")/FCPPT_TEXT("fruitcut.scheme"))

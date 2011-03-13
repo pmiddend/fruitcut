@@ -15,8 +15,6 @@
 			"size" : 16
 		}
 	},
-	"frame-timer-ms" : 10,
-	"desired-fps" : 60,
 	"background-repeat" : 3.0,
 	"mouse" : 
 	{
@@ -26,7 +24,8 @@
 	},
 	"graphics" :
 	{
-		"window-size" : [640,480]
+		"window-size" : [640,480],
+		"desired-fps" : 60
 	},
 	"pp" : 
 	{
@@ -82,8 +81,6 @@
 		"background-texture" : "console_back.png",
 		"line-limit" : 1000
 	},
-	"test-model" : "melon.md3",
-	"test-model-texture" : "melon.png",
 	"audio-volume" : 1.0,
 	"intro" : 
 	{
