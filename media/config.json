@@ -37,17 +37,25 @@
 	},
 	"sounds" : 
 	{
-		"intro" : ["guitar.wav"],
+		"intro" : ["guitar.ogg"],
 		"fruit-was-spawned" : 
 			[
-				"woosh/woosh.wav",
-				"woosh/woosh2.wav",
-				"woosh/woosh3.wav",
-				"woosh/woosh4.wav"
+				"woosh/woosh.ogg",
+				"woosh/woosh2.ogg",
+				"woosh/woosh3.ogg",
+				"woosh/woosh4.ogg"
 			],
-		"button-clicked" : ["click.wav"],
-		"button-hover" : ["hover.wav"],
-		"no-name" : ["nope.wav"]
+		"fruit-cut" :
+			[
+				"slash/slash1.ogg",
+				"slash/slash2.ogg",
+				"slash/slash3.ogg",
+				"slash/slash4.ogg",
+				"slash/slash5.ogg"
+			],
+		"button-clicked" : ["click.ogg"],
+		"button-hover" : ["hover.ogg"],
+		"no-name" : ["nope.ogg"]
 	},
 	"music" : 
 	{  
