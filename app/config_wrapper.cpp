@@ -19,8 +19,6 @@
 #include <iostream>
 #include <ostream>
 #include <string>
-#include <fcppt/io/cout.hpp>
-#include <fcppt/filesystem/path_to_string.hpp>
 
 namespace
 {
@@ -31,8 +29,6 @@ user_config_file()
 		fruitcut::environment::make_config_path(
 			fruitcut::app::name(),
 			FCPPT_TEXT("config.json"));
-
-	fcppt::io::cout << fcppt::filesystem::path_to_string(final_name) << "\n";
 
 	return 
 		fcppt::filesystem::exists(
