@@ -26,7 +26,7 @@
 #include <sge/time/point.hpp>
 #include <sge/time/unit.hpp>
 #include <fcppt/chrono/duration.hpp>
-#include <fcppt/function/object.hpp>
+#include <fcppt/tr1/functional.hpp>
 #include <fcppt/chrono/time_point.hpp>
 #include <fcppt/chrono/milliseconds.hpp>
 #include <fcppt/filesystem/path.hpp>
@@ -49,7 +49,7 @@ class machine
 {
 public:
 	typedef
-	fcppt::function::object<sge::time::duration const (sge::time::duration const &)>
+	std::tr1::function<sge::time::duration const (sge::time::duration const &)>
 	time_transform_function;
 
 	explicit

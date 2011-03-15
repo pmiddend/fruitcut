@@ -1,7 +1,5 @@
 #include "descriptor.hpp"
 #include <fcppt/math/dim/comparison.hpp>
-#include <boost/tuple/tuple_comparison.hpp>
-#include <boost/range/algorithm/lexicographical_compare.hpp>
 
 fruitcut::pp::texture::descriptor::descriptor(
 	sge::renderer::dim2 const &_size,
@@ -21,25 +19,33 @@ fruitcut::pp::texture::descriptor::descriptor(
 sge::renderer::dim2 const &
 fruitcut::pp::texture::descriptor::size() const
 {
-	return tuple_.get<0>();
+	return 
+		std::tr1::get<0>(
+			tuple_);
 }
 
 sge::image::color::format::type 
 fruitcut::pp::texture::descriptor::image_format() const
 {
-	return tuple_.get<1>();
+	return 
+		std::tr1::get<1>(
+			tuple_);
 }
 
 sge::renderer::texture::filter::object const &
 fruitcut::pp::texture::descriptor::filter() const
 {
-	return tuple_.get<2>().value();
+	return 
+		std::tr1::get<2>(
+			tuple_).value();
 }
 
 fruitcut::pp::texture::depth_stencil_format::type 
 fruitcut::pp::texture::descriptor::depth_stencil() const
 {
-	return tuple_.get<3>();
+	return 
+		std::tr1::get<3>(
+			tuple_);
 }
 
 bool 

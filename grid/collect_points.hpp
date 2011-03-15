@@ -4,7 +4,7 @@
 #include <fcppt/container/grid/size_type.hpp>
 #include <fcppt/container/grid/object.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
-#include <boost/type_traits/is_same.hpp>
+#include <fcppt/tr1/type_traits.hpp>
 #include <boost/static_assert.hpp>
 
 namespace fruitcut
@@ -25,7 +25,7 @@ collect_points(
 	UnaryFunctor const &test)
 {
 	BOOST_STATIC_ASSERT((
-		boost::is_same
+		std::tr1::is_same
 		<
 			typename DestContainer::value_type,
 			typename fcppt::container::grid::object<T,N>::dim

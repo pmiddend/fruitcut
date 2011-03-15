@@ -2,7 +2,7 @@
 #include <sge/parse/json/null.hpp>
 #include <boost/variant/apply_visitor.hpp>
 #include <boost/variant/static_visitor.hpp>
-#include <boost/type_traits/is_same.hpp>
+#include <fcppt/tr1/type_traits.hpp>
 
 namespace
 {
@@ -16,7 +16,7 @@ public:
 	operator()(
 		T const &) const
 	{
-		return boost::is_same<T,sge::parse::json::null>::value;
+		return std::tr1::is_same<T,sge::parse::json::null>::value;
 	}
 };
 }

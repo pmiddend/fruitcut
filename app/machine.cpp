@@ -83,6 +83,7 @@
 #include <boost/spirit/home/phoenix/core/argument.hpp>
 #include <boost/spirit/home/phoenix/operator.hpp>
 #include <boost/spirit/home/phoenix/object/construct.hpp>
+#include <boost/lambda/core.hpp>
 #include <iostream>
 
 fruitcut::app::machine::machine(
@@ -226,7 +227,9 @@ fruitcut::app::machine::machine(
 	transformed_time_(
 		current_time_),
 	time_transform_(
-		boost::phoenix::arg_names::arg1),
+		boost::lambda::_1	
+		/*
+		boost::phoenix::arg_names::arg1*/),
 	console_switch_connection_(
 		systems_.keyboard_collector()->key_callback(
 			sge::input::keyboard::action(

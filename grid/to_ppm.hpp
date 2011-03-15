@@ -3,8 +3,8 @@
 
 #include <fcppt/container/grid/object.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
+#include <fcppt/tr1/type_traits.hpp>
 #include <boost/utility/enable_if.hpp>
-#include <boost/type_traits/is_unsigned.hpp>
 #include <boost/type_traits/promote.hpp>
 #include <ostream>
 #include <limits>
@@ -15,7 +15,11 @@ namespace grid
 {
 template<typename Char,typename T>
 typename
-boost::enable_if_c<boost::is_unsigned<T>::value,void>::type
+boost::enable_if_c
+<
+	std::tr1::is_unsigned<T>::value,
+	void
+>::type
 to_ppm(
 	fcppt::container::grid::object<T,2> const &g,
 	std::basic_ostream<Char> &s,

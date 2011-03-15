@@ -20,9 +20,9 @@
 #include <fcppt/assert.hpp>
 #include <fcppt/assert_message.hpp>
 #include <fcppt/filesystem/extension_without_dot.hpp>
+#include <fcppt/tr1/type_traits.hpp>
 #include <boost/foreach.hpp>
 #include <boost/next_prior.hpp>
-#include <boost/type_traits/is_same.hpp>
 #include <boost/static_assert.hpp>
 #include <iostream>
 #include <utility>
@@ -58,7 +58,7 @@ fruitcut::font::cache::cache(
 		_fonts.members)
 	{
 		BOOST_STATIC_ASSERT(
-			(boost::is_same<sge::parse::json::string,fcppt::string>::value));
+			(std::tr1::is_same<sge::parse::json::string,fcppt::string>::value));
 
 		fcppt::string const current_identifier = 
 			current_font_raw.name;

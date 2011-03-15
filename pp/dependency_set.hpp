@@ -2,14 +2,14 @@
 #define FRUITCUT_PP_DEPENDENCY_SET_HPP_INCLUDED
 
 #include <fcppt/string.hpp>
-#include <boost/unordered/unordered_set.hpp>
+#include <fcppt/tr1/unordered_set.hpp>
 
 namespace fruitcut
 {
 namespace pp
 {
 typedef
-boost::unordered_set<fcppt::string>
+std::tr1::unordered_set<fcppt::string>
 dependency_set;
 }
 }

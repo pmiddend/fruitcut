@@ -10,7 +10,7 @@
 #include <sge/audio/buffer_ptr.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <boost/unordered_map.hpp>
+#include <fcppt/tr1/unordered_map.hpp>
 
 namespace fruitcut
 {
@@ -69,7 +69,7 @@ public:
 	~sound_controller();
 private:
 	typedef
-	boost::unordered_map
+	std::tr1::unordered_map
 	<
 		fcppt::string,
 		detail::sound_group

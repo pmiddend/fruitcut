@@ -3,9 +3,9 @@
 
 #include "box.hpp"
 #include "vector3.hpp"
-#include <fcppt/noncopyable.hpp>
-#include <fcppt/scoped_ptr.hpp>
 #include <sge/time/duration.hpp>
+#include <fcppt/noncopyable.hpp>
+#include <boost/scoped_ptr.hpp>
 
 class btCollisionConfiguration;
 class btDispatcher;
@@ -37,11 +37,11 @@ public:
 
 	~world();
 private:
-	fcppt::scoped_ptr<btCollisionConfiguration> configuration_;
-	fcppt::scoped_ptr<btDispatcher> dispatcher_;
-	fcppt::scoped_ptr<btBroadphaseInterface> broadphase_;
-	fcppt::scoped_ptr<btConstraintSolver> constraint_solver_;
-	fcppt::scoped_ptr<btDiscreteDynamicsWorld> world_;
+	boost::scoped_ptr<btCollisionConfiguration> configuration_;
+	boost::scoped_ptr<btDispatcher> dispatcher_;
+	boost::scoped_ptr<btBroadphaseInterface> broadphase_;
+	boost::scoped_ptr<btConstraintSolver> constraint_solver_;
+	boost::scoped_ptr<btDiscreteDynamicsWorld> world_;
 };
 }
 }

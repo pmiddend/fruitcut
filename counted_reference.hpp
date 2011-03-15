@@ -2,7 +2,7 @@
 #define FRUITCUT_COUNTED_REFERENCE_HPP_INCLUDED
 
 #include <fcppt/safe_bool.hpp>
-#include <fcppt/function/object.hpp>
+#include <fcppt/tr1/functional.hpp>
 
 namespace fruitcut
 {
@@ -22,7 +22,7 @@ public:
 	pointer;
 
 	typedef
-	fcppt::function::object<void (T&)>
+	std::tr1::function<void (T&)>
 	deleter;
 
 	explicit 

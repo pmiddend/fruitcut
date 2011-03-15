@@ -11,7 +11,7 @@
 #include <LinearMath/btIDebugDraw.h>
 #include <LinearMath/btVector3.h>
 #include <fcppt/math/vector/basic_impl.hpp>
-#include <fcppt/scoped_ptr.hpp>
+#include <boost/scoped_ptr.hpp>
 
 namespace fruitcut
 {
@@ -123,7 +123,7 @@ private:
 	sge::camera::object &camera_;
 	int debug_mode_;
 	line_drawer::object line_drawer_;
-	fcppt::scoped_ptr<line_drawer::scoped_lock> scoped_lock_;
+	boost::scoped_ptr<line_drawer::scoped_lock> scoped_lock_;
 };
 }
 }

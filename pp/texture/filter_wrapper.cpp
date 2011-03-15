@@ -1,6 +1,5 @@
 #include "filter_wrapper.hpp"
-#include <boost/tuple/tuple.hpp>
-#include <boost/tuple/tuple_comparison.hpp>
+#include <fcppt/tr1/tuple.hpp>
 
 fruitcut::pp::texture::filter_wrapper::filter_wrapper(
 	sge::renderer::texture::filter::object const &_value)
@@ -21,11 +20,11 @@ fruitcut::pp::texture::filter_wrapper::operator<(
 	filter_wrapper const &r) const
 {
 	return 
-		boost::make_tuple(
+		std::tr1::make_tuple(
 			value().min(),
 			value().mag(),
 			value().anisotropy()) < 
-		boost::make_tuple(
+		std::tr1::make_tuple(
 			r.value().min(),
 			r.value().mag(),
 			r.value().anisotropy());

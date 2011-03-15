@@ -21,7 +21,7 @@
 fruitcut::app::postprocessing::postprocessing(
 	sge::renderer::device_ptr const &_renderer,
 	sge::console::object &console,
-	fcppt::function::object<void ()> const &render_callback,
+	std::tr1::function<void ()> const &render_callback,
 	sge::parse::json::object const &config)
 :
 	system_(

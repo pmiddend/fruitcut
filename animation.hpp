@@ -5,12 +5,12 @@
 #include <sge/time/duration.hpp>
 #include <sge/time/callback.hpp>
 #include <sge/time/default_callback.hpp>
-#include <fcppt/scoped_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/chrono/duration.hpp>
 #include <fcppt/math/interpolation/trigonometric.hpp>
 #include <fcppt/assert.hpp>
 #include <boost/next_prior.hpp>
+#include <boost/scoped_ptr.hpp>
 #include <vector>
 #include <utility>
 
@@ -105,7 +105,7 @@ public:
 	}
 private:
 	value_sequence const values_;
-	fcppt::scoped_ptr<sge::time::timer> current_timer_;
+	boost::scoped_ptr<sge::time::timer> current_timer_;
 	typename value_sequence::const_iterator current_value_;
 };
 }
