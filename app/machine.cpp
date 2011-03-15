@@ -1,10 +1,10 @@
 #include "machine.hpp"
 #include "name.hpp"
+#include "config_wrapper.hpp"
 #include "events/render.hpp"
 #include "events/render_overlay.hpp"
 #include "events/tick.hpp"
 #include "../pp/dependency_set.hpp"
-#include "../json/config_wrapper.hpp"
 #include "../json/find_member.hpp"
 #include "../media_path.hpp"
 #include "../log/scoped_sequence_from_json.hpp"
@@ -93,7 +93,7 @@ fruitcut::app::machine::machine(
 	// We init that in run()
 	running_(),
 	config_file_(
-		json::config_wrapper(
+		config_wrapper(
 			argc,
 			argv)),
 	systems_(

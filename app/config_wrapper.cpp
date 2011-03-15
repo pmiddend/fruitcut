@@ -1,13 +1,12 @@
 #include "config_wrapper.hpp"
-#include "merge_trees.hpp"
-#include "process_option.hpp"
+#include "name.hpp"
+#include "../json/merge_trees.hpp"
+#include "../json/process_option.hpp"
 #include "../media_path.hpp"
+#include "../environment/make_config_path.hpp"
 #include <sge/parse/json/parse_file_exn.hpp>
 #include <sge/parse/json/array.hpp>
 #include <sge/parse/json/object.hpp>
-#include <sge/config/homedir.hpp>
-#include <sge/config/optional_string.hpp>
-#include <sge/config/getenv.hpp>
 #include <sge/exception.hpp>
 #include <boost/spirit/home/phoenix/core/argument.hpp>
 #include <boost/spirit/home/phoenix/operator/arithmetic.hpp>
@@ -20,24 +19,20 @@
 #include <iostream>
 #include <ostream>
 #include <string>
+#include <fcppt/io/cout.hpp>
+#include <fcppt/filesystem/path_to_string.hpp>
 
 namespace
 {
 fcppt::optional<fcppt::filesystem::path> const
 user_config_file()
 {
-	sge::config::optional_string const xdg_home = 
-		sge::config::getenv(
-			FCPPT_TEXT("XDG_CONFIG_HOME"));
-
 	fcppt::filesystem::path const final_name = 
-		xdg_home && !(xdg_home->empty())
-		?
-			fcppt::filesystem::path(
-				*xdg_home)
-				/ FCPPT_TEXT("fruitcut") / FCPPT_TEXT("config.json")
-		:
-			sge::config::homedir()/FCPPT_TEXT(".fruitcut.json");
+		fruitcut::environment::make_config_path(
+			fruitcut::app::name(),
+			FCPPT_TEXT("config.json"));
+
+	fcppt::io::cout << fcppt::filesystem::path_to_string(final_name) << "\n";
 
 	return 
 		fcppt::filesystem::exists(
@@ -51,7 +46,7 @@ user_config_file()
 }
 
 sge::parse::json::object const
-fruitcut::json::config_wrapper(
+fruitcut::app::config_wrapper(
 	int argc,
 	char *argv[])
 {
@@ -61,7 +56,7 @@ fruitcut::json::config_wrapper(
 
 	if (user_config_file())
 		config_file = 
-			merge_trees(
+			json::merge_trees(
 				config_file,
 				sge::parse::json::parse_file_exn(
 					*user_config_file()));
@@ -89,7 +84,7 @@ fruitcut::json::config_wrapper(
 	}
 
 	for (int i = 1; i < argc; ++i)
-		process_option(
+		json::process_option(
 			config_file,
 			fcppt::from_std_string(
 				argv[i]));

@@ -1,11 +1,11 @@
-#ifndef FRUITCUT_JSON_CONFIG_WRAPPER_HPP_INCLUDED
-#define FRUITCUT_JSON_CONFIG_WRAPPER_HPP_INCLUDED
+#ifndef FRUITCUT_APP_CONFIG_WRAPPER_HPP_INCLUDED
+#define FRUITCUT_APP_CONFIG_WRAPPER_HPP_INCLUDED
 
 #include <sge/parse/json/object.hpp>
 
 namespace fruitcut
 {
-namespace json
+namespace app
 {
 // This function wraps the ever-repeating "read config file(s), add
 // options from the console" part. Note that this function "includes"

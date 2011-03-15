@@ -109,8 +109,11 @@ ADD_SUBDIRECTORY(test)
 SET(files 
 	# base 
 	media_path.cpp 
+	# environment
+	environment/make_cache_path.cpp
+	environment/make_config_path.cpp
+	environment/getenv.cpp
 	# json
-	json/config_wrapper.cpp 
 	json/parse_rgba8_color.cpp 
 	json/merge_trees.cpp 
 	json/process_option.cpp 
@@ -181,6 +184,7 @@ ADD_EXECUTABLE(
 	app
 	app/background.cpp
 	app/events/tick.cpp
+	app/config_wrapper.cpp
 	app/fruitcut.cpp
 	app/fruit/cut_mesh.cpp
 	app/fruit/hull/projected.cpp
