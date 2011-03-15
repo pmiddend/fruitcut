@@ -6,7 +6,6 @@
 #include <sge/parse/json/parse_stream.hpp>
 #include <sge/exception.hpp>
 #include <fcppt/io/istringstream.hpp>
-#include <fcppt/io/cout.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/format.hpp>
 #include <fcppt/string.hpp>
@@ -19,8 +18,6 @@ fruitcut::json::string_to_value(
 
 	fcppt::string const edited = 
 		(fcppt::format(FCPPT_TEXT("{ \"value\" : %s }")) % s).str();
-
-	fcppt::io::cout << "edited: " << edited << "\n";
 	
 	fcppt::io::istringstream stream(edited);
 	object result;

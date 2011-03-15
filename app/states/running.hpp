@@ -68,6 +68,7 @@ private:
 	fcppt::signal::scoped_connection viewport_change_connection_;
 	font::particle::animated timer_font_;
 	fcppt::signal::scoped_connection fruit_spawned_connection_;
+	bool draw_mouse_trail_,draw_bbs_;
 
 	void
 	draw_fruit_bbs(

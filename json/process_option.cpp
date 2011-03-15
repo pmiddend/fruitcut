@@ -7,7 +7,6 @@
 #include <fcppt/assert.hpp>
 #include <fcppt/algorithm/map.hpp>
 #include <fcppt/algorithm/shortest_levenshtein.hpp>
-#include <fcppt/io/cout.hpp>
 #include <boost/spirit/include/qi.hpp>
 #include <boost/fusion/container/vector.hpp>
 #include <boost/fusion/sequence/intrinsic/at.hpp>
@@ -46,10 +45,6 @@ fruitcut::json::process_option(
 			FCPPT_TEXT("Invalid format \"")+
 			input+
 			FCPPT_TEXT("\""));
-
-	//fcppt::io::cout << "Parts were:\n";
-	//BOOST_FOREACH(string_vector::const_reference r,boost::fusion::at_c<0>(result))
-	//	fcppt::io::cout << r << "\n";
 
 	FCPPT_ASSERT(
 		!boost::fusion::at_c<0>(result).empty());

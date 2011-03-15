@@ -121,7 +121,15 @@ fruitcut::app::states::running::running(
 			std::tr1::bind(
 				&audio::sound_controller::play,
 				&context<machine>().sound_controller(),
-				fcppt::string(FCPPT_TEXT("fruit-was-spawned")))))
+				fcppt::string(FCPPT_TEXT("fruit-was-spawned"))))),
+	draw_mouse_trail_(
+		json::find_member<bool>(
+			context<machine>().config_file(),
+			FCPPT_TEXT("ingame/draw-mouse-trail"))),
+	draw_bbs_(
+		json::find_member<bool>(
+			context<machine>().config_file(),
+			FCPPT_TEXT("ingame/draw-bbs")))
 {
 	context<machine>().postprocessing().active(
 		true);
@@ -179,14 +187,17 @@ fruitcut::app::states::running::react(
 	context<ingame>().physics_debugger().update();
 	cursor_trail_.update();
 
+	if(draw_bbs_ || draw_mouse_trail_)
 	{
 		line_drawer::scoped_lock slock(
 			line_drawer_);
 		slock.value().clear();
-		draw_fruit_bbs(
-			slock.value());
-		draw_mouse_trail(
-			slock.value());
+		if(draw_bbs_)
+			draw_fruit_bbs(
+				slock.value());
+		if(draw_mouse_trail_)
+			draw_mouse_trail(
+				slock.value());
 	}
 
 	for(
