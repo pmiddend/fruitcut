@@ -20,7 +20,7 @@ sge::renderer::dim2 const &
 fruitcut::pp::texture::descriptor::size() const
 {
 	return 
-		std::tr1::get<0>(
+		boost::fusion::get<0>(
 			tuple_);
 }
 
@@ -28,7 +28,7 @@ sge::image::color::format::type
 fruitcut::pp::texture::descriptor::image_format() const
 {
 	return 
-		std::tr1::get<1>(
+		boost::fusion::get<1>(
 			tuple_);
 }
 
@@ -36,7 +36,7 @@ sge::renderer::texture::filter::object const &
 fruitcut::pp::texture::descriptor::filter() const
 {
 	return 
-		std::tr1::get<2>(
+		boost::fusion::get<2>(
 			tuple_).value();
 }
 
@@ -44,7 +44,7 @@ fruitcut::pp::texture::depth_stencil_format::type
 fruitcut::pp::texture::descriptor::depth_stencil() const
 {
 	return 
-		std::tr1::get<3>(
+		boost::fusion::get<3>(
 			tuple_);
 }
 

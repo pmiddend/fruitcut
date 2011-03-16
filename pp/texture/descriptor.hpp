@@ -9,7 +9,7 @@
 #include <sge/renderer/resource_flags_field.hpp>
 #include <fcppt/container/bitfield/bitfield.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
-#include <fcppt/tr1/tuple.hpp>
+#include <boost/fusion/tuple.hpp>
 
 namespace fruitcut
 {
@@ -44,7 +44,7 @@ public:
 		descriptor const &) const;
 private:
 	typedef 
-	std::tr1::tuple
+	boost::fusion::tuple
 	<
 		sge::renderer::dim2,
 		sge::image::color::format::type,
