@@ -312,6 +312,9 @@ fruitcut::app::fruit::manager::spawn(
 				physics::matrix4::identity(),
 				linear_velocity,
 				angular_velocity)));
+
+	spawn_signal_(
+		*fruits_.cend());
 }
 
 fruitcut::app::fruit::object_sequence const &
@@ -341,6 +344,15 @@ fruitcut::app::fruit::manager::manager::remove_callback(
 {
 	return 
 		remove_signal_.connect(
+			cc);
+}
+
+fcppt::signal::auto_connection
+fruitcut::app::fruit::manager::manager::spawn_callback(
+	fruitcut::app::fruit::callbacks::spawn const &cc)
+{
+	return 
+		spawn_signal_.connect(
 			cc);
 }
 
