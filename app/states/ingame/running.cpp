@@ -1,28 +1,28 @@
 #include "running.hpp"
 #include "paused.hpp"
-#include "gameover/superstate.hpp"
-#include "gameover/choose_name.hpp"
-#include "../dim2.hpp"
-#include "../line_drawer/scoped_lock.hpp"
-#include "../fruit/plane.hpp"
-#include "../fruit/cut_mesh.hpp"
-#include "../fruit/hull/trail_intersection.hpp"
-#include "../fruit/hull/projected.hpp"
-#include "../fruit/hull/ring.hpp"
-#include "../events/tick.hpp"
-#include "../events/render.hpp"
-#include "../events/render_overlay.hpp"
-#include "../json/find_member.hpp"
-#include "../json/parse_color.hpp"
-#include "../../physics/world.hpp"
-#include "../../time_format/duration_to_string.hpp"
-#include "../../time_format/milliseconds.hpp"
-#include "../../time_format/seconds.hpp"
-#include "../../math/multiply_matrix4_vector3.hpp"
-#include "../../font/color_animation.hpp"
-#include "../../font/color_format.hpp"
-#include "../../font/scale_animation.hpp"
-#include "../../font/particle/base_parameters.hpp"
+#include "../gameover/superstate.hpp"
+#include "../gameover/choose_name.hpp"
+#include "../../dim2.hpp"
+#include "../../../line_drawer/scoped_lock.hpp"
+#include "../../fruit/plane.hpp"
+#include "../../fruit/cut_mesh.hpp"
+#include "../../fruit/hull/trail_intersection.hpp"
+#include "../../fruit/hull/projected.hpp"
+#include "../../fruit/hull/ring.hpp"
+#include "../../events/tick.hpp"
+#include "../../events/render.hpp"
+#include "../../events/render_overlay.hpp"
+#include "../../../json/find_member.hpp"
+#include "../../../json/parse_color.hpp"
+#include "../../../physics/world.hpp"
+#include "../../../time_format/duration_to_string.hpp"
+#include "../../../time_format/milliseconds.hpp"
+#include "../../../time_format/seconds.hpp"
+#include "../../../math/multiply_matrix4_vector3.hpp"
+#include "../../../font/color_animation.hpp"
+#include "../../../font/color_format.hpp"
+#include "../../../font/scale_animation.hpp"
+#include "../../../font/particle/base_parameters.hpp"
 #include <sge/image/colors.hpp>
 #include <sge/viewport/manager.hpp>
 #include <sge/input/cursor/position_unit.hpp>
@@ -64,7 +64,7 @@
 #include <boost/next_prior.hpp>
 #include <iostream>
 
-fruitcut::app::states::running::running(
+fruitcut::app::states::ingame::running::running(
 	my_context ctx)
 :
 	my_base(
@@ -95,7 +95,7 @@ fruitcut::app::states::running::running(
 				this))),
 	timer_font_(
 		fruitcut::font::particle::base_parameters(
-			context<ingame>().font_system(),
+			context<superstate>().font_system(),
 			FCPPT_TEXT("timer"),
 			SGE_FONT_TEXT_LIT("you shouldn't see this!"),
 			sge::font::rect::null(),
@@ -117,7 +117,7 @@ fruitcut::app::states::running::running(
 					1))),
 		context<machine>().timer_callback()),
 	fruit_spawned_connection_(
-		context<ingame>().fruit_spawner().spawn_callback(
+		context<superstate>().fruit_spawner().spawn_callback(
 			std::tr1::bind(
 				&audio::sound_controller::play,
 				&context<machine>().sound_controller(),
@@ -138,53 +138,53 @@ fruitcut::app::states::running::running(
 }
 
 boost::statechart::result
-fruitcut::app::states::running::react(
+fruitcut::app::states::ingame::running::react(
 	events::render const &)
 {
 	context<machine>().background().render();
 	context<machine>().particle_system().render();
-	context<ingame>().fruit_manager().render(
-		context<ingame>().camera().mvp());
+	context<superstate>().fruit_manager().render(
+		context<superstate>().camera().mvp());
 	return discard_event();
 }
 
 boost::statechart::result
-fruitcut::app::states::running::react(
+fruitcut::app::states::ingame::running::react(
 	events::render_overlay const &)
 {
-	context<ingame>().physics_debugger().render();
+	context<superstate>().physics_debugger().render();
 	line_drawer_.render_screen_space();
-	context<ingame>().font_system().render();
+	context<superstate>().font_system().render();
 	return discard_event();
 }
 
 boost::statechart::result
-fruitcut::app::states::running::react(
+fruitcut::app::states::ingame::running::react(
 	events::toggle_pause const &)
 {
 	return transit<paused>();
 }
 
 boost::statechart::result
-fruitcut::app::states::running::react(
+fruitcut::app::states::ingame::running::react(
 	events::tick const &d)
 {
 	context<machine>().sound_controller().update();
 	context<machine>().music_controller().update();
-	context<ingame>().camera().update(
+	context<superstate>().camera().update(
 		d.delta_ms());
-	context<ingame>().fruit_spawner().update();
-	context<ingame>().font_system().update();
+	context<superstate>().fruit_spawner().update();
+	context<superstate>().font_system().update();
 	context<machine>().particle_system().update();
-	context<ingame>().physics_world().update(
+	context<superstate>().physics_world().update(
 		d.delta());
 
 	timer_font_.text(
 		time_format::duration_to_string<sge::font::text::string>(
 			sge::time::duration(
-				context<ingame>().turn_timer().time_left()),
+				context<superstate>().turn_timer().time_left()),
 			time_format::seconds + SGE_FONT_TEXT_LIT(":") + time_format::milliseconds));
-	context<ingame>().physics_debugger().update();
+	context<superstate>().physics_debugger().update();
 	cursor_trail_.update();
 
 	if(draw_bbs_ || draw_mouse_trail_)
@@ -202,41 +202,41 @@ fruitcut::app::states::running::react(
 
 	for(
 		fruit::object_sequence::const_iterator i = 
-			context<ingame>().fruit_manager().fruits().begin(); 
-		i != context<ingame>().fruit_manager().fruits().end(); 
+			context<superstate>().fruit_manager().fruits().begin(); 
+		i != context<superstate>().fruit_manager().fruits().end(); 
 		++i)
 		process_fruit(
 			*i);
-	context<ingame>().fruit_manager().update();
+	context<superstate>().fruit_manager().update();
 
-	if(context<ingame>().turn_timer().expired())
+	if(context<superstate>().turn_timer().expired())
 	{
 		context<machine>().last_game_score(
-			context<ingame>().score());
+			context<superstate>().score());
 		return transit<states::gameover::superstate>();
 	}
 	return discard_event();
 }
 
-fruitcut::app::states::running::~running()
+fruitcut::app::states::ingame::running::~running()
 {
 }
 
 void
-fruitcut::app::states::running::draw_fruit_bbs(
+fruitcut::app::states::ingame::running::draw_fruit_bbs(
 	line_drawer::line_sequence &lines)
 {
 	for(
 		fruit::object_sequence::const_iterator i = 
-			context<ingame>().fruit_manager().fruits().begin(); 
-		i != context<ingame>().fruit_manager().fruits().end();
+			context<superstate>().fruit_manager().fruits().begin(); 
+		i != context<superstate>().fruit_manager().fruits().end();
 		++i) 
 	{
 		fruit::hull::ring const hull = 
 			fruit::hull::projected(
 				*i,
 				context<machine>().systems().renderer()->onscreen_target(),
-				context<ingame>().camera().mvp());
+				context<superstate>().camera().mvp());
 
 		for(
 			fruit::hull::ring::const_iterator hull_point = hull.begin(); 
@@ -266,7 +266,7 @@ fruitcut::app::states::running::draw_fruit_bbs(
 }
 
 void
-fruitcut::app::states::running::draw_mouse_trail(
+fruitcut::app::states::ingame::running::draw_mouse_trail(
 	line_drawer::line_sequence &lines)
 {
 	if (cursor_trail_.positions().empty())
@@ -298,7 +298,7 @@ fruitcut::app::states::running::draw_mouse_trail(
 }
 
 void
-fruitcut::app::states::running::process_fruit(
+fruitcut::app::states::ingame::running::process_fruit(
 	fruit::object const &current_fruit)
 {
 	fruit::hull::intersection_pair const intersection = 
@@ -306,7 +306,7 @@ fruitcut::app::states::running::process_fruit(
 			fruit::hull::projected(
 				current_fruit,
 				context<machine>().systems().renderer()->onscreen_target(),
-				context<ingame>().camera().mvp()),
+				context<superstate>().camera().mvp()),
 			cursor_trail_.positions());
 
 	if (!intersection)
@@ -314,7 +314,7 @@ fruitcut::app::states::running::process_fruit(
 
 	sge::renderer::matrix4 const inverse_mvp =
 		fcppt::math::matrix::inverse(
-			context<ingame>().camera().mvp());
+			context<superstate>().camera().mvp());
 
 	sge::renderer::vector3 const 
 		// Convert the points to 3D and to renderer::scalar
@@ -387,7 +387,7 @@ fruitcut::app::states::running::process_fruit(
 				point1_unprojected - current_fruit.position()),
 			plane_normal);
 		
-	context<ingame>().fruit_manager().cut(
+	context<superstate>().fruit_manager().cut(
 		current_fruit,
 		fruit::plane(
 			plane_normal,
@@ -399,7 +399,7 @@ fruitcut::app::states::running::process_fruit(
 }
 
 void
-fruitcut::app::states::running::viewport_change()
+fruitcut::app::states::ingame::running::viewport_change()
 {
 	cursor_trail_.clear();
 

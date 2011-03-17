@@ -144,7 +144,8 @@ fruitcut::app::fruit::manager::manager(
 			sge::shader::sampler(
 				"texture",
 				sge::renderer::texture::planar_ptr()))),
-	cut_signal_()
+	cut_signal_(),
+	remove_signal_()
 {
 	FCPPT_ASSERT_MESSAGE(
 		!prototypes_.empty(),

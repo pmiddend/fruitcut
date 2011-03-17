@@ -1,16 +1,16 @@
-#ifndef FRUITCUT_APP_STATES_RUNNING_HPP_INCLUDED
-#define FRUITCUT_APP_STATES_RUNNING_HPP_INCLUDED
+#ifndef FRUITCUT_APP_STATES_INGAME_RUNNING_HPP_INCLUDED
+#define FRUITCUT_APP_STATES_INGAME_RUNNING_HPP_INCLUDED
 
-#include "ingame.hpp"
-#include "../fruit/object_fwd.hpp"
-#include "../cursor_trail.hpp"
-#include "../events/render.hpp"
-#include "../events/tick.hpp"
-#include "../events/toggle_pause.hpp"
-#include "../events/render_overlay.hpp"
-#include "../../line_drawer/object.hpp"
-#include "../../line_drawer/line_sequence.hpp"
-#include "../../font/particle/animated.hpp"
+#include "superstate.hpp"
+#include "../../fruit/object_fwd.hpp"
+#include "../../events/render.hpp"
+#include "../../events/tick.hpp"
+#include "../../events/toggle_pause.hpp"
+#include "../../events/render_overlay.hpp"
+#include "../../../cursor_trail.hpp"
+#include "../../../line_drawer/object.hpp"
+#include "../../../line_drawer/line_sequence.hpp"
+#include "../../../font/particle/animated.hpp"
 #include <sge/renderer/state/scoped.hpp>
 #include <sge/renderer/device_ptr.hpp>
 #include <sge/renderer/state/trampoline.hpp>
@@ -25,10 +25,12 @@ namespace app
 {
 namespace states
 {
+namespace ingame
+{
 class running
 :
 	// The second argument has to be a complete type
-	public boost::statechart::state<running,ingame>
+	public boost::statechart::state<running,superstate>
 {
 public:
 	typedef
@@ -85,6 +87,7 @@ private:
 	void
 	viewport_change();
 };
+}
 }
 }
 }

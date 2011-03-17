@@ -201,13 +201,13 @@ ADD_EXECUTABLE(
 	app/machine.cpp 
 	app/name.cpp
 	app/postprocessing.cpp 
-	app/states/ingame.cpp
+	app/states/ingame/superstate.cpp
+	app/states/ingame/running.cpp
+	app/states/ingame/paused.cpp
 	app/states/gameover/superstate.cpp
 	app/states/gameover/choose_name.cpp
 	app/states/gameover/highscore.cpp
-	app/states/intro.cpp
-	app/states/paused.cpp
-	app/states/running.cpp)
+	app/states/intro.cpp)
 
 TARGET_LINK_LIBRARIES(
 	app

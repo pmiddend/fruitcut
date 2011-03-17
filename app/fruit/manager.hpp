@@ -3,6 +3,8 @@
 
 #include "cut_callback.hpp"
 #include "cut_callback_fn.hpp"
+#include "remove_callback.hpp"
+#include "remove_callback_fn.hpp"
 #include "prototype.hpp"
 #include "prototype_sequence.hpp"
 #include "object_sequence.hpp"
@@ -84,6 +86,10 @@ public:
 	cut_callback(
 		fruitcut::app::fruit::cut_callback const &);
 
+	fcppt::signal::auto_connection
+	remove_callback(
+		fruitcut::app::fruit::remove_callback const &);
+
 	~manager();
 private:
 	sge::renderer::device_ptr renderer_;
@@ -93,6 +99,7 @@ private:
 	object_sequence fruits_; 
 	sge::shader::object fruit_shader_;
 	fcppt::signal::object<cut_callback_fn> cut_signal_;
+	fcppt::signal::object<remove_callback_fn> remove_signal_;
 };
 }
 }

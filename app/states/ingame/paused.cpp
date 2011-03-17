@@ -1,8 +1,8 @@
 #include "paused.hpp"
 #include "running.hpp"
-#include "../../json/find_member.hpp"
-#include "../../pp/texture/use_screen_size.hpp"
-#include "../../pp/filter/blur.hpp"
+#include "../../../json/find_member.hpp"
+#include "../../../pp/texture/use_screen_size.hpp"
+#include "../../../pp/filter/blur.hpp"
 #include <sge/renderer/device.hpp>
 #include <sge/time/second_f.hpp>
 #include <sge/time/activation_state.hpp>
@@ -12,7 +12,7 @@
 #include <fcppt/assign/make_container.hpp>
 #include <iostream>
 
-fruitcut::app::states::paused::paused(
+fruitcut::app::states::ingame::paused::paused(
 	my_context ctx)
 :
 	my_base(
@@ -61,7 +61,7 @@ fruitcut::app::states::paused::paused(
 }
 
 boost::statechart::result
-fruitcut::app::states::paused::react(
+fruitcut::app::states::ingame::paused::react(
 	events::render_overlay const &)
 {
 	system_.render_result();
@@ -69,7 +69,7 @@ fruitcut::app::states::paused::react(
 }
 
 boost::statechart::result
-fruitcut::app::states::paused::react(
+fruitcut::app::states::ingame::paused::react(
 	events::tick const &)
 {
 	if(!blur_iterations_ || (blur_iterations_ < max_blur_iterations_ && blur_timer_.update_b()))
@@ -85,12 +85,12 @@ fruitcut::app::states::paused::react(
 }
 
 boost::statechart::result
-fruitcut::app::states::paused::react(
+fruitcut::app::states::ingame::paused::react(
 	events::toggle_pause const &)
 {
 	return transit<running>();
 }
 
-fruitcut::app::states::paused::~paused()
+fruitcut::app::states::ingame::paused::~paused()
 {
 }

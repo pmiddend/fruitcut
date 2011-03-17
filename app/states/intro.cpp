@@ -1,5 +1,5 @@
 #include "intro.hpp"
-#include "running.hpp"
+#include "ingame/running.hpp"
 #include "../postprocessing.hpp"
 #include "../../particle/sprite/choices.hpp"
 #include "../../particle/sprite/animation.hpp"
@@ -97,7 +97,7 @@ fruitcut::app::states::intro::react(
 			:
 				saturation_timer_.elapsed_frames()));
 	if (intro_timer_.expired())
-		return transit<running>();
+		return transit<ingame::running>();
 	return discard_event();
 }
 

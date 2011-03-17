@@ -1,17 +1,17 @@
-#ifndef FRUITCUT_APP_STATES_INGAME_HPP_INCLUDED
-#define FRUITCUT_APP_STATES_INGAME_HPP_INCLUDED
+#ifndef FRUITCUT_APP_STATES_INGAME_SUPERSTATE_HPP_INCLUDED
+#define FRUITCUT_APP_STATES_INGAME_SUPERSTATE_HPP_INCLUDED
 
 #include "running_fwd.hpp"
-#include "../score.hpp"
-#include "../machine.hpp"
-#include "../fruit/manager.hpp"
-#include "../fruit/spawner.hpp"
-#include "../../physics/world.hpp"
-#include "../../physics/null_collision_filter.hpp"
-#include "../../physics/debugger.hpp"
-#include "../../input/state.hpp"
-#include "../../font/system.hpp"
-#include "../../font/particle/animated.hpp"
+#include "../../score.hpp"
+#include "../../machine.hpp"
+#include "../../fruit/manager.hpp"
+#include "../../fruit/spawner.hpp"
+#include "../../../physics/world.hpp"
+#include "../../../physics/null_collision_filter.hpp"
+#include "../../../physics/debugger.hpp"
+#include "../../../input/state.hpp"
+#include "../../../font/system.hpp"
+#include "../../../font/particle/animated.hpp"
 #include <sge/camera/object.hpp>
 #include <sge/time/timer.hpp>
 #include <sge/renderer/device_ptr.hpp>
@@ -24,15 +24,17 @@ namespace app
 {
 namespace states
 {
-class ingame
+namespace ingame
+{
+class superstate
 :
 	// The second argument has to be a complete type, the third one
 	// doesn't have to be
-	public boost::statechart::state<ingame,machine,running>
+	public boost::statechart::state<superstate,machine,running>
 {
 public:
 	explicit
-	ingame(
+	superstate(
 		my_context);
 
 	physics::world &
@@ -75,7 +77,7 @@ public:
 	fruitcut::app::score
 	score() const;
 
-	~ingame();
+	~superstate();
 private:
 	fcppt::signal::scoped_connection 
 		toggle_pause_connection_,
@@ -108,6 +110,7 @@ private:
 	fruit_was_cut(
 		sge::renderer::scalar);
 };
+}
 }
 }
 }

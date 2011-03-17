@@ -16,15 +16,21 @@ fruitcut::app::fruit::model_to_mesh(
 	sge::model::object_ptr const model)
 {
 	mesh result;
+
 	FCPPT_ASSERT(
 		!model->part_names().empty());
-	fcppt::string const part_name = model->part_names().front();
+
+	fcppt::string const part_name = 
+		model->part_names().front();
+
 	sge::model::vertex_sequence const vertices = 
 		model->vertices(
 			part_name);
+
 	FCPPT_ASSERT(
 		model->texcoords(
 			part_name));
+
 	sge::model::texcoord_sequence const texcoords = 
 		*model->texcoords(
 			part_name);

@@ -1,15 +1,15 @@
-#include "ingame.hpp"
+#include "superstate.hpp"
 #include "running.hpp"
-#include "../events/toggle_pause.hpp"
-#include "../../input/state.hpp"
-#include "../../json/find_member.hpp"
-#include "../../json/parse_color.hpp"
-#include "../../physics/vector3.hpp"
-#include "../../physics/box.hpp"
-#include "../../font/color_animation.hpp"
-#include "../../font/color_format.hpp"
-#include "../../font/scale_animation.hpp"
-#include "../../font/particle/base_parameters.hpp"
+#include "../../events/toggle_pause.hpp"
+#include "../../../input/state.hpp"
+#include "../../../json/find_member.hpp"
+#include "../../../json/parse_color.hpp"
+#include "../../../physics/vector3.hpp"
+#include "../../../physics/box.hpp"
+#include "../../../font/color_animation.hpp"
+#include "../../../font/color_format.hpp"
+#include "../../../font/scale_animation.hpp"
+#include "../../../font/particle/base_parameters.hpp"
 #include <sge/camera/identity_gizmo.hpp>
 #include <sge/camera/parameters.hpp>
 #include <sge/camera/projection/perspective.hpp>
@@ -57,7 +57,7 @@
 #include <boost/statechart/event_base.hpp>
 #include <iostream>
 
-fruitcut::app::states::ingame::ingame(
+fruitcut::app::states::ingame::superstate::superstate(
 	my_context ctx)
 :
 	my_base(
@@ -80,7 +80,7 @@ fruitcut::app::states::ingame::ingame(
 			sge::input::keyboard::action(
 				sge::input::keyboard::key_code::f2, 
 				std::tr1::bind(
-					&ingame::toggle_camera,
+					&superstate::toggle_camera,
 					this)
 				/*
 				boost::phoenix::bind(
@@ -99,7 +99,7 @@ fruitcut::app::states::ingame::ingame(
 	viewport_change_connection_(
 		context<machine>().systems().viewport_manager().manage_callback(
 			std::tr1::bind(
-				&ingame::viewport_change,
+				&superstate::viewport_change,
 				this))),
 	camera_state_(
 		context<machine>().input_manager()),
@@ -139,7 +139,7 @@ fruitcut::app::states::ingame::ingame(
 			sge::input::keyboard::action(
 				sge::input::keyboard::key_code::f3, 
 				std::tr1::bind(
-					&ingame::toggle_physics_debugger,
+					&superstate::toggle_physics_debugger,
 					this)))),
 	collision_filter_(
 		physics_world_),
@@ -194,7 +194,7 @@ fruitcut::app::states::ingame::ingame(
 	cut_connection_(
 		fruit_manager_.cut_callback(
 			std::tr1::bind(
-				&ingame::fruit_was_cut,
+				&superstate::fruit_was_cut,
 				this,
 				std::tr1::placeholders::_1)))
 {
@@ -202,90 +202,90 @@ fruitcut::app::states::ingame::ingame(
 }
 
 fruitcut::physics::world &
-fruitcut::app::states::ingame::physics_world()
+fruitcut::app::states::ingame::superstate::physics_world()
 {
 	return physics_world_;
 }
 
 fruitcut::physics::world const &
-fruitcut::app::states::ingame::physics_world() const
+fruitcut::app::states::ingame::superstate::physics_world() const
 {
 	return physics_world_;
 }
 
 fruitcut::app::fruit::manager &
-fruitcut::app::states::ingame::fruit_manager()
+fruitcut::app::states::ingame::superstate::fruit_manager()
 {
 	return fruit_manager_;
 }
 
 fruitcut::app::fruit::manager const &
-fruitcut::app::states::ingame::fruit_manager() const
+fruitcut::app::states::ingame::superstate::fruit_manager() const
 {
 	return fruit_manager_;
 }
 
 fruitcut::app::fruit::spawner &
-fruitcut::app::states::ingame::fruit_spawner()
+fruitcut::app::states::ingame::superstate::fruit_spawner()
 {
 	return fruit_spawner_;
 }
 
 sge::time::timer const &
-fruitcut::app::states::ingame::turn_timer() const
+fruitcut::app::states::ingame::superstate::turn_timer() const
 {
 	return turn_timer_;
 }
 
 fruitcut::font::system &
-fruitcut::app::states::ingame::font_system()
+fruitcut::app::states::ingame::superstate::font_system()
 {
 	return font_system_;
 }
 
 fruitcut::font::system const &
-fruitcut::app::states::ingame::font_system() const
+fruitcut::app::states::ingame::superstate::font_system() const
 {
 	return font_system_;
 }
 
 fruitcut::app::fruit::spawner const &
-fruitcut::app::states::ingame::fruit_spawner() const
+fruitcut::app::states::ingame::superstate::fruit_spawner() const
 {
 	return fruit_spawner_;
 }
 
 fruitcut::physics::debugger &
-fruitcut::app::states::ingame::physics_debugger()
+fruitcut::app::states::ingame::superstate::physics_debugger()
 {
 	return physics_debugger_;
 }
 
 fruitcut::app::score
-fruitcut::app::states::ingame::score() const
+fruitcut::app::states::ingame::superstate::score() const
 {
 	return score_;
 }
 
 sge::camera::object &
-fruitcut::app::states::ingame::camera()
+fruitcut::app::states::ingame::superstate::camera()
 {
 	return camera_;
 }
 
 sge::camera::object const &
-fruitcut::app::states::ingame::camera() const
+fruitcut::app::states::ingame::superstate::camera() const
 {
 	return camera_;
 }
 
-fruitcut::app::states::ingame::~ingame()
+fruitcut::app::states::ingame::superstate::~superstate()
 {
 }
 
 // FIXME: This could be a nice phoenix actor
 void
-fruitcut::app::states::ingame::toggle_camera()
+fruitcut::app::states::ingame::superstate::toggle_camera()
 {
 	camera_.activation(
 		camera_.activation() == sge::camera::activation_state::active
@@ -297,14 +297,14 @@ fruitcut::app::states::ingame::toggle_camera()
 
 // FIXME: This could be a nice phoenix actor
 void
-fruitcut::app::states::ingame::toggle_physics_debugger()
+fruitcut::app::states::ingame::superstate::toggle_physics_debugger()
 {
 	physics_debugger_.active(
 		!physics_debugger_.active());
 }
 
 void
-fruitcut::app::states::ingame::viewport_change()
+fruitcut::app::states::ingame::superstate::viewport_change()
 {
 	camera_.projection_object(
 		sge::camera::projection::perspective(
@@ -333,7 +333,7 @@ fruitcut::app::states::ingame::viewport_change()
 }
 
 void
-fruitcut::app::states::ingame::fruit_was_cut(
+fruitcut::app::states::ingame::superstate::fruit_was_cut(
 	sge::renderer::scalar const _area)
 {
 	score_ = 
