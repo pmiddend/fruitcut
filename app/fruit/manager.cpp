@@ -61,6 +61,7 @@
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert_message.hpp>
+#include <fcppt/assert.hpp>
 #include <boost/foreach.hpp>
 
 namespace
@@ -274,12 +275,19 @@ fruitcut::app::fruit::manager::cut(
 				time_callback));
 	}
 
+	FCPPT_ASSERT(
+		fruit_cache.size() == 2);
+
+	cut_signal_(
+		current_fruit,
+		*fruit_cache.begin(),
+		*(--fruit_cache.end()),
+		area);
+
 	fruits_.transfer_from(
 		fruit_cache);
 	fruits_.erase(
 		current_fruit);
-	cut_signal_(
-		area);
 }
 
 void
@@ -320,10 +328,19 @@ fruitcut::app::fruit::manager::prototypes() const
 
 fcppt::signal::auto_connection
 fruitcut::app::fruit::manager::cut_callback(
-	fruitcut::app::fruit::cut_callback const &cc)
+	fruitcut::app::fruit::callbacks::cut const &cc)
 {
 	return 
 		cut_signal_.connect(
+			cc);
+}
+
+fcppt::signal::auto_connection
+fruitcut::app::fruit::manager::manager::remove_callback(
+	fruitcut::app::fruit::callbacks::remove const &cc)
+{
+	return 
+		remove_signal_.connect(
 			cc);
 }
 

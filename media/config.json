@@ -108,7 +108,7 @@
 			"mouse-speed" : 300.0,
 			"initial-position" : [0.0,0.0,15.0]
 		},
-		"round-seconds" : 60,
+		"round-secs" : 60,
 		"score-font-color" : [1.0,0.9,0.7,1.0],
 		"timer-font-color" : [0.7,0.7,0.9,1.0],
 		"draw-mouse-trail" : true,

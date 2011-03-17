@@ -1,10 +1,10 @@
 #ifndef FRUITCUT_APP_FRUIT_MANAGER_HPP_INCLUDED
 #define FRUITCUT_APP_FRUIT_MANAGER_HPP_INCLUDED
 
-#include "cut_callback.hpp"
-#include "cut_callback_fn.hpp"
-#include "remove_callback.hpp"
-#include "remove_callback_fn.hpp"
+#include "callbacks/cut.hpp"
+#include "callbacks/cut_fn.hpp"
+#include "callbacks/remove.hpp"
+#include "callbacks/remove_fn.hpp"
 #include "prototype.hpp"
 #include "prototype_sequence.hpp"
 #include "object_sequence.hpp"
@@ -84,11 +84,11 @@ public:
 
 	fcppt::signal::auto_connection
 	cut_callback(
-		fruitcut::app::fruit::cut_callback const &);
+		fruitcut::app::fruit::callbacks::cut const &);
 
 	fcppt::signal::auto_connection
 	remove_callback(
-		fruitcut::app::fruit::remove_callback const &);
+		fruitcut::app::fruit::callbacks::remove const &);
 
 	~manager();
 private:
@@ -98,8 +98,8 @@ private:
 	prototype_sequence prototypes_;
 	object_sequence fruits_; 
 	sge::shader::object fruit_shader_;
-	fcppt::signal::object<cut_callback_fn> cut_signal_;
-	fcppt::signal::object<remove_callback_fn> remove_signal_;
+	fcppt::signal::object<callbacks::cut_fn> cut_signal_;
+	fcppt::signal::object<callbacks::remove_fn> remove_signal_;
 };
 }
 }

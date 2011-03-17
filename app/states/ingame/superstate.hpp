@@ -5,6 +5,7 @@
 #include "../../score.hpp"
 #include "../../machine.hpp"
 #include "../../fruit/manager.hpp"
+#include "../../fruit/object_fwd.hpp"
 #include "../../fruit/spawner.hpp"
 #include "../../../physics/world.hpp"
 #include "../../../physics/null_collision_filter.hpp"
@@ -108,6 +109,9 @@ private:
 
 	void
 	fruit_was_cut(
+		fruit::object const &old,
+		fruit::object const &new_1,
+		fruit::object const &new_2,
 		sge::renderer::scalar);
 };
 }

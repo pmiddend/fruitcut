@@ -160,7 +160,7 @@ fruitcut::app::states::ingame::superstate::superstate(
 		sge::time::second(
 			json::find_member<sge::time::unit>(
 				context<machine>().config_file(),
-				FCPPT_TEXT("ingame/round-seconds"))),
+				FCPPT_TEXT("ingame/round-secs"))),
 		sge::time::activation_state::active,
 		context<machine>().timer_callback()),
 	font_system_(
@@ -196,7 +196,10 @@ fruitcut::app::states::ingame::superstate::superstate(
 			std::tr1::bind(
 				&superstate::fruit_was_cut,
 				this,
-				std::tr1::placeholders::_1)))
+				std::tr1::placeholders::_1,
+				std::tr1::placeholders::_2,
+				std::tr1::placeholders::_3,
+				std::tr1::placeholders::_4)))
 {
 	viewport_change();
 }
@@ -334,6 +337,9 @@ fruitcut::app::states::ingame::superstate::viewport_change()
 
 void
 fruitcut::app::states::ingame::superstate::fruit_was_cut(
+	fruit::object const &,
+	fruit::object const &,
+	fruit::object const &,
 	sge::renderer::scalar const _area)
 {
 	score_ = 
