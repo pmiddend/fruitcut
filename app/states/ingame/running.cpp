@@ -13,16 +13,8 @@
 #include "../../events/render.hpp"
 #include "../../events/render_overlay.hpp"
 #include "../../../json/find_member.hpp"
-#include "../../../json/parse_color.hpp"
 #include "../../../physics/world.hpp"
-#include "../../../time_format/duration_to_string.hpp"
-#include "../../../time_format/milliseconds.hpp"
-#include "../../../time_format/seconds.hpp"
 #include "../../../math/multiply_matrix4_vector3.hpp"
-#include "../../../font/color_animation.hpp"
-#include "../../../font/color_format.hpp"
-#include "../../../font/scale_animation.hpp"
-#include "../../../font/particle/base_parameters.hpp"
 #include <sge/image/colors.hpp>
 #include <sge/viewport/manager.hpp>
 #include <sge/input/cursor/position_unit.hpp>
@@ -93,29 +85,6 @@ fruitcut::app::states::ingame::running::running(
 			std::tr1::bind(
 				&running::viewport_change,
 				this))),
-	timer_font_(
-		fruitcut::font::particle::base_parameters(
-			context<superstate>().font_system(),
-			FCPPT_TEXT("timer"),
-			SGE_FONT_TEXT_LIT("you shouldn't see this!"),
-			sge::font::rect::null(),
-			sge::font::text::align_h::center,
-			sge::font::text::align_v::center,
-			sge::font::text::flags::none),
-		fcppt::assign::make_container<font::color_animation::value_sequence>
-			(font::color_animation::value_type(
-				sge::time::second(1),
-				json::parse_color<sge::image::color::rgba8>(
-					json::find_member<sge::parse::json::value>(
-						context<machine>().config_file(),
-						FCPPT_TEXT("ingame/timer-font-color"))))),
-		fcppt::assign::make_container<font::scale_animation::value_sequence>
-			(font::scale_animation::value_type(
-				sge::time::second(
-					1),
-				static_cast<sge::renderer::scalar>(
-					1))),
-		context<machine>().timer_callback()),
 	fruit_spawned_connection_(
 		context<superstate>().fruit_spawner().spawn_callback(
 			std::tr1::bind(
@@ -178,12 +147,7 @@ fruitcut::app::states::ingame::running::react(
 	context<machine>().particle_system().update();
 	context<superstate>().physics_world().update(
 		d.delta());
-
-	timer_font_.text(
-		time_format::duration_to_string<sge::font::text::string>(
-			sge::time::duration(
-				context<superstate>().turn_timer().time_left()),
-			time_format::seconds + SGE_FONT_TEXT_LIT(":") + time_format::milliseconds));
+	context<superstate>().game_logic().update();
 	context<superstate>().physics_debugger().update();
 	cursor_trail_.update();
 
@@ -209,10 +173,10 @@ fruitcut::app::states::ingame::running::react(
 			*i);
 	context<superstate>().fruit_manager().update();
 
-	if(context<superstate>().turn_timer().expired())
+	if(context<superstate>().game_logic().finished())
 	{
 		context<machine>().last_game_score(
-			context<superstate>().score());
+			context<superstate>().game_logic().score());
 		return transit<states::gameover::superstate>();
 	}
 	return discard_event();
@@ -402,19 +366,4 @@ void
 fruitcut::app::states::ingame::running::viewport_change()
 {
 	cursor_trail_.clear();
-
-	sge::font::dim const &viewport_dim = 
-		fcppt::math::dim::structure_cast<sge::font::dim>(
-			context<machine>().systems().renderer()->onscreen_target()->viewport().get().size());
-
-	timer_font_.bounding_box(
-		sge::font::rect(
-			sge::font::pos::null(),
-			sge::font::dim(
-				viewport_dim.w(),
-				static_cast<sge::font::unit>(
-					static_cast<sge::renderer::scalar>(
-						viewport_dim.h()) * 
-					static_cast<sge::renderer::scalar>(
-						0.2)))));
 }

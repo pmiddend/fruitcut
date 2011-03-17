@@ -9,7 +9,6 @@
 #include "../../../font/color_animation.hpp"
 #include "../../../font/color_format.hpp"
 #include "../../../font/scale_animation.hpp"
-#include "../../../font/particle/base_parameters.hpp"
 #include <sge/camera/identity_gizmo.hpp>
 #include <sge/camera/parameters.hpp>
 #include <sge/camera/projection/perspective.hpp>
@@ -28,13 +27,6 @@
 #include <sge/time/activation_state.hpp>
 #include <sge/time/second.hpp>
 #include <sge/time/unit.hpp>
-#include <sge/font/text/lit.hpp>
-#include <sge/font/rect.hpp>
-#include <sge/font/unit.hpp>
-#include <sge/font/pos.hpp>
-#include <sge/font/text/align_h.hpp>
-#include <sge/font/text/align_v.hpp>
-#include <sge/font/text/flags_none.hpp>
 #include <sge/time/second.hpp>
 #include <sge/image/color/convert.hpp>
 #include <sge/image/color/rgba8.hpp>
@@ -47,7 +39,6 @@
 #include <fcppt/math/vector/arithmetic.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
-#include <fcppt/assign/make_container.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/text.hpp>
 #include <boost/lexical_cast.hpp>
@@ -81,21 +72,7 @@ fruitcut::app::states::ingame::superstate::superstate(
 				sge::input::keyboard::key_code::f2, 
 				std::tr1::bind(
 					&superstate::toggle_camera,
-					this)
-				/*
-				boost::phoenix::bind(
-					static_cast<void (sge::camera::object::*)(sge::camera::activation_state::type)>(
-						&sge::camera::object::activation),
-					&camera_,
-					boost::phoenix::if_else(
-						boost::phoenix::bind(
-							static_cast<sge::camera::activation_state::type (sge::camera::object::*)() const>(
-								&sge::camera::object::activation),
-							&camera_) == sge::camera::activation_state::active,
-						sge::camera::activation_state::inactive,
-						sge::camera::activation_state::active))*/))),
-	/*
-				*/
+					this)))),
 	viewport_change_connection_(
 		context<machine>().systems().viewport_manager().manage_callback(
 			std::tr1::bind(
@@ -156,41 +133,15 @@ fruitcut::app::states::ingame::superstate::superstate(
 		context<machine>().config_file(),
 		camera_,
 		context<machine>().timer_callback()),
-	turn_timer_(
-		sge::time::second(
-			json::find_member<sge::time::unit>(
-				context<machine>().config_file(),
-				FCPPT_TEXT("ingame/round-secs"))),
-		sge::time::activation_state::active,
-		context<machine>().timer_callback()),
 	font_system_(
 		context<machine>().font_cache()),
-	score_font_(
-		fruitcut::font::particle::base_parameters(
-			font_system_,
-			FCPPT_TEXT("score"),
-			SGE_FONT_TEXT_LIT("0"),
-			sge::font::rect::null(),
-			sge::font::text::align_h::left,
-			sge::font::text::align_v::top,
-			sge::font::text::flags::none),
-		fcppt::assign::make_container<font::color_animation::value_sequence>
-			(font::color_animation::value_type(
-				sge::time::second(1),
-				sge::image::color::convert<font::color_format>(
-					json::parse_color<font::color>(
-						json::find_member<sge::parse::json::value>(
-							context<machine>().config_file(),
-							FCPPT_TEXT("ingame/score-font-color")))))),
-		fcppt::assign::make_container<font::scale_animation::value_sequence>
-			(font::scale_animation::value_type(
-				sge::time::second(
-					1),
-				static_cast<sge::renderer::scalar>(
-					1))),
-		context<machine>().timer_callback()),
-	score_(
-		0),
+	game_logic_(
+		context<machine>().timer_callback(),
+		context<machine>().config_file(),
+		fruit_manager_,
+		font_system_,
+		*context<machine>().systems().renderer(),
+		context<machine>().systems().viewport_manager()),
 	cut_connection_(
 		fruit_manager_.cut_callback(
 			std::tr1::bind(
@@ -234,12 +185,6 @@ fruitcut::app::states::ingame::superstate::fruit_spawner()
 	return fruit_spawner_;
 }
 
-sge::time::timer const &
-fruitcut::app::states::ingame::superstate::turn_timer() const
-{
-	return turn_timer_;
-}
-
 fruitcut::font::system &
 fruitcut::app::states::ingame::superstate::font_system()
 {
@@ -264,10 +209,16 @@ fruitcut::app::states::ingame::superstate::physics_debugger()
 	return physics_debugger_;
 }
 
-fruitcut::app::score
-fruitcut::app::states::ingame::superstate::score() const
+fruitcut::app::game_logic &
+fruitcut::app::states::ingame::superstate::game_logic()
 {
-	return score_;
+	return game_logic_;
+}
+
+fruitcut::app::game_logic const &
+fruitcut::app::states::ingame::superstate::game_logic() const
+{
+	return game_logic_;
 }
 
 sge::camera::object &
@@ -324,15 +275,6 @@ fruitcut::app::states::ingame::superstate::viewport_change()
 			json::find_member<sge::renderer::scalar>(
 				context<machine>().config_file(),
 				FCPPT_TEXT("ingame/camera/far"))));
-
-	sge::font::dim const &viewport_dim = 
-		fcppt::math::dim::structure_cast<sge::font::dim>(
-			context<machine>().systems().renderer()->onscreen_target()->viewport().get().size());
-
-	score_font_.bounding_box(
-		sge::font::rect(
-			sge::font::pos::null(),
-			viewport_dim));
 }
 
 void
@@ -342,6 +284,7 @@ fruitcut::app::states::ingame::superstate::fruit_was_cut(
 	fruit::object const &,
 	sge::renderer::scalar const _area)
 {
+	/*
 	score_ = 
 		static_cast<fruitcut::app::score>(
 			static_cast<sge::renderer::scalar>(
@@ -349,6 +292,7 @@ fruitcut::app::states::ingame::superstate::fruit_was_cut(
 	score_font_.text(
 		boost::lexical_cast<sge::font::text::string>(
 			score_));
+	*/
 	context<machine>().sound_controller().play(
 		FCPPT_TEXT("fruit-was-cut"));
 }

@@ -184,7 +184,7 @@ ADD_LIBRARY(
 ADD_EXECUTABLE(
 	app
 	app/background.cpp
-#	app/game_logic.cpp
+	app/game_logic.cpp
 	app/events/tick.cpp
 	app/config_wrapper.cpp
 	app/fruitcut.cpp
