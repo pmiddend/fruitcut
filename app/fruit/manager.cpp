@@ -200,6 +200,7 @@ void
 fruitcut::app::fruit::manager::update()
 {
 	fruits_.update();
+	delete_distant_fruits();
 }
 
 void
@@ -312,6 +313,9 @@ fruitcut::app::fruit::manager::spawn(
 				physics::matrix4::identity(),
 				linear_velocity,
 				angular_velocity)));
+
+	spawn_signal_(
+		*fruits_.cend());
 }
 
 fruitcut::app::fruit::object_sequence const &
@@ -344,6 +348,21 @@ fruitcut::app::fruit::manager::manager::remove_callback(
 			cc);
 }
 
+fcppt::signal::auto_connection
+fruitcut::app::fruit::manager::manager::spawn_callback(
+	fruitcut::app::fruit::callbacks::spawn const &cc)
+{
+	return 
+		spawn_signal_.connect(
+			cc);
+}
+
 fruitcut::app::fruit::manager::~manager()
 {
+}
+
+void
+fruitcut::app::fruit::manager::manager::delete_distant_fruits()
+{
+	
 }

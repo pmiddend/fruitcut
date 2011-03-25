@@ -2,7 +2,7 @@
 #define FRUITCUT_APP_STATES_INGAME_SUPERSTATE_HPP_INCLUDED
 
 #include "running_fwd.hpp"
-#include "../../score.hpp"
+#include "../../game_logic.hpp"
 #include "../../machine.hpp"
 #include "../../fruit/manager.hpp"
 #include "../../fruit/object_fwd.hpp"
@@ -62,10 +62,6 @@ public:
 	fruit::spawner const &
 	fruit_spawner() const;
 
-	// For now, no nonconst-getter
-	sge::time::timer const &
-	turn_timer() const;
-
 	font::system &
 	font_system();
 
@@ -75,8 +71,11 @@ public:
 	physics::debugger &
 	physics_debugger();
 
-	fruitcut::app::score
-	score() const;
+	fruitcut::app::game_logic &
+	game_logic();
+
+	fruitcut::app::game_logic const &
+	game_logic() const;
 
 	~superstate();
 private:
@@ -92,10 +91,8 @@ private:
 	physics::null_collision_filter collision_filter_;
 	fruit::manager fruit_manager_;
 	fruit::spawner fruit_spawner_;
-	sge::time::timer turn_timer_;
 	font::system font_system_;
-	font::particle::animated score_font_;
-	fruitcut::app::score score_;
+	fruitcut::app::game_logic game_logic_;
 	fcppt::signal::scoped_connection cut_connection_;
 
 	void

@@ -5,6 +5,8 @@
 #include "callbacks/cut_fn.hpp"
 #include "callbacks/remove.hpp"
 #include "callbacks/remove_fn.hpp"
+#include "callbacks/spawn.hpp"
+#include "callbacks/spawn_fn.hpp"
 #include "prototype.hpp"
 #include "prototype_sequence.hpp"
 #include "object_sequence.hpp"
@@ -90,6 +92,10 @@ public:
 	remove_callback(
 		fruitcut::app::fruit::callbacks::remove const &);
 
+	fcppt::signal::auto_connection
+	spawn_callback(
+		fruitcut::app::fruit::callbacks::spawn const &);
+
 	~manager();
 private:
 	sge::renderer::device_ptr renderer_;
@@ -100,6 +106,10 @@ private:
 	sge::shader::object fruit_shader_;
 	fcppt::signal::object<callbacks::cut_fn> cut_signal_;
 	fcppt::signal::object<callbacks::remove_fn> remove_signal_;
+	fcppt::signal::object<callbacks::spawn_fn> spawn_signal_;
+
+	void
+	delete_distant_fruits();
 };
 }
 }
