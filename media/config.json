@@ -139,6 +139,10 @@
 		{
 			"model" : "papaya.md3",
 			"texture" : "papaya.png"
+		},
+		{
+			"model" : "steak.md3",
+			"texture" : "steak.png"
 		}
 	],
 	"physics" : 

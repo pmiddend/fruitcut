@@ -26,3 +26,10 @@
 	distributed under the 
 	Attribution-NonCommercial-ShareAlike 3.0 Unported license
 	http://creativecommons.org/licenses/by-nc-sa/3.0/
+* steak.png based on
+	http://commons.wikimedia.org/wiki/File:Rib-steak-raw-MCB.jpg
+	by MCB 
+	http://en.wikipedia.org/wiki/User:MCB
+	distributed under the
+	Creative Commons Attribution-ShareAlike 2.5 license
+	http://creativecommons.org/licenses/by-sa/2.5/
