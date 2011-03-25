@@ -200,6 +200,7 @@ void
 fruitcut::app::fruit::manager::update()
 {
 	fruits_.update();
+	delete_distant_fruits();
 }
 
 void
@@ -358,4 +359,10 @@ fruitcut::app::fruit::manager::manager::spawn_callback(
 
 fruitcut::app::fruit::manager::~manager()
 {
+}
+
+void
+fruitcut::app::fruit::manager::manager::delete_distant_fruits()
+{
+	
 }

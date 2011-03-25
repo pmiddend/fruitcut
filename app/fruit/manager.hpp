@@ -107,6 +107,9 @@ private:
 	fcppt::signal::object<callbacks::cut_fn> cut_signal_;
 	fcppt::signal::object<callbacks::remove_fn> remove_signal_;
 	fcppt::signal::object<callbacks::spawn_fn> spawn_signal_;
+
+	void
+	delete_distant_fruits();
 };
 }
 }

@@ -2,21 +2,10 @@ CMAKE_MINIMUM_REQUIRED(VERSION 2.6)
 
 PROJECT(fruitcut)
 
-# This allows ENDIFs with no specifier _what_ ends
-SET (CMAKE_ALLOW_LOOSE_LOOP_CONSTRUCTS ON)
-
 SET(EXTRA_CMAKE_MODULE_PATH "" CACHE PATH "Extra paths to search for cmake modules")
 SET(CMAKE_MODULE_PATH "${EXTRA_CMAKE_MODULE_PATH}")
 
-IF(${CMAKE_BINARY_DIR} STREQUAL ${CMAKE_SOURCE_DIR})
-	MESSAGE(
-		FATAL_ERROR
-		"In-source builds are not permitted. "
-		"Make a separate folder for building:\n"
-		"mkdir build; cd build; cmake ..\n"
-		"Before that, remove the files that cmake"
-		"just created:\nrm -rf CMakeCache.txt CMakeFiles")
-ENDIF()
+INCLUDE(FcpptCMakeUtils)
 
 # boost begin
 SET(Boost_ADDITIONAL_VERSIONS "1.41" "1.41.0" "1.42" "1.42.0" "1.43" "1.43.0" "1.44" "1.44.0" "1.45.0")
@@ -49,40 +38,12 @@ INCLUDE_DIRECTORIES(SYSTEM ${BULLET_INCLUDE_DIRS})
 FIND_PACKAGE(
 	SGE REQUIRED COMPONENTS console sprite shader config time texture systems camera fonttext fontbitmap cegui)
 
-INCLUDE_DIRECTORIES(${SGE_INCLUDE_DIRS})
+INCLUDE_DIRECTORIES(SYSTEM ${SGE_INCLUDE_DIRS})
+INCLUDE_DIRECTORIES(SYSTEM ${AWL_INCLUDE_DIRS})
+INCLUDE_DIRECTORIES(SYSTEM ${MIZUIRO_INCLUDE_DIRS})
 
 ADD_DEFINITIONS(${SGE_CFLAGS})
 # sge end
-
-# clang check begin
-INCLUDE (CheckCXXSourceRuns)
-
-CHECK_CXX_SOURCE_RUNS(
-	"#include <cstdlib>
-	int main()
-	{
-	#ifdef __clang__
-		return EXIT_SUCCESS;
-	#else
-		return EXIT_FAILURE;
-	#endif
-	}
-	"
-	COMPILER_IS_CLANGPP)
-# clang check end
-
-IF (CMAKE_COMPILER_IS_GNUCXX OR COMPILER_IS_CLANGPP)
-	ADD_DEFINITIONS("
-		-fvisibility=hidden -ansi -pedantic-errors -Wall"
-		"-Wextra -Wconversion -Wfloat-equal -Wredundant-decls"
-		"-Winit-self -Woverloaded-virtual"
-		"-Wshadow"
-		"-Wnon-virtual-dtor -Wsign-promo"
-		"-Wstrict-aliasing=1 -Wmissing-declarations -Wno-long-long")
-	# we don't use long long but boost does :(
-
-	ADD_DEFINITIONS(-D BOOST_FILESYSTEM_NO_DEPRECATED)
-ENDIF ()
 
 # TODO
 SET(

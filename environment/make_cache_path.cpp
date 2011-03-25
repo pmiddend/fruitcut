@@ -2,7 +2,7 @@
 #include "optional_string.hpp"
 #include "getenv.hpp"
 #include <fcppt/text.hpp>
-#include <fcppt/config.hpp>
+#include <fcppt/platform.hpp>
 
 fcppt::filesystem::path const
 fruitcut::environment::make_cache_path(

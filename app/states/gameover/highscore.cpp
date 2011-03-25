@@ -172,6 +172,8 @@ fruitcut::app::states::gameover::highscore::highscore(
 	layout_(
 		media_path()/FCPPT_TEXT("gui")/FCPPT_TEXT("layouts")/FCPPT_TEXT("highscore.layout"),
 		context<machine>().systems().charconv_system()),
+	gui_sheet_(
+		*CEGUI::WindowManager::getSingleton().getWindow("Highscore")),
 	quit_button_connection_(
 		CEGUI::WindowManager::getSingleton().getWindow("Highscore/QuitButton")->subscribeEvent(
 			CEGUI::PushButton::EventClicked,

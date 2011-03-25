@@ -5,6 +5,7 @@
 #include "../../events/gameover/continue_button_pushed.hpp"
 #include <CEGUI/CEGUIEvent.h>
 #include <sge/cegui/toolbox/scoped_layout.hpp>
+#include <sge/cegui/toolbox/scoped_gui_sheet.hpp>
 #include <boost/statechart/state.hpp>
 #include <boost/statechart/custom_reaction.hpp>
 #include <boost/mpl/vector/vector10.hpp>
@@ -46,6 +47,7 @@ public:
 	~choose_name();
 private:
 	sge::cegui::toolbox::scoped_layout layout_;
+	sge::cegui::toolbox::scoped_gui_sheet gui_sheet_;
 	CEGUI::Event::ScopedConnection continue_button_connection_;
 
 	bool

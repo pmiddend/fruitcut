@@ -25,6 +25,8 @@ fruitcut::app::states::gameover::choose_name::choose_name(
 	layout_(
 		media_path()/FCPPT_TEXT("gui")/FCPPT_TEXT("layouts")/FCPPT_TEXT("name_chooser.layout"),
 		context<machine>().systems().charconv_system()),
+	gui_sheet_(
+		*CEGUI::WindowManager::getSingleton().getWindow("NameChooser")),
 	continue_button_connection_(
 		CEGUI::WindowManager::getSingleton().getWindow("NameChooser/ContinueButton")->subscribeEvent(
 			CEGUI::PushButton::EventClicked,
