@@ -2,9 +2,6 @@ CMAKE_MINIMUM_REQUIRED(VERSION 2.6)
 
 PROJECT(fruitcut)
 
-SET(EXTRA_CMAKE_MODULE_PATH "" CACHE PATH "Extra paths to search for cmake modules")
-SET(CMAKE_MODULE_PATH "${EXTRA_CMAKE_MODULE_PATH}")
-
 INCLUDE(FcpptCMakeUtils)
 
 # boost begin
