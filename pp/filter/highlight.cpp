@@ -87,7 +87,7 @@ fruitcut::pp::filter::highlight::apply(
 	shader_.update_uniform(
 		"texture_size",
 		fcppt::math::dim::structure_cast<sge::renderer::vector2>(
-			result->texture()->dim()));
+			result->texture()->size()));
 
 	sge::renderer::scoped_target const scoped_target(
 		renderer_,

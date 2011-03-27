@@ -136,7 +136,7 @@ fruitcut::pp::filter::blur::apply(
 		shaders_[0]->update_uniform(
 			"texture_size",
 			fcppt::math::dim::structure_cast<sge::renderer::vector2>(
-				instances[0]->texture()->dim()));
+				instances[0]->texture()->size()));
 	}
 	{
 		sge::renderer::glsl::scoped_program scoped_p(
@@ -145,7 +145,7 @@ fruitcut::pp::filter::blur::apply(
 		shaders_[1]->update_uniform(
 			"texture_size",
 			fcppt::math::dim::structure_cast<sge::renderer::vector2>(
-				instances[1]->texture()->dim()));
+				instances[1]->texture()->size()));
 	}
 
 	render(

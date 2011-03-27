@@ -246,9 +246,9 @@ fruitcut::sandbox::splatter::click_callback(
 					.size(
 						particle::sprite::object::dim(
 							static_cast<particle::sprite::object::unit>(
-								texture->dim().w()),
+								texture->size().w()),
 							static_cast<particle::sprite::object::unit>(
-								static_cast<sge::renderer::scalar>(texture->dim().h()) * 
+								static_cast<sge::renderer::scalar>(texture->size().h()) * 
 									std::max(
 										static_cast<sge::renderer::scalar>(
 											0.2),

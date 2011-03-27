@@ -366,7 +366,7 @@ particles::from_image(
 							center)
 						.point_size(
 							static_cast<particle::point_sprite::object::unit>(
-								particle_texture_->dim().w()))
+								particle_texture_->size().w()))
 						.system(
 							&system_.point_sprite_system())
 						.color(
