@@ -15,7 +15,7 @@
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/assign/make_container.hpp>
-#include <boost/lexical_cast.hpp>
+#include <fcppt/lexical_cast.hpp>
 #include <boost/range/algorithm/sort.hpp>
 
 #include "../../score.hpp"
@@ -222,14 +222,14 @@ fruitcut::app::states::gameover::highscore::highscore(
 				*CEGUI::WindowManager::getSingleton().getWindow("Highscore/List")),
 			fcppt::assign::make_container<sge::cegui::toolbox::row>
 				(sge::cegui::from_cegui_string(
-					boost::lexical_cast<fcppt::string>(
+					fcppt::lexical_cast<fcppt::string>(
 						index),
 					context<machine>().systems().charconv_system()))
 				(sge::cegui::from_cegui_string(
 					current_entry.name,
 					context<machine>().systems().charconv_system()))
 				(sge::cegui::from_cegui_string(
-					boost::lexical_cast<fcppt::string>(
+					fcppt::lexical_cast<fcppt::string>(
 						current_entry.score_),
 					context<machine>().systems().charconv_system()))
 				(sge::cegui::from_cegui_string(

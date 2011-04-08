@@ -1,58 +1,49 @@
-#include "drawer.hpp"
-#include <sge/texture/rect_fragmented.hpp>
-#include <sge/renderer/texture/filter/linear.hpp>
-#include <sge/renderer/state/scoped.hpp>
+#include "object.hpp"
+#include "parameters.hpp"
+#include <sge/texture/texture.hpp>
+#include <sge/renderer/texture/texture.hpp>
+#include <sge/renderer/state/state.hpp>
 #include <sge/renderer/caps.hpp>
-#include <sge/image2d/view/dim.hpp>
-#include <sge/image2d/dim.hpp>
-#include <sge/image/color/any/convert.hpp>
-#include <sge/sprite/object_impl.hpp>
-#include <sge/sprite/parameters_impl.hpp>
-#include <sge/sprite/default_sort.hpp>
-#include <sge/sprite/default_equal.hpp>
-#include <sge/sprite/external_system_impl.hpp>
-#include <sge/sprite/render_states.hpp>
-#include <fcppt/math/box/basic_impl.hpp>
-#include <fcppt/math/dim/quad.hpp>
-#include <fcppt/math/dim/structure_cast.hpp>
-#include <fcppt/math/dim/output.hpp>
-#include <fcppt/math/vector/output.hpp>
-#include <boost/spirit/home/phoenix/object/new.hpp>
-#include <boost/spirit/home/phoenix/object/construct.hpp>
+#include <sge/renderer/device.hpp>
+#include <sge/image2d/image2d.hpp>
+#include <sge/image/color/color.hpp>
+#include <sge/sprite/sprite.hpp>
+#include <fcppt/math/box/box.hpp>
+#include <fcppt/math/dim/dim.hpp>
+#include <fcppt/math/vector/vector.hpp>
+#include <boost/spirit/home/phoenix/object.hpp>
 #include <utility>
 #include <iostream>
 
-fruitcut::font::drawer::drawer(
-	sge::renderer::device_ptr const _rend,
-	sge::image::color::any::object const &_col,
-	font::transform_callback const &_transform)
+fruitcut::font::drawer::object::object(
+	parameters const &params)
 :
-	rend_(
-		_rend),
-	col_(
-		_col),
-	texman_(
-		rend_,
+	renderer_(
+		params.renderer()),
+	color_(
+		params.color()),
+	texture_manager_(
+		renderer_,
 		boost::phoenix::construct<sge::texture::fragmented_unique_ptr>(
 			boost::phoenix::new_<sge::texture::rect_fragmented>(
-				rend_,
+				renderer_,
 				// Is this safe? Could be a non-alpha format
-				rend_->caps().preferred_texture_format(),
+				renderer_->caps().preferred_texture_format(),
 				sge::renderer::texture::filter::linear,
 				fcppt::math::dim::quad<sge::renderer::dim2>( 
 					256)))),
-	sys_(
-		rend_),
+	sprite_system_(
+		renderer_),
 	sprites_(),
-	transform_(
-		_transform)
+	transform_callback_(
+		params.transform_callback())
 {}
 
-fruitcut::font::drawer::~drawer()
+fruitcut::font::drawer::object::~object()
 {}
 
 void
-fruitcut::font::drawer::begin_rendering(
+fruitcut::font::drawer::object::begin_rendering(
 	sge::font::text::drawer::size_type const buffer_chars,
 	sge::font::pos const &origin,
 	sge::font::dim const &size)
@@ -68,11 +59,10 @@ fruitcut::font::drawer::begin_rendering(
 }
 
 void
-fruitcut::font::drawer::draw_char(
+fruitcut::font::drawer::object::draw_char(
 	sge::font::text::char_type const _char,
 	sge::font::pos const &_pos,
-	sge::font::const_image_view const &_data
-)
+	sge::font::const_image_view const &_data)
 {
 	sge::image2d::dim const d(
 		sge::image2d::view::dim(
@@ -83,7 +73,7 @@ fruitcut::font::drawer::draw_char(
 	sprite_parameters;
 
 	sge::font::rect const transformation = 
-		transform_(
+		transform_callback_(
 			bounding_rect_,
 			sge::font::rect(
 				_pos,
@@ -101,8 +91,7 @@ fruitcut::font::drawer::draw_char(
 				?
 					cached_texture(
 						_char,
-						_data
-					)
+						_data)
 				:
 					sge::texture::const_part_ptr())
 			.size(
@@ -111,14 +100,14 @@ fruitcut::font::drawer::draw_char(
 			.color(
 				// TODO:
 				sge::image::color::any::convert<sprite_object::color_format>( 
-					col_))
+					color_))
 			.elements()));
 }
 
 void
-fruitcut::font::drawer::end_rendering()
+fruitcut::font::drawer::object::end_rendering()
 {
-	sys_.render(
+	sprite_system_.render(
 		sprites_.begin(),
 		sprites_.end(),
 		sge::sprite::default_sort(),
@@ -126,21 +115,35 @@ fruitcut::font::drawer::end_rendering()
 }
 
 void
-fruitcut::font::drawer::color(
-	sge::image::color::any::object const &_col)
+fruitcut::font::drawer::object::color(
+	sge::image::color::any::object const &_color)
 {
-	col_ = _col;
+	color_ = 
+		_color;
+}
+
+sge::image::color::any::object const &
+fruitcut::font::drawer::object::color() const
+{
+	return color_;
 }
 
 void
-fruitcut::font::drawer::transform_callback(
-	font::transform_callback const &_transform)
+fruitcut::font::drawer::object::transform_callback(
+	fruitcut::font::drawer::transform_callback const &_transform_callback)
 {
-	transform_ = _transform;
+	transform_callback_ = 
+		_transform_callback;
+}
+
+fruitcut::font::drawer::transform_callback const &
+fruitcut::font::drawer::object::transform_callback() const
+{
+	return transform_callback_;
 }
 
 sge::texture::const_part_ptr const
-fruitcut::font::drawer::cached_texture(
+fruitcut::font::drawer::object::cached_texture(
 	sge::font::text::char_type const _ch,
 	sge::font::const_image_view const &_data)
 {
@@ -156,6 +159,6 @@ fruitcut::font::drawer::cached_texture(
 			textures_.insert(
 				std::make_pair(
 					_ch,
-					texman_.add(
+					texture_manager_.add(
 						_data))).first->second;
 }

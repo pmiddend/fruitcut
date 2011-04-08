@@ -1,13 +1,15 @@
-#ifndef FRUITCUT_FONT_SCOPED_TRANSFORMATION_HPP_INCLUDED
-#define FRUITCUT_FONT_SCOPED_TRANSFORMATION_HPP_INCLUDED
+#ifndef FRUITCUT_FONT_DRAWER_SCOPED_TRANSFORMATION_HPP_INCLUDED
+#define FRUITCUT_FONT_DRAWER_SCOPED_TRANSFORMATION_HPP_INCLUDED
 
 #include "transform_callback.hpp"
-#include "drawer_fwd.hpp"
+#include "object_fwd.hpp"
 #include <fcppt/noncopyable.hpp>
 
 namespace fruitcut
 {
 namespace font
+{
+namespace drawer
 {
 class scoped_transformation
 {
@@ -16,13 +18,15 @@ FCPPT_NONCOPYABLE(
 public:
 	explicit
 	scoped_transformation(
-		drawer &,
+		object &,
 		transform_callback const &);
 
 	~scoped_transformation();
 private:
-	drawer &drawer_;
+	object &drawer_;
+	transform_callback const old_callback_;
 };
+}
 }
 }
 

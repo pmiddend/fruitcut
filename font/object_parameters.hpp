@@ -1,43 +1,40 @@
-#ifndef FRUITCUT_FONT_PARTICLE_BASE_PARAMETERS_HPP_INCLUDED
-#define FRUITCUT_FONT_PARTICLE_BASE_PARAMETERS_HPP_INCLUDED
+#ifndef FRUITCUT_FONT_OBJECT_PARAMETERS_HPP_INCLUDED
+#define FRUITCUT_FONT_OBJECT_PARAMETERS_HPP_INCLUDED
 
-#include "../identifier.hpp"
-#include "../system_fwd.hpp"
-#include <sge/font/text/string.hpp>
+#include "object_parameters_fwd.hpp"
+#include "drawer/object_fwd.hpp"
+#include "identifier.hpp"
+#include <sge/font/metrics_ptr.hpp>
 #include <sge/font/rect.hpp>
+#include <sge/font/text/string.hpp>
 #include <sge/font/text/align_h.hpp>
 #include <sge/font/text/align_v.hpp>
-// This is just convenience so I don't have to include this fucking
-// bitfield impl and the flags header
 #include <sge/font/text/flags_field.hpp>
-#include <sge/font/text/flags.hpp>
-#include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/container/bitfield/bitfield.hpp>
+#include <fcppt/math/box/box.hpp>
 
 namespace fruitcut
 {
 namespace font
 {
-namespace particle
-{
-class base_parameters
+class object_parameters
 {
 public:
 	explicit
-	base_parameters(
-		font::system &,
-		identifier const &,
+	object_parameters(
+		sge::font::metrics_ptr,
+		fruitcut::font::drawer::object &,
 		sge::font::text::string const &,
 		sge::font::rect const &,
 		sge::font::text::align_h::type,
 		sge::font::text::align_v::type,
 		sge::font::text::flags_field const &);
 
-	font::system &
-	system() const;
-
-	identifier const &
+	sge::font::metrics_ptr const
 	metrics() const;
+
+	fruitcut::font::drawer::object &
+	drawer() const;
 
 	sge::font::text::string const &
 	text() const;
@@ -54,15 +51,14 @@ public:
 	sge::font::text::flags_field const &
 	flags() const;
 private:
-	font::system &system_;
-	identifier metrics_;
+	sge::font::metrics_ptr metrics_;
+	fruitcut::font::drawer::object &drawer_;
 	sge::font::text::string text_;
 	sge::font::rect bounding_box_;
 	sge::font::text::align_h::type alignment_h_;
 	sge::font::text::align_v::type alignment_v_;
 	sge::font::text::flags_field flags_;
 };
-}
 }
 }
 

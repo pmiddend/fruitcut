@@ -10,7 +10,8 @@
 #include <fcppt/math/interpolation/trigonometric.hpp>
 #include <fcppt/assert.hpp>
 #include <boost/next_prior.hpp>
-#include <boost/scoped_ptr.hpp>
+#include <fcppt/scoped_ptr.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <vector>
 #include <utility>
 
@@ -42,7 +43,7 @@ public:
 		values_(
 			_values),
 		current_timer_(
-			new sge::time::timer(
+			fcppt::make_unique_ptr<sge::time::timer>(
 				values_.front().first,
 				sge::time::activation_state::active,
 				cb)),
@@ -105,7 +106,7 @@ public:
 	}
 private:
 	value_sequence const values_;
-	boost::scoped_ptr<sge::time::timer> current_timer_;
+	fcppt::scoped_ptr<sge::time::timer> current_timer_;
 	typename value_sequence::const_iterator current_value_;
 };
 }

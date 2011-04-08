@@ -1,7 +1,7 @@
 #ifndef FRUITCUT_FONT_CACHE_HPP_INCLUDED
 #define FRUITCUT_FONT_CACHE_HPP_INCLUDED
 
-#include "drawer_fwd.hpp"
+#include "drawer/object_fwd.hpp"
 #include "identifier.hpp"
 #include <sge/font/system_ptr.hpp>
 #include <sge/font/metrics_ptr.hpp>
@@ -34,7 +34,7 @@ public:
 	metrics(
 		identifier const &);
 
-	fruitcut::font::drawer &
+	fruitcut::font::drawer::object &
 	drawer(
 		identifier const &);
 
@@ -47,7 +47,7 @@ private:
 	metrics_sequence;
 
 	typedef
-	boost::ptr_list<fruitcut::font::drawer>
+	boost::ptr_list<fruitcut::font::drawer::object>
 	drawer_sequence;
 
 	typedef

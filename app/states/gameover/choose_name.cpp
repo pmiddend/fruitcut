@@ -8,13 +8,13 @@
 #include <CEGUI/CEGUIWindow.h>
 #include <CEGUI/CEGUIWindowManager.h>
 #include <CEGUI/elements/CEGUIPushButton.h>
-#include <boost/lexical_cast.hpp>
-#include <boost/spirit/home/phoenix/bind.hpp>
-#include <boost/spirit/home/phoenix/core.hpp>
-#include <boost/spirit/home/phoenix/statement.hpp>
+#include <fcppt/lexical_cast.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/tr1/functional.hpp>
+#include <boost/spirit/home/phoenix/bind.hpp>
+#include <boost/spirit/home/phoenix/core.hpp>
+#include <boost/spirit/home/phoenix/statement.hpp>
 #include <iostream>
 
 fruitcut::app::states::gameover::choose_name::choose_name(
@@ -39,7 +39,7 @@ fruitcut::app::states::gameover::choose_name::choose_name(
 	CEGUI::WindowManager::getSingleton().getWindow("NameChooser/Congratulations")->setText(
 		sge::cegui::to_cegui_string(
 			FCPPT_TEXT("Congratulations!\nYour score:\n")+
-			boost::lexical_cast<fcppt::string>(
+			fcppt::lexical_cast<fcppt::string>(
 				context<machine>().last_game_score()),
 			context<machine>().systems().charconv_system()));
 }

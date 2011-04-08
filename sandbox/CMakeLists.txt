@@ -30,17 +30,6 @@ TARGET_LINK_LIBRARIES(
 	${Boost_LIBRARIES})
 
 ADD_EXECUTABLE(
-	doppler_test
-	doppler.cpp)
-
-TARGET_LINK_LIBRARIES(
-	doppler_test
-	${FCPPT_LIBRARIES}
-	${SGE_CORE_LIBRARY}
-	${SGE_systems_LIBRARY}
-	${Boost_LIBRARIES})
-
-ADD_EXECUTABLE(
 	splat_test
 	splat.cpp splat_collector.cpp splatter.cpp splat_particle.cpp)
 

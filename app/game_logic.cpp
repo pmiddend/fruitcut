@@ -31,7 +31,7 @@
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/text.hpp>
-#include <boost/lexical_cast.hpp>
+#include <fcppt/lexical_cast.hpp>
 #include <iostream>
 
 fruitcut::app::game_logic::game_logic(
@@ -194,7 +194,7 @@ fruitcut::app::game_logic::fruit_cut(
 				area * static_cast<sge::renderer::scalar>(100))); 
 	
 	score_font_.text(
-		boost::lexical_cast<sge::font::text::string>(
+		fcppt::lexical_cast<sge::font::text::string>(
 			score_));
 }
 

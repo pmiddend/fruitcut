@@ -41,7 +41,7 @@
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/text.hpp>
-#include <boost/lexical_cast.hpp>
+#include <fcppt/lexical_cast.hpp>
 #include <boost/spirit/home/phoenix/core.hpp>
 #include <boost/spirit/home/phoenix/operator.hpp>
 #include <boost/spirit/home/phoenix/bind.hpp>
@@ -290,7 +290,7 @@ fruitcut::app::states::ingame::superstate::fruit_was_cut(
 			static_cast<sge::renderer::scalar>(
 				score_) + 1000 * _area);
 	score_font_.text(
-		boost::lexical_cast<sge::font::text::string>(
+		fcppt::lexical_cast<sge::font::text::string>(
 			score_));
 	*/
 	context<machine>().sound_controller().play(

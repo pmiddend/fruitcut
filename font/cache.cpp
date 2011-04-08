@@ -1,5 +1,6 @@
 #include "cache.hpp"
-#include "drawer.hpp"
+#include "drawer/object.hpp"
+#include "drawer/parameters.hpp"
 #include "../json/find_member.hpp"
 #include "../media_path.hpp"
 #include <sge/font/system_ptr.hpp>
@@ -93,8 +94,9 @@ fruitcut::font::cache::cache(
 						media_path()/FCPPT_TEXT("fonts")/filename,
 						font_size));
 				drawers_.push_back(
-					new fruitcut::font::drawer(
-						_renderer));
+					new fruitcut::font::drawer::object(
+						fruitcut::font::drawer::parameters(
+							_renderer)));
 				cached_value = 
 					ttf_fonts_.insert(
 						std::make_pair(
@@ -131,8 +133,9 @@ fruitcut::font::cache::cache(
 						media_path()/FCPPT_TEXT("fonts")/filename,
 						_image_loader));
 				drawers_.push_back(
-					new fruitcut::font::drawer(
-						_renderer));
+					new fruitcut::font::drawer::object(
+						fruitcut::font::drawer::parameters(
+							_renderer)));
 				cached_value = 
 					bitmap_fonts_.insert(
 						std::make_pair(
@@ -174,7 +177,7 @@ fruitcut::font::cache::metrics(
 	return *(i->second);
 }
 
-fruitcut::font::drawer &
+fruitcut::font::drawer::object &
 fruitcut::font::cache::drawer(
 	fcppt::string const &identifier)
 {
