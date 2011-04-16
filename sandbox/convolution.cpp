@@ -254,7 +254,8 @@ particles::particles(
 										sge::renderer::texture::address_mode::clamp),
 									sge::renderer::resource_flags::none))))
 					.repetition(
-						static_cast<particle::sprite::object::repetition_type>(
+						particle::sprite::object::repetition_type(
+							1,
 							1))
 					.visible(
 						true)

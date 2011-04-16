@@ -145,7 +145,8 @@ fruitcut::sandbox::splatter::splatter(
 				fcppt::math::dim::structure_cast<particle::sprite::object::dim>(
 					_renderer->onscreen_target()->viewport().get().size()))
 			.repetition(
-				static_cast<particle::sprite::object::repetition_type>(
+				particle::sprite::object::repetition_type(
+					3,
 					3))
 			.texture(
 				sge::texture::part_ptr(

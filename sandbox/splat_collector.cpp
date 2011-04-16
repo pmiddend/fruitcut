@@ -83,7 +83,8 @@ fruitcut::sandbox::splat_collector::splat_collector(
 			.system(
 				&ss_)
 			.repetition(
-				static_cast<particle::sprite::object::repetition_type>(
+				particle::sprite::object::repetition_type(
+					1,
 					1))
 			.elements()),
 	copy_shader_(
