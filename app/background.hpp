@@ -1,6 +1,7 @@
 #ifndef FRUITCUT_APP_BACKGROUND_HPP_INCLUDED
 #define FRUITCUT_APP_BACKGROUND_HPP_INCLUDED
 
+#include "../scenic/nodes/intrusive.hpp"
 #include <sge/renderer/device_ptr.hpp>
 #include <sge/renderer/scalar.hpp>
 #include <sge/renderer/vertex_buffer_ptr.hpp>
@@ -19,6 +20,8 @@ namespace app
 // b) it has repetition
 // c) it has additional logic (splatting!)
 class background
+:
+	public scenic::nodes::intrusive
 {
 FCPPT_NONCOPYABLE(
 	background);
@@ -30,9 +33,6 @@ public:
 		sge::parse::json::object const &);
 
 	void
-	render();
-
-	void
 	viewport_changed();
 
 	~background();
@@ -42,6 +42,12 @@ private:
 	sge::renderer::vertex_declaration_ptr vertex_declaration_;
 	sge::renderer::vertex_buffer_ptr vb_;
 	sge::renderer::scalar const reps_;
+
+	void
+	render();
+
+	void
+	update();
 };
 }
 }

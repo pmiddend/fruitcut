@@ -5,7 +5,7 @@ PROJECT(fruitcut)
 INCLUDE(FcpptCMakeUtils)
 
 FIND_PACKAGE(
-	Boost 1.41.0 REQUIRED COMPONENTS
+	Boost 1.45.0 REQUIRED COMPONENTS
 	system
 	date_time)
 
@@ -30,7 +30,7 @@ INCLUDE_DIRECTORIES(SYSTEM ${BULLET_INCLUDE_DIRS})
 
 # sge begin
 FIND_PACKAGE(
-	SGE REQUIRED COMPONENTS console sprite shader config time texture systems camera fonttext fontbitmap cegui)
+	SGE REQUIRED COMPONENTS console sprite shader config time texture systems camera fonttext fontbitmap cegui line_drawer)
 
 INCLUDE_DIRECTORIES(SYSTEM ${SGE_INCLUDE_DIRS})
 INCLUDE_DIRECTORIES(SYSTEM ${AWL_INCLUDE_DIRS})
@@ -105,14 +105,16 @@ SET(files
 	# random
 	create_rng.cpp
 	# font
-	font/system.cpp
+	font/intrusive_scene_node.cpp
 	font/cache.cpp
-	font/scoped_transformation.cpp
-	font/drawer.cpp
-	font/particle/base.cpp
-	font/particle/animated.cpp
-	font/particle/base_parameters.cpp
-	font/damped_oscillation.cpp
+	font/object_parameters.cpp
+	font/scene_node.cpp
+	font/object.cpp
+	font/drawer/object.cpp
+	font/drawer/scoped_color.cpp
+	font/drawer/scoped_transformation.cpp
+	font/drawer/parameters.cpp
+#	font/damped_oscillation.cpp
 	# time format
 	time_format/seconds.cpp
 	time_format/milliseconds.cpp
@@ -121,15 +123,31 @@ SET(files
 	particle/objects/base.cpp
 	particle/objects/simple.cpp
 	particle/objects/permanent_sprite.cpp
-	# line drawer
-	line_drawer/object.cpp
-	line_drawer/scoped_lock.cpp
-	line_drawer/line.cpp
+	# scenic
+	scenic/nodes/base.cpp
+	scenic/nodes/camera.cpp
+	scenic/nodes/intrusive.cpp
+	scenic/nodes/cegui.cpp
+	scenic/nodes/console.cpp
+	scenic/nodes/cursor_trail.cpp
+	scenic/nodes/group.cpp
+	scenic/nodes/gui_system.cpp
+	scenic/nodes/immortal.cpp
+	scenic/nodes/intrusive_group.cpp
+	scenic/nodes/intrusive_with_callbacks.cpp
+	scenic/nodes/line_drawer.cpp
+	scenic/nodes/music_controller.cpp
+	scenic/nodes/sound_controller.cpp
+	scenic/nodes/with_color.cpp
+	scenic/nodes/with_lifetime.cpp
+	scenic/nodes/with_scale.cpp
 	# physics
 	physics/world.cpp
 	physics/debugger.cpp
 	physics/null_collision_filter.cpp
 	physics/rigid_body/parameters.cpp
+	physics/nodes/debugger.cpp
+	physics/nodes/world.cpp
 	physics/rigid_body/scoped_body.cpp
 	physics/rigid_body/object.cpp)
 
@@ -138,6 +156,8 @@ ADD_LIBRARY(
 
 ADD_EXECUTABLE(
 	app
+	app/scene.cpp
+	app/scoped_scene_activation.cpp
 	app/background.cpp
 	app/game_logic.cpp
 	app/events/tick.cpp
@@ -169,16 +189,7 @@ TARGET_LINK_LIBRARIES(
 	app
 	fruitcut_library
 	${FCPPT_LIBRARIES}
-	${SGE_CORE_LIBRARY}
-	${SGE_shader_LIBRARY}
-	${SGE_cegui_LIBRARY}
-	${SGE_fonttext_LIBRARY}
-	${SGE_fontbitmap_LIBRARY}
-	${SGE_console_LIBRARY}
-	${SGE_systems_LIBRARY}
-	${SGE_camera_LIBRARY}
-	${SGE_parse_LIBRARY}
-	${SGE_sprite_LIBRARY}
+	${SGE_LIBRARIES}
 	${BULLET_LIBRARIES}
 	${Boost_LIBRARIES})
 

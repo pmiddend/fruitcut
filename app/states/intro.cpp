@@ -78,8 +78,6 @@ boost::statechart::result
 fruitcut::app::states::intro::react(
 	events::render const &)
 {
-	context<machine>().background().render();
-	context<machine>().particle_system().render();
 	return discard_event();
 }
 
@@ -87,8 +85,6 @@ boost::statechart::result
 fruitcut::app::states::intro::react(
 	events::tick const &)
 {
-	context<machine>().sound_controller().update();
-	context<machine>().particle_system().update();
 	context<machine>().postprocessing().desaturate_filter().factor(
 		static_cast<sge::renderer::scalar>(
 			saturation_timer_.expired()
@@ -136,6 +132,7 @@ fruitcut::app::states::intro::viewport_change()
 				static_cast<particle::point_sprite::object::vector::value_type>(
 					2);
 
+#if 0
 	// The logo
 	context<machine>().particle_system().insert(
 		fruitcut::particle::objects::unique_base_ptr(
@@ -170,4 +167,5 @@ fruitcut::app::states::intro::viewport_change()
 				context<machine>().timer_callback(),
 				sge::renderer::vector2::null(),
 				sge::renderer::vector2::null())));
+#endif
 }

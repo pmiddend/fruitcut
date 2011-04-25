@@ -87,6 +87,25 @@ fruitcut::app::fruit::spawner::spawner(
 	reset_timer();
 }
 
+fcppt::signal::auto_connection
+fruitcut::app::fruit::spawner::spawn_callback(
+	spawn_callback_function const &callback)
+{
+	return 
+		spawn_signal_.connect(
+			callback);
+}
+
+void
+fruitcut::app::fruit::spawner::reset_timer()
+{
+	if(!timer_.active())
+		timer_.activate();
+	timer_.interval(
+		sge::time::second_f(
+			seconds_rng_()));
+}
+
 void
 fruitcut::app::fruit::spawner::update()
 {
@@ -185,21 +204,7 @@ fruitcut::app::fruit::spawner::update()
 	spawn_signal_();
 }
 
-fcppt::signal::auto_connection
-fruitcut::app::fruit::spawner::spawn_callback(
-	spawn_callback_function const &callback)
-{
-	return 
-		spawn_signal_.connect(
-			callback);
-}
-
 void
-fruitcut::app::fruit::spawner::reset_timer()
+fruitcut::app::fruit::spawner::render()
 {
-	if(!timer_.active())
-		timer_.activate();
-	timer_.interval(
-		sge::time::second_f(
-			seconds_rng_()));
 }

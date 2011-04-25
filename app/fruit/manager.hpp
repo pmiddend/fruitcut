@@ -12,14 +12,15 @@
 #include "object_sequence.hpp"
 #include "object_fwd.hpp"
 #include "plane.hpp"
+#include "../../scenic/nodes/intrusive.hpp"
 #include "../../physics/world_fwd.hpp"
 #include <sge/image2d/multi_loader_fwd.hpp>
 #include <sge/model/loader_fwd.hpp>
 #include <sge/parse/json/array_fwd.hpp>
 #include <sge/renderer/device_ptr.hpp>
-#include <sge/renderer/matrix4.hpp>
 #include <sge/renderer/vertex_declaration_ptr.hpp>
 #include <sge/shader/object.hpp>
+#include <sge/camera/object_fwd.hpp>
 #include <sge/time/callback.hpp>
 #include <sge/time/duration.hpp>
 #include <fcppt/chrono/duration.hpp>
@@ -40,6 +41,8 @@ namespace fruit
 	future, this class might also "tag" fruits and track "double cuts".
  */
 class manager
+:
+	public scenic::nodes::intrusive
 {
 FCPPT_NONCOPYABLE(
 	manager);
@@ -50,15 +53,8 @@ public:
 		sge::model::loader &model_loader,
 		sge::image2d::multi_loader &image_loader,
 		sge::renderer::device_ptr renderer,
-		physics::world &);
-
-	// I don't think the manager needs the whole camera, so pass the mvp here
-	void
-	render(
-		sge::renderer::matrix4 const &);
-
-	void
-	update();
+		physics::world &,
+		sge::camera::object &);
 
 	// cut_fruit gets a duration indicating how long the new fruits are
 	// to be banned from further cutting (which would result in paper
@@ -99,6 +95,7 @@ public:
 	~manager();
 private:
 	sge::renderer::device_ptr renderer_;
+	sge::camera::object &camera_;
 	sge::renderer::vertex_declaration_ptr vertex_declaration_;
 	physics::world &physics_world_;
 	prototype_sequence prototypes_;
@@ -110,6 +107,12 @@ private:
 
 	void
 	delete_distant_fruits();
+
+	void
+	update();
+
+	void
+	render();
 };
 }
 }

@@ -2,16 +2,16 @@
 #define FRUITCUT_PHYSICS_DEBUGGER_HPP_INCLUDED
 
 #include "world_fwd.hpp"
-#include "../line_drawer/object.hpp"
-#include "../line_drawer/scoped_lock.hpp"
 #include <sge/camera/object_fwd.hpp>
+#include <sge/line_drawer/object.hpp>
+#include <sge/line_drawer/scoped_lock.hpp>
 #include <sge/renderer/device_ptr.hpp>
 #include <sge/renderer/vector3.hpp>
 #include <sge/renderer/vertex_buffer_ptr.hpp>
 #include <LinearMath/btIDebugDraw.h>
 #include <LinearMath/btVector3.h>
 #include <fcppt/math/vector/basic_impl.hpp>
-#include <boost/scoped_ptr.hpp>
+#include <fcppt/scoped_ptr.hpp>
 
 namespace fruitcut
 {
@@ -107,23 +107,13 @@ private:
 		btVector3 const &color, 
 		btScalar alpha) {}
 	*/
-	typedef
-	std::vector
-	<
-		std::pair
-		<
-			sge::renderer::vector3,
-			sge::renderer::vector3	
-		>
-	>
-	line_cache;
 
 	world &world_;
 	sge::renderer::device_ptr const renderer_;
 	sge::camera::object &camera_;
 	int debug_mode_;
-	line_drawer::object line_drawer_;
-	boost::scoped_ptr<line_drawer::scoped_lock> scoped_lock_;
+	sge::line_drawer::object line_drawer_;
+	fcppt::scoped_ptr<sge::line_drawer::scoped_lock> scoped_lock_;
 };
 }
 }

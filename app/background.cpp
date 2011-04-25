@@ -53,9 +53,10 @@
 #include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/math/matrix/basic_impl.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
-#include <boost/mpl/vector/vector10.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
+#include <boost/mpl/vector/vector10.hpp>
+#include <iostream>
 
 namespace
 {
@@ -202,9 +203,20 @@ fruitcut::app::background::background(
 }
 
 
+
+void
+fruitcut::app::background::viewport_changed()
+{
+}
+
+fruitcut::app::background::~background()
+{
+}
+
 void
 fruitcut::app::background::render()
 {
+	std::cout << "rendering background\n";
 	sge::renderer::scoped_vertex_declaration scoped_decl(
 		renderer_,
 		vertex_declaration_);
@@ -259,10 +271,7 @@ fruitcut::app::background::render()
 }
 
 void
-fruitcut::app::background::viewport_changed()
+fruitcut::app::background::update()
 {
-}
-
-fruitcut::app::background::~background()
-{
+	std::cout << "updating background\n";
 }

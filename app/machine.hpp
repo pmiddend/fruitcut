@@ -1,16 +1,20 @@
 #ifndef FRUITCUT_APP_MACHINE_HPP_INCLUDED
 #define FRUITCUT_APP_MACHINE_HPP_INCLUDED
 
+#include "../audio/music_controller.hpp"
+#include "../audio/sound_controller.hpp"
 #include "background.hpp"
-#include "postprocessing.hpp"
-#include "score.hpp"
+#include "../font/cache.hpp"
 #include "../input/state.hpp"
 #include "../input/state_manager.hpp"
-#include "../particle/system.hpp"
-#include "../audio/sound_controller.hpp"
-#include "../audio/music_controller.hpp"
-#include "../font/cache.hpp"
 #include "../log/scoped_sequence_ptr.hpp"
+#include "overlay.hpp"
+#include "scene.hpp"
+#include "../scenic/nodes/console.hpp"
+#include "../scenic/nodes/intrusive_group.hpp"
+#include "../scenic/nodes/music_controller.hpp"
+#include "../scenic/nodes/sound_controller.hpp"
+#include "score.hpp"
 #include "states/intro_fwd.hpp"
 #include <sge/console/gfx.hpp>
 #include <sge/console/object.hpp>
@@ -45,7 +49,9 @@ class machine
 		<
 			machine,
 			states::intro
-		>
+		>,
+	public 
+		scenic::nodes::intrusive_group
 {
 public:
 	typedef
@@ -62,13 +68,6 @@ public:
 
 	sge::systems::instance const &
 	systems() const;
-
-	// Needed for the viewport callback stuff
-	sge::systems::instance &
-	systems();
-
-	particle::system &
-	particle_system();
 
 	sge::texture::part_ptr const
 	create_single_texture(
@@ -140,29 +139,42 @@ public:
 	void
 	quit();
 
+	scene &
+	scene_node();
+
+	scene const &
+	scene_node() const;
+
+	overlay &
+	overlay_node();
+
+	overlay const &
+	overlay_node() const;
+
 	~machine();
 private:
 	bool running_;
 	sge::parse::json::object const config_file_;
-	// This is nonconst because of manage_viewport_callback, which is
-	// nonconst (this might be a bug, though)
-	sge::systems::instance systems_;
+	sge::systems::instance const systems_;
+	sge::console::object console_object_;
+	scene scene_node_;
+	overlay overlay_node_;
 	log::scoped_sequence_ptr activated_loggers_;
 	font::cache font_cache_;
 	sge::texture::manager texture_manager_;
 	input::state_manager input_manager_;
 	input::state console_state_,game_state_;
 	input::state *previous_state_;
-	sge::console::object console_object_;
 	sge::console::gfx console_gfx_;
-	fruitcut::app::postprocessing postprocessing_;
-	particle::system particle_system_;
+	scenic::nodes::console console_node_;
 	fcppt::signal::scoped_connection exit_connection_;
 	sge::time::point current_time_,transformed_time_;
 	time_transform_function time_transform_;
 	fcppt::signal::scoped_connection console_switch_connection_;
 	fruitcut::audio::sound_controller sound_controller_;
+	fruitcut::scenic::nodes::sound_controller sound_controller_node_;
 	fruitcut::audio::music_controller music_controller_;
+	fruitcut::scenic::nodes::music_controller music_controller_node_;
 	fruitcut::app::background background_;
 	fcppt::signal::scoped_connection viewport_change_connection_;
 	fcppt::chrono::milliseconds::rep desired_fps_;
@@ -174,16 +186,18 @@ private:
 	console_switch();
 
 	void
-	run_once();
-
-	void
 	viewport_change();
-
-	void
-	manage_time();
 
 	void 
 	manage_rendering();
+
+	// @override
+	void
+	update();
+
+	// @override
+	void
+	render();
 };
 }
 }

@@ -2,17 +2,18 @@
 #define FRUITCUT_APP_STATES_INGAME_SUPERSTATE_HPP_INCLUDED
 
 #include "running_fwd.hpp"
+#include "../../../scenic/nodes/camera.hpp"
 #include "../../game_logic.hpp"
 #include "../../machine.hpp"
 #include "../../fruit/manager.hpp"
 #include "../../fruit/object_fwd.hpp"
 #include "../../fruit/spawner.hpp"
 #include "../../../physics/world.hpp"
+#include "../../../physics/nodes/world.hpp"
+#include "../../../physics/nodes/debugger.hpp"
 #include "../../../physics/null_collision_filter.hpp"
 #include "../../../physics/debugger.hpp"
 #include "../../../input/state.hpp"
-#include "../../../font/system.hpp"
-#include "../../../font/particle/animated.hpp"
 #include <sge/camera/object.hpp>
 #include <sge/time/timer.hpp>
 #include <sge/renderer/device_ptr.hpp>
@@ -62,12 +63,6 @@ public:
 	fruit::spawner const &
 	fruit_spawner() const;
 
-	font::system &
-	font_system();
-
-	font::system const &
-	font_system() const;
-
 	physics::debugger &
 	physics_debugger();
 
@@ -85,13 +80,15 @@ private:
 		viewport_change_connection_;
 	input::state camera_state_;
 	sge::camera::object camera_;
+	scenic::nodes::camera camera_node_;
 	physics::world physics_world_;
+	physics::nodes::world physics_world_node_;
 	physics::debugger physics_debugger_;
+	physics::nodes::debugger physics_debugger_node_;
 	fcppt::signal::scoped_connection physics_debugger_connection_;
 	physics::null_collision_filter collision_filter_;
 	fruit::manager fruit_manager_;
 	fruit::spawner fruit_spawner_;
-	font::system font_system_;
 	fruitcut::app::game_logic game_logic_;
 	fcppt::signal::scoped_connection cut_connection_;
 

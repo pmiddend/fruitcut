@@ -4,6 +4,7 @@
 #include "prototype_sequence.hpp"
 #include "../../physics/scalar.hpp"
 #include "../../uniform_random.hpp"
+#include "../../scenic/nodes/intrusive.hpp"
 #include "manager_fwd.hpp"
 #include <sge/camera/object_fwd.hpp>
 #include <sge/time/callback.hpp>
@@ -21,6 +22,8 @@ namespace app
 namespace fruit
 {
 class spawner
+:
+	public scenic::nodes::intrusive
 {
 FCPPT_NONCOPYABLE(
 	spawner);
@@ -40,9 +43,6 @@ public:
 		sge::parse::json::object const &config_file,
 		sge::camera::object const &,
 		sge::time::callback const &);
-
-	void
-	update();
 
 	fcppt::signal::auto_connection
 	spawn_callback(
@@ -64,6 +64,12 @@ private:
 
 	void
 	reset_timer();
+
+	void
+	update();
+
+	void
+	render();
 };
 }
 }

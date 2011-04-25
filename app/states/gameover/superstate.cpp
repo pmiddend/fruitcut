@@ -1,15 +1,13 @@
 #include "superstate.hpp"
-#include <sge/time/second_f.hpp>
-#include <sge/time/second.hpp>
 
 fruitcut::app::states::gameover::superstate::superstate(
 	my_context const ctx)
 :
 	my_base(
 		ctx),
-	frame_timer_(
-		sge::time::second(
-			1)),
+	gui_node_(
+		context<machine>().gui_system(),
+		context<machine>().timer_callback()),
 	gui_keyboard_(
 		context<machine>().gui_syringe(),
 		*context<machine>().systems().keyboard_collector()),
@@ -19,31 +17,8 @@ fruitcut::app::states::gameover::superstate::superstate(
 	name_(
 		"You shouldn't see this")
 {
-}
-
-boost::statechart::result
-fruitcut::app::states::gameover::superstate::react(
-	events::render const &)
-{
-	return discard_event();
-}
-
-boost::statechart::result
-fruitcut::app::states::gameover::superstate::react(
-	events::render_overlay const &)
-{
-	context<machine>().gui_system().render();
-	return discard_event();
-}
-
-boost::statechart::result
-fruitcut::app::states::gameover::superstate::react(
-	events::tick const &)
-{
-	context<machine>().gui_system().update(
-		sge::time::second_f(
-			frame_timer_.reset()));
-	return discard_event();
+	context<machine>().overlay_node().children().push_back(
+		gui_node_);
 }
 
 void

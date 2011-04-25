@@ -6,9 +6,6 @@
 #include "../../../json/parse_color.hpp"
 #include "../../../physics/vector3.hpp"
 #include "../../../physics/box.hpp"
-#include "../../../font/color_animation.hpp"
-#include "../../../font/color_format.hpp"
-#include "../../../font/scale_animation.hpp"
 #include <sge/camera/identity_gizmo.hpp>
 #include <sge/camera/parameters.hpp>
 #include <sge/camera/projection/perspective.hpp>
@@ -17,6 +14,7 @@
 #include <sge/parse/json/array.hpp>
 #include <sge/parse/json/object.hpp>
 #include <sge/renderer/aspect.hpp>
+#include <sge/renderer/device.hpp>
 #include <sge/renderer/onscreen_target.hpp>
 #include <sge/renderer/scalar.hpp>
 #include <sge/renderer/screen_size.hpp>
@@ -101,16 +99,24 @@ fruitcut::app::states::ingame::superstate::superstate(
 			context<machine>().game_input_state(),
 			context<machine>().game_input_state(),
 			sge::camera::activation_state::inactive)),
+	camera_node_(
+		camera_,
+		context<machine>().timer_callback()),
 	physics_world_(
 		// The box is ignored for now
 		physics::box(),
 		json::find_member<physics::vector3>(
 			context<machine>().config_file(),
 			FCPPT_TEXT("physics/gravity"))),
+	physics_world_node_(
+		physics_world_,
+		context<machine>().timer_callback()),
 	physics_debugger_(
 		physics_world_,
 		context<machine>().systems().renderer(),
 		camera_),
+	physics_debugger_node_(
+		physics_debugger_),
 	physics_debugger_connection_(
 		context<machine>().game_input_state().key_callback(
 			sge::input::keyboard::action(
@@ -127,19 +133,19 @@ fruitcut::app::states::ingame::superstate::superstate(
 		*context<machine>().systems().md3_loader(),
 		context<machine>().systems().image_loader(),
 		context<machine>().systems().renderer(),
-		physics_world_),
+		physics_world_,
+		camera_),
 	fruit_spawner_(
 		fruit_manager_,
 		context<machine>().config_file(),
 		camera_,
 		context<machine>().timer_callback()),
-	font_system_(
-		context<machine>().font_cache()),
 	game_logic_(
 		context<machine>().timer_callback(),
 		context<machine>().config_file(),
 		fruit_manager_,
-		font_system_,
+		context<machine>().font_cache(),
+		context<machine>().overlay_node(),
 		*context<machine>().systems().renderer(),
 		context<machine>().systems().viewport_manager()),
 	cut_connection_(
@@ -152,6 +158,20 @@ fruitcut::app::states::ingame::superstate::superstate(
 				std::tr1::placeholders::_3,
 				std::tr1::placeholders::_4)))
 {
+	// scene
+	context<machine>().scene_node().children().push_back(
+		camera_node_);
+	context<machine>().scene_node().children().push_back(
+		fruit_manager_);
+	context<machine>().scene_node().children().push_back(
+		fruit_spawner_);
+	context<machine>().scene_node().children().push_back(
+		game_logic_);
+	context<machine>().scene_node().children().push_back(
+		physics_world_node_);
+	// overlay
+	context<machine>().overlay_node().children().push_back(
+		physics_debugger_node_);
 	viewport_change();
 }
 
@@ -183,18 +203,6 @@ fruitcut::app::fruit::spawner &
 fruitcut::app::states::ingame::superstate::fruit_spawner()
 {
 	return fruit_spawner_;
-}
-
-fruitcut::font::system &
-fruitcut::app::states::ingame::superstate::font_system()
-{
-	return font_system_;
-}
-
-fruitcut::font::system const &
-fruitcut::app::states::ingame::superstate::font_system() const
-{
-	return font_system_;
 }
 
 fruitcut::app::fruit::spawner const &

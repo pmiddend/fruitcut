@@ -1,9 +1,9 @@
 #ifndef FRUITCUT_FONT_SCENE_NODE_HPP_INCLUDED
 #define FRUITCUT_FONT_SCENE_NODE_HPP_INCLUDED
 
-#include "../scene/nodes/with_color.hpp"
-#include "../scene/nodes/with_scale.hpp"
-#include "../scene/color.hpp"
+#include "../scenic/nodes/with_color.hpp"
+#include "../scenic/nodes/with_scale.hpp"
+#include "../scenic/color.hpp"
 #include "object_parameters_fwd.hpp"
 #include "object.hpp"
 #include <fcppt/noncopyable.hpp>
@@ -14,15 +14,17 @@ namespace font
 {
 class scene_node
 :
-	public scene::nodes::with_color,
-	public scene::nodes::with_scale
+	public scenic::nodes::with_color,
+	public scenic::nodes::with_scale
 {
 FCPPT_NONCOPYABLE(
 	scene_node);
 public:
 	explicit
 	scene_node(
-		object_parameters const &);
+		object_parameters const &,
+		scenic::color const &,
+		scenic::scale);
 
 	void
 	render();
@@ -30,16 +32,29 @@ public:
 	void
 	update();
 
-	fruitcut::scene::color const
+	fruitcut::scenic::color const
 	color() const;
 
 	void
 	color(
-		fruitcut::scene::color const &);
+		fruitcut::scenic::color const &);
+
+	fruitcut::scenic::scale
+	scale() const;
+
+	void
+	scale(
+		fruitcut::scenic::scale);
+
+	fruitcut::font::object &
+	object();
+
+	fruitcut::font::object const &
+	object() const;
 private:
 	fruitcut::font::object object_;
-	scene::color color_;
-	scene::scale scale_;
+	scenic::color color_;
+	scenic::scale scale_;
 };
 }
 }

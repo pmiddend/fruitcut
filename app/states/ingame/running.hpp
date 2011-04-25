@@ -7,9 +7,12 @@
 #include "../../events/tick.hpp"
 #include "../../events/toggle_pause.hpp"
 #include "../../events/render_overlay.hpp"
+#include "../../../scenic/nodes/line_drawer.hpp"
 #include "../../../cursor_trail.hpp"
-#include "../../../line_drawer/object.hpp"
-#include "../../../line_drawer/line_sequence.hpp"
+#include "../../../scenic/nodes/cursor_trail.hpp"
+#include "../../../scenic/nodes/intrusive_with_callbacks.hpp"
+#include <sge/line_drawer/object.hpp>
+#include <sge/line_drawer/line_sequence.hpp>
 #include <sge/renderer/state/scoped.hpp>
 #include <sge/renderer/device_ptr.hpp>
 #include <sge/renderer/state/trampoline.hpp>
@@ -33,10 +36,8 @@ class running
 {
 public:
 	typedef
-	boost::mpl::vector4
+	boost::mpl::vector2
 	<
-		boost::statechart::custom_reaction<events::render>,
-		boost::statechart::custom_reaction<events::render_overlay>,
 		boost::statechart::custom_reaction<events::tick>,
 		boost::statechart::custom_reaction<events::toggle_pause>
 	>
@@ -44,14 +45,6 @@ public:
 	explicit
 	running(
 		my_context);
-
-	boost::statechart::result
-	react(
-		events::render const &);
-
-	boost::statechart::result
-	react(
-		events::render_overlay const &);
 
 	boost::statechart::result
 	react(
@@ -64,8 +57,11 @@ public:
 	~running();
 private:
 	sge::renderer::state::scoped scoped_render_state_;
-	line_drawer::object line_drawer_;
+	sge::line_drawer::object line_drawer_;
+	scenic::nodes::line_drawer line_drawer_node_;
 	cursor_trail cursor_trail_;
+	scenic::nodes::cursor_trail cursor_trail_node_;
+	scenic::nodes::intrusive_with_callbacks update_node_;
 	fcppt::signal::scoped_connection 
 		viewport_change_connection_,
 		fruit_spawned_connection_;
@@ -74,12 +70,15 @@ private:
 		draw_bbs_;
 
 	void
+	update();
+
+	void
 	draw_fruit_bbs(
-		line_drawer::line_sequence &);
+		sge::line_drawer::line_sequence &);
 
 	void
 	draw_mouse_trail(
-		line_drawer::line_sequence &);
+		sge::line_drawer::line_sequence &);
 
 	void
 	process_fruit(

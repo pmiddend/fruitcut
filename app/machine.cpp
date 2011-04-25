@@ -44,6 +44,7 @@
 #include <sge/renderer/viewport.hpp>
 #include <sge/renderer/vsync.hpp>
 #include <sge/sprite/parameters_impl.hpp>
+#include <sge/sprite/object_impl.hpp>
 #include <sge/systems/audio_player_default.hpp>
 #include <sge/systems/image_loader.hpp>
 #include <sge/systems/input_helper_field.hpp>
@@ -90,6 +91,7 @@ fruitcut::app::machine::machine(
 	int argc,
 	char *argv[])
 :
+	scenic::nodes::intrusive_group(),
 	// We init that in run()
 	running_(),
 	config_file_(
@@ -137,6 +139,13 @@ fruitcut::app::machine::machine(
 					sge::image::capabilities_field::null(),
 					fcppt::assign::make_container<sge::extension_set>
 						(FCPPT_TEXT("png"))))),
+	console_object_(
+		SGE_FONT_TEXT_LIT('/')),
+	scene_node_(
+		systems_,
+		console_object_,
+		config_file_),
+	overlay_node_(),
 	activated_loggers_(
 		log::scoped_sequence_from_json(
 			sge::log::global_context(),
@@ -167,8 +176,6 @@ fruitcut::app::machine::machine(
 		input_manager_),
 	previous_state_(
 		0),
-	console_object_(
-		SGE_FONT_TEXT_LIT('/')),
 	console_gfx_(
 		console_object_,
 		systems_.renderer(),
@@ -204,18 +211,8 @@ fruitcut::app::machine::machine(
 		json::find_member<sge::console::output_line_limit>(
 			config_file(),
 			FCPPT_TEXT("console/line-limit"))),
-	postprocessing_(
-		systems_.renderer(),
-		console_object_,
-		std::tr1::bind(
-			&machine::process_event,
-			this,
-			events::render()),
-		json::find_member<sge::parse::json::object>(
-			config_file(),
-			FCPPT_TEXT("pp"))),
-	particle_system_(
-		systems_.renderer()),
+	console_node_(
+		console_gfx_),
 	exit_connection_(
 		systems_.keyboard_collector()->key_callback(
 			sge::input::keyboard::action(
@@ -243,12 +240,16 @@ fruitcut::app::machine::machine(
 			FCPPT_TEXT("sounds")),
 		systems_.audio_loader(),
 		systems_.audio_player()),
+	sound_controller_node_(
+		sound_controller_),
 	music_controller_(
 		json::find_member<sge::parse::json::object>(
 			config_file(),
 			FCPPT_TEXT("music")),
 		systems_.audio_loader(),
 		systems_.audio_player()),
+	music_controller_node_(
+		music_controller_),
 	background_(
 		systems_.renderer(),
 		systems_.image_loader(),
@@ -278,6 +279,18 @@ fruitcut::app::machine::machine(
 		// Something invalid so you get the error (if there is one)
 		31337)
 {
+	intrusive_group::children().push_back(
+		music_controller_node_);
+	intrusive_group::children().push_back(
+		sound_controller_node_);
+	intrusive_group::children().push_back(
+		scene_node_);
+	intrusive_group::children().push_back(
+		overlay_node_);
+	scene_node_.children().push_front(
+		background_);
+	overlay_node_.children().push_back(
+		console_node_);
 	input_manager_.current_state(
 		game_state_);
 	systems_.audio_player()->gain(
@@ -296,18 +309,6 @@ sge::systems::instance const &
 fruitcut::app::machine::systems() const
 {
 	return systems_;
-}
-
-sge::systems::instance &
-fruitcut::app::machine::systems()
-{
-	return systems_;
-}
-
-fruitcut::particle::system &
-fruitcut::app::machine::particle_system()
-{
-	return particle_system_;
 }
 
 sge::texture::part_ptr const
@@ -342,7 +343,7 @@ fruitcut::app::machine::create_texture(
 fruitcut::app::postprocessing &
 fruitcut::app::machine::postprocessing()
 {
-	return postprocessing_;
+	return scene_node_.postprocessing();
 }
 
 void
@@ -354,7 +355,8 @@ fruitcut::app::machine::run()
 		sge::time::point const before_frame = 
 			sge::time::clock::now();
 		systems_.window()->dispatch();
-		run_once();
+		update();
+		render();
 		fcppt::chrono::milliseconds const diff = 
 			fcppt::chrono::duration_cast<fcppt::chrono::milliseconds>(
 				sge::time::clock::now() - before_frame);
@@ -486,6 +488,30 @@ fruitcut::app::machine::quit()
 	running_ = false;
 }
 
+fruitcut::app::scene &
+fruitcut::app::machine::scene_node()
+{
+	return scene_node_;
+}
+
+fruitcut::app::scene const &
+fruitcut::app::machine::scene_node() const
+{
+	return scene_node_;
+}
+
+fruitcut::app::overlay &
+fruitcut::app::machine::overlay_node()
+{
+	return overlay_node_;
+}
+
+fruitcut::app::overlay const &
+fruitcut::app::machine::overlay_node() const
+{
+	return overlay_node_;
+}
+
 fruitcut::app::machine::~machine()
 {
 }
@@ -511,16 +537,9 @@ fruitcut::app::machine::console_switch()
 }
 
 void
-fruitcut::app::machine::run_once()
-{
-	manage_time();
-	manage_rendering();
-}
-
-void
 fruitcut::app::machine::viewport_change()
 {
-	postprocessing_.viewport_changed();
+	scene_node_.postprocessing().viewport_changed();
 	console_gfx_.background_sprite().size(
 		fcppt::math::dim::structure_cast<sge::console::sprite_object::dim>(
 			systems_.renderer()->onscreen_target()->viewport().get().size()));
@@ -528,7 +547,7 @@ fruitcut::app::machine::viewport_change()
 }
 
 void
-fruitcut::app::machine::manage_time()
+fruitcut::app::machine::update()
 {
 	// So what does this do? Well, we effectively manage two "clocks"
 	// here. One goes along with the real clock (with
@@ -547,31 +566,22 @@ fruitcut::app::machine::manage_time()
 
 	current_time_ = latest_time;
 
+	intrusive_group::update();
+
 	process_event(
 		events::tick(
 			diff));
 }
 
 void
-fruitcut::app::machine::manage_rendering()
+fruitcut::app::machine::render()
 {
 	// Do we even have a viewport?
-	if (systems_.renderer()->onscreen_target()->viewport().get().size().content())
-	{
-		// This implicitly sends events::render through the
-		// render-to-texture filter (and does nothing if the system is
-		// inactive)
-		postprocessing_.update();
+	if (!systems_.renderer()->onscreen_target()->viewport().get().size().content())
+		return;
 
-		sge::renderer::scoped_block scoped_block(
-			systems_.renderer());
+	sge::renderer::scoped_block scoped_block(
+		systems_.renderer());
 
-		postprocessing_.render_result();
-
-		process_event(
-			events::render_overlay());
-
-		if (console_gfx_.active())
-			console_gfx_.draw();
-	}
+	intrusive_group::render();
 }

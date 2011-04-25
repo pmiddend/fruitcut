@@ -2,12 +2,14 @@
 #define FRUITCUT_APP_STATES_INGAME_PAUSED_HPP_INCLUDED
 
 #include "superstate.hpp"
+#include "../../scoped_scene_activation.hpp"
 #include "../../events/render_overlay.hpp"
 #include "../../events/tick.hpp"
 #include "../../events/toggle_pause.hpp"
 #include "../../../pp/system.hpp"
 #include "../../../pp/filter/inject_texture.hpp"
 #include "../../../pp/filter/blur.hpp"
+#include "../../../scenic/nodes/intrusive.hpp"
 #include <boost/statechart/state.hpp>
 #include <boost/statechart/custom_reaction.hpp>
 #include <boost/mpl/vector/vector10.hpp>
@@ -25,28 +27,20 @@ namespace ingame
 class paused
 :
 	// The second argument has to be a complete type
-	public boost::statechart::state<paused,superstate>
+	public boost::statechart::state<paused,superstate>,
+	public scenic::nodes::intrusive
 {
 public:
 	typedef
-	boost::mpl::vector3
+	boost::mpl::vector1
 	<
-		boost::statechart::custom_reaction<events::render_overlay>,
-		boost::statechart::custom_reaction<events::tick>,
 		boost::statechart::custom_reaction<events::toggle_pause>
 	>
 	reactions;
+
 	explicit
 	paused(
 		my_context);
-
-	boost::statechart::result
-	react(
-		events::render_overlay const &);
-
-	boost::statechart::result
-	react(
-		events::tick const &);
 
 	boost::statechart::result
 	react(
@@ -54,6 +48,7 @@ public:
 
 	~paused();
 private:
+	scoped_scene_activation scene_deactivation_;
 	pp::system system_;
 	pp::filter::inject_texture inject_texture_;
 	pp::filter::blur blur_;
@@ -61,6 +56,12 @@ private:
 	pp::filter::blur::size_type blur_iterations_;
 	pp::filter::blur::size_type const max_blur_iterations_;
 	sge::time::timer blur_timer_;
+
+	void
+	render();
+
+	void
+	update();
 };
 }
 }

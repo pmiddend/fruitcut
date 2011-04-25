@@ -2,13 +2,11 @@
 #include "fruit/manager.hpp"
 #include "../json/find_member.hpp"
 #include "../json/parse_color.hpp"
-#include "../font/particle/base_parameters.hpp"
-#include "../font/color_animation.hpp"
-#include "../font/scale_animation.hpp"
 #include "../time_format/duration_to_string.hpp"
 #include "../time_format/milliseconds.hpp"
 #include "../time_format/seconds.hpp"
-#include "../font/color.hpp"
+#include "../font/cache.hpp"
+#include "../font/object_parameters.hpp"
 #include <sge/font/pos.hpp>
 #include <sge/font/unit.hpp>
 #include <sge/font/rect.hpp>
@@ -26,6 +24,7 @@
 #include <sge/time/second.hpp>
 #include <sge/time/millisecond.hpp>
 #include <sge/time/unit.hpp>
+#include <sge/image/color/rgba8.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
@@ -43,7 +42,8 @@ fruitcut::app::game_logic::game_logic(
 	// - "fruit was deleted" 
 	// - "fruit was added" (we could consult the spawner for that, but that's not The Right Thing)
 	fruit::manager &_fruit_manager,
-	font::system &_font_system,
+	font::cache &_font_cache,
+	overlay &_overlay,
 	sge::renderer::device &_renderer,
 	sge::viewport::manager &_viewport)
 :
@@ -83,52 +83,40 @@ fruitcut::app::game_logic::game_logic(
 			std::tr1::bind(
 				&game_logic::viewport_changed,
 				this))),
-	score_font_(
-		fruitcut::font::particle::base_parameters(
-			_font_system,
-			FCPPT_TEXT("score"),
+	score_font_node_(
+		fruitcut::font::object_parameters(
+			_font_cache.metrics(
+				FCPPT_TEXT("score")),
+			_font_cache.drawer(
+				FCPPT_TEXT("score")),
 			SGE_FONT_TEXT_LIT("0"),
 			sge::font::rect::null(),
 			sge::font::text::align_h::left,
 			sge::font::text::align_v::top,
 			sge::font::text::flags::none),
-		fcppt::assign::make_container<font::color_animation::value_sequence>
-			(font::color_animation::value_type(
-				sge::time::second(1),
-				json::parse_color<font::color>(
-					json::find_member<sge::parse::json::value>(
-						_config_file,
-						FCPPT_TEXT("ingame/score-font-color"))))),
-		fcppt::assign::make_container<font::scale_animation::value_sequence>
-			(font::scale_animation::value_type(
-				sge::time::second(
-					1),
-				static_cast<sge::renderer::scalar>(
-					1))),
-		_time_callback),
-	timer_font_(
-		fruitcut::font::particle::base_parameters(
-			_font_system,
-			FCPPT_TEXT("timer"),
-			SGE_FONT_TEXT_LIT("you shouldn't see this!"),
+		json::parse_color<sge::image::color::rgba8>(
+			json::find_member<sge::parse::json::value>(
+				_config_file,
+				FCPPT_TEXT("ingame/score-font-color"))),
+		static_cast<scenic::scale>(
+			1)),
+	timer_font_node_(
+		fruitcut::font::object_parameters(
+			_font_cache.metrics(
+				FCPPT_TEXT("score")),
+			_font_cache.drawer(
+				FCPPT_TEXT("score")),
+			SGE_FONT_TEXT_LIT("0"),
 			sge::font::rect::null(),
-			sge::font::text::align_h::center,
-			sge::font::text::align_v::center,
+			sge::font::text::align_h::left,
+			sge::font::text::align_v::top,
 			sge::font::text::flags::none),
-		fcppt::assign::make_container<font::color_animation::value_sequence>
-			(font::color_animation::value_type(
-				sge::time::second(1),
-				json::parse_color<sge::image::color::rgba8>(
-					json::find_member<sge::parse::json::value>(
-						_config_file,
-						FCPPT_TEXT("ingame/timer-font-color"))))),
-		fcppt::assign::make_container<font::scale_animation::value_sequence>
-			(font::scale_animation::value_type(
-				sge::time::second(
-					1),
-				static_cast<sge::renderer::scalar>(
-					1))),
-		_time_callback),
+		json::parse_color<sge::image::color::rgba8>(
+			json::find_member<sge::parse::json::value>(
+				_config_file,
+				FCPPT_TEXT("ingame/timer-font-color"))),
+		static_cast<scenic::scale>(
+			1)),
 	timer_update_timer_(
 		sge::time::millisecond(
 			json::find_member<sge::time::unit>(
@@ -139,6 +127,10 @@ fruitcut::app::game_logic::game_logic(
 	renderer_(
 		_renderer)
 {
+	_overlay.children().push_back(
+		score_font_node_);
+	_overlay.children().push_back(
+		timer_font_node_);
 	viewport_changed();
 }
 
@@ -153,19 +145,6 @@ fruitcut::app::score
 fruitcut::app::game_logic::score() const
 {
 	return score_;
-}
-
-void
-fruitcut::app::game_logic::update()
-{
-	if(!timer_update_timer_.update_b())
-		return;
-
-	timer_font_.text(
-		time_format::duration_to_string<sge::font::text::string>(
-			sge::time::duration(
-				round_timer_.time_left()),
-			time_format::seconds + SGE_FONT_TEXT_LIT(":") + time_format::milliseconds));
 }
 
 void
@@ -193,7 +172,7 @@ fruitcut::app::game_logic::fruit_cut(
 			static_cast<fruitcut::app::score>(
 				area * static_cast<sge::renderer::scalar>(100))); 
 	
-	score_font_.text(
+	score_font_node_.object().text(
 		fcppt::lexical_cast<sge::font::text::string>(
 			score_));
 }
@@ -205,12 +184,12 @@ fruitcut::app::game_logic::viewport_changed()
 		fcppt::math::dim::structure_cast<sge::font::dim>(
 			renderer_.onscreen_target()->viewport().get().size());
 
-	score_font_.bounding_box(
+	score_font_node_.object().bounding_box(
 		sge::font::rect(
 			sge::font::pos::null(),
 			viewport_dim));
 
-	timer_font_.bounding_box(
+	timer_font_node_.object().bounding_box(
 		sge::font::rect(
 			sge::font::pos::null(),
 			sge::font::dim(
@@ -222,3 +201,20 @@ fruitcut::app::game_logic::viewport_changed()
 						0.2)))));
 }
 
+void
+fruitcut::app::game_logic::update()
+{
+	if(!timer_update_timer_.update_b())
+		return;
+
+	timer_font_node_.object().text(
+		time_format::duration_to_string<sge::font::text::string>(
+			sge::time::duration(
+				round_timer_.time_left()),
+			time_format::seconds + SGE_FONT_TEXT_LIT(":") + time_format::milliseconds));
+}
+
+void
+fruitcut::app::game_logic::render()
+{
+}

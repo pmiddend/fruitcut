@@ -2,7 +2,7 @@
 #include "drawer/scoped_transformation.hpp"
 #include "drawer/scoped_color.hpp"
 #include "drawer/object.hpp"
-#include "../scene/scale.hpp"
+#include "../scenic/scale.hpp"
 #include <sge/font/rect.hpp>
 #include <sge/font/pos.hpp>
 #include <fcppt/math/vector/vector.hpp>
@@ -16,10 +16,10 @@ sge::font::rect const
 scale_transformation(
 	sge::font::rect const &total_rect,
 	sge::font::rect const &character_rect,
-	fruitcut::scene::scale const s)
+	fruitcut::scenic::scale const s)
 {
 	typedef
-	fruitcut::scene::scale
+	fruitcut::scenic::scale
 	real;
 
 	sge::font::pos const c = 
@@ -52,10 +52,16 @@ scale_transformation(
 }
 
 fruitcut::font::scene_node::scene_node(
-	object_parameters const &_params)
+	object_parameters const &_params,
+	scenic::color const &_color,
+	scenic::scale const _scale)
 :
 	object_(
-		_params)
+		_params),
+	color_(
+		_color),
+	scale_(
+		_scale)
 {
 }
 
@@ -82,7 +88,7 @@ fruitcut::font::scene_node::update()
 {
 }
 
-fruitcut::scene::color const
+fruitcut::scenic::color const
 fruitcut::font::scene_node::color() const
 {
 	return color_;
@@ -90,8 +96,34 @@ fruitcut::font::scene_node::color() const
 
 void
 fruitcut::font::scene_node::color(
-	fruitcut::scene::color const &_color)
+	fruitcut::scenic::color const &_color)
 {
 	color_ = 
 		_color;
+}
+
+fruitcut::scenic::scale
+fruitcut::font::scene_node::scale() const
+{
+	return scale_;
+}
+
+void
+fruitcut::font::scene_node::scale(
+	fruitcut::scenic::scale const _scale)
+{
+	scale_ = 
+		_scale;
+}
+
+fruitcut::font::object &
+fruitcut::font::scene_node::object()
+{
+	return object_;
+}
+
+fruitcut::font::object const &
+fruitcut::font::scene_node::object() const
+{
+	return object_;
 }

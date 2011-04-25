@@ -3,7 +3,6 @@
 #include "../gameover/superstate.hpp"
 #include "../gameover/choose_name.hpp"
 #include "../../dim2.hpp"
-#include "../../../line_drawer/scoped_lock.hpp"
 #include "../../fruit/plane.hpp"
 #include "../../fruit/cut_mesh.hpp"
 #include "../../fruit/hull/trail_intersection.hpp"
@@ -15,6 +14,8 @@
 #include "../../../json/find_member.hpp"
 #include "../../../physics/world.hpp"
 #include "../../../math/multiply_matrix4_vector3.hpp"
+#include <sge/line_drawer/scoped_lock.hpp>
+#include <sge/line_drawer/render_to_screen.hpp>
 #include <sge/image/colors.hpp>
 #include <sge/viewport/manager.hpp>
 #include <sge/input/cursor/position_unit.hpp>
@@ -70,6 +71,9 @@ fruitcut::app::states::ingame::running::running(
 			(sge::renderer::state::float_::zbuffer_clear_val = 1.0f)),
 	line_drawer_(
 		context<machine>().systems().renderer()),
+	line_drawer_node_(
+		line_drawer_,
+		context<machine>().systems().renderer()),
 	cursor_trail_(
 		*context<machine>().systems().cursor_demuxer(),
 		sge::time::millisecond(
@@ -80,6 +84,13 @@ fruitcut::app::states::ingame::running::running(
 				context<machine>().config_file(),
 				FCPPT_TEXT("mouse/trail-samples")),
 		context<machine>().systems().renderer()->onscreen_target()),
+	cursor_trail_node_(
+		cursor_trail_),
+	update_node_(
+		std::tr1::bind(
+			&running::update,
+			this),
+		scenic::nodes::intrusive_with_callbacks::render_callback()),
 	viewport_change_connection_(
 		context<machine>().systems().viewport_manager().manage_callback(
 			std::tr1::bind(
@@ -100,31 +111,16 @@ fruitcut::app::states::ingame::running::running(
 			context<machine>().config_file(),
 			FCPPT_TEXT("ingame/draw-bbs")))
 {
+	context<machine>().overlay_node().children().push_back(
+		update_node_);
+	context<machine>().overlay_node().children().push_back(
+		line_drawer_node_);
+	context<machine>().overlay_node().children().push_back(
+		cursor_trail_node_);
 	context<machine>().postprocessing().active(
 		true);
 	context<machine>().music_controller().play_random();
 	viewport_change();
-}
-
-boost::statechart::result
-fruitcut::app::states::ingame::running::react(
-	events::render const &)
-{
-	context<machine>().background().render();
-	context<machine>().particle_system().render();
-	context<superstate>().fruit_manager().render(
-		context<superstate>().camera().mvp());
-	return discard_event();
-}
-
-boost::statechart::result
-fruitcut::app::states::ingame::running::react(
-	events::render_overlay const &)
-{
-	context<superstate>().physics_debugger().render();
-	line_drawer_.render_screen_space();
-	context<superstate>().font_system().render();
-	return discard_event();
 }
 
 boost::statechart::result
@@ -136,24 +132,27 @@ fruitcut::app::states::ingame::running::react(
 
 boost::statechart::result
 fruitcut::app::states::ingame::running::react(
-	events::tick const &d)
+	events::tick const &)
 {
-	context<machine>().sound_controller().update();
-	context<machine>().music_controller().update();
-	context<superstate>().camera().update(
-		d.delta_ms());
-	context<superstate>().fruit_spawner().update();
-	context<superstate>().font_system().update();
-	context<machine>().particle_system().update();
-	context<superstate>().physics_world().update(
-		d.delta());
-	context<superstate>().game_logic().update();
-	context<superstate>().physics_debugger().update();
-	cursor_trail_.update();
+	if(context<superstate>().game_logic().finished())
+	{
+		context<machine>().last_game_score(
+			context<superstate>().game_logic().score());
+		return transit<states::gameover::superstate>();
+	}
+	return discard_event();
+}
 
+fruitcut::app::states::ingame::running::~running()
+{
+}
+
+void
+fruitcut::app::states::ingame::running::update()
+{
 	if(draw_bbs_ || draw_mouse_trail_)
 	{
-		line_drawer::scoped_lock slock(
+		sge::line_drawer::scoped_lock slock(
 			line_drawer_);
 		slock.value().clear();
 		if(draw_bbs_)
@@ -171,24 +170,11 @@ fruitcut::app::states::ingame::running::react(
 		++i)
 		process_fruit(
 			*i);
-	context<superstate>().fruit_manager().update();
-
-	if(context<superstate>().game_logic().finished())
-	{
-		context<machine>().last_game_score(
-			context<superstate>().game_logic().score());
-		return transit<states::gameover::superstate>();
-	}
-	return discard_event();
-}
-
-fruitcut::app::states::ingame::running::~running()
-{
 }
 
 void
 fruitcut::app::states::ingame::running::draw_fruit_bbs(
-	line_drawer::line_sequence &lines)
+	sge::line_drawer::line_sequence &lines)
 {
 	for(
 		fruit::object_sequence::const_iterator i = 
@@ -208,7 +194,7 @@ fruitcut::app::states::ingame::running::draw_fruit_bbs(
 			++hull_point)
 		{
 			lines.push_back(
-				line_drawer::line(
+				sge::line_drawer::line(
 					sge::renderer::vector3(
 						static_cast<sge::renderer::scalar>(
 							hull_point->x()),
@@ -231,7 +217,7 @@ fruitcut::app::states::ingame::running::draw_fruit_bbs(
 
 void
 fruitcut::app::states::ingame::running::draw_mouse_trail(
-	line_drawer::line_sequence &lines)
+	sge::line_drawer::line_sequence &lines)
 {
 	if (cursor_trail_.positions().empty())
 		return;
@@ -242,7 +228,7 @@ fruitcut::app::states::ingame::running::draw_mouse_trail(
 		i != boost::prior(cursor_trail_.positions().end()); 
 		++i)
 		lines.push_back(
-			line_drawer::line(
+			sge::line_drawer::line(
 				sge::renderer::vector3(
 					static_cast<sge::renderer::scalar>(
 						i->x()),

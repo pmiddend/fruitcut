@@ -15,6 +15,7 @@
 #include <sge/shader/sampler_sequence.hpp>
 #include <sge/shader/sampler.hpp>
 #include <sge/shader/scoped.hpp>
+#include <sge/camera/object.hpp>
 #include <sge/renderer/matrix4.hpp>
 #include <sge/renderer/vf/dynamic/make_format.hpp>
 #include <sge/renderer/scoped_vertex_buffer.hpp>
@@ -110,10 +111,13 @@ fruitcut::app::fruit::manager::manager(
 	sge::model::loader &model_loader,
 	sge::image2d::multi_loader &image_loader,
 	sge::renderer::device_ptr const _renderer,
-	physics::world &_physics_world)
+	physics::world &_physics_world,
+	sge::camera::object &_camera)
 :
 	renderer_(
 		_renderer),
+	camera_(
+		_camera),
 	vertex_declaration_(
 		renderer_->create_vertex_declaration(
 			sge::renderer::vf::dynamic::make_format<model_vf::format>())),
@@ -153,55 +157,6 @@ fruitcut::app::fruit::manager::manager(
 		FCPPT_TEXT("No fruits specified!"));
 }
 
-void
-fruitcut::app::fruit::manager::render(
-	sge::renderer::matrix4 const &mvp)
-{
-	sge::renderer::state::scoped scoped_state(
-		renderer_,
-		sge::renderer::state::list
-			(sge::renderer::state::depth_func::less));
-
-	sge::renderer::glsl::scoped_program scoped_shader(
-		renderer_,
-		fruit_shader_.program());
-
-	sge::renderer::scoped_vertex_declaration scoped_decl(
-		renderer_,
-		vertex_declaration_);
-
-	for(object_sequence::iterator i = fruits_.begin(); i != fruits_.end(); ++i)
-	{
-		sge::renderer::scoped_vertex_buffer scoped_vb(
-			renderer_,
-			i->vb());
-
-		sge::renderer::texture::scoped scoped_tex(
-			renderer_,
-			i->texture(),
-			static_cast<sge::renderer::stage_type>(
-				0));
-
-		fruit_shader_.update_uniform(
-			"mvp",
-			mvp * i->world_transform());
-
-		renderer_->render(
-			sge::renderer::first_vertex(
-				static_cast<sge::renderer::size_type>(
-					0)),
-			sge::renderer::vertex_count(
-				i->vb()->size()),
-			sge::renderer::nonindexed_primitive_type::triangle);
-	}
-}
-
-void
-fruitcut::app::fruit::manager::update()
-{
-	fruits_.update();
-	delete_distant_fruits();
-}
 
 void
 fruitcut::app::fruit::manager::cut(
@@ -365,4 +320,53 @@ void
 fruitcut::app::fruit::manager::manager::delete_distant_fruits()
 {
 	
+}
+
+void
+fruitcut::app::fruit::manager::update()
+{
+	fruits_.update();
+	delete_distant_fruits();
+}
+
+void
+fruitcut::app::fruit::manager::render()
+{
+	sge::renderer::state::scoped scoped_state(
+		renderer_,
+		sge::renderer::state::list
+			(sge::renderer::state::depth_func::less));
+
+	sge::renderer::glsl::scoped_program scoped_shader(
+		renderer_,
+		fruit_shader_.program());
+
+	sge::renderer::scoped_vertex_declaration scoped_decl(
+		renderer_,
+		vertex_declaration_);
+
+	for(object_sequence::iterator i = fruits_.begin(); i != fruits_.end(); ++i)
+	{
+		sge::renderer::scoped_vertex_buffer scoped_vb(
+			renderer_,
+			i->vb());
+
+		sge::renderer::texture::scoped scoped_tex(
+			renderer_,
+			i->texture(),
+			static_cast<sge::renderer::stage_type>(
+				0));
+
+		fruit_shader_.update_uniform(
+			"mvp",
+			camera_.mvp() * i->world_transform());
+
+		renderer_->render(
+			sge::renderer::first_vertex(
+				static_cast<sge::renderer::size_type>(
+					0)),
+			sge::renderer::vertex_count(
+				i->vb()->size()),
+			sge::renderer::nonindexed_primitive_type::triangle);
+	}
 }

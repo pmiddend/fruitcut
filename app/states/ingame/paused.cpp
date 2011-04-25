@@ -17,6 +17,9 @@ fruitcut::app::states::ingame::paused::paused(
 :
 	my_base(
 		ctx),
+	scene_deactivation_(
+		context<machine>().scene_node(),
+		false),
 	system_(
 		context<machine>().systems().renderer()),
 	inject_texture_(
@@ -44,7 +47,6 @@ fruitcut::app::states::ingame::paused::paused(
 		sge::time::activation_state::active,
 		context<machine>().timer_callback())
 {
-	std::cerr << "paused::paused\n";
 	context<machine>().postprocessing().active(
 		false);
 
@@ -60,28 +62,10 @@ fruitcut::app::states::ingame::paused::paused(
 			(FCPPT_TEXT("inject_texture")));
 }
 
-boost::statechart::result
-fruitcut::app::states::ingame::paused::react(
-	events::render_overlay const &)
+void
+fruitcut::app::states::ingame::paused::render()
 {
 	system_.render_result();
-	return discard_event();
-}
-
-boost::statechart::result
-fruitcut::app::states::ingame::paused::react(
-	events::tick const &)
-{
-	if(!blur_iterations_ || (blur_iterations_ < max_blur_iterations_ && blur_timer_.update_b()))
-	{
-		inject_texture_.texture(
-			current_texture_);
-		system_.update();
-		current_texture_ = 
-			system_.result_texture();
-		blur_iterations_++;
-	}
-	return discard_event();
 }
 
 boost::statechart::result
@@ -94,3 +78,18 @@ fruitcut::app::states::ingame::paused::react(
 fruitcut::app::states::ingame::paused::~paused()
 {
 }
+
+void
+fruitcut::app::states::ingame::paused::update()
+{
+	if(!blur_iterations_ || (blur_iterations_ < max_blur_iterations_ && blur_timer_.update_b()))
+	{
+		inject_texture_.texture(
+			current_texture_);
+		system_.update();
+		current_texture_ = 
+			system_.result_texture();
+		blur_iterations_++;
+	}
+}
+

@@ -1,8 +1,8 @@
 #include "debugger.hpp"
 #include "world.hpp"
 #include "structure_cast.hpp"
-#include "../line_drawer/line.hpp"
-#include "../line_drawer/scoped_lock.hpp"
+#include <sge/line_drawer/line.hpp>
+#include <sge/line_drawer/scoped_lock.hpp>
 #include <bullet/BulletDynamics/Dynamics/btDiscreteDynamicsWorld.h>
 #include <sge/renderer/scoped_transform.hpp>
 #include <sge/image/color/rgb8.hpp>
@@ -10,6 +10,8 @@
 #include <sge/camera/object.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/math/vector/output.hpp>
+#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/ref.hpp>
 #include <iostream>
 #include <ostream>
 
@@ -27,8 +29,11 @@ fruitcut::physics::debugger::debugger(
 	debug_mode_(
 		btIDebugDraw::DBG_NoDebug), // should be zero
 	line_drawer_(
-		renderer_)
+		renderer_),
+	scoped_lock_()
 {
+	FCPPT_ASSERT(
+		!world_.handle().getDebugDrawer());
 	world_.handle().setDebugDrawer(
 		this);
 }
@@ -36,9 +41,10 @@ fruitcut::physics::debugger::debugger(
 void
 fruitcut::physics::debugger::update()
 {
-	scoped_lock_.reset(
-		new line_drawer::scoped_lock(
-			line_drawer_));
+	scoped_lock_.take(
+		fcppt::make_unique_ptr<sge::line_drawer::scoped_lock>(
+			fcppt::ref(
+				line_drawer_)));
 
 	scoped_lock_->value().clear();
 
@@ -113,9 +119,13 @@ fruitcut::physics::debugger::drawLine(
 	btVector3 const &from_color,
 	btVector3 const &to_color)
 {
-	//std::cout << "from " << structure_cast<sge::renderer::vector3>(from) << ", to " << structure_cast<sge::renderer::vector3>(to) << "\n";
+	// This MIGHT happen, for example when you use the BvhMeshShape. A
+	// better solution than return; here would be to queue up those
+	// triangles. TODO
+	if(!scoped_lock_)
+		return;
 	scoped_lock_->value().push_back(
-		line_drawer::line(
+		sge::line_drawer::line(
 			structure_cast<sge::renderer::vector3>(
 				from),
 			structure_cast<sge::renderer::vector3>(
