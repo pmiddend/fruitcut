@@ -216,7 +216,6 @@ fruitcut::app::background::~background()
 void
 fruitcut::app::background::render()
 {
-	std::cout << "rendering background\n";
 	sge::renderer::scoped_vertex_declaration scoped_decl(
 		renderer_,
 		vertex_declaration_);
@@ -273,5 +272,4 @@ fruitcut::app::background::render()
 void
 fruitcut::app::background::update()
 {
-	std::cout << "updating background\n";
 }

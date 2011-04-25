@@ -14,6 +14,7 @@
 #include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
 #include <fcppt/math/vector/dim.hpp>
+#include <iostream>
 
 fruitcut::physics::world::world(
 	box const &/*world_size*/,

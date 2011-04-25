@@ -127,7 +127,6 @@ SET(files
 	scenic/nodes/base.cpp
 	scenic/nodes/camera.cpp
 	scenic/nodes/intrusive.cpp
-	scenic/nodes/cegui.cpp
 	scenic/nodes/console.cpp
 	scenic/nodes/cursor_trail.cpp
 	scenic/nodes/group.cpp

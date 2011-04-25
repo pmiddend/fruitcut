@@ -40,7 +40,6 @@ fruitcut::app::scene::active() const
 void
 fruitcut::app::scene::render()
 {
-	std::cout << "rendering scene\n";
 	if (!active_)
 		return;
 	postprocessing_.render_result();
@@ -52,15 +51,11 @@ fruitcut::app::scene::update()
 	if (!active_)
 		return;
 
-	std::cout << "updating scene\n";
-
 	intrusive_group::update();
 
-	std::cout << "starting pp update\n";
 	// This calls intrusive_group::render which renders the children in
 	// the according scoped_block
 	postprocessing_.update();
-	std::cout << "pp update complete\n";
 }
 
 fruitcut::app::postprocessing &
