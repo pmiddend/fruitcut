@@ -13,6 +13,15 @@ TARGET_LINK_LIBRARIES(
 	${SGE_texture_LIBRARY}
 	${Boost_LIBRARIES})
 
+ADD_EXECUTABLE(
+	duration_string
+	duration_string.cpp)
+
+TARGET_LINK_LIBRARIES(
+	duration_string
+	${FCPPT_LIBRARIES}
+	${Boost_LIBRARIES})
+
 #ADD_EXECUTABLE(
 #	font_test
 #	font.cpp)

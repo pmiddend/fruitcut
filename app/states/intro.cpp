@@ -1,4 +1,5 @@
 #include "intro.hpp"
+#include "../../string_to_duration.hpp"
 #include "ingame/running.hpp"
 #include "../postprocessing.hpp"
 #include "../../particle/sprite/choices.hpp"
@@ -30,9 +31,6 @@
 #include <sge/texture/part_ptr.hpp>
 #include <sge/texture/part_raw.hpp>
 #include <sge/time/activation_state.hpp>
-#include <sge/time/funit.hpp>
-#include <sge/time/second_f.hpp>
-#include <sge/time/second.hpp>
 #include <sge/viewport/manager.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
@@ -50,17 +48,17 @@ fruitcut::app::states::intro::intro(
 		ctx),
 	// Those timers will be activated as soon as we have a viewport
 	saturation_timer_(
-		sge::time::second_f(
-			json::find_member<sge::time::funit>(
+		*string_to_duration<sge::time::duration>(
+			json::find_member<fcppt::string>(
 				context<machine>().config_file(),
-				FCPPT_TEXT("intro/desaturation-secs"))),
+				FCPPT_TEXT("intro/desaturation-time"))),
 		sge::time::activation_state::inactive,
 		context<machine>().timer_callback()),
 	intro_timer_(
-		sge::time::second_f(
-			json::find_member<sge::time::funit>(
+		*string_to_duration<sge::time::duration>(
+			json::find_member<fcppt::string>(
 				context<machine>().config_file(),
-				FCPPT_TEXT("intro/total-duration-secs"))),
+				FCPPT_TEXT("intro/total-duration"))),
 		sge::time::activation_state::inactive,
 		context<machine>().timer_callback()),
 	viewport_change_connection_(

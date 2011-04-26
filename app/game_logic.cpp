@@ -1,4 +1,5 @@
 #include "game_logic.hpp"
+#include "../string_to_duration.hpp"
 #include "fruit/manager.hpp"
 #include "../json/find_member.hpp"
 #include "../json/parse_color.hpp"
@@ -21,8 +22,7 @@
 #include <sge/renderer/viewport.hpp>
 #include <sge/viewport/manager.hpp>
 #include <sge/time/activation_state.hpp>
-#include <sge/time/second.hpp>
-#include <sge/time/millisecond.hpp>
+#include <sge/time/duration.hpp>
 #include <sge/time/unit.hpp>
 #include <sge/image/color/rgba8.hpp>
 #include <fcppt/tr1/functional.hpp>
@@ -30,6 +30,7 @@
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/string.hpp>
 #include <fcppt/lexical_cast.hpp>
 #include <iostream>
 
@@ -51,10 +52,10 @@ fruitcut::app::game_logic::game_logic(
 		static_cast<fruitcut::app::score>(
 			0)),
 	round_timer_(
-		sge::time::second(
-			json::find_member<sge::time::unit>(
+		*string_to_duration<sge::time::duration>(
+			json::find_member<fcppt::string>(
 				_config_file,
-				FCPPT_TEXT("ingame/round-secs"))),
+				FCPPT_TEXT("ingame/round-time"))),
 		sge::time::activation_state::active,
 		_time_callback),
 	fruit_added_connection_(
@@ -117,13 +118,6 @@ fruitcut::app::game_logic::game_logic(
 				FCPPT_TEXT("ingame/timer-font-color"))),
 		static_cast<scenic::scale>(
 			1)),
-	timer_update_timer_(
-		sge::time::millisecond(
-			json::find_member<sge::time::unit>(
-				_config_file,
-				FCPPT_TEXT("ingame/timer-update-msecs"))),
-		sge::time::activation_state::active,
-		_time_callback),
 	renderer_(
 		_renderer)
 {
@@ -204,14 +198,11 @@ fruitcut::app::game_logic::viewport_changed()
 void
 fruitcut::app::game_logic::update()
 {
-	if(!timer_update_timer_.update_b())
-		return;
-
 	timer_font_node_.object().text(
 		time_format::duration_to_string<sge::font::text::string>(
 			sge::time::duration(
 				round_timer_.time_left()),
-			time_format::seconds + SGE_FONT_TEXT_LIT(":") + time_format::milliseconds));
+			time_format::seconds));
 }
 
 void

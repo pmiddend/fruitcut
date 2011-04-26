@@ -65,7 +65,7 @@
 		[
 			"Ariva_ariva.ogg"
 		],
-		"crossfade-secs" : 2
+		"crossfade-time" : "2s"
 	},
 	"textures" : 
 	{
@@ -82,9 +82,9 @@
 	"audio-volume" : 1.0,
 	"intro" : 
 	{
-		"total-duration-secs" : 4.0,
+		"total-duration" : "4s",
 		"background-repeat" : 3.0,
-		"desaturation-secs" : 2.5,
+		"desaturation-time" : "2s500ms",
 		"logo-animation" : 
 			[
 				{ "time" : 3.0,"color" : [1.0,1.0,1.0,1.0] },
@@ -95,7 +95,7 @@
 	"paused" :
 	{
 		"max-blur-iterations" : 10,
-		"blur-frequency-secs" : 0.5
+		"blur-frequency-time" : "500ms"
 	},
 	"ingame" :
 	{
@@ -108,8 +108,7 @@
 			"mouse-speed" : 300.0,
 			"initial-position" : [0.0,0.0,15.0]
 		},
-		"round-secs" : 60,
-		"timer-update-msecs" : 100,
+		"round-time" : "60s",
 		"score-font-color" : [1.0,0.9,0.7,1.0],
 		"timer-font-color" : [0.7,0.7,0.9,1.0],
 		"draw-mouse-trail" : true,

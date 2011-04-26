@@ -58,7 +58,6 @@ private:
 		viewport_changed_connection_;
 	font::intrusive_scene_node score_font_node_;
 	font::intrusive_scene_node timer_font_node_;
-	sge::time::timer timer_update_timer_;
 	sge::renderer::device &renderer_;
 
 	void

@@ -1,4 +1,5 @@
 #include "music_controller.hpp"
+#include "../string_to_duration.hpp"
 #include "../json/find_member.hpp"
 #include "../json/convert.hpp"
 #include "../media_path.hpp"
@@ -9,7 +10,6 @@
 #include <sge/audio/scalar.hpp>
 #include <sge/audio/multi_loader.hpp>
 #include <sge/audio/buffer.hpp>
-#include <sge/time/second.hpp>
 #include <sge/parse/json/find_member_exn.hpp>
 #include <sge/parse/json/array.hpp>
 #include <sge/parse/json/object.hpp>
@@ -68,10 +68,10 @@ fruitcut::audio::music_controller::music_controller(
 					&json::convert<fcppt::string>,
 					boost::phoenix::arg_names::arg1)))),
 	crossfade_(
-		sge::time::second(
-			json::find_member<sge::time::unit>(
+		*string_to_duration<sge::time::duration>(
+			json::find_member<fcppt::string>(
 				o,
-				FCPPT_TEXT("crossfade-secs")))),
+				FCPPT_TEXT("crossfade-time")))),
 	player_(
 		_player),
 	silence_buffer_(
