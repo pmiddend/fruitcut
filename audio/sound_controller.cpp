@@ -2,6 +2,7 @@
 #include "detail/buffer_sequence.hpp"
 #include "detail/sound_group.hpp"
 #include "../media_path.hpp"
+#include "../exception.hpp"
 #include "../json/array_to_vector.hpp"
 #include <sge/parse/json/find_member_exn.hpp>
 #include <sge/parse/json/member_vector.hpp>
@@ -16,7 +17,6 @@
 #include <sge/audio/stop_mode.hpp>
 #include <sge/audio/player.hpp>
 #include <sge/audio/sound/positional.hpp>
-#include <sge/exception.hpp>
 #include <fcppt/algorithm/map.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert_message.hpp>
@@ -74,7 +74,7 @@ fruitcut::audio::sound_controller::play(
 			p);
 
 	if (current_sound == sounds_.end())
-		throw sge::exception(FCPPT_TEXT("Couldn't find sound effect \"")+p+FCPPT_TEXT("\""));
+		throw exception(FCPPT_TEXT("Couldn't find sound effect \"")+p+FCPPT_TEXT("\""));
 
 	sge::audio::sound::base_ptr const b = 
 		current_sound->second.random_element()->create_nonpositional();
@@ -97,7 +97,7 @@ fruitcut::audio::sound_controller::play_positional(
 			p);
 
 	if (current_sound == sounds_.end())
-		throw sge::exception(FCPPT_TEXT("Couldn't find sound effect \"")+p+FCPPT_TEXT("\""));
+		throw exception(FCPPT_TEXT("Couldn't find sound effect \"")+p+FCPPT_TEXT("\""));
 
 	sge::audio::sound::base_ptr const b = 
 		current_sound->second.random_element()->create_positional(

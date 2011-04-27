@@ -1,6 +1,7 @@
 #include "scoped_sequence_from_json.hpp"
 #include "string_to_location.hpp"
 #include "scoped.hpp"
+#include "../exception.hpp"
 #include <sge/parse/json/array.hpp>
 #include <sge/parse/json/object.hpp>
 #include <sge/parse/json/element_vector.hpp>
@@ -8,7 +9,6 @@
 #include <fcppt/log/level_from_string.hpp>
 #include <fcppt/move.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/exception.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <boost/foreach.hpp>
 
@@ -31,7 +31,7 @@ fruitcut::log::scoped_sequence_from_json(
 					r);
 
 			if(current_pair.elements.size() != 2)
-				throw fcppt::exception(
+				throw exception(
 					FCPPT_TEXT("The loggers have to be stored in an array of pairs [name,level], this was not the case with at least one logger pair"));
 
 			result->push_back(
@@ -49,7 +49,7 @@ fruitcut::log::scoped_sequence_from_json(
 	}
 	catch(sge::parse::json::invalid_get const &e)
 	{
-		throw fcppt::exception(
+		throw exception(
 			FCPPT_TEXT("The loggers have to be stored in an array of pairs [name,level], this was not the case with at least one logger pair"));
 	}
 

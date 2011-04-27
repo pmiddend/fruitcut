@@ -64,6 +64,7 @@ ADD_SUBDIRECTORY(test)
 SET(files 
 	# base 
 	media_path.cpp 
+	exception.cpp
 	# environment
 	environment/make_cache_path.cpp
 	environment/make_config_path.cpp

@@ -1,8 +1,8 @@
 #include "scoped.hpp"
+#include "../exception.hpp"
 #include <fcppt/log/context.hpp>
 #include <fcppt/log/object.hpp>
 #include <fcppt/log/activate_levels.hpp>
-#include <fcppt/exception.hpp>
 #include <boost/foreach.hpp>
 #include <iostream>
 
@@ -17,7 +17,7 @@ fruitcut::log::scoped::scoped(
 	old_levels_()
 {
 	if(!object_)
-		throw fcppt::exception(
+		throw exception(
 			FCPPT_TEXT("The logger at location ")+
 			_location.string()+
 			FCPPT_TEXT(" was not found"));

@@ -1,9 +1,9 @@
 #include "process_option.hpp"
 #include "string_to_value.hpp"
+#include "../exception.hpp"
 #include <sge/parse/json/object.hpp>
 #include <sge/parse/json/array.hpp>
 #include <sge/parse/json/find_member_exn.hpp>
-#include <sge/exception.hpp>
 #include <fcppt/assert.hpp>
 #include <fcppt/algorithm/map.hpp>
 #include <fcppt/algorithm/shortest_levenshtein.hpp>
@@ -41,7 +41,7 @@ fruitcut::json::process_option(
 			>> boost::spirit::lit('=')
 			>> *encoding::char_,
 			result ) )
-		throw sge::exception(
+		throw exception(
 			FCPPT_TEXT("Invalid format \"")+
 			input+
 			FCPPT_TEXT("\""));
@@ -78,7 +78,7 @@ fruitcut::json::process_option(
 				element));
 
 	if (it == target->members.end())
-		throw sge::exception(
+		throw exception(
 			FCPPT_TEXT("Couldn't find member \"")+
 			element+
 			FCPPT_TEXT("\", did you mean: ")+

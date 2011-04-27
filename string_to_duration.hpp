@@ -17,9 +17,8 @@
 #include <boost/fusion/include/at.hpp>
 #include <boost/fusion/include/zip_view.hpp>
 #include <boost/fusion/include/at_c.hpp>
-#include <boost/fusion/include/boost_array.hpp>
-#include <boost/array.hpp>
 #include <boost/type_traits/remove_reference.hpp>
+#include <boost/type_traits/remove_cv.hpp>
 #include <string>
 
 namespace fruitcut
@@ -52,13 +51,17 @@ struct duration_fold_functor
 		// This is boost::optional<long> (note the remove_reference, else
 		// the code below breaks)
 		typedef typename 
-		boost::remove_reference
+		boost::remove_cv
 		<
 			typename
-			boost::fusion::result_of::at
+			boost::remove_reference
 			<
-				OptionalRepDurationPair,
-				boost::mpl::int_<1>
+				typename
+				boost::fusion::result_of::at
+				<
+					OptionalRepDurationPair,
+					boost::mpl::int_<1>
+				>::type
 			>::type
 		>::type
 		source_duration;

@@ -1,10 +1,10 @@
 #include "string_to_value.hpp"
+#include "../exception.hpp"
 #include <sge/parse/json/member_name_equal.hpp>
 #include <sge/parse/json/array.hpp>
 #include <sge/parse/json/object.hpp>
 #include <sge/parse/json/value.hpp>
 #include <sge/parse/json/parse_stream.hpp>
-#include <sge/exception.hpp>
 #include <fcppt/io/istringstream.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/format.hpp>
@@ -22,7 +22,7 @@ fruitcut::json::string_to_value(
 	fcppt::io::istringstream stream(edited);
 	object result;
 	if (!parse_stream(stream,result))
-		throw sge::exception(FCPPT_TEXT("Couldn't convert string \"")+s+FCPPT_TEXT("\" to json value"));
+		throw exception(FCPPT_TEXT("Couldn't convert string \"")+s+FCPPT_TEXT("\" to json value"));
 	return 
 		std::find_if(
 			result.members.begin(),

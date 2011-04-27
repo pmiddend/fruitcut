@@ -1,5 +1,6 @@
 #include "config_wrapper.hpp"
 #include "name.hpp"
+#include "../exception.hpp"
 #include "../json/merge_trees.hpp"
 #include "../json/process_option.hpp"
 #include "../media_path.hpp"
@@ -7,7 +8,6 @@
 #include <sge/parse/json/parse_file_exn.hpp>
 #include <sge/parse/json/array.hpp>
 #include <sge/parse/json/object.hpp>
-#include <sge/exception.hpp>
 #include <boost/spirit/home/phoenix/core/argument.hpp>
 #include <boost/spirit/home/phoenix/operator/arithmetic.hpp>
 #include <boost/spirit/home/phoenix/bind.hpp>
@@ -76,7 +76,7 @@ fruitcut::app::config_wrapper(
 			"to set a json string, you have to write:\n\n"
 			"player/name='\"foobar\"'\n\n"
 			"It's a good idea to always put the argument in apostrophes.\n";
-		throw sge::exception(FCPPT_TEXT("Help was needed"));
+		throw exception(FCPPT_TEXT("Help was needed"));
 	}
 
 	for (int i = 1; i < argc; ++i)

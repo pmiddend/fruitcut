@@ -3,11 +3,11 @@
 
 #include "find_member.hpp"
 #include "../animation.hpp"
+#include "../exception.hpp"
 #include <sge/parse/json/array.hpp>
 #include <sge/parse/json/value.hpp>
 #include <sge/parse/json/invalid_get.hpp>
 #include <sge/parse/json/find_member_exn.hpp>
-#include <sge/exception.hpp>
 #include <sge/time/second_f.hpp>
 #include <sge/time/funit.hpp>
 #include <boost/variant/get.hpp>
@@ -65,7 +65,7 @@ parse_animation(
 		catch (boost::bad_get const &)
 		{
 			throw 
-				sge::exception(
+				exception(
 					FCPPT_TEXT("An animation should consist of a list of objects. This one doesn't!"));
 		}
 	}

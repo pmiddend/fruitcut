@@ -1,5 +1,5 @@
 #include "intro.hpp"
-#include "../../string_to_duration.hpp"
+#include "../../string_to_duration_exn.hpp"
 #include "ingame/running.hpp"
 #include "../postprocessing.hpp"
 #include "../../particle/sprite/choices.hpp"
@@ -48,14 +48,14 @@ fruitcut::app::states::intro::intro(
 		ctx),
 	// Those timers will be activated as soon as we have a viewport
 	saturation_timer_(
-		*string_to_duration<sge::time::duration>(
+		string_to_duration_exn<sge::time::duration>(
 			json::find_member<fcppt::string>(
 				context<machine>().config_file(),
 				FCPPT_TEXT("intro/desaturation-time"))),
 		sge::time::activation_state::inactive,
 		context<machine>().timer_callback()),
 	intro_timer_(
-		*string_to_duration<sge::time::duration>(
+		string_to_duration_exn<sge::time::duration>(
 			json::find_member<fcppt::string>(
 				context<machine>().config_file(),
 				FCPPT_TEXT("intro/total-duration"))),

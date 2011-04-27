@@ -1,11 +1,11 @@
 #include "parse_rgba8_color.hpp"
 #include "array_to_vector.hpp"
+#include "../exception.hpp"
 #include <sge/parse/json/array.hpp>
 #include <sge/parse/json/object.hpp>
 #include <sge/parse/json/float_type.hpp>
 #include <sge/image/color/init.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/exception.hpp>
 #include <vector>
 
 sge::image::color::rgba8 const
@@ -34,14 +34,14 @@ fruitcut::json::parse_rgba8_color(
 		catch (boost::bad_get const &)
 		{
 			throw 
-				fcppt::exception(
+				exception(
 					FCPPT_TEXT("The rgba color I expected didn't contain just floats (maybe you've used an integer?)!"));
 		}
 	}
 	catch (boost::bad_get const &)
 	{
 		throw 
-			fcppt::exception(
+			exception(
 				FCPPT_TEXT("Tried to parse an rgba color, but I have been given no array to work on!"));
 	}
 }

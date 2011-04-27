@@ -1,6 +1,7 @@
 #include "highscore.hpp"
 #include "../intro.hpp"
 #include "../../events/gameover/continue_button_pushed.hpp"
+#include "../../../exception.hpp"
 #include "../../../media_path.hpp"
 #include <sge/cegui/to_cegui_string.hpp>
 #include <sge/cegui/from_cegui_string.hpp>
@@ -33,7 +34,6 @@
 #include <fcppt/filesystem/create_directories_recursive.hpp>
 #include <fcppt/filesystem/path.hpp>
 #include <fcppt/io/ofstream.hpp>
-#include <fcppt/exception.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <boost/date_time/posix_time/posix_time.hpp>
 #include <boost/date_time/c_local_time_adjustor.hpp>
@@ -142,7 +142,7 @@ write_highscore(
 
 	if(!stream.is_open())
 		throw 
-			fcppt::exception(
+			fruitcut::exception(
 				FCPPT_TEXT("Couldn't open highscore file \"")+
 				fcppt::filesystem::path_to_string(
 					highscore_path)+

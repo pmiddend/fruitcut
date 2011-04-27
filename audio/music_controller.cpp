@@ -1,9 +1,10 @@
 #include "music_controller.hpp"
-#include "../string_to_duration.hpp"
+#include "../string_to_duration_exn.hpp"
 #include "../json/find_member.hpp"
 #include "../json/convert.hpp"
 #include "../media_path.hpp"
 #include "../create_rng.hpp"
+#include "../exception.hpp"
 #include <sge/audio/sound/repeat.hpp>
 #include <sge/audio/sound/base.hpp>
 #include <sge/audio/player.hpp>
@@ -16,7 +17,6 @@
 #include <fcppt/text.hpp>
 #include <fcppt/io/cout.hpp>
 #include <fcppt/assert.hpp>
-#include <fcppt/exception.hpp>
 #include <fcppt/random/make_last_exclusive_range.hpp>
 #include <boost/next_prior.hpp>
 #include <boost/spirit/home/phoenix/object.hpp>
@@ -68,7 +68,7 @@ fruitcut::audio::music_controller::music_controller(
 					&json::convert<fcppt::string>,
 					boost::phoenix::arg_names::arg1)))),
 	crossfade_(
-		*string_to_duration<sge::time::duration>(
+		string_to_duration_exn<sge::time::duration>(
 			json::find_member<fcppt::string>(
 				o,
 				FCPPT_TEXT("crossfade-time")))),
@@ -132,7 +132,7 @@ fruitcut::audio::music_controller::play_event(
 	fcppt::string const &e)
 {
 	if (event_sounds_.find(e) == event_sounds_.end())
-		throw fcppt::exception(FCPPT_TEXT("Event \"")+e+FCPPT_TEXT("\" not found"));
+		throw exception(FCPPT_TEXT("Event \"")+e+FCPPT_TEXT("\" not found"));
 
 	do_play(
 		player_->create_nonpositional_stream(

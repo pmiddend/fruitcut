@@ -1,5 +1,5 @@
 #include "game_logic.hpp"
-#include "../string_to_duration.hpp"
+#include "../string_to_duration_exn.hpp"
 #include "fruit/manager.hpp"
 #include "../json/find_member.hpp"
 #include "../json/parse_color.hpp"
@@ -52,7 +52,7 @@ fruitcut::app::game_logic::game_logic(
 		static_cast<fruitcut::app::score>(
 			0)),
 	round_timer_(
-		*string_to_duration<sge::time::duration>(
+		string_to_duration_exn<sge::time::duration>(
 			json::find_member<fcppt::string>(
 				_config_file,
 				FCPPT_TEXT("ingame/round-time"))),
