@@ -156,6 +156,7 @@ ADD_LIBRARY(
 ADD_EXECUTABLE(
 	app
 	app/scene.cpp
+	app/logo.cpp
 	app/scoped_scene_activation.cpp
 	app/background.cpp
 	app/game_logic.cpp

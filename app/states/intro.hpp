@@ -4,6 +4,7 @@
 #include "../machine.hpp"
 #include "../events/render.hpp"
 #include "../events/tick.hpp"
+#include "../logo.hpp"
 #include <sge/time/timer.hpp>
 #include <sge/renderer/device_ptr.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
@@ -48,6 +49,7 @@ private:
 	sge::time::timer saturation_timer_;
 	sge::time::timer intro_timer_;
 	fcppt::signal::scoped_connection viewport_change_connection_;
+	logo logo_;
 
 	void
 	viewport_change();
