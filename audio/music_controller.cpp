@@ -27,7 +27,7 @@
 fruitcut::audio::music_controller::music_controller(
 	sge::parse::json::object const &o,
 	sge::audio::multi_loader &ml,
-	sge::audio::player_ptr const _player)
+	sge::audio::player &_player)
 :
 	volume_(
 		json::find_member<sge::audio::scalar>(
@@ -75,8 +75,8 @@ fruitcut::audio::music_controller::music_controller(
 	player_(
 		_player),
 	silence_buffer_(
-		player_->create_buffer(
-			ml.load(
+		player_.create_buffer(
+			*ml.load(
 				media_path()/FCPPT_TEXT("sounds")/FCPPT_TEXT("silence.wav")))),
 	silence_source_(
 		silence_buffer_->create_nonpositional()),
@@ -135,8 +135,8 @@ fruitcut::audio::music_controller::play_event(
 		throw exception(FCPPT_TEXT("Event \"")+e+FCPPT_TEXT("\" not found"));
 
 	do_play(
-		player_->create_nonpositional_stream(
-			event_sounds_[e]));
+		player_.create_nonpositional_stream(
+			*event_sounds_[e]));
 }
 
 void
@@ -146,8 +146,8 @@ fruitcut::audio::music_controller::play_random()
 		return;
 	
 	do_play(
-		player_->create_nonpositional_stream(
-			*boost::next(
+		player_.create_nonpositional_stream(
+			**boost::next(
 				random_sounds_.begin(),
 				random_element_rng_())));
 }

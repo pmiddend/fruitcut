@@ -71,11 +71,12 @@ public:
 
 	explicit
 	system(
-		sge::renderer::device_ptr);
+		sge::renderer::device &);
 
 	void
 	update();
 
+	// _ptr on purpose!
 	sge::renderer::texture::planar_ptr const
 	result_texture();
 
@@ -136,7 +137,7 @@ private:
 	>
 	name_to_vertex;
 
-	sge::renderer::device_ptr const renderer_;
+	sge::renderer::device &renderer_;
 	graph graph_;
 	vertex_to_filter vertex_to_filter_;
 	name_to_vertex name_to_vertex_;

@@ -3,7 +3,7 @@
 
 #include "../uniform_random.hpp"
 #include <sge/audio/multi_loader_fwd.hpp>
-#include <sge/audio/player_ptr.hpp>
+#include <sge/audio/player_fwd.hpp>
 #include <sge/audio/file_ptr.hpp>
 #include <sge/audio/buffer_ptr.hpp>
 #include <sge/audio/scalar.hpp>
@@ -29,7 +29,7 @@ public:
 	music_controller(
 		sge::parse::json::object const &,
 		sge::audio::multi_loader &,
-		sge::audio::player_ptr);
+		sge::audio::player &);
 
 	void
 	update();
@@ -63,7 +63,7 @@ private:
 	file_set random_sounds_;
 	sge::time::timer crossfade_;
 
-	sge::audio::player_ptr player_;
+	sge::audio::player &player_;
 	sge::audio::buffer_ptr silence_buffer_;
 	sge::audio::sound::base_ptr silence_source_;
 

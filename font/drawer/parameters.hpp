@@ -3,8 +3,9 @@
 
 #include "transform_callback.hpp"
 #include <sge/image/color/any/object.hpp>
-#include <sge/renderer/device_ptr.hpp>
+#include <sge/renderer/device_fwd.hpp>
 #include <fcppt/variant/object.hpp>
+#include <fcppt/nonassignable.hpp>
 
 namespace fruitcut
 {
@@ -14,12 +15,14 @@ namespace drawer
 {
 class parameters
 {
+FCPPT_NONASSIGNABLE(
+	parameters);
 public:
 	explicit
 	parameters(
-		sge::renderer::device_ptr);
+		sge::renderer::device &);
 
-	sge::renderer::device_ptr const
+	sge::renderer::device &
 	renderer() const;
 
 	void
@@ -36,7 +39,7 @@ public:
 	fruitcut::font::drawer::transform_callback const &
 	transform_callback() const;
 private:
-	sge::renderer::device_ptr renderer_;
+	sge::renderer::device &renderer_;
 	sge::image::color::any::object color_;
 	fruitcut::font::drawer::transform_callback transform_callback_;
 };

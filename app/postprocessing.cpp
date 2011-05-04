@@ -19,7 +19,7 @@
 #include <iostream>
 
 fruitcut::app::postprocessing::postprocessing(
-	sge::renderer::device_ptr const &_renderer,
+	sge::renderer::device &_renderer,
 	sge::console::object &console,
 	std::tr1::function<void ()> const &render_callback,
 	sge::parse::json::object const &config)

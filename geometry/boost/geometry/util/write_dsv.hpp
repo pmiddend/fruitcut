@@ -1,6 +1,12 @@
 // Boost.Geometry (aka GGL, Generic Geometry Library)
-//
-// Copyright Barend Gehrels 2007-2009, Geodan, Amsterdam, the Netherlands.
+
+// Copyright (c) 2007-2011 Barend Gehrels, Amsterdam, the Netherlands.
+// Copyright (c) 2008-2011 Bruno Lalande, Paris, France.
+// Copyright (c) 2009-2011 Mateusz Loskot, London, UK.
+
+// Parts of Boost.Geometry are redesigned from Geodan's Geographic Library
+// (geolib/GGL), copyright (c) 1995-2010 Geodan, Amsterdam, the Netherlands.
+
 // Use, modification and distribution is subject to the Boost Software License,
 // Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
@@ -17,12 +23,10 @@
 #include <boost/range.hpp>
 #include <boost/typeof/typeof.hpp>
 
-#include <boost/geometry/algorithms/convert.hpp>
-
 #include <boost/geometry/core/exterior_ring.hpp>
 #include <boost/geometry/core/interior_rings.hpp>
 #include <boost/geometry/core/ring_type.hpp>
-#include <boost/geometry/core/is_multi.hpp>
+#include <boost/geometry/core/tag_cast.hpp>
 
 #include <boost/geometry/geometries/concepts/check.hpp>
 
@@ -214,7 +218,7 @@ struct dsv_poly
 
         typename interior_return_type<Polygon const>::type rings
                     = interior_rings(poly);
-        for (BOOST_AUTO(it, boost::begin(rings)); it != boost::end(rings); ++it)
+        for (BOOST_AUTO_TPL(it, boost::begin(rings)); it != boost::end(rings); ++it)
         {
             os << settings.list_separator;
             dsv_range<ring>::apply(os, *it, settings);
@@ -269,41 +273,41 @@ struct dsv_indexed
 namespace dispatch
 {
 
-template <typename Tag, bool IsMulti, typename Geometry>
+template <typename Tag, typename Geometry>
 struct dsv {};
 
 
 template <typename Point>
-struct dsv<point_tag, false, Point>
+struct dsv<point_tag, Point>
     : detail::dsv::dsv_point<Point>
 {};
 
 
 template <typename Linestring>
-struct dsv<linestring_tag, false, Linestring>
+struct dsv<linestring_tag, Linestring>
     : detail::dsv::dsv_range<Linestring>
 {};
 
 
 template <typename Box>
-struct dsv<box_tag, false, Box>
+struct dsv<box_tag, Box>
     : detail::dsv::dsv_indexed<Box>
 {};
 
 template <typename Segment>
-struct dsv<segment_tag, false, Segment>
+struct dsv<segment_tag, Segment>
     : detail::dsv::dsv_indexed<Segment>
 {};
 
 
 template <typename Ring>
-struct dsv<ring_tag, false, Ring>
+struct dsv<ring_tag, Ring>
     : detail::dsv::dsv_range<Ring>
 {};
 
 
 template <typename Polygon>
-struct dsv<polygon_tag, false, Polygon>
+struct dsv<polygon_tag, Polygon>
     : detail::dsv::dsv_poly<Polygon>
 {};
 
@@ -336,8 +340,11 @@ public:
     {
         dispatch::dsv
             <
-                typename tag<Geometry>::type,
-                is_multi<Geometry>::type::value,
+                typename tag_cast
+                    <
+                        typename tag<Geometry>::type,
+                        multi_tag
+                    >::type,
                 Geometry
             >::apply(os, m.m_geometry, m.m_settings);
         os.flush();

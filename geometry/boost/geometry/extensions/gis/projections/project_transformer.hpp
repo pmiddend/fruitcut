@@ -1,7 +1,7 @@
 // Boost.Geometry (aka GGL, Generic Geometry Library)
-//
-// Copyright Barend Gehrels 2007-2009, Geodan, Amsterdam, the Netherlands.
-// Copyright Bruno Lalande 2008, 2009
+
+// Copyright (c) 2008-2011 Barend Gehrels, Amsterdam, the Netherlands.
+
 // Use, modification and distribution is subject to the Boost Software License,
 // Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
@@ -12,6 +12,8 @@
 
 #include <boost/shared_ptr.hpp>
 
+#include <boost/geometry/core/coordinate_dimension.hpp>
+#include <boost/geometry/algorithms/convert.hpp>
 #include <boost/geometry/extensions/gis/projections/factory.hpp>
 #include <boost/geometry/extensions/gis/projections/parameters.hpp>
 
@@ -50,7 +52,7 @@ struct project_transformer
     {
         // Latlong (LatLong -> Cartesian) will be projected, rest will be copied.
         // So first copy third or higher dimensions
-        geometry::detail::copy::copy_coordinates<LatLong, Cartesian, 2,
+        geometry::detail::convert::point_to_point<LatLong, Cartesian, 2,
                 geometry::dimension<Cartesian>::value> ::copy(p1, p2);
         return m_prj->forward(p1, p2);
     }

@@ -1,7 +1,12 @@
 // Boost.Geometry (aka GGL, Generic Geometry Library)
-//
-// Copyright Barend Gehrels 2007-2009, Geodan, Amsterdam, the Netherlands.
-// Copyright Bruno Lalande 2008, 2009
+
+// Copyright (c) 2007-2011 Barend Gehrels, Amsterdam, the Netherlands.
+// Copyright (c) 2008-2011 Bruno Lalande, Paris, France.
+// Copyright (c) 2009-2011 Mateusz Loskot, London, UK.
+
+// Parts of Boost.Geometry are redesigned from Geodan's Geographic Library
+// (geolib/GGL), copyright (c) 1995-2010 Geodan, Amsterdam, the Netherlands.
+
 // Use, modification and distribution is subject to the Boost Software License,
 // Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
@@ -15,13 +20,16 @@
 #include <boost/range.hpp>
 #include <boost/typeof/typeof.hpp>
 
-#include <boost/geometry/algorithms/clear.hpp>
 #include <boost/geometry/algorithms/assign.hpp>
+#include <boost/geometry/algorithms/clear.hpp>
+#include <boost/geometry/algorithms/num_interior_rings.hpp>
 
 #include <boost/geometry/core/cs.hpp>
 #include <boost/geometry/core/exterior_ring.hpp>
 #include <boost/geometry/core/interior_rings.hpp>
+#include <boost/geometry/core/mutable_range.hpp>
 #include <boost/geometry/core/ring_type.hpp>
+#include <boost/geometry/core/tag_cast.hpp>
 #include <boost/geometry/geometries/concepts/check.hpp>
 #include <boost/geometry/strategies/transform.hpp>
 
@@ -83,6 +91,31 @@ struct transform_box
     }
 };
 
+template <typename Geometry1, typename Geometry2, typename Strategy>
+struct transform_box_or_segment
+{
+    static inline bool apply(Geometry1 const& source, Geometry2& target,
+                Strategy const& strategy)
+    {
+        typedef typename point_type<Geometry1>::type point_type1;
+        typedef typename point_type<Geometry2>::type point_type2;
+
+        point_type1 source_point[2];
+        geometry::detail::assign_point_from_index<0>(source, source_point[0]);
+        geometry::detail::assign_point_from_index<1>(source, source_point[1]);
+
+        point_type2 target_point[2];
+        if (strategy.apply(source_point[0], target_point[0])
+            && strategy.apply(source_point[1], target_point[1]))
+        {
+            geometry::detail::assign_point_to_index<0>(target_point[0], target);
+            geometry::detail::assign_point_to_index<1>(target_point[1], target);
+            return true;
+        }
+        return false;
+    }
+};
+
 
 template
 <
@@ -134,15 +167,20 @@ struct transform_polygon
         }
 
         // Note: here a resizeable container is assumed.
-        // TODO: we should make this part of the concept.
-        interior_rings(poly2).resize(num_interior_rings(poly1));
+        traits::resize
+            <
+                typename boost::remove_reference
+                <
+                    typename traits::interior_mutable_type<Polygon2>::type
+                >::type
+            >::apply(interior_rings(poly2), num_interior_rings(poly1));
 
         typename interior_return_type<Polygon1 const>::type rings1
                     = interior_rings(poly1);
         typename interior_return_type<Polygon2>::type rings2
                     = interior_rings(poly2);
-        BOOST_AUTO(it1, boost::begin(rings1));
-        BOOST_AUTO(it2, boost::begin(rings2));
+        BOOST_AUTO_TPL(it1, boost::begin(rings1));
+        BOOST_AUTO_TPL(it2, boost::begin(rings2));
         for ( ; it1 != boost::end(interior_rings(poly1)); ++it1, ++it2)
         {
             if (!transform_range_out<point2_type>(*it1,
@@ -239,20 +277,31 @@ struct transform<box_tag, box_tag, Box1, Box2, Strategy>
 {
 };
 
+template <typename Segment1, typename Segment2, typename Strategy>
+struct transform<segment_tag, segment_tag, Segment1, Segment2, Strategy>
+    : detail::transform::transform_box_or_segment<Segment1, Segment2, Strategy>
+{
+};
+
 
 } // namespace dispatch
 #endif // DOXYGEN_NO_DISPATCH
 
 
 /*!
-\brief Transforms from one geometry to another geometry using a strategy
+\brief Transforms from one geometry to another geometry  \brief_strategy
 \ingroup transform
 \tparam Geometry1 \tparam_geometry
 \tparam Geometry2 \tparam_geometry
 \tparam Strategy strategy
 \param geometry1 \param_geometry
 \param geometry2 \param_geometry
-\param strategy the strategy to be used for transformation
+\param strategy The strategy to be used for transformation
+\return True if the transformation could be done
+
+\qbk{distinguish,with strategy}
+
+\qbk{[include reference/algorithms/transform_with_strategy.qbk]}
  */
 template <typename Geometry1, typename Geometry2, typename Strategy>
 inline bool transform(Geometry1 const& geometry1, Geometry2& geometry2,
@@ -263,8 +312,8 @@ inline bool transform(Geometry1 const& geometry1, Geometry2& geometry2,
 
     typedef dispatch::transform
         <
-            typename tag<Geometry1>::type,
-            typename tag<Geometry2>::type,
+            typename tag_cast<typename tag<Geometry1>::type, multi_tag>::type,
+            typename tag_cast<typename tag<Geometry2>::type, multi_tag>::type,
             Geometry1,
             Geometry2,
             Strategy
@@ -281,7 +330,9 @@ inline bool transform(Geometry1 const& geometry1, Geometry2& geometry2,
 \tparam Geometry2 \tparam_geometry
 \param geometry1 \param_geometry
 \param geometry2 \param_geometry
-\return true if the transformation could be done
+\return True if the transformation could be done
+
+\qbk{[include reference/algorithms/transform.qbk]}
  */
 template <typename Geometry1, typename Geometry2>
 inline bool transform(Geometry1 const& geometry1, Geometry2& geometry2)

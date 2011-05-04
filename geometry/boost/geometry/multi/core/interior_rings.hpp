@@ -1,6 +1,12 @@
 // Boost.Geometry (aka GGL, Generic Geometry Library)
-//
-// Copyright Barend Gehrels 2010, Geodan, Amsterdam, the Netherlands.
+
+// Copyright (c) 2007-2011 Barend Gehrels, Amsterdam, the Netherlands.
+// Copyright (c) 2008-2011 Bruno Lalande, Paris, France.
+// Copyright (c) 2009-2011 Mateusz Loskot, London, UK.
+
+// Parts of Boost.Geometry are redesigned from Geodan's Geographic Library
+// (geolib/GGL), copyright (c) 1995-2010 Geodan, Amsterdam, the Netherlands.
+
 // Use, modification and distribution is subject to the Boost Software License,
 // Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
@@ -22,8 +28,6 @@ namespace boost { namespace geometry
 {
 
 
-
-
 #ifndef DOXYGEN_NO_DISPATCH
 namespace core_dispatch
 {
@@ -37,26 +41,6 @@ struct interior_type<multi_polygon_tag, MultiPolygon>
             polygon_tag,
             typename boost::range_value<MultiPolygon>::type
         >::type type;
-};
-
-
-
-template <typename MultiPolygon>
-struct num_interior_rings<multi_polygon_tag, MultiPolygon>
-{
-    static inline std::size_t apply(MultiPolygon const& multi_polygon)
-    {
-        std::size_t n = 0;
-        for (typename boost::range_iterator<MultiPolygon const>::type
-            it = boost::begin(multi_polygon);
-            it != boost::end(multi_polygon);
-            ++it)
-        {
-            n += geometry::num_interior_rings(*it);
-        }
-        return n;
-    }
-
 };
 
 

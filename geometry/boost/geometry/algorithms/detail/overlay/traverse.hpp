@@ -1,6 +1,7 @@
 // Boost.Geometry (aka GGL, Generic Geometry Library)
-//
-// Copyright Barend Gehrels 2007-2009, Geodan, Amsterdam, the Netherlands.
+
+// Copyright (c) 2007-2011 Barend Gehrels, Amsterdam, the Netherlands.
+
 // Use, modification and distribution is subject to the Boost Software License,
 // Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
@@ -23,7 +24,7 @@
 #if defined(BOOST_GEOMETRY_DEBUG_INTERSECTION) || defined(BOOST_GEOMETRY_OVERLAY_REPORT_WKT)
 #  include <string>
 #  include <boost/geometry/algorithms/detail/overlay/debug_turn_info.hpp>
-#  include <boost/geometry/extensions/gis/io/wkt/wkt.hpp>
+#  include <boost/geometry/domains/gis/io/wkt/wkt.hpp>
 #endif
 
 
@@ -40,8 +41,8 @@ template <typename Turn, typename Operation>
 inline void debug_traverse(Turn const& turn, Operation op, std::string const& header)
 {
 #ifdef BOOST_GEOMETRY_DEBUG_TRAVERSE
-    std::cout << header 
-        << " at " << op.seg_id 
+    std::cout << header
+        << " at " << op.seg_id
         << " op: " << operation_char(op.operation)
         << " vis: " << visited_char(op.visited)
         << " of:  " << operation_char(turn.operations[0].operation)
@@ -220,7 +221,7 @@ inline bool select_next_ip(operation_type operation,
        debug_traverse(turn, *selected, "  Accepted");
     }
 
-    
+
     return has_tp;
 }
 

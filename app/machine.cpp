@@ -57,10 +57,8 @@
 #include <sge/viewport/fill_on_resize.hpp>
 #include <sge/systems/window.hpp>
 #include <sge/viewport/manager.hpp>
-#include <sge/texture/add_image.hpp>
 #include <sge/texture/part_ptr.hpp>
 #include <sge/texture/part_raw.hpp>
-#include <sge/texture/rect_fragmented.hpp>
 #include <sge/time/clock.hpp>
 #include <sge/window/dim.hpp>
 #include <sge/window/instance.hpp>
@@ -76,6 +74,7 @@
 #include <fcppt/chrono/milliseconds.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/move.hpp>
 #include <boost/spirit/home/phoenix/object/new.hpp>
@@ -159,15 +158,6 @@ fruitcut::app::machine::machine(
 		json::find_member<sge::parse::json::object>(
 			config_file_,
 			FCPPT_TEXT("fonts"))),
-	texture_manager_(
-		systems_.renderer(),
-		boost::phoenix::construct<sge::texture::fragmented_unique_ptr>(
-			boost::phoenix::new_<sge::texture::rect_fragmented>(
-				systems_.renderer(),
-				sge::image::color::format::rgba8,
-				sge::renderer::texture::filter::linear,
-				fcppt::math::dim::quad<sge::renderer::dim2>(
-					1024)))),
 	input_manager_(
 		systems_),
 	console_state_(
@@ -176,11 +166,8 @@ fruitcut::app::machine::machine(
 		input_manager_),
 	previous_state_(
 		0),
-	console_gfx_(
-		console_object_,
-		systems_.renderer(),
-		sge::image::colors::black(),
-		systems_.font_system()->create_font(
+	console_font_(
+		systems_.font_system().create_font(
 			media_path()
 				/ FCPPT_TEXT("fonts")
 				/ 
@@ -189,19 +176,31 @@ fruitcut::app::machine::machine(
 						FCPPT_TEXT("console/font")),
 			json::find_member<sge::font::size_type>(
 				config_file(),
-				FCPPT_TEXT("console/font-size"))),
+				FCPPT_TEXT("console/font-size")))),
+	console_gfx_(
+		console_object_,
+		systems_.renderer(),
+		sge::image::colors::black(),
+		*console_font_,
 		console_state_,
 		sge::console::sprite_object(
       sge::console::sprite_parameters()
       .texture(
-				create_single_texture(
-					media_path()
-						/ FCPPT_TEXT("textures")
-						/ 
-							json::find_member<fcppt::string>(
-								config_file(),
-								FCPPT_TEXT("console/background-texture")),
-					sge::renderer::texture::address_mode::clamp))
+				sge::texture::part_ptr(
+					fcppt::make_shared_ptr<sge::texture::part_raw>(
+						sge::renderer::texture::create_planar_from_view(
+							systems_.renderer(),
+							systems_.image_loader().load(
+								media_path()
+								/ FCPPT_TEXT("textures")
+								/ 
+									json::find_member<fcppt::string>(
+										config_file(),
+										FCPPT_TEXT("console/background-texture")))->view(),
+							sge::renderer::texture::filter::linear,
+							sge::renderer::texture::address_mode2(
+								sge::renderer::texture::address_mode::clamp),
+							sge::renderer::resource_flags::none))))
       .pos(
         sge::console::sprite_object::vector::null())
       .size(
@@ -214,7 +213,7 @@ fruitcut::app::machine::machine(
 	console_node_(
 		console_gfx_),
 	exit_connection_(
-		systems_.keyboard_collector()->key_callback(
+		systems_.keyboard_collector().key_callback(
 			sge::input::keyboard::action(
 				sge::input::keyboard::key_code::escape,
 				sge::systems::running_to_false(
@@ -228,7 +227,7 @@ fruitcut::app::machine::machine(
 		/*
 		boost::phoenix::arg_names::arg1*/),
 	console_switch_connection_(
-		systems_.keyboard_collector()->key_callback(
+		systems_.keyboard_collector().key_callback(
 			sge::input::keyboard::action(
 				sge::input::keyboard::key_code::f1,
 				std::tr1::bind(
@@ -293,7 +292,7 @@ fruitcut::app::machine::machine(
 		console_node_);
 	input_manager_.current_state(
 		game_state_);
-	systems_.audio_player()->gain(
+	systems_.audio_player().gain(
 		json::find_member<sge::audio::scalar>(
 			config_file(),
 			FCPPT_TEXT("audio-volume")));
@@ -311,35 +310,6 @@ fruitcut::app::machine::systems() const
 	return systems_;
 }
 
-sge::texture::part_ptr const
-fruitcut::app::machine::create_single_texture(
-	fcppt::filesystem::path const &p,
-	sge::renderer::texture::address_mode::type const address_mode)
-{
-	return 
-		sge::texture::part_ptr(
-			new sge::texture::part_raw(
-				sge::renderer::texture::create_planar_from_view(
-					systems_.renderer(),
-					systems_.image_loader().load(
-						p)->view(),
-					sge::renderer::texture::filter::linear,
-					sge::renderer::texture::address_mode2(
-						address_mode),
-					sge::renderer::resource_flags::none)));
-}
-
-sge::texture::part_ptr const
-fruitcut::app::machine::create_texture(
-	fcppt::filesystem::path const &p)
-{
-	return 
-		sge::texture::add_image(
-			texture_manager_,
-			systems_.image_loader().load(
-				p));
-}
-
 fruitcut::app::postprocessing &
 fruitcut::app::machine::postprocessing()
 {
@@ -354,7 +324,7 @@ fruitcut::app::machine::run()
 	{
 		sge::time::point const before_frame = 
 			sge::time::clock::now();
-		systems_.window()->dispatch();
+		systems_.window().dispatch();
 		update();
 		render();
 		fcppt::chrono::milliseconds const diff = 
@@ -542,7 +512,7 @@ fruitcut::app::machine::viewport_change()
 	scene_node_.postprocessing().viewport_changed();
 	console_gfx_.background_sprite().size(
 		fcppt::math::dim::structure_cast<sge::console::sprite_object::dim>(
-			systems_.renderer()->onscreen_target()->viewport().get().size()));
+			systems_.renderer().onscreen_target().viewport().get().size()));
 	background_.viewport_changed();
 }
 
@@ -577,7 +547,7 @@ void
 fruitcut::app::machine::render()
 {
 	// Do we even have a viewport?
-	if (!systems_.renderer()->onscreen_target()->viewport().get().size().content())
+	if (!systems_.renderer().onscreen_target().viewport().get().size().content())
 		return;
 
 	sge::renderer::scoped_block scoped_block(

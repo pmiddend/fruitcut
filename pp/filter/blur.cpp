@@ -24,12 +24,15 @@
 #include <fcppt/assign/make_array.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
+#include <fcppt/container/ptr/replace_unique_ptr.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/assert.hpp>
+#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/ref.hpp>
 #include <iostream>
 
 fruitcut::pp::filter::blur::blur(
-	sge::renderer::device_ptr const _renderer,
+	sge::renderer::device &_renderer,
 	texture::manager &_texture_manager,
 	sge::renderer::dim2 const &_texture_size,
 	size_type const _iterations)
@@ -82,17 +85,19 @@ fruitcut::pp::filter::blur::blur(
 						sge::shader::sampler(
 							"tex",
 							sge::renderer::texture::planar_ptr())))))),
-	quads_(
-		fcppt::assign::make_array<screen_vf::quad>
-			(screen_vf::quad(
-				renderer_,
-				*shaders_[0]))
-			(screen_vf::quad(
-				renderer_,
-				*shaders_[1])))
+	quads_()
 {
 	FCPPT_ASSERT(
 		iterations_);
+	for(std::size_t i = 0; i < 1; ++i)
+		fcppt::container::ptr::replace_unique_ptr(
+			quads_,
+			i,
+			fcppt::make_unique_ptr<screen_vf::quad>(
+				fcppt::ref(
+					renderer_),
+				fcppt::ref(
+					*shaders_[i])));
 }
 
 fruitcut::pp::texture::counted_instance const
@@ -187,7 +192,7 @@ fruitcut::pp::filter::blur::render(
 
 	sge::renderer::scoped_target const target_(
 		renderer_,
-		textures[i]->target()); 
+		*textures[i]->target()); 
 
 	sge::renderer::scoped_block const block_(
 		renderer_);

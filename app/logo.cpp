@@ -21,7 +21,7 @@
 #include <fcppt/text.hpp>
 
 fruitcut::app::logo::logo(
-	sge::renderer::device_ptr const _renderer,
+	sge::renderer::device &_renderer,
 	sge::viewport::manager &_viewport_manager,
 	sge::image2d::multi_loader &_image_loader,
 	sge::parse::json::object const &_config_file)
@@ -88,5 +88,5 @@ fruitcut::app::logo::viewport_change()
 		sprite_object_,
 		fcppt::math::dim::structure_cast<sprite_object::vector>(
 			sge::renderer::active_target(
-				*renderer_)->viewport().get().size())/2);
+				renderer_).viewport().get().size())/2);
 }

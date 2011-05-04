@@ -451,7 +451,7 @@ try
 		(sge::systems::image_loader(
 				sge::image::capabilities_field::null(),
 				sge::all_extensions)));
-	sys.renderer()->onscreen_target()->viewport(
+	sys.renderer().onscreen_target().viewport(
 		sge::renderer::viewport(
 			sge::renderer::pixel_rect(
 				sge::renderer::pixel_rect::vector::null(),
@@ -470,19 +470,19 @@ try
 	bool running = true;
 
 	fcppt::signal::scoped_connection const cb(
-		sys.keyboard_collector()->key_callback(
+		sys.keyboard_collector().key_callback(
 			sge::input::keyboard::action(
 				sge::input::keyboard::key_code::escape,
 				boost::phoenix::ref(running) = false)));
 
-	sys.renderer()->state(
+	sys.renderer().state(
 		sge::renderer::state::list
 			(sge::renderer::state::bool_::clear_backbuffer = true)
 			(sge::renderer::state::color::clear_color = sge::image::colors::black()));
 
 	while(running)
 	{
-		sys.window()->dispatch();
+		sys.window().dispatch();
 
 		sge::renderer::scoped_block const block_(
 			sys.renderer());

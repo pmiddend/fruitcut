@@ -10,10 +10,10 @@ fruitcut::app::states::gameover::superstate::superstate(
 		context<machine>().timer_callback()),
 	gui_keyboard_(
 		context<machine>().gui_syringe(),
-		*context<machine>().systems().keyboard_collector()),
+		context<machine>().systems().keyboard_collector()),
 	gui_cursor_(
 		context<machine>().gui_syringe(),
-		*context<machine>().systems().cursor_demuxer()),
+		context<machine>().systems().cursor_demuxer()),
 	name_(
 		"You shouldn't see this")
 {

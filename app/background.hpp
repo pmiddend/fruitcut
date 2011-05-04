@@ -2,7 +2,7 @@
 #define FRUITCUT_APP_BACKGROUND_HPP_INCLUDED
 
 #include "../scenic/nodes/intrusive.hpp"
-#include <sge/renderer/device_ptr.hpp>
+#include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/scalar.hpp>
 #include <sge/renderer/vertex_buffer_ptr.hpp>
 #include <sge/renderer/vertex_declaration_ptr.hpp>
@@ -28,7 +28,7 @@ FCPPT_NONCOPYABLE(
 public:
 	explicit
 	background(
-		sge::renderer::device_ptr,
+		sge::renderer::device &,
 		sge::image2d::multi_loader &,
 		sge::parse::json::object const &);
 
@@ -37,7 +37,7 @@ public:
 
 	~background();
 private:
-	sge::renderer::device_ptr renderer_;
+	sge::renderer::device &renderer_;
 	sge::renderer::texture::planar_ptr texture_;
 	sge::renderer::vertex_declaration_ptr vertex_declaration_;
 	sge::renderer::vertex_buffer_ptr vb_;

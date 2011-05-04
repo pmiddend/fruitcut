@@ -7,7 +7,7 @@
 #include "../particle/sprite/object.hpp"
 #include <sge/sprite/object_impl.hpp>
 #include <sge/sprite/intrusive/system_impl.hpp>
-#include <sge/renderer/device_ptr.hpp>
+#include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/scalar.hpp>
 #include <sge/image2d/multi_loader_fwd.hpp>
 #include <sge/renderer/texture/planar_ptr.hpp>
@@ -31,7 +31,7 @@ class splatter
 public:
 	explicit
 	splatter(
-		sge::renderer::device_ptr,
+		sge::renderer::device &,
 		sge::image2d::multi_loader &,
 		sge::input::mouse::device &);
 
@@ -76,7 +76,7 @@ private:
 
 	texture_vector const
 	load_textures(
-		sge::renderer::device_ptr,
+		sge::renderer::device &,
 		sge::image2d::multi_loader &);
 };
 }

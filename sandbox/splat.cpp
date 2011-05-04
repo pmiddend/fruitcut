@@ -71,25 +71,25 @@ try
 		(sge::systems::image_loader(
 				sge::image::capabilities_field::null(),
 				sge::all_extensions)));
-	sys.renderer()->onscreen_target()->viewport(
+	sys.renderer().onscreen_target().viewport(
 		sge::renderer::viewport(
 			sge::renderer::pixel_rect(
 				sge::renderer::pixel_rect::vector::null(),
 				fcppt::math::dim::structure_cast<sge::renderer::pixel_rect::dim>(
 					window_size))));
 
-	sge::renderer::device_ptr const rend(
+	sge::renderer::device &rend(
 		sys.renderer());
 
 	bool running = true;
 
 	fcppt::signal::scoped_connection const cb(
-		sys.keyboard_collector()->key_callback(
+		sys.keyboard_collector().key_callback(
 			sge::input::keyboard::action(
 				sge::input::keyboard::key_code::escape,
 				boost::phoenix::ref(running) = false)));
 
-	rend->state(
+	rend.state(
 		sge::renderer::state::list
 			(sge::renderer::state::bool_::clear_backbuffer = true)
 			(sge::renderer::state::color::clear_color = sge::image::colors::black()));
@@ -97,11 +97,11 @@ try
 	fruitcut::sandbox::splatter splatter_(
 		sys.renderer(),
 		sys.image_loader(),
-		*sys.mouse_collector());
+		sys.mouse_collector());
 
 	while(running)
 	{
-		sys.window()->dispatch();
+		sys.window().dispatch();
 
 		splatter_.update();
 

@@ -1,7 +1,12 @@
 // Boost.Geometry (aka GGL, Generic Geometry Library)
-//
-// Copyright Barend Gehrels 2007-2009, Geodan, Amsterdam, the Netherlands.
-// Copyright Bruno Lalande 2008, 2009
+
+// Copyright (c) 2007-2011 Barend Gehrels, Amsterdam, the Netherlands.
+// Copyright (c) 2008-2011 Bruno Lalande, Paris, France.
+// Copyright (c) 2009-2011 Mateusz Loskot, London, UK.
+
+// Parts of Boost.Geometry are redesigned from Geodan's Geographic Library
+// (geolib/GGL), copyright (c) 1995-2010 Geodan, Amsterdam, the Netherlands.
+
 // Use, modification and distribution is subject to the Boost Software License,
 // Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
@@ -12,7 +17,6 @@
 
 
 #include <boost/geometry/core/cs.hpp>
-#include <boost/geometry/core/is_multi.hpp>
 #include <boost/geometry/core/point_order.hpp>
 #include <boost/geometry/core/exterior_ring.hpp>
 
@@ -39,7 +43,7 @@ template
     order_selector Order,
     typename Strategy
 >
-struct hull_inserter
+struct hull_insert
 {
 
     // Member template function, to avoid inconvenient declaration
@@ -67,7 +71,7 @@ struct hull_to_geometry
     static inline void apply(Geometry const& geometry, OutputGeometry& out,
             Strategy const& strategy)
     {
-        hull_inserter
+        hull_insert
             <
                 Geometry,
                 geometry::point_order<OutputGeometry>::value,
@@ -95,7 +99,6 @@ namespace dispatch
 template
 <
     typename Tag1,
-    bool IsMulti,
     typename Geometry,
     typename Output,
     typename Strategy
@@ -109,11 +112,10 @@ template
 <
     typename GeometryTag,
     order_selector Order,
-    bool IsMulti,
     typename GeometryIn, typename Strategy
  >
-struct convex_hull_inserter
-    : detail::convex_hull::hull_inserter<GeometryIn, Order, Strategy>
+struct convex_hull_insert
+    : detail::convex_hull::hull_insert<GeometryIn, Order, Strategy>
 {};
 
 
@@ -137,7 +139,6 @@ inline void convex_hull(Geometry1 const& geometry,
     dispatch::convex_hull
         <
             typename tag<Geometry1>::type,
-            is_multi<Geometry1>::type::value,
             Geometry1,
             Geometry2,
             Strategy
@@ -151,8 +152,10 @@ inline void convex_hull(Geometry1 const& geometry,
 \details \details_calc{convex_hull,convex hull}.
 \tparam Geometry1 \tparam_geometry
 \tparam Geometry2 \tparam_geometry
-\param geometry \param_geometry,  used for input
+\param geometry \param_geometry,  input geometry
 \param hull \param_geometry \param_set{convex hull}
+
+\qbk{[include reference/algorithms/convex_hull.qbk]}
  */
 template<typename Geometry1, typename Geometry2>
 inline void convex_hull(Geometry1 const& geometry,
@@ -177,9 +180,13 @@ inline void convex_hull(Geometry1 const& geometry,
     convex_hull(geometry, hull, strategy_type());
 }
 
+#ifndef DOXYGEN_NO_DETAIL
+namespace detail { namespace convex_hull
+{
+
 
 template<typename Geometry, typename OutputIterator, typename Strategy>
-inline OutputIterator convex_hull_inserter(Geometry const& geometry,
+inline OutputIterator convex_hull_insert(Geometry const& geometry,
             OutputIterator out, Strategy const& strategy)
 {
     // Concept: output point type = point type of input geometry
@@ -188,11 +195,10 @@ inline OutputIterator convex_hull_inserter(Geometry const& geometry,
 
     BOOST_CONCEPT_ASSERT( (geometry::concept::ConvexHullStrategy<Strategy>) );
 
-    return dispatch::convex_hull_inserter
+    return dispatch::convex_hull_insert
         <
             typename tag<Geometry>::type,
             geometry::point_order<Geometry>::value,
-            is_multi<Geometry>::type::value,
             Geometry, Strategy
         >::apply(geometry, out, strategy);
 }
@@ -212,7 +218,7 @@ In this case, nothing is known about its point-type or
 
  */
 template<typename Geometry, typename OutputIterator>
-inline OutputIterator convex_hull_inserter(Geometry const& geometry,
+inline OutputIterator convex_hull_insert(Geometry const& geometry,
             OutputIterator out)
 {
     // Concept: output point type = point type of input geometry
@@ -229,8 +235,12 @@ inline OutputIterator convex_hull_inserter(Geometry const& geometry,
             point_type
         >::type strategy_type;
 
-    return convex_hull_inserter(geometry, out, strategy_type());
+    return convex_hull_insert(geometry, out, strategy_type());
 }
+
+
+}} // namespace detail::convex_hull
+#endif // DOXYGEN_NO_DETAIL
 
 
 }} // namespace boost::geometry

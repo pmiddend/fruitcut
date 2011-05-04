@@ -4,7 +4,7 @@
 #include "../particle/sprite/system.hpp"
 #include "../particle/sprite/object.hpp"
 #include "sword_particle.hpp"
-#include <sge/renderer/device_ptr.hpp>
+#include <sge/renderer/device_fwd.hpp>
 #include <sge/image2d/multi_loader_fwd.hpp>
 #include <sge/input/mouse/axis_event_fwd.hpp>
 #include <sge/sprite/object_impl.hpp>
@@ -12,7 +12,7 @@
 #include <sge/time/timer.hpp>
 #include <sge/texture/part_ptr.hpp>
 #include <sge/renderer/vector2.hpp>
-#include <sge/input/mouse/device_ptr.hpp>
+#include <sge/input/mouse/device_fwd.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
 #include <list>
@@ -26,9 +26,9 @@ class mouse_trailer
 public:
 	explicit
 	mouse_trailer(
-		sge::renderer::device_ptr,
+		sge::renderer::device &,
 		sge::image2d::multi_loader &,
-		sge::input::mouse::device_ptr);
+		sge::input::mouse::device &);
 
 	void
 	update();

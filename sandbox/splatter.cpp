@@ -41,7 +41,7 @@
 #include <cmath>
 
 fruitcut::sandbox::splatter::splatter(
-	sge::renderer::device_ptr const _renderer,
+	sge::renderer::device &_renderer,
 	sge::image2d::multi_loader &_image_loader,
 	sge::input::mouse::device &_mouse)
 :
@@ -71,9 +71,9 @@ fruitcut::sandbox::splatter::splatter(
 			.center(
 				particle::sprite::object::vector(
 					static_cast<particle::sprite::object::unit>(
-						_renderer->onscreen_target()->viewport().get().size().w()/2),
+						_renderer.onscreen_target().viewport().get().size().w()/2),
 					static_cast<particle::sprite::object::unit>(
-						_renderer->onscreen_target()->viewport().get().size().h()/2)))
+						_renderer.onscreen_target().viewport().get().size().h()/2)))
 			.system(
 				&ss_)
 			.elements()),
@@ -143,7 +143,7 @@ fruitcut::sandbox::splatter::splatter(
 		sge::sprite::default_parameters<particle::sprite::choices>()
 			.size(
 				fcppt::math::dim::structure_cast<particle::sprite::object::dim>(
-					_renderer->onscreen_target()->viewport().get().size()))
+					_renderer.onscreen_target().viewport().get().size()))
 			.repetition(
 				particle::sprite::object::repetition_type(
 					3,
@@ -308,7 +308,7 @@ fruitcut::sandbox::splatter::move_callback(
 
 fruitcut::sandbox::splatter::texture_vector const
 fruitcut::sandbox::splatter::load_textures(
-	sge::renderer::device_ptr const renderer,
+	sge::renderer::device &renderer,
 	sge::image2d::multi_loader &image_loader)
 {
 	texture_vector t;

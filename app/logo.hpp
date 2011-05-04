@@ -4,12 +4,13 @@
 #include "../scenic/nodes/intrusive.hpp"
 #include "../animation.hpp"
 #include <sge/sprite/sprite.hpp>
-#include <sge/renderer/device_ptr.hpp>
+#include <sge/renderer/device_fwd.hpp>
 #include <sge/viewport/manager_fwd.hpp>
 #include <sge/image/color/rgba8_format.hpp>
 #include <sge/image2d/multi_loader_fwd.hpp>
 #include <sge/parse/json/object_fwd.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
+#include <fcppt/noncopyable.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 
 namespace fruitcut
@@ -20,10 +21,12 @@ class logo
 :
 	public scenic::nodes::intrusive
 {
+FCPPT_NONCOPYABLE(
+	logo);
 public:
 	explicit
 	logo(
-		sge::renderer::device_ptr,
+		sge::renderer::device &,
 		sge::viewport::manager &,
 		sge::image2d::multi_loader &,
 		sge::parse::json::object const &);
@@ -74,7 +77,7 @@ private:
 	animation<sprite_object::color_type>
 	color_animation;
 
-	sge::renderer::device_ptr renderer_;
+	sge::renderer::device &renderer_;
 	sprite_system sprite_system_;
 	sprite_object sprite_object_;
 	fcppt::signal::scoped_connection viewport_change_connection_;

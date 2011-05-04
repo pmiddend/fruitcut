@@ -5,7 +5,7 @@
 #include "../texture/counted_instance.hpp"
 #include "../texture/manager_fwd.hpp"
 #include "../texture/depth_stencil_format.hpp"
-#include <sge/renderer/device_ptr.hpp>
+#include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/target_ptr.hpp>
 #include <sge/renderer/dim2.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
@@ -28,7 +28,7 @@ public:
 
 	explicit	
 	render_to_texture(
-		sge::renderer::device_ptr,
+		sge::renderer::device &,
 		texture::manager &,
 		sge::renderer::dim2 const &,
 		callback const &,
@@ -39,7 +39,7 @@ public:
 
 	~render_to_texture();
 private:
-	sge::renderer::device_ptr const renderer_;
+	sge::renderer::device &renderer_;
 	texture::manager &texture_manager_;
 	sge::renderer::dim2 const texture_size_;
 	callback const callback_;

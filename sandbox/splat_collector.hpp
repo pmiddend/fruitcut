@@ -5,7 +5,7 @@
 #include "../particle/sprite/object.hpp"
 #include "../particle/sprite/parameters.hpp"
 #include "../pp/screen_vf/quad.hpp"
-#include <sge/renderer/device_ptr.hpp>
+#include <sge/renderer/device_fwd.hpp>
 #include <sge/sprite/object_impl.hpp>
 #include <sge/sprite/intrusive/system_impl.hpp>
 #include <sge/renderer/texture/planar_ptr.hpp>
@@ -25,7 +25,7 @@ FCPPT_NONCOPYABLE(
 public:
 	explicit
 	splat_collector(
-		sge::renderer::device_ptr);
+		sge::renderer::device &);
 
 	sge::renderer::texture::planar_ptr const
 	texture();
@@ -43,7 +43,7 @@ private:
 	std::vector<particle::sprite::object>
 	sprite_sequence;
 
-	sge::renderer::device_ptr renderer_;
+	sge::renderer::device &renderer_;
 	// texture_ is what the user gets
 	// temp_texture_ is the texture we use to merge the "previous"
 	// texture and the new sprites

@@ -29,7 +29,7 @@
 fruitcut::audio::sound_controller::sound_controller(
 	sge::parse::json::object const &sound_array,
 	sge::audio::multi_loader &ml,
-	sge::audio::player_ptr const _player)
+	sge::audio::player &_player)
 :
 	player_(
 		_player),
@@ -49,8 +49,8 @@ fruitcut::audio::sound_controller::sound_controller(
 				sge::parse::json::get<sge::parse::json::array>(
 					current_sound.value)))
 			buffers.push_back(
-				player_->create_buffer(
-					ml.load(
+				player_.create_buffer(
+					*ml.load(
 						media_path() 
 							/ FCPPT_TEXT("sounds")
 							/

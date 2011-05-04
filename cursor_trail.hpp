@@ -5,7 +5,7 @@
 #include <sge/time/duration.hpp>
 #include <sge/input/cursor/object_fwd.hpp>
 #include <sge/input/cursor/position.hpp>
-#include <sge/renderer/target_base_ptr.hpp>
+#include <sge/renderer/target_base_fwd.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <boost/circular_buffer.hpp>
@@ -31,7 +31,7 @@ public:
 		sge::input::cursor::object &,
 		sge::time::duration const &update_frequency,
 		size_type sample_count,
-		sge::renderer::target_base_ptr);
+		sge::renderer::target_base &);
 
 	void
 	update();
@@ -53,7 +53,7 @@ private:
 	sge::input::cursor::object &cursor_;
 	position_buffer positions_;
 	sge::time::timer update_timer_;
-	sge::renderer::target_base_ptr target_;
+	sge::renderer::target_base &target_;
 };
 }
 

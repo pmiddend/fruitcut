@@ -15,7 +15,7 @@ namespace
 {
 sge::renderer::glsl::program_ptr const
 create_point_shader(
-	sge::renderer::device_ptr const rend)
+	sge::renderer::device &rend)
 {
 	fcppt::io::cifstream fragment_stream(
 		sge::config::media_path()
@@ -38,7 +38,7 @@ create_point_shader(
 }
 
 fruitcut::particle::system::system(
-	sge::renderer::device_ptr const _renderer)
+	sge::renderer::device &_renderer)
 :
 	pss_(
 		_renderer),
@@ -77,7 +77,7 @@ fruitcut::particle::system::render()
 
 	sge::renderer::glsl::scoped_program scoped_shader(
 		pss_.renderer(),
-		point_shader_);
+		*point_shader_);
 	pss_.render_all(
 		sge::sprite::default_equal());
 }

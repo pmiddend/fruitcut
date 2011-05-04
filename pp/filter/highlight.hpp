@@ -5,7 +5,7 @@
 #include "../texture/counted_instance.hpp"
 #include "../texture/manager_fwd.hpp"
 #include "unary.hpp"
-#include <sge/renderer/device_ptr.hpp>
+#include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/dim2.hpp>
 #include <sge/renderer/scalar.hpp>
 #include <sge/shader/object.hpp>
@@ -24,7 +24,7 @@ class highlight
 public:	
 	explicit
 	highlight(
-		sge::renderer::device_ptr,
+		sge::renderer::device &,
 		texture::manager &,
 		sge::renderer::dim2 const &,
 		sge::renderer::scalar threshold);
@@ -33,7 +33,7 @@ public:
 	apply(
 		texture::counted_instance);
 private:
-	sge::renderer::device_ptr renderer_;
+	sge::renderer::device &renderer_;
 	texture::manager &texture_manager_;
 	sge::renderer::dim2 texture_size_;
 	sge::shader::object shader_;

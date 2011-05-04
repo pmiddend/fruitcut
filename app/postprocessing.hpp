@@ -9,7 +9,7 @@
 #include "../pp/filter/blur.hpp"
 #include "../pp/filter/add.hpp"
 #include "../pp/filter/desaturate.hpp"
-#include <sge/renderer/device_ptr.hpp>
+#include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/texture/planar_ptr.hpp>
 #include <sge/console/object_fwd.hpp>
 #include <sge/console/arg_list.hpp>
@@ -26,7 +26,7 @@ class postprocessing
 public:
 	explicit
 	postprocessing(
-		sge::renderer::device_ptr const &,
+		sge::renderer::device &,
 		sge::console::object &,
 		std::tr1::function<void ()> const &render_func,
 		sge::parse::json::object const &);

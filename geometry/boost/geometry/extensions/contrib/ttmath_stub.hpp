@@ -1,9 +1,23 @@
+// Boost.Geometry (aka GGL, Generic Geometry Library)
+
+// Copyright (c) 2007-2011 Barend Gehrels, Amsterdam, the Netherlands.
+// Copyright (c) 2008-2011 Bruno Lalande, Paris, France.
+// Copyright (c) 2009-2011 Mateusz Loskot, London, UK.
+
+// Parts of Boost.Geometry are redesigned from Geodan's Geographic Library
+// (geolib/GGL), copyright (c) 1995-2010 Geodan, Amsterdam, the Netherlands.
+
+// Use, modification and distribution is subject to the Boost Software License,
+// Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
+// http://www.boost.org/LICENSE_1_0.txt)
+
 #ifndef TTMATH_STUB
 #define TTMATH_STUB
 
 #include <boost/math/constants/constants.hpp>
 #include <boost/numeric/conversion/cast.hpp>
 #include <boost/geometry/util/math.hpp>
+#include <boost/geometry/util/coordinate_cast.hpp>
 
 
 #include <ttmath.h>
@@ -61,6 +75,12 @@ namespace ttmath
     inline Big<Exponent, Mantissa> atan(Big<Exponent, Mantissa> const& v)
     {
         return ATan(v);
+    }
+
+    template <uint Exponent, uint Mantissa>
+    inline Big<Exponent, Mantissa> acos(Big<Exponent, Mantissa> const& v)
+    {
+        return ACos(v);
     }
 
 
@@ -139,8 +159,37 @@ namespace detail
         }
     };
 
-}
-}}} // boost::geometry::math
+} // detail
+
+} // ttmath
+
+
+namespace detail
+{
+
+template <ttmath::uint Exponent, ttmath::uint Mantissa>
+struct coordinate_cast<ttmath::Big<Exponent, Mantissa> >
+{
+    static inline ttmath::Big<Exponent, Mantissa> apply(std::string const& source)
+    {
+        return ttmath::Big<Exponent, Mantissa> (source);
+    }
+};
+
+
+template <>
+struct coordinate_cast<ttmath_big>
+{
+    static inline ttmath_big apply(std::string const& source)
+    {
+        return ttmath_big(source);
+    }
+};
+
+} // namespace detail
+
+
+}} // boost::geometry
 
 
 

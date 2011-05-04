@@ -1,7 +1,12 @@
 // Boost.Geometry (aka GGL, Generic Geometry Library)
-//
-// Copyright Barend Gehrels 2007-2009, Geodan, Amsterdam, the Netherlands.
-// Copyright Bruno Lalande 2008, 2009
+
+// Copyright (c) 2008-2011 Bruno Lalande, Paris, France.
+// Copyright (c) 2008-2011 Barend Gehrels, Amsterdam, the Netherlands.
+// Copyright (c) 2009-2011 Mateusz Loskot, London, UK.
+
+// Parts of Boost.Geometry are redesigned from Geodan's Geographic Library
+// (geolib/GGL), copyright (c) 1995-2010 Geodan, Amsterdam, the Netherlands.
+
 // Use, modification and distribution is subject to the Boost Software License,
 // Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
@@ -17,16 +22,17 @@
 #include <boost/geometry/core/access.hpp>
 #include <boost/geometry/core/point_type.hpp>
 
+#include <boost/geometry/algorithms/convert.hpp>
 #include <boost/geometry/arithmetic/arithmetic.hpp>
 #include <boost/geometry/arithmetic/dot_product.hpp>
 
 #include <boost/geometry/strategies/tags.hpp>
 #include <boost/geometry/strategies/distance.hpp>
-#include <boost/geometry/strategies/distance_result.hpp>
+#include <boost/geometry/strategies/default_distance_result.hpp>
 #include <boost/geometry/strategies/cartesian/distance_pythagoras.hpp>
 
 #include <boost/geometry/util/select_coordinate_type.hpp>
-#include <boost/geometry/util/copy.hpp>
+
 
 
 // Helper geometries
@@ -126,8 +132,8 @@ public :
         // For consistency we define w also in FP
         fp_vector_type v, w;
 
-        copy_coordinates(p2, v);
-        copy_coordinates(p, w);
+        geometry::convert(p2, v);
+        geometry::convert(p, w);
         subtract_point(v, p1);
         subtract_point(w, p1);
 
@@ -157,7 +163,7 @@ public :
                 >::apply(strategy);
 
         fp_point_type projected;
-        copy_coordinates(p1, projected);
+        geometry::convert(p1, projected);
         multiply_value(v, b);
         add_point(projected, v);
 

@@ -43,7 +43,7 @@ fruitcut::app::states::intro::intro(
 		context<machine>().config_file())
 {
 	// We already have a viewport? Ok, then go
-	if(context<machine>().systems().renderer()->onscreen_target()->viewport().get().size().content())
+	if(context<machine>().systems().renderer().onscreen_target().viewport().get().size().content())
 		viewport_change();
 
 	context<machine>().overlay_node().children().push_back(

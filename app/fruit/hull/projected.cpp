@@ -27,6 +27,7 @@
 #include <fcppt/math/vector/output.hpp>
 #include <boost/foreach.hpp>
 #include <boost/geometry/multi/multi.hpp>
+#include <boost/geometry/multi/algorithms/detail/for_each_range.hpp>
 #include <boost/geometry/geometry.hpp>
 #include <iostream>
 #include <vector>
@@ -34,7 +35,7 @@
 fruitcut::app::fruit::hull::ring const
 fruitcut::app::fruit::hull::projected(
 	object const &f,
-	sge::renderer::target_base_ptr const target,
+	sge::renderer::target_base &target,
 	sge::renderer::matrix4 const &mvp)
 {
 	typedef
@@ -69,7 +70,7 @@ fruitcut::app::fruit::hull::projected(
 					static_cast<sge::renderer::scalar>(1)))
 				* (fcppt::math::dim::structure_cast<sge::renderer::vector2>(
 					// Fucking strong typedef shit
-					target->viewport().get().size()) / static_cast<sge::renderer::scalar>(2));
+					target.viewport().get().size()) / static_cast<sge::renderer::scalar>(2));
 
 		point_cloud.push_back(
 			window_coordinates);

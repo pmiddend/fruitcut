@@ -11,7 +11,7 @@
 #include <iostream>
 
 fruitcut::pp::filter::render_to_texture::render_to_texture(
-	sge::renderer::device_ptr const _renderer,
+	sge::renderer::device &_renderer,
 	texture::manager &_texture_manager,
 	sge::renderer::dim2 const &_texture_size,
 	callback const &_callback,
@@ -44,7 +44,7 @@ fruitcut::pp::filter::render_to_texture::apply()
 
 	sge::renderer::scoped_target scoped_target(
 		renderer_,
-		result->target());
+		*result->target());
 
 	sge::renderer::scoped_block scoped_block(
 		renderer_);

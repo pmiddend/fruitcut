@@ -73,9 +73,9 @@ fruitcut::app::states::ingame::running::running(
 		context<machine>().systems().renderer()),
 	line_drawer_node_(
 		line_drawer_,
-		context<machine>().systems().renderer()),
+		&(context<machine>().systems().renderer())),
 	cursor_trail_(
-		*context<machine>().systems().cursor_demuxer(),
+		context<machine>().systems().cursor_demuxer(),
 		sge::time::millisecond(
 			json::find_member<sge::time::unit>(
 				context<machine>().config_file(),
@@ -83,7 +83,7 @@ fruitcut::app::states::ingame::running::running(
 		json::find_member<cursor_trail::size_type>(
 				context<machine>().config_file(),
 				FCPPT_TEXT("mouse/trail-samples")),
-		context<machine>().systems().renderer()->onscreen_target()),
+		context<machine>().systems().renderer().onscreen_target()),
 	cursor_trail_node_(
 		cursor_trail_),
 	update_node_(
@@ -185,7 +185,7 @@ fruitcut::app::states::ingame::running::draw_fruit_bbs(
 		fruit::hull::ring const hull = 
 			fruit::hull::projected(
 				*i,
-				context<machine>().systems().renderer()->onscreen_target(),
+				context<machine>().systems().renderer().onscreen_target(),
 				context<superstate>().camera().mvp());
 
 		for(
@@ -255,7 +255,7 @@ fruitcut::app::states::ingame::running::process_fruit(
 		fruit::hull::trail_intersection(
 			fruit::hull::projected(
 				current_fruit,
-				context<machine>().systems().renderer()->onscreen_target(),
+				context<machine>().systems().renderer().onscreen_target(),
 				context<superstate>().camera().mvp()),
 			cursor_trail_.positions());
 
@@ -292,7 +292,7 @@ fruitcut::app::states::ingame::running::process_fruit(
 				fcppt::math::box::basic<sge::renderer::scalar,2>(
 					sge::renderer::vector2::null(),
 					fcppt::math::dim::structure_cast<dim2>(
-						context<machine>().systems().renderer()->onscreen_target()->viewport().get().size()))),
+						context<machine>().systems().renderer().onscreen_target().viewport().get().size()))),
 		point2_unprojected = 
 			fcppt::math::matrix::unproject(
 				point2,
@@ -302,7 +302,7 @@ fruitcut::app::states::ingame::running::process_fruit(
 				fcppt::math::box::basic<sge::renderer::scalar,2>(
 					sge::renderer::vector2::null(),
 					fcppt::math::dim::structure_cast<dim2>(
-						context<machine>().systems().renderer()->onscreen_target()->viewport().get().size()))),
+						context<machine>().systems().renderer().onscreen_target().viewport().get().size()))),
 		point3_unprojected = 
 			fcppt::math::matrix::unproject(
 				sge::renderer::vector3(
@@ -314,7 +314,7 @@ fruitcut::app::states::ingame::running::process_fruit(
 				fcppt::math::box::basic<sge::renderer::scalar,2>(
 					sge::renderer::vector2::null(),
 					fcppt::math::dim::structure_cast<dim2>(
-						context<machine>().systems().renderer()->onscreen_target()->viewport().get().size()))),
+						context<machine>().systems().renderer().onscreen_target().viewport().get().size()))),
 		first_plane_vector = 
 			point2_unprojected - point1_unprojected,
 		second_plane_vector = 

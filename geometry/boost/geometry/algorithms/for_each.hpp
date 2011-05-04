@@ -1,7 +1,12 @@
 // Boost.Geometry (aka GGL, Generic Geometry Library)
-//
-// Copyright Barend Gehrels 2007-2009, Geodan, Amsterdam, the Netherlands.
-// Copyright Bruno Lalande 2008, 2009
+
+// Copyright (c) 2007-2011 Barend Gehrels, Amsterdam, the Netherlands.
+// Copyright (c) 2008-2011 Bruno Lalande, Paris, France.
+// Copyright (c) 2009-2011 Mateusz Loskot, London, UK.
+
+// Parts of Boost.Geometry are redesigned from Geodan's Geographic Library
+// (geolib/GGL), copyright (c) 1995-2010 Geodan, Amsterdam, the Netherlands.
+
 // Use, modification and distribution is subject to the Boost Software License,
 // Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
@@ -17,7 +22,7 @@
 
 #include <boost/geometry/core/exterior_ring.hpp>
 #include <boost/geometry/core/interior_rings.hpp>
-#include <boost/geometry/core/is_multi.hpp>
+#include <boost/geometry/core/tag_cast.hpp>
 
 #include <boost/geometry/geometries/concepts/check.hpp>
 
@@ -82,8 +87,8 @@ struct fe_range_per_segment
                 typename point_type<Range>::type
             >::type point_type;
 
-        BOOST_AUTO(it, boost::begin(range));
-        BOOST_AUTO(previous, it++);
+        BOOST_AUTO_TPL(it, boost::begin(range));
+        BOOST_AUTO_TPL(previous, it++);
         while(it != boost::end(range))
         {
             model::referring_segment<point_type> s(*previous, *it);
@@ -114,7 +119,7 @@ struct fe_polygon_per_point
 
         typename interior_return_type<poly_type>::type rings
                     = interior_rings(poly);
-        for (BOOST_AUTO(it, boost::begin(rings)); it != boost::end(rings); ++it)
+        for (BOOST_AUTO_TPL(it, boost::begin(rings)); it != boost::end(rings); ++it)
         {
             f = per_ring::apply(*it, f);
         }
@@ -143,7 +148,7 @@ struct fe_polygon_per_segment
 
         typename interior_return_type<poly_type>::type rings
                     = interior_rings(poly);
-        for (BOOST_AUTO(it, boost::begin(rings)); it != boost::end(rings); ++it)
+        for (BOOST_AUTO_TPL(it, boost::begin(rings)); it != boost::end(rings); ++it)
         {
             f = per_ring::apply(*it, f);
         }
@@ -165,7 +170,6 @@ namespace dispatch
 template
 <
     typename Tag,
-    bool IsMulti,
     typename Geometry,
     typename Functor,
     bool IsConst
@@ -174,25 +178,25 @@ struct for_each_point {};
 
 
 template <typename Point, typename Functor, bool IsConst>
-struct for_each_point<point_tag, false, Point, Functor, IsConst>
+struct for_each_point<point_tag, Point, Functor, IsConst>
     : detail::for_each::fe_point_per_point<Point, Functor, IsConst>
 {};
 
 
 template <typename Linestring, typename Functor, bool IsConst>
-struct for_each_point<linestring_tag, false, Linestring, Functor, IsConst>
+struct for_each_point<linestring_tag, Linestring, Functor, IsConst>
     : detail::for_each::fe_range_per_point<Linestring, Functor, IsConst>
 {};
 
 
 template <typename Ring, typename Functor, bool IsConst>
-struct for_each_point<ring_tag, false, Ring, Functor, IsConst>
+struct for_each_point<ring_tag, Ring, Functor, IsConst>
     : detail::for_each::fe_range_per_point<Ring, Functor, IsConst>
 {};
 
 
 template <typename Polygon, typename Functor, bool IsConst>
-struct for_each_point<polygon_tag, false, Polygon, Functor, IsConst>
+struct for_each_point<polygon_tag, Polygon, Functor, IsConst>
     : detail::for_each::fe_polygon_per_point<Polygon, Functor, IsConst>
 {};
 
@@ -200,7 +204,6 @@ struct for_each_point<polygon_tag, false, Polygon, Functor, IsConst>
 template
 <
     typename Tag,
-    bool IsMulti,
     typename Geometry,
     typename Functor,
     bool IsConst
@@ -208,25 +211,25 @@ template
 struct for_each_segment {};
 
 template <typename Point, typename Functor, bool IsConst>
-struct for_each_segment<point_tag, false, Point, Functor, IsConst>
+struct for_each_segment<point_tag, Point, Functor, IsConst>
     : detail::for_each::fe_point_per_segment<Point, Functor, IsConst>
 {};
 
 
 template <typename Linestring, typename Functor, bool IsConst>
-struct for_each_segment<linestring_tag, false, Linestring, Functor, IsConst>
+struct for_each_segment<linestring_tag, Linestring, Functor, IsConst>
     : detail::for_each::fe_range_per_segment<Linestring, Functor, IsConst>
 {};
 
 
 template <typename Ring, typename Functor, bool IsConst>
-struct for_each_segment<ring_tag, false, Ring, Functor, IsConst>
+struct for_each_segment<ring_tag, Ring, Functor, IsConst>
     : detail::for_each::fe_range_per_segment<Ring, Functor, IsConst>
 {};
 
 
 template <typename Polygon, typename Functor, bool IsConst>
-struct for_each_segment<polygon_tag, false, Polygon, Functor, IsConst>
+struct for_each_segment<polygon_tag, Polygon, Functor, IsConst>
     : detail::for_each::fe_polygon_per_segment<Polygon, Functor, IsConst>
 {};
 
@@ -236,11 +239,17 @@ struct for_each_segment<polygon_tag, false, Polygon, Functor, IsConst>
 
 
 /*!
-    \brief Calls functor for geometry
-    \ingroup for_each
-    \param geometry geometry to loop through
-    \param f functor to use
-    \details Calls the functor the specified \b const geometry
+\brief \brf_for_each{point}
+\details \det_for_each{point}
+\ingroup for_each
+\param geometry \param_geometry
+\param f \par_for_each_f{const point}
+\tparam Geometry \tparam_geometry
+\tparam Functor \tparam_functor
+
+\qbk{distinguish,const version}
+\qbk{[heading Example]}
+\qbk{[for_each_point_const] [for_each_point_const_output]}
 */
 template<typename Geometry, typename Functor>
 inline Functor for_each_point(Geometry const& geometry, Functor f)
@@ -249,8 +258,7 @@ inline Functor for_each_point(Geometry const& geometry, Functor f)
 
     return dispatch::for_each_point
         <
-            typename tag<Geometry>::type,
-            is_multi<Geometry>::type::value,
+            typename tag_cast<typename tag<Geometry>::type, multi_tag>::type,
             Geometry,
             Functor,
             true
@@ -259,11 +267,16 @@ inline Functor for_each_point(Geometry const& geometry, Functor f)
 
 
 /*!
-    \brief Calls functor for geometry
-    \ingroup for_each
-    \param geometry geometry to loop through
-    \param f functor to use
-    \details Calls the functor for the specified geometry
+\brief \brf_for_each{point}
+\details \det_for_each{point}
+\ingroup for_each
+\param geometry \param_geometry
+\param f \par_for_each_f{point}
+\tparam Geometry \tparam_geometry
+\tparam Functor \tparam_functor
+
+\qbk{[heading Example]}
+\qbk{[for_each_point] [for_each_point_output]}
 */
 template<typename Geometry, typename Functor>
 inline Functor for_each_point(Geometry& geometry, Functor f)
@@ -272,8 +285,7 @@ inline Functor for_each_point(Geometry& geometry, Functor f)
 
     return dispatch::for_each_point
         <
-            typename tag<Geometry>::type,
-            is_multi<Geometry>::type::value,
+            typename tag_cast<typename tag<Geometry>::type, multi_tag>::type,
             Geometry,
             Functor,
             false
@@ -282,12 +294,17 @@ inline Functor for_each_point(Geometry& geometry, Functor f)
 
 
 /*!
-    \brief Calls functor for segments on linestrings, rings, polygons, ...
-    \ingroup for_each
-    \param geometry geometry to loop through
-    \param f functor to use
-    \details Calls the functor all \b const segments of the
-        specified \b const geometry
+\brief \brf_for_each{segment}
+\details \det_for_each{segment}
+\ingroup for_each
+\param geometry \param_geometry
+\param f \par_for_each_f{const segment}
+\tparam Geometry \tparam_geometry
+\tparam Functor \tparam_functor
+
+\qbk{distinguish,const version}
+\qbk{[heading Example]}
+\qbk{[for_each_segment_const] [for_each_segment_const_output]}
 */
 template<typename Geometry, typename Functor>
 inline Functor for_each_segment(Geometry const& geometry, Functor f)
@@ -296,8 +313,7 @@ inline Functor for_each_segment(Geometry const& geometry, Functor f)
 
     return dispatch::for_each_segment
         <
-            typename tag<Geometry>::type,
-            is_multi<Geometry>::type::value,
+            typename tag_cast<typename tag<Geometry>::type, multi_tag>::type,
             Geometry,
             Functor,
             true
@@ -306,11 +322,13 @@ inline Functor for_each_segment(Geometry const& geometry, Functor f)
 
 
 /*!
-    \brief Calls functor for segments on linestrings, rings, polygons, ...
-    \ingroup for_each
-    \param geometry geometry to loop through
-    \param f functor to use
-    \details Calls the functor all segments of the specified geometry
+\brief \brf_for_each{segment}
+\details \det_for_each{segment}
+\ingroup for_each
+\param geometry \param_geometry
+\param f \par_for_each_f{segment}
+\tparam Geometry \tparam_geometry
+\tparam Functor \tparam_functor
 */
 template<typename Geometry, typename Functor>
 inline Functor for_each_segment(Geometry& geometry, Functor f)
@@ -319,8 +337,7 @@ inline Functor for_each_segment(Geometry& geometry, Functor f)
 
     return dispatch::for_each_segment
         <
-            typename tag<Geometry>::type,
-            is_multi<Geometry>::type::value,
+            typename tag_cast<typename tag<Geometry>::type, multi_tag>::type,
             Geometry,
             Functor,
             false

@@ -17,7 +17,7 @@
 #include <sge/image2d/multi_loader_fwd.hpp>
 #include <sge/model/loader_fwd.hpp>
 #include <sge/parse/json/array_fwd.hpp>
-#include <sge/renderer/device_ptr.hpp>
+#include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/vertex_declaration_ptr.hpp>
 #include <sge/shader/object.hpp>
 #include <sge/camera/object_fwd.hpp>
@@ -52,7 +52,7 @@ public:
 		sge::parse::json::array const &v,
 		sge::model::loader &model_loader,
 		sge::image2d::multi_loader &image_loader,
-		sge::renderer::device_ptr renderer,
+		sge::renderer::device &renderer,
 		physics::world &,
 		sge::camera::object &);
 
@@ -94,7 +94,7 @@ public:
 
 	~manager();
 private:
-	sge::renderer::device_ptr renderer_;
+	sge::renderer::device &renderer_;
 	sge::camera::object &camera_;
 	sge::renderer::vertex_declaration_ptr vertex_declaration_;
 	physics::world &physics_world_;

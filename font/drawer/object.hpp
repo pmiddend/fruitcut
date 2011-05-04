@@ -5,7 +5,7 @@
 #include "parameters_fwd.hpp"
 #include <sge/font/font.hpp>
 #include <sge/texture/texture.hpp>
-#include <sge/renderer/device_ptr.hpp>
+#include <sge/renderer/device_fwd.hpp>
 #include <sge/sprite/sprite.hpp>
 #include <sge/image/color/color.hpp>
 #include <fcppt/variant/object_impl.hpp>
@@ -102,7 +102,7 @@ private:
 	std::vector<sprite_object> 
 	sprite_container;
 
-	sge::renderer::device_ptr const renderer_;
+	sge::renderer::device &renderer_;
 	sge::image::color::any::object color_;
 	sge::texture::manager texture_manager_;
 	texture_map textures_;

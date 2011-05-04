@@ -8,6 +8,7 @@
 #include <sge/renderer/dim2.hpp>
 #include <sge/shader/object.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
+#include <fcppt/noncopyable.hpp>
 
 namespace fruitcut
 {
@@ -19,10 +20,12 @@ class add
 :
 	public binary
 {
+FCPPT_NONCOPYABLE(
+	add);
 public:
 	explicit
 	add(
-		sge::renderer::device_ptr,
+		sge::renderer::device &,
 		texture::manager &,
 		sge::renderer::dim2 const &);
 
@@ -33,7 +36,7 @@ public:
 
 	~add();
 private:
-	sge::renderer::device_ptr renderer_;
+	sge::renderer::device &renderer_;
 	sge::renderer::dim2 dimension_;
 	sge::shader::object shader_;
 	screen_vf::quad quad_;

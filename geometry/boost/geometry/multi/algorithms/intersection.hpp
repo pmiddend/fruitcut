@@ -1,6 +1,7 @@
 // Boost.Geometry (aka GGL, Generic Geometry Library)
-//
-// Copyright Barend Gehrels 2010, Geodan, Amsterdam, the Netherlands.
+
+// Copyright (c) 2007-2011 Barend Gehrels, Amsterdam, the Netherlands.
+
 // Use, modification and distribution is subject to the Boost Software License,
 // Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
@@ -9,7 +10,6 @@
 #define BOOST_GEOMETRY_MULTI_ALGORITHMS_INTERSECTION_HPP
 
 
-#include <boost/geometry/algorithms/intersection.hpp>
 #include <boost/geometry/multi/core/closure.hpp>
 #include <boost/geometry/multi/core/geometry_id.hpp>
 #include <boost/geometry/multi/core/is_areal.hpp>
@@ -20,9 +20,11 @@
 #include <boost/geometry/multi/algorithms/detail/overlay/get_turns.hpp>
 #include <boost/geometry/multi/algorithms/detail/overlay/copy_segments.hpp>
 #include <boost/geometry/multi/algorithms/detail/overlay/copy_segment_point.hpp>
-#include <boost/geometry/multi/algorithms/detail/overlay/add_to_containment.hpp>
+#include <boost/geometry/multi/algorithms/detail/overlay/select_rings.hpp>
 #include <boost/geometry/multi/algorithms/detail/sections/range_by_section.hpp>
 #include <boost/geometry/multi/algorithms/detail/sections/sectionalize.hpp>
+
+#include <boost/geometry/algorithms/intersection.hpp>
 
 
 namespace boost { namespace geometry
@@ -150,7 +152,7 @@ template
     overlay_type OverlayType,
     typename Strategy
 >
-struct intersection_inserter
+struct intersection_insert
     <
         multi_linestring_tag, multi_linestring_tag, point_tag,
         false, false, false,
@@ -176,7 +178,7 @@ template
     overlay_type OverlayType,
     typename Strategy
 >
-struct intersection_inserter
+struct intersection_insert
     <
         linestring_tag, multi_linestring_tag, point_tag,
         false, false, false,
@@ -202,7 +204,7 @@ template
     overlay_type OverlayType,
     typename Strategy
 >
-struct intersection_inserter
+struct intersection_insert
     <
         multi_linestring_tag, box_tag, linestring_tag,
         false, true, false,

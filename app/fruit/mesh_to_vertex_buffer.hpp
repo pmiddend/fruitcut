@@ -3,9 +3,9 @@
 
 #include "mesh_fwd.hpp"
 #include <sge/shader/object_fwd.hpp>
-#include <sge/renderer/device_ptr.hpp>
+#include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/vertex_buffer_ptr.hpp>
-#include <sge/renderer/vertex_declaration_ptr.hpp>
+#include <sge/renderer/vertex_declaration_fwd.hpp>
 
 namespace fruitcut
 {
@@ -15,8 +15,8 @@ namespace fruit
 {
 sge::renderer::vertex_buffer_ptr const
 mesh_to_vertex_buffer(
-	sge::renderer::device_ptr,
-	sge::renderer::vertex_declaration_ptr,
+	sge::renderer::device &,
+	sge::renderer::vertex_declaration &,
 	sge::shader::object &,
 	mesh const &);
 }

@@ -24,9 +24,8 @@
 #include <sge/parse/json/object.hpp>
 #include <sge/renderer/texture/address_mode.hpp>
 #include <sge/systems/instance.hpp>
-#include <sge/texture/manager.hpp>
-#include <sge/texture/part_ptr.hpp>
 #include <sge/time/duration.hpp>
+#include <sge/font/metrics_ptr.hpp>
 #include <sge/time/point.hpp>
 #include <sge/time/unit.hpp>
 #include <fcppt/chrono/duration.hpp>
@@ -68,15 +67,6 @@ public:
 
 	sge::systems::instance const &
 	systems() const;
-
-	sge::texture::part_ptr const
-	create_single_texture(
-		fcppt::filesystem::path const &,
-		sge::renderer::texture::address_mode::type);
-
-	sge::texture::part_ptr const
-	create_texture(
-		fcppt::filesystem::path const &);
 
 	void
 	run();
@@ -161,10 +151,10 @@ private:
 	overlay overlay_node_;
 	log::scoped_sequence_ptr activated_loggers_;
 	font::cache font_cache_;
-	sge::texture::manager texture_manager_;
 	input::state_manager input_manager_;
 	input::state console_state_,game_state_;
 	input::state *previous_state_;
+	sge::font::metrics_ptr console_font_;
 	sge::console::gfx console_gfx_;
 	scenic::nodes::console console_node_;
 	fcppt::signal::scoped_connection exit_connection_;

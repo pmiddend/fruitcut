@@ -32,9 +32,9 @@
 #include <iostream>
 
 fruitcut::sandbox::mouse_trailer::mouse_trailer(
-	sge::renderer::device_ptr const renderer,
+	sge::renderer::device &renderer,
 	sge::image2d::multi_loader &image_loader,
-	sge::input::mouse::device_ptr mouse)
+	sge::input::mouse::device &mouse)
 :
 	ss_(
 		renderer),
@@ -66,9 +66,9 @@ fruitcut::sandbox::mouse_trailer::mouse_trailer(
 			.center(
 				particle::sprite::object::vector(
 					static_cast<particle::sprite::object::unit>(
-						renderer->onscreen_target()->viewport().get().size().w()/2),
+						renderer.onscreen_target().viewport().get().size().w()/2),
 					static_cast<particle::sprite::object::unit>(
-						renderer->onscreen_target()->viewport().get().size().h()/2)))
+						renderer.onscreen_target().viewport().get().size().h()/2)))
 			.system(
 				&ss_)
 			.color(
@@ -78,7 +78,7 @@ fruitcut::sandbox::mouse_trailer::mouse_trailer(
 					(sge::image::color::init::blue %= 1.0)
 					(sge::image::color::init::alpha %= 1.0))).elements()),
 	mouse_axis_connection_(
-		mouse->axis_callback(
+		mouse.axis_callback(
 			std::tr1::bind(
 				&mouse_trailer::callback,
 				this,

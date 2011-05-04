@@ -1,7 +1,12 @@
 // Boost.Geometry (aka GGL, Generic Geometry Library)
-//
-// Copyright Barend Gehrels 2007-2009, Geodan, Amsterdam, the Netherlands.
-// Copyright Bruno Lalande 2008, 2009
+
+// Copyright (c) 2007-2011 Barend Gehrels, Amsterdam, the Netherlands.
+// Copyright (c) 2008-2011 Bruno Lalande, Paris, France.
+// Copyright (c) 2009-2011 Mateusz Loskot, London, UK.
+
+// Parts of Boost.Geometry are redesigned from Geodan's Geographic Library
+// (geolib/GGL), copyright (c) 1995-2010 Geodan, Amsterdam, the Netherlands.
+
 // Use, modification and distribution is subject to the Boost Software License,
 // Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
@@ -21,7 +26,6 @@
 
 #include <boost/geometry/core/access.hpp>
 #include <boost/geometry/core/coordinate_dimension.hpp>
-#include <boost/geometry/core/is_multi.hpp>
 #include <boost/geometry/core/reverse_dispatch.hpp>
 
 #include <boost/geometry/geometries/concepts/check.hpp>
@@ -155,7 +159,6 @@ namespace dispatch
 template
 <
     typename Tag1, typename Tag2,
-    bool IsMulti1, bool IsMulti2,
     typename Geometry1,
     typename Geometry2,
     std::size_t DimensionCount
@@ -165,7 +168,7 @@ struct equals
 
 
 template <typename P1, typename P2, std::size_t DimensionCount>
-struct equals<point_tag, point_tag, false, false, P1, P2, DimensionCount>
+struct equals<point_tag, point_tag, P1, P2, DimensionCount>
     : geometry::detail::not_
         <
             P1,
@@ -176,13 +179,13 @@ struct equals<point_tag, point_tag, false, false, P1, P2, DimensionCount>
 
 
 template <typename Box1, typename Box2, std::size_t DimensionCount>
-struct equals<box_tag, box_tag, false, false, Box1, Box2, DimensionCount>
+struct equals<box_tag, box_tag, Box1, Box2, DimensionCount>
     : detail::equals::box_box<Box1, Box2, 0, DimensionCount>
 {};
 
 
 template <typename Ring1, typename Ring2>
-struct equals<ring_tag, ring_tag, false, false, Ring1, Ring2, 2>
+struct equals<ring_tag, ring_tag, Ring1, Ring2, 2>
     : detail::equals::equals_by_collection
         <
             Ring1, Ring2,
@@ -192,7 +195,7 @@ struct equals<ring_tag, ring_tag, false, false, Ring1, Ring2, 2>
 
 
 template <typename Polygon1, typename Polygon2>
-struct equals<polygon_tag, polygon_tag, false, false, Polygon1, Polygon2, 2>
+struct equals<polygon_tag, polygon_tag, Polygon1, Polygon2, 2>
     : detail::equals::equals_by_collection
         <
             Polygon1, Polygon2,
@@ -202,7 +205,7 @@ struct equals<polygon_tag, polygon_tag, false, false, Polygon1, Polygon2, 2>
 
 
 template <typename LineString1, typename LineString2>
-struct equals<linestring_tag, linestring_tag, false, false, LineString1, LineString2, 2>
+struct equals<linestring_tag, linestring_tag, LineString1, LineString2, 2>
     : detail::equals::equals_by_collection
         <
             LineString1, LineString2,
@@ -212,7 +215,7 @@ struct equals<linestring_tag, linestring_tag, false, false, LineString1, LineStr
 
 
 template <typename Polygon, typename Ring>
-struct equals<polygon_tag, ring_tag, false, false, Polygon, Ring, 2>
+struct equals<polygon_tag, ring_tag, Polygon, Ring, 2>
     : detail::equals::equals_by_collection
         <
             Polygon, Ring,
@@ -222,7 +225,7 @@ struct equals<polygon_tag, ring_tag, false, false, Polygon, Ring, 2>
 
 
 template <typename Ring, typename Box>
-struct equals<ring_tag, box_tag, false, false, Ring, Box, 2>
+struct equals<ring_tag, box_tag, Ring, Box, 2>
     : detail::equals::equals_by_collection
         <
             Ring, Box,
@@ -232,7 +235,7 @@ struct equals<ring_tag, box_tag, false, false, Ring, Box, 2>
 
 
 template <typename Polygon, typename Box>
-struct equals<polygon_tag, box_tag, false, false, Polygon, Box, 2>
+struct equals<polygon_tag, box_tag, Polygon, Box, 2>
     : detail::equals::equals_by_collection
         <
             Polygon, Box,
@@ -244,7 +247,6 @@ struct equals<polygon_tag, box_tag, false, false, Polygon, Box, 2>
 template
 <
     typename Tag1, typename Tag2,
-    bool IsMulti1, bool IsMulti2,
     typename Geometry1,
     typename Geometry2,
     std::size_t DimensionCount
@@ -256,7 +258,6 @@ struct equals_reversed
         return equals
             <
                 Tag2, Tag1,
-                IsMulti2, IsMulti1,
                 Geometry2, Geometry1,
                 DimensionCount
             >::apply(g2, g1);
@@ -270,12 +271,20 @@ struct equals_reversed
 
 /*!
 \brief \brief_check{are spatially equal}
+\details \details_check12{equals, is spatially equal}. Spatially equal means 
+    that the same point set is included. A box can therefore be spatially equal
+    to a ring or a polygon, or a linestring can be spatially equal to a 
+    multi-linestring or a segment. This only theoretically, not all combinations
+    are implemented yet.
 \ingroup equals
 \tparam Geometry1 \tparam_geometry
 \tparam Geometry2 \tparam_geometry
 \param geometry1 \param_geometry
 \param geometry2 \param_geometry
-\return \return_check2{are spatially disjoint}
+\return \return_check2{are spatially equal}
+
+\qbk{[include reference/algorithms/equals.qbk]}
+
  */
 template <typename Geometry1, typename Geometry2>
 inline bool equals(Geometry1 const& geometry1, Geometry2 const& geometry2)
@@ -293,8 +302,6 @@ inline bool equals(Geometry1 const& geometry1, Geometry2 const& geometry2)
             <
                 typename tag<Geometry1>::type,
                 typename tag<Geometry2>::type,
-                is_multi<Geometry1>::type::value,
-                is_multi<Geometry2>::type::value,
                 Geometry1,
                 Geometry2,
                 dimension<Geometry1>::type::value
@@ -303,8 +310,6 @@ inline bool equals(Geometry1 const& geometry1, Geometry2 const& geometry2)
             <
                 typename tag<Geometry1>::type,
                 typename tag<Geometry2>::type,
-                is_multi<Geometry1>::type::value,
-                is_multi<Geometry2>::type::value,
                 Geometry1,
                 Geometry2,
                 dimension<Geometry1>::type::value

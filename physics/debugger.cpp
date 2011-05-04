@@ -17,7 +17,7 @@
 
 fruitcut::physics::debugger::debugger(
 	world &_world,
-	sge::renderer::device_ptr const _renderer,
+	sge::renderer::device &_renderer,
 	sge::camera::object &_camera)
 :
 	world_(

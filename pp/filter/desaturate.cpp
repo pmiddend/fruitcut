@@ -26,7 +26,7 @@
 #include <iostream>
 
 fruitcut::pp::filter::desaturate::desaturate(
-	sge::renderer::device_ptr const _renderer,
+	sge::renderer::device &_renderer,
 	texture::manager &_texture_manager,
 	sge::renderer::dim2 const &_texture_size,
 	sge::renderer::scalar const _factor)
@@ -105,7 +105,7 @@ fruitcut::pp::filter::desaturate::apply(
 
 	sge::renderer::scoped_target const scoped_target(
 		renderer_,
-		result->target()); 
+		*result->target()); 
 
 	sge::renderer::scoped_block const block(
 		renderer_);

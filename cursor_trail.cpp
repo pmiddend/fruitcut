@@ -34,7 +34,7 @@ fruitcut::cursor_trail::cursor_trail(
 	sge::input::cursor::object &_cursor,
 	sge::time::duration const &_update_frequency,
 	size_type const _sample_count,
-	sge::renderer::target_base_ptr const _target)
+	sge::renderer::target_base &_target)
 :
 	cursor_(
 		_cursor),
@@ -56,7 +56,7 @@ fruitcut::cursor_trail::update()
 	positions_.push_back(
 		transform_position(
 			cursor_.position(),
-			target_->viewport().get()));
+			target_.viewport().get()));
 }
 
 fruitcut::cursor_trail::position_buffer const &

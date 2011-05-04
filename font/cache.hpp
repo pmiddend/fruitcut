@@ -3,9 +3,9 @@
 
 #include "drawer/object_fwd.hpp"
 #include "identifier.hpp"
-#include <sge/font/system_ptr.hpp>
+#include <sge/font/system_fwd.hpp>
 #include <sge/font/metrics_ptr.hpp>
-#include <sge/renderer/device_ptr.hpp>
+#include <sge/renderer/device_fwd.hpp>
 #include <sge/image2d/multi_loader_fwd.hpp>
 #include <sge/parse/json/object_fwd.hpp>
 #include <fcppt/string.hpp>
@@ -25,8 +25,8 @@ FCPPT_NONCOPYABLE(
 public:
 	explicit
 	cache(
-		sge::font::system_ptr,
-		sge::renderer::device_ptr,
+		sge::font::system &,
+		sge::renderer::device &,
 		sge::image2d::multi_loader &,
 		sge::parse::json::object const &);
 

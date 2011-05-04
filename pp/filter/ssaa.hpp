@@ -6,8 +6,10 @@
 #include "../texture/counted_instance.hpp"
 #include "../screen_vf/quad.hpp"
 #include <sge/renderer/dim2.hpp>
-#include <fcppt/math/dim/basic_impl.hpp>
+#include <sge/renderer/device_fwd.hpp>
 #include <sge/shader/object.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
+#include <fcppt/noncopyable.hpp>
 
 namespace fruitcut
 {
@@ -19,10 +21,12 @@ class ssaa
 :
 	public unary
 {
+FCPPT_NONCOPYABLE(
+	ssaa);
 public:
 	explicit
 	ssaa(
-		sge::renderer::device_ptr,
+		sge::renderer::device &,
 		texture::manager &,
 		sge::renderer::dim2 const &);
 
@@ -32,7 +36,7 @@ public:
 
 	~ssaa();
 private:
-	sge::renderer::device_ptr renderer_;
+	sge::renderer::device &renderer_;
 	texture::manager &texture_manager_;
 	sge::renderer::dim2 const texture_size_;
 	sge::shader::object shader_;

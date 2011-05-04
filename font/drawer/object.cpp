@@ -11,6 +11,7 @@
 #include <fcppt/math/box/box.hpp>
 #include <fcppt/math/dim/dim.hpp>
 #include <fcppt/math/vector/vector.hpp>
+#include <fcppt/ref.hpp>
 #include <boost/spirit/home/phoenix/object.hpp>
 #include <utility>
 #include <iostream>
@@ -23,12 +24,12 @@ fruitcut::font::drawer::object::object(
 	color_(
 		params.color()),
 	texture_manager_(
-		renderer_,
 		boost::phoenix::construct<sge::texture::fragmented_unique_ptr>(
 			boost::phoenix::new_<sge::texture::rect_fragmented>(
-				renderer_,
+				fcppt::ref(
+					renderer_),
 				// Is this safe? Could be a non-alpha format
-				renderer_->caps().preferred_texture_format(),
+				renderer_.caps().preferred_texture_format(),
 				sge::renderer::texture::filter::linear,
 				fcppt::math::dim::quad<sge::renderer::dim2>( 
 					256)))),

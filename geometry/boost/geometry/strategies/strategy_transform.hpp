@@ -1,7 +1,12 @@
 // Boost.Geometry (aka GGL, Generic Geometry Library)
-//
-// Copyright Barend Gehrels 2007-2009, Geodan, Amsterdam, the Netherlands.
-// Copyright Bruno Lalande 2008, 2009
+
+// Copyright (c) 2007-2011 Barend Gehrels, Amsterdam, the Netherlands.
+// Copyright (c) 2008-2011 Bruno Lalande, Paris, France.
+// Copyright (c) 2009-2011 Mateusz Loskot, London, UK.
+
+// Parts of Boost.Geometry are redesigned from Geodan's Geographic Library
+// (geolib/GGL), copyright (c) 1995-2010 Geodan, Amsterdam, the Netherlands.
+
 // Use, modification and distribution is subject to the Boost Software License,
 // Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
@@ -15,11 +20,11 @@
 
 #include <boost/numeric/conversion/cast.hpp>
 
+#include <boost/geometry/algorithms/convert.hpp>
 #include <boost/geometry/arithmetic/arithmetic.hpp>
 #include <boost/geometry/core/access.hpp>
 #include <boost/geometry/core/coordinate_dimension.hpp>
 
-#include <boost/geometry/util/copy.hpp>
 #include <boost/geometry/util/math.hpp>
 #include <boost/geometry/util/select_coordinate_type.hpp>
 
@@ -41,7 +46,8 @@ template
 >
 struct transform_coordinates
 {
-    static inline void transform(Src const& source, Dst& dest, double value)
+    template <typename T>
+    static inline void transform(Src const& source, Dst& dest, T value)
     {
         typedef typename select_coordinate_type<Src, Dst>::type coordinate_type;
 
@@ -59,7 +65,8 @@ template
 >
 struct transform_coordinates<Src, Dst, N, N, F>
 {
-    static inline void transform(Src const& source, Dst& dest, double value)
+    template <typename T>
+    static inline void transform(Src const& source, Dst& dest, T value)
     {
     }
 };
@@ -97,7 +104,7 @@ struct copy_per_coordinate
         // Defensive check, dimensions are equal, selected by specialization
         assert_dimension_equal<P1, P2>();
 
-        copy_coordinates(p1, p2);
+        geometry::convert(p1, p2);
         return true;
     }
 };
@@ -147,22 +154,31 @@ namespace detail
 {
 
     /// Helper function for conversion, phi/theta are in radians
-    template <typename P>
-    inline void spherical_to_cartesian(double phi, double theta, double r, P& p)
+    template <typename P, typename T, typename R>
+    inline void spherical_to_cartesian(T phi, T theta, R r, P& p)
     {
         assert_dimension<P, 3>();
 
         // http://en.wikipedia.org/wiki/List_of_canonical_coordinate_transformations#From_spherical_coordinates
         // Phi = first, theta is second, r is third, see documentation on cs::spherical
-        double const sin_theta = sin(theta);
-        set<0>(p, r * sin_theta * cos(phi));
-        set<1>(p, r * sin_theta * sin(phi));
-        set<2>(p, r * cos(theta));
+
+        // (calculations are splitted to implement ttmath)
+
+        T r_sin_theta = r;
+        r_sin_theta *= sin(theta);
+
+        set<0>(p, r_sin_theta * cos(phi));
+        set<1>(p, r_sin_theta * sin(phi));
+
+        T r_cos_theta = r;
+        r_cos_theta *= cos(theta);
+
+        set<2>(p, r_cos_theta);
     }
 
     /// Helper function for conversion
-    template <typename P>
-    inline bool cartesian_to_spherical2(double x, double y, double z, P& p)
+    template <typename P, typename T>
+    inline bool cartesian_to_spherical2(T x, T y, T z, P& p)
     {
         assert_dimension<P, 2>();
 
@@ -170,10 +186,10 @@ namespace detail
 
 #if defined(BOOST_GEOMETRY_TRANSFORM_CHECK_UNIT_SPHERE)
         // TODO: MAYBE ONLY IF TO BE CHECKED?
-        double const r = /*sqrt not necessary, sqrt(1)=1*/ (x * x + y * y + z * z);
+        T const r = /*sqrt not necessary, sqrt(1)=1*/ (x * x + y * y + z * z);
 
         // Unit sphere, so r should be 1
-        if (geometry::math::abs(r - 1.0) > double(1e-6))
+        if (geometry::math::abs(r - 1.0) > T(1e-6))
         {
             return false;
         }
@@ -185,13 +201,13 @@ namespace detail
         return true;
     }
 
-    template <typename P>
-    inline bool cartesian_to_spherical3(double x, double y, double z, P& p)
+    template <typename P, typename T>
+    inline bool cartesian_to_spherical3(T x, T y, T z, P& p)
     {
         assert_dimension<P, 3>();
 
         // http://en.wikipedia.org/wiki/List_of_canonical_coordinate_transformations#From_Cartesian_coordinates
-        double const r = sqrt(x * x + y * y + z * z);
+        T const r = sqrt(x * x + y * y + z * z);
         set<2>(p, r);
         set_from_radian<0>(p, atan2(y, x));
         if (r > 0.0)
@@ -296,14 +312,14 @@ struct default_strategy<CoordSysTag, CoordSysTag, CoordSys, CoordSys, D, D, P1, 
     typedef copy_per_coordinate<P1, P2> type;
 };
 
-/// Specialization to convert from degree to radian for any coordinate system / point type combination
+/// Specialization to transform from degree to radian for any coordinate system / point type combination
 template <typename CoordSysTag, template<typename> class CoordSys, typename P1, typename P2>
 struct default_strategy<CoordSysTag, CoordSysTag, CoordSys<degree>, CoordSys<radian>, 2, 2, P1, P2>
 {
     typedef degree_radian_vv<P1, P2, std::multiplies> type;
 };
 
-/// Specialization to convert from radian to degree for any coordinate system / point type combination
+/// Specialization to transform from radian to degree for any coordinate system / point type combination
 template <typename CoordSysTag, template<typename> class CoordSys, typename P1, typename P2>
 struct default_strategy<CoordSysTag, CoordSysTag, CoordSys<radian>, CoordSys<degree>, 2, 2, P1, P2>
 {
@@ -325,28 +341,28 @@ struct default_strategy<CoordSysTag, CoordSysTag, CoordSys<radian>, CoordSys<deg
     typedef degree_radian_vv_3<P1, P2, std::divides> type;
 };
 
-/// Specialization to convert from unit sphere(phi,theta) to XYZ
+/// Specialization to transform from unit sphere(phi,theta) to XYZ
 template <typename CoordSys1, typename CoordSys2, typename P1, typename P2>
 struct default_strategy<spherical_tag, cartesian_tag, CoordSys1, CoordSys2, 2, 3, P1, P2>
 {
     typedef from_spherical_2_to_cartesian_3<P1, P2> type;
 };
 
-/// Specialization to convert from sphere(phi,theta,r) to XYZ
+/// Specialization to transform from sphere(phi,theta,r) to XYZ
 template <typename CoordSys1, typename CoordSys2, typename P1, typename P2>
 struct default_strategy<spherical_tag, cartesian_tag, CoordSys1, CoordSys2, 3, 3, P1, P2>
 {
     typedef from_spherical_3_to_cartesian_3<P1, P2> type;
 };
 
-/// Specialization to convert from XYZ to unit sphere(phi,theta)
+/// Specialization to transform from XYZ to unit sphere(phi,theta)
 template <typename CoordSys1, typename CoordSys2, typename P1, typename P2>
 struct default_strategy<cartesian_tag, spherical_tag, CoordSys1, CoordSys2, 3, 2, P1, P2>
 {
     typedef from_cartesian_3_to_spherical_2<P1, P2> type;
 };
 
-/// Specialization to convert from XYZ to sphere(phi,theta,r)
+/// Specialization to transform from XYZ to sphere(phi,theta,r)
 template <typename CoordSys1, typename CoordSys2, typename P1, typename P2>
 struct default_strategy<cartesian_tag, spherical_tag, CoordSys1, CoordSys2, 3, 3, P1, P2>
 {

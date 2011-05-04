@@ -27,7 +27,7 @@
 #include <iostream>
 
 fruitcut::pp::filter::ssaa::ssaa(
-	sge::renderer::device_ptr const _renderer,
+	sge::renderer::device &_renderer,
 	texture::manager &_texture_manager,
 	sge::renderer::dim2 const &_texture_size)
 :
@@ -87,7 +87,7 @@ fruitcut::pp::filter::ssaa::apply(
 
 	sge::renderer::scoped_target const scoped_target(
 		renderer_,
-		result->target()); 
+		*result->target()); 
 
 	sge::renderer::scoped_block const block(
 		renderer_);

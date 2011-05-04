@@ -1,7 +1,12 @@
 // Boost.Geometry (aka GGL, Generic Geometry Library)
-//
-// Copyright Barend Gehrels 2007-2009, Geodan, Amsterdam, the Netherlands.
-// Copyright Bruno Lalande 2008, 2009
+
+// Copyright (c) 2007-2011 Barend Gehrels, Amsterdam, the Netherlands.
+// Copyright (c) 2008-2011 Bruno Lalande, Paris, France.
+// Copyright (c) 2009-2011 Mateusz Loskot, London, UK.
+
+// Parts of Boost.Geometry are redesigned from Geodan's Geographic Library
+// (geolib/GGL), copyright (c) 1995-2010 Geodan, Amsterdam, the Netherlands.
+
 // Use, modification and distribution is subject to the Boost Software License,
 // Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
@@ -26,6 +31,28 @@ struct geographic_tag {};
 struct spherical_tag {};
 
 
+// Tags defining tag hierarchy
+
+/// For single-geometries (point, linestring, polygon, box, ring, segment)
+struct single_tag {};
+
+
+/// For multiple-geometries (multi_point, multi_linestring, multi_polygon)
+struct multi_tag {};
+
+/// For point-like types (point, multi_point)
+struct pointlike_tag {};
+
+/// For linear types (linestring, multi-linestring, segment)
+struct linear_tag {};
+
+/// For areal types (polygon, multi_polygon, box, ring)
+struct areal_tag {};
+
+/// For volume types (also box (?), polyhedron)
+struct volumetric_tag {};
+
+
 // Tags defining geometry types
 
 
@@ -33,22 +60,24 @@ struct spherical_tag {};
 struct geometry_not_recognized_tag {};
 
 /// OGC Point identifying tag
-struct point_tag {};
+struct point_tag : single_tag, pointlike_tag {};
 
 /// OGC Linestring identifying tag
-struct linestring_tag {};
+struct linestring_tag : single_tag, linear_tag {};
 
 /// OGC Polygon identifying tag
-struct polygon_tag {};
+struct polygon_tag : single_tag, areal_tag {};
 
 /// Convenience (linear) ring identifying tag
-struct ring_tag {};
+struct ring_tag : single_tag, areal_tag {};
 
-/// Convenience 2D or 3D box (mbr) identifying tag
-struct box_tag {};
+/// Convenience 2D or 3D box (mbr / aabb) identifying tag
+struct box_tag : single_tag, areal_tag {};
 
 /// Convenience segment (2-points) identifying tag
-struct segment_tag {};
+struct segment_tag : single_tag, linear_tag {};
+
+
 
 }} // namespace boost::geometry
 

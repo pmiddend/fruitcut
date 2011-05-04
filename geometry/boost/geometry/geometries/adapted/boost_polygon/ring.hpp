@@ -1,6 +1,7 @@
 // Boost.Geometry (aka GGL, Generic Geometry Library)
-//
-// Copyright Barend Gehrels 2010, Geodan, Amsterdam, the Netherlands.
+
+// Copyright (c) 2010-2011 Barend Gehrels, Amsterdam, the Netherlands.
+
 // Use, modification and distribution is subject to the Boost Software License,
 // Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
@@ -18,6 +19,7 @@
 #include <boost/geometry/core/cs.hpp>
 #include <boost/geometry/core/coordinate_dimension.hpp>
 #include <boost/geometry/core/coordinate_type.hpp>
+#include <boost/geometry/core/mutable_range.hpp>
 #include <boost/geometry/core/tags.hpp>
 
 
@@ -59,7 +61,7 @@ struct push_back<boost::polygon::polygon_data<CoordinateType> >
         // But there seems no other way (without using a wrapper)
         std::vector<point_type> temporary_vector
             (
-                boost::polygon::begin_points(data), 
+                boost::polygon::begin_points(data),
                 boost::polygon::end_points(data)
             );
         temporary_vector.push_back(point);

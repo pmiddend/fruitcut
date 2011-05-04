@@ -21,17 +21,17 @@
 #include <fcppt/math/vector/basic_impl.hpp>
 
 fruitcut::pp::screen_vf::quad::quad(
-	sge::renderer::device_ptr const _renderer,
+	sge::renderer::device &_renderer,
 	sge::shader::object &_shader)
 :
 	renderer_(
 		_renderer),
 	declaration_(
-		renderer_->create_vertex_declaration(
+		renderer_.create_vertex_declaration(
 			sge::renderer::vf::dynamic::make_format<format>())),
 	buffer_(
-		renderer_->create_vertex_buffer(
-			declaration_,
+		renderer_.create_vertex_buffer(
+			*declaration_,
 			sge::renderer::vf::dynamic::part_index(
 				0u),
 			6,
@@ -41,7 +41,7 @@ fruitcut::pp::screen_vf::quad::quad(
 		_shader);
 
 	sge::renderer::scoped_vertex_lock const vblock(
-		buffer_,
+		*buffer_,
 		sge::renderer::lock_mode::writeonly);
 
 	vertex_view const vertices(
@@ -81,27 +81,18 @@ fruitcut::pp::screen_vf::quad::quad(
 			1,-1));
 }
 
-fruitcut::pp::screen_vf::quad::quad()
-:
-	renderer_(
-		),
-	declaration_(),
-	buffer_()
-{
-}
-
 void
 fruitcut::pp::screen_vf::quad::render()
 {
 	sge::renderer::scoped_vertex_declaration const vb_declaration_context(
 		renderer_,
-		declaration_);
+		*declaration_);
 
 	sge::renderer::scoped_vertex_buffer const scoped_vb_(
 		renderer_,
-		buffer_);
+		*buffer_);
 
-	renderer_->render(
+	renderer_.render(
 		sge::renderer::first_vertex(
 			0),
 		sge::renderer::vertex_count(

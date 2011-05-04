@@ -35,15 +35,15 @@
 #include <fcppt/text.hpp>
 
 fruitcut::sandbox::splat_collector::splat_collector(
-	sge::renderer::device_ptr const _renderer)
+	sge::renderer::device &_renderer)
 :
 	renderer_(
 		_renderer),
 	texture_(
-		renderer_->create_planar_texture(
+		renderer_.create_planar_texture(
 			sge::renderer::texture::planar_parameters(
 				fcppt::math::dim::structure_cast<sge::renderer::dim2>(
-					renderer_->onscreen_target()->viewport().get().size()),
+					renderer_.onscreen_target().viewport().get().size()),
 				sge::image::color::format::rgb8,
 				sge::renderer::texture::filter::point,
 				sge::renderer::texture::address_mode2(
@@ -52,10 +52,10 @@ fruitcut::sandbox::splat_collector::splat_collector(
 				sge::renderer::texture::capabilities_field(
 					sge::renderer::texture::capabilities::render_target)))),
 	temp_texture_(
-		renderer_->create_planar_texture(
+		renderer_.create_planar_texture(
 			sge::renderer::texture::planar_parameters(
 				fcppt::math::dim::structure_cast<sge::renderer::dim2>(
-					renderer_->onscreen_target()->viewport().get().size()),
+					renderer_.onscreen_target().viewport().get().size()),
 				sge::image::color::format::rgb8,
 				sge::renderer::texture::filter::point,
 				sge::renderer::texture::address_mode2(
@@ -66,11 +66,11 @@ fruitcut::sandbox::splat_collector::splat_collector(
 	texture_target_(
 		sge::renderer::target_from_texture(
 			renderer_,
-			texture_)),
+			*texture_)),
 	temp_texture_target_(
 		sge::renderer::target_from_texture(
 			renderer_,
-			temp_texture_)),
+			*temp_texture_)),
 	ss_(
 		renderer_),
 	background_(
@@ -97,7 +97,7 @@ fruitcut::sandbox::splat_collector::splat_collector(
 				"target_size",
 				sge::shader::variable_type::const_,
 				fcppt::math::dim::structure_cast<sge::renderer::vector2>(
-					renderer_->onscreen_target()->viewport().get().size())))
+					renderer_.onscreen_target().viewport().get().size())))
 			(sge::shader::variable(
 				"flip",
 				sge::shader::variable_type::const_,
@@ -140,7 +140,7 @@ fruitcut::sandbox::splat_collector::update()
 	{
 		sge::renderer::scoped_target const target_(
 			renderer_,
-			texture_target_); 
+			*texture_target_); 
 
 		sge::renderer::scoped_block const block_(
 			renderer_);
@@ -160,7 +160,7 @@ fruitcut::sandbox::splat_collector::update()
 
 		sge::renderer::scoped_target const target_(
 			renderer_,
-			temp_texture_target_); 
+			*temp_texture_target_); 
 
 		sge::renderer::scoped_block const block_(
 			renderer_);

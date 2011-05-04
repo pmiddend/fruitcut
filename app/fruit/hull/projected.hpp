@@ -4,7 +4,7 @@
 #include "ring.hpp"
 #include "../object_fwd.hpp"
 #include <sge/renderer/matrix4.hpp>
-#include <sge/renderer/target_base_ptr.hpp>
+#include <sge/renderer/target_base_fwd.hpp>
 
 namespace fruitcut
 {
@@ -17,7 +17,7 @@ namespace hull
 ring const
 projected(
 	object const &,
-	sge::renderer::target_base_ptr,
+	sge::renderer::target_base &,
 	sge::renderer::matrix4 const &);
 }
 }

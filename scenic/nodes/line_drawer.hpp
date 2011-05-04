@@ -3,7 +3,7 @@
 
 #include "intrusive.hpp"
 #include <sge/line_drawer/object_fwd.hpp>
-#include <sge/renderer/device_ptr.hpp>
+#include <sge/renderer/device_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 
 namespace fruitcut
@@ -22,12 +22,12 @@ public:
 	explicit
 	line_drawer(
 		sge::line_drawer::object &,
-		sge::renderer::device_ptr);
+		sge::renderer::device*);
 
 	~line_drawer();
 private:
 	sge::line_drawer::object &object_;
-	sge::renderer::device_ptr const renderer_;
+	sge::renderer::device * const renderer_;
 
 	void
 	render();

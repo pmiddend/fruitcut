@@ -4,8 +4,8 @@
 #include "descriptor.hpp"
 #include "instance.hpp"
 #include "counted_instance.hpp"
-#include <sge/renderer/device_ptr.hpp>
-#include <sge/renderer/texture/planar_ptr.hpp>
+#include <sge/renderer/device_fwd.hpp>
+#include <sge/renderer/texture/planar_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <boost/ptr_container/ptr_map.hpp>
 
@@ -22,7 +22,7 @@ FCPPT_NONCOPYABLE(
 public:
 	explicit
 	manager(
-		sge::renderer::device_ptr);
+		sge::renderer::device &);
 
 	// The texture descriptor may contain a dim thats equal to
 	// "use_screen_size()". If that is the case, the texture is
@@ -45,7 +45,7 @@ public:
 	// use the locked texture.
 	counted_instance const
 	query(
-		sge::renderer::texture::planar_ptr);
+		sge::renderer::texture::planar &);
 
 	void
 	clear_screen_textures();
@@ -60,7 +60,7 @@ private:
 	>
 	texture_map;
 
-	sge::renderer::device_ptr renderer_;
+	sge::renderer::device &renderer_;
 	texture_map textures_;
 
 	counted_instance const

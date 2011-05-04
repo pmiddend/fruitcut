@@ -13,7 +13,7 @@ fruitcut::physics::nodes::world::world(
 	world_(
 		_world),
 	timer_(
-		sge::time::second(10),
+		sge::time::second(1),
 		sge::time::activation_state::active,
 		_time_callback)
 {

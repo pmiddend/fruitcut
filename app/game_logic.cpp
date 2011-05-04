@@ -176,7 +176,7 @@ fruitcut::app::game_logic::viewport_changed()
 {
 	sge::font::dim const &viewport_dim = 
 		fcppt::math::dim::structure_cast<sge::font::dim>(
-			renderer_.onscreen_target()->viewport().get().size());
+			renderer_.onscreen_target().viewport().get().size());
 
 	score_font_node_.object().bounding_box(
 		sge::font::rect(

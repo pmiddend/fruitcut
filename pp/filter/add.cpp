@@ -25,7 +25,7 @@
 #include <iostream>
 
 fruitcut::pp::filter::add::add(
-	sge::renderer::device_ptr const _renderer,
+	sge::renderer::device &_renderer,
 	texture::manager &_texture_manager,
 	sge::renderer::dim2 const &_dimension)
 :
@@ -89,7 +89,7 @@ fruitcut::pp::filter::add::apply(
 
 	sge::renderer::scoped_target const scoped_target(
 		renderer_,
-		result->target()); 
+		*result->target()); 
 
 	sge::renderer::scoped_block const block(
 		renderer_);

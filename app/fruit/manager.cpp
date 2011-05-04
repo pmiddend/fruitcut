@@ -59,8 +59,10 @@
 #include <fcppt/math/vector/structure_cast.hpp>
 #include <fcppt/math/vector/length.hpp>
 #include <fcppt/container/array.hpp>
+#include <fcppt/container/ptr/push_back_unique_ptr.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/ref.hpp>
 #include <fcppt/assert_message.hpp>
 #include <fcppt/assert.hpp>
 #include <boost/foreach.hpp>
@@ -72,7 +74,7 @@ parse_fruit(
 	sge::parse::json::value const &v,
 	sge::model::loader &model_loader,
 	sge::image2d::multi_loader &image_loader,
-	sge::renderer::device_ptr renderer)
+	sge::renderer::device &renderer)
 {
 	sge::parse::json::object const &o = 
 		sge::parse::json::get<sge::parse::json::object>(
@@ -110,7 +112,7 @@ fruitcut::app::fruit::manager::manager(
 	sge::parse::json::array const &prototype_array,
 	sge::model::loader &model_loader,
 	sge::image2d::multi_loader &image_loader,
-	sge::renderer::device_ptr const _renderer,
+	sge::renderer::device &_renderer,
 	physics::world &_physics_world,
 	sge::camera::object &_camera)
 :
@@ -119,7 +121,7 @@ fruitcut::app::fruit::manager::manager(
 	camera_(
 		_camera),
 	vertex_declaration_(
-		renderer_->create_vertex_declaration(
+		renderer_.create_vertex_declaration(
 			sge::renderer::vf::dynamic::make_format<model_vf::format>())),
 	physics_world_(
 		_physics_world),
@@ -129,11 +131,12 @@ fruitcut::app::fruit::manager::manager(
 			std::tr1::bind(
 				&parse_fruit,
 				std::tr1::placeholders::_1,
-				std::tr1::ref(
+				fcppt::ref(
 					model_loader),
-				std::tr1::ref(
+				fcppt::ref(
 					image_loader),
-				_renderer))),
+				fcppt::ref(
+					_renderer)))),
 	fruits_(),
 	fruit_shader_(
 		_renderer,
@@ -202,14 +205,20 @@ fruitcut::app::fruit::manager::cut(
 		if (split_mesh.triangles.empty())
 			return;
 
-		fruit_cache.push_back(
-			new fruit::object(
+		fcppt::container::ptr::push_back_unique_ptr(
+			fruit_cache,
+			fcppt::make_unique_ptr<fruit::object>(
 				current_fruit.texture(),
-				physics_world_,
-				renderer_,
-				vertex_declaration_,
-				fruit_shader_,
-				split_mesh,
+				fcppt::ref(
+					physics_world_),
+				fcppt::ref(
+					renderer_),
+				fcppt::ref(
+					*vertex_declaration_),
+				fcppt::ref(
+					fruit_shader_),
+				fcppt::ref(
+					split_mesh),
 				static_cast<physics::scalar>(
 					current_fruit.bounding_box().size().content() / bounding_box.size().content()),
 				current_fruit.position() + 
@@ -255,19 +264,22 @@ fruitcut::app::fruit::manager::spawn(
 	physics::vector3 const &angular_velocity)
 {
 	fruits_.push_back(
-		object_sequence::unique_value_ptr(
-			new object(
-				proto,
-				physics_world_,
-				renderer_,
-				vertex_declaration_,
-				fruit_shader_,
-				mass,
-				position,
-				// I don't see any sense in specifying that here
-				physics::matrix4::identity(),
-				linear_velocity,
-				angular_velocity)));
+		fcppt::make_unique_ptr<object>(
+			proto,
+			fcppt::ref(
+				physics_world_),
+			fcppt::ref(
+				renderer_),
+			fcppt::ref(
+				*vertex_declaration_),
+			fcppt::ref(
+				fruit_shader_),
+			mass,
+			position,
+			// I don't see any sense in specifying that here
+			physics::matrix4::identity(),
+			linear_velocity,
+			angular_velocity));
 
 	spawn_signal_(
 		*fruits_.cend());
@@ -343,17 +355,17 @@ fruitcut::app::fruit::manager::render()
 
 	sge::renderer::scoped_vertex_declaration scoped_decl(
 		renderer_,
-		vertex_declaration_);
+		*vertex_declaration_);
 
 	for(object_sequence::iterator i = fruits_.begin(); i != fruits_.end(); ++i)
 	{
 		sge::renderer::scoped_vertex_buffer scoped_vb(
 			renderer_,
-			i->vb());
+			*i->vb());
 
 		sge::renderer::texture::scoped scoped_tex(
 			renderer_,
-			i->texture(),
+			*i->texture(),
 			static_cast<sge::renderer::stage_type>(
 				0));
 
@@ -361,7 +373,7 @@ fruitcut::app::fruit::manager::render()
 			"mvp",
 			camera_.mvp() * i->world_transform());
 
-		renderer_->render(
+		renderer_.render(
 			sge::renderer::first_vertex(
 				static_cast<sge::renderer::size_type>(
 					0)),

@@ -5,11 +5,13 @@
 #include "../screen_vf/quad.hpp"
 #include "../texture/manager_fwd.hpp"
 #include "../texture/counted_instance.hpp"
-#include <sge/renderer/device_ptr.hpp>
+#include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/dim2.hpp>
 #include <sge/shader/object_ptr.hpp>
 #include <fcppt/container/array.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
+#include <fcppt/noncopyable.hpp>
+#include <boost/ptr_container/ptr_array.hpp>
 #include <cstddef>
 
 namespace fruitcut
@@ -22,6 +24,8 @@ class blur
 :
 	public unary
 {
+FCPPT_NONCOPYABLE(
+	blur);
 public:
 	typedef
 	std::size_t
@@ -29,7 +33,7 @@ public:
 
 	explicit	
 	blur(
-		sge::renderer::device_ptr,
+		sge::renderer::device &,
 		texture::manager &,
 		sge::renderer::dim2 const &,
 		size_type iterations);
@@ -44,13 +48,13 @@ private:
 	fcppt::container::array<texture::counted_instance,2>
 	instance_array;
 
-	sge::renderer::device_ptr renderer_;
+	sge::renderer::device &renderer_;
 	texture::manager &texture_manager_;
 	sge::renderer::dim2 const texture_size_;
 	size_type const iterations_;
 
 	fcppt::container::array<sge::shader::object_ptr,2> shaders_;
-	fcppt::container::array<screen_vf::quad,2> quads_;
+	boost::ptr_array<screen_vf::quad,2> quads_;
 
 	void
 	render(

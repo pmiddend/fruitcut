@@ -23,8 +23,8 @@
 fruitcut::app::fruit::object::object(
 	prototype const &proto,
 	physics::world &_world,
-	sge::renderer::device_ptr const _renderer,
-	sge::renderer::vertex_declaration_ptr const _vertex_declaration,
+	sge::renderer::device &_renderer,
+	sge::renderer::vertex_declaration &_vertex_declaration,
 	sge::shader::object &_shader,
 	physics::scalar const _mass,
 	physics::vector3 const &_position,
@@ -35,7 +35,7 @@ fruitcut::app::fruit::object::object(
 	mesh_(
 		proto.mesh()),
 	bounding_box_(
-		boost::geometry::make_envelope<box3>(
+		boost::geometry::return_envelope<box3>(
 			mesh_to_point_cloud(
 				mesh_))),
 	body_(
@@ -68,8 +68,8 @@ fruitcut::app::fruit::object::object(
 fruitcut::app::fruit::object::object(
 	sge::renderer::texture::planar_ptr const _texture,
 	physics::world &_world,
-	sge::renderer::device_ptr const _renderer,
-	sge::renderer::vertex_declaration_ptr const _vertex_declaration,
+	sge::renderer::device &_renderer,
+	sge::renderer::vertex_declaration &_vertex_declaration,
 	sge::shader::object &_shader,
 	fruitcut::app::fruit::mesh const &_mesh,
 	physics::scalar const _mass,
@@ -83,7 +83,7 @@ fruitcut::app::fruit::object::object(
 	mesh_(
 		_mesh),
 	bounding_box_(
-		boost::geometry::make_envelope<box3>(
+		boost::geometry::return_envelope<box3>(
 			mesh_to_point_cloud(
 				mesh_))),
 	body_(

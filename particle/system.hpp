@@ -20,7 +20,7 @@ class system
 public:
 	explicit
 	system(
-		sge::renderer::device_ptr);
+		sge::renderer::device &);
 
 	void
 	update();

@@ -107,7 +107,7 @@ vertex_view;
 
 // The background doesn't use OpenGL-3 because of...lazyness
 fruitcut::app::background::background(
-	sge::renderer::device_ptr _renderer,
+	sge::renderer::device &_renderer,
 	sge::image2d::multi_loader &_image_loader,
 	sge::parse::json::object const &_config)
 :
@@ -129,11 +129,11 @@ fruitcut::app::background::background(
 				sge::renderer::texture::address_mode::repeat),
 			sge::renderer::resource_flags::none)),
 	vertex_declaration_(
-		renderer_->create_vertex_declaration(
+		renderer_.create_vertex_declaration(
 			sge::renderer::vf::dynamic::make_format<vf::format>())),
 	vb_(
-		renderer_->create_vertex_buffer(
-			vertex_declaration_,
+		renderer_.create_vertex_buffer(
+			*vertex_declaration_,
 			sge::renderer::vf::dynamic::part_index(
 				0u),
 			6,
@@ -144,7 +144,7 @@ fruitcut::app::background::background(
 			FCPPT_TEXT("background-repeat")))
 {
 	sge::renderer::scoped_vertex_lock const vblock(
-		vb_,
+		*vb_,
 		sge::renderer::lock_mode::writeonly);
 
 	vf::vertex_view const vertices(
@@ -218,22 +218,23 @@ fruitcut::app::background::render()
 {
 	sge::renderer::scoped_vertex_declaration scoped_decl(
 		renderer_,
-		vertex_declaration_);
+		*vertex_declaration_);
 
 	sge::renderer::scoped_vertex_buffer scoped_vb(
 		renderer_,
-		vb_);
+		*vb_);
 
 	sge::renderer::pixel_rect const viewport_rect =
-		renderer_->onscreen_target()->viewport().get();
+		renderer_.onscreen_target().viewport().get();
 
 	sge::renderer::scalar const aspect = 
 		sge::renderer::aspect_from_viewport(
-			sge::renderer::active_target(*renderer_)->viewport());
+			sge::renderer::active_target(
+				renderer_).viewport());
 
 	sge::renderer::texture::scoped scoped_texture(
 		renderer_,
-		texture_,
+		*texture_,
 		static_cast<sge::renderer::stage_type>(
 			0));
 	sge::renderer::scoped_transform scoped_world(
@@ -262,7 +263,7 @@ fruitcut::app::background::render()
 			(sge::renderer::state::depth_func::off)
 			(sge::renderer::state::stencil_func::off)
 			(sge::renderer::state::draw_mode::fill));
-	renderer_->render(
+	renderer_.render(
 		sge::renderer::first_vertex(0),
 		sge::renderer::vertex_count(
 			6),

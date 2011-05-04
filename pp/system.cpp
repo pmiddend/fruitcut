@@ -25,7 +25,7 @@
 #include <list>
 
 fruitcut::pp::system::system(
-	sge::renderer::device_ptr const _renderer)
+	sge::renderer::device &_renderer)
 :
 	renderer_(
 		_renderer),

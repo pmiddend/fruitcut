@@ -3,7 +3,7 @@
 #include <boost/spirit/home/phoenix/core.hpp>
 
 fruitcut::font::drawer::parameters::parameters(
-	sge::renderer::device_ptr const _renderer)
+	sge::renderer::device &_renderer)
 :
 	renderer_(
 		_renderer),
@@ -14,7 +14,7 @@ fruitcut::font::drawer::parameters::parameters(
 {
 }
 
-sge::renderer::device_ptr const
+sge::renderer::device &
 fruitcut::font::drawer::parameters::renderer() const
 {
 	return renderer_;

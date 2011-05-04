@@ -130,7 +130,7 @@ fruitcut::app::states::ingame::superstate::superstate(
 		json::find_member<sge::parse::json::array>(
 			context<machine>().config_file(),
 			FCPPT_TEXT("fruits")),
-		*context<machine>().systems().md3_loader(),
+		context<machine>().systems().md3_loader(),
 		context<machine>().systems().image_loader(),
 		context<machine>().systems().renderer(),
 		physics_world_,
@@ -146,7 +146,7 @@ fruitcut::app::states::ingame::superstate::superstate(
 		fruit_manager_,
 		context<machine>().font_cache(),
 		context<machine>().overlay_node(),
-		*context<machine>().systems().renderer(),
+		context<machine>().systems().renderer(),
 		context<machine>().systems().viewport_manager()),
 	cut_connection_(
 		fruit_manager_.cut_callback(
@@ -272,7 +272,7 @@ fruitcut::app::states::ingame::superstate::viewport_change()
 		sge::camera::projection::perspective(
 			sge::renderer::aspect(
 				fcppt::math::dim::structure_cast<sge::renderer::screen_size>(
-					context<machine>().systems().renderer()->onscreen_target()->viewport().get().size())),
+					context<machine>().systems().renderer().onscreen_target().viewport().get().size())),
 			fcppt::math::deg_to_rad(
 				json::find_member<sge::renderer::scalar>(
 					context<machine>().config_file(),

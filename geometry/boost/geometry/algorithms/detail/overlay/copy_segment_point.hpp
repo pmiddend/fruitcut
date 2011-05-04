@@ -1,7 +1,7 @@
 // Boost.Geometry (aka GGL, Generic Geometry Library)
-//
-// Copyright Barend Gehrels 2007-2009, Geodan, Amsterdam, the Netherlands.
-// Copyright Bruno Lalande 2008, 2009
+
+// Copyright (c) 2007-2011 Barend Gehrels, Amsterdam, the Netherlands.
+
 // Use, modification and distribution is subject to the Boost Software License,
 // Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
@@ -10,12 +10,14 @@
 #define BOOST_GEOMETRY_ALGORITHMS_DETAIL_OVERLAY_COPY_SEGMENT_POINT_HPP
 
 
+#include <boost/array.hpp>
 #include <boost/mpl/assert.hpp>
 #include <boost/range.hpp>
 
 #include <boost/geometry/core/ring_type.hpp>
 #include <boost/geometry/core/exterior_ring.hpp>
 #include <boost/geometry/core/interior_rings.hpp>
+#include <boost/geometry/algorithms/convert.hpp>
 #include <boost/geometry/geometries/concepts/check.hpp>
 #include <boost/geometry/views/closeable_view.hpp>
 #include <boost/geometry/views/reversible_view.hpp>
@@ -69,7 +71,7 @@ struct copy_segment_point_range
         rview_type view(cview);
 
 
-        geometry::copy_coordinates(*(boost::begin(view) + index), point);
+        geometry::convert(*(boost::begin(view) + index), point);
         return true;
     }
 };
@@ -101,7 +103,7 @@ struct copy_segment_point_polygon
 };
 
 
-template <typename Box, typename SegmentIdentifier, typename PointOut>
+template <typename Box, bool Reverse, typename SegmentIdentifier, typename PointOut>
 struct copy_segment_point_box
 {
     static inline bool apply(Box const& box,
@@ -114,16 +116,9 @@ struct copy_segment_point_box
             index++;
         }
 
-        PointOut ll, lr, ul, ur;
-        assign_box_corners(box, ll, lr, ul, ur);
-        switch(index)
-        {
-            case 1 : point = ul; break;
-            case 2 : point = ur; break;
-            case 3 : point = lr; break;
-            default : // 0,4 or 'overflow'
-                point = ll; break;
-        }
+        boost::array<typename point_type<Box>::type, 4> bp;
+        assign_box_corners_oriented<Reverse>(box, bp);
+        point = bp[index % 4];
         return true;
     }
 };
@@ -188,7 +183,7 @@ template <typename Box, bool Reverse, typename SegmentIdentifier, typename Point
 struct copy_segment_point<box_tag, Box, Reverse, SegmentIdentifier, PointOut>
     : detail::copy_segments::copy_segment_point_box
         <
-            Box, SegmentIdentifier, PointOut
+            Box, Reverse, SegmentIdentifier, PointOut
         >
 {};
 

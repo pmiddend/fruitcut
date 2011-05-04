@@ -42,7 +42,7 @@ int main()
 	box3;
 
 	box3 env = 
-		boost::geometry::make_envelope<box3>(
+		boost::geometry::return_envelope<box3>(
 			points);
 
 	std::cout << env << std::endl;

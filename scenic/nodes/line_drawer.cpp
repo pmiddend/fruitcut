@@ -6,7 +6,7 @@
 
 fruitcut::scenic::nodes::line_drawer::line_drawer(
 	sge::line_drawer::object &_object,
-	sge::renderer::device_ptr const _renderer)
+	sge::renderer::device *_renderer)
 :
 	object_(
 		_object),
@@ -25,24 +25,24 @@ fruitcut::scenic::nodes::line_drawer::render()
 	if(renderer_)
 	{
 		sge::renderer::scoped_transform projection_scope(
-			renderer_,
+			*renderer_,
 			sge::renderer::matrix_mode::projection,
 			fcppt::math::matrix::orthogonal(
 				static_cast<sge::renderer::scalar>(
 					0),
 				static_cast<sge::renderer::scalar>(
-					renderer_->onscreen_target()->viewport().get().w()),
+					renderer_->onscreen_target().viewport().get().w()),
 				static_cast<sge::renderer::scalar>(
 					0),
 				static_cast<sge::renderer::scalar>(
-					renderer_->onscreen_target()->viewport().get().h()),
+					renderer_->onscreen_target().viewport().get().h()),
 				static_cast<sge::renderer::scalar>(
 					0),
 				static_cast<sge::renderer::scalar>(
 					10)));
 
 		sge::renderer::scoped_transform world_scope(
-			renderer_,
+			*renderer_,
 			sge::renderer::matrix_mode::world,
 			sge::renderer::matrix4::identity());
 		

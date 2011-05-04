@@ -1,6 +1,7 @@
 // Boost.Geometry (aka GGL, Generic Geometry Library)
-//
-// Copyright Barend Gehrels 2009, Geodan, Amsterdam, the Netherlands.
+
+// Copyright (c) 2007-2011 Barend Gehrels, Amsterdam, the Netherlands.
+
 // Use, modification and distribution is subject to the Boost Software License,
 // Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
@@ -13,6 +14,7 @@
 #include <boost/geometry/core/access.hpp>
 #include <boost/geometry/strategies/intersection.hpp>
 
+#include <boost/geometry/algorithms/convert.hpp>
 #include <boost/geometry/algorithms/detail/overlay/turn_info.hpp>
 
 
@@ -92,7 +94,7 @@ struct touch_interior : public base_turn_handler
                 DirInfo const& dir_info)
     {
         ti.method = method_touch_interior;
-        copy_coordinates(intersection_info.intersections[0], ti.point);
+        geometry::convert(intersection_info.intersections[0], ti.point);
 
         // Both segments of q touch segment p somewhere in its interior
         // 1) We know: if q comes from LEFT or RIGHT
@@ -211,7 +213,7 @@ struct touch : public base_turn_handler
                 DirInfo const& dir_info)
     {
         ti.method = method_touch;
-        copy_coordinates(intersection_info.intersections[0], ti.point);
+        geometry::convert(intersection_info.intersections[0], ti.point);
 
         int const side_qi_p1 = dir_info.sides.template get<1, 0>();
         int const side_qk_p1 = SideStrategy::apply(pi, pj, qk);
@@ -361,8 +363,9 @@ struct touch : public base_turn_handler
             return;
         }
 
+#ifdef BOOST_GEOMETRY_DEBUG_GET_TURNS
         // Normally a robustness issue.
-        // TODO: solve this!
+        // TODO: more research if still occuring
         std::cout << "Not yet handled" << std::endl
             << "pi " << get<0>(pi) << " , " << get<1>(pi)
             << " pj " << get<0>(pj) << " , " << get<1>(pj)
@@ -372,6 +375,8 @@ struct touch : public base_turn_handler
             << " qj " << get<0>(qj) << " , " << get<1>(qj)
             << " qk " << get<0>(qk) << " , " << get<1>(qk)
             << std::endl;
+#endif
+
     }
 };
 
@@ -399,7 +404,7 @@ struct equal : public base_turn_handler
     {
         ti.method = method_equal;
         // Copy the SECOND intersection point
-        copy_coordinates(intersection_info.intersections[1], ti.point);
+        geometry::convert(intersection_info.intersections[1], ti.point);
 
         int const side_pk_q2  = SideStrategy::apply(qj, qk, pk);
         int const side_pk_p = SideStrategy::apply(pi, pj, pk);
@@ -481,7 +486,7 @@ struct collinear : public base_turn_handler
                 DirInfo const& dir_info)
     {
         ti.method = method_collinear;
-        copy_coordinates(intersection_info.intersections[1], ti.point);
+        geometry::convert(intersection_info.intersections[1], ti.point);
 
         int const arrival = dir_info.arrival[0];
         // Should not be 0, this is checked before
@@ -580,7 +585,7 @@ private :
         // If P arrives within Q, set info on P (which is done above, index=0),
         // this turn-info belongs to the second intersection point, index=1
         // (see e.g. figure CLO1)
-        copy_coordinates(intersection_info.intersections[1 - Index], tp.point);
+        geometry::convert(intersection_info.intersections[1 - Index], tp.point);
         return true;
     }
 
@@ -656,7 +661,7 @@ struct crosses : public base_turn_handler
                 DirInfo const& dir_info)
     {
         ti.method = method_crosses;
-        copy_coordinates(intersection_info.intersections[0], ti.point);
+        geometry::convert(intersection_info.intersections[0], ti.point);
 
         // In all casees:
         // If Q crosses P from left to right
@@ -869,7 +874,10 @@ struct get_turn_info
                // degenerate points
                break;
             default :
+#ifdef BOOST_GEOMETRY_DEBUG_GET_TURNS
                 std::cout << "get_turns, nyi: " << method << std::endl;
+#endif
+                break;
         }
 
         return out;

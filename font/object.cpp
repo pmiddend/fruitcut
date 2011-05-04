@@ -28,7 +28,7 @@ void
 fruitcut::font::object::render()
 {
 	sge::font::text::draw(
-		metrics_,
+		*metrics_,
 		drawer_,
 		text_,
 		bounding_box_,
@@ -37,10 +37,10 @@ fruitcut::font::object::render()
 		flags_);
 }
 
-sge::font::metrics_ptr const
+sge::font::metrics &
 fruitcut::font::object::metrics() const
 {
-	return metrics_;
+	return *metrics_;
 }
 
 fruitcut::font::drawer::object &

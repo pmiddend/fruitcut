@@ -12,27 +12,27 @@ fruitcut::input::state_manager::state_manager(
 	sge::systems::instance const &systems)
 :
 	keyboard_(
-		*systems.keyboard_collector()),
+		systems.keyboard_collector()),
 	c1(
-		systems.keyboard_collector()->key_callback(
+		systems.keyboard_collector().key_callback(
 			std::tr1::bind(
 				&state_manager::key_callback_internal,
 				this,
 				std::tr1::placeholders::_1))),
 	c2(
-		systems.mouse_collector()->axis_callback(
+		systems.mouse_collector().axis_callback(
 			std::tr1::bind(
 				&state_manager::mouse_axis_callback_internal,
 				this,
 				std::tr1::placeholders::_1))),
 	c3(
-		systems.mouse_collector()->button_callback(
+		systems.mouse_collector().button_callback(
 			std::tr1::bind(
 				&state_manager::mouse_button_callback_internal,
 				this,
 				std::tr1::placeholders::_1))),
 	c4(
-		systems.keyboard_collector()->char_callback(
+		systems.keyboard_collector().char_callback(
 			std::tr1::bind(
 				&state_manager::char_callback_internal,
 				this,

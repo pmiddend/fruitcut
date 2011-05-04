@@ -30,7 +30,7 @@ public:
 	void
 	render();
 
-	sge::font::metrics_ptr const
+	sge::font::metrics &
 	metrics() const;
 
 	fruitcut::font::drawer::object &

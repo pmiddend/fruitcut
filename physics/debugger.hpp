@@ -12,6 +12,7 @@
 #include <LinearMath/btVector3.h>
 #include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/scoped_ptr.hpp>
+#include <fcppt/noncopyable.hpp>
 
 namespace fruitcut
 {
@@ -25,11 +26,13 @@ class debugger
 :
 	public btIDebugDraw
 {
+FCPPT_NONCOPYABLE(
+	debugger);
 public:	
 	explicit
 	debugger(
 		world &,
-		sge::renderer::device_ptr,
+		sge::renderer::device &,
 		sge::camera::object &);
 
 	void
@@ -109,7 +112,7 @@ private:
 	*/
 
 	world &world_;
-	sge::renderer::device_ptr const renderer_;
+	sge::renderer::device &renderer_;
 	sge::camera::object &camera_;
 	int debug_mode_;
 	sge::line_drawer::object line_drawer_;

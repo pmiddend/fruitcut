@@ -1,7 +1,7 @@
 // Boost.Geometry (aka GGL, Generic Geometry Library)
-//
-// Copyright Barend Gehrels 2007-2009, Geodan, Amsterdam, the Netherlands.
-// Copyright Bruno Lalande 2008, 2009
+
+// Copyright (c) 2007-2011 Barend Gehrels, Amsterdam, the Netherlands.
+
 // Use, modification and distribution is subject to the Boost Software License,
 // Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
@@ -11,7 +11,7 @@
 
 
 #include <boost/geometry/core/coordinate_dimension.hpp>
-#include <boost/geometry/algorithms/intersection_inserter.hpp>
+#include <boost/geometry/algorithms/detail/overlay/intersection_insert.hpp>
 #include <boost/geometry/algorithms/intersects.hpp>
 
 
@@ -83,7 +83,7 @@ struct intersection_box_box<Box1, Box2, BoxOut, Strategy, DimensionCount, Dimens
 namespace dispatch
 {
 
-// By default, all is forwarded to the intersection_inserter-dispatcher
+// By default, all is forwarded to the intersection_insert-dispatcher
 template
 <
     typename Tag1, typename Tag2, typename TagOut,
@@ -102,7 +102,7 @@ struct intersection
     {
         typedef typename boost::range_value<GeometryOut>::type OneOut;
 
-        intersection_inserter
+        intersection_insert
         <
             Tag1, Tag2, typename geometry::tag<OneOut>::type,
             geometry::is_areal<Geometry1>::value,
@@ -111,7 +111,7 @@ struct intersection
             Geometry1, Geometry2,
             detail::overlay::do_reverse<geometry::point_order<Geometry1>::value, false>::value,
             detail::overlay::do_reverse<geometry::point_order<Geometry2>::value, false>::value,
-            false,
+            detail::overlay::do_reverse<geometry::point_order<OneOut>::value>::value,
             output_iterator, OneOut,
             overlay_intersection,
             Strategy
@@ -186,7 +186,7 @@ struct intersection_reversed
 \param geometry_out The output geometry, either a multi_point, multi_polygon,
     multi_linestring, or a box (for intersection of two boxes)
 
-\qbk{[include ref/algorithms/intersection.qbk]}
+\qbk{[include reference/algorithms/intersection.qbk]}
 */
 template
 <
@@ -210,7 +210,7 @@ inline bool intersection(Geometry1 const& geometry1,
         > strategy;
 
 
-        return boost::mpl::if_c
+    return boost::mpl::if_c
         <
             geometry::reverse_dispatch<Geometry1, Geometry2>::type::value,
             dispatch::intersection_reversed

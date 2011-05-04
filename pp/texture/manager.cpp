@@ -24,7 +24,6 @@
 #include <fcppt/math/dim/comparison.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/assert_message.hpp>
-#include <fcppt/assert.hpp>
 #include <fcppt/text.hpp>
 #include <boost/range/iterator_range.hpp>
 #include <iostream>
@@ -32,7 +31,7 @@
 #include <memory>
 
 fruitcut::pp::texture::manager::manager(
-	sge::renderer::device_ptr const _renderer)
+	sge::renderer::device &_renderer)
 :
 	renderer_(
 		_renderer),
@@ -50,7 +49,7 @@ fruitcut::pp::texture::manager::query(
 				d.size() == use_screen_size()
 				?
 					fcppt::math::dim::structure_cast<sge::renderer::dim2>(
-						renderer_->onscreen_target()->viewport().get().size())
+						renderer_.onscreen_target().viewport().get().size())
 				:
 					d.size(),
 				d.image_format(),
@@ -60,14 +59,11 @@ fruitcut::pp::texture::manager::query(
 
 fruitcut::pp::texture::counted_instance const
 fruitcut::pp::texture::manager::query(
-	sge::renderer::texture::planar_ptr const t)
+	sge::renderer::texture::planar &t)
 {
-	FCPPT_ASSERT(
-		t);
-
 	for (texture_map::iterator i = textures_.begin(); i != textures_.end(); ++i)
 	{
-		if (i->second->texture() == t)
+		if (i->second->texture().get() == &t)
 		{
 			i->second->locked(
 				true);
@@ -92,7 +88,7 @@ fruitcut::pp::texture::manager::clear_screen_textures()
 {
 	sge::renderer::dim2 const onscreen_dim = 
 		fcppt::math::dim::structure_cast<sge::renderer::dim2>(
-			renderer_->onscreen_target()->viewport().get().size());
+			renderer_.onscreen_target().viewport().get().size());
 
 	// From the standard about associative containers:
 	// "and the erase members shall invalidate only iterators and references to the erased elements."
@@ -147,7 +143,7 @@ fruitcut::pp::texture::manager::query_internal(
 	}
 
 	sge::renderer::texture::planar_ptr new_texture = 
-		renderer_->create_planar_texture(
+		renderer_.create_planar_texture(
 			sge::renderer::texture::planar_parameters(
 				d.size(),
 				d.image_format(),
@@ -161,7 +157,7 @@ fruitcut::pp::texture::manager::query_internal(
 	sge::renderer::target_ptr new_target = 
 		sge::renderer::target_from_texture(
 			renderer_,
-			new_texture);
+			*new_texture);
 
 	switch (d.depth_stencil())
 	{
@@ -169,19 +165,19 @@ fruitcut::pp::texture::manager::query_internal(
 			break;
 		case depth_stencil_format::d16:
 			new_target->depth_stencil_surface(
-				renderer_->create_depth_stencil_surface(
+				renderer_.create_depth_stencil_surface(
 					d.size(),
 					sge::renderer::depth_stencil_format::d16));
 			break;
 		case depth_stencil_format::d32:
 			new_target->depth_stencil_surface(
-				renderer_->create_depth_stencil_surface(
+				renderer_.create_depth_stencil_surface(
 					d.size(),
 					sge::renderer::depth_stencil_format::d32));
 			break;
 		case depth_stencil_format::d24s8:
 			new_target->depth_stencil_surface(
-				renderer_->create_depth_stencil_surface(
+				renderer_.create_depth_stencil_surface(
 					d.size(),
 					sge::renderer::depth_stencil_format::d24s8));
 			break;

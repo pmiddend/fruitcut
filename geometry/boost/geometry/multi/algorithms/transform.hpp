@@ -1,7 +1,12 @@
 // Boost.Geometry (aka GGL, Generic Geometry Library)
-//
-// Copyright Barend Gehrels 2007-2009, Geodan, Amsterdam, the Netherlands.
-// Copyright Bruno Lalande 2008, 2009
+
+// Copyright (c) 2007-2011 Barend Gehrels, Amsterdam, the Netherlands.
+// Copyright (c) 2008-2011 Bruno Lalande, Paris, France.
+// Copyright (c) 2009-2011 Mateusz Loskot, London, UK.
+
+// Parts of Boost.Geometry are redesigned from Geodan's Geographic Library
+// (geolib/GGL), copyright (c) 1995-2010 Geodan, Amsterdam, the Netherlands.
+
 // Use, modification and distribution is subject to the Boost Software License,
 // Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
@@ -11,6 +16,7 @@
 
 #include <boost/range.hpp>
 
+#include <boost/geometry/core/mutable_range.hpp>
 #include <boost/geometry/algorithms/transform.hpp>
 
 #include <boost/geometry/multi/core/tags.hpp>
@@ -31,7 +37,7 @@ struct transform_multi
     template <typename S>
     static inline bool apply(Multi1 const& multi1, Multi2& multi2, S const& strategy)
     {
-        multi2.resize(boost::size(multi1));
+        traits::resize<Multi2>::apply(multi2, boost::size(multi1));
 
         typename boost::range_iterator<Multi1 const>::type it1
                 = boost::begin(multi1);
@@ -51,8 +57,6 @@ struct transform_multi
 };
 
 
-
-
 }} // namespace detail::transform
 #endif // DOXYGEN_NO_DETAIL
 
@@ -61,11 +65,10 @@ struct transform_multi
 namespace dispatch
 {
 
-
 template <typename Multi1, typename Multi2, typename Strategy>
 struct transform
     <
-        multi_polygon_tag, multi_polygon_tag,
+        multi_tag, multi_tag,
         Multi1, Multi2,
         Strategy
     >
@@ -73,16 +76,22 @@ struct transform
         <
             Multi1,
             Multi2,
-            detail::transform::transform_polygon
+            transform
                 <
+                    typename single_tag_of
+                                <
+                                    typename tag<Multi1>::type
+                                >::type,
+                    typename single_tag_of
+                                <
+                                    typename tag<Multi2>::type
+                                >::type,
                     typename boost::range_value<Multi1>::type,
                     typename boost::range_value<Multi2>::type,
                     Strategy
                 >
         >
 {};
-
-
 
 } // namespace dispatch
 #endif // DOXYGEN_NO_DISPATCH

@@ -3,7 +3,7 @@
 
 #include "detail/sound_group.hpp"
 #include <sge/audio/multi_loader_fwd.hpp>
-#include <sge/audio/player_ptr.hpp>
+#include <sge/audio/player_fwd.hpp>
 #include <sge/audio/pool.hpp>
 #include <sge/audio/sound/positional_parameters.hpp>
 #include <sge/parse/json/object_fwd.hpp>
@@ -50,7 +50,7 @@ public:
 		// or it might be a separate file
 		sge::parse::json::object const &,
 		sge::audio::multi_loader &,
-		sge::audio::player_ptr);
+		sge::audio::player &);
 
 	void
 	play(
@@ -76,7 +76,7 @@ private:
 	>
 	audio_map;
 
-	sge::audio::player_ptr player_;
+	sge::audio::player &player_;
 	audio_map sounds_;
 	sge::audio::pool pool_;
 };

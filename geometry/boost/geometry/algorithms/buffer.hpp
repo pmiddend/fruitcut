@@ -1,7 +1,12 @@
 // Boost.Geometry (aka GGL, Generic Geometry Library)
-//
-// Copyright Barend Gehrels 2007-2009, Geodan, Amsterdam, the Netherlands.
-// Copyright Bruno Lalande 2008, 2009
+
+// Copyright (c) 2007-2011 Barend Gehrels, Amsterdam, the Netherlands.
+// Copyright (c) 2008-2011 Bruno Lalande, Paris, France.
+// Copyright (c) 2009-2011 Mateusz Loskot, London, UK.
+
+// Parts of Boost.Geometry are redesigned from Geodan's Geographic Library
+// (geolib/GGL), copyright (c) 1995-2010 Geodan, Amsterdam, the Netherlands.
+
 // Use, modification and distribution is subject to the Boost Software License,
 // Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
@@ -58,7 +63,7 @@ inline void buffer_box(BoxIn const& box_in, T const& distance, BoxOut& box_out)
     static const std::size_t N = dimension<BoxIn>::value;
 
     box_loop<BoxIn, BoxOut, T, min_corner, 0, N>::apply(box_in, -distance, box_out);
-    box_loop<BoxIn, BoxOut, T, max_corner, 0, N>::apply(box_in, +distance, box_out);
+    box_loop<BoxIn, BoxOut, T, max_corner, 0, N>::apply(box_in, distance, box_out);
 }
 
 
@@ -106,7 +111,7 @@ struct buffer<box_tag, box_tag, BoxIn, T, BoxOut>
 \param chord_length (optional) The length of the chord's in the generated arcs around points or bends
 \note Currently only implemented for box, the trivial case, but still useful
 
-\qbk{[include ref/algorithms/buffer.qbk]}
+\qbk{[include reference/algorithms/buffer.qbk]}
  */
 template <typename Input, typename Output, typename Distance>
 inline void buffer(Input const& geometry_in, Output& geometry_out,
@@ -128,7 +133,7 @@ inline void buffer(Input const& geometry_in, Output& geometry_out,
 /*!
 \brief \brief_calc{buffer}
 \ingroup buffer
-\details \details_calc{make_buffer, \det_buffer}. \details_make{buffer}.
+\details \details_calc{return_buffer, \det_buffer}. \details_return{buffer}.
 \tparam Input \tparam_geometry
 \tparam Output \tparam_geometry
 \tparam Distance \tparam_numeric
@@ -138,7 +143,7 @@ inline void buffer(Input const& geometry_in, Output& geometry_out,
 \return \return_calc{buffer}
  */
 template <typename Output, typename Input, typename T>
-Output make_buffer(Input const& geometry, T const& distance, T const& chord_length = -1)
+Output return_buffer(Input const& geometry, T const& distance, T const& chord_length = -1)
 {
     concept::check<Input const>();
     concept::check<Output>();

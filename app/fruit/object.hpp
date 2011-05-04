@@ -9,7 +9,7 @@
 #include "../../physics/scalar.hpp"
 #include "../../physics/vector3.hpp"
 #include "../../physics/matrix4.hpp"
-#include <sge/renderer/device_ptr.hpp>
+#include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/matrix4.hpp>
 #include <sge/renderer/texture/planar_ptr.hpp>
 #include <sge/renderer/vector3.hpp>
@@ -41,8 +41,8 @@ public:
 	object(
 		prototype const &,
 		physics::world &,
-		sge::renderer::device_ptr,
-		sge::renderer::vertex_declaration_ptr,
+		sge::renderer::device &,
+		sge::renderer::vertex_declaration &,
 		sge::shader::object &,
 		physics::scalar mass,
 		physics::vector3 const &position,
@@ -55,8 +55,8 @@ public:
 	object(
 		sge::renderer::texture::planar_ptr,
 		physics::world &,
-		sge::renderer::device_ptr,
-		sge::renderer::vertex_declaration_ptr,
+		sge::renderer::device &,
+		sge::renderer::vertex_declaration &,
 		sge::shader::object &,
 		fruitcut::app::fruit::mesh const &,
 		physics::scalar mass,

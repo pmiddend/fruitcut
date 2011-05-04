@@ -23,7 +23,7 @@ fruitcut::pp::filter::inject_texture::apply()
 {
 	return 
 		texture_manager_.query(
-			texture_);
+			*texture_);
 }
 
 fruitcut::pp::filter::inject_texture::~inject_texture()

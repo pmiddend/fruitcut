@@ -10,7 +10,7 @@ fruitcut::app::fruit::prototype::prototype(
 	mesh_(
 		_mesh),
 	bounding_box_(
-		boost::geometry::make_envelope<box3>(
+		boost::geometry::return_envelope<box3>(
 			mesh_to_point_cloud(
 				mesh_))),
 	texture_(

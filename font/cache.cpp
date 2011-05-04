@@ -30,8 +30,8 @@
 #include <map>
 
 fruitcut::font::cache::cache(
-	sge::font::system_ptr const _font_system,
-	sge::renderer::device_ptr const _renderer,
+	sge::font::system &_font_system,
+	sge::renderer::device &_renderer,
 	sge::image2d::multi_loader &_image_loader,
 	sge::parse::json::object const &_fonts)
 {
@@ -90,7 +90,7 @@ fruitcut::font::cache::cache(
 			if (cached_value == ttf_fonts_.end())
 			{
 				metrics_.push_back(
-					_font_system->create_font(
+					_font_system.create_font(
 						media_path()/FCPPT_TEXT("fonts")/filename,
 						font_size));
 				drawers_.push_back(
