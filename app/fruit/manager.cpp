@@ -182,7 +182,7 @@ fruitcut::app::fruit::manager::cut(
 	// We have to check if we split the fruit into one or two parts. If
 	// it's just one, we leave it as is (still costs a bit of performance)
 	object_sequence::implementation_sequence fruit_cache;
-	sge::renderer::scalar area = 0;
+	fruit::area cumulated_area = 0;
 
 	// make_array here to be even cooler? :>
 	BOOST_FOREACH(
@@ -197,7 +197,7 @@ fruitcut::app::fruit::manager::cut(
 			p,
 			split_mesh,
 			bounding_box,
-			area,
+			cumulated_area,
 			barycenter);
 
 		// Note the return here. If this condition is true, we only split
@@ -247,7 +247,7 @@ fruitcut::app::fruit::manager::cut(
 		current_fruit,
 		*fruit_cache.begin(),
 		*(--fruit_cache.end()),
-		area);
+		cumulated_area);
 
 	fruits_.transfer_from(
 		fruit_cache);

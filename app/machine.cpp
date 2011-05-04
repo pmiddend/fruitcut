@@ -276,7 +276,9 @@ fruitcut::app::machine::machine(
 		gui_system_),
 	last_game_score_(
 		// Something invalid so you get the error (if there is one)
-		31337)
+		31337),
+	point_sprites_(
+		systems_.renderer())
 {
 	intrusive_group::children().push_back(
 		music_controller_node_);

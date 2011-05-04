@@ -4,6 +4,7 @@
 #include "../audio/music_controller.hpp"
 #include "../audio/sound_controller.hpp"
 #include "background.hpp"
+#include "point_sprite/system_node.hpp"
 #include "../font/cache.hpp"
 #include "../input/state.hpp"
 #include "../input/state_manager.hpp"
@@ -171,6 +172,7 @@ private:
 	sge::cegui::system gui_system_;
 	sge::cegui::syringe gui_syringe_;
 	score last_game_score_;
+	point_sprite::system_node point_sprites_;
 
 	void
 	console_switch();

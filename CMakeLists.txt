@@ -176,6 +176,10 @@ ADD_EXECUTABLE(
 	app/fruit/prototype.cpp
 	app/machine.cpp 
 	app/name.cpp
+	app/point_sprite/system_node.cpp
+	app/point_sprite/base.cpp
+	app/point_sprite/splatter/parameters.cpp
+	app/point_sprite/splatter/object.cpp
 	app/postprocessing.cpp 
 	app/states/ingame/superstate.cpp
 	app/states/ingame/running.cpp

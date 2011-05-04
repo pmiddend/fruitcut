@@ -2,7 +2,7 @@
 #define FRUITCUT_APP_FRUIT_CALLBACKS_CUT_FN_HPP_INCLUDED
 
 #include "../object_fwd.hpp"
-#include <sge/renderer/scalar.hpp>
+#include "../area.hpp"
 
 namespace fruitcut
 {
@@ -23,7 +23,7 @@ cut_fn(
 	// new2
 	object const &,
 	// cut area
-	sge::renderer::scalar);
+	area);
 }
 }
 }

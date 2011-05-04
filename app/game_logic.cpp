@@ -158,7 +158,7 @@ fruitcut::app::game_logic::fruit_cut(
 	fruit::object const &,
 	fruit::object const &,
 	fruit::object const &,
-	sge::renderer::scalar const area)
+	fruit::area const area)
 {
 	score_ = 
 		static_cast<fruitcut::app::score>(
