@@ -89,7 +89,7 @@ fruitcut::pp::filter::blur::blur(
 {
 	FCPPT_ASSERT(
 		iterations_);
-	for(std::size_t i = 0; i < 1; ++i)
+	for(std::size_t i = 0; i < quads_.size(); ++i)
 		fcppt::container::ptr::replace_unique_ptr(
 			quads_,
 			i,

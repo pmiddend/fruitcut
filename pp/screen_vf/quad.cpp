@@ -19,6 +19,7 @@
 #include <sge/renderer/vf/vertex.hpp>
 #include <sge/shader/scoped.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
+#include <fcppt/assert.hpp>
 
 fruitcut::pp::screen_vf::quad::quad(
 	sge::renderer::device &_renderer,
@@ -84,6 +85,9 @@ fruitcut::pp::screen_vf::quad::quad(
 void
 fruitcut::pp::screen_vf::quad::render()
 {
+	FCPPT_ASSERT(
+		declaration_ && buffer_);
+
 	sge::renderer::scoped_vertex_declaration const vb_declaration_context(
 		renderer_,
 		*declaration_);
