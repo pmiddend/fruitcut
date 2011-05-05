@@ -3,10 +3,10 @@
 #include "mesh_to_vertex_buffer.hpp"
 #include "mesh_to_point_cloud.hpp"
 #include "mesh_to_shape.hpp"
-#include "../geometry_traits/box.hpp"
-#include "../geometry_traits/vector.hpp"
-#include "../physics/rigid_body/parameters.hpp"
-#include "../physics/world_fwd.hpp"
+#include "../../geometry_traits/box.hpp"
+#include "../../geometry_traits/vector.hpp"
+#include "../../physics/rigid_body/parameters.hpp"
+#include "../../physics/world_fwd.hpp"
 #include <sge/renderer/device_ptr.hpp>
 #include <sge/shader/object_fwd.hpp>
 #include <fcppt/math/matrix/structure_cast.hpp>

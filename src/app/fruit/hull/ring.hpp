@@ -1,7 +1,7 @@
 #ifndef FRUITCUT_APP_FRUIT_HULL_RING_HPP_INCLUDED
 #define FRUITCUT_APP_FRUIT_HULL_RING_HPP_INCLUDED
 
-#include "../geometry_traits/vector.hpp"
+#include "../../../geometry_traits/vector.hpp"
 #include <sge/renderer/vector2.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
 #include <boost/geometry/geometry.hpp>

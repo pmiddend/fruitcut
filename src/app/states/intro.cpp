@@ -1,7 +1,7 @@
 #include "intro.hpp"
 #include "ingame/running.hpp"
-#include "../string_to_duration_exn.hpp"
-#include "../json/find_member.hpp"
+#include "../../string_to_duration_exn.hpp"
+#include "../../json/find_member.hpp"
 #include <sge/time/time.hpp>
 #include <sge/renderer/scalar.hpp>
 #include <sge/viewport/manager.hpp>
