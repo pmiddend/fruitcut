@@ -134,7 +134,7 @@ fruitcut::app::fruit::cut_mesh(
 	plane const &p,
 	mesh &result_mesh,
 	box3 &bounding_box,
-	sge::renderer::scalar &area,
+	fruit::area &area,
 	sge::renderer::vector3 &barycenter)
 {
 	sge::renderer::scalar const epsilon = 

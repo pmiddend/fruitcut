@@ -153,10 +153,7 @@ fruitcut::app::states::ingame::superstate::superstate(
 			std::tr1::bind(
 				&superstate::fruit_was_cut,
 				this,
-				std::tr1::placeholders::_1,
-				std::tr1::placeholders::_2,
-				std::tr1::placeholders::_3,
-				std::tr1::placeholders::_4)))
+				std::tr1::placeholders::_1)))
 {
 	// scene
 	context<machine>().scene_node().children().push_back(
@@ -287,10 +284,7 @@ fruitcut::app::states::ingame::superstate::viewport_change()
 
 void
 fruitcut::app::states::ingame::superstate::fruit_was_cut(
-	fruit::object const &,
-	fruit::object const &,
-	fruit::object const &,
-	sge::renderer::scalar const _area)
+	fruit::cut_context const &)
 {
 	/*
 	score_ = 

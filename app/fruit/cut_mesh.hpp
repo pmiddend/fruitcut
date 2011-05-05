@@ -4,6 +4,7 @@
 #include "mesh.hpp"
 #include "plane.hpp"
 #include "box3.hpp"
+#include "area.hpp"
 #include <sge/renderer/vector3.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
 
@@ -19,7 +20,7 @@ cut_mesh(
 	plane const &,
 	mesh &,
 	box3 &,
-	sge::renderer::scalar &area,
+	fruit::area &area,
 	sge::renderer::vector3 &barycenter);
 }
 }

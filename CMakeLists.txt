@@ -162,6 +162,7 @@ ADD_EXECUTABLE(
 	app/game_logic.cpp
 	app/events/tick.cpp
 	app/config_wrapper.cpp
+	app/fruit/cut_context.cpp
 	app/fruitcut.cpp
 	app/fruit/cut_mesh.cpp
 	app/fruit/hull/projected.cpp

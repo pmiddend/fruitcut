@@ -8,6 +8,7 @@
 #include "../../fruit/manager.hpp"
 #include "../../fruit/object_fwd.hpp"
 #include "../../fruit/spawner.hpp"
+#include "../../fruit/cut_context_fwd.hpp"
 #include "../../../physics/world.hpp"
 #include "../../../physics/nodes/world.hpp"
 #include "../../../physics/nodes/debugger.hpp"
@@ -103,10 +104,7 @@ private:
 
 	void
 	fruit_was_cut(
-		fruit::object const &old,
-		fruit::object const &new_1,
-		fruit::object const &new_2,
-		sge::renderer::scalar);
+		fruit::cut_context const &);
 };
 }
 }

@@ -59,6 +59,7 @@
 #include <fcppt/math/vector/structure_cast.hpp>
 #include <fcppt/math/vector/length.hpp>
 #include <fcppt/container/array.hpp>
+#include <fcppt/assign/make_array.hpp>
 #include <fcppt/container/ptr/push_back_unique_ptr.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
@@ -244,10 +245,12 @@ fruitcut::app::fruit::manager::cut(
 		fruit_cache.size() == 2);
 
 	cut_signal_(
-		current_fruit,
-		*fruit_cache.begin(),
-		*(--fruit_cache.end()),
-		cumulated_area);
+		fruit::cut_context(
+			current_fruit,
+			fcppt::assign::make_array<fruit::object const *>
+				(&(*fruit_cache.begin()))
+				(&(*(--fruit_cache.end()))),
+			cumulated_area));
 
 	fruits_.transfer_from(
 		fruit_cache);

@@ -4,7 +4,7 @@
 #include "overlay.hpp"
 #include "fruit/manager_fwd.hpp"
 #include "fruit/object_fwd.hpp"
-#include "fruit/area.hpp"
+#include "fruit/cut_context_fwd.hpp"
 #include "../font/intrusive_scene_node.hpp"
 #include "../font/cache_fwd.hpp"
 #include "../scenic/nodes/intrusive.hpp"
@@ -71,10 +71,7 @@ private:
 
 	void
 	fruit_cut(
-		fruit::object const &old,
-		fruit::object const &new_1,
-		fruit::object const &new_2,
-		fruit::area);
+		fruit::cut_context const &);
 
 	void
 	viewport_changed();

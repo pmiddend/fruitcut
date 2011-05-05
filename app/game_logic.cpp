@@ -1,6 +1,7 @@
 #include "game_logic.hpp"
 #include "../string_to_duration_exn.hpp"
 #include "fruit/manager.hpp"
+#include "fruit/cut_context.hpp"
 #include "../json/find_member.hpp"
 #include "../json/parse_color.hpp"
 #include "../time_format/duration_to_string.hpp"
@@ -69,10 +70,7 @@ fruitcut::app::game_logic::game_logic(
 			std::tr1::bind(
 				&game_logic::fruit_cut,
 				this,
-				std::tr1::placeholders::_1,
-				std::tr1::placeholders::_2,
-				std::tr1::placeholders::_3,
-				std::tr1::placeholders::_4))),
+				std::tr1::placeholders::_1))),
 	fruit_removed_connection_(
 		_fruit_manager.remove_callback(
 			std::tr1::bind(
@@ -155,16 +153,13 @@ fruitcut::app::game_logic::fruit_removed(
 
 void
 fruitcut::app::game_logic::fruit_cut(
-	fruit::object const &,
-	fruit::object const &,
-	fruit::object const &,
-	fruit::area const area)
+	fruit::cut_context const &context)
 {
 	score_ = 
 		static_cast<fruitcut::app::score>(
 			score_ + 
 			static_cast<fruitcut::app::score>(
-				area * static_cast<sge::renderer::scalar>(100))); 
+				context.area() * static_cast<sge::renderer::scalar>(100))); 
 	
 	score_font_node_.object().text(
 		fcppt::lexical_cast<sge::font::text::string>(
