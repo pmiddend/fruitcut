@@ -14,7 +14,7 @@ fruitcut::environment::make_cache_path(
 		fcppt::filesystem::path(
 			*getenv(
 				FCPPT_TEXT("APPDIR"))) 
-			/ app_name);
+			/ app_name;
 #elif defined(FCPPT_POSIX_PLATFORM)
 	optional_string const xdg_home = 
 		getenv(
