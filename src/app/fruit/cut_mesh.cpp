@@ -139,7 +139,7 @@ struct make_coordinate_system_msvc_hack
 {
 	typedef typename
 	Container::value_type::value_type
-	scalar_type
+	scalar_type;
 
 	typedef typename
 	fcppt::math::matrix::static_<scalar_type,4,4>::type
