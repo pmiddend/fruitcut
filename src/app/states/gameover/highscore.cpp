@@ -221,18 +221,18 @@ fruitcut::app::states::gameover::highscore::highscore(
 			dynamic_cast<CEGUI::MultiColumnList &>(
 				*CEGUI::WindowManager::getSingleton().getWindow("Highscore/List")),
 			fcppt::assign::make_container<sge::cegui::toolbox::row>
-				(sge::cegui::from_cegui_string(
+				(sge::cegui::to_cegui_string(
 					fcppt::lexical_cast<fcppt::string>(
 						index),
 					context<machine>().systems().charconv_system()))
-				(sge::cegui::from_cegui_string(
+				(sge::cegui::to_cegui_string(
 					current_entry.name,
 					context<machine>().systems().charconv_system()))
-				(sge::cegui::from_cegui_string(
+				(sge::cegui::to_cegui_string(
 					fcppt::lexical_cast<fcppt::string>(
 						current_entry.score_),
 					context<machine>().systems().charconv_system()))
-				(sge::cegui::from_cegui_string(
+				(sge::cegui::to_cegui_string(
 					boost::posix_time::to_simple_string(
 						local_adjuster::utc_to_local(
 							current_entry.date_time)),

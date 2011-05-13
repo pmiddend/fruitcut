@@ -1,4 +1,3 @@
-#if 0
 #include "../math/line_plane_intersection.hpp"
 #include "../math/cut_triangle_at_plane.hpp"
 #include "../math/line/basic.hpp"
@@ -525,6 +524,3 @@ BOOST_AUTO_TEST_CASE(d_to_point)
 				0.5,-1.5),
 			l) - static_cast<scalar>(1.78885) < epsilon));
 }
-#endif
-
-int main() {}

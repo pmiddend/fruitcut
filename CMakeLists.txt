@@ -29,7 +29,7 @@ INCLUDE_DIRECTORIES(SYSTEM ${BULLET_INCLUDE_DIRS})
 
 # sge begin
 FIND_PACKAGE(
-	SGE REQUIRED COMPONENTS console sprite shader config time texture systems camera fonttext fontbitmap cegui line_drawer)
+	SGE REQUIRED COMPONENTS viewport console sprite shader config time texture systems camera fonttext fontbitmap cegui line_drawer)
 
 INCLUDE_DIRECTORIES(SYSTEM ${SGE_INCLUDE_DIRS})
 INCLUDE_DIRECTORIES(SYSTEM ${AWL_INCLUDE_DIRS})
