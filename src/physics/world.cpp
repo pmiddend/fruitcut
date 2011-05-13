@@ -57,7 +57,7 @@ fruitcut::physics::world::update(
 			fcppt::chrono::duration_cast<fcppt::chrono::milliseconds>(
 				delta).count())/
 		static_cast<scalar>(
-			1000),
+			1000)/5,
 		// Maximum simulation substeps: The fixed time step is 1/60. We
 		// have to choose the substep count so that time_delta is _just_
 		// less than the fixed time.

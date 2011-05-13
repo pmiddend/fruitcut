@@ -2,7 +2,7 @@
 #define FRUITCUT_PHYSICS_VECTOR3_HPP_INCLUDED
 
 #include "scalar.hpp"
-#include <fcppt/math/vector/static.hpp>
+#include <fcppt/math/vector/vector.hpp>
 
 namespace fruitcut
 {

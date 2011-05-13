@@ -3,6 +3,7 @@
 
 #include "object_fwd.hpp"
 #include "area.hpp"
+#include "../../physics/vector3.hpp"
 #include <fcppt/container/array.hpp>
 #include <fcppt/reference_wrapper.hpp>
 
@@ -27,7 +28,8 @@ public:
 	cut_context(
 		fruit::object const &_old,
 		new_fruit_array const &,
-		fruit::area);
+		fruit::area,
+		physics::vector3 const &cut_direction);
 
 	fruit::object const &
 	old() const;
@@ -37,10 +39,14 @@ public:
 
 	fruit::area
 	area() const;
+
+	physics::vector3 const &
+	cut_direction() const;
 private:
 	fruit_ptr old_;
 	new_fruit_array new_;
 	fruit::area area_;
+	physics::vector3 cut_direction_;
 };
 }
 }

@@ -6,11 +6,7 @@ TARGET_LINK_LIBRARIES(
 	trail_test
 	fruitcut_library
 	${FCPPT_LIBRARIES}
-	${SGE_CORE_LIBRARY}
-	${SGE_systems_LIBRARY}
-	${SGE_sprite_LIBRARY}
-	${SGE_time_LIBRARY}
-	${SGE_texture_LIBRARY}
+	${SGE_LIBRARIES}
 	${Boost_LIBRARIES})
 
 ADD_EXECUTABLE(
@@ -30,12 +26,7 @@ TARGET_LINK_LIBRARIES(
 #	font_test
 #	fruitcut_library
 #	${FCPPT_LIBRARIES}
-#	${SGE_CORE_LIBRARY}
-#	${SGE_systems_LIBRARY}
-#	${SGE_fonttext_LIBRARY}
-#	${SGE_fontbitmap_LIBRARY}
-#	${SGE_time_LIBRARY}
-#	${SGE_sprite_LIBRARY}
+#	${SGE_LIBRARIES}
 #	${Boost_LIBRARIES})
 
 ADD_EXECUTABLE(
@@ -46,12 +37,7 @@ TARGET_LINK_LIBRARIES(
 	splat_test
 	fruitcut_library
 	${FCPPT_LIBRARIES}
-	${SGE_CORE_LIBRARY}
-	${SGE_systems_LIBRARY}
-	${SGE_sprite_LIBRARY}
-	${SGE_shader_LIBRARY}
-	${SGE_time_LIBRARY}
-	${SGE_texture_LIBRARY}
+	${SGE_LIBRARIES}
 	${Boost_LIBRARIES})
 
 ADD_EXECUTABLE(
@@ -62,12 +48,7 @@ TARGET_LINK_LIBRARIES(
 	convolution_test
 	fruitcut_library
 	${FCPPT_LIBRARIES}
-	${SGE_CORE_LIBRARY}
-	${SGE_shader_LIBRARY}
-	${SGE_systems_LIBRARY}
-	${SGE_time_LIBRARY}
-	${SGE_texture_LIBRARY}
-	${SGE_sprite_LIBRARY}
+	${SGE_LIBRARIES}
 	${Boost_LIBRARIES})
 
 ADD_EXECUTABLE(

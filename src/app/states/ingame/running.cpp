@@ -102,6 +102,12 @@ fruitcut::app::states::ingame::running::running(
 				&audio::sound_controller::play,
 				&context<machine>().sound_controller(),
 				fcppt::string(FCPPT_TEXT("fruit-was-spawned"))))),
+	fruit_cut_connection_(
+		context<superstate>().fruit_manager().cut_callback(
+			std::tr1::bind(
+				&running::fruit_was_cut,
+				this,
+				std::tr1::placeholders::_1))),
 	draw_mouse_trail_(
 		json::find_member<bool>(
 			context<machine>().config_file(),
@@ -342,6 +348,8 @@ fruitcut::app::states::ingame::running::process_fruit(
 		fruit::plane(
 			plane_normal,
 			plane_scalar),
+		// cut direction
+		first_plane_vector,
 		cursor_trail_.expiry_duration(),
 		context<machine>().timer_callback());
 
@@ -352,4 +360,25 @@ void
 fruitcut::app::states::ingame::running::viewport_change()
 {
 	cursor_trail_.clear();
+}
+
+void
+fruitcut::app::states::ingame::running::fruit_was_cut(
+	fruit::cut_context const &)
+{
+/*
+	context<machine>().point_sprites().push_back(
+		fcppt::make_unique_ptr<point_sprite::splatter::object>(
+			point_sprite::splatter::parameters(
+				context<machine>().point_sprites().system(),
+				,
+				,
+				,
+				,
+				,
+				,
+				,
+				,
+				)));
+*/
 }

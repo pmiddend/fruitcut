@@ -94,28 +94,26 @@ generate_texture_coordinates(
 	// Build a plane parameter equation from the first point and the
 	// vectors from the first point to the second and third. Then,
 	// orthonormalize the direction vectors.
-	fcppt::container::array<point,2> input_points(
-		fcppt::assign::make_array<point> 
+	fcppt::container::array<point,2> directions = 
+		fcppt::assign::make_array<point>
 			(input[1] - input[0])
-			((*second_point) - input[0]));
+			((*second_point) - input[0]);
 
 	fcppt::math::vector::orthogonalize(
-		input_points.begin(),
-		input_points.end());
+		directions.begin(),
+		directions.end());
 
-	input_points[0] = 
-		fcppt::math::vector::normalize(
-			input_points[0]);
-	input_points[1] = 
-		fcppt::math::vector::normalize(
-			input_points[1]);
+	for(typename fcppt::container::array<point,2>::iterator i = directions.begin(); i != directions.end(); ++i)
+		(*i) = 
+			fcppt::math::vector::normalize(
+				*i);
 
 	// That's the parametric equation: a + f * b + g * c with (f,g) as
 	// the parameters
 	point
 		a = input[0],
-		b = input_points[0],
-		c = input_points[1];
+		b = directions[0],
+		c = directions[1];
 
 	//std::cout << "Aufpunkt: " << "{" << a[0] << "," << a[1] << "," << a[2] << "}\n";
 	//std::cout << "Erster Pfeil: " << "{" << b[0] << "," << b[1] << "," << b[2] << "}\n";

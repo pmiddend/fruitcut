@@ -428,13 +428,17 @@ BOOST_AUTO_TEST_CASE(orthonorm)
 			fcppt::assign::make_container<container>
 				(vector2(3,1))
 				(vector2(2,2)),
-		result = 
-			fcppt::math::vector::orthogonalize(
-				wiki_example),
 		expected_result = 
 			fcppt::assign::make_container<container>
 				(vector2(3,1))
 				(vector2(-0.4,1.2));
+
+	container result = 
+		wiki_example;
+
+	fcppt::math::vector::orthogonalize(
+		result.begin(),
+		result.end());
 
 	fcppt::io::cout 
 		<< FCPPT_TEXT("Expecting ")

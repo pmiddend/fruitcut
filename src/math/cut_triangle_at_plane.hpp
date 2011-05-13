@@ -6,7 +6,6 @@
 #include "line_plane_intersection.hpp"
 #include "triangle_plane_intersection.hpp"
 #include <fcppt/math/size_type.hpp>
-#include <fcppt/algorithm/map.hpp>
 #include <fcppt/io/cout.hpp>
 #include <boost/spirit/home/phoenix/operator/comparison.hpp> 
 #include <boost/spirit/home/phoenix/operator/if_else.hpp> 
@@ -59,7 +58,7 @@ cut_triangle_at_plane(
 	result_type;
 
 	typedef
-	std::vector<scalar>
+	fcppt::container::array<scalar,3>
 	scalar_sequence;
 
 	typedef typename
@@ -84,14 +83,13 @@ cut_triangle_at_plane(
 		data(t,2)
 	}};
 
-	scalar_sequence const signs = 
-		fcppt::algorithm::map<scalar_sequence>(
-			points,
-			boost::phoenix::bind(
-				&plane::distance_to_point<scalar,3>,
-				boost::phoenix::val(
-					p),
-				boost::phoenix::arg_names::arg1));
+	scalar_sequence signs;
+
+	for(std::size_t i = 0; i < 3; ++i)
+		signs[i] = 
+			plane::distance_to_point(
+				p,
+				points[i]);
 
 	size_type const culled_vertices = 
 		static_cast<size_type>(

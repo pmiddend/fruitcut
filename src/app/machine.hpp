@@ -142,6 +142,12 @@ public:
 	overlay const &
 	overlay_node() const;
 
+	point_sprite::system_node &
+	point_sprites();
+
+	point_sprite::system_node const &
+	point_sprites() const;
+
 	~machine();
 private:
 	bool running_;

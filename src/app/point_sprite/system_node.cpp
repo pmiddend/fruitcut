@@ -21,6 +21,18 @@ fruitcut::app::point_sprite::system_node::push_back(
 			n));
 }
 
+fruitcut::app::point_sprite::system &
+fruitcut::app::point_sprite::system_node::system()
+{
+	return system_;
+}
+
+fruitcut::app::point_sprite::system const &
+fruitcut::app::point_sprite::system_node::system() const
+{
+	return system_;
+}
+
 fruitcut::app::point_sprite::system_node::~system_node()
 {
 }

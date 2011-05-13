@@ -166,6 +166,7 @@ void
 fruitcut::app::fruit::manager::cut(
 	fruit::object const &current_fruit,
 	plane const &original_plane,
+	physics::vector3 const &cut_direction,
 	sge::time::duration const &lock_duration,
 	sge::time::callback const &time_callback)
 {
@@ -250,7 +251,8 @@ fruitcut::app::fruit::manager::cut(
 			fcppt::assign::make_array<fruit::object const *>
 				(&(*fruit_cache.begin()))
 				(&(*(--fruit_cache.end()))),
-			cumulated_area));
+			cumulated_area,
+			cut_direction));
 
 	fruits_.transfer_from(
 		fruit_cache);
@@ -310,7 +312,7 @@ fruitcut::app::fruit::manager::cut_callback(
 }
 
 fcppt::signal::auto_connection
-fruitcut::app::fruit::manager::manager::remove_callback(
+fruitcut::app::fruit::manager::remove_callback(
 	fruitcut::app::fruit::callbacks::remove const &cc)
 {
 	return 
@@ -319,7 +321,7 @@ fruitcut::app::fruit::manager::manager::remove_callback(
 }
 
 fcppt::signal::auto_connection
-fruitcut::app::fruit::manager::manager::spawn_callback(
+fruitcut::app::fruit::manager::spawn_callback(
 	fruitcut::app::fruit::callbacks::spawn const &cc)
 {
 	return 
@@ -332,7 +334,7 @@ fruitcut::app::fruit::manager::~manager()
 }
 
 void
-fruitcut::app::fruit::manager::manager::delete_distant_fruits()
+fruitcut::app::fruit::manager::delete_distant_fruits()
 {
 	
 }

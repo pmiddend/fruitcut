@@ -30,13 +30,19 @@ public:
 	push_back(
 		unique_base_ptr);
 
+	point_sprite::system &
+	system();
+
+	point_sprite::system const &
+	system() const;
+
 	~system_node();
 private:
 	typedef
 	boost::ptr_list<point_sprite::base>
 	child_sequence;
 
-	system system_;
+	point_sprite::system system_;
 	child_sequence children_;
 
 	void

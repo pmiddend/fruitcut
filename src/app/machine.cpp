@@ -290,6 +290,8 @@ fruitcut::app::machine::machine(
 		overlay_node_);
 	scene_node_.children().push_front(
 		background_);
+	scene_node_.children().push_back(
+		point_sprites_);
 	overlay_node_.children().push_back(
 		console_node_);
 	input_manager_.current_state(
@@ -482,6 +484,18 @@ fruitcut::app::overlay const &
 fruitcut::app::machine::overlay_node() const
 {
 	return overlay_node_;
+}
+
+fruitcut::app::point_sprite::system_node &
+fruitcut::app::machine::point_sprites() 
+{
+	return point_sprites_;
+}
+
+fruitcut::app::point_sprite::system_node const &
+fruitcut::app::machine::point_sprites() const 
+{
+	return point_sprites_;
 }
 
 fruitcut::app::machine::~machine()

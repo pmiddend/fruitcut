@@ -63,6 +63,7 @@ public:
 	cut(
 		object const &,
 		plane const &,
+		physics::vector3 const &,
 		sge::time::duration const &,
 		sge::time::callback const &);
 
