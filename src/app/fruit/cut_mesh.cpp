@@ -139,7 +139,7 @@ fcppt::optional
 > const
 make_coordinate_system(
 	Container const &points,
-	typename Container::value_type::value_type const epsilon)
+	typename boost::mpl::identity<typename Container::value_type>::type::value_type const epsilon)
 {
 	typedef typename
 	Container::value_type
