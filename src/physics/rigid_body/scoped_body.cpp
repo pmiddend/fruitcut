@@ -1,7 +1,7 @@
 #include "scoped_body.hpp"
 #include "../world.hpp"
-#include <bullet/BulletDynamics/Dynamics/btRigidBody.h>
-#include <bullet/BulletDynamics/Dynamics/btDiscreteDynamicsWorld.h>
+#include <BulletDynamics/Dynamics/btRigidBody.h>
+#include <BulletDynamics/Dynamics/btDiscreteDynamicsWorld.h>
 
 fruitcut::physics::rigid_body::scoped_body::scoped_body(
 	world &_world,

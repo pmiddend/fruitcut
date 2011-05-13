@@ -6,8 +6,8 @@
 #include "../vector3.hpp"
 #include "parameters_fwd.hpp"
 #include "../shared_shape_ptr.hpp"
-#include <bullet/LinearMath/btDefaultMotionState.h>
-#include <bullet/BulletDynamics/Dynamics/btRigidBody.h>
+#include <LinearMath/btDefaultMotionState.h>
+#include <BulletDynamics/Dynamics/btRigidBody.h>
 #include <fcppt/noncopyable.hpp>
 
 namespace fruitcut

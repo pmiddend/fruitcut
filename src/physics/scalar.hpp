@@ -1,7 +1,7 @@
 #ifndef FRUITCUT_PHYSICS_SCALAR_HPP_INCLUDED
 #define FRUITCUT_PHYSICS_SCALAR_HPP_INCLUDED
 
-#include <bullet/LinearMath/btScalar.h>
+#include <LinearMath/btScalar.h>
 
 namespace fruitcut
 {

@@ -7,11 +7,11 @@
 #include "../matrix4.hpp"
 #include "../vector3.hpp"
 #include "../structure_cast.hpp"
-#include <bullet/BulletDynamics/Dynamics/btRigidBody.h>
-#include <bullet/LinearMath/btMotionState.h>
-#include <bullet/LinearMath/btVector3.h>
-#include <bullet/LinearMath/btTransform.h>
-#include <bullet/BulletCollision/CollisionShapes/btCollisionShape.h>
+#include <BulletDynamics/Dynamics/btRigidBody.h>
+#include <LinearMath/btMotionState.h>
+#include <LinearMath/btVector3.h>
+#include <LinearMath/btTransform.h>
+#include <BulletCollision/CollisionShapes/btCollisionShape.h>
 #include <fcppt/math/matrix/basic_impl.hpp>
 #include <fcppt/math/matrix/arithmetic.hpp>
 #include <fcppt/math/matrix/translation.hpp>

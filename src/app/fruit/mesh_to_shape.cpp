@@ -2,7 +2,7 @@
 #include "mesh.hpp"
 #include "../../physics/shared_shape_ptr.hpp"
 #include <fcppt/container/raw_vector.hpp>
-#include <bullet/BulletCollision/CollisionShapes/btConvexHullShape.h>
+#include <BulletCollision/CollisionShapes/btConvexHullShape.h>
 #include <boost/foreach.hpp>
 #include <iostream>
 

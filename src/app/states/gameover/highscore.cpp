@@ -7,6 +7,7 @@
 #include <sge/cegui/from_cegui_string.hpp>
 #include <sge/cegui/toolbox/append_row.hpp>
 #include <sge/cegui/toolbox/row.hpp>
+#include <sge/config/find_cache_path.hpp>
 #include <CEGUI/CEGUIEvent.h>
 #include <CEGUI/CEGUIString.h>
 #include <CEGUI/CEGUIWindow.h>
@@ -21,7 +22,6 @@
 
 #include "../../score.hpp"
 #include "../../name.hpp"
-#include "../../../environment/make_cache_path.hpp"
 #include "../../../json/find_member.hpp"
 #include "../../../json/array_to_vector.hpp"
 #include <sge/parse/json/object.hpp>
@@ -84,9 +84,9 @@ highscore_sequence
 load_highscore()
 {
 	fcppt::filesystem::path const highscore_file_path = 
-		fruitcut::environment::make_cache_path(
-			fruitcut::app::name(),
-			FCPPT_TEXT("highscore.json"));
+		sge::config::find_cache_path(
+			fruitcut::app::name())/
+		FCPPT_TEXT("highscore.json");
 
 	if(!fcppt::filesystem::exists(highscore_file_path))
 		return highscore_sequence();
@@ -126,9 +126,9 @@ write_highscore(
 	highscore_sequence const &entries)
 {
 	fcppt::filesystem::path const highscore_path = 
-		fruitcut::environment::make_cache_path(
-			fruitcut::app::name(),
-			FCPPT_TEXT("highscore.json"));
+		sge::config::find_cache_path(
+			fruitcut::app::name())/
+		FCPPT_TEXT("highscore.json");
 
 	if(!fcppt::filesystem::exists(highscore_path))
 	{

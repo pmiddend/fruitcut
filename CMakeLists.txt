@@ -38,6 +38,13 @@ INCLUDE_DIRECTORIES(SYSTEM ${MIZUIRO_INCLUDE_DIRS})
 ADD_DEFINITIONS(${SGE_CFLAGS})
 # sge end
 
+# cegui begin
+FIND_PACKAGE(
+	CEGUI REQUIRED)
+
+INCLUDE_DIRECTORIES(${CEGUI_INCLUDE_DIRS})
+# cegui end
+
 # TODO
 SET(
 	media_path
@@ -66,28 +73,24 @@ SET(
 	# base 
 	src/media_path.cpp 
 	src/exception.cpp
-	src/# environment
-	src/environment/make_cache_path.cpp
-	src/environment/make_config_path.cpp
-	src/environment/getenv.cpp
-	src/# json
+	# json
 	src/json/parse_rgba8_color.cpp 
 	src/json/merge_trees.cpp 
 	src/json/process_option.cpp 
 	src/json/string_to_value.cpp
 	src/json/is_null.cpp
-	src/# log
+	# log
 	src/log/scoped.cpp
 	src/log/string_to_location.cpp
 	src/log/scoped_sequence_from_json.cpp
-	src/# input 
+	# input 
 	src/input/state.cpp 
 	src/input/state_manager.cpp
 	src/audio/sound_controller.cpp
 	src/audio/music_controller.cpp
 	src/audio/detail/sound_group.cpp
 	src/cursor_trail.cpp
-	src/# pp 
+	# pp 
 	src/pp/filter/base.cpp 
 	src/pp/filter/wrapper.cpp
 	src/pp/filter/render_to_texture.cpp
@@ -104,9 +107,9 @@ SET(
 	src/pp/filter/blur.cpp
 	src/pp/filter/ssaa.cpp
 	src/pp/screen_vf/quad.cpp
-	src/# random
+	# random
 	src/create_rng.cpp
-	src/# font
+	# font
 	src/font/intrusive_scene_node.cpp
 	src/font/cache.cpp
 	src/font/object_parameters.cpp
@@ -117,15 +120,15 @@ SET(
 	src/font/drawer/scoped_transformation.cpp
 	src/font/drawer/parameters.cpp
 #	src/font/damped_oscillation.cpp
-	src/# time format
+	# time format
 	src/time_format/seconds.cpp
 	src/time_format/milliseconds.cpp
-	src/# particle
+	# particle
 	src/particle/system.cpp
 	src/particle/objects/base.cpp
 	src/particle/objects/simple.cpp
 	src/particle/objects/permanent_sprite.cpp
-	src/# scenic
+	# scenic
 	src/scenic/nodes/base.cpp
 	src/scenic/nodes/camera.cpp
 	src/scenic/nodes/intrusive.cpp
@@ -142,7 +145,7 @@ SET(
 	src/scenic/nodes/with_color.cpp
 	src/scenic/nodes/with_lifetime.cpp
 	src/scenic/nodes/with_scale.cpp
-	src/# physics
+	# physics
 	src/physics/world.cpp
 	src/physics/debugger.cpp
 	src/physics/null_collision_filter.cpp

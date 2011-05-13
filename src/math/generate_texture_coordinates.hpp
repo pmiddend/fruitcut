@@ -9,7 +9,7 @@
 #include <fcppt/math/vector/normalize.hpp>
 #include <fcppt/math/range_compare.hpp>
 #include <fcppt/algorithm/map.hpp>
-#include <fcppt/assign/make_container.hpp>
+#include <fcppt/assign/make_array.hpp>
 #include <boost/foreach.hpp>
 #include <boost/spirit/home/phoenix/operator/self.hpp> 
 #include <boost/spirit/home/phoenix/core/argument.hpp> 
@@ -94,26 +94,28 @@ generate_texture_coordinates(
 	// Build a plane parameter equation from the first point and the
 	// vectors from the first point to the second and third. Then,
 	// orthonormalize the direction vectors.
-	std::vector<point> const parametrization = 
-		fcppt::algorithm::map<std::vector<point> >(
-			fcppt::math::vector::orthogonalize(
-				fcppt::assign::make_container<std::vector<point> >
-					(input[1] - input[0])
-					((*second_point) - input[0]).container()),
-			&fcppt::math::vector::normalize
-			<
-				scalar,
-				// FIXME: 3 is hard coded here
-				boost::mpl::integral_c<fcppt::math::size_type,3>,
-				typename fcppt::math::detail::static_storage<scalar,3>::type
-			>);
+	fcppt::container::array<point,2> input_points(
+		fcppt::assign::make_array<point> 
+			(input[1] - input[0])
+			((*second_point) - input[0]));
+
+	fcppt::math::vector::orthogonalize(
+		input_points.begin(),
+		input_points.end());
+
+	input_points[0] = 
+		fcppt::math::vector::normalize(
+			input_points[0]);
+	input_points[1] = 
+		fcppt::math::vector::normalize(
+			input_points[1]);
 
 	// That's the parametric equation: a + f * b + g * c with (f,g) as
 	// the parameters
 	point
 		a = input[0],
-		b = parametrization[0],
-		c = parametrization[1];
+		b = input_points[0],
+		c = input_points[1];
 
 	//std::cout << "Aufpunkt: " << "{" << a[0] << "," << a[1] << "," << a[2] << "}\n";
 	//std::cout << "Erster Pfeil: " << "{" << b[0] << "," << b[1] << "," << b[2] << "}\n";

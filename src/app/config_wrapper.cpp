@@ -4,7 +4,7 @@
 #include "../json/merge_trees.hpp"
 #include "../json/process_option.hpp"
 #include "../media_path.hpp"
-#include "../environment/make_config_path.hpp"
+#include <sge/config/find_config_path.hpp>
 #include <sge/parse/json/parse_file_exn.hpp>
 #include <sge/parse/json/array.hpp>
 #include <sge/parse/json/object.hpp>
@@ -26,9 +26,9 @@ fcppt::optional<fcppt::filesystem::path> const
 user_config_file()
 {
 	fcppt::filesystem::path const final_name = 
-		fruitcut::environment::make_config_path(
-			fruitcut::app::name(),
-			FCPPT_TEXT("config.json"));
+		sge::config::find_config_path(
+			fruitcut::app::name())/
+		FCPPT_TEXT("config.json");
 
 	return 
 		fcppt::filesystem::exists(

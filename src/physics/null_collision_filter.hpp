@@ -2,7 +2,7 @@
 #define FRUITCUT_PHYSICS_NULL_COLLISION_FILTER_HPP_INCLUDED
 
 #include "world_fwd.hpp"
-#include <bullet/BulletCollision/BroadphaseCollision/btOverlappingPairCache.h>
+#include <BulletCollision/BroadphaseCollision/btOverlappingPairCache.h>
 #include <fcppt/noncopyable.hpp>
 
 namespace fruitcut

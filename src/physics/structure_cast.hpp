@@ -2,8 +2,8 @@
 #define FRUITCUT_PHYSICS_STRUCTURE_CAST_HPP_INCLUDED
 
 #include "scalar.hpp"
-#include <bullet/LinearMath/btVector3.h>
-#include <bullet/LinearMath/btMatrix3x3.h>
+#include <LinearMath/btVector3.h>
+#include <LinearMath/btMatrix3x3.h>
 #include <fcppt/math/vector/has_dim.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/math/dim/has_dim.hpp>

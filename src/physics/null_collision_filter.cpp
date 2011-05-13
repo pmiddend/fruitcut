@@ -1,6 +1,6 @@
 #include "null_collision_filter.hpp"
 #include "world.hpp"
-#include <bullet/BulletDynamics/Dynamics/btDiscreteDynamicsWorld.h>
+#include <BulletDynamics/Dynamics/btDiscreteDynamicsWorld.h>
 
 fruitcut::physics::null_collision_filter::null_collision_filter(
 	world &_world)

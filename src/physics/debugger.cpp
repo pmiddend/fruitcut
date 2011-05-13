@@ -3,7 +3,7 @@
 #include "structure_cast.hpp"
 #include <sge/line_drawer/line.hpp>
 #include <sge/line_drawer/scoped_lock.hpp>
-#include <bullet/BulletDynamics/Dynamics/btDiscreteDynamicsWorld.h>
+#include <BulletDynamics/Dynamics/btDiscreteDynamicsWorld.h>
 #include <sge/renderer/scoped_transform.hpp>
 #include <sge/image/color/rgb8.hpp>
 #include <sge/image/color/init.hpp>
