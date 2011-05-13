@@ -80,7 +80,6 @@
 #include <boost/spirit/home/phoenix/core/reference.hpp>
 #include <boost/spirit/home/phoenix/object/static_cast.hpp>
 #include <boost/spirit/home/phoenix/operator/arithmetic.hpp>
-#include <boost/foreach.hpp>
 #include <limits>
 #include <iostream>
 #include <algorithm>
@@ -345,17 +344,19 @@ particles::from_image(
 				800),
 			points.size()));
 
-	BOOST_FOREACH(
-		point_sequence::const_reference p,
-		points)
+	for(
+		point_sequence::const_iterator p = 
+			points.begin();
+		p != points.end();
+		++p)
 	{
 		particle::point_sprite::object::vector const center = 
 			logo_pos_ + 
 				particle::point_sprite::object::vector(
 					static_cast<particle::point_sprite::object::unit>(
-						p.w()),
+						p->w()),
 					static_cast<particle::point_sprite::object::unit>(
-						p.h()));
+						p->h()));
 
 		system_.insert(
 			particle::objects::unique_base_ptr(

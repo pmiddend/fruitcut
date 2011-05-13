@@ -25,7 +25,6 @@
 #include <fcppt/math/box/output.hpp>
 #include <fcppt/math/dim/output.hpp>
 #include <fcppt/math/vector/output.hpp>
-#include <boost/foreach.hpp>
 #include <boost/geometry/multi/multi.hpp>
 #include <boost/geometry/multi/algorithms/detail/for_each_range.hpp>
 #include <boost/geometry/geometry.hpp>
@@ -44,10 +43,19 @@ fruitcut::app::fruit::hull::projected(
 
 	hull_point_cloud point_cloud;
 
-	BOOST_FOREACH(
-		box3::vector const &v,
+	typedef
+	fcppt::container::array<box3::vector,8> 
+	corner_point_array;
+
+	corner_point_array const corner_points = 
 		fcppt::math::box::corner_points(
-			f.bounding_box()))
+			f.bounding_box());
+
+	for(
+		corner_point_array::const_iterator v = 
+			corner_points.begin();
+		v != corner_points.end();
+		++v)
 	{
 		sge::renderer::vector4 const projected = 
 			mvp 
@@ -55,7 +63,7 @@ fruitcut::app::fruit::hull::projected(
 					f.world_transform() 
 				* 
 					fcppt::math::vector::construct(
-						v,
+						(*v),
 						static_cast<box3::vector::value_type>(
 							1));
 

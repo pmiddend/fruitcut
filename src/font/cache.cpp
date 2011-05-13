@@ -22,7 +22,6 @@
 #include <fcppt/assert_message.hpp>
 #include <fcppt/filesystem/extension_without_dot.hpp>
 #include <fcppt/tr1/type_traits.hpp>
-#include <boost/foreach.hpp>
 #include <boost/next_prior.hpp>
 #include <boost/static_assert.hpp>
 #include <iostream>
@@ -54,19 +53,21 @@ fruitcut::font::cache::cache(
 	bitmap_font_cache bitmap_fonts_;
 	ttf_font_cache ttf_fonts_;
 
-	BOOST_FOREACH(
-		sge::parse::json::member_vector::const_reference current_font_raw,
-		_fonts.members)
+	for(
+		sge::parse::json::member_vector::const_iterator current_font_raw =
+			_fonts.members.begin();
+		current_font_raw != _fonts.members.end();
+		++current_font_raw)
 	{
 		BOOST_STATIC_ASSERT(
 			(std::tr1::is_same<sge::parse::json::string,fcppt::string>::value));
 
 		fcppt::string const current_identifier = 
-			current_font_raw.name;
+			current_font_raw->name;
 
 		sge::parse::json::object const &current_font = 
 			sge::parse::json::get<sge::parse::json::object>(
-				current_font_raw.value);
+				current_font_raw->value);
 
 		fcppt::string const filename = 
 			sge::parse::json::find_member_exn<sge::parse::json::string>(

@@ -3,7 +3,6 @@
 #include "../../physics/shared_shape_ptr.hpp"
 #include <fcppt/container/raw_vector.hpp>
 #include <BulletCollision/CollisionShapes/btConvexHullShape.h>
-#include <boost/foreach.hpp>
 #include <iostream>
 
 fruitcut::physics::shared_shape_ptr const
@@ -20,17 +19,23 @@ fruitcut::app::fruit::mesh_to_shape(
 			m.triangles.size() * 3 * 3));
 
 	// Hehehehe
-	BOOST_FOREACH(
-		triangle const &t,
-		m.triangles)
-		BOOST_FOREACH(
-			triangle::vertex_array::const_reference vec,
-			t.vertices)
-			BOOST_FOREACH(
-				triangle::vector::const_reference r,
-				vec)
+	for(
+		fruit::mesh::triangle_sequence::const_iterator t = 
+			m.triangles.begin();
+		t != m.triangles.end();
+		++t)
+		for(
+			fruit::triangle::vertex_array::const_iterator vec = 
+				t->vertices.begin();
+			vec != t->vertices.end();
+			++vec)
+			for(
+				fruit::triangle::vector::const_iterator r = 
+					vec->begin();
+				r != vec->end();
+				++r)
 				points.push_back(
-					r);
+					*r);
 
 	return 
 		physics::shared_shape_ptr(

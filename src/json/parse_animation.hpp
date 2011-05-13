@@ -12,7 +12,6 @@
 #include <sge/time/funit.hpp>
 #include <boost/variant/get.hpp>
 #include <fcppt/text.hpp>
-#include <boost/foreach.hpp>
 
 namespace fruitcut
 {
@@ -35,20 +34,22 @@ parse_animation(
 
 	result_type values;
 
-	BOOST_FOREACH(
-		sge::parse::json::value const &v,
-		a.elements)
+	for(
+		sge::parse::json::element_vector::const_iterator v = 
+			a.elements.begin();
+		v != a.elements.end();
+		++v)
 	{
 		try
 		{
 			sge::parse::json::object const &o = 
 				boost::get<sge::parse::json::object>(
-					v);
+					*v);
 
 			sge::parse::json::float_type time_seconds = 
 				sge::parse::json::find_member_exn<sge::parse::json::float_type>(
-								o.members,
-								FCPPT_TEXT("time"));
+					o.members,
+					FCPPT_TEXT("time"));
 			sge::parse::json::value const &colorvalue = 
 				fruitcut::json::find_member<sge::parse::json::value>(
 						o,

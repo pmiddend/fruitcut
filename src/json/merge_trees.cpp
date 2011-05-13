@@ -6,7 +6,6 @@
 #include <sge/parse/json/member_name_equal.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/algorithm/map.hpp>
-#include <boost/foreach.hpp>
 #include <boost/variant/apply_visitor.hpp>
 #include <boost/spirit/home/phoenix/core/argument.hpp>
 #include <boost/spirit/home/phoenix/bind.hpp>
@@ -92,13 +91,22 @@ fruitcut::json::merge_trees(
 
 	sge::parse::json::object result;
 
-	BOOST_FOREACH(
-		fcppt::string const &key,
+	typedef
+	std::set<fcppt::string>
+	string_set;
+
+	string_set const union_set = 
 		fruitcut::stdlib::union_(
 			key_set(
 				original),
 			key_set(
-				update)))
+				update));
+
+	for(
+		string_set::const_iterator key = 
+			union_set.begin();
+		key != union_set.end();
+		++key)
 	{
 		member_vector::const_iterator 
 			original_it = 
@@ -106,13 +114,13 @@ fruitcut::json::merge_trees(
 					original.members.begin(),
 					original.members.end(),
 					member_name_equal(
-						key)),
+						*key)),
 			update_it = 
 				std::find_if(
 					update.members.begin(),
 					update.members.end(),
 					member_name_equal(
-						key));
+						*key));
 
 		// Object exists only in the update? Then copy
 		if (original_it == original.members.end())
@@ -133,7 +141,7 @@ fruitcut::json::merge_trees(
 		// Both objects have the key, then merge!
 		result.members.push_back(
 			member(
-				key,
+				*key,
 				boost::apply_visitor(
 					visitor(),
 					original_it->value,

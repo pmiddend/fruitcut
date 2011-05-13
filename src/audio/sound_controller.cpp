@@ -23,7 +23,6 @@
 #include <fcppt/string.hpp>
 #include <boost/spirit/home/phoenix/core.hpp>
 #include <boost/spirit/home/phoenix/bind.hpp>
-#include <boost/foreach.hpp>
 #include <iostream>
 
 fruitcut::audio::sound_controller::sound_controller(
@@ -36,31 +35,45 @@ fruitcut::audio::sound_controller::sound_controller(
 	sounds_(),
 	pool_()
 {
-	BOOST_FOREACH(
-		sge::parse::json::member_vector::const_reference current_sound,
-		sound_array.members)
+	for(
+		sge::parse::json::member_vector::const_iterator current_sound = 
+			sound_array.members.begin();
+		current_sound != sound_array.members.end();
+		++current_sound)
 	{
 		// This is an algorithm::map call, but I don't want to use phoenix
 		// here, too convoluted
 		detail::buffer_sequence buffers;
-		BOOST_FOREACH(
-			fcppt::string const &current_file,
+
+		typedef
+		std::vector<fcppt::string>
+		string_vector;
+
+		string_vector const files = 
 			json::array_to_vector<fcppt::string>(
 				sge::parse::json::get<sge::parse::json::array>(
-					current_sound.value)))
+					current_sound->value));
+			
+		for(
+			string_vector::const_iterator current_file = 
+				files.begin();
+			current_file != files.end();
+			++current_file)
 			buffers.push_back(
 				player_.create_buffer(
 					*ml.load(
 						media_path() 
 							/ FCPPT_TEXT("sounds")
 							/
-								current_file)));
+								(*current_file))));
+
 		FCPPT_ASSERT_MESSAGE(
 			!buffers.empty(),
 			FCPPT_TEXT("Got an empty sound group!"));
+
 		sounds_.insert(
 			std::make_pair(
-				current_sound.name,
+				current_sound->name,
 				buffers));
 	}
 }

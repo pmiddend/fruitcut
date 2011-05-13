@@ -39,7 +39,6 @@
 #include <fcppt/from_std_string.hpp>
 #include <boost/date_time/posix_time/posix_time.hpp>
 #include <boost/date_time/c_local_time_adjustor.hpp>
-#include <boost/foreach.hpp>
 
 namespace
 {
@@ -100,24 +99,33 @@ load_highscore()
 			FCPPT_TEXT("entries"));
 
 	highscore_sequence result;
+	
+	typedef
+	std::vector<sge::parse::json::object> 
+	json_object_vector;
 
-	BOOST_FOREACH(
-		sge::parse::json::object const &current_entry,
-		fruitcut::json::array_to_vector<sge::parse::json::object>(
-			json_file))
+	json_object_vector const json_objects(
+		(fruitcut::json::array_to_vector<sge::parse::json::object>(
+			json_file)));
+
+	for(
+		json_object_vector::const_iterator current_entry = 
+			json_objects.begin();
+		current_entry != json_objects.end();
+		++current_entry)
 	{
 		result.push_back(
 			highscore_entry(
 				fruitcut::json::find_member<sge::parse::json::string>(
-					current_entry,
+					*current_entry,
 					FCPPT_TEXT("name")),
 				fruitcut::json::find_member<fruitcut::app::score>(
-					current_entry,
+					*current_entry,
 					FCPPT_TEXT("score")),
 				boost::posix_time::from_iso_string(
 					fcppt::to_std_string(
 						fruitcut::json::find_member<sge::parse::json::string>(
-							current_entry,
+							*current_entry,
 							FCPPT_TEXT("date-time"))))));
 	}
 
@@ -212,9 +220,11 @@ fruitcut::app::states::gameover::highscore::highscore(
 		entries);
 
 	unsigned index = 1;
-	BOOST_FOREACH(
-		highscore_entry const &current_entry,
-		entries)
+	for(
+		highscore_sequence::const_iterator current_entry = 
+			entries.begin();
+		current_entry != entries.end();
+		++current_entry)
 	{
 		typedef 
 		boost::date_time::c_local_adjustor<boost::posix_time::ptime> 
@@ -229,17 +239,17 @@ fruitcut::app::states::gameover::highscore::highscore(
 						index),
 					context<machine>().systems().charconv_system()))
 				(sge::cegui::to_cegui_string(
-					current_entry.name,
+					current_entry->name,
 					context<machine>().systems().charconv_system()))
 				(sge::cegui::to_cegui_string(
 					fcppt::lexical_cast<fcppt::string>(
-						current_entry.score_),
+						current_entry->score_),
 					context<machine>().systems().charconv_system()))
 				(sge::cegui::to_cegui_string(
 					fcppt::from_std_string(
 						boost::posix_time::to_simple_string(
 							local_adjuster::utc_to_local(
-								current_entry.date_time))),
+								current_entry->date_time))),
 					context<machine>().systems().charconv_system())));
 	}
 }

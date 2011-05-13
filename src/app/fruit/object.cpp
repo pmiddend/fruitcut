@@ -13,7 +13,6 @@
 #include <fcppt/math/vector/structure_cast.hpp>
 #include <fcppt/math/box/output.hpp>
 #include <boost/geometry/geometry.hpp>
-#include <boost/foreach.hpp>
 #include <vector>
 
 #include <fcppt/math/vector/structure_cast.hpp>

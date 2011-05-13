@@ -66,7 +66,6 @@
 #include <fcppt/ref.hpp>
 #include <fcppt/assert_message.hpp>
 #include <fcppt/assert.hpp>
-#include <boost/foreach.hpp>
 
 namespace
 {
@@ -173,7 +172,11 @@ fruitcut::app::fruit::manager::cut(
 	if(current_fruit.locked())
 		return;
 
-	fcppt::container::array<plane,2> planes =
+	typedef
+	fcppt::container::array<plane,2>
+	plane_array;
+
+	plane_array planes =
 		{{
 			original_plane,
 			plane(
@@ -187,16 +190,18 @@ fruitcut::app::fruit::manager::cut(
 	fruit::area cumulated_area = 0;
 
 	// make_array here to be even cooler? :>
-	BOOST_FOREACH(
-		plane const &p,
-		planes)
+	for(
+		plane_array::const_iterator p = 
+			planes.begin();
+		p != planes.end();
+		++p)
 	{
 		mesh split_mesh;
 		box3 bounding_box;
 		sge::renderer::vector3 barycenter;
 		cut_mesh(
 			current_fruit.mesh(),
-			p,
+			*p,
 			split_mesh,
 			bounding_box,
 			cumulated_area,
@@ -236,7 +241,7 @@ fruitcut::app::fruit::manager::cut(
 						math::multiply_matrix4_vector3(
 							current_fruit.body().rotation(),
 							fcppt::math::vector::structure_cast<physics::vector3>(
-								p.normal()))),
+								p->normal()))),
 				current_fruit.body().angular_velocity(),
 				lock_duration,
 				time_callback));

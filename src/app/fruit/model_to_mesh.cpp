@@ -8,7 +8,6 @@
 #include <fcppt/math/vector/structure_cast.hpp>
 #include <fcppt/assert.hpp>
 #include <fcppt/string.hpp>
-#include <boost/foreach.hpp>
 #include <boost/next_prior.hpp>
 
 fruitcut::app::fruit::mesh const

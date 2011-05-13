@@ -1,7 +1,6 @@
 #include "mesh_to_point_cloud.hpp"
 #include "mesh.hpp"
 #include "triangle.hpp"
-#include <boost/foreach.hpp>
 
 fruitcut::app::fruit::point_cloud const
 fruitcut::app::fruit::mesh_to_point_cloud(
@@ -12,14 +11,20 @@ fruitcut::app::fruit::mesh_to_point_cloud(
 		static_cast<point_cloud::size_type>(
 			m.triangles.size() * 3));
 
-	BOOST_FOREACH(
-		triangle const &t,
-		m.triangles)
-		BOOST_FOREACH(
-			triangle::vertex_array::const_reference r,
-			t.vertices)
+	for(
+		fruit::mesh::triangle_sequence::const_iterator t = 
+			m.triangles.begin();
+		t != m.triangles.end();
+		++t)
+	{
+		for(
+			triangle::vertex_array::const_iterator r = 
+				t->vertices.begin();
+			r != t->vertices.end();
+			++r)
 			output.push_back(
-				r);
+				*r);
+	}
 
 	return output;
 }

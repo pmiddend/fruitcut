@@ -10,7 +10,6 @@
 #include <fcppt/move.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/tr1/functional.hpp>
-#include <boost/foreach.hpp>
 
 fruitcut::log::scoped_sequence_ptr
 fruitcut::log::scoped_sequence_from_json(
@@ -22,13 +21,15 @@ fruitcut::log::scoped_sequence_from_json(
 
 	try
 	{
-		BOOST_FOREACH(
-			sge::parse::json::element_vector::const_reference r,
-			a.elements)
+		for(
+			sge::parse::json::element_vector::const_iterator r = 
+				a.elements.begin();
+			r != a.elements.end();
+			++r)
 		{
 			sge::parse::json::array const &current_pair = 
 				sge::parse::json::get<sge::parse::json::array>(
-					r);
+					*r);
 
 			if(current_pair.elements.size() != 2)
 				throw exception(

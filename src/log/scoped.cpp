@@ -3,7 +3,6 @@
 #include <fcppt/log/context.hpp>
 #include <fcppt/log/object.hpp>
 #include <fcppt/log/activate_levels.hpp>
-#include <boost/foreach.hpp>
 #include <iostream>
 
 fruitcut::log::scoped::scoped(
@@ -32,9 +31,11 @@ fruitcut::log::scoped::scoped(
 
 fruitcut::log::scoped::~scoped()
 {
-	BOOST_FOREACH(
-		fcppt::log::enabled_level_array::const_reference r,
-		old_levels_)
+	for(
+		fcppt::log::enabled_level_array::const_iterator r = 
+			old_levels_.begin();
+		r != old_levels_.end();
+		++r)
 		object_->enable(
-			r);
+			*r);
 }

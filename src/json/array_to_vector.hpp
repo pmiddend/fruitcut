@@ -5,7 +5,6 @@
 #include <sge/parse/json/array.hpp>
 #include <sge/parse/json/object.hpp>
 #include <sge/parse/json/element_vector.hpp>
-#include <boost/foreach.hpp>
 #include <vector>
 
 namespace fruitcut
@@ -18,12 +17,14 @@ array_to_vector(
 	sge::parse::json::array const &a)
 {
 	std::vector<T> result;
-	BOOST_FOREACH(
-		sge::parse::json::element_vector::const_reference r,
-		a.elements)
+	for(
+		sge::parse::json::element_vector::const_iterator r = 
+			a.elements.begin();
+		r != a.elements.end();
+		++r)
 		result.push_back(
 			convert<T>(
-				r));
+				*r));
 	return result;
 }
 }

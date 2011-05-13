@@ -18,7 +18,6 @@
 #include <sge/shader/vf_to_string.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/io/cerr.hpp>
-#include <boost/foreach.hpp>
 #include <boost/graph/topological_sort.hpp>
 #include <iostream>
 #include <iterator>
@@ -63,21 +62,25 @@ fruitcut::pp::system::update()
 	if (sorted.empty())
 		return;
 	
-	BOOST_FOREACH(
-		vertex_list::const_reference current_vertex,
-		sorted)
+	for(
+		vertex_list::const_iterator current_vertex = 
+			sorted.begin();
+		current_vertex != sorted.end();
+		++current_vertex)
 	{
 		texture::counted_instance const result = 
-			vertex_to_filter_[current_vertex].filter().dispatch();
+			vertex_to_filter_[*current_vertex].filter().dispatch();
 
 		result_texture_ = result->texture();
-		BOOST_FOREACH(
-			out_edge_iterator::value_type r,
-			boost::out_edges(
-				current_vertex,
-				graph_))
+		for(
+			std::pair<out_edge_iterator,out_edge_iterator> out_edge_pair = 
+				boost::out_edges(
+					*current_vertex,
+					graph_);
+			out_edge_pair.first != out_edge_pair.second;
+			++out_edge_pair.first)
 		{
-			vertex_to_filter_[boost::target(r,graph_)].filter().enqueue(
+			vertex_to_filter_[boost::target(*out_edge_pair.first,graph_)].filter().enqueue(
 				result);
 		}
 	}
@@ -135,20 +138,22 @@ fruitcut::pp::system::add_filter(
 	name_to_vertex_[name] = 
 		new_vertex;
 
-	BOOST_FOREACH(
-		dependency_set::const_reference r,
-		deps)
+	for(
+		dependency_set::const_iterator r = 
+			deps.begin();
+		r != deps.end();
+		++r)
 	{
 		FCPPT_ASSERT_MESSAGE(
-			name_to_vertex_.find(r) != name_to_vertex_.end(),
+			name_to_vertex_.find(*r) != name_to_vertex_.end(),
 			FCPPT_TEXT("Filter ")+
-			r+
+			(*r)+
 			FCPPT_TEXT(" which was specified as the dependency for ")+
 			name+
 			FCPPT_TEXT(" was not found"));
 			
 		boost::add_edge(
-			name_to_vertex_[r],
+			name_to_vertex_[(*r)],
 			new_vertex,
 			graph_);
 	}

@@ -16,7 +16,6 @@
 #include <sge/renderer/vf/vertex.hpp>
 #include <sge/renderer/vf/view.hpp>
 #include <sge/shader/object.hpp>
-#include <boost/foreach.hpp>
 
 sge::renderer::vertex_buffer_ptr const
 fruitcut::app::fruit::mesh_to_vertex_buffer(
@@ -49,22 +48,24 @@ fruitcut::app::fruit::mesh_to_vertex_buffer(
 	model_vf::vertex_view::iterator vb_it(
 		vertices.begin());
 
-	BOOST_FOREACH(
-		triangle const &t,
-		m.triangles)
+	for(
+		fruit::mesh::triangle_sequence::const_iterator t = 
+			m.triangles.begin();
+		t != m.triangles.end();
+		++t)
 	{
 		(vb_it)->set<model_vf::position>(
-			t.vertices[0]);
+			t->vertices[0]);
 		(vb_it++)->set<model_vf::texcoord>(
-			t.texcoords[0]);
+			t->texcoords[0]);
 		(vb_it)->set<model_vf::position>(
-			t.vertices[1]);
+			t->vertices[1]);
 		(vb_it++)->set<model_vf::texcoord>(
-			t.texcoords[1]);
+			t->texcoords[1]);
 		(vb_it)->set<model_vf::position>(
-			t.vertices[2]);
+			t->vertices[2]);
 		(vb_it++)->set<model_vf::texcoord>(
-			t.texcoords[2]);
+			t->texcoords[2]);
 	}
 
 	return vb;

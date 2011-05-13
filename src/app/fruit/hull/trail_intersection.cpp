@@ -7,7 +7,6 @@
 #include <fcppt/math/vector/arithmetic.hpp>
 #include <fcppt/math/vector/length.hpp>
 #include <boost/geometry/geometry.hpp>
-#include <boost/foreach.hpp>
 #include <iostream>
 
 fruitcut::app::fruit::hull::intersection_pair const
@@ -30,12 +29,14 @@ fruitcut::app::fruit::hull::trail_intersection(
 		static_cast<linestring_type::size_type>(
 			positions.size()));
 
-	BOOST_FOREACH(
-		cursor_trail::position_buffer::const_reference cursor_pos,
-		positions)
+	for(
+		cursor_trail::position_buffer::const_iterator cursor_pos = 
+			positions.begin();
+		cursor_pos != positions.end();
+		++cursor_pos)
 		cursor_lines.push_back(
 			fcppt::math::vector::structure_cast<ring::value_type>(
-				cursor_pos));
+				*cursor_pos));
 
 	result_points result;
 

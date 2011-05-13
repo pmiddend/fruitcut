@@ -14,7 +14,6 @@
 #include <boost/spirit/home/phoenix/core/argument.hpp>
 #include <boost/spirit/home/phoenix/operator/self.hpp>
 #include <boost/range/numeric.hpp>
-#include <boost/foreach.hpp>
 #include <string>
 #include <vector>
 

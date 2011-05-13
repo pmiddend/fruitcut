@@ -15,7 +15,6 @@
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/assign/make_container.hpp>
-#include <boost/foreach.hpp>
 #include <iostream>
 
 fruitcut::app::postprocessing::postprocessing(
@@ -180,12 +179,14 @@ fruitcut::app::postprocessing::list_filters(
 		obj.emit_error(
 			SGE_FONT_TEXT_LIT("warning: ")+args[0]+SGE_FONT_TEXT_LIT(" doesn't take any parameters"));
 		
-	BOOST_FOREACH(
-		fcppt::string const &s,
-		system_.filter_names())
+	for(
+		pp::system::filter_name_set::const_iterator s = 
+			system_.filter_names().begin();
+		s != system_.filter_names().end();
+		++s)
 		obj.emit_message(
 			sge::font::text::from_fcppt_string(
-				s));
+				*s));
 }
 
 void
