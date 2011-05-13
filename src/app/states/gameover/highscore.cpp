@@ -19,6 +19,7 @@
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/lexical_cast.hpp>
 #include <fcppt/to_std_string.hpp>
+#include <fcppt/from_std_string.hpp>
 #include <boost/range/algorithm/sort.hpp>
 
 #include "../../score.hpp"
@@ -235,9 +236,10 @@ fruitcut::app::states::gameover::highscore::highscore(
 						current_entry.score_),
 					context<machine>().systems().charconv_system()))
 				(sge::cegui::to_cegui_string(
-					boost::posix_time::to_simple_string(
-						local_adjuster::utc_to_local(
-							current_entry.date_time)),
+					fcppt::from_std_string(
+						boost::posix_time::to_simple_string(
+							local_adjuster::utc_to_local(
+								current_entry.date_time))),
 					context<machine>().systems().charconv_system())));
 	}
 }

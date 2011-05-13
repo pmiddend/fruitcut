@@ -135,9 +135,22 @@ triangle_area(
 }
 
 template<typename Container>
+struct make_coordinate_system_msvc_hack
+{
+	typedef typename
+	Container::value_type::value_type
+	scalar_type
+
+	typedef typename
+	fcppt::math::matrix::static_<scalar_type,4,4>::type
+	type;
+};
+
+template<typename Container>
 fcppt::optional
 <
-	typename fcppt::math::matrix::static_<typename Container::value_type::value_type,4,4>::type
+	typename
+	make_coordinate_system_msvc_hack<Container>::type
 > const
 make_coordinate_system(
 	Container const &points,
