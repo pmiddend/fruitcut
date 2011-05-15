@@ -1,21 +1,26 @@
 #include "cut_mesh.hpp"
+#include "cut_mesh_result.hpp"
 #include "../../math/cut_triangle_at_plane.hpp"
 #include "../../math/triangle_plane_intersection.hpp"
 #include "../../math/line/distance_to_point.hpp"
 #include "../../geometry_traits/vector.hpp"
 #include "../../geometry_traits/box.hpp"
 #include "triangle.hpp"
+#include "triangle_traits.hpp"
 #include <sge/renderer/matrix4.hpp>
 #include <sge/renderer/scalar.hpp>
 #include <sge/renderer/vector2.hpp>
 #include <sge/renderer/vector3.hpp>
 #include <sge/renderer/vector4.hpp>
 #include <fcppt/math/vector/vector.hpp>
+#include <fcppt/move.hpp>
 #include <fcppt/math/matrix/matrix.hpp>
 #include <fcppt/math/dim/dim.hpp>
 #include <fcppt/math/box/box.hpp>
 #include <fcppt/math/range_compare.hpp>
 #include <fcppt/assign/make_array.hpp>
+#include <fcppt/unique_ptr.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <boost/next_prior.hpp>
 #include <boost/spirit/home/phoenix/bind.hpp>
 #include <boost/spirit/home/phoenix/core.hpp>
@@ -34,68 +39,6 @@
 
 namespace
 {
-fruitcut::app::fruit::triangle const
-create_triangle(
-	sge::renderer::vector3 const &p0,
-	sge::renderer::vector2 const &t0,
-	sge::renderer::vector3 const &p1,
-	sge::renderer::vector2 const &t1,
-	sge::renderer::vector3 const &p2,
-	sge::renderer::vector2 const &t2)
-{
-	fruitcut::app::fruit::triangle::vertex_array const vertices = {{ p0,p1,p2 }};
-	fruitcut::app::fruit::triangle::texcoord_array const texcoords = {{ t0,t1,t2 }};
-	return 
-		fruitcut::app::fruit::triangle(
-			vertices,
-			texcoords);
-}
-
-sge::renderer::vector3 const
-get_position(
-	fruitcut::app::fruit::triangle const &t,
-	fruitcut::app::fruit::triangle::size_type const i)
-{
-	return t.vertices[i];
-}
-
-sge::renderer::vector2 const
-get_data(
-	fruitcut::app::fruit::triangle const &t,
-	fruitcut::app::fruit::triangle::size_type const i)
-{
-	return t.texcoords[i];
-}
-
-sge::renderer::vector2 const
-interpolate(
-	sge::renderer::vector2 const &a,
-	sge::renderer::vector2 const &b,
-	sge::renderer::scalar c)
-{
-	return a * c + (static_cast<sge::renderer::scalar>(1)-c) * b;
-}
-
-// Two helper functions for the cross section
-template<typename T>
-bool
-nearly_equals(
-	T const &a,
-	T const &b,
-	T const &epsilon)
-{
-	return std::abs(a-b) < epsilon;
-}
-
-sge::renderer::scalar
-compare_angles(
-	sge::renderer::vector2 const &p0,
-	sge::renderer::vector2 const &p1,
-	sge::renderer::vector2 const &p2)
-{
-	return (p1.x() - p0.x()) * (p2.y() - p0.y()) - (p2.x() - p0.x())*(p1.y() - p0.y());
-}
-
 sge::renderer::vector2 const
 transform_texcoord(
 	sge::renderer::vector2 const &t)
@@ -245,14 +188,10 @@ vector_dimension_convert(
 }
 }
 
-void
+fcppt::unique_ptr<fruitcut::app::fruit::cut_mesh_result>
 fruitcut::app::fruit::cut_mesh(
-	mesh const &input_mesh,
-	plane const &input_plane,
-	mesh &output_mesh,
-	box3 &output_bounding_box,
-	fruit::area &output_area,
-	sge::renderer::vector3 &output_barycenter)
+	fruit::mesh const &input_mesh,
+	fruit::plane const &input_plane)
 {
 	typedef
 	sge::renderer::scalar
@@ -282,6 +221,9 @@ fruitcut::app::fruit::cut_mesh(
 	fcppt::math::box::basic<scalar,3>
 	box3;
 
+	fcppt::unique_ptr<fruit::cut_mesh_result> result = 
+		fcppt::make_unique_ptr<fruit::cut_mesh_result>();
+
 	scalar const epsilon = 
 		static_cast<scalar>(
 			0.01);
@@ -306,11 +248,7 @@ fruitcut::app::fruit::cut_mesh(
 		intersection const single_result = 
 			math::cut_triangle_at_plane(
 				*input_triangle,
-				input_plane,
-				&get_position,
-				&get_data,
-				&interpolate,
-				&create_triangle);
+				input_plane);
 
 		for(
 			intersection::point_sequence::const_iterator current_is_point = 
@@ -345,27 +283,29 @@ fruitcut::app::fruit::cut_mesh(
 		boost::range::copy(
 			single_result.triangles(),
 			std::back_inserter(
-				output_mesh.triangles));
+				result->mesh().triangles));
 	}
 
 	// If there were no triangles, we can return
-	if(output_mesh.triangles.empty())
-		return;
+	if(result->mesh().triangles.empty())
+		return 
+			fcppt::move(
+				result);
 
 	// Step 2: Calculate the bounding box and the barycenter (we can do
 	// that in one pass, luckily)
-	output_barycenter = vector3::null();
+	result->barycenter() = vector3::null();
 
 	vector3 
 		min_pos = 
-			output_mesh.triangles.front().vertices[0],
+			result->mesh().triangles.front().vertices[0],
 		max_pos = 
 			min_pos;
 
 	for(
 		mesh::triangle_sequence::const_iterator current_tri = 
-			output_mesh.triangles.begin(); 
-		current_tri != output_mesh.triangles.end(); 
+			result->mesh().triangles.begin(); 
+		current_tri != result->mesh().triangles.end(); 
 		++current_tri)
 	{
 		for(
@@ -374,7 +314,7 @@ fruitcut::app::fruit::cut_mesh(
 			current_vertex != current_tri->vertices.end();
 			++current_vertex)
 		{
-			output_barycenter += *current_vertex;
+			result->barycenter() += *current_vertex;
 			for (vector3::size_type i = 0; i < 3; ++i)
 			{
 				min_pos[i] = std::min(min_pos[i],(*current_vertex)[i]);
@@ -383,33 +323,35 @@ fruitcut::app::fruit::cut_mesh(
 		}
 	}
 
-	output_bounding_box = 
+	result->bounding_box() = 
 		box3(
 			min_pos,
 			fcppt::math::vector::structure_cast<box3::dim>(
 				max_pos - min_pos));
 
-	output_barycenter /= 
+	result->barycenter() /= 
 		static_cast<scalar>(
-			output_mesh.triangles.size() * 3);
+			result->mesh().triangles.size() * 3);
 
 	for(
 		mesh::triangle_sequence::iterator current_tri = 
-			output_mesh.triangles.begin(); 
-		current_tri != output_mesh.triangles.end(); 
+			result->mesh().triangles.begin(); 
+		current_tri != result->mesh().triangles.end(); 
 		++current_tri)
 		for(
 			triangle::vertex_array::iterator current_vertex = 
 				current_tri->vertices.begin();
 			current_vertex != current_tri->vertices.end();
 			++current_vertex)
-			(*current_vertex) -= output_barycenter;
+			(*current_vertex) -= result->barycenter();
 
 	// If we've got no border, quit now. This happens when the cutting
 	// plane doesn't intersect with the fruit at all (we "miss", so to
 	// speak)
 	if(border.size() < static_cast<vector3_sequence::size_type>(3))
-		return;
+		return 
+			fcppt::move(
+				result);
 
 #if 0
 	//std::cout << "border not empty!\n";
@@ -429,21 +371,12 @@ fruitcut::app::fruit::cut_mesh(
 			epsilon);
 
 	if(!cs)
-		return;
+		return
+			fcppt::move(
+				result);
 
 	matrix4 const tcs = 
 		*cs;
-
-#if 0
-	std::cout 
-		<< "coordinate system:\n" 
-		<< "{"
-		<< "{" << tcs[0][0] << ","<< tcs[0][1] << ","<< tcs[0][2] << ","<< tcs[0][3] << "},\n"
-		<< "{" << tcs[1][0] << ","<< tcs[1][1] << ","<< tcs[1][2] << ","<< tcs[1][3] << "},\n"
-		<< "{" << tcs[2][0] << ","<< tcs[2][1] << ","<< tcs[2][2] << ","<< tcs[2][3] << "},\n"
-		<< "{" << tcs[3][0] << ","<< tcs[3][1] << ","<< tcs[3][2] << ","<< tcs[3][3] << "}\n"
-		<< "}\n";
-#endif
 
 	matrix4 const coordinate_transformation = 
 		fcppt::math::matrix::inverse(
@@ -461,11 +394,6 @@ fruitcut::app::fruit::cut_mesh(
 	reduced.reserve(
 		border.size());
 
-#if 0
-	std::cout << "------------------ INPUT ------------------\n";
-	std::cout << "{\n";
-#endif
-
 	for(vector3_sequence::const_iterator i = border.begin(); i != border.end(); ++i)
 	{
 		vector4 const transformed = 
@@ -476,13 +404,6 @@ fruitcut::app::fruit::cut_mesh(
 				(*i)[2],
 				// WATCH OUT: ONLY WORKS WITH THE 1 HERE!
 				1);
-
-#if 0
-		std::cout << "{" << transformed[0] << "," << transformed[1] << "}";
-		if (i != (--border.end()))
-			std::cout << ",";
-		std::cout << "\n";
-#endif
 
 		reduced.push_back(
 			vector_dimension_convert<vector2>(
@@ -507,43 +428,23 @@ fruitcut::app::fruit::cut_mesh(
 		}
 	}
 
-#if 0
-	std::cout << "}\n";
-	std::cout << "------------------ INPUT ------------------\n";
-#endif
-
-	ring_2d result;
+	ring_2d convex_hull_result;
 
 	boost::geometry::convex_hull(
 		reduced,
-		result);
+		convex_hull_result);
 
-	if(result.size() < static_cast<ring_2d::size_type>(3))
+	if(convex_hull_result.size() < static_cast<ring_2d::size_type>(3))
 	{
 		std::cerr << "Didn't get enough points, returning\n";
-		return;
+		return
+			fcppt::move(
+				result);
 	}
-
-	/*
-	std::cout << "Reduced " << (reduced.size() - result.size()) << " points\n";
-	std::cout << "------------------ OUTPUT ------------------\n";
-	std::cout << "{\n";
-
-	for(ring_2d::const_iterator i = result.begin(); i != result.end(); ++i)
-	{
-		std::cout << "{" << (*i)[0] << "," << (*i)[1] << "}";
-		if (i != (--result.end()))
-			std::cout << ",";
-		std::cout << "\n";
-	}
-
-	std::cout << "}\n";
-	std::cout << "------------------ OUTPUT ------------------\n";
-	*/
 
 	box2 const envelope = 
 		boost::geometry::return_envelope<box2>(
-			result);
+			convex_hull_result);
 
 	typedef
 	std::vector<vector2>
@@ -551,9 +452,9 @@ fruitcut::app::fruit::cut_mesh(
 
 	texcoord_vector texcoords;
 	texcoords.reserve(
-		result.size());
+		convex_hull_result.size());
 
-	for(ring_2d::const_iterator i = result.begin(); i != result.end(); ++i)
+	for(ring_2d::const_iterator i = convex_hull_result.begin(); i != convex_hull_result.end(); ++i)
 		texcoords.push_back(
 			((*i) - envelope.pos())/
 			vector2(
@@ -562,43 +463,43 @@ fruitcut::app::fruit::cut_mesh(
 
 	ring_2d::size_type const triangle_count = 
 		static_cast<ring_2d::size_type>(
-			result.size() - 2u);
+			convex_hull_result.size() - 2u);
 
-	output_mesh.triangles.reserve(
-		output_mesh.triangles.size() + triangle_count);
+	result->mesh().triangles.reserve(
+		result->mesh().triangles.size() + triangle_count);
 
 	for(
 		ring_2d::size_type current_vertex = 
 			static_cast<ring_2d::size_type>(
 				2);
-		current_vertex < result.size();
+		current_vertex < convex_hull_result.size();
 		++current_vertex)
 	{
-		output_mesh.triangles.push_back(
+		result->mesh().triangles.push_back(
 			fruit::triangle(
 				fcppt::assign::make_array<triangle::vector>
 					(vector_dimension_convert<vector3>(
 						(*cs) * 
 						vector4(
-							result[0][0],
-							result[0][1],
+							convex_hull_result[0][0],
+							convex_hull_result[0][1],
 							0,
-							1)) - output_barycenter)
+							1)) - result->barycenter())
 					(vector_dimension_convert<vector3>(
 						(*cs) * 
 						vector4(
-							result[current_vertex-1][0],
-							result[current_vertex-1][1],
+							convex_hull_result[current_vertex-1][0],
+							convex_hull_result[current_vertex-1][1],
 							0,
-							1)) - output_barycenter)
+							1)) - result->barycenter())
 					(vector_dimension_convert<vector3>(
 						(*cs) * 
 						vector4(
-							result[current_vertex][0],
-							result[current_vertex][1],
+							convex_hull_result[current_vertex][0],
+							convex_hull_result[current_vertex][1],
 							0,
-							1)) - output_barycenter),
-				fcppt::assign::make_array<triangle::data_type>
+							1)) - result->barycenter()),
+				fcppt::assign::make_array<triangle::texcoord_type>
 					(transform_texcoord(
 						texcoords[
 							0]))
@@ -609,8 +510,12 @@ fruitcut::app::fruit::cut_mesh(
 						texcoords[
 							current_vertex]))));
 
-		output_area += 
+		result->area() += 
 			triangle_area(
-				output_mesh.triangles.back());
+				result->mesh().triangles.back());
 	}
+
+	return 
+		fcppt::move(
+			result);
 }

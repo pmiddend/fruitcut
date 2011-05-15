@@ -1,7 +1,7 @@
 #ifndef FRUITCUT_MATH_TRIANGLE_PLANE_INTERSECTION_HPP_INCLUDED
 #define FRUITCUT_MATH_TRIANGLE_PLANE_INTERSECTION_HPP_INCLUDED
 
-#include "triangle/basic.hpp"
+#include "triangle/vector_type.hpp"
 #include <fcppt/math/size_type.hpp>
 #include <vector>
 
@@ -22,7 +22,10 @@ public:
 	triangle_sequence;
 
 	typedef
-	std::vector<typename triangle_type::vector>
+	std::vector
+	<
+		typename math::triangle::vector_type<triangle_type>::type
+	>
 	point_sequence;
 
 	void

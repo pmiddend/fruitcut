@@ -21,14 +21,14 @@ public:
 
 	typedef
 	sge::renderer::vector2
-	data_type;
+	texcoord_type;
 
 	typedef
 	fcppt::container::array<vector,3>
 	vertex_array;
 
 	typedef
-	fcppt::container::array<data_type,3>
+	fcppt::container::array<texcoord_type,3>
 	texcoord_array;
 
 	typedef
@@ -37,6 +37,14 @@ public:
 
 	vertex_array vertices;
 	texcoord_array texcoords;
+
+	explicit
+	triangle()
+	:
+		vertices(),
+		texcoords()
+	{
+	}
 
 	explicit
 	triangle(

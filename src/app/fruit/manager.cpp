@@ -189,27 +189,23 @@ fruitcut::app::fruit::manager::cut(
 	object_sequence::implementation_sequence fruit_cache;
 	fruit::area cumulated_area = 0;
 
-	// make_array here to be even cooler? :>
 	for(
 		plane_array::const_iterator p = 
 			planes.begin();
 		p != planes.end();
 		++p)
 	{
-		mesh split_mesh;
-		box3 bounding_box;
-		sge::renderer::vector3 barycenter;
-		cut_mesh(
-			current_fruit.mesh(),
-			*p,
-			split_mesh,
-			bounding_box,
-			cumulated_area,
-			barycenter);
+		fcppt::unique_ptr<fruit::cut_mesh_result> cut_result(
+			fruit::cut_mesh(
+				current_fruit.mesh(),
+				*p));
+
+		cumulated_area += 
+			cut_result->area();
 
 		// Note the return here. If this condition is true, we only split
 		// to one fruit, so we didn't split at all!
-		if (split_mesh.triangles.empty())
+		if (cut_result->mesh().triangles.empty())
 			return;
 
 		fcppt::container::ptr::push_back_unique_ptr(
@@ -225,17 +221,17 @@ fruitcut::app::fruit::manager::cut(
 				fcppt::ref(
 					fruit_shader_),
 				fcppt::ref(
-					split_mesh),
+					cut_result->mesh()),
 				static_cast<physics::scalar>(
-					current_fruit.bounding_box().size().content() / bounding_box.size().content()),
+					current_fruit.bounding_box().size().content() / cut_result->bounding_box().size().content()),
 				current_fruit.position() + 
 					math::multiply_matrix4_vector3(
 						current_fruit.body().rotation(),
 						fcppt::math::vector::structure_cast<physics::vector3>(
-							barycenter)),
+							cut_result->barycenter())),
 				current_fruit.body().rotation(),
 				current_fruit.body().linear_velocity() + 
-					(static_cast<physics::scalar>(0.5) * 
+					(static_cast<physics::scalar>(0.125) * 
 						fcppt::math::vector::length(
 							current_fruit.body().linear_velocity()) * 
 						math::multiply_matrix4_vector3(
