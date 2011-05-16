@@ -9,8 +9,6 @@
 #include <sge/renderer/vector3.hpp>
 #include <sge/renderer/vector4.hpp>
 #include <sge/renderer/viewport.hpp>
-#include <boost/geometry/geometries/adapted/std_as_ring.hpp>
-#include <boost/geometry/geometry.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/container/array.hpp>
@@ -25,9 +23,10 @@
 #include <fcppt/math/box/output.hpp>
 #include <fcppt/math/dim/output.hpp>
 #include <fcppt/math/vector/output.hpp>
-#include <boost/geometry/multi/multi.hpp>
-#include <boost/geometry/multi/algorithms/detail/for_each_range.hpp>
 #include <boost/geometry/geometry.hpp>
+#include <boost/geometry/multi/multi.hpp>
+#include <boost/geometry/multi/geometries/multi_point.hpp>
+#include <boost/geometry/multi/algorithms/detail/for_each_range.hpp>
 #include <iostream>
 #include <vector>
 

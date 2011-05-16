@@ -1,10 +1,11 @@
 #include "cut_mesh.hpp"
 #include "cut_mesh_result.hpp"
-#include "../../math/cut_triangle_at_plane.hpp"
-#include "../../math/triangle_plane_intersection.hpp"
-#include "../../math/line/distance_to_point.hpp"
-#include "../../geometry_traits/vector.hpp"
 #include "../../geometry_traits/box.hpp"
+#include "../../geometry_traits/vector.hpp"
+#include "../../math/cut_triangle_at_plane.hpp"
+#include "../../math/line/distance_to_point.hpp"
+#include "../../math/triangle/area.hpp"
+#include "../../math/triangle_plane_intersection.hpp"
 #include "triangle.hpp"
 #include "triangle_traits.hpp"
 #include <sge/renderer/matrix4.hpp>
@@ -12,30 +13,30 @@
 #include <sge/renderer/vector2.hpp>
 #include <sge/renderer/vector3.hpp>
 #include <sge/renderer/vector4.hpp>
+#include <fcppt/assign/make_array.hpp>
+#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/math/box/box.hpp>
+#include <fcppt/math/dim/dim.hpp>
+#include <fcppt/math/matrix/matrix.hpp>
+#include <fcppt/math/range_compare.hpp>
 #include <fcppt/math/vector/vector.hpp>
 #include <fcppt/move.hpp>
-#include <fcppt/math/matrix/matrix.hpp>
-#include <fcppt/math/dim/dim.hpp>
-#include <fcppt/math/box/box.hpp>
-#include <fcppt/math/range_compare.hpp>
-#include <fcppt/assign/make_array.hpp>
 #include <fcppt/unique_ptr.hpp>
-#include <fcppt/make_unique_ptr.hpp>
-#include <boost/next_prior.hpp>
-#include <boost/spirit/home/phoenix/bind.hpp>
-#include <boost/spirit/home/phoenix/core.hpp>
-#include <boost/range/algorithm/find_if.hpp>
-#include <boost/range/algorithm/copy.hpp>
-#include <boost/mpl/identity.hpp>
 #include <boost/geometry/geometry.hpp>
-#include <boost/geometry/multi/multi.hpp>
 #include <boost/geometry/multi/algorithms/detail/for_each_range.hpp>
+#include <boost/geometry/multi/multi.hpp>
+#include <boost/geometry/multi/geometries/multi_point.hpp>
+#include <boost/mpl/identity.hpp>
+#include <boost/next_prior.hpp>
+#include <boost/range/algorithm/copy.hpp>
+// Belongs to the find_if below
+//#include <boost/spirit/home/phoenix/bind.hpp>
+//#include <boost/spirit/home/phoenix/core.hpp>
+//#include <boost/range/algorithm/find_if.hpp>
 #include <algorithm>
-#include <vector>
-#include <set>
-#include <iterator>
 #include <iostream>
-#include <cmath>
+#include <iterator>
+#include <vector>
 
 namespace
 {
@@ -49,24 +50,6 @@ transform_texcoord(
 				static_cast<sge::renderer::scalar>(2) + 
 				static_cast<sge::renderer::scalar>(0.5),
 			t.y());
-}
-
-sge::renderer::scalar
-triangle_area(
-	fruitcut::app::fruit::triangle const &t)
-{
-	using namespace fruitcut::app::fruit;
-	triangle::vector const 
-		ab =
-			t.vertices[1] - t.vertices[0],
-		ac = 
-			t.vertices[2] - t.vertices[0];
-
-	return 
-		static_cast<sge::renderer::scalar>(
-			0.5) * 
-		std::abs(
-			ab.x() * ac.y() - ac.x() * ab.y());
 }
 
 template<typename Container>
@@ -353,18 +336,6 @@ fruitcut::app::fruit::cut_mesh(
 			fcppt::move(
 				result);
 
-#if 0
-	//std::cout << "border not empty!\n";
-	std::cout << "------------------- Input points begin \n";
-	std::cout << "{\n";
-	BOOST_FOREACH(
-		vector3_sequence::const_reference r,
-		border)
-		std::cout << "{" << r[0] << "," << r[1] << "," << r[2] << "},\n";
-	std::cout << "}\n";
-	std::cout << "------------------- Input points end\n";
-#endif
-
 	fcppt::optional<matrix4> const cs = 
 		make_coordinate_system(
 			border,
@@ -412,6 +383,7 @@ fruitcut::app::fruit::cut_mesh(
 		FCPPT_ASSERT(
 			transformed[2] < epsilon);
 
+		/*
 		// Warning: Costly assert!
 		if(
 			fcppt::math::vector::length(
@@ -426,6 +398,7 @@ fruitcut::app::fruit::cut_mesh(
 					(*i)) << "\n";
 			FCPPT_ASSERT(false);
 		}
+		*/
 	}
 
 	ring_2d convex_hull_result;
@@ -435,12 +408,9 @@ fruitcut::app::fruit::cut_mesh(
 		convex_hull_result);
 
 	if(convex_hull_result.size() < static_cast<ring_2d::size_type>(3))
-	{
-		std::cerr << "Didn't get enough points, returning\n";
 		return
 			fcppt::move(
 				result);
-	}
 
 	box2 const envelope = 
 		boost::geometry::return_envelope<box2>(
@@ -511,7 +481,7 @@ fruitcut::app::fruit::cut_mesh(
 							current_vertex]))));
 
 		result->area() += 
-			triangle_area(
+			math::triangle::area(
 				result->mesh().triangles.back());
 	}
 

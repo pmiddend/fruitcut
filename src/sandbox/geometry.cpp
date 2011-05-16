@@ -3,6 +3,7 @@
 #include "../geometry_traits/box.hpp"
 #include <boost/geometry/geometry.hpp>
 #include <boost/geometry/multi/multi.hpp>
+#include <boost/geometry/multi/geometries/multi_point.hpp>
 #include <fcppt/math/vector/static.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/math/box/output.hpp>

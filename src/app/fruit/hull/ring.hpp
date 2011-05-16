@@ -5,6 +5,7 @@
 #include <sge/renderer/vector2.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
 #include <boost/geometry/geometry.hpp>
+#include <boost/geometry/geometries/linestring.hpp>
 #include <vector>
 
 namespace fruitcut

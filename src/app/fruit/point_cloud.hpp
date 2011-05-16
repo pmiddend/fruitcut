@@ -4,6 +4,7 @@
 #include "triangle.hpp"
 #include "../../geometry_traits/vector.hpp"
 #include <boost/geometry/geometry.hpp>
+#include <boost/geometry/multi/geometries/multi_point.hpp>
 #include <boost/geometry/multi/multi.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
 
