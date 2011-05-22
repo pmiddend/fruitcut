@@ -3,6 +3,7 @@
 
 #include "object_fwd.hpp"
 #include "area.hpp"
+#include "mesh.hpp"
 #include "../../physics/vector3.hpp"
 #include <fcppt/container/array.hpp>
 #include <fcppt/reference_wrapper.hpp>
@@ -13,6 +14,11 @@ namespace app
 {
 namespace fruit
 {
+/**
+	Note that there is cut_context and cut_mesh_result. The latter is
+	more "low-level", dealing with a single cut operation whereas
+	cut_context deals with the fruit being cut at _both_ planes.
+ */
 class cut_context
 {
 public:
@@ -29,7 +35,8 @@ public:
 		fruit::object const &_old,
 		new_fruit_array const &,
 		fruit::area,
-		physics::vector3 const &cut_direction);
+		physics::vector3 const &cut_direction,
+		fruit::mesh const &);
 
 	fruit::object const &
 	old() const;
@@ -42,11 +49,15 @@ public:
 
 	physics::vector3 const &
 	cut_direction() const;
+
+	fruit::mesh const &
+	cross_section() const;
 private:
 	fruit_ptr old_;
 	new_fruit_array new_;
 	fruit::area area_;
 	physics::vector3 cut_direction_;
+	fruit::mesh cross_section_;
 };
 }
 }

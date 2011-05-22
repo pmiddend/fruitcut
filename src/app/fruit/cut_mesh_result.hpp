@@ -28,6 +28,12 @@ public:
 	fruit::mesh &
 	mesh();
 
+	fruit::mesh const &
+	cross_section() const;
+
+	fruit::mesh &
+	cross_section();
+
 	fruit::box3 const &
 	bounding_box() const;
 
@@ -49,6 +55,7 @@ public:
 	~cut_mesh_result();
 private:
 	fruit::mesh mesh_;
+	fruit::mesh cross_section_;
 	fruit::box3 bounding_box_;
 	fruit::area area_;
 	sge::renderer::vector3 barycenter_;

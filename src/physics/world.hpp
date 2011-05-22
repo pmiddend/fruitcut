@@ -31,6 +31,13 @@ public:
 	update(
 		sge::time::duration const &);
 
+	vector3 const
+	gravity() const;
+
+	void
+	gravity(
+		vector3 const &);
+
 	// The debug drawer needs this
 	btDiscreteDynamicsWorld &
 	handle();

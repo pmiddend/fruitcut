@@ -3,6 +3,7 @@
 fruitcut::app::fruit::cut_mesh_result::cut_mesh_result()
 :
 	mesh_(),
+	cross_section_(),
 	bounding_box_(),
 	area_(),
 	barycenter_()
@@ -19,6 +20,18 @@ fruitcut::app::fruit::mesh &
 fruitcut::app::fruit::cut_mesh_result::mesh()
 {
 	return mesh_;
+}
+
+fruitcut::app::fruit::mesh &
+fruitcut::app::fruit::cut_mesh_result::cross_section()
+{
+	return cross_section_;
+}
+
+fruitcut::app::fruit::mesh const &
+fruitcut::app::fruit::cut_mesh_result::cross_section() const
+{
+	return cross_section_;
 }
 
 fruitcut::app::fruit::box3 const &

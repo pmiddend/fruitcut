@@ -7,6 +7,7 @@
 #include "point_sprite/system_node.hpp"
 #include "../font/cache.hpp"
 #include "../input/state.hpp"
+#include "../scenic/nodes/camera.hpp"
 #include "../input/state_manager.hpp"
 #include "../log/scoped_sequence_ptr.hpp"
 #include "overlay.hpp"
@@ -29,6 +30,7 @@
 #include <sge/font/metrics_ptr.hpp>
 #include <sge/time/point.hpp>
 #include <sge/time/unit.hpp>
+#include <sge/camera/object.hpp>
 #include <fcppt/chrono/duration.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/chrono/time_point.hpp>
@@ -101,6 +103,12 @@ public:
 
 	fruitcut::app::background const &
 	background() const;
+
+	sge::camera::object &
+	camera();
+
+	sge::camera::object const &
+	camera() const;
 
 	font::cache &
 	font_cache();
@@ -178,10 +186,17 @@ private:
 	sge::cegui::system gui_system_;
 	sge::cegui::syringe gui_syringe_;
 	score last_game_score_;
+	fcppt::signal::scoped_connection toggle_camera_connection_;
+	input::state camera_state_;
+	sge::camera::object camera_;
+	scenic::nodes::camera camera_node_;
 	point_sprite::system_node point_sprites_;
 
 	void
 	console_switch();
+
+	void
+	toggle_camera();
 
 	void
 	viewport_change();

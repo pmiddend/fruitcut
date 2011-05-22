@@ -3,7 +3,11 @@
 #include "../gameover/superstate.hpp"
 #include "../gameover/choose_name.hpp"
 #include "../../dim2.hpp"
+#include "../../../create_rng.hpp"
+#include "../../../math/multiply_matrix4_vector3.hpp"
+#include "../../../uniform_random.hpp"
 #include "../../fruit/plane.hpp"
+#include "../../fruit/triangle_traits.hpp"
 #include "../../fruit/cut_mesh.hpp"
 #include "../../fruit/hull/trail_intersection.hpp"
 #include "../../fruit/hull/projected.hpp"
@@ -14,6 +18,12 @@
 #include "../../../json/find_member.hpp"
 #include "../../../physics/world.hpp"
 #include "../../../math/multiply_matrix4_vector3.hpp"
+#include "../../../math/triangle/random_point.hpp"
+#include "../../point_sprite/splatter/gravity_callback.hpp"
+#include "../../point_sprite/splatter/parameters.hpp"
+#include "../../point_sprite/splatter/object.hpp"
+#include "../../point_sprite/vector.hpp"
+#include "../../point_sprite/color_format.hpp"
 #include <sge/line_drawer/scoped_lock.hpp>
 #include <sge/line_drawer/render_to_screen.hpp>
 #include <sge/image/colors.hpp>
@@ -29,7 +39,10 @@
 #include <sge/renderer/state/float.hpp>
 #include <sge/renderer/state/list.hpp>
 #include <sge/time/millisecond.hpp>
+#include <sge/time/second.hpp>
 #include <sge/time/unit.hpp>
+#include <sge/image/color/any/convert.hpp>
+#include <sge/image/colors.hpp>
 #include <sge/time/second.hpp>
 #include <sge/font/text/lit.hpp>
 #include <sge/font/rect.hpp>
@@ -40,7 +53,6 @@
 #include <sge/font/text/align_v.hpp>
 #include <sge/font/text/flags_none.hpp>
 #include <sge/image/color/any/convert.hpp>
-#include <sge/image/colors.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/math/vector/output.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
@@ -53,7 +65,10 @@
 #include <fcppt/math/matrix/inverse.hpp>
 #include <fcppt/math/matrix/output.hpp>
 #include <fcppt/assign/make_container.hpp>
+#include <fcppt/random/make_last_exclusive_range.hpp>
+#include <fcppt/random/make_inclusive_range.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/ref.hpp>
 #include <boost/next_prior.hpp>
 #include <iostream>
 
@@ -67,8 +82,8 @@ fruitcut::app::states::ingame::running::running(
 		sge::renderer::state::list
 			(sge::renderer::state::depth_func::less)
 			(sge::renderer::state::cull_mode::off)
-			(sge::renderer::state::bool_::clear_zbuffer = true)
-			(sge::renderer::state::float_::zbuffer_clear_val = 1.0f)),
+			(sge::renderer::state::bool_::clear_depth_buffer = true)
+			(sge::renderer::state::float_::depth_buffer_clear_val = 1.0f)),
 	line_drawer_(
 		context<machine>().systems().renderer()),
 	line_drawer_node_(
@@ -192,7 +207,7 @@ fruitcut::app::states::ingame::running::draw_fruit_bbs(
 			fruit::hull::projected(
 				*i,
 				context<machine>().systems().renderer().onscreen_target(),
-				context<superstate>().camera().mvp());
+				context<machine>().camera().mvp());
 
 		for(
 			fruit::hull::ring::const_iterator hull_point = hull.begin(); 
@@ -262,7 +277,7 @@ fruitcut::app::states::ingame::running::process_fruit(
 			fruit::hull::projected(
 				current_fruit,
 				context<machine>().systems().renderer().onscreen_target(),
-				context<superstate>().camera().mvp()),
+				context<machine>().camera().mvp()),
 			cursor_trail_.positions());
 
 	if (!intersection)
@@ -270,7 +285,7 @@ fruitcut::app::states::ingame::running::process_fruit(
 
 	sge::renderer::matrix4 const inverse_mvp =
 		fcppt::math::matrix::inverse(
-			context<superstate>().camera().mvp());
+			context<machine>().camera().mvp());
 
 	sge::renderer::vector3 const 
 		// Convert the points to 3D and to renderer::scalar
@@ -364,21 +379,95 @@ fruitcut::app::states::ingame::running::viewport_change()
 
 void
 fruitcut::app::states::ingame::running::fruit_was_cut(
-	fruit::cut_context const &)
+	fruit::cut_context const &c)
 {
-/*
-	context<machine>().point_sprites().push_back(
-		fcppt::make_unique_ptr<point_sprite::splatter::object>(
-			point_sprite::splatter::parameters(
-				context<machine>().point_sprites().system(),
-				,
-				,
-				,
-				,
-				,
-				,
-				,
-				,
-				)));
-*/
+	if(c.cross_section().triangles.empty())
+		return;
+
+	typedef
+	fruitcut::uniform_random<fruit::mesh::triangle_sequence::size_type>::type
+	triangle_randomizer;
+
+	triangle_randomizer tri_rng(
+		fcppt::random::make_last_exclusive_range(
+			static_cast<fruit::mesh::triangle_sequence::size_type>(
+				0),
+			c.cross_section().triangles.size()),
+		fruitcut::create_rng());
+
+	typedef
+	fruitcut::uniform_random<sge::renderer::scalar>::type
+	triangle_point_randomizer;
+
+	triangle_point_randomizer tri_point_rng(
+		fcppt::random::make_inclusive_range(
+			static_cast<sge::renderer::scalar>(
+				0),
+			static_cast<sge::renderer::scalar>(
+				1)));
+
+	typedef
+	fruitcut::uniform_random<unsigned>::type
+	cut_direction_randomizer;
+
+	cut_direction_randomizer cut_direction_rng(
+		fcppt::random::make_inclusive_range(
+			0u,
+			1u));
+
+	unsigned const number_of_points = 10;
+	sge::renderer::scalar const speed = 200;
+	point_sprite::splatter::size::value_type const size = 30;
+
+	for(unsigned i = 0; i < number_of_points; ++i)
+	{
+		FCPPT_ASSERT(
+			!c.cross_section().triangles.empty());
+		sge::renderer::vector3 const position = 
+			math::triangle::random_point(
+				c.cross_section().triangles[
+					tri_rng()],
+				tri_point_rng);
+
+		// FUCK, IS THAT UGLY!
+		point_sprite::splatter::gravity_callback grav_callback(
+			std::tr1::bind(
+				&fcppt::math::vector::structure_cast
+				<
+					point_sprite::vector,
+					physics::scalar,
+					physics::vector3::dim_wrapper,
+					physics::vector3::storage_type
+				>,
+				std::tr1::bind(
+					static_cast<physics::vector3 const(physics::world::*)() const>(
+						&physics::world::gravity),
+					&context<superstate>().physics_world())));
+
+		context<machine>().point_sprites().push_back(
+			point_sprite::unique_base_ptr(
+				fcppt::make_unique_ptr<point_sprite::splatter::object>(
+					point_sprite::splatter::parameters(
+						context<machine>().point_sprites().system(),
+						point_sprite::splatter::position(
+							c.old().position() + 
+							math::multiply_matrix4_vector3(
+								c.old().world_transform(),
+								position)),
+						point_sprite::splatter::linear_velocity(
+							(cut_direction_rng() 
+							? 
+								c.cut_direction() 
+							: 
+								(-c.cut_direction())) * speed),
+						point_sprite::splatter::size(
+							size),
+						sge::image::color::any::convert<point_sprite::color_format>(
+							sge::image::colors::green()),
+						context<machine>().point_sprites().lookup_texture(
+							FCPPT_TEXT("splat0")),
+						sge::time::second(2),
+						context<machine>().timer_callback(),
+						grav_callback))));
+	}
 }

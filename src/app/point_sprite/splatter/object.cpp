@@ -20,6 +20,8 @@ fruitcut::app::point_sprite::splatter::object::object(
 				p.texture())
 			.order(
 				0)
+			.system(
+				&(p.system()))
 			.color(
 				p.color())
 			.elements()),
@@ -46,18 +48,21 @@ fruitcut::app::point_sprite::splatter::object::~object()
 void
 fruitcut::app::point_sprite::splatter::object::update()
 {
+	point_sprite::object::unit const time_delta = 
+		static_cast<point_sprite::object::unit>(
+			second_timer_.reset());
+
 	object_.pos(
 		object_.pos() + 
-		static_cast<point_sprite::object::unit>(
-			second_timer_.reset()) * 
+		time_delta * 
 		point_sprite::object::vector(
 			linear_velocity_[0],
 			linear_velocity_[1]));
 	object_.z(
 		object_.z() + 
-		linear_velocity_[2]);
+		time_delta * linear_velocity_[2]);
 	linear_velocity_ += 
-		gravity_callback_();
+		time_delta * gravity_callback_();
 }
 
 bool

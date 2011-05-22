@@ -18,7 +18,7 @@
 
 fruitcut::physics::world::world(
 	box const &/*world_size*/,
-	vector3 const &gravity)
+	vector3 const &_gravity)
 :
 	configuration_(
 		new btDefaultCollisionConfiguration()),
@@ -45,7 +45,7 @@ fruitcut::physics::world::world(
 	// bullet sets some default value, so we better override this here
 	world_->setGravity(
 		structure_cast(
-			gravity));
+			_gravity));
 }
 
 void
@@ -62,6 +62,23 @@ fruitcut::physics::world::update(
 		// have to choose the substep count so that time_delta is _just_
 		// less than the fixed time.
 		3);
+}
+
+fruitcut::physics::vector3 const
+fruitcut::physics::world::gravity() const
+{
+	return 
+		structure_cast<vector3>(
+			world_->getGravity());
+}
+
+void
+fruitcut::physics::world::gravity(
+	vector3 const &_gravity)
+{
+	world_->setGravity(
+		structure_cast(
+			_gravity));
 }
 
 btDiscreteDynamicsWorld &

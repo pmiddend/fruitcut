@@ -1,9 +1,9 @@
 #include "cut_mesh.hpp"
 #include "cut_mesh_result.hpp"
+#include "make_coordinate_system.hpp"
 #include "../../geometry_traits/box.hpp"
 #include "../../geometry_traits/vector.hpp"
 #include "../../math/cut_triangle_at_plane.hpp"
-#include "../../math/line/distance_to_point.hpp"
 #include "../../math/triangle/area.hpp"
 #include "../../math/triangle_plane_intersection.hpp"
 #include "triangle.hpp"
@@ -18,7 +18,7 @@
 #include <fcppt/math/box/box.hpp>
 #include <fcppt/math/dim/dim.hpp>
 #include <fcppt/math/matrix/matrix.hpp>
-#include <fcppt/math/range_compare.hpp>
+//#include <fcppt/math/range_compare.hpp>
 #include <fcppt/math/vector/vector.hpp>
 #include <fcppt/move.hpp>
 #include <fcppt/unique_ptr.hpp>
@@ -26,7 +26,6 @@
 #include <boost/geometry/multi/algorithms/detail/for_each_range.hpp>
 #include <boost/geometry/multi/multi.hpp>
 #include <boost/geometry/multi/geometries/multi_point.hpp>
-#include <boost/mpl/identity.hpp>
 #include <boost/next_prior.hpp>
 #include <boost/range/algorithm/copy.hpp>
 // Belongs to the find_if below
@@ -52,114 +51,10 @@ transform_texcoord(
 			t.y());
 }
 
-template<typename Container>
-fcppt::optional
-<
-	typename 
-	fcppt::math::matrix::static_
-	<
-		typename boost::mpl::identity<typename Container::value_type>::type::value_type,
-		4,
-		4
-	>::type
-> const
-make_coordinate_system(
-	Container const &points,
-	typename boost::mpl::identity<typename Container::value_type>::type::value_type const epsilon)
-{
-	typedef typename
-	Container::value_type
-	vector;
-
-	typedef typename
-	vector::value_type
-	scalar;
-
-	typedef typename
-	Container::size_type
-	size_type;
-
-	typedef typename
-	Container::const_iterator
-	const_iterator;
-
-	typedef typename 
-	fcppt::math::matrix::static_<scalar,4,4>::type
-	matrix4;
-
-	FCPPT_ASSERT(
-		!points.empty());
-
-	const_iterator first_other_point = 
-		boost::next(
-			points.begin());
-
-	for(; first_other_point != points.end(); ++first_other_point)
-		if(
-			!fcppt::math::range_compare(
-				*points.begin(),
-				*first_other_point,
-				epsilon))
-			break;
-
-	// All the points are equal
-	if (first_other_point == points.end())
-		return fcppt::optional<matrix4>();
-
-	const_iterator second_other_point = 
-		boost::next(
-			first_other_point);
-
-	for(; second_other_point != points.end(); ++second_other_point)
-		if(
-			fruitcut::math::line::distance_to_point(
-				*second_other_point,
-				fruitcut::math::line::basic<scalar,3>(
-					(*points.begin()),
-					(*first_other_point) - (*points.begin()))) > epsilon)
-			break;
-
-	// All the points lie on one line
-	if(second_other_point == points.end())
-		return fcppt::optional<matrix4>();
-
-	typedef
-	fcppt::container::array<vector,2>
-	direction_vectors;
-
-	direction_vectors directions(
-		fcppt::assign::make_array<vector>
-			((*first_other_point) - (*points.begin()))
-			((*second_other_point) - (*points.begin())));
-
-	fcppt::math::vector::orthogonalize(
-		directions.begin(),
-		directions.end());
-
-	for(
-		typename direction_vectors::iterator i = directions.begin(); 
-		i != directions.end(); 
-		++i)
-		(*i) = 
-			fcppt::math::vector::normalize(
-				*i);
-		
-	vector const crossed = 
-		fcppt::math::vector::cross(
-			directions[0],
-			directions[1]);
-
-	return 
-		matrix4(
-			directions[0][0],directions[1][0],crossed[0],(*points.begin())[0],
-			directions[0][1],directions[1][1],crossed[1],(*points.begin())[1],
-			directions[0][2],directions[1][2],crossed[2],(*points.begin())[2],
-			0,0,0,1);
-}
 
 template<typename Output,typename Input>
 Output const
-vector_dimension_convert(
+vector_narrow(
 	Input const &input)
 {
 	Output result = Output::null();
@@ -377,7 +272,7 @@ fruitcut::app::fruit::cut_mesh(
 				1);
 
 		reduced.push_back(
-			vector_dimension_convert<vector2>(
+			vector_narrow<vector2>(
 				transformed));
 
 		FCPPT_ASSERT(
@@ -387,13 +282,13 @@ fruitcut::app::fruit::cut_mesh(
 		// Warning: Costly assert!
 		if(
 			fcppt::math::vector::length(
-				vector_dimension_convert<vector3>(
+				vector_narrow<vector3>(
 					(*cs) * vector4(reduced.back()[0],reduced.back()[1],0,1)) - 
 				(*i)) > epsilon)
 		{
 			std::cout << 
 				fcppt::math::vector::length(
-					vector_dimension_convert<vector3>(
+					vector_narrow<vector3>(
 						(*cs) * vector4(reduced.back()[0],reduced.back()[1],0,1)) - 
 					(*i)) << "\n";
 			FCPPT_ASSERT(false);
@@ -445,24 +340,24 @@ fruitcut::app::fruit::cut_mesh(
 		current_vertex < convex_hull_result.size();
 		++current_vertex)
 	{
-		result->mesh().triangles.push_back(
+		result->cross_section().triangles.push_back(
 			fruit::triangle(
 				fcppt::assign::make_array<triangle::vector>
-					(vector_dimension_convert<vector3>(
+					(vector_narrow<vector3>(
 						(*cs) * 
 						vector4(
 							convex_hull_result[0][0],
 							convex_hull_result[0][1],
 							0,
 							1)) - result->barycenter())
-					(vector_dimension_convert<vector3>(
+					(vector_narrow<vector3>(
 						(*cs) * 
 						vector4(
 							convex_hull_result[current_vertex-1][0],
 							convex_hull_result[current_vertex-1][1],
 							0,
 							1)) - result->barycenter())
-					(vector_dimension_convert<vector3>(
+					(vector_narrow<vector3>(
 						(*cs) * 
 						vector4(
 							convex_hull_result[current_vertex][0],
@@ -479,6 +374,9 @@ fruitcut::app::fruit::cut_mesh(
 					(transform_texcoord(
 						texcoords[
 							current_vertex]))));
+	
+		result->mesh().triangles.push_back(
+			result->cross_section().triangles.back());
 
 		result->area() += 
 			math::triangle::area(

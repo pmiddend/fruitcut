@@ -3,6 +3,7 @@
 
 #include "triangle.hpp"
 #include "../../math/triangle/vector_type.hpp"
+#include "../../math/triangle/interpolation_pair.hpp"
 #include "../../math/triangle/vertex_access.hpp"
 #include "../../math/triangle/scalar_type.hpp"
 #include "../../math/triangle/create_from_interpolation.hpp"

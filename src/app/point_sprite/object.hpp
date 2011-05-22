@@ -2,7 +2,7 @@
 #define FRUITCUT_APP_POINT_SPRITE_OBJECT_HPP_INCLUDED
 
 #include "choices.hpp"
-#include <sge/sprite/object_fwd.hpp>
+#include <sge/sprite/object.hpp>
 
 namespace fruitcut
 {

@@ -16,6 +16,7 @@
 #include <sge/log/global_context.hpp>
 #include <sge/console/sprite_object.hpp>
 #include <sge/console/sprite_parameters.hpp>
+#include <sge/renderer/aspect.hpp>
 #include <sge/extension_set.hpp>
 #include <sge/font/size_type.hpp>
 #include <sge/font/system.hpp>
@@ -40,6 +41,9 @@
 #include <sge/renderer/texture/address_mode2.hpp>
 #include <sge/renderer/texture/address_mode.hpp>
 #include <sge/renderer/texture/create_planar_from_view.hpp>
+#include <sge/camera/identity_gizmo.hpp>
+#include <sge/camera/parameters.hpp>
+#include <sge/camera/projection/perspective.hpp>
 #include <sge/renderer/texture/filter/linear.hpp>
 #include <sge/renderer/viewport.hpp>
 #include <sge/renderer/vsync.hpp>
@@ -69,6 +73,7 @@
 #include <fcppt/math/dim/quad.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
+#include <fcppt/math/deg_to_rad.hpp>
 #include <fcppt/chrono/duration.hpp>
 #include <fcppt/chrono/duration_cast.hpp>
 #include <fcppt/chrono/milliseconds.hpp>
@@ -277,8 +282,43 @@ fruitcut::app::machine::machine(
 	last_game_score_(
 		// Something invalid so you get the error (if there is one)
 		31337),
+	toggle_camera_connection_(
+		context<machine>().game_input_state().key_callback(
+			sge::input::keyboard::action(
+				sge::input::keyboard::key_code::f2, 
+				std::tr1::bind(
+					&machine::toggle_camera,
+					this)))),
+	camera_state_(
+		context<machine>().input_manager()),
+	camera_(
+		sge::camera::parameters(
+			// Leave projection object empty for now, we have to wait for a viewport change
+			sge::camera::projection::object(),
+			json::find_member<sge::renderer::scalar>(
+				context<machine>().config_file(),
+				FCPPT_TEXT("ingame/camera/movement-speed")),
+			// mousespeed
+			json::find_member<sge::renderer::scalar>(
+				context<machine>().config_file(),
+				FCPPT_TEXT("ingame/camera/mouse-speed")),
+			// position
+			sge::camera::identity_gizmo()
+				.position(
+					json::find_member<sge::renderer::vector3>(
+						context<machine>().config_file(),
+						FCPPT_TEXT("ingame/camera/initial-position"))),
+			// Maus und Keyboard
+			context<machine>().game_input_state(),
+			context<machine>().game_input_state(),
+			sge::camera::activation_state::inactive)),
+	camera_node_(
+		camera_,
+		context<machine>().timer_callback()),
 	point_sprites_(
-		systems_.renderer())
+		systems_.renderer(),
+		systems_.image_loader(),
+		camera_)
 {
 	intrusive_group::children().push_back(
 		music_controller_node_);
@@ -290,6 +330,8 @@ fruitcut::app::machine::machine(
 		overlay_node_);
 	scene_node_.children().push_front(
 		background_);
+	scene_node_.children().push_back(
+		camera_node_);
 	scene_node_.children().push_back(
 		point_sprites_);
 	overlay_node_.children().push_back(
@@ -407,6 +449,19 @@ fruitcut::app::machine::background() const
 	return background_;
 }
 
+sge::camera::object &
+fruitcut::app::machine::camera()
+{
+	return camera_;
+}
+
+sge::camera::object const &
+fruitcut::app::machine::camera() const
+{
+	return camera_;
+}
+
+
 fruitcut::font::cache &
 fruitcut::app::machine::font_cache()
 {
@@ -522,6 +577,18 @@ fruitcut::app::machine::console_switch()
 	}
 }
 
+// FIXME: This could be a nice phoenix actor
+void
+fruitcut::app::machine::toggle_camera()
+{
+	camera_.activation(
+		camera_.activation() == sge::camera::activation_state::active
+		?
+			sge::camera::activation_state::inactive
+		:
+			sge::camera::activation_state::active);
+}
+
 void
 fruitcut::app::machine::viewport_change()
 {
@@ -530,6 +597,21 @@ fruitcut::app::machine::viewport_change()
 		fcppt::math::dim::structure_cast<sge::console::sprite_object::dim>(
 			systems_.renderer().onscreen_target().viewport().get().size()));
 	background_.viewport_changed();
+	camera_.projection_object(
+		sge::camera::projection::perspective(
+			sge::renderer::aspect(
+				fcppt::math::dim::structure_cast<sge::renderer::screen_size>(
+					context<machine>().systems().renderer().onscreen_target().viewport().get().size())),
+			fcppt::math::deg_to_rad(
+				json::find_member<sge::renderer::scalar>(
+					context<machine>().config_file(),
+					FCPPT_TEXT("ingame/camera/fov"))),
+			json::find_member<sge::renderer::scalar>(
+				context<machine>().config_file(),
+				FCPPT_TEXT("ingame/camera/near")),
+			json::find_member<sge::renderer::scalar>(
+				context<machine>().config_file(),
+				FCPPT_TEXT("ingame/camera/far"))));
 }
 
 void

@@ -6,21 +6,12 @@
 #include "../../../json/parse_color.hpp"
 #include "../../../physics/vector3.hpp"
 #include "../../../physics/box.hpp"
-#include <sge/camera/identity_gizmo.hpp>
-#include <sge/camera/parameters.hpp>
-#include <sge/camera/projection/perspective.hpp>
 #include <sge/input/keyboard/action.hpp>
 #include <sge/input/keyboard/key_code.hpp>
 #include <sge/parse/json/array.hpp>
 #include <sge/parse/json/object.hpp>
-#include <sge/renderer/aspect.hpp>
 #include <sge/renderer/device.hpp>
-#include <sge/renderer/onscreen_target.hpp>
 #include <sge/renderer/scalar.hpp>
-#include <sge/renderer/screen_size.hpp>
-#include <sge/renderer/vector3.hpp>
-#include <sge/renderer/viewport.hpp>
-#include <sge/viewport/manager.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/time/activation_state.hpp>
 #include <sge/time/second.hpp>
@@ -29,20 +20,12 @@
 #include <sge/image/color/convert.hpp>
 #include <sge/image/color/rgba8.hpp>
 #include <sge/image/colors.hpp>
-#include <fcppt/math/deg_to_rad.hpp>
-#include <fcppt/math/box/basic_impl.hpp>
-#include <fcppt/math/dim/structure_cast.hpp>
-#include <fcppt/math/dim/basic_impl.hpp>
-#include <fcppt/math/vector/basic_impl.hpp>
-#include <fcppt/math/vector/arithmetic.hpp>
-#include <fcppt/math/box/basic_impl.hpp>
-#include <fcppt/math/dim/structure_cast.hpp>
+#include <fcppt/math/box/box.hpp>
+#include <fcppt/math/dim/dim.hpp>
+#include <fcppt/math/vector/vector.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/lexical_cast.hpp>
-#include <boost/spirit/home/phoenix/core.hpp>
-#include <boost/spirit/home/phoenix/operator.hpp>
-#include <boost/spirit/home/phoenix/bind.hpp>
 #include <boost/statechart/event_base.hpp>
 #include <iostream>
 
@@ -64,44 +47,6 @@ fruitcut::app::states::ingame::superstate::superstate(
 					&machine::process_event,
 					&context<machine>(),
 					events::toggle_pause())))),
-	toggle_camera_connection_(
-		context<machine>().game_input_state().key_callback(
-			sge::input::keyboard::action(
-				sge::input::keyboard::key_code::f2, 
-				std::tr1::bind(
-					&superstate::toggle_camera,
-					this)))),
-	viewport_change_connection_(
-		context<machine>().systems().viewport_manager().manage_callback(
-			std::tr1::bind(
-				&superstate::viewport_change,
-				this))),
-	camera_state_(
-		context<machine>().input_manager()),
-	camera_(
-		sge::camera::parameters(
-			// Leave projection object empty for now, we have to wait for a viewport change
-			sge::camera::projection::object(),
-			json::find_member<sge::renderer::scalar>(
-				context<machine>().config_file(),
-				FCPPT_TEXT("ingame/camera/movement-speed")),
-			// mousespeed
-			json::find_member<sge::renderer::scalar>(
-				context<machine>().config_file(),
-				FCPPT_TEXT("ingame/camera/mouse-speed")),
-			// position
-			sge::camera::identity_gizmo()
-				.position(
-					json::find_member<sge::renderer::vector3>(
-						context<machine>().config_file(),
-						FCPPT_TEXT("ingame/camera/initial-position"))),
-			// Maus und Keyboard
-			context<machine>().game_input_state(),
-			context<machine>().game_input_state(),
-			sge::camera::activation_state::inactive)),
-	camera_node_(
-		camera_,
-		context<machine>().timer_callback()),
 	physics_world_(
 		// The box is ignored for now
 		physics::box(),
@@ -114,7 +59,7 @@ fruitcut::app::states::ingame::superstate::superstate(
 	physics_debugger_(
 		physics_world_,
 		context<machine>().systems().renderer(),
-		camera_),
+		context<machine>().camera()),
 	physics_debugger_node_(
 		physics_debugger_),
 	physics_debugger_connection_(
@@ -134,11 +79,11 @@ fruitcut::app::states::ingame::superstate::superstate(
 		context<machine>().systems().image_loader(),
 		context<machine>().systems().renderer(),
 		physics_world_,
-		camera_),
+		context<machine>().camera()),
 	fruit_spawner_(
 		fruit_manager_,
 		context<machine>().config_file(),
-		camera_,
+		context<machine>().camera(),
 		context<machine>().timer_callback()),
 	game_logic_(
 		context<machine>().timer_callback(),
@@ -157,8 +102,6 @@ fruitcut::app::states::ingame::superstate::superstate(
 {
 	// scene
 	context<machine>().scene_node().children().push_back(
-		camera_node_);
-	context<machine>().scene_node().children().push_back(
 		fruit_manager_);
 	context<machine>().scene_node().children().push_back(
 		fruit_spawner_);
@@ -169,7 +112,6 @@ fruitcut::app::states::ingame::superstate::superstate(
 	// overlay
 	context<machine>().overlay_node().children().push_back(
 		physics_debugger_node_);
-	viewport_change();
 }
 
 fruitcut::physics::world &
@@ -226,32 +168,8 @@ fruitcut::app::states::ingame::superstate::game_logic() const
 	return game_logic_;
 }
 
-sge::camera::object &
-fruitcut::app::states::ingame::superstate::camera()
-{
-	return camera_;
-}
-
-sge::camera::object const &
-fruitcut::app::states::ingame::superstate::camera() const
-{
-	return camera_;
-}
-
 fruitcut::app::states::ingame::superstate::~superstate()
 {
-}
-
-// FIXME: This could be a nice phoenix actor
-void
-fruitcut::app::states::ingame::superstate::toggle_camera()
-{
-	camera_.activation(
-		camera_.activation() == sge::camera::activation_state::active
-		?
-			sge::camera::activation_state::inactive
-		:
-			sge::camera::activation_state::active);
 }
 
 // FIXME: This could be a nice phoenix actor
@@ -260,26 +178,6 @@ fruitcut::app::states::ingame::superstate::toggle_physics_debugger()
 {
 	physics_debugger_.active(
 		!physics_debugger_.active());
-}
-
-void
-fruitcut::app::states::ingame::superstate::viewport_change()
-{
-	camera_.projection_object(
-		sge::camera::projection::perspective(
-			sge::renderer::aspect(
-				fcppt::math::dim::structure_cast<sge::renderer::screen_size>(
-					context<machine>().systems().renderer().onscreen_target().viewport().get().size())),
-			fcppt::math::deg_to_rad(
-				json::find_member<sge::renderer::scalar>(
-					context<machine>().config_file(),
-					FCPPT_TEXT("ingame/camera/fov"))),
-			json::find_member<sge::renderer::scalar>(
-				context<machine>().config_file(),
-				FCPPT_TEXT("ingame/camera/near")),
-			json::find_member<sge::renderer::scalar>(
-				context<machine>().config_file(),
-				FCPPT_TEXT("ingame/camera/far"))));
 }
 
 void

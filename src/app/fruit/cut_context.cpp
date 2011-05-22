@@ -4,7 +4,8 @@ fruitcut::app::fruit::cut_context::cut_context(
 	fruit::object const &_old,
 	new_fruit_array const &_new,
 	fruit::area const _area,
-	physics::vector3 const &_cut_direction)
+	physics::vector3 const &_cut_direction,
+	fruit::mesh const &_cross_section)
 :
 	old_(
 		&_old),
@@ -13,7 +14,9 @@ fruitcut::app::fruit::cut_context::cut_context(
 	area_(
 		_area),
 	cut_direction_(
-		_cut_direction)
+		_cut_direction),
+	cross_section_(
+		_cross_section)
 {
 }
 
@@ -39,4 +42,10 @@ fruitcut::physics::vector3 const &
 fruitcut::app::fruit::cut_context::cut_direction() const
 {
 	return cut_direction_;
+}
+
+fruitcut::app::fruit::mesh const &
+fruitcut::app::fruit::cut_context::cross_section() const
+{
+	return cross_section_;
 }

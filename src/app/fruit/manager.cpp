@@ -188,6 +188,7 @@ fruitcut::app::fruit::manager::cut(
 	// it's just one, we leave it as is (still costs a bit of performance)
 	object_sequence::implementation_sequence fruit_cache;
 	fruit::area cumulated_area = 0;
+	fruit::mesh cross_section;
 
 	for(
 		plane_array::const_iterator p = 
@@ -207,6 +208,11 @@ fruitcut::app::fruit::manager::cut(
 		// to one fruit, so we didn't split at all!
 		if (cut_result->mesh().triangles.empty())
 			return;
+
+		// Potentially dangerous if cross_section is used by something else. But currently this is the fastest solution.
+		if (cross_section.triangles.empty())
+			cut_result->cross_section().triangles.swap(
+				cross_section.triangles);
 
 		fcppt::container::ptr::push_back_unique_ptr(
 			fruit_cache,
@@ -253,7 +259,8 @@ fruitcut::app::fruit::manager::cut(
 				(&(*fruit_cache.begin()))
 				(&(*(--fruit_cache.end()))),
 			cumulated_area,
-			cut_direction));
+			cut_direction,
+			cross_section));
 
 	fruits_.transfer_from(
 		fruit_cache);
