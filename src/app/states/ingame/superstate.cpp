@@ -101,16 +101,17 @@ fruitcut::app::states::ingame::superstate::superstate(
 				std::tr1::placeholders::_1)))
 {
 	// scene
-	context<machine>().scene_node().children().push_back(
-		fruit_manager_);
-	context<machine>().scene_node().children().push_back(
+	context<machine>().scene_node().insert_before(
+		fruit_manager_,
+		context<machine>().point_sprites());
+	context<machine>().scene_node().insert_dont_care(
 		fruit_spawner_);
-	context<machine>().scene_node().children().push_back(
+	context<machine>().scene_node().insert_dont_care(
 		game_logic_);
-	context<machine>().scene_node().children().push_back(
+	context<machine>().scene_node().insert_dont_care(
 		physics_world_node_);
 	// overlay
-	context<machine>().overlay_node().children().push_back(
+	context<machine>().overlay_node().insert_dont_care(
 		physics_debugger_node_);
 }
 

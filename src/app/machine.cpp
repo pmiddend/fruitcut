@@ -320,21 +320,21 @@ fruitcut::app::machine::machine(
 		systems_.image_loader(),
 		camera_)
 {
-	intrusive_group::children().push_back(
+	intrusive_group::insert_dont_care(
 		music_controller_node_);
-	intrusive_group::children().push_back(
+	intrusive_group::insert_dont_care(
 		sound_controller_node_);
-	intrusive_group::children().push_back(
+	intrusive_group::insert_dont_care(
 		scene_node_);
-	intrusive_group::children().push_back(
+	intrusive_group::insert_dont_care(
 		overlay_node_);
-	scene_node_.children().push_front(
+	scene_node_.push_front(
 		background_);
-	scene_node_.children().push_back(
+	scene_node_.insert_dont_care(
 		camera_node_);
-	scene_node_.children().push_back(
+	scene_node_.insert_dont_care(
 		point_sprites_);
-	overlay_node_.children().push_back(
+	overlay_node_.push_back(
 		console_node_);
 	input_manager_.current_state(
 		game_state_);

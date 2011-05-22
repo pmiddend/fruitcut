@@ -27,6 +27,7 @@
 #include <sge/line_drawer/scoped_lock.hpp>
 #include <sge/line_drawer/render_to_screen.hpp>
 #include <sge/image/colors.hpp>
+#include <sge/image/color/init.hpp>
 #include <sge/viewport/manager.hpp>
 #include <sge/input/cursor/position_unit.hpp>
 #include <sge/renderer/device.hpp>
@@ -52,7 +53,6 @@
 #include <sge/font/text/lit.hpp>
 #include <sge/font/text/align_v.hpp>
 #include <sge/font/text/flags_none.hpp>
-#include <sge/image/color/any/convert.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/math/vector/output.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
@@ -132,11 +132,11 @@ fruitcut::app::states::ingame::running::running(
 			context<machine>().config_file(),
 			FCPPT_TEXT("ingame/draw-bbs")))
 {
-	context<machine>().overlay_node().children().push_back(
+	context<machine>().overlay_node().insert_dont_care(
 		update_node_);
-	context<machine>().overlay_node().children().push_back(
+	context<machine>().overlay_node().insert_dont_care(
 		line_drawer_node_);
-	context<machine>().overlay_node().children().push_back(
+	context<machine>().overlay_node().insert_dont_care(
 		cursor_trail_node_);
 	context<machine>().postprocessing().active(
 		true);
@@ -462,8 +462,11 @@ fruitcut::app::states::ingame::running::fruit_was_cut(
 								(-c.cut_direction())) * speed),
 						point_sprite::splatter::size(
 							size),
-						sge::image::color::any::convert<point_sprite::color_format>(
-							sge::image::colors::green()),
+						point_sprite::color(
+							(sge::image::color::init::red %= 1.0)
+							(sge::image::color::init::green %= 1.0)
+							(sge::image::color::init::blue %= 1.0)
+							(sge::image::color::init::alpha %= 0.5)),
 						context<machine>().point_sprites().lookup_texture(
 							FCPPT_TEXT("splat0")),
 						sge::time::second(2),

@@ -1,5 +1,5 @@
 #include "mouse_trailer.hpp"
-#include "../media_path.hpp"
+#include "../../media_path.hpp"
 #include <sge/image2d/file.hpp>
 #include <sge/image2d/multi_loader.hpp>
 #include <sge/image/color/init.hpp>

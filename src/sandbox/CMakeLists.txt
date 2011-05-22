@@ -1,61 +1,60 @@
 ADD_EXECUTABLE(
-	trail_test
-	trail_test.cpp mouse_trailer.cpp sword_particle.cpp)
+	example_trail
+	trail/trail_test.cpp trail/mouse_trailer.cpp trail/sword_particle.cpp)
 
 TARGET_LINK_LIBRARIES(
-	trail_test
+	example_trail
 	fruitcut_library
 	${FCPPT_LIBRARIES}
 	${SGE_LIBRARIES}
 	${Boost_LIBRARIES})
 
 ADD_EXECUTABLE(
-	duration_string
-	duration_string.cpp)
+	example_accumulate_colors
+	accumulate_colors/accumulate_colors.cpp)
 
 TARGET_LINK_LIBRARIES(
-	duration_string
+	example_accumulate_colors
+	${FCPPT_LIBRARIES}
+	${SGE_LIBRARIES}
+	${Boost_LIBRARIES})
+
+ADD_EXECUTABLE(
+	example_duration_string
+	duration_string/duration_string.cpp)
+
+TARGET_LINK_LIBRARIES(
+	example_duration_string
 	${FCPPT_LIBRARIES}
 	${Boost_LIBRARIES})
 
-#ADD_EXECUTABLE(
-#	font_test
-#	font.cpp)
-
-#TARGET_LINK_LIBRARIES(
-#	font_test
-#	fruitcut_library
-#	${FCPPT_LIBRARIES}
-#	${SGE_LIBRARIES}
-#	${Boost_LIBRARIES})
-
 ADD_EXECUTABLE(
-	splat_test
-	splat.cpp splat_collector.cpp splatter.cpp splat_particle.cpp)
+	example_splat
+	splat/splat.cpp splat/splat_collector.cpp splat/splatter.cpp splat/splat_particle.cpp)
 
 TARGET_LINK_LIBRARIES(
-	splat_test
+	example_splat
 	fruitcut_library
 	${FCPPT_LIBRARIES}
 	${SGE_LIBRARIES}
 	${Boost_LIBRARIES})
 
 ADD_EXECUTABLE(
-	convolution_test
-	convolution.cpp)
+	example_convolution
+	convolution/convolution.cpp)
 
 TARGET_LINK_LIBRARIES(
-	convolution_test
+	example_convolution
 	fruitcut_library
 	${FCPPT_LIBRARIES}
 	${SGE_LIBRARIES}
 	${Boost_LIBRARIES})
 
 ADD_EXECUTABLE(
-	geometry
-	geometry.cpp)
+	example_geometry
+	geometry/geometry.cpp)
 
 TARGET_LINK_LIBRARIES(
-	geometry
+	example_geometry
 	${FCPPT_LIBRARIES}
 	${Boost_LIBRARIES})

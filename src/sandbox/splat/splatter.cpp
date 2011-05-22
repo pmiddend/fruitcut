@@ -1,7 +1,7 @@
 #include "splatter.hpp"
-#include "../media_path.hpp"
-#include "../particle/sprite/parameters.hpp"
-#include "../particle/sprite/object.hpp"
+#include "../../media_path.hpp"
+#include "../../particle/sprite/parameters.hpp"
+#include "../../particle/sprite/object.hpp"
 #include <sge/sprite/parameters_impl.hpp>
 #include <sge/sprite/default_equal.hpp>
 #include <sge/texture/part_ptr.hpp>

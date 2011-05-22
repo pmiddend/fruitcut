@@ -30,6 +30,28 @@ public:
 	child_sequence &
 	children();
 
+	void
+	push_front(
+		nodes::intrusive &);
+
+	void
+	insert_dont_care(
+		nodes::intrusive &);
+
+	void
+	push_back(
+		nodes::intrusive &);
+
+	void
+	insert_before(
+		nodes::intrusive &new_,
+		nodes::intrusive &before);
+
+	void
+	insert_after(
+		nodes::intrusive &new_,
+		nodes::intrusive &before);
+
 	~intrusive_group();
 
 	void

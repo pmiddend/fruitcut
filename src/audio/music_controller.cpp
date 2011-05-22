@@ -136,7 +136,7 @@ fruitcut::audio::music_controller::play_event(
 
 	do_play(
 		player_.create_nonpositional_stream(
-			*event_sounds_[e]));
+			event_sounds_[e]));
 }
 
 void
@@ -147,7 +147,7 @@ fruitcut::audio::music_controller::play_random()
 	
 	do_play(
 		player_.create_nonpositional_stream(
-			**boost::next(
+			*boost::next(
 				random_sounds_.begin(),
 				random_element_rng_())));
 }

@@ -1,4 +1,4 @@
-#include "../string_to_duration.hpp"
+#include "../../string_to_duration.hpp"
 #include <fcppt/optional.hpp>
 #include <fcppt/chrono/seconds.hpp>
 #include <iostream>

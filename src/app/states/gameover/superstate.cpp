@@ -17,7 +17,7 @@ fruitcut::app::states::gameover::superstate::superstate(
 	name_(
 		"You shouldn't see this")
 {
-	context<machine>().overlay_node().children().push_back(
+	context<machine>().overlay_node().insert_dont_care(
 		gui_node_);
 }
 

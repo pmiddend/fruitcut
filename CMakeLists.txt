@@ -129,6 +129,7 @@ SET(
 	src/particle/objects/simple.cpp
 	src/particle/objects/permanent_sprite.cpp
 	# scenic
+	src/scenic/exception.cpp
 	src/scenic/nodes/base.cpp
 	src/scenic/nodes/camera.cpp
 	src/scenic/nodes/intrusive.cpp
@@ -159,7 +160,7 @@ ADD_LIBRARY(
 	fruitcut_library STATIC ${files})
 
 ADD_EXECUTABLE(
-	app
+	fruitcut
 	src/app/scene.cpp
 	src/app/logo.cpp
 	src/app/scoped_scene_activation.cpp
@@ -197,7 +198,7 @@ ADD_EXECUTABLE(
 	src/app/states/intro.cpp)
 
 TARGET_LINK_LIBRARIES(
-	app
+	fruitcut
 	fruitcut_library
 	${FCPPT_LIBRARIES}
 	${SGE_LIBRARIES}

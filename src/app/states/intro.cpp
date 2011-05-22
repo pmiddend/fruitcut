@@ -46,7 +46,7 @@ fruitcut::app::states::intro::intro(
 	if(context<machine>().systems().renderer().onscreen_target().viewport().get().size().content())
 		viewport_change();
 
-	context<machine>().overlay_node().children().push_back(
+	context<machine>().overlay_node().insert_dont_care(
 		logo_);
 }
 

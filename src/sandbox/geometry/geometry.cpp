@@ -1,14 +1,12 @@
-#include <iostream>
-#include "../geometry_traits/vector.hpp"
-#include "../geometry_traits/box.hpp"
+#include "../../geometry_traits/vector.hpp"
+#include "../../geometry_traits/box.hpp"
 #include <boost/geometry/geometry.hpp>
 #include <boost/geometry/multi/multi.hpp>
 #include <boost/geometry/multi/geometries/multi_point.hpp>
-#include <fcppt/math/vector/static.hpp>
-#include <fcppt/math/box/basic_impl.hpp>
-#include <fcppt/math/box/output.hpp>
-#include <fcppt/math/vector/basic_impl.hpp>
+#include <fcppt/math/vector/vector.hpp>
+#include <fcppt/math/box/box.hpp>
 #include <vector>
+#include <iostream>
 
 int main()
 {

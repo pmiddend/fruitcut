@@ -1,8 +1,8 @@
 #ifndef FRUITCUT_SANDBOX_SWORD_PARTICLE_HPP_INCLUDED
 #define FRUITCUT_SANDBOX_SWORD_PARTICLE_HPP_INCLUDED
 
-#include "../particle/sprite/parameters.hpp"
-#include "../particle/sprite/object.hpp"
+#include "../../particle/sprite/parameters.hpp"
+#include "../../particle/sprite/object.hpp"
 #include <sge/sprite/object_impl.hpp>
 #include <fcppt/chrono/high_resolution_clock.hpp>
 #include <fcppt/chrono/time_point.hpp>

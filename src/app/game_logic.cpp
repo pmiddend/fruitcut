@@ -119,9 +119,9 @@ fruitcut::app::game_logic::game_logic(
 	renderer_(
 		_renderer)
 {
-	_overlay.children().push_back(
+	_overlay.insert_dont_care(
 		score_font_node_);
-	_overlay.children().push_back(
+	_overlay.insert_dont_care(
 		timer_font_node_);
 	viewport_changed();
 }
