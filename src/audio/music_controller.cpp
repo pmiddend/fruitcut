@@ -2,6 +2,10 @@
 #include "../media_path.hpp"
 #include "../create_rng.hpp"
 #include "../exception.hpp"
+#include "../resource_tree/from_directory_tree.hpp"
+#include "../resource_tree/navigate_to_path.hpp"
+#include "../resource_tree/path.hpp"
+#include "../resource_tree/leaf_value.hpp"
 #include <sge/audio/sound/repeat.hpp>
 #include <sge/audio/sound/base.hpp>
 #include <sge/audio/player.hpp>
@@ -10,6 +14,7 @@
 #include <sge/audio/buffer.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/io/cout.hpp>
+#include <fcppt/tr1/functional.hpp>
 #include <fcppt/assert.hpp>
 #include <fcppt/filesystem/directory_iterator.hpp>
 #include <fcppt/filesystem/stem.hpp>
@@ -17,58 +22,7 @@
 #include <fcppt/filesystem/exists.hpp>
 #include <fcppt/random/make_last_exclusive_range.hpp>
 #include <boost/next_prior.hpp>
-
-namespace
-{
-template<typename Result>
-Result const
-parse_event_sounds(
-	sge::audio::multi_loader &file_loader,
-	fcppt::filesystem::path const &event_path)
-{
-	Result result;
-	if(!fcppt::filesystem::exists(event_path))
-		return result;
-	for(
-		fcppt::filesystem::directory_iterator current_sound(
-			event_path); 
-		current_sound != fcppt::filesystem::directory_iterator(); 
-		++current_sound)
-	{
-		result.insert(
-			result.end(),
-			typename Result::value_type(
-				fcppt::filesystem::stem(
-					*current_sound),
-				file_loader.load(
-					*current_sound)));
-	}
-	return result;
-}
-
-template<typename Result>
-Result const
-parse_random_sounds(
-	sge::audio::multi_loader &file_loader,
-	fcppt::filesystem::path const &p)
-{
-	Result result;
-	if(!fcppt::filesystem::exists(p))
-		return result;
-	for(
-		fcppt::filesystem::directory_iterator current_sound(
-			p); 
-		current_sound != fcppt::filesystem::directory_iterator(); 
-		++current_sound)
-	{
-		result.insert(
-			result.end(),
-			file_loader.load(
-				*current_sound));
-	}
-	return result;
-}
-}
+#include <iterator>
 
 fruitcut::audio::music_controller::music_controller(
 	sge::audio::multi_loader &ml,
@@ -79,14 +33,14 @@ fruitcut::audio::music_controller::music_controller(
 :
 	volume_(
 		_volume),
-	event_sounds_(
-		parse_event_sounds<file_map>(
-			ml,
-			_base_path / FCPPT_TEXT("events"))),
-	random_sounds_(
-		parse_random_sounds<file_set>(
-			ml,
-			_base_path / FCPPT_TEXT("random"))),
+	sounds_(
+		fruitcut::resource_tree::from_directory_tree<sge::audio::file_ptr>(
+			_base_path,
+			std::tr1::bind(
+				static_cast<sge::audio::file_ptr const (sge::audio::multi_loader::*)(fcppt::filesystem::path const &)>(
+					&sge::audio::multi_loader::load),
+				&ml,
+				std::tr1::placeholders::_1))),
 	crossfade_(
 		_crossfade),
 	player_(
@@ -97,13 +51,12 @@ fruitcut::audio::music_controller::music_controller(
 				_base_path/FCPPT_TEXT("silence.wav")))),
 	silence_source_(
 		silence_buffer_->create_nonpositional()),
-	random_element_rng_(
-		fcppt::random::make_last_exclusive_range<file_set::iterator::difference_type>(
-			static_cast<file_set::iterator::difference_type>(
-				0),
-			static_cast<file_set::iterator::difference_type>(
-				random_sounds_.size())),
-		create_rng()),
+	random_element_generator_(
+		resource_tree::navigate_to_path<sge::audio::file_ptr>(
+			*sounds_,
+			resource_tree::path(
+				FCPPT_TEXT("random"))),
+		fruitcut::create_rng()),
 	current_source_(
 		silence_source_),
 	new_source_()
@@ -148,25 +101,20 @@ void
 fruitcut::audio::music_controller::play_event(
 	fcppt::string const &e)
 {
-	if (event_sounds_.find(e) == event_sounds_.end())
-		throw exception(FCPPT_TEXT("Event \"")+e+FCPPT_TEXT("\" not found"));
-
 	do_play(
 		player_.create_nonpositional_stream(
-			event_sounds_[e]));
+			resource_tree::leaf_value<sge::audio::file_ptr>(
+				resource_tree::navigate_to_path<sge::audio::file_ptr>(
+					*sounds_,
+					resource_tree::path(FCPPT_TEXT("events"))/e))));
 }
 
 void
 fruitcut::audio::music_controller::play_random()
 {
-	if (random_sounds_.empty())
-		return;
-	
 	do_play(
 		player_.create_nonpositional_stream(
-			*boost::next(
-				random_sounds_.begin(),
-				random_element_rng_())));
+			random_element_generator_.choose_random()));
 }
 
 void

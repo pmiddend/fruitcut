@@ -1,5 +1,5 @@
-#ifndef FRUITCUT_APP_POINT_SPRITE_SPLATTER_LINEAR_VELOCITY_HPP_INCLUDED
-#define FRUITCUT_APP_POINT_SPRITE_SPLATTER_LINEAR_VELOCITY_HPP_INCLUDED
+#ifndef FRUITCUT_APP_POINT_SPRITE_SPLATTER_ACCELERATION_HPP_INCLUDED
+#define FRUITCUT_APP_POINT_SPRITE_SPLATTER_ACCELERATION_HPP_INCLUDED
 
 #include "../vector.hpp"
 #include <fcppt/strong_typedef.hpp>
@@ -14,7 +14,7 @@ namespace splatter
 {
 FCPPT_MAKE_STRONG_TYPEDEF(
 	point_sprite::vector,
-	linear_velocity);
+	acceleration);
 }
 }
 }

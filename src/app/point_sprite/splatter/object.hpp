@@ -2,12 +2,13 @@
 #define FRUITCUT_APP_POINT_SPRITE_SPLATTER_OBJECT_HPP_INCLUDED
 
 #include "parameters_fwd.hpp"
+#include "linear_velocity.hpp"
+#include "acceleration.hpp"
 #include "../vector.hpp"
 #include "../object.hpp"
 #include "../base.hpp"
 #include "../system.hpp"
 #include "../color.hpp"
-#include "gravity_callback.hpp"
 #include <sge/time/timer.hpp>
 #include <fcppt/noncopyable.hpp>
 
@@ -39,10 +40,10 @@ private:
 	dead() const;
 
 	point_sprite::object object_;
-	point_sprite::vector linear_velocity_;
+	splatter::linear_velocity::value_type linear_velocity_;
+	splatter::acceleration::value_type acceleration_;
 	sge::time::timer life_timer_;
 	sge::time::timer second_timer_;
-	fruitcut::app::point_sprite::splatter::gravity_callback const gravity_callback_;
 };
 }
 }

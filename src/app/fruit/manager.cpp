@@ -126,7 +126,7 @@ fruitcut::app::fruit::manager::cut(
 	// We have to check if we split the fruit into one or two parts. If
 	// it's just one, we leave it as is (still costs a bit of performance)
 	object_sequence::implementation_sequence fruit_cache;
-	fruit::area cumulated_area = 0;
+	fruit::area::value_type cumulated_area = 0;
 	fruit::mesh cross_section;
 
 	for(
@@ -141,7 +141,7 @@ fruitcut::app::fruit::manager::cut(
 				*p));
 
 		cumulated_area += 
-			cut_result->area();
+			cut_result->area().get();
 
 		// Note the return here. If this condition is true, we only split
 		// to one fruit, so we didn't split at all!
@@ -194,7 +194,8 @@ fruitcut::app::fruit::manager::cut(
 			fcppt::assign::make_array<fruit::object const *>
 				(&(*fruit_cache.begin()))
 				(&(*(--fruit_cache.end()))),
-			cumulated_area,
+			fruit::area(
+				cumulated_area),
 			cut_direction,
 			cross_section));
 

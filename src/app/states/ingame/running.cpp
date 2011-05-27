@@ -19,7 +19,6 @@
 #include "../../../physics/world.hpp"
 #include "../../../math/multiply_matrix4_vector3.hpp"
 #include "../../../math/triangle/random_point.hpp"
-#include "../../point_sprite/splatter/gravity_callback.hpp"
 #include "../../point_sprite/splatter/parameters.hpp"
 #include "../../point_sprite/splatter/object.hpp"
 #include "../../point_sprite/vector.hpp"
@@ -431,21 +430,6 @@ fruitcut::app::states::ingame::running::fruit_was_cut(
 					tri_rng()],
 				tri_point_rng);
 
-		// FUCK, IS THAT UGLY!
-		point_sprite::splatter::gravity_callback grav_callback(
-			std::tr1::bind(
-				&fcppt::math::vector::structure_cast
-				<
-					point_sprite::vector,
-					physics::scalar,
-					physics::vector3::dim_wrapper,
-					physics::vector3::storage_type
-				>,
-				std::tr1::bind(
-					static_cast<physics::vector3 const(physics::world::*)() const>(
-						&physics::world::gravity),
-					&context<superstate>().physics_world())));
-
 		point_sprite::color splatter_color = 
 			sge::image::color::any::convert<point_sprite::color::format>(
 				c.old().splatter_color());
@@ -470,13 +454,15 @@ fruitcut::app::states::ingame::running::fruit_was_cut(
 								c.cut_direction() 
 							: 
 								(-c.cut_direction())) * speed),
+						point_sprite::splatter::acceleration(
+							fcppt::math::vector::structure_cast<point_sprite::splatter::acceleration::value_type>(
+								context<superstate>().physics_world().gravity())),
 						point_sprite::splatter::size(
 							size),
 						splatter_color,
 						context<machine>().point_sprites().lookup_texture(
 							FCPPT_TEXT("splat0")),
 						sge::time::second(2),
-						context<machine>().timer_callback(),
-						grav_callback))));
+						context<machine>().timer_callback()))));
 	}
 }

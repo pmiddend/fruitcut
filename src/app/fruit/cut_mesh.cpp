@@ -378,9 +378,11 @@ fruitcut::app::fruit::cut_mesh(
 		result->mesh().triangles.push_back(
 			result->cross_section().triangles.back());
 
-		result->area() += 
-			math::triangle::area(
-				result->mesh().triangles.back());
+		result->area() = 
+			fruit::area(
+				result->area().get() + 
+				math::triangle::area(
+					result->mesh().triangles.back()));
 	}
 
 	return 

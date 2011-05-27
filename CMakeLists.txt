@@ -72,6 +72,7 @@ SET(
 	files 
 	# base 
 	src/media_path.cpp 
+	src/resource_tree/path.cpp 
 	src/exception.cpp
 	src/average_colors.cpp
 	# json

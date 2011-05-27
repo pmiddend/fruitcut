@@ -5,8 +5,8 @@
 #include "../color.hpp"
 #include "position.hpp"
 #include "linear_velocity.hpp"
+#include "acceleration.hpp"
 #include "size.hpp"
-#include "gravity_callback.hpp"
 #include <sge/time/duration.hpp>
 #include <sge/time/callback.hpp>
 #include <sge/texture/part_ptr.hpp>
@@ -31,12 +31,12 @@ public:
 		fruitcut::app::point_sprite::system &,
 		fruitcut::app::point_sprite::splatter::position const &,
 		fruitcut::app::point_sprite::splatter::linear_velocity const &,
+		fruitcut::app::point_sprite::splatter::acceleration const &,
 		fruitcut::app::point_sprite::splatter::size const &,
 		fruitcut::app::point_sprite::color const &,
 		sge::texture::part_ptr,
 		sge::time::duration const &,
-		sge::time::callback const &,
-		fruitcut::app::point_sprite::splatter::gravity_callback const &);
+		sge::time::callback const &);
 
 	fruitcut::app::point_sprite::system &
 	system() const;
@@ -46,6 +46,9 @@ public:
 
 	fruitcut::app::point_sprite::splatter::linear_velocity::value_type const &
 	linear_velocity() const;
+
+	fruitcut::app::point_sprite::splatter::acceleration::value_type const &
+	acceleration() const;
 
 	fruitcut::app::point_sprite::splatter::size::value_type const &
 	size() const;
@@ -59,9 +62,6 @@ public:
 	sge::time::duration const &
 	life_time() const;
 
-	fruitcut::app::point_sprite::splatter::gravity_callback const &
-	gravity_callback() const;
-	
 	sge::time::callback const &
 	time_callback() const;
 
@@ -70,12 +70,12 @@ private:
 	fruitcut::app::point_sprite::system &system_;
 	fruitcut::app::point_sprite::splatter::position::value_type const position_;
 	fruitcut::app::point_sprite::splatter::linear_velocity::value_type const linear_velocity_;
+	fruitcut::app::point_sprite::splatter::acceleration::value_type const acceleration_;
 	fruitcut::app::point_sprite::splatter::size::value_type const size_;
 	fruitcut::app::point_sprite::color const color_;
 	sge::texture::part_ptr const texture_;
 	sge::time::duration const life_time_;
 	sge::time::callback const time_callback_;
-	fruitcut::app::point_sprite::splatter::gravity_callback const gravity_callback_;
 };
 }
 }

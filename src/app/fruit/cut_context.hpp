@@ -34,7 +34,7 @@ public:
 	cut_context(
 		fruit::object const &_old,
 		new_fruit_array const &,
-		fruit::area,
+		fruit::area const &,
 		physics::vector3 const &cut_direction,
 		fruit::mesh const &);
 
@@ -44,7 +44,7 @@ public:
 	new_fruit_array const &
 	new_fruits() const;
 
-	fruit::area
+	fruit::area::value_type
 	area() const;
 
 	physics::vector3 const &
@@ -55,7 +55,7 @@ public:
 private:
 	fruit_ptr old_;
 	new_fruit_array new_;
-	fruit::area area_;
+	fruit::area::value_type area_;
 	physics::vector3 cut_direction_;
 	fruit::mesh cross_section_;
 };

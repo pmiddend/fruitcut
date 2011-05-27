@@ -27,6 +27,8 @@ fruitcut::app::point_sprite::splatter::object::object(
 			.elements()),
 	linear_velocity_(
 		p.linear_velocity()),
+	acceleration_(
+		p.acceleration()),
 	life_timer_(
 		p.life_time(),
 		sge::time::activation_state::active,
@@ -34,9 +36,7 @@ fruitcut::app::point_sprite::splatter::object::object(
 	second_timer_(
 		sge::time::second(1),
 		sge::time::activation_state::active,
-		p.time_callback()),
-	gravity_callback_(
-		p.gravity_callback())
+		p.time_callback())
 {
 	
 }
@@ -62,7 +62,7 @@ fruitcut::app::point_sprite::splatter::object::update()
 		object_.z() + 
 		time_delta * linear_velocity_[2]);
 	linear_velocity_ += 
-		time_delta * gravity_callback_();
+		time_delta * acceleration_;
 }
 
 bool

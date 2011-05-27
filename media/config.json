@@ -154,5 +154,12 @@
 	"loggers" : 
 	{
 		"sge" : []
+	},
+	"splatter-generator" :
+	{
+		"splatter-count-to-area-factor" : 1.0,
+		"speed-range" : [100.0,400.0],
+		"size-range" : [10.0,50.0],
+		"lifetime-millis-range" : [100,2000]
 	}
 }
