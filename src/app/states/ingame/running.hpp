@@ -3,7 +3,6 @@
 
 #include "superstate.hpp"
 #include "../../fruit/object_fwd.hpp"
-#include "../../fruit/cut_context_fwd.hpp"
 #include "../../events/render.hpp"
 #include "../../events/tick.hpp"
 #include "../../events/toggle_pause.hpp"
@@ -65,8 +64,7 @@ private:
 	scenic::nodes::intrusive_with_callbacks update_node_;
 	fcppt::signal::scoped_connection 
 		viewport_change_connection_,
-		fruit_spawned_connection_,
-		fruit_cut_connection_;
+		fruit_spawned_connection_;
 	bool 
 		draw_mouse_trail_,
 		draw_bbs_;
@@ -88,10 +86,6 @@ private:
 
 	void
 	viewport_change();
-
-	void
-	fruit_was_cut(
-		 fruit::cut_context const &);
 };
 }
 }

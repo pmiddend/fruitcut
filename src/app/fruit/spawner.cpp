@@ -5,6 +5,7 @@
 #include "../../physics/matrix4.hpp"
 #include "../../create_rng.hpp"
 #include "../../json/find_member.hpp"
+#include "../../json/parse_random_inclusive_range.hpp"
 #include <sge/time/funit.hpp>
 #include <sge/time/duration.hpp>
 #include <sge/time/second_f.hpp>
@@ -36,13 +37,10 @@ fruitcut::app::fruit::spawner::spawner(
 	camera_(
 		_camera),
 	seconds_rng_(
-		fcppt::random::make_inclusive_range(
- 			json::find_member<sge::time::funit>(
+		json::parse_random_inclusive_range<physics::scalar>(
+ 			json::find_member<sge::parse::json::array>(
 				_config_file,
-				FCPPT_TEXT("fruit-spawner/min-seconds")),
-			json::find_member<sge::time::funit>(
-				_config_file,
-				FCPPT_TEXT("fruit-spawner/max-seconds"))),
+				FCPPT_TEXT("fruit-spawner/spawn-range-seconds"))),
 		create_rng()),
 	prototype_rng_(
 		fcppt::random::make_last_exclusive_range(
@@ -57,22 +55,16 @@ fruitcut::app::fruit::spawner::spawner(
 			static_cast<physics::scalar>(
 				1))),
 	linear_velocity_rng_(
-		fcppt::random::make_inclusive_range(
- 			json::find_member<physics::scalar>(
+		json::parse_random_inclusive_range<physics::scalar>(
+ 			json::find_member<sge::parse::json::array>(
 				_config_file,
-				FCPPT_TEXT("fruit-spawner/min-linear-velocity")),
-			json::find_member<physics::scalar>(
-				_config_file,
-				FCPPT_TEXT("fruit-spawner/max-linear-velocity"))),
+				FCPPT_TEXT("fruit-spawner/linear-velocity-range"))),
 		create_rng()),
 	angular_velocity_rng_(
-		fcppt::random::make_inclusive_range(
- 			json::find_member<physics::scalar>(
+		json::parse_random_inclusive_range<physics::scalar>(
+ 			json::find_member<sge::parse::json::array>(
 				_config_file,
-				FCPPT_TEXT("fruit-spawner/min-angular-velocity")),
-			json::find_member<physics::scalar>(
-				_config_file,
-				FCPPT_TEXT("fruit-spawner/max-angular-velocity"))),
+				FCPPT_TEXT("fruit-spawner/angular-velocity-range"))),
 		create_rng()),
 	angle_rng_(
 		fcppt::random::make_inclusive_range(

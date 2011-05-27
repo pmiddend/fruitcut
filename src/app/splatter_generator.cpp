@@ -52,6 +52,12 @@ fruitcut::app::splatter_generator::splatter_generator(
 				config_file,
 				FCPPT_TEXT("splatter-generator/speed-range"))),
 		fruitcut::create_rng()),
+	distortion_rng_(
+		json::parse_random_inclusive_range<sge::renderer::scalar>(
+			json::find_member<sge::parse::json::array>(
+				config_file,
+				FCPPT_TEXT("splatter-generator/speed-distortion-range"))),
+		fruitcut::create_rng()),
 	size_rng_(
 		json::parse_random_inclusive_range<sge::renderer::scalar>(
 			json::find_member<sge::parse::json::array>(
@@ -127,8 +133,12 @@ fruitcut::app::splatter_generator::fruit_was_cut(
 				cut_info.old().splatter_color());
 
 		splatter_color.set<mizuiro::color::channel::alpha>(
-			static_cast<point_sprite::color_format::channel_type>(
-				128));
+			alpha_rng_());
+
+		point_sprite::splatter::linear_velocity::value_type distortion(
+			distortion_rng_(),
+			distortion_rng_(),
+			distortion_rng_());
 
 		point_sprites_.push_back(
 			point_sprite::unique_base_ptr(
@@ -141,11 +151,11 @@ fruitcut::app::splatter_generator::fruit_was_cut(
 								cut_info.old().world_transform(),
 								position)),
 						point_sprite::splatter::linear_velocity(
-							(cut_direction_rng_() 
+							distortion + ((cut_direction_rng_() 
 							? 
 								cut_info.cut_direction() 
 							: 
-								(-cut_info.cut_direction())) * speed_rng_()),
+								(-cut_info.cut_direction())) * speed_rng_())),
 						point_sprite::splatter::acceleration(
 							acceleration_),
 						point_sprite::splatter::size(

@@ -144,12 +144,9 @@
 	},
 	"fruit-spawner" :
 	{
-		"min-seconds" : 0.5,
-		"max-seconds" : 3.0,
-		"min-linear-velocity" : 16.0,
-		"max-linear-velocity" : 22.0,
-		"min-angular-velocity" : 0.0,
-		"max-angular-velocity" : 3.0
+		"spawn-range-seconds" : [0.5,3.0],
+		"linear-velocity-range" : [16.0,22.0],
+		"angular-velocity-range" : [0.0,3.0]
 	},
 	"loggers" : 
 	{
@@ -159,6 +156,7 @@
 	{
 		"splatter-count-to-area-factor" : 30.0,
 		"speed-range" : [100.0,400.0],
+		"speed-distortion-range" : [-5.0,5.0],
 		"size-range" : [10.0,50.0],
 		"lifetime-millis-range" : [100,2000]
 	}

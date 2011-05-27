@@ -46,6 +46,10 @@ private:
 	speed_rng;
 
 	typedef
+	fruitcut::uniform_random<point_sprite::splatter::linear_velocity::value_type::value_type>::type
+	distortion_rng;
+
+	typedef
 	fruitcut::uniform_random<point_sprite::splatter::size::value_type>::type
 	size_rng;
 
@@ -62,6 +66,7 @@ private:
 	sge::time::callback const time_callback_;
 	cut_direction_rng cut_direction_rng_;
 	speed_rng speed_rng_;
+	distortion_rng distortion_rng_;
 	size_rng size_rng_;
 	alpha_rng alpha_rng_;
 	lifetime_millis_rng lifetime_millis_rng_;
