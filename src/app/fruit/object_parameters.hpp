@@ -10,12 +10,14 @@
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/vertex_declaration_fwd.hpp>
 #include <sge/shader/object_fwd.hpp>
+#include <sge/image/color/any/object.hpp>
 #include <sge/time/duration.hpp>
 #include <sge/time/callback.hpp>
 #include <fcppt/math/vector/vector.hpp>
 #include <fcppt/math/matrix/matrix.hpp>
 #include <fcppt/chrono/duration.hpp>
 #include <fcppt/nonassignable.hpp>
+#include <fcppt/variant/object.hpp>
 
 namespace fruitcut
 {
@@ -31,6 +33,7 @@ public:
 	explicit
 	object_parameters(
 		sge::renderer::texture::planar_ptr const _texture,
+		sge::image::color::any::object const _splatter_color,
 		physics::world &_world,
 		sge::renderer::device &_renderer,
 		sge::renderer::vertex_declaration &_vertex_declaration,
@@ -46,6 +49,9 @@ public:
 
 	sge::renderer::texture::planar_ptr const 
 	texture() const;
+
+	sge::image::color::any::object const &
+	splatter_color() const;
 
 	physics::world &
 	physics_world() const;
@@ -84,6 +90,7 @@ public:
 	timer_callback() const;
 private:
 	sge::renderer::texture::planar_ptr const texture_;
+	sge::image::color::any::object const splatter_color_;
 	physics::world &world_;
 	sge::renderer::device &renderer_;
 	sge::renderer::vertex_declaration &vertex_declaration_;

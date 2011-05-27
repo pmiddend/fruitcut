@@ -1,6 +1,17 @@
 #include "prototype.hpp"
 #include "mesh_to_point_cloud.hpp"
 #include "../../geometry_traits/box.hpp"
+#include "../../average_colors.hpp"
+#include <sge/image2d/view/sub.hpp>
+#include <sge/image2d/rect.hpp>
+#include <sge/image2d/dim.hpp>
+#include <sge/image2d/view/to_const.hpp>
+#include <sge/renderer/texture/scoped_planar_lock.hpp>
+#include <sge/renderer/texture/planar.hpp>
+#include <sge/renderer/lock_mode.hpp>
+#include <fcppt/math/vector/vector.hpp>
+#include <fcppt/math/dim/dim.hpp>
+#include <fcppt/math/box/box.hpp>
 #include <boost/geometry/geometry.hpp>
 
 fruitcut::app::fruit::prototype::prototype(
@@ -14,8 +25,21 @@ fruitcut::app::fruit::prototype::prototype(
 			mesh_to_point_cloud(
 				mesh_))),
 	texture_(
-		_texture)
-	
+		_texture),
+	splatter_color_(
+		fruitcut::average_colors(
+			sge::image2d::view::to_const(
+				sge::image2d::view::sub(
+					sge::renderer::texture::scoped_planar_lock(
+						*_texture,
+						sge::renderer::lock_mode::readwrite).value(),
+					sge::image2d::rect(
+						sge::image2d::rect::vector(
+							_texture->size().w()/2,
+							0),
+						sge::image2d::dim(
+							_texture->size().w()/2,
+							_texture->size().h()))))))
 {
 }
 
@@ -35,4 +59,10 @@ sge::renderer::texture::planar_ptr const
 fruitcut::app::fruit::prototype::texture() const
 {
 	return texture_;
+}
+
+sge::image::color::any::object const &
+fruitcut::app::fruit::prototype::splatter_color() const
+{
+	return splatter_color_;
 }

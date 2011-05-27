@@ -5,6 +5,7 @@
 #include "mesh.hpp"
 #include "object_parameters_fwd.hpp"
 #include "../../physics/rigid_body/object.hpp"
+#include <sge/image/color/any/object.hpp>
 #include <sge/renderer/vertex_buffer_fwd.hpp>
 #include <sge/renderer/vertex_buffer_ptr.hpp>
 #include <sge/renderer/texture/planar_ptr.hpp>
@@ -15,6 +16,7 @@
 #include <fcppt/math/vector/vector.hpp>
 #include <fcppt/math/box/box.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/variant/object.hpp>
 
 namespace fruitcut
 {
@@ -56,6 +58,9 @@ public:
 	fruit::box3 const &
 	bounding_box() const;
 
+	sge::image::color::any::object const &
+	splatter_color() const;
+
 	fruitcut::app::fruit::mesh const &
 	mesh() const;
 
@@ -66,7 +71,7 @@ public:
 private:
 	fruitcut::app::fruit::mesh mesh_;
 	box3 bounding_box_;
-	//sge::image::color::any::object splatter_color_;
+	sge::image::color::any::object splatter_color_;
 	physics::rigid_body::object body_;
 	sge::renderer::vertex_buffer_ptr vb_;
 	sge::renderer::texture::planar_ptr texture_;

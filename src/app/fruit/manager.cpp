@@ -1,11 +1,11 @@
 #include "box3.hpp"
 #include "cut_mesh.hpp"
 #include "manager.hpp"
+#include "prototype_from_json.hpp"
 #include "../../json/find_member.hpp"
 #include "../../math/multiply_matrix4_vector3.hpp"
 #include "../../media_path.hpp"
 #include "mesh.hpp"
-#include "model_to_mesh.hpp"
 #include "model_vf/format.hpp"
 #include "object_parameters.hpp"
 #include "parameters_from_prototype.hpp"
@@ -16,14 +16,12 @@
 #include <sge/image2d/multi_loader.hpp>
 #include <sge/model/loader.hpp>
 #include <sge/parse/json/array.hpp>
-#include <sge/parse/json/get.hpp>
 #include <sge/parse/json/object.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/first_vertex.hpp>
 #include <sge/renderer/glsl/scoped_program.hpp>
 #include <sge/renderer/matrix4.hpp>
 #include <sge/renderer/nonindexed_primitive_type.hpp>
-#include <sge/renderer/resource_flags_none.hpp>
 #include <sge/renderer/scoped_vertex_buffer.hpp>
 #include <sge/renderer/scoped_vertex_declaration.hpp>
 #include <sge/renderer/size_type.hpp>
@@ -49,47 +47,6 @@
 #include <fcppt/assert_message.hpp>
 #include <fcppt/assert.hpp>
 
-namespace
-{
-fruitcut::app::fruit::prototype const
-parse_fruit(
-	sge::parse::json::value const &v,
-	sge::model::loader &model_loader,
-	sge::image2d::multi_loader &image_loader,
-	sge::renderer::device &renderer)
-{
-	sge::parse::json::object const &o = 
-		sge::parse::json::get<sge::parse::json::object>(
-			v);
-
-	return 
-		fruitcut::app::fruit::prototype(
-			fruitcut::app::fruit::model_to_mesh(
-				model_loader.load(
-					fruitcut::media_path()
-						/ FCPPT_TEXT("models")
-						/ FCPPT_TEXT("fruits")
-						/
-							fruitcut::json::find_member<fcppt::string>(
-								o,
-								FCPPT_TEXT("model")))),
-			sge::renderer::texture::create_planar_from_view(
-				renderer,
-				image_loader.load(
-					fruitcut::media_path()
-						/ FCPPT_TEXT("textures")
-						/ FCPPT_TEXT("fruits")
-						/
-							fruitcut::json::find_member<fcppt::string>(
-								o,
-								FCPPT_TEXT("texture")))->view(),
-				sge::renderer::texture::filter::trilinear,
-				sge::renderer::texture::address_mode2(
-					sge::renderer::texture::address_mode::clamp),
-				sge::renderer::resource_flags::none));
-}
-}
-
 fruitcut::app::fruit::manager::manager(
 	sge::parse::json::array const &prototype_array,
 	sge::model::loader &model_loader,
@@ -111,7 +68,7 @@ fruitcut::app::fruit::manager::manager(
 		fcppt::algorithm::map<prototype_sequence>(
 			prototype_array.elements,
 			std::tr1::bind(
-				&parse_fruit,
+				&prototype_from_json,
 				std::tr1::placeholders::_1,
 				fcppt::ref(
 					model_loader),
@@ -201,6 +158,7 @@ fruitcut::app::fruit::manager::cut(
 			fcppt::make_unique_ptr<fruit::object>(
 				fruit::object_parameters(
 					current_fruit.texture(),
+					current_fruit.splatter_color(),
 					physics_world_,
 					renderer_,
 					*vertex_declaration_,

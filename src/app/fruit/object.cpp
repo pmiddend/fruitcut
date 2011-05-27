@@ -25,6 +25,8 @@ fruitcut::app::fruit::object::object(
 		boost::geometry::return_envelope<box3>(
 			fruit::mesh_to_point_cloud(
 				mesh_))),
+	splatter_color_(
+		p.splatter_color()),
 	body_(
 		physics::rigid_body::parameters(
 			p.physics_world(),
@@ -105,6 +107,12 @@ fruitcut::app::fruit::box3 const &
 fruitcut::app::fruit::object::bounding_box() const
 {
 	return bounding_box_;
+}
+
+sge::image::color::any::object const &
+fruitcut::app::fruit::object::splatter_color() const
+{
+	return splatter_color_;
 }
 
 fruitcut::app::fruit::mesh const &

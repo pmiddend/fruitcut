@@ -57,15 +57,8 @@
 	},
 	"music" : 
 	{  
-		"volume" : 0.0,
-		"events" : 
-		{
-		},
-		"random" :
-		[
-			"Ariva_ariva.ogg"
-		],
-		"crossfade-time" : "2s"
+		"volume" : 1.0,
+		"crossfade-time" : "10s"
 	},
 	"textures" : 
 	{

@@ -28,6 +28,7 @@
 #include <sge/line_drawer/render_to_screen.hpp>
 #include <sge/image/colors.hpp>
 #include <sge/image/color/init.hpp>
+#include <sge/image/color/any/convert.hpp>
 #include <sge/viewport/manager.hpp>
 #include <sge/input/cursor/position_unit.hpp>
 #include <sge/renderer/device.hpp>
@@ -69,6 +70,7 @@
 #include <fcppt/random/make_inclusive_range.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/ref.hpp>
+#include <mizuiro/color/channel/alpha.hpp>
 #include <boost/next_prior.hpp>
 #include <iostream>
 
@@ -444,6 +446,14 @@ fruitcut::app::states::ingame::running::fruit_was_cut(
 						&physics::world::gravity),
 					&context<superstate>().physics_world())));
 
+		point_sprite::color splatter_color = 
+			sge::image::color::any::convert<point_sprite::color::format>(
+				c.old().splatter_color());
+
+		splatter_color.set<mizuiro::color::channel::alpha>(
+			static_cast<point_sprite::color_format::channel_type>(
+				128));
+
 		context<machine>().point_sprites().push_back(
 			point_sprite::unique_base_ptr(
 				fcppt::make_unique_ptr<point_sprite::splatter::object>(
@@ -462,11 +472,7 @@ fruitcut::app::states::ingame::running::fruit_was_cut(
 								(-c.cut_direction())) * speed),
 						point_sprite::splatter::size(
 							size),
-						point_sprite::color(
-							(sge::image::color::init::red %= 1.0)
-							(sge::image::color::init::green %= 1.0)
-							(sge::image::color::init::blue %= 1.0)
-							(sge::image::color::init::alpha %= 0.5)),
+						splatter_color,
 						context<machine>().point_sprites().lookup_texture(
 							FCPPT_TEXT("splat0")),
 						sge::time::second(2),

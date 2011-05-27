@@ -4,6 +4,7 @@
 #include "events/render.hpp"
 #include "events/render_overlay.hpp"
 #include "events/tick.hpp"
+#include "../string_to_duration.hpp"
 #include "../pp/dependency_set.hpp"
 #include "../json/find_member.hpp"
 #include "../media_path.hpp"
@@ -247,11 +248,16 @@ fruitcut::app::machine::machine(
 	sound_controller_node_(
 		sound_controller_),
 	music_controller_(
-		json::find_member<sge::parse::json::object>(
-			config_file(),
-			FCPPT_TEXT("music")),
 		systems_.audio_loader(),
-		systems_.audio_player()),
+		systems_.audio_player(),
+		*fruitcut::string_to_duration<sge::time::duration>(
+			json::find_member<fcppt::string>(
+				config_file(),
+				FCPPT_TEXT("music/crossfade-time"))),
+		fruitcut::media_path()/FCPPT_TEXT("sounds")/FCPPT_TEXT("music"),
+		json::find_member<sge::audio::scalar>(
+			config_file(),
+			FCPPT_TEXT("music/volume"))),
 	music_controller_node_(
 		music_controller_),
 	background_(

@@ -8,11 +8,10 @@
 #include <sge/audio/buffer_ptr.hpp>
 #include <sge/audio/scalar.hpp>
 #include <sge/audio/sound/base_ptr.hpp>
-// Why do we need this?
-#include <sge/parse/json/object_fwd.hpp>
 #include <sge/time/timer.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/filesystem/path.hpp>
 #include <vector>
 #include <map>
 
@@ -27,9 +26,11 @@ FCPPT_NONCOPYABLE(
 public:
 	explicit
 	music_controller(
-		sge::parse::json::object const &,
 		sge::audio::multi_loader &,
-		sge::audio::player &);
+		sge::audio::player &,
+		sge::time::duration const &,
+		fcppt::filesystem::path const &,
+		sge::audio::scalar volume);
 
 	void
 	update();

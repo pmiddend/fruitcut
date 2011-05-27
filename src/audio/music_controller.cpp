@@ -1,7 +1,4 @@
 #include "music_controller.hpp"
-#include "../string_to_duration_exn.hpp"
-#include "../json/find_member.hpp"
-#include "../json/convert.hpp"
 #include "../media_path.hpp"
 #include "../create_rng.hpp"
 #include "../exception.hpp"
@@ -11,73 +8,88 @@
 #include <sge/audio/scalar.hpp>
 #include <sge/audio/multi_loader.hpp>
 #include <sge/audio/buffer.hpp>
-#include <sge/parse/json/find_member_exn.hpp>
-#include <sge/parse/json/array.hpp>
-#include <sge/parse/json/object.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/io/cout.hpp>
 #include <fcppt/assert.hpp>
+#include <fcppt/filesystem/directory_iterator.hpp>
+#include <fcppt/filesystem/stem.hpp>
+#include <fcppt/filesystem/path.hpp>
 #include <fcppt/random/make_last_exclusive_range.hpp>
 #include <boost/next_prior.hpp>
-#include <boost/spirit/home/phoenix/object.hpp>
-#include <boost/spirit/home/phoenix/bind.hpp>
-#include <boost/spirit/home/phoenix/core.hpp>
-#include <boost/spirit/home/phoenix/operator.hpp>
+
+namespace
+{
+template<typename Result>
+Result const
+parse_event_sounds(
+	sge::audio::multi_loader &file_loader,
+	fcppt::filesystem::path const &event_path)
+{
+	Result result;
+	for(
+		fcppt::filesystem::directory_iterator current_sound(
+			event_path); 
+		current_sound != fcppt::filesystem::directory_iterator(); 
+		++current_sound)
+	{
+		result.insert(
+			result.end(),
+			typename Result::value_type(
+				fcppt::filesystem::stem(
+					*current_sound),
+				file_loader.load(
+					*current_sound)));
+	}
+	return result;
+}
+
+template<typename Result>
+Result const
+parse_random_sounds(
+	sge::audio::multi_loader &file_loader,
+	fcppt::filesystem::path const &p)
+{
+	Result result;
+	for(
+		fcppt::filesystem::directory_iterator current_sound(
+			p); 
+		current_sound != fcppt::filesystem::directory_iterator(); 
+		++current_sound)
+	{
+		result.insert(
+			result.end(),
+			file_loader.load(
+				*current_sound));
+	}
+	return result;
+}
+}
 
 fruitcut::audio::music_controller::music_controller(
-	sge::parse::json::object const &o,
 	sge::audio::multi_loader &ml,
-	sge::audio::player &_player)
+	sge::audio::player &_player,
+	sge::time::duration const &_crossfade,
+	fcppt::filesystem::path const &_base_path,
+	sge::audio::scalar const _volume)
 :
 	volume_(
-		json::find_member<sge::audio::scalar>(
-			o,
-			FCPPT_TEXT("volume"))),
+		_volume),
 	event_sounds_(
-		fcppt::algorithm::map<file_map>(
-			json::find_member<sge::parse::json::object>(
-				o,
-				FCPPT_TEXT("events")).members,
-			boost::phoenix::construct<file_map::value_type>(
-				boost::phoenix::bind(
-					&sge::parse::json::member::name,
-					boost::phoenix::arg_names::arg1),
-				boost::phoenix::bind(
-					static_cast<sge::audio::file_ptr const (sge::audio::multi_loader::*)(fcppt::filesystem::path const &)>(
-						&sge::audio::multi_loader::load),
-					&ml,
-					boost::phoenix::val(
-						media_path() / FCPPT_TEXT("music")) / 
-					boost::phoenix::bind(
-						&json::convert<fcppt::string>,
-						boost::phoenix::bind(
-							&sge::parse::json::member::value,
-							boost::phoenix::arg_names::arg1)))))),
+		parse_event_sounds<file_map>(
+			ml,
+			_base_path / FCPPT_TEXT("events"))),
 	random_sounds_(
-		fcppt::algorithm::map<file_set>(
-			json::find_member<sge::parse::json::array>(
-				o,
-				FCPPT_TEXT("random")).elements,
-			boost::phoenix::bind(
-				static_cast<sge::audio::file_ptr const (sge::audio::multi_loader::*)(fcppt::filesystem::path const &)>(
-					&sge::audio::multi_loader::load),
-				&ml,
-				boost::phoenix::val(
-					media_path() / FCPPT_TEXT("music")) / 
-				boost::phoenix::bind(
-					&json::convert<fcppt::string>,
-					boost::phoenix::arg_names::arg1)))),
+		parse_random_sounds<file_set>(
+			ml,
+			_base_path / FCPPT_TEXT("random"))),
 	crossfade_(
-		string_to_duration_exn<sge::time::duration>(
-			json::find_member<fcppt::string>(
-				o,
-				FCPPT_TEXT("crossfade-time")))),
+		_crossfade),
 	player_(
 		_player),
 	silence_buffer_(
 		player_.create_buffer(
 			*ml.load(
-				media_path()/FCPPT_TEXT("sounds")/FCPPT_TEXT("silence.wav")))),
+				_base_path/FCPPT_TEXT("silence.wav")))),
 	silence_source_(
 		silence_buffer_->create_nonpositional()),
 	random_element_rng_(

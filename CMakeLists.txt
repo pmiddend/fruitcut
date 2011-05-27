@@ -73,6 +73,7 @@ SET(
 	# base 
 	src/media_path.cpp 
 	src/exception.cpp
+	src/average_colors.cpp
 	# json
 	src/json/parse_rgba8_color.cpp 
 	src/json/merge_trees.cpp 
@@ -170,6 +171,7 @@ ADD_EXECUTABLE(
 	src/app/config_wrapper.cpp
 	src/app/fruit/cut_context.cpp
 	src/app/fruitcut.cpp
+	src/app/fruit/prototype_from_json.cpp
 	src/app/fruit/cut_mesh.cpp
 	src/app/fruit/object_parameters.cpp
 	src/app/fruit/parameters_from_prototype.cpp

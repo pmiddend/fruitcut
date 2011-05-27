@@ -29,6 +29,7 @@ fruitcut::app::fruit::parameters_from_prototype(
 	return 
 		fruit::object_parameters(
 			proto.texture(),
+			proto.splatter_color(),
 			_world,
 			_renderer,
 			_vertex_declaration,
