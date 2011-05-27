@@ -98,7 +98,14 @@ fruitcut::app::states::ingame::superstate::superstate(
 			std::tr1::bind(
 				&superstate::fruit_was_cut,
 				this,
-				std::tr1::placeholders::_1)))
+				std::tr1::placeholders::_1))),
+	splatter_generator_(
+		context<machine>().config_file(),
+		context<machine>().point_sprites(),
+		point_sprite::splatter::acceleration(
+			fcppt::math::vector::structure_cast<point_sprite::splatter::acceleration::value_type>(
+				physics_world_.gravity())),
+		context<machine>().timer_callback())
 {
 	// scene
 	context<machine>().scene_node().insert_before(
@@ -183,7 +190,7 @@ fruitcut::app::states::ingame::superstate::toggle_physics_debugger()
 
 void
 fruitcut::app::states::ingame::superstate::fruit_was_cut(
-	fruit::cut_context const &)
+	fruit::cut_context const &ccontext)
 {
 	/*
 	score_ = 
@@ -196,4 +203,7 @@ fruitcut::app::states::ingame::superstate::fruit_was_cut(
 	*/
 	context<machine>().sound_controller().play(
 		FCPPT_TEXT("fruit-was-cut"));
+
+	splatter_generator_.fruit_was_cut(
+		ccontext);
 }

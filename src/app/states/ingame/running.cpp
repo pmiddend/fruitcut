@@ -380,8 +380,9 @@ fruitcut::app::states::ingame::running::viewport_change()
 
 void
 fruitcut::app::states::ingame::running::fruit_was_cut(
-	fruit::cut_context const &c)
+	fruit::cut_context const &)
 {
+#if 0
 	if(c.cross_section().triangles.empty())
 		return;
 
@@ -465,4 +466,5 @@ fruitcut::app::states::ingame::running::fruit_was_cut(
 						sge::time::second(2),
 						context<machine>().timer_callback()))));
 	}
+#endif
 }

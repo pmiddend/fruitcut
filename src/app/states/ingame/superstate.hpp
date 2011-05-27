@@ -2,6 +2,7 @@
 #define FRUITCUT_APP_STATES_INGAME_SUPERSTATE_HPP_INCLUDED
 
 #include "running_fwd.hpp"
+#include "../../splatter_generator.hpp"
 #include "../../game_logic.hpp"
 #include "../../machine.hpp"
 #include "../../fruit/manager.hpp"
@@ -79,6 +80,7 @@ private:
 	fruit::spawner fruit_spawner_;
 	fruitcut::app::game_logic game_logic_;
 	fcppt::signal::scoped_connection cut_connection_;
+	app::splatter_generator splatter_generator_;
 
 	void
 	toggle_physics_debugger();

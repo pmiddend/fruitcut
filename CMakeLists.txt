@@ -171,6 +171,7 @@ ADD_EXECUTABLE(
 	src/app/events/tick.cpp
 	src/app/config_wrapper.cpp
 	src/app/fruit/cut_context.cpp
+	src/app/splatter_generator.cpp
 	src/app/fruitcut.cpp
 	src/app/fruit/prototype_from_json.cpp
 	src/app/fruit/cut_mesh.cpp
