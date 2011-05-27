@@ -1,28 +1,19 @@
 #ifndef FRUITCUT_APP_FRUIT_OBJECT_HPP_INCLUDED
 #define FRUITCUT_APP_FRUIT_OBJECT_HPP_INCLUDED
 
-#include "mesh.hpp"
 #include "box3.hpp"
-#include "prototype_fwd.hpp"
+#include "mesh.hpp"
+#include "object_parameters_fwd.hpp"
 #include "../../physics/rigid_body/object.hpp"
-#include "../../physics/world_fwd.hpp"
-#include "../../physics/scalar.hpp"
-#include "../../physics/vector3.hpp"
-#include "../../physics/matrix4.hpp"
-#include <sge/renderer/device_fwd.hpp>
-#include <sge/renderer/matrix4.hpp>
-#include <sge/renderer/texture/planar_ptr.hpp>
-#include <sge/renderer/vector3.hpp>
-#include <sge/renderer/vertex_declaration_ptr.hpp>
+#include <sge/renderer/vertex_buffer_fwd.hpp>
 #include <sge/renderer/vertex_buffer_ptr.hpp>
-#include <sge/shader/object_fwd.hpp>
-#include <sge/time/callback.hpp>
-#include <sge/time/duration.hpp>
+#include <sge/renderer/texture/planar_ptr.hpp>
+#include <sge/renderer/matrix4.hpp>
+#include <sge/renderer/vector3.hpp>
 #include <sge/time/timer.hpp>
-#include <fcppt/math/matrix/basic_impl.hpp>
-#include <fcppt/math/box/basic_impl.hpp>
-#include <fcppt/chrono/time_point.hpp>
-#include <fcppt/chrono/duration.hpp>
+#include <fcppt/math/matrix/matrix.hpp>
+#include <fcppt/math/vector/vector.hpp>
+#include <fcppt/math/box/box.hpp>
 #include <fcppt/noncopyable.hpp>
 
 namespace fruitcut
@@ -39,35 +30,12 @@ public:
 	// Create from prototype
 	explicit
 	object(
-		prototype const &,
-		physics::world &,
-		sge::renderer::device &,
-		sge::renderer::vertex_declaration &,
-		sge::shader::object &,
-		physics::scalar mass,
-		physics::vector3 const &position,
-		physics::matrix4 const &transformation,
-		physics::vector3 const &linear_velocity,
-		physics::vector3 const &angular_velocity);
+		object_parameters const &);
 
-	// Create from other fruit
-	explicit
-	object(
-		sge::renderer::texture::planar_ptr,
-		physics::world &,
-		sge::renderer::device &,
-		sge::renderer::vertex_declaration &,
-		sge::shader::object &,
-		fruitcut::app::fruit::mesh const &,
-		physics::scalar mass,
-		physics::vector3 const &position,
-		physics::matrix4 const &transformation,
-		physics::vector3 const &linear_velocity,
-		physics::vector3 const &angular_velocity,
-		sge::time::duration const &,
-		sge::time::callback const &);
+	sge::renderer::vertex_buffer &
+	vb();
 
-	sge::renderer::vertex_buffer_ptr const
+	sge::renderer::vertex_buffer const &
 	vb() const;
 
 	sge::renderer::texture::planar_ptr const
@@ -85,7 +53,7 @@ public:
 	sge::renderer::vector3 const 
 	position() const;
 
-	box3 const &
+	fruit::box3 const &
 	bounding_box() const;
 
 	fruitcut::app::fruit::mesh const &
@@ -98,6 +66,7 @@ public:
 private:
 	fruitcut::app::fruit::mesh mesh_;
 	box3 bounding_box_;
+	//sge::image::color::any::object splatter_color_;
 	physics::rigid_body::object body_;
 	sge::renderer::vertex_buffer_ptr vb_;
 	sge::renderer::texture::planar_ptr texture_;

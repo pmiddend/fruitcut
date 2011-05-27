@@ -171,6 +171,8 @@ ADD_EXECUTABLE(
 	src/app/fruit/cut_context.cpp
 	src/app/fruitcut.cpp
 	src/app/fruit/cut_mesh.cpp
+	src/app/fruit/object_parameters.cpp
+	src/app/fruit/parameters_from_prototype.cpp
 	src/app/fruit/cut_mesh_result.cpp
 	src/app/fruit/hull/projected.cpp
 	src/app/fruit/hull/trail_intersection.cpp

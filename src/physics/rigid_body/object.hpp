@@ -29,7 +29,7 @@ public:
 	world_transform() const;
 
 	matrix4 const
-	rotation() const;
+	transformation() const;
 
 	vector3	const
 	linear_velocity() const;

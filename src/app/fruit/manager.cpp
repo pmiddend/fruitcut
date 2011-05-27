@@ -1,63 +1,45 @@
 #include "box3.hpp"
 #include "cut_mesh.hpp"
 #include "manager.hpp"
-#include "mesh.hpp"
-#include "model_to_mesh.hpp"
-#include "model_vf/format.hpp"
-#include "plane.hpp"
 #include "../../json/find_member.hpp"
 #include "../../math/multiply_matrix4_vector3.hpp"
 #include "../../media_path.hpp"
-#include <sge/shader/vf_to_string.hpp>
-#include <sge/shader/variable_sequence.hpp>
-#include <sge/shader/variable.hpp>
-#include <sge/shader/variable_type.hpp>
-#include <sge/shader/sampler_sequence.hpp>
-#include <sge/shader/sampler.hpp>
-#include <sge/shader/scoped.hpp>
+#include "mesh.hpp"
+#include "model_to_mesh.hpp"
+#include "model_vf/format.hpp"
+#include "object_parameters.hpp"
+#include "parameters_from_prototype.hpp"
+#include "plane.hpp"
 #include <sge/camera/object.hpp>
-#include <sge/renderer/matrix4.hpp>
-#include <sge/renderer/vf/dynamic/make_format.hpp>
-#include <sge/renderer/scoped_vertex_buffer.hpp>
-#include <sge/renderer/scoped_vertex_declaration.hpp>
-#include <sge/renderer/texture/scoped.hpp>
-#include <sge/renderer/stage_type.hpp>
-#include <sge/renderer/state/scoped.hpp>
-#include <sge/renderer/state/var.hpp>
-#include <sge/renderer/state/trampoline.hpp>
-#include <sge/renderer/state/list.hpp>
-#include <sge/renderer/state/depth_func.hpp>
-#include <sge/renderer/texture/planar_ptr.hpp>
-#include <sge/renderer/first_vertex.hpp>
-#include <sge/renderer/size_type.hpp>
-#include <sge/renderer/vertex_count.hpp>
-#include <sge/renderer/nonindexed_primitive_type.hpp>
-#include <sge/renderer/vertex_buffer.hpp>
-#include <sge/renderer/device.hpp>
-#include <sge/renderer/glsl/scoped_program.hpp>
-#include <sge/renderer/texture/filter/linear.hpp>
-#include <sge/renderer/texture/filter/trilinear.hpp>
-#include <sge/renderer/texture/create_planar_from_view.hpp>
-#include <sge/renderer/texture/address_mode.hpp>
-#include <sge/renderer/texture/address_mode2.hpp>
-#include <sge/renderer/texture/planar.hpp>
-#include <sge/renderer/resource_flags_none.hpp>
-#include <sge/renderer/vector3.hpp>
-#include <sge/parse/json/get.hpp>
-#include <sge/parse/json/object.hpp>
-#include <sge/parse/json/array.hpp>
-#include <sge/model/loader.hpp>
+#include <sge/image2d/file.hpp>
 #include <sge/image2d/loader.hpp>
 #include <sge/image2d/multi_loader.hpp>
-#include <sge/image2d/file.hpp>
+#include <sge/model/loader.hpp>
+#include <sge/parse/json/array.hpp>
+#include <sge/parse/json/get.hpp>
+#include <sge/parse/json/object.hpp>
+#include <sge/renderer/device.hpp>
+#include <sge/renderer/first_vertex.hpp>
+#include <sge/renderer/glsl/scoped_program.hpp>
+#include <sge/renderer/matrix4.hpp>
+#include <sge/renderer/nonindexed_primitive_type.hpp>
+#include <sge/renderer/resource_flags_none.hpp>
+#include <sge/renderer/scoped_vertex_buffer.hpp>
+#include <sge/renderer/scoped_vertex_declaration.hpp>
+#include <sge/renderer/size_type.hpp>
+#include <sge/renderer/stage_type.hpp>
+#include <sge/renderer/state/state.hpp>
+#include <sge/renderer/texture/texture.hpp>
+#include <sge/renderer/vector3.hpp>
+#include <sge/renderer/vertex_buffer.hpp>
+#include <sge/renderer/vertex_count.hpp>
+#include <sge/renderer/vf/dynamic/make_format.hpp>
+#include <sge/shader/shader.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/algorithm/map.hpp>
 #include <fcppt/tr1/functional.hpp>
-#include <fcppt/math/matrix/basic_impl.hpp>
-#include <fcppt/math/matrix/arithmetic.hpp>
-#include <fcppt/math/vector/basic_impl.hpp>
-#include <fcppt/math/vector/structure_cast.hpp>
-#include <fcppt/math/vector/length.hpp>
+#include <fcppt/math/matrix/matrix.hpp>
+#include <fcppt/math/vector/vector.hpp>
 #include <fcppt/container/array.hpp>
 #include <fcppt/assign/make_array.hpp>
 #include <fcppt/container/ptr/push_back_unique_ptr.hpp>
@@ -217,36 +199,32 @@ fruitcut::app::fruit::manager::cut(
 		fcppt::container::ptr::push_back_unique_ptr(
 			fruit_cache,
 			fcppt::make_unique_ptr<fruit::object>(
-				current_fruit.texture(),
-				fcppt::ref(
-					physics_world_),
-				fcppt::ref(
-					renderer_),
-				fcppt::ref(
-					*vertex_declaration_),
-				fcppt::ref(
-					fruit_shader_),
-				fcppt::ref(
-					cut_result->mesh()),
-				static_cast<physics::scalar>(
-					current_fruit.bounding_box().size().content() / cut_result->bounding_box().size().content()),
-				current_fruit.position() + 
-					math::multiply_matrix4_vector3(
-						current_fruit.body().rotation(),
-						fcppt::math::vector::structure_cast<physics::vector3>(
-							cut_result->barycenter())),
-				current_fruit.body().rotation(),
-				current_fruit.body().linear_velocity() + 
-					(static_cast<physics::scalar>(0.125) * 
-						fcppt::math::vector::length(
-							current_fruit.body().linear_velocity()) * 
+				fruit::object_parameters(
+					current_fruit.texture(),
+					physics_world_,
+					renderer_,
+					*vertex_declaration_,
+					fruit_shader_,
+					cut_result->mesh(),
+					static_cast<physics::scalar>(
+						current_fruit.bounding_box().size().content() / cut_result->bounding_box().size().content()),
+					current_fruit.position() + 
 						math::multiply_matrix4_vector3(
-							current_fruit.body().rotation(),
+							current_fruit.body().transformation(),
 							fcppt::math::vector::structure_cast<physics::vector3>(
-								p->normal()))),
-				current_fruit.body().angular_velocity(),
-				lock_duration,
-				time_callback));
+								cut_result->barycenter())),
+					current_fruit.body().transformation(),
+					current_fruit.body().linear_velocity() + 
+						(static_cast<physics::scalar>(0.125) * 
+							fcppt::math::vector::length(
+								current_fruit.body().linear_velocity()) * 
+							math::multiply_matrix4_vector3(
+								current_fruit.body().transformation(),
+								fcppt::math::vector::structure_cast<physics::vector3>(
+									p->normal()))),
+					current_fruit.body().angular_velocity(),
+					lock_duration,
+					time_callback)));
 	}
 
 	FCPPT_ASSERT(
@@ -278,21 +256,18 @@ fruitcut::app::fruit::manager::spawn(
 {
 	fruits_.push_back(
 		fcppt::make_unique_ptr<object>(
-			proto,
-			fcppt::ref(
-				physics_world_),
-			fcppt::ref(
-				renderer_),
-			fcppt::ref(
-				*vertex_declaration_),
-			fcppt::ref(
-				fruit_shader_),
-			mass,
-			position,
-			// I don't see any sense in specifying that here
-			physics::matrix4::identity(),
-			linear_velocity,
-			angular_velocity));
+			fruit::parameters_from_prototype(
+				proto,
+				physics_world_,
+				renderer_,
+				*vertex_declaration_,
+				fruit_shader_,
+				mass,
+				position,
+				// I don't see any sense in specifying that here
+				physics::matrix4::identity(),
+				linear_velocity,
+				angular_velocity)));
 
 	spawn_signal_(
 		*fruits_.cend());
@@ -374,7 +349,7 @@ fruitcut::app::fruit::manager::render()
 	{
 		sge::renderer::scoped_vertex_buffer scoped_vb(
 			renderer_,
-			*i->vb());
+			i->vb());
 
 		sge::renderer::texture::scoped scoped_tex(
 			renderer_,
@@ -391,7 +366,7 @@ fruitcut::app::fruit::manager::render()
 				static_cast<sge::renderer::size_type>(
 					0)),
 			sge::renderer::vertex_count(
-				i->vb()->size()),
+				i->vb().size()),
 			sge::renderer::nonindexed_primitive_type::triangle);
 	}
 }

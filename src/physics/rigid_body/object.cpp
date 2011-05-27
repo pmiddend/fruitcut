@@ -90,7 +90,7 @@ fruitcut::physics::rigid_body::object::world_transform() const
 }
 
 fruitcut::physics::matrix4 const
-fruitcut::physics::rigid_body::object::rotation() const
+fruitcut::physics::rigid_body::object::transformation() const
 {
 	btTransform deftr;
 	motion_state_.getWorldTransform(
