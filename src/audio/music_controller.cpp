@@ -14,6 +14,7 @@
 #include <fcppt/filesystem/directory_iterator.hpp>
 #include <fcppt/filesystem/stem.hpp>
 #include <fcppt/filesystem/path.hpp>
+#include <fcppt/filesystem/exists.hpp>
 #include <fcppt/random/make_last_exclusive_range.hpp>
 #include <boost/next_prior.hpp>
 
@@ -26,6 +27,8 @@ parse_event_sounds(
 	fcppt::filesystem::path const &event_path)
 {
 	Result result;
+	if(!fcppt::filesystem::exists(event_path))
+		return result;
 	for(
 		fcppt::filesystem::directory_iterator current_sound(
 			event_path); 
@@ -50,6 +53,8 @@ parse_random_sounds(
 	fcppt::filesystem::path const &p)
 {
 	Result result;
+	if(!fcppt::filesystem::exists(p))
+		return result;
 	for(
 		fcppt::filesystem::directory_iterator current_sound(
 			p); 
