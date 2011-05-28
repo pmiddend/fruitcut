@@ -33,7 +33,7 @@
 
 namespace
 {
-fruitcut::uniform_random<std::size_t>::type
+fruitcut::uniform_random<std::size_t>::type const
 create_random_from_directory(
 	fcppt::filesystem::path const &p)
 {
@@ -89,9 +89,9 @@ fruitcut::app::point_sprite::system_node::system_node(
 			std::tr1::bind(
 				&create_part_from_file,
 				fcppt::ref(
-					_image_loader),
-				fcppt::ref(
 					_renderer),
+				fcppt::ref(
+					_image_loader),
 				std::tr1::placeholders::_1),
 			&create_random_from_directory)),
 	shader_(

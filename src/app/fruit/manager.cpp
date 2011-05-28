@@ -320,7 +320,7 @@ fruitcut::app::fruit::manager::render()
 			"mvp",
 			camera_.mvp() * i->world_transform());
 
-		renderer_.render(
+		renderer_.render_nonindexed(
 			sge::renderer::first_vertex(
 				static_cast<sge::renderer::size_type>(
 					0)),

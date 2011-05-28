@@ -14,6 +14,7 @@
 #include "../math/triangle/random_point.hpp"
 #include "../math/multiply_matrix4_vector3.hpp"
 #include "../uniform_random.hpp"
+#include "../resource_tree/path.hpp"
 #include "../create_rng.hpp"
 #include "../json/find_member.hpp"
 #include "../json/parse_random_inclusive_range.hpp"
@@ -162,7 +163,8 @@ fruitcut::app::splatter_generator::fruit_was_cut(
 							size_rng_()),
 						splatter_color,
 						point_sprites_.lookup_texture(
-							FCPPT_TEXT("splat0")),
+							resource_tree::path(
+								FCPPT_TEXT("splatter"))),
 						sge::time::millisecond(
 							lifetime_millis_rng_()),
 						time_callback_))));

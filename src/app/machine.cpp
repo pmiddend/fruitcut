@@ -320,6 +320,7 @@ fruitcut::app::machine::machine(
 		camera_,
 		context<machine>().timer_callback()),
 	point_sprites_(
+		fruitcut::media_path()/FCPPT_TEXT("point_sprites"),
 		systems_.renderer(),
 		systems_.image_loader(),
 		camera_)

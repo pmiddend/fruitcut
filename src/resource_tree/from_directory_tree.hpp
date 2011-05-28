@@ -71,7 +71,7 @@ from_directory_tree(
 		++current_file)
 	{
 		result->push_back(
-			resource_tree::from_directory_tree(
+			resource_tree::from_directory_tree<Tree>(
 				*current_file,
 				create_leaf,
 				create_node));

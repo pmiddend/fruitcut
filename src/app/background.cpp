@@ -263,7 +263,7 @@ fruitcut::app::background::render()
 			(sge::renderer::state::depth_func::off)
 			(sge::renderer::state::stencil_func::off)
 			(sge::renderer::state::draw_mode::fill));
-	renderer_.render(
+	renderer_.render_nonindexed(
 		sge::renderer::first_vertex(0),
 		sge::renderer::vertex_count(
 			6),

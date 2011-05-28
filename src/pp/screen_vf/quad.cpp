@@ -96,7 +96,7 @@ fruitcut::pp::screen_vf::quad::render()
 		renderer_,
 		*buffer_);
 
-	renderer_.render(
+	renderer_.render_nonindexed(
 		sge::renderer::first_vertex(
 			0),
 		sge::renderer::vertex_count(
