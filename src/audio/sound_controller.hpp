@@ -1,16 +1,21 @@
 #ifndef FRUITCUT_AUDIO_SOUND_CONTROLLER_HPP_INCLUDED
 #define FRUITCUT_AUDIO_SOUND_CONTROLLER_HPP_INCLUDED
 
-#include "detail/sound_group.hpp"
+#include "../resource_tree/make_type.hpp"
+#include "../resource_tree/path.hpp"
+#include "../uniform_random.hpp"
 #include <sge/audio/multi_loader_fwd.hpp>
 #include <sge/audio/player_fwd.hpp>
 #include <sge/audio/pool.hpp>
 #include <sge/audio/sound/positional_parameters.hpp>
-#include <sge/parse/json/object_fwd.hpp>
+#include <sge/audio/sound/base_ptr.hpp>
 #include <sge/audio/buffer_ptr.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/unique_ptr.hpp>
+#include <fcppt/filesystem/path.hpp>
 #include <fcppt/tr1/unordered_map.hpp>
+#include <cstddef>
 
 namespace fruitcut
 {
@@ -46,19 +51,17 @@ FCPPT_NONCOPYABLE(
 public:
 	explicit 
 	sound_controller(
-		// This is just the "sounds" section of some global config file,
-		// or it might be a separate file
-		sge::parse::json::object const &,
+		fcppt::filesystem::path const &,
 		sge::audio::multi_loader &,
 		sge::audio::player &);
 
 	void
 	play(
-		fcppt::string const &);
+		resource_tree::path const &);
 
 	void
 	play_positional(
-		fcppt::string const &,
+		resource_tree::path const &,
 		sge::audio::sound::positional_parameters const &);
 
 	// The pool has update which needs to be called so the sounds are
@@ -69,16 +72,27 @@ public:
 	~sound_controller();
 private:
 	typedef
-	std::tr1::unordered_map
+	resource_tree::make_type
 	<
-		fcppt::string,
-		detail::sound_group
-	>
-	audio_map;
+		sge::audio::buffer_ptr,
+		fruitcut::uniform_random
+		<
+			std::size_t
+		>::type
+	>::type
+	resource_tree_type;
+
+	typedef
+	fcppt::unique_ptr<resource_tree_type>
+	resource_tree_ptr;
 
 	sge::audio::player &player_;
-	audio_map sounds_;
+	resource_tree_ptr sounds_;
 	sge::audio::pool pool_;
+
+	void
+	do_play(
+		sge::audio::sound::base_ptr);
 };
 }
 }

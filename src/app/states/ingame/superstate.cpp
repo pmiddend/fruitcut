@@ -192,17 +192,9 @@ void
 fruitcut::app::states::ingame::superstate::fruit_was_cut(
 	fruit::cut_context const &ccontext)
 {
-	/*
-	score_ = 
-		static_cast<fruitcut::app::score>(
-			static_cast<sge::renderer::scalar>(
-				score_) + 1000 * _area);
-	score_font_.text(
-		fcppt::lexical_cast<sge::font::text::string>(
-			score_));
-	*/
 	context<machine>().sound_controller().play(
-		FCPPT_TEXT("fruit-was-cut"));
+		resource_tree::path(
+			FCPPT_TEXT("fruit_was_cut")));
 
 	splatter_generator_.fruit_was_cut(
 		ccontext);

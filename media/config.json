@@ -33,28 +33,6 @@
 		"highlight-threshold" : 0.7,
 		"bloom-iterations" : 2
 	},
-	"sounds" : 
-	{
-		"intro" : ["guitar.ogg"],
-		"fruit-was-spawned" : 
-			[
-				"woosh/woosh.ogg",
-				"woosh/woosh2.ogg",
-				"woosh/woosh3.ogg",
-				"woosh/woosh4.ogg"
-			],
-		"fruit-was-cut" :
-			[
-				"slash/slash1.ogg",
-				"slash/slash2.ogg",
-				"slash/slash3.ogg",
-				"slash/slash4.ogg",
-				"slash/slash5.ogg"
-			],
-		"button-clicked" : ["click.ogg"],
-		"button-hover" : ["hover.ogg"],
-		"no-name" : ["nope.ogg"]
-	},
 	"music" : 
 	{  
 		"volume" : 1.0,

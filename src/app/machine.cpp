@@ -240,9 +240,7 @@ fruitcut::app::machine::machine(
 					&machine::console_switch,
 					this)))),
 	sound_controller_(
-		json::find_member<sge::parse::json::object>(
-			config_file(),
-			FCPPT_TEXT("sounds")),
+		fruitcut::media_path()/FCPPT_TEXT("sounds"),
 		systems_.audio_loader(),
 		systems_.audio_player()),
 	sound_controller_node_(
@@ -254,7 +252,7 @@ fruitcut::app::machine::machine(
 			json::find_member<fcppt::string>(
 				config_file(),
 				FCPPT_TEXT("music/crossfade-time"))),
-		fruitcut::media_path()/FCPPT_TEXT("sounds")/FCPPT_TEXT("music"),
+		fruitcut::media_path()/FCPPT_TEXT("music"),
 		json::find_member<sge::audio::scalar>(
 			config_file(),
 			FCPPT_TEXT("music/volume"))),

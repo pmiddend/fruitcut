@@ -278,7 +278,8 @@ fruitcut::app::states::gameover::highscore::quit_button_pushed(
 	CEGUI::EventArgs const &)
 {
 	context<machine>().sound_controller().play(
-		FCPPT_TEXT("button-clicked"));
+		resource_tree::path(
+			FCPPT_TEXT("button_clicked")));
 	post_event(
 		events::gameover::quit_button_pushed());
 	return true;
@@ -289,7 +290,8 @@ fruitcut::app::states::gameover::highscore::reset_button_pushed(
 	CEGUI::EventArgs const &)
 {
 	context<machine>().sound_controller().play(
-		FCPPT_TEXT("button-clicked"));
+		resource_tree::path(
+			FCPPT_TEXT("button_clicked")));
 	post_event(
 		events::gameover::reset_button_pushed());
 	return true;

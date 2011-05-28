@@ -88,7 +88,8 @@ fruitcut::app::states::ingame::running::running(
 			std::tr1::bind(
 				&audio::sound_controller::play,
 				&context<machine>().sound_controller(),
-				fcppt::string(FCPPT_TEXT("fruit-was-spawned"))))),
+				resource_tree::path(
+					FCPPT_TEXT("fruit_was_spawned"))))),
 	draw_mouse_trail_(
 		json::find_member<bool>(
 			context<machine>().config_file(),

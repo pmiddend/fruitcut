@@ -2,6 +2,7 @@
 #define FRUITCUT_RESOURCE_TREE_NAVIGATE_TO_PATH_HPP_INCLUDED
 
 #include "make_type.hpp"
+#include "../exception.hpp"
 #include "is_resource_tree.hpp"
 #include "path.hpp"
 #include <fcppt/text.hpp>

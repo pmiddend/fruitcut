@@ -64,12 +64,14 @@ fruitcut::app::states::gameover::choose_name::continue_button_pushed(
 	if(name.empty())
 	{
 		context<machine>().sound_controller().play(
-			FCPPT_TEXT("no-name"));
+			resource_tree::path(
+				FCPPT_TEXT("name_invalid")));
 		return true;
 	}
 
 	context<machine>().sound_controller().play(
-		FCPPT_TEXT("button-clicked"));
+		resource_tree::path(
+			FCPPT_TEXT("button_clicked")));
 	context<superstate>().name(
 		name);
 	post_event(

@@ -2,6 +2,7 @@
 #include "ingame/running.hpp"
 #include "../../string_to_duration_exn.hpp"
 #include "../../json/find_member.hpp"
+#include "../../resource_tree/path.hpp"
 #include <sge/time/time.hpp>
 #include <sge/renderer/scalar.hpp>
 #include <sge/viewport/manager.hpp>
@@ -42,6 +43,10 @@ fruitcut::app::states::intro::intro(
 		context<machine>().systems().image_loader(),
 		context<machine>().config_file())
 {
+	context<machine>().sound_controller().play(
+		resource_tree::path(
+			FCPPT_TEXT("intro")));
+
 	// We already have a viewport? Ok, then go
 	if(context<machine>().systems().renderer().onscreen_target().viewport().get().size().content())
 		viewport_change();
@@ -85,8 +90,4 @@ fruitcut::app::states::intro::viewport_change()
 
 	saturation_timer_.activate();
 	intro_timer_.activate();
-
-	context<machine>().sound_controller().play(
-		FCPPT_TEXT("intro"));
-
 }
