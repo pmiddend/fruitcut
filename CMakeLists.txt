@@ -90,7 +90,6 @@ SET(
 	src/input/state_manager.cpp
 	src/audio/sound_controller.cpp
 	src/audio/music_controller.cpp
-	src/audio/detail/sound_group.cpp
 	src/cursor_trail.cpp
 	# pp 
 	src/pp/filter/base.cpp 
