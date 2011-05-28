@@ -13,27 +13,28 @@
 #include <fcppt/unique_ptr.hpp>
 #include <fcppt/move.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <utility>
 
 namespace fruitcut
 {
 namespace resource_tree
 {
-template<typename T>
+template<typename Leaf,typename Node>
 fcppt::unique_ptr
 <
-	typename resource_tree::make_type<T>::type
+	typename resource_tree::make_type<Leaf,Node>::type
 >
 from_directory_tree(
 	fcppt::filesystem::path const &root,
-	fcppt::function::object<T(fcppt::filesystem::path const &)> const &create_resource)
+	fcppt::function::object<Leaf (fcppt::filesystem::path const &)> const &create_leaf,
+	fcppt::function::object<Node (fcppt::filesystem::path const &)> const &create_node)
 {
 	typedef typename
-	resource_tree::make_type<T>::type 
+	resource_tree::make_type<Leaf,Node>::type 
 	tree_type;
 
-	fcppt::unique_ptr<tree_type> result(
-		fcppt::make_unique_ptr<tree_type>());
+	typedef
+	node<Leaf,Node>
+	node_type;
 
 	FCPPT_ASSERT(
 		fcppt::filesystem::exists(
@@ -41,21 +42,22 @@ from_directory_tree(
 
 	if(!fcppt::filesystem::is_directory(root))
 	{
-		result->value(
-			std::make_pair(
-				fcppt::filesystem::stem(
-					root),
-				create_resource(
-					root)));
-
 		return 
-			fcppt::move(
-				result);
+			fcppt::make_unique_ptr<tree_type>(
+				node_type(
+					fcppt::filesystem::stem(
+						root),
+					create_leaf(
+						root)));
 	}
 
-	result->value(
-		fcppt::filesystem::stem(
-			root));
+	fcppt::unique_ptr<tree_type> result(
+		fcppt::make_unique_ptr<tree_type>(
+			node_type(
+				fcppt::filesystem::stem(
+					root),
+				create_node(
+					root))));
 
 	for(
 		fcppt::filesystem::directory_iterator current_file(
@@ -66,7 +68,8 @@ from_directory_tree(
 		result->push_back(
 			resource_tree::from_directory_tree(
 				*current_file,
-				create_resource));
+				create_leaf,
+				create_node));
 	}
 
 	return 

@@ -13,6 +13,7 @@
 #include "../../events/render_overlay.hpp"
 #include "../../../json/find_member.hpp"
 #include "../../../math/multiply_matrix4_vector3.hpp"
+#include "../../../resource_tree/path.hpp"
 #include <sge/line_drawer/scoped_lock.hpp>
 #include <sge/line_drawer/render_to_screen.hpp>
 #include <sge/viewport/manager.hpp>
@@ -105,7 +106,9 @@ fruitcut::app::states::ingame::running::running(
 		cursor_trail_node_);
 	context<machine>().postprocessing().active(
 		true);
-	context<machine>().music_controller().play_random();
+	context<machine>().music_controller().play(
+		resource_tree::path(
+			FCPPT_TEXT("random")));
 	viewport_change();
 }
 

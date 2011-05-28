@@ -12,25 +12,19 @@ namespace fruitcut
 {
 namespace resource_tree
 {
-template<typename T>
+template<typename LeafType,typename NodeType>
 class object
 {
 FCPPT_NONCOPYABLE(
 	object);
 public:
 	typedef
-	fcppt::container::tree::object
-	<
-		fcppt::variant::object
-		<
-			boost::mpl::vector2
-			<
-				fcppt::string,
-				std::pair<fcppt::string,T>
-			>
-		>
-	>
-	container_type;
+	LeafType
+	leaf_type;
+
+	typedef
+	NodeType
+	node_type;
 
 	explicit
 	object()
@@ -42,8 +36,6 @@ public:
 	~object()
 	{
 	}
-private:
-	container_type container_;
 };
 }
 }

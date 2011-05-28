@@ -2,11 +2,12 @@
 #define FRUITCUT_RESOURCE_TREE_NAVIGATE_TO_PATH_HPP_INCLUDED
 
 #include "make_type.hpp"
+#include "is_resource_tree.hpp"
 #include "path.hpp"
-#include "node_name.hpp"
-#include "../exception.hpp"
 #include <fcppt/text.hpp>
 #include <boost/next_prior.hpp>
+#include <boost/mpl/if.hpp>
+#include <boost/type_traits/is_const.hpp>
 
 namespace fruitcut
 {
@@ -15,31 +16,53 @@ namespace resource_tree
 namespace detail
 {
 template<typename T>
-typename 
-resource_tree::make_type<T>::type const &
+struct iterator_chooser
+{
+	typedef typename
+	boost::mpl::if_
+	<
+		boost::is_const<T>,
+		typename T::const_iterator,
+		typename T::iterator
+	>::type
+	type;
+};
+
+template<typename Tree>
+typename
+boost::enable_if_c
+<
+	resource_tree::is_resource_tree<Tree>::value,
+	typename boost::mpl::if_
+	<
+		boost::is_const<Tree>,
+		Tree const &,
+		Tree &
+	>::type
+>::type
 navigate_to_path(
-	typename resource_tree::make_type<T>::type const &t,
+	Tree &t,
 	resource_tree::path const &p,
 	resource_tree::path::value_sequence::const_iterator current_it)
 {
-	typedef typename
-	resource_tree::make_type<T>::type
+	typedef
+	Tree
 	tree_type;
 
 	typedef typename
-	tree_type::const_iterator
+	iterator_chooser<tree_type>::type
 	iterator;
 
 	for(iterator i = t.begin(); i != t.end(); ++i)
 	{
-		if(resource_tree::node_name<T>(*i) != *current_it)
+		if(i->value().name() != *current_it)
 			continue;
 
 		if(current_it == boost::prior(p.values().end()))
 			return *i;
 
 		return 
-			detail::navigate_to_path<T>(
+			detail::navigate_to_path(
 				t,
 				p,
 				++current_it);
@@ -49,15 +72,24 @@ navigate_to_path(
 }
 }
 
-template<typename T>
-typename 
-resource_tree::make_type<T>::type const &
+template<typename Tree>
+typename
+boost::enable_if_c
+<
+	resource_tree::is_resource_tree<Tree>::value,
+	typename boost::mpl::if_
+	<
+		boost::is_const<Tree>,
+		Tree const &,
+		Tree &
+	>::type
+>::type
 navigate_to_path(
-	typename resource_tree::make_type<T>::type const &t,
+	Tree &t,
 	resource_tree::path const &p)
 {
 	return 
-		detail::navigate_to_path<T>(
+		detail::navigate_to_path(
 			t,
 			p,
 			p.values().begin());

@@ -9,7 +9,7 @@ void main()
 			tex,
 			gl_PointCoord);
 	gl_FragColor = 
-		tex_color * gl_Color;
+		tex_color * gl_Color * 1.5;
 		//tex_color;
 		//gl_Color;
 }

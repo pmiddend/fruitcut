@@ -3,7 +3,7 @@
 
 #include "../uniform_random.hpp"
 #include "../resource_tree/make_type.hpp"
-#include "../resource_tree/randomizer.hpp"
+#include "../resource_tree/path.hpp"
 #include <sge/audio/multi_loader_fwd.hpp>
 #include <sge/audio/player_fwd.hpp>
 #include <sge/audio/file_ptr.hpp>
@@ -15,6 +15,7 @@
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/unique_ptr.hpp>
 #include <fcppt/filesystem/path.hpp>
+#include <cstddef>
 #include <vector>
 #include <map>
 
@@ -39,11 +40,8 @@ public:
 	update();
 
 	void
-	play_event(
-		fcppt::string const &);
-
-	void
-	play_random();
+	play(
+		resource_tree::path const &);
 
 	void
 	stop();
@@ -51,21 +49,27 @@ public:
 	~music_controller();
 private:
 	typedef
-	fcppt::unique_ptr
+	resource_tree::make_type
 	<
-		resource_tree::make_type<sge::audio::file_ptr>::type
-	>
-	audio_resource_tree;
+		sge::audio::file_ptr,
+		fruitcut::uniform_random
+		<
+			std::size_t
+		>::type
+	>::type
+	resource_tree_type;
+
+	typedef
+	fcppt::unique_ptr<resource_tree_type>
+	resource_tree_ptr;
 
 	sge::audio::scalar volume_;
-	audio_resource_tree sounds_;
+	resource_tree_ptr sounds_;
 	sge::time::timer crossfade_;
 
 	sge::audio::player &player_;
 	sge::audio::buffer_ptr silence_buffer_;
 	sge::audio::sound::base_ptr silence_source_;
-
-	resource_tree::randomizer<sge::audio::file_ptr> random_element_generator_;
 
 	sge::audio::sound::base_ptr 
 		current_source_,
@@ -74,6 +78,10 @@ private:
 	void
 	do_play(
 		sge::audio::sound::base_ptr);
+
+	sge::audio::file_ptr const
+	choose_random(
+		resource_tree_type const &);
 };
 }
 }
