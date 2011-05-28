@@ -5,14 +5,19 @@
 #include "base.hpp"
 #include "unique_base_ptr.hpp"
 #include "../../scenic/nodes/intrusive.hpp"
+#include "../../resource_tree/make_type.hpp"
+#include "../../resource_tree/path.hpp"
+#include "../../uniform_random.hpp"
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/camera/object_fwd.hpp>
 #include <sge/texture/part_ptr.hpp>
 #include <sge/image2d/multi_loader.hpp>
 #include <sge/shader/object.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/tr1/unordered_map.hpp>
+#include <fcppt/unique_ptr.hpp>
+#include <fcppt/filesystem/path.hpp>
 #include <boost/ptr_container/ptr_list.hpp>
+#include <cstddef>
 
 namespace fruitcut
 {
@@ -29,6 +34,7 @@ FCPPT_NONCOPYABLE(
 public:
 	explicit
 	system_node(
+		fcppt::filesystem::path const &,
 		sge::renderer::device &,
 		sge::image2d::multi_loader &,
 		sge::camera::object const &);
@@ -45,7 +51,7 @@ public:
 
 	sge::texture::part_ptr const
 	lookup_texture(
-		fcppt::string const &);
+		resource_tree::path const &);
 
 	~system_node();
 private:
@@ -54,14 +60,25 @@ private:
 	child_sequence;
 
 	typedef
-	std::tr1::unordered_map<fcppt::string,sge::texture::part_ptr>
-	texture_map;
+	resource_tree::make_type
+	<
+		sge::texture::part_ptr,
+		fruitcut::uniform_random
+		<
+			std::size_t
+		>::type
+	>::type
+	resource_tree_type;
+
+	typedef
+	fcppt::unique_ptr<resource_tree_type>
+	resource_tree_ptr;
 
 	sge::renderer::device &renderer_;
 	sge::camera::object const &camera_;
 	point_sprite::system system_;
 	child_sequence children_;
-	texture_map textures_;
+	resource_tree_ptr textures_;
 	sge::shader::object shader_;
 
 	void

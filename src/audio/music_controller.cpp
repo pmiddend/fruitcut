@@ -43,7 +43,7 @@ create_random_from_directory(
 }
 
 fruitcut::audio::music_controller::music_controller(
-	sge::audio::multi_loader &ml,
+	sge::audio::multi_loader &_audio_loader,
 	sge::audio::player &_player,
 	sge::time::duration const &_crossfade,
 	fcppt::filesystem::path const &_base_path,
@@ -52,19 +52,11 @@ fruitcut::audio::music_controller::music_controller(
 	volume_(
 		_volume),
 	sounds_(
-		fruitcut::resource_tree::from_directory_tree
-		<
-			sge::audio::file_ptr,
-			fruitcut::uniform_random
-			<
-				std::size_t
-			>::type
-		>(
+		fruitcut::resource_tree::from_directory_tree<resource_tree_type>(
 			_base_path,
 			std::tr1::bind(
-				static_cast<sge::audio::file_ptr const (sge::audio::multi_loader::*)(fcppt::filesystem::path const &)>(
-					&sge::audio::multi_loader::load),
-				&ml,
+				&sge::audio::multi_loader::load,
+				&_audio_loader,
 				std::tr1::placeholders::_1),
 			&create_random_from_directory)),
 	crossfade_(
@@ -73,7 +65,7 @@ fruitcut::audio::music_controller::music_controller(
 		_player),
 	silence_buffer_(
 		player_.create_buffer(
-			*ml.load(
+			*_audio_loader.load(
 				_base_path/FCPPT_TEXT("silence.wav")))),
 	silence_source_(
 		silence_buffer_->create_nonpositional()),

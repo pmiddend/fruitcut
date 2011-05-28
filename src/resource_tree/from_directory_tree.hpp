@@ -18,22 +18,27 @@ namespace fruitcut
 {
 namespace resource_tree
 {
-template<typename Leaf,typename Node>
-fcppt::unique_ptr
-<
-	typename resource_tree::make_type<Leaf,Node>::type
->
+template<typename Tree>
+fcppt::unique_ptr<Tree>
 from_directory_tree(
 	fcppt::filesystem::path const &root,
-	fcppt::function::object<Leaf (fcppt::filesystem::path const &)> const &create_leaf,
-	fcppt::function::object<Node (fcppt::filesystem::path const &)> const &create_node)
+	fcppt::function::object
+	<
+		typename Tree::value_type::leaf_type (
+			fcppt::filesystem::path const &)
+	> const &create_leaf,
+	fcppt::function::object
+	<
+		typename Tree::value_type::node_type (
+			fcppt::filesystem::path const &)
+	> const &create_node)
 {
-	typedef typename
-	resource_tree::make_type<Leaf,Node>::type 
+	typedef
+	Tree
 	tree_type;
 
-	typedef
-	node<Leaf,Node>
+	typedef typename
+	tree_type::value_type
 	node_type;
 
 	FCPPT_ASSERT(

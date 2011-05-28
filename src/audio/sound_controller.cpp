@@ -14,6 +14,7 @@
 #include <sge/audio/sound/positional.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/ref.hpp>
+#include <fcppt/tr1/functional.hpp>
 #include <fcppt/filesystem/path.hpp>
 #include <fcppt/filesystem/directory_iterator.hpp>
 #include <fcppt/string.hpp>
@@ -62,14 +63,7 @@ fruitcut::audio::sound_controller::sound_controller(
 	player_(
 		_player),
 	sounds_(
-		fruitcut::resource_tree::from_directory_tree
-		<
-			sge::audio::buffer_ptr,
-			fruitcut::uniform_random
-			<
-				std::size_t
-			>::type
-		>(
+		fruitcut::resource_tree::from_directory_tree<resource_tree_type>(
 			_base_path,
 			std::tr1::bind(
 				&create_buffer_from_path,

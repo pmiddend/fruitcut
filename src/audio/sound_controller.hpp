@@ -14,7 +14,6 @@
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/unique_ptr.hpp>
 #include <fcppt/filesystem/path.hpp>
-#include <fcppt/tr1/unordered_map.hpp>
 #include <cstddef>
 
 namespace fruitcut

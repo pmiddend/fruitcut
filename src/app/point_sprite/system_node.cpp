@@ -1,6 +1,11 @@
 #include "system_node.hpp"
 #include "../../media_path.hpp"
 #include "../../exception.hpp"
+#include "../../uniform_random.hpp"
+#include "../../create_rng.hpp"
+#include "../../resource_tree/from_directory_tree.hpp"
+#include "../../resource_tree/navigate_to_path.hpp"
+#include "../../resource_tree/path.hpp"
 #include <sge/camera/object.hpp>
 #include <sge/image2d/file.hpp>
 #include <sge/image2d/multi_loader.hpp>
@@ -15,16 +20,58 @@
 #include <fcppt/algorithm/map.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/container/ptr/push_back_unique_ptr.hpp>
+#include <fcppt/random/make_last_exclusive_range.hpp>
 #include <fcppt/filesystem/directory_iterator.hpp>
-#include <fcppt/filesystem/path_to_string.hpp>
-#include <fcppt/filesystem/stem.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/move.hpp>
 #include <fcppt/ref.hpp>
 #include <fcppt/text.hpp>
+#include <boost/next_prior.hpp>
 #include <iostream>
+#include <iterator>
+#include <cstddef>
+
+namespace
+{
+fruitcut::uniform_random<std::size_t>::type
+create_random_from_directory(
+	fcppt::filesystem::path const &p)
+{
+	return 
+		fruitcut::uniform_random<std::size_t>::type(
+			fcppt::random::make_last_exclusive_range(
+				static_cast<std::size_t>(
+					0),
+				static_cast<std::size_t>(
+					std::distance(
+						fcppt::filesystem::directory_iterator(
+							p),
+						fcppt::filesystem::directory_iterator()))),
+				fruitcut::create_rng());
+}
+
+sge::texture::part_ptr const
+create_part_from_file(
+	sge::renderer::device &renderer,
+	sge::image2d::multi_loader &image_loader,
+	fcppt::filesystem::path const &p)
+{
+	return 
+		fcppt::make_shared_ptr<sge::texture::part_raw>(
+			sge::renderer::texture::create_planar_from_view(
+				renderer,
+				image_loader.load(
+					p)->view(),
+				sge::renderer::texture::filter::linear,
+				sge::renderer::texture::address_mode2(
+					sge::renderer::texture::address_mode::clamp),
+				sge::renderer::resource_flags::none));
+}
+}
+
 
 fruitcut::app::point_sprite::system_node::system_node(
+	fcppt::filesystem::path const &_base_path,
 	sge::renderer::device &_renderer,
 	sge::image2d::multi_loader &_image_loader,
 	sge::camera::object const &_camera)
@@ -36,7 +83,17 @@ fruitcut::app::point_sprite::system_node::system_node(
 	system_(
 		renderer_),
 	children_(),
-	textures_(),
+	textures_(
+		fruitcut::resource_tree::from_directory_tree<resource_tree_type>(
+			_base_path,
+			std::tr1::bind(
+				&create_part_from_file,
+				fcppt::ref(
+					_image_loader),
+				fcppt::ref(
+					_renderer),
+				std::tr1::placeholders::_1),
+			&create_random_from_directory)),
 	shader_(
 		renderer_,
 		fruitcut::media_path()/FCPPT_TEXT("shaders")/FCPPT_TEXT("point_sprite_vertex.glsl"),
@@ -52,28 +109,6 @@ fruitcut::app::point_sprite::system_node::system_node(
 				"tex",
 				sge::renderer::texture::planar_ptr())))
 {
-	for(
-		fcppt::filesystem::directory_iterator current_filename = 
-			fcppt::filesystem::directory_iterator(
-				fruitcut::media_path()/FCPPT_TEXT("textures")/FCPPT_TEXT("splatter"));
-		current_filename != fcppt::filesystem::directory_iterator();
-		++current_filename)
-	{
-		textures_.insert(
-			texture_map::value_type(
-				fcppt::filesystem::path_to_string(
-					fcppt::filesystem::stem(
-						*current_filename)),
-				fcppt::make_shared_ptr<sge::texture::part_raw>(
-					sge::renderer::texture::create_planar_from_view(
-						renderer_,
-						_image_loader.load(
-							*current_filename)->view(),
-						sge::renderer::texture::filter::linear,
-						sge::renderer::texture::address_mode2(
-							sge::renderer::texture::address_mode::clamp),
-						sge::renderer::resource_flags::none))));
-	}
 }
 
 void
@@ -100,18 +135,28 @@ fruitcut::app::point_sprite::system_node::system() const
 
 sge::texture::part_ptr const
 fruitcut::app::point_sprite::system_node::lookup_texture(
-	fcppt::string const &s)
+	resource_tree::path const &target_path)
 {
-	texture_map::iterator i = 
-		textures_.find(
-			s);
+	resource_tree_type &target_tree =
+		resource_tree::navigate_to_path(
+			*textures_,
+			target_path);
 
-	if(i == textures_.end())
-		throw 
-			fruitcut::exception(
-				FCPPT_TEXT("Point sprite texture \"")+s+FCPPT_TEXT("\" was not found"));
+	if(target_tree.value().is_leaf())
+		return 
+			target_tree.value().leaf_value();
 
-	return i->second;
+	resource_tree_type &target_file = 
+		*boost::next(
+			target_tree.begin(),
+			static_cast<std::iterator_traits<resource_tree_type::const_iterator>::difference_type>(
+				target_tree.value().node_value()()));
+
+	if(!target_file.value().is_leaf())
+		throw fruitcut::exception(FCPPT_TEXT("The argument to lookup_texture() must be either a file or a directory containing just files!\nThat was not the case for: ")+target_path.string());
+
+	return 
+		target_file.value().leaf_value();
 }
 
 fruitcut::app::point_sprite::system_node::~system_node()
