@@ -9,15 +9,15 @@
 #include "../json/find_member.hpp"
 #include "../media_path.hpp"
 #include "../log/scoped_sequence_from_json.hpp"
-#include <sge/cegui/cursor_visibility.hpp>
-#include <sge/cegui/load_context.hpp>
-#include <sge/log/global_context.hpp>
 #include <sge/audio/player.hpp>
 #include <sge/audio/scalar.hpp>
-#include <sge/log/global_context.hpp>
+#include <sge/camera/identity_gizmo.hpp>
+#include <sge/camera/parameters.hpp>
+#include <sge/camera/projection/perspective.hpp>
+#include <sge/cegui/cursor_visibility.hpp>
+#include <sge/cegui/load_context.hpp>
 #include <sge/console/sprite_object.hpp>
 #include <sge/console/sprite_parameters.hpp>
-#include <sge/renderer/aspect.hpp>
 #include <sge/extension_set.hpp>
 #include <sge/font/size_type.hpp>
 #include <sge/font/system.hpp>
@@ -27,69 +27,47 @@
 #include <sge/image/capabilities_field.hpp>
 #include <sge/image/color/format.hpp>
 #include <sge/image/colors.hpp>
-#include <sge/input/keyboard/action.hpp>
-#include <sge/input/keyboard/device.hpp>
-#include <sge/input/keyboard/key_code.hpp>
+#include <sge/input/keyboard/keyboard.hpp>
+#include <sge/log/global_context.hpp>
+#include <sge/log/global_context.hpp>
+#include <sge/renderer/aspect.hpp>
 #include <sge/renderer/depth_stencil_buffer.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/dim2.hpp>
 #include <sge/renderer/no_multi_sampling.hpp>
 #include <sge/renderer/onscreen_target.hpp>
-#include <sge/renderer/visual_depth.hpp>
 #include <sge/renderer/parameters.hpp>
 #include <sge/renderer/resource_flags_none.hpp>
 #include <sge/renderer/scoped_block.hpp>
-#include <sge/renderer/texture/address_mode2.hpp>
-#include <sge/renderer/texture/address_mode.hpp>
-#include <sge/renderer/texture/create_planar_from_view.hpp>
-#include <sge/camera/identity_gizmo.hpp>
-#include <sge/camera/parameters.hpp>
-#include <sge/camera/projection/perspective.hpp>
 #include <sge/renderer/texture/filter/linear.hpp>
+#include <sge/renderer/texture/texture.hpp>
 #include <sge/renderer/viewport.hpp>
+#include <sge/renderer/visual_depth.hpp>
 #include <sge/renderer/vsync.hpp>
-#include <sge/sprite/parameters_impl.hpp>
 #include <sge/sprite/object_impl.hpp>
-#include <sge/systems/audio_player_default.hpp>
-#include <sge/systems/image_loader.hpp>
-#include <sge/systems/input_helper_field.hpp>
-#include <sge/systems/parameterless.hpp>
-#include <sge/systems/input_helper.hpp>
-#include <sge/systems/input.hpp>
-#include <sge/systems/running_to_false.hpp>
-#include <sge/systems/list.hpp>
-#include <sge/systems/renderer.hpp>
-#include <sge/viewport/fill_on_resize.hpp>
+#include <sge/sprite/parameters_impl.hpp>
+#include <sge/systems/systems.hpp>
 #include <sge/systems/window.hpp>
-#include <sge/viewport/manager.hpp>
-#include <sge/texture/part_ptr.hpp>
-#include <sge/texture/part_raw.hpp>
+#include <sge/texture/texture.hpp>
 #include <sge/time/clock.hpp>
+#include <sge/viewport/fill_on_resize.hpp>
+#include <sge/viewport/manager.hpp>
 #include <sge/window/dim.hpp>
 #include <sge/window/instance.hpp>
 #include <sge/window/simple_parameters.hpp>
 #include <fcppt/assign/make_container.hpp>
+#include <fcppt/chrono/chrono.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
-#include <fcppt/time/sleep_any.hpp>
+#include <fcppt/make_shared_ptr.hpp>
+#include <fcppt/math/deg_to_rad.hpp>
 #include <fcppt/math/dim/quad.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
-#include <fcppt/math/deg_to_rad.hpp>
-#include <fcppt/chrono/duration.hpp>
-#include <fcppt/chrono/duration_cast.hpp>
-#include <fcppt/chrono/milliseconds.hpp>
+#include <fcppt/move.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/make_shared_ptr.hpp>
+#include <fcppt/time/sleep_any.hpp>
 #include <fcppt/tr1/functional.hpp>
-#include <fcppt/move.hpp>
-#include <boost/spirit/home/phoenix/object/new.hpp>
-#include <boost/spirit/home/phoenix/bind.hpp>
-#include <boost/spirit/home/phoenix/core/reference.hpp>
-#include <boost/spirit/home/phoenix/core/argument.hpp>
-#include <boost/spirit/home/phoenix/operator.hpp>
-#include <boost/spirit/home/phoenix/object/construct.hpp>
-#include <boost/lambda/core.hpp>
 #include <iostream>
 
 fruitcut::app::machine::machine(
@@ -228,10 +206,9 @@ fruitcut::app::machine::machine(
 		sge::time::clock::now()),
 	transformed_time_(
 		current_time_),
-	time_transform_(
-		boost::lambda::_1	
-		/*
-		boost::phoenix::arg_names::arg1*/),
+	time_factor_(
+		static_cast<sge::time::funit>(
+			1)),
 	console_switch_connection_(
 		systems_.keyboard_collector().key_callback(
 			sge::input::keyboard::action(
@@ -511,7 +488,7 @@ fruitcut::app::machine::last_game_score() const
 
 void
 fruitcut::app::machine::last_game_score(
-	score const _last_game_score)
+	score const &_last_game_score)
 {
 	last_game_score_ = _last_game_score;
 }
@@ -556,6 +533,20 @@ fruitcut::app::point_sprite::system_node const &
 fruitcut::app::machine::point_sprites() const 
 {
 	return point_sprites_;
+}
+
+sge::time::funit
+fruitcut::app::machine::time_factor() const
+{
+	return time_factor_;
+}
+
+void
+fruitcut::app::machine::time_factor(
+	sge::time::funit const _time_factor)
+{
+	time_factor_ = 
+		_time_factor;
 }
 
 fruitcut::app::machine::~machine()
@@ -631,13 +622,17 @@ fruitcut::app::machine::update()
 		sge::time::clock::now();
 
 	sge::time::duration const diff = 
-		time_transform_(
-			latest_time - current_time_);
+		sge::time::duration(
+			static_cast<sge::time::timer::interval_type>(
+				time_factor_ * 
+				static_cast<sge::time::funit>(
+					(latest_time - current_time_).count())));
 
 	transformed_time_ += 
 		diff;
 
-	current_time_ = latest_time;
+	current_time_ = 
+		latest_time;
 
 	intrusive_group::update();
 

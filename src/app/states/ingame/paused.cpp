@@ -18,6 +18,10 @@ fruitcut::app::states::ingame::paused::paused(
 :
 	my_base(
 		ctx),
+	time_factor_(
+		context<machine>(),
+		static_cast<sge::time::funit>(
+			0)),
 	scene_deactivation_(
 		context<machine>().scene_node(),
 		false),
@@ -48,8 +52,9 @@ fruitcut::app::states::ingame::paused::paused(
 		sge::time::activation_state::active,
 		context<machine>().timer_callback())
 {
-	context<machine>().postprocessing().active(
-		false);
+	context<machine>().insert_after(
+		*this,
+		context<machine>().scene_node());
 
 	system_.add_filter(
 		inject_texture_,
@@ -63,12 +68,6 @@ fruitcut::app::states::ingame::paused::paused(
 			(FCPPT_TEXT("inject_texture")));
 }
 
-void
-fruitcut::app::states::ingame::paused::render()
-{
-	system_.render_result();
-}
-
 boost::statechart::result
 fruitcut::app::states::ingame::paused::react(
 	events::toggle_pause const &)
@@ -78,6 +77,12 @@ fruitcut::app::states::ingame::paused::react(
 
 fruitcut::app::states::ingame::paused::~paused()
 {
+}
+
+void
+fruitcut::app::states::ingame::paused::render()
+{
+	system_.render_result();
 }
 
 void

@@ -164,6 +164,7 @@ ADD_EXECUTABLE(
 	fruitcut
 	src/app/scene.cpp
 	src/app/logo.cpp
+	src/app/scoped_time_factor.cpp
 	src/app/scoped_scene_activation.cpp
 	src/app/background.cpp
 	src/app/game_logic.cpp

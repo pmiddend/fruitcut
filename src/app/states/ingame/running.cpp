@@ -107,9 +107,6 @@ fruitcut::app::states::ingame::running::running(
 		cursor_trail_node_);
 	context<machine>().postprocessing().active(
 		true);
-	context<machine>().music_controller().play(
-		resource_tree::path(
-			FCPPT_TEXT("random")));
 	viewport_change();
 }
 

@@ -120,6 +120,10 @@ fruitcut::app::states::ingame::superstate::superstate(
 	// overlay
 	context<machine>().overlay_node().insert_dont_care(
 		physics_debugger_node_);
+
+	context<machine>().music_controller().play(
+		resource_tree::path(
+			FCPPT_TEXT("random")));
 }
 
 fruitcut::physics::world &

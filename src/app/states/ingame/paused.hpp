@@ -3,6 +3,7 @@
 
 #include "superstate.hpp"
 #include "../../scoped_scene_activation.hpp"
+#include "../../scoped_time_factor.hpp"
 #include "../../events/render_overlay.hpp"
 #include "../../events/tick.hpp"
 #include "../../events/toggle_pause.hpp"
@@ -48,7 +49,8 @@ public:
 
 	~paused();
 private:
-	scoped_scene_activation scene_deactivation_;
+	app::scoped_time_factor time_factor_;
+	app::scoped_scene_activation scene_deactivation_;
 	pp::system system_;
 	pp::filter::inject_texture inject_texture_;
 	pp::filter::blur blur_;

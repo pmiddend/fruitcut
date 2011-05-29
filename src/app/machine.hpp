@@ -22,17 +22,14 @@
 #include <sge/console/object.hpp>
 #include <sge/cegui/system.hpp>
 #include <sge/cegui/syringe.hpp>
-#include <sge/parse/json/array.hpp>
-#include <sge/parse/json/object.hpp>
+#include <sge/parse/json/json.hpp>
 #include <sge/renderer/texture/address_mode.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/time/duration.hpp>
 #include <sge/font/metrics_ptr.hpp>
-#include <sge/time/point.hpp>
-#include <sge/time/unit.hpp>
+#include <sge/time/time.hpp>
 #include <sge/camera/object.hpp>
 #include <fcppt/chrono/duration.hpp>
-#include <fcppt/function/object.hpp>
 #include <fcppt/chrono/time_point.hpp>
 #include <fcppt/chrono/milliseconds.hpp>
 #include <fcppt/filesystem/path.hpp>
@@ -56,10 +53,6 @@ class machine
 		scenic::nodes::intrusive_group
 {
 public:
-	typedef
-	fcppt::function::object<sge::time::duration const (sge::time::duration const &)>
-	time_transform_function;
-
 	explicit
 	machine(
 		int argc,
@@ -133,7 +126,7 @@ public:
 
 	void
 	last_game_score(
-		score);
+		score const &);
 
 	void
 	quit();
@@ -156,6 +149,13 @@ public:
 	point_sprite::system_node const &
 	point_sprites() const;
 
+	sge::time::funit
+	time_factor() const;
+
+	void
+	time_factor(
+		sge::time::funit);
+
 	~machine();
 private:
 	bool running_;
@@ -174,7 +174,7 @@ private:
 	scenic::nodes::console console_node_;
 	fcppt::signal::scoped_connection exit_connection_;
 	sge::time::point current_time_,transformed_time_;
-	time_transform_function time_transform_;
+	sge::time::funit time_factor_;
 	fcppt::signal::scoped_connection console_switch_connection_;
 	fruitcut::audio::sound_controller sound_controller_;
 	fruitcut::scenic::nodes::sound_controller sound_controller_node_;
