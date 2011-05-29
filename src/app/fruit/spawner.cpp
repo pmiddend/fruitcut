@@ -6,6 +6,7 @@
 #include "../../create_rng.hpp"
 #include "../../json/find_member.hpp"
 #include "../../json/parse_random_inclusive_range.hpp"
+#include "../../math/box_radius.hpp"
 #include <sge/time/funit.hpp>
 #include <sge/time/duration.hpp>
 #include <sge/time/second_f.hpp>
@@ -21,10 +22,53 @@
 #include <fcppt/math/vector/length.hpp>
 #include <fcppt/math/vector/output.hpp>
 #include <fcppt/math/pi.hpp>
+#include <fcppt/math/rad_to_deg.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert.hpp>
 #include <cmath>
 #include <iostream>
+
+
+#include <sge/renderer/vector4.hpp>
+#include "../../math/plane/normalize.hpp"
+#include "../../math/plane/basic.hpp"
+
+namespace
+{
+sge::renderer::scalar 
+near_plane_distance(
+	sge::renderer::matrix4 const &m)
+{
+	typedef
+	fruitcut::math::plane::basic<sge::renderer::scalar,3>
+	plane_type;
+
+	sge::renderer::vector4 const 
+		fourth_row(
+			m[3][0],
+			m[3][1],
+			m[3][2],
+			m[3][3]),
+		third_row(
+			m[2][0],
+			m[2][1],
+			m[2][2],
+			m[2][3]),
+		plane_vec4 = 
+			fourth_row + third_row;
+
+	plane_type const near_plane = 
+		fruitcut::math::plane::normalize(
+			plane_type(
+				sge::renderer::vector3(
+					plane_vec4[0],
+					plane_vec4[1],
+					plane_vec4[2]),
+				plane_vec4[3]));
+
+	return near_plane.lambda();
+}
+}
 
 fruitcut::app::fruit::spawner::spawner(
 	manager &_manager,
@@ -115,13 +159,13 @@ fruitcut::app::fruit::spawner::update()
 
 	physics::scalar const 
 		distance_to_origin = 
-			static_cast<physics::scalar>(
-				fcppt::math::vector::length(
-					camera_.gizmo().position())),
+			::near_plane_distance(
+				camera_.mvp()),
 		height = 
 			static_cast<physics::scalar>(
+				2 * 
 				std::tan(
-					perspective.fov()) * distance_to_origin),
+					perspective.fov()/2) * distance_to_origin),
 		width = 
 			static_cast<physics::scalar>(
 				height * perspective.aspect());
@@ -151,7 +195,9 @@ fruitcut::app::fruit::spawner::update()
 
 	physics::vector3 const position(
 		zero_plane.left() + x * zero_plane.size().w(),
-		zero_plane.pos().y(),
+		zero_plane.pos().y() - 
+		math::box_radius(
+			chosen_prototype.bounding_box()),
 		0);
 
 	physics::scalar const magnitude = 

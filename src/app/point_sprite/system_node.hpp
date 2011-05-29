@@ -11,6 +11,7 @@
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/camera/object_fwd.hpp>
 #include <sge/texture/part_ptr.hpp>
+#include <sge/texture/manager.hpp>
 #include <sge/image2d/multi_loader.hpp>
 #include <sge/shader/object.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -78,6 +79,7 @@ private:
 	sge::camera::object const &camera_;
 	point_sprite::system system_;
 	child_sequence children_;
+	sge::texture::manager texture_manager_;
 	resource_tree_ptr textures_;
 	sge::shader::object shader_;
 

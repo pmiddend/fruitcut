@@ -4,6 +4,10 @@
 #include "prototype_from_json.hpp"
 #include "../../json/find_member.hpp"
 #include "../../math/multiply_matrix4_vector3.hpp"
+#include "../../math/plane/basic.hpp"
+#include "../../math/plane/distance_to_point.hpp"
+#include "../../math/plane/normalize.hpp"
+#include "../../math/box_radius.hpp"
 #include "../../media_path.hpp"
 #include "mesh.hpp"
 #include "model_vf/format.hpp"
@@ -29,6 +33,7 @@
 #include <sge/renderer/state/state.hpp>
 #include <sge/renderer/texture/texture.hpp>
 #include <sge/renderer/vector3.hpp>
+#include <sge/renderer/vector4.hpp>
 #include <sge/renderer/vertex_buffer.hpp>
 #include <sge/renderer/vertex_count.hpp>
 #include <sge/renderer/vf/dynamic/make_format.hpp>
@@ -46,6 +51,7 @@
 #include <fcppt/ref.hpp>
 #include <fcppt/assert_message.hpp>
 #include <fcppt/assert.hpp>
+#include <iostream>
 
 fruitcut::app::fruit::manager::manager(
 	sge::parse::json::array const &prototype_array,
@@ -278,7 +284,46 @@ fruitcut::app::fruit::manager::~manager()
 void
 fruitcut::app::fruit::manager::delete_distant_fruits()
 {
+	typedef
+	math::plane::basic<sge::renderer::scalar,3>
+	plane_type;
+
+	sge::renderer::matrix4 const mvp =  
+		camera_.mvp();
+
+	sge::renderer::vector4 const 
+		fourth_row(
+			mvp[3][0],
+			mvp[3][1],
+			mvp[3][2],
+			mvp[3][3]),
+		second_row(
+			mvp[1][0],
+			mvp[1][1],
+			mvp[1][2],
+			mvp[1][3]),
+		plane_vec4 = 
+			fourth_row - second_row;
+
+	plane_type const bottom_plane = 
+		math::plane::normalize(
+			plane_type(
+				sge::renderer::vector3(
+					plane_vec4[0],
+					plane_vec4[1],
+					plane_vec4[2]),
+				plane_vec4[3]));
 	
+	for(object_sequence::iterator i = fruits_.begin(); i != fruits_.end(); ++i)
+		if(
+			math::plane::distance_to_point(bottom_plane,i->position()) > 
+			// This 2 is important here. If it weren't there, we would delete fruits which were just spawned.
+			static_cast<sge::renderer::scalar>(2) * 
+			math::box_radius(
+				i->bounding_box()))
+			fruits_.erase(
+				*i);
+	fruits_.update();
 }
 
 void

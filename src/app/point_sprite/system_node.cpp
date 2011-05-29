@@ -9,24 +9,31 @@
 #include <sge/camera/object.hpp>
 #include <sge/image2d/file.hpp>
 #include <sge/image2d/multi_loader.hpp>
+#include <sge/image/color/format.hpp>
+#include <sge/renderer/dim2.hpp>
 #include <sge/renderer/glsl/scoped_program.hpp>
 #include <sge/renderer/matrix4.hpp>
 #include <sge/renderer/resource_flags_none.hpp>
-#include <sge/renderer/texture/texture.hpp>
 #include <sge/renderer/state/state.hpp>
+#include <sge/renderer/texture/texture.hpp>
 #include <sge/shader/shader.hpp>
 #include <sge/sprite/default_equal.hpp>
+#include <sge/texture/add_image.hpp>
+#include <sge/texture/fragmented_unique_ptr.hpp>
 #include <sge/texture/part_raw.hpp>
+#include <sge/texture/rect_fragmented.hpp>
+#include <sge/texture/no_fragmented.hpp>
 #include <fcppt/algorithm/map.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/container/ptr/push_back_unique_ptr.hpp>
 #include <fcppt/random/make_last_exclusive_range.hpp>
 #include <fcppt/filesystem/directory_iterator.hpp>
-#include <fcppt/make_shared_ptr.hpp>
+#include <fcppt/math/dim/dim.hpp>
 #include <fcppt/move.hpp>
 #include <fcppt/ref.hpp>
 #include <fcppt/text.hpp>
 #include <boost/next_prior.hpp>
+#include <boost/spirit/home/phoenix/object.hpp>
 #include <iostream>
 #include <iterator>
 #include <cstddef>
@@ -54,18 +61,14 @@ sge::texture::part_ptr const
 create_part_from_file(
 	sge::renderer::device &renderer,
 	sge::image2d::multi_loader &image_loader,
+	sge::texture::manager &texture_manager,
 	fcppt::filesystem::path const &p)
 {
 	return 
-		fcppt::make_shared_ptr<sge::texture::part_raw>(
-			sge::renderer::texture::create_planar_from_view(
-				renderer,
-				image_loader.load(
-					p)->view(),
-				sge::renderer::texture::filter::linear,
-				sge::renderer::texture::address_mode2(
-					sge::renderer::texture::address_mode::clamp),
-				sge::renderer::resource_flags::none));
+		sge::texture::add_image(
+			texture_manager,
+			*image_loader.load(
+				p));
 }
 }
 
@@ -83,6 +86,24 @@ fruitcut::app::point_sprite::system_node::system_node(
 	system_(
 		renderer_),
 	children_(),
+	texture_manager_(
+		boost::phoenix::construct<sge::texture::fragmented_unique_ptr>(
+			boost::phoenix::new_<sge::texture::no_fragmented>(
+				fcppt::ref(
+					_renderer),
+				sge::image::color::format::rgba8,
+				sge::renderer::texture::filter::linear,
+				sge::renderer::texture::address_mode2(
+					sge::renderer::texture::address_mode::clamp))
+			/*
+			boost::phoenix::new_<sge::texture::rect_fragmented>(
+				fcppt::ref(
+					_renderer),
+				sge::image::color::format::rgba8,
+				sge::renderer::texture::filter::linear,
+				sge::renderer::dim2(
+					512,
+					512))*/)),
 	textures_(
 		fruitcut::resource_tree::from_directory_tree<resource_tree_type>(
 			_base_path,
@@ -92,6 +113,8 @@ fruitcut::app::point_sprite::system_node::system_node(
 					_renderer),
 				fcppt::ref(
 					_image_loader),
+				fcppt::ref(
+					texture_manager_),
 				std::tr1::placeholders::_1),
 			&create_random_from_directory)),
 	shader_(
