@@ -83,9 +83,6 @@ fruitcut::app::point_sprite::system_node::system_node(
 		_renderer),
 	camera_(
 		_camera),
-	system_(
-		renderer_),
-	children_(),
 	texture_manager_(
 		boost::phoenix::construct<sge::texture::fragmented_unique_ptr>(
 			boost::phoenix::new_<sge::texture::no_fragmented>(
@@ -104,6 +101,9 @@ fruitcut::app::point_sprite::system_node::system_node(
 				sge::renderer::dim2(
 					512,
 					512))*/)),
+	system_(
+		renderer_),
+	children_(),
 	textures_(
 		fruitcut::resource_tree::from_directory_tree<resource_tree_type>(
 			_base_path,

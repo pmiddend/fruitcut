@@ -77,9 +77,9 @@ private:
 
 	sge::renderer::device &renderer_;
 	sge::camera::object const &camera_;
+	sge::texture::manager texture_manager_;
 	point_sprite::system system_;
 	child_sequence children_;
-	sge::texture::manager texture_manager_;
 	resource_tree_ptr textures_;
 	sge::shader::object shader_;
 
