@@ -315,14 +315,20 @@ fruitcut::app::fruit::manager::delete_distant_fruits()
 				plane_vec4[3]));
 	
 	for(object_sequence::iterator i = fruits_.begin(); i != fruits_.end(); ++i)
+	{
 		if(
 			math::plane::distance_to_point(bottom_plane,i->position()) > 
 			// This 2 is important here. If it weren't there, we would delete fruits which were just spawned.
 			static_cast<sge::renderer::scalar>(2) * 
 			math::box_radius(
 				i->bounding_box()))
+		{
+			remove_signal_(
+				*i);
 			fruits_.erase(
 				*i);
+		}
+	}
 	fruits_.update();
 }
 

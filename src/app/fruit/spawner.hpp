@@ -11,7 +11,7 @@
 #include <sge/time/timer.hpp>
 #include <sge/parse/json/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/tr1/functional.hpp>
+#include <fcppt/function/object.hpp>
 #include <fcppt/signal/object.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 
@@ -34,7 +34,7 @@ public:
 	void spawn_callback_fn();
 
 	typedef
-	std::tr1::function<spawn_callback_fn>
+	fcppt::function::object<spawn_callback_fn>
 	spawn_callback_function;
 
 	explicit

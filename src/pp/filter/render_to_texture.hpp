@@ -9,7 +9,7 @@
 #include <sge/renderer/target_ptr.hpp>
 #include <sge/renderer/dim2.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
-#include <fcppt/tr1/functional.hpp>
+#include <fcppt/function/object.hpp>
 
 namespace fruitcut
 {
@@ -23,7 +23,7 @@ class render_to_texture
 {
 public:
 	typedef
-	std::tr1::function<void ()>
+	fcppt::function::object<void ()>
 	callback;
 
 	explicit	

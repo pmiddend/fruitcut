@@ -2,7 +2,7 @@
 #define FRUITCUT_APP_FRUIT_CALLBACKS_SPAWN_HPP_INCLUDED
 
 #include "spawn_fn.hpp"
-#include <fcppt/tr1/functional.hpp>
+#include <fcppt/function/object.hpp>
 
 namespace fruitcut
 {
@@ -13,7 +13,7 @@ namespace fruit
 namespace callbacks
 {
 typedef
-std::tr1::function<spawn_fn>
+fcppt::function::object<spawn_fn>
 spawn;
 }
 }

@@ -15,7 +15,7 @@
 #include <sge/console/arg_list.hpp>
 #include <sge/parse/json/object_fwd.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
-#include <fcppt/tr1/functional.hpp>
+#include <fcppt/function/object.hpp>
 
 namespace fruitcut
 {
@@ -28,7 +28,7 @@ public:
 	postprocessing(
 		sge::renderer::device &,
 		sge::console::object &,
-		std::tr1::function<void ()> const &render_func,
+		fcppt::function::object<void ()> const &render_func,
 		sge::parse::json::object const &);
 
 	void

@@ -12,6 +12,7 @@
 #include <sge/renderer/scalar.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/string.hpp>
+#include <fcppt/function/object.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/assign/make_container.hpp>
@@ -20,7 +21,7 @@
 fruitcut::app::postprocessing::postprocessing(
 	sge::renderer::device &_renderer,
 	sge::console::object &console,
-	std::tr1::function<void ()> const &render_callback,
+	fcppt::function::object<void ()> const &render_callback,
 	sge::parse::json::object const &config)
 :
 	system_(
