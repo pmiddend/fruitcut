@@ -127,7 +127,8 @@ fruitcut::app::states::ingame::running::react(
 	if(context<superstate>().game_logic().finished())
 	{
 		context<machine>().last_game_score(
-			context<superstate>().game_logic().score());
+			app::score(
+				context<superstate>().game_logic().score()));
 		return transit<states::gameover::superstate>();
 	}
 	return discard_event();

@@ -5,6 +5,7 @@
 #include "fruit/manager_fwd.hpp"
 #include "fruit/object_fwd.hpp"
 #include "fruit/cut_context_fwd.hpp"
+#include "fruit/area.hpp"
 #include "../font/intrusive_scene_node.hpp"
 #include "../font/cache_fwd.hpp"
 #include "../scenic/nodes/intrusive.hpp"
@@ -47,10 +48,11 @@ public:
 	bool 
 	finished() const;
 
-	fruitcut::app::score
+	fruitcut::app::score::value_type
 	score() const;
 private:
-	fruitcut::app::score score_;
+	fruit::area::value_type const area_score_factor_;
+	fruitcut::app::score::value_type score_,iterating_score_;
 	sge::time::timer round_timer_;
 	fcppt::signal::scoped_connection 
 		fruit_added_connection_,
@@ -59,6 +61,7 @@ private:
 		viewport_changed_connection_;
 	font::intrusive_scene_node score_font_node_;
 	font::intrusive_scene_node timer_font_node_;
+	sge::time::timer score_increase_timer_;
 	sge::renderer::device &renderer_;
 
 	void
@@ -81,6 +84,10 @@ private:
 
 	void
 	render();
+
+	void
+	increase_score(
+		fruitcut::app::score const &);
 };
 }
 }

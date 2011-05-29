@@ -49,9 +49,14 @@ fruitcut::app::game_logic::game_logic(
 	sge::renderer::device &_renderer,
 	sge::viewport::manager &_viewport)
 :
+	area_score_factor_(
+		json::find_member<fruit::area::value_type>(
+			_config_file,
+			FCPPT_TEXT("ingame/area-score-factor"))),
 	score_(
-		static_cast<fruitcut::app::score>(
-			0)),
+		0),
+	iterating_score_(
+		score_),
 	round_timer_(
 		string_to_duration_exn<sge::time::duration>(
 			json::find_member<fcppt::string>(
@@ -116,6 +121,13 @@ fruitcut::app::game_logic::game_logic(
 				FCPPT_TEXT("ingame/timer-font-color"))),
 		static_cast<scenic::scale>(
 			1)),
+	score_increase_timer_(
+		string_to_duration_exn<sge::time::duration>(
+			json::find_member<fcppt::string>(
+				_config_file,
+				FCPPT_TEXT("ingame/score-increase-timer"))),
+		sge::time::activation_state::active,
+		_time_callback),
 	renderer_(
 		_renderer)
 {
@@ -133,10 +145,11 @@ fruitcut::app::game_logic::finished() const
 		round_timer_.expired();
 }
 
-fruitcut::app::score
+fruitcut::app::score::value_type
 fruitcut::app::game_logic::score() const
 {
-	return score_;
+	return 
+		score_;
 }
 
 void
@@ -155,15 +168,10 @@ void
 fruitcut::app::game_logic::fruit_cut(
 	fruit::cut_context const &context)
 {
-	score_ = 
-		static_cast<fruitcut::app::score>(
-			score_ + 
-			static_cast<fruitcut::app::score>(
-				context.area() * static_cast<sge::renderer::scalar>(100))); 
-	
-	score_font_node_.object().text(
-		fcppt::lexical_cast<sge::font::text::string>(
-			score_));
+	increase_score(
+		fruitcut::app::score(
+			static_cast<fruitcut::app::score::value_type>(
+				context.area() * area_score_factor_)));
 }
 
 void
@@ -198,9 +206,26 @@ fruitcut::app::game_logic::update()
 			sge::time::duration(
 				round_timer_.time_left()),
 			time_format::seconds));
+
+	if(score_increase_timer_.update_b())
+	{
+		iterating_score_ += 
+			(score_ - iterating_score_)/10;
+		score_font_node_.object().text(
+			fcppt::lexical_cast<sge::font::text::string>(
+				iterating_score_));
+	}
 }
 
 void
 fruitcut::app::game_logic::render()
 {
+}
+
+void
+fruitcut::app::game_logic::increase_score(
+	fruitcut::app::score const &s)
+{
+	score_ += 
+		s.get();
 }
