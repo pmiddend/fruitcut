@@ -180,16 +180,16 @@ private:
 	fruitcut::scenic::nodes::sound_controller sound_controller_node_;
 	fruitcut::audio::music_controller music_controller_;
 	fruitcut::scenic::nodes::music_controller music_controller_node_;
+	sge::camera::object camera_;
+	scenic::nodes::camera camera_node_;
+	fcppt::signal::scoped_connection toggle_camera_connection_;
+	input::state camera_state_;
 	fruitcut::app::background background_;
 	fcppt::signal::scoped_connection viewport_change_connection_;
 	fcppt::chrono::milliseconds::rep desired_fps_;
 	sge::cegui::system gui_system_;
 	sge::cegui::syringe gui_syringe_;
 	score last_game_score_;
-	fcppt::signal::scoped_connection toggle_camera_connection_;
-	input::state camera_state_;
-	sge::camera::object camera_;
-	scenic::nodes::camera camera_node_;
 	point_sprite::system_node point_sprites_;
 
 	void

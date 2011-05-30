@@ -7,6 +7,7 @@
 #include "../../json/find_member.hpp"
 #include "../../json/parse_random_inclusive_range.hpp"
 #include "../../math/box_radius.hpp"
+#include "../../math/view_plane_rect.hpp"
 #include <sge/time/funit.hpp>
 #include <sge/time/duration.hpp>
 #include <sge/time/second_f.hpp>
@@ -32,43 +33,6 @@
 #include <sge/renderer/vector4.hpp>
 #include "../../math/plane/normalize.hpp"
 #include "../../math/plane/basic.hpp"
-
-namespace
-{
-sge::renderer::scalar 
-near_plane_distance(
-	sge::renderer::matrix4 const &m)
-{
-	typedef
-	fruitcut::math::plane::basic<sge::renderer::scalar,3>
-	plane_type;
-
-	sge::renderer::vector4 const 
-		fourth_row(
-			m[3][0],
-			m[3][1],
-			m[3][2],
-			m[3][3]),
-		third_row(
-			m[2][0],
-			m[2][1],
-			m[2][2],
-			m[2][3]),
-		plane_vec4 = 
-			fourth_row + third_row;
-
-	plane_type const near_plane = 
-		fruitcut::math::plane::normalize(
-			plane_type(
-				sge::renderer::vector3(
-					plane_vec4[0],
-					plane_vec4[1],
-					plane_vec4[2]),
-				plane_vec4[3]));
-
-	return near_plane.lambda();
-}
-}
 
 fruitcut::app::fruit::spawner::spawner(
 	manager &_manager,
@@ -145,39 +109,23 @@ fruitcut::app::fruit::spawner::reset_timer()
 void
 fruitcut::app::fruit::spawner::update()
 {
+	if(camera_.projection_object().empty())
+		return;
+
 	if(!timer_.active() || !timer_.expired())
 		return;
 
 	reset_timer();
 
 	typedef
-	fcppt::math::box::basic<physics::scalar,2>
+	fcppt::math::box::basic<sge::renderer::scalar,2>
 	scalar_rect;
-
-	sge::camera::projection::perspective const &perspective = 
-		camera_.projection_object().get<sge::camera::projection::perspective>();
-
-	physics::scalar const 
-		distance_to_origin = 
-			::near_plane_distance(
-				camera_.mvp()),
-		height = 
-			static_cast<physics::scalar>(
-				2 * 
-				std::tan(
-					perspective.fov()/2) * distance_to_origin),
-		width = 
-			static_cast<physics::scalar>(
-				height * perspective.aspect());
 
 	// zero plane because it's the visible plane located at z = 0
 	scalar_rect const zero_plane(
-		scalar_rect::vector(
-			-width/2,
-			-height/2),
-		scalar_rect::dim(
-			width,
-			height));
+		math::view_plane_rect(
+			camera_.mvp(),
+			camera_.projection_object().get<sge::camera::projection::perspective>()));
 
 	prototype_sequence::size_type const prototype_index =
 		prototype_rng_();
@@ -193,12 +141,14 @@ fruitcut::app::fruit::spawner::update()
 		0.5f *
 		x_rng_());
 
+	sge::renderer::scalar const bounding_box_radius = 
+		math::box_radius(
+			chosen_prototype.bounding_box());
+
 	physics::vector3 const position(
 		zero_plane.left() + x * zero_plane.size().w(),
-		zero_plane.pos().y() - 
-		math::box_radius(
-			chosen_prototype.bounding_box()),
-		0);
+		zero_plane.pos().y() - bounding_box_radius,
+		bounding_box_radius);
 
 	physics::scalar const magnitude = 
 		linear_velocity_rng_();

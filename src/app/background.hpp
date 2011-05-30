@@ -9,6 +9,8 @@
 #include <sge/renderer/texture/planar_ptr.hpp>
 #include <sge/image2d/multi_loader_fwd.hpp>
 #include <sge/parse/json/object_fwd.hpp>
+#include <sge/camera/object_fwd.hpp>
+#include <sge/shader/object.hpp>
 #include <fcppt/noncopyable.hpp>
 
 namespace fruitcut
@@ -30,7 +32,8 @@ public:
 	background(
 		sge::renderer::device &,
 		sge::image2d::multi_loader &,
-		sge::parse::json::object const &);
+		sge::parse::json::object const &,
+		sge::camera::object const &);
 
 	void
 	viewport_changed();
@@ -38,9 +41,11 @@ public:
 	~background();
 private:
 	sge::renderer::device &renderer_;
+	sge::camera::object const &camera_;
 	sge::renderer::texture::planar_ptr texture_;
 	sge::renderer::vertex_declaration_ptr vertex_declaration_;
 	sge::renderer::vertex_buffer_ptr vb_;
+	sge::shader::object shader_;
 	sge::renderer::scalar const reps_;
 
 	void

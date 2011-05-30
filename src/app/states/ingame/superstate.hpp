@@ -81,6 +81,7 @@ private:
 	fruitcut::app::game_logic game_logic_;
 	fcppt::signal::scoped_connection cut_connection_;
 	app::splatter_generator splatter_generator_;
+	physics::rigid_body::object background_physics_;
 
 	void
 	toggle_physics_debugger();

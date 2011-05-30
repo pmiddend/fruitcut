@@ -5,6 +5,10 @@
 #include "../../../json/find_member.hpp"
 #include "../../../json/parse_color.hpp"
 #include "../../../physics/vector3.hpp"
+#include "../../../physics/rigid_body/parameters.hpp"
+#include "../../../physics/vector3.hpp"
+#include "../../../physics/matrix4.hpp"
+#include "../../../physics/scalar.hpp"
 #include "../../../physics/box.hpp"
 #include <sge/input/keyboard/action.hpp>
 #include <sge/input/keyboard/key_code.hpp>
@@ -23,9 +27,11 @@
 #include <fcppt/math/box/box.hpp>
 #include <fcppt/math/dim/dim.hpp>
 #include <fcppt/math/vector/vector.hpp>
+#include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/lexical_cast.hpp>
+#include <BulletCollision/CollisionShapes/btStaticPlaneShape.h>
 #include <boost/statechart/event_base.hpp>
 #include <iostream>
 
@@ -105,7 +111,22 @@ fruitcut::app::states::ingame::superstate::superstate(
 		point_sprite::splatter::acceleration(
 			fcppt::math::vector::structure_cast<point_sprite::splatter::acceleration::value_type>(
 				physics_world_.gravity())),
-		context<machine>().timer_callback())
+		context<machine>().timer_callback()),
+	background_physics_(
+		physics::rigid_body::parameters(
+			physics_world_,
+			physics::vector3(
+				0,
+				0,
+				0),
+			physics::matrix4(),
+			physics::vector3(),
+			physics::vector3(),
+			fcppt::make_shared_ptr<btStaticPlaneShape>(
+				btVector3(0,0,-1),
+				0),
+			physics::rigid_body::solidity::solid,
+			fcppt::optional<physics::scalar>()))
 {
 	// scene
 	context<machine>().scene_node().insert_before(

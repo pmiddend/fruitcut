@@ -75,6 +75,9 @@ SET(
 	src/resource_tree/path.cpp 
 	src/exception.cpp
 	src/average_colors.cpp
+	# math
+	src/math/view_plane_distance.cpp
+	src/math/view_plane_rect.cpp
 	# json
 	src/json/parse_rgba8_color.cpp 
 	src/json/merge_trees.cpp 

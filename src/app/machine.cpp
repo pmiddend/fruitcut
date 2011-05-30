@@ -235,43 +235,6 @@ fruitcut::app::machine::machine(
 			FCPPT_TEXT("music/volume"))),
 	music_controller_node_(
 		music_controller_),
-	background_(
-		systems_.renderer(),
-		systems_.image_loader(),
-		config_file_),
-	viewport_change_connection_(
-		systems_.viewport_manager().manage_callback(
-			std::tr1::bind(
-				&machine::viewport_change,
-				this))),
-	desired_fps_(
-		json::find_member<fcppt::chrono::milliseconds::rep>(
-			config_file(),
-			FCPPT_TEXT("graphics/desired-fps"))),
-	gui_system_(
-		sge::cegui::load_context(
-			media_path()/FCPPT_TEXT("gui")/FCPPT_TEXT("fruitcut.scheme"))
-			.font_directory(
-				media_path()/FCPPT_TEXT("fonts")),
-		systems_.renderer(),
-		systems_.image_loader(),
-		systems_.charconv_system(),
-		systems_.viewport_manager(),
-		sge::cegui::cursor_visibility::invisible),
-	gui_syringe_(
-		gui_system_),
-	last_game_score_(
-		// Something invalid so you get the error (if there is one)
-		31337),
-	toggle_camera_connection_(
-		context<machine>().game_input_state().key_callback(
-			sge::input::keyboard::action(
-				sge::input::keyboard::key_code::f2, 
-				std::tr1::bind(
-					&machine::toggle_camera,
-					this)))),
-	camera_state_(
-		context<machine>().input_manager()),
 	camera_(
 		sge::camera::parameters(
 			// Leave projection object empty for now, we have to wait for a viewport change
@@ -296,6 +259,44 @@ fruitcut::app::machine::machine(
 	camera_node_(
 		camera_,
 		context<machine>().timer_callback()),
+	toggle_camera_connection_(
+		context<machine>().game_input_state().key_callback(
+			sge::input::keyboard::action(
+				sge::input::keyboard::key_code::f2, 
+				std::tr1::bind(
+					&machine::toggle_camera,
+					this)))),
+	camera_state_(
+		context<machine>().input_manager()),
+	background_(
+		systems_.renderer(),
+		systems_.image_loader(),
+		config_file_,
+		camera_),
+	viewport_change_connection_(
+		systems_.viewport_manager().manage_callback(
+			std::tr1::bind(
+				&machine::viewport_change,
+				this))),
+	desired_fps_(
+		json::find_member<fcppt::chrono::milliseconds::rep>(
+			config_file(),
+			FCPPT_TEXT("graphics/desired-fps"))),
+	gui_system_(
+		sge::cegui::load_context(
+			media_path()/FCPPT_TEXT("gui")/FCPPT_TEXT("fruitcut.scheme"))
+			.font_directory(
+				media_path()/FCPPT_TEXT("fonts")),
+		systems_.renderer(),
+		systems_.image_loader(),
+		systems_.charconv_system(),
+		systems_.viewport_manager(),
+		sge::cegui::cursor_visibility::invisible),
+	gui_syringe_(
+		gui_system_),
+	last_game_score_(
+		// Something invalid so you get the error (if there is one)
+		31337),
 	point_sprites_(
 		fruitcut::media_path()/FCPPT_TEXT("point_sprites"),
 		systems_.renderer(),

@@ -1,14 +1,12 @@
 #include "background.hpp"
 #include "../media_path.hpp"
 #include "../json/find_member.hpp"
+#include "../math/view_plane_rect.hpp"
 #include <sge/image2d/file.hpp>
 #include <sge/image2d/multi_loader.hpp>
-#include <sge/parse/json/array.hpp>
-#include <sge/parse/json/object.hpp>
-#include <sge/renderer/active_target.hpp>
-#include <sge/renderer/aspect_from_viewport.hpp>
+#include <sge/parse/json/json.hpp>
 #include <sge/renderer/device.hpp>
-#include <sge/renderer/scoped_vertex_declaration.hpp>
+#include <sge/renderer/viewport_size.hpp>
 #include <sge/renderer/first_vertex.hpp>
 #include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/matrix4.hpp>
@@ -17,42 +15,22 @@
 #include <sge/renderer/onscreen_target.hpp>
 #include <sge/renderer/resource_flags_none.hpp>
 #include <sge/renderer/scalar.hpp>
-#include <sge/renderer/scoped_transform.hpp>
 #include <sge/renderer/scoped_vertex_buffer.hpp>
+#include <sge/renderer/scoped_vertex_declaration.hpp>
 #include <sge/renderer/scoped_vertex_lock.hpp>
 #include <sge/renderer/stage_type.hpp>
-#include <sge/renderer/state/bool.hpp>
-#include <sge/renderer/state/cull_mode.hpp>
-#include <sge/renderer/state/depth_func.hpp>
-#include <sge/renderer/state/dest_blend_func.hpp>
-#include <sge/renderer/state/draw_mode.hpp>
-#include <sge/renderer/state/list.hpp>
-#include <sge/renderer/state/scoped.hpp>
-#include <sge/renderer/state/source_blend_func.hpp>
-#include <sge/renderer/state/stencil_func.hpp>
-#include <sge/renderer/state/trampoline.hpp>
-#include <sge/renderer/state/var.hpp>
+#include <sge/renderer/state/state.hpp>
 #include <sge/renderer/target_base.hpp>
-#include <sge/renderer/texture/address_mode2.hpp>
-#include <sge/renderer/texture/address_mode.hpp>
-#include <sge/renderer/texture/create_planar_from_view.hpp>
-#include <sge/renderer/texture/filter/linear.hpp>
-#include <sge/renderer/texture/planar.hpp>
-#include <sge/renderer/texture/scoped.hpp>
+#include <sge/renderer/texture/texture.hpp>
 #include <sge/renderer/vertex_count.hpp>
-#include <sge/renderer/vf/dynamic/make_format.hpp>
-#include <sge/renderer/vf/dynamic/part_index.hpp>
-#include <sge/renderer/vf/format.hpp>
-#include <sge/renderer/vf/iterator.hpp>
-#include <sge/renderer/vf/part.hpp>
-#include <sge/renderer/vf/pos.hpp>
-#include <sge/renderer/vf/texpos.hpp>
-#include <sge/renderer/vf/vertex.hpp>
-#include <sge/renderer/vf/view.hpp>
+#include <sge/renderer/vf/vf.hpp>
 #include <sge/renderer/viewport.hpp>
-#include <fcppt/math/vector/basic_impl.hpp>
-#include <fcppt/math/matrix/basic_impl.hpp>
-#include <fcppt/math/box/basic_impl.hpp>
+#include <sge/shader/shader.hpp>
+#include <sge/camera/object.hpp>
+#include <fcppt/math/vector/vector.hpp>
+#include <fcppt/math/matrix/matrix.hpp>
+#include <fcppt/assign/make_container.hpp>
+#include <fcppt/math/box/box.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <boost/mpl/vector/vector10.hpp>
@@ -62,19 +40,37 @@ namespace
 {
 namespace vf
 {
+namespace tags
+{
+SGE_RENDERER_VF_MAKE_UNSPECIFIED_TAG(position)
+}
+
 typedef 
-sge::renderer::vf::pos
+sge::renderer::vf::unspecified
 <
-	sge::renderer::scalar,
-	2
+	sge::renderer::vf::vector
+	<
+		sge::renderer::scalar,
+		2
+	>,
+	tags::position
 > 
 position;
 
+namespace tags
+{
+SGE_RENDERER_VF_MAKE_UNSPECIFIED_TAG(texcoord)
+}
+
 typedef 
-sge::renderer::vf::texpos
+sge::renderer::vf::unspecified
 <
-	sge::renderer::scalar,
-	2
+	sge::renderer::vf::vector
+	<
+		sge::renderer::scalar,
+		2
+	>,
+	tags::texcoord
 > 
 texcoord;
 
@@ -109,10 +105,13 @@ vertex_view;
 fruitcut::app::background::background(
 	sge::renderer::device &_renderer,
 	sge::image2d::multi_loader &_image_loader,
-	sge::parse::json::object const &_config)
+	sge::parse::json::object const &_config,
+	sge::camera::object const &_camera)
 :
 	renderer_(
 		_renderer),
+	camera_(
+		_camera),
 	texture_(
 		sge::renderer::texture::create_planar_from_view(
 			renderer_,
@@ -138,11 +137,48 @@ fruitcut::app::background::background(
 				0u),
 			6,
 			sge::renderer::resource_flags::none)),
+	shader_(
+		renderer_,
+		fruitcut::media_path()/FCPPT_TEXT("shaders")/FCPPT_TEXT("background_vertex.glsl"),
+		fruitcut::media_path()/FCPPT_TEXT("shaders")/FCPPT_TEXT("background_fragment.glsl"),
+		sge::shader::vf_to_string<vf::format>(),
+		fcppt::assign::make_container<sge::shader::variable_sequence>
+			(sge::shader::variable(
+				"mvp",
+				sge::shader::variable_type::uniform,
+				sge::renderer::matrix4())),
+		fcppt::assign::make_container<sge::shader::sampler_sequence>
+			(sge::shader::sampler(
+				"tex",
+				texture_))),
 	reps_(
 		json::find_member<sge::renderer::scalar>(
 			_config,
 			FCPPT_TEXT("background-repeat")))
 {
+	viewport_changed();
+}
+
+void
+fruitcut::app::background::viewport_changed()
+{
+	// Don't have a viewport yet?
+	if(camera_.projection_object().empty())
+		return;
+
+	typedef
+	fcppt::math::box::basic<sge::renderer::scalar,2>
+	scalar_rect;
+
+	// zero plane because it's the visible plane located at z = 0
+	scalar_rect const zero_plane(
+		math::view_plane_rect(
+			camera_.mvp(),
+			camera_.projection_object().get<sge::camera::projection::perspective>()));
+
+	sge::shader::scoped scoped_shader(
+		shader_);
+
 	sge::renderer::scoped_vertex_lock const vblock(
 		*vb_,
 		sge::renderer::lock_mode::writeonly);
@@ -156,7 +192,7 @@ fruitcut::app::background::background(
 	// Left top
 	(vb_it)->set<vf::position>(
 		vf::position::packed_type(
-			-1, 1));
+			zero_plane.left(), zero_plane.top()));
 	(vb_it++)->set<vf::texcoord>(
 		vf::texcoord::packed_type(
 			0,0));
@@ -164,49 +200,42 @@ fruitcut::app::background::background(
 	// Left bottom
 	(vb_it)->set<vf::position>(
 		vf::position::packed_type(
-			-1,-1));
+			zero_plane.left(),zero_plane.bottom()));
 	(vb_it++)->set<vf::texcoord>(
 		vf::texcoord::packed_type(
-			0,1));
+			0,reps_));
 
 	// Right top
 	(vb_it)->set<vf::position>(
 		vf::position::packed_type(
-			1,1));
+			zero_plane.right(),zero_plane.top()));
 	(vb_it++)->set<vf::texcoord>(
 		vf::texcoord::packed_type(
-			1,0));
+			reps_,0));
 
 	// Right top
 	(vb_it)->set<vf::position>(
 		vf::position::packed_type(
-			1,1));
+			zero_plane.right(),zero_plane.top()));
 	(vb_it++)->set<vf::texcoord>(
 		vf::texcoord::packed_type(
-			1,0));
+			reps_,0));
 
 	// Left bottom
 	(vb_it)->set<vf::position>(
 		vf::position::packed_type(
-			-1,-1));
+			zero_plane.left(),zero_plane.bottom()));
 	(vb_it++)->set<vf::texcoord>(
 		vf::texcoord::packed_type(
-			0,1));
+			0,reps_));
 
 	// Right bottom
 	(vb_it)->set<vf::position>(
 		vf::position::packed_type(
-			1,-1));
+			zero_plane.right(),zero_plane.bottom()));
 	(vb_it++)->set<vf::texcoord>(
 		vf::texcoord::packed_type(
-			1,1));
-}
-
-
-
-void
-fruitcut::app::background::viewport_changed()
-{
+			reps_,reps_));
 }
 
 fruitcut::app::background::~background()
@@ -216,6 +245,9 @@ fruitcut::app::background::~background()
 void
 fruitcut::app::background::render()
 {
+	sge::shader::scoped scoped_shader(
+		shader_);
+
 	sge::renderer::scoped_vertex_declaration scoped_decl(
 		renderer_,
 		*vertex_declaration_);
@@ -227,32 +259,10 @@ fruitcut::app::background::render()
 	sge::renderer::pixel_rect const viewport_rect =
 		renderer_.onscreen_target().viewport().get();
 
-	sge::renderer::scalar const aspect = 
-		sge::renderer::aspect_from_viewport(
-			sge::renderer::active_target(
-				renderer_).viewport());
+	shader_.update_uniform(
+		"mvp",
+		camera_.mvp());
 
-	sge::renderer::texture::scoped scoped_texture(
-		renderer_,
-		*texture_,
-		static_cast<sge::renderer::stage_type>(
-			0));
-	sge::renderer::scoped_transform scoped_world(
-		renderer_,
-		sge::renderer::matrix_mode::world,
-		sge::renderer::matrix4::identity());
-	sge::renderer::scoped_transform scoped_projection(
-		renderer_,
-		sge::renderer::matrix_mode::projection,
-		sge::renderer::matrix4::identity());
-	sge::renderer::scoped_transform scoped_texture_matrix(
-		renderer_,
-		sge::renderer::matrix_mode::texture,
-		sge::renderer::matrix4(
-			viewport_rect.w() > viewport_rect.h() ? reps_ : (reps_ * aspect),0,0,0,
-			0,viewport_rect.w() > viewport_rect.h() ? reps_ : (reps_ * aspect),0,0,
-			0,0,1,0,
-			0,0,0,1));
 	sge::renderer::state::scoped scoped_state(
 		renderer_,
 		sge::renderer::state::list
@@ -260,9 +270,10 @@ fruitcut::app::background::render()
 			(sge::renderer::state::source_blend_func::src_alpha)
 			(sge::renderer::state::dest_blend_func::inv_src_alpha)
 			(sge::renderer::state::cull_mode::off)
-			(sge::renderer::state::depth_func::off)
+			(sge::renderer::state::depth_func::less)
 			(sge::renderer::state::stencil_func::off)
 			(sge::renderer::state::draw_mode::fill));
+
 	renderer_.render_nonindexed(
 		sge::renderer::first_vertex(0),
 		sge::renderer::vertex_count(
