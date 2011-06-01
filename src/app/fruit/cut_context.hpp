@@ -4,7 +4,7 @@
 #include "object_fwd.hpp"
 #include "area.hpp"
 #include "mesh.hpp"
-#include "../../physics/vector3.hpp"
+#include "../../fruitlib/physics/vector3.hpp"
 #include <fcppt/container/array.hpp>
 #include <fcppt/reference_wrapper.hpp>
 
@@ -35,7 +35,7 @@ public:
 		fruit::object const &_old,
 		new_fruit_array const &,
 		fruit::area const &,
-		physics::vector3 const &cut_direction,
+		fruitlib::physics::vector3 const &cut_direction,
 		fruit::mesh const &);
 
 	fruit::object const &
@@ -47,7 +47,7 @@ public:
 	fruit::area::value_type
 	area() const;
 
-	physics::vector3 const &
+	fruitlib::physics::vector3 const &
 	cut_direction() const;
 
 	fruit::mesh const &
@@ -56,7 +56,7 @@ private:
 	fruit_ptr old_;
 	new_fruit_array new_;
 	fruit::area::value_type area_;
-	physics::vector3 cut_direction_;
+	fruitlib::physics::vector3 cut_direction_;
 	fruit::mesh cross_section_;
 };
 }

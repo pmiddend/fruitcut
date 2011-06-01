@@ -1,8 +1,8 @@
 #ifndef FRUITCUT_SANDBOX_MOUSE_TRAILER_HPP_INCLUDED
 #define FRUITCUT_SANDBOX_MOUSE_TRAILER_HPP_INCLUDED
 
-#include "../../particle/sprite/system.hpp"
-#include "../../particle/sprite/object.hpp"
+#include "../../fruitlib/particle/sprite/system.hpp"
+#include "../../fruitlib/particle/sprite/object.hpp"
 #include "sword_particle.hpp"
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/image2d/multi_loader_fwd.hpp>
@@ -42,8 +42,8 @@ private:
 	std::list<sword_particle>
 	particle_sequence;
 
-	fruitcut::particle::sprite::system ss_;
-	fruitcut::particle::sprite::object cursor_;
+	fruitcut::fruitlib::particle::sprite::system ss_;
+	fruitcut::fruitlib::particle::sprite::object cursor_;
 	particle_sequence particles_;
 	fcppt::signal::scoped_connection mouse_axis_connection_;
 	sge::texture::part_ptr particle_texture_;

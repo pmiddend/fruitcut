@@ -3,16 +3,16 @@
 fruitcut::app::fruit::object_parameters::object_parameters(
 	sge::renderer::texture::planar_ptr const _texture,
 	sge::image::color::any::object const _splatter_color,
-	physics::world &_world,
+	fruitlib::physics::world &_world,
 	sge::renderer::device &_renderer,
 	sge::renderer::vertex_declaration &_vertex_declaration,
 	sge::shader::object &_shader,
 	fruitcut::app::fruit::mesh const &_mesh,
-	physics::scalar const _mass,
-	physics::vector3 const &_position,
-	physics::matrix4 const &_transformation,
-	physics::vector3 const &_linear_velocity,
-	physics::vector3 const &_angular_velocity,
+	fruitlib::physics::scalar const _mass,
+	fruitlib::physics::vector3 const &_position,
+	fruitlib::physics::matrix4 const &_transformation,
+	fruitlib::physics::vector3 const &_linear_velocity,
+	fruitlib::physics::vector3 const &_angular_velocity,
 	sge::time::duration const &_lock_duration,
 	sge::time::callback const &_timer_callback)
 :
@@ -59,7 +59,7 @@ fruitcut::app::fruit::object_parameters::splatter_color() const
 	return splatter_color_;
 }
 
-fruitcut::physics::world &
+fruitcut::fruitlib::physics::world &
 fruitcut::app::fruit::object_parameters::physics_world() const
 {
 	return world_;
@@ -89,31 +89,31 @@ fruitcut::app::fruit::object_parameters::mesh() const
 	return mesh_;
 }
 
-fruitcut::physics::scalar 
+fruitcut::fruitlib::physics::scalar 
 fruitcut::app::fruit::object_parameters::mass() const
 {
 	return mass_;
 }
 
-fruitcut::physics::vector3 const &
+fruitcut::fruitlib::physics::vector3 const &
 fruitcut::app::fruit::object_parameters::position() const
 {
 	return position_;
 }
 
-fruitcut::physics::matrix4 const &
+fruitcut::fruitlib::physics::matrix4 const &
 fruitcut::app::fruit::object_parameters::transformation() const
 {
 	return transformation_;
 }
 
-fruitcut::physics::vector3 const &
+fruitcut::fruitlib::physics::vector3 const &
 fruitcut::app::fruit::object_parameters::linear_velocity() const
 {
 	return linear_velocity_;
 }
 
-fruitcut::physics::vector3 const &
+fruitcut::fruitlib::physics::vector3 const &
 fruitcut::app::fruit::object_parameters::angular_velocity() const
 {
 	return angular_velocity_;

@@ -15,7 +15,7 @@
 #include <iostream>
 
 fruitcut::sandbox::splat_particle::splat_particle(
-	particle::sprite::parameters const &params,
+	fruitlib::particle::sprite::parameters const &params,
 	sge::time::duration const &_life_time,
 	sge::renderer::vector2 const &_velocity,
 	sge::renderer::vector2 const &_acceleration)
@@ -49,7 +49,7 @@ fruitcut::sandbox::splat_particle::update()
 	velocity_ += 
 		delta * acceleration_;
 	sprite_.pos(
-		fcppt::math::vector::structure_cast<particle::sprite::object::vector>(
+		fcppt::math::vector::structure_cast<fruitlib::particle::sprite::object::vector>(
 			position_));
 }
 
@@ -59,7 +59,7 @@ fruitcut::sandbox::splat_particle::dead() const
 	return timer_.expired();
 }
 
-fruitcut::particle::sprite::object const &
+fruitcut::fruitlib::particle::sprite::object const &
 fruitcut::sandbox::splat_particle::sprite() const
 {
 	return sprite_;

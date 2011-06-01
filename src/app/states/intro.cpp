@@ -1,8 +1,8 @@
 #include "intro.hpp"
 #include "ingame/running.hpp"
-#include "../../string_to_duration_exn.hpp"
-#include "../../json/find_member.hpp"
-#include "../../resource_tree/path.hpp"
+#include "../../fruitlib/string_to_duration_exn.hpp"
+#include "../../fruitlib/json/find_member.hpp"
+#include "../../fruitlib/resource_tree/path.hpp"
 #include <sge/time/time.hpp>
 #include <sge/renderer/scalar.hpp>
 #include <sge/viewport/manager.hpp>
@@ -19,15 +19,15 @@ fruitcut::app::states::intro::intro(
 		ctx),
 	// Those timers will be activated as soon as we have a viewport
 	saturation_timer_(
-		string_to_duration_exn<sge::time::duration>(
-			json::find_member<fcppt::string>(
+		fruitlib::string_to_duration_exn<sge::time::duration>(
+			fruitlib::json::find_member<fcppt::string>(
 				context<machine>().config_file(),
 				FCPPT_TEXT("intro/desaturation-time"))),
 		sge::time::activation_state::inactive,
 		context<machine>().timer_callback()),
 	intro_timer_(
-		string_to_duration_exn<sge::time::duration>(
-			json::find_member<fcppt::string>(
+		fruitlib::string_to_duration_exn<sge::time::duration>(
+			fruitlib::json::find_member<fcppt::string>(
 				context<machine>().config_file(),
 				FCPPT_TEXT("intro/total-duration"))),
 		sge::time::activation_state::inactive,
@@ -44,7 +44,7 @@ fruitcut::app::states::intro::intro(
 		context<machine>().config_file())
 {
 	context<machine>().sound_controller().play(
-		resource_tree::path(
+		fruitlib::resource_tree::path(
 			FCPPT_TEXT("intro")));
 
 	// We already have a viewport? Ok, then go

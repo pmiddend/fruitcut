@@ -1,14 +1,14 @@
 #ifndef FRUITCUT_APP_POSTPROCESSING_HPP_INCLUDED
 #define FRUITCUT_APP_POSTPROCESSING_HPP_INCLUDED
 
-#include "../pp/system.hpp"
-#include "../pp/texture/manager.hpp"
-#include "../pp/filter/render_to_texture.hpp"
-#include "../pp/filter/ssaa.hpp"
-#include "../pp/filter/highlight.hpp"
-#include "../pp/filter/blur.hpp"
-#include "../pp/filter/add.hpp"
-#include "../pp/filter/desaturate.hpp"
+#include "../fruitlib/pp/system.hpp"
+#include "../fruitlib/pp/texture/manager.hpp"
+#include "../fruitlib/pp/filter/render_to_texture.hpp"
+#include "../fruitlib/pp/filter/ssaa.hpp"
+#include "../fruitlib/pp/filter/highlight.hpp"
+#include "../fruitlib/pp/filter/blur.hpp"
+#include "../fruitlib/pp/filter/add.hpp"
+#include "../fruitlib/pp/filter/desaturate.hpp"
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/texture/planar_ptr.hpp>
 #include <sge/console/object_fwd.hpp>
@@ -40,10 +40,10 @@ public:
 	sge::renderer::texture::planar_ptr const
 	result_texture();
 
-	pp::filter::desaturate &
+	fruitlib::pp::filter::desaturate &
 	desaturate_filter();
 
-	pp::texture::manager &
+	fruitlib::pp::texture::manager &
 	texture_manager();
 
 	void
@@ -53,14 +53,14 @@ public:
 	void
 	viewport_changed();
 private:
-	pp::system system_;
-	pp::texture::manager texture_manager_;
-	pp::filter::render_to_texture rtt_filter_;
-	pp::filter::ssaa ssaa_filter_;
-	pp::filter::highlight highlight_filter_;
-	pp::filter::blur blur_filter_;
-	pp::filter::add add_filter_;
-	pp::filter::desaturate desaturate_filter_;
+	fruitlib::pp::system system_;
+	fruitlib::pp::texture::manager texture_manager_;
+	fruitlib::pp::filter::render_to_texture rtt_filter_;
+	fruitlib::pp::filter::ssaa ssaa_filter_;
+	fruitlib::pp::filter::highlight highlight_filter_;
+	fruitlib::pp::filter::blur blur_filter_;
+	fruitlib::pp::filter::add add_filter_;
+	fruitlib::pp::filter::desaturate desaturate_filter_;
 	fcppt::signal::scoped_connection list_connection_;
 	fcppt::signal::scoped_connection toggle_connection_;
 	bool active_;

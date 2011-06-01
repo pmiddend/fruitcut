@@ -1,8 +1,9 @@
 #include "postprocessing.hpp"
-#include "../json/find_member.hpp"
-#include "../pp/dependency_set.hpp"
-#include "../pp/texture/depth_stencil_format.hpp"
-#include "../pp/texture/use_screen_size.hpp"
+#include "../media_path.hpp"
+#include "../fruitlib/json/find_member.hpp"
+#include "../fruitlib/pp/dependency_set.hpp"
+#include "../fruitlib/pp/texture/depth_stencil_format.hpp"
+#include "../fruitlib/pp/texture/use_screen_size.hpp"
 #include <sge/font/text/lit.hpp>
 #include <sge/font/text/from_fcppt_string.hpp>
 #include <sge/font/text/to_fcppt_string.hpp>
@@ -25,45 +26,51 @@ fruitcut::app::postprocessing::postprocessing(
 	sge::parse::json::object const &config)
 :
 	system_(
+		fruitcut::media_path(),
 		_renderer),
 	texture_manager_(
 		_renderer),
 	rtt_filter_(
 		_renderer,
 		texture_manager_,
-		pp::texture::use_screen_size(),
+		fruitlib::pp::texture::use_screen_size(),
 		render_callback,
-		pp::texture::depth_stencil_format::d32),
+		fruitlib::pp::texture::depth_stencil_format::d32),
 	ssaa_filter_(
+		fruitcut::media_path(),
 		_renderer,
 		texture_manager_,
-		pp::texture::use_screen_size()),
+		fruitlib::pp::texture::use_screen_size()),
 	highlight_filter_(
+		fruitcut::media_path(),
 		_renderer,
 		texture_manager_,
-		json::find_member<sge::renderer::dim2>(
+		fruitlib::json::find_member<sge::renderer::dim2>(
 			config,
 			FCPPT_TEXT("bloom-size")),
-		json::find_member<sge::renderer::scalar>(
+		fruitlib::json::find_member<sge::renderer::scalar>(
 			config,
 			FCPPT_TEXT("highlight-threshold"))),
 	blur_filter_(
+		fruitcut::media_path(),
 		_renderer,
 		texture_manager_,
-		json::find_member<sge::renderer::dim2>(
+		fruitlib::json::find_member<sge::renderer::dim2>(
 			config,
 			FCPPT_TEXT("bloom-size")),
-		json::find_member<pp::filter::blur::size_type>(
+		fruitlib::json::find_member<fruitlib::pp::filter::blur::size_type>(
 			config,
 			FCPPT_TEXT("bloom-iterations"))),
 	add_filter_(
+		fruitcut::media_path(),
 		_renderer,
 		texture_manager_,
-		pp::texture::use_screen_size()),
+		fruitlib::pp::texture::use_screen_size()),
 	desaturate_filter_(
+		fruitcut::media_path(),
 		_renderer,
 		texture_manager_,
-		pp::texture::use_screen_size(),
+		fruitlib::pp::texture::use_screen_size(),
 		static_cast<sge::renderer::scalar>(
 			0.0)),
 	list_connection_(
@@ -90,37 +97,37 @@ fruitcut::app::postprocessing::postprocessing(
 	system_.add_filter(
 		rtt_filter_,
 		FCPPT_TEXT("source"),
-		fruitcut::pp::dependency_set());
+		fruitlib::pp::dependency_set());
 
 	system_.add_filter(
 		ssaa_filter_,
 		FCPPT_TEXT("ssaa"),
-		fcppt::assign::make_container<fruitcut::pp::dependency_set>
+		fcppt::assign::make_container<fruitlib::pp::dependency_set>
 			(FCPPT_TEXT("source")));
 
 	system_.add_filter(
 		highlight_filter_,
 		FCPPT_TEXT("highlight"),
-		fcppt::assign::make_container<fruitcut::pp::dependency_set>
+		fcppt::assign::make_container<fruitlib::pp::dependency_set>
 			(FCPPT_TEXT("ssaa")));
 
 	system_.add_filter(
 		blur_filter_,
 		FCPPT_TEXT("blur"),
-		fcppt::assign::make_container<fruitcut::pp::dependency_set>
+		fcppt::assign::make_container<fruitlib::pp::dependency_set>
 			(FCPPT_TEXT("highlight")));
 
 	system_.add_filter(
 		add_filter_,
 		FCPPT_TEXT("add"),
-		fcppt::assign::make_container<fruitcut::pp::dependency_set>
+		fcppt::assign::make_container<fruitlib::pp::dependency_set>
 			(FCPPT_TEXT("blur"))
 			(FCPPT_TEXT("ssaa")));
 
 	system_.add_filter(
 		desaturate_filter_,
 		FCPPT_TEXT("desaturate"),
-		fcppt::assign::make_container<fruitcut::pp::dependency_set>
+		fcppt::assign::make_container<fruitlib::pp::dependency_set>
 			(FCPPT_TEXT("add")));
 }
 
@@ -145,13 +152,13 @@ fruitcut::app::postprocessing::result_texture()
 		system_.result_texture();
 }
 
-fruitcut::pp::filter::desaturate &
+fruitcut::fruitlib::pp::filter::desaturate &
 fruitcut::app::postprocessing::desaturate_filter()
 {
 	return desaturate_filter_;
 }
 
-fruitcut::pp::texture::manager &
+fruitcut::fruitlib::pp::texture::manager &
 fruitcut::app::postprocessing::texture_manager()
 {
 	return texture_manager_;
@@ -181,7 +188,7 @@ fruitcut::app::postprocessing::list_filters(
 			SGE_FONT_TEXT_LIT("warning: ")+args[0]+SGE_FONT_TEXT_LIT(" doesn't take any parameters"));
 		
 	for(
-		pp::system::filter_name_set::const_iterator s = 
+		fruitlib::pp::system::filter_name_set::const_iterator s = 
 			system_.filter_names().begin();
 		s != system_.filter_names().end();
 		++s)

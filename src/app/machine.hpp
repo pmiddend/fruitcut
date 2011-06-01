@@ -1,21 +1,21 @@
 #ifndef FRUITCUT_APP_MACHINE_HPP_INCLUDED
 #define FRUITCUT_APP_MACHINE_HPP_INCLUDED
 
-#include "../audio/music_controller.hpp"
-#include "../audio/sound_controller.hpp"
 #include "background.hpp"
-#include "point_sprite/system_node.hpp"
-#include "../font/cache.hpp"
-#include "../input/state.hpp"
-#include "../scenic/nodes/camera.hpp"
-#include "../input/state_manager.hpp"
-#include "../log/scoped_sequence_ptr.hpp"
+#include "../fruitlib/audio/music_controller.hpp"
+#include "../fruitlib/audio/sound_controller.hpp"
+#include "../fruitlib/font/cache.hpp"
+#include "../fruitlib/input/state.hpp"
+#include "../fruitlib/input/state_manager.hpp"
+#include "../fruitlib/log/scoped_sequence_ptr.hpp"
+#include "../fruitlib/scenic/nodes/camera.hpp"
+#include "../fruitlib/scenic/nodes/console.hpp"
+#include "../fruitlib/scenic/nodes/intrusive_group.hpp"
+#include "../fruitlib/scenic/nodes/music_controller.hpp"
+#include "../fruitlib/scenic/nodes/sound_controller.hpp"
 #include "overlay.hpp"
+#include "point_sprite/system_node.hpp"
 #include "scene.hpp"
-#include "../scenic/nodes/console.hpp"
-#include "../scenic/nodes/intrusive_group.hpp"
-#include "../scenic/nodes/music_controller.hpp"
-#include "../scenic/nodes/sound_controller.hpp"
 #include "score.hpp"
 #include "states/intro_fwd.hpp"
 #include <sge/console/gfx.hpp>
@@ -50,7 +50,7 @@ class machine
 			states::intro
 		>,
 	public 
-		scenic::nodes::intrusive_group
+		fruitlib::scenic::nodes::intrusive_group
 {
 public:
 	explicit
@@ -73,22 +73,22 @@ public:
 	sge::time::callback const 
 	timer_callback() const;
 
-	fruitcut::audio::sound_controller &
+	fruitlib::audio::sound_controller &
 	sound_controller();
 
-	fruitcut::audio::sound_controller const &
+	fruitlib::audio::sound_controller const &
 	sound_controller() const;
 
-	fruitcut::audio::music_controller &
+	fruitlib::audio::music_controller &
 	music_controller();
 
-	fruitcut::audio::music_controller const &
+	fruitlib::audio::music_controller const &
 	music_controller() const;
 
-	input::state &
+	fruitlib::input::state &
 	game_input_state();
 
-	input::state_manager &
+	fruitlib::input::state_manager &
 	input_manager();
 
 	fruitcut::app::background &
@@ -103,10 +103,10 @@ public:
 	sge::camera::object const &
 	camera() const;
 
-	font::cache &
+	fruitlib::font::cache &
 	font_cache();
 
-	font::cache const &
+	fruitlib::font::cache const &
 	font_cache() const;
 
 	sge::cegui::system &
@@ -164,26 +164,26 @@ private:
 	sge::console::object console_object_;
 	scene scene_node_;
 	overlay overlay_node_;
-	log::scoped_sequence_ptr activated_loggers_;
-	font::cache font_cache_;
-	input::state_manager input_manager_;
-	input::state console_state_,game_state_;
-	input::state *previous_state_;
+	fruitlib::log::scoped_sequence_ptr activated_loggers_;
+	fruitlib::font::cache font_cache_;
+	fruitlib::input::state_manager input_manager_;
+	fruitlib::input::state console_state_,game_state_;
+	fruitlib::input::state *previous_state_;
 	sge::font::metrics_ptr console_font_;
 	sge::console::gfx console_gfx_;
-	scenic::nodes::console console_node_;
+	fruitlib::scenic::nodes::console console_node_;
 	fcppt::signal::scoped_connection exit_connection_;
 	sge::time::point current_time_,transformed_time_;
 	sge::time::funit time_factor_;
 	fcppt::signal::scoped_connection console_switch_connection_;
-	fruitcut::audio::sound_controller sound_controller_;
-	fruitcut::scenic::nodes::sound_controller sound_controller_node_;
-	fruitcut::audio::music_controller music_controller_;
-	fruitcut::scenic::nodes::music_controller music_controller_node_;
+	fruitlib::audio::sound_controller sound_controller_;
+	fruitlib::scenic::nodes::sound_controller sound_controller_node_;
+	fruitlib::audio::music_controller music_controller_;
+	fruitlib::scenic::nodes::music_controller music_controller_node_;
 	sge::camera::object camera_;
-	scenic::nodes::camera camera_node_;
+	fruitlib::scenic::nodes::camera camera_node_;
 	fcppt::signal::scoped_connection toggle_camera_connection_;
-	input::state camera_state_;
+	fruitlib::input::state camera_state_;
 	fruitcut::app::background background_;
 	fcppt::signal::scoped_connection viewport_change_connection_;
 	fcppt::chrono::milliseconds::rep desired_fps_;

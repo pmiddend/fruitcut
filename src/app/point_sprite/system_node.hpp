@@ -4,10 +4,10 @@
 #include "system.hpp"
 #include "base.hpp"
 #include "unique_base_ptr.hpp"
-#include "../../scenic/nodes/intrusive.hpp"
-#include "../../resource_tree/make_type.hpp"
-#include "../../resource_tree/path.hpp"
-#include "../../uniform_random.hpp"
+#include "../../fruitlib/scenic/nodes/intrusive.hpp"
+#include "../../fruitlib/resource_tree/make_type.hpp"
+#include "../../fruitlib/resource_tree/path.hpp"
+#include "../../fruitlib/uniform_random.hpp"
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/camera/object_fwd.hpp>
 #include <sge/texture/part_ptr.hpp>
@@ -28,7 +28,7 @@ namespace point_sprite
 {
 class system_node
 :
-	public scenic::nodes::intrusive
+	public fruitlib::scenic::nodes::intrusive
 {
 FCPPT_NONCOPYABLE(
 	system_node);
@@ -52,7 +52,7 @@ public:
 
 	sge::texture::part_ptr const
 	lookup_texture(
-		resource_tree::path const &);
+		fruitlib::resource_tree::path const &);
 
 	~system_node();
 private:
@@ -61,10 +61,10 @@ private:
 	child_sequence;
 
 	typedef
-	resource_tree::make_type
+	fruitlib::resource_tree::make_type
 	<
 		sge::texture::part_ptr,
-		fruitcut::uniform_random
+		fruitlib::uniform_random
 		<
 			std::size_t
 		>::type

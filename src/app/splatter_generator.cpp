@@ -11,13 +11,13 @@
 #include "point_sprite/splatter/position.hpp"
 #include "point_sprite/splatter/linear_velocity.hpp"
 #include "point_sprite/splatter/size.hpp"
-#include "../math/triangle/random_point.hpp"
-#include "../math/multiply_matrix4_vector3.hpp"
-#include "../uniform_random.hpp"
-#include "../resource_tree/path.hpp"
-#include "../create_rng.hpp"
-#include "../json/find_member.hpp"
-#include "../json/parse_random_inclusive_range.hpp"
+#include "../fruitlib/math/triangle/random_point.hpp"
+#include "../fruitlib/math/multiply_matrix4_vector3.hpp"
+#include "../fruitlib/uniform_random.hpp"
+#include "../fruitlib/resource_tree/path.hpp"
+#include "../fruitlib/create_rng.hpp"
+#include "../fruitlib/json/find_member.hpp"
+#include "../fruitlib/json/parse_random_inclusive_range.hpp"
 #include <sge/renderer/scalar.hpp>
 #include <sge/parse/json/json.hpp>
 #include <sge/time/millisecond.hpp>
@@ -46,39 +46,39 @@ fruitcut::app::splatter_generator::splatter_generator(
 		fcppt::random::make_inclusive_range(
 			0u,
 			1u),
-		fruitcut::create_rng()),
+		fruitlib::create_rng()),
 	speed_rng_(
-		json::parse_random_inclusive_range<sge::renderer::scalar>(
-			json::find_member<sge::parse::json::array>(
+		fruitlib::json::parse_random_inclusive_range<sge::renderer::scalar>(
+			fruitlib::json::find_member<sge::parse::json::array>(
 				config_file,
 				FCPPT_TEXT("splatter-generator/speed-range"))),
-		fruitcut::create_rng()),
+		fruitlib::create_rng()),
 	distortion_rng_(
-		json::parse_random_inclusive_range<sge::renderer::scalar>(
-			json::find_member<sge::parse::json::array>(
+		fruitlib::json::parse_random_inclusive_range<sge::renderer::scalar>(
+			fruitlib::json::find_member<sge::parse::json::array>(
 				config_file,
 				FCPPT_TEXT("splatter-generator/speed-distortion-range"))),
-		fruitcut::create_rng()),
+		fruitlib::create_rng()),
 	size_rng_(
-		json::parse_random_inclusive_range<sge::renderer::scalar>(
-			json::find_member<sge::parse::json::array>(
+		fruitlib::json::parse_random_inclusive_range<sge::renderer::scalar>(
+			fruitlib::json::find_member<sge::parse::json::array>(
 				config_file,
 				FCPPT_TEXT("splatter-generator/size-range"))),
-		fruitcut::create_rng()),
+		fruitlib::create_rng()),
 	alpha_rng_(
 		fcppt::random::make_inclusive_range(
 			static_cast<point_sprite::color_format::channel_type>(
 				0),
 			static_cast<point_sprite::color_format::channel_type>(
 				std::numeric_limits<point_sprite::color_format::channel_type>::max()/2)),
-		fruitcut::create_rng()),	
+		fruitlib::create_rng()),	
 	lifetime_millis_rng_(
-		json::parse_random_inclusive_range<sge::time::unit>(
-			json::find_member<sge::parse::json::array>(
+		fruitlib::json::parse_random_inclusive_range<sge::time::unit>(
+			fruitlib::json::find_member<sge::parse::json::array>(
 				config_file,
 				FCPPT_TEXT("splatter-generator/lifetime-millis-range")))),
 	splatter_count_to_area_factor_(
-		json::find_member<sge::renderer::scalar>(
+		fruitlib::json::find_member<sge::renderer::scalar>(
 			config_file,
 			FCPPT_TEXT("splatter-generator/splatter-count-to-area-factor")))
 {
@@ -92,7 +92,7 @@ fruitcut::app::splatter_generator::fruit_was_cut(
 		return;
 
 	typedef
-	fruitcut::uniform_random<fruit::mesh::triangle_sequence::size_type>::type
+	fruitlib::uniform_random<fruit::mesh::triangle_sequence::size_type>::type
 	triangle_rng;
 
 	triangle_rng triangle_rng_(
@@ -100,10 +100,10 @@ fruitcut::app::splatter_generator::fruit_was_cut(
 			static_cast<fruit::mesh::triangle_sequence::size_type>(
 				0),
 			cut_info.cross_section().triangles.size()),
-		fruitcut::create_rng());
+		fruitlib::create_rng());
 
 	typedef
-	fruitcut::uniform_random<sge::renderer::scalar>::type
+	fruitlib::uniform_random<sge::renderer::scalar>::type
 	triangle_point_rng;
 
 	triangle_point_rng triangle_point_rng_(
@@ -124,7 +124,7 @@ fruitcut::app::splatter_generator::fruit_was_cut(
 		++i)
 	{
 		sge::renderer::vector3 const position = 
-			math::triangle::random_point(
+			fruitlib::math::triangle::random_point(
 				cut_info.cross_section().triangles[
 					triangle_rng_()],
 				triangle_point_rng_);
@@ -148,7 +148,7 @@ fruitcut::app::splatter_generator::fruit_was_cut(
 						point_sprites_.system(),
 						point_sprite::splatter::position(
 							cut_info.old().position() + 
-							math::multiply_matrix4_vector3(
+							fruitlib::math::multiply_matrix4_vector3(
 								cut_info.old().world_transform(),
 								position)),
 						point_sprite::splatter::linear_velocity(
@@ -163,7 +163,7 @@ fruitcut::app::splatter_generator::fruit_was_cut(
 							size_rng_()),
 						splatter_color,
 						point_sprites_.lookup_texture(
-							resource_tree::path(
+							fruitlib::resource_tree::path(
 								FCPPT_TEXT("splatter"))),
 						sge::time::millisecond(
 							lifetime_millis_rng_()),

@@ -4,7 +4,7 @@
 #include "box3.hpp"
 #include "mesh.hpp"
 #include "object_parameters_fwd.hpp"
-#include "../../physics/rigid_body/object.hpp"
+#include "../../fruitlib/physics/rigid_body/object.hpp"
 #include <sge/image/color/any/object.hpp>
 #include <sge/renderer/vertex_buffer_fwd.hpp>
 #include <sge/renderer/vertex_buffer_ptr.hpp>
@@ -46,7 +46,7 @@ public:
 	sge::renderer::matrix4 const
 	world_transform() const;
 
-	physics::rigid_body::object const &
+	fruitlib::physics::rigid_body::object const &
 	body() const;
 
 	sge::renderer::matrix4 const 
@@ -72,7 +72,7 @@ private:
 	fruitcut::app::fruit::mesh mesh_;
 	box3 bounding_box_;
 	sge::image::color::any::object splatter_color_;
-	physics::rigid_body::object body_;
+	fruitlib::physics::rigid_body::object body_;
 	sge::renderer::vertex_buffer_ptr vb_;
 	sge::renderer::texture::planar_ptr texture_;
 	sge::time::timer lock_timer_;

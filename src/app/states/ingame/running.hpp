@@ -7,10 +7,10 @@
 #include "../../events/tick.hpp"
 #include "../../events/toggle_pause.hpp"
 #include "../../events/render_overlay.hpp"
-#include "../../../scenic/nodes/line_drawer.hpp"
-#include "../../../cursor_trail.hpp"
-#include "../../../scenic/nodes/cursor_trail.hpp"
-#include "../../../scenic/nodes/intrusive_with_callbacks.hpp"
+#include "../../../fruitlib/scenic/nodes/line_drawer.hpp"
+#include "../../../fruitlib/cursor_trail.hpp"
+#include "../../../fruitlib/scenic/nodes/cursor_trail.hpp"
+#include "../../../fruitlib/scenic/nodes/intrusive_with_callbacks.hpp"
 #include <sge/line_drawer/object.hpp>
 #include <sge/line_drawer/line_sequence.hpp>
 #include <sge/renderer/state/scoped.hpp>
@@ -58,10 +58,10 @@ public:
 private:
 	sge::renderer::state::scoped scoped_render_state_;
 	sge::line_drawer::object line_drawer_;
-	scenic::nodes::line_drawer line_drawer_node_;
-	cursor_trail cursor_trail_;
-	scenic::nodes::cursor_trail cursor_trail_node_;
-	scenic::nodes::intrusive_with_callbacks update_node_;
+	fruitlib::scenic::nodes::line_drawer line_drawer_node_;
+	fruitlib::cursor_trail cursor_trail_;
+	fruitlib::scenic::nodes::cursor_trail cursor_trail_node_;
+	fruitlib::scenic::nodes::intrusive_with_callbacks update_node_;
 	fcppt::signal::scoped_connection 
 		viewport_change_connection_,
 		fruit_spawned_connection_;

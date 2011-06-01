@@ -1,11 +1,11 @@
 #include "cut_mesh.hpp"
 #include "cut_mesh_result.hpp"
 #include "make_coordinate_system.hpp"
-#include "../../geometry_traits/box.hpp"
-#include "../../geometry_traits/vector.hpp"
-#include "../../math/cut_triangle_at_plane.hpp"
-#include "../../math/triangle/area.hpp"
-#include "../../math/triangle_plane_intersection.hpp"
+#include "../../fruitlib/geometry_traits/box.hpp"
+#include "../../fruitlib/geometry_traits/vector.hpp"
+#include "../../fruitlib/math/cut_triangle_at_plane.hpp"
+#include "../../fruitlib/math/triangle/area.hpp"
+#include "../../fruitlib/math/triangle_plane_intersection.hpp"
 #include "triangle.hpp"
 #include "triangle_traits.hpp"
 #include <sge/renderer/matrix4.hpp>
@@ -120,11 +120,11 @@ fruitcut::app::fruit::cut_mesh(
 		++input_triangle)
 	{
 		typedef
-		math::triangle_plane_intersection<triangle> 
+		fruitlib::math::triangle_plane_intersection<triangle> 
 		intersection;
 
 		intersection const single_result = 
-			math::cut_triangle_at_plane(
+			fruitlib::math::cut_triangle_at_plane(
 				*input_triangle,
 				input_plane);
 
@@ -381,7 +381,7 @@ fruitcut::app::fruit::cut_mesh(
 		result->area() = 
 			fruit::area(
 				result->area().get() + 
-				math::triangle::area(
+				fruitlib::math::triangle::area(
 					result->mesh().triangles.back()));
 	}
 

@@ -1,9 +1,10 @@
 #include "paused.hpp"
 #include "running.hpp"
-#include "../../../string_to_duration_exn.hpp"
-#include "../../../json/find_member.hpp"
-#include "../../../pp/texture/use_screen_size.hpp"
-#include "../../../pp/filter/blur.hpp"
+#include "../../../fruitlib/string_to_duration_exn.hpp"
+#include "../../../fruitlib/json/find_member.hpp"
+#include "../../../fruitlib/pp/texture/use_screen_size.hpp"
+#include "../../../fruitlib/pp/filter/blur.hpp"
+#include "../../../media_path.hpp"
 #include <sge/renderer/device.hpp>
 #include <sge/time/second_f.hpp>
 #include <sge/time/activation_state.hpp>
@@ -26,27 +27,29 @@ fruitcut::app::states::ingame::paused::paused(
 		context<machine>().scene_node(),
 		false),
 	system_(
+		fruitcut::media_path(),
 		context<machine>().systems().renderer()),
 	inject_texture_(
 		context<machine>().postprocessing().texture_manager()),
 	blur_(
+		fruitcut::media_path(),
 		context<machine>().systems().renderer(),
 		context<machine>().postprocessing().texture_manager(),
-		pp::texture::use_screen_size(),
-		static_cast<pp::filter::blur::size_type>(
+		fruitlib::pp::texture::use_screen_size(),
+		static_cast<fruitlib::pp::filter::blur::size_type>(
 			1)),
 	current_texture_(
 		context<machine>().postprocessing().result_texture()),
 	blur_iterations_(
-		static_cast<pp::filter::blur::size_type>(
+		static_cast<fruitlib::pp::filter::blur::size_type>(
 			0)),
 	max_blur_iterations_(
-		json::find_member<pp::filter::blur::size_type>(
+		fruitlib::json::find_member<fruitlib::pp::filter::blur::size_type>(
 			context<machine>().config_file(),
 			FCPPT_TEXT("paused/max-blur-iterations"))),
 	blur_timer_(
-		string_to_duration_exn<sge::time::duration>(
-			json::find_member<fcppt::string>(
+		fruitlib::string_to_duration_exn<sge::time::duration>(
+			fruitlib::json::find_member<fcppt::string>(
 				context<machine>().config_file(),
 				FCPPT_TEXT("paused/blur-frequency-time"))),
 		sge::time::activation_state::active,
@@ -59,12 +62,12 @@ fruitcut::app::states::ingame::paused::paused(
 	system_.add_filter(
 		inject_texture_,
 		FCPPT_TEXT("inject_texture"),
-		fruitcut::pp::dependency_set());
+		fruitlib::pp::dependency_set());
 
 	system_.add_filter(
 		blur_,
 		FCPPT_TEXT("blur"),
-		fcppt::assign::make_container<fruitcut::pp::dependency_set>
+		fcppt::assign::make_container<fruitlib::pp::dependency_set>
 			(FCPPT_TEXT("inject_texture")));
 }
 

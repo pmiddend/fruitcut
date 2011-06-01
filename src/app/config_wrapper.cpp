@@ -1,8 +1,8 @@
 #include "config_wrapper.hpp"
 #include "name.hpp"
-#include "../exception.hpp"
-#include "../json/merge_trees.hpp"
-#include "../json/process_option.hpp"
+#include "exception.hpp"
+#include "../fruitlib/json/merge_trees.hpp"
+#include "../fruitlib/json/process_option.hpp"
 #include "../media_path.hpp"
 #include <sge/config/find_config_path.hpp>
 #include <sge/parse/json/parse_file_exn.hpp>
@@ -52,7 +52,7 @@ fruitcut::app::config_wrapper(
 
 	if (user_config_file())
 		config_file = 
-			json::merge_trees(
+			fruitlib::json::merge_trees(
 				config_file,
 				sge::parse::json::parse_file_exn(
 					*user_config_file()));
@@ -80,7 +80,7 @@ fruitcut::app::config_wrapper(
 	}
 
 	for (int i = 1; i < argc; ++i)
-		json::process_option(
+		fruitlib::json::process_option(
 			config_file,
 			fcppt::from_std_string(
 				argv[i]));

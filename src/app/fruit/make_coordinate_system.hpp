@@ -1,8 +1,8 @@
 #ifndef FRUITCUT_APP_FRUIT_MAKE_COORDINATE_SYSTEM_HPP_INCLUDED
 #define FRUITCUT_APP_FRUIT_MAKE_COORDINATE_SYSTEM_HPP_INCLUDED
 
-#include "../../math/line/distance_to_point.hpp"
-#include "../../math/line/basic.hpp"
+#include "../../fruitlib/math/line/distance_to_point.hpp"
+#include "../../fruitlib/math/line/basic.hpp"
 #include <fcppt/optional.hpp>
 #include <fcppt/math/matrix/matrix.hpp>
 #include <fcppt/math/vector/vector.hpp>
@@ -77,9 +77,9 @@ make_coordinate_system(
 
 	for(; second_other_point != points.end(); ++second_other_point)
 		if(
-			math::line::distance_to_point(
+			fruitlib::math::line::distance_to_point(
 				*second_other_point,
-				math::line::basic<scalar,3>(
+				fruitlib::math::line::basic<scalar,3>(
 					(*points.begin()),
 					(*first_other_point) - (*points.begin()))) > epsilon)
 			break;

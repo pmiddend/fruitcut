@@ -1,15 +1,15 @@
 #include "../../media_path.hpp"
-#include "../../grid/from_image.hpp"
-#include "../../grid/map.hpp"
-#include "../../grid/sobel_ignore_borders.hpp"
-#include "../../grid/collect_points.hpp"
-#include "../../particle/point_sprite/object.hpp"
-#include "../../particle/point_sprite/parameters.hpp"
-#include "../../particle/sprite/object.hpp"
-#include "../../particle/sprite/parameters.hpp"
-#include "../../particle/system.hpp"
-#include "../../particle/objects/simple.hpp"
-#include "../../animation.hpp"
+#include "../../fruitlib/grid/from_image.hpp"
+#include "../../fruitlib/grid/map.hpp"
+#include "../../fruitlib/grid/sobel_ignore_borders.hpp"
+#include "../../fruitlib/grid/collect_points.hpp"
+#include "../../fruitlib/particle/point_sprite/object.hpp"
+#include "../../fruitlib/particle/point_sprite/parameters.hpp"
+#include "../../fruitlib/particle/sprite/object.hpp"
+#include "../../fruitlib/particle/sprite/parameters.hpp"
+#include "../../fruitlib/particle/system.hpp"
+#include "../../fruitlib/particle/objects/simple.hpp"
+#include "../../fruitlib/animation.hpp"
 #include <sge/all_extensions.hpp>
 #include <sge/extension_set.hpp>
 #include <sge/image2d/file_ptr.hpp>
@@ -89,11 +89,11 @@ namespace
 sge::window::dim const window_size(1024,768);
 
 typedef
-fruitcut::animation<fruitcut::particle::sprite::object::color_type>
+fruitcut::fruitlib::animation<fruitcut::fruitlib::particle::sprite::object::color_type>
 sprite_animation;
 
 typedef
-fruitcut::animation<fruitcut::particle::point_sprite::object::color_type>
+fruitcut::fruitlib::animation<fruitcut::fruitlib::particle::point_sprite::object::color_type>
 point_sprite_animation;
 
 typedef
@@ -121,7 +121,7 @@ gray_grid_to_scalar_grid(
 	gray_grid const &input)
 {
 	return 
-		fruitcut::grid::map<scalar_grid::value_type>(
+		fruitcut::fruitlib::grid::map<scalar_grid::value_type>(
 			input,
 			boost::phoenix::static_cast_<scalar_grid::value_type>(
 				boost::phoenix::arg_names::arg1 - std::numeric_limits<gray_grid::value_type>::min())/
@@ -133,17 +133,17 @@ gray_grid_to_scalar_grid(
 
 class explosion_particle
 :
-	public fruitcut::particle::objects::simple<fruitcut::particle::point_sprite::choices>
+	public fruitcut::fruitlib::particle::objects::simple<fruitcut::fruitlib::particle::point_sprite::choices>
 {
 public:
 	// gcc-4.4 doesn't like "simple(" in the constructor
 	typedef
-	fruitcut::particle::objects::simple<fruitcut::particle::point_sprite::choices>
+	fruitcut::fruitlib::particle::objects::simple<fruitcut::fruitlib::particle::point_sprite::choices>
 	base;
 
 	explicit
 	explosion_particle(
-		fruitcut::particle::point_sprite::parameters const &_params,
+		fruitcut::fruitlib::particle::point_sprite::parameters const &_params,
 		point_sprite_animation::value_sequence const &_animation,
 		sge::renderer::vector2 const &_velocity,
 		sge::renderer::vector2 const &_acceleration,
@@ -201,9 +201,9 @@ public:
 	void
 	render();
 private:
-	fruitcut::particle::system system_;
+	fruitcut::fruitlib::particle::system system_;
 	sge::texture::part_ptr particle_texture_;
-	fruitcut::particle::point_sprite::object::vector logo_pos_;
+	fruitcut::fruitlib::particle::point_sprite::object::vector logo_pos_;
 };
 
 particles::particles(
@@ -233,15 +233,15 @@ particles::particles(
 				/ FCPPT_TEXT("logo.png"));
 
 	logo_pos_ = 
-		fcppt::math::dim::structure_cast<particle::point_sprite::object::vector>(
-			window_size)/static_cast<particle::point_sprite::object::vector::value_type>(2) - 
-		fcppt::math::dim::structure_cast<particle::point_sprite::object::vector>(
-			logo_image->size())/static_cast<particle::point_sprite::object::vector::value_type>(2);
+		fcppt::math::dim::structure_cast<fruitlib::particle::point_sprite::object::vector>(
+			window_size)/static_cast<fruitlib::particle::point_sprite::object::vector::value_type>(2) - 
+		fcppt::math::dim::structure_cast<fruitlib::particle::point_sprite::object::vector>(
+			logo_image->size())/static_cast<fruitlib::particle::point_sprite::object::vector::value_type>(2);
 
 	system_.insert(
-		particle::objects::unique_base_ptr(
-			new particle::objects::simple<particle::sprite::choices>(
-				particle::sprite::parameters()
+		fruitlib::particle::objects::unique_base_ptr(
+			new fruitlib::particle::objects::simple<fruitlib::particle::sprite::choices>(
+				fruitlib::particle::sprite::parameters()
 					.texture(
 						sge::texture::part_ptr(
 							new sge::texture::part_raw(
@@ -253,22 +253,22 @@ particles::particles(
 										sge::renderer::texture::address_mode::clamp),
 									sge::renderer::resource_flags::none))))
 					.repetition(
-						particle::sprite::object::repetition_type(
+						fruitlib::particle::sprite::object::repetition_type(
 							1,
 							1))
 					.visible(
 						true)
 					.texture_size()
 					.rotation(
-						static_cast<particle::sprite::object::rotation_type>(
+						static_cast<fruitlib::particle::sprite::object::rotation_type>(
 							0))
 					.center(
-						fcppt::math::dim::structure_cast<particle::point_sprite::object::vector>(
-							window_size)/static_cast<particle::point_sprite::object::vector::value_type>(2))
+						fcppt::math::dim::structure_cast<fruitlib::particle::point_sprite::object::vector>(
+							window_size)/static_cast<fruitlib::particle::point_sprite::object::vector::value_type>(2))
 					.system(
 						&system_.sprite_system())
 					.color(
-						particle::sprite::object::color_type(
+						fruitlib::particle::sprite::object::color_type(
 							(sge::image::color::init::red %= 1.0)
 							(sge::image::color::init::green %= 1.0)
 							(sge::image::color::init::blue %= 1.0)
@@ -278,7 +278,7 @@ particles::particles(
 						sge::time::second_f(
 							static_cast<sge::time::funit>(
 								3)),
-						particle::sprite::object::color_type(
+						fruitlib::particle::sprite::object::color_type(
 							(sge::image::color::init::red %= 1.0)
 							(sge::image::color::init::green %= 1.0)
 							(sge::image::color::init::blue %= 1.0)
@@ -287,7 +287,7 @@ particles::particles(
 						sge::time::second_f(
 							static_cast<sge::time::funit>(
 								0)),
-						particle::sprite::object::color_type(
+						fruitlib::particle::sprite::object::color_type(
 							(sge::image::color::init::red %= 1.0)
 							(sge::image::color::init::green %= 1.0)
 							(sge::image::color::init::blue %= 1.0)
@@ -310,10 +310,10 @@ particles::from_image(
 	using namespace fruitcut;
 
 	scalar_grid const g = 
-		grid::map<scalar>(
-			grid::sobel_ignore_borders(
+		fruitcut::fruitlib::grid::map<scalar>(
+			fruitcut::fruitlib::grid::sobel_ignore_borders(
 				gray_grid_to_scalar_grid(
-					grid::from_image<gray_grid::value_type>(
+					fruitcut::fruitlib::grid::from_image<gray_grid::value_type>(
 						input_image,
 						sge::image::color::format::gray8))),
 			std::tr1::bind(
@@ -329,7 +329,7 @@ particles::from_image(
 	point_sequence;
 
 	point_sequence points = 
-		grid::collect_points<point_sequence>(
+		fruitcut::fruitlib::grid::collect_points<point_sequence>(
 			g,
 			boost::phoenix::arg_names::arg1 > static_cast<scalar>(0.5));
 
@@ -350,29 +350,29 @@ particles::from_image(
 		p != points.end();
 		++p)
 	{
-		particle::point_sprite::object::vector const center = 
+		fruitlib::particle::point_sprite::object::vector const center = 
 			logo_pos_ + 
-				particle::point_sprite::object::vector(
-					static_cast<particle::point_sprite::object::unit>(
+				fruitlib::particle::point_sprite::object::vector(
+					static_cast<fruitlib::particle::point_sprite::object::unit>(
 						p->w()),
-					static_cast<particle::point_sprite::object::unit>(
+					static_cast<fruitlib::particle::point_sprite::object::unit>(
 						p->h()));
 
 		system_.insert(
-			particle::objects::unique_base_ptr(
+			fruitlib::particle::objects::unique_base_ptr(
 				new explosion_particle(
-					particle::point_sprite::parameters()
+					fruitlib::particle::point_sprite::parameters()
 						.texture(
 							particle_texture_)
 						.center(
 							center)
 						.point_size(
-							static_cast<particle::point_sprite::object::unit>(
+							static_cast<fruitlib::particle::point_sprite::object::unit>(
 								particle_texture_->size().w()))
 						.system(
 							&system_.point_sprite_system())
 						.color(
-							particle::point_sprite::object::color_type(
+							fruitlib::particle::point_sprite::object::color_type(
 								(sge::image::color::init::red %= 1.0)
 								(sge::image::color::init::green %= 1.0)
 								(sge::image::color::init::blue %= 1.0)
@@ -382,7 +382,7 @@ particles::from_image(
 							sge::time::second_f(
 								static_cast<sge::time::funit>(
 									2)),
-							particle::point_sprite::object::color_type(
+							fruitlib::particle::point_sprite::object::color_type(
 								(sge::image::color::init::red %= 1.0)
 								(sge::image::color::init::green %= 1.0)
 								(sge::image::color::init::blue %= 1.0)
@@ -391,7 +391,7 @@ particles::from_image(
 							sge::time::second_f(
 								static_cast<sge::time::funit>(
 									0.5)),
-							particle::point_sprite::object::color_type(
+							fruitlib::particle::point_sprite::object::color_type(
 								(sge::image::color::init::red %= 1.0)
 								(sge::image::color::init::green %= 1.0)
 								(sge::image::color::init::blue %= 1.0)
@@ -400,7 +400,7 @@ particles::from_image(
 							sge::time::second_f(
 								static_cast<sge::time::funit>(
 									1)),
-							particle::point_sprite::object::color_type(
+							fruitlib::particle::point_sprite::object::color_type(
 								(sge::image::color::init::red %= 1.0)
 								(sge::image::color::init::green %= 1.0)
 								(sge::image::color::init::blue %= 1.0)

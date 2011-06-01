@@ -1,8 +1,8 @@
 #ifndef FRUITCUT_SANDBOX_SPLAT_PARTICLE_HPP_INCLUDED
 #define FRUITCUT_SANDBOX_SPLAT_PARTICLE_HPP_INCLUDED
 
-#include "../../particle/sprite/parameters.hpp"
-#include "../../particle/sprite/object.hpp"
+#include "../../fruitlib/particle/sprite/parameters.hpp"
+#include "../../fruitlib/particle/sprite/object.hpp"
 #include <sge/renderer/vector2.hpp>
 #include <sge/sprite/object_impl.hpp>
 #include <sge/time/duration.hpp>
@@ -30,7 +30,7 @@ public:
 
 	explicit
 	splat_particle(
-		fruitcut::particle::sprite::parameters const &,
+		fruitcut::fruitlib::particle::sprite::parameters const &,
 		sge::time::duration const &life_time,
 		sge::renderer::vector2 const &velocity,
 		sge::renderer::vector2 const &acceleration);
@@ -41,12 +41,12 @@ public:
 	bool
 	dead() const;
 
-	fruitcut::particle::sprite::object const &
+	fruitcut::fruitlib::particle::sprite::object const &
 	sprite() const;
 
 	~splat_particle();
 private:
-	fruitcut::particle::sprite::object sprite_;
+	fruitcut::fruitlib::particle::sprite::object sprite_;
 	sge::time::timer timer_;
 	sge::time::timer second_timer_;
 	sge::renderer::vector2 position_;

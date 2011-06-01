@@ -1,8 +1,8 @@
 #include "projected.hpp"
 #include "../box3.hpp"
 #include "../object.hpp"
-#include "../../../geometry_traits/vector.hpp"
-#include "../../../geometry_traits/box.hpp"
+#include "../../../fruitlib/geometry_traits/vector.hpp"
+#include "../../../fruitlib/geometry_traits/box.hpp"
 #include <sge/renderer/scalar.hpp>
 #include <sge/renderer/target_base_ptr.hpp>
 #include <sge/renderer/target_base.hpp>

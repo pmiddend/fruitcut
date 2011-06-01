@@ -1,15 +1,15 @@
 #include "superstate.hpp"
 #include "running.hpp"
 #include "../../events/toggle_pause.hpp"
-#include "../../../input/state.hpp"
-#include "../../../json/find_member.hpp"
-#include "../../../json/parse_color.hpp"
-#include "../../../physics/vector3.hpp"
-#include "../../../physics/rigid_body/parameters.hpp"
-#include "../../../physics/vector3.hpp"
-#include "../../../physics/matrix4.hpp"
-#include "../../../physics/scalar.hpp"
-#include "../../../physics/box.hpp"
+#include "../../../fruitlib/input/state.hpp"
+#include "../../../fruitlib/json/find_member.hpp"
+#include "../../../fruitlib/json/parse_color.hpp"
+#include "../../../fruitlib/physics/vector3.hpp"
+#include "../../../fruitlib/physics/rigid_body/parameters.hpp"
+#include "../../../fruitlib/physics/vector3.hpp"
+#include "../../../fruitlib/physics/matrix4.hpp"
+#include "../../../fruitlib/physics/scalar.hpp"
+#include "../../../fruitlib/physics/box.hpp"
 #include <sge/input/keyboard/action.hpp>
 #include <sge/input/keyboard/key_code.hpp>
 #include <sge/parse/json/array.hpp>
@@ -55,8 +55,8 @@ fruitcut::app::states::ingame::superstate::superstate(
 					events::toggle_pause())))),
 	physics_world_(
 		// The box is ignored for now
-		physics::box(),
-		json::find_member<physics::vector3>(
+		fruitlib::physics::box(),
+		fruitlib::json::find_member<fruitlib::physics::vector3>(
 			context<machine>().config_file(),
 			FCPPT_TEXT("physics/gravity"))),
 	physics_world_node_(
@@ -78,7 +78,7 @@ fruitcut::app::states::ingame::superstate::superstate(
 	collision_filter_(
 		physics_world_),
 	fruit_manager_(
-		json::find_member<sge::parse::json::array>(
+		fruitlib::json::find_member<sge::parse::json::array>(
 			context<machine>().config_file(),
 			FCPPT_TEXT("fruits")),
 		context<machine>().systems().md3_loader(),
@@ -113,20 +113,20 @@ fruitcut::app::states::ingame::superstate::superstate(
 				physics_world_.gravity())),
 		context<machine>().timer_callback()),
 	background_physics_(
-		physics::rigid_body::parameters(
+		fruitlib::physics::rigid_body::parameters(
 			physics_world_,
-			physics::vector3(
+			fruitlib::physics::vector3(
 				0,
 				0,
 				0),
-			physics::matrix4(),
-			physics::vector3(),
-			physics::vector3(),
+			fruitlib::physics::matrix4(),
+			fruitlib::physics::vector3(),
+			fruitlib::physics::vector3(),
 			fcppt::make_shared_ptr<btStaticPlaneShape>(
 				btVector3(0,0,-1),
 				0),
-			physics::rigid_body::solidity::solid,
-			fcppt::optional<physics::scalar>()))
+			fruitlib::physics::rigid_body::solidity::solid,
+			fcppt::optional<fruitlib::physics::scalar>()))
 {
 	// scene
 	context<machine>().scene_node().insert_before(
@@ -143,17 +143,17 @@ fruitcut::app::states::ingame::superstate::superstate(
 		physics_debugger_node_);
 
 	context<machine>().music_controller().play(
-		resource_tree::path(
+		fruitlib::resource_tree::path(
 			FCPPT_TEXT("random")));
 }
 
-fruitcut::physics::world &
+fruitcut::fruitlib::physics::world &
 fruitcut::app::states::ingame::superstate::physics_world()
 {
 	return physics_world_;
 }
 
-fruitcut::physics::world const &
+fruitcut::fruitlib::physics::world const &
 fruitcut::app::states::ingame::superstate::physics_world() const
 {
 	return physics_world_;
@@ -183,7 +183,7 @@ fruitcut::app::states::ingame::superstate::fruit_spawner() const
 	return fruit_spawner_;
 }
 
-fruitcut::physics::debugger &
+fruitcut::fruitlib::physics::debugger &
 fruitcut::app::states::ingame::superstate::physics_debugger()
 {
 	return physics_debugger_;
@@ -218,7 +218,7 @@ fruitcut::app::states::ingame::superstate::fruit_was_cut(
 	fruit::cut_context const &ccontext)
 {
 	context<machine>().sound_controller().play(
-		resource_tree::path(
+		fruitlib::resource_tree::path(
 			FCPPT_TEXT("fruit_was_cut")));
 
 	splatter_generator_.fruit_was_cut(

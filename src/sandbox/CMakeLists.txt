@@ -1,6 +1,21 @@
+# TODO
+SET_SOURCE_FILES_PROPERTIES(
+	../media_path.cpp
+	PROPERTIES
+	COMPILE_FLAGS
+	-DMEDIA_PATH="\\\"${media_path}\\\""
+)
+
+SET_SOURCE_FILES_PROPERTIES(
+	../media_path.cpp
+	PROPERTIES
+	COMPILE_FLAGS
+	-DMEDIA_PATH="\\\"${CMAKE_INSTALL_PREFIX}/share/games/${PROJECT_NAME}/media\\\""
+)
+
 ADD_EXECUTABLE(
 	example_trail
-	trail/trail_test.cpp trail/mouse_trailer.cpp trail/sword_particle.cpp)
+	trail/trail_test.cpp trail/mouse_trailer.cpp trail/sword_particle.cpp ../media_path.cpp)
 
 TARGET_LINK_LIBRARIES(
 	example_trail
@@ -30,7 +45,7 @@ TARGET_LINK_LIBRARIES(
 
 ADD_EXECUTABLE(
 	example_splat
-	splat/splat.cpp splat/splat_collector.cpp splat/splatter.cpp splat/splat_particle.cpp)
+	splat/splat.cpp splat/splat_collector.cpp splat/splatter.cpp splat/splat_particle.cpp ../media_path.cpp)
 
 TARGET_LINK_LIBRARIES(
 	example_splat
@@ -41,7 +56,7 @@ TARGET_LINK_LIBRARIES(
 
 ADD_EXECUTABLE(
 	example_convolution
-	convolution/convolution.cpp)
+	convolution/convolution.cpp ../media_path.cpp)
 
 TARGET_LINK_LIBRARIES(
 	example_convolution

@@ -7,10 +7,10 @@
 #include "../../events/render_overlay.hpp"
 #include "../../events/tick.hpp"
 #include "../../events/toggle_pause.hpp"
-#include "../../../pp/system.hpp"
-#include "../../../pp/filter/inject_texture.hpp"
-#include "../../../pp/filter/blur.hpp"
-#include "../../../scenic/nodes/intrusive.hpp"
+#include "../../../fruitlib/pp/system.hpp"
+#include "../../../fruitlib/pp/filter/inject_texture.hpp"
+#include "../../../fruitlib/pp/filter/blur.hpp"
+#include "../../../fruitlib/scenic/nodes/intrusive.hpp"
 #include <boost/statechart/state.hpp>
 #include <boost/statechart/custom_reaction.hpp>
 #include <boost/mpl/vector/vector10.hpp>
@@ -29,7 +29,7 @@ class paused
 :
 	// The second argument has to be a complete type
 	public boost::statechart::state<paused,superstate>,
-	public scenic::nodes::intrusive
+	public fruitlib::scenic::nodes::intrusive
 {
 public:
 	typedef
@@ -51,12 +51,12 @@ public:
 private:
 	app::scoped_time_factor time_factor_;
 	app::scoped_scene_activation scene_deactivation_;
-	pp::system system_;
-	pp::filter::inject_texture inject_texture_;
-	pp::filter::blur blur_;
+	fruitlib::pp::system system_;
+	fruitlib::pp::filter::inject_texture inject_texture_;
+	fruitlib::pp::filter::blur blur_;
 	sge::renderer::texture::planar_ptr current_texture_;
-	pp::filter::blur::size_type blur_iterations_;
-	pp::filter::blur::size_type const max_blur_iterations_;
+	fruitlib::pp::filter::blur::size_type blur_iterations_;
+	fruitlib::pp::filter::blur::size_type const max_blur_iterations_;
 	sge::time::timer blur_timer_;
 
 	void

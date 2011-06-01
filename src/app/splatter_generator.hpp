@@ -3,7 +3,7 @@
 
 #include "fruit/cut_context_fwd.hpp"
 #include "fruit/area.hpp"
-#include "../uniform_random.hpp"
+#include "../fruitlib/uniform_random.hpp"
 #include "point_sprite/color_format.hpp"
 #include "point_sprite/splatter/size.hpp"
 #include "point_sprite/splatter/linear_velocity.hpp"
@@ -38,27 +38,27 @@ public:
 	~splatter_generator();
 private:
 	typedef
-	fruitcut::uniform_random<unsigned>::type
+	fruitlib::uniform_random<unsigned>::type
 	cut_direction_rng;
 
 	typedef
-	fruitcut::uniform_random<point_sprite::splatter::linear_velocity::value_type::value_type>::type
+	fruitlib::uniform_random<point_sprite::splatter::linear_velocity::value_type::value_type>::type
 	speed_rng;
 
 	typedef
-	fruitcut::uniform_random<point_sprite::splatter::linear_velocity::value_type::value_type>::type
+	fruitlib::uniform_random<point_sprite::splatter::linear_velocity::value_type::value_type>::type
 	distortion_rng;
 
 	typedef
-	fruitcut::uniform_random<point_sprite::splatter::size::value_type>::type
+	fruitlib::uniform_random<point_sprite::splatter::size::value_type>::type
 	size_rng;
 
 	typedef
-	fruitcut::uniform_random<point_sprite::color_format::channel_type>::type
+	fruitlib::uniform_random<point_sprite::color_format::channel_type>::type
 	alpha_rng;
 
 	typedef
-	fruitcut::uniform_random<sge::time::unit>::type
+	fruitlib::uniform_random<sge::time::unit>::type
 	lifetime_millis_rng;
 
 	point_sprite::system_node &point_sprites_;

@@ -1,31 +1,31 @@
-#include "game_logic.hpp"
-#include "../string_to_duration_exn.hpp"
-#include "fruit/manager.hpp"
 #include "fruit/cut_context.hpp"
-#include "../json/find_member.hpp"
-#include "../json/parse_color.hpp"
-#include "../time_format/duration_to_string.hpp"
-#include "../time_format/milliseconds.hpp"
-#include "../time_format/seconds.hpp"
-#include "../font/cache.hpp"
-#include "../font/object_parameters.hpp"
-#include <sge/font/pos.hpp>
-#include <sge/font/unit.hpp>
-#include <sge/font/rect.hpp>
+#include "../fruitlib/font/cache.hpp"
+#include "../fruitlib/font/object_parameters.hpp"
+#include "../fruitlib/json/find_member.hpp"
+#include "../fruitlib/json/parse_color.hpp"
+#include "../fruitlib/string_to_duration_exn.hpp"
+#include "../fruitlib/time_format/duration_to_string.hpp"
+#include "../fruitlib/time_format/milliseconds.hpp"
+#include "../fruitlib/time_format/seconds.hpp"
+#include "fruit/manager.hpp"
+#include "game_logic.hpp"
 #include <sge/font/dim.hpp>
+#include <sge/font/pos.hpp>
+#include <sge/font/rect.hpp>
 #include <sge/font/text/align_h.hpp>
 #include <sge/font/text/align_v.hpp>
 #include <sge/font/text/flags_none.hpp>
 #include <sge/font/text/lit.hpp>
+#include <sge/font/unit.hpp>
+#include <sge/image/color/rgba8.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/onscreen_target.hpp>
 #include <sge/renderer/scalar.hpp>
 #include <sge/renderer/viewport.hpp>
-#include <sge/viewport/manager.hpp>
 #include <sge/time/activation_state.hpp>
 #include <sge/time/duration.hpp>
 #include <sge/time/unit.hpp>
-#include <sge/image/color/rgba8.hpp>
+#include <sge/viewport/manager.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
@@ -44,13 +44,13 @@ fruitcut::app::game_logic::game_logic(
 	// - "fruit was deleted" 
 	// - "fruit was added" (we could consult the spawner for that, but that's not The Right Thing)
 	fruit::manager &_fruit_manager,
-	font::cache &_font_cache,
+	fruitlib::font::cache &_font_cache,
 	overlay &_overlay,
 	sge::renderer::device &_renderer,
 	sge::viewport::manager &_viewport)
 :
 	area_score_factor_(
-		json::find_member<fruit::area::value_type>(
+		fruitlib::json::find_member<fruit::area::value_type>(
 			_config_file,
 			FCPPT_TEXT("ingame/area-score-factor"))),
 	score_(
@@ -58,8 +58,8 @@ fruitcut::app::game_logic::game_logic(
 	iterating_score_(
 		score_),
 	round_timer_(
-		string_to_duration_exn<sge::time::duration>(
-			json::find_member<fcppt::string>(
+		fruitlib::string_to_duration_exn<sge::time::duration>(
+			fruitlib::json::find_member<fcppt::string>(
 				_config_file,
 				FCPPT_TEXT("ingame/round-time"))),
 		sge::time::activation_state::active,
@@ -88,7 +88,7 @@ fruitcut::app::game_logic::game_logic(
 				&game_logic::viewport_changed,
 				this))),
 	score_font_node_(
-		fruitcut::font::object_parameters(
+		fruitlib::font::object_parameters(
 			_font_cache.metrics(
 				FCPPT_TEXT("score")),
 			_font_cache.drawer(
@@ -98,14 +98,14 @@ fruitcut::app::game_logic::game_logic(
 			sge::font::text::align_h::left,
 			sge::font::text::align_v::top,
 			sge::font::text::flags::none),
-		json::parse_color<sge::image::color::rgba8>(
-			json::find_member<sge::parse::json::value>(
+		fruitlib::json::parse_color<sge::image::color::rgba8>(
+			fruitlib::json::find_member<sge::parse::json::value>(
 				_config_file,
 				FCPPT_TEXT("ingame/score-font-color"))),
-		static_cast<scenic::scale>(
+		static_cast<fruitlib::scenic::scale>(
 			1)),
 	timer_font_node_(
-		fruitcut::font::object_parameters(
+		fruitlib::font::object_parameters(
 			_font_cache.metrics(
 				FCPPT_TEXT("score")),
 			_font_cache.drawer(
@@ -115,15 +115,15 @@ fruitcut::app::game_logic::game_logic(
 			sge::font::text::align_h::center,
 			sge::font::text::align_v::top,
 			sge::font::text::flags::none),
-		json::parse_color<sge::image::color::rgba8>(
-			json::find_member<sge::parse::json::value>(
+		fruitlib::json::parse_color<sge::image::color::rgba8>(
+			fruitlib::json::find_member<sge::parse::json::value>(
 				_config_file,
 				FCPPT_TEXT("ingame/timer-font-color"))),
-		static_cast<scenic::scale>(
+		static_cast<fruitlib::scenic::scale>(
 			1)),
 	score_increase_timer_(
-		string_to_duration_exn<sge::time::duration>(
-			json::find_member<fcppt::string>(
+		fruitlib::string_to_duration_exn<sge::time::duration>(
+			fruitlib::json::find_member<fcppt::string>(
 				_config_file,
 				FCPPT_TEXT("ingame/score-increase-timer"))),
 		sge::time::activation_state::active,
@@ -169,8 +169,8 @@ fruitcut::app::game_logic::fruit_cut(
 	fruit::cut_context const &context)
 {
 	increase_score(
-		fruitcut::app::score(
-			static_cast<fruitcut::app::score::value_type>(
+		app::score(
+			static_cast<app::score::value_type>(
 				context.area() * area_score_factor_)));
 }
 
@@ -202,10 +202,10 @@ void
 fruitcut::app::game_logic::update()
 {
 	timer_font_node_.object().text(
-		time_format::duration_to_string<sge::font::text::string>(
+		fruitlib::time_format::duration_to_string<sge::font::text::string>(
 			sge::time::duration(
 				round_timer_.time_left()),
-			time_format::seconds));
+			fruitlib::time_format::seconds));
 
 	if(score_increase_timer_.update_b())
 	{

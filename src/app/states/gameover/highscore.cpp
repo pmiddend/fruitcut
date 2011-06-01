@@ -1,7 +1,7 @@
 #include "highscore.hpp"
 #include "../intro.hpp"
 #include "../../events/gameover/continue_button_pushed.hpp"
-#include "../../../exception.hpp"
+#include "../../exception.hpp"
 #include "../../../media_path.hpp"
 #include <sge/cegui/to_cegui_string.hpp>
 #include <sge/cegui/from_cegui_string.hpp>
@@ -24,8 +24,8 @@
 
 #include "../../score.hpp"
 #include "../../name.hpp"
-#include "../../../json/find_member.hpp"
-#include "../../../json/array_to_vector.hpp"
+#include "../../../fruitlib/json/find_member.hpp"
+#include "../../../fruitlib/json/array_to_vector.hpp"
 #include <sge/parse/json/object.hpp>
 #include <sge/parse/json/parse_file_exn.hpp>
 #include <sge/parse/json/array.hpp>
@@ -93,7 +93,7 @@ load_highscore()
 		return highscore_sequence();
 
 	sge::parse::json::array const json_file = 
-		fruitcut::json::find_member<sge::parse::json::array>(
+		fruitcut::fruitlib::json::find_member<sge::parse::json::array>(
 			sge::parse::json::parse_file_exn(
 				highscore_file_path),
 			FCPPT_TEXT("entries"));
@@ -105,7 +105,7 @@ load_highscore()
 	json_object_vector;
 
 	json_object_vector const json_objects(
-		(fruitcut::json::array_to_vector<sge::parse::json::object>(
+		(fruitcut::fruitlib::json::array_to_vector<sge::parse::json::object>(
 			json_file)));
 
 	for(
@@ -116,15 +116,15 @@ load_highscore()
 	{
 		result.push_back(
 			highscore_entry(
-				fruitcut::json::find_member<sge::parse::json::string>(
+				fruitcut::fruitlib::json::find_member<sge::parse::json::string>(
 					*current_entry,
 					FCPPT_TEXT("name")),
-				fruitcut::json::find_member<fruitcut::app::score::value_type>(
+				fruitcut::fruitlib::json::find_member<fruitcut::app::score::value_type>(
 					*current_entry,
 					FCPPT_TEXT("score")),
 				boost::posix_time::from_iso_string(
 					fcppt::to_std_string(
-						fruitcut::json::find_member<sge::parse::json::string>(
+						fruitcut::fruitlib::json::find_member<sge::parse::json::string>(
 							*current_entry,
 							FCPPT_TEXT("date-time"))))));
 	}
@@ -153,7 +153,7 @@ write_highscore(
 
 	if(!stream.is_open())
 		throw 
-			fruitcut::exception(
+			fruitcut::app::exception(
 				FCPPT_TEXT("Couldn't open highscore file \"")+
 				fcppt::filesystem::path_to_string(
 					highscore_path)+
@@ -278,7 +278,7 @@ fruitcut::app::states::gameover::highscore::quit_button_pushed(
 	CEGUI::EventArgs const &)
 {
 	context<machine>().sound_controller().play(
-		resource_tree::path(
+		fruitlib::resource_tree::path(
 			FCPPT_TEXT("button_clicked")));
 	post_event(
 		events::gameover::quit_button_pushed());
@@ -290,7 +290,7 @@ fruitcut::app::states::gameover::highscore::reset_button_pushed(
 	CEGUI::EventArgs const &)
 {
 	context<machine>().sound_controller().play(
-		resource_tree::path(
+		fruitlib::resource_tree::path(
 			FCPPT_TEXT("button_clicked")));
 	post_event(
 		events::gameover::reset_button_pushed());

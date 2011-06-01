@@ -3,7 +3,7 @@
 
 #include "choose_name_fwd.hpp"
 #include "../../machine.hpp"
-#include "../../../scenic/nodes/gui_system.hpp"
+#include "../../../fruitlib/scenic/nodes/gui_system.hpp"
 #include <sge/cegui/default_cursor.hpp>
 #include <sge/cegui/default_keyboard.hpp>
 #include <CEGUI/CEGUIString.h>
@@ -38,7 +38,7 @@ public:
 
 	~superstate();
 private:
-	scenic::nodes::gui_system gui_node_;
+	fruitlib::scenic::nodes::gui_system gui_node_;
 	sge::cegui::default_keyboard gui_keyboard_;
 	sge::cegui::default_cursor gui_cursor_;
 	CEGUI::String name_;

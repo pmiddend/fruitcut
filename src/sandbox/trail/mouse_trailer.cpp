@@ -39,14 +39,14 @@ fruitcut::sandbox::mouse_trailer::mouse_trailer(
 	ss_(
 		renderer),
 	cursor_(
-		particle::sprite::parameters()
+		fruitlib::particle::sprite::parameters()
 			.texture_size()
 			.repetition(
-				particle::sprite::object::repetition_type(
+				fruitlib::particle::sprite::object::repetition_type(
 					1,
 					1))
 			.rotation(
-				static_cast<particle::sprite::object::rotation_type>(
+				static_cast<fruitlib::particle::sprite::object::rotation_type>(
 					0))
 			.visible(
 				true)
@@ -64,15 +64,15 @@ fruitcut::sandbox::mouse_trailer::mouse_trailer(
 								sge::renderer::texture::address_mode::clamp),
 							sge::renderer::resource_flags::none))))
 			.center(
-				particle::sprite::object::vector(
-					static_cast<particle::sprite::object::unit>(
+				fruitlib::particle::sprite::object::vector(
+					static_cast<fruitlib::particle::sprite::object::unit>(
 						renderer.onscreen_target().viewport().get().size().w()/2),
-					static_cast<particle::sprite::object::unit>(
+					static_cast<fruitlib::particle::sprite::object::unit>(
 						renderer.onscreen_target().viewport().get().size().h()/2)))
 			.system(
 				&ss_)
 			.color(
-				particle::sprite::object::color_type(
+				fruitlib::particle::sprite::object::color_type(
 					(sge::image::color::init::red %= 1.0)
 					(sge::image::color::init::green %= 1.0)
 					(sge::image::color::init::blue %= 1.0)
@@ -142,26 +142,26 @@ fruitcut::sandbox::mouse_trailer::update()
 			{
 				particles_.push_back(
 					sword_particle(
-						particle::sprite::parameters()
+						fruitlib::particle::sprite::parameters()
 							.texture_size()
 							.visible(
 								true)
 							.texture(
 								particle_texture_)
 							.repetition(
-								fruitcut::particle::sprite::object::repetition_type(
+								fruitlib::particle::sprite::object::repetition_type(
 									1,
 									1))
 							.rotation(
 								fcppt::math::vector::atan2(
 									direction))
 							.center(
-								fcppt::math::vector::structure_cast<fruitcut::particle::sprite::object::vector>(
+								fcppt::math::vector::structure_cast<fruitlib::particle::sprite::object::vector>(
 									old_position_ + lambda * direction))
 							.system(
 								&ss_)
 							.color(
-								particle::sprite::object::color_type(
+								fruitlib::particle::sprite::object::color_type(
 									(sge::image::color::init::red %= 1.0)
 									(sge::image::color::init::green %= 1.0)
 									(sge::image::color::init::blue %= 1.0)
@@ -206,20 +206,20 @@ fruitcut::sandbox::mouse_trailer::callback(
 {
 	cursor_.pos(
 		cursor_.pos() + 
-		particle::sprite::object::vector(
+		fruitlib::particle::sprite::object::vector(
 			e.axis() == sge::input::mouse::axis::x 
 			? 
-				static_cast<particle::sprite::object::unit>(
+				static_cast<fruitlib::particle::sprite::object::unit>(
 					e.axis_value())
 			:
-				static_cast<particle::sprite::object::unit>(
+				static_cast<fruitlib::particle::sprite::object::unit>(
 					0),
 			e.axis() == sge::input::mouse::axis::x 
 			? 
-				static_cast<particle::sprite::object::unit>(
+				static_cast<fruitlib::particle::sprite::object::unit>(
 					0)
 			:
-				static_cast<particle::sprite::object::unit>(
+				static_cast<fruitlib::particle::sprite::object::unit>(
 					e.axis_value())));
 
 }

@@ -3,7 +3,7 @@
 
 #include "ring.hpp"
 #include "intersection_pair.hpp"
-#include "../../../cursor_trail.hpp"
+#include "../../../fruitlib/cursor_trail.hpp"
 #include <fcppt/optional.hpp>
 #include <fcppt/homogenous_pair.hpp>
 
@@ -20,7 +20,7 @@ namespace hull
 intersection_pair const
 trail_intersection(
 	ring const &,
-	cursor_trail::position_buffer const &);
+	fruitlib::cursor_trail::position_buffer const &);
 }
 }
 }

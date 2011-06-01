@@ -1,10 +1,10 @@
 #ifndef FRUITCUT_SANDBOX_SPLAT_COLLECTOR_HPP_INCLUDED
 #define FRUITCUT_SANDBOX_SPLAT_COLLECTOR_HPP_INCLUDED
 
-#include "../../particle/sprite/system.hpp"
-#include "../../particle/sprite/object.hpp"
-#include "../../particle/sprite/parameters.hpp"
-#include "../../pp/screen_vf/quad.hpp"
+#include "../../fruitlib/particle/sprite/system.hpp"
+#include "../../fruitlib/particle/sprite/object.hpp"
+#include "../../fruitlib/particle/sprite/parameters.hpp"
+#include "../../fruitlib/pp/screen_vf/quad.hpp"
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/sprite/object_impl.hpp>
 #include <sge/sprite/intrusive/system_impl.hpp>
@@ -32,7 +32,7 @@ public:
 
 	void
 	insert(
-		particle::sprite::parameters);
+		fruitlib::particle::sprite::parameters);
 
 	void
 	update();
@@ -40,7 +40,7 @@ public:
 	~splat_collector();
 private:
 	typedef
-	std::vector<particle::sprite::object>
+	std::vector<fruitlib::particle::sprite::object>
 	sprite_sequence;
 
 	sge::renderer::device &renderer_;
@@ -49,11 +49,11 @@ private:
 	// texture and the new sprites
 	sge::renderer::texture::planar_ptr texture_,temp_texture_;
 	sge::renderer::target_ptr texture_target_,temp_texture_target_;
-	particle::sprite::system ss_;
-	particle::sprite::object background_;
+	fruitlib::particle::sprite::system ss_;
+	fruitlib::particle::sprite::object background_;
 	sprite_sequence sprites_;
 	sge::shader::object copy_shader_;
-	pp::screen_vf::quad quad_;
+	fruitlib::pp::screen_vf::quad quad_;
 };
 }
 }

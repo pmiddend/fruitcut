@@ -12,8 +12,8 @@
 #include "object_sequence.hpp"
 #include "object_fwd.hpp"
 #include "plane.hpp"
-#include "../../scenic/nodes/intrusive.hpp"
-#include "../../physics/world_fwd.hpp"
+#include "../../fruitlib/scenic/nodes/intrusive.hpp"
+#include "../../fruitlib/physics/world_fwd.hpp"
 #include <sge/image2d/multi_loader_fwd.hpp>
 #include <sge/model/loader_fwd.hpp>
 #include <sge/parse/json/array_fwd.hpp>
@@ -42,7 +42,7 @@ namespace fruit
  */
 class manager
 :
-	public scenic::nodes::intrusive
+	public fruitlib::scenic::nodes::intrusive
 {
 FCPPT_NONCOPYABLE(
 	manager);
@@ -53,7 +53,7 @@ public:
 		sge::model::loader &model_loader,
 		sge::image2d::multi_loader &image_loader,
 		sge::renderer::device &renderer,
-		physics::world &,
+		fruitlib::physics::world &,
 		sge::camera::object &);
 
 	// cut_fruit gets a duration indicating how long the new fruits are
@@ -63,17 +63,17 @@ public:
 	cut(
 		object const &,
 		plane const &,
-		physics::vector3 const &,
+		fruitlib::physics::vector3 const &,
 		sge::time::duration const &,
 		sge::time::callback const &);
 
 	void
 	spawn(
 		prototype const &proto,
-		physics::scalar const mass,
-		physics::vector3 const &position,
-		physics::vector3 const &linear_velocity,
-		physics::vector3 const &angular_velocity);
+		fruitlib::physics::scalar const mass,
+		fruitlib::physics::vector3 const &position,
+		fruitlib::physics::vector3 const &linear_velocity,
+		fruitlib::physics::vector3 const &angular_velocity);
 
 	object_sequence const &
 	fruits() const;
@@ -98,7 +98,7 @@ private:
 	sge::renderer::device &renderer_;
 	sge::camera::object &camera_;
 	sge::renderer::vertex_declaration_ptr vertex_declaration_;
-	physics::world &physics_world_;
+	fruitlib::physics::world &physics_world_;
 	prototype_sequence prototypes_;
 	object_sequence fruits_; 
 	sge::shader::object fruit_shader_;

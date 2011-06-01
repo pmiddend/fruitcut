@@ -1,8 +1,8 @@
 #ifndef FRUITCUT_APP_LOGO_HPP_INCLUDED
 #define FRUITCUT_APP_LOGO_HPP_INCLUDED
 
-#include "../scenic/nodes/intrusive.hpp"
-#include "../animation.hpp"
+#include "../fruitlib/scenic/nodes/intrusive.hpp"
+#include "../fruitlib/animation.hpp"
 #include <sge/sprite/sprite.hpp>
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/viewport/manager_fwd.hpp>
@@ -19,7 +19,7 @@ namespace app
 {
 class logo
 :
-	public scenic::nodes::intrusive
+	public fruitlib::scenic::nodes::intrusive
 {
 FCPPT_NONCOPYABLE(
 	logo);
@@ -74,7 +74,7 @@ private:
 	sprite_parameters;
 
 	typedef
-	animation<sprite_object::color_type>
+	fruitlib::animation<sprite_object::color_type>
 	color_animation;
 
 	sge::renderer::device &renderer_;

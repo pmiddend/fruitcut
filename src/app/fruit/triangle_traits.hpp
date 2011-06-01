@@ -2,14 +2,16 @@
 #define FRUITCUT_APP_FRUIT_TRIANGLE_TRAITS_HPP_INCLUDED
 
 #include "triangle.hpp"
-#include "../../math/triangle/vector_type.hpp"
-#include "../../math/triangle/interpolation_pair.hpp"
-#include "../../math/triangle/vertex_access.hpp"
-#include "../../math/triangle/scalar_type.hpp"
-#include "../../math/triangle/create_from_interpolation.hpp"
-#include "../../math/triangle/size_type.hpp"
+#include "../../fruitlib/math/triangle/vector_type.hpp"
+#include "../../fruitlib/math/triangle/interpolation_pair.hpp"
+#include "../../fruitlib/math/triangle/vertex_access.hpp"
+#include "../../fruitlib/math/triangle/scalar_type.hpp"
+#include "../../fruitlib/math/triangle/create_from_interpolation.hpp"
+#include "../../fruitlib/math/triangle/size_type.hpp"
 
 namespace fruitcut
+{
+namespace fruitlib
 {
 namespace math
 {
@@ -37,7 +39,7 @@ struct vertex_access<fruitcut::app::fruit::triangle>
 	static fruitcut::app::fruit::triangle::vector const &
 	get(
 		fruitcut::app::fruit::triangle const &t,
-		math::triangle::size_type const n)
+		fruitlib::math::triangle::size_type const n)
 	{
 		return t.vertices[n];
 	}
@@ -49,9 +51,9 @@ struct create_from_interpolation<fruitcut::app::fruit::triangle>
 	static fruitcut::app::fruit::triangle const
 	create(
 		fruitcut::app::fruit::triangle const &input,
-		math::triangle::interpolation_pair<fruitcut::app::fruit::triangle> const &a,
-		math::triangle::interpolation_pair<fruitcut::app::fruit::triangle> const &b,
-		math::triangle::interpolation_pair<fruitcut::app::fruit::triangle> const &c)
+		fruitlib::math::triangle::interpolation_pair<fruitcut::app::fruit::triangle> const &a,
+		fruitlib::math::triangle::interpolation_pair<fruitcut::app::fruit::triangle> const &b,
+		fruitlib::math::triangle::interpolation_pair<fruitcut::app::fruit::triangle> const &c)
 	{
 		fruitcut::app::fruit::triangle result;
 		result.vertices[0] = a.value() * input.vertices[a.index1()] + (1-a.value()) * input.vertices[a.index2()];
@@ -63,6 +65,7 @@ struct create_from_interpolation<fruitcut::app::fruit::triangle>
 		return result;
 	}
 };
+}
 }
 }
 }

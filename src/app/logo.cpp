@@ -1,7 +1,7 @@
 #include "logo.hpp"
-#include "../json/find_member.hpp"
-#include "../json/parse_animation.hpp"
-#include "../json/parse_color.hpp"
+#include "../fruitlib/json/find_member.hpp"
+#include "../fruitlib/json/parse_animation.hpp"
+#include "../fruitlib/json/parse_color.hpp"
 #include "../media_path.hpp"
 #include <sge/viewport/manager.hpp>
 #include <sge/image2d/image2d.hpp>
@@ -40,7 +40,7 @@ fruitcut::app::logo::logo(
 							media_path() 
 							/ FCPPT_TEXT("textures") 
 							/ 
-								json::find_member<fcppt::string>(
+								fruitlib::json::find_member<fcppt::string>(
 									_config_file,
 									FCPPT_TEXT("textures/logo")))->view(),
 						sge::renderer::texture::filter::linear,
@@ -57,11 +57,11 @@ fruitcut::app::logo::logo(
 				&logo::viewport_change,
 				this))),
 	color_animation_(
-		json::parse_animation<color_animation>(
-			json::find_member<sge::parse::json::array>(
+		fruitlib::json::parse_animation<color_animation>(
+			fruitlib::json::find_member<sge::parse::json::array>(
 				_config_file,
 				FCPPT_TEXT("intro/logo-animation")),
-			&json::parse_color<sprite_object::color_type>))
+			&fruitlib::json::parse_color<sprite_object::color_type>))
 {
 	viewport_change();
 }

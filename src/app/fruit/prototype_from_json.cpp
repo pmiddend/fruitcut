@@ -1,7 +1,7 @@
 #include "prototype_from_json.hpp"
 #include "model_to_mesh.hpp"
 #include "../../media_path.hpp"
-#include "../../json/find_member.hpp"
+#include "../../fruitlib/json/find_member.hpp"
 #include <sge/parse/json/json.hpp>
 #include <sge/model/loader.hpp>
 #include <sge/image2d/multi_loader.hpp>
@@ -31,7 +31,7 @@ fruitcut::app::fruit::prototype_from_json(
 						/ FCPPT_TEXT("models")
 						/ FCPPT_TEXT("fruits")
 						/
-							json::find_member<fcppt::string>(
+							fruitlib::json::find_member<fcppt::string>(
 								o,
 								FCPPT_TEXT("model")))),
 			sge::renderer::texture::create_planar_from_view(
@@ -41,7 +41,7 @@ fruitcut::app::fruit::prototype_from_json(
 						/ FCPPT_TEXT("textures")
 						/ FCPPT_TEXT("fruits")
 						/
-							json::find_member<fcppt::string>(
+							fruitlib::json::find_member<fcppt::string>(
 								o,
 								FCPPT_TEXT("texture")))->view(),
 				sge::renderer::texture::filter::trilinear,

@@ -1,7 +1,7 @@
 #ifndef FRUITCUT_APP_BACKGROUND_HPP_INCLUDED
 #define FRUITCUT_APP_BACKGROUND_HPP_INCLUDED
 
-#include "../scenic/nodes/intrusive.hpp"
+#include "../fruitlib/scenic/nodes/intrusive.hpp"
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/scalar.hpp>
 #include <sge/renderer/vertex_buffer_ptr.hpp>
@@ -23,7 +23,7 @@ namespace app
 // c) it has additional logic (splatting!)
 class background
 :
-	public scenic::nodes::intrusive
+	public fruitlib::scenic::nodes::intrusive
 {
 FCPPT_NONCOPYABLE(
 	background);

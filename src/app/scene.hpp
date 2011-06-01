@@ -2,7 +2,7 @@
 #define FRUITCUT_APP_SCENE_HPP_INCLUDED
 
 #include "postprocessing.hpp"
-#include "../scenic/nodes/intrusive_group.hpp"
+#include "../fruitlib/scenic/nodes/intrusive_group.hpp"
 #include <sge/systems/instance_fwd.hpp>
 #include <sge/console/object_fwd.hpp>
 #include <sge/parse/json/object_fwd.hpp>
@@ -17,7 +17,7 @@ namespace app
 // children if active_ is true.
 class scene
 :
-	public scenic::nodes::intrusive_group
+	public fruitlib::scenic::nodes::intrusive_group
 {
 public:
 	explicit

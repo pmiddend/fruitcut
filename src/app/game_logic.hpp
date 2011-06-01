@@ -6,9 +6,9 @@
 #include "fruit/object_fwd.hpp"
 #include "fruit/cut_context_fwd.hpp"
 #include "fruit/area.hpp"
-#include "../font/intrusive_scene_node.hpp"
-#include "../font/cache_fwd.hpp"
-#include "../scenic/nodes/intrusive.hpp"
+#include "../fruitlib/font/intrusive_scene_node.hpp"
+#include "../fruitlib/font/cache_fwd.hpp"
+#include "../fruitlib/scenic/nodes/intrusive.hpp"
 #include "score.hpp"
 #include <sge/parse/json/object_fwd.hpp>
 #include <sge/renderer/scalar.hpp>
@@ -25,7 +25,7 @@ namespace app
 {
 class game_logic
 :
-	public scenic::nodes::intrusive
+	public fruitlib::scenic::nodes::intrusive
 {
 FCPPT_NONCOPYABLE(
 	game_logic);
@@ -40,7 +40,7 @@ public:
 		// - "fruit was deleted" 
 		// - "fruit was added" (we could consult the spawner for that, but that's not The Right Thing)
 		fruit::manager &,
-		font::cache &,
+		fruitlib::font::cache &,
 		overlay &,
 		sge::renderer::device &,
 		sge::viewport::manager &);
@@ -59,8 +59,8 @@ private:
 		fruit_cut_connection_,
 		fruit_removed_connection_,
 		viewport_changed_connection_;
-	font::intrusive_scene_node score_font_node_;
-	font::intrusive_scene_node timer_font_node_;
+	fruitlib::font::intrusive_scene_node score_font_node_;
+	fruitlib::font::intrusive_scene_node timer_font_node_;
 	sge::time::timer score_increase_timer_;
 	sge::renderer::device &renderer_;
 

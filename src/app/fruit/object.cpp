@@ -4,10 +4,10 @@
 #include "object_parameters.hpp"
 #include "mesh_to_shape.hpp"
 #include "box3.hpp"
-#include "../../geometry_traits/box.hpp"
-#include "../../geometry_traits/vector.hpp"
-#include "../../physics/rigid_body/parameters.hpp"
-#include "../../physics/world_fwd.hpp"
+#include "../../fruitlib/geometry_traits/box.hpp"
+#include "../../fruitlib/geometry_traits/vector.hpp"
+#include "../../fruitlib/physics/rigid_body/parameters.hpp"
+#include "../../fruitlib/physics/world_fwd.hpp"
 #include <sge/time/activation_state.hpp>
 #include <sge/renderer/matrix4.hpp>
 #include <sge/renderer/vector3.hpp>
@@ -28,7 +28,7 @@ fruitcut::app::fruit::object::object(
 	splatter_color_(
 		p.splatter_color()),
 	body_(
-		physics::rigid_body::parameters(
+		fruitlib::physics::rigid_body::parameters(
 			p.physics_world(),
 			p.position(),
 			p.transformation(),
@@ -36,7 +36,7 @@ fruitcut::app::fruit::object::object(
 			p.angular_velocity(),
 			fruit::mesh_to_shape(
 				mesh_),
-			physics::rigid_body::solidity::solid,
+			fruitlib::physics::rigid_body::solidity::solid,
 			p.mass())),
 	vb_(
 		fruit::mesh_to_vertex_buffer(
@@ -80,7 +80,7 @@ fruitcut::app::fruit::object::world_transform() const
 			body_.world_transform());
 }
 
-fruitcut::physics::rigid_body::object const &
+fruitcut::fruitlib::physics::rigid_body::object const &
 fruitcut::app::fruit::object::body() const
 {
 	return 

@@ -2,7 +2,7 @@
 #define FRUITCUT_APP_FRUIT_POINT_CLOUD_HPP_INCLUDED
 
 #include "triangle.hpp"
-#include "../../geometry_traits/vector.hpp"
+#include "../../fruitlib/geometry_traits/vector.hpp"
 #include <boost/geometry/geometry.hpp>
 #include <boost/geometry/multi/geometries/multi_point.hpp>
 #include <boost/geometry/multi/multi.hpp>

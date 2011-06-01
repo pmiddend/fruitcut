@@ -2,10 +2,10 @@
 #define FRUITCUT_APP_FRUIT_OBJECT_PARAMETERS_HPP_INCLUDED
 
 #include "mesh.hpp"
-#include "../../physics/scalar.hpp"
-#include "../../physics/world_fwd.hpp"
-#include "../../physics/vector3.hpp"
-#include "../../physics/matrix4.hpp"
+#include "../../fruitlib/physics/scalar.hpp"
+#include "../../fruitlib/physics/world_fwd.hpp"
+#include "../../fruitlib/physics/vector3.hpp"
+#include "../../fruitlib/physics/matrix4.hpp"
 #include <sge/renderer/texture/planar_ptr.hpp>
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/vertex_declaration_fwd.hpp>
@@ -34,16 +34,16 @@ public:
 	object_parameters(
 		sge::renderer::texture::planar_ptr const _texture,
 		sge::image::color::any::object const _splatter_color,
-		physics::world &_world,
+		fruitlib::physics::world &_world,
 		sge::renderer::device &_renderer,
 		sge::renderer::vertex_declaration &_vertex_declaration,
 		sge::shader::object &_shader,
 		fruitcut::app::fruit::mesh const &_mesh,
-		physics::scalar const _mass,
-		physics::vector3 const &_position,
-		physics::matrix4 const &_transformation,
-		physics::vector3 const &_linear_velocity,
-		physics::vector3 const &_angular_velocity,
+		fruitlib::physics::scalar const _mass,
+		fruitlib::physics::vector3 const &_position,
+		fruitlib::physics::matrix4 const &_transformation,
+		fruitlib::physics::vector3 const &_linear_velocity,
+		fruitlib::physics::vector3 const &_angular_velocity,
 		sge::time::duration const &_lock_duration,
 		sge::time::callback const &_timer_callback);
 
@@ -53,7 +53,7 @@ public:
 	sge::image::color::any::object const &
 	splatter_color() const;
 
-	physics::world &
+	fruitlib::physics::world &
 	physics_world() const;
 
 	sge::renderer::device &
@@ -68,19 +68,19 @@ public:
 	fruitcut::app::fruit::mesh const &
 	mesh() const;
 
-	physics::scalar 
+	fruitlib::physics::scalar 
 	mass() const;
 
-	physics::vector3 const &
+	fruitlib::physics::vector3 const &
 	position() const;
 
-	physics::matrix4 const &
+	fruitlib::physics::matrix4 const &
 	transformation() const;
 
-	physics::vector3 const &
+	fruitlib::physics::vector3 const &
 	linear_velocity() const;
 
-	physics::vector3 const &
+	fruitlib::physics::vector3 const &
 	angular_velocity() const;
 
 	sge::time::duration const &
@@ -91,16 +91,16 @@ public:
 private:
 	sge::renderer::texture::planar_ptr const texture_;
 	sge::image::color::any::object const splatter_color_;
-	physics::world &world_;
+	fruitlib::physics::world &world_;
 	sge::renderer::device &renderer_;
 	sge::renderer::vertex_declaration &vertex_declaration_;
 	sge::shader::object &shader_;
 	fruitcut::app::fruit::mesh const mesh_;
-	physics::scalar const mass_;
-	physics::vector3 const position_;
-	physics::matrix4 const transformation_;
-	physics::vector3 const linear_velocity_;
-	physics::vector3 const angular_velocity_;
+	fruitlib::physics::scalar const mass_;
+	fruitlib::physics::vector3 const position_;
+	fruitlib::physics::matrix4 const transformation_;
+	fruitlib::physics::vector3 const linear_velocity_;
+	fruitlib::physics::vector3 const angular_velocity_;
 	sge::time::duration const lock_duration_;
 	sge::time::callback const timer_callback_;
 };

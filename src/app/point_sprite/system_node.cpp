@@ -1,11 +1,11 @@
 #include "system_node.hpp"
+#include "../exception.hpp"
 #include "../../media_path.hpp"
-#include "../../exception.hpp"
-#include "../../uniform_random.hpp"
-#include "../../create_rng.hpp"
-#include "../../resource_tree/from_directory_tree.hpp"
-#include "../../resource_tree/navigate_to_path.hpp"
-#include "../../resource_tree/path.hpp"
+#include "../../fruitlib/uniform_random.hpp"
+#include "../../fruitlib/create_rng.hpp"
+#include "../../fruitlib/resource_tree/from_directory_tree.hpp"
+#include "../../fruitlib/resource_tree/navigate_to_path.hpp"
+#include "../../fruitlib/resource_tree/path.hpp"
 #include <sge/camera/object.hpp>
 #include <sge/image2d/file.hpp>
 #include <sge/image2d/multi_loader.hpp>
@@ -40,12 +40,12 @@
 
 namespace
 {
-fruitcut::uniform_random<std::size_t>::type const
+fruitcut::fruitlib::uniform_random<std::size_t>::type const
 create_random_from_directory(
 	fcppt::filesystem::path const &p)
 {
 	return 
-		fruitcut::uniform_random<std::size_t>::type(
+		fruitcut::fruitlib::uniform_random<std::size_t>::type(
 			fcppt::random::make_last_exclusive_range(
 				static_cast<std::size_t>(
 					0),
@@ -54,12 +54,11 @@ create_random_from_directory(
 						fcppt::filesystem::directory_iterator(
 							p),
 						fcppt::filesystem::directory_iterator()))),
-				fruitcut::create_rng());
+				fruitcut::fruitlib::create_rng());
 }
 
 sge::texture::part_ptr const
 create_part_from_file(
-	sge::renderer::device &renderer,
 	sge::image2d::multi_loader &image_loader,
 	sge::texture::manager &texture_manager,
 	fcppt::filesystem::path const &p)
@@ -105,12 +104,10 @@ fruitcut::app::point_sprite::system_node::system_node(
 		renderer_),
 	children_(),
 	textures_(
-		fruitcut::resource_tree::from_directory_tree<resource_tree_type>(
+		fruitlib::resource_tree::from_directory_tree<resource_tree_type>(
 			_base_path,
 			std::tr1::bind(
 				&create_part_from_file,
-				fcppt::ref(
-					_renderer),
 				fcppt::ref(
 					_image_loader),
 				fcppt::ref(
@@ -158,10 +155,10 @@ fruitcut::app::point_sprite::system_node::system() const
 
 sge::texture::part_ptr const
 fruitcut::app::point_sprite::system_node::lookup_texture(
-	resource_tree::path const &target_path)
+	fruitlib::resource_tree::path const &target_path)
 {
 	resource_tree_type &target_tree =
-		resource_tree::navigate_to_path(
+		fruitlib::resource_tree::navigate_to_path(
 			*textures_,
 			target_path);
 
@@ -176,7 +173,7 @@ fruitcut::app::point_sprite::system_node::lookup_texture(
 				target_tree.value().node_value()()));
 
 	if(!target_file.value().is_leaf())
-		throw fruitcut::exception(FCPPT_TEXT("The argument to lookup_texture() must be either a file or a directory containing just files!\nThat was not the case for: ")+target_path.string());
+		throw app::exception(FCPPT_TEXT("The argument to lookup_texture() must be either a file or a directory containing just files!\nThat was not the case for: ")+target_path.string());
 
 	return 
 		target_file.value().leaf_value();

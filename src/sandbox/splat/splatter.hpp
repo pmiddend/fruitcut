@@ -3,8 +3,8 @@
 
 #include "splat_collector.hpp"
 #include "splat_particle.hpp"
-#include "../../particle/sprite/system.hpp"
-#include "../../particle/sprite/object.hpp"
+#include "../../fruitlib/particle/sprite/system.hpp"
+#include "../../fruitlib/particle/sprite/object.hpp"
 #include <sge/sprite/object_impl.hpp>
 #include <sge/sprite/intrusive/system_impl.hpp>
 #include <sge/renderer/device_fwd.hpp>
@@ -52,9 +52,9 @@ private:
 	particle_list;
 
 	splat_collector splat_collector_;
-	particle::sprite::system ss_;
-	particle::sprite::object cursor_;
-	particle::sprite::object canvas_;
+	fruitlib::particle::sprite::system ss_;
+	fruitlib::particle::sprite::object cursor_;
+	fruitlib::particle::sprite::object canvas_;
 	texture_vector textures_;
 	fcppt::random::uniform<texture_vector::size_type> texture_rng_;
 	fcppt::random::uniform<double> color_rng_;
@@ -64,7 +64,7 @@ private:
 	fcppt::random::uniform<sge::time::funit> lifetime_rng_;
 	fcppt::signal::scoped_connection move_connection_,click_connection_;
 	particle_list particles_;
-	particle::sprite::object::vector first_position_;
+	fruitlib::particle::sprite::object::vector first_position_;
 
 	void
 	click_callback(

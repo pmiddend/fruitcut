@@ -11,9 +11,9 @@
 #include "../../events/tick.hpp"
 #include "../../events/render.hpp"
 #include "../../events/render_overlay.hpp"
-#include "../../../json/find_member.hpp"
-#include "../../../math/multiply_matrix4_vector3.hpp"
-#include "../../../resource_tree/path.hpp"
+#include "../../../fruitlib/json/find_member.hpp"
+#include "../../../fruitlib/math/multiply_matrix4_vector3.hpp"
+#include "../../../fruitlib/resource_tree/path.hpp"
 #include <sge/line_drawer/scoped_lock.hpp>
 #include <sge/line_drawer/render_to_screen.hpp>
 #include <sge/viewport/manager.hpp>
@@ -64,10 +64,10 @@ fruitcut::app::states::ingame::running::running(
 	cursor_trail_(
 		context<machine>().systems().cursor_demuxer(),
 		sge::time::millisecond(
-			json::find_member<sge::time::unit>(
+			fruitlib::json::find_member<sge::time::unit>(
 				context<machine>().config_file(),
 				FCPPT_TEXT("mouse/trail-update-rate-ms"))),
-		json::find_member<cursor_trail::size_type>(
+		fruitlib::json::find_member<fruitlib::cursor_trail::size_type>(
 				context<machine>().config_file(),
 				FCPPT_TEXT("mouse/trail-samples")),
 		context<machine>().systems().renderer().onscreen_target()),
@@ -77,7 +77,7 @@ fruitcut::app::states::ingame::running::running(
 		std::tr1::bind(
 			&running::update,
 			this),
-		scenic::nodes::intrusive_with_callbacks::render_callback()),
+		fruitlib::scenic::nodes::intrusive_with_callbacks::render_callback()),
 	viewport_change_connection_(
 		context<machine>().systems().viewport_manager().manage_callback(
 			std::tr1::bind(
@@ -86,16 +86,16 @@ fruitcut::app::states::ingame::running::running(
 	fruit_spawned_connection_(
 		context<superstate>().fruit_spawner().spawn_callback(
 			std::tr1::bind(
-				&audio::sound_controller::play,
+				&fruitlib::audio::sound_controller::play,
 				&context<machine>().sound_controller(),
-				resource_tree::path(
+				fruitlib::resource_tree::path(
 					FCPPT_TEXT("fruit_was_spawned"))))),
 	draw_mouse_trail_(
-		json::find_member<bool>(
+		fruitlib::json::find_member<bool>(
 			context<machine>().config_file(),
 			FCPPT_TEXT("ingame/draw-mouse-trail"))),
 	draw_bbs_(
-		json::find_member<bool>(
+		fruitlib::json::find_member<bool>(
 			context<machine>().config_file(),
 			FCPPT_TEXT("ingame/draw-bbs")))
 {
@@ -211,7 +211,7 @@ fruitcut::app::states::ingame::running::draw_mouse_trail(
 		return;
 
 	for(
-		cursor_trail::position_buffer::const_iterator i = 
+		fruitlib::cursor_trail::position_buffer::const_iterator i = 
 			cursor_trail_.positions().begin(); 
 		i != boost::prior(cursor_trail_.positions().end()); 
 		++i)
@@ -310,7 +310,7 @@ fruitcut::app::states::ingame::running::process_fruit(
 		// NOTE: For rotation matrices M and vectors a,b the following holds:
 		// cross(M*a,M*b) = M*cross(a,b)
 		plane_normal = 
-			math::multiply_matrix4_vector3(
+			fruitlib::math::multiply_matrix4_vector3(
 				fcppt::math::matrix::transpose(
 					current_fruit.rotation()),
 				fcppt::math::vector::cross(
@@ -319,7 +319,7 @@ fruitcut::app::states::ingame::running::process_fruit(
 
 	sge::renderer::scalar const plane_scalar = 
 		fcppt::math::vector::dot(
-			math::multiply_matrix4_vector3(
+			fruitlib::math::multiply_matrix4_vector3(
 				fcppt::math::matrix::transpose(
 					current_fruit.rotation()),
 				point1_unprojected - current_fruit.position()),

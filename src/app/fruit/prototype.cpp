@@ -1,7 +1,7 @@
 #include "prototype.hpp"
 #include "mesh_to_point_cloud.hpp"
-#include "../../geometry_traits/box.hpp"
-#include "../../average_colors.hpp"
+#include "../../fruitlib/geometry_traits/box.hpp"
+#include "../../fruitlib/average_colors.hpp"
 #include <sge/image2d/view/sub.hpp>
 #include <sge/image2d/rect.hpp>
 #include <sge/image2d/dim.hpp>
@@ -27,7 +27,7 @@ fruitcut::app::fruit::prototype::prototype(
 	texture_(
 		_texture),
 	splatter_color_(
-		fruitcut::average_colors(
+		fruitlib::average_colors(
 			sge::image2d::view::to_const(
 				sge::image2d::view::sub(
 					sge::renderer::texture::scoped_planar_lock(

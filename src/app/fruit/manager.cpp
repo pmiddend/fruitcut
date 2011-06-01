@@ -2,12 +2,12 @@
 #include "cut_mesh.hpp"
 #include "manager.hpp"
 #include "prototype_from_json.hpp"
-#include "../../json/find_member.hpp"
-#include "../../math/multiply_matrix4_vector3.hpp"
-#include "../../math/plane/basic.hpp"
-#include "../../math/plane/distance_to_point.hpp"
-#include "../../math/plane/normalize.hpp"
-#include "../../math/box_radius.hpp"
+#include "../../fruitlib/json/find_member.hpp"
+#include "../../fruitlib/math/multiply_matrix4_vector3.hpp"
+#include "../../fruitlib/math/plane/basic.hpp"
+#include "../../fruitlib/math/plane/distance_to_point.hpp"
+#include "../../fruitlib/math/plane/normalize.hpp"
+#include "../../fruitlib/math/box_radius.hpp"
 #include "../../media_path.hpp"
 #include "mesh.hpp"
 #include "model_vf/format.hpp"
@@ -58,7 +58,7 @@ fruitcut::app::fruit::manager::manager(
 	sge::model::loader &model_loader,
 	sge::image2d::multi_loader &image_loader,
 	sge::renderer::device &_renderer,
-	physics::world &_physics_world,
+	fruitlib::physics::world &physics_world,
 	sge::camera::object &_camera)
 :
 	renderer_(
@@ -69,7 +69,7 @@ fruitcut::app::fruit::manager::manager(
 		renderer_.create_vertex_declaration(
 			sge::renderer::vf::dynamic::make_format<model_vf::format>())),
 	physics_world_(
-		_physics_world),
+		physics_world),
 	prototypes_(
 		fcppt::algorithm::map<prototype_sequence>(
 			prototype_array.elements,
@@ -110,7 +110,7 @@ void
 fruitcut::app::fruit::manager::cut(
 	fruit::object const &current_fruit,
 	plane const &original_plane,
-	physics::vector3 const &cut_direction,
+	fruitlib::physics::vector3 const &cut_direction,
 	sge::time::duration const &lock_duration,
 	sge::time::callback const &time_callback)
 {
@@ -170,21 +170,21 @@ fruitcut::app::fruit::manager::cut(
 					*vertex_declaration_,
 					fruit_shader_,
 					cut_result->mesh(),
-					static_cast<physics::scalar>(
+					static_cast<fruitlib::physics::scalar>(
 						current_fruit.bounding_box().size().content() / cut_result->bounding_box().size().content()),
 					current_fruit.position() + 
-						math::multiply_matrix4_vector3(
+						fruitlib::math::multiply_matrix4_vector3(
 							current_fruit.body().transformation(),
-							fcppt::math::vector::structure_cast<physics::vector3>(
+							fcppt::math::vector::structure_cast<fruitlib::physics::vector3>(
 								cut_result->barycenter())),
 					current_fruit.body().transformation(),
 					current_fruit.body().linear_velocity() + 
-						(static_cast<physics::scalar>(0.125) * 
+						(static_cast<fruitlib::physics::scalar>(0.125) * 
 							fcppt::math::vector::length(
 								current_fruit.body().linear_velocity()) * 
-							math::multiply_matrix4_vector3(
+							fruitlib::math::multiply_matrix4_vector3(
 								current_fruit.body().transformation(),
-								fcppt::math::vector::structure_cast<physics::vector3>(
+								fcppt::math::vector::structure_cast<fruitlib::physics::vector3>(
 									p->normal()))),
 					current_fruit.body().angular_velocity(),
 					lock_duration,
@@ -214,10 +214,10 @@ fruitcut::app::fruit::manager::cut(
 void
 fruitcut::app::fruit::manager::spawn(
 	prototype const &proto,
-	physics::scalar const mass,
-	physics::vector3 const &position,
-	physics::vector3 const &linear_velocity,
-	physics::vector3 const &angular_velocity)
+	fruitlib::physics::scalar const mass,
+	fruitlib::physics::vector3 const &position,
+	fruitlib::physics::vector3 const &linear_velocity,
+	fruitlib::physics::vector3 const &angular_velocity)
 {
 	fruits_.push_back(
 		fcppt::make_unique_ptr<object>(
@@ -230,7 +230,7 @@ fruitcut::app::fruit::manager::spawn(
 				mass,
 				position,
 				// I don't see any sense in specifying that here
-				physics::matrix4::identity(),
+				fruitlib::physics::matrix4::identity(),
 				linear_velocity,
 				angular_velocity)));
 
@@ -285,7 +285,7 @@ void
 fruitcut::app::fruit::manager::delete_distant_fruits()
 {
 	typedef
-	math::plane::basic<sge::renderer::scalar,3>
+	fruitlib::math::plane::basic<sge::renderer::scalar,3>
 	plane_type;
 
 	sge::renderer::matrix4 const mvp =  
@@ -306,7 +306,7 @@ fruitcut::app::fruit::manager::delete_distant_fruits()
 			fourth_row - second_row;
 
 	plane_type const bottom_plane = 
-		math::plane::normalize(
+		fruitlib::math::plane::normalize(
 			plane_type(
 				sge::renderer::vector3(
 					plane_vec4[0],
@@ -317,10 +317,10 @@ fruitcut::app::fruit::manager::delete_distant_fruits()
 	for(object_sequence::iterator i = fruits_.begin(); i != fruits_.end(); ++i)
 	{
 		if(
-			math::plane::distance_to_point(bottom_plane,i->position()) > 
+			fruitlib::math::plane::distance_to_point(bottom_plane,i->position()) > 
 			// This 2 is important here. If it weren't there, we would delete fruits which were just spawned.
 			static_cast<sge::renderer::scalar>(2) * 
-			math::box_radius(
+			fruitlib::math::box_radius(
 				i->bounding_box()))
 		{
 			remove_signal_(

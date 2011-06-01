@@ -1,13 +1,13 @@
 #include "spawner.hpp"
 #include "manager.hpp"
-#include "../../physics/scalar.hpp"
-#include "../../physics/vector3.hpp"
-#include "../../physics/matrix4.hpp"
-#include "../../create_rng.hpp"
-#include "../../json/find_member.hpp"
-#include "../../json/parse_random_inclusive_range.hpp"
-#include "../../math/box_radius.hpp"
-#include "../../math/view_plane_rect.hpp"
+#include "../../fruitlib/physics/scalar.hpp"
+#include "../../fruitlib/physics/vector3.hpp"
+#include "../../fruitlib/physics/matrix4.hpp"
+#include "../../fruitlib/create_rng.hpp"
+#include "../../fruitlib/json/find_member.hpp"
+#include "../../fruitlib/json/parse_random_inclusive_range.hpp"
+#include "../../fruitlib/math/box_radius.hpp"
+#include "../../fruitlib/math/view_plane_rect.hpp"
 #include <sge/time/funit.hpp>
 #include <sge/time/duration.hpp>
 #include <sge/time/second_f.hpp>
@@ -31,8 +31,8 @@
 
 
 #include <sge/renderer/vector4.hpp>
-#include "../../math/plane/normalize.hpp"
-#include "../../math/plane/basic.hpp"
+#include "../../fruitlib/math/plane/normalize.hpp"
+#include "../../fruitlib/math/plane/basic.hpp"
 
 fruitcut::app::fruit::spawner::spawner(
 	manager &_manager,
@@ -45,39 +45,41 @@ fruitcut::app::fruit::spawner::spawner(
 	camera_(
 		_camera),
 	seconds_rng_(
-		json::parse_random_inclusive_range<physics::scalar>(
- 			json::find_member<sge::parse::json::array>(
+		fruitlib::json::parse_random_inclusive_range<fruitlib::physics::scalar>(
+ 			fruitlib::json::find_member<sge::parse::json::array>(
 				_config_file,
 				FCPPT_TEXT("fruit-spawner/spawn-range-seconds"))),
-		create_rng()),
+		fruitlib::create_rng()),
 	prototype_rng_(
 		fcppt::random::make_last_exclusive_range(
 			static_cast<prototype_sequence::size_type>(
 				0),
 			manager_.prototypes().size()),
-		create_rng()),
+		fruitlib::create_rng()),
 	x_rng_(
 		fcppt::random::make_inclusive_range(
- 			static_cast<physics::scalar>(
+ 			static_cast<fruitlib::physics::scalar>(
 				0),
-			static_cast<physics::scalar>(
-				1))),
+			static_cast<fruitlib::physics::scalar>(
+				1)),
+		fruitlib::create_rng()),
 	linear_velocity_rng_(
-		json::parse_random_inclusive_range<physics::scalar>(
- 			json::find_member<sge::parse::json::array>(
+		fruitlib::json::parse_random_inclusive_range<fruitlib::physics::scalar>(
+ 			fruitlib::json::find_member<sge::parse::json::array>(
 				_config_file,
 				FCPPT_TEXT("fruit-spawner/linear-velocity-range"))),
-		create_rng()),
+		fruitlib::create_rng()),
 	angular_velocity_rng_(
-		json::parse_random_inclusive_range<physics::scalar>(
- 			json::find_member<sge::parse::json::array>(
+		fruitlib::json::parse_random_inclusive_range<fruitlib::physics::scalar>(
+ 			fruitlib::json::find_member<sge::parse::json::array>(
 				_config_file,
 				FCPPT_TEXT("fruit-spawner/angular-velocity-range"))),
-		create_rng()),
+		fruitlib::create_rng()),
 	angle_rng_(
 		fcppt::random::make_inclusive_range(
 				0.0f,
-				1.0f)),
+				1.0f),
+		fruitlib::create_rng()),
 	timer_(
 		sge::time::duration(),
 		sge::time::activation_state::inactive,
@@ -123,7 +125,7 @@ fruitcut::app::fruit::spawner::update()
 
 	// zero plane because it's the visible plane located at z = 0
 	scalar_rect const zero_plane(
-		math::view_plane_rect(
+		fruitlib::math::view_plane_rect(
 			camera_.mvp(),
 			camera_.projection_object().get<sge::camera::projection::perspective>()));
 
@@ -136,29 +138,29 @@ fruitcut::app::fruit::spawner::update()
 	prototype const &chosen_prototype = 
 		manager_.prototypes()[prototype_index];
 
-	physics::scalar const x(
+	fruitlib::physics::scalar const x(
 		0.25f +
 		0.5f *
 		x_rng_());
 
 	sge::renderer::scalar const bounding_box_radius = 
-		math::box_radius(
+		fruitlib::math::box_radius(
 			chosen_prototype.bounding_box());
 
-	physics::vector3 const position(
+	fruitlib::physics::vector3 const position(
 		zero_plane.left() + x * zero_plane.size().w(),
 		zero_plane.pos().y() - bounding_box_radius,
 		bounding_box_radius);
 
-	physics::scalar const magnitude = 
+	fruitlib::physics::scalar const magnitude = 
 		linear_velocity_rng_();
 
 	float const min_phi = 
 		std::min( 2.0f * x, 1.0f ) * 0.25f * fcppt::math::pi<float>();
 	float const max_phi =
 		- std::min( 2.0f * (1.0f - x), 1.0f ) * 0.25f * fcppt::math::pi<float>();
-	physics::scalar const phi =
-		static_cast<physics::scalar>(
+	fruitlib::physics::scalar const phi =
+		static_cast<fruitlib::physics::scalar>(
 			angle_rng_() *
 			(
 				max_phi - 
@@ -166,20 +168,20 @@ fruitcut::app::fruit::spawner::update()
 				min_phi +
 				fcppt::math::pi<float>() * 0.5f);
 
-	physics::vector3 const linear_velocity(
+	fruitlib::physics::vector3 const linear_velocity(
 		magnitude * std::cos(phi),
 		magnitude * std::sin(phi),
 		0.f
 		);
 
 	// Could be generated as well, not for now though
-	physics::vector3 const angular_velocity(
+	fruitlib::physics::vector3 const angular_velocity(
 		angular_velocity_rng_(),
 		angular_velocity_rng_(),
 		angular_velocity_rng_());
 
 	// TODO: Read into prototype
-	physics::scalar const mass = 
+	fruitlib::physics::scalar const mass = 
 		100;
 
 	manager_.spawn(

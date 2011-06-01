@@ -9,12 +9,12 @@
 #include "../../fruit/object_fwd.hpp"
 #include "../../fruit/spawner.hpp"
 #include "../../fruit/cut_context_fwd.hpp"
-#include "../../../physics/world.hpp"
-#include "../../../physics/nodes/world.hpp"
-#include "../../../physics/nodes/debugger.hpp"
-#include "../../../physics/null_collision_filter.hpp"
-#include "../../../physics/debugger.hpp"
-#include "../../../input/state.hpp"
+#include "../../../fruitlib/physics/world.hpp"
+#include "../../../fruitlib/physics/nodes/world.hpp"
+#include "../../../fruitlib/physics/nodes/debugger.hpp"
+#include "../../../fruitlib/physics/null_collision_filter.hpp"
+#include "../../../fruitlib/physics/debugger.hpp"
+#include "../../../fruitlib/input/state.hpp"
 #include <sge/time/timer.hpp>
 #include <sge/renderer/device_ptr.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
@@ -39,10 +39,10 @@ public:
 	superstate(
 		my_context);
 
-	physics::world &
+	fruitlib::physics::world &
 	physics_world();
 
-	physics::world const &
+	fruitlib::physics::world const &
 	physics_world() const;
 
 	fruit::manager &
@@ -57,7 +57,7 @@ public:
 	fruit::spawner const &
 	fruit_spawner() const;
 
-	physics::debugger &
+	fruitlib::physics::debugger &
 	physics_debugger();
 
 	fruitcut::app::game_logic &
@@ -70,18 +70,18 @@ public:
 private:
 	fcppt::signal::scoped_connection 
 		toggle_pause_connection_;
-	physics::world physics_world_;
-	physics::nodes::world physics_world_node_;
-	physics::debugger physics_debugger_;
-	physics::nodes::debugger physics_debugger_node_;
+	fruitlib::physics::world physics_world_;
+	fruitlib::physics::nodes::world physics_world_node_;
+	fruitlib::physics::debugger physics_debugger_;
+	fruitlib::physics::nodes::debugger physics_debugger_node_;
 	fcppt::signal::scoped_connection physics_debugger_connection_;
-	physics::null_collision_filter collision_filter_;
+	fruitlib::physics::null_collision_filter collision_filter_;
 	fruit::manager fruit_manager_;
 	fruit::spawner fruit_spawner_;
 	fruitcut::app::game_logic game_logic_;
 	fcppt::signal::scoped_connection cut_connection_;
 	app::splatter_generator splatter_generator_;
-	physics::rigid_body::object background_physics_;
+	fruitlib::physics::rigid_body::object background_physics_;
 
 	void
 	toggle_physics_debugger();

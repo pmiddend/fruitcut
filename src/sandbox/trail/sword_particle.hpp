@@ -1,8 +1,8 @@
 #ifndef FRUITCUT_SANDBOX_SWORD_PARTICLE_HPP_INCLUDED
 #define FRUITCUT_SANDBOX_SWORD_PARTICLE_HPP_INCLUDED
 
-#include "../../particle/sprite/parameters.hpp"
-#include "../../particle/sprite/object.hpp"
+#include "../../fruitlib/particle/sprite/parameters.hpp"
+#include "../../fruitlib/particle/sprite/object.hpp"
 #include <sge/sprite/object_impl.hpp>
 #include <fcppt/chrono/high_resolution_clock.hpp>
 #include <fcppt/chrono/time_point.hpp>
@@ -26,7 +26,7 @@ public:
 
 	explicit
 	sword_particle(
-		particle::sprite::parameters const &,
+		fruitlib::particle::sprite::parameters const &,
 		duration const &life_time);
 
 	void
@@ -37,8 +37,8 @@ public:
 
 	~sword_particle();
 private:
-	particle::sprite::object sprite_;
-	particle::sprite::object::dim const initial_size_;
+	fruitlib::particle::sprite::object sprite_;
+	fruitlib::particle::sprite::object::dim const initial_size_;
 	time_point birth_;
 	duration life_time_;
 };

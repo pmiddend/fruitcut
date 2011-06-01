@@ -1,7 +1,7 @@
 #include "splat_collector.hpp"
-#include "../../particle/sprite/parameters.hpp"
+#include "../../fruitlib/particle/sprite/parameters.hpp"
 #include "../../media_path.hpp"
-#include "../../pp/screen_vf/format.hpp"
+#include "../../fruitlib/pp/screen_vf/format.hpp"
 #include <sge/image/color/format.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/dim2.hpp>
@@ -74,7 +74,7 @@ fruitcut::sandbox::splat_collector::splat_collector(
 	ss_(
 		renderer_),
 	background_(
-		sge::sprite::default_parameters<particle::sprite::choices>()
+		sge::sprite::default_parameters<fruitlib::particle::sprite::choices>()
 			.texture_size()
 			.texture(
 				sge::texture::part_ptr(
@@ -83,7 +83,7 @@ fruitcut::sandbox::splat_collector::splat_collector(
 			.system(
 				&ss_)
 			.repetition(
-				particle::sprite::object::repetition_type(
+				fruitlib::particle::sprite::object::repetition_type(
 					1,
 					1))
 			.elements()),
@@ -91,7 +91,7 @@ fruitcut::sandbox::splat_collector::splat_collector(
 		renderer_,
 		media_path()/FCPPT_TEXT("shaders")/FCPPT_TEXT("copy_vertex.glsl"),
 		media_path()/FCPPT_TEXT("shaders")/FCPPT_TEXT("copy_fragment.glsl"),
-		sge::shader::vf_to_string<pp::screen_vf::format>(),
+		sge::shader::vf_to_string<fruitlib::pp::screen_vf::format>(),
 		fcppt::assign::make_container<sge::shader::variable_sequence>
 			(sge::shader::variable(
 				"target_size",
@@ -122,10 +122,10 @@ fruitcut::sandbox::splat_collector::texture()
 
 void
 fruitcut::sandbox::splat_collector::insert(
-	particle::sprite::parameters params)
+	fruitlib::particle::sprite::parameters params)
 {
 	sprites_.push_back(
-		particle::sprite::object(
+		fruitlib::particle::sprite::object(
 			params.system(
 				&ss_).elements()));
 }

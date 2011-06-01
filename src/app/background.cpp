@@ -1,7 +1,7 @@
 #include "background.hpp"
 #include "../media_path.hpp"
-#include "../json/find_member.hpp"
-#include "../math/view_plane_rect.hpp"
+#include "../fruitlib/json/find_member.hpp"
+#include "../fruitlib/math/view_plane_rect.hpp"
 #include <sge/image2d/file.hpp>
 #include <sge/image2d/multi_loader.hpp>
 #include <sge/parse/json/json.hpp>
@@ -120,7 +120,7 @@ fruitcut::app::background::background(
 					/ 
 						FCPPT_TEXT("textures")
 					/ 
-						json::find_member<fcppt::string>(
+						fruitlib::json::find_member<fcppt::string>(
 							_config,
 							FCPPT_TEXT("textures/background")))->view(),
 			sge::renderer::texture::filter::linear,
@@ -152,7 +152,7 @@ fruitcut::app::background::background(
 				"tex",
 				texture_))),
 	reps_(
-		json::find_member<sge::renderer::scalar>(
+		fruitlib::json::find_member<sge::renderer::scalar>(
 			_config,
 			FCPPT_TEXT("background-repeat")))
 {
@@ -172,7 +172,7 @@ fruitcut::app::background::viewport_changed()
 
 	// zero plane because it's the visible plane located at z = 0
 	scalar_rect const zero_plane(
-		math::view_plane_rect(
+		fruitlib::math::view_plane_rect(
 			camera_.mvp(),
 			camera_.projection_object().get<sge::camera::projection::perspective>()));
 
