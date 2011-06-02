@@ -17,6 +17,7 @@ fruitcut::app::fruit::object_parameters const
 fruitcut::app::fruit::parameters_from_prototype(
 	fruit::prototype const &proto,
 	fruitlib::physics::world &_world,
+	fruitlib::physics::group::object &_fruit_group,
 	sge::renderer::device &_renderer,
 	sge::renderer::vertex_declaration &_vertex_declaration,
 	sge::shader::object &_shader,
@@ -35,6 +36,7 @@ fruitcut::app::fruit::parameters_from_prototype(
 			_vertex_declaration,
 			_shader,
 			proto.mesh(),
+			_fruit_group,
 			_mass,
 			_position,
 			_transformation,

@@ -6,6 +6,7 @@
 #include "../../fruitlib/physics/world_fwd.hpp"
 #include "../../fruitlib/physics/vector3.hpp"
 #include "../../fruitlib/physics/matrix4.hpp"
+#include "../../fruitlib/physics/group/object_fwd.hpp"
 #include <sge/renderer/texture/planar_ptr.hpp>
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/vertex_declaration_fwd.hpp>
@@ -39,6 +40,7 @@ public:
 		sge::renderer::vertex_declaration &_vertex_declaration,
 		sge::shader::object &_shader,
 		fruitcut::app::fruit::mesh const &_mesh,
+		fruitlib::physics::group::object &_fruit_group,
 		fruitlib::physics::scalar const _mass,
 		fruitlib::physics::vector3 const &_position,
 		fruitlib::physics::matrix4 const &_transformation,
@@ -68,6 +70,9 @@ public:
 	fruitcut::app::fruit::mesh const &
 	mesh() const;
 
+	fruitlib::physics::group::object & 
+	fruit_group() const;
+
 	fruitlib::physics::scalar 
 	mass() const;
 
@@ -96,6 +101,7 @@ private:
 	sge::renderer::vertex_declaration &vertex_declaration_;
 	sge::shader::object &shader_;
 	fruitcut::app::fruit::mesh const mesh_;
+	fruitlib::physics::group::object &fruit_group_;
 	fruitlib::physics::scalar const mass_;
 	fruitlib::physics::vector3 const position_;
 	fruitlib::physics::matrix4 const transformation_;

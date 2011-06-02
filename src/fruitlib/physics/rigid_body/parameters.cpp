@@ -1,17 +1,15 @@
 #include "parameters.hpp"
 
 fruitcut::fruitlib::physics::rigid_body::parameters::parameters(
-	physics::world &_world,
 	vector3 const &_position,
 	matrix4 const &_transformation,
 	vector3 const &_linear_velocity,
 	vector3 const &_angular_velocity,
 	shared_shape_ptr const &_shape,
 	physics::rigid_body::solidity::type const _solidity,
-	fcppt::optional<scalar> const &_mass)
+	fcppt::optional<scalar> const &_mass,
+	rigid_body::user_data const &_user_data)
 :
-	world_(
-		_world),
 	position_(
 		_position),
 	transformation_(
@@ -25,14 +23,10 @@ fruitcut::fruitlib::physics::rigid_body::parameters::parameters(
 	solidity_(
 		_solidity),
 	mass_(
-		_mass)
+		_mass),
+	user_data_(
+		_user_data)
 {
-}
-
-fruitcut::fruitlib::physics::world &
-fruitcut::fruitlib::physics::rigid_body::parameters::world() const
-{
-	return world_;
 }
 
 fruitcut::fruitlib::physics::vector3 const &
@@ -75,6 +69,12 @@ fcppt::optional<fruitcut::fruitlib::physics::scalar> const &
 fruitcut::fruitlib::physics::rigid_body::parameters::mass() const
 {
 	return mass_;
+}
+
+fruitcut::fruitlib::physics::rigid_body::user_data const &
+fruitcut::fruitlib::physics::rigid_body::parameters::user_data() const
+{
+	return user_data_;
 }
 
 fruitcut::fruitlib::physics::rigid_body::parameters::~parameters()

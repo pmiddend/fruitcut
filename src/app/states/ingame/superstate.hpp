@@ -12,12 +12,14 @@
 #include "../../../fruitlib/physics/world.hpp"
 #include "../../../fruitlib/physics/nodes/world.hpp"
 #include "../../../fruitlib/physics/nodes/debugger.hpp"
-#include "../../../fruitlib/physics/null_collision_filter.hpp"
+#include "../../../fruitlib/physics/group/object.hpp"
+#include "../../../fruitlib/physics/rigid_body/scoped_body.hpp"
 #include "../../../fruitlib/physics/debugger.hpp"
 #include "../../../fruitlib/input/state.hpp"
 #include <sge/time/timer.hpp>
 #include <sge/renderer/device_ptr.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
+#include <fcppt/scoped_ptr.hpp>
 #include <boost/statechart/state.hpp>
 
 namespace fruitcut
@@ -75,13 +77,14 @@ private:
 	fruitlib::physics::debugger physics_debugger_;
 	fruitlib::physics::nodes::debugger physics_debugger_node_;
 	fcppt::signal::scoped_connection physics_debugger_connection_;
-	fruitlib::physics::null_collision_filter collision_filter_;
 	fruit::manager fruit_manager_;
 	fruit::spawner fruit_spawner_;
 	fruitcut::app::game_logic game_logic_;
 	fcppt::signal::scoped_connection cut_connection_;
 	app::splatter_generator splatter_generator_;
+	fruitlib::physics::group::object background_group_;
 	fruitlib::physics::rigid_body::object background_physics_;
+	fcppt::scoped_ptr<fruitlib::physics::rigid_body::scoped_body> background_body_scope_;
 
 	void
 	toggle_physics_debugger();

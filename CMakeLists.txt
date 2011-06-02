@@ -214,6 +214,11 @@ SET(
 	src/fruitlib/physics/debugger.cpp
 	src/fruitlib/physics/debugger.hpp
 	src/fruitlib/physics/debugger_fwd.hpp
+	src/fruitlib/physics/group/id.hpp
+	src/fruitlib/physics/group/object.cpp
+	src/fruitlib/physics/group/object.hpp
+	src/fruitlib/physics/group/object_fwd.hpp
+	src/fruitlib/physics/group/sequence.hpp
 	src/fruitlib/physics/matrix3.hpp
 	src/fruitlib/physics/matrix3_to_matrix4.hpp
 	src/fruitlib/physics/matrix4.hpp
@@ -224,14 +229,20 @@ SET(
 	src/fruitlib/physics/nodes/world.hpp
 	src/fruitlib/physics/null_collision_filter.cpp
 	src/fruitlib/physics/null_collision_filter.hpp
+	src/fruitlib/physics/rigid_body/collision_callback.hpp
+	src/fruitlib/physics/rigid_body/collision_callback_fn.hpp
+	src/fruitlib/physics/rigid_body/collision_data.cpp
+	src/fruitlib/physics/rigid_body/collision_data.hpp
 	src/fruitlib/physics/rigid_body/object.cpp
 	src/fruitlib/physics/rigid_body/object.hpp
+	src/fruitlib/physics/rigid_body/object_fwd.hpp
 	src/fruitlib/physics/rigid_body/parameters.cpp
 	src/fruitlib/physics/rigid_body/parameters.hpp
 	src/fruitlib/physics/rigid_body/parameters_fwd.hpp
 	src/fruitlib/physics/rigid_body/scoped_body.cpp
 	src/fruitlib/physics/rigid_body/scoped_body.hpp
 	src/fruitlib/physics/rigid_body/solidity.hpp
+	src/fruitlib/physics/rigid_body/user_data.hpp
 	src/fruitlib/physics/scalar.hpp
 	src/fruitlib/physics/shared_shape_ptr.hpp
 	src/fruitlib/physics/structure_cast.hpp

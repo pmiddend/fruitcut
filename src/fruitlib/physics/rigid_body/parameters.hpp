@@ -2,6 +2,7 @@
 #define FRUITCUT_FRUITLIB_PHYSICS_RIGID_BODY_PARAMETERS_HPP_INCLUDED
 
 #include "solidity.hpp"
+#include "user_data.hpp"
 #include "../world_fwd.hpp"
 #include "../vector3.hpp"
 #include "../matrix4.hpp"
@@ -23,17 +24,14 @@ class parameters
 public:
 	explicit
 	parameters(
-		physics::world &,
 		vector3 const &position,
 		matrix4 const &transformation,
 		vector3 const &linear_velocity,
 		vector3 const &angular_velocity,
 		shared_shape_ptr const &shape,
 		physics::rigid_body::solidity::type,
-		fcppt::optional<scalar> const &mass);
-
-	physics::world &
-	world() const;
+		fcppt::optional<scalar> const &mass,
+		rigid_body::user_data const &);
 
 	vector3 const &
 	position() const;
@@ -56,9 +54,11 @@ public:
 	fcppt::optional<scalar> const &
 	mass() const;
 
+	rigid_body::user_data const &
+	user_data() const;
+
 	~parameters();
 private:
-	physics::world &world_;
 	vector3 position_;
 	matrix4 transformation_;
 	vector3 linear_velocity_;
@@ -66,6 +66,7 @@ private:
 	shared_shape_ptr shape_;
 	physics::rigid_body::solidity::type solidity_;
 	fcppt::optional<scalar> mass_;
+	rigid_body::user_data user_data_;
 };
 }
 }

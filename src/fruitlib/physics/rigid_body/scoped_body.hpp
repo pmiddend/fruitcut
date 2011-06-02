@@ -2,8 +2,8 @@
 #define FRUITCUT_FRUITLIB_PHYSICS_RIGID_BODY_SCOPED_BODY_HPP_INCLUDED
 
 #include "../world_fwd.hpp"
-
-class btRigidBody;
+#include "object_fwd.hpp"
+#include "../group/sequence.hpp"
 
 namespace fruitcut
 {
@@ -18,13 +18,14 @@ class scoped_body
 public:
 	explicit
 	scoped_body(
-		world &,
-		btRigidBody &);
+		physics::world &,
+		rigid_body::object &,
+		group::sequence const &);
 
 	~scoped_body();
 private:
 	world &world_;
-	btRigidBody &body_;
+	rigid_body::object &body_;
 };
 }
 }

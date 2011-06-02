@@ -14,6 +14,7 @@
 #include "plane.hpp"
 #include "../../fruitlib/scenic/nodes/intrusive.hpp"
 #include "../../fruitlib/physics/world_fwd.hpp"
+#include "../../fruitlib/physics/group/object.hpp"
 #include <sge/image2d/multi_loader_fwd.hpp>
 #include <sge/model/loader_fwd.hpp>
 #include <sge/parse/json/array_fwd.hpp>
@@ -93,12 +94,19 @@ public:
 	spawn_callback(
 		fruitcut::app::fruit::callbacks::spawn const &);
 
+	fruitlib::physics::group::object &
+	fruit_group();
+
+	fruitlib::physics::group::object const &
+	fruit_group() const;
+
 	~manager();
 private:
 	sge::renderer::device &renderer_;
 	sge::camera::object &camera_;
 	sge::renderer::vertex_declaration_ptr vertex_declaration_;
 	fruitlib::physics::world &physics_world_;
+	fruitlib::physics::group::object fruit_group_;
 	prototype_sequence prototypes_;
 	object_sequence fruits_; 
 	sge::shader::object fruit_shader_;

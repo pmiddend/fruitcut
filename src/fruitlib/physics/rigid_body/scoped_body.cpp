@@ -5,19 +5,21 @@
 
 fruitcut::fruitlib::physics::rigid_body::scoped_body::scoped_body(
 	world &_world,
-	btRigidBody &_body)
+	rigid_body::object &_body,
+	group::sequence const &_groups)
 :
 	world_(
 		_world),	
 	body_(
 		_body)
 {
-	world_.handle().addRigidBody(
-		&body_);
+	world_.add_body(
+		body_,
+		_groups);
 }
 
 fruitcut::fruitlib::physics::rigid_body::scoped_body::~scoped_body()
 {
-	world_.handle().removeRigidBody(
-		&body_);
+	world_.remove_body(
+		body_);
 }

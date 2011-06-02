@@ -7,6 +7,7 @@
 #include "../../fruitlib/physics/scalar.hpp"
 #include "../../fruitlib/physics/vector3.hpp"
 #include "../../fruitlib/physics/matrix4.hpp"
+#include "../../fruitlib/physics/group/object_fwd.hpp"
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/vertex_declaration_fwd.hpp>
 #include <sge/shader/object_fwd.hpp>
@@ -23,6 +24,7 @@ object_parameters const
 parameters_from_prototype(
 	fruit::prototype const &proto,
 	fruitlib::physics::world &_world,
+	fruitlib::physics::group::object &_fruit_group,
 	sge::renderer::device &_renderer,
 	sge::renderer::vertex_declaration &_vertex_declaration,
 	sge::shader::object &_shader,

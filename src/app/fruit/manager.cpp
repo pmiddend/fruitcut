@@ -70,6 +70,8 @@ fruitcut::app::fruit::manager::manager(
 			sge::renderer::vf::dynamic::make_format<model_vf::format>())),
 	physics_world_(
 		physics_world),
+	fruit_group_(
+		physics_world_),
 	prototypes_(
 		fcppt::algorithm::map<prototype_sequence>(
 			prototype_array.elements,
@@ -170,6 +172,7 @@ fruitcut::app::fruit::manager::cut(
 					*vertex_declaration_,
 					fruit_shader_,
 					cut_result->mesh(),
+					fruit_group_,
 					static_cast<fruitlib::physics::scalar>(
 						current_fruit.bounding_box().size().content() / cut_result->bounding_box().size().content()),
 					current_fruit.position() + 
@@ -224,6 +227,7 @@ fruitcut::app::fruit::manager::spawn(
 			fruit::parameters_from_prototype(
 				proto,
 				physics_world_,
+				fruit_group_,
 				renderer_,
 				*vertex_declaration_,
 				fruit_shader_,
@@ -275,6 +279,18 @@ fruitcut::app::fruit::manager::spawn_callback(
 	return 
 		spawn_signal_.connect(
 			cc);
+}
+
+fruitcut::fruitlib::physics::group::object &
+fruitcut::app::fruit::manager::fruit_group()
+{
+	return fruit_group_;
+}
+
+fruitcut::fruitlib::physics::group::object const &
+fruitcut::app::fruit::manager::fruit_group() const
+{
+	return fruit_group_;
 }
 
 fruitcut::app::fruit::manager::~manager()

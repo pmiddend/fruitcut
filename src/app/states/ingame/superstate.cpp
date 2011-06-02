@@ -28,8 +28,11 @@
 #include <fcppt/math/dim/dim.hpp>
 #include <fcppt/math/vector/vector.hpp>
 #include <fcppt/make_shared_ptr.hpp>
+#include <fcppt/assign/make_container.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/ref.hpp>
 #include <fcppt/lexical_cast.hpp>
 #include <BulletCollision/CollisionShapes/btStaticPlaneShape.h>
 #include <boost/statechart/event_base.hpp>
@@ -75,8 +78,6 @@ fruitcut::app::states::ingame::superstate::superstate(
 				std::tr1::bind(
 					&superstate::toggle_physics_debugger,
 					this)))),
-	collision_filter_(
-		physics_world_),
 	fruit_manager_(
 		fruitlib::json::find_member<sge::parse::json::array>(
 			context<machine>().config_file(),
@@ -112,21 +113,25 @@ fruitcut::app::states::ingame::superstate::superstate(
 			fcppt::math::vector::structure_cast<point_sprite::splatter::acceleration::value_type>(
 				physics_world_.gravity())),
 		context<machine>().timer_callback()),
+	background_group_(
+		physics_world_),
 	background_physics_(
 		fruitlib::physics::rigid_body::parameters(
-			physics_world_,
 			fruitlib::physics::vector3(
 				0,
 				0,
 				0),
-			fruitlib::physics::matrix4(),
-			fruitlib::physics::vector3(),
-			fruitlib::physics::vector3(),
+			fruitlib::physics::matrix4::identity(),
+			fruitlib::physics::vector3::null(),
+			fruitlib::physics::vector3::null(),
 			fcppt::make_shared_ptr<btStaticPlaneShape>(
-				btVector3(0,0,-1),
+				btVector3(0,0,1),
 				0),
 			fruitlib::physics::rigid_body::solidity::solid,
-			fcppt::optional<fruitlib::physics::scalar>()))
+			fcppt::optional<fruitlib::physics::scalar>(),
+			fruitlib::physics::rigid_body::user_data())),
+	background_body_scope_(
+		)
 {
 	// scene
 	context<machine>().scene_node().insert_before(
@@ -145,6 +150,20 @@ fruitcut::app::states::ingame::superstate::superstate(
 	context<machine>().music_controller().play(
 		fruitlib::resource_tree::path(
 			FCPPT_TEXT("random")));
+
+	physics_world_.make_groups_collide(
+		background_group_,
+		fruit_manager_.fruit_group());
+
+	background_body_scope_.take(
+		fcppt::make_unique_ptr<fruitlib::physics::rigid_body::scoped_body>(
+			fcppt::ref(
+				physics_world_),
+			fcppt::ref(
+				background_physics_),
+			fcppt::assign::make_container<fruitlib::physics::group::sequence>(
+				fcppt::ref(
+					background_group_))));
 }
 
 fruitcut::fruitlib::physics::world &

@@ -7,6 +7,7 @@
 #include "../../fruitlib/geometry_traits/box.hpp"
 #include "../../fruitlib/geometry_traits/vector.hpp"
 #include "../../fruitlib/physics/rigid_body/parameters.hpp"
+#include "../../fruitlib/physics/group/sequence.hpp"
 #include "../../fruitlib/physics/world_fwd.hpp"
 #include <sge/time/activation_state.hpp>
 #include <sge/renderer/matrix4.hpp>
@@ -14,6 +15,8 @@
 #include <sge/renderer/texture/planar_ptr.hpp>
 #include <fcppt/math/matrix/matrix.hpp>
 #include <fcppt/math/vector/vector.hpp>
+#include <fcppt/assign/make_container.hpp>
+#include <fcppt/ref.hpp>
 #include <boost/geometry/geometry.hpp>
 
 fruitcut::app::fruit::object::object(
@@ -29,7 +32,6 @@ fruitcut::app::fruit::object::object(
 		p.splatter_color()),
 	body_(
 		fruitlib::physics::rigid_body::parameters(
-			p.physics_world(),
 			p.position(),
 			p.transformation(),
 			p.linear_velocity(),
@@ -37,7 +39,14 @@ fruitcut::app::fruit::object::object(
 			fruit::mesh_to_shape(
 				mesh_),
 			fruitlib::physics::rigid_body::solidity::solid,
-			p.mass())),
+			p.mass(),
+			fruitlib::physics::rigid_body::user_data())),
+	body_scope_(
+		p.physics_world(),
+		body_,
+		fcppt::assign::make_container<fruitlib::physics::group::sequence>(
+			fcppt::ref(
+				p.fruit_group()))),
 	vb_(
 		fruit::mesh_to_vertex_buffer(
 			p.renderer(),
