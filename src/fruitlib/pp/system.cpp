@@ -182,10 +182,8 @@ fruitcut::fruitlib::pp::system::filter_name_set const
 fruitcut::fruitlib::pp::system::filter_names() const
 {
 	fruitcut::fruitlib::pp::system::filter_name_set key_set;
-	BOOST_FOREACH(
-		name_to_vertex::const_reference r,
-		name_to_vertex_)
+	for(name_to_vertex::const_iterator r = name_to_vertex_.begin(); r != name_to_vertex_.end(); ++r)
 		key_set.insert(
-			r.first);
+			r->first);
 	return key_set;
 }
