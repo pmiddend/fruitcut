@@ -184,8 +184,8 @@ private:
 	fruitlib::scenic::nodes::camera camera_node_;
 	fcppt::signal::scoped_connection toggle_camera_connection_;
 	fruitlib::input::state camera_state_;
-	fruitcut::app::background background_;
 	fcppt::signal::scoped_connection viewport_change_connection_;
+	fruitcut::app::background background_;
 	fcppt::chrono::milliseconds::rep desired_fps_;
 	sge::cegui::system gui_system_;
 	sge::cegui::syringe gui_syringe_;

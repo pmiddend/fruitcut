@@ -100,6 +100,10 @@ public:
 	fruitlib::physics::group::object const &
 	fruit_group() const;
 
+	void
+	render_only_geometry(
+		sge::shader::object &);
+
 	~manager();
 private:
 	sge::renderer::device &renderer_;

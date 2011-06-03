@@ -95,8 +95,8 @@ fruitcut::app::fruit::manager::manager(
 				"mvp",
 				sge::shader::variable_type::uniform,
 				sge::renderer::matrix4())),
-		fcppt::assign::make_container<sge::shader::sampler_sequence>(
-			sge::shader::sampler(
+		fcppt::assign::make_container<sge::shader::sampler_sequence>
+			(sge::shader::sampler(
 				"texture",
 				sge::renderer::texture::planar_ptr()))),
 	cut_signal_(),
@@ -291,6 +291,40 @@ fruitcut::fruitlib::physics::group::object const &
 fruitcut::app::fruit::manager::fruit_group() const
 {
 	return fruit_group_;
+}
+
+void
+fruitcut::app::fruit::manager::render_only_geometry(
+	sge::shader::object &s)
+{
+	sge::renderer::state::scoped scoped_state(
+		renderer_,
+		sge::renderer::state::list
+			(sge::renderer::state::depth_func::less));
+
+	sge::renderer::scoped_vertex_declaration scoped_decl(
+		renderer_,
+		*vertex_declaration_);
+
+	for(object_sequence::iterator i = fruits_.begin(); i != fruits_.end(); ++i)
+	{
+		sge::renderer::scoped_vertex_buffer scoped_vb(
+			renderer_,
+			i->vb());
+
+		s.update_uniform(
+			"mvp",
+			camera_.mvp() * i->world_transform());
+
+		renderer_.render_nonindexed(
+			sge::renderer::first_vertex(
+				static_cast<sge::renderer::size_type>(
+					0)),
+			sge::renderer::vertex_count(
+				i->vb().size()),
+			sge::renderer::nonindexed_primitive_type::triangle);
+	}
+	
 }
 
 fruitcut::app::fruit::manager::~manager()

@@ -39,7 +39,7 @@ public:
 
 	explicit
 	spawner(
-		manager &,
+		fruit::manager &,
 		sge::parse::json::object const &config_file,
 		sge::camera::object const &,
 		sge::time::callback const &);
@@ -48,7 +48,7 @@ public:
 	spawn_callback(
 		spawn_callback_function const &);
 private:
-	manager &manager_;
+	fruit::manager &manager_;
 	sge::camera::object const &camera_;
 	fruitlib::uniform_random<sge::time::funit>::type seconds_rng_;
 	fruitlib::uniform_random<prototype_sequence::size_type>::type prototype_rng_;

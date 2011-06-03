@@ -269,16 +269,17 @@ fruitcut::app::machine::machine(
 					this)))),
 	camera_state_(
 		context<machine>().input_manager()),
-	background_(
-		systems_.renderer(),
-		systems_.image_loader(),
-		config_file_,
-		camera_),
 	viewport_change_connection_(
 		systems_.viewport_manager().manage_callback(
 			std::tr1::bind(
 				&machine::viewport_change,
 				this))),
+	background_(
+		systems_.renderer(),
+		systems_.viewport_manager(),
+		systems_.image_loader(),
+		config_file_,
+		camera_),
 	desired_fps_(
 		fruitlib::json::find_member<fcppt::chrono::milliseconds::rep>(
 			config_file(),

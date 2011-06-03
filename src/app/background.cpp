@@ -3,6 +3,7 @@
 #include "../fruitlib/json/find_member.hpp"
 #include "../fruitlib/math/view_plane_rect.hpp"
 #include <sge/image2d/file.hpp>
+#include <sge/viewport/manager.hpp>
 #include <sge/image2d/multi_loader.hpp>
 #include <sge/parse/json/json.hpp>
 #include <sge/renderer/device.hpp>
@@ -27,6 +28,7 @@
 #include <sge/renderer/viewport.hpp>
 #include <sge/shader/shader.hpp>
 #include <sge/camera/object.hpp>
+#include <fcppt/tr1/functional.hpp>
 #include <fcppt/math/vector/vector.hpp>
 #include <fcppt/math/matrix/matrix.hpp>
 #include <fcppt/assign/make_container.hpp>
@@ -104,6 +106,7 @@ vertex_view;
 // The background doesn't use OpenGL-3 because of...lazyness
 fruitcut::app::background::background(
 	sge::renderer::device &_renderer,
+	sge::viewport::manager &_viewport_manager,
 	sge::image2d::multi_loader &_image_loader,
 	sge::parse::json::object const &_config,
 	sge::camera::object const &_camera)
@@ -150,11 +153,21 @@ fruitcut::app::background::background(
 		fcppt::assign::make_container<sge::shader::sampler_sequence>
 			(sge::shader::sampler(
 				"tex",
-				texture_))),
+				texture_))
+			(sge::shader::sampler(
+				"texture_map",
+				sge::renderer::texture::planar_ptr()))),
 	reps_(
 		fruitlib::json::find_member<sge::renderer::scalar>(
 			_config,
-			FCPPT_TEXT("background-repeat")))
+			FCPPT_TEXT("background-repeat"))),
+	shadow_texture_(
+		sge::renderer::texture::planar_ptr()),
+	viewport_changed_connection_(
+		_viewport_manager.manage_callback(
+			std::tr1::bind(
+				&background::viewport_changed,
+				this)))
 {
 	viewport_changed();
 }
@@ -175,6 +188,8 @@ fruitcut::app::background::viewport_changed()
 		fruitlib::math::view_plane_rect(
 			camera_.mvp(),
 			camera_.projection_object().get<sge::camera::projection::perspective>()));
+
+	std::cout << "width: " << zero_plane.w() << ", " << zero_plane.h() << "!\n";
 
 	sge::shader::scoped scoped_shader(
 		shader_);
@@ -236,6 +251,18 @@ fruitcut::app::background::viewport_changed()
 	(vb_it++)->set<vf::texcoord>(
 		vf::texcoord::packed_type(
 			reps_,reps_));
+}
+
+void
+fruitcut::app::background::shadow_texture(
+	sge::renderer::texture::planar_ptr const _shadow_texture)
+{
+	shadow_texture_ = 
+		_shadow_texture;
+
+	shader_.update_texture(
+		"shadow_map",
+		shadow_texture_);
 }
 
 fruitcut::app::background::~background()

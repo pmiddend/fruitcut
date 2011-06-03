@@ -1,4 +1,8 @@
 {
+	"shadow-map" : 
+	{
+		"size" : [1024,1024]
+	},
 	"fonts" : 
 	{
 		"score" : 

@@ -489,6 +489,8 @@ SET(
 	src/app/scoped_time_factor.cpp
 	src/app/scoped_time_factor.hpp
 	src/app/score.hpp
+	src/app/shadow_map.cpp
+	src/app/shadow_map.hpp
 	src/app/splatter_generator.cpp
 	src/app/splatter_generator.hpp
 	src/app/states/gameover/choose_name.cpp

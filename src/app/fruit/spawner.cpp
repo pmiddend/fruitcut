@@ -35,7 +35,7 @@
 #include "../../fruitlib/math/plane/basic.hpp"
 
 fruitcut::app::fruit::spawner::spawner(
-	manager &_manager,
+	fruit::manager &_manager,
 	sge::parse::json::object const &_config_file,
 	sge::camera::object const &_camera,
 	sge::time::callback const &_callback)
