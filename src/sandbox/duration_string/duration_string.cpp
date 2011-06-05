@@ -1,4 +1,4 @@
-#include "../../fruitlib/string_to_duration.hpp"
+#include "../../fruitlib/time_format/string_to_duration.hpp"
 #include <fcppt/optional.hpp>
 #include <fcppt/chrono/seconds.hpp>
 #include <iostream>
@@ -7,7 +7,7 @@
 int main()
 {
 	fcppt::optional<fcppt::chrono::seconds> const result = 
-		fruitcut::fruitlib::string_to_duration<fcppt::chrono::seconds>(
+		fruitcut::fruitlib::time_format::string_to_duration<fcppt::chrono::seconds>(
 			std::wstring(L"1d"));
 
 	if (!result)

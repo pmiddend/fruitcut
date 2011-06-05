@@ -1,6 +1,6 @@
 #include "paused.hpp"
 #include "running.hpp"
-#include "../../../fruitlib/string_to_duration_exn.hpp"
+#include "../../../fruitlib/time_format/string_to_duration_exn.hpp"
 #include "../../../fruitlib/json/find_member.hpp"
 #include "../../../fruitlib/pp/texture/use_screen_size.hpp"
 #include "../../../fruitlib/pp/filter/blur.hpp"
@@ -48,7 +48,7 @@ fruitcut::app::states::ingame::paused::paused(
 			context<machine>().config_file(),
 			FCPPT_TEXT("paused/max-blur-iterations"))),
 	blur_timer_(
-		fruitlib::string_to_duration_exn<sge::time::duration>(
+		fruitlib::time_format::string_to_duration_exn<sge::time::duration>(
 			fruitlib::json::find_member<fcppt::string>(
 				context<machine>().config_file(),
 				FCPPT_TEXT("paused/blur-frequency-time"))),

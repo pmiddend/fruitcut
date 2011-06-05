@@ -1,6 +1,6 @@
 #include "intro.hpp"
 #include "ingame/running.hpp"
-#include "../../fruitlib/string_to_duration_exn.hpp"
+#include "../../fruitlib/time_format/string_to_duration_exn.hpp"
 #include "../../fruitlib/json/find_member.hpp"
 #include "../../fruitlib/resource_tree/path.hpp"
 #include <sge/time/time.hpp>
@@ -19,14 +19,14 @@ fruitcut::app::states::intro::intro(
 		ctx),
 	// Those timers will be activated as soon as we have a viewport
 	saturation_timer_(
-		fruitlib::string_to_duration_exn<sge::time::duration>(
+		fruitlib::time_format::string_to_duration_exn<sge::time::duration>(
 			fruitlib::json::find_member<fcppt::string>(
 				context<machine>().config_file(),
 				FCPPT_TEXT("intro/desaturation-time"))),
 		sge::time::activation_state::inactive,
 		context<machine>().timer_callback()),
 	intro_timer_(
-		fruitlib::string_to_duration_exn<sge::time::duration>(
+		fruitlib::time_format::string_to_duration_exn<sge::time::duration>(
 			fruitlib::json::find_member<fcppt::string>(
 				context<machine>().config_file(),
 				FCPPT_TEXT("intro/total-duration"))),

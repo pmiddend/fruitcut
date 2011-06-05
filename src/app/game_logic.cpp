@@ -3,7 +3,7 @@
 #include "../fruitlib/font/object_parameters.hpp"
 #include "../fruitlib/json/find_member.hpp"
 #include "../fruitlib/json/parse_color.hpp"
-#include "../fruitlib/string_to_duration_exn.hpp"
+#include "../fruitlib/time_format/string_to_duration_exn.hpp"
 #include "../fruitlib/time_format/duration_to_string.hpp"
 #include "../fruitlib/time_format/milliseconds.hpp"
 #include "../fruitlib/time_format/seconds.hpp"
@@ -58,7 +58,7 @@ fruitcut::app::game_logic::game_logic(
 	iterating_score_(
 		score_),
 	round_timer_(
-		fruitlib::string_to_duration_exn<sge::time::duration>(
+		fruitlib::time_format::string_to_duration_exn<sge::time::duration>(
 			fruitlib::json::find_member<fcppt::string>(
 				_config_file,
 				FCPPT_TEXT("ingame/round-time"))),
@@ -122,7 +122,7 @@ fruitcut::app::game_logic::game_logic(
 		static_cast<fruitlib::scenic::scale>(
 			1)),
 	score_increase_timer_(
-		fruitlib::string_to_duration_exn<sge::time::duration>(
+		fruitlib::time_format::string_to_duration_exn<sge::time::duration>(
 			fruitlib::json::find_member<fcppt::string>(
 				_config_file,
 				FCPPT_TEXT("ingame/score-increase-timer"))),

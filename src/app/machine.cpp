@@ -4,7 +4,7 @@
 #include "events/render.hpp"
 #include "events/render_overlay.hpp"
 #include "events/tick.hpp"
-#include "../fruitlib/string_to_duration.hpp"
+#include "../fruitlib/time_format/string_to_duration.hpp"
 #include "../fruitlib/pp/dependency_set.hpp"
 #include "../fruitlib/json/find_member.hpp"
 #include "../fruitlib/log/scoped_sequence_from_json.hpp"
@@ -226,7 +226,7 @@ fruitcut::app::machine::machine(
 	music_controller_(
 		systems_.audio_loader(),
 		systems_.audio_player(),
-		*fruitlib::string_to_duration<sge::time::duration>(
+		*fruitlib::time_format::string_to_duration<sge::time::duration>(
 			fruitlib::json::find_member<fcppt::string>(
 				config_file(),
 				FCPPT_TEXT("music/crossfade-time"))),
