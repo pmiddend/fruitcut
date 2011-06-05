@@ -164,7 +164,7 @@ fruitcut::app::splatter_generator::fruit_was_cut(
 						splatter_color,
 						point_sprites_.lookup_texture(
 							fruitlib::resource_tree::path(
-								FCPPT_TEXT("splatter"))),
+								FCPPT_TEXT("spray"))),
 						sge::time::millisecond(
 							lifetime_millis_rng_()),
 						time_callback_))));
