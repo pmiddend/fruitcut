@@ -2,6 +2,8 @@
 #include <sge/camera/object.hpp>
 #include <sge/time/second.hpp>
 #include <sge/time/activation_state.hpp>
+#include <fcppt/math/matrix/matrix.hpp>
+#include <iostream>
 
 fruitcut::fruitlib::scenic::nodes::camera::camera(
 	sge::camera::object &_object,
@@ -23,6 +25,8 @@ fruitcut::fruitlib::scenic::nodes::camera::~camera()
 void
 fruitcut::fruitlib::scenic::nodes::camera::update()
 {
+//	std::cerr << "mvp: " << object_.mvp() << "\n";
+
 	object_.update(
 		timer_.reset());
 }

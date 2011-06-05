@@ -19,12 +19,14 @@
 #include <sge/model/loader_fwd.hpp>
 #include <sge/parse/json/array_fwd.hpp>
 #include <sge/renderer/device_fwd.hpp>
+#include <sge/renderer/matrix4.hpp>
 #include <sge/renderer/vertex_declaration_ptr.hpp>
 #include <sge/shader/object.hpp>
 #include <sge/camera/object_fwd.hpp>
 #include <sge/time/callback.hpp>
 #include <sge/time/duration.hpp>
 #include <fcppt/chrono/duration.hpp>
+#include <fcppt/math/matrix/matrix.hpp>
 #include <fcppt/signal/object.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -102,7 +104,8 @@ public:
 
 	void
 	render_only_geometry(
-		sge::shader::object &);
+		sge::shader::object &,
+		sge::renderer::matrix4 const &);
 
 	~manager();
 private:

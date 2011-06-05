@@ -1,19 +1,22 @@
 #include "scoped_shadow_map.hpp"
+#include "shadow_map.hpp"
 #include "background.hpp"
 
 fruitcut::app::scoped_shadow_map::scoped_shadow_map(
-	sge::renderer::texture::planar &t,
+	app::shadow_map &_shadow_map,
 	app::background &_background)
 :
 	background_(
 		_background)
 {
 	background_.shadow_texture(
-		&t);
+		_shadow_map.texture());
+	background_.shadow_mvp(
+		_shadow_map.mvp());
 }
 
 fruitcut::app::scoped_shadow_map::~scoped_shadow_map()
 {
 	background_.shadow_texture(
-		0);
+		sge::renderer::texture::planar_ptr());
 }

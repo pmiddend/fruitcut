@@ -2,7 +2,7 @@
 #define FRUITCUT_APP_SCOPED_SHADOW_MAP_HPP_INCLUDED
 
 #include "background_fwd.hpp"
-#include <sge/renderer/texture/planar_fwd.hpp>
+#include "shadow_map_fwd.hpp"
 #include  <fcppt/noncopyable.hpp>
 
 namespace fruitcut
@@ -16,7 +16,7 @@ FCPPT_NONCOPYABLE(
 public:
 	explicit
 	scoped_shadow_map(
-		sge::renderer::texture::planar &,
+		app::shadow_map &,
 		app::background &);
 
 	~scoped_shadow_map();

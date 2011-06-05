@@ -2,6 +2,8 @@
 #define FRUITCUT_APP_STATES_INGAME_SUPERSTATE_HPP_INCLUDED
 
 #include "running_fwd.hpp"
+#include "../../shadow_map.hpp"
+#include "../../scoped_shadow_map.hpp"
 #include "../../splatter_generator.hpp"
 #include "../../game_logic.hpp"
 #include "../../machine.hpp"
@@ -85,6 +87,8 @@ private:
 	fruitlib::physics::group::object background_group_;
 	fruitlib::physics::rigid_body::object background_physics_;
 	fcppt::scoped_ptr<fruitlib::physics::rigid_body::scoped_body> background_body_scope_;
+	app::shadow_map shadow_map_;
+	app::scoped_shadow_map scoped_shadow_map_;
 
 	void
 	toggle_physics_debugger();

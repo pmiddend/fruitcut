@@ -15,12 +15,22 @@ LINK_DIRECTORIES(${Boost_LIBRARY_DIRS})
 # boost end
 
 # fcppt begin
-FIND_PACKAGE(
-	Fcppt REQUIRED)
-
-INCLUDE_DIRECTORIES(SYSTEM ${FCPPT_INCLUDE_DIRS})
-LINK_DIRECTORIES(${FCPPT_LIBRARY_DIRS})
+FIND_PACKAGE(Fcppt REQUIRED)
+INCLUDE_DIRECTORIES(SYSTEM ${Fcppt_INCLUDE_DIRS})
+ADD_DEFINITIONS(${Fcppt_DEFINITIONS})
 # fcppt end
+
+# awl begin
+FIND_PACKAGE(Awl REQUIRED)
+INCLUDE_DIRECTORIES(SYSTEM ${Awl_INCLUDE_DIR})
+ADD_DEFINITIONS(${Awl_DEFINITIONS})
+# awl end
+
+# mizuiro begin
+FIND_PACKAGE(Mizuiro REQUIRED)
+INCLUDE_DIRECTORIES(SYSTEM ${Mizuiro_INCLUDE_DIR})
+ADD_DEFINITIONS(${Mizuiro_DEFINITIONS})
+# mizuiro end
 
 # bullet begin
 FIND_PACKAGE(Bullet REQUIRED)
@@ -32,9 +42,6 @@ FIND_PACKAGE(
 	SGE REQUIRED COMPONENTS viewport console sprite shader config time texture systems camera fonttext fontbitmap cegui line_drawer)
 
 INCLUDE_DIRECTORIES(SYSTEM ${SGE_INCLUDE_DIRS})
-INCLUDE_DIRECTORIES(SYSTEM ${AWL_INCLUDE_DIRS})
-INCLUDE_DIRECTORIES(SYSTEM ${MIZUIRO_INCLUDE_DIRS})
-
 ADD_DEFINITIONS(${SGE_CFLAGS})
 # sge end
 
@@ -366,6 +373,7 @@ SET(
 	APP_FILES
 	src/app/background.cpp
 	src/app/background.hpp
+	src/app/background_fwd.hpp
 	src/app/config_wrapper.cpp
 	src/app/config_wrapper.hpp
 	src/app/cut_context_fwd.hpp
@@ -486,6 +494,8 @@ SET(
 	src/app/scene_fwd.hpp
 	src/app/scoped_scene_activation.cpp
 	src/app/scoped_scene_activation.hpp
+	src/app/scoped_shadow_map.cpp
+	src/app/scoped_shadow_map.hpp
 	src/app/scoped_time_factor.cpp
 	src/app/scoped_time_factor.hpp
 	src/app/score.hpp
@@ -522,7 +532,7 @@ ADD_EXECUTABLE(
 TARGET_LINK_LIBRARIES(
 	fruitcut
 	fruitcut_library
-	${FCPPT_LIBRARIES}
+	${Fcppt_LIBRARIES}
 	${SGE_LIBRARIES}
 	${BULLET_LIBRARIES}
 	${Boost_LIBRARIES})

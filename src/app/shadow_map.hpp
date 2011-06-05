@@ -9,12 +9,26 @@
 #include <sge/parse/json/object_fwd.hpp>
 #include <sge/camera/object_fwd.hpp>
 #include <sge/shader/object.hpp>
+#include <sge/renderer/matrix4.hpp>
+#include <fcppt/math/matrix/matrix.hpp>
 #include <fcppt/noncopyable.hpp>
 
 namespace fruitcut
 {
 namespace app
 {
+/**
+	A better way than this:
+
+	The shadow map class should be 
+	
+	- a container for the shadow map texture
+	- a container for the mvp
+	- a container for all the scene graph nodes which should be rendered to the shadow map
+
+	So instead of hard-coding the fruit manager here, the fruit manager
+	should have its own scene graph node below this one.
+ */
 class shadow_map
 :
 	public fruitlib::scenic::nodes::intrusive
@@ -29,11 +43,11 @@ public:
 		sge::camera::object const &,
 		fruit::manager &);
 
-	sge::renderer::texture::planar &
+	sge::renderer::texture::planar_ptr const
 	texture();
 
-	sge::renderer::texture::planar const &
-	texture() const;
+	sge::renderer::matrix4 const &
+	mvp() const;
 
 	~shadow_map();
 private:
@@ -43,6 +57,7 @@ private:
 	sge::renderer::texture::planar_ptr texture_;
 	sge::renderer::target_ptr target_;
 	sge::shader::object shader_;
+	sge::renderer::matrix4 mvp_;
 
 	// override
 	void

@@ -149,20 +149,22 @@ fruitcut::app::background::background(
 			(sge::shader::variable(
 				"mvp",
 				sge::shader::variable_type::uniform,
+				sge::renderer::matrix4()))
+			(sge::shader::variable(
+				"shadow_mvp",
+				sge::shader::variable_type::uniform,
 				sge::renderer::matrix4())),
 		fcppt::assign::make_container<sge::shader::sampler_sequence>
 			(sge::shader::sampler(
 				"tex",
 				texture_))
 			(sge::shader::sampler(
-				"texture_map",
+				"shadow_map",
 				sge::renderer::texture::planar_ptr()))),
 	reps_(
 		fruitlib::json::find_member<sge::renderer::scalar>(
 			_config,
 			FCPPT_TEXT("background-repeat"))),
-	shadow_texture_(
-		sge::renderer::texture::planar_ptr()),
 	viewport_changed_connection_(
 		_viewport_manager.manage_callback(
 			std::tr1::bind(
@@ -188,8 +190,6 @@ fruitcut::app::background::viewport_changed()
 		fruitlib::math::view_plane_rect(
 			camera_.mvp(),
 			camera_.projection_object().get<sge::camera::projection::perspective>()));
-
-	std::cout << "width: " << zero_plane.w() << ", " << zero_plane.h() << "!\n";
 
 	sge::shader::scoped scoped_shader(
 		shader_);
@@ -257,12 +257,21 @@ void
 fruitcut::app::background::shadow_texture(
 	sge::renderer::texture::planar_ptr const _shadow_texture)
 {
-	shadow_texture_ = 
-		_shadow_texture;
-
 	shader_.update_texture(
 		"shadow_map",
-		shadow_texture_);
+		_shadow_texture);
+}
+
+void
+fruitcut::app::background::shadow_mvp(
+	sge::renderer::matrix4 const &_shadow_mvp)
+{
+	std::cout << "reset shadow map\n";
+	sge::shader::scoped scoped_shader(
+		shader_);
+	shader_.update_uniform(
+		"shadow_mvp",
+		_shadow_mvp);
 }
 
 fruitcut::app::background::~background()

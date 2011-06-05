@@ -295,7 +295,8 @@ fruitcut::app::fruit::manager::fruit_group() const
 
 void
 fruitcut::app::fruit::manager::render_only_geometry(
-	sge::shader::object &s)
+	sge::shader::object &s,
+	sge::renderer::matrix4 const &mvp)
 {
 	sge::renderer::state::scoped scoped_state(
 		renderer_,
@@ -314,7 +315,7 @@ fruitcut::app::fruit::manager::render_only_geometry(
 
 		s.update_uniform(
 			"mvp",
-			camera_.mvp() * i->world_transform());
+			mvp * i->world_transform());
 
 		renderer_.render_nonindexed(
 			sge::renderer::first_vertex(

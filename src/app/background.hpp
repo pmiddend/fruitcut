@@ -10,9 +10,11 @@
 #include <sge/viewport/manager_fwd.hpp>
 #include <sge/image2d/multi_loader_fwd.hpp>
 #include <sge/parse/json/object_fwd.hpp>
+#include <sge/renderer/matrix4.hpp>
 #include <sge/camera/object_fwd.hpp>
 #include <sge/shader/object.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/math/matrix/matrix.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 
 namespace fruitcut
@@ -45,6 +47,10 @@ public:
 	shadow_texture(
 		sge::renderer::texture::planar_ptr);
 
+	void
+	shadow_mvp(
+		sge::renderer::matrix4 const &);
+
 	~background();
 private:
 	sge::renderer::device &renderer_;
@@ -54,7 +60,6 @@ private:
 	sge::renderer::vertex_buffer_ptr vb_;
 	sge::shader::object shader_;
 	sge::renderer::scalar const reps_;
-	sge::renderer::texture::planar_ptr shadow_texture_;
 	fcppt::signal::scoped_connection viewport_changed_connection_;
 
 	void
