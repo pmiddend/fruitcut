@@ -6,9 +6,7 @@
 #include "../../../fruitlib/pp/filter/blur.hpp"
 #include "../../../media_path.hpp"
 #include <sge/renderer/device.hpp>
-#include <sge/time/second_f.hpp>
-#include <sge/time/activation_state.hpp>
-#include <sge/time/funit.hpp>
+#include <sge/time/time.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/assign/make_container.hpp>
@@ -51,9 +49,7 @@ fruitcut::app::states::ingame::paused::paused(
 		fruitlib::time_format::string_to_duration_exn<sge::time::duration>(
 			fruitlib::json::find_member<fcppt::string>(
 				context<machine>().config_file(),
-				FCPPT_TEXT("paused/blur-frequency-time"))),
-		sge::time::activation_state::active,
-		context<machine>().timer_callback())
+				FCPPT_TEXT("paused/blur-frequency-time"))))
 {
 	context<machine>().insert_after(
 		*this,
