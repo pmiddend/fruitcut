@@ -60,17 +60,10 @@ fruitcut::app::shadow_map::shadow_map(
 				sge::renderer::matrix4())),
 		sge::shader::sampler_sequence()),
 	mvp_(
-		/*fruitlib::json::find_member<sge::renderer::matrix4>(
+		fruitlib::json::find_member<sge::renderer::matrix4>(
 			_config_file,
-			FCPPT_TEXT("shadow-map/mvp"))*/)
+			FCPPT_TEXT("shadow-map/mvp")))
 {
-	mvp_ = 
-		sge::renderer::matrix4(
-			1.06406,0,0.743691,-2.4968,
-			0.213306,1.69155,-0.305195,2.74837,
-			0.560594,-0.215406,-0.802087,24.3961,
-			0.559473,-0.214975,-0.800484,24.5472);
-	//std::cout << mvp_ << "\n";
 }
 
 sge::renderer::texture::planar_ptr const

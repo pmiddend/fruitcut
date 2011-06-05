@@ -266,7 +266,6 @@ void
 fruitcut::app::background::shadow_mvp(
 	sge::renderer::matrix4 const &_shadow_mvp)
 {
-	std::cout << "reset shadow map\n";
 	sge::shader::scoped scoped_shader(
 		shader_);
 	shader_.update_uniform(
