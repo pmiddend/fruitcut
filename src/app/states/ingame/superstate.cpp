@@ -165,7 +165,7 @@ fruitcut::app::states::ingame::superstate::superstate(
 		fruit_manager_.fruit_group());
 
 	background_body_scope_.take(
-		fcppt::make_unique_ptr<fruitlib::physics::rigid_body::scoped_body>(
+		fcppt::make_unique_ptr<fruitlib::physics::rigid_body::scoped>(
 			fcppt::ref(
 				physics_world_),
 			fcppt::ref(

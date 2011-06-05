@@ -15,7 +15,7 @@
 #include "../../../fruitlib/physics/nodes/world.hpp"
 #include "../../../fruitlib/physics/nodes/debugger.hpp"
 #include "../../../fruitlib/physics/group/object.hpp"
-#include "../../../fruitlib/physics/rigid_body/scoped_body.hpp"
+#include "../../../fruitlib/physics/rigid_body/scoped.hpp"
 #include "../../../fruitlib/physics/debugger.hpp"
 #include "../../../fruitlib/input/state.hpp"
 #include <sge/time/timer.hpp>
@@ -86,7 +86,7 @@ private:
 	app::splatter_generator splatter_generator_;
 	fruitlib::physics::group::object background_group_;
 	fruitlib::physics::rigid_body::object background_physics_;
-	fcppt::scoped_ptr<fruitlib::physics::rigid_body::scoped_body> background_body_scope_;
+	fcppt::scoped_ptr<fruitlib::physics::rigid_body::scoped> background_body_scope_;
 	app::shadow_map shadow_map_;
 	app::scoped_shadow_map scoped_shadow_map_;
 

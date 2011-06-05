@@ -246,8 +246,8 @@ SET(
 	src/fruitlib/physics/rigid_body/parameters.cpp
 	src/fruitlib/physics/rigid_body/parameters.hpp
 	src/fruitlib/physics/rigid_body/parameters_fwd.hpp
-	src/fruitlib/physics/rigid_body/scoped_body.cpp
-	src/fruitlib/physics/rigid_body/scoped_body.hpp
+	src/fruitlib/physics/rigid_body/scoped.cpp
+	src/fruitlib/physics/rigid_body/scoped.hpp
 	src/fruitlib/physics/rigid_body/solidity.hpp
 	src/fruitlib/physics/rigid_body/user_data.hpp
 	src/fruitlib/physics/scalar.hpp
@@ -501,6 +501,7 @@ SET(
 	src/app/score.hpp
 	src/app/shadow_map.cpp
 	src/app/shadow_map.hpp
+	src/app/shadow_map_fwd.hpp
 	src/app/splatter_generator.cpp
 	src/app/splatter_generator.hpp
 	src/app/states/gameover/choose_name.cpp

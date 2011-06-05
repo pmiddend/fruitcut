@@ -1,9 +1,9 @@
-#include "scoped_body.hpp"
+#include "scoped.hpp"
 #include "../world.hpp"
 #include <BulletDynamics/Dynamics/btRigidBody.h>
 #include <BulletDynamics/Dynamics/btDiscreteDynamicsWorld.h>
 
-fruitcut::fruitlib::physics::rigid_body::scoped_body::scoped_body(
+fruitcut::fruitlib::physics::rigid_body::scoped::scoped(
 	world &_world,
 	rigid_body::object &_body,
 	group::sequence const &_groups)
@@ -18,7 +18,7 @@ fruitcut::fruitlib::physics::rigid_body::scoped_body::scoped_body(
 		_groups);
 }
 
-fruitcut::fruitlib::physics::rigid_body::scoped_body::~scoped_body()
+fruitcut::fruitlib::physics::rigid_body::scoped::~scoped()
 {
 	world_.remove_body(
 		body_);

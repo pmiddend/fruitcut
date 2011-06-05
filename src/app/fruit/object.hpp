@@ -5,7 +5,7 @@
 #include "mesh.hpp"
 #include "object_parameters_fwd.hpp"
 #include "../../fruitlib/physics/rigid_body/object.hpp"
-#include "../../fruitlib/physics/rigid_body/scoped_body.hpp"
+#include "../../fruitlib/physics/rigid_body/scoped.hpp"
 #include <sge/image/color/any/object.hpp>
 #include <sge/renderer/vertex_buffer_fwd.hpp>
 #include <sge/renderer/vertex_buffer_ptr.hpp>
@@ -74,7 +74,7 @@ private:
 	box3 bounding_box_;
 	sge::image::color::any::object splatter_color_;
 	fruitlib::physics::rigid_body::object body_;
-	fruitlib::physics::rigid_body::scoped_body body_scope_;
+	fruitlib::physics::rigid_body::scoped body_scope_;
 	sge::renderer::vertex_buffer_ptr vb_;
 	sge::renderer::texture::planar_ptr texture_;
 	sge::time::timer lock_timer_;
