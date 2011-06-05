@@ -3,6 +3,7 @@
 
 #include "../matrix4.hpp"
 #include <fcppt/strong_typedef.hpp>
+#include <fcppt/math/matrix/matrix.hpp>
 
 namespace fruitcut
 {

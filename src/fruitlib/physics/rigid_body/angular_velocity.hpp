@@ -3,6 +3,7 @@
 
 #include "../vector3.hpp"
 #include <fcppt/strong_typedef.hpp>
+#include <fcppt/math/vector/vector.hpp>
 
 namespace fruitcut
 {

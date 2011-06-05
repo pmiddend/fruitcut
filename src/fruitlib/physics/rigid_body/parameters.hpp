@@ -2,14 +2,16 @@
 #define FRUITCUT_FRUITLIB_PHYSICS_RIGID_BODY_PARAMETERS_HPP_INCLUDED
 
 #include "solidity.hpp"
+#include "optional_mass.hpp"
+#include "position.hpp"
+#include "linear_velocity.hpp"
+#include "transformation.hpp"
+#include "angular_velocity.hpp"
 #include "user_data.hpp"
 #include "../world_fwd.hpp"
 #include "../vector3.hpp"
 #include "../matrix4.hpp"
 #include "../shared_shape_ptr.hpp"
-#include <fcppt/math/vector/basic_impl.hpp>
-#include <fcppt/math/matrix/basic_impl.hpp>
-#include <fcppt/optional.hpp>
 
 namespace fruitcut
 {
@@ -24,34 +26,34 @@ class parameters
 public:
 	explicit
 	parameters(
-		vector3 const &position,
-		matrix4 const &transformation,
-		vector3 const &linear_velocity,
-		vector3 const &angular_velocity,
-		shared_shape_ptr const &shape,
+		rigid_body::position const &,
+		rigid_body::transformation const &,
+		rigid_body::linear_velocity const &,
+		rigid_body::angular_velocity const &,
+		physics::shared_shape_ptr const &shape,
 		physics::rigid_body::solidity::type,
-		fcppt::optional<scalar> const &mass,
+		rigid_body::optional_mass const &,
 		rigid_body::user_data const &);
 
-	vector3 const &
+	rigid_body::position::value_type const &
 	position() const;
 
-	matrix4 const &
+	rigid_body::transformation::value_type const &
 	transformation() const;
 
-	vector3 const &
+	rigid_body::linear_velocity::value_type const &
 	linear_velocity() const;
 
-	vector3 const &
+	rigid_body::angular_velocity::value_type const &
 	angular_velocity() const;
 
-	shared_shape_ptr const
+	physics::shared_shape_ptr const
 	shape() const;
 
 	physics::rigid_body::solidity::type
 	solidity() const;
 
-	fcppt::optional<scalar> const &
+	rigid_body::optional_mass const &
 	mass() const;
 
 	rigid_body::user_data const &
@@ -59,13 +61,13 @@ public:
 
 	~parameters();
 private:
-	vector3 position_;
-	matrix4 transformation_;
-	vector3 linear_velocity_;
-	vector3 angular_velocity_;
-	shared_shape_ptr shape_;
+	rigid_body::position::value_type position_;
+	rigid_body::transformation::value_type transformation_;
+	rigid_body::linear_velocity::value_type linear_velocity_;
+	rigid_body::angular_velocity::value_type angular_velocity_;
+	physics::shared_shape_ptr shape_;
 	physics::rigid_body::solidity::type solidity_;
-	fcppt::optional<scalar> mass_;
+	rigid_body::optional_mass mass_;
 	rigid_body::user_data user_data_;
 };
 }

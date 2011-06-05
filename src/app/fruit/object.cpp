@@ -32,14 +32,19 @@ fruitcut::app::fruit::object::object(
 		p.splatter_color()),
 	body_(
 		fruitlib::physics::rigid_body::parameters(
-			p.position(),
-			p.transformation(),
-			p.linear_velocity(),
-			p.angular_velocity(),
+			fruitlib::physics::rigid_body::position(
+				p.position()),
+			fruitlib::physics::rigid_body::transformation(
+				p.transformation()),
+			fruitlib::physics::rigid_body::linear_velocity(
+				p.linear_velocity()),
+			fruitlib::physics::rigid_body::angular_velocity(
+				p.angular_velocity()),
 			fruit::mesh_to_shape(
 				mesh_),
 			fruitlib::physics::rigid_body::solidity::solid,
-			p.mass(),
+			fruitlib::physics::rigid_body::mass(
+				p.mass()),
 			fruitlib::physics::rigid_body::user_data())),
 	body_scope_(
 		p.physics_world(),

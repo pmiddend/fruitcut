@@ -242,9 +242,11 @@ SET(
 	src/fruitlib/physics/rigid_body/collision_data.cpp
 	src/fruitlib/physics/rigid_body/collision_data.hpp
 	src/fruitlib/physics/rigid_body/linear_velocity.hpp
+	src/fruitlib/physics/rigid_body/mass.hpp
 	src/fruitlib/physics/rigid_body/object.cpp
 	src/fruitlib/physics/rigid_body/object.hpp
 	src/fruitlib/physics/rigid_body/object_fwd.hpp
+	src/fruitlib/physics/rigid_body/optional_mass.hpp
 	src/fruitlib/physics/rigid_body/parameters.cpp
 	src/fruitlib/physics/rigid_body/parameters.hpp
 	src/fruitlib/physics/rigid_body/parameters_fwd.hpp

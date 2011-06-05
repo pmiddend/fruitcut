@@ -1,12 +1,14 @@
 #ifndef FRUITCUT_FRUITLIB_PHYSICS_RIGID_BODY_OBJECT_HPP_INCLUDED
 #define FRUITCUT_FRUITLIB_PHYSICS_RIGID_BODY_OBJECT_HPP_INCLUDED
 
-#include "../matrix4.hpp"
-#include "../vector3.hpp"
+#include "../shared_shape_ptr.hpp"
 #include "../world_fwd.hpp"
+#include "transformation.hpp"
+#include "linear_velocity.hpp"
+#include "angular_velocity.hpp"
+#include "position.hpp"
 #include "parameters_fwd.hpp"
 #include "user_data.hpp"
-#include "../shared_shape_ptr.hpp"
 #include <fcppt/scoped_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
 
@@ -28,21 +30,21 @@ FCPPT_NONCOPYABLE(
 public:
 	explicit
 	object(
-		parameters const &);
+		rigid_body::parameters const &);
 
-	matrix4 const
+	rigid_body::transformation::value_type const
 	world_transform() const;
 
-	matrix4 const
+	rigid_body::transformation::value_type const
 	transformation() const;
 
-	vector3	const
+	rigid_body::linear_velocity::value_type const
 	linear_velocity() const;
 
-	vector3	const
+	rigid_body::angular_velocity::value_type const
 	angular_velocity() const;
 
-	vector3 const
+	rigid_body::position::value_type const
 	position() const;
 
 	rigid_body::user_data const &
@@ -52,7 +54,7 @@ public:
 private:
 	friend class physics::world;
 
-	shared_shape_ptr shape_;
+	physics::shared_shape_ptr shape_;
 	fcppt::scoped_ptr<btDefaultMotionState> motion_state_;
 	fcppt::scoped_ptr<btRigidBody> body_;
 	rigid_body::user_data user_data_;

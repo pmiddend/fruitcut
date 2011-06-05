@@ -117,18 +117,22 @@ fruitcut::app::states::ingame::superstate::superstate(
 		physics_world_),
 	background_physics_(
 		fruitlib::physics::rigid_body::parameters(
-			fruitlib::physics::vector3(
-				0,
-				0,
-				0),
-			fruitlib::physics::matrix4::identity(),
-			fruitlib::physics::vector3::null(),
-			fruitlib::physics::vector3::null(),
+			fruitlib::physics::rigid_body::position(
+				fruitlib::physics::vector3(
+					0,
+					0,
+					0)),
+			fruitlib::physics::rigid_body::transformation(
+				fruitlib::physics::matrix4::identity()),
+			fruitlib::physics::rigid_body::linear_velocity(
+				fruitlib::physics::vector3::null()),
+			fruitlib::physics::rigid_body::angular_velocity(
+				fruitlib::physics::vector3::null()),
 			fcppt::make_shared_ptr<btStaticPlaneShape>(
 				btVector3(0,0,1),
 				0),
 			fruitlib::physics::rigid_body::solidity::solid,
-			fcppt::optional<fruitlib::physics::scalar>(),
+			fruitlib::physics::rigid_body::optional_mass(),
 			fruitlib::physics::rigid_body::user_data())),
 	background_body_scope_(),
 	shadow_map_(
