@@ -236,19 +236,23 @@ SET(
 	src/fruitlib/physics/nodes/world.hpp
 	src/fruitlib/physics/null_collision_filter.cpp
 	src/fruitlib/physics/null_collision_filter.hpp
+	src/fruitlib/physics/rigid_body/angular_velocity.hpp
 	src/fruitlib/physics/rigid_body/collision_callback.hpp
 	src/fruitlib/physics/rigid_body/collision_callback_fn.hpp
 	src/fruitlib/physics/rigid_body/collision_data.cpp
 	src/fruitlib/physics/rigid_body/collision_data.hpp
+	src/fruitlib/physics/rigid_body/linear_velocity.hpp
 	src/fruitlib/physics/rigid_body/object.cpp
 	src/fruitlib/physics/rigid_body/object.hpp
 	src/fruitlib/physics/rigid_body/object_fwd.hpp
 	src/fruitlib/physics/rigid_body/parameters.cpp
 	src/fruitlib/physics/rigid_body/parameters.hpp
 	src/fruitlib/physics/rigid_body/parameters_fwd.hpp
+	src/fruitlib/physics/rigid_body/position.hpp
 	src/fruitlib/physics/rigid_body/scoped.cpp
 	src/fruitlib/physics/rigid_body/scoped.hpp
 	src/fruitlib/physics/rigid_body/solidity.hpp
+	src/fruitlib/physics/rigid_body/transformation.hpp
 	src/fruitlib/physics/rigid_body/user_data.hpp
 	src/fruitlib/physics/scalar.hpp
 	src/fruitlib/physics/shared_shape_ptr.hpp
@@ -349,8 +353,6 @@ SET(
 	src/fruitlib/scenic/nodes/with_scale.hpp
 	src/fruitlib/scenic/scale.hpp
 	src/fruitlib/scenic/scale_animation.hpp
-	src/fruitlib/string_to_duration.hpp
-	src/fruitlib/string_to_duration_exn.hpp
 	src/fruitlib/time_format/context.hpp
 	src/fruitlib/time_format/domain.hpp
 	src/fruitlib/time_format/duration_to_string.hpp
@@ -363,6 +365,8 @@ SET(
 	src/fruitlib/time_format/minutes.hpp
 	src/fruitlib/time_format/seconds.cpp
 	src/fruitlib/time_format/seconds.hpp
+	src/fruitlib/time_format/string_to_duration.hpp
+	src/fruitlib/time_format/string_to_duration_exn.hpp
 	src/fruitlib/time_format/tags/milliseconds.hpp
 	src/fruitlib/time_format/tags/minutes.hpp
 	src/fruitlib/time_format/tags/seconds.hpp
