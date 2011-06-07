@@ -3,14 +3,7 @@
 #include "../texture/instance.hpp"
 #include "../texture/manager.hpp"
 #include "../texture/descriptor.hpp"
-#include <sge/shader/vf_to_string.hpp>
-#include <sge/shader/sampler.hpp>
-#include <sge/shader/variable.hpp>
-#include <sge/shader/variable_sequence.hpp>
-#include <sge/shader/sampler_sequence.hpp>
-#include <sge/shader/variable_type.hpp>
-#include <sge/shader/object.hpp>
-#include <sge/shader/scoped.hpp>
+#include <sge/shader/shader.hpp>
 #include <sge/renderer/scoped_target.hpp>
 #include <sge/renderer/scoped_block.hpp>
 #include <sge/renderer/texture/planar_ptr.hpp>
@@ -34,22 +27,23 @@ fruitcut::fruitlib::pp::filter::add::add(
 	dimension_(
 		_dimension),
 	shader_(
-		renderer_,
-		_base_path
-			/FCPPT_TEXT("shaders")
-			/FCPPT_TEXT("add_vertex.glsl"),
-		_base_path
-			/FCPPT_TEXT("shaders")
-			/FCPPT_TEXT("add_fragment.glsl"),
-		sge::shader::vf_to_string<screen_vf::format>(),
-		fcppt::assign::make_container<sge::shader::variable_sequence>(
-			sge::shader::variable(
-				"texture_size",
-				sge::shader::variable_type::uniform,
-				sge::renderer::vector2())),
-		fcppt::assign::make_container<sge::shader::sampler_sequence>
-			(sge::shader::sampler("tex1",sge::renderer::texture::planar_ptr()))
-			(sge::shader::sampler("tex2",sge::renderer::texture::planar_ptr()))), 
+		sge::shader::object_parameters(
+			renderer_,
+			_base_path
+				/FCPPT_TEXT("shaders")
+				/FCPPT_TEXT("add_vertex.glsl"),
+			_base_path
+				/FCPPT_TEXT("shaders")
+				/FCPPT_TEXT("add_fragment.glsl"),
+			sge::shader::vf_to_string<screen_vf::format>(),
+			fcppt::assign::make_container<sge::shader::variable_sequence>(
+				sge::shader::variable(
+					"texture_size",
+					sge::shader::variable_type::uniform,
+					sge::renderer::vector2())),
+			fcppt::assign::make_container<sge::shader::sampler_sequence>
+				(sge::shader::sampler("tex1",sge::renderer::texture::planar_ptr()))
+				(sge::shader::sampler("tex2",sge::renderer::texture::planar_ptr())))), 
 	quad_(
 		renderer_,
 		shader_),
@@ -72,7 +66,8 @@ fruitcut::fruitlib::pp::filter::add::apply(
 		input2->texture());
 
 	sge::shader::scoped scoped_shader(
-		shader_);
+		shader_,
+		sge::shader::activation_method::with_textures);
 
 	texture::counted_instance const result = 
 		texture_manager_.query(

@@ -8,13 +8,7 @@
 #include "texture/instance.hpp"
 #include <sge/image/color/format.hpp>
 #include <sge/renderer/vector2.hpp>
-#include <sge/shader/sampler.hpp>
-#include <sge/shader/sampler_sequence.hpp>
-#include <sge/shader/scoped.hpp>
-#include <sge/shader/variable.hpp>
-#include <sge/shader/variable_sequence.hpp>
-#include <sge/shader/variable_type.hpp>
-#include <sge/shader/vf_to_string.hpp>
+#include <sge/shader/shader.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <boost/graph/topological_sort.hpp>
@@ -29,15 +23,16 @@ fruitcut::fruitlib::pp::system::system(
 	renderer_(
 		_renderer),
 	shader_(
-		renderer_,
-		_base_path/FCPPT_TEXT("shaders")/FCPPT_TEXT("pp_to_screen_vertex.glsl"),
-		_base_path/FCPPT_TEXT("shaders")/FCPPT_TEXT("pp_to_screen_fragment.glsl"),
-		sge::shader::vf_to_string<screen_vf::format>(),
-		sge::shader::variable_sequence(),
-		fcppt::assign::make_container<sge::shader::sampler_sequence>(
-			sge::shader::sampler(
-				"tex",
-				sge::renderer::texture::planar_ptr()))),
+		sge::shader::object_parameters(
+			renderer_,
+			_base_path/FCPPT_TEXT("shaders")/FCPPT_TEXT("pp_to_screen_vertex.glsl"),
+			_base_path/FCPPT_TEXT("shaders")/FCPPT_TEXT("pp_to_screen_fragment.glsl"),
+			sge::shader::vf_to_string<screen_vf::format>(),
+			sge::shader::variable_sequence(),
+			fcppt::assign::make_container<sge::shader::sampler_sequence>(
+				sge::shader::sampler(
+					"tex",
+					sge::renderer::texture::planar_ptr())))),
 	quad_(
 		renderer_,
 		shader_)
@@ -105,7 +100,8 @@ fruitcut::fruitlib::pp::system::render_result()
 		result_texture_);
 
 	sge::shader::scoped scoped_shader(
-		shader_);
+		shader_,
+		sge::shader::activation_method::with_textures);
 
 	quad_.render();
 }

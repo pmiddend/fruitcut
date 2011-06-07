@@ -86,19 +86,20 @@ fruitcut::app::fruit::manager::manager(
 					_renderer)))),
 	fruits_(),
 	fruit_shader_(
-		_renderer,
-		media_path()/FCPPT_TEXT("shaders")/FCPPT_TEXT("model_vertex.glsl"),
-		media_path()/FCPPT_TEXT("shaders")/FCPPT_TEXT("model_fragment.glsl"),
-		sge::shader::vf_to_string<model_vf::format>(),
-		fcppt::assign::make_container<sge::shader::variable_sequence>(
-			sge::shader::variable(
-				"mvp",
-				sge::shader::variable_type::uniform,
-				sge::renderer::matrix4())),
-		fcppt::assign::make_container<sge::shader::sampler_sequence>
-			(sge::shader::sampler(
-				"texture",
-				sge::renderer::texture::planar_ptr()))),
+		sge::shader::object_parameters(
+			_renderer,
+			media_path()/FCPPT_TEXT("shaders")/FCPPT_TEXT("model_vertex.glsl"),
+			media_path()/FCPPT_TEXT("shaders")/FCPPT_TEXT("model_fragment.glsl"),
+			sge::shader::vf_to_string<model_vf::format>(),
+			fcppt::assign::make_container<sge::shader::variable_sequence>(
+				sge::shader::variable(
+					"mvp",
+					sge::shader::variable_type::uniform,
+					sge::renderer::matrix4())),
+			fcppt::assign::make_container<sge::shader::sampler_sequence>
+				(sge::shader::sampler(
+					"texture",
+					sge::renderer::texture::planar_ptr())))),
 	cut_signal_(),
 	remove_signal_()
 {
@@ -398,9 +399,9 @@ fruitcut::app::fruit::manager::render()
 		sge::renderer::state::list
 			(sge::renderer::state::depth_func::less));
 
-	sge::renderer::glsl::scoped_program scoped_shader(
-		renderer_,
-		fruit_shader_.program());
+	sge::shader::scoped scoped_shader(
+		fruit_shader_,
+		sge::shader::activation_method::with_textures);
 
 	sge::renderer::scoped_vertex_declaration scoped_decl(
 		renderer_,

@@ -115,19 +115,21 @@ fruitcut::app::point_sprite::system_node::system_node(
 				std::tr1::placeholders::_1),
 			&create_random_from_directory)),
 	shader_(
-		renderer_,
-		fruitcut::media_path()/FCPPT_TEXT("shaders")/FCPPT_TEXT("point_sprite_vertex.glsl"),
-		fruitcut::media_path()/FCPPT_TEXT("shaders")/FCPPT_TEXT("point_sprite_fragment.glsl"),
-		"",
-		fcppt::assign::make_container<sge::shader::variable_sequence>
-			(sge::shader::variable(
-				"mvp",
-				sge::shader::variable_type::uniform,
-				sge::renderer::matrix4())),
-		fcppt::assign::make_container<sge::shader::sampler_sequence>
-			(sge::shader::sampler(
-				"tex",
-				sge::renderer::texture::planar_ptr())))
+		sge::shader::object_parameters(
+			renderer_,
+			fruitcut::media_path()/FCPPT_TEXT("shaders")/FCPPT_TEXT("point_sprite_vertex.glsl"),
+			fruitcut::media_path()/FCPPT_TEXT("shaders")/FCPPT_TEXT("point_sprite_fragment.glsl"),
+			sge::shader::vertex_format_string(
+				""),
+			fcppt::assign::make_container<sge::shader::variable_sequence>
+				(sge::shader::variable(
+					"mvp",
+					sge::shader::variable_type::uniform,
+					sge::renderer::matrix4())),
+			fcppt::assign::make_container<sge::shader::sampler_sequence>
+				(sge::shader::sampler(
+					"tex",
+					sge::renderer::texture::planar_ptr()))))
 {
 }
 
@@ -201,9 +203,9 @@ fruitcut::app::point_sprite::system_node::update()
 void
 fruitcut::app::point_sprite::system_node::render()
 {
-	sge::renderer::glsl::scoped_program scoped_shader(
-		renderer_,
-		shader_.program());
+	sge::shader::scoped scoped_shader(
+		shader_,
+		sge::shader::activation_method::bare);
 
 	shader_.update_uniform(
 		"mvp",

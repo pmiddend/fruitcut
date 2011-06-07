@@ -17,7 +17,7 @@
 #include <sge/renderer/vf/dynamic/part_index.hpp>
 #include <sge/renderer/vf/iterator.hpp>
 #include <sge/renderer/vf/vertex.hpp>
-#include <sge/shader/scoped.hpp>
+#include <sge/shader/shader.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/assert.hpp>
 
@@ -39,7 +39,8 @@ fruitcut::fruitlib::pp::screen_vf::quad::quad(
 			sge::renderer::resource_flags::none))
 {
 	sge::shader::scoped scoped_shader(
-		_shader);
+		_shader,
+		sge::shader::activation_method::bare);
 
 	sge::renderer::scoped_vertex_lock const vblock(
 		*buffer_,

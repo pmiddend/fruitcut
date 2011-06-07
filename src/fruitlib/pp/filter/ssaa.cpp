@@ -13,14 +13,7 @@
 #include <sge/renderer/vector2.hpp>
 #include <sge/renderer/vertex_buffer.hpp>
 #include <sge/renderer/scoped_vertex_declaration.hpp>
-#include <sge/shader/object.hpp>
-#include <sge/shader/sampler.hpp>
-#include <sge/shader/sampler_sequence.hpp>
-#include <sge/shader/scoped.hpp>
-#include <sge/shader/variable.hpp>
-#include <sge/shader/variable_sequence.hpp>
-#include <sge/shader/variable_type.hpp>
-#include <sge/shader/vf_to_string.hpp>
+#include <sge/shader/shader.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <iostream>
@@ -38,23 +31,24 @@ fruitcut::fruitlib::pp::filter::ssaa::ssaa(
 	texture_size_(
 		_texture_size),
 	shader_(
-		renderer_,
-		_base_path
-			/FCPPT_TEXT("shaders")
-			/FCPPT_TEXT("ssaa_vertex.glsl"),
-		_base_path
-			/FCPPT_TEXT("shaders")
-			/FCPPT_TEXT("ssaa_fragment.glsl"),
-		sge::shader::vf_to_string<screen_vf::format>(),
-		fcppt::assign::make_container<sge::shader::variable_sequence>(
-			sge::shader::variable(
-				"texture_size",
-				sge::shader::variable_type::uniform,
-				sge::renderer::vector2())),
-		fcppt::assign::make_container<sge::shader::sampler_sequence>(
-			sge::shader::sampler(
-				"tex",
-				sge::renderer::texture::planar_ptr()))),
+		sge::shader::object_parameters(
+			renderer_,
+			_base_path
+				/FCPPT_TEXT("shaders")
+				/FCPPT_TEXT("ssaa_vertex.glsl"),
+			_base_path
+				/FCPPT_TEXT("shaders")
+				/FCPPT_TEXT("ssaa_fragment.glsl"),
+			sge::shader::vf_to_string<screen_vf::format>(),
+			fcppt::assign::make_container<sge::shader::variable_sequence>(
+				sge::shader::variable(
+					"texture_size",
+					sge::shader::variable_type::uniform,
+					sge::renderer::vector2())),
+			fcppt::assign::make_container<sge::shader::sampler_sequence>(
+				sge::shader::sampler(
+					"tex",
+					sge::renderer::texture::planar_ptr())))),
 	quad_(
 		renderer_,
 		shader_)
@@ -78,7 +72,8 @@ fruitcut::fruitlib::pp::filter::ssaa::apply(
 				texture::depth_stencil_format::off));
 
 	sge::shader::scoped scoped_shader(
-		shader_);
+		shader_,
+		sge::shader::activation_method::with_textures);
 
 	shader_.update_uniform(
 		"texture_size",

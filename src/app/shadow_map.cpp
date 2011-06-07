@@ -49,16 +49,17 @@ fruitcut::app::shadow_map::shadow_map(
 			renderer_,
 			*texture_)),
 	shader_(
-		renderer_,
-		fruitcut::media_path()/FCPPT_TEXT("shaders")/FCPPT_TEXT("shadow_map_vertex.glsl"),
-		fruitcut::media_path()/FCPPT_TEXT("shaders")/FCPPT_TEXT("shadow_map_fragment.glsl"),
-		sge::shader::vf_to_string<fruit::model_vf::format>(),
-		fcppt::assign::make_container<sge::shader::variable_sequence>(
-			sge::shader::variable(
-				"mvp",
-				sge::shader::variable_type::uniform,
-				sge::renderer::matrix4())),
-		sge::shader::sampler_sequence()),
+		sge::shader::object_parameters(
+			renderer_,
+			fruitcut::media_path()/FCPPT_TEXT("shaders")/FCPPT_TEXT("shadow_map_vertex.glsl"),
+			fruitcut::media_path()/FCPPT_TEXT("shaders")/FCPPT_TEXT("shadow_map_fragment.glsl"),
+			sge::shader::vf_to_string<fruit::model_vf::format>(),
+			fcppt::assign::make_container<sge::shader::variable_sequence>(
+				sge::shader::variable(
+					"mvp",
+					sge::shader::variable_type::uniform,
+					sge::renderer::matrix4())),
+			sge::shader::sampler_sequence())),
 	mvp_(
 		fruitlib::json::find_member<sge::renderer::matrix4>(
 			_config_file,
@@ -105,7 +106,8 @@ fruitcut::app::shadow_map::update()
 		renderer_);
 
 	sge::shader::scoped shader(
-		shader_);
+		shader_,
+		sge::shader::activation_method::bare);
 
 	fruit_manager_.render_only_geometry(
 		shader_,

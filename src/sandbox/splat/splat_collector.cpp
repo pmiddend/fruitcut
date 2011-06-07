@@ -17,12 +17,7 @@
 #include <sge/renderer/texture/planar_parameters.hpp>
 #include <sge/renderer/vector2.hpp>
 #include <sge/renderer/viewport.hpp>
-#include <sge/shader/sampler_sequence.hpp>
-#include <sge/shader/scoped.hpp>
-#include <sge/shader/variable.hpp>
-#include <sge/shader/variable_sequence.hpp>
-#include <sge/shader/variable_type.hpp>
-#include <sge/shader/vf_to_string.hpp>
+#include <sge/shader/shader.hpp>
 #include <sge/sprite/default_equal.hpp>
 #include <sge/sprite/default_parameters.hpp>
 #include <sge/sprite/defaults.hpp>
@@ -88,26 +83,27 @@ fruitcut::sandbox::splat_collector::splat_collector(
 					1))
 			.elements()),
 	copy_shader_(
-		renderer_,
-		media_path()/FCPPT_TEXT("shaders")/FCPPT_TEXT("copy_vertex.glsl"),
-		media_path()/FCPPT_TEXT("shaders")/FCPPT_TEXT("copy_fragment.glsl"),
-		sge::shader::vf_to_string<fruitlib::pp::screen_vf::format>(),
-		fcppt::assign::make_container<sge::shader::variable_sequence>
-			(sge::shader::variable(
-				"target_size",
-				sge::shader::variable_type::const_,
-				fcppt::math::dim::structure_cast<sge::renderer::vector2>(
-					renderer_.onscreen_target().viewport().get().size())))
-			(sge::shader::variable(
-				"flip",
-				sge::shader::variable_type::const_,
-				// bool not supported in sge
-				static_cast<int>(
-					1))),
-		fcppt::assign::make_container<sge::shader::sampler_sequence>(
-			sge::shader::sampler(
-				"tex",
-				texture_))),
+		sge::shader::object_parameters(
+			renderer_,
+			media_path()/FCPPT_TEXT("shaders")/FCPPT_TEXT("copy_vertex.glsl"),
+			media_path()/FCPPT_TEXT("shaders")/FCPPT_TEXT("copy_fragment.glsl"),
+			sge::shader::vf_to_string<fruitlib::pp::screen_vf::format>(),
+			fcppt::assign::make_container<sge::shader::variable_sequence>
+				(sge::shader::variable(
+					"target_size",
+					sge::shader::variable_type::const_,
+					fcppt::math::dim::structure_cast<sge::renderer::vector2>(
+						renderer_.onscreen_target().viewport().get().size())))
+				(sge::shader::variable(
+					"flip",
+					sge::shader::variable_type::const_,
+					// bool not supported in sge
+					static_cast<int>(
+						1))),
+			fcppt::assign::make_container<sge::shader::sampler_sequence>(
+				sge::shader::sampler(
+					"tex",
+					texture_)))),
 	quad_(
 		renderer_,
 		copy_shader_)
@@ -156,7 +152,8 @@ fruitcut::sandbox::splat_collector::update()
 	// uses it again)
 	{
 		sge::shader::scoped scoped_shader(
-			copy_shader_);
+			copy_shader_,
+			sge::shader::activation_method::with_textures);
 
 		sge::renderer::scoped_target const target_(
 			renderer_,

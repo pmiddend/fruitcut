@@ -410,6 +410,8 @@ SET(
 	src/app/fruit/cut_mesh_result.cpp
 	src/app/fruit/cut_mesh_result.hpp
 	src/app/fruit/cut_mesh_result_fwd.hpp
+	src/app/fruit/default_render_node.cpp
+	src/app/fruit/default_render_node.hpp
 	src/app/fruit/hull/intersection_pair.hpp
 	src/app/fruit/hull/projected.cpp
 	src/app/fruit/hull/projected.hpp
@@ -452,6 +454,8 @@ SET(
 	src/app/fruit/prototype_from_json.hpp
 	src/app/fruit/prototype_fwd.hpp
 	src/app/fruit/prototype_sequence.hpp
+	src/app/fruit/shadow_render_node.cpp
+	src/app/fruit/shadow_render_node.hpp
 	src/app/fruit/spawn_callback_fn.hpp
 	src/app/fruit/spawner.cpp
 	src/app/fruit/spawner.hpp

@@ -141,26 +141,27 @@ fruitcut::app::background::background(
 			6,
 			sge::renderer::resource_flags::none)),
 	shader_(
-		renderer_,
-		fruitcut::media_path()/FCPPT_TEXT("shaders")/FCPPT_TEXT("background_vertex.glsl"),
-		fruitcut::media_path()/FCPPT_TEXT("shaders")/FCPPT_TEXT("background_fragment.glsl"),
-		sge::shader::vf_to_string<vf::format>(),
-		fcppt::assign::make_container<sge::shader::variable_sequence>
-			(sge::shader::variable(
-				"mvp",
-				sge::shader::variable_type::uniform,
-				sge::renderer::matrix4()))
-			(sge::shader::variable(
-				"shadow_mvp",
-				sge::shader::variable_type::uniform,
-				sge::renderer::matrix4())),
-		fcppt::assign::make_container<sge::shader::sampler_sequence>
-			(sge::shader::sampler(
-				"tex",
-				texture_))
-			(sge::shader::sampler(
-				"shadow_map",
-				sge::renderer::texture::planar_ptr()))),
+		sge::shader::object_parameters(
+			renderer_,
+			fruitcut::media_path()/FCPPT_TEXT("shaders")/FCPPT_TEXT("background_vertex.glsl"),
+			fruitcut::media_path()/FCPPT_TEXT("shaders")/FCPPT_TEXT("background_fragment.glsl"),
+			sge::shader::vf_to_string<vf::format>(),
+			fcppt::assign::make_container<sge::shader::variable_sequence>
+				(sge::shader::variable(
+					"mvp",
+					sge::shader::variable_type::uniform,
+					sge::renderer::matrix4()))
+				(sge::shader::variable(
+					"shadow_mvp",
+					sge::shader::variable_type::uniform,
+					sge::renderer::matrix4())),
+			fcppt::assign::make_container<sge::shader::sampler_sequence>
+				(sge::shader::sampler(
+					"tex",
+					texture_))
+				(sge::shader::sampler(
+					"shadow_map",
+					sge::renderer::texture::planar_ptr())))),
 	reps_(
 		fruitlib::json::find_member<sge::renderer::scalar>(
 			_config,
@@ -192,7 +193,8 @@ fruitcut::app::background::viewport_changed()
 			camera_.projection_object().get<sge::camera::projection::perspective>()));
 
 	sge::shader::scoped scoped_shader(
-		shader_);
+		shader_,
+		sge::shader::activation_method::bare);
 
 	sge::renderer::scoped_vertex_lock const vblock(
 		*vb_,
@@ -266,9 +268,8 @@ void
 fruitcut::app::background::shadow_mvp(
 	sge::renderer::matrix4 const &_shadow_mvp)
 {
-	sge::shader::scoped scoped_shader(
-		shader_);
-	shader_.update_uniform(
+	sge::shader::update_single_uniform(
+		shader_,
 		"shadow_mvp",
 		_shadow_mvp);
 }
@@ -281,7 +282,8 @@ void
 fruitcut::app::background::render()
 {
 	sge::shader::scoped scoped_shader(
-		shader_);
+		shader_,
+		sge::shader::activation_method::with_textures);
 
 	sge::renderer::scoped_vertex_declaration scoped_decl(
 		renderer_,

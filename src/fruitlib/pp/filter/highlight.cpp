@@ -11,14 +11,7 @@
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/planar_ptr.hpp>
 #include <sge/renderer/vector2.hpp>
-#include <sge/shader/object.hpp>
-#include <sge/shader/sampler.hpp>
-#include <sge/shader/sampler_sequence.hpp>
-#include <sge/shader/scoped.hpp>
-#include <sge/shader/variable.hpp>
-#include <sge/shader/variable_sequence.hpp>
-#include <sge/shader/variable_type.hpp>
-#include <sge/shader/vf_to_string.hpp>
+#include <sge/shader/shader.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/text.hpp>
@@ -38,27 +31,28 @@ fruitcut::fruitlib::pp::filter::highlight::highlight(
 	texture_size_(
 		_texture_size),
 	shader_(
-		renderer_,
-		_base_path
-			/FCPPT_TEXT("shaders")
-			/FCPPT_TEXT("highlight_vertex.glsl"),
-		_base_path
-			/FCPPT_TEXT("shaders")
-			/FCPPT_TEXT("highlight_fragment.glsl"),
-		sge::shader::vf_to_string<screen_vf::format>(),
-		fcppt::assign::make_container<sge::shader::variable_sequence>
-			(sge::shader::variable(
-				"texture_size",
-				sge::shader::variable_type::uniform,
-				sge::renderer::vector2()))
-			(sge::shader::variable(
-				"threshold",
-				sge::shader::variable_type::const_,
-				_threshold)),
-		fcppt::assign::make_container<sge::shader::sampler_sequence>(
-			sge::shader::sampler(
-				"tex",
-				sge::renderer::texture::planar_ptr()))),
+		sge::shader::object_parameters(
+			renderer_,
+			_base_path
+				/FCPPT_TEXT("shaders")
+				/FCPPT_TEXT("highlight_vertex.glsl"),
+			_base_path
+				/FCPPT_TEXT("shaders")
+				/FCPPT_TEXT("highlight_fragment.glsl"),
+			sge::shader::vf_to_string<screen_vf::format>(),
+			fcppt::assign::make_container<sge::shader::variable_sequence>
+				(sge::shader::variable(
+					"texture_size",
+					sge::shader::variable_type::uniform,
+					sge::renderer::vector2()))
+				(sge::shader::variable(
+					"threshold",
+					sge::shader::variable_type::const_,
+					_threshold)),
+			fcppt::assign::make_container<sge::shader::sampler_sequence>(
+				sge::shader::sampler(
+					"tex",
+					sge::renderer::texture::planar_ptr())))),
 	quad_(
 		renderer_,
 		shader_)
@@ -82,7 +76,8 @@ fruitcut::fruitlib::pp::filter::highlight::apply(
 				texture::depth_stencil_format::off));
 
 	sge::shader::scoped scoped_shader(
-		shader_);
+		shader_,
+		sge::shader::activation_method::with_textures);
 
 	shader_.update_uniform(
 		"texture_size",
