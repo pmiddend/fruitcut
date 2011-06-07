@@ -63,11 +63,8 @@ void
 fruitcut::fruitlib::pp::filter::desaturate::factor(
 	sge::renderer::scalar const _factor)
 {
-	sge::renderer::glsl::scoped_program scoped(
-		renderer_,
-		shader_.program());
-
-	shader_.update_uniform(
+	sge::shader::update_single_uniform(
+		shader_,
 		"factor",
 		_factor);
 }

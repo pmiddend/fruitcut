@@ -6,7 +6,6 @@
 #include "model_vf/position.hpp"
 #include "model_vf/texcoord.hpp"
 #include <sge/renderer/device.hpp>
-#include <sge/renderer/glsl/scoped_program.hpp>
 #include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/resource_flags_none.hpp>
 #include <sge/renderer/scoped_vertex_lock.hpp>
@@ -15,7 +14,7 @@
 #include <sge/renderer/vf/iterator.hpp>
 #include <sge/renderer/vf/vertex.hpp>
 #include <sge/renderer/vf/view.hpp>
-#include <sge/shader/object.hpp>
+#include <sge/shader/shader.hpp>
 
 sge::renderer::vertex_buffer_ptr const
 fruitcut::app::fruit::mesh_to_vertex_buffer(
@@ -34,9 +33,9 @@ fruitcut::app::fruit::mesh_to_vertex_buffer(
 			sge::renderer::resource_flags::none);
 
 	// We don't need to scope the "whole" shader with the texture
-	sge::renderer::glsl::scoped_program scoped_shader_(
-		renderer,
-		model_shader.program());
+	sge::shader::scoped scoped_shader(
+		model_shader,
+		sge::shader::activation_method::bare);
 
 	sge::renderer::scoped_vertex_lock const vblock(
 		*vb,
