@@ -7,23 +7,17 @@
 #include <sge/renderer/nonindexed_primitive_type.hpp>
 #include <sge/renderer/resource_flags_none.hpp>
 #include <sge/renderer/scoped_vertex_buffer.hpp>
-#include <sge/renderer/scoped_vertex_declaration.hpp>
 #include <sge/renderer/scoped_vertex_lock.hpp>
 #include <sge/renderer/size_type.hpp>
 #include <sge/renderer/vertex_buffer.hpp>
 #include <sge/renderer/vertex_count.hpp>
 #include <sge/renderer/vertex_declaration_ptr.hpp>
-#include <sge/renderer/vf/dynamic/make_format.hpp>
-#include <sge/renderer/vf/dynamic/part_index.hpp>
-#include <sge/renderer/vf/iterator.hpp>
-#include <sge/renderer/vf/vertex.hpp>
+#include <sge/renderer/vf/vf.hpp>
 #include <sge/shader/shader.hpp>
-#include <fcppt/math/vector/basic_impl.hpp>
-#include <fcppt/assert.hpp>
+#include <fcppt/math/vector/vector.hpp>
 
 fruitcut::fruitlib::pp::screen_vf::quad::quad(
-	sge::renderer::device &_renderer,
-	sge::shader::object &_shader)
+	sge::renderer::device &_renderer)
 :
 	renderer_(
 		_renderer),
@@ -38,10 +32,6 @@ fruitcut::fruitlib::pp::screen_vf::quad::quad(
 			6,
 			sge::renderer::resource_flags::none))
 {
-	sge::shader::scoped scoped_shader(
-		_shader,
-		sge::shader::activation_method::bare);
-
 	sge::renderer::scoped_vertex_lock const vblock(
 		*buffer_,
 		sge::renderer::lock_mode::writeonly);
@@ -86,13 +76,6 @@ fruitcut::fruitlib::pp::screen_vf::quad::quad(
 void
 fruitcut::fruitlib::pp::screen_vf::quad::render()
 {
-	FCPPT_ASSERT(
-		declaration_ && buffer_);
-
-	sge::renderer::scoped_vertex_declaration const vb_declaration_context(
-		renderer_,
-		*declaration_);
-
 	sge::renderer::scoped_vertex_buffer const scoped_vb_(
 		renderer_,
 		*buffer_);
@@ -103,6 +86,18 @@ fruitcut::fruitlib::pp::screen_vf::quad::render()
 		sge::renderer::vertex_count(
 			buffer_->size()),
 		sge::renderer::nonindexed_primitive_type::triangle);
+}
+
+sge::renderer::vertex_declaration &
+fruitcut::fruitlib::pp::screen_vf::quad::vertex_declaration()
+{
+	return *declaration_;
+}
+
+sge::renderer::vertex_declaration const &
+fruitcut::fruitlib::pp::screen_vf::quad::vertex_declaration() const
+{
+	return *declaration_;
 }
 
 fruitcut::fruitlib::pp::screen_vf::quad::~quad()

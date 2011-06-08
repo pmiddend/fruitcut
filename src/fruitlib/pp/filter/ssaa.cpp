@@ -1,5 +1,5 @@
 #include "ssaa.hpp"
-#include "../screen_vf/format.hpp"
+#include "manager.hpp"
 #include "../texture/instance.hpp"
 #include "../texture/manager.hpp"
 #include <sge/image/color/format.hpp>
@@ -19,27 +19,22 @@
 #include <iostream>
 
 fruitcut::fruitlib::pp::filter::ssaa::ssaa(
-	fcppt::filesystem::path const &_base_path,
 	sge::renderer::device &_renderer,
+	filter::manager &_filter_manager,
 	texture::manager &_texture_manager,
 	sge::renderer::dim2 const &_texture_size)
 :
 	renderer_(
 		_renderer),
+	filter_manager_(
+		_filter_manager),
 	texture_manager_(
 		_texture_manager),
 	texture_size_(
 		_texture_size),
 	shader_(
-		sge::shader::object_parameters(
-			renderer_,
-			_base_path
-				/FCPPT_TEXT("shaders")
-				/FCPPT_TEXT("ssaa_vertex.glsl"),
-			_base_path
-				/FCPPT_TEXT("shaders")
-				/FCPPT_TEXT("ssaa_fragment.glsl"),
-			sge::shader::vf_to_string<screen_vf::format>(),
+		filter_manager_.lookup_shader(
+			FCPPT_TEXT("ssaa"),
 			fcppt::assign::make_container<sge::shader::variable_sequence>(
 				sge::shader::variable(
 					"texture_size",
@@ -48,10 +43,7 @@ fruitcut::fruitlib::pp::filter::ssaa::ssaa(
 			fcppt::assign::make_container<sge::shader::sampler_sequence>(
 				sge::shader::sampler(
 					"tex",
-					sge::renderer::texture::planar_ptr())))),
-	quad_(
-		renderer_,
-		shader_)
+					sge::renderer::texture::planar_ptr()))))
 {
 }
 
@@ -73,7 +65,7 @@ fruitcut::fruitlib::pp::filter::ssaa::apply(
 
 	sge::shader::scoped scoped_shader(
 		shader_,
-		sge::shader::activation_method::with_textures);
+		sge::shader::activate_everything());
 
 	shader_.update_uniform(
 		"texture_size",
@@ -87,7 +79,7 @@ fruitcut::fruitlib::pp::filter::ssaa::apply(
 	sge::renderer::scoped_block const block(
 		renderer_);
 
-	quad_.render();
+	filter_manager_.quad().render();
 
 	return result;
 }

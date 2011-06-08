@@ -3,15 +3,13 @@
 
 #include "filter/base_fwd.hpp"
 #include "filter/wrapper.hpp"
-#include "screen_vf/quad.hpp"
+#include "filter/manager_fwd.hpp"
 #include "dependency_set.hpp"
-#include <sge/renderer/device_ptr.hpp>
 #include <sge/renderer/texture/planar_ptr.hpp>
 #include <sge/renderer/target_ptr.hpp>
-#include <sge/shader/object.hpp>
+#include <sge/shader/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/string.hpp>
-#include <fcppt/filesystem/path.hpp>
 #include <boost/graph/adjacency_list.hpp>
 #include <boost/graph/graph_traits.hpp>
 #include <fcppt/tr1/unordered_map.hpp>
@@ -74,8 +72,7 @@ public:
 
 	explicit
 	system(
-		fcppt::filesystem::path const &,
-		sge::renderer::device &);
+		filter::manager &);
 
 	void
 	update();
@@ -141,12 +138,11 @@ private:
 	>
 	name_to_vertex;
 
-	sge::renderer::device &renderer_;
+	filter::manager &filter_manager_;
 	graph graph_;
 	vertex_to_filter vertex_to_filter_;
 	name_to_vertex name_to_vertex_;
-	sge::shader::object shader_;
-	screen_vf::quad quad_;
+	sge::shader::object &shader_;
 	sge::renderer::texture::planar_ptr result_texture_;
 };
 }

@@ -87,6 +87,16 @@ fruitcut::app::states::ingame::superstate::superstate(
 		context<machine>().systems().renderer(),
 		physics_world_,
 		context<machine>().camera()),
+	fruit_default_render_node_(
+		context<machine>().systems().renderer(),
+		fruit_manager_.vertex_declaration(),
+		fruit_manager_,
+		context<machine>().camera()),
+	fruit_shadow_render_node_(
+		context<machine>().systems().renderer(),
+		fruit_manager_.vertex_declaration(),
+		fruit_manager_,
+		context<machine>().shadow_map().mvp()),
 	fruit_spawner_(
 		fruit_manager_,
 		context<machine>().config_file(),
@@ -134,24 +144,18 @@ fruitcut::app::states::ingame::superstate::superstate(
 			fruitlib::physics::rigid_body::solidity::solid,
 			fruitlib::physics::rigid_body::optional_mass(),
 			fruitlib::physics::rigid_body::user_data())),
-	background_body_scope_(),
-	shadow_map_(
-		context<machine>().config_file(),
-		context<machine>().systems().renderer(),
-		context<machine>().camera(),
-		fruit_manager_),
-	scoped_shadow_map_(
-		shadow_map_,
-		context<machine>().background())
+	background_body_scope_()
 {
 	// scene
+	context<machine>().scene_node().insert_dont_care(
+		fruit_manager_);
 	context<machine>().scene_node().insert_before(
-		fruit_manager_,
+		fruit_default_render_node_,
 		context<machine>().point_sprites());
 	context<machine>().scene_node().insert_dont_care(
 		fruit_spawner_);
-	context<machine>().scene_node().insert_dont_care(
-		shadow_map_);
+	context<machine>().shadow_map().insert_dont_care(
+		fruit_shadow_render_node_);
 	context<machine>().scene_node().insert_dont_care(
 		game_logic_);
 	context<machine>().scene_node().insert_dont_care(

@@ -2,16 +2,15 @@
 #define FRUITCUT_FRUITLIB_PP_FILTER_DESATURATE_HPP_INCLUDED
 
 #include "unary.hpp"
+#include "manager_fwd.hpp"
 #include "../texture/manager_fwd.hpp"
-#include "../screen_vf/quad.hpp"
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/target_ptr.hpp>
 #include <sge/renderer/scalar.hpp>
 #include <sge/renderer/dim2.hpp>
-#include <sge/shader/object.hpp>
-#include <fcppt/math/dim/basic_impl.hpp>
+#include <sge/shader/object_fwd.hpp>
+#include <fcppt/math/dim/dim.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/filesystem/path.hpp>
 
 namespace fruitcut
 {
@@ -30,8 +29,8 @@ FCPPT_NONCOPYABLE(
 public:
 	explicit
 	desaturate(
-		fcppt::filesystem::path const &,
 		sge::renderer::device &,
+		filter::manager &,
 		texture::manager &,
 		sge::renderer::dim2 const &,
 		sge::renderer::scalar factor);
@@ -45,10 +44,11 @@ public:
 		texture::counted_instance);
 private:
 	sge::renderer::device &renderer_;
+	filter::manager &filter_manager_;
 	texture::manager &texture_manager_;
 	sge::renderer::dim2 texture_size_;
-	sge::shader::object shader_;
-	screen_vf::quad quad_;
+	sge::renderer::scalar factor_;
+	sge::shader::object &shader_;
 };
 }
 }

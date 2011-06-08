@@ -2,16 +2,15 @@
 #define FRUITCUT_FRUITLIB_PP_FILTER_BLUR_HPP_INCLUDED
 
 #include "unary.hpp"
-#include "../screen_vf/quad.hpp"
+#include "manager_fwd.hpp"
 #include "../texture/manager_fwd.hpp"
 #include "../texture/counted_instance.hpp"
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/dim2.hpp>
-#include <sge/shader/object_ptr.hpp>
+#include <sge/shader/object_fwd.hpp>
 #include <fcppt/container/array.hpp>
-#include <fcppt/math/dim/basic_impl.hpp>
+#include <fcppt/math/dim/dim.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/filesystem/path.hpp>
 #include <boost/ptr_container/ptr_array.hpp>
 #include <cstddef>
 
@@ -36,8 +35,8 @@ public:
 
 	explicit	
 	blur(
-		fcppt::filesystem::path const &,
 		sge::renderer::device &,
+		filter::manager &,
 		texture::manager &,
 		sge::renderer::dim2 const &,
 		size_type iterations);
@@ -53,12 +52,12 @@ private:
 	instance_array;
 
 	sge::renderer::device &renderer_;
+	filter::manager &filter_manager_;
 	texture::manager &texture_manager_;
 	sge::renderer::dim2 const texture_size_;
 	size_type const iterations_;
 
-	fcppt::container::array<sge::shader::object_ptr,2> shaders_;
-	boost::ptr_array<screen_vf::quad,2> quads_;
+	fcppt::container::array<sge::shader::object*,2> shaders_;
 
 	void
 	render(

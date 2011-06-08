@@ -2,13 +2,13 @@
 #define FRUITCUT_FRUITLIB_PP_FILTER_SSAA_HPP_INCLUDED
 
 #include "unary.hpp"
+#include "manager_fwd.hpp"
 #include "../texture/manager_fwd.hpp"
 #include "../texture/counted_instance.hpp"
-#include "../screen_vf/quad.hpp"
 #include <sge/renderer/dim2.hpp>
 #include <sge/renderer/device_fwd.hpp>
-#include <sge/shader/object.hpp>
-#include <fcppt/math/dim/basic_impl.hpp>
+#include <sge/shader/object_fwd.hpp>
+#include <fcppt/math/dim/dim.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/filesystem/path.hpp>
 
@@ -29,8 +29,8 @@ FCPPT_NONCOPYABLE(
 public:
 	explicit
 	ssaa(
-		fcppt::filesystem::path const &,
 		sge::renderer::device &,
+		filter::manager &,
 		texture::manager &,
 		sge::renderer::dim2 const &);
 
@@ -41,10 +41,10 @@ public:
 	~ssaa();
 private:
 	sge::renderer::device &renderer_;
+	filter::manager &filter_manager_;
 	texture::manager &texture_manager_;
 	sge::renderer::dim2 const texture_size_;
-	sge::shader::object shader_;
-	screen_vf::quad quad_;
+	sge::shader::object &shader_;
 };
 }
 }

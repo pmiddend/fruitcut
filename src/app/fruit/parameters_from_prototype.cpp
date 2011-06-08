@@ -6,7 +6,6 @@
 #include "../../fruitlib/physics/matrix4.hpp"
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/vertex_declaration_fwd.hpp>
-#include <sge/shader/object_fwd.hpp>
 #include <sge/time/default_callback.hpp>
 #include <sge/time/duration.hpp>
 #include <fcppt/math/vector/vector.hpp>
@@ -20,7 +19,6 @@ fruitcut::app::fruit::parameters_from_prototype(
 	fruitlib::physics::group::object &_fruit_group,
 	sge::renderer::device &_renderer,
 	sge::renderer::vertex_declaration &_vertex_declaration,
-	sge::shader::object &_shader,
 	fruitlib::physics::scalar const _mass,
 	fruitlib::physics::vector3 const &_position,
 	fruitlib::physics::matrix4 const &_transformation,
@@ -34,7 +32,6 @@ fruitcut::app::fruit::parameters_from_prototype(
 			_world,
 			_renderer,
 			_vertex_declaration,
-			_shader,
 			proto.mesh(),
 			_fruit_group,
 			_mass,

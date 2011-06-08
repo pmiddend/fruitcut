@@ -39,7 +39,6 @@
 #include <sge/renderer/parameters.hpp>
 #include <sge/renderer/resource_flags_none.hpp>
 #include <sge/renderer/scoped_block.hpp>
-#include <sge/renderer/texture/filter/linear.hpp>
 #include <sge/renderer/texture/texture.hpp>
 #include <sge/renderer/viewport.hpp>
 #include <sge/renderer/visual_depth.hpp>
@@ -274,10 +273,16 @@ fruitcut::app::machine::machine(
 			std::tr1::bind(
 				&machine::viewport_change,
 				this))),
+	shadow_map_(
+		config_file_,
+		systems_.renderer(),
+		camera_),
 	background_(
 		systems_.renderer(),
 		systems_.viewport_manager(),
 		systems_.image_loader(),
+		shadow_map_.texture(),
+		shadow_map_.mvp(),
 		config_file_,
 		camera_),
 	desired_fps_(
@@ -313,6 +318,8 @@ fruitcut::app::machine::machine(
 		scene_node_);
 	intrusive_group::insert_dont_care(
 		overlay_node_);
+	intrusive_group::insert_dont_care(
+		shadow_map_);
 	scene_node_.push_front(
 		background_);
 	scene_node_.insert_dont_care(
@@ -432,6 +439,18 @@ fruitcut::app::background const &
 fruitcut::app::machine::background() const
 {
 	return background_;
+}
+
+fruitcut::app::shadow_map &
+fruitcut::app::machine::shadow_map()
+{
+	return shadow_map_;
+}
+
+fruitcut::app::shadow_map const &
+fruitcut::app::machine::shadow_map() const
+{
+	return shadow_map_;
 }
 
 sge::camera::object &

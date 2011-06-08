@@ -1,4 +1,5 @@
 #include "filter/base.hpp"
+#include "filter/manager.hpp"
 #include "filter/binary.hpp"
 #include "filter/nullary.hpp"
 #include "filter/unary.hpp"
@@ -17,25 +18,18 @@
 #include <list>
 
 fruitcut::fruitlib::pp::system::system(
-	fcppt::filesystem::path const &_base_path,
-	sge::renderer::device &_renderer)
+	filter::manager &_filter_manager)
 :
-	renderer_(
-		_renderer),
+	filter_manager_(
+		_filter_manager),
 	shader_(
-		sge::shader::object_parameters(
-			renderer_,
-			_base_path/FCPPT_TEXT("shaders")/FCPPT_TEXT("pp_to_screen_vertex.glsl"),
-			_base_path/FCPPT_TEXT("shaders")/FCPPT_TEXT("pp_to_screen_fragment.glsl"),
-			sge::shader::vf_to_string<screen_vf::format>(),
+		_filter_manager.lookup_shader(
+			FCPPT_TEXT("pp_to_screen"),
 			sge::shader::variable_sequence(),
 			fcppt::assign::make_container<sge::shader::sampler_sequence>(
 				sge::shader::sampler(
 					"tex",
-					sge::renderer::texture::planar_ptr())))),
-	quad_(
-		renderer_,
-		shader_)
+					sge::renderer::texture::planar_ptr()))))
 {
 }
 
@@ -101,9 +95,9 @@ fruitcut::fruitlib::pp::system::render_result()
 
 	sge::shader::scoped scoped_shader(
 		shader_,
-		sge::shader::activation_method::with_textures);
+		sge::shader::activate_everything());
 
-	quad_.render();
+	filter_manager_.quad().render();
 }
 
 void

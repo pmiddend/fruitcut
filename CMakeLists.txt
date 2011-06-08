@@ -278,6 +278,9 @@ SET(
 	src/fruitlib/pp/filter/highlight.hpp
 	src/fruitlib/pp/filter/inject_texture.cpp
 	src/fruitlib/pp/filter/inject_texture.hpp
+	src/fruitlib/pp/filter/manager.cpp
+	src/fruitlib/pp/filter/manager.hpp
+	src/fruitlib/pp/filter/manager_fwd.hpp
 	src/fruitlib/pp/filter/nullary.hpp
 	src/fruitlib/pp/filter/render_to_texture.cpp
 	src/fruitlib/pp/filter/render_to_texture.hpp
@@ -504,8 +507,6 @@ SET(
 	src/app/scene_fwd.hpp
 	src/app/scoped_scene_activation.cpp
 	src/app/scoped_scene_activation.hpp
-	src/app/scoped_shadow_map.cpp
-	src/app/scoped_shadow_map.hpp
 	src/app/scoped_time_factor.cpp
 	src/app/scoped_time_factor.hpp
 	src/app/score.hpp

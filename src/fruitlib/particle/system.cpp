@@ -2,10 +2,10 @@
 #include <sge/sprite/default_equal.hpp>
 #include <sge/config/media_path.hpp>
 #include <sge/renderer/device.hpp>
-#include <sge/renderer/glsl/istream_ref.hpp>
+//#include <sge/renderer/glsl/istream_ref.hpp>
 #include <sge/renderer/glsl/program.hpp>
 #include <sge/renderer/glsl/scoped_program.hpp>
-#include <sge/renderer/glsl/create_program_from_streams.hpp>
+//#include <sge/renderer/glsl/create_program_from_streams.hpp>
 #include <fcppt/container/ptr/push_back_unique_ptr.hpp>
 #include <fcppt/move.hpp>
 #include <fcppt/text.hpp>
@@ -13,6 +13,7 @@
 
 namespace
 {
+#if 0
 sge::renderer::glsl::program_ptr const
 create_point_shader(
 	sge::renderer::device &rend)
@@ -35,6 +36,7 @@ create_point_shader(
 			sge::renderer::glsl::istream_ref(
 				fragment_stream));
 }
+#endif
 }
 
 fruitcut::fruitlib::particle::system::system(
@@ -46,8 +48,9 @@ fruitcut::fruitlib::particle::system::system(
 		_renderer),
 	particles_(),
 	point_shader_(
+		/*
 		create_point_shader(
-			_renderer)),
+			_renderer)*/),
 	point_shader_texture_(
 		point_shader_->uniform(
 			"tex"))

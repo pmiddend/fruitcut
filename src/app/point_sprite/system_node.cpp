@@ -117,8 +117,9 @@ fruitcut::app::point_sprite::system_node::system_node(
 	shader_(
 		sge::shader::object_parameters(
 			renderer_,
-			fruitcut::media_path()/FCPPT_TEXT("shaders")/FCPPT_TEXT("point_sprite_vertex.glsl"),
-			fruitcut::media_path()/FCPPT_TEXT("shaders")/FCPPT_TEXT("point_sprite_fragment.glsl"),
+			system_.vertex_declaration(),
+			fruitcut::media_path()/FCPPT_TEXT("shaders")/FCPPT_TEXT("point_sprite")/FCPPT_TEXT("vertex.glsl"),
+			fruitcut::media_path()/FCPPT_TEXT("shaders")/FCPPT_TEXT("point_sprite")/FCPPT_TEXT("fragment.glsl"),
 			sge::shader::vertex_format_string(
 				""),
 			fcppt::assign::make_container<sge::shader::variable_sequence>
@@ -205,7 +206,7 @@ fruitcut::app::point_sprite::system_node::render()
 {
 	sge::shader::scoped scoped_shader(
 		shader_,
-		sge::shader::activation_method::bare);
+		sge::shader::activate_bare());
 
 	shader_.update_uniform(
 		"mvp",

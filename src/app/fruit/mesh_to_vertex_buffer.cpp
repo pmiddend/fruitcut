@@ -14,13 +14,11 @@
 #include <sge/renderer/vf/iterator.hpp>
 #include <sge/renderer/vf/vertex.hpp>
 #include <sge/renderer/vf/view.hpp>
-#include <sge/shader/shader.hpp>
 
 sge::renderer::vertex_buffer_ptr const
 fruitcut::app::fruit::mesh_to_vertex_buffer(
 	sge::renderer::device &renderer,
 	sge::renderer::vertex_declaration &vertex_decl,
-	sge::shader::object &model_shader,
 	mesh const &m)
 {
 	sge::renderer::vertex_buffer_ptr const vb = 
@@ -31,11 +29,6 @@ fruitcut::app::fruit::mesh_to_vertex_buffer(
 			static_cast<sge::renderer::size_type>(
 				m.triangles.size() * 3),
 			sge::renderer::resource_flags::none);
-
-	// We don't need to scope the "whole" shader with the texture
-	sge::shader::scoped scoped_shader(
-		model_shader,
-		sge::shader::activation_method::bare);
 
 	sge::renderer::scoped_vertex_lock const vblock(
 		*vb,

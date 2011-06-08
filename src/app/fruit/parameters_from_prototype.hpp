@@ -10,7 +10,6 @@
 #include "../../fruitlib/physics/group/object_fwd.hpp"
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/vertex_declaration_fwd.hpp>
-#include <sge/shader/object_fwd.hpp>
 #include <fcppt/math/vector/vector.hpp>
 #include <fcppt/math/matrix/matrix.hpp>
 
@@ -27,7 +26,6 @@ parameters_from_prototype(
 	fruitlib::physics::group::object &_fruit_group,
 	sge::renderer::device &_renderer,
 	sge::renderer::vertex_declaration &_vertex_declaration,
-	sge::shader::object &_shader,
 	fruitlib::physics::scalar const _mass,
 	fruitlib::physics::vector3 const &_position,
 	fruitlib::physics::matrix4 const &_transformation,

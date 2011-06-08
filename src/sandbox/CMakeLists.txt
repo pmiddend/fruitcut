@@ -13,16 +13,16 @@ SET_SOURCE_FILES_PROPERTIES(
 	-DMEDIA_PATH="\\\"${CMAKE_INSTALL_PREFIX}/share/games/${PROJECT_NAME}/media\\\""
 )
 
-ADD_EXECUTABLE(
-	example_trail
-	trail/trail_test.cpp trail/mouse_trailer.cpp trail/sword_particle.cpp ../media_path.cpp)
+#ADD_EXECUTABLE(
+#	example_trail
+#	trail/trail_test.cpp trail/mouse_trailer.cpp trail/sword_particle.cpp ../media_path.cpp)
 
-TARGET_LINK_LIBRARIES(
-	example_trail
-	fruitcut_library
-	${FCPPT_LIBRARIES}
-	${SGE_LIBRARIES}
-	${Boost_LIBRARIES})
+#TARGET_LINK_LIBRARIES(
+#	example_trail
+#	fruitcut_library
+#	${FCPPT_LIBRARIES}
+#	${SGE_LIBRARIES}
+#	${Boost_LIBRARIES})
 
 ADD_EXECUTABLE(
 	example_accumulate_colors
@@ -43,27 +43,27 @@ TARGET_LINK_LIBRARIES(
 	${FCPPT_LIBRARIES}
 	${Boost_LIBRARIES})
 
-ADD_EXECUTABLE(
-	example_splat
-	splat/splat.cpp splat/splat_collector.cpp splat/splatter.cpp splat/splat_particle.cpp ../media_path.cpp)
+#ADD_EXECUTABLE(
+#	example_splat
+#	splat/splat.cpp splat/splat_collector.cpp splat/splatter.cpp splat/splat_particle.cpp ../media_path.cpp)
+#
+#TARGET_LINK_LIBRARIES(
+#	example_splat
+#	fruitcut_library
+#	${FCPPT_LIBRARIES}
+#	${SGE_LIBRARIES}
+#	${Boost_LIBRARIES})
 
-TARGET_LINK_LIBRARIES(
-	example_splat
-	fruitcut_library
-	${FCPPT_LIBRARIES}
-	${SGE_LIBRARIES}
-	${Boost_LIBRARIES})
-
-ADD_EXECUTABLE(
-	example_convolution
-	convolution/convolution.cpp ../media_path.cpp)
-
-TARGET_LINK_LIBRARIES(
-	example_convolution
-	fruitcut_library
-	${FCPPT_LIBRARIES}
-	${SGE_LIBRARIES}
-	${Boost_LIBRARIES})
+#ADD_EXECUTABLE(
+#	example_convolution
+#	convolution/convolution.cpp ../media_path.cpp)
+#
+#TARGET_LINK_LIBRARIES(
+#	example_convolution
+#	fruitcut_library
+#	${FCPPT_LIBRARIES}
+#	${SGE_LIBRARIES}
+#	${Boost_LIBRARIES})
 
 ADD_EXECUTABLE(
 	example_geometry

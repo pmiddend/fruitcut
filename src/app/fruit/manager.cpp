@@ -22,22 +22,10 @@
 #include <sge/parse/json/array.hpp>
 #include <sge/parse/json/object.hpp>
 #include <sge/renderer/device.hpp>
-#include <sge/renderer/first_vertex.hpp>
-#include <sge/renderer/glsl/scoped_program.hpp>
 #include <sge/renderer/matrix4.hpp>
-#include <sge/renderer/nonindexed_primitive_type.hpp>
-#include <sge/renderer/scoped_vertex_buffer.hpp>
-#include <sge/renderer/scoped_vertex_declaration.hpp>
-#include <sge/renderer/size_type.hpp>
-#include <sge/renderer/stage_type.hpp>
-#include <sge/renderer/state/state.hpp>
-#include <sge/renderer/texture/texture.hpp>
 #include <sge/renderer/vector3.hpp>
 #include <sge/renderer/vector4.hpp>
-#include <sge/renderer/vertex_buffer.hpp>
-#include <sge/renderer/vertex_count.hpp>
 #include <sge/renderer/vf/dynamic/make_format.hpp>
-#include <sge/shader/shader.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/algorithm/map.hpp>
 #include <fcppt/tr1/functional.hpp>
@@ -85,21 +73,6 @@ fruitcut::app::fruit::manager::manager(
 				fcppt::ref(
 					_renderer)))),
 	fruits_(),
-	fruit_shader_(
-		sge::shader::object_parameters(
-			_renderer,
-			media_path()/FCPPT_TEXT("shaders")/FCPPT_TEXT("model_vertex.glsl"),
-			media_path()/FCPPT_TEXT("shaders")/FCPPT_TEXT("model_fragment.glsl"),
-			sge::shader::vf_to_string<model_vf::format>(),
-			fcppt::assign::make_container<sge::shader::variable_sequence>(
-				sge::shader::variable(
-					"mvp",
-					sge::shader::variable_type::uniform,
-					sge::renderer::matrix4())),
-			fcppt::assign::make_container<sge::shader::sampler_sequence>
-				(sge::shader::sampler(
-					"texture",
-					sge::renderer::texture::planar_ptr())))),
 	cut_signal_(),
 	remove_signal_()
 {
@@ -171,7 +144,6 @@ fruitcut::app::fruit::manager::cut(
 					physics_world_,
 					renderer_,
 					*vertex_declaration_,
-					fruit_shader_,
 					cut_result->mesh(),
 					fruit_group_,
 					static_cast<fruitlib::physics::scalar>(
@@ -231,7 +203,6 @@ fruitcut::app::fruit::manager::spawn(
 				fruit_group_,
 				renderer_,
 				*vertex_declaration_,
-				fruit_shader_,
 				mass,
 				position,
 				// I don't see any sense in specifying that here
@@ -294,39 +265,16 @@ fruitcut::app::fruit::manager::fruit_group() const
 	return fruit_group_;
 }
 
-void
-fruitcut::app::fruit::manager::render_only_geometry(
-	sge::shader::object &s,
-	sge::renderer::matrix4 const &mvp)
+sge::renderer::vertex_declaration &
+fruitcut::app::fruit::manager::vertex_declaration()
 {
-	sge::renderer::state::scoped scoped_state(
-		renderer_,
-		sge::renderer::state::list
-			(sge::renderer::state::depth_func::less));
+	return *vertex_declaration_;
+}
 
-	sge::renderer::scoped_vertex_declaration scoped_decl(
-		renderer_,
-		*vertex_declaration_);
-
-	for(object_sequence::iterator i = fruits_.begin(); i != fruits_.end(); ++i)
-	{
-		sge::renderer::scoped_vertex_buffer scoped_vb(
-			renderer_,
-			i->vb());
-
-		s.update_uniform(
-			"mvp",
-			mvp * i->world_transform());
-
-		renderer_.render_nonindexed(
-			sge::renderer::first_vertex(
-				static_cast<sge::renderer::size_type>(
-					0)),
-			sge::renderer::vertex_count(
-				i->vb().size()),
-			sge::renderer::nonindexed_primitive_type::triangle);
-	}
-	
+sge::renderer::vertex_declaration const &
+fruitcut::app::fruit::manager::vertex_declaration() const
+{
+	return *vertex_declaration_;
 }
 
 fruitcut::app::fruit::manager::~manager()
@@ -394,41 +342,4 @@ fruitcut::app::fruit::manager::update()
 void
 fruitcut::app::fruit::manager::render()
 {
-	sge::renderer::state::scoped scoped_state(
-		renderer_,
-		sge::renderer::state::list
-			(sge::renderer::state::depth_func::less));
-
-	sge::shader::scoped scoped_shader(
-		fruit_shader_,
-		sge::shader::activation_method::with_textures);
-
-	sge::renderer::scoped_vertex_declaration scoped_decl(
-		renderer_,
-		*vertex_declaration_);
-
-	for(object_sequence::iterator i = fruits_.begin(); i != fruits_.end(); ++i)
-	{
-		sge::renderer::scoped_vertex_buffer scoped_vb(
-			renderer_,
-			i->vb());
-
-		sge::renderer::texture::scoped scoped_tex(
-			renderer_,
-			*i->texture(),
-			static_cast<sge::renderer::stage_type>(
-				0));
-
-		fruit_shader_.update_uniform(
-			"mvp",
-			camera_.mvp() * i->world_transform());
-
-		renderer_.render_nonindexed(
-			sge::renderer::first_vertex(
-				static_cast<sge::renderer::size_type>(
-					0)),
-			sge::renderer::vertex_count(
-				i->vb().size()),
-			sge::renderer::nonindexed_primitive_type::triangle);
-	}
 }

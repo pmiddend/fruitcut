@@ -37,19 +37,13 @@ public:
 		sge::renderer::device &,
 		sge::viewport::manager &,
 		sge::image2d::multi_loader &,
+		sge::renderer::texture::planar_ptr,
+		sge::renderer::matrix4 const &,
 		sge::parse::json::object const &,
 		sge::camera::object const &);
 
 	void
 	viewport_changed();
-
-	void
-	shadow_texture(
-		sge::renderer::texture::planar_ptr);
-
-	void
-	shadow_mvp(
-		sge::renderer::matrix4 const &);
 
 	~background();
 private:

@@ -32,7 +32,6 @@ public:
 	~default_render_node();
 private:
 	sge::renderer::device &renderer_;
-	sge::renderer::vertex_declaration &vertex_declaration_;
 	fruit::manager const &manager_;
 	sge::camera::object const &camera_;
 	sge::shader::object shader_;

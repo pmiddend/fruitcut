@@ -10,7 +10,6 @@
 #include <sge/renderer/texture/planar_ptr.hpp>
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/vertex_declaration_fwd.hpp>
-#include <sge/shader/object_fwd.hpp>
 #include <sge/image/color/any/object.hpp>
 #include <sge/time/duration.hpp>
 #include <sge/time/callback.hpp>
@@ -38,7 +37,6 @@ public:
 		fruitlib::physics::world &_world,
 		sge::renderer::device &_renderer,
 		sge::renderer::vertex_declaration &_vertex_declaration,
-		sge::shader::object &_shader,
 		fruitcut::app::fruit::mesh const &_mesh,
 		fruitlib::physics::group::object &_fruit_group,
 		fruitlib::physics::scalar const _mass,
@@ -63,9 +61,6 @@ public:
 
 	sge::renderer::vertex_declaration &
 	vertex_declaration() const;
-
-	sge::shader::object &
-	shader() const;
 
 	fruitcut::app::fruit::mesh const &
 	mesh() const;
@@ -99,7 +94,6 @@ private:
 	fruitlib::physics::world &world_;
 	sge::renderer::device &renderer_;
 	sge::renderer::vertex_declaration &vertex_declaration_;
-	sge::shader::object &shader_;
 	fruitcut::app::fruit::mesh const mesh_;
 	fruitlib::physics::group::object &fruit_group_;
 	fruitlib::physics::scalar const mass_;

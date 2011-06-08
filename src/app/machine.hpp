@@ -2,6 +2,7 @@
 #define FRUITCUT_APP_MACHINE_HPP_INCLUDED
 
 #include "background.hpp"
+#include "shadow_map.hpp"
 #include "../fruitlib/audio/music_controller.hpp"
 #include "../fruitlib/audio/sound_controller.hpp"
 #include "../fruitlib/font/cache.hpp"
@@ -97,6 +98,12 @@ public:
 	fruitcut::app::background const &
 	background() const;
 
+	fruitcut::app::shadow_map &
+	shadow_map();
+
+	fruitcut::app::shadow_map const &
+	shadow_map() const;
+
 	sge::camera::object &
 	camera();
 
@@ -185,6 +192,7 @@ private:
 	fcppt::signal::scoped_connection toggle_camera_connection_;
 	fruitlib::input::state camera_state_;
 	fcppt::signal::scoped_connection viewport_change_connection_;
+	fruitcut::app::shadow_map shadow_map_;
 	fruitcut::app::background background_;
 	fcppt::chrono::milliseconds::rep desired_fps_;
 	sge::cegui::system gui_system_;

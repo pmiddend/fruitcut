@@ -56,7 +56,6 @@ fruitcut::app::fruit::object::object(
 		fruit::mesh_to_vertex_buffer(
 			p.renderer(),
 			p.vertex_declaration(),
-			p.shader(),
 			mesh_)),
 	texture_(
 		p.texture()),

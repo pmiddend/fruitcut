@@ -102,10 +102,11 @@ public:
 	fruitlib::physics::group::object const &
 	fruit_group() const;
 
-	void
-	render_only_geometry(
-		sge::shader::object &,
-		sge::renderer::matrix4 const &);
+	sge::renderer::vertex_declaration &
+	vertex_declaration();
+
+	sge::renderer::vertex_declaration const &
+	vertex_declaration() const;
 
 	~manager();
 private:
@@ -116,7 +117,6 @@ private:
 	fruitlib::physics::group::object fruit_group_;
 	prototype_sequence prototypes_;
 	object_sequence fruits_; 
-	sge::shader::object fruit_shader_;
 	fcppt::signal::object<callbacks::cut_fn> cut_signal_;
 	fcppt::signal::object<callbacks::remove_fn> remove_signal_;
 	fcppt::signal::object<callbacks::spawn_fn> spawn_signal_;

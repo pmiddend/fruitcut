@@ -1,5 +1,5 @@
 #include "blur.hpp"
-#include "../screen_vf/format.hpp"
+#include "manager.hpp"
 #include "../texture/manager.hpp"
 #include "../texture/instance.hpp"
 #include "../texture/descriptor.hpp"
@@ -16,22 +16,23 @@
 #include <fcppt/assign/make_array.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
-#include <fcppt/container/ptr/replace_unique_ptr.hpp>
-#include <fcppt/math/dim/basic_impl.hpp>
+#include <fcppt/math/dim/dim.hpp>
 #include <fcppt/assert.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/ref.hpp>
 #include <iostream>
 
 fruitcut::fruitlib::pp::filter::blur::blur(
-	fcppt::filesystem::path const &_base_path,
 	sge::renderer::device &_renderer,
+	filter::manager &_filter_manager,
 	texture::manager &_texture_manager,
 	sge::renderer::dim2 const &_texture_size,
 	size_type const _iterations)
 :
 	renderer_(
 		_renderer),
+	filter_manager_(
+		_filter_manager),
 	texture_manager_(
 		_texture_manager),
 	texture_size_(
@@ -39,60 +40,32 @@ fruitcut::fruitlib::pp::filter::blur::blur(
 	iterations_(
 		_iterations),
 	shaders_(
-		fcppt::assign::make_array<sge::shader::object_ptr>
-			(sge::shader::object_ptr(
-				fcppt::make_unique_ptr<sge::shader::object>(
-					sge::shader::object_parameters(
-						renderer_,
-						_base_path
-							/FCPPT_TEXT("shaders")
-							/FCPPT_TEXT("blur_vertical_vertex.glsl"),
-						_base_path
-							/FCPPT_TEXT("shaders")
-							/FCPPT_TEXT("blur_vertical_fragment.glsl"),
-						sge::shader::vf_to_string<screen_vf::format>(),
-						fcppt::assign::make_container<sge::shader::variable_sequence>(
-							sge::shader::variable(
-								"texture_size",
-								sge::shader::variable_type::uniform,
-								sge::renderer::vector2())),
-						fcppt::assign::make_container<sge::shader::sampler_sequence>(
-							sge::shader::sampler(
-								"tex",
-								sge::renderer::texture::planar_ptr()))))))
-			(sge::shader::object_ptr(
-				fcppt::make_unique_ptr<sge::shader::object>(
-					sge::shader::object_parameters(
-						renderer_,
-						_base_path
-							/FCPPT_TEXT("shaders")
-							/FCPPT_TEXT("blur_horizontal_vertex.glsl"),
-						_base_path
-							/FCPPT_TEXT("shaders")
-							/FCPPT_TEXT("blur_horizontal_fragment.glsl"),
-						sge::shader::vf_to_string<screen_vf::format>(),
-						fcppt::assign::make_container<sge::shader::variable_sequence>(
-							sge::shader::variable(
-								"texture_size",
-								sge::shader::variable_type::uniform,
-								sge::renderer::vector2())),
-						fcppt::assign::make_container<sge::shader::sampler_sequence>(
-							sge::shader::sampler(
-								"tex",
-								sge::renderer::texture::planar_ptr()))))))),
-	quads_()
+		fcppt::assign::make_array<sge::shader::object*>
+			(&(filter_manager_.lookup_shader(
+				FCPPT_TEXT("blur_vertical"),
+				fcppt::assign::make_container<sge::shader::variable_sequence>(
+					sge::shader::variable(
+						"texture_size",
+						sge::shader::variable_type::uniform,
+						sge::renderer::vector2())),
+				fcppt::assign::make_container<sge::shader::sampler_sequence>(
+					sge::shader::sampler(
+						"tex",
+						sge::renderer::texture::planar_ptr())))))
+			(&(filter_manager_.lookup_shader(
+				FCPPT_TEXT("blur_horizontal"),
+				fcppt::assign::make_container<sge::shader::variable_sequence>(
+					sge::shader::variable(
+						"texture_size",
+						sge::shader::variable_type::uniform,
+						sge::renderer::vector2())),
+				fcppt::assign::make_container<sge::shader::sampler_sequence>(
+					sge::shader::sampler(
+						"tex",
+						sge::renderer::texture::planar_ptr()))))))
 {
 	FCPPT_ASSERT(
 		iterations_);
-	for(std::size_t i = 0; i < quads_.size(); ++i)
-		fcppt::container::ptr::replace_unique_ptr(
-			quads_,
-			i,
-			fcppt::make_unique_ptr<screen_vf::quad>(
-				fcppt::ref(
-					renderer_),
-				fcppt::ref(
-					*shaders_[i])));
 }
 
 fruitcut::fruitlib::pp::texture::counted_instance const
@@ -176,7 +149,7 @@ fruitcut::fruitlib::pp::filter::blur::render(
 {
 	sge::shader::scoped scoped_shader(
 		*shaders_[i],
-		sge::shader::activation_method::with_textures);
+		sge::shader::activate_everything());
 
 	sge::renderer::scoped_target const target_(
 		renderer_,
@@ -185,5 +158,5 @@ fruitcut::fruitlib::pp::filter::blur::render(
 	sge::renderer::scoped_block const block_(
 		renderer_);
 
-	quads_[i].render();
+	filter_manager_.quad().render();
 }

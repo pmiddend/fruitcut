@@ -7,7 +7,6 @@
 #include <sge/renderer/matrix4.hpp>
 #include <sge/renderer/nonindexed_primitive_type.hpp>
 #include <sge/renderer/scoped_vertex_buffer.hpp>
-#include <sge/renderer/scoped_vertex_declaration.hpp>
 #include <sge/renderer/size_type.hpp>
 #include <sge/renderer/state/state.hpp>
 #include <sge/renderer/vertex_buffer.hpp>
@@ -33,8 +32,9 @@ fruitcut::app::fruit::shadow_render_node::shadow_render_node(
 	shader_(
 		sge::shader::object_parameters(
 			renderer_,
-			fruitcut::media_path()/FCPPT_TEXT("shaders")/FCPPT_TEXT("shadow_map_vertex.glsl"),
-			fruitcut::media_path()/FCPPT_TEXT("shaders")/FCPPT_TEXT("shadow_map_fragment.glsl"),
+			vertex_declaration_,
+			fruitcut::media_path()/FCPPT_TEXT("shaders")/FCPPT_TEXT("shadow_map")/FCPPT_TEXT("vertex.glsl"),
+			fruitcut::media_path()/FCPPT_TEXT("shaders")/FCPPT_TEXT("shadow_map")/FCPPT_TEXT("fragment.glsl"),
 			sge::shader::vf_to_string<fruit::model_vf::format>(),
 			fcppt::assign::make_container<sge::shader::variable_sequence>(
 				sge::shader::variable(
@@ -56,16 +56,12 @@ fruitcut::app::fruit::shadow_render_node::render()
 {
 	sge::shader::scoped scoped_shader(
 		shader_,
-		sge::shader::activation_method::with_textures);
+		sge::shader::activate_everything());
 
 	sge::renderer::state::scoped scoped_state(
 		renderer_,
 		sge::renderer::state::list
 			(sge::renderer::state::depth_func::less));
-
-	sge::renderer::scoped_vertex_declaration scoped_decl(
-		renderer_,
-		vertex_declaration_);
 
 	for(object_sequence::const_iterator i = manager_.fruits().begin(); i != manager_.fruits().end(); ++i)
 	{

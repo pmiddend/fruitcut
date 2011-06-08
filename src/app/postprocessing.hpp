@@ -4,6 +4,7 @@
 #include "../fruitlib/pp/system.hpp"
 #include "../fruitlib/pp/texture/manager.hpp"
 #include "../fruitlib/pp/filter/render_to_texture.hpp"
+#include "../fruitlib/pp/filter/manager.hpp"
 #include "../fruitlib/pp/filter/ssaa.hpp"
 #include "../fruitlib/pp/filter/highlight.hpp"
 #include "../fruitlib/pp/filter/blur.hpp"
@@ -46,6 +47,9 @@ public:
 	fruitlib::pp::texture::manager &
 	texture_manager();
 
+	fruitlib::pp::filter::manager &
+	filter_manager();
+
 	void
 	active(
 		bool);
@@ -53,8 +57,9 @@ public:
 	void
 	viewport_changed();
 private:
-	fruitlib::pp::system system_;
 	fruitlib::pp::texture::manager texture_manager_;
+	fruitlib::pp::filter::manager filter_manager_;
+	fruitlib::pp::system system_;
 	fruitlib::pp::filter::render_to_texture rtt_filter_;
 	fruitlib::pp::filter::ssaa ssaa_filter_;
 	fruitlib::pp::filter::highlight highlight_filter_;

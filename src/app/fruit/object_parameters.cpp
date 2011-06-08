@@ -6,7 +6,6 @@ fruitcut::app::fruit::object_parameters::object_parameters(
 	fruitlib::physics::world &_world,
 	sge::renderer::device &_renderer,
 	sge::renderer::vertex_declaration &_vertex_declaration,
-	sge::shader::object &_shader,
 	fruitcut::app::fruit::mesh const &_mesh,
 	fruitlib::physics::group::object &_fruit_group,
 	fruitlib::physics::scalar const _mass,
@@ -27,8 +26,6 @@ fruitcut::app::fruit::object_parameters::object_parameters(
 		_renderer),
 	vertex_declaration_(
 		_vertex_declaration),
-	shader_(
-		_shader),
 	mesh_(
 		_mesh),
 	fruit_group_(
@@ -78,12 +75,6 @@ sge::renderer::vertex_declaration &
 fruitcut::app::fruit::object_parameters::vertex_declaration() const
 {
 	return vertex_declaration_;
-}
-
-sge::shader::object &
-fruitcut::app::fruit::object_parameters::shader() const
-{
-	return shader_;
 }
 
 fruitcut::app::fruit::mesh const &

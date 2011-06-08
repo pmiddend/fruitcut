@@ -9,7 +9,6 @@
 #include <sge/renderer/matrix4.hpp>
 #include <sge/renderer/nonindexed_primitive_type.hpp>
 #include <sge/renderer/scoped_vertex_buffer.hpp>
-#include <sge/renderer/scoped_vertex_declaration.hpp>
 #include <sge/renderer/size_type.hpp>
 #include <sge/renderer/stage_type.hpp>
 #include <sge/renderer/state/state.hpp>
@@ -30,8 +29,6 @@ fruitcut::app::fruit::default_render_node::default_render_node(
 :
 	renderer_(
 		_renderer),
-	vertex_declaration_(
-		_vertex_declaration),
 	manager_(
 		_manager),
 	camera_(
@@ -39,8 +36,9 @@ fruitcut::app::fruit::default_render_node::default_render_node(
 	shader_(
 		sge::shader::object_parameters(
 			renderer_,
-			fruitcut::media_path()/FCPPT_TEXT("shaders")/FCPPT_TEXT("model_vertex.glsl"),
-			fruitcut::media_path()/FCPPT_TEXT("shaders")/FCPPT_TEXT("model_fragment.glsl"),
+			_vertex_declaration,
+			fruitcut::media_path()/FCPPT_TEXT("shaders")/FCPPT_TEXT("model")/FCPPT_TEXT("vertex.glsl"),
+			fruitcut::media_path()/FCPPT_TEXT("shaders")/FCPPT_TEXT("model")/FCPPT_TEXT("fragment.glsl"),
 			sge::shader::vf_to_string<model_vf::format>(),
 			fcppt::assign::make_container<sge::shader::variable_sequence>
 				(sge::shader::variable(
@@ -68,11 +66,7 @@ fruitcut::app::fruit::default_render_node::render()
 
 	sge::shader::scoped scoped_shader(
 		shader_,
-		sge::shader::activation_method::bare);
-
-	sge::renderer::scoped_vertex_declaration scoped_decl(
-		renderer_,
-		vertex_declaration_);
+		sge::shader::activation_method::vertex_declaration);
 
 	for(object_sequence::const_iterator i = manager_.fruits().begin(); i != manager_.fruits().end(); ++i)
 	{

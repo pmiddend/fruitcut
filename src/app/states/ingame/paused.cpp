@@ -25,13 +25,12 @@ fruitcut::app::states::ingame::paused::paused(
 		context<machine>().scene_node(),
 		false),
 	system_(
-		fruitcut::media_path(),
-		context<machine>().systems().renderer()),
+		context<machine>().postprocessing().filter_manager()),
 	inject_texture_(
 		context<machine>().postprocessing().texture_manager()),
 	blur_(
-		fruitcut::media_path(),
 		context<machine>().systems().renderer(),
+		context<machine>().postprocessing().filter_manager(),
 		context<machine>().postprocessing().texture_manager(),
 		fruitlib::pp::texture::use_screen_size(),
 		static_cast<fruitlib::pp::filter::blur::size_type>(

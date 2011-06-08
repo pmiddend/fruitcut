@@ -25,11 +25,13 @@ fruitcut::app::postprocessing::postprocessing(
 	fcppt::function::object<void ()> const &render_callback,
 	sge::parse::json::object const &config)
 :
-	system_(
-		fruitcut::media_path(),
-		_renderer),
 	texture_manager_(
 		_renderer),
+	filter_manager_(
+		_renderer,
+		fruitcut::media_path()/FCPPT_TEXT("shaders")),
+	system_(
+		filter_manager_),
 	rtt_filter_(
 		_renderer,
 		texture_manager_,
@@ -37,13 +39,13 @@ fruitcut::app::postprocessing::postprocessing(
 		render_callback,
 		fruitlib::pp::texture::depth_stencil_format::d32),
 	ssaa_filter_(
-		fruitcut::media_path(),
 		_renderer,
+		filter_manager_,
 		texture_manager_,
 		fruitlib::pp::texture::use_screen_size()),
 	highlight_filter_(
-		fruitcut::media_path(),
 		_renderer,
+		filter_manager_,
 		texture_manager_,
 		fruitlib::json::find_member<sge::renderer::dim2>(
 			config,
@@ -52,8 +54,8 @@ fruitcut::app::postprocessing::postprocessing(
 			config,
 			FCPPT_TEXT("highlight-threshold"))),
 	blur_filter_(
-		fruitcut::media_path(),
 		_renderer,
+		filter_manager_,
 		texture_manager_,
 		fruitlib::json::find_member<sge::renderer::dim2>(
 			config,
@@ -62,13 +64,13 @@ fruitcut::app::postprocessing::postprocessing(
 			config,
 			FCPPT_TEXT("bloom-iterations"))),
 	add_filter_(
-		fruitcut::media_path(),
 		_renderer,
+		filter_manager_,
 		texture_manager_,
 		fruitlib::pp::texture::use_screen_size()),
 	desaturate_filter_(
-		fruitcut::media_path(),
 		_renderer,
+		filter_manager_,
 		texture_manager_,
 		fruitlib::pp::texture::use_screen_size(),
 		static_cast<sge::renderer::scalar>(
@@ -162,6 +164,12 @@ fruitcut::fruitlib::pp::texture::manager &
 fruitcut::app::postprocessing::texture_manager()
 {
 	return texture_manager_;
+}
+
+fruitcut::fruitlib::pp::filter::manager &
+fruitcut::app::postprocessing::filter_manager()
+{
+	return filter_manager_;
 }
 
 void

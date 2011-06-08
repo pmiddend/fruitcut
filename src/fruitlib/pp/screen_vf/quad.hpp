@@ -3,8 +3,8 @@
 
 #include <sge/renderer/vertex_buffer_ptr.hpp>
 #include <sge/renderer/vertex_declaration_ptr.hpp>
+#include <sge/renderer/vertex_declaration_fwd.hpp>
 #include <sge/renderer/device_fwd.hpp>
-#include <sge/shader/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 
 namespace fruitcut
@@ -22,14 +22,19 @@ FCPPT_NONCOPYABLE(
 public:
 	explicit
 	quad(
-		sge::renderer::device &,
-		sge::shader::object &);
+		sge::renderer::device &);
 
 	explicit
 	quad();
 
 	void
 	render();
+
+	sge::renderer::vertex_declaration &
+	vertex_declaration();
+
+	sge::renderer::vertex_declaration const &
+	vertex_declaration() const;
 
 	~quad();
 private:
