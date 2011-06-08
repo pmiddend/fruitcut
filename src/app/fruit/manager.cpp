@@ -139,8 +139,7 @@ fruitcut::app::fruit::manager::cut(
 			fruit_cache,
 			fcppt::make_unique_ptr<fruit::object>(
 				fruit::object_parameters(
-					current_fruit.texture(),
-					current_fruit.splatter_color(),
+					current_fruit.prototype(),
 					physics_world_,
 					renderer_,
 					*vertex_declaration_,

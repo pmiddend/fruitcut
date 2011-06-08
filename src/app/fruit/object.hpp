@@ -3,10 +3,10 @@
 
 #include "box3.hpp"
 #include "mesh.hpp"
+#include "prototype_fwd.hpp"
 #include "object_parameters_fwd.hpp"
 #include "../../fruitlib/physics/rigid_body/object.hpp"
 #include "../../fruitlib/physics/rigid_body/scoped.hpp"
-#include <sge/image/color/any/object.hpp>
 #include <sge/renderer/vertex_buffer_fwd.hpp>
 #include <sge/renderer/vertex_buffer_ptr.hpp>
 #include <sge/renderer/texture/planar_ptr.hpp>
@@ -41,8 +41,8 @@ public:
 	sge::renderer::vertex_buffer const &
 	vb() const;
 
-	sge::renderer::texture::planar_ptr const
-	texture() const;
+	fruit::prototype const &
+	prototype() const;
 
 	sge::renderer::matrix4 const
 	world_transform() const;
@@ -59,9 +59,6 @@ public:
 	fruit::box3 const &
 	bounding_box() const;
 
-	sge::image::color::any::object const &
-	splatter_color() const;
-
 	fruitcut::app::fruit::mesh const &
 	mesh() const;
 
@@ -70,13 +67,12 @@ public:
 
 	~object();
 private:
+	fruit::prototype const &prototype_;
 	fruitcut::app::fruit::mesh mesh_;
 	box3 bounding_box_;
-	sge::image::color::any::object splatter_color_;
 	fruitlib::physics::rigid_body::object body_;
 	fruitlib::physics::rigid_body::scoped body_scope_;
 	sge::renderer::vertex_buffer_ptr vb_;
-	sge::renderer::texture::planar_ptr texture_;
 	sge::time::timer lock_timer_;
 };
 }

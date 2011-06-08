@@ -3,6 +3,7 @@
 #include "fruit/cut_context.hpp"
 #include "fruit/triangle_traits.hpp"
 #include "fruit/object.hpp"
+#include "fruit/prototype.hpp"
 #include "point_sprite/color.hpp"
 #include "point_sprite/system_node.hpp"
 #include "point_sprite/unique_base_ptr.hpp"
@@ -131,7 +132,7 @@ fruitcut::app::splatter_generator::fruit_was_cut(
 
 		point_sprite::color splatter_color = 
 			sge::image::color::any::convert<point_sprite::color::format>(
-				cut_info.old().splatter_color());
+				cut_info.old().prototype().splatter_color());
 
 		splatter_color.set<mizuiro::color::channel::alpha>(
 			alpha_rng_());

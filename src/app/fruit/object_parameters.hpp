@@ -2,6 +2,7 @@
 #define FRUITCUT_APP_FRUIT_OBJECT_PARAMETERS_HPP_INCLUDED
 
 #include "mesh.hpp"
+#include "prototype_fwd.hpp"
 #include "../../fruitlib/physics/scalar.hpp"
 #include "../../fruitlib/physics/world_fwd.hpp"
 #include "../../fruitlib/physics/vector3.hpp"
@@ -10,7 +11,6 @@
 #include <sge/renderer/texture/planar_ptr.hpp>
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/vertex_declaration_fwd.hpp>
-#include <sge/image/color/any/object.hpp>
 #include <sge/time/duration.hpp>
 #include <sge/time/callback.hpp>
 #include <fcppt/math/vector/vector.hpp>
@@ -32,8 +32,7 @@ FCPPT_NONASSIGNABLE(
 public:
 	explicit
 	object_parameters(
-		sge::renderer::texture::planar_ptr const _texture,
-		sge::image::color::any::object const _splatter_color,
+		fruit::prototype const &,
 		fruitlib::physics::world &_world,
 		sge::renderer::device &_renderer,
 		sge::renderer::vertex_declaration &_vertex_declaration,
@@ -47,11 +46,8 @@ public:
 		sge::time::duration const &_lock_duration,
 		sge::time::callback const &_timer_callback);
 
-	sge::renderer::texture::planar_ptr const 
-	texture() const;
-
-	sge::image::color::any::object const &
-	splatter_color() const;
+	fruit::prototype const &
+	prototype() const;
 
 	fruitlib::physics::world &
 	physics_world() const;
@@ -89,8 +85,7 @@ public:
 	sge::time::callback const &
 	timer_callback() const;
 private:
-	sge::renderer::texture::planar_ptr const texture_;
-	sge::image::color::any::object const splatter_color_;
+	fruit::prototype const &prototype_;
 	fruitlib::physics::world &world_;
 	sge::renderer::device &renderer_;
 	sge::renderer::vertex_declaration &vertex_declaration_;

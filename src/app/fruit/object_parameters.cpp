@@ -1,8 +1,7 @@
 #include "object_parameters.hpp"
 
 fruitcut::app::fruit::object_parameters::object_parameters(
-	sge::renderer::texture::planar_ptr const _texture,
-	sge::image::color::any::object const _splatter_color,
+	fruit::prototype const &_prototype,
 	fruitlib::physics::world &_world,
 	sge::renderer::device &_renderer,
 	sge::renderer::vertex_declaration &_vertex_declaration,
@@ -16,10 +15,8 @@ fruitcut::app::fruit::object_parameters::object_parameters(
 	sge::time::duration const &_lock_duration,
 	sge::time::callback const &_timer_callback)
 :
-	texture_(
-		_texture),
-	splatter_color_(
-		_splatter_color),
+	prototype_(
+		_prototype),
 	world_(
 		_world),
 	renderer_(
@@ -47,16 +44,10 @@ fruitcut::app::fruit::object_parameters::object_parameters(
 {
 }
 
-sge::renderer::texture::planar_ptr const 
-fruitcut::app::fruit::object_parameters::texture() const
+fruitcut::app::fruit::prototype const &
+fruitcut::app::fruit::object_parameters::prototype() const
 {
-	return texture_;
-}
-
-sge::image::color::any::object const &
-fruitcut::app::fruit::object_parameters::splatter_color() const
-{
-	return splatter_color_;
+	return prototype_;
 }
 
 fruitcut::fruitlib::physics::world &

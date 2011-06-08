@@ -76,7 +76,7 @@ fruitcut::app::fruit::default_render_node::render()
 
 		sge::renderer::texture::scoped scoped_tex(
 			renderer_,
-			*i->texture(),
+			*i->prototype().texture(),
 			static_cast<sge::renderer::stage_type>(
 				0));
 

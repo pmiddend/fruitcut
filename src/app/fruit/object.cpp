@@ -4,6 +4,7 @@
 #include "object_parameters.hpp"
 #include "mesh_to_shape.hpp"
 #include "box3.hpp"
+#include "prototype.hpp"
 #include "../../fruitlib/geometry_traits/box.hpp"
 #include "../../fruitlib/geometry_traits/vector.hpp"
 #include "../../fruitlib/physics/rigid_body/parameters.hpp"
@@ -22,14 +23,14 @@
 fruitcut::app::fruit::object::object(
 	object_parameters const &p)
 :
+	prototype_(
+		p.prototype()),
 	mesh_(
 		p.mesh()),
 	bounding_box_(
 		boost::geometry::return_envelope<box3>(
 			fruit::mesh_to_point_cloud(
 				mesh_))),
-	splatter_color_(
-		p.splatter_color()),
 	body_(
 		fruitlib::physics::rigid_body::parameters(
 			fruitlib::physics::rigid_body::position(
@@ -57,8 +58,6 @@ fruitcut::app::fruit::object::object(
 			p.renderer(),
 			p.vertex_declaration(),
 			mesh_)),
-	texture_(
-		p.texture()),
 	// A fruit originating from another fruit is banned for a specific duration
 	lock_timer_(
 		p.lock_duration(),
@@ -79,10 +78,10 @@ fruitcut::app::fruit::object::vb() const
 	return *vb_;
 }
 
-sge::renderer::texture::planar_ptr const
-fruitcut::app::fruit::object::texture() const
+fruitcut::app::fruit::prototype const &
+fruitcut::app::fruit::object::prototype() const
 {
-	return texture_;
+	return prototype_;
 }
 
 sge::renderer::matrix4 const
@@ -120,12 +119,6 @@ fruitcut::app::fruit::box3 const &
 fruitcut::app::fruit::object::bounding_box() const
 {
 	return bounding_box_;
-}
-
-sge::image::color::any::object const &
-fruitcut::app::fruit::object::splatter_color() const
-{
-	return splatter_color_;
 }
 
 fruitcut::app::fruit::mesh const &
