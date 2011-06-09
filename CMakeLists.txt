@@ -390,6 +390,8 @@ SET(
 	src/app/config_wrapper.hpp
 	src/app/cut_context_fwd.hpp
 	src/app/dim2.hpp
+	src/app/directional_light_source.cpp
+	src/app/directional_light_source.hpp
 	src/app/events/gameover/continue_button_pushed.hpp
 	src/app/events/gameover/quit_button_pushed.hpp
 	src/app/events/gameover/reset_button_pushed.hpp
@@ -439,6 +441,7 @@ SET(
 	src/app/fruit/model_to_mesh.cpp
 	src/app/fruit/model_to_mesh.hpp
 	src/app/fruit/model_vf/format.hpp
+	src/app/fruit/model_vf/normal.hpp
 	src/app/fruit/model_vf/part.hpp
 	src/app/fruit/model_vf/position.hpp
 	src/app/fruit/model_vf/texcoord.hpp
@@ -470,6 +473,8 @@ SET(
 	src/app/fruitcut.cpp
 	src/app/game_logic.cpp
 	src/app/game_logic.hpp
+	src/app/light_source_from_json.cpp
+	src/app/light_source_from_json.hpp
 	src/app/logo.cpp
 	src/app/logo.hpp
 	src/app/machine.cpp

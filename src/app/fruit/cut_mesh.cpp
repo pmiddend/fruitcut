@@ -373,7 +373,11 @@ fruitcut::app::fruit::cut_mesh(
 							current_vertex-1]))
 					(transform_texcoord(
 						texcoords[
-							current_vertex]))));
+							current_vertex])),
+				fcppt::assign::make_array<triangle::vector>
+					(-input_plane.normal())
+					(-input_plane.normal())
+					(-input_plane.normal())));
 	
 		result->mesh().triangles.push_back(
 			result->cross_section().triangles.back());

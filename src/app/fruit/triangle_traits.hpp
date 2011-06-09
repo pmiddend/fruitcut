@@ -62,6 +62,9 @@ struct create_from_interpolation<fruitcut::app::fruit::triangle>
 		result.texcoords[0] = a.value() * input.texcoords[a.index1()] + (1-a.value()) * input.texcoords[a.index2()];
 		result.texcoords[1] = b.value() * input.texcoords[b.index1()] + (1-b.value()) * input.texcoords[b.index2()];
 		result.texcoords[2] = c.value() * input.texcoords[c.index1()] + (1-c.value()) * input.texcoords[c.index2()];
+		result.normals[0] = a.value() * input.normals[a.index1()] + (1-a.value()) * input.normals[a.index2()];
+		result.normals[1] = b.value() * input.normals[b.index1()] + (1-b.value()) * input.normals[b.index2()];
+		result.normals[2] = c.value() * input.normals[c.index1()] + (1-c.value()) * input.normals[c.index2()];
 		return result;
 	}
 };

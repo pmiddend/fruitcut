@@ -2,6 +2,7 @@
 #include "mesh.hpp"
 #include "../../fruitlib/physics/shared_shape_ptr.hpp"
 #include <fcppt/container/raw_vector.hpp>
+#include <fcppt/make_shared_ptr.hpp>
 #include <BulletCollision/CollisionShapes/btConvexHullShape.h>
 #include <iostream>
 
@@ -38,13 +39,12 @@ fruitcut::app::fruit::mesh_to_shape(
 					*r);
 
 	return 
-		fruitlib::physics::shared_shape_ptr(
-			new btConvexHullShape(
-				points.data(),
-				// This is the number of _points_, not the number of scalars!
-				static_cast<int>(
-					points.size()/3),
-				// Stride. Is usually sizeof(btVector3), but I think this is safer
-				static_cast<int>(
-					3 * sizeof(btScalar))));
+		fcppt::make_shared_ptr<btConvexHullShape>(
+			points.data(),
+			// This is the number of _points_, not the number of scalars!
+			static_cast<int>(
+				points.size()/3),
+			// Stride. Is usually sizeof(btVector3), but I think this is safer
+			static_cast<int>(
+				3 * sizeof(btScalar)));
 }

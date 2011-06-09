@@ -2,6 +2,7 @@
 #include "../../media_path.hpp"
 #include "model_vf/format.hpp"
 #include "manager.hpp"
+#include "../directional_light_source.hpp"
 #include <sge/camera/object.hpp>
 #include <sge/renderer/first_vertex.hpp>
 #include <sge/renderer/device.hpp>
@@ -25,7 +26,9 @@ fruitcut::app::fruit::default_render_node::default_render_node(
 	sge::renderer::device &_renderer,
 	sge::renderer::vertex_declaration &_vertex_declaration,
 	fruit::manager const &_manager,
-	sge::camera::object &_camera)
+	sge::camera::object &_camera,
+	app::directional_light_source const &light,
+	sge::renderer::scalar const _ambient_intensity)
 :
 	renderer_(
 		_renderer),
@@ -44,7 +47,27 @@ fruitcut::app::fruit::default_render_node::default_render_node(
 				(sge::shader::variable(
 					"mvp",
 					sge::shader::variable_type::uniform,
-					sge::renderer::matrix4())),
+					sge::renderer::matrix4()))
+				(sge::shader::variable(
+					"mv",
+					sge::shader::variable_type::uniform,
+					sge::renderer::matrix4()))
+				(sge::shader::variable(
+					"normal_matrix",
+					sge::shader::variable_type::uniform,
+					sge::renderer::matrix4()))
+				(sge::shader::variable(
+					"world",
+					sge::shader::variable_type::uniform,
+					sge::renderer::matrix4()))
+				(sge::shader::variable(
+					"light_position",
+					sge::shader::variable_type::const_,
+					light.position()))
+				(sge::shader::variable(
+					"ambient_intensity",
+					sge::shader::variable_type::const_,
+					_ambient_intensity)),
 			fcppt::assign::make_container<sge::shader::sampler_sequence>
 				(sge::shader::sampler(
 					"texture",
@@ -68,6 +91,10 @@ fruitcut::app::fruit::default_render_node::render()
 		shader_,
 		sge::shader::activation_method::vertex_declaration);
 
+	shader_.update_uniform(
+		"world",
+		camera_.world());
+
 	for(object_sequence::const_iterator i = manager_.fruits().begin(); i != manager_.fruits().end(); ++i)
 	{
 		sge::renderer::scoped_vertex_buffer scoped_vb(
@@ -83,6 +110,16 @@ fruitcut::app::fruit::default_render_node::render()
 		shader_.update_uniform(
 			"mvp",
 			camera_.mvp() * i->world_transform());
+
+		shader_.update_uniform(
+			"mv",
+			camera_.world() * i->world_transform());
+
+		shader_.update_uniform(
+			"normal_matrix",
+			fcppt::math::matrix::transpose(
+				fcppt::math::matrix::inverse(
+					camera_.world() * i->world_transform())));
 
 		renderer_.render_nonindexed(
 			sge::renderer::first_vertex(

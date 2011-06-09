@@ -91,7 +91,11 @@ fruitcut::app::states::ingame::superstate::superstate(
 		context<machine>().systems().renderer(),
 		fruit_manager_.vertex_declaration(),
 		fruit_manager_,
-		context<machine>().camera()),
+		context<machine>().camera(),
+		context<machine>().main_light_source(),
+		fruitlib::json::find_member<sge::renderer::scalar>(
+			context<machine>().config_file(),
+			FCPPT_TEXT("ambient-intensity"))),
 	fruit_shadow_render_node_(
 		context<machine>().systems().renderer(),
 		fruit_manager_.vertex_declaration(),

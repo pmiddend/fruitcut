@@ -25,7 +25,8 @@ fruitcut::fruitlib::scenic::nodes::camera::~camera()
 void
 fruitcut::fruitlib::scenic::nodes::camera::update()
 {
-//	std::cerr << "mvp: " << object_.mvp() << "\n";
+	//std::cerr << "modelview: " << object_.rotation() << "\n";
+	//std::cerr << "pos: " << object_.gizmo().position() << "\n";
 
 	object_.update(
 		timer_.reset());

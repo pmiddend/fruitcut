@@ -1,6 +1,7 @@
 #include "machine.hpp"
 #include "name.hpp"
 #include "config_wrapper.hpp"
+#include "light_source_from_json.hpp"
 #include "events/render.hpp"
 #include "events/render_overlay.hpp"
 #include "events/tick.hpp"
@@ -273,10 +274,15 @@ fruitcut::app::machine::machine(
 			std::tr1::bind(
 				&machine::viewport_change,
 				this))),
+	main_light_source_(
+		app::light_source_from_json(
+			fruitlib::json::find_member<sge::parse::json::object>(
+				config_file_,
+				FCPPT_TEXT("main-light-source")))),
 	shadow_map_(
 		config_file_,
 		systems_.renderer(),
-		camera_),
+		main_light_source_.modelview()),
 	background_(
 		systems_.renderer(),
 		systems_.viewport_manager(),
@@ -439,6 +445,12 @@ fruitcut::app::background const &
 fruitcut::app::machine::background() const
 {
 	return background_;
+}
+
+fruitcut::app::directional_light_source const &
+fruitcut::app::machine::main_light_source()
+{
+	return main_light_source_;
 }
 
 fruitcut::app::shadow_map &

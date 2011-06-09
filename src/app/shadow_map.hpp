@@ -6,9 +6,8 @@
 #include <sge/renderer/texture/planar_fwd.hpp>
 #include <sge/renderer/target_ptr.hpp>
 #include <sge/renderer/texture/planar_ptr.hpp>
-#include <sge/parse/json/object_fwd.hpp>
-#include <sge/camera/object_fwd.hpp>
 #include <sge/renderer/matrix4.hpp>
+#include <sge/parse/json/object_fwd.hpp>
 #include <fcppt/math/matrix/matrix.hpp>
 #include <fcppt/noncopyable.hpp>
 
@@ -39,7 +38,7 @@ public:
 	shadow_map(
 		sge::parse::json::object const &,
 		sge::renderer::device &,
-		sge::camera::object const &);
+		sge::renderer::matrix4 const &);
 
 	sge::renderer::texture::planar_ptr const
 	texture();
@@ -50,7 +49,6 @@ public:
 	~shadow_map();
 private:
 	sge::renderer::device &renderer_;
-	sge::camera::object const &camera_;
 	sge::renderer::texture::planar_ptr texture_;
 	sge::renderer::target_ptr target_;
 	sge::renderer::matrix4 mvp_;

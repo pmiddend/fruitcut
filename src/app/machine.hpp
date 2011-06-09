@@ -15,6 +15,7 @@
 #include "../fruitlib/scenic/nodes/music_controller.hpp"
 #include "../fruitlib/scenic/nodes/sound_controller.hpp"
 #include "overlay.hpp"
+#include "directional_light_source.hpp"
 #include "point_sprite/system_node.hpp"
 #include "scene.hpp"
 #include "score.hpp"
@@ -97,6 +98,9 @@ public:
 
 	fruitcut::app::background const &
 	background() const;
+
+	fruitcut::app::directional_light_source const &
+	main_light_source();
 
 	fruitcut::app::shadow_map &
 	shadow_map();
@@ -192,6 +196,7 @@ private:
 	fcppt::signal::scoped_connection toggle_camera_connection_;
 	fruitlib::input::state camera_state_;
 	fcppt::signal::scoped_connection viewport_change_connection_;
+	app::directional_light_source main_light_source_;
 	fruitcut::app::shadow_map shadow_map_;
 	fruitcut::app::background background_;
 	fcppt::chrono::milliseconds::rep desired_fps_;

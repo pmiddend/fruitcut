@@ -2,10 +2,8 @@
 #include "triangle.hpp"
 #include <sge/renderer/vector2.hpp>
 #include <sge/renderer/vector3.hpp>
-#include <sge/model/object.hpp>
-#include <sge/model/vertex_sequence.hpp>
-#include <sge/model/texcoord_sequence.hpp>
-#include <fcppt/math/vector/structure_cast.hpp>
+#include <sge/model/model.hpp>
+#include <fcppt/math/vector/vector.hpp>
 #include <fcppt/assert.hpp>
 #include <fcppt/string.hpp>
 #include <boost/next_prior.hpp>
@@ -34,12 +32,20 @@ fruitcut::app::fruit::model_to_mesh(
 		*model->texcoords(
 			part_name);
 
+	FCPPT_ASSERT(
+		model->normals(
+			part_name));
+
+	sge::model::normal_sequence const normals = 
+		*model->normals(
+			part_name);
+
 	sge::model::index_sequence const indices = 
 		model->indices(
 			part_name);
 
 	FCPPT_ASSERT(
-		vertices.size() == texcoords.size());
+		vertices.size() == texcoords.size() && vertices.size() == normals.size());
 
 	FCPPT_ASSERT(
 		indices.size() % 3 == 0);
@@ -51,11 +57,19 @@ fruitcut::app::fruit::model_to_mesh(
 	{
 		triangle::vertex_array vt;
 		triangle::texcoord_array tc;
+		triangle::normal_array ns;
 		for (triangle::vertex_array::size_type i = 0; i < vt.size(); ++i)
 		{
 			vt[i] = 
-				fcppt::math::vector::structure_cast<sge::renderer::vector3>(
+				fcppt::math::vector::structure_cast<triangle::vector>(
 					vertices[
+						*boost::next(
+							index,
+							i)]);
+
+			ns[i] = 
+				fcppt::math::vector::structure_cast<triangle::vector>(
+					normals[
 						*boost::next(
 							index,
 							i)]);
@@ -75,7 +89,8 @@ fruitcut::app::fruit::model_to_mesh(
 		result.triangles.push_back(
 			triangle(
 				vt,
-				tc));
+				tc,
+				ns));
 	}
 
 	return result;

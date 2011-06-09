@@ -3,6 +3,7 @@
 
 #include "position.hpp"
 #include "texcoord.hpp"
+#include "normal.hpp"
 #include <sge/renderer/vf/part.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 
@@ -17,10 +18,11 @@ namespace model_vf
 typedef 
 sge::renderer::vf::part
 <
-	boost::mpl::vector2
+	boost::mpl::vector3
 	<
 		position,
-		texcoord
+		texcoord,
+		normal
 	>
 > 
 part;

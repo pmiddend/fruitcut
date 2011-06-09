@@ -4,6 +4,7 @@
 #include "model_vf/format.hpp"
 #include "model_vf/vertex_view.hpp"
 #include "model_vf/position.hpp"
+#include "model_vf/normal.hpp"
 #include "model_vf/texcoord.hpp"
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/lock_mode.hpp>
@@ -48,14 +49,20 @@ fruitcut::app::fruit::mesh_to_vertex_buffer(
 	{
 		(vb_it)->set<model_vf::position>(
 			t->vertices[0]);
+		(vb_it)->set<model_vf::normal>(
+			t->normals[0]);
 		(vb_it++)->set<model_vf::texcoord>(
 			t->texcoords[0]);
 		(vb_it)->set<model_vf::position>(
 			t->vertices[1]);
+		(vb_it)->set<model_vf::normal>(
+			t->normals[1]);
 		(vb_it++)->set<model_vf::texcoord>(
 			t->texcoords[1]);
 		(vb_it)->set<model_vf::position>(
 			t->vertices[2]);
+		(vb_it)->set<model_vf::normal>(
+			t->normals[2]);
 		(vb_it++)->set<model_vf::texcoord>(
 			t->texcoords[2]);
 	}

@@ -28,6 +28,10 @@ public:
 	vertex_array;
 
 	typedef
+	fcppt::container::array<vector,3>
+	normal_array;
+
+	typedef
 	fcppt::container::array<texcoord_type,3>
 	texcoord_array;
 
@@ -37,24 +41,29 @@ public:
 
 	vertex_array vertices;
 	texcoord_array texcoords;
+	normal_array normals;
 
 	explicit
 	triangle()
 	:
 		vertices(),
-		texcoords()
+		texcoords(),
+		normals()
 	{
 	}
 
 	explicit
 	triangle(
 		vertex_array const &_vertices,
-		texcoord_array const &_texcoords)
+		texcoord_array const &_texcoords,
+		normal_array const &_normals)
 	:
 		vertices(
 			_vertices),
 		texcoords(
-			_texcoords)
+			_texcoords),
+		normals(
+			_normals)
 	{
 	}
 };
