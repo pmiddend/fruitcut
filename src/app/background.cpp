@@ -108,7 +108,7 @@ fruitcut::app::background::background(
 	sge::renderer::device &_renderer,
 	sge::viewport::manager &_viewport_manager,
 	sge::image2d::multi_loader &_image_loader,
-	sge::renderer::texture::planar_ptr const _texture,
+	sge::renderer::texture::planar_ptr const _shadow_texture,
 	sge::renderer::matrix4 const &_mvp,
 	sge::parse::json::object const &_config,
 	sge::camera::object const &_camera)
@@ -164,7 +164,7 @@ fruitcut::app::background::background(
 					texture_))
 				(sge::shader::sampler(
 					"shadow_map",
-					_texture)))),
+					_shadow_texture)))),
 	reps_(
 		fruitlib::json::find_member<sge::renderer::scalar>(
 			_config,

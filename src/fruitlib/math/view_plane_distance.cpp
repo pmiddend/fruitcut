@@ -13,11 +13,11 @@ fruitcut::fruitlib::math::view_plane_distance(
 	math::plane::basic<sge::renderer::scalar,3>
 	plane_type;
 
-	typedef typename
+	typedef
 	fcppt::math::vector::static_<sge::renderer::scalar,4>::type
 	vector4;
 
-	typedef typename
+	typedef
 	fcppt::math::vector::static_<sge::renderer::scalar,3>::type
 	vector3;
 
