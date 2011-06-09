@@ -3,6 +3,7 @@
 
 #include "mesh.hpp"
 #include "box3.hpp"
+#include "material/object.hpp"
 #include <sge/renderer/texture/planar_ptr.hpp>
 #include <sge/image/color/any/object.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
@@ -20,7 +21,8 @@ public:
 	explicit
 	prototype(
 		fruitcut::app::fruit::mesh const &,
-		sge::renderer::texture::planar_ptr);
+		sge::renderer::texture::planar_ptr,
+		material::object const &);
 
 	fruitcut::app::fruit::mesh const &
 	mesh() const;
@@ -33,6 +35,9 @@ public:
 
 	sge::image::color::any::object const &
 	splatter_color() const;
+
+	material::object const &
+	material() const;
 private:
 	fruitcut::app::fruit::mesh mesh_;
 	// Storing the bounding box is not neccessary, but I don't want to
@@ -40,6 +45,7 @@ private:
 	box3 bounding_box_;
 	sge::renderer::texture::planar_ptr texture_;
 	sge::image::color::any::object splatter_color_;
+	material::object material_;
 };
 }
 }

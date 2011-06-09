@@ -120,31 +120,87 @@
 	[
 		{
 			"model" : "coconut.md3",
-			"texture" : "coconut.png"
+			"texture" : "coconut.png",
+			"material" : 
+			{
+				"diffuse-color" : [1.0,1.0,1.0,1.0],
+				"diffuse-coefficient" : 0.5,
+				"specular-color" : [1.0,1.0,1.0,1.0],
+				"specular-coefficient" : 0.5,
+				"specular-shininess" : 40.0
+			}
 		},
 		{
 			"model" : "melon.md3",
-			"texture" : "melon.png"
+			"texture" : "melon.png",
+			"material" : 
+			{
+				"diffuse-color" : [1.0,1.0,1.0,1.0],
+				"diffuse-coefficient" : 0.5,
+				"specular-color" : [1.0,1.0,1.0,1.0],
+				"specular-coefficient" : 0.5,
+				"specular-shininess" : 40.0
+			}
 		},
 		{
 			"model" : "kiwi.md3",
-			"texture" : "kiwi.png"
+			"texture" : "kiwi.png",
+			"material" : 
+			{
+				"diffuse-color" : [1.0,1.0,1.0,1.0],
+				"diffuse-coefficient" : 0.5,
+				"specular-color" : [1.0,1.0,1.0,1.0],
+				"specular-coefficient" : 0.5,
+				"specular-shininess" : 40.0
+			}
 		},
 		{
 			"model" : "orange.md3",
-			"texture" : "orange.png"
+			"texture" : "orange.png",
+			"material" : 
+			{
+				"diffuse-color" : [1.0,1.0,1.0,1.0],
+				"diffuse-coefficient" : 0.5,
+				"specular-color" : [1.0,1.0,1.0,1.0],
+				"specular-coefficient" : 0.5,
+				"specular-shininess" : 40.0
+			}
 		},
 		{
 			"model" : "pineapple.md3",
-			"texture" : "pineapple.png"
+			"texture" : "pineapple.png",
+			"material" : 
+			{
+				"diffuse-color" : [1.0,1.0,1.0,1.0],
+				"diffuse-coefficient" : 0.5,
+				"specular-color" : [1.0,1.0,1.0,1.0],
+				"specular-coefficient" : 0.5,
+				"specular-shininess" : 40.0
+			}
 		},
 		{
 			"model" : "papaya.md3",
-			"texture" : "papaya.png"
+			"texture" : "papaya.png",
+			"material" : 
+			{
+				"diffuse-color" : [1.0,1.0,1.0,1.0],
+				"diffuse-coefficient" : 0.5,
+				"specular-color" : [1.0,1.0,1.0,1.0],
+				"specular-coefficient" : 0.5,
+				"specular-shininess" : 40.0
+			}
 		},
 		{
 			"model" : "steak.md3",
-			"texture" : "steak.png"
+			"texture" : "steak.png",
+			"material" : 
+			{
+				"diffuse-color" : [1.0,1.0,1.0,1.0],
+				"diffuse-coefficient" : 0.5,
+				"specular-color" : [1.0,1.0,1.0,1.0],
+				"specular-coefficient" : 0.5,
+				"specular-shininess" : 40.0
+			}
 		}
 	],
 	"physics" : 

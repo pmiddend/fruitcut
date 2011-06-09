@@ -433,6 +433,15 @@ SET(
 	src/app/fruit/manager.cpp
 	src/app/fruit/manager.hpp
 	src/app/fruit/manager_fwd.hpp
+	src/app/fruit/material/diffuse_coefficient.hpp
+	src/app/fruit/material/diffuse_color.hpp
+	src/app/fruit/material/from_json.cpp
+	src/app/fruit/material/from_json.hpp
+	src/app/fruit/material/object.cpp
+	src/app/fruit/material/object.hpp
+	src/app/fruit/material/specular_coefficient.hpp
+	src/app/fruit/material/specular_color.hpp
+	src/app/fruit/material/specular_shininess.hpp
 	src/app/fruit/mesh.hpp
 	src/app/fruit/mesh_fwd.hpp
 	src/app/fruit/mesh_to_point_cloud.cpp

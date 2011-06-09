@@ -1,5 +1,6 @@
 #include "prototype_from_json.hpp"
 #include "model_to_mesh.hpp"
+#include "material/from_json.hpp"
 #include "../../media_path.hpp"
 #include "../../fruitlib/json/find_member.hpp"
 #include <sge/parse/json/json.hpp>
@@ -47,5 +48,9 @@ fruitcut::app::fruit::prototype_from_json(
 				sge::renderer::texture::filter::trilinear,
 				sge::renderer::texture::address_mode2(
 					sge::renderer::texture::address_mode::clamp),
-				sge::renderer::resource_flags::readable));
+				sge::renderer::resource_flags::readable),
+			material::from_json(
+				fruitlib::json::find_member<sge::parse::json::object>(
+					o,
+					FCPPT_TEXT("material"))));
 }

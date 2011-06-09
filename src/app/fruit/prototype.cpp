@@ -16,7 +16,8 @@
 
 fruitcut::app::fruit::prototype::prototype(
 	fruitcut::app::fruit::mesh const &_mesh,
-	sge::renderer::texture::planar_ptr const _texture)
+	sge::renderer::texture::planar_ptr const _texture,
+	material::object const &_material)
 :
 	mesh_(
 		_mesh),
@@ -39,7 +40,9 @@ fruitcut::app::fruit::prototype::prototype(
 							0),
 						sge::image2d::dim(
 							_texture->size().w()/2,
-							_texture->size().h()))))))
+							_texture->size().h())))))),
+	material_(
+		_material)
 {
 }
 
@@ -65,4 +68,10 @@ sge::image::color::any::object const &
 fruitcut::app::fruit::prototype::splatter_color() const
 {
 	return splatter_color_;
+}
+
+fruitcut::app::fruit::material::object const &
+fruitcut::app::fruit::prototype::material() const
+{
+	return material_;
 }

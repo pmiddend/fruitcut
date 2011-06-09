@@ -24,37 +24,37 @@ void main()
 					normal_interp));
 
 	// Diffuse
-	const float diffuse = 0.50;
+	//const float diffuse = 0.50;
 
 	// Both for specular
-	const float shininess = 40.0;
-	const float specular = 0.5;
+	//const float shininess = 40.0;
+	//const float specular = 0.5;
 
-	float total_component = 
-		// Ambient
-		ambient_intensity + 
-		// Diffuse
+	const vec4 ambient_color = vec4(1.0,1.0,1.0,1.0);
+
+	vec4 total_component = 
+		ambient_intensity * ambient_color + 
 		clamp(
-			diffuse * 
+			diffuse_coefficient * 
 			max(
 				dot(
 					normal_interp,
 					light_to_point),
 				0.0),
 			0.0,
-			1.0) +
+			1.0) * diffuse_color +
 		// Specular
 		clamp(
-			specular *
+			specular_coefficient *
 			pow(
 				max(
 					dot(
 						reflected,
 						to_eye),
 					0.0),
-				shininess),
+				specular_shininess),
 			0.0,
-			1.0);
+			1.0) * specular_color;
 
 	frag_color = 
 		total_component *

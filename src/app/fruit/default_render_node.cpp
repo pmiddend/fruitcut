@@ -67,7 +67,27 @@ fruitcut::app::fruit::default_render_node::default_render_node(
 				(sge::shader::variable(
 					"ambient_intensity",
 					sge::shader::variable_type::const_,
-					_ambient_intensity)),
+					_ambient_intensity))
+				(sge::shader::variable(
+					"diffuse_color",
+					sge::shader::variable_type::uniform,
+					sge::renderer::vector4()))
+				(sge::shader::variable(
+					"specular_color",
+					sge::shader::variable_type::uniform,
+					sge::renderer::vector4()))
+				(sge::shader::variable(
+					"diffuse_coefficient",
+					sge::shader::variable_type::uniform,
+					sge::renderer::scalar()))
+				(sge::shader::variable(
+					"specular_coefficient",
+					sge::shader::variable_type::uniform,
+					sge::renderer::scalar()))
+				(sge::shader::variable(
+					"specular_shininess",
+					sge::shader::variable_type::uniform,
+					sge::renderer::scalar())),
 			fcppt::assign::make_container<sge::shader::sampler_sequence>
 				(sge::shader::sampler(
 					"texture",
@@ -120,6 +140,27 @@ fruitcut::app::fruit::default_render_node::render()
 			fcppt::math::matrix::transpose(
 				fcppt::math::matrix::inverse(
 					camera_.world() * i->world_transform())));
+
+		// Material shit
+		shader_.update_uniform(
+			"diffuse_color",
+			i->prototype().material().diffuse_color());
+
+		shader_.update_uniform(
+			"specular_color",
+			i->prototype().material().specular_color());
+
+		shader_.update_uniform(
+			"diffuse_coefficient",
+			i->prototype().material().diffuse_coefficient());
+
+		shader_.update_uniform(
+			"specular_coefficient",
+			i->prototype().material().specular_coefficient());
+
+		shader_.update_uniform(
+			"specular_shininess",
+			i->prototype().material().specular_shininess());
 
 		renderer_.render_nonindexed(
 			sge::renderer::first_vertex(
