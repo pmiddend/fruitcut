@@ -217,6 +217,8 @@ SET(
 	src/fruitlib/particle/sprite/type_choices.hpp
 	src/fruitlib/particle/system.cpp
 	src/fruitlib/particle/system.hpp
+	src/fruitlib/performance_timer.cpp
+	src/fruitlib/performance_timer.hpp
 	src/fruitlib/physics/box.hpp
 	src/fruitlib/physics/debugger.cpp
 	src/fruitlib/physics/debugger.hpp

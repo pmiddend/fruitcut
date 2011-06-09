@@ -48,7 +48,7 @@
 #include <sge/systems/systems.hpp>
 #include <sge/systems/window.hpp>
 #include <sge/texture/texture.hpp>
-#include <sge/time/clock.hpp>
+#include <sge/time/time.hpp>
 #include <sge/viewport/fill_on_resize.hpp>
 #include <sge/viewport/manager.hpp>
 #include <sge/window/dim.hpp>
