@@ -537,6 +537,13 @@ SET(
 ADD_LIBRARY(
 	fruitcut_library STATIC ${FRUITLIB_FILES})
 
+TARGET_LINK_LIBRARIES(
+	fruitcut_library
+	${Fcppt_LIBRARIES}
+	${SGE_LIBRARIES}
+	${BULLET_LIBRARIES}
+	${Boost_LIBRARIES})
+
 ADD_EXECUTABLE(
 	fruitcut
 	${APP_FILES} src/media_path.cpp)
