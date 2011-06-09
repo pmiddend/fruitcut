@@ -120,6 +120,7 @@ SET(
 	src/fruitlib/font/object_parameters.cpp
 	src/fruitlib/font/object_parameters.hpp
 	src/fruitlib/font/object_parameters_fwd.hpp
+	src/fruitlib/font/scale_animation.hpp
 	src/fruitlib/font/scene_node.cpp
 	src/fruitlib/font/scene_node.hpp
 	src/fruitlib/geometry_traits/box.hpp

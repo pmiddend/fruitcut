@@ -1,19 +1,19 @@
-#if 0
 #include "damped_oscillation.hpp"
+#include <sge/renderer/scalar.hpp>
 
-fruitcut::font::scale_animation::value_sequence
+fruitcut::fruitlib::font::scale_animation::value_sequence
 const
-fruitcut::font::damped_oscillation(
+fruitcut::fruitlib::font::damped_oscillation(
 	sge::time::unit const wavelength,
 	unsigned int const frames,
 	float const amplitude
 )
 {
-	fruitcut::font::scale_animation::value_sequence sequence;
+	font::scale_animation::value_sequence sequence;
 	for (unsigned int t = 0; t < frames; ++t)
 	{
 		sequence.push_back(
-			fruitcut::font::scale_animation::value_type(
+			font::scale_animation::value_type(
 				sge::time::millisecond(
 					wavelength
 				),
@@ -30,4 +30,3 @@ fruitcut::font::damped_oscillation(
 	}
 	return sequence;
 }
-#endif

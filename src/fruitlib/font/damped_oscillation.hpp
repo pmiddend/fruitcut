@@ -1,4 +1,3 @@
-#if 0
 #ifndef FRUITCUT_FRUITLIB_FONT_DAMPED_OSCILLATION_HPP_INCLUDED
 #define FRUITCUT_FRUITLIB_FONT_DAMPED_OSCILLATION_HPP_INCLUDED
 
@@ -25,5 +24,4 @@ damped_oscillation(
 }
 }
 
-#endif
 #endif
