@@ -10,18 +10,54 @@ out vec4 frag_color;
 
 void main()
 {
-	vec3 light_to_point = 
-		normalize(
-			 light_position_interp - position_interp);
+	vec3 
+		light_to_point = 
+			normalize(
+				 light_position_interp - position_interp),
+		to_eye = 
+			normalize(
+				-position_interp),
+		reflected = 
+			normalize(
+				-reflect(
+					light_to_point,
+					normal_interp));
 
-	float intensity = 
+	// Diffuse
+	const float diffuse = 0.50;
+
+	// Both for specular
+	const float shininess = 40.0;
+	const float specular = 0.5;
+
+	float total_component = 
+		// Ambient
+		ambient_intensity + 
+		// Diffuse
 		clamp(
-			dot(normal_interp,light_to_point),
-			ambient_intensity,
+			diffuse * 
+			max(
+				dot(
+					normal_interp,
+					light_to_point),
+				0.0),
+			0.0,
+			1.0) +
+		// Specular
+		clamp(
+			specular *
+			pow(
+				max(
+					dot(
+						reflected,
+						to_eye),
+					0.0),
+				shininess),
+			0.0,
 			1.0);
 
 	frag_color = 
-		intensity * 
+		total_component *
 		texture2D(
 			texture,
 			texcoord_interp);
