@@ -8,6 +8,7 @@
 #include "../fruitlib/time_format/string_to_duration.hpp"
 #include "../fruitlib/pp/dependency_set.hpp"
 #include "../fruitlib/json/find_member.hpp"
+#include "../fruitlib/json/parse_projection.hpp"
 #include "../fruitlib/log/scoped_sequence_from_json.hpp"
 #include "../media_path.hpp"
 #include <sge/audio/player.hpp>
@@ -282,7 +283,7 @@ fruitcut::app::machine::machine(
 	shadow_map_(
 		config_file_,
 		systems_.renderer(),
-		main_light_source_.modelview()),
+		main_light_source_.model_view()),
 	background_(
 		systems_.renderer(),
 		systems_.viewport_manager(),
@@ -627,20 +628,13 @@ fruitcut::app::machine::viewport_change()
 			systems_.renderer().onscreen_target().viewport().get().size()));
 	background_.viewport_changed();
 	camera_.projection_object(
-		sge::camera::projection::perspective(
+		fruitlib::json::parse_projection(
+			fruitlib::json::find_member<sge::parse::json::object>(
+				context<machine>().config_file(),
+				FCPPT_TEXT("ingame/camera/projection")),
 			sge::renderer::aspect(
 				fcppt::math::dim::structure_cast<sge::renderer::screen_size>(
-					context<machine>().systems().renderer().onscreen_target().viewport().get().size())),
-			fcppt::math::deg_to_rad(
-				fruitlib::json::find_member<sge::renderer::scalar>(
-					context<machine>().config_file(),
-					FCPPT_TEXT("ingame/camera/fov"))),
-			fruitlib::json::find_member<sge::renderer::scalar>(
-				context<machine>().config_file(),
-				FCPPT_TEXT("ingame/camera/near")),
-			fruitlib::json::find_member<sge::renderer::scalar>(
-				context<machine>().config_file(),
-				FCPPT_TEXT("ingame/camera/far"))));
+					context<machine>().systems().renderer().onscreen_target().viewport().get().size()))));
 }
 
 void

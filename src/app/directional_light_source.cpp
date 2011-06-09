@@ -24,7 +24,7 @@ fruitcut::app::directional_light_source::position(
 }
 
 sge::renderer::matrix4 const 
-fruitcut::app::directional_light_source::modelview() const
+fruitcut::app::directional_light_source::model_view() const
 {
 	return 
 		transformation_ *

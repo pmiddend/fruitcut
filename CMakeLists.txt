@@ -153,6 +153,8 @@ SET(
 	src/fruitlib/json/merge_trees.hpp
 	src/fruitlib/json/parse_animation.hpp
 	src/fruitlib/json/parse_color.hpp
+	src/fruitlib/json/parse_projection.cpp
+	src/fruitlib/json/parse_projection.hpp
 	src/fruitlib/json/parse_random_inclusive_range.hpp
 	src/fruitlib/json/parse_rgba8_color.cpp
 	src/fruitlib/json/parse_rgba8_color.hpp
@@ -392,6 +394,7 @@ SET(
 	src/app/dim2.hpp
 	src/app/directional_light_source.cpp
 	src/app/directional_light_source.hpp
+	src/app/directional_light_source_fwd.hpp
 	src/app/events/gameover/continue_button_pushed.hpp
 	src/app/events/gameover/quit_button_pushed.hpp
 	src/app/events/gameover/reset_button_pushed.hpp

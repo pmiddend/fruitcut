@@ -1,5 +1,6 @@
 #include "shadow_map.hpp"
 #include "../fruitlib/json/find_member.hpp"
+#include "../fruitlib/json/parse_projection.hpp"
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/dim2.hpp>
 #include <sge/renderer/scalar.hpp>
@@ -12,6 +13,7 @@
 #include <sge/renderer/matrix4.hpp>
 #include <sge/image/color/format.hpp>
 #include <sge/image/colors.hpp>
+#include <sge/camera/projection/to_matrix.hpp>
 #include <fcppt/math/dim/dim.hpp>
 #include <fcppt/math/matrix/matrix.hpp>
 #include <fcppt/math/deg_to_rad.hpp>
@@ -43,20 +45,12 @@ fruitcut::app::shadow_map::shadow_map(
 			renderer_,
 			*texture_)),
 	mvp_(
-		fcppt::math::matrix::perspective(
-			fruitlib::json::find_member<sge::renderer::scalar>(
-				_config,
-				FCPPT_TEXT("shadow-map/aspect")),
-			fcppt::math::deg_to_rad(
-				fruitlib::json::find_member<sge::renderer::scalar>(
+		sge::camera::projection::to_matrix(
+			fruitlib::json::parse_projection(
+				fruitlib::json::find_member<sge::parse::json::object>(
 					_config,
-					FCPPT_TEXT("shadow-map/fov"))),
-			fruitlib::json::find_member<sge::renderer::scalar>(
-				_config,
-				FCPPT_TEXT("shadow-map/near")),
-			fruitlib::json::find_member<sge::renderer::scalar>(
-				_config,
-				FCPPT_TEXT("shadow-map/far"))) * 
+					FCPPT_TEXT("shadow-map/projection")),
+				fcppt::optional<sge::renderer::scalar>())) * 
 		_modelview)
 {
 }

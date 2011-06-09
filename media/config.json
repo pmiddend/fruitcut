@@ -15,10 +15,14 @@
 	"shadow-map" : 
 	{
 		"size" : [1024,1024],
-		"aspect" : 1.0,
-		"fov" : 60.0,
-		"near" : 0.1,
-		"far" : 100.0
+		"projection" : 
+		{
+			"type" : "perspective",
+			"aspect" : 1.0,
+			"fov" : 60.0,
+			"near" : 0.1,
+			"far" : 100.0
+		}
 	},
 	"fonts" : 
 	{
@@ -93,9 +97,13 @@
 	{
 		"camera" : 
 		{
-			"fov" : 60.0,
-			"near" : 0.1,
-			"far" : 100.0,
+			"projection" : 
+			{
+				"type" : "perspective",
+				"fov" : 60.0,
+				"near" : 0.1,
+				"far" : 100.0
+			},
 			"movement-speed" : 10.0,
 			"mouse-speed" : 300.0,
 			"initial-position" : [0.0,0.0,15.0]

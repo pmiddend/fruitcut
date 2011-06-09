@@ -10,12 +10,15 @@ namespace fruitcut
 {
 namespace app
 {
+// One of the few copyable classes
 class directional_light_source
 {
 public:
 	explicit
 	directional_light_source();
 
+	// We store the position separate because the diffuse/specular
+	// shading doesn't need the direction
 	sge::renderer::vector3 const &
 	position() const;
 
@@ -23,8 +26,9 @@ public:
 	position(
 		sge::renderer::vector3 const &);
 
+	// NOT the transformation here but the translation included
 	sge::renderer::matrix4 const 
-	modelview() const;
+	model_view() const;
 
 	void
 	transformation(
