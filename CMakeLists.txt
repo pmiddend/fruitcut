@@ -137,11 +137,9 @@ SET(
 	src/fruitlib/input/optional_mouse_button_callback.hpp
 	src/fruitlib/input/state.cpp
 	src/fruitlib/input/state.hpp
-	src/fruitlib/input/state_flymake.cpp
 	src/fruitlib/input/state_fwd.hpp
 	src/fruitlib/input/state_manager.cpp
 	src/fruitlib/input/state_manager.hpp
-	src/fruitlib/input/state_manager_flymake.cpp
 	src/fruitlib/input/state_manager_fwd.hpp
 	src/fruitlib/json/array_to_vector.hpp
 	src/fruitlib/json/convert.hpp
