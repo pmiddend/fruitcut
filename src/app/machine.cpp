@@ -675,15 +675,6 @@ fruitcut::app::machine::render()
 	if (!systems_.renderer().onscreen_target().viewport().get().size().content())
 		return;
 
-	/*
-	sge::renderer::state::scoped scoped_state(
-		systems_.renderer(),
-		sge::renderer::state::list
-			(sge::renderer::state::bool_::clear_back_buffer = true)
-			(sge::renderer::state::color::back_buffer_clear_color = sge::image::colors::black())
-			);
-	*/
-
 	sge::renderer::scoped_block scoped_block(
 		systems_.renderer());
 

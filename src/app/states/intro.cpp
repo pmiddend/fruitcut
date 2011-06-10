@@ -7,6 +7,7 @@
 #include <sge/renderer/scalar.hpp>
 #include <sge/viewport/manager.hpp>
 #include <sge/renderer/device.hpp>
+#include <sge/renderer/state/state.hpp>
 #include <sge/renderer/onscreen_target.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/tr1/functional.hpp>
@@ -17,6 +18,13 @@ fruitcut::app::states::intro::intro(
 :
 	my_base(
 		ctx),
+	scoped_render_state_(
+		context<machine>().systems().renderer(),
+		sge::renderer::state::list
+			(sge::renderer::state::depth_func::less)
+			(sge::renderer::state::cull_mode::off)
+			(sge::renderer::state::bool_::clear_depth_buffer = true)
+			(sge::renderer::state::float_::depth_buffer_clear_val = 1.0f)),
 	// Those timers will be activated as soon as we have a viewport
 	saturation_timer_(
 		fruitlib::time_format::string_to_duration_exn<sge::time::duration>(

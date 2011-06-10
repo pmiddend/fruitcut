@@ -279,9 +279,7 @@ fruitcut::app::background::render()
 	sge::renderer::state::scoped scoped_state(
 		renderer_,
 		sge::renderer::state::list
-			(sge::renderer::state::bool_::enable_alpha_blending = true)
-			(sge::renderer::state::source_blend_func::src_alpha)
-			(sge::renderer::state::dest_blend_func::inv_src_alpha)
+			(sge::renderer::state::bool_::enable_alpha_blending = false)
 			(sge::renderer::state::cull_mode::off)
 			(sge::renderer::state::depth_func::less)
 			(sge::renderer::state::stencil_func::off)

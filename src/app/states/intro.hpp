@@ -7,6 +7,7 @@
 #include "../logo.hpp"
 #include <sge/time/timer.hpp>
 #include <sge/renderer/device_ptr.hpp>
+#include <sge/renderer/state/scoped.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <boost/statechart/state.hpp>
 #include <boost/statechart/custom_reaction.hpp>
@@ -46,6 +47,7 @@ public:
 
 	~intro();
 private:
+	sge::renderer::state::scoped scoped_render_state_;
 	sge::time::timer saturation_timer_;
 	sge::time::timer intro_timer_;
 	fcppt::signal::scoped_connection viewport_change_connection_;
