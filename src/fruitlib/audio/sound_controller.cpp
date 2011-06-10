@@ -2,23 +2,23 @@
 #include "../resource_tree/navigate_to_path.hpp"
 #include "../resource_tree/from_directory_tree.hpp"
 #include "../resource_tree/path.hpp"
-#include "../create_rng.hpp"
+#include "../rng_creator.hpp"
 #include "../uniform_random.hpp"
 #include "../exception.hpp"
 #include <sge/audio/buffer.hpp>
-#include <sge/audio/sound/repeat.hpp>
 #include <sge/audio/buffer_ptr.hpp>
 #include <sge/audio/multi_loader.hpp>
-#include <sge/audio/stop_mode.hpp>
 #include <sge/audio/player.hpp>
 #include <sge/audio/sound/positional.hpp>
-#include <fcppt/text.hpp>
-#include <fcppt/ref.hpp>
-#include <fcppt/tr1/functional.hpp>
-#include <fcppt/filesystem/path.hpp>
+#include <sge/audio/sound/repeat.hpp>
+#include <sge/audio/stop_mode.hpp>
 #include <fcppt/filesystem/directory_iterator.hpp>
-#include <fcppt/string.hpp>
+#include <fcppt/filesystem/path.hpp>
 #include <fcppt/random/make_last_exclusive_range.hpp>
+#include <fcppt/ref.hpp>
+#include <fcppt/string.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/tr1/functional.hpp>
 #include <iostream>
 #include <iterator>
 #include <cstddef>
@@ -27,6 +27,7 @@ namespace
 {
 fruitcut::fruitlib::uniform_random<std::size_t>::type
 create_random_from_directory(
+	fruitcut::fruitlib::rng_creator &_rng_creator,
 	fcppt::filesystem::path const &p)
 {
 	return 
@@ -39,7 +40,7 @@ create_random_from_directory(
 						fcppt::filesystem::directory_iterator(
 							p),
 						fcppt::filesystem::directory_iterator()))),
-				fruitcut::fruitlib::create_rng());
+				_rng_creator.create());
 }
 
 sge::audio::buffer_ptr const
@@ -56,6 +57,7 @@ create_buffer_from_path(
 }
 
 fruitcut::fruitlib::audio::sound_controller::sound_controller(
+	fruitlib::rng_creator &_rng_creator,
 	fcppt::filesystem::path const &_base_path,
 	sge::audio::multi_loader &_loader,
 	sge::audio::player &_player)
@@ -72,7 +74,11 @@ fruitcut::fruitlib::audio::sound_controller::sound_controller(
 				fcppt::ref(
 					_player),
 				std::tr1::placeholders::_1),
-			&create_random_from_directory)),
+			std::tr1::bind(
+				&create_random_from_directory,
+				fcppt::ref(
+					_rng_creator),
+				std::tr1::placeholders::_1))),
 	pool_()
 {
 }

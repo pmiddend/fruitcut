@@ -4,6 +4,7 @@
 #include "fruit/cut_context_fwd.hpp"
 #include "fruit/area.hpp"
 #include "../fruitlib/uniform_random.hpp"
+#include "../fruitlib/rng_creator_fwd.hpp"
 #include "point_sprite/color_format.hpp"
 #include "point_sprite/splatter/size.hpp"
 #include "point_sprite/splatter/linear_velocity.hpp"
@@ -28,6 +29,7 @@ public:
 	splatter_generator(
 		sge::parse::json::object const &,
 		point_sprite::system_node &,
+		fruitlib::rng_creator &,
 		point_sprite::splatter::acceleration const &,
 		sge::time::callback const &);
 
@@ -62,6 +64,7 @@ private:
 	lifetime_millis_rng;
 
 	point_sprite::system_node &point_sprites_;
+	fruitlib::rng_creator &rng_creator_;
 	point_sprite::splatter::acceleration::value_type acceleration_;
 	sge::time::callback const time_callback_;
 	cut_direction_rng cut_direction_rng_;

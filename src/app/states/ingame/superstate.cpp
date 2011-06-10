@@ -103,6 +103,7 @@ fruitcut::app::states::ingame::superstate::superstate(
 		context<machine>().shadow_map().mvp()),
 	fruit_spawner_(
 		fruit_manager_,
+		context<machine>().rng_creator(),
 		context<machine>().config_file(),
 		context<machine>().camera(),
 		context<machine>().timer_callback()),
@@ -123,6 +124,7 @@ fruitcut::app::states::ingame::superstate::superstate(
 	splatter_generator_(
 		context<machine>().config_file(),
 		context<machine>().point_sprites(),
+		context<machine>().rng_creator(),
 		point_sprite::splatter::acceleration(
 			fcppt::math::vector::structure_cast<point_sprite::splatter::acceleration::value_type>(
 				physics_world_.gravity())),

@@ -3,7 +3,7 @@
 #include "../../fruitlib/physics/scalar.hpp"
 #include "../../fruitlib/physics/vector3.hpp"
 #include "../../fruitlib/physics/matrix4.hpp"
-#include "../../fruitlib/create_rng.hpp"
+#include "../../fruitlib/rng_creator.hpp"
 #include "../../fruitlib/json/find_member.hpp"
 #include "../../fruitlib/json/parse_random_inclusive_range.hpp"
 #include "../../fruitlib/math/box_radius.hpp"
@@ -36,6 +36,7 @@
 
 fruitcut::app::fruit::spawner::spawner(
 	fruit::manager &_manager,
+	fruitlib::rng_creator &_rng_creator,
 	sge::parse::json::object const &_config_file,
 	sge::camera::object const &_camera,
 	sge::time::callback const &_callback)
@@ -49,37 +50,37 @@ fruitcut::app::fruit::spawner::spawner(
  			fruitlib::json::find_member<sge::parse::json::array>(
 				_config_file,
 				FCPPT_TEXT("fruit-spawner/spawn-range-seconds"))),
-		fruitlib::create_rng()),
+		_rng_creator.create()),
 	prototype_rng_(
 		fcppt::random::make_last_exclusive_range(
 			static_cast<prototype_sequence::size_type>(
 				0),
 			manager_.prototypes().size()),
-		fruitlib::create_rng()),
+		_rng_creator.create()),
 	x_rng_(
 		fcppt::random::make_inclusive_range(
  			static_cast<fruitlib::physics::scalar>(
 				0),
 			static_cast<fruitlib::physics::scalar>(
 				1)),
-		fruitlib::create_rng()),
+		_rng_creator.create()),
 	linear_velocity_rng_(
 		fruitlib::json::parse_random_inclusive_range<fruitlib::physics::scalar>(
  			fruitlib::json::find_member<sge::parse::json::array>(
 				_config_file,
 				FCPPT_TEXT("fruit-spawner/linear-velocity-range"))),
-		fruitlib::create_rng()),
+		_rng_creator.create()),
 	angular_velocity_rng_(
 		fruitlib::json::parse_random_inclusive_range<fruitlib::physics::scalar>(
  			fruitlib::json::find_member<sge::parse::json::array>(
 				_config_file,
 				FCPPT_TEXT("fruit-spawner/angular-velocity-range"))),
-		fruitlib::create_rng()),
+		_rng_creator.create()),
 	angle_rng_(
 		fcppt::random::make_inclusive_range(
 				0.0f,
 				1.0f),
-		fruitlib::create_rng()),
+		_rng_creator.create()),
 	timer_(
 		sge::time::duration(),
 		sge::time::activation_state::inactive,

@@ -78,6 +78,9 @@ fruitcut::app::machine::machine(
 	fruitlib::scenic::nodes::intrusive_group(),
 	// We init that in run()
 	running_(),
+	rng_creator_(
+		static_cast<fruitlib::rng_creator::value_type>(
+			fcppt::chrono::high_resolution_clock::now().time_since_epoch().count())),
 	config_file_(
 		config_wrapper(
 			argc,
@@ -219,12 +222,14 @@ fruitcut::app::machine::machine(
 					&machine::console_switch,
 					this)))),
 	sound_controller_(
+		rng_creator_,
 		fruitcut::media_path()/FCPPT_TEXT("sounds"),
 		systems_.audio_loader(),
 		systems_.audio_player()),
 	sound_controller_node_(
 		sound_controller_),
 	music_controller_(
+		rng_creator_,
 		systems_.audio_loader(),
 		systems_.audio_player(),
 		*fruitlib::time_format::string_to_duration<sge::time::duration>(
@@ -313,6 +318,7 @@ fruitcut::app::machine::machine(
 		31337),
 	point_sprites_(
 		fruitcut::media_path()/FCPPT_TEXT("point_sprites"),
+		rng_creator_,
 		systems_.renderer(),
 		systems_.image_loader(),
 		camera_)
@@ -512,6 +518,12 @@ sge::cegui::syringe const &
 fruitcut::app::machine::gui_syringe() const
 {
 	return gui_syringe_;
+}
+
+fruitcut::fruitlib::rng_creator &
+fruitcut::app::machine::rng_creator()
+{
+	return rng_creator_;
 }
 
 fruitcut::app::score

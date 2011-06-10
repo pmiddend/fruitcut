@@ -80,8 +80,6 @@ SET(
 	src/fruitlib/average_colors.cpp
 	src/fruitlib/average_colors.hpp
 	src/fruitlib/counted_reference.hpp
-	src/fruitlib/create_rng.cpp
-	src/fruitlib/create_rng.hpp
 	src/fruitlib/cursor_trail.cpp
 	src/fruitlib/cursor_trail.hpp
 	src/fruitlib/cursor_trail_fwd.hpp
@@ -317,6 +315,9 @@ SET(
 	src/fruitlib/resource_tree/object.hpp
 	src/fruitlib/resource_tree/path.cpp
 	src/fruitlib/resource_tree/path.hpp
+	src/fruitlib/rng_creator.cpp
+	src/fruitlib/rng_creator.hpp
+	src/fruitlib/rng_creator_fwd.hpp
 	src/fruitlib/scenic/color.hpp
 	src/fruitlib/scenic/exception.cpp
 	src/fruitlib/scenic/exception.hpp

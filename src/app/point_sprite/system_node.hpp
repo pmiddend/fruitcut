@@ -5,6 +5,7 @@
 #include "base.hpp"
 #include "unique_base_ptr.hpp"
 #include "../../fruitlib/scenic/nodes/intrusive.hpp"
+#include "../../fruitlib/rng_creator_fwd.hpp"
 #include "../../fruitlib/resource_tree/make_type.hpp"
 #include "../../fruitlib/resource_tree/path.hpp"
 #include "../../fruitlib/uniform_random.hpp"
@@ -36,6 +37,7 @@ public:
 	explicit
 	system_node(
 		fcppt::filesystem::path const &,
+		fruitlib::rng_creator &,
 		sge::renderer::device &,
 		sge::image2d::multi_loader &,
 		sge::camera::object const &);

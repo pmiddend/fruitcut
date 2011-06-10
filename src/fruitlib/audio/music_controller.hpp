@@ -2,6 +2,7 @@
 #define FRUITCUT_FRUITLIB_AUDIO_MUSIC_CONTROLLER_HPP_INCLUDED
 
 #include "../uniform_random.hpp"
+#include "../rng_creator_fwd.hpp"
 #include "../resource_tree/make_type.hpp"
 #include "../resource_tree/path.hpp"
 #include <sge/audio/multi_loader_fwd.hpp>
@@ -32,6 +33,7 @@ FCPPT_NONCOPYABLE(
 public:
 	explicit
 	music_controller(
+		fruitlib::rng_creator &,
 		sge::audio::multi_loader &,
 		sge::audio::player &,
 		sge::time::duration const &,

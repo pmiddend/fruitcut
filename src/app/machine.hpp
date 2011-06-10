@@ -5,6 +5,7 @@
 #include "shadow_map.hpp"
 #include "../fruitlib/audio/music_controller.hpp"
 #include "../fruitlib/audio/sound_controller.hpp"
+#include "../fruitlib/rng_creator.hpp"
 #include "../fruitlib/font/cache.hpp"
 #include "../fruitlib/input/state.hpp"
 #include "../fruitlib/input/state_manager.hpp"
@@ -132,6 +133,9 @@ public:
 	sge::cegui::syringe const &
 	gui_syringe() const;
 
+	fruitlib::rng_creator &
+	rng_creator();
+
 	score
 	last_game_score() const;
 
@@ -170,6 +174,7 @@ public:
 	~machine();
 private:
 	bool running_;
+	fruitlib::rng_creator rng_creator_;
 	sge::parse::json::object const config_file_;
 	sge::systems::instance const systems_;
 	sge::console::object console_object_;
