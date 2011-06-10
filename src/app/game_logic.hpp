@@ -61,7 +61,11 @@ private:
 		viewport_changed_connection_;
 	fruitlib::font::intrusive_scene_node score_font_node_;
 	fruitlib::font::intrusive_scene_node timer_font_node_;
+	fruitlib::font::intrusive_scene_node multiplier_font_node_;
 	sge::time::timer score_increase_timer_;
+	sge::time::timer multiplier_timer_;
+	int multiplier_;
+	unsigned multi_count_;
 	sge::renderer::device &renderer_;
 
 	void

@@ -25,6 +25,7 @@
 #include <sge/time/activation_state.hpp>
 #include <sge/time/duration.hpp>
 #include <sge/time/unit.hpp>
+#include <sge/time/millisecond.hpp>
 #include <sge/viewport/manager.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
@@ -33,6 +34,7 @@
 #include <fcppt/text.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/lexical_cast.hpp>
+#include <fcppt/format.hpp>
 #include <iostream>
 
 fruitcut::app::game_logic::game_logic(
@@ -121,6 +123,23 @@ fruitcut::app::game_logic::game_logic(
 				FCPPT_TEXT("ingame/timer-font-color"))),
 		static_cast<fruitlib::scenic::scale>(
 			1)),
+	multiplier_font_node_(
+		fruitlib::font::object_parameters(
+			_font_cache.metrics(
+				FCPPT_TEXT("score")),
+			_font_cache.drawer(
+				FCPPT_TEXT("score")),
+			SGE_FONT_TEXT_LIT("1x"),
+			sge::font::rect::null(),
+			sge::font::text::align_h::center,
+			sge::font::text::align_v::bottom,
+			sge::font::text::flags::none),
+		fruitlib::json::parse_color<sge::image::color::rgba8>(
+			fruitlib::json::find_member<sge::parse::json::value>(
+				_config_file,
+				FCPPT_TEXT("ingame/score-font-color"))),
+		static_cast<fruitlib::scenic::scale>(
+			2.0)),
 	score_increase_timer_(
 		fruitlib::time_format::string_to_duration_exn<sge::time::duration>(
 			fruitlib::json::find_member<fcppt::string>(
@@ -128,6 +147,12 @@ fruitcut::app::game_logic::game_logic(
 				FCPPT_TEXT("ingame/score-increase-timer"))),
 		sge::time::activation_state::active,
 		_time_callback),
+	multiplier_timer_(
+		sge::time::millisecond(1000),
+		sge::time::activation_state::active,
+		_time_callback),
+	multiplier_(1),
+	multi_count_(0),
 	renderer_(
 		_renderer)
 {
@@ -135,6 +160,8 @@ fruitcut::app::game_logic::game_logic(
 		score_font_node_);
 	_overlay.insert_dont_care(
 		timer_font_node_);
+	_overlay.insert_dont_care(
+		multiplier_font_node_);
 	viewport_changed();
 }
 
@@ -171,7 +198,24 @@ fruitcut::app::game_logic::fruit_cut(
 	increase_score(
 		app::score(
 			static_cast<app::score::value_type>(
-				context.area() * area_score_factor_)));
+				static_cast<app::score::value_type>(
+					multiplier_) *
+				context.area() * 
+				area_score_factor_)));
+	if (!multiplier_timer_.expired())
+	{
+		++multi_count_;
+		if (multi_count_ > 5)
+		{
+			++multiplier_;
+			multi_count_ = 0;
+		}
+		multiplier_timer_.reset();
+		multiplier_font_node_.object().text(
+				fcppt::lexical_cast<sge::font::text::string>(
+					multiplier_) +
+				SGE_FONT_TEXT_LIT("x"));
+	}
 }
 
 void
@@ -185,6 +229,17 @@ fruitcut::app::game_logic::viewport_changed()
 		sge::font::rect(
 			sge::font::pos::null(),
 			viewport_dim));
+
+	multiplier_font_node_.object().bounding_box(
+		sge::font::rect(
+			sge::font::pos::null(),
+			sge::font::dim(
+				viewport_dim.w(),
+				static_cast<sge::font::unit>(
+					static_cast<sge::renderer::scalar>(
+						viewport_dim.h()) * 
+					static_cast<sge::renderer::scalar>(
+						0.9)))));
 
 	timer_font_node_.object().bounding_box(
 		sge::font::rect(
@@ -201,6 +256,16 @@ fruitcut::app::game_logic::viewport_changed()
 void
 fruitcut::app::game_logic::update()
 {
+	if (multiplier_timer_.expired())
+	{
+		multiplier_font_node_.object().text(
+				fcppt::lexical_cast<sge::font::text::string>(
+					multiplier_) +
+				SGE_FONT_TEXT_LIT("x"));
+		multiplier_ = 1;
+		multi_count_ = 0;
+		multiplier_timer_.reset();
+	}
 	timer_font_node_.object().text(
 		fruitlib::time_format::duration_to_string<sge::font::text::string>(
 			sge::time::duration(
