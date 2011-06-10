@@ -41,6 +41,27 @@
 #include <fcppt/assert.hpp>
 #include <iostream>
 
+namespace
+{
+fruitcut::fruitlib::physics::vector3 const
+calculate_new_linear_velocity(
+	fruitcut::fruitlib::physics::vector3 const &old_velocity,
+	fruitcut::fruitlib::physics::vector3 const &normal_velocity)
+{
+	fruitcut::fruitlib::physics::scalar const old_to_new_velocity_factor = 
+		static_cast<fruitcut::fruitlib::physics::scalar>(
+			0.5);
+
+	return 
+		old_to_new_velocity_factor * old_velocity + 
+			(1 - old_to_new_velocity_factor) *
+				fcppt::math::vector::length(
+					old_velocity) * 
+					normal_velocity;
+					
+}
+}
+
 fruitcut::app::fruit::manager::manager(
 	sge::parse::json::array const &prototype_array,
 	sge::model::loader &model_loader,
@@ -153,14 +174,13 @@ fruitcut::app::fruit::manager::cut(
 							fcppt::math::vector::structure_cast<fruitlib::physics::vector3>(
 								cut_result->barycenter())),
 					current_fruit.body().transformation(),
-					current_fruit.body().linear_velocity() + 
-						(static_cast<fruitlib::physics::scalar>(0.125) * 
-							fcppt::math::vector::length(
-								current_fruit.body().linear_velocity()) * 
-							fruitlib::math::multiply_matrix4_vector3(
-								current_fruit.body().transformation(),
-								fcppt::math::vector::structure_cast<fruitlib::physics::vector3>(
-									p->normal()))),
+					calculate_new_linear_velocity(
+						current_fruit.body().linear_velocity(),
+						fruitlib::math::multiply_matrix4_vector3(
+							current_fruit.body().transformation(),
+							fcppt::math::vector::structure_cast<fruitlib::physics::vector3>(
+								fcppt::math::vector::normalize(
+									p->normal())))),
 					current_fruit.body().angular_velocity(),
 					lock_duration,
 					time_callback)));
