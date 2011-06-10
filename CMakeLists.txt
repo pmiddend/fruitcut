@@ -39,7 +39,7 @@ INCLUDE_DIRECTORIES(SYSTEM ${BULLET_INCLUDE_DIRS})
 
 # sge begin
 FIND_PACKAGE(
-	SGE REQUIRED COMPONENTS viewport console sprite shader config time texture systems camera fonttext fontbitmap cegui line_drawer)
+	SGE REQUIRED COMPONENTS parse viewport console sprite shader config time texture systems camera fonttext fontbitmap cegui line_drawer)
 
 INCLUDE_DIRECTORIES(${SGE_INCLUDE_DIRS})
 ADD_DEFINITIONS(${SGE_CFLAGS})
@@ -551,6 +551,7 @@ ADD_LIBRARY(
 TARGET_LINK_LIBRARIES(
 	fruitcut_library
 	${Fcppt_LIBRARIES}
+	${CEGUI_BASE_LIBRARY}
 	${SGE_LIBRARIES}
 	${BULLET_LIBRARIES}
 	${Boost_LIBRARIES})
@@ -564,6 +565,7 @@ TARGET_LINK_LIBRARIES(
 	fruitcut_library
 	${Fcppt_LIBRARIES}
 	${SGE_LIBRARIES}
+	${CEGUI_BASE_LIBRARY}
 	${BULLET_LIBRARIES}
 	${Boost_LIBRARIES})
 
