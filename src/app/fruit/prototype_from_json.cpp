@@ -12,6 +12,19 @@
 #include <sge/renderer/resource_flags.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/string.hpp>
+#include <fcppt/algorithm/map.hpp>
+
+namespace
+{
+fruitcut::app::fruit::tag const
+json_to_tag(
+	sge::parse::json::value const &v)
+{
+	return 
+		sge::parse::json::get<fcppt::string>(
+			v);
+}
+}
 
 fruitcut::app::fruit::prototype const
 fruitcut::app::fruit::prototype_from_json(
@@ -52,5 +65,10 @@ fruitcut::app::fruit::prototype_from_json(
 			material::from_json(
 				fruitlib::json::find_member<sge::parse::json::object>(
 					o,
-					FCPPT_TEXT("material"))));
+					FCPPT_TEXT("material"))),
+			fcppt::algorithm::map<fruit::tag_sequence>(
+				fruitlib::json::find_member<sge::parse::json::array>(
+					o,
+					FCPPT_TEXT("tags")).elements,
+				&json_to_tag));
 }

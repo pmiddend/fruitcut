@@ -129,7 +129,8 @@
 				"specular-color" : [1.0,1.0,1.0,1.0],
 				"specular-coefficient" : 0.5,
 				"specular-shininess" : 40.0
-			}
+			},
+			"tags" : []
 		},
 		{
 			"model" : "melon.md3",
@@ -141,7 +142,8 @@
 				"specular-color" : [1.0,1.0,1.0,1.0],
 				"specular-coefficient" : 0.5,
 				"specular-shininess" : 40.0
-			}
+			},
+			"tags" : []
 		},
 		{
 			"model" : "kiwi.md3",
@@ -153,7 +155,8 @@
 				"specular-color" : [1.0,1.0,1.0,1.0],
 				"specular-coefficient" : 0.5,
 				"specular-shininess" : 40.0
-			}
+			},
+			"tags" : []
 		},
 		{
 			"model" : "orange.md3",
@@ -165,7 +168,8 @@
 				"specular-color" : [1.0,1.0,1.0,1.0],
 				"specular-coefficient" : 0.5,
 				"specular-shininess" : 40.0
-			}
+			},
+			"tags" : []
 		},
 		{
 			"model" : "pineapple.md3",
@@ -177,7 +181,8 @@
 				"specular-color" : [1.0,1.0,1.0,1.0],
 				"specular-coefficient" : 0.5,
 				"specular-shininess" : 40.0
-			}
+			},
+			"tags" : []
 		},
 		{
 			"model" : "papaya.md3",
@@ -189,7 +194,8 @@
 				"specular-color" : [1.0,1.0,1.0,1.0],
 				"specular-coefficient" : 0.5,
 				"specular-shininess" : 40.0
-			}
+			},
+			"tags" : []
 		},
 		{
 			"model" : "steak.md3",
@@ -201,7 +207,8 @@
 				"specular-color" : [1.0,1.0,1.0,1.0],
 				"specular-coefficient" : 0.5,
 				"specular-shininess" : 40.0
-			}
+			},
+			"tags" : ["meat"]
 		}
 	],
 	"physics" : 

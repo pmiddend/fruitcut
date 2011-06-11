@@ -181,9 +181,8 @@ fruitcut::app::fruit::spawner::update()
 		angular_velocity_rng_(),
 		angular_velocity_rng_());
 
-	// TODO: Read into prototype
 	fruitlib::physics::scalar const mass = 
-		100;
+		chosen_prototype.mass();
 
 	manager_.spawn(
 		chosen_prototype,

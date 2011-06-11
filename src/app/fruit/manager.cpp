@@ -8,6 +8,8 @@
 #include "../../fruitlib/math/plane/distance_to_point.hpp"
 #include "../../fruitlib/math/plane/normalize.hpp"
 #include "../../fruitlib/math/box_radius.hpp"
+#include "../../fruitlib/physics/vector3.hpp"
+#include "../../fruitlib/physics/rigid_body/mass.hpp"
 #include "../../media_path.hpp"
 #include "mesh.hpp"
 #include "model_vf/format.hpp"
@@ -166,8 +168,8 @@ fruitcut::app::fruit::manager::cut(
 					*vertex_declaration_,
 					cut_result->mesh(),
 					fruit_group_,
-					static_cast<fruitlib::physics::scalar>(
-						current_fruit.bounding_box().size().content() / cut_result->bounding_box().size().content()),
+					static_cast<fruitlib::physics::rigid_body::mass::value_type>(
+						cut_result->bounding_box().size().content()),
 					current_fruit.position() + 
 						fruitlib::math::multiply_matrix4_vector3(
 							current_fruit.body().transformation(),

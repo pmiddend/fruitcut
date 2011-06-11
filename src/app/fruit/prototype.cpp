@@ -17,7 +17,8 @@
 fruitcut::app::fruit::prototype::prototype(
 	fruitcut::app::fruit::mesh const &_mesh,
 	sge::renderer::texture::planar_ptr const _texture,
-	material::object const &_material)
+	material::object const &_material,
+	fruit::tag_sequence const &_tags)
 :
 	mesh_(
 		_mesh),
@@ -25,6 +26,8 @@ fruitcut::app::fruit::prototype::prototype(
 		boost::geometry::return_envelope<box3>(
 			mesh_to_point_cloud(
 				mesh_))),
+	mass_(
+		bounding_box_.content()),
 	texture_(
 		_texture),
 	splatter_color_(
@@ -42,7 +45,9 @@ fruitcut::app::fruit::prototype::prototype(
 							_texture->size().w()/2,
 							_texture->size().h())))))),
 	material_(
-		_material)
+		_material),
+	tags_(
+		_tags)
 {
 }
 
@@ -56,6 +61,12 @@ fruitcut::app::fruit::box3 const &
 fruitcut::app::fruit::prototype::bounding_box() const
 {
 	return bounding_box_;
+}
+
+fruitcut::fruitlib::physics::rigid_body::mass::value_type
+fruitcut::app::fruit::prototype::mass() const
+{
+	return mass_;
 }
 
 sge::renderer::texture::planar_ptr const 
@@ -74,4 +85,10 @@ fruitcut::app::fruit::material::object const &
 fruitcut::app::fruit::prototype::material() const
 {
 	return material_;
+}
+
+fruitcut::app::fruit::tag_sequence const &
+fruitcut::app::fruit::prototype::tags() const
+{
+	return tags_;
 }
