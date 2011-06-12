@@ -39,7 +39,27 @@ INCLUDE_DIRECTORIES(SYSTEM ${BULLET_INCLUDE_DIRS})
 
 # sge begin
 FIND_PACKAGE(
-	SGE REQUIRED COMPONENTS parse viewport console sprite shader config time texture systems camera fonttext fontbitmap cegui line_drawer)
+	SGE REQUIRED COMPONENTS 
+	audio
+	camera
+	cegui
+	config
+	console 
+	fontbitmap
+	fonttext
+	image
+	image2d
+	input
+	renderer
+	line_drawer
+	parse 
+	shader
+	sprite 
+	systems
+	texture
+	time
+	window
+	viewport)
 
 INCLUDE_DIRECTORIES(${SGE_INCLUDE_DIRS})
 ADD_DEFINITIONS(${SGE_CFLAGS})
