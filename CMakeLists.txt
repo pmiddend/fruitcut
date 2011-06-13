@@ -495,8 +495,8 @@ SET(
 	src/app/fruit/triangle.hpp
 	src/app/fruit/triangle_traits.hpp
 	src/app/fruitcut.cpp
-	src/app/game_logic.cpp
-	src/app/game_logic.hpp
+	src/app/game_logic/game_logic.cpp
+	src/app/game_logic/game_logic.hpp
 	src/app/light_source_from_json.cpp
 	src/app/light_source_from_json.hpp
 	src/app/logo.cpp

@@ -1,15 +1,15 @@
 #ifndef FRUITCUT_APP_GAME_LOGIC_HPP_INCLUDED
 #define FRUITCUT_APP_GAME_LOGIC_HPP_INCLUDED
 
-#include "overlay.hpp"
-#include "fruit/manager_fwd.hpp"
-#include "fruit/object_fwd.hpp"
-#include "fruit/cut_context_fwd.hpp"
-#include "fruit/area.hpp"
-#include "../fruitlib/font/intrusive_scene_node.hpp"
-#include "../fruitlib/font/cache_fwd.hpp"
-#include "../fruitlib/scenic/nodes/intrusive.hpp"
-#include "score.hpp"
+#include "../overlay.hpp"
+#include "../fruit/manager_fwd.hpp"
+#include "../fruit/object_fwd.hpp"
+#include "../fruit/cut_context_fwd.hpp"
+#include "../fruit/area.hpp"
+#include "../../fruitlib/font/intrusive_scene_node.hpp"
+#include "../../fruitlib/font/cache_fwd.hpp"
+#include "../../fruitlib/scenic/nodes/intrusive.hpp"
+#include "../score.hpp"
 #include <sge/parse/json/object_fwd.hpp>
 #include <sge/renderer/scalar.hpp>
 #include <sge/renderer/device_fwd.hpp>
@@ -22,6 +22,8 @@
 namespace fruitcut
 {
 namespace app
+{
+namespace game_logic
 {
 class game_logic
 :
@@ -64,6 +66,7 @@ private:
 	fruitlib::font::intrusive_scene_node multiplier_font_node_;
 	sge::time::timer score_increase_timer_;
 	sge::time::timer multiplier_timer_;
+	sge::time::timer penalty_timer_;
 	int multiplier_;
 	unsigned multi_count_;
 	sge::renderer::device &renderer_;
@@ -93,6 +96,7 @@ private:
 	increase_score(
 		fruitcut::app::score const &);
 };
+}
 }
 }
 
