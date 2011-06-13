@@ -5,9 +5,7 @@
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <link rel="stylesheet" type="text/css" href="fruitcut.css" />
 <link rel="icon" href="icon.png" type="image/png"/>
-<title>
-fruitcut
-</title>
+<title>fruitcut</title>
 </head>
 
 <body>
@@ -31,6 +29,9 @@ fruitcut
 	</ol>
 	<li>
 		<a href="#download">Download and Installation</a>
+		<ol>
+			<li><a href="#gentoo">Gentoo</a></li>
+		</ol>
 	</li>
 	<li>
 		<a href="#contact">Contact</a>
@@ -67,14 +68,40 @@ here are some current screenshots, as well as an assortment of gameplay videos -
 <h2>
 Download and Installation
 </h2>
+<a name="gentoo"/>
+<h3>
+Gentoo
+</h3>
 <p>
-Jerky boudin fatback short ribs fugiat. Jowl eu rump ribeye fugiat sunt. Andouille pork ad, fatback minim laboris nulla. Sausage non do, tri-tip flank aute spare ribs in venison fatback tenderloin labore tail bacon pork belly. Elit pig ground round, et ut pork consequat adipisicing chuck irure jerky strip steak. Ea dolore beef ribs deserunt tri-tip ball tip ut salami sed, laborum eiusmod chuck quis. Hamburger meatloaf esse rump, tempor in aliqua sunt cupidatat.
+The libraries needed to run fruitcut are partially available in portage (OpenAL, libpng etc.), the rest (sge, fcppt, mizuiro, awl) is available via Freundlich's Gentoo repository:
 </p>
+<p>
+<code>git://github.com/freundlich/freundlich-gentoo.git</code>
+</p>
+If you're using <a href="http://paludis.pioto.org/">paludis</a>, put a new file <code>freundlich.conf</code> in <code>/etc/paludis/repositories</code> containing roughly the following:
+<pre>
+master_repository = gentoo
+location=${ROOT}/var/paludis/repositories/freundlich
+distfiles=${location}/distfiles
+format=e
+names_cache=/var/cache/paludis/names
+sync=git://github.com/freundlich/freundlich-gentoo.git
+</pre>
+You might have to change the <code>location</code> line to fit your needs.
+After that, you have to enable the corresponding use flags. Which flags you set
+depends on your system configuration, so I leave it up to you. There are use
+dependencies, though, so you'll be warned if anything is missing. 
 <a name="contact"/>
 <h2>Contact</h2>
-You can find us on github (links below) and in the IRC-Channel #fruitcut on Freenode (irc.freenode.net).
+The fruitcut team consists of:
+<ul>
+<li>Phillemann (main developer, &quot;pmiddend&quot; on github)</li>
+<li>nille (graphics and sound artist, also involved in the game logic class, &quot;nmeyerin&quot; on github)</li>
+<li>Freundlich (engine programmer, &quot;freundlich&quot; on github)</li>
+</ul>
+You can find us on github (see above) and in the IRC-Channel #fruitcut on Freenode (irc.freenode.net).
 <div id="footer">
-	Copyright etc.
+Website content is released under <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>.
 </div>
 </div>
 </body>
