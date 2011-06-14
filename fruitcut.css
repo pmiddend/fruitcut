@@ -3,30 +3,34 @@ body
 	font-family:sans-serif;
 	background-color:#464646;
 	background-image:url('tile.png');
-	color:#430;
-	text-decoration:none;
+	color:#372700;
 }
 
 img
 {
-	border:0;
+	border: 0;
 }
 
 a:link
 {
-	text-decoration:none;
-	color:#0a0;
+	color: #080;
+	text-decoration: none;
 }
 
 a:visited
 {
-	text-decoration:none;
-	color:#888;
+	color: #088;
+	text-decoration: none;
 }
 
-a:hover,active
+a:hover
 {
-	text-decoration:underline;
+	text-decoration: underline;
+}
+
+a:active
+{
+	text-decoration: underline;
 }
 
 #content
@@ -41,7 +45,7 @@ a:hover,active
 	/* -moz-border-radius:3%; */
 }
 
-#header,#footer
+#header, #footer
 {
 	text-align:center;
 	border-radius:1em;
@@ -50,38 +54,27 @@ a:hover,active
 
 #header
 {
-	/*
-	background-color:#60849a;
-	background-image: -webkit-gradient(
-			linear,
-			left bottom,
-			left top,
-			color-stop(0.0, rgb(50,90,30)),
-			color-stop(1.0, rgb(150,255,100))
-	);
-	background-image: -moz-linear-gradient(
-			center bottom,
-			rgb(50,90,30) 0%,
-			rgb(150,255,100) 100%
-	);
-
-	border-color:black;
-	border-width:1px;
-	border-style:solid;
-	*/
 	text-shadow: 2px 2px 5px white;
 	font-size: 30pt;
 }
 
 #footer
 {
-	border:none;
-	background-color:#aa8;
+	border-style: solid;
+	border-width: 1px;
+	background-color:#fff;
 	position:relative;
-	bottom:7%;
+	bottom:10%;
 	margin-top: 1em;
 	padding:6pt;
 	font-size: 8pt;
+}
+
+#markers
+{
+	position: absolute;
+	right: -90px;
+	top: 0;
 }
 
 table
@@ -105,7 +98,6 @@ tr
 
 th
 {
-	background-color:#aa8;
 	padding:4px;
 	text-align:left;
 }
@@ -131,10 +123,28 @@ td.name
 	width:45%;
 }
 
-.video
+.media > *
 {
-	position:relative;
-	margin-left:0%;
+	width: 480px;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.media object
+{
+	height: 385px;
+	margin-top: 1em;
+}
+
+.media > table
+{
+	font-size: 8pt;
+}
+
+.media > table th
+{
+	text-align: right
 }
 
 .screenshot
