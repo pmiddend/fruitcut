@@ -3,6 +3,7 @@
 
 #include "background.hpp"
 #include "shadow_map.hpp"
+#include "../fruitlib/screen_shooter.hpp"
 #include "../fruitlib/audio/music_controller.hpp"
 #include "../fruitlib/audio/sound_controller.hpp"
 #include "../fruitlib/rng_creator.hpp"
@@ -209,6 +210,7 @@ private:
 	sge::cegui::syringe gui_syringe_;
 	score last_game_score_;
 	point_sprite::system_node point_sprites_;
+	fruitlib::screen_shooter screen_shooter_;
 
 	void
 	console_switch();

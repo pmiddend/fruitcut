@@ -321,7 +321,12 @@ fruitcut::app::machine::machine(
 		rng_creator_,
 		systems_.renderer(),
 		systems_.image_loader(),
-		camera_)
+		camera_),
+	screen_shooter_(
+		app::name(),
+		systems_.keyboard_collector(),
+		systems_.renderer(),
+		systems_.image_loader())
 {
 	intrusive_group::insert_dont_care(
 		music_controller_node_);
