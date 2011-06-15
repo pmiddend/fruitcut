@@ -8,11 +8,11 @@
 #include <sge/cegui/toolbox/append_row.hpp>
 #include <sge/cegui/toolbox/row.hpp>
 #include <sge/config/find_cache_path.hpp>
-#include <CEGUI/CEGUIEvent.h>
-#include <CEGUI/CEGUIString.h>
-#include <CEGUI/CEGUIWindow.h>
-#include <CEGUI/CEGUIWindowManager.h>
-#include <CEGUI/elements/CEGUIPushButton.h>
+#include <CEGUIEvent.h>
+#include <CEGUIString.h>
+#include <CEGUIWindow.h>
+#include <CEGUIWindowManager.h>
+#include <elements/CEGUIPushButton.h>
 #include <fcppt/text.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/string.hpp>

@@ -3,7 +3,7 @@
 
 #include "superstate.hpp"
 #include "../../events/gameover/continue_button_pushed.hpp"
-#include <CEGUI/CEGUIEvent.h>
+#include <CEGUIEvent.h>
 #include <sge/cegui/toolbox/scoped_layout.hpp>
 #include <sge/cegui/toolbox/scoped_gui_sheet.hpp>
 #include <boost/statechart/state.hpp>

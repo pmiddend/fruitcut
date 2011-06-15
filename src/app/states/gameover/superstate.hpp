@@ -6,7 +6,7 @@
 #include "../../../fruitlib/scenic/nodes/gui_system.hpp"
 #include <sge/cegui/default_cursor.hpp>
 #include <sge/cegui/default_keyboard.hpp>
-#include <CEGUI/CEGUIString.h>
+#include <CEGUIString.h>
 #include <boost/statechart/state.hpp>
 #include <boost/statechart/custom_reaction.hpp>
 #include <boost/mpl/vector/vector10.hpp>

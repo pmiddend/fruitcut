@@ -3,11 +3,11 @@
 #include "../../events/gameover/continue_button_pushed.hpp"
 #include "../../../media_path.hpp"
 #include <sge/cegui/to_cegui_string.hpp>
-#include <CEGUI/CEGUIEvent.h>
-#include <CEGUI/CEGUIString.h>
-#include <CEGUI/CEGUIWindow.h>
-#include <CEGUI/CEGUIWindowManager.h>
-#include <CEGUI/elements/CEGUIPushButton.h>
+#include <CEGUIEvent.h>
+#include <CEGUIString.h>
+#include <CEGUIWindow.h>
+#include <CEGUIWindowManager.h>
+#include <elements/CEGUIPushButton.h>
 #include <fcppt/lexical_cast.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/string.hpp>
