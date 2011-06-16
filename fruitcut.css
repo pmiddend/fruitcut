@@ -73,8 +73,15 @@ a:active
 #markers
 {
 	position: absolute;
-	right: -90px;
-	top: 0;
+	left: 100%;
+	top: 0px;
+}
+
+#markers > *
+{
+	color: #fec;
+	display: block;
+	margin-left: 1em;
 }
 
 table
