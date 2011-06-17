@@ -6,25 +6,45 @@
 <link rel="stylesheet" type="text/css" href="fruitcut.css" />
 <link rel="icon" href="icon.png" type="image/png"/>
 <title>fruitcut</title>
-<script type="text/javascript">
-function toggle() {
-	var ele = document.getElementById("instructions");
-	var text = document.getElementById("showInstructions");
-	if(ele.style.display == "block") {
-		ele.style.display = "none";
-		text.innerHTML = "show instructions";
+<script type="application/javascript">//<![CDATA[
+instructions = document.getElementsByClassName("instructions");
+showhide = document.getElementsByClassName("showhide");
+
+function toggle(div, button) {
+	if(div.style.display == "inline") {
+		div.style.display = "none";
+		button.innerHTML = "show instructions";
 	}
 	else {
-		ele.style.display = "block";
-		text.innerHTML = "hide instructions";
+		div.style.display = "inline";
+		button.innerHTML = "hide instructions";
 	}
 } 
 
 window.addEventListener("load", function (event) {
-	document.getElementById("instructions").style.display = "none";
-	document.getElementById("showInstructions").style.display = "inline";
+	init();
 }, false);
-</script>
+
+function init() {
+	var i = 0;
+	var elem;
+	for (i = 0; i < instructions.length; ++i)
+	{
+		elem = instructions[i];
+		elem.style.display = "none";
+	}
+	for (i = 0; i < showhide.length; ++i)
+	{
+		elem = showhide[i];
+		elem.style.display = "inline";
+		elem.addEventListener("click", function (e) {
+			instr = this.parentNode.nextElementSibling;
+			toggle(instr, this);
+			},
+			false);
+	}
+}
+//]]></script>
 </head>
 
 <body>
@@ -54,6 +74,7 @@ window.addEventListener("load", function (event) {
 		<a href="#download">Download and Installation</a>
 		<ol>
 			<li><a href="#gentoo">Gentoo</a></li>
+			<li><a href="#arch">Arch</a></li>
 		</ol>
 	</li>
 	<li>
@@ -94,7 +115,7 @@ here are some current screenshots, as well as an assortment of gameplay videos -
 <a name="vids">
 </a>
 <h3>Videos</h3>
-<div class="media">
+<div class="media" style="display: none">
 	<object type="application/x-shockwave-flash" data="http://www.youtube.com/v/yWkI3zzLhzk?rel=0">
 		<param name="movie" value="http://www.youtube.com/v/yWkI3zzLhzk?rel=0" />
 	</object>
@@ -109,7 +130,7 @@ here are some current screenshots, as well as an assortment of gameplay videos -
 		</tr>
 	</table>
 </div>
-<div class="media">
+<div class="media" style="display: none">
 	<object type="application/x-shockwave-flash" data="http://www.youtube.com/v/ZRXP9MuTM_s?rel=0">
 		<param name="movie" value="http://www.youtube.com/v/ZRXP9MuTM_s?rel=0" />
 	</object>
@@ -124,21 +145,23 @@ here are some current screenshots, as well as an assortment of gameplay videos -
 		</tr>
 	</table>
 </div>
+
 <a name="download">
 </a>
 <h2>
 Download and Installation
 </h2>
-<p>
-<!-- disabled by default if there's no javascript -->
-<a id="showInstructions" href="javascript:toggle();" style="display: none;">show instructions</a>
-</p>
+
 <a name="gentoo">
 </a>
-<div id="instructions">
 <h3>
 Gentoo
 </h3>
+<p>
+<!-- disabled by default if there's no javascript -->
+<button class="showhide" type="button" style="display: none;">show instructions</button>
+</p>
+<div class="instructions">
 <p>
 The libraries needed to run fruitcut are partially available in portage (OpenAL, libpng etc.), the rest (sge, fcppt, mizuiro, awl) is available via Freundlich's Gentoo repository:
 </p>
@@ -159,6 +182,20 @@ After that, you have to enable the corresponding use flags. Which flags you set
 depends on your system configuration, so I leave it up to you. There are use
 dependencies, though, so you'll be warned if anything is missing. 
 </div>
+
+<a name="arch">
+</a>
+<h3>
+Arch
+</h3>
+<p>
+<!-- disabled by default if there's no javascript -->
+<button class="showhide" type="button" style="display: none;">show instructions</button>
+</p>
+<div class="instructions">
+lorem ipsum
+</div>
+
 <a name="contact">
 </a>
 <h2>Contact</h2>
