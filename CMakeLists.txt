@@ -77,12 +77,15 @@ SET(
 	${INSTALL_DATA_DIR}/media
 )
 
-# TODO: use a config file for this!
-SET_SOURCE_FILES_PROPERTIES(
-	src/media_path.cpp
-	PROPERTIES
-	COMPILE_FLAGS
-	-DMEDIA_PATH="\\\"${INSTALL_MEDIA_DIR}\\\""
+INCLUDE(
+	SGECustomPath
+)
+
+SGE_CONFIG_ADD_CUSTOM_PATH(
+	fruitcut	
+	media
+	${CMAKE_SOURCE_DIR}/media
+	${INSTALL_MEDIA_DIR}
 )
 
 ENABLE_TESTING()

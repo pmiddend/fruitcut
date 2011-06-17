@@ -7,7 +7,7 @@
 #include <sge/cegui/from_cegui_string.hpp>
 #include <sge/cegui/toolbox/append_row.hpp>
 #include <sge/cegui/toolbox/row.hpp>
-#include <sge/config/find_cache_path.hpp>
+#include <sge/config/cache_path.hpp>
 #include <CEGUIEvent.h>
 #include <CEGUIString.h>
 #include <CEGUIWindow.h>
@@ -85,7 +85,7 @@ highscore_sequence
 load_highscore()
 {
 	fcppt::filesystem::path const highscore_file_path = 
-		sge::config::find_cache_path(
+		sge::config::cache_path(
 			fruitcut::app::name())/
 		FCPPT_TEXT("highscore.json");
 
@@ -137,7 +137,7 @@ write_highscore(
 	highscore_sequence const &entries)
 {
 	fcppt::filesystem::path const highscore_path = 
-		sge::config::find_cache_path(
+		sge::config::cache_path(
 			fruitcut::app::name())/
 		FCPPT_TEXT("highscore.json");
 

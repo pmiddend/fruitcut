@@ -3,7 +3,7 @@
 #include <sge/input/keyboard/key_code.hpp>
 #include <sge/input/keyboard/action.hpp>
 #include <sge/renderer/screenshot.hpp>
-#include <sge/config/find_cache_path.hpp>
+#include <sge/config/cache_path.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
@@ -47,7 +47,7 @@ fruitcut::fruitlib::screen_shooter::callback()
 					boost::posix_time::second_clock::universal_time())));
 
 	fcppt::filesystem::path const dest_path = 
-		sge::config::find_cache_path(
+		sge::config::cache_path(
 			app_name_)/(time_string+FCPPT_TEXT(".png"));
 
 	sge::renderer::screenshot(
