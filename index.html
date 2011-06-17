@@ -6,12 +6,31 @@
 <link rel="stylesheet" type="text/css" href="fruitcut.css" />
 <link rel="icon" href="icon.png" type="image/png"/>
 <title>fruitcut</title>
+<script type="text/javascript">
+function toggle() {
+	var ele = document.getElementById("instructions");
+	var text = document.getElementById("showInstructions");
+	if(ele.style.display == "block") {
+		ele.style.display = "none";
+		text.innerHTML = "show instructions";
+	}
+	else {
+		ele.style.display = "block";
+		text.innerHTML = "hide instructions";
+	}
+} 
+
+window.addEventListener("load", function (event) {
+	document.getElementById("instructions").style.display = "none";
+	document.getElementById("showInstructions").style.display = "inline";
+}, false);
+</script>
 </head>
 
 <body>
 <div id="content">
 <div id="header">
-<a href="http://fruitcut.com/"><img src="logo.svg" alt="fruitcut logo" title="fruitcut" /></a>
+<img src="logo.svg" alt="fruitcut logo" title="fruitcut" />
 </div>
 <div class="toc">
 <h3>Contents</h3>
@@ -110,8 +129,13 @@ here are some current screenshots, as well as an assortment of gameplay videos -
 <h2>
 Download and Installation
 </h2>
+<p>
+<!-- disabled by default if there's no javascript -->
+<a id="showInstructions" href="javascript:toggle();" style="display: none;">show instructions</a>
+</p>
 <a name="gentoo">
 </a>
+<div id="instructions">
 <h3>
 Gentoo
 </h3>
@@ -134,6 +158,7 @@ You might have to change the <code>location</code> line to fit your needs.
 After that, you have to enable the corresponding use flags. Which flags you set
 depends on your system configuration, so I leave it up to you. There are use
 dependencies, though, so you'll be warned if anything is missing. 
+</div>
 <a name="contact">
 </a>
 <h2>Contact</h2>
@@ -158,7 +183,7 @@ bugs@fruitcut.com
 </p>
 <div id="footer">
 	<a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/">
-		<img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-sa/3.0/88x31.png" />
+		<img alt="Creative Commons License" src="http://i.creativecommons.org/l/by-sa/3.0/88x31.png" />
 	</a>
 	<br />
 	This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution-ShareAlike 3.0 Unported License</a>.
@@ -166,7 +191,7 @@ bugs@fruitcut.com
 <div id="markers">
 	<p>
 		<a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/">
-			<img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-sa/3.0/88x31.png" />
+			<img alt="Creative Commons License" src="http://i.creativecommons.org/l/by-sa/3.0/88x31.png" />
 		</a>
 	</p>
 	<p>
@@ -179,7 +204,7 @@ bugs@fruitcut.com
 		<!-- TODO: enter the correct paypal id here -->
 		<p><input type="hidden" name="hosted_button_id" value="8TUKPLEHQ4YSW" /></p>
 		<p><input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif" name="submit" alt="PayPal donate button" /></p>
-		<img alt="" border="0" src="https://www.paypalobjects.com/de_DE/i/scr/pixel.gif" width="1" height="1">
+		<div><img alt="" src="https://www.paypalobjects.com/de_DE/i/scr/pixel.gif" style="width:1; height:1;" /></div>
 	</form>
 </div>
 </div>
