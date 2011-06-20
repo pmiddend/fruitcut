@@ -1,0 +1,198 @@
+#!/bin/bash
+
+if [ $# -ne 2 ]; then
+	echo "Usage: ./compile_and_install_fruitcut <working-directory> <target-prefix>"
+	echo 'Example: ./compile_and_install_fruitcut /tmp/fruitcut-work $HOME/local'
+	exit -1
+fi;
+
+WORK_DIRECTORY="$1"
+TARGET_DIRECTORY="$2"
+
+function check_if_program_exists
+{
+	echo "Checking if \"$1\" is available..."
+	if ! which $1 > /dev/null 2>&1; then
+		echo "Oh no, seems like $1 isn't installed. Exiting."
+		exit -1;
+	fi;
+	echo "Great, $1 is available!"
+	echo ""
+}
+
+check_if_program_exists 'git'
+check_if_program_exists 'cmake'
+
+echo "Using git to clone the 5 repositories (this might take a while)"
+echo ""
+
+FCPPT_URL="git://github.com/freundlich/fcppt.git"
+AWL_URL="git://github.com/pmiddend/libawl.git"
+MIZUIRO_URL="git://github.com/freundlich/mizuiro.git"
+SGE_URL="git://github.com/freundlich/spacegameengine.git"
+FRUITCUT_URL="git://github.com/pmiddend/fruitcut.git"
+
+BUILD_FCPPT="no"
+BUILD_AWL="no"
+BUILD_MIZUIRO="no"
+BUILD_SGE="no"
+BUILD_FRUITCUT="no"
+
+function download_from_git
+{
+	echo "Cloning $1 from $2"
+	if ! git clone $2 $WORK_DIRECTORY/$1; then
+		echo "Clone of $1 failed, exiting..."
+		exit -1
+	fi;
+	echo "Cloning succeeded...";
+	echo ""
+}
+
+function complain
+{
+	echo "Crap, $1, please inspect the output _carefully_ and then visit #fruitcut at irc.freenode.org and immediately complain about that!"
+	exit -1;
+}
+
+#download_from_git 'fcppt' $FCPPT_URL
+#download_from_git 'awl' $AWL_URL
+#download_from_git 'mizuiro' $MIZUIRO_URL
+#download_from_git 'sge' $SGE_URL
+#download_from_git 'fruitcut' $FRUITCUT_URL
+
+echo "All repositories cloned, switching to fcppt directory and configuring..."
+
+
+if [ "$BUILD_FCPPT" = "yes" ]; then
+	echo "cd $WORK_DIRECTORY/fcppt"
+	cd $WORK_DIRECTORY/fcppt || complain "couldn't switch to that directory"
+	echo "Deleting build directory if one exists..."
+	if [ -d build ]; then
+		rm -rf build || complain "couldn't delete existing build directory"
+	fi;
+	echo "mkdir build"
+	mkdir build || complain "couldn't create a build directory"
+	echo "cd build"
+	cd build || complain "couldn't switch to that directory"
+	echo "cmake -D CMAKE_INSTALL_PREFIX:=$TARGET_DIRECTORY .."
+	cmake -D CMAKE_INSTALL_PREFIX:=$TARGET_DIRECTORY .. || complain "cmake failed"
+	make -j3 install || complain "make failed"
+
+	echo "Ok, great, fcppt installation succeeded!"
+	echo ""
+fi;
+
+if [ "$BUILD_AWL" = "yes" ]; then
+	echo "Now, up to awl"
+
+	echo "cd $WORK_DIRECTORY/awl"
+	cd $WORK_DIRECTORY/awl || complain "couldn't switch to that directory"
+	echo "Deleting build directory if one exists..."
+	if [ -d build ]; then
+		rm -rf build || complain "couldn't delete existing build directory"
+	fi;
+	echo "mkdir build"
+	mkdir build || complain "couldn't create a build directory"
+	echo "cd build"
+	cd build || complain "couldn't switch to that directory"
+	echo "cmake"
+	cmake\
+		-D CMAKE_INSTALL_PREFIX:=$TARGET_DIRECTORY\
+		-D CMAKE_MODULE_PATH:=$TARGET_DIRECTORY/share/cmake/Modules\
+		.. || complain "cmake failed"
+	make -j3 install || complain "make failed"
+
+	echo "Ok, great, awl installation succeeded!"
+	echo ""
+fi;
+
+if [ "$BUILD_MIZUIRO" = "yes" ]; then
+	echo "Now, up to mizuiro"
+
+	echo "cd $WORK_DIRECTORY/mizuiro"
+	cd $WORK_DIRECTORY/mizuiro || complain "couldn't switch to that directory"
+	echo "Deleting build directory if one exists..."
+	if [ -d build ]; then
+		rm -rf build || complain "couldn't delete existing build directory"
+	fi;
+	echo "mkdir build"
+	mkdir build || complain "couldn't create a build directory"
+	echo "cd build"
+	cd build || complain "couldn't switch to that directory"
+	echo "cmake"
+	cmake\
+		-D CMAKE_INSTALL_PREFIX:=$TARGET_DIRECTORY\
+		-D CMAKE_MODULE_PATH:=$TARGET_DIRECTORY/share/cmake/Modules\
+		-D ENABLE_FCPPT:=ON\
+		.. || complain "cmake failed"
+	make -j3 install || complain "make failed"
+
+	echo "Ok, great, mizuiro installation succeeded!"
+	echo ""
+fi;
+
+if [ "$BUILD_SGE" = "yes" ]; then
+	echo "Now, up to sge"
+
+	echo "cd $WORK_DIRECTORY/sge"
+	cd $WORK_DIRECTORY/sge || complain "couldn't switch to that directory"
+	echo "Deleting build directory if one exists..."
+	if [ -d build ]; then
+		rm -rf build || complain "couldn't delete existing build directory"
+	fi;
+	echo "mkdir build"
+	mkdir build || complain "couldn't create a build directory"
+	echo "cd build"
+	cd build || complain "couldn't switch to that directory"
+	echo "cmake"
+	cmake\
+		-D CMAKE_INSTALL_PREFIX:=$TARGET_DIRECTORY\
+		-D CMAKE_MODULE_PATH:=$TARGET_DIRECTORY/share/cmake/Modules\
+		.. || complain "cmake failed"
+	make -j3 install || complain "make failed"
+
+	echo "Ok, great, sge installation succeeded!"
+	echo ""
+fi;
+
+if [ "$BUILD_FRUITCUT" = "yes" ]; then
+	echo "Now, up to fruitcut"
+
+	echo "cd $WORK_DIRECTORY/fruitcut"
+	cd $WORK_DIRECTORY/fruitcut || complain "couldn't switch to that directory"
+	echo "Deleting build directory if one exists..."
+	if [ -d build ]; then
+		rm -rf build || complain "couldn't delete existing build directory"
+	fi;
+	echo "mkdir build"
+	mkdir build || complain "couldn't create a build directory"
+	echo "cd build"
+	cd build || complain "couldn't switch to that directory"
+	echo "cmake"
+	cmake\
+		-D CMAKE_INSTALL_PREFIX:=$TARGET_DIRECTORY\
+		-D CMAKE_MODULE_PATH:=$TARGET_DIRECTORY/share/cmake/Modules\
+		.. || complain "cmake failed"
+	make -j3 install || complain "make failed"
+
+	echo "Ok, great, fruitcut installation succeeded!"
+	echo ""
+fi;
+
+echo "Ok, compilation done, writing run file"
+
+RUN_FILE_NAME="$TARGET_DIRECTORY/bin/run_fruitcut"
+
+echo "#!/bin/bash" >> $RUN_FILE_NAME
+echo "LD_LIBRARY_PATH=${TARGET_DIRECTORY}/lib" >> $RUN_FILE_NAME
+echo "$TARGET_DIRECTORY/bin/fruitcut" >> $RUN_FILE_NAME
+
+chmod +x $RUN_FILE_NAME || complain "couldn't set the rights to the run file"
+
+echo "All done. Call"
+echo ""
+echo $RUN_FILE_NAME
+echo ""
+echo 'To start the game (or adjust your $PATH to include '$TARGET_DIRECTORY/bin
+echo 'Using: export PATH="$PATH:'$TARGET_DIRECTORY/bin'"'

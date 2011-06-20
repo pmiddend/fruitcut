@@ -75,6 +75,7 @@ function init() {
 		<ol>
 			<li><a href="#gentoo">Gentoo</a></li>
 			<li><a href="#arch">Arch</a></li>
+			<li><a href="#generic">Build from source on Linux (generic)</a></li>
 		</ol>
 	</li>
 	<li>
@@ -194,6 +195,50 @@ Arch
 </p>
 <div class="instructions">
 lorem ipsum
+</div>
+
+<a name="generic">
+</a>
+<h3>
+Build from source on Linux (generic)
+</h3>
+<p>
+<!-- disabled by default if there's no javascript -->
+<button class="showhide" type="button" style="display: none;">show instructions</button>
+</p>
+<div class="instructions">
+<p>
+First of all, make sure you have the following dependencies installed
+(on Debian-like distributions, you might need the associated -devel
+packages):
+</p>
+<ol>
+<li><a href="http://git-scm.com/">git</a></li>
+<li><a href="http://www.cmake.org/">cmake >= 2.6</a></li>
+<li><a href="http://www.boost.org/">boost</a> >= 1.46.0</li>
+<li>libxi >= 1.4.1</li>
+<li>libx11 >= 1.4.1</li>
+<li><a href="http://connect.creativelabs.com/openal">OpenAL</a></li>
+<li>OpenGL</li>
+<li><a href="http://www.bulletphysics.com/">bullet</a></li>
+<li><a href="http://www.cegui.org.uk/">cegui</a> >= 0.7.5</li>
+<li><a href="http://glew.sourceforge.net/">glew</a></li>
+<li>xrandr or xf86videomode</li>
+<li><a href="http://www.libpng.org/pub/png/libpng.html">libpng</a></li>
+<li><a href="http://www.xiph.org/vorbis/">libvorbis</a></li>
+</ol>
+<p>
+Then, download <a href="compile_and_install_fruitcut">this script</a>
+and run it. It'll try to download all the libraries to a work
+directory, build them there, and install to the directory you specify
+in the second argument, for example:
+</p>
+<pre>
+chmod +x compile_and_install_fruitcut
+./compile_and_install_fruitcut /tmp $HOME/local
+</pre>
+<p>
+After it has completed its task, it will tell you how to start the game.
 </div>
 
 <a name="contact">
