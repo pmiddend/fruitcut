@@ -185,7 +185,7 @@ echo "Ok, compilation done, writing run file"
 RUN_FILE_NAME="$TARGET_DIRECTORY/bin/run_fruitcut"
 
 echo "#!/bin/bash" >> $RUN_FILE_NAME
-echo "LD_LIBRARY_PATH=${TARGET_DIRECTORY}/lib" >> $RUN_FILE_NAME
+echo "export LD_LIBRARY_PATH=${TARGET_DIRECTORY}/lib" >> $RUN_FILE_NAME
 echo "$TARGET_DIRECTORY/bin/fruitcut" >> $RUN_FILE_NAME
 
 chmod +x $RUN_FILE_NAME || complain "couldn't set the rights to the run file"
