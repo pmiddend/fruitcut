@@ -32,11 +32,11 @@ MIZUIRO_URL="git://github.com/freundlich/mizuiro.git"
 SGE_URL="git://github.com/freundlich/spacegameengine.git"
 FRUITCUT_URL="git://github.com/pmiddend/fruitcut.git"
 
-BUILD_FCPPT="no"
-BUILD_AWL="no"
-BUILD_MIZUIRO="no"
-BUILD_SGE="no"
-BUILD_FRUITCUT="no"
+BUILD_FCPPT="yes"
+BUILD_AWL="yes"
+BUILD_MIZUIRO="yes"
+BUILD_SGE="yes"
+BUILD_FRUITCUT="yes"
 
 function download_from_git
 {
@@ -55,11 +55,11 @@ function complain
 	exit -1;
 }
 
-#download_from_git 'fcppt' $FCPPT_URL
-#download_from_git 'awl' $AWL_URL
-#download_from_git 'mizuiro' $MIZUIRO_URL
-#download_from_git 'sge' $SGE_URL
-#download_from_git 'fruitcut' $FRUITCUT_URL
+download_from_git 'fcppt' $FCPPT_URL
+download_from_git 'awl' $AWL_URL
+download_from_git 'mizuiro' $MIZUIRO_URL
+download_from_git 'sge' $SGE_URL
+download_from_git 'fruitcut' $FRUITCUT_URL
 
 echo "All repositories cloned, switching to fcppt directory and configuring..."
 
