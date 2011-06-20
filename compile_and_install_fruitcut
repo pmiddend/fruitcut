@@ -68,9 +68,7 @@ if [ "$BUILD_FCPPT" = "yes" ]; then
 	echo "cd $WORK_DIRECTORY/fcppt"
 	cd "$WORK_DIRECTORY/fcppt" || complain "couldn't switch to that directory"
 	echo "Deleting build directory if one exists..."
-	if [ -d build ]; then
-		rm -rf build || complain "couldn't delete existing build directory"
-	fi;
+	rm -rf build || complain "couldn't delete existing build directory"
 	echo "mkdir build"
 	mkdir build || complain "couldn't create a build directory"
 	echo "cd build"
@@ -89,9 +87,7 @@ if [ "$BUILD_AWL" = "yes" ]; then
 	echo "cd $WORK_DIRECTORY/awl"
 	cd "$WORK_DIRECTORY/awl" || complain "couldn't switch to that directory"
 	echo "Deleting build directory if one exists..."
-	if [ -d build ]; then
-		rm -rf build || complain "couldn't delete existing build directory"
-	fi;
+	rm -rf build || complain "couldn't delete existing build directory"
 	echo "mkdir build"
 	mkdir build || complain "couldn't create a build directory"
 	echo "cd build"
@@ -113,9 +109,7 @@ if [ "$BUILD_MIZUIRO" = "yes" ]; then
 	echo "cd $WORK_DIRECTORY/mizuiro"
 	cd "$WORK_DIRECTORY/mizuiro" || complain "couldn't switch to that directory"
 	echo "Deleting build directory if one exists..."
-	if [ -d build ]; then
-		rm -rf build || complain "couldn't delete existing build directory"
-	fi;
+	rm -rf build || complain "couldn't delete existing build directory"
 	echo "mkdir build"
 	mkdir build || complain "couldn't create a build directory"
 	echo "cd build"
@@ -138,9 +132,7 @@ if [ "$BUILD_SGE" = "yes" ]; then
 	echo "cd $WORK_DIRECTORY/sge"
 	cd "$WORK_DIRECTORY/sge" || complain "couldn't switch to that directory"
 	echo "Deleting build directory if one exists..."
-	if [ -d build ]; then
-		rm -rf build || complain "couldn't delete existing build directory"
-	fi;
+	rm -rf build || complain "couldn't delete existing build directory"
 	echo "mkdir build"
 	mkdir build || complain "couldn't create a build directory"
 	echo "cd build"
@@ -162,9 +154,7 @@ if [ "$BUILD_FRUITCUT" = "yes" ]; then
 	echo "cd $WORK_DIRECTORY/fruitcut"
 	cd "$WORK_DIRECTORY/fruitcut" || complain "couldn't switch to that directory"
 	echo "Deleting build directory if one exists..."
-	if [ -d build ]; then
-		rm -rf build || complain "couldn't delete existing build directory"
-	fi;
+	rm -rf build || complain "couldn't delete existing build directory"
 	echo "mkdir build"
 	mkdir build || complain "couldn't create a build directory"
 	echo "cd build"
