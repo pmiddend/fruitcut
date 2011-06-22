@@ -43,7 +43,6 @@
 	"background-repeat" : 3.0,
 	"mouse" : 
 	{
-		"confine-cursor" : true,
 		"trail-update-rate-ms" : 50,
 		"trail-samples" : 5
 	},

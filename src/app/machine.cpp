@@ -105,14 +105,7 @@ fruitcut::app::machine::machine(
 					sge::systems::input_helper::keyboard_collector) 
 					| sge::systems::input_helper::mouse_collector
 					| sge::systems::input_helper::cursor_demuxer,
-					fruitlib::json::find_member<bool>(
-						config_file_,
-						FCPPT_TEXT("mouse/confine-cursor"))
-					?
-						sge::systems::cursor_option_field(
-							sge::systems::cursor_option::confine)
-					:
-						sge::systems::cursor_option_field())) 
+					sge::systems::cursor_option_field())) 
 			(sge::systems::audio_player_default())
 			(sge::systems::parameterless::charconv)
 			(sge::systems::audio_loader(
