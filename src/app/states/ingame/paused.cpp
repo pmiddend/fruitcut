@@ -5,10 +5,17 @@
 #include "../../../fruitlib/pp/texture/use_screen_size.hpp"
 #include "../../../fruitlib/pp/filter/blur.hpp"
 #include "../../../media_path.hpp"
+#include "../../postprocessing.hpp"
+#include "../../events/generic_transition.hpp"
+#include "../../scene.hpp"
 #include <sge/renderer/device.hpp>
+#include <sge/input/keyboard/action.hpp>
+#include <sge/input/keyboard/key_code.hpp>
+#include <sge/systems/instance.hpp>
 #include <sge/time/time.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
+#include <fcppt/tr1/functional.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <iostream>
 
@@ -48,9 +55,22 @@ fruitcut::app::states::ingame::paused::paused(
 		fruitlib::time_format::string_to_duration_exn<sge::time::duration>(
 			fruitlib::json::find_member<fcppt::string>(
 				context<machine>().config_file(),
-				FCPPT_TEXT("paused/blur-frequency-time"))))
+				FCPPT_TEXT("paused/blur-frequency-time")))),
+	transit_to_running_connection_(
+		context<machine>().game_input_state().key_callback(
+			sge::input::keyboard::action(
+				sge::input::keyboard::key_code::p, 
+				std::tr1::bind(
+					// Note that using post_event does something unexpected. If
+					// you use that, you get a tick event first and _then_ the
+					// toggle_pause event, which is not the desired behaviour
+					// (post_event posts to the queue, process_event immediately
+					// processes it)
+					&machine::post_event,
+					&context<machine>(),
+					events::generic_transition<ingame::running>()))))
 {
-	context<machine>().insert_after(
+	context<machine>().root_node().insert_after(
 		*this,
 		context<machine>().scene_node());
 
@@ -64,13 +84,6 @@ fruitcut::app::states::ingame::paused::paused(
 		FCPPT_TEXT("blur"),
 		fcppt::assign::make_container<fruitlib::pp::dependency_set>
 			(FCPPT_TEXT("inject_texture")));
-}
-
-boost::statechart::result
-fruitcut::app::states::ingame::paused::react(
-	events::toggle_pause const &)
-{
-	return transit<running>();
 }
 
 fruitcut::app::states::ingame::paused::~paused()

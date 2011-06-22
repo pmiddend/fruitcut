@@ -2,13 +2,11 @@
 #define FRUITCUT_APP_STATES_GAMEOVER_HIGHSCORE_HPP_INCLUDED
 
 #include "superstate.hpp"
-#include "../../events/gameover/quit_button_pushed.hpp"
-#include "../../events/gameover/reset_button_pushed.hpp"
+#include "../../events/make_transition.hpp"
 #include <CEGUIEvent.h>
 #include <sge/cegui/toolbox/scoped_layout.hpp>
 #include <sge/cegui/toolbox/scoped_gui_sheet.hpp>
 #include <boost/statechart/state.hpp>
-#include <boost/statechart/custom_reaction.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 
 namespace fruitcut
@@ -26,24 +24,15 @@ class highscore
 {
 public:
 	typedef
-	boost::mpl::vector2
+	boost::mpl::vector1
 	<
-		boost::statechart::custom_reaction<events::gameover::quit_button_pushed>,
-		boost::statechart::custom_reaction<events::gameover::reset_button_pushed>
+		events::make_transition<states::intro>::type
 	>
 	reactions;
 
 	explicit
 	highscore(
 		my_context);
-
-	boost::statechart::result
-	react(
-		events::gameover::quit_button_pushed const &);
-
-	boost::statechart::result
-	react(
-		events::gameover::reset_button_pushed const &);
 
 	~highscore();
 private:

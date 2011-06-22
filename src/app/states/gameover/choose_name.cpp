@@ -1,8 +1,11 @@
 #include "choose_name.hpp"
 #include "highscore.hpp"
-#include "../../events/gameover/continue_button_pushed.hpp"
+#include "../../events/generic_transition.hpp"
 #include "../../../media_path.hpp"
+#include "../../../fruitlib/resource_tree/path.hpp"
+#include "../../../fruitlib/audio/sound_controller.hpp"
 #include <sge/cegui/to_cegui_string.hpp>
+#include <sge/systems/instance.hpp>
 #include <CEGUIEvent.h>
 #include <CEGUIString.h>
 #include <CEGUIWindow.h>
@@ -44,13 +47,6 @@ fruitcut::app::states::gameover::choose_name::choose_name(
 			context<machine>().systems().charconv_system()));
 }
 
-boost::statechart::result
-fruitcut::app::states::gameover::choose_name::react(
-	events::gameover::continue_button_pushed const &)
-{
-	return transit<highscore>();
-}
-
 fruitcut::app::states::gameover::choose_name::~choose_name()
 {
 }
@@ -74,7 +70,7 @@ fruitcut::app::states::gameover::choose_name::continue_button_pushed(
 			FCPPT_TEXT("button_clicked")));
 	context<superstate>().name(
 		name);
-	post_event(
-		events::gameover::continue_button_pushed());
+	context<machine>().post_event(
+		events::generic_transition<gameover::highscore>());
 	return true;
 }

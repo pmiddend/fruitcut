@@ -1,4 +1,5 @@
 #include "superstate.hpp"
+#include <sge/systems/instance.hpp>
 
 fruitcut::app::states::gameover::superstate::superstate(
 	my_context const ctx)

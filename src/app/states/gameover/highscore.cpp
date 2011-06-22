@@ -1,13 +1,15 @@
 #include "highscore.hpp"
 #include "../intro.hpp"
-#include "../../events/gameover/continue_button_pushed.hpp"
 #include "../../exception.hpp"
 #include "../../../media_path.hpp"
+#include "../../../fruitlib/audio/sound_controller.hpp"
+#include "../../../fruitlib/resource_tree/path.hpp"
 #include <sge/cegui/to_cegui_string.hpp>
 #include <sge/cegui/from_cegui_string.hpp>
 #include <sge/cegui/toolbox/append_row.hpp>
 #include <sge/cegui/toolbox/row.hpp>
 #include <sge/config/cache_path.hpp>
+#include <sge/systems/instance.hpp>
 #include <CEGUIEvent.h>
 #include <CEGUIString.h>
 #include <CEGUIWindow.h>
@@ -254,21 +256,6 @@ fruitcut::app::states::gameover::highscore::highscore(
 	}
 }
 
-boost::statechart::result
-fruitcut::app::states::gameover::highscore::react(
-	events::gameover::quit_button_pushed const &)
-{
-	context<machine>().quit();
-	return discard_event();
-}
-
-boost::statechart::result
-fruitcut::app::states::gameover::highscore::react(
-	events::gameover::reset_button_pushed const &)
-{
-	return transit<intro>();
-}
-
 fruitcut::app::states::gameover::highscore::~highscore()
 {
 }
@@ -280,8 +267,7 @@ fruitcut::app::states::gameover::highscore::quit_button_pushed(
 	context<machine>().sound_controller().play(
 		fruitlib::resource_tree::path(
 			FCPPT_TEXT("button_clicked")));
-	post_event(
-		events::gameover::quit_button_pushed());
+	context<machine>().quit();
 	return true;
 }
 
@@ -292,7 +278,7 @@ fruitcut::app::states::gameover::highscore::reset_button_pushed(
 	context<machine>().sound_controller().play(
 		fruitlib::resource_tree::path(
 			FCPPT_TEXT("button_clicked")));
-	post_event(
-		events::gameover::reset_button_pushed());
+	context<machine>().post_event(
+		events::generic_transition<states::intro>());
 	return true;
 }

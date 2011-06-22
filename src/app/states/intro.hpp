@@ -2,15 +2,14 @@
 #define FRUITCUT_APP_STATES_INTRO_HPP_INCLUDED
 
 #include "../machine.hpp"
-#include "../events/render.hpp"
-#include "../events/tick.hpp"
 #include "../logo.hpp"
+#include "../events/make_transition.hpp"
+#include "ingame/running_fwd.hpp"
 #include <sge/time/timer.hpp>
 #include <sge/renderer/device_ptr.hpp>
 #include <sge/renderer/state/scoped.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <boost/statechart/state.hpp>
-#include <boost/statechart/custom_reaction.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 
 namespace fruitcut
@@ -22,28 +21,20 @@ namespace states
 class intro
 :
 	// The second argument has to be a complete type
-	public boost::statechart::state<intro,machine>
+	public boost::statechart::state<intro,machine>,
+	public fruitlib::scenic::nodes::intrusive
 {
 public:
 	typedef
-	boost::mpl::vector2
+	boost::mpl::vector1
 	<
-		boost::statechart::custom_reaction<events::render>,
-		boost::statechart::custom_reaction<events::tick>
+		events::make_transition<ingame::running>::type
 	>
 	reactions;
 
 	explicit
 	intro(
 		my_context);
-
-	boost::statechart::result
-	react(
-		events::render const &);
-
-	boost::statechart::result
-	react(
-		events::tick const &);
 
 	~intro();
 private:
@@ -55,6 +46,12 @@ private:
 
 	void
 	viewport_change();
+
+	void
+	update();
+
+	void
+	render();
 };
 }
 }

@@ -1,6 +1,7 @@
 #include "running.hpp"
 #include "paused.hpp"
 #include "../gameover/superstate.hpp"
+#include "../../postprocessing.hpp"
 #include "../gameover/choose_name.hpp"
 #include "../../dim2.hpp"
 #include "../../fruit/plane.hpp"
@@ -8,33 +9,33 @@
 #include "../../fruit/hull/trail_intersection.hpp"
 #include "../../fruit/hull/projected.hpp"
 #include "../../fruit/hull/ring.hpp"
-#include "../../events/tick.hpp"
-#include "../../events/render.hpp"
-#include "../../events/render_overlay.hpp"
+#include "../../events/generic_transition.hpp"
 #include "../../../fruitlib/json/find_member.hpp"
 #include "../../../fruitlib/math/multiply_matrix4_vector3.hpp"
 #include "../../../fruitlib/resource_tree/path.hpp"
-#include <sge/line_drawer/scoped_lock.hpp>
-#include <sge/line_drawer/render_to_screen.hpp>
-#include <sge/viewport/manager.hpp>
+#include "../../../fruitlib/audio/sound_controller.hpp"
+#include <sge/font/pos.hpp>
+#include <sge/font/rect.hpp>
+#include <sge/font/text/text.hpp>
+#include <sge/font/unit.hpp>
+#include <sge/image/colors.hpp>
 #include <sge/input/cursor/position_unit.hpp>
+#include <sge/input/keyboard/action.hpp>
+#include <sge/input/keyboard/key_code.hpp>
+#include <sge/line_drawer/render_to_screen.hpp>
+#include <sge/line_drawer/scoped_lock.hpp>
+#include <sge/camera/object.hpp>
 #include <sge/renderer/device.hpp>
-#include <sge/renderer/viewport.hpp>
+#include <sge/renderer/onscreen_target.hpp>
 #include <sge/renderer/onscreen_target.hpp>
 #include <sge/renderer/scalar.hpp>
-#include <sge/renderer/onscreen_target.hpp>
-#include <sge/renderer/state/bool.hpp>
-#include <sge/renderer/state/depth_func.hpp>
-#include <sge/renderer/state/float.hpp>
-#include <sge/renderer/state/list.hpp>
+#include <sge/renderer/state/state.hpp>
+#include <sge/renderer/viewport.hpp>
+#include <sge/systems/instance.hpp>
 #include <sge/time/millisecond.hpp>
 #include <sge/time/second.hpp>
 #include <sge/time/unit.hpp>
-#include <sge/image/colors.hpp>
-#include <sge/font/rect.hpp>
-#include <sge/font/unit.hpp>
-#include <sge/font/pos.hpp>
-#include <sge/font/text/text.hpp>
+#include <sge/viewport/manager.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/math/vector/vector.hpp>
 #include <fcppt/math/dim/dim.hpp>
@@ -97,7 +98,20 @@ fruitcut::app::states::ingame::running::running(
 	draw_bbs_(
 		fruitlib::json::find_member<bool>(
 			context<machine>().config_file(),
-			FCPPT_TEXT("ingame/draw-bbs")))
+			FCPPT_TEXT("ingame/draw-bbs"))),
+	transit_to_paused_connection_(
+		context<machine>().game_input_state().key_callback(
+			sge::input::keyboard::action(
+				sge::input::keyboard::key_code::p, 
+				std::tr1::bind(
+					// Note that using post_event does something unexpected. If
+					// you use that, you get a tick event first and _then_ the
+					// toggle_pause event, which is not the desired behaviour
+					// (post_event posts to the queue, process_event immediately
+					// processes it)
+					&machine::post_event,
+					&context<machine>(),
+					events::generic_transition<ingame::paused>()))))
 {
 	context<machine>().overlay_node().insert_dont_care(
 		update_node_);
@@ -108,27 +122,6 @@ fruitcut::app::states::ingame::running::running(
 	context<machine>().postprocessing().active(
 		true);
 	viewport_change();
-}
-
-boost::statechart::result
-fruitcut::app::states::ingame::running::react(
-	events::toggle_pause const &)
-{
-	return transit<paused>();
-}
-
-boost::statechart::result
-fruitcut::app::states::ingame::running::react(
-	events::tick const &)
-{
-	if(context<superstate>().game_logic().finished())
-	{
-		context<machine>().last_game_score(
-			app::score(
-				context<superstate>().game_logic().score()));
-		return transit<states::gameover::superstate>();
-	}
-	return discard_event();
 }
 
 fruitcut::app::states::ingame::running::~running()
@@ -158,6 +151,15 @@ fruitcut::app::states::ingame::running::update()
 		++i)
 		process_fruit(
 			*i);
+
+	if(context<superstate>().game_logic().finished())
+	{
+		context<machine>().last_game_score(
+			app::score(
+				context<superstate>().game_logic().score()));
+		context<machine>().post_event(
+			events::generic_transition<states::gameover::superstate>());
+	}
 }
 
 void

@@ -1,45 +1,34 @@
 #ifndef FRUITCUT_APP_MACHINE_HPP_INCLUDED
 #define FRUITCUT_APP_MACHINE_HPP_INCLUDED
 
-#include "background.hpp"
-#include "shadow_map.hpp"
-#include "../fruitlib/screen_shooter.hpp"
-#include "../fruitlib/audio/music_controller.hpp"
-#include "../fruitlib/audio/sound_controller.hpp"
-#include "../fruitlib/rng_creator.hpp"
-#include "../fruitlib/font/cache.hpp"
-#include "../fruitlib/input/state.hpp"
-#include "../fruitlib/input/state_manager.hpp"
-#include "../fruitlib/log/scoped_sequence_ptr.hpp"
-#include "../fruitlib/scenic/nodes/camera.hpp"
-#include "../fruitlib/scenic/nodes/console.hpp"
-#include "../fruitlib/scenic/nodes/intrusive_group.hpp"
-#include "../fruitlib/scenic/nodes/music_controller.hpp"
-#include "../fruitlib/scenic/nodes/sound_controller.hpp"
-#include "overlay.hpp"
-#include "directional_light_source.hpp"
-#include "point_sprite/system_node.hpp"
-#include "scene.hpp"
-#include "score.hpp"
+#include "machine_impl_fwd.hpp"
 #include "states/intro_fwd.hpp"
-#include <sge/console/gfx.hpp>
-#include <sge/console/object.hpp>
-#include <sge/cegui/system.hpp>
-#include <sge/cegui/syringe.hpp>
-#include <sge/parse/json/json.hpp>
-#include <sge/renderer/texture/address_mode.hpp>
-#include <sge/systems/instance.hpp>
-#include <sge/time/duration.hpp>
-#include <sge/font/metrics_ptr.hpp>
+#include "postprocessing_fwd.hpp"
+#include "background_fwd.hpp"
+#include "shadow_map_fwd.hpp"
+#include "score.hpp"
+#include "scene_fwd.hpp"
+#include "overlay.hpp"
+#include "point_sprite/system_node_fwd.hpp"
+#include "directional_light_source_fwd.hpp"
+#include "../fruitlib/rng_creator_fwd.hpp"
+#include "../fruitlib/scenic/nodes/intrusive_group_fwd.hpp"
+#include "../fruitlib/audio/sound_controller_fwd.hpp"
+#include "../fruitlib/audio/music_controller_fwd.hpp"
+#include "../fruitlib/input/state_fwd.hpp"
+#include "../fruitlib/input/state_manager_fwd.hpp"
+#include "../fruitlib/font/cache_fwd.hpp"
+#include <sge/time/callback.hpp>
 #include <sge/time/time.hpp>
-#include <sge/camera/object.hpp>
-#include <fcppt/chrono/duration.hpp>
-#include <fcppt/chrono/time_point.hpp>
-#include <fcppt/chrono/milliseconds.hpp>
-#include <fcppt/filesystem/path.hpp>
-#include <fcppt/signal/scoped_connection.hpp>
+#include <sge/parse/json/object_fwd.hpp>
+#include <sge/camera/object_fwd.hpp>
+#include <sge/cegui/system_fwd.hpp>
+#include <sge/cegui/syringe_fwd.hpp>
+#include <sge/systems/instance_fwd.hpp>
 #include <boost/statechart/state_machine.hpp>
-#include <boost/system/error_code.hpp>
+#include <boost/statechart/event_base.hpp>
+#include <fcppt/signal/scoped_connection.hpp>
+#include <fcppt/scoped_ptr.hpp>
 
 namespace fruitcut
 {
@@ -47,16 +36,13 @@ namespace app
 {
 class machine
 :
-	public 
-		boost::statechart::state_machine
-		<
-			machine,
-			states::intro
-		>,
-	public 
-		fruitlib::scenic::nodes::intrusive_group
+	public boost::statechart::state_machine<machine,states::intro>
 {
 public:
+	typedef
+	boost::statechart::state_machine<machine,states::intro>
+	base;
+
 	explicit
 	machine(
 		int argc,
@@ -137,26 +123,26 @@ public:
 	fruitlib::rng_creator &
 	rng_creator();
 
-	score
+	app::score
 	last_game_score() const;
 
 	void
 	last_game_score(
-		score const &);
+		app::score const &);
 
 	void
 	quit();
 
-	scene &
+	app::scene &
 	scene_node();
 
-	scene const &
+	app::scene const &
 	scene_node() const;
 
-	overlay &
+	app::overlay &
 	overlay_node();
 
-	overlay const &
+	app::overlay const &
 	overlay_node() const;
 
 	point_sprite::system_node &
@@ -172,65 +158,75 @@ public:
 	time_factor(
 		sge::time::funit);
 
+	fruitlib::scenic::nodes::intrusive_group &
+	root_node();
+
 	~machine();
+
+	void
+	unconsumed_event(
+		boost::statechart::event_base const &);
+
+	void
+	post_event(
+		boost::statechart::event_base const &);
 private:
+	/*
+		This part needs some explanation. What are we doing here? 
+
+		The problem is that we've got two trees at the same time: The
+		statechart state tree and the scene graph (technically a graph,
+		but it's really a tree). Each frame, the scene tree is traversed
+		and the game takes its course.
+
+		Every once in a while, however, the game's state changes. For
+		example, it might change from "running" to "paused" or (more
+		drastically) from "running" to "gameover". This happens, as almost
+		everything, while traversing the scene tree, so in a loop like this:
+
+		foreach(child_node c,children())
+			c->update();
+
+		Changing the game state is, however, destructive! Thus, if a
+		transition occurs inside one of these update calls, it might kill
+		the node's parent or even the parent node's parent! Hacking this
+		is very risky, so I'm taking another approach: Defer all the
+		events until after the scene tree is traversed.
+
+		At first I though this was fairly easy, since
+		boost::statechart::state_machine already has a list of "queued
+		events", to which new events can be added with a call to
+		machine::post_event. Alas, you cannot simply say
+		"process_queued_events" (this method exists, but it is
+		private). So we need the code below to build our own queue and
+		then transfer this queue to statechart (a call to "process_event"
+		starts the queue processing).
+	*/
+	typedef
+	std::allocator<void>
+	allocator;
+
+	// Can't call it "event_base_ptr_type" since that's "reserved" by statechart
+	typedef
+	boost::intrusive_ptr<boost::statechart::event_base const> 
+	my_event_base_ptr_type;
+
+	typedef
+	std::list
+	<
+		my_event_base_ptr_type,
+		boost::detail::allocator::rebind_to
+		<
+			allocator, 
+			my_event_base_ptr_type
+		>::type
+	>
+	queued_event_list;
+
+	fcppt::scoped_ptr<app::machine_impl> impl_;
+	queued_event_list queued_events_;
 	bool running_;
-	fruitlib::rng_creator rng_creator_;
-	sge::parse::json::object const config_file_;
-	sge::systems::instance const systems_;
-	sge::console::object console_object_;
-	scene scene_node_;
-	overlay overlay_node_;
-	fruitlib::log::scoped_sequence_ptr activated_loggers_;
-	fruitlib::font::cache font_cache_;
-	fruitlib::input::state_manager input_manager_;
-	fruitlib::input::state console_state_,game_state_;
-	fruitlib::input::state *previous_state_;
-	sge::font::metrics_ptr console_font_;
-	sge::console::gfx console_gfx_;
-	fruitlib::scenic::nodes::console console_node_;
-	fcppt::signal::scoped_connection exit_connection_;
-	sge::time::point current_time_,transformed_time_;
-	sge::time::funit time_factor_;
-	fcppt::signal::scoped_connection console_switch_connection_;
-	fruitlib::audio::sound_controller sound_controller_;
-	fruitlib::scenic::nodes::sound_controller sound_controller_node_;
-	fruitlib::audio::music_controller music_controller_;
-	fruitlib::scenic::nodes::music_controller music_controller_node_;
-	sge::camera::object camera_;
-	fruitlib::scenic::nodes::camera camera_node_;
-	fcppt::signal::scoped_connection toggle_camera_connection_;
-	fruitlib::input::state camera_state_;
-	fcppt::signal::scoped_connection viewport_change_connection_;
-	app::directional_light_source main_light_source_;
-	fruitcut::app::shadow_map shadow_map_;
-	fruitcut::app::background background_;
-	fcppt::chrono::milliseconds::rep desired_fps_;
-	sge::cegui::system gui_system_;
-	sge::cegui::syringe gui_syringe_;
-	score last_game_score_;
-	point_sprite::system_node point_sprites_;
-	fruitlib::screen_shooter screen_shooter_;
-
-	void
-	console_switch();
-
-	void
-	toggle_camera();
-
-	void
-	viewport_change();
-
-	void 
-	manage_rendering();
-
-	// @override
-	void
-	update();
-
-	// @override
-	void
-	render();
+	fcppt::signal::scoped_connection running_to_false_connection_;
 };
 }
 }

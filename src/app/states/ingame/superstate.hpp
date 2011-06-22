@@ -72,8 +72,6 @@ public:
 
 	~superstate();
 private:
-	fcppt::signal::scoped_connection 
-		toggle_pause_connection_;
 	fruitlib::physics::world physics_world_;
 	fruitlib::physics::nodes::world physics_world_node_;
 	fruitlib::physics::debugger physics_debugger_;

@@ -2,20 +2,19 @@
 #define FRUITCUT_APP_STATES_INGAME_PAUSED_HPP_INCLUDED
 
 #include "superstate.hpp"
+#include "running_fwd.hpp"
 #include "../../scoped_scene_activation.hpp"
 #include "../../scoped_time_factor.hpp"
-#include "../../events/render_overlay.hpp"
-#include "../../events/tick.hpp"
-#include "../../events/toggle_pause.hpp"
+#include "../../events/make_transition.hpp"
 #include "../../../fruitlib/pp/system.hpp"
 #include "../../../fruitlib/pp/filter/inject_texture.hpp"
 #include "../../../fruitlib/pp/filter/blur.hpp"
 #include "../../../fruitlib/scenic/nodes/intrusive.hpp"
-#include <boost/statechart/state.hpp>
-#include <boost/statechart/custom_reaction.hpp>
-#include <boost/mpl/vector/vector10.hpp>
 #include <sge/renderer/texture/planar_ptr.hpp>
 #include <sge/time/timer.hpp>
+#include <fcppt/signal/scoped_connection.hpp>
+#include <boost/statechart/state.hpp>
+#include <boost/mpl/vector/vector10.hpp>
 
 namespace fruitcut
 {
@@ -35,17 +34,13 @@ public:
 	typedef
 	boost::mpl::vector1
 	<
-		boost::statechart::custom_reaction<events::toggle_pause>
+		events::make_transition<ingame::running>::type
 	>
 	reactions;
 
 	explicit
 	paused(
 		my_context);
-
-	boost::statechart::result
-	react(
-		events::toggle_pause const &);
 
 	~paused();
 private:
@@ -58,6 +53,7 @@ private:
 	fruitlib::pp::filter::blur::size_type blur_iterations_;
 	fruitlib::pp::filter::blur::size_type const max_blur_iterations_;
 	sge::time::timer blur_timer_;
+	fcppt::signal::scoped_connection transit_to_running_connection_;
 
 	void
 	render();

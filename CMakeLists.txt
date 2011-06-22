@@ -362,6 +362,7 @@ SET(
 	src/fruitlib/scenic/nodes/intrusive.hpp
 	src/fruitlib/scenic/nodes/intrusive_group.cpp
 	src/fruitlib/scenic/nodes/intrusive_group.hpp
+	src/fruitlib/scenic/nodes/intrusive_group_fwd.hpp
 	src/fruitlib/scenic/nodes/intrusive_with_callbacks.cpp
 	src/fruitlib/scenic/nodes/intrusive_with_callbacks.hpp
 	src/fruitlib/scenic/nodes/line_drawer.cpp
@@ -412,14 +413,8 @@ SET(
 	src/app/directional_light_source.cpp
 	src/app/directional_light_source.hpp
 	src/app/directional_light_source_fwd.hpp
-	src/app/events/gameover/continue_button_pushed.hpp
-	src/app/events/gameover/quit_button_pushed.hpp
-	src/app/events/gameover/reset_button_pushed.hpp
-	src/app/events/render.hpp
-	src/app/events/render_overlay.hpp
-	src/app/events/tick.cpp
-	src/app/events/tick.hpp
-	src/app/events/toggle_pause.hpp
+	src/app/events/generic_transition.hpp
+	src/app/events/make_transition.hpp
 	src/app/exception.cpp
 	src/app/exception.hpp
 	src/app/fruit/area.hpp
@@ -511,6 +506,9 @@ SET(
 	src/app/machine.cpp
 	src/app/machine.hpp
 	src/app/machine_fwd.hpp
+	src/app/machine_impl.cpp
+	src/app/machine_impl.hpp
+	src/app/machine_impl_fwd.hpp
 	src/app/name.cpp
 	src/app/name.hpp
 	src/app/overlay.hpp
@@ -541,6 +539,7 @@ SET(
 	src/app/point_sprite/vector.hpp
 	src/app/postprocessing.cpp
 	src/app/postprocessing.hpp
+	src/app/postprocessing_fwd.hpp
 	src/app/scene.cpp
 	src/app/scene.hpp
 	src/app/scene_fwd.hpp
@@ -559,10 +558,13 @@ SET(
 	src/app/states/gameover/choose_name_fwd.hpp
 	src/app/states/gameover/highscore.cpp
 	src/app/states/gameover/highscore.hpp
+	src/app/states/gameover/highscore_fwd.hpp
 	src/app/states/gameover/superstate.cpp
 	src/app/states/gameover/superstate.hpp
+	src/app/states/gameover/superstate_fwd.hpp
 	src/app/states/ingame/paused.cpp
 	src/app/states/ingame/paused.hpp
+	src/app/states/ingame/paused_fwd.hpp
 	src/app/states/ingame/running.cpp
 	src/app/states/ingame/running.hpp
 	src/app/states/ingame/running_fwd.hpp

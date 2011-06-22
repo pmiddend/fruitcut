@@ -1,6 +1,11 @@
 #include "superstate.hpp"
 #include "running.hpp"
-#include "../../events/toggle_pause.hpp"
+#include "../../point_sprite/system_node.hpp"
+#include "../../shadow_map.hpp"
+#include "../../scene.hpp"
+#include "../../../fruitlib/audio/music_controller.hpp"
+#include "../../../fruitlib/audio/sound_controller.hpp"
+#include "../../../fruitlib/resource_tree/path.hpp"
 #include "../../../fruitlib/input/state.hpp"
 #include "../../../fruitlib/json/find_member.hpp"
 #include "../../../fruitlib/json/parse_color.hpp"
@@ -43,19 +48,6 @@ fruitcut::app::states::ingame::superstate::superstate(
 :
 	my_base(
 		ctx),
-	toggle_pause_connection_(
-		context<machine>().game_input_state().key_callback(
-			sge::input::keyboard::action(
-				sge::input::keyboard::key_code::p, 
-				std::tr1::bind(
-					// Note that using post_event does something unexpected. If
-					// you use that, you get a tick event first and _then_ the
-					// toggle_pause event, which is not the desired behaviour
-					// (post_event posts to the queue, process_event immediately
-					// processes it)
-					&machine::process_event,
-					&context<machine>(),
-					events::toggle_pause())))),
 	physics_world_(
 		// The box is ignored for now
 		fruitlib::physics::box(),

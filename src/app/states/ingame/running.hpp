@@ -2,11 +2,10 @@
 #define FRUITCUT_APP_STATES_INGAME_RUNNING_HPP_INCLUDED
 
 #include "superstate.hpp"
+#include "paused_fwd.hpp"
+#include "../gameover/superstate_fwd.hpp"
 #include "../../fruit/object_fwd.hpp"
-#include "../../events/render.hpp"
-#include "../../events/tick.hpp"
-#include "../../events/toggle_pause.hpp"
-#include "../../events/render_overlay.hpp"
+#include "../../events/make_transition.hpp"
 #include "../../../fruitlib/scenic/nodes/line_drawer.hpp"
 #include "../../../fruitlib/cursor_trail.hpp"
 #include "../../../fruitlib/scenic/nodes/cursor_trail.hpp"
@@ -38,21 +37,14 @@ public:
 	typedef
 	boost::mpl::vector2
 	<
-		boost::statechart::custom_reaction<events::tick>,
-		boost::statechart::custom_reaction<events::toggle_pause>
+		events::make_transition<ingame::paused>::type,
+		events::make_transition<gameover::superstate>::type
 	>
 	reactions;
+
 	explicit
 	running(
 		my_context);
-
-	boost::statechart::result
-	react(
-		events::tick const &);
-
-	boost::statechart::result
-	react(
-		events::toggle_pause const &);
 
 	~running();
 private:
@@ -68,6 +60,7 @@ private:
 	bool 
 		draw_mouse_trail_,
 		draw_bbs_;
+	fcppt::signal::scoped_connection transit_to_paused_connection_;
 
 	void
 	update();

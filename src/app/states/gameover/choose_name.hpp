@@ -2,12 +2,12 @@
 #define FRUITCUT_APP_STATES_GAMEOVER_CHOOSE_NAME_HPP_INCLUDED
 
 #include "superstate.hpp"
-#include "../../events/gameover/continue_button_pushed.hpp"
+#include "highscore_fwd.hpp"
+#include "../../events/make_transition.hpp"
 #include <CEGUIEvent.h>
 #include <sge/cegui/toolbox/scoped_layout.hpp>
 #include <sge/cegui/toolbox/scoped_gui_sheet.hpp>
 #include <boost/statechart/state.hpp>
-#include <boost/statechart/custom_reaction.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 
 namespace CEGUI
@@ -32,17 +32,13 @@ public:
 	typedef
 	boost::mpl::vector1
 	<
-		boost::statechart::custom_reaction<events::gameover::continue_button_pushed>
+		events::make_transition<gameover::highscore>::type
 	>
 	reactions;
 
 	explicit
 	choose_name(
 		my_context);
-
-	boost::statechart::result
-	react(
-		events::gameover::continue_button_pushed const &);
 
 	~choose_name();
 private:
