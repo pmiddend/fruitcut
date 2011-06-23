@@ -71,11 +71,7 @@ fruitcut::app::states::ingame::superstate::superstate(
 					&superstate::toggle_physics_debugger,
 					this)))),
 	fruit_manager_(
-		fruitlib::json::find_member<sge::parse::json::array>(
-			context<machine>().config_file(),
-			FCPPT_TEXT("fruits")),
-		context<machine>().systems().md3_loader(),
-		context<machine>().systems().image_loader(),
+		context<machine>().fruit_prototypes(),
 		context<machine>().systems().renderer(),
 		physics_world_,
 		context<machine>().camera()),

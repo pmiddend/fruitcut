@@ -294,3 +294,15 @@ fruitcut::app::machine::post_event(
 	queued_events_.push_back(
 		e.intrusive_from_this());
 }
+
+fruitcut::app::fruit::prototype_sequence const &
+fruitcut::app::machine::fruit_prototypes() const
+{
+	return impl_->fruit_prototypes();
+}
+
+fruitcut::app::fruit::prototype_sequence &
+fruitcut::app::machine::fruit_prototypes()
+{
+	return impl_->fruit_prototypes();
+}

@@ -34,15 +34,15 @@ fruitcut::app::logo::logo(
 		sge::sprite::default_parameters<sprite_choices>()
 			.texture(
 				fcppt::make_shared_ptr<sge::texture::part_raw>(
-					sge::renderer::texture::create_planar_from_view(
-						renderer_,
-						_image_loader.load(
-							media_path() 
+					sge::renderer::texture::create_planar_from_path(
+						media_path() 
 							/ FCPPT_TEXT("textures") 
 							/ 
 								fruitlib::json::find_member<fcppt::string>(
 									_config_file,
-									FCPPT_TEXT("textures/logo")))->view(),
+									FCPPT_TEXT("textures/logo")),
+						renderer_,
+						_image_loader,
 						sge::renderer::texture::filter::linear,
 						sge::renderer::texture::address_mode2(
 							sge::renderer::texture::address_mode::clamp),

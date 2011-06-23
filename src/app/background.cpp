@@ -2,9 +2,7 @@
 #include "../media_path.hpp"
 #include "../fruitlib/json/find_member.hpp"
 #include "../fruitlib/math/view_plane_rect.hpp"
-#include <sge/image2d/file.hpp>
 #include <sge/viewport/manager.hpp>
-#include <sge/image2d/multi_loader.hpp>
 #include <sge/parse/json/json.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/viewport_size.hpp>
@@ -118,16 +116,16 @@ fruitcut::app::background::background(
 	camera_(
 		_camera),
 	texture_(
-		sge::renderer::texture::create_planar_from_view(
+		sge::renderer::texture::create_planar_from_path(
+			media_path()
+				/ 
+					FCPPT_TEXT("textures")
+				/ 
+					fruitlib::json::find_member<fcppt::string>(
+						_config,
+						FCPPT_TEXT("textures/background")),
 			renderer_,
-			_image_loader.load(
-				media_path()
-					/ 
-						FCPPT_TEXT("textures")
-					/ 
-						fruitlib::json::find_member<fcppt::string>(
-							_config,
-							FCPPT_TEXT("textures/background")))->view(),
+			_image_loader,
 			sge::renderer::texture::filter::linear,
 			sge::renderer::texture::address_mode2(
 				sge::renderer::texture::address_mode::repeat),

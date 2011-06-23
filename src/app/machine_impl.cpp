@@ -19,7 +19,6 @@
 #include <sge/font/size_type.hpp>
 #include <sge/font/system.hpp>
 #include <sge/font/text/lit.hpp>
-#include <sge/image2d/file.hpp>
 #include <sge/image/colors.hpp>
 #include <sge/input/keyboard/action.hpp>
 #include <sge/input/keyboard/key_code.hpp>
@@ -152,15 +151,15 @@ fruitcut::app::machine_impl::machine_impl(
       .texture(
 				sge::texture::part_ptr(
 					fcppt::make_shared_ptr<sge::texture::part_raw>(
-						sge::renderer::texture::create_planar_from_view(
+						sge::renderer::texture::create_planar_from_path(
+							fruitcut::media_path()
+							/ FCPPT_TEXT("textures")
+							/ 
+								fruitlib::json::find_member<fcppt::string>(
+									config_file(),
+									FCPPT_TEXT("console/background-texture")),
 							systems_.renderer(),
-							systems_.image_loader().load(
-								fruitcut::media_path()
-								/ FCPPT_TEXT("textures")
-								/ 
-									fruitlib::json::find_member<fcppt::string>(
-										config_file(),
-										FCPPT_TEXT("console/background-texture")))->view(),
+							systems_.image_loader(),
 							sge::renderer::texture::filter::linear,
 							sge::renderer::texture::address_mode2(
 								sge::renderer::texture::address_mode::clamp),
@@ -550,6 +549,18 @@ fruitcut::app::machine_impl::time_factor(
 {
 	time_factor_ = 
 		_time_factor;
+}
+
+fruitcut::app::fruit::prototype_sequence const &
+fruitcut::app::machine_impl::fruit_prototypes() const
+{
+	return fruit_prototypes_;
+}
+
+fruitcut::app::fruit::prototype_sequence &
+fruitcut::app::machine_impl::fruit_prototypes()
+{
+	return fruit_prototypes_;
 }
 
 fruitcut::app::machine_impl::~machine_impl()

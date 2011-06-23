@@ -29,7 +29,6 @@
 #include <sge/renderer/vector4.hpp>
 #include <sge/renderer/vf/dynamic/make_format.hpp>
 #include <fcppt/assign/make_container.hpp>
-#include <fcppt/algorithm/map.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/math/matrix/matrix.hpp>
 #include <fcppt/math/vector/vector.hpp>
@@ -38,7 +37,6 @@
 #include <fcppt/container/ptr/push_back_unique_ptr.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/ref.hpp>
 #include <fcppt/assert_message.hpp>
 #include <fcppt/assert.hpp>
 #include <iostream>
@@ -65,13 +63,13 @@ calculate_new_linear_velocity(
 }
 
 fruitcut::app::fruit::manager::manager(
-	sge::parse::json::array const &prototype_array,
-	sge::model::loader &model_loader,
-	sge::image2d::multi_loader &image_loader,
+	fruit::prototype_sequence const &_prototypes,
 	sge::renderer::device &_renderer,
 	fruitlib::physics::world &physics_world,
 	sge::camera::object &_camera)
 :
+	prototypes_(
+		_prototypes),
 	renderer_(
 		_renderer),
 	camera_(
@@ -83,18 +81,6 @@ fruitcut::app::fruit::manager::manager(
 		physics_world),
 	fruit_group_(
 		physics_world_),
-	prototypes_(
-		fcppt::algorithm::map<prototype_sequence>(
-			prototype_array.elements,
-			std::tr1::bind(
-				&prototype_from_json,
-				std::tr1::placeholders::_1,
-				fcppt::ref(
-					model_loader),
-				fcppt::ref(
-					image_loader),
-				fcppt::ref(
-					_renderer)))),
 	fruits_(),
 	cut_signal_(),
 	remove_signal_()

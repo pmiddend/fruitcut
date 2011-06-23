@@ -22,6 +22,7 @@
 #include "point_sprite/system_node.hpp"
 #include "scene.hpp"
 #include "shadow_map.hpp"
+#include "fruit/prototype_sequence.hpp"
 #include <sge/camera/object.hpp>
 #include <sge/cegui/syringe.hpp>
 #include <sge/cegui/system.hpp>
@@ -156,6 +157,12 @@ public:
 	time_factor(
 		sge::time::funit);
 
+	fruit::prototype_sequence const &
+	fruit_prototypes() const;
+
+	fruit::prototype_sequence &
+	fruit_prototypes();
+
 	~machine_impl();
 private:
 	fruitlib::rng_creator rng_creator_;
@@ -194,6 +201,7 @@ private:
 	app::score last_game_score_;
 	point_sprite::system_node point_sprites_;
 	fruitlib::screen_shooter screen_shooter_;
+	fruit::prototype_sequence fruit_prototypes_;
 
 	void
 	console_switch();

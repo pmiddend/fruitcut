@@ -1,7 +1,5 @@
 #include "mouse_trailer.hpp"
 #include "../../media_path.hpp"
-#include <sge/image2d/file.hpp>
-#include <sge/image2d/multi_loader.hpp>
 #include <sge/image/color/init.hpp>
 #include <sge/input/mouse/axis_event.hpp>
 #include <sge/input/mouse/device.hpp>
@@ -10,7 +8,7 @@
 #include <sge/renderer/resource_flags_none.hpp>
 #include <sge/renderer/texture/address_mode2.hpp>
 #include <sge/renderer/texture/address_mode.hpp>
-#include <sge/renderer/texture/create_planar_from_view.hpp>
+#include <sge/renderer/texture/create_planar_from_path.hpp>
 #include <sge/renderer/texture/filter/linear.hpp>
 #include <sge/renderer/vector2.hpp>
 #include <sge/renderer/viewport.hpp>
@@ -53,12 +51,12 @@ fruitcut::sandbox::mouse_trailer::mouse_trailer(
 			.texture(
 				sge::texture::part_ptr(
 					new sge::texture::part_raw(
-						sge::renderer::texture::create_planar_from_view(
+						sge::renderer::texture::create_planar_from_path(
+							media_path() 
+								/ FCPPT_TEXT("textures") 
+								/ FCPPT_TEXT("cursor.png"),
 							renderer,
-							image_loader.load(
-								media_path() 
-									/ FCPPT_TEXT("textures") 
-									/ FCPPT_TEXT("cursor.png"))->view(),
+							image_loader,
 							sge::renderer::texture::filter::linear,
 							sge::renderer::texture::address_mode2(
 								sge::renderer::texture::address_mode::clamp),
@@ -85,12 +83,12 @@ fruitcut::sandbox::mouse_trailer::mouse_trailer(
 				std::tr1::placeholders::_1))),
 	particle_texture_(
 		new sge::texture::part_raw(
-			sge::renderer::texture::create_planar_from_view(
+			sge::renderer::texture::create_planar_from_path(
+				media_path() 
+					/ FCPPT_TEXT("textures") 
+					/ FCPPT_TEXT("particle.png"),
 				renderer,
-				image_loader.load(
-					media_path() 
-						/ FCPPT_TEXT("textures") 
-						/ FCPPT_TEXT("particle.png"))->view(),
+				image_loader,
 				sge::renderer::texture::filter::linear,
 				sge::renderer::texture::address_mode2(
 					sge::renderer::texture::address_mode::clamp),

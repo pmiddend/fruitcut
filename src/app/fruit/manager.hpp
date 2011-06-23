@@ -52,9 +52,7 @@ FCPPT_NONCOPYABLE(
 public:
 	explicit
 	manager(
-		sge::parse::json::array const &v,
-		sge::model::loader &model_loader,
-		sge::image2d::multi_loader &image_loader,
+		fruit::prototype_sequence const &,
 		sge::renderer::device &renderer,
 		fruitlib::physics::world &,
 		sge::camera::object &);
@@ -110,12 +108,12 @@ public:
 
 	~manager();
 private:
+	prototype_sequence const &prototypes_;
 	sge::renderer::device &renderer_;
 	sge::camera::object &camera_;
 	sge::renderer::vertex_declaration_ptr vertex_declaration_;
 	fruitlib::physics::world &physics_world_;
 	fruitlib::physics::group::object fruit_group_;
-	prototype_sequence prototypes_;
 	object_sequence fruits_; 
 	fcppt::signal::object<callbacks::cut_fn> cut_signal_;
 	fcppt::signal::object<callbacks::remove_fn> remove_signal_;

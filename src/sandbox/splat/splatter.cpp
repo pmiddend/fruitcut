@@ -5,15 +5,13 @@
 #include <sge/sprite/parameters_impl.hpp>
 #include <sge/sprite/default_equal.hpp>
 #include <sge/texture/part_ptr.hpp>
-#include <sge/image2d/file.hpp>
 #include <sge/texture/part_raw.hpp>
-#include <sge/image2d/multi_loader.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/onscreen_target.hpp>
 #include <sge/renderer/viewport.hpp>
 #include <sge/renderer/texture/filter/linear.hpp>
 #include <sge/renderer/resource_flags_none.hpp>
-#include <sge/renderer/texture/create_planar_from_view.hpp>
+#include <sge/renderer/texture/create_planar_from_path.hpp>
 #include <sge/renderer/texture/address_mode2.hpp>
 #include <sge/renderer/texture/address_mode.hpp>
 #include <sge/sprite/default_parameters.hpp>
@@ -58,12 +56,12 @@ fruitcut::sandbox::splatter::splatter(
 			.texture(
 				sge::texture::part_ptr(
 					new sge::texture::part_raw(
-						sge::renderer::texture::create_planar_from_view(
+						sge::renderer::texture::create_planar_from_path(
+							media_path() 
+								/ FCPPT_TEXT("textures") 
+								/ FCPPT_TEXT("cursor.png"),
 							_renderer,
-							_image_loader.load(
-								media_path() 
-									/ FCPPT_TEXT("textures") 
-									/ FCPPT_TEXT("cursor.png"))->view(),
+							_image_loader,
 							sge::renderer::texture::filter::linear,
 							sge::renderer::texture::address_mode2(
 								sge::renderer::texture::address_mode::clamp),
@@ -151,12 +149,12 @@ fruitcut::sandbox::splatter::splatter(
 			.texture(
 				sge::texture::part_ptr(
 					new sge::texture::part_raw(
-						sge::renderer::texture::create_planar_from_view(
+						sge::renderer::texture::create_planar_from_path(
+							media_path() 
+								/ FCPPT_TEXT("textures") 
+								/ FCPPT_TEXT("wood.png"),
 							_renderer,
-							_image_loader.load(
-								media_path() 
-									/ FCPPT_TEXT("textures") 
-									/ FCPPT_TEXT("wood.png"))->view(),
+							_image_loader,
 							sge::renderer::texture::filter::linear,
 							sge::renderer::texture::address_mode2(
 								sge::renderer::texture::address_mode::repeat),
@@ -320,10 +318,10 @@ fruitcut::sandbox::splatter::load_textures(
 		it != fcppt::filesystem::directory_iterator(); 
 		++it)
 		t.push_back(
-			sge::renderer::texture::create_planar_from_view(
+			sge::renderer::texture::create_planar_from_path(
+				*it,
 				renderer,
-				image_loader.load(
-					*it)->view(),
+				image_loader,
 				sge::renderer::texture::filter::linear,
 				sge::renderer::texture::address_mode2(
 					sge::renderer::texture::address_mode::clamp),

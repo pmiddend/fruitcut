@@ -1,5 +1,5 @@
 #include "machine.hpp"
-#include "states/intro.hpp"
+#include "states/loading.hpp"
 #include <fcppt/scoped_state_machine.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/io/cerr.hpp>

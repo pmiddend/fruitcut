@@ -30,6 +30,10 @@
 		{
 			"filename" : "tweaked.json"
 		},
+		"loading" : 
+		{
+			"filename" : "tweaked.json"
+		},
 		"timer" : 
 		{
 			"filename" : "tweaked.json"
@@ -86,6 +90,10 @@
 				{ "time" : 1.0,"color" : [1.0,1.0,1.0,1.0] },
 				{ "time" : 0.0,"color" : [1.0,1.0,1.0,0.0] }
 			]
+	},
+	"loading" :
+	{
+		"font-color" : [1.0,1.0,1.0,1.0]
 	},
 	"paused" :
 	{

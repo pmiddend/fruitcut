@@ -36,7 +36,8 @@
 #include <sge/renderer/system.hpp>
 #include <sge/renderer/texture/address_mode2.hpp>
 #include <sge/renderer/texture/address_mode.hpp>
-#include <sge/renderer/texture/create_planar_from_view.hpp>
+#include <sge/renderer/texture/create_planar_from_path.hpp>
+#include <sge/renderer/texture/create_planar_from_file.hpp>
 #include <sge/renderer/texture/filter/linear.hpp>
 #include <sge/renderer/vector2.hpp>
 #include <sge/renderer/visual_depth.hpp>
@@ -213,12 +214,12 @@ particles::particles(
 		sys.renderer()),
 	particle_texture_(
 		new sge::texture::part_raw(
-			sge::renderer::texture::create_planar_from_view(
+			sge::renderer::texture::create_planar_from_path(
+				fruitcut::media_path() 
+					/ FCPPT_TEXT("textures") 
+					/ FCPPT_TEXT("smooth_particle.png"),
 				sys.renderer(),
-				sys.image_loader().load(
-					fruitcut::media_path() 
-						/ FCPPT_TEXT("textures") 
-						/ FCPPT_TEXT("smooth_particle.png"))->view(),
+				sys.image_loader(),
 				sge::renderer::texture::filter::linear,
 				sge::renderer::texture::address_mode2(
 					sge::renderer::texture::address_mode::clamp),
@@ -238,6 +239,7 @@ particles::particles(
 		fcppt::math::dim::structure_cast<fruitlib::particle::point_sprite::object::vector>(
 			logo_image->size())/static_cast<fruitlib::particle::point_sprite::object::vector::value_type>(2);
 
+	std::cerr << "loading logo\n";
 	system_.insert(
 		fruitlib::particle::objects::unique_base_ptr(
 			new fruitlib::particle::objects::simple<fruitlib::particle::sprite::choices>(
@@ -245,9 +247,9 @@ particles::particles(
 					.texture(
 						sge::texture::part_ptr(
 							new sge::texture::part_raw(
-								sge::renderer::texture::create_planar_from_view(
+								sge::renderer::texture::create_planar_from_file(
 									sys.renderer(),
-									logo_image->view(),
+									*logo_image,
 									sge::renderer::texture::filter::linear,
 									sge::renderer::texture::address_mode2(
 										sge::renderer::texture::address_mode::clamp),
@@ -295,6 +297,7 @@ particles::particles(
 				sge::time::default_callback(),
 				sge::renderer::vector2::null(),
 				sge::renderer::vector2::null())));
+	std::cerr << "BECAUSE I WAS LOADED!!! OKAY?!\n";
 }
 
 void

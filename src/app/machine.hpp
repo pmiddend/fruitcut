@@ -2,12 +2,13 @@
 #define FRUITCUT_APP_MACHINE_HPP_INCLUDED
 
 #include "machine_impl_fwd.hpp"
-#include "states/intro_fwd.hpp"
+#include "states/loading_fwd.hpp"
 #include "postprocessing_fwd.hpp"
 #include "background_fwd.hpp"
 #include "shadow_map_fwd.hpp"
 #include "score.hpp"
 #include "scene_fwd.hpp"
+#include "fruit/prototype_sequence.hpp"
 #include "overlay.hpp"
 #include "point_sprite/system_node_fwd.hpp"
 #include "directional_light_source_fwd.hpp"
@@ -36,11 +37,11 @@ namespace app
 {
 class machine
 :
-	public boost::statechart::state_machine<machine,states::intro>
+	public boost::statechart::state_machine<machine,states::loading>
 {
 public:
 	typedef
-	boost::statechart::state_machine<machine,states::intro>
+	boost::statechart::state_machine<machine,states::loading>
 	base;
 
 	explicit
@@ -170,6 +171,12 @@ public:
 	void
 	post_event(
 		boost::statechart::event_base const &);
+
+	fruit::prototype_sequence const &
+	fruit_prototypes() const;
+
+	fruit::prototype_sequence &
+	fruit_prototypes();
 private:
 	/*
 		This part needs some explanation. What are we doing here? 

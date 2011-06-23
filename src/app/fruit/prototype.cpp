@@ -5,6 +5,7 @@
 #include <sge/image2d/view/sub.hpp>
 #include <sge/image2d/rect.hpp>
 #include <sge/image2d/dim.hpp>
+#include <sge/image/colors.hpp>
 #include <sge/image2d/view/to_const.hpp>
 #include <sge/renderer/texture/scoped_planar_lock.hpp>
 #include <sge/renderer/texture/planar.hpp>
@@ -31,6 +32,7 @@ fruitcut::app::fruit::prototype::prototype(
 	texture_(
 		_texture),
 	splatter_color_(
+		//sge::image::colors::white()
 		fruitlib::average_colors(
 			sge::image2d::view::to_const(
 				sge::image2d::view::sub(
