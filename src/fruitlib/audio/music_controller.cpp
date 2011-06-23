@@ -110,6 +110,9 @@ fruitcut::fruitlib::audio::music_controller::update()
 			new_source_->update();
 		}
 	}
+	else
+		current_source_->gain(
+			volume_);
 
 	if (current_source_)
 		current_source_->update();
@@ -152,6 +155,29 @@ fruitcut::fruitlib::audio::music_controller::stop()
 {
 	do_play(
 		silence_source_);
+}
+
+sge::audio::scalar
+fruitcut::fruitlib::audio::music_controller::volume() const
+{
+	return volume_;
+}
+
+void
+fruitcut::fruitlib::audio::music_controller::volume(
+	sge::audio::scalar const _volume)
+{
+	volume_ = _volume;
+	
+	current_source_->gain(
+		std::min(
+			current_source_->gain(),
+			_volume));
+	if(new_source_)
+		new_source_->gain(
+			std::min(
+				new_source_->gain(),
+				_volume));
 }
 
 fruitcut::fruitlib::audio::music_controller::~music_controller() {}

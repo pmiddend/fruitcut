@@ -1,5 +1,5 @@
 #include "loading.hpp"
-#include "intro.hpp"
+#include "menu.hpp"
 #include "ingame/running.hpp"
 #include "../fruit/prototype_from_json.hpp"
 #include "../events/generic_transition.hpp"
@@ -78,7 +78,7 @@ fruitcut::app::states::loading::update()
 	if(current_fruit_ == fruit_array_.end())
 	{
 		context<machine>().post_event(
-			events::generic_transition<states::intro>());
+			events::generic_transition<states::menu>());
 		return;
 	}
 

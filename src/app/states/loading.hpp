@@ -1,7 +1,7 @@
 #ifndef FRUITCUT_APP_STATES_LOADING_HPP_INCLUDED
 #define FRUITCUT_APP_STATES_LOADING_HPP_INCLUDED
 
-#include "intro_fwd.hpp"
+#include "menu_fwd.hpp"
 #include "../machine.hpp"
 #include "../events/make_transition.hpp"
 #include "../../fruitlib/scenic/nodes/intrusive.hpp"
@@ -27,7 +27,7 @@ public:
 	typedef
 	boost::mpl::vector1
 	<
-		events::make_transition<states::intro>::type
+		events::make_transition<states::menu>::type
 	>
 	reactions;
 

@@ -79,7 +79,7 @@
 		"line-limit" : 1000
 	},
 	"audio-volume" : 1.0,
-	"intro" : 
+	"menu" : 
 	{
 		"total-duration" : "4s",
 		"background-repeat" : 3.0,

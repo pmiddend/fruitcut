@@ -50,6 +50,13 @@ public:
 	void
 	stop();
 
+	sge::audio::scalar
+	volume() const;
+
+	void
+	volume(
+		sge::audio::scalar);
+
 	~music_controller();
 private:
 	typedef

@@ -570,12 +570,12 @@ SET(
 	src/app/states/ingame/running_fwd.hpp
 	src/app/states/ingame/superstate.cpp
 	src/app/states/ingame/superstate.hpp
-	src/app/states/intro.cpp
-	src/app/states/intro.hpp
-	src/app/states/intro_fwd.hpp
 	src/app/states/loading.cpp
 	src/app/states/loading.hpp
 	src/app/states/loading_fwd.hpp
+	src/app/states/menu.cpp
+	src/app/states/menu.hpp
+	src/app/states/menu_fwd.hpp
 )
 
 ADD_LIBRARY(

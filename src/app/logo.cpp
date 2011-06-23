@@ -6,8 +6,9 @@
 #include <sge/viewport/manager.hpp>
 #include <sge/image2d/image2d.hpp>
 #include <sge/renderer/device.hpp>
-#include <sge/renderer/active_target.hpp>
+#include <sge/renderer/viewport_size.hpp>
 #include <sge/renderer/target_base.hpp>
+#include <sge/renderer/screen_size.hpp>
 #include <sge/renderer/resource_flags_none.hpp>
 #include <sge/renderer/texture/texture.hpp>
 #include <sge/texture/part_raw.hpp>
@@ -55,13 +56,7 @@ fruitcut::app::logo::logo(
 		_viewport_manager.manage_callback(
 			std::tr1::bind(
 				&logo::viewport_change,
-				this))),
-	color_animation_(
-		fruitlib::json::parse_animation<color_animation>(
-			fruitlib::json::find_member<sge::parse::json::array>(
-				_config_file,
-				FCPPT_TEXT("intro/logo-animation")),
-			&fruitlib::json::parse_color<sprite_object::color_type>))
+				this)))
 {
 	viewport_change();
 }
@@ -69,9 +64,6 @@ fruitcut::app::logo::logo(
 void
 fruitcut::app::logo::update()
 {
-	color_animation_.update();
-	sprite_object_.color(
-		color_animation_.current_value());
 }
 
 void
@@ -84,9 +76,15 @@ fruitcut::app::logo::render()
 void
 fruitcut::app::logo::viewport_change()
 {
+	sge::renderer::screen_size const viewport_size = 
+		sge::renderer::viewport_size(
+			renderer_);
+
 	sge::sprite::center(
 		sprite_object_,
-		fcppt::math::dim::structure_cast<sprite_object::vector>(
-			sge::renderer::active_target(
-				renderer_).viewport().get().size())/2);
+		sprite_object::vector(
+			static_cast<sprite_object::vector::value_type>(
+				viewport_size.w()/2),
+			static_cast<sprite_object::vector::value_type>(
+				viewport_size.h()/4)));
 }

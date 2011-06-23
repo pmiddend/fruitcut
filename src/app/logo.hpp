@@ -81,7 +81,6 @@ private:
 	sprite_system sprite_system_;
 	sprite_object sprite_object_;
 	fcppt::signal::scoped_connection viewport_change_connection_;
-	color_animation color_animation_;
 
 	void
 	update();

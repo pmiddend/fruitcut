@@ -1,5 +1,5 @@
 #include "highscore.hpp"
-#include "../intro.hpp"
+#include "../menu.hpp"
 #include "../../exception.hpp"
 #include "../../../media_path.hpp"
 #include "../../../fruitlib/audio/sound_controller.hpp"
@@ -279,6 +279,6 @@ fruitcut::app::states::gameover::highscore::reset_button_pushed(
 		fruitlib::resource_tree::path(
 			FCPPT_TEXT("button_clicked")));
 	context<machine>().post_event(
-		events::generic_transition<states::intro>());
+		events::generic_transition<states::menu>());
 	return true;
 }

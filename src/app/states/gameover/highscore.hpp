@@ -2,7 +2,7 @@
 #define FRUITCUT_APP_STATES_GAMEOVER_HIGHSCORE_HPP_INCLUDED
 
 #include "superstate.hpp"
-#include "../intro_fwd.hpp"
+#include "../menu_fwd.hpp"
 #include "../../events/make_transition.hpp"
 #include <CEGUIEvent.h>
 #include <sge/cegui/toolbox/scoped_layout.hpp>
@@ -27,7 +27,7 @@ public:
 	typedef
 	boost::mpl::vector1
 	<
-		events::make_transition<states::intro>::type
+		events::make_transition<states::menu>::type
 	>
 	reactions;
 
