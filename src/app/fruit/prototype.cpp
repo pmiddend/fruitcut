@@ -32,7 +32,6 @@ fruitcut::app::fruit::prototype::prototype(
 	texture_(
 		_texture),
 	splatter_color_(
-		//sge::image::colors::white()
 		fruitlib::average_colors(
 			sge::image2d::view::to_const(
 				sge::image2d::view::sub(

@@ -91,13 +91,8 @@ fruitcut::fruitlib::scenic::nodes::intrusive_group::~intrusive_group()
 void
 fruitcut::fruitlib::scenic::nodes::intrusive_group::update()
 {
-	for(child_sequence::iterator i = children_.begin(); i != children_.end();)
-	{
-		// Watch out, update() could delete the current element!
-		child_sequence::iterator current = i;
-		++i;
-		current->update();
-	}
+	for(child_sequence::iterator i = children_.begin(); i != children_.end(); ++i)
+		i->update();
 }
 
 void

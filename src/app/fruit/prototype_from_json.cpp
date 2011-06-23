@@ -47,7 +47,7 @@ fruitcut::app::fruit::prototype_from_json(
 							fruitlib::json::find_member<fcppt::string>(
 								o,
 								FCPPT_TEXT("model")))),
-			sge::renderer::texture::create_planar_from_file(
+			sge::renderer::texture::create_planar_from_path(
 				fruitcut::media_path()
 					/ FCPPT_TEXT("textures")
 					/ FCPPT_TEXT("fruits")

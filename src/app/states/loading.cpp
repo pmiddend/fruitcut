@@ -12,6 +12,7 @@
 #include <sge/font/font.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/image/color/rgba8.hpp>
+#include <sge/image/colors.hpp>
 #include <sge/viewport/manager.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/text.hpp>
@@ -41,13 +42,13 @@ fruitcut::app::states::loading::loading(
 			context<machine>().config_file(),
 			FCPPT_TEXT("fruits")).elements),
 	current_fruit_(
-		fruit_array_.begin())/*,
+		fruit_array_.begin()),
 	font_node_(
 		fruitlib::font::object_parameters(
 			context<machine>().font_cache().metrics(
-				FCPPT_TEXT("loading")),
+				FCPPT_TEXT("score")),
 			context<machine>().font_cache().drawer(
-				FCPPT_TEXT("loading")),
+				FCPPT_TEXT("score")),
 			SGE_FONT_TEXT_LIT("0"),
 			sge::font::rect::null(),
 			sge::font::text::align_h::center,
@@ -58,7 +59,7 @@ fruitcut::app::states::loading::loading(
 				context<machine>().config_file(),
 				FCPPT_TEXT("loading/font-color"))),
 		static_cast<fruitlib::scenic::scale>(
-			1))*/
+			1))
 {
 	// We already hae a viewport? Ok, then go
 	if(sge::renderer::viewport_size(context<machine>().systems().renderer()).content())
@@ -67,10 +68,8 @@ fruitcut::app::states::loading::loading(
 	context<machine>().root_node().insert_dont_care(
 		*this);
 
-	/*
 	context<machine>().overlay_node().insert_dont_care(
 		font_node_);
-	*/
 }
 
 void
@@ -90,7 +89,6 @@ fruitcut::app::states::loading::update()
 			context<machine>().systems().image_loader(),
 			context<machine>().systems().renderer()));
 
-	/*
 	font_node_.object().text(
 		SGE_FONT_TEXT_LIT("Loaded ")+
 		fcppt::lexical_cast<sge::font::text::string>(
@@ -101,7 +99,6 @@ fruitcut::app::states::loading::update()
 		fcppt::lexical_cast<sge::font::text::string>(
 			fruit_array_.size())+
 		SGE_FONT_TEXT_LIT(" fruits"));
-*/
 }
 
 void
@@ -116,7 +113,6 @@ fruitcut::app::states::loading::~loading()
 void
 fruitcut::app::states::loading::viewport_change()
 {
-/*
 	sge::font::dim const &viewport_dim = 
 		fcppt::math::dim::structure_cast<sge::font::dim>(
 			sge::renderer::viewport_size(
@@ -126,5 +122,4 @@ fruitcut::app::states::loading::viewport_change()
 		sge::font::rect(
 			sge::font::pos::null(),
 			viewport_dim));
-*/
 }

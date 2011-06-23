@@ -41,7 +41,7 @@ private:
 	fcppt::signal::scoped_connection viewport_change_connection_;
 	sge::parse::json::element_vector const fruit_array_;
 	sge::parse::json::element_vector::const_iterator current_fruit_;
-//	fruitlib::font::intrusive_scene_node font_node_;
+	fruitlib::font::intrusive_scene_node font_node_;
 
 	void
 	viewport_change();

@@ -56,6 +56,7 @@ fruitcut::app::machine::run()
 	while(running_)
 	{
 		impl_->run_once();
+
 		for(
 			queued_event_list::const_iterator current_event = queued_events_.begin(); 
 			current_event != queued_events_.end();
