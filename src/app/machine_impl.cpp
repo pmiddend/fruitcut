@@ -51,10 +51,13 @@
 #include <sge/window/instance.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/chrono/chrono.hpp>
+#include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/container/bitfield/bitfield.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/math/dim/dim.hpp>
 #include <fcppt/math/vector/vector.hpp>
+#include <fcppt/io/ofstream.hpp>
+#include <fcppt/io/cerr.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/time/sleep_any.hpp>
@@ -590,13 +593,28 @@ fruitcut::app::machine_impl::fruit_prototypes()
 
 fruitcut::app::machine_impl::~machine_impl()
 {
-	/*
-	fruitlib::json::output_tabbed(
+	fcppt::io::ofstream file(
 		sge::config::config_path(
 			app::name())/
-		FCPPT_TEXT("config.json"),
-		user_config_file_);
-	*/
+			FCPPT_TEXT("config.json"));
+
+	if(!file.is_open())
+	{
+		// Can't throw in a destructor! So just output this warning
+		fcppt::io::cerr 
+			<< FCPPT_TEXT("Warning: couldn't save user configuration to \"")
+			<<
+				fcppt::filesystem::path_to_string(
+					sge::config::config_path(
+						app::name())/
+						FCPPT_TEXT("config.json"))
+			<< FCPPT_TEXT("\" (couldn't open the file)");
+		return;
+	}
+
+	file << 
+		fruitlib::json::output_tabbed(
+			user_config_file_);
 }
 
 void
