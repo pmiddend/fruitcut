@@ -137,7 +137,8 @@ fruitcut::app::splatter_generator::fruit_was_cut(
 			sge::image::color::any::convert<point_sprite::color::format>(
 				cut_info.old().prototype().splatter_color());
 
-		splatter_color.set<mizuiro::color::channel::alpha>(
+		splatter_color.set(
+			mizuiro::color::channel::alpha(),
 			alpha_rng_());
 
 		point_sprite::splatter::linear_velocity::value_type distortion(

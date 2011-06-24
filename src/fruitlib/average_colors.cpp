@@ -6,7 +6,7 @@
 #include <fcppt/math/dim/dim.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <boost/type_traits/promote.hpp>
-#include <mizuiro/color/homogenous.hpp>
+#include <mizuiro/color/homogenous_static.hpp>
 #include <mizuiro/color/set.hpp>
 #include <mizuiro/color/get.hpp>
 #include <mizuiro/color/for_each_channel.hpp>
@@ -37,7 +37,7 @@ template<typename Input>
 struct promote_homogenous_channels
 {
 	typedef
-	mizuiro::color::homogenous
+	mizuiro::color::homogenous_static
 	<
 		typename boost::promote<typename Input::channel_type>::type,
 		typename Input::layout
@@ -74,8 +74,8 @@ public:
 		mizuiro::color::types::channel_value<typename Color::format,Channel>::type
 		channel_value_type;
 
-		mizuiro::color::set<Channel>(
-			target_color_,
+		target_color_.set(
+			Channel(),
 			static_cast<channel_value_type>(0));
 	}
 private:
@@ -120,12 +120,12 @@ public:
 	operator()(
 		Channel &) const
 	{
-		mizuiro::color::set<Channel>(
-			dest_,
-			mizuiro::color::get<Channel>(
-				dest_) +
-			mizuiro::color::get<Channel>(
-				source_));
+		dest_.set(
+			Channel(),
+			dest_.get(
+				Channel()) +
+			source_.get(
+				Channel()));
 	}
 private:
 	SourceColor const &source_;
@@ -166,11 +166,11 @@ public:
 		mizuiro::color::types::channel_value<typename DestColor::format,Channel>::type
 		destination_channel_type;
 
-		mizuiro::color::set<Channel>(
-			dest_,
+		dest_.set(
+			Channel(),
 			static_cast<destination_channel_type>(
-				mizuiro::color::get<Channel>(
-					source_)/
+				source_.get(
+					Channel())/
 				divisor_));
 	}
 private:

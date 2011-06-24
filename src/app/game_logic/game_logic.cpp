@@ -30,7 +30,7 @@
 #include <sge/time/millisecond.hpp>
 #include <sge/viewport/manager.hpp>
 #include <mizuiro/color/convert.hpp>
-#include <mizuiro/color/homogenous.hpp>
+#include <mizuiro/color/homogenous_static.hpp>
 #include <mizuiro/color/init.hpp>
 #include <mizuiro/color/layout/hsva.hpp>
 #include <mizuiro/color/object.hpp>
@@ -317,7 +317,7 @@ fruitcut::app::game_logic::game_logic::update()
 				sge::image::color::rgba8_format
 			>(
 			mizuiro::color::object<
-				mizuiro::color::homogenous<
+				mizuiro::color::homogenous_static<
 					boost::uint8_t,
 					mizuiro::color::layout::hsva
 				>

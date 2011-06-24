@@ -14,16 +14,6 @@ SET_SOURCE_FILES_PROPERTIES(
 )
 
 ADD_EXECUTABLE(
-	fruitcut_example_accumulate_colors
-	accumulate_colors/accumulate_colors.cpp)
-
-TARGET_LINK_LIBRARIES(
-	fruitcut_example_accumulate_colors
-	${Fcppt_LIBRARIES}
-	${SGE_LIBRARIES}
-	${Boost_LIBRARIES})
-
-ADD_EXECUTABLE(
 	fruitcut_example_duration_string
 	duration_string/duration_string.cpp)
 
