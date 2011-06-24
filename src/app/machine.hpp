@@ -52,6 +52,12 @@ public:
 	sge::parse::json::object const &
 	config_file() const;
 
+	sge::parse::json::object &
+	user_config_file();
+
+	sge::parse::json::object const &
+	user_config_file() const;
+
 	sge::systems::instance const &
 	systems() const;
 

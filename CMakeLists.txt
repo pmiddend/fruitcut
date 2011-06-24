@@ -102,7 +102,10 @@ SET(
 	src/fruitlib/audio/sound_controller_fwd.hpp
 	src/fruitlib/average_colors.cpp
 	src/fruitlib/average_colors.hpp
+	src/fruitlib/command_line_parameters.hpp
 	src/fruitlib/counted_reference.hpp
+	src/fruitlib/create_command_line_parameters.cpp
+	src/fruitlib/create_command_line_parameters.hpp
 	src/fruitlib/cursor_trail.cpp
 	src/fruitlib/cursor_trail.hpp
 	src/fruitlib/cursor_trail_fwd.hpp
@@ -161,6 +164,8 @@ SET(
 	src/fruitlib/json/is_null.cpp
 	src/fruitlib/json/is_null.hpp
 	src/fruitlib/json/member_has_type.hpp
+	src/fruitlib/json/merge_command_line_parameters.cpp
+	src/fruitlib/json/merge_command_line_parameters.hpp
 	src/fruitlib/json/merge_trees.cpp
 	src/fruitlib/json/merge_trees.hpp
 	src/fruitlib/json/parse_animation.hpp
@@ -170,8 +175,6 @@ SET(
 	src/fruitlib/json/parse_random_inclusive_range.hpp
 	src/fruitlib/json/parse_rgba8_color.cpp
 	src/fruitlib/json/parse_rgba8_color.hpp
-	src/fruitlib/json/process_option.cpp
-	src/fruitlib/json/process_option.hpp
 	src/fruitlib/json/string_to_value.cpp
 	src/fruitlib/json/string_to_value.hpp
 	src/fruitlib/log/scoped.cpp
@@ -406,8 +409,6 @@ SET(
 	src/app/background.cpp
 	src/app/background.hpp
 	src/app/background_fwd.hpp
-	src/app/config_wrapper.cpp
-	src/app/config_wrapper.hpp
 	src/app/cut_context_fwd.hpp
 	src/app/dim2.hpp
 	src/app/directional_light_source.cpp
@@ -501,6 +502,8 @@ SET(
 	src/app/game_logic/game_logic.hpp
 	src/app/light_source_from_json.cpp
 	src/app/light_source_from_json.hpp
+	src/app/load_user_config.cpp
+	src/app/load_user_config.hpp
 	src/app/logo.cpp
 	src/app/logo.hpp
 	src/app/machine.cpp

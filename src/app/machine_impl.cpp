@@ -1,11 +1,14 @@
-#include "config_wrapper.hpp"
+#include "machine_impl.hpp"
 #include "../fruitlib/json/parse_projection.hpp"
 #include "../fruitlib/json/find_member.hpp"
+#include "../fruitlib/json/merge_trees.hpp"
+#include "../fruitlib/json/merge_command_line_parameters.hpp"
+#include "../fruitlib/create_command_line_parameters.hpp"
 #include "../fruitlib/log/scoped_sequence_from_json.hpp"
 #include "../fruitlib/rng_creator.hpp"
 #include "../fruitlib/time_format/string_to_duration.hpp"
 #include "light_source_from_json.hpp"
-#include "machine_impl.hpp"
+#include "load_user_config.hpp"
 #include "../media_path.hpp"
 #include "name.hpp"
 #include <sge/audio/player.hpp>
@@ -62,10 +65,17 @@ fruitcut::app::machine_impl::machine_impl(
 	rng_creator_(
 		static_cast<fruitlib::rng_creator::value_type>(
 			fcppt::chrono::high_resolution_clock::now().time_since_epoch().count())),
+	user_config_file_(
+		app::load_user_config()),
 	config_file_(
-		app::config_wrapper(
-			argc,
-			argv)),
+		fruitlib::json::merge_command_line_parameters(
+			fruitlib::json::merge_trees(
+				sge::parse::json::parse_file_exn(
+					fruitcut::media_path()/FCPPT_TEXT("config.json")),
+				user_config_file_),
+			fruitlib::create_command_line_parameters(
+				argc,
+				argv))),
 	systems_(
 		sge::systems::list()
 			(sge::systems::window(
@@ -326,6 +336,18 @@ sge::parse::json::object const &
 fruitcut::app::machine_impl::config_file() const
 {
 	return config_file_;
+}
+
+sge::parse::json::object &
+fruitcut::app::machine_impl::user_config_file() 
+{
+	return user_config_file_;
+}
+
+sge::parse::json::object const &
+fruitcut::app::machine_impl::user_config_file() const
+{
+	return user_config_file_;
 }
 
 sge::systems::instance const &

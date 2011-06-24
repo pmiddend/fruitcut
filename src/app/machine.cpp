@@ -9,7 +9,6 @@
 #include <fcppt/text.hpp>
 #include <fcppt/type_name.hpp>
 #include <typeinfo>
-#include <iostream>
 
 fruitcut::app::machine::machine(
 	int argc,
@@ -34,6 +33,18 @@ sge::parse::json::object const &
 fruitcut::app::machine::config_file() const
 {
 	return impl_->config_file();
+}
+
+sge::parse::json::object &
+fruitcut::app::machine::user_config_file()
+{
+	return impl_->user_config_file();
+}
+
+sge::parse::json::object const &
+fruitcut::app::machine::user_config_file() const
+{
+	return impl_->user_config_file();
 }
 
 sge::systems::instance const &
@@ -61,11 +72,8 @@ fruitcut::app::machine::run()
 			queued_event_list::const_iterator current_event = queued_events_.begin(); 
 			current_event != queued_events_.end();
 			++current_event)
-		{
-			std::cerr << "processing event: " << fcppt::type_name(typeid(**current_event)) << "\n";
 			base::process_event(
 				**current_event);
-		}
 		queued_events_.clear();
 	}
 }
