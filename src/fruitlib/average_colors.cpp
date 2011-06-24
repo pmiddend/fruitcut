@@ -7,8 +7,6 @@
 #include <fcppt/from_std_string.hpp>
 #include <boost/type_traits/promote.hpp>
 #include <mizuiro/color/homogenous_static.hpp>
-#include <mizuiro/color/set.hpp>
-#include <mizuiro/color/get.hpp>
 #include <mizuiro/color/for_each_channel.hpp>
 #include <mizuiro/color/types/channel_value.hpp>
 #include <mizuiro/color/object.hpp>

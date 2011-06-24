@@ -3,6 +3,7 @@
 #include "../fruitlib/json/parse_projection.hpp"
 #include "../fruitlib/json/find_member.hpp"
 #include "../fruitlib/json/merge_trees.hpp"
+#include "../fruitlib/json/output_tabbed.hpp"
 #include "../fruitlib/json/merge_command_line_parameters.hpp"
 #include "../fruitlib/create_command_line_parameters.hpp"
 #include "../fruitlib/log/scoped_sequence_from_json.hpp"
@@ -590,11 +591,11 @@ fruitcut::app::machine_impl::fruit_prototypes()
 fruitcut::app::machine_impl::~machine_impl()
 {
 	/*
-	sge::parse::json::output::to_file(
+	fruitlib::json::output_tabbed(
 		sge::config::config_path(
 			app::name())/
 		FCPPT_TEXT("config.json"),
-		user_config_);
+		user_config_file_);
 	*/
 }
 
