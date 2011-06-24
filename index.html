@@ -169,7 +169,14 @@ The libraries needed to run fruitcut are partially available in portage (OpenAL,
 <p>
 <code>git://github.com/freundlich/freundlich-gentoo.git</code>
 </p>
+<p>
+We <strong>strongly</strong> recommend using <code>~amd64</code> or
+<code>~x86</code>, respectively since fruitcut depends heavily on packages with
+this keyword (for example, the latest boost version is keyworded).
+</p>
+<p>
 If you're using <a href="http://paludis.pioto.org/">paludis</a>, put a new file <code>freundlich.conf</code> in <code>/etc/paludis/repositories</code> containing roughly the following:
+</p>
 <pre>
 master_repository = gentoo
 location=${ROOT}/var/paludis/repositories/freundlich
@@ -178,12 +185,30 @@ format=e
 names_cache=/var/cache/paludis/names
 sync=git://github.com/freundlich/freundlich-gentoo.git
 </pre>
+<p>
 You might have to change the <code>location</code> line to fit your needs.
 After that, you have to enable the corresponding use flags. Which flags you set
 depends on your system configuration, so I leave it up to you. There are use
 dependencies, though, so you'll be warned if anything is missing. 
+</p>
+<p>
+If you're using <strong>emerge</strong>, you can use <a href="http://layman.sourceforge.net">layman</a> to add the repository:
+</p>
+<pre>
+layman --overlays='packaging/layman_repositories.xml' -a freundlich-gentoo
+</pre>
+<p>
+If you've never used layman before, you need to add the following line to your <code>/etc/make.conf</code> file:
+</p>
+<pre>
+source /var/lib/layman/make.conf
+</pre>
+<p>
+After doing that, you can install fruitcut using <code>emerge fruitcut</code>.
+Be aware, though, that you probably need to set some use flags and/or keywords
+to make it work. It depends on your system configuration.
+</p>
 </div>
-
 <a name="arch">
 </a>
 <h3>
@@ -228,7 +253,7 @@ packages):
 <li><a href="http://www.xiph.org/vorbis/">libvorbis</a></li>
 </ol>
 <p>
-Then, download <a href="compile_and_install_fruitcut">this script</a>
+Then, download <a href="packaging/compile_and_install_fruitcut">this script</a>
 and run it. It'll try to download all the libraries to a work
 directory, build them there, and install to the directory you specify
 in the second argument, for example:

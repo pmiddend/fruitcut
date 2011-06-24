@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<repositories xmlns="" version="1.0">
+	<repo quality="experimental" status="unofficial">
+		<name><![CDATA[freundlich-gentoo]]></name>
+		<homepage>http://github.com/freundlich/freundlich-gentoo</homepage>
+		<owner type="person">
+			<email>sefi@s-e-f-i.de</email>
+			<name><![CDATA[Philipp Reh]]></name>
+		</owner>
+		<source type="git">git://github.com/freundlich/freundlich-gentoo.git</source>
+	</repo>
+</repositories>
