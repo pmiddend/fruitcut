@@ -52,6 +52,7 @@ FIND_PACKAGE(
 	input
 	renderer
 	line_drawer
+	model
 	parse 
 	shader
 	sprite 
@@ -168,6 +169,8 @@ SET(
 	src/fruitlib/json/merge_command_line_parameters.hpp
 	src/fruitlib/json/merge_trees.cpp
 	src/fruitlib/json/merge_trees.hpp
+	src/fruitlib/json/output_tabbed.cpp
+	src/fruitlib/json/output_tabbed.hpp
 	src/fruitlib/json/parse_animation.hpp
 	src/fruitlib/json/parse_color.hpp
 	src/fruitlib/json/parse_projection.cpp

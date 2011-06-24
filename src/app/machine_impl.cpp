@@ -1,4 +1,5 @@
 #include "machine_impl.hpp"
+#include "name.hpp"
 #include "../fruitlib/json/parse_projection.hpp"
 #include "../fruitlib/json/find_member.hpp"
 #include "../fruitlib/json/merge_trees.hpp"
@@ -20,6 +21,7 @@
 #include <sge/console/console.hpp>
 #include <sge/extension_set.hpp>
 #include <sge/font/size_type.hpp>
+#include <sge/config/config_path.hpp>
 #include <sge/font/system.hpp>
 #include <sge/font/text/lit.hpp>
 #include <sge/image/colors.hpp>
@@ -587,6 +589,13 @@ fruitcut::app::machine_impl::fruit_prototypes()
 
 fruitcut::app::machine_impl::~machine_impl()
 {
+	/*
+	sge::parse::json::output::to_file(
+		sge::config::config_path(
+			app::name())/
+		FCPPT_TEXT("config.json"),
+		user_config_);
+	*/
 }
 
 void
