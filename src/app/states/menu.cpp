@@ -2,7 +2,7 @@
 #include "ingame/running.hpp"
 #include "../events/generic_transition.hpp"
 #include "../../fruitlib/time_format/string_to_duration_exn.hpp"
-#include "../../fruitlib/json/find_member.hpp"
+#include "../../fruitlib/json/find_and_convert_member.hpp"
 #include "../../fruitlib/resource_tree/path.hpp"
 #include "../../fruitlib/audio/sound_controller.hpp"
 #include "../../fruitlib/audio/music_controller.hpp"
@@ -39,9 +39,11 @@ fruitcut::app::states::menu::menu(
 	// Those timers will be activated as soon as we have a viewport
 	saturation_timer_(
 		fruitlib::time_format::string_to_duration_exn<sge::time::duration>(
-			fruitlib::json::find_member<fcppt::string>(
+			fruitlib::json::find_and_convert_member<fcppt::string>(
 				context<machine>().config_file(),
-				FCPPT_TEXT("menu/desaturation-time"))),
+				fruitlib::json::path(
+					FCPPT_TEXT("menu"))
+					/ FCPPT_TEXT("desaturation-time"))),
 		sge::time::activation_state::inactive,
 		context<machine>().timer_callback()),
 	viewport_change_connection_(

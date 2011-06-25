@@ -1,5 +1,5 @@
 #include "parse_projection.hpp"
-#include "find_member.hpp"
+#include "find_and_convert_member.hpp"
 #include <sge/camera/projection/projection.hpp>
 #include <sge/renderer/scalar.hpp>
 #include <fcppt/math/deg_to_rad.hpp>
@@ -13,9 +13,9 @@ fruitcut::fruitlib::json::parse_projection(
 	fcppt::optional<sge::renderer::scalar> const &aspect)
 {
 	if(
-		json::find_member<fcppt::string>(
+		json::find_and_convert_member<fcppt::string>(
 			o,
-			FCPPT_TEXT("type")) == FCPPT_TEXT("orthogonal"))
+			json::path(FCPPT_TEXT("type"))) == FCPPT_TEXT("orthogonal"))
 		return sge::camera::projection::orthogonal();
 
 	return 
@@ -24,17 +24,17 @@ fruitcut::fruitlib::json::parse_projection(
 			?
 				*aspect
 			:
-				json::find_member<sge::renderer::scalar>(
+				json::find_and_convert_member<sge::renderer::scalar>(
 					o,
-					FCPPT_TEXT("aspect")),
+					json::path(FCPPT_TEXT("aspect"))),
 			fcppt::math::deg_to_rad(
-				json::find_member<sge::renderer::scalar>(
+				json::find_and_convert_member<sge::renderer::scalar>(
 					o,
-					FCPPT_TEXT("fov"))),
-			json::find_member<sge::renderer::scalar>(
+					json::path(FCPPT_TEXT("fov")))),
+			json::find_and_convert_member<sge::renderer::scalar>(
 				o,
-				FCPPT_TEXT("near")),
-			json::find_member<sge::renderer::scalar>(
+				json::path(FCPPT_TEXT("near"))),
+			json::find_and_convert_member<sge::renderer::scalar>(
 				o,
-				FCPPT_TEXT("far")));
+				json::path(FCPPT_TEXT("far"))));
 }

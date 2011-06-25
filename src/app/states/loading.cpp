@@ -3,7 +3,7 @@
 #include "ingame/running.hpp"
 #include "../fruit/prototype_from_json.hpp"
 #include "../events/generic_transition.hpp"
-#include "../../fruitlib/json/find_member.hpp"
+#include "../../fruitlib/json/find_and_convert_member.hpp"
 #include "../../fruitlib/json/parse_color.hpp"
 #include "../../fruitlib/font/object_parameters.hpp"
 #include "../../fruitlib/font/cache.hpp"
@@ -38,9 +38,10 @@ fruitcut::app::states::loading::loading(
 				&loading::viewport_change,
 				this))),
 	fruit_array_(
-		fruitlib::json::find_member<sge::parse::json::array>(
+		fruitlib::json::find_and_convert_member<sge::parse::json::array>(
 			context<machine>().config_file(),
-			FCPPT_TEXT("fruits")).elements),
+			fruitlib::json::path(
+				FCPPT_TEXT("fruits"))).elements),
 	current_fruit_(
 		fruit_array_.begin()),
 	font_node_(
@@ -55,9 +56,11 @@ fruitcut::app::states::loading::loading(
 			sge::font::text::align_v::top,
 			sge::font::text::flags::none),
 		fruitlib::json::parse_color<sge::image::color::rgba8>(
-			fruitlib::json::find_member<sge::parse::json::value>(
+			fruitlib::json::find_and_convert_member<sge::parse::json::value>(
 				context<machine>().config_file(),
-				FCPPT_TEXT("loading/font-color"))),
+				fruitlib::json::path(
+					FCPPT_TEXT("loading"))
+					/ FCPPT_TEXT("font-color"))),
 		static_cast<fruitlib::scenic::scale>(
 			1))
 {

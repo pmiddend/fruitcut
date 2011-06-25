@@ -4,7 +4,7 @@
 #include "../../fruitlib/physics/vector3.hpp"
 #include "../../fruitlib/physics/matrix4.hpp"
 #include "../../fruitlib/rng_creator.hpp"
-#include "../../fruitlib/json/find_member.hpp"
+#include "../../fruitlib/json/find_and_convert_member.hpp"
 #include "../../fruitlib/json/parse_random_inclusive_range.hpp"
 #include "../../fruitlib/math/box_radius.hpp"
 #include "../../fruitlib/math/view_plane_rect.hpp"
@@ -47,9 +47,11 @@ fruitcut::app::fruit::spawner::spawner(
 		_camera),
 	seconds_rng_(
 		fruitlib::json::parse_random_inclusive_range<fruitlib::physics::scalar>(
- 			fruitlib::json::find_member<sge::parse::json::array>(
+ 			fruitlib::json::find_and_convert_member<sge::parse::json::array>(
 				_config_file,
-				FCPPT_TEXT("fruit-spawner/spawn-range-seconds"))),
+				fruitlib::json::path(
+					FCPPT_TEXT("fruit-spawner"))
+					/ FCPPT_TEXT("spawn-range-seconds"))),
 		_rng_creator.create()),
 	prototype_rng_(
 		fcppt::random::make_last_exclusive_range(
@@ -66,15 +68,19 @@ fruitcut::app::fruit::spawner::spawner(
 		_rng_creator.create()),
 	linear_velocity_rng_(
 		fruitlib::json::parse_random_inclusive_range<fruitlib::physics::scalar>(
- 			fruitlib::json::find_member<sge::parse::json::array>(
+ 			fruitlib::json::find_and_convert_member<sge::parse::json::array>(
 				_config_file,
-				FCPPT_TEXT("fruit-spawner/linear-velocity-range"))),
+				fruitlib::json::path(
+					FCPPT_TEXT("fruit-spawner"))
+					/ FCPPT_TEXT("linear-velocity-range"))),
 		_rng_creator.create()),
 	angular_velocity_rng_(
 		fruitlib::json::parse_random_inclusive_range<fruitlib::physics::scalar>(
- 			fruitlib::json::find_member<sge::parse::json::array>(
+ 			fruitlib::json::find_and_convert_member<sge::parse::json::array>(
 				_config_file,
-				FCPPT_TEXT("fruit-spawner/angular-velocity-range"))),
+				fruitlib::json::path(
+					FCPPT_TEXT("fruit-spawner"))
+					/ FCPPT_TEXT("angular-velocity-range"))),
 		_rng_creator.create()),
 	angle_rng_(
 		fcppt::random::make_inclusive_range(

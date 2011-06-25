@@ -1,7 +1,7 @@
 #ifndef FRUITCUT_FRUITLIB_JSON_PARSE_ANIMATION_HPP_INCLUDED
 #define FRUITCUT_FRUITLIB_JSON_PARSE_ANIMATION_HPP_INCLUDED
 
-#include "find_member.hpp"
+#include "find_and_convert_member.hpp"
 #include "../animation.hpp"
 #include "../exception.hpp"
 #include <sge/parse/json/array.hpp>
@@ -53,9 +53,10 @@ parse_animation(
 					o.members,
 					FCPPT_TEXT("time"));
 			sge::parse::json::value const &colorvalue = 
-				fruitlib::json::find_member<sge::parse::json::value>(
+				fruitlib::json::find_and_convert_member<sge::parse::json::value>(
 						o,
-						FCPPT_TEXT("color"));
+						fruitlib::json::path(
+							FCPPT_TEXT("color")));
 
 			values.push_back(
 				value_type(

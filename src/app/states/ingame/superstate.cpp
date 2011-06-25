@@ -7,7 +7,7 @@
 #include "../../../fruitlib/audio/sound_controller.hpp"
 #include "../../../fruitlib/resource_tree/path.hpp"
 #include "../../../fruitlib/input/state.hpp"
-#include "../../../fruitlib/json/find_member.hpp"
+#include "../../../fruitlib/json/find_and_convert_member.hpp"
 #include "../../../fruitlib/json/parse_color.hpp"
 #include "../../../fruitlib/physics/vector3.hpp"
 #include "../../../fruitlib/physics/rigid_body/parameters.hpp"
@@ -51,9 +51,11 @@ fruitcut::app::states::ingame::superstate::superstate(
 	physics_world_(
 		// The box is ignored for now
 		fruitlib::physics::box(),
-		fruitlib::json::find_member<fruitlib::physics::vector3>(
+		fruitlib::json::find_and_convert_member<fruitlib::physics::vector3>(
 			context<machine>().config_file(),
-			FCPPT_TEXT("physics/gravity"))),
+			fruitlib::json::path(
+				FCPPT_TEXT("physics"))
+				/ FCPPT_TEXT("gravity"))),
 	physics_world_node_(
 		physics_world_,
 		context<machine>().timer_callback()),
@@ -81,9 +83,10 @@ fruitcut::app::states::ingame::superstate::superstate(
 		fruit_manager_,
 		context<machine>().camera(),
 		context<machine>().main_light_source(),
-		fruitlib::json::find_member<sge::renderer::scalar>(
+		fruitlib::json::find_and_convert_member<sge::renderer::scalar>(
 			context<machine>().config_file(),
-			FCPPT_TEXT("ambient-intensity"))),
+			fruitlib::json::path(
+				FCPPT_TEXT("ambient-intensity")))),
 	fruit_shadow_render_node_(
 		context<machine>().systems().renderer(),
 		fruit_manager_.vertex_declaration(),

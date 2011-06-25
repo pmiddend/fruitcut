@@ -1,18 +1,12 @@
 #include "cache.hpp"
 #include "drawer/object.hpp"
 #include "drawer/parameters.hpp"
-#include "../json/find_member.hpp"
+#include "../json/find_and_convert_member.hpp"
 #include <sge/font/system_ptr.hpp>
 #include <sge/font/bitmap/create.hpp>
 #include <sge/renderer/device_ptr.hpp>
 #include <sge/image2d/multi_loader.hpp>
-#include <sge/parse/json/object.hpp>
-#include <sge/parse/json/value.hpp>
-#include <sge/parse/json/array.hpp>
-#include <sge/parse/json/member_vector.hpp>
-#include <sge/parse/json/find_member_exn.hpp>
-#include <sge/parse/json/string.hpp>
-#include <sge/parse/json/get.hpp>
+#include <sge/parse/json/json.hpp>
 #include <sge/font/size_type.hpp>
 #include <sge/font/system.hpp>
 #include <fcppt/string.hpp>
@@ -24,7 +18,6 @@
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/tr1/type_traits.hpp>
 #include <boost/next_prior.hpp>
-#include <boost/static_assert.hpp>
 #include <iostream>
 #include <utility>
 #include <map>
@@ -68,9 +61,6 @@ fruitcut::fruitlib::font::cache::cache(
 		current_font_raw != _fonts.members.end();
 		++current_font_raw)
 	{
-		BOOST_STATIC_ASSERT(
-			(std::tr1::is_same<sge::parse::json::string,fcppt::string>::value));
-
 		fcppt::string const current_identifier = 
 			current_font_raw->name;
 
@@ -86,9 +76,10 @@ fruitcut::fruitlib::font::cache::cache(
 		if(fcppt::filesystem::extension_without_dot(filename) == FCPPT_TEXT("ttf"))
 		{
 			sge::font::size_type font_size = 
-				json::find_member<sge::font::size_type>(
+				json::find_and_convert_member<sge::font::size_type>(
 					current_font,
-					FCPPT_TEXT("size"));
+					json::path(
+						FCPPT_TEXT("size")));
 		
 			// (string,size) -> (metrics_it,drawer_it)
 			ttf_font_cache::iterator cached_value = 

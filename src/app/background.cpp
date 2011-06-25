@@ -1,6 +1,6 @@
 #include "background.hpp"
 #include "../media_path.hpp"
-#include "../fruitlib/json/find_member.hpp"
+#include "../fruitlib/json/find_and_convert_member.hpp"
 #include "../fruitlib/math/view_plane_rect.hpp"
 #include <sge/viewport/manager.hpp>
 #include <sge/parse/json/json.hpp>
@@ -121,9 +121,11 @@ fruitcut::app::background::background(
 				/ 
 					FCPPT_TEXT("textures")
 				/ 
-					fruitlib::json::find_member<fcppt::string>(
+					fruitlib::json::find_and_convert_member<fcppt::string>(
 						_config,
-						FCPPT_TEXT("textures/background")),
+						fruitlib::json::path(
+							FCPPT_TEXT("textures"))/
+							FCPPT_TEXT("background")),
 			renderer_,
 			_image_loader,
 			sge::renderer::texture::filter::linear,
@@ -164,9 +166,10 @@ fruitcut::app::background::background(
 					"shadow_map",
 					_shadow_texture)))),
 	reps_(
-		fruitlib::json::find_member<sge::renderer::scalar>(
+		fruitlib::json::find_and_convert_member<sge::renderer::scalar>(
 			_config,
-			FCPPT_TEXT("background-repeat"))),
+			fruitlib::json::path(
+				FCPPT_TEXT("background-repeat")))),
 	viewport_changed_connection_(
 		_viewport_manager.manage_callback(
 			std::tr1::bind(

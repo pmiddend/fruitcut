@@ -160,15 +160,23 @@ SET(
 	src/fruitlib/input/state_manager.hpp
 	src/fruitlib/input/state_manager_fwd.hpp
 	src/fruitlib/json/array_to_vector.hpp
-	src/fruitlib/json/convert.hpp
-	src/fruitlib/json/find_member.hpp
+	src/fruitlib/json/convert_from.hpp
+	src/fruitlib/json/convert_to.hpp
+	src/fruitlib/json/find_and_convert_member.hpp
+	src/fruitlib/json/find_object.cpp
+	src/fruitlib/json/find_object.hpp
+	src/fruitlib/json/find_object_exn.cpp
+	src/fruitlib/json/find_object_exn.hpp
 	src/fruitlib/json/is_null.cpp
 	src/fruitlib/json/is_null.hpp
-	src/fruitlib/json/member_has_type.hpp
+	src/fruitlib/json/make_recursive_objects.cpp
+	src/fruitlib/json/make_recursive_objects.hpp
 	src/fruitlib/json/merge_command_line_parameters.cpp
 	src/fruitlib/json/merge_command_line_parameters.hpp
 	src/fruitlib/json/merge_trees.cpp
 	src/fruitlib/json/merge_trees.hpp
+	src/fruitlib/json/modify_user_value.cpp
+	src/fruitlib/json/modify_user_value.hpp
 	src/fruitlib/json/output_tabbed.cpp
 	src/fruitlib/json/output_tabbed.hpp
 	src/fruitlib/json/parse_animation.hpp
@@ -178,8 +186,16 @@ SET(
 	src/fruitlib/json/parse_random_inclusive_range.hpp
 	src/fruitlib/json/parse_rgba8_color.cpp
 	src/fruitlib/json/parse_rgba8_color.hpp
+	src/fruitlib/json/path.cpp
+	src/fruitlib/json/path.hpp
+	src/fruitlib/json/path_fwd.hpp
+	src/fruitlib/json/path_to_string.cpp
+	src/fruitlib/json/path_to_string.hpp
+	src/fruitlib/json/string_to_path.cpp
+	src/fruitlib/json/string_to_path.hpp
 	src/fruitlib/json/string_to_value.cpp
 	src/fruitlib/json/string_to_value.hpp
+	src/fruitlib/json/update_member.hpp
 	src/fruitlib/log/scoped.cpp
 	src/fruitlib/log/scoped.hpp
 	src/fruitlib/log/scoped_sequence.hpp

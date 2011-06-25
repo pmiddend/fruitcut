@@ -10,7 +10,7 @@
 #include "../../fruit/hull/projected.hpp"
 #include "../../fruit/hull/ring.hpp"
 #include "../../events/generic_transition.hpp"
-#include "../../../fruitlib/json/find_member.hpp"
+#include "../../../fruitlib/json/find_and_convert_member.hpp"
 #include "../../../fruitlib/math/multiply_matrix4_vector3.hpp"
 #include "../../../fruitlib/resource_tree/path.hpp"
 #include "../../../fruitlib/audio/sound_controller.hpp"
@@ -65,12 +65,14 @@ fruitcut::app::states::ingame::running::running(
 	cursor_trail_(
 		context<machine>().systems().cursor_demuxer(),
 		sge::time::millisecond(
-			fruitlib::json::find_member<sge::time::unit>(
+			fruitlib::json::find_and_convert_member<sge::time::unit>(
 				context<machine>().config_file(),
-				FCPPT_TEXT("mouse/trail-update-rate-ms"))),
-		fruitlib::json::find_member<fruitlib::cursor_trail::size_type>(
+				fruitlib::json::path(FCPPT_TEXT("mouse"))
+					/ FCPPT_TEXT("trail-update-rate-ms"))),
+		fruitlib::json::find_and_convert_member<fruitlib::cursor_trail::size_type>(
 				context<machine>().config_file(),
-				FCPPT_TEXT("mouse/trail-samples")),
+				fruitlib::json::path(FCPPT_TEXT("mouse"))
+					/ FCPPT_TEXT("trail-samples")),
 		context<machine>().systems().renderer().onscreen_target()),
 	cursor_trail_node_(
 		cursor_trail_),
@@ -92,13 +94,15 @@ fruitcut::app::states::ingame::running::running(
 				fruitlib::resource_tree::path(
 					FCPPT_TEXT("fruit_was_spawned"))))),
 	draw_mouse_trail_(
-		fruitlib::json::find_member<bool>(
+		fruitlib::json::find_and_convert_member<bool>(
 			context<machine>().config_file(),
-			FCPPT_TEXT("ingame/draw-mouse-trail"))),
+			fruitlib::json::path(FCPPT_TEXT("ingame"))
+				/ FCPPT_TEXT("draw-mouse-trail"))),
 	draw_bbs_(
-		fruitlib::json::find_member<bool>(
+		fruitlib::json::find_and_convert_member<bool>(
 			context<machine>().config_file(),
-			FCPPT_TEXT("ingame/draw-bbs"))),
+			fruitlib::json::path(FCPPT_TEXT("ingame"))
+				/ FCPPT_TEXT("draw-bbs"))),
 	transit_to_paused_connection_(
 		context<machine>().game_input_state().key_callback(
 			sge::input::keyboard::action(

@@ -1,7 +1,7 @@
 #include "machine_impl.hpp"
 #include "name.hpp"
 #include "../fruitlib/json/parse_projection.hpp"
-#include "../fruitlib/json/find_member.hpp"
+#include "../fruitlib/json/find_and_convert_member.hpp"
 #include "../fruitlib/json/merge_trees.hpp"
 #include "../fruitlib/json/output_tabbed.hpp"
 #include "../fruitlib/json/merge_command_line_parameters.hpp"
@@ -87,9 +87,10 @@ fruitcut::app::machine_impl::machine_impl(
 			(sge::systems::window(
 				sge::window::simple_parameters(
 					app::name(),
-					fruitlib::json::find_member<sge::window::dim>(
+					fruitlib::json::find_and_convert_member<sge::window::dim>(
 						config_file_,
-						FCPPT_TEXT("graphics/window-size")))))
+						fruitlib::json::path(
+							FCPPT_TEXT("graphics/window-size"))))))
 			(sge::systems::renderer(
 				sge::renderer::parameters(
 					sge::renderer::visual_depth::depth32,
@@ -126,17 +127,20 @@ fruitcut::app::machine_impl::machine_impl(
 	activated_loggers_(
 		fruitlib::log::scoped_sequence_from_json(
 			sge::log::global_context(),
-			fruitlib::json::find_member<sge::parse::json::array>(
+			fruitlib::json::find_and_convert_member<sge::parse::json::array>(
 				config_file_,
-				FCPPT_TEXT("loggers/sge")))),
+				fruitlib::json::path(
+					FCPPT_TEXT("loggers"))
+					/ FCPPT_TEXT("sge")))),
 	font_cache_(
 		systems_.font_system(),
 		systems_.renderer(),
 		systems_.image_loader(),
 		fruitcut::media_path(),
-		fruitlib::json::find_member<sge::parse::json::object>(
+		fruitlib::json::find_and_convert_member<sge::parse::json::object>(
 			config_file_,
-			FCPPT_TEXT("fonts"))),
+			fruitlib::json::path(
+				FCPPT_TEXT("fonts")))),
 	input_manager_(
 		systems_),
 	console_state_(
@@ -150,12 +154,16 @@ fruitcut::app::machine_impl::machine_impl(
 			fruitcut::media_path()
 				/ FCPPT_TEXT("fonts")
 				/ 
-					fruitlib::json::find_member<fcppt::string>(
+					fruitlib::json::find_and_convert_member<fcppt::string>(
 						config_file(),
-						FCPPT_TEXT("console/font")),
-			fruitlib::json::find_member<sge::font::size_type>(
+						fruitlib::json::path(
+							FCPPT_TEXT("console"))
+							/ FCPPT_TEXT("font")),
+			fruitlib::json::find_and_convert_member<sge::font::size_type>(
 				config_file(),
-				FCPPT_TEXT("console/font-size")))),
+				fruitlib::json::path(
+					FCPPT_TEXT("console"))
+					/ FCPPT_TEXT("font-size")))),
 	console_gfx_(
 		console_object_,
 		systems_.renderer(),
@@ -171,9 +179,11 @@ fruitcut::app::machine_impl::machine_impl(
 							fruitcut::media_path()
 							/ FCPPT_TEXT("textures")
 							/ 
-								fruitlib::json::find_member<fcppt::string>(
+								fruitlib::json::find_and_convert_member<fcppt::string>(
 									config_file(),
-									FCPPT_TEXT("console/background-texture")),
+									fruitlib::json::path(
+										FCPPT_TEXT("console"))
+										/ FCPPT_TEXT("background-texture")),
 							systems_.renderer(),
 							systems_.image_loader(),
 							sge::renderer::texture::filter::linear,
@@ -186,9 +196,11 @@ fruitcut::app::machine_impl::machine_impl(
 				// We cannot specify a dimension here since we don't have a viewport yet
         sge::console::sprite_object::dim::null())
       .elements()),
-		fruitlib::json::find_member<sge::console::output_line_limit>(
+		fruitlib::json::find_and_convert_member<sge::console::output_line_limit>(
 			config_file(),
-			FCPPT_TEXT("console/line-limit"))),
+			fruitlib::json::path(
+				FCPPT_TEXT("console"))
+				/ FCPPT_TEXT("line-limit"))),
 	console_node_(
 		console_gfx_),
 	current_time_(
@@ -217,32 +229,42 @@ fruitcut::app::machine_impl::machine_impl(
 		systems_.audio_loader(),
 		systems_.audio_player(),
 		*fruitlib::time_format::string_to_duration<sge::time::duration>(
-			fruitlib::json::find_member<fcppt::string>(
+			fruitlib::json::find_and_convert_member<fcppt::string>(
 				config_file(),
-				FCPPT_TEXT("music/crossfade-time"))),
+				fruitlib::json::path(
+					FCPPT_TEXT("music"))
+					/ FCPPT_TEXT("crossfade-time"))),
 		fruitcut::media_path()/FCPPT_TEXT("music"),
-		fruitlib::json::find_member<sge::audio::scalar>(
+		fruitlib::json::find_and_convert_member<sge::audio::scalar>(
 			config_file(),
-			FCPPT_TEXT("music/volume"))),
+			fruitlib::json::path(
+				FCPPT_TEXT("music"))
+				/ FCPPT_TEXT("volume"))),
 	music_controller_node_(
 		music_controller_),
 	camera_(
 		sge::camera::parameters(
 			// Leave projection object empty for now, we have to wait for a viewport change
 			sge::camera::projection::object(),
-			fruitlib::json::find_member<sge::renderer::scalar>(
+			fruitlib::json::find_and_convert_member<sge::renderer::scalar>(
 				config_file_,
-				FCPPT_TEXT("ingame/camera/movement-speed")),
+				fruitlib::json::path(FCPPT_TEXT("ingame"))
+					/ FCPPT_TEXT("camera")
+					/ FCPPT_TEXT("movement-speed")),
 			// mousespeed
-			fruitlib::json::find_member<sge::renderer::scalar>(
+			fruitlib::json::find_and_convert_member<sge::renderer::scalar>(
 				config_file_,
-				FCPPT_TEXT("ingame/camera/mouse-speed")),
+				fruitlib::json::path(FCPPT_TEXT("ingame"))
+					/ FCPPT_TEXT("camera")
+					/ FCPPT_TEXT("mouse-speed")),
 			// position
 			sge::camera::identity_gizmo()
 				.position(
-					fruitlib::json::find_member<sge::renderer::vector3>(
+					fruitlib::json::find_and_convert_member<sge::renderer::vector3>(
 						config_file_,
-						FCPPT_TEXT("ingame/camera/initial-position"))),
+						fruitlib::json::path(FCPPT_TEXT("ingame"))
+							/ FCPPT_TEXT("camera")
+							/ FCPPT_TEXT("initial-position"))),
 			// Maus und Keyboard
 			game_state_,
 			game_state_,
@@ -266,9 +288,10 @@ fruitcut::app::machine_impl::machine_impl(
 				this))),
 	main_light_source_(
 		app::light_source_from_json(
-			fruitlib::json::find_member<sge::parse::json::object>(
+			fruitlib::json::find_and_convert_member<sge::parse::json::object>(
 				config_file_,
-				FCPPT_TEXT("main-light-source")))),
+				fruitlib::json::path(
+					FCPPT_TEXT("main-light-source"))))),
 	shadow_map_(
 		config_file_,
 		systems_.renderer(),
@@ -282,9 +305,10 @@ fruitcut::app::machine_impl::machine_impl(
 		config_file_,
 		camera_),
 	desired_fps_(
-		fruitlib::json::find_member<fcppt::chrono::milliseconds::rep>(
+		fruitlib::json::find_and_convert_member<fcppt::chrono::milliseconds::rep>(
 			config_file(),
-			FCPPT_TEXT("graphics/desired-fps"))),
+			fruitlib::json::path(FCPPT_TEXT("graphics"))
+				/ FCPPT_TEXT("desired-fps"))),
 	gui_system_(
 		sge::cegui::load_context(
 			fruitcut::media_path()/FCPPT_TEXT("gui")/FCPPT_TEXT("fruitcut.scheme"))
@@ -333,9 +357,10 @@ fruitcut::app::machine_impl::machine_impl(
 	input_manager_.current_state(
 		game_state_);
 	systems_.audio_player().gain(
-		fruitlib::json::find_member<sge::audio::scalar>(
+		fruitlib::json::find_and_convert_member<sge::audio::scalar>(
 			config_file(),
-			FCPPT_TEXT("audio-volume")));
+			fruitlib::json::path(
+				FCPPT_TEXT("audio-volume"))));
 }
 
 sge::parse::json::object const &
@@ -660,9 +685,11 @@ fruitcut::app::machine_impl::viewport_change()
 	background_.viewport_changed();
 	camera_.projection_object(
 		fruitlib::json::parse_projection(
-			fruitlib::json::find_member<sge::parse::json::object>(
+			fruitlib::json::find_and_convert_member<sge::parse::json::object>(
 				config_file_,
-				FCPPT_TEXT("ingame/camera/projection")),
+				fruitlib::json::path(FCPPT_TEXT("ingame"))
+					/ FCPPT_TEXT("camera")
+					/ FCPPT_TEXT("projection")),
 			sge::renderer::aspect(
 				sge::renderer::viewport_size(
 					systems_.renderer()))));

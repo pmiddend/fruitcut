@@ -1,6 +1,6 @@
 #include "postprocessing.hpp"
 #include "../media_path.hpp"
-#include "../fruitlib/json/find_member.hpp"
+#include "../fruitlib/json/find_and_convert_member.hpp"
 #include "../fruitlib/pp/dependency_set.hpp"
 #include "../fruitlib/pp/texture/depth_stencil_format.hpp"
 #include "../fruitlib/pp/texture/use_screen_size.hpp"
@@ -47,22 +47,26 @@ fruitcut::app::postprocessing::postprocessing(
 		_renderer,
 		filter_manager_,
 		texture_manager_,
-		fruitlib::json::find_member<sge::renderer::dim2>(
+		fruitlib::json::find_and_convert_member<sge::renderer::dim2>(
 			config,
-			FCPPT_TEXT("bloom-size")),
-		fruitlib::json::find_member<sge::renderer::scalar>(
+			fruitlib::json::path(
+				FCPPT_TEXT("bloom-size"))),
+		fruitlib::json::find_and_convert_member<sge::renderer::scalar>(
 			config,
-			FCPPT_TEXT("highlight-threshold"))),
+			fruitlib::json::path(
+				FCPPT_TEXT("highlight-threshold")))),
 	blur_filter_(
 		_renderer,
 		filter_manager_,
 		texture_manager_,
-		fruitlib::json::find_member<sge::renderer::dim2>(
+		fruitlib::json::find_and_convert_member<sge::renderer::dim2>(
 			config,
-			FCPPT_TEXT("bloom-size")),
-		fruitlib::json::find_member<fruitlib::pp::filter::blur::size_type>(
+			fruitlib::json::path(
+			FCPPT_TEXT("bloom-size"))),
+		fruitlib::json::find_and_convert_member<fruitlib::pp::filter::blur::size_type>(
 			config,
-			FCPPT_TEXT("bloom-iterations"))),
+			fruitlib::json::path(
+				FCPPT_TEXT("bloom-iterations")))),
 	add_filter_(
 		_renderer,
 		filter_manager_,

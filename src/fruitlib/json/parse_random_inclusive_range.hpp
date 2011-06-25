@@ -1,7 +1,7 @@
 #ifndef FRUITCUT_FRUITLIB_JSON_PARSE_RANDOM_INCLUSIVE_RANGE_HPP_INCLUDED
 #define FRUITCUT_FRUITLIB_JSON_PARSE_RANDOM_INCLUSIVE_RANGE_HPP_INCLUDED
 
-#include "convert.hpp"
+#include "convert_from.hpp"
 #include <fcppt/random/make_inclusive_range.hpp>
 #include <fcppt/random/inclusive_range.hpp>
 #include <sge/parse/json/array.hpp>
@@ -19,9 +19,9 @@ parse_random_inclusive_range(
 {
 	return 
 		fcppt::random::make_inclusive_range(
-			json::convert<T>(
+			json::convert_from<T>(
 				a.elements[0]),
-			json::convert<T>(
+			json::convert_from<T>(
 				a.elements[1]));
 }
 }

@@ -1,5 +1,5 @@
 #include "logo.hpp"
-#include "../fruitlib/json/find_member.hpp"
+#include "../fruitlib/json/find_and_convert_member.hpp"
 #include "../fruitlib/json/parse_animation.hpp"
 #include "../fruitlib/json/parse_color.hpp"
 #include "../media_path.hpp"
@@ -39,9 +39,11 @@ fruitcut::app::logo::logo(
 						media_path() 
 							/ FCPPT_TEXT("textures") 
 							/ 
-								fruitlib::json::find_member<fcppt::string>(
+								fruitlib::json::find_and_convert_member<fcppt::string>(
 									_config_file,
-									FCPPT_TEXT("textures/logo")),
+									fruitlib::json::path(
+										FCPPT_TEXT("textures"))
+										/ FCPPT_TEXT("logo")),
 						renderer_,
 						_image_loader,
 						sge::renderer::texture::filter::linear,

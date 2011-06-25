@@ -1,5 +1,5 @@
 #include "scene.hpp"
-#include "../fruitlib/json/find_member.hpp"
+#include "../fruitlib/json/find_and_convert_member.hpp"
 #include <sge/systems/instance.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/text.hpp>
@@ -17,9 +17,10 @@ fruitcut::app::scene::scene(
 		std::tr1::bind(
 			&scene::render_children,
 			this),
-		fruitlib::json::find_member<sge::parse::json::object>(
+		fruitlib::json::find_and_convert_member<sge::parse::json::object>(
 			_config_file,
-			FCPPT_TEXT("pp")))
+			fruitlib::json::path(
+				FCPPT_TEXT("pp"))))
 {
 }
 

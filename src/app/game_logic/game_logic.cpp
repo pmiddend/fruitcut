@@ -1,7 +1,7 @@
 #include "../fruit/cut_context.hpp"
 #include "../../fruitlib/font/cache.hpp"
 #include "../../fruitlib/font/object_parameters.hpp"
-#include "../../fruitlib/json/find_member.hpp"
+#include "../../fruitlib/json/find_and_convert_member.hpp"
 #include "../../fruitlib/json/parse_color.hpp"
 #include "../../fruitlib/time_format/string_to_duration_exn.hpp"
 #include "../../fruitlib/time_format/duration_to_string.hpp"
@@ -61,18 +61,22 @@ fruitcut::app::game_logic::game_logic::game_logic(
 	sge::viewport::manager &_viewport)
 :
 	area_score_factor_(
-		fruitlib::json::find_member<fruit::area::value_type>(
+		fruitlib::json::find_and_convert_member<fruit::area::value_type>(
 			_config_file,
-			FCPPT_TEXT("ingame/area-score-factor"))),
+			fruitlib::json::path(
+				FCPPT_TEXT("ingame"))
+				/ FCPPT_TEXT("area-score-factor"))),
 	score_(
 		0),
 	iterating_score_(
 		score_),
 	round_timer_(
 		fruitlib::time_format::string_to_duration_exn<sge::time::duration>(
-			fruitlib::json::find_member<fcppt::string>(
+			fruitlib::json::find_and_convert_member<fcppt::string>(
 				_config_file,
-				FCPPT_TEXT("ingame/round-time"))),
+				fruitlib::json::path(
+					FCPPT_TEXT("ingame"))
+					/ FCPPT_TEXT("round-time"))),
 		sge::time::activation_state::active,
 		_time_callback),
 	fruit_added_connection_(
@@ -110,9 +114,11 @@ fruitcut::app::game_logic::game_logic::game_logic(
 			sge::font::text::align_v::top,
 			sge::font::text::flags::none),
 		fruitlib::json::parse_color<sge::image::color::rgba8>(
-			fruitlib::json::find_member<sge::parse::json::value>(
+			fruitlib::json::find_and_convert_member<sge::parse::json::value>(
 				_config_file,
-				FCPPT_TEXT("ingame/score-font-color"))),
+				fruitlib::json::path(
+					FCPPT_TEXT("ingame"))
+						/FCPPT_TEXT("score-font-color"))),
 		static_cast<fruitlib::scenic::scale>(
 			1)),
 	timer_font_node_(
@@ -127,9 +133,11 @@ fruitcut::app::game_logic::game_logic::game_logic(
 			sge::font::text::align_v::top,
 			sge::font::text::flags::none),
 		fruitlib::json::parse_color<sge::image::color::rgba8>(
-			fruitlib::json::find_member<sge::parse::json::value>(
+			fruitlib::json::find_and_convert_member<sge::parse::json::value>(
 				_config_file,
-				FCPPT_TEXT("ingame/timer-font-color"))),
+				fruitlib::json::path(
+					FCPPT_TEXT("ingame"))
+					/ FCPPT_TEXT("timer-font-color"))),
 		static_cast<fruitlib::scenic::scale>(
 			1)),
 	multiplier_font_node_(
@@ -148,23 +156,29 @@ fruitcut::app::game_logic::game_logic::game_logic(
 			1)),
 	score_increase_timer_(
 		fruitlib::time_format::string_to_duration_exn<sge::time::duration>(
-			fruitlib::json::find_member<fcppt::string>(
+			fruitlib::json::find_and_convert_member<fcppt::string>(
 				_config_file,
-				FCPPT_TEXT("ingame/score-increase-timer"))),
+				fruitlib::json::path(
+					FCPPT_TEXT("ingame"))
+					/ FCPPT_TEXT("score-increase-timer"))),
 		sge::time::activation_state::active,
 		_time_callback),
 	multiplier_timer_(
 		fruitlib::time_format::string_to_duration_exn<sge::time::duration>(
-			fruitlib::json::find_member<fcppt::string>(
+			fruitlib::json::find_and_convert_member<fcppt::string>(
 				_config_file,
-				FCPPT_TEXT("ingame/multiplier-timer"))),
+				fruitlib::json::path(
+					FCPPT_TEXT("ingame"))
+					/ FCPPT_TEXT("multiplier-timer"))),
 		sge::time::activation_state::active,
 		_time_callback),
 	penalty_timer_(
 		fruitlib::time_format::string_to_duration_exn<sge::time::duration>(
-			fruitlib::json::find_member<fcppt::string>(
+			fruitlib::json::find_and_convert_member<fcppt::string>(
 				_config_file,
-				FCPPT_TEXT("ingame/penalty-timer"))),
+				fruitlib::json::path(
+					FCPPT_TEXT("ingame"))
+					/ FCPPT_TEXT("penalty-timer"))),
 		sge::time::activation_state::inactive,
 		_time_callback),
 	multiplier_(1),

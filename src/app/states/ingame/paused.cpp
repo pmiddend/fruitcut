@@ -1,7 +1,7 @@
 #include "paused.hpp"
 #include "running.hpp"
 #include "../../../fruitlib/time_format/string_to_duration_exn.hpp"
-#include "../../../fruitlib/json/find_member.hpp"
+#include "../../../fruitlib/json/find_and_convert_member.hpp"
 #include "../../../fruitlib/pp/texture/use_screen_size.hpp"
 #include "../../../fruitlib/pp/filter/blur.hpp"
 #include "../../../media_path.hpp"
@@ -48,14 +48,16 @@ fruitcut::app::states::ingame::paused::paused(
 		static_cast<fruitlib::pp::filter::blur::size_type>(
 			0)),
 	max_blur_iterations_(
-		fruitlib::json::find_member<fruitlib::pp::filter::blur::size_type>(
+		fruitlib::json::find_and_convert_member<fruitlib::pp::filter::blur::size_type>(
 			context<machine>().config_file(),
-			FCPPT_TEXT("paused/max-blur-iterations"))),
+			fruitlib::json::path(FCPPT_TEXT("paused"))
+				/ FCPPT_TEXT("max-blur-iterations"))),
 	blur_timer_(
 		fruitlib::time_format::string_to_duration_exn<sge::time::duration>(
-			fruitlib::json::find_member<fcppt::string>(
+			fruitlib::json::find_and_convert_member<fcppt::string>(
 				context<machine>().config_file(),
-				FCPPT_TEXT("paused/blur-frequency-time")))),
+				fruitlib::json::path(FCPPT_TEXT("paused"))
+					/ FCPPT_TEXT("blur-frequency-time")))),
 	transit_to_running_connection_(
 		context<machine>().game_input_state().key_callback(
 			sge::input::keyboard::action(

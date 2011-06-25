@@ -2,7 +2,6 @@
 #include "cut_mesh.hpp"
 #include "manager.hpp"
 #include "prototype_from_json.hpp"
-#include "../../fruitlib/json/find_member.hpp"
 #include "../../fruitlib/math/multiply_matrix4_vector3.hpp"
 #include "../../fruitlib/math/plane/basic.hpp"
 #include "../../fruitlib/math/plane/distance_to_point.hpp"

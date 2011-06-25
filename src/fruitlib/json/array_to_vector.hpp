@@ -1,7 +1,7 @@
 #ifndef FRUITCUT_FRUITLIB_JSON_ARRAY_TO_VECTOR_HPP_INCLUDED
 #define FRUITCUT_FRUITLIB_JSON_ARRAY_TO_VECTOR_HPP_INCLUDED
 
-#include "convert.hpp"
+#include "convert_from.hpp"
 #include <sge/parse/json/array.hpp>
 #include <sge/parse/json/object.hpp>
 #include <sge/parse/json/element_vector.hpp>
@@ -25,7 +25,7 @@ array_to_vector(
 		r != a.elements.end();
 		++r)
 		result.push_back(
-			json::convert<T>(
+			json::convert_from<T>(
 				*r));
 	return result;
 }

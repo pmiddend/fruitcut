@@ -17,7 +17,7 @@
 #include "../fruitlib/uniform_random.hpp"
 #include "../fruitlib/resource_tree/path.hpp"
 #include "../fruitlib/rng_creator.hpp"
-#include "../fruitlib/json/find_member.hpp"
+#include "../fruitlib/json/find_and_convert_member.hpp"
 #include "../fruitlib/json/parse_random_inclusive_range.hpp"
 #include <sge/renderer/scalar.hpp>
 #include <sge/parse/json/json.hpp>
@@ -53,21 +53,24 @@ fruitcut::app::splatter_generator::splatter_generator(
 		rng_creator_.create()),
 	speed_rng_(
 		fruitlib::json::parse_random_inclusive_range<sge::renderer::scalar>(
-			fruitlib::json::find_member<sge::parse::json::array>(
+			fruitlib::json::find_and_convert_member<sge::parse::json::array>(
 				config_file,
-				FCPPT_TEXT("splatter-generator/speed-range"))),
+				fruitlib::json::path(FCPPT_TEXT("splatter-generator"))
+					/ FCPPT_TEXT("speed-range"))),
 		rng_creator_.create()),
 	distortion_rng_(
 		fruitlib::json::parse_random_inclusive_range<sge::renderer::scalar>(
-			fruitlib::json::find_member<sge::parse::json::array>(
+			fruitlib::json::find_and_convert_member<sge::parse::json::array>(
 				config_file,
-				FCPPT_TEXT("splatter-generator/speed-distortion-range"))),
+				fruitlib::json::path(FCPPT_TEXT("splatter-generator"))
+					/ FCPPT_TEXT("speed-distortion-range"))),
 		rng_creator_.create()),
 	size_rng_(
 		fruitlib::json::parse_random_inclusive_range<sge::renderer::scalar>(
-			fruitlib::json::find_member<sge::parse::json::array>(
+			fruitlib::json::find_and_convert_member<sge::parse::json::array>(
 				config_file,
-				FCPPT_TEXT("splatter-generator/size-range"))),
+				fruitlib::json::path(FCPPT_TEXT("splatter-generator"))
+					/ FCPPT_TEXT("size-range"))),
 		rng_creator_.create()),
 	alpha_rng_(
 		fcppt::random::make_inclusive_range(
@@ -78,13 +81,16 @@ fruitcut::app::splatter_generator::splatter_generator(
 		rng_creator_.create()),	
 	lifetime_millis_rng_(
 		fruitlib::json::parse_random_inclusive_range<sge::time::unit>(
-			fruitlib::json::find_member<sge::parse::json::array>(
+			fruitlib::json::find_and_convert_member<sge::parse::json::array>(
 				config_file,
-				FCPPT_TEXT("splatter-generator/lifetime-millis-range")))),
+				fruitlib::json::path(FCPPT_TEXT("splatter-generator"))
+					/ FCPPT_TEXT("lifetime-millis-range")))),
 	splatter_count_to_area_factor_(
-		fruitlib::json::find_member<sge::renderer::scalar>(
+		fruitlib::json::find_and_convert_member<sge::renderer::scalar>(
 			config_file,
-			FCPPT_TEXT("splatter-generator/splatter-count-to-area-factor")))
+			fruitlib::json::path(
+				FCPPT_TEXT("splatter-generator"))
+				/ FCPPT_TEXT("splatter-count-to-area-factor")))
 {
 }
 

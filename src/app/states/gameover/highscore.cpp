@@ -26,7 +26,7 @@
 
 #include "../../score.hpp"
 #include "../../name.hpp"
-#include "../../../fruitlib/json/find_member.hpp"
+#include "../../../fruitlib/json/find_and_convert_member.hpp"
 #include "../../../fruitlib/json/array_to_vector.hpp"
 #include <sge/parse/json/object.hpp>
 #include <sge/parse/json/parse_file_exn.hpp>
@@ -95,10 +95,11 @@ load_highscore()
 		return highscore_sequence();
 
 	sge::parse::json::array const json_file = 
-		fruitcut::fruitlib::json::find_member<sge::parse::json::array>(
+		fruitcut::fruitlib::json::find_and_convert_member<sge::parse::json::array>(
 			sge::parse::json::parse_file_exn(
 				highscore_file_path),
-			FCPPT_TEXT("entries"));
+			fruitcut::fruitlib::json::path(
+				FCPPT_TEXT("entries")));
 
 	highscore_sequence result;
 	
@@ -118,17 +119,20 @@ load_highscore()
 	{
 		result.push_back(
 			highscore_entry(
-				fruitcut::fruitlib::json::find_member<sge::parse::json::string>(
+				fruitcut::fruitlib::json::find_and_convert_member<sge::parse::json::string>(
 					*current_entry,
-					FCPPT_TEXT("name")),
-				fruitcut::fruitlib::json::find_member<fruitcut::app::score::value_type>(
+					fruitcut::fruitlib::json::path(
+						FCPPT_TEXT("name"))),
+				fruitcut::fruitlib::json::find_and_convert_member<fruitcut::app::score::value_type>(
 					*current_entry,
-					FCPPT_TEXT("score")),
+					fruitcut::fruitlib::json::path(
+						FCPPT_TEXT("score"))),
 				boost::posix_time::from_iso_string(
 					fcppt::to_std_string(
-						fruitcut::fruitlib::json::find_member<sge::parse::json::string>(
+						fruitcut::fruitlib::json::find_and_convert_member<sge::parse::json::string>(
 							*current_entry,
-							FCPPT_TEXT("date-time"))))));
+							fruitcut::fruitlib::json::path(
+								FCPPT_TEXT("date-time")))))));
 	}
 
 	return result;

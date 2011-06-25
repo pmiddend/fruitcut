@@ -2,7 +2,7 @@
 #include "model_to_mesh.hpp"
 #include "material/from_json.hpp"
 #include "../../media_path.hpp"
-#include "../../fruitlib/json/find_member.hpp"
+#include "../../fruitlib/json/find_and_convert_member.hpp"
 #include <sge/parse/json/json.hpp>
 #include <sge/model/loader.hpp>
 #include <sge/renderer/device.hpp>
@@ -44,17 +44,19 @@ fruitcut::app::fruit::prototype_from_json(
 						/ FCPPT_TEXT("models")
 						/ FCPPT_TEXT("fruits")
 						/
-							fruitlib::json::find_member<fcppt::string>(
+							fruitlib::json::find_and_convert_member<fcppt::string>(
 								o,
-								FCPPT_TEXT("model")))),
+								fruitlib::json::path(
+									FCPPT_TEXT("model"))))),
 			sge::renderer::texture::create_planar_from_path(
 				fruitcut::media_path()
 					/ FCPPT_TEXT("textures")
 					/ FCPPT_TEXT("fruits")
 					/
-						fruitlib::json::find_member<fcppt::string>(
+						fruitlib::json::find_and_convert_member<fcppt::string>(
 							o,
-							FCPPT_TEXT("texture")),
+							fruitlib::json::path(
+								FCPPT_TEXT("texture"))),
 				renderer,
 				image_loader,
 				sge::renderer::texture::filter::trilinear,
@@ -62,12 +64,14 @@ fruitcut::app::fruit::prototype_from_json(
 					sge::renderer::texture::address_mode::clamp),
 				sge::renderer::resource_flags::readable),
 			material::from_json(
-				fruitlib::json::find_member<sge::parse::json::object>(
+				fruitlib::json::find_and_convert_member<sge::parse::json::object>(
 					o,
-					FCPPT_TEXT("material"))),
+					fruitlib::json::path(
+						FCPPT_TEXT("material")))),
 			fcppt::algorithm::map<fruit::tag_sequence>(
-				fruitlib::json::find_member<sge::parse::json::array>(
+				fruitlib::json::find_and_convert_member<sge::parse::json::array>(
 					o,
-					FCPPT_TEXT("tags")).elements,
+					fruitlib::json::path(
+						FCPPT_TEXT("tags"))).elements,
 				&json_to_tag));
 }

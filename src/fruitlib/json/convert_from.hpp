@@ -1,5 +1,5 @@
-#ifndef FRUITCUT_FRUITLIB_JSON_CONVERT_HPP_INCLUDED
-#define FRUITCUT_FRUITLIB_JSON_CONVERT_HPP_INCLUDED
+#ifndef FRUITCUT_FRUITLIB_JSON_CONVERT_FROM_HPP_INCLUDED
+#define FRUITCUT_FRUITLIB_JSON_CONVERT_FROM_HPP_INCLUDED
 
 #include "../exception.hpp"
 #include <sge/parse/json/float_type.hpp>
@@ -23,7 +23,7 @@ namespace json
 
 template<typename T>
 T const
-apply_convert(
+apply_convert_from(
 	sge::parse::json::value const &_value
 );
 
@@ -35,7 +35,7 @@ boost::enable_if_c
 	boost::is_floating_point<T>::value,
 	T const
 >::type
-convert(
+convert_from(
 	sge::parse::json::value const &v)
 {
 	return 
@@ -52,7 +52,7 @@ boost::enable_if_c
 	fcppt::math::matrix::is_matrix<T>::value,
 	T const
 >::type
-convert(
+convert_from(
 	sge::parse::json::value const &v)
 {
 	sge::parse::json::element_vector const 
@@ -88,7 +88,7 @@ convert(
 			++j)
 		{
 			result[static_cast<typename T::size_type>(i)][static_cast<typename T::size_type>(j)] = 
-				json::convert<typename T::value_type>(
+				json::convert_from<typename T::value_type>(
 					current_inner_array[j]);
 		}
 	}
@@ -104,7 +104,7 @@ boost::enable_if_c
 	boost::is_integral<T>::value && !boost::is_same<T,bool>::value,
 	T const
 >::type
-convert(
+convert_from(
 	sge::parse::json::value const &v)
 {
 	return 
@@ -121,7 +121,7 @@ boost::enable_if_c
 	boost::is_same<T,bool>::value,
 	bool
 >::type
-convert(
+convert_from(
 	sge::parse::json::value const &v)
 {
 	return 
@@ -138,10 +138,10 @@ boost::enable_if_c
 		&& !fcppt::math::matrix::is_matrix<T>::value,
 	T const
 >::type
-convert(
+convert_from(
 	sge::parse::json::value const &v)
 {
-	// This seems like a detour (first converting to vector and then to
+	// This seems like a detour (first convert_froming to vector and then to
 	// the target container T) but this ensures generality: You can
 	// "reach" more containers when you only demand iterator
 	// initialization (and the existance of ::value_type)
@@ -149,7 +149,7 @@ convert(
 		fcppt::algorithm::map<std::vector<typename T::value_type> >(
 			sge::parse::json::get<sge::parse::json::array>(
 				v).elements,
-			&json::apply_convert<typename T::value_type>);
+			&json::apply_convert_from<typename T::value_type>);
 
 	return T(temp.begin(),temp.end());
 }
@@ -163,7 +163,7 @@ boost::enable_if_c
 	boost::is_same<T,sge::parse::json::string>::value,
 	T const
 >::type
-convert(
+convert_from(
 	sge::parse::json::value const &v)
 {
 	return 
@@ -180,7 +180,7 @@ boost::enable_if_c
 	boost::is_same<T,sge::parse::json::value>::value,
 	sge::parse::json::value const
 >::type
-convert(
+convert_from(
 	sge::parse::json::value const &v)
 {
 	return v;
@@ -197,7 +197,7 @@ boost::enable_if_c
 		&& !boost::is_same<T,sge::parse::json::value>::value,
 	T const
 >::type
-convert(
+convert_from(
 	sge::parse::json::value const &v)
 {
 	return 
@@ -207,11 +207,11 @@ convert(
 
 template<typename T>
 T const
-apply_convert(
+apply_convert_from(
 	sge::parse::json::value const &_value
 )
 {
-	return json::convert<T>(_value);
+	return json::convert_from<T>(_value);
 }
 
 }
