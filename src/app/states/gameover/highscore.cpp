@@ -27,7 +27,7 @@
 #include "../../score.hpp"
 #include "../../name.hpp"
 #include "../../../fruitlib/json/find_and_convert_member.hpp"
-#include "../../../fruitlib/json/array_to_vector.hpp"
+#include "../../../fruitlib/json/convert_from.hpp"
 #include <sge/parse/json/object.hpp>
 #include <sge/parse/json/parse_file_exn.hpp>
 #include <sge/parse/json/array.hpp>
@@ -108,7 +108,7 @@ load_highscore()
 	json_object_vector;
 
 	json_object_vector const json_objects(
-		(fruitcut::fruitlib::json::array_to_vector<sge::parse::json::object>(
+		(fruitcut::fruitlib::json::convert_from<json_object_vector>(
 			json_file)));
 
 	for(

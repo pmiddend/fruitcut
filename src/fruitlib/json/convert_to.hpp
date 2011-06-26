@@ -37,7 +37,7 @@ typename
 boost::enable_if_c
 <
 	boost::is_integral<T>::value &&
-	!boost::is_same<T,bool>,
+	!boost::is_same<T,bool>::value,
 	sge::parse::json::value
 >::type
 convert_to(
@@ -52,7 +52,7 @@ template<typename T>
 typename
 boost::enable_if_c
 <
-	boost::floating_point<T>::value,
+	boost::is_floating_point<T>::value,
 	sge::parse::json::value
 >::type
 convert_to(
@@ -63,12 +63,14 @@ convert_to(
 			t);
 }
 
+// TODO: We could make a convert_to which converts from a tuple to a
+// (heterogenous) array
 template<typename T>
 typename
 boost::enable_if_c
 <
 	fcppt::type_traits::is_iterable<T>::value && 
-	!boost::is_same<T,fcppt::string>,
+	!boost::is_same<T,fcppt::string>::value,
 	sge::parse::json::value
 >::type
 convert_to(
@@ -76,7 +78,7 @@ convert_to(
 {
 	sge::parse::json::array result;
 	for(typename T::const_iterator i = t.begin(); i != t.end(); ++i)
-		result.members.push_back(
+		result.elements.push_back(
 			json::convert_to(
 				*i));
 	return result;

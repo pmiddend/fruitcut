@@ -1,4 +1,5 @@
 #include "path.hpp"
+#include <iostream>
 
 fruitcut::fruitlib::json::path::path(
 	const_iterator const _begin,

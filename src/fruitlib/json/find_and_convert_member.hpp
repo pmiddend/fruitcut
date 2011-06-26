@@ -41,7 +41,7 @@ find_and_convert_member(
 
 	if (it == found_object.members.end())
 		throw 
-			fruitlib::exception(
+			sge::parse::json::exception(
 				FCPPT_TEXT("Couldn't find member \"")+
 				input_path.back()+
 				FCPPT_TEXT("\" in the object \"")+
@@ -53,7 +53,7 @@ find_and_convert_member(
 		json::is_null(
 			it->value))
 		throw 
-			fruitlib::exception(
+			sge::parse::json::exception(
 				FCPPT_TEXT("The member \"")+
 				it->name+
 				FCPPT_TEXT("\" of object \"")+
@@ -70,7 +70,7 @@ find_and_convert_member(
 	catch (sge::parse::json::invalid_get const &e)
 	{
 		throw 
-			fruitlib::exception(
+			sge::parse::json::exception(
 				FCPPT_TEXT("Unable to parse member \"")+
 				it->name+
 				FCPPT_TEXT(" of object \"")+

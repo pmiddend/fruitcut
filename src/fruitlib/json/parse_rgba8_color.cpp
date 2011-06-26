@@ -1,9 +1,7 @@
 #include "parse_rgba8_color.hpp"
-#include "array_to_vector.hpp"
+#include "convert_from.hpp"
 #include "../exception.hpp"
-#include <sge/parse/json/array.hpp>
-#include <sge/parse/json/object.hpp>
-#include <sge/parse/json/float_type.hpp>
+#include <sge/parse/json/json.hpp>
 #include <sge/image/color/init.hpp>
 #include <fcppt/text.hpp>
 #include <vector>
@@ -15,13 +13,13 @@ fruitcut::fruitlib::json::parse_rgba8_color(
 	try
 	{
 		sge::parse::json::array const &a = 
-			boost::get<sge::parse::json::array>(
+			boost::get<sge::parse::json::array const>(
 				v);
 
 		try
 		{
 			std::vector<sge::parse::json::float_type> const colors = 
-				array_to_vector<sge::parse::json::float_type>(
+				json::convert_from<std::vector<sge::parse::json::float_type> >(
 					a);
 
 			return 

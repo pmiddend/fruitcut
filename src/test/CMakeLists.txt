@@ -10,7 +10,9 @@ FUNCTION(
 
 	SET(FRUITCUT_TEST_NAME fruitcut_${TESTNAME}_test)
 
-	ADD_EXECUTABLE(${FRUITCUT_TEST_NAME} ${PATHNAME}.cpp ${ARGN})
+	ADD_EXECUTABLE(${FRUITCUT_TEST_NAME} 
+		${PATHNAME}.cpp 
+		${ARGN})
 
 	IF(MSVC)
 		SET_PROPERTY(
@@ -30,6 +32,7 @@ FUNCTION(
 		${FRUITCUT_TEST_NAME}
 		${FRUITCUT_DEFAULT_LINK_TARGET}
 		${Boost_UNIT_TEST_FRAMEWORK_LIBRARY}
+		fruitcut_library
 		${Fcppt_LIBRARIES}
 		${SGE_LIBRARIES}
 	)
@@ -44,3 +47,7 @@ ENDFUNCTION()
 
 ADD_FRUITCUT_TEST(math)
 ADD_FRUITCUT_TEST(delayed_sequence)
+ADD_FRUITCUT_TEST(json/convert_from json/object_from_string.cpp json/json_equal.cpp)
+ADD_FRUITCUT_TEST(json/convert_to json/object_from_string.cpp json/json_equal.cpp)
+ADD_FRUITCUT_TEST(json/find json/object_from_string.cpp json/json_equal.cpp)
+ADD_FRUITCUT_TEST(json/various json/object_from_string.cpp json/json_equal.cpp)

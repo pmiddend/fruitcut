@@ -1,20 +1,20 @@
 #include "find_object.hpp"
 #include "path_to_string.hpp"
 #include "path.hpp"
-#include "../exception.hpp"
 #include <sge/parse/json/json.hpp>
 #include <fcppt/type_name.hpp>
 #include <fcppt/text.hpp>
 #include <boost/variant/get.hpp>
 #include <algorithm>
+#include <iostream>
 #include <typeinfo>
 
-sge::parse::json::object const *
+sge::parse::json::object *
 fruitcut::fruitlib::json::find_object(
-	sge::parse::json::object const &input_object,
+	sge::parse::json::object &input_object,
 	json::path const &p)
 {
-	sge::parse::json::object const *current_object = 
+	sge::parse::json::object *current_object = 
 		&input_object;
 
 	for(
@@ -23,7 +23,7 @@ fruitcut::fruitlib::json::find_object(
 		current_member != p.end(); 
 		++current_member)
 	{
-		sge::parse::json::member_vector::const_iterator it = 
+		sge::parse::json::member_vector::iterator it = 
 			std::find_if(
 				current_object->members.begin(),
 				current_object->members.end(),
@@ -33,9 +33,9 @@ fruitcut::fruitlib::json::find_object(
 		if(it == current_object->members.end())
 			return 0;
 
-		if(typeid(it->value.type()) != typeid(sge::parse::json::object))
+		if(it->value.type() != typeid(sge::parse::json::object))
 			throw 
-				fruitlib::exception(
+				sge::parse::json::exception(
 					FCPPT_TEXT("Couldn't navigate to \"")+
 					json::path_to_string(
 						p)+
@@ -55,14 +55,14 @@ fruitcut::fruitlib::json::find_object(
 		current_object;
 }
 
-sge::parse::json::object *
+sge::parse::json::object const *
 fruitcut::fruitlib::json::find_object(
-	sge::parse::json::object &input_object,
+	sge::parse::json::object const &input_object,
 	json::path const &p)
 {
 	return 
-		const_cast<sge::parse::json::object *>(
-			json::find_object(
-				input_object,
-				p));
+		json::find_object(
+			const_cast<sge::parse::json::object &>(
+				input_object),
+			p);
 }

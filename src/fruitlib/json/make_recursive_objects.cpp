@@ -1,10 +1,10 @@
 #include "make_recursive_objects.hpp"
 #include "path_to_string.hpp"
 #include "path.hpp"
-#include "../exception.hpp"
 #include <sge/parse/json/json.hpp>
 #include <boost/variant/get.hpp>
 #include <fcppt/string.hpp>
+#include <fcppt/type_name.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/assert.hpp>
@@ -22,7 +22,7 @@ create_or_navigate_path(
 	FCPPT_ASSERT(
 		old);
 
-	sge::parse::json::member_vector::const_iterator it = 
+	sge::parse::json::member_vector::iterator it = 
 		std::find_if(
 			old->members.begin(),
 			old->members.end(),
@@ -39,9 +39,9 @@ create_or_navigate_path(
 		return &boost::get<sge::parse::json::object>(old->members.back().value);
 	}
 
-	if(typeid(it->value.type()) != typeid(sge::parse::json::object))
+	if(it->value.type() != typeid(sge::parse::json::object))
 		throw 
-			fruitcut::fruitlib::exception(
+			sge::parse::json::exception(
 				FCPPT_TEXT("Couldn't navigate to (make_recursive) \"")+
 				fruitcut::fruitlib::json::path_to_string(
 					input_path)+
@@ -53,7 +53,7 @@ create_or_navigate_path(
 				FCPPT_TEXT("\" instead of type sge::parse::json::object!"));
 
 	return 
-		&boost::get<sge::parse::json::object &>(
+		&boost::get<sge::parse::json::object>(
 			it->value);
 }
 }

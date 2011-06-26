@@ -159,9 +159,9 @@ SET(
 	src/fruitlib/input/state_manager.cpp
 	src/fruitlib/input/state_manager.hpp
 	src/fruitlib/input/state_manager_fwd.hpp
-	src/fruitlib/json/array_to_vector.hpp
 	src/fruitlib/json/convert_from.hpp
 	src/fruitlib/json/convert_to.hpp
+	src/fruitlib/json/detail/is_array.hpp
 	src/fruitlib/json/find_and_convert_member.hpp
 	src/fruitlib/json/find_object.cpp
 	src/fruitlib/json/find_object.hpp

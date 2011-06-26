@@ -90,7 +90,8 @@ fruitcut::app::machine_impl::machine_impl(
 					fruitlib::json::find_and_convert_member<sge::window::dim>(
 						config_file_,
 						fruitlib::json::path(
-							FCPPT_TEXT("graphics/window-size"))))))
+							FCPPT_TEXT("graphics"))
+							/ FCPPT_TEXT("window-size")))))
 			(sge::systems::renderer(
 				sge::renderer::parameters(
 					sge::renderer::visual_depth::depth32,
