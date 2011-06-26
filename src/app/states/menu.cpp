@@ -4,6 +4,7 @@
 #include "../../fruitlib/time_format/string_to_duration_exn.hpp"
 #include "../../fruitlib/json/find_and_convert_member.hpp"
 #include "../../fruitlib/resource_tree/path.hpp"
+#include "../../fruitlib/json/modify_user_value.hpp"
 #include "../../fruitlib/audio/sound_controller.hpp"
 #include "../../fruitlib/audio/music_controller.hpp"
 #include "../../media_path.hpp"
@@ -22,6 +23,76 @@
 #include <CEGUIWindowManager.h>
 #include <elements/CEGUIPushButton.h>
 #include <elements/CEGUISlider.h>
+
+namespace
+{
+class slider_wrapper
+{
+FCPPT_NONCOPYABLE(
+	slider_wrapper);
+public:
+	typedef
+	fcppt::function::object<void(float)>
+	slid_callback;
+
+	explicit
+	slider_wrapper(
+		CEGUI::Window &_window,
+		float const _initial_value,
+		sge::parse::json::object &_global_config,
+		sge::parse::json::object &_user_config,
+		fruitcut::fruitlib::json::path const &_path,
+		slid_callback const &_callback)
+	:
+		window_(
+			dynamic_cast<CEGUI::Slider &>(
+				_window)),
+		slid_connection_(
+			window_.subscribeEvent(
+			CEGUI::Slider::EventValueChanged,
+			CEGUI::Event::Subscriber(
+				std::tr1::bind(
+					&slider_wrapper::slid,
+					this,
+					std::tr1::placeholders::_1)))),
+		global_config_(
+			_global_config),
+		user_config_(
+			_user_config),
+		path_(
+			_path),
+		callback_(
+			_callback)
+	{
+		window_.setCurrentValue(
+			_initial_value);
+	}
+private:
+	CEGUI::Slider &window_;
+	CEGUI::Event::ScopedConnection slid_connection_;
+	sge::parse::json::object &global_config_;
+	sge::parse::json::object &user_config_;
+	fruitcut::fruitlib::json::path const path_;
+	slid_callback callback_;
+
+	bool
+	slid(
+		CEGUI::EventArgs const &)
+	{
+		fruitcut::fruitlib::json::modify_user_value(
+			global_config_,
+			user_config_,
+			path_,
+			static_cast<sge::parse::json::float_type>(
+				window_.getCurrentValue()));
+		
+		callback_(
+			window_.getCurrentValue());
+
+		return true;
+	}
+};
+}
 
 fruitcut::app::states::menu::menu(
 	my_context ctx)

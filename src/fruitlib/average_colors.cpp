@@ -1,4 +1,5 @@
 #include "average_colors.hpp"
+#include <sge/image2d/view/const_object.hpp>
 #include <fcppt/variant/apply_unary.hpp>
 #include <fcppt/nonassignable.hpp>
 #include <fcppt/math/box/box.hpp>
@@ -66,14 +67,14 @@ public:
 	template<typename Channel>
 	result_type
 	operator()(
-		Channel &) const 	
+		Channel const &c) const 	
 	{
 		typedef typename 
 		mizuiro::color::types::channel_value<typename Color::format,Channel>::type
 		channel_value_type;
 
 		target_color_.set(
-			Channel(),
+			c,
 			static_cast<channel_value_type>(0));
 	}
 private:
@@ -85,7 +86,8 @@ Color const
 zero_initialized()
 {
 	Color result;
-	mizuiro::color::for_each_channel<typename Color::format>(
+	mizuiro::color::for_each_channel(
+		result,
 		set_to_zero_functor<Color>(
 			result));
 	return result;
@@ -116,14 +118,14 @@ public:
 	template<typename Channel>
 	result_type
 	operator()(
-		Channel &) const
+		Channel const &c) const
 	{
 		dest_.set(
-			Channel(),
+			c,
 			dest_.get(
-				Channel()) +
+				c) +
 			source_.get(
-				Channel()));
+				c));
 	}
 private:
 	SourceColor const &source_;
@@ -158,17 +160,17 @@ public:
 	template<typename Channel>
 	result_type
 	operator()(
-		Channel &) const
+		Channel const &c) const
 	{
 		typedef typename
 		mizuiro::color::types::channel_value<typename DestColor::format,Channel>::type
 		destination_channel_type;
 
 		dest_.set(
-			Channel(),
+			c,
 			static_cast<destination_channel_type>(
 				source_.get(
-					Channel())/
+					c)/
 				divisor_));
 	}
 private:
@@ -228,7 +230,8 @@ view_visitor::operator()(
 		current_pixel != v.end(); 
 		++current_pixel)
 	{
-		mizuiro::color::for_each_channel<color_format>(
+		mizuiro::color::for_each_channel(
+			result,
 			make_addition_functor(
 				*current_pixel,
 				result));
@@ -236,7 +239,8 @@ view_visitor::operator()(
 	}
 
 	input_color narrowed_result;
-	mizuiro::color::for_each_channel<color_format>(
+	mizuiro::color::for_each_channel(
+		result,
 		division_functor<promoted_color,input_color>(
 			result,
 			narrowed_result,
@@ -255,5 +259,5 @@ fruitcut::fruitlib::average_colors(
 	return 
 		fcppt::variant::apply_unary(
 			view_visitor(),
-			input_view);
+			input_view.get());
 }

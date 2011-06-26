@@ -11,7 +11,7 @@
 #include <sge/audio/player.hpp>
 #include <sge/audio/sound/positional.hpp>
 #include <sge/audio/sound/repeat.hpp>
-#include <sge/audio/stop_mode.hpp>
+#include <sge/audio/pool/stop_mode.hpp>
 #include <fcppt/filesystem/directory_iterator.hpp>
 #include <fcppt/filesystem/path.hpp>
 #include <fcppt/random/make_last_exclusive_range.hpp>
@@ -60,7 +60,8 @@ fruitcut::fruitlib::audio::sound_controller::sound_controller(
 	fruitlib::rng_creator &_rng_creator,
 	fcppt::filesystem::path const &_base_path,
 	sge::audio::multi_loader &_loader,
-	sge::audio::player &_player)
+	sge::audio::player &_player,
+	sge::audio::pool::gain_factor const &_gain_factor)
 :
 	player_(
 		_player),
@@ -79,7 +80,11 @@ fruitcut::fruitlib::audio::sound_controller::sound_controller(
 				fcppt::ref(
 					_rng_creator),
 				std::tr1::placeholders::_1))),
-	pool_()
+	pool_(
+		_gain_factor,
+		sge::audio::pool::pitch_factor(
+			static_cast<sge::audio::pool::pitch_factor::value_type>(
+				1)))
 {
 }
 
@@ -152,6 +157,36 @@ fruitcut::fruitlib::audio::sound_controller::update()
 	pool_.update();
 }
 
+sge::audio::pool::gain_factor::value_type
+fruitcut::fruitlib::audio::sound_controller::gain_factor() const
+{
+	return 
+		pool_.gain_factor();
+}
+
+void
+fruitcut::fruitlib::audio::sound_controller::gain_factor(
+	sge::audio::pool::gain_factor::value_type const _gain)
+{
+	pool_.gain_factor(
+		_gain);
+}
+
+sge::audio::pool::pitch_factor::value_type
+fruitcut::fruitlib::audio::sound_controller::pitch_factor() const
+{
+	return 
+		pool_.pitch_factor();
+}
+
+void
+fruitcut::fruitlib::audio::sound_controller::pitch_factor(
+	sge::audio::pool::pitch_factor::value_type const _pitch)
+{
+	pool_.pitch_factor(
+		_pitch);
+}
+
 fruitcut::fruitlib::audio::sound_controller::~sound_controller() {}
 
 void
@@ -163,5 +198,5 @@ fruitcut::fruitlib::audio::sound_controller::do_play(
 
 	pool_.add(
 		b,
-		sge::audio::stop_mode::play_once);
+		sge::audio::pool::stop_mode::play_once);
 }

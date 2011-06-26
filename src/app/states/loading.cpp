@@ -55,12 +55,13 @@ fruitcut::app::states::loading::loading(
 			sge::font::text::align_h::center,
 			sge::font::text::align_v::top,
 			sge::font::text::flags::none),
-		fruitlib::json::parse_color<sge::image::color::rgba8>(
-			fruitlib::json::find_and_convert_member<sge::parse::json::value>(
-				context<machine>().config_file(),
-				fruitlib::json::path(
-					FCPPT_TEXT("loading"))
-					/ FCPPT_TEXT("font-color"))),
+		sge::image::color::any::object(
+			fruitlib::json::parse_color<sge::image::color::rgba8>(
+				fruitlib::json::find_and_convert_member<sge::parse::json::value>(
+					context<machine>().config_file(),
+					fruitlib::json::path(
+						FCPPT_TEXT("loading"))
+						/ FCPPT_TEXT("font-color")))),
 		static_cast<fruitlib::scenic::scale>(
 			1))
 {

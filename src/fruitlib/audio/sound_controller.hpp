@@ -7,7 +7,8 @@
 #include "../rng_creator_fwd.hpp"
 #include <sge/audio/multi_loader_fwd.hpp>
 #include <sge/audio/player_fwd.hpp>
-#include <sge/audio/pool.hpp>
+#include <sge/audio/pool/object.hpp>
+#include <sge/audio/pool/gain_factor.hpp>
 #include <sge/audio/sound/positional_parameters.hpp>
 #include <sge/audio/sound/base_ptr.hpp>
 #include <sge/audio/buffer_ptr.hpp>
@@ -56,7 +57,8 @@ public:
 		fruitlib::rng_creator &,
 		fcppt::filesystem::path const &,
 		sge::audio::multi_loader &,
-		sge::audio::player &);
+		sge::audio::player &,
+		sge::audio::pool::gain_factor const &);
 
 	void
 	play(
@@ -71,6 +73,20 @@ public:
 	// deleted properly
 	void
 	update();
+
+	sge::audio::pool::gain_factor::value_type
+	gain_factor() const;
+
+	void
+	gain_factor(
+		sge::audio::pool::gain_factor::value_type);
+
+	sge::audio::pool::pitch_factor::value_type
+	pitch_factor() const;
+
+	void
+	pitch_factor(
+		sge::audio::pool::pitch_factor::value_type);
 
 	~sound_controller();
 private:
@@ -91,7 +107,7 @@ private:
 
 	sge::audio::player &player_;
 	resource_tree_ptr sounds_;
-	sge::audio::pool pool_;
+	sge::audio::pool::object pool_;
 
 	void
 	do_play(

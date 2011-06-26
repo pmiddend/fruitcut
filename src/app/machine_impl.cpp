@@ -222,7 +222,12 @@ fruitcut::app::machine_impl::machine_impl(
 		rng_creator_,
 		fruitcut::media_path()/FCPPT_TEXT("sounds"),
 		systems_.audio_loader(),
-		systems_.audio_player()),
+		systems_.audio_player(),
+		sge::audio::pool::gain_factor(
+			fruitlib::json::find_and_convert_member<sge::audio::pool::gain_factor::value_type>(
+				config_file(),
+				fruitlib::json::path(
+					FCPPT_TEXT("effects-volume"))))),
 	sound_controller_node_(
 		sound_controller_),
 	music_controller_(

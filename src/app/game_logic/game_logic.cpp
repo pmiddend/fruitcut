@@ -113,12 +113,13 @@ fruitcut::app::game_logic::game_logic::game_logic(
 			sge::font::text::align_h::left,
 			sge::font::text::align_v::top,
 			sge::font::text::flags::none),
-		fruitlib::json::parse_color<sge::image::color::rgba8>(
-			fruitlib::json::find_and_convert_member<sge::parse::json::value>(
-				_config_file,
-				fruitlib::json::path(
-					FCPPT_TEXT("ingame"))
-						/FCPPT_TEXT("score-font-color"))),
+		sge::image::color::any::object(
+			fruitlib::json::parse_color<sge::image::color::rgba8>(
+				fruitlib::json::find_and_convert_member<sge::parse::json::value>(
+					_config_file,
+					fruitlib::json::path(
+						FCPPT_TEXT("ingame"))
+							/FCPPT_TEXT("score-font-color")))),
 		static_cast<fruitlib::scenic::scale>(
 			1)),
 	timer_font_node_(
@@ -132,12 +133,13 @@ fruitcut::app::game_logic::game_logic::game_logic(
 			sge::font::text::align_h::center,
 			sge::font::text::align_v::top,
 			sge::font::text::flags::none),
-		fruitlib::json::parse_color<sge::image::color::rgba8>(
-			fruitlib::json::find_and_convert_member<sge::parse::json::value>(
-				_config_file,
-				fruitlib::json::path(
-					FCPPT_TEXT("ingame"))
-					/ FCPPT_TEXT("timer-font-color"))),
+		sge::image::color::any::object(
+			fruitlib::json::parse_color<sge::image::color::rgba8>(
+				fruitlib::json::find_and_convert_member<sge::parse::json::value>(
+					_config_file,
+					fruitlib::json::path(
+						FCPPT_TEXT("ingame"))
+						/ FCPPT_TEXT("timer-font-color")))),
 		static_cast<fruitlib::scenic::scale>(
 			1)),
 	multiplier_font_node_(
@@ -327,22 +329,23 @@ fruitcut::app::game_logic::game_logic::update()
 	else if (multiplier_timer_.active())
 	{
 		multiplier_font_node_.color(
-			mizuiro::color::convert<
-				sge::image::color::rgba8_format
-			>(
-			mizuiro::color::object<
-				mizuiro::color::homogenous_static<
-					boost::uint8_t,
-					mizuiro::color::layout::hsva
-				>
-			>(
-			(mizuiro::color::init::hue %= 
-					0.34 *
-					(1.f - 
-						multiplier_timer_.elapsed_frames()))
-			(mizuiro::color::init::saturation %= 1.0)
-			(mizuiro::color::init::value %= 1.0)
-			(mizuiro::color::init::alpha %= 1.0))));
+			sge::image::color::any::object(
+				mizuiro::color::convert<
+					sge::image::color::rgba8_format
+				>(
+				mizuiro::color::object<
+					mizuiro::color::homogenous_static<
+						boost::uint8_t,
+						mizuiro::color::layout::hsva
+					>
+				>(
+				(mizuiro::color::init::hue %= 
+						0.34 *
+						(1.f - 
+							multiplier_timer_.elapsed_frames()))
+				(mizuiro::color::init::saturation %= 1.0)
+				(mizuiro::color::init::value %= 1.0)
+				(mizuiro::color::init::alpha %= 1.0)))));
 	}
 	timer_font_node_.object().text(
 		fruitlib::time_format::duration_to_string<sge::font::text::string>(
