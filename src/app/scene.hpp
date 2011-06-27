@@ -4,7 +4,6 @@
 #include "postprocessing.hpp"
 #include "../fruitlib/scenic/nodes/intrusive_group.hpp"
 #include <sge/systems/instance_fwd.hpp>
-#include <sge/console/object_fwd.hpp>
 #include <sge/parse/json/object_fwd.hpp>
 
 namespace fruitcut
@@ -23,7 +22,6 @@ public:
 	explicit
 	scene(
 		sge::systems::instance const &,
-		sge::console::object &,
 		sge::parse::json::object const &);
 
 	void

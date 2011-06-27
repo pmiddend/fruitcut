@@ -12,8 +12,6 @@
 #include "../fruitlib/pp/filter/desaturate.hpp"
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/texture/planar_ptr.hpp>
-#include <sge/console/object_fwd.hpp>
-#include <sge/console/arg_list.hpp>
 #include <sge/parse/json/object_fwd.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/function/object.hpp>
@@ -28,7 +26,6 @@ public:
 	explicit
 	postprocessing(
 		sge::renderer::device &,
-		sge::console::object &,
 		fcppt::function::object<void ()> const &render_func,
 		sge::parse::json::object const &);
 
@@ -69,16 +66,6 @@ private:
 	fcppt::signal::scoped_connection list_connection_;
 	fcppt::signal::scoped_connection toggle_connection_;
 	bool active_;
-
-	void
-	list_filters(
-		sge::console::arg_list const &,
-		sge::console::object &);
-
-	void
-	toggle_filter(
-		sge::console::arg_list const &,
-		sge::console::object &);
 };
 }
 }

@@ -4,24 +4,16 @@
 #include "../fruitlib/pp/dependency_set.hpp"
 #include "../fruitlib/pp/texture/depth_stencil_format.hpp"
 #include "../fruitlib/pp/texture/use_screen_size.hpp"
-#include <sge/font/text/lit.hpp>
-#include <sge/font/text/from_fcppt_string.hpp>
-#include <sge/font/text/to_fcppt_string.hpp>
-#include <sge/console/object.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/dim2.hpp>
 #include <sge/renderer/scalar.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/string.hpp>
 #include <fcppt/function/object.hpp>
-#include <fcppt/tr1/functional.hpp>
-#include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <iostream>
 
 fruitcut::app::postprocessing::postprocessing(
 	sge::renderer::device &_renderer,
-	sge::console::object &console,
 	fcppt::function::object<void ()> const &render_callback,
 	sge::parse::json::object const &config)
 :
@@ -79,24 +71,6 @@ fruitcut::app::postprocessing::postprocessing(
 		fruitlib::pp::texture::use_screen_size(),
 		static_cast<sge::renderer::scalar>(
 			0.0)),
-	list_connection_(
-		console.insert(
-			SGE_FONT_TEXT_LIT("pplist"),
-			std::tr1::bind(
-				&postprocessing::list_filters,
-				this,
-				std::tr1::placeholders::_1,
-				std::tr1::placeholders::_2),
-			SGE_FONT_TEXT_LIT("List all filters"))),
-	toggle_connection_(
-		console.insert(
-			SGE_FONT_TEXT_LIT("pptoggle"),
-				std::tr1::bind(
-					&postprocessing::toggle_filter,
-					this,
-					std::tr1::placeholders::_1,
-					std::tr1::placeholders::_2),
-				SGE_FONT_TEXT_LIT("Toggle a specific filter"))),
 	active_(
 		true)
 {
@@ -190,38 +164,3 @@ fruitcut::app::postprocessing::viewport_changed()
 	texture_manager_.clear_screen_textures();
 }
 
-void
-fruitcut::app::postprocessing::list_filters(
-	sge::console::arg_list const &args,
-	sge::console::object &obj)
-{
-	if(args.size() != 1)
-		obj.emit_error(
-			SGE_FONT_TEXT_LIT("warning: ")+args[0]+SGE_FONT_TEXT_LIT(" doesn't take any parameters"));
-		
-	for(
-		fruitlib::pp::system::filter_name_set::const_iterator s = 
-			system_.filter_names().begin();
-		s != system_.filter_names().end();
-		++s)
-		obj.emit_message(
-			sge::font::text::from_fcppt_string(
-				*s));
-}
-
-void
-fruitcut::app::postprocessing::toggle_filter(
-	sge::console::arg_list const &args,
-	sge::console::object &obj)
-{
-	if (args.size() != 2)
-	{
-		obj.emit_error(
-			SGE_FONT_TEXT_LIT("error: expected one argument, the name of the filter"));
-		return;
-	}
-
-	system_.toggle_filter(
-		sge::font::text::to_fcppt_string(
-			args[1]));
-}

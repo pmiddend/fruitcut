@@ -19,7 +19,6 @@
 #include <sge/cegui/load_context.hpp>
 #include <sge/cegui/syringe.hpp>
 #include <sge/cegui/system.hpp>
-#include <sge/console/console.hpp>
 #include <sge/extension_set.hpp>
 #include <sge/font/size_type.hpp>
 #include <sge/config/config_path.hpp>
@@ -118,11 +117,8 @@ fruitcut::app::machine_impl::machine_impl(
 					sge::image::capabilities_field::null(),
 					fcppt::assign::make_container<sge::extension_set>
 						(FCPPT_TEXT("png"))))),
-	console_object_(
-		SGE_FONT_TEXT_LIT('/')),
 	scene_node_(
 		systems_,
-		console_object_,
 		config_file_),
 	overlay_node_(),
 	activated_loggers_(
@@ -144,66 +140,10 @@ fruitcut::app::machine_impl::machine_impl(
 				FCPPT_TEXT("fonts")))),
 	input_manager_(
 		systems_),
-	console_state_(
-		input_manager_),
 	game_state_(
 		input_manager_),
 	previous_state_(
 		0),
-	console_font_(
-		systems_.font_system().create_font(
-			fruitcut::media_path()
-				/ FCPPT_TEXT("fonts")
-				/ 
-					fruitlib::json::find_and_convert_member<fcppt::string>(
-						config_file(),
-						fruitlib::json::path(
-							FCPPT_TEXT("console"))
-							/ FCPPT_TEXT("font")),
-			fruitlib::json::find_and_convert_member<sge::font::size_type>(
-				config_file(),
-				fruitlib::json::path(
-					FCPPT_TEXT("console"))
-					/ FCPPT_TEXT("font-size")))),
-	console_gfx_(
-		console_object_,
-		systems_.renderer(),
-		sge::image::colors::black(),
-		*console_font_,
-		console_state_,
-		sge::console::sprite_object(
-      sge::console::sprite_parameters()
-      .texture(
-				sge::texture::part_ptr(
-					fcppt::make_shared_ptr<sge::texture::part_raw>(
-						sge::renderer::texture::create_planar_from_path(
-							fruitcut::media_path()
-							/ FCPPT_TEXT("textures")
-							/ 
-								fruitlib::json::find_and_convert_member<fcppt::string>(
-									config_file(),
-									fruitlib::json::path(
-										FCPPT_TEXT("console"))
-										/ FCPPT_TEXT("background-texture")),
-							systems_.renderer(),
-							systems_.image_loader(),
-							sge::renderer::texture::filter::linear,
-							sge::renderer::texture::address_mode2(
-								sge::renderer::texture::address_mode::clamp),
-							sge::renderer::resource_flags::none))))
-      .pos(
-        sge::console::sprite_object::vector::null())
-      .size(
-				// We cannot specify a dimension here since we don't have a viewport yet
-        sge::console::sprite_object::dim::null())
-      .elements()),
-		fruitlib::json::find_and_convert_member<sge::console::output_line_limit>(
-			config_file(),
-			fruitlib::json::path(
-				FCPPT_TEXT("console"))
-				/ FCPPT_TEXT("line-limit"))),
-	console_node_(
-		console_gfx_),
 	current_time_(
 		sge::time::clock::now()),
 	transformed_time_(
@@ -211,13 +151,6 @@ fruitcut::app::machine_impl::machine_impl(
 	time_factor_(
 		static_cast<sge::time::funit>(
 			1)),
-	console_switch_connection_(
-		systems_.keyboard_collector().key_callback(
-			sge::input::keyboard::action(
-				sge::input::keyboard::key_code::f1,
-				std::tr1::bind(
-					&machine_impl::console_switch,
-					this)))),
 	sound_controller_(
 		rng_creator_,
 		fruitcut::media_path()/FCPPT_TEXT("sounds"),
@@ -358,8 +291,6 @@ fruitcut::app::machine_impl::machine_impl(
 		camera_node_);
 	scene_node_.insert_dont_care(
 		point_sprites_);
-	overlay_node_.push_back(
-		console_node_);
 	input_manager_.current_state(
 		game_state_);
 	systems_.audio_player().gain(
@@ -648,26 +579,6 @@ fruitcut::app::machine_impl::~machine_impl()
 			user_config_file_);
 }
 
-void
-fruitcut::app::machine_impl::console_switch()
-{
-	console_gfx_.active(
-		!console_gfx_.active());
-
-	if (console_gfx_.active())
-	{
-		previous_state_ = 
-			input_manager_.current_state();
-		input_manager_.current_state(
-			console_state_);
-	}
-	else
-	{
-		input_manager_.current_state(
-			*previous_state_);
-	}
-}
-
 // FIXME: This could be a nice phoenix actor
 void
 fruitcut::app::machine_impl::toggle_camera()
@@ -684,10 +595,6 @@ void
 fruitcut::app::machine_impl::viewport_change()
 {
 	scene_node_.postprocessing().viewport_changed();
-	console_gfx_.background_sprite().size(
-		fcppt::math::dim::structure_cast<sge::console::sprite_object::dim>(
-			sge::renderer::viewport_size(
-				systems_.renderer())));
 	background_.viewport_changed();
 	camera_.projection_object(
 		fruitlib::json::parse_projection(

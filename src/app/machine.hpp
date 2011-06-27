@@ -219,7 +219,8 @@ private:
 	std::allocator<void>
 	allocator;
 
-	// Can't call it "event_base_ptr_type" since that's "reserved" by statechart
+	// Can't call it "event_base_ptr_type" since that's "reserved" by
+	// statechart
 	typedef
 	boost::intrusive_ptr<boost::statechart::event_base const> 
 	my_event_base_ptr_type;

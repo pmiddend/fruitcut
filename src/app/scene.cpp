@@ -6,14 +6,12 @@
 
 fruitcut::app::scene::scene(
 	sge::systems::instance const &_systems,
-	sge::console::object &_console_object,
 	sge::parse::json::object const &_config_file)
 :
 	active_(
 		true),
 	postprocessing_(
 		_systems.renderer(),
-		_console_object,
 		std::tr1::bind(
 			&scene::render_children,
 			this),

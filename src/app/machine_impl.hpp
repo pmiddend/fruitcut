@@ -13,7 +13,6 @@
 #include "../fruitlib/log/scoped_sequence_ptr.hpp"
 #include "../fruitlib/rng_creator.hpp"
 #include "../fruitlib/scenic/nodes/camera.hpp"
-#include "../fruitlib/scenic/nodes/console.hpp"
 #include "../fruitlib/scenic/nodes/intrusive_group.hpp"
 #include "../fruitlib/scenic/nodes/music_controller.hpp"
 #include "../fruitlib/scenic/nodes/sound_controller.hpp"
@@ -26,8 +25,6 @@
 #include <sge/camera/object.hpp>
 #include <sge/cegui/syringe.hpp>
 #include <sge/cegui/system.hpp>
-#include <sge/console/gfx.hpp>
-#include <sge/console/object.hpp>
 #include <sge/font/metrics_ptr.hpp>
 #include <sge/parse/json/object.hpp>
 #include <sge/systems/instance.hpp>
@@ -175,21 +172,16 @@ private:
 	sge::parse::json::object user_config_file_;
 	sge::parse::json::object const config_file_;
 	sge::systems::instance const systems_;
-	sge::console::object console_object_;
 	app::scene scene_node_;
 	app::overlay overlay_node_;
 	fruitlib::log::scoped_sequence_ptr activated_loggers_;
 	fruitlib::font::cache font_cache_;
 	fruitlib::input::state_manager input_manager_;
-	fruitlib::input::state console_state_,game_state_;
+	fruitlib::input::state game_state_;
 	fruitlib::input::state *previous_state_;
-	sge::font::metrics_ptr console_font_;
-	sge::console::gfx console_gfx_;
-	fruitlib::scenic::nodes::console console_node_;
 	fcppt::signal::scoped_connection exit_connection_;
 	sge::time::point current_time_,transformed_time_;
 	sge::time::funit time_factor_;
-	fcppt::signal::scoped_connection console_switch_connection_;
 	fruitlib::audio::sound_controller sound_controller_;
 	fruitlib::scenic::nodes::sound_controller sound_controller_node_;
 	fruitlib::audio::music_controller music_controller_;
@@ -209,9 +201,6 @@ private:
 	point_sprite::system_node point_sprites_;
 	fruitlib::screen_shooter screen_shooter_;
 	fruit::prototype_sequence fruit_prototypes_;
-
-	void
-	console_switch();
 
 	void
 	toggle_camera();
