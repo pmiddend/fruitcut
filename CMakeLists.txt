@@ -196,6 +196,8 @@ SET(
 	src/fruitlib/json/string_to_value.cpp
 	src/fruitlib/json/string_to_value.hpp
 	src/fruitlib/json/update_member.hpp
+	src/fruitlib/json/user_config_variable.cpp
+	src/fruitlib/json/user_config_variable.hpp
 	src/fruitlib/log/scoped.cpp
 	src/fruitlib/log/scoped.hpp
 	src/fruitlib/log/scoped_sequence.hpp
