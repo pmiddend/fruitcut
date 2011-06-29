@@ -17,7 +17,7 @@ LINK_DIRECTORIES(${Boost_LIBRARY_DIRS})
 # fcppt begin
 FIND_PACKAGE(Fcppt REQUIRED)
 INCLUDE_DIRECTORIES(${Fcppt_INCLUDE_DIRS})
-ADD_DEFINITIONS(${Fcppt_DEFINITIONS})
+ADD_DEFINITIONS(${Fcppt_DEFINITIONS} -Wno-old-style-cast)
 # fcppt end
 
 # awl begin
@@ -602,6 +602,7 @@ SET(
 	src/app/states/menu_fwd.hpp
 )
 
+# library begin
 ADD_LIBRARY(
 	fruitcut_library STATIC ${FRUITLIB_FILES})
 
@@ -612,7 +613,9 @@ TARGET_LINK_LIBRARIES(
 	${SGE_LIBRARIES}
 	${BULLET_LIBRARIES}
 	${Boost_LIBRARIES})
+# library end
 
+# app begin
 ADD_EXECUTABLE(
 	fruitcut
 	${APP_FILES} src/media_path.cpp)
@@ -625,20 +628,55 @@ TARGET_LINK_LIBRARIES(
 	${CEGUI_LIBRARIES}
 	${BULLET_LIBRARIES}
 	${Boost_LIBRARIES})
+# app end
 
-ADD_SUBDIRECTORY(
-	src/sandbox)
-
-INSTALL(
-	DIRECTORY
-	media/
-	DESTINATION
-	${INSTALL_MEDIA_DIR}
+# server begin
+SET(
+	SERVER_FILES
+	src/server/listener.cpp
+	src/server/listener.hpp
+	src/server/program_options/command_line_parameters.hpp
+	src/server/program_options/detail/bad_cast.cpp
+	src/server/program_options/detail/bad_cast.hpp
+	src/server/program_options/detail/holder_get.hpp
+	src/server/program_options/detail/option_base.cpp
+	src/server/program_options/detail/option_base.hpp
+	src/server/program_options/detail/option_holder.hpp
+	src/server/program_options/detail/option_holder_base.cpp
+	src/server/program_options/detail/option_holder_base.hpp
+	src/server/program_options/detail/option_holder_base_fwd.hpp
+	src/server/program_options/detail/option_holder_base_ptr.hpp
+	src/server/program_options/detail/type_info.cpp
+	src/server/program_options/detail/type_info.hpp
+	src/server/program_options/help_was_needed.cpp
+	src/server/program_options/help_was_needed.hpp
+	src/server/program_options/make_command_line_parameters.cpp
+	src/server/program_options/make_command_line_parameters.hpp
+	src/server/program_options/object.cpp
+	src/server/program_options/object.hpp
+	src/server/program_options/option.hpp
+	src/server/program_options/option_sequence.cpp
+	src/server/program_options/option_sequence.hpp
+	src/server/server.cpp
+	src/server/std_error_string.cpp
+	src/server/std_error_string.hpp
 )
+
+ADD_EXECUTABLE(
+	fruitcut_server
+	${SERVER_FILES})
+# server end
 
 INSTALL(
 	TARGETS
 	fruitcut
+	DESTINATION
+	${INSTALL_BINARY_DIR}
+)
+
+INSTALL(
+	TARGETS
+	fruitcut_server
 	DESTINATION
 	${INSTALL_BINARY_DIR}
 )

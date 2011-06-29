@@ -26,3 +26,8 @@ update_cmake_file \
 	CMakeLists.txt \
 	APP_FILES \
 	src/app \
+
+update_cmake_file \
+	CMakeLists.txt \
+	SERVER_FILES \
+	src/server \
