@@ -89,7 +89,7 @@ fruitcut::app::states::loading::update()
 	context<machine>().fruit_prototypes().push_back(
 		fruit::prototype_from_json(
 			*current_fruit_++,
-			context<machine>().systems().md3_loader(),
+			context<machine>().md3_loader(),
 			context<machine>().systems().image_loader(),
 			context<machine>().systems().renderer()));
 

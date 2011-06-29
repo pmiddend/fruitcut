@@ -16,7 +16,6 @@
 #include "../../fruitlib/physics/world_fwd.hpp"
 #include "../../fruitlib/physics/group/object.hpp"
 #include <sge/image2d/multi_loader_fwd.hpp>
-#include <sge/model/loader_fwd.hpp>
 #include <sge/parse/json/array_fwd.hpp>
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/matrix4.hpp>

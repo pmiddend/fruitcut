@@ -16,10 +16,6 @@
 #include "parameters_from_prototype.hpp"
 #include "plane.hpp"
 #include <sge/camera/object.hpp>
-#include <sge/image2d/file.hpp>
-#include <sge/image2d/loader.hpp>
-#include <sge/image2d/multi_loader.hpp>
-#include <sge/model/loader.hpp>
 #include <sge/parse/json/array.hpp>
 #include <sge/parse/json/object.hpp>
 #include <sge/renderer/device.hpp>

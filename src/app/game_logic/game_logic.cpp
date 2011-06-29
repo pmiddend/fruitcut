@@ -228,7 +228,7 @@ fruitcut::app::game_logic::game_logic::fruit_cut(
 	fruit::cut_context const &context)
 {
 	fruit::tag_sequence ts = context.old().prototype().tags();
-	if (!ts.empty() && ts.front() == "meat")
+	if (!ts.empty() && ts.front() == FCPPT_TEXT("meat"))
 	{
 		penalty_timer_.activate();
 		penalty_timer_.reset();

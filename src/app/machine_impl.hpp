@@ -25,6 +25,7 @@
 #include <sge/camera/object.hpp>
 #include <sge/cegui/syringe.hpp>
 #include <sge/cegui/system.hpp>
+#include <sge/md3/loader_ptr.hpp>
 #include <sge/font/metrics_ptr.hpp>
 #include <sge/parse/json/object.hpp>
 #include <sge/systems/instance.hpp>
@@ -58,6 +59,9 @@ public:
 
 	sge::systems::instance const &
 	systems() const;
+
+	sge::md3::loader &
+	md3_loader();
 
 	void
 	run_once();
@@ -172,6 +176,7 @@ private:
 	sge::parse::json::object user_config_file_;
 	sge::parse::json::object const config_file_;
 	sge::systems::instance const systems_;
+	sge::md3::loader_ptr md3_loader_;
 	app::scene scene_node_;
 	app::overlay overlay_node_;
 	fruitlib::log::scoped_sequence_ptr activated_loggers_;

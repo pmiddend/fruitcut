@@ -52,7 +52,7 @@ FIND_PACKAGE(
 	input
 	renderer
 	line_drawer
-	model
+	md3
 	parse 
 	shader
 	sprite 

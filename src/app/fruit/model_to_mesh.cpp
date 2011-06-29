@@ -2,7 +2,7 @@
 #include "triangle.hpp"
 #include <sge/renderer/vector2.hpp>
 #include <sge/renderer/vector3.hpp>
-#include <sge/model/model.hpp>
+#include <sge/md3/md3.hpp>
 #include <fcppt/math/vector/vector.hpp>
 #include <fcppt/assert.hpp>
 #include <fcppt/string.hpp>
@@ -10,38 +10,38 @@
 
 fruitcut::app::fruit::mesh const
 fruitcut::app::fruit::model_to_mesh(
-	sge::model::object_ptr const model)
+	sge::md3::object const &model)
 {
 	mesh result;
 
 	FCPPT_ASSERT(
-		!model->part_names().empty());
+		!model.part_names().empty());
 
 	fcppt::string const part_name = 
-		model->part_names().front();
+		model.part_names().front();
 
-	sge::model::vertex_sequence const vertices = 
-		model->vertices(
+	sge::md3::vertex_sequence const vertices = 
+		model.vertices(
 			part_name);
 
 	FCPPT_ASSERT(
-		model->texcoords(
+		model.texcoords(
 			part_name));
 
-	sge::model::texcoord_sequence const texcoords = 
-		*model->texcoords(
+	sge::md3::texcoord_sequence const texcoords = 
+		*model.texcoords(
 			part_name);
 
 	FCPPT_ASSERT(
-		model->normals(
+		model.normals(
 			part_name));
 
-	sge::model::normal_sequence const normals = 
-		*model->normals(
+	sge::md3::normal_sequence const normals = 
+		*model.normals(
 			part_name);
 
-	sge::model::index_sequence const indices = 
-		model->indices(
+	sge::md3::index_sequence const indices = 
+		model.indices(
 			part_name);
 
 	FCPPT_ASSERT(
@@ -51,7 +51,7 @@ fruitcut::app::fruit::model_to_mesh(
 		indices.size() % 3 == 0);
 
 	for(
-		sge::model::index_sequence::const_iterator index = indices.begin();
+		sge::md3::index_sequence::const_iterator index = indices.begin();
 		index != indices.end();
 		index += 3)
 	{

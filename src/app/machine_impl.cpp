@@ -19,15 +19,16 @@
 #include <sge/cegui/load_context.hpp>
 #include <sge/cegui/syringe.hpp>
 #include <sge/cegui/system.hpp>
+#include <sge/config/config_path.hpp>
 #include <sge/extension_set.hpp>
 #include <sge/font/size_type.hpp>
-#include <sge/config/config_path.hpp>
 #include <sge/font/system.hpp>
 #include <sge/font/text/lit.hpp>
 #include <sge/image/colors.hpp>
 #include <sge/input/keyboard/action.hpp>
 #include <sge/input/keyboard/key_code.hpp>
 #include <sge/log/global_context.hpp>
+#include <sge/md3/create.hpp>
 #include <sge/parse/json/json.hpp>
 #include <sge/renderer/aspect.hpp>
 #include <sge/renderer/depth_stencil_buffer.hpp>
@@ -112,11 +113,12 @@ fruitcut::app::machine_impl::machine_impl(
 					(FCPPT_TEXT("wav"))
 					(FCPPT_TEXT("ogg"))))
 			(sge::systems::parameterless::font) 	
-			(sge::systems::parameterless::md3_loader) 	
 			(sge::systems::image_loader(
 					sge::image::capabilities_field::null(),
 					fcppt::assign::make_container<sge::extension_set>
 						(FCPPT_TEXT("png"))))),
+	md3_loader_(
+		sge::md3::create()),
 	scene_node_(
 		systems_,
 		config_file_),
@@ -322,6 +324,12 @@ sge::systems::instance const &
 fruitcut::app::machine_impl::systems() const
 {
 	return systems_;
+}
+
+sge::md3::loader &
+fruitcut::app::machine_impl::md3_loader()
+{
+	return *md3_loader_;
 }
 
 fruitcut::app::postprocessing &

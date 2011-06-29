@@ -53,6 +53,12 @@ fruitcut::app::machine::systems() const
 	return impl_->systems();
 }
 
+sge::md3::loader &
+fruitcut::app::machine::md3_loader()
+{
+	return impl_->md3_loader();
+}
+
 fruitcut::app::postprocessing &
 fruitcut::app::machine::postprocessing()
 {

@@ -4,9 +4,10 @@
 #include <fcppt/exception.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/config.hpp>
+#include <fcppt/platform.hpp>
 #include <iostream>
 
-#ifndef FCPPT_HAVE_POSIX
+#if defined(FCPPT_HAVE_BACKTRACE) && defined(FCPPT_POSIX_PLATFORM)
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/backtrace/print_current_stack_frame.hpp>
 #include <signal.h>
