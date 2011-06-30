@@ -59,7 +59,13 @@ fruitcut::app::config_variables::config_variables(
 		global_config,
 		user_config,
 		fruitlib::json::path(
-			FCPPT_TEXT("effects-volume")))
+			FCPPT_TEXT("effects-volume"))),
+	splatter_count_to_area_factor_(
+		global_config,
+		user_config,
+		fruitlib::json::path(
+			FCPPT_TEXT("splatter-generator"))
+			/ FCPPT_TEXT("splatter-count-to-area-factor"))
 {
 }
 
@@ -73,6 +79,12 @@ fruitcut::app::config_variables::audio_variable &
 fruitcut::app::config_variables::effects_volume()
 {
 	return effects_volume_;
+}
+
+fruitcut::app::config_variables::splatter_factor_variable &
+fruitcut::app::config_variables::splatter_count_to_area_factor()
+{
+	return splatter_count_to_area_factor_;
 }
 
 fruitcut::app::config_variables::~config_variables()

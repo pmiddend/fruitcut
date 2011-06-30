@@ -2,6 +2,7 @@
 #define FRUITCUT_APP_CONFIG_VARIABLES_HPP_INCLUDED
 
 #include "../fruitlib/json/user_config_variable.hpp"
+#include "fruit/area.hpp"
 #include <sge/parse/json/object_fwd.hpp>
 #include <sge/audio/scalar.hpp>
 
@@ -18,6 +19,10 @@ public:
 	fruitlib::json::user_config_variable<sge::audio::scalar>
 	audio_variable;
 
+	typedef
+	fruitlib::json::user_config_variable<fruit::area::value_type>
+	splatter_factor_variable;
+
 	explicit
 	config_variables(
 		sge::parse::json::object const &global_config,
@@ -28,6 +33,9 @@ public:
 
 	audio_variable &
 	effects_volume();
+
+	splatter_factor_variable &
+	splatter_count_to_area_factor();
 
 	~config_variables();
 private:
@@ -49,6 +57,7 @@ private:
 	destructor_write_hack write_hack_;
 	audio_variable music_volume_;
 	audio_variable effects_volume_;
+	splatter_factor_variable splatter_count_to_area_factor_;
 };
 }
 }

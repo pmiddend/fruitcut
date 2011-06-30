@@ -1,5 +1,6 @@
 #include "superstate.hpp"
 #include "running.hpp"
+#include "../../config_variables.hpp"
 #include "../../point_sprite/system_node.hpp"
 #include "../../shadow_map.hpp"
 #include "../../scene.hpp"
@@ -114,6 +115,7 @@ fruitcut::app::states::ingame::superstate::superstate(
 				std::tr1::placeholders::_1))),
 	splatter_generator_(
 		context<machine>().config_file(),
+		context<machine>().config_variables().splatter_count_to_area_factor(),
 		context<machine>().point_sprites(),
 		context<machine>().rng_creator(),
 		point_sprite::splatter::acceleration(

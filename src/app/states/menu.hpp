@@ -58,6 +58,7 @@ private:
 	CEGUI::Event::ScopedConnection start_button_connection_;
 	CEGUI::Event::ScopedConnection music_slider_pulled_connection_;
 	CEGUI::Event::ScopedConnection effects_slider_pulled_connection_;
+	CEGUI::Event::ScopedConnection splatter_slider_pulled_connection_;
 
 	void
 	viewport_change();
@@ -82,6 +83,10 @@ private:
 
 	bool
 	effects_slider_pulled(
+		CEGUI::EventArgs const &);
+
+	bool
+	splatter_slider_pulled(
 		CEGUI::EventArgs const &);
 };
 }

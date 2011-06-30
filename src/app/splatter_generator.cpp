@@ -33,6 +33,7 @@
 
 fruitcut::app::splatter_generator::splatter_generator(
 	sge::parse::json::object const &config_file,
+	fruitlib::json::user_config_variable<fruit::area::value_type> &_splatter_count_to_area_factor,
 	point_sprite::system_node &_point_sprites,
 	fruitlib::rng_creator &_rng_creator,
 	point_sprite::splatter::acceleration const &_acceleration,
@@ -86,11 +87,7 @@ fruitcut::app::splatter_generator::splatter_generator(
 				fruitlib::json::path(FCPPT_TEXT("splatter-generator"))
 					/ FCPPT_TEXT("lifetime-millis-range")))),
 	splatter_count_to_area_factor_(
-		fruitlib::json::find_and_convert_member<sge::renderer::scalar>(
-			config_file,
-			fruitlib::json::path(
-				FCPPT_TEXT("splatter-generator"))
-				/ FCPPT_TEXT("splatter-count-to-area-factor")))
+		_splatter_count_to_area_factor)
 {
 }
 
@@ -129,7 +126,7 @@ fruitcut::app::splatter_generator::fruit_was_cut(
 				0,
 			number_of_points = 
 				static_cast<unsigned>(
-					cut_info.area() * splatter_count_to_area_factor_);
+					cut_info.area() * splatter_count_to_area_factor_.value() * 200.0);
 		i < number_of_points; 
 		++i)
 	{

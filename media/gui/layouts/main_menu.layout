@@ -114,7 +114,7 @@
                 </AutoWindow>
                 <AutoWindow NameSuffix="__auto_thumb__" />
             </Window>
-            <Window Type="Fruitcut/Slider" Name="MainMenu/ParticleDensity" >
+            <Window Type="Fruitcut/Slider" Name="MainMenu/SplatterFactor" >
                 <Property Name="CurrentValue" Value="0" />
                 <Property Name="MaximumValue" Value="1" />
                 <Property Name="ClickStepSize" Value="0.01" />

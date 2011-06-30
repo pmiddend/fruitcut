@@ -5,6 +5,7 @@
 #include "fruit/area.hpp"
 #include "../fruitlib/uniform_random.hpp"
 #include "../fruitlib/rng_creator_fwd.hpp"
+#include "../fruitlib/json/user_config_variable.hpp"
 #include "point_sprite/color_format.hpp"
 #include "point_sprite/splatter/size.hpp"
 #include "point_sprite/splatter/linear_velocity.hpp"
@@ -28,6 +29,7 @@ public:
 	explicit
 	splatter_generator(
 		sge::parse::json::object const &,
+		fruitlib::json::user_config_variable<fruit::area::value_type> &_splatter_count_to_area_factor,
 		point_sprite::system_node &,
 		fruitlib::rng_creator &,
 		point_sprite::splatter::acceleration const &,
@@ -73,7 +75,7 @@ private:
 	size_rng size_rng_;
 	alpha_rng alpha_rng_;
 	lifetime_millis_rng lifetime_millis_rng_;
-	fruit::area::value_type const splatter_count_to_area_factor_;
+	fruitlib::json::user_config_variable<fruit::area::value_type> &splatter_count_to_area_factor_;
 };
 }
 }
