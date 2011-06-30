@@ -9,6 +9,7 @@
 #include "../exception.hpp"
 #include <sge/parse/json/json.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/assert.hpp>
 #include <boost/range/algorithm/find_if.hpp>
 
 namespace fruitcut
@@ -23,6 +24,9 @@ find_and_convert_member(
 	sge::parse::json::object const &o,
 	json::path const &input_path)
 {
+	FCPPT_ASSERT(
+		!input_path.empty());
+
 	json::path const shortened_path = 
 		json::path(
 			input_path.begin(),

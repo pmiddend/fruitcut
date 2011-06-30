@@ -196,7 +196,6 @@ SET(
 	src/fruitlib/json/string_to_value.cpp
 	src/fruitlib/json/string_to_value.hpp
 	src/fruitlib/json/update_member.hpp
-	src/fruitlib/json/user_config_variable.cpp
 	src/fruitlib/json/user_config_variable.hpp
 	src/fruitlib/log/scoped.cpp
 	src/fruitlib/log/scoped.hpp
@@ -430,6 +429,9 @@ SET(
 	src/app/background.cpp
 	src/app/background.hpp
 	src/app/background_fwd.hpp
+	src/app/config_variables.cpp
+	src/app/config_variables.hpp
+	src/app/config_variables_fwd.hpp
 	src/app/cut_context_fwd.hpp
 	src/app/dim2.hpp
 	src/app/directional_light_source.cpp

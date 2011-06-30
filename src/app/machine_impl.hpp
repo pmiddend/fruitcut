@@ -4,6 +4,7 @@
 #include "score.hpp"
 #include "background.hpp"
 #include "directional_light_source.hpp"
+#include "config_variables.hpp"
 #include "../fruitlib/audio/music_controller.hpp"
 #include "../fruitlib/audio/sound_controller.hpp"
 #include "../fruitlib/font/cache.hpp"
@@ -51,17 +52,17 @@ public:
 	sge::parse::json::object const &
 	config_file() const;
 
-	sge::parse::json::object &
-	user_config_file();
-
-	sge::parse::json::object const &
-	user_config_file() const;
-
 	sge::systems::instance const &
 	systems() const;
 
 	sge::md3::loader &
 	md3_loader();
+
+	app::config_variables &
+	config_variables();
+
+	app::config_variables const &
+	config_variables() const;
 
 	void
 	run_once();
@@ -175,6 +176,7 @@ private:
 	fruitlib::rng_creator rng_creator_;
 	sge::parse::json::object user_config_file_;
 	sge::parse::json::object const config_file_;
+	app::config_variables config_variables_;
 	sge::systems::instance const systems_;
 	sge::md3::loader_ptr md3_loader_;
 	app::scene scene_node_;
@@ -189,8 +191,10 @@ private:
 	sge::time::funit time_factor_;
 	fruitlib::audio::sound_controller sound_controller_;
 	fruitlib::scenic::nodes::sound_controller sound_controller_node_;
+	fcppt::signal::scoped_connection effects_volume_change_connection_;
 	fruitlib::audio::music_controller music_controller_;
 	fruitlib::scenic::nodes::music_controller music_controller_node_;
+	fcppt::signal::scoped_connection music_volume_change_connection_;
 	sge::camera::object camera_;
 	fruitlib::scenic::nodes::camera camera_node_;
 	fcppt::signal::scoped_connection toggle_camera_connection_;

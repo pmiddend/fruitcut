@@ -2,6 +2,7 @@
 #define FRUITCUT_APP_MACHINE_HPP_INCLUDED
 
 #include "machine_impl_fwd.hpp"
+#include "config_variables_fwd.hpp"
 #include "states/loading_fwd.hpp"
 #include "postprocessing_fwd.hpp"
 #include "background_fwd.hpp"
@@ -53,17 +54,17 @@ public:
 	sge::parse::json::object const &
 	config_file() const;
 
-	sge::parse::json::object &
-	user_config_file();
-
-	sge::parse::json::object const &
-	user_config_file() const;
-
 	sge::systems::instance const &
 	systems() const;
 
 	sge::md3::loader &
 	md3_loader();
+
+	app::config_variables &
+	config_variables();
+
+	app::config_variables const &
+	config_variables() const;
 
 	void
 	run();

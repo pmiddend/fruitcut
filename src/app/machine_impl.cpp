@@ -3,7 +3,6 @@
 #include "../fruitlib/json/parse_projection.hpp"
 #include "../fruitlib/json/find_and_convert_member.hpp"
 #include "../fruitlib/json/merge_trees.hpp"
-#include "../fruitlib/json/output_tabbed.hpp"
 #include "../fruitlib/json/merge_command_line_parameters.hpp"
 #include "../fruitlib/create_command_line_parameters.hpp"
 #include "../fruitlib/log/scoped_sequence_from_json.hpp"
@@ -12,14 +11,12 @@
 #include "light_source_from_json.hpp"
 #include "load_user_config.hpp"
 #include "../media_path.hpp"
-#include "name.hpp"
 #include <sge/audio/player.hpp>
 #include <sge/camera/camera.hpp>
 #include <sge/cegui/cursor_visibility.hpp>
 #include <sge/cegui/load_context.hpp>
 #include <sge/cegui/syringe.hpp>
 #include <sge/cegui/system.hpp>
-#include <sge/config/config_path.hpp>
 #include <sge/extension_set.hpp>
 #include <sge/font/size_type.hpp>
 #include <sge/font/system.hpp>
@@ -51,13 +48,10 @@
 #include <sge/window/instance.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/chrono/chrono.hpp>
-#include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/container/bitfield/bitfield.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/math/dim/dim.hpp>
 #include <fcppt/math/vector/vector.hpp>
-#include <fcppt/io/ofstream.hpp>
-#include <fcppt/io/cerr.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/time/sleep_any.hpp>
@@ -82,6 +76,9 @@ fruitcut::app::machine_impl::machine_impl(
 			fruitlib::create_command_line_parameters(
 				argc,
 				argv))),
+	config_variables_(
+		config_file_,
+		user_config_file_),
 	systems_(
 		sge::systems::list()
 			(sge::systems::window(
@@ -165,6 +162,13 @@ fruitcut::app::machine_impl::machine_impl(
 					FCPPT_TEXT("effects-volume"))))),
 	sound_controller_node_(
 		sound_controller_),
+	effects_volume_change_connection_(
+		config_variables_.effects_volume().change_callback(
+			std::tr1::bind(
+				static_cast<void(fruitlib::audio::sound_controller::*)(sge::audio::scalar)>(
+					&fruitlib::audio::sound_controller::gain_factor),
+				&sound_controller_,
+				std::tr1::placeholders::_1))),
 	music_controller_(
 		rng_creator_,
 		systems_.audio_loader(),
@@ -183,6 +187,13 @@ fruitcut::app::machine_impl::machine_impl(
 				/ FCPPT_TEXT("volume"))),
 	music_controller_node_(
 		music_controller_),
+	music_volume_change_connection_(
+		config_variables_.music_volume().change_callback(
+			std::tr1::bind(
+				static_cast<void(fruitlib::audio::music_controller::*)(sge::audio::scalar)>(
+					&fruitlib::audio::music_controller::volume),
+				&music_controller_,
+				std::tr1::placeholders::_1))),
 	camera_(
 		sge::camera::parameters(
 			// Leave projection object empty for now, we have to wait for a viewport change
@@ -308,18 +319,6 @@ fruitcut::app::machine_impl::config_file() const
 	return config_file_;
 }
 
-sge::parse::json::object &
-fruitcut::app::machine_impl::user_config_file() 
-{
-	return user_config_file_;
-}
-
-sge::parse::json::object const &
-fruitcut::app::machine_impl::user_config_file() const
-{
-	return user_config_file_;
-}
-
 sge::systems::instance const &
 fruitcut::app::machine_impl::systems() const
 {
@@ -330,6 +329,18 @@ sge::md3::loader &
 fruitcut::app::machine_impl::md3_loader()
 {
 	return *md3_loader_;
+}
+
+fruitcut::app::config_variables &
+fruitcut::app::machine_impl::config_variables()
+{
+	return config_variables_;
+}
+
+fruitcut::app::config_variables const &
+fruitcut::app::machine_impl::config_variables() const
+{
+	return config_variables_;
 }
 
 fruitcut::app::postprocessing &
@@ -563,28 +574,6 @@ fruitcut::app::machine_impl::fruit_prototypes()
 
 fruitcut::app::machine_impl::~machine_impl()
 {
-	fcppt::io::ofstream file(
-		sge::config::config_path(
-			app::name())/
-			FCPPT_TEXT("config.json"));
-
-	if(!file.is_open())
-	{
-		// Can't throw in a destructor! So just output this warning
-		fcppt::io::cerr 
-			<< FCPPT_TEXT("Warning: couldn't save user configuration to \"")
-			<<
-				fcppt::filesystem::path_to_string(
-					sge::config::config_path(
-						app::name())/
-						FCPPT_TEXT("config.json"))
-			<< FCPPT_TEXT("\" (couldn't open the file)");
-		return;
-	}
-
-	file << 
-		fruitlib::json::output_tabbed(
-			user_config_file_);
 }
 
 // FIXME: This could be a nice phoenix actor

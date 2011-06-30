@@ -35,18 +35,6 @@ fruitcut::app::machine::config_file() const
 	return impl_->config_file();
 }
 
-sge::parse::json::object &
-fruitcut::app::machine::user_config_file()
-{
-	return impl_->user_config_file();
-}
-
-sge::parse::json::object const &
-fruitcut::app::machine::user_config_file() const
-{
-	return impl_->user_config_file();
-}
-
 sge::systems::instance const &
 fruitcut::app::machine::systems() const
 {
@@ -57,6 +45,18 @@ sge::md3::loader &
 fruitcut::app::machine::md3_loader()
 {
 	return impl_->md3_loader();
+}
+
+fruitcut::app::config_variables &
+fruitcut::app::machine::config_variables()
+{
+	return impl_->config_variables();
+}
+
+fruitcut::app::config_variables const &
+fruitcut::app::machine::config_variables() const
+{
+	return impl_->config_variables();
 }
 
 fruitcut::app::postprocessing &

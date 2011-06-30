@@ -7,6 +7,7 @@
 #include <boost/variant/get.hpp>
 #include <fcppt/type_name.hpp>
 #include <fcppt/string.hpp>
+#include <fcppt/assert.hpp>
 #include <numeric>
 #include <algorithm>
 #include <typeinfo>
@@ -18,6 +19,9 @@ fruitcut::fruitlib::json::modify_user_value(
 	json::path const &input_path,
 	sge::parse::json::value const &new_value)
 {
+	FCPPT_ASSERT(
+		!input_path.empty());
+
 	sge::parse::json::value const old_value = 
 		json::find_and_convert_member<sge::parse::json::value>(
 			structure_json,
@@ -35,11 +39,19 @@ fruitcut::fruitlib::json::modify_user_value(
 				fcppt::type_name(new_value.type()));
 
 	sge::parse::json::object &target = 
-		json::make_recursive_objects(
-			user_json,
-			json::path(
-				input_path.begin(),
-				--input_path.end()));
+		// 0 is not permitted, 1 would mean: just take a value from
+		// user_json, > 1 means: recursively make a path in the user_json
+		(std::distance(
+			input_path.begin(),
+			input_path.end()) > 1)
+		?
+			json::make_recursive_objects(
+				user_json,
+				json::path(
+					input_path.begin(),
+					--input_path.end()))
+		:
+			user_json;
 
 	sge::parse::json::member_vector::iterator it = 
 		boost::find_if(
@@ -48,14 +60,10 @@ fruitcut::fruitlib::json::modify_user_value(
 				input_path.back()));
 
 	if(it == target.members.end())
-	{
 		target.members.push_back(
 			sge::parse::json::member(
 				input_path.back(),
 				new_value));
-	}
 	else
-	{
 		it->value = new_value;
-	}
 }

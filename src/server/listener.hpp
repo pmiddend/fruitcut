@@ -3,6 +3,7 @@
 
 #include <sys/select.h>
 #include <tr1/functional>
+#include <string>
 
 namespace fruitcut
 {
@@ -26,7 +27,10 @@ public:
 	explicit
 	listener(
 		short port,
-		int listen_queue_size);
+		int listen_queue_size,
+		client_create_callback const &,
+		client_data_callback const &,
+		client_quit_callback const &);
 
 	void
 	run_once();
@@ -42,6 +46,11 @@ public:
 	void
 	on_client_quit(
 		client_quit_callback const &);
+
+	void
+	send(
+		int,
+		std::string const &);
 
 	~listener();
 private:

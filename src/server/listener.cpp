@@ -15,7 +15,10 @@
 
 fruitcut::server::listener::listener(
 	short const port,
-	int const listen_queue_size)
+	int const listen_queue_size,
+	client_create_callback const &_on_client_create,
+	client_data_callback const &_on_receive_data,
+	client_quit_callback const &_on_client_quit)
 :
 	listening_socket_(
 		::socket(
@@ -23,7 +26,14 @@ fruitcut::server::listener::listener(
 			SOCK_STREAM,
 			// protocol
 			0)),
-	master_fds_()
+	master_fds_(),
+	maximum_fd_(),
+	on_client_create_(
+		_on_client_create),
+	on_receive_data_(
+		_on_receive_data),
+	on_client_quit_(
+		_on_client_quit)
 {
 	FD_ZERO(
 		&master_fds_);
