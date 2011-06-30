@@ -98,12 +98,25 @@ fruitcut::app::states::menu::menu(
 				std::tr1::bind(
 					&menu::music_slider_pulled,
 					this,
+					std::tr1::placeholders::_1)))),
+	effects_slider_pulled_connection_(
+		CEGUI::WindowManager::getSingleton().getWindow("MainMenu/EffectsVolume")->subscribeEvent(
+			CEGUI::Slider::EventValueChanged,
+			CEGUI::Event::Subscriber(
+				std::tr1::bind(
+					&menu::effects_slider_pulled,
+					this,
 					std::tr1::placeholders::_1))))
 {
 	dynamic_cast<CEGUI::Slider *>(
 		CEGUI::WindowManager::getSingleton().getWindow("MainMenu/MusicVolume"))->setCurrentValue(
 		static_cast<float>(
 			context<machine>().config_variables().music_volume().value()));
+
+	dynamic_cast<CEGUI::Slider *>(
+		CEGUI::WindowManager::getSingleton().getWindow("MainMenu/EffectsVolume"))->setCurrentValue(
+		static_cast<float>(
+			context<machine>().config_variables().effects_volume().value()));
 
 	context<machine>().music_controller().play(
 		fruitlib::resource_tree::path(
@@ -176,5 +189,16 @@ fruitcut::app::states::menu::music_slider_pulled(
 		static_cast<sge::audio::scalar>(
 			dynamic_cast<CEGUI::Slider *>(
 				CEGUI::WindowManager::getSingleton().getWindow("MainMenu/MusicVolume"))->getCurrentValue()));
+	return true;
+}
+
+bool
+fruitcut::app::states::menu::effects_slider_pulled(
+	CEGUI::EventArgs const &)
+{
+	context<machine>().config_variables().effects_volume().value(
+		static_cast<sge::audio::scalar>(
+			dynamic_cast<CEGUI::Slider *>(
+				CEGUI::WindowManager::getSingleton().getWindow("MainMenu/EffectsVolume"))->getCurrentValue()));
 	return true;
 }
