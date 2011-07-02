@@ -180,7 +180,7 @@ BOOST_AUTO_TEST_CASE(
 	BOOST_CHECK_THROW(
 		fruitlibjson::convert_from<int>(
 			sgejson::value(
-				fcppt::string("foo"))),
+				fcppt::string(FCPPT_TEXT("foo")))),
 		sgejson::exception);
 }
 
