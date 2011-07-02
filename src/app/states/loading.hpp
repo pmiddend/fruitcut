@@ -1,7 +1,7 @@
 #ifndef FRUITCUT_APP_STATES_LOADING_HPP_INCLUDED
 #define FRUITCUT_APP_STATES_LOADING_HPP_INCLUDED
 
-#include "menu_fwd.hpp"
+#include "menu/superstate_fwd.hpp"
 #include "../machine.hpp"
 #include "../events/declare_transition_type.hpp"
 #include "../events/declare_transition_reaction.hpp"
@@ -30,7 +30,7 @@ public:
 	boost::mpl::vector1
 	<
 		FRUITCUT_APP_EVENTS_DECLARE_TRANSITION_TYPE(
-			states::menu)
+			menu::superstate)
 	>
 	reactions;
 
@@ -39,7 +39,7 @@ public:
 		my_context);
 
 	FRUITCUT_APP_EVENTS_DECLARE_TRANSITION_REACTION(
-		menu);
+		menu::superstate);
 
 	~loading();
 private:

@@ -11,6 +11,8 @@
 #include "../../fruit/hull/projected.hpp"
 #include "../../fruit/hull/ring.hpp"
 #include "../../events/define_transition_reaction.hpp"
+#include "../../events/generic_transition.hpp"
+#include "../../events/post_transition.hpp"
 #include "../../../fruitlib/json/find_and_convert_member.hpp"
 #include "../../../fruitlib/math/multiply_matrix4_vector3.hpp"
 #include "../../../fruitlib/resource_tree/path.hpp"
@@ -31,7 +33,6 @@
 #include <sge/renderer/onscreen_target.hpp>
 #include <sge/renderer/onscreen_target.hpp>
 #include <sge/renderer/scalar.hpp>
-#include <sge/renderer/state/state.hpp>
 #include <sge/renderer/viewport.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/time/millisecond.hpp>
@@ -47,18 +48,13 @@
 #include <boost/next_prior.hpp>
 #include <iostream>
 
+#include <sge/renderer/state/state.hpp>
+
 fruitcut::app::states::ingame::running::running(
 	my_context ctx)
 :
 	my_base(
 		ctx),
-	scoped_render_state_(
-		context<machine>().systems().renderer(),
-		sge::renderer::state::list
-			(sge::renderer::state::depth_func::less)
-			(sge::renderer::state::cull_mode::off)
-			(sge::renderer::state::bool_::clear_depth_buffer = true)
-			(sge::renderer::state::float_::depth_buffer_clear_val = 1.0f)),
 	line_drawer_(
 		context<machine>().systems().renderer()),
 	line_drawer_node_(
@@ -171,8 +167,8 @@ fruitcut::app::states::ingame::running::update()
 		context<machine>().last_game_score(
 			app::score(
 				context<superstate>().game_logic().score()));
-		context<machine>().post_event(
-			events::generic_transition<states::gameover::superstate>());
+		FRUITCUT_APP_EVENTS_POST_TRANSITION(
+			gameover::superstate);
 	}
 }
 

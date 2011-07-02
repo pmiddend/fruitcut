@@ -7,6 +7,7 @@
 #include "../../../media_path.hpp"
 #include "../../postprocessing.hpp"
 #include "../../events/define_transition_reaction.hpp"
+#include "../../events/generic_transition.hpp"
 #include "../../scene.hpp"
 #include <sge/renderer/device.hpp>
 #include <sge/input/keyboard/action.hpp>

@@ -40,6 +40,7 @@
 #include <sge/renderer/viewport_size.hpp>
 #include <sge/renderer/visual_depth.hpp>
 #include <sge/renderer/vsync.hpp>
+#include <sge/renderer/state/state.hpp>
 #include <sge/sprite/parameters.hpp>
 #include <sge/systems/systems.hpp>
 #include <sge/texture/part_raw.hpp>
@@ -115,6 +116,13 @@ fruitcut::app::machine_impl::machine_impl(
 					sge::image::capabilities_field::null(),
 					fcppt::assign::make_container<sge::extension_set>
 						(FCPPT_TEXT("png"))))),
+	base_render_state_(
+		systems_.renderer(),
+		sge::renderer::state::list
+			(sge::renderer::state::depth_func::less)
+			(sge::renderer::state::cull_mode::off)
+			(sge::renderer::state::bool_::clear_depth_buffer = true)
+			(sge::renderer::state::float_::depth_buffer_clear_val = 1.0f)),
 	md3_loader_(
 		sge::md3::create()),
 	scene_node_(

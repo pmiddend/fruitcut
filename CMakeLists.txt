@@ -442,6 +442,7 @@ SET(
 	src/app/events/declare_transition_type.hpp
 	src/app/events/define_transition_reaction.hpp
 	src/app/events/generic_transition.hpp
+	src/app/events/post_transition.hpp
 	src/app/exception.cpp
 	src/app/exception.hpp
 	src/app/fruit/area.hpp
@@ -607,9 +608,14 @@ SET(
 	src/app/states/loading.cpp
 	src/app/states/loading.hpp
 	src/app/states/loading_fwd.hpp
-	src/app/states/menu.cpp
-	src/app/states/menu.hpp
-	src/app/states/menu_fwd.hpp
+	src/app/states/menu/main.cpp
+	src/app/states/menu/main.hpp
+	src/app/states/menu/main_fwd.hpp
+	src/app/states/menu/settings.cpp
+	src/app/states/menu/settings.hpp
+	src/app/states/menu/superstate.cpp
+	src/app/states/menu/superstate.hpp
+	src/app/states/menu/superstate_fwd.hpp
 )
 
 FCPPT_UTILS_ADD_SOURCE_GROUPS("${APP_FILES}")

@@ -3,7 +3,8 @@ This is a list of differences to the last release.
 0.2:
 	- MSVC fixes
 	- Made the server optional (use the cmake variable ENABLE_SERVER to control if it's built)
-	- Added source groups (again, MSVC stuff)
+	- Made the tests optional (use the cmake variable ENABLE_TEST to control if it's built)
+	- Added source groups
 	- Added a "quick log" at the top left
 	- Moved the cursor to the top right
 	- Screenshots are now saved in a "screenshots" directory

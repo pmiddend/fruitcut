@@ -22,6 +22,7 @@
 #include "shadow_map.hpp"
 #include "fruit/prototype_sequence.hpp"
 #include <sge/camera/object.hpp>
+#include <sge/renderer/state/scoped.hpp>
 #include <sge/cegui/syringe.hpp>
 #include <sge/cegui/system.hpp>
 #include <sge/md3/loader_ptr.hpp>
@@ -173,6 +174,7 @@ private:
 	sge::parse::json::object const config_file_;
 	app::config_variables config_variables_;
 	sge::systems::instance const systems_;
+	sge::renderer::state::scoped base_render_state_;
 	sge::md3::loader_ptr md3_loader_;
 	app::scene scene_node_;
 	app::overlay overlay_node_;

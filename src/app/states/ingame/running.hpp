@@ -12,13 +12,10 @@
 #include "../../../fruitlib/scenic/nodes/cursor_trail.hpp"
 #include "../../../fruitlib/scenic/nodes/intrusive_with_callbacks.hpp"
 #include <sge/line_drawer/object.hpp>
-#include <sge/line_drawer/line_sequence.hpp>
 #include <sge/renderer/state/scoped.hpp>
-#include <sge/renderer/device_ptr.hpp>
-#include <sge/renderer/state/trampoline.hpp>
+#include <sge/line_drawer/line_sequence.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <boost/statechart/state.hpp>
-#include <boost/statechart/custom_reaction.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 
 namespace fruitcut
@@ -57,7 +54,6 @@ public:
 
 	~running();
 private:
-	sge::renderer::state::scoped scoped_render_state_;
 	sge::line_drawer::object line_drawer_;
 	fruitlib::scenic::nodes::line_drawer line_drawer_node_;
 	fruitlib::cursor_trail cursor_trail_;

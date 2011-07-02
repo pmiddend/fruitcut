@@ -1,6 +1,7 @@
 #include "choose_name.hpp"
 #include "highscore.hpp"
 #include "../../events/define_transition_reaction.hpp"
+#include "../../events/post_transition.hpp"
 #include "../../../media_path.hpp"
 #include "../../../fruitlib/resource_tree/path.hpp"
 #include "../../../fruitlib/audio/sound_controller.hpp"
@@ -74,7 +75,7 @@ fruitcut::app::states::gameover::choose_name::continue_button_pushed(
 			FCPPT_TEXT("button_clicked")));
 	context<superstate>().name(
 		name);
-	context<machine>().post_event(
-		events::generic_transition<gameover::highscore>());
+	FRUITCUT_APP_EVENTS_POST_TRANSITION(
+		gameover::highscore);
 	return true;
 }

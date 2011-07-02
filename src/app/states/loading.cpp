@@ -1,8 +1,8 @@
 #include "loading.hpp"
-#include "menu.hpp"
-#include "ingame/running.hpp"
+#include "menu/main.hpp"
 #include "../fruit/prototype_from_json.hpp"
 #include "../events/define_transition_reaction.hpp"
+#include "../events/post_transition.hpp"
 #include "../../fruitlib/json/find_and_convert_member.hpp"
 #include "../../fruitlib/json/parse_color.hpp"
 #include "../../fruitlib/font/object_parameters.hpp"
@@ -82,7 +82,7 @@ fruitcut::app::states::loading::loading(
 }
 
 FRUITCUT_APP_EVENTS_DEFINE_TRANSITION_REACTION(
-	states::menu,
+	menu::superstate,
 	loading)
 
 fruitcut::app::states::loading::~loading()
@@ -108,8 +108,8 @@ fruitcut::app::states::loading::update()
 {
 	if(current_fruit_ == fruit_array_.end())
 	{
-		context<machine>().post_event(
-			events::generic_transition<states::menu>());
+		FRUITCUT_APP_EVENTS_POST_TRANSITION(
+			menu::superstate);
 		return;
 	}
 

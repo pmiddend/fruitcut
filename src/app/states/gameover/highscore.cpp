@@ -1,10 +1,11 @@
 #include "highscore.hpp"
-#include "../menu.hpp"
+#include "../menu/main.hpp"
 #include "../../exception.hpp"
 #include "../../../media_path.hpp"
 #include "../../../fruitlib/audio/sound_controller.hpp"
 #include "../../../fruitlib/resource_tree/path.hpp"
 #include "../../events/define_transition_reaction.hpp"
+#include "../../events/post_transition.hpp"
 #include <sge/cegui/to_cegui_string.hpp>
 #include <sge/cegui/from_cegui_string.hpp>
 #include <sge/cegui/toolbox/append_row.hpp>
@@ -262,7 +263,7 @@ fruitcut::app::states::gameover::highscore::highscore(
 }
 
 FRUITCUT_APP_EVENTS_DEFINE_TRANSITION_REACTION(
-	menu,
+	menu::main,
 	gameover::highscore)
 
 fruitcut::app::states::gameover::highscore::~highscore()
@@ -287,7 +288,7 @@ fruitcut::app::states::gameover::highscore::reset_button_pushed(
 	context<machine>().sound_controller().play(
 		fruitlib::resource_tree::path(
 			FCPPT_TEXT("button_clicked")));
-	context<machine>().post_event(
-		events::generic_transition<states::menu>());
+	FRUITCUT_APP_EVENTS_POST_TRANSITION(
+		menu::main);
 	return true;
 }

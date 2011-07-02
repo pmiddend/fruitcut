@@ -27,7 +27,7 @@ namespace gameover
 class choose_name
 :
 	// The second argument has to be a complete type
-	public boost::statechart::state<choose_name,superstate>
+	public boost::statechart::state<choose_name,gameover::superstate>
 {
 public:
 	typedef

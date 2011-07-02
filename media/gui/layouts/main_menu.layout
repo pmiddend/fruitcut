@@ -2,130 +2,47 @@
 
 <GUILayout >
     <Window Type="DefaultWindow" Name="MainMenu" >
-        <Property Name="UnifiedAreaRect" Value="{{0,0},{2.48353e-09,0},{1,0},{1,0}}" />
-        <Window Type="Fruitcut/Button" Name="MainMenu/StartButton" >
-            <Property Name="Text" Value="Start game" />
-            <Property Name="UnifiedAreaRect" Value="{{0.385156,1},{0.492708,-3},{0.637305,3},{0.566927,-9}}" />
-        </Window>
-        <Window Type="Fruitcut/Button" Name="MainMenu/QuitButton" >
-            <Property Name="Text" Value="Quit" />
-            <Property Name="UnifiedAreaRect" Value="{{0.38379,7},{0.902604,2},{0.610156,12},{0.98125,-4}}" />
-        </Window>
-        <Window Type="Fruitcut/FrameWindow" Name="Root/FrameWindow" >
-            <Property Name="Text" Value="Settings" />
+        <Property Name="UnifiedAreaRect" Value="{{0,0},{0,0},{1,0},{1,0}}" />
+        <Window Type="Fruitcut/CaptionedStaticText" Name="Root/CaptionedStaticText" >
             <Property Name="CaptionFont" Value="normal" />
-            <Property Name="TitlebarEnabled" Value="True" />
-            <Property Name="UnifiedAreaRect" Value="{{0.200195,0},{0.442708,95},{0.820312,0},{0.768229,95}}" />
-            <AutoWindow NameSuffix="__auto_titlebar__" >
+            <Property Name="CaptionText" Value="Main Menu" />
+            <Property Name="UnifiedAreaRect" Value="{{0.351562,0},{0.605469,0},{0.644531,0},{0.989583,0}}" />
+            <AutoWindow NameSuffix="__auto_caption__" >
+                <Property Name="Text" Value="Main Menu" />
+            </AutoWindow>
+            <AutoWindow NameSuffix="__auto_hscrollbar__" >
+                <AutoWindow NameSuffix="__auto_incbtn__" >
+                    <Property Name="Visible" Value="False" />
+                </AutoWindow>
+                <AutoWindow NameSuffix="__auto_decbtn__" >
+                    <Property Name="Visible" Value="False" />
+                </AutoWindow>
+                <AutoWindow NameSuffix="__auto_thumb__" />
+            </AutoWindow>
+            <AutoWindow NameSuffix="__auto_vscrollbar__" >
+                <AutoWindow NameSuffix="__auto_incbtn__" >
+                    <Property Name="Visible" Value="False" />
+                </AutoWindow>
+                <AutoWindow NameSuffix="__auto_decbtn__" >
+                    <Property Name="Visible" Value="False" />
+                </AutoWindow>
+                <AutoWindow NameSuffix="__auto_thumb__" />
+            </AutoWindow>
+            <Window Type="Fruitcut/Button" Name="MainMenu/StartGame" >
+                <Property Name="Text" Value="Start game" />
+                <Property Name="UnifiedAreaRect" Value="{{0.233333,0},{0.20339,0},{0.783333,0},{0.338983,0}}" />
+            </Window>
+            <Window Type="Fruitcut/Button" Name="MainMenu/Quit" >
+                <Property Name="Text" Value="Quit" />
+                <Property Name="UnifiedAreaRect" Value="{{0.233333,0},{0.711865,0},{0.783333,0},{0.847458,0}}" />
+            </Window>
+            <Window Type="Fruitcut/Button" Name="MainMenu/Highscores" >
+                <Property Name="Text" Value="Highscores" />
+                <Property Name="UnifiedAreaRect" Value="{{0.233333,0},{0.542373,0},{0.783333,0},{0.677966,0}}" />
+            </Window>
+            <Window Type="Fruitcut/Button" Name="MainMenu/Settings" >
                 <Property Name="Text" Value="Settings" />
-            </AutoWindow>
-            <AutoWindow NameSuffix="__auto_closebutton__" >
-                <Property Name="NonClient" Value="True" />
-            </AutoWindow>
-            <Window Type="Fruitcut/StaticText" Name="Root/FrameWindow/StaticText" >
-                <Property Name="Text" Value="Music volume" />
-                <Property Name="UnifiedAreaRect" Value="{{0.0251623,-1},{-0.00961492,0},{0.439123,-1},{0.27442,0}}" />
-                <AutoWindow NameSuffix="__auto_hscrollbar__" >
-                    <AutoWindow NameSuffix="__auto_incbtn__" >
-                        <Property Name="Visible" Value="False" />
-                    </AutoWindow>
-                    <AutoWindow NameSuffix="__auto_decbtn__" >
-                        <Property Name="Visible" Value="False" />
-                    </AutoWindow>
-                    <AutoWindow NameSuffix="__auto_thumb__" />
-                </AutoWindow>
-                <AutoWindow NameSuffix="__auto_vscrollbar__" >
-                    <AutoWindow NameSuffix="__auto_incbtn__" >
-                        <Property Name="Visible" Value="False" />
-                    </AutoWindow>
-                    <AutoWindow NameSuffix="__auto_decbtn__" >
-                        <Property Name="Visible" Value="False" />
-                    </AutoWindow>
-                    <AutoWindow NameSuffix="__auto_thumb__" />
-                </AutoWindow>
-            </Window>
-            <Window Type="Fruitcut/StaticText" Name="Root/FrameWindow/StaticText2" >
-                <Property Name="Text" Value="Effects volume" />
-                <Property Name="UnifiedAreaRect" Value="{{0.0251623,-1},{0.326063,0},{0.439123,-1},{0.610098,0}}" />
-                <AutoWindow NameSuffix="__auto_hscrollbar__" >
-                    <AutoWindow NameSuffix="__auto_incbtn__" >
-                        <Property Name="Visible" Value="False" />
-                    </AutoWindow>
-                    <AutoWindow NameSuffix="__auto_decbtn__" >
-                        <Property Name="Visible" Value="False" />
-                    </AutoWindow>
-                    <AutoWindow NameSuffix="__auto_thumb__" />
-                </AutoWindow>
-                <AutoWindow NameSuffix="__auto_vscrollbar__" >
-                    <AutoWindow NameSuffix="__auto_incbtn__" >
-                        <Property Name="Visible" Value="False" />
-                    </AutoWindow>
-                    <AutoWindow NameSuffix="__auto_decbtn__" >
-                        <Property Name="Visible" Value="False" />
-                    </AutoWindow>
-                    <AutoWindow NameSuffix="__auto_thumb__" />
-                </AutoWindow>
-            </Window>
-            <Window Type="Fruitcut/StaticText" Name="Root/FrameWindow/StaticText3" >
-                <Property Name="Text" Value="Particle density" />
-                <Property Name="UnifiedAreaRect" Value="{{0.0251623,-1},{0.66174,0},{0.439123,-1},{0.945775,0}}" />
-                <AutoWindow NameSuffix="__auto_hscrollbar__" >
-                    <AutoWindow NameSuffix="__auto_incbtn__" >
-                        <Property Name="Visible" Value="False" />
-                    </AutoWindow>
-                    <AutoWindow NameSuffix="__auto_decbtn__" >
-                        <Property Name="Visible" Value="False" />
-                    </AutoWindow>
-                    <AutoWindow NameSuffix="__auto_thumb__" />
-                </AutoWindow>
-                <AutoWindow NameSuffix="__auto_vscrollbar__" >
-                    <AutoWindow NameSuffix="__auto_incbtn__" >
-                        <Property Name="Visible" Value="False" />
-                    </AutoWindow>
-                    <AutoWindow NameSuffix="__auto_decbtn__" >
-                        <Property Name="Visible" Value="False" />
-                    </AutoWindow>
-                    <AutoWindow NameSuffix="__auto_thumb__" />
-                </AutoWindow>
-            </Window>
-            <Window Type="Fruitcut/Slider" Name="MainMenu/MusicVolume" >
-                <Property Name="CurrentValue" Value="0" />
-                <Property Name="MaximumValue" Value="1" />
-                <Property Name="ClickStepSize" Value="0.01" />
-                <Property Name="UnifiedAreaRect" Value="{{0.479708,-1},{0.0678491,0},{0.974838,-1},{0.196956,0}}" />
-                <AutoWindow NameSuffix="__auto_incbtn__" >
-                    <Property Name="Visible" Value="False" />
-                </AutoWindow>
-                <AutoWindow NameSuffix="__auto_decbtn__" >
-                    <Property Name="Visible" Value="False" />
-                </AutoWindow>
-                <AutoWindow NameSuffix="__auto_thumb__" />
-            </Window>
-            <Window Type="Fruitcut/Slider" Name="MainMenu/EffectsVolume" >
-                <Property Name="CurrentValue" Value="0" />
-                <Property Name="MaximumValue" Value="1" />
-                <Property Name="ClickStepSize" Value="0.01" />
-                <Property Name="UnifiedAreaRect" Value="{{0.479708,-1},{0.403527,0},{0.974838,-1},{0.532634,0}}" />
-                <AutoWindow NameSuffix="__auto_incbtn__" >
-                    <Property Name="Visible" Value="False" />
-                </AutoWindow>
-                <AutoWindow NameSuffix="__auto_decbtn__" >
-                    <Property Name="Visible" Value="False" />
-                </AutoWindow>
-                <AutoWindow NameSuffix="__auto_thumb__" />
-            </Window>
-            <Window Type="Fruitcut/Slider" Name="MainMenu/SplatterFactor" >
-                <Property Name="CurrentValue" Value="0" />
-                <Property Name="MaximumValue" Value="1" />
-                <Property Name="ClickStepSize" Value="0.01" />
-                <Property Name="UnifiedAreaRect" Value="{{0.479708,-1},{0.713383,0},{0.974838,-1},{0.84249,0}}" />
-                <AutoWindow NameSuffix="__auto_incbtn__" >
-                    <Property Name="Visible" Value="False" />
-                </AutoWindow>
-                <AutoWindow NameSuffix="__auto_decbtn__" >
-                    <Property Name="Visible" Value="False" />
-                </AutoWindow>
-                <AutoWindow NameSuffix="__auto_thumb__" />
+                <Property Name="UnifiedAreaRect" Value="{{0.233333,0},{0.372882,0},{0.783333,0},{0.508475,0}}" />
             </Window>
         </Window>
     </Window>

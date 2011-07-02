@@ -377,10 +377,12 @@ BOOST_AUTO_TEST_CASE(
 BOOST_AUTO_TEST_CASE(
 	json_convert_from_string)
 {
-	BOOST_CHECK_EQUAL(
+	// Can't use BOOST_CHECK_EQUAL here since fcppt::string doesn't have
+	// an operator<< for std::cout (boost.test is broken?)
+	BOOST_CHECK(
 		fruitlibjson::convert_from<fcppt::string>(
 			fcppt::string(
-				FCPPT_TEXT("foobar"))),
+				FCPPT_TEXT("foobar"))) == 
 		fcppt::string(
 			FCPPT_TEXT("foobar")));
 }

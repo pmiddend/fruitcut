@@ -2,6 +2,7 @@
 #include <sge/cegui/system.hpp>
 #include <sge/time/second.hpp>
 #include <sge/time/second_f.hpp>
+#include <iostream>
 
 fruitcut::fruitlib::scenic::nodes::gui_system::gui_system(
 	sge::cegui::system &_system,
