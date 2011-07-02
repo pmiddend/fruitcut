@@ -3,13 +3,15 @@
 
 #include "menu_fwd.hpp"
 #include "../machine.hpp"
-#include "../events/make_transition.hpp"
+#include "../events/declare_transition_type.hpp"
+#include "../events/declare_transition_reaction.hpp"
 #include "../../fruitlib/scenic/nodes/intrusive.hpp"
 #include "../../fruitlib/font/intrusive_scene_node.hpp"
 #include <sge/renderer/state/scoped.hpp>
 #include <sge/parse/json/json.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <boost/statechart/state.hpp>
+#include <boost/statechart/custom_reaction.hpp>
 
 namespace fruitcut
 {
@@ -27,13 +29,17 @@ public:
 	typedef
 	boost::mpl::vector1
 	<
-		events::make_transition<states::menu>::type
+		FRUITCUT_APP_EVENTS_DECLARE_TRANSITION_TYPE(
+			states::menu)
 	>
 	reactions;
 
 	explicit
 	loading(
 		my_context);
+
+	FRUITCUT_APP_EVENTS_DECLARE_TRANSITION_REACTION(
+		menu);
 
 	~loading();
 private:

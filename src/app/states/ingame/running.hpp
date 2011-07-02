@@ -5,7 +5,8 @@
 #include "paused_fwd.hpp"
 #include "../gameover/superstate_fwd.hpp"
 #include "../../fruit/object_fwd.hpp"
-#include "../../events/make_transition.hpp"
+#include "../../events/declare_transition_type.hpp"
+#include "../../events/declare_transition_reaction.hpp"
 #include "../../../fruitlib/scenic/nodes/line_drawer.hpp"
 #include "../../../fruitlib/cursor_trail.hpp"
 #include "../../../fruitlib/scenic/nodes/cursor_trail.hpp"
@@ -37,14 +38,22 @@ public:
 	typedef
 	boost::mpl::vector2
 	<
-		events::make_transition<ingame::paused>::type,
-		events::make_transition<gameover::superstate>::type
+		FRUITCUT_APP_EVENTS_DECLARE_TRANSITION_TYPE(
+			ingame::paused),
+		FRUITCUT_APP_EVENTS_DECLARE_TRANSITION_TYPE(
+			gameover::superstate)
 	>
 	reactions;
 
 	explicit
 	running(
 		my_context);
+
+	FRUITCUT_APP_EVENTS_DECLARE_TRANSITION_REACTION(
+		ingame::paused);
+
+	FRUITCUT_APP_EVENTS_DECLARE_TRANSITION_REACTION(
+		gameover::superstate);
 
 	~running();
 private:

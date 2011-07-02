@@ -1,6 +1,6 @@
 #include "choose_name.hpp"
 #include "highscore.hpp"
-#include "../../events/generic_transition.hpp"
+#include "../../events/define_transition_reaction.hpp"
 #include "../../../media_path.hpp"
 #include "../../../fruitlib/resource_tree/path.hpp"
 #include "../../../fruitlib/audio/sound_controller.hpp"
@@ -46,6 +46,10 @@ fruitcut::app::states::gameover::choose_name::choose_name(
 				context<machine>().last_game_score()),
 			context<machine>().systems().charconv_system()));
 }
+
+FRUITCUT_APP_EVENTS_DEFINE_TRANSITION_REACTION(
+	gameover::highscore,
+	gameover::choose_name)
 
 fruitcut::app::states::gameover::choose_name::~choose_name()
 {

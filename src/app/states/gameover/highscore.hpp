@@ -3,7 +3,8 @@
 
 #include "superstate.hpp"
 #include "../menu_fwd.hpp"
-#include "../../events/make_transition.hpp"
+#include "../../events/declare_transition_type.hpp"
+#include "../../events/declare_transition_reaction.hpp"
 #include <CEGUIEvent.h>
 #include <sge/cegui/toolbox/scoped_layout.hpp>
 #include <sge/cegui/toolbox/scoped_gui_sheet.hpp>
@@ -27,13 +28,17 @@ public:
 	typedef
 	boost::mpl::vector1
 	<
-		events::make_transition<states::menu>::type
+		FRUITCUT_APP_EVENTS_DECLARE_TRANSITION_TYPE(
+			menu)
 	>
 	reactions;
 
 	explicit
 	highscore(
 		my_context);
+
+	FRUITCUT_APP_EVENTS_DECLARE_TRANSITION_REACTION(
+		menu);
 
 	~highscore();
 private:

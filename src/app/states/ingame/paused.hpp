@@ -5,7 +5,8 @@
 #include "running_fwd.hpp"
 #include "../../scoped_scene_activation.hpp"
 #include "../../scoped_time_factor.hpp"
-#include "../../events/make_transition.hpp"
+#include "../../events/declare_transition_type.hpp"
+#include "../../events/declare_transition_reaction.hpp"
 #include "../../../fruitlib/pp/system.hpp"
 #include "../../../fruitlib/pp/filter/inject_texture.hpp"
 #include "../../../fruitlib/pp/filter/blur.hpp"
@@ -34,13 +35,17 @@ public:
 	typedef
 	boost::mpl::vector1
 	<
-		events::make_transition<ingame::running>::type
+		FRUITCUT_APP_EVENTS_DECLARE_TRANSITION_TYPE(
+			ingame::running)
 	>
 	reactions;
 
 	explicit
 	paused(
 		my_context);
+
+	FRUITCUT_APP_EVENTS_DECLARE_TRANSITION_REACTION(
+		ingame::running);
 
 	~paused();
 private:

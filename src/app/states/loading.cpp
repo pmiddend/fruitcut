@@ -2,7 +2,7 @@
 #include "menu.hpp"
 #include "ingame/running.hpp"
 #include "../fruit/prototype_from_json.hpp"
-#include "../events/generic_transition.hpp"
+#include "../events/define_transition_reaction.hpp"
 #include "../../fruitlib/json/find_and_convert_member.hpp"
 #include "../../fruitlib/json/parse_color.hpp"
 #include "../../fruitlib/font/object_parameters.hpp"
@@ -81,6 +81,28 @@ fruitcut::app::states::loading::loading(
 		font_node_);
 }
 
+FRUITCUT_APP_EVENTS_DEFINE_TRANSITION_REACTION(
+	states::menu,
+	loading)
+
+fruitcut::app::states::loading::~loading()
+{
+}
+
+void
+fruitcut::app::states::loading::viewport_change()
+{
+	sge::font::dim const &viewport_dim = 
+		fcppt::math::dim::structure_cast<sge::font::dim>(
+			sge::renderer::viewport_size(
+				context<machine>().systems().renderer()));
+
+	font_node_.object().bounding_box(
+		sge::font::rect(
+			sge::font::pos::null(),
+			viewport_dim));
+}
+
 void
 fruitcut::app::states::loading::update()
 {
@@ -123,20 +145,4 @@ fruitcut::app::states::loading::render()
 {
 }
 
-fruitcut::app::states::loading::~loading()
-{
-}
 
-void
-fruitcut::app::states::loading::viewport_change()
-{
-	sge::font::dim const &viewport_dim = 
-		fcppt::math::dim::structure_cast<sge::font::dim>(
-			sge::renderer::viewport_size(
-				context<machine>().systems().renderer()));
-
-	font_node_.object().bounding_box(
-		sge::font::rect(
-			sge::font::pos::null(),
-			viewport_dim));
-}

@@ -6,7 +6,7 @@
 #include "../../../fruitlib/pp/filter/blur.hpp"
 #include "../../../media_path.hpp"
 #include "../../postprocessing.hpp"
-#include "../../events/generic_transition.hpp"
+#include "../../events/define_transition_reaction.hpp"
 #include "../../scene.hpp"
 #include <sge/renderer/device.hpp>
 #include <sge/input/keyboard/action.hpp>
@@ -88,6 +88,10 @@ fruitcut::app::states::ingame::paused::paused(
 		fcppt::assign::make_container<fruitlib::pp::dependency_set>
 			(FCPPT_TEXT("inject_texture")));
 }
+
+FRUITCUT_APP_EVENTS_DEFINE_TRANSITION_REACTION(
+	ingame::running,
+	ingame::paused)
 
 fruitcut::app::states::ingame::paused::~paused()
 {

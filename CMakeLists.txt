@@ -434,8 +434,10 @@ SET(
 	src/app/directional_light_source.cpp
 	src/app/directional_light_source.hpp
 	src/app/directional_light_source_fwd.hpp
+	src/app/events/declare_transition_reaction.hpp
+	src/app/events/declare_transition_type.hpp
+	src/app/events/define_transition_reaction.hpp
 	src/app/events/generic_transition.hpp
-	src/app/events/make_transition.hpp
 	src/app/exception.cpp
 	src/app/exception.hpp
 	src/app/fruit/area.hpp

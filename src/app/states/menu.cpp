@@ -1,7 +1,7 @@
 #include "menu.hpp"
 #include "../config_variables.hpp"
 #include "ingame/running.hpp"
-#include "../events/generic_transition.hpp"
+#include "../events/define_transition_reaction.hpp"
 #include "../../fruitlib/json/find_and_convert_member.hpp"
 #include "../../fruitlib/resource_tree/path.hpp"
 #include "../../fruitlib/json/modify_user_value.hpp"
@@ -133,6 +133,10 @@ fruitcut::app::states::menu::menu(
 	context<machine>().overlay_node().insert_dont_care(
 		gui_node_);
 }
+
+FRUITCUT_APP_EVENTS_DEFINE_TRANSITION_REACTION(
+	ingame::running,
+	menu)
 
 void
 fruitcut::app::states::menu::update()

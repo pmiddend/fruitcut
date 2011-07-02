@@ -10,7 +10,7 @@
 #include "../../fruit/hull/trail_intersection.hpp"
 #include "../../fruit/hull/projected.hpp"
 #include "../../fruit/hull/ring.hpp"
-#include "../../events/generic_transition.hpp"
+#include "../../events/define_transition_reaction.hpp"
 #include "../../../fruitlib/json/find_and_convert_member.hpp"
 #include "../../../fruitlib/math/multiply_matrix4_vector3.hpp"
 #include "../../../fruitlib/resource_tree/path.hpp"
@@ -129,6 +129,14 @@ fruitcut::app::states::ingame::running::running(
 		true);
 	viewport_change();
 }
+
+FRUITCUT_APP_EVENTS_DEFINE_TRANSITION_REACTION(
+	ingame::paused,
+	ingame::running)
+
+FRUITCUT_APP_EVENTS_DEFINE_TRANSITION_REACTION(
+	gameover::superstate,
+	ingame::running)
 
 fruitcut::app::states::ingame::running::~running()
 {

@@ -4,6 +4,7 @@
 #include "../../../media_path.hpp"
 #include "../../../fruitlib/audio/sound_controller.hpp"
 #include "../../../fruitlib/resource_tree/path.hpp"
+#include "../../events/define_transition_reaction.hpp"
 #include <sge/cegui/to_cegui_string.hpp>
 #include <sge/cegui/from_cegui_string.hpp>
 #include <sge/cegui/toolbox/append_row.hpp>
@@ -259,6 +260,10 @@ fruitcut::app::states::gameover::highscore::highscore(
 					context<machine>().systems().charconv_system())));
 	}
 }
+
+FRUITCUT_APP_EVENTS_DEFINE_TRANSITION_REACTION(
+	menu,
+	gameover::highscore)
 
 fruitcut::app::states::gameover::highscore::~highscore()
 {

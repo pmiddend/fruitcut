@@ -3,7 +3,8 @@
 
 #include "superstate.hpp"
 #include "highscore_fwd.hpp"
-#include "../../events/make_transition.hpp"
+#include "../../events/declare_transition_type.hpp"
+#include "../../events/declare_transition_reaction.hpp"
 #include <CEGUIEvent.h>
 #include <sge/cegui/toolbox/scoped_layout.hpp>
 #include <sge/cegui/toolbox/scoped_gui_sheet.hpp>
@@ -32,13 +33,17 @@ public:
 	typedef
 	boost::mpl::vector1
 	<
-		events::make_transition<gameover::highscore>::type
+		FRUITCUT_APP_EVENTS_DECLARE_TRANSITION_TYPE(
+			gameover::highscore)
 	>
 	reactions;
 
 	explicit
 	choose_name(
 		my_context);
+
+	FRUITCUT_APP_EVENTS_DECLARE_TRANSITION_REACTION(
+		gameover::highscore);
 
 	~choose_name();
 private:

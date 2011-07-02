@@ -3,7 +3,8 @@
 
 #include "../machine.hpp"
 #include "../logo.hpp"
-#include "../events/make_transition.hpp"
+#include "../events/declare_transition_type.hpp"
+#include "../events/declare_transition_reaction.hpp"
 #include "../../fruitlib/scenic/nodes/intrusive.hpp"
 #include "../../fruitlib/scenic/nodes/gui_system.hpp"
 #include "ingame/running_fwd.hpp"
@@ -34,13 +35,17 @@ public:
 	typedef
 	boost::mpl::vector1
 	<
-		events::make_transition<ingame::running>::type
+		FRUITCUT_APP_EVENTS_DECLARE_TRANSITION_TYPE(
+			ingame::running)
 	>
 	reactions;
 
 	explicit
 	menu(
 		my_context);
+
+	FRUITCUT_APP_EVENTS_DECLARE_TRANSITION_REACTION(
+		ingame::running);
 
 	~menu();
 private:
