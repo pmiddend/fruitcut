@@ -282,10 +282,10 @@ fruitcut::app::machine_impl::machine_impl(
 		systems_.image_loader(),
 		camera_),
 	screen_shooter_(
-		app::name(),
 		systems_.keyboard_collector(),
 		systems_.renderer(),
-		systems_.image_loader())
+		systems_.image_loader(),
+		quick_log_)
 {
 	intrusive_group::insert_dont_care(
 		music_controller_node_);

@@ -7,6 +7,7 @@
 #include "../../fruitlib/json/parse_color.hpp"
 #include "../../fruitlib/font/object_parameters.hpp"
 #include "../../fruitlib/font/cache.hpp"
+#include "../postprocessing.hpp"
 #include <sge/renderer/state/state.hpp>
 #include <sge/renderer/viewport_size.hpp>
 #include <sge/font/font.hpp>
@@ -65,6 +66,10 @@ fruitcut::app::states::loading::loading(
 		static_cast<fruitlib::scenic::scale>(
 			1))
 {
+	context<machine>().postprocessing().desaturate_filter().factor(
+		static_cast<sge::renderer::scalar>(
+			0));
+
 	// We already hae a viewport? Ok, then go
 	if(sge::renderer::viewport_size(context<machine>().systems().renderer()).content())
 		viewport_change();
@@ -103,6 +108,14 @@ fruitcut::app::states::loading::update()
 		fcppt::lexical_cast<sge::font::text::string>(
 			fruit_array_.size())+
 		SGE_FONT_TEXT_LIT(" fruits"));
+
+	context<machine>().postprocessing().desaturate_filter().factor(
+		static_cast<sge::renderer::scalar>(
+			std::distance(
+				fruit_array_.begin(),
+				current_fruit_)) / 
+			static_cast<sge::renderer::scalar>(
+				fruit_array_.size()));
 }
 
 void

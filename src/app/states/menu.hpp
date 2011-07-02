@@ -7,7 +7,6 @@
 #include "../../fruitlib/scenic/nodes/intrusive.hpp"
 #include "../../fruitlib/scenic/nodes/gui_system.hpp"
 #include "ingame/running_fwd.hpp"
-#include <sge/time/timer.hpp>
 #include <sge/renderer/device_ptr.hpp>
 #include <sge/renderer/state/scoped.hpp>
 #include <sge/cegui/default_cursor.hpp>
@@ -46,7 +45,6 @@ public:
 	~menu();
 private:
 	sge::renderer::state::scoped scoped_render_state_;
-	sge::time::timer saturation_timer_;
 	fcppt::signal::scoped_connection viewport_change_connection_;
 	logo logo_;
 	fruitlib::scenic::nodes::gui_system gui_node_;

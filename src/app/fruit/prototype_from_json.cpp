@@ -68,7 +68,7 @@ fruitcut::app::fruit::prototype_from_json(
 					o,
 					fruitlib::json::path(
 						FCPPT_TEXT("material")))),
-			fcppt::algorithm::map<fruit::tag_sequence>(
+			fcppt::algorithm::map<fruit::tag_set>(
 				fruitlib::json::find_and_convert_member<sge::parse::json::array>(
 					o,
 					fruitlib::json::path(

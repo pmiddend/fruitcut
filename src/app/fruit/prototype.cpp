@@ -19,7 +19,7 @@ fruitcut::app::fruit::prototype::prototype(
 	fruitcut::app::fruit::mesh const &_mesh,
 	sge::renderer::texture::planar_ptr const _texture,
 	material::object const &_material,
-	fruit::tag_sequence const &_tags)
+	fruit::tag_set const &_tags)
 :
 	mesh_(
 		_mesh),
@@ -88,7 +88,7 @@ fruitcut::app::fruit::prototype::material() const
 	return material_;
 }
 
-fruitcut::app::fruit::tag_sequence const &
+fruitcut::app::fruit::tag_set const &
 fruitcut::app::fruit::prototype::tags() const
 {
 	return tags_;

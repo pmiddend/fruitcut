@@ -1,6 +1,7 @@
-#ifndef FRUITCUT_FRUITLIB_SCREEN_SHOOTER_HPP_INCLUDED
-#define FRUITCUT_FRUITLIB_SCREEN_SHOOTER_HPP_INCLUDED
+#ifndef FRUITCUT_APP_SCREEN_SHOOTER_HPP_INCLUDED
+#define FRUITCUT_APP_SCREEN_SHOOTER_HPP_INCLUDED
 
+#include "quick_log_fwd.hpp"
 #include <sge/input/keyboard/device_fwd.hpp>
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/image2d/multi_loader_fwd.hpp>
@@ -10,7 +11,7 @@
 
 namespace fruitcut
 {
-namespace fruitlib
+namespace app
 {
 class screen_shooter
 {
@@ -19,20 +20,20 @@ FCPPT_NONCOPYABLE(
 public:
 	explicit
 	screen_shooter(
-		fcppt::string const &,
 		sge::input::keyboard::device &,
 		sge::renderer::device &,
-		sge::image2d::multi_loader &);
+		sge::image2d::multi_loader &,
+		app::quick_log &);
 
 	~screen_shooter();
 private:
-	fcppt::string const app_name_;
 	sge::renderer::device &renderer_;
 	sge::image2d::multi_loader &image_loader_;
 	fcppt::signal::scoped_connection callback_connection_;
 
 	void
-	callback();
+	callback(
+		app::quick_log &);
 };
 }
 }

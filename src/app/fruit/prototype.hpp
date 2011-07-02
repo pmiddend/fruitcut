@@ -3,7 +3,7 @@
 
 #include "mesh.hpp"
 #include "box3.hpp"
-#include "tag_sequence.hpp"
+#include "tag_set.hpp"
 #include "material/object.hpp"
 #include "../../fruitlib/physics/rigid_body/mass.hpp"
 #include <sge/renderer/texture/planar_ptr.hpp>
@@ -25,7 +25,7 @@ public:
 		fruitcut::app::fruit::mesh const &,
 		sge::renderer::texture::planar_ptr,
 		material::object const &,
-		tag_sequence const &);
+		fruit::tag_set const &);
 
 	fruitcut::app::fruit::mesh const &
 	mesh() const;
@@ -45,7 +45,7 @@ public:
 	material::object const &
 	material() const;
 
-	fruit::tag_sequence const &
+	fruit::tag_set const &
 	tags() const;
 private:
 	fruitcut::app::fruit::mesh mesh_;
@@ -56,7 +56,7 @@ private:
 	sge::renderer::texture::planar_ptr texture_;
 	sge::image::color::any::object splatter_color_;
 	material::object material_;
-	fruit::tag_sequence tags_;
+	fruit::tag_set tags_;
 };
 }
 }

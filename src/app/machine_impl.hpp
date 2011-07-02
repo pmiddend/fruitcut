@@ -15,7 +15,7 @@
 #include "../fruitlib/scenic/nodes/intrusive_group.hpp"
 #include "../fruitlib/scenic/nodes/music_controller.hpp"
 #include "../fruitlib/scenic/nodes/sound_controller.hpp"
-#include "../fruitlib/screen_shooter.hpp"
+#include "screen_shooter.hpp"
 #include "overlay.hpp"
 #include "point_sprite/system_node.hpp"
 #include "scene.hpp"
@@ -200,7 +200,7 @@ private:
 	sge::cegui::syringe gui_syringe_;
 	app::score last_game_score_;
 	point_sprite::system_node point_sprites_;
-	fruitlib::screen_shooter screen_shooter_;
+	app::screen_shooter screen_shooter_;
 	fruit::prototype_sequence fruit_prototypes_;
 
 	void

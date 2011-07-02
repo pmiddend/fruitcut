@@ -2,21 +2,18 @@
 #include "../config_variables.hpp"
 #include "ingame/running.hpp"
 #include "../events/generic_transition.hpp"
-#include "../../fruitlib/time_format/string_to_duration_exn.hpp"
 #include "../../fruitlib/json/find_and_convert_member.hpp"
 #include "../../fruitlib/resource_tree/path.hpp"
 #include "../../fruitlib/json/modify_user_value.hpp"
 #include "../../fruitlib/audio/sound_controller.hpp"
 #include "../../fruitlib/audio/music_controller.hpp"
 #include "../../media_path.hpp"
-#include "../postprocessing.hpp"
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/onscreen_target.hpp>
 #include <sge/renderer/scalar.hpp>
 #include <sge/renderer/state/state.hpp>
 #include <sge/renderer/viewport_size.hpp>
 #include <sge/systems/instance.hpp>
-#include <sge/time/time.hpp>
 #include <sge/viewport/manager.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/tr1/functional.hpp>
@@ -38,16 +35,6 @@ fruitcut::app::states::menu::menu(
 			(sge::renderer::state::cull_mode::off)
 			(sge::renderer::state::bool_::clear_depth_buffer = true)
 			(sge::renderer::state::float_::depth_buffer_clear_val = 1.0f)),
-	// Those timers will be activated as soon as we have a viewport
-	saturation_timer_(
-		fruitlib::time_format::string_to_duration_exn<sge::time::duration>(
-			fruitlib::json::find_and_convert_member<fcppt::string>(
-				context<machine>().config_file(),
-				fruitlib::json::path(
-					FCPPT_TEXT("menu"))
-					/ FCPPT_TEXT("desaturation-time"))),
-		sge::time::activation_state::inactive,
-		context<machine>().timer_callback()),
 	viewport_change_connection_(
 		context<machine>().systems().viewport_manager().manage_callback(
 			std::tr1::bind(
@@ -150,13 +137,6 @@ fruitcut::app::states::menu::menu(
 void
 fruitcut::app::states::menu::update()
 {
-	context<machine>().postprocessing().desaturate_filter().factor(
-		static_cast<sge::renderer::scalar>(
-			saturation_timer_.expired()
-			?
-				static_cast<sge::renderer::scalar>(1.0)
-			:
-				saturation_timer_.elapsed_frames()));
 }
 
 void
@@ -171,10 +151,6 @@ fruitcut::app::states::menu::~menu()
 void
 fruitcut::app::states::menu::viewport_change()
 {
-	if (saturation_timer_.active())
-		return;
-
-	saturation_timer_.activate();
 }
 
 bool

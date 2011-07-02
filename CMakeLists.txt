@@ -399,8 +399,6 @@ SET(
 	src/fruitlib/scenic/nodes/with_scale.hpp
 	src/fruitlib/scenic/scale.hpp
 	src/fruitlib/scenic/scale_animation.hpp
-	src/fruitlib/screen_shooter.cpp
-	src/fruitlib/screen_shooter.hpp
 	src/fruitlib/time_format/context.hpp
 	src/fruitlib/time_format/domain.hpp
 	src/fruitlib/time_format/duration_to_string.hpp
@@ -516,7 +514,7 @@ SET(
 	src/app/fruit/spawner.cpp
 	src/app/fruit/spawner.hpp
 	src/app/fruit/tag.hpp
-	src/app/fruit/tag_sequence.hpp
+	src/app/fruit/tag_set.hpp
 	src/app/fruit/triangle.hpp
 	src/app/fruit/triangle_traits.hpp
 	src/app/fruitcut.cpp
@@ -576,6 +574,8 @@ SET(
 	src/app/scoped_time_factor.cpp
 	src/app/scoped_time_factor.hpp
 	src/app/score.hpp
+	src/app/screen_shooter.cpp
+	src/app/screen_shooter.hpp
 	src/app/shadow_map.cpp
 	src/app/shadow_map.hpp
 	src/app/shadow_map_fwd.hpp

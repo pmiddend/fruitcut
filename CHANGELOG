@@ -6,3 +6,5 @@ This is a list of differences to the last release.
 	- Added source groups (again, MSVC stuff)
 	- Added a "quick log" at the top left
 	- Moved the cursor to the top right
+	- Screenshots are now saved in a "screenshots" directory
+	- Desaturation is now controlled by the loading progress
