@@ -4,3 +4,5 @@ This is a list of differences to the last release.
 	- MSVC fixes
 	- Made the server optional (use the cmake variable ENABLE_SERVER to control if it's built)
 	- Added source groups (again, MSVC stuff)
+	- Added a "quick log" at the top left
+	- Moved the cursor to the top right

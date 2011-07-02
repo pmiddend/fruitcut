@@ -34,6 +34,14 @@
 	Creative Commons Attribution-ShareAlike 2.5 license
 	http://creativecommons.org/licenses/by-sa/2.5/
 *	menu.ogg (originally epoq.ogg)
-		Lepidoptera [kahvi037]
-		by Epoq - http://www.archive.org/details/kahvi037
-		Released under Creative Commons Attribution 1.0 Generic
+	Lepidoptera [kahvi037]
+	by Epoq - http://www.archive.org/details/kahvi037
+	Released under Creative Commons Attribution 1.0 Generic
+* quick_log.wav (originally 110314_MrOwn1_tick.wav)
+	distributed under the 
+	Creative Commons Sampling Plus 1.0 license
+	http://creativecommons.org/licenses/sampling+/1.0/
+	Work created by MrOwn1
+	http://www.freesound.org/samplesViewSingle.php?id=110314
+	User page:
+	http://www.freesound.org/usersViewSingle.php?id=1460197
