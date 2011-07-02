@@ -8,6 +8,7 @@
 #include <iostream>
 
 #if defined(FCPPT_HAVE_BACKTRACE) && defined(FCPPT_POSIX_PLATFORM)
+#define FRUITCUT_HAVE_SIGNAL_STACK_PRINTER
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/backtrace/print_current_stack_frame.hpp>
 #include <signal.h>
@@ -77,7 +78,7 @@ int main(
 	char *argv[])
 try
 {
-#ifndef FCPPT_HAVE_POSIX
+#if defined(FRUITCUT_HAVE_SIGNAL_STACK_PRINTER)
 	signal_stack_printer stack_printer(
 		SIGSEGV);
 #endif
