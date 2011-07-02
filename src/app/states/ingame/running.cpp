@@ -22,6 +22,7 @@
 #include <sge/input/cursor/position_unit.hpp>
 #include <sge/input/keyboard/action.hpp>
 #include <sge/input/keyboard/key_code.hpp>
+#include <sge/input/keyboard/device.hpp>
 #include <sge/line_drawer/render_to_screen.hpp>
 #include <sge/line_drawer/scoped_lock.hpp>
 #include <sge/camera/object.hpp>
@@ -104,7 +105,7 @@ fruitcut::app::states::ingame::running::running(
 			fruitlib::json::path(FCPPT_TEXT("ingame"))
 				/ FCPPT_TEXT("draw-bbs"))),
 	transit_to_paused_connection_(
-		context<machine>().game_input_state().key_callback(
+		context<machine>().systems().keyboard_collector().key_callback(
 			sge::input::keyboard::action(
 				sge::input::keyboard::key_code::p, 
 				std::tr1::bind(

@@ -7,7 +7,6 @@
 #include "../../../fruitlib/audio/music_controller.hpp"
 #include "../../../fruitlib/audio/sound_controller.hpp"
 #include "../../../fruitlib/resource_tree/path.hpp"
-#include "../../../fruitlib/input/state.hpp"
 #include "../../../fruitlib/json/find_and_convert_member.hpp"
 #include "../../../fruitlib/json/parse_color.hpp"
 #include "../../../fruitlib/physics/vector3.hpp"
@@ -17,6 +16,7 @@
 #include "../../../fruitlib/physics/scalar.hpp"
 #include "../../../fruitlib/physics/box.hpp"
 #include <sge/input/keyboard/action.hpp>
+#include <sge/input/keyboard/device.hpp>
 #include <sge/input/keyboard/key_code.hpp>
 #include <sge/parse/json/array.hpp>
 #include <sge/parse/json/object.hpp>
@@ -67,7 +67,7 @@ fruitcut::app::states::ingame::superstate::superstate(
 	physics_debugger_node_(
 		physics_debugger_),
 	physics_debugger_connection_(
-		context<machine>().game_input_state().key_callback(
+		context<machine>().systems().keyboard_collector().key_callback(
 			sge::input::keyboard::action(
 				sge::input::keyboard::key_code::f3, 
 				std::tr1::bind(

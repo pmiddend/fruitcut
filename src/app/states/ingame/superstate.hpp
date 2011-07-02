@@ -17,7 +17,6 @@
 #include "../../../fruitlib/physics/group/object.hpp"
 #include "../../../fruitlib/physics/rigid_body/scoped.hpp"
 #include "../../../fruitlib/physics/debugger.hpp"
-#include "../../../fruitlib/input/state.hpp"
 #include <sge/time/timer.hpp>
 #include <sge/renderer/device_ptr.hpp>
 #include <fcppt/signal/scoped_connection.hpp>

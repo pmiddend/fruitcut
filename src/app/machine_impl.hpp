@@ -8,9 +8,6 @@
 #include "../fruitlib/audio/music_controller.hpp"
 #include "../fruitlib/audio/sound_controller.hpp"
 #include "../fruitlib/font/cache.hpp"
-#include "../fruitlib/input/state.hpp"
-#include "../fruitlib/input/state.hpp"
-#include "../fruitlib/input/state_manager.hpp"
 #include "../fruitlib/log/scoped_sequence_ptr.hpp"
 #include "../fruitlib/rng_creator.hpp"
 #include "../fruitlib/scenic/nodes/camera.hpp"
@@ -84,12 +81,6 @@ public:
 
 	fruitlib::audio::music_controller const &
 	music_controller() const;
-
-	fruitlib::input::state &
-	game_input_state();
-
-	fruitlib::input::state_manager &
-	input_manager();
 
 	fruitcut::app::background &
 	background();
@@ -183,9 +174,6 @@ private:
 	app::overlay overlay_node_;
 	fruitlib::log::scoped_sequence_ptr activated_loggers_;
 	fruitlib::font::cache font_cache_;
-	fruitlib::input::state_manager input_manager_;
-	fruitlib::input::state game_state_;
-	fruitlib::input::state *previous_state_;
 	fcppt::signal::scoped_connection exit_connection_;
 	sge::time::point current_time_,transformed_time_;
 	sge::time::funit time_factor_;
@@ -198,7 +186,6 @@ private:
 	sge::camera::object camera_;
 	fruitlib::scenic::nodes::camera camera_node_;
 	fcppt::signal::scoped_connection toggle_camera_connection_;
-	fruitlib::input::state camera_state_;
 	fcppt::signal::scoped_connection viewport_change_connection_;
 	app::directional_light_source main_light_source_;
 	fruitcut::app::shadow_map shadow_map_;

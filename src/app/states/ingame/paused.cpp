@@ -11,6 +11,7 @@
 #include <sge/renderer/device.hpp>
 #include <sge/input/keyboard/action.hpp>
 #include <sge/input/keyboard/key_code.hpp>
+#include <sge/input/keyboard/device.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/time/time.hpp>
 #include <fcppt/text.hpp>
@@ -59,7 +60,7 @@ fruitcut::app::states::ingame::paused::paused(
 				fruitlib::json::path(FCPPT_TEXT("paused"))
 					/ FCPPT_TEXT("blur-frequency-time")))),
 	transit_to_running_connection_(
-		context<machine>().game_input_state().key_callback(
+		context<machine>().systems().keyboard_collector().key_callback(
 			sge::input::keyboard::action(
 				sge::input::keyboard::key_code::p, 
 				std::tr1::bind(

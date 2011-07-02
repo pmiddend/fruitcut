@@ -63,7 +63,7 @@ FIND_PACKAGE(
 	viewport)
 
 INCLUDE_DIRECTORIES(${SGE_INCLUDE_DIRS})
-ADD_DEFINITIONS(${SGE_DEFINITIONS}
+ADD_DEFINITIONS(${SGE_DEFINITIONS})
 # sge end
 
 # cegui begin
@@ -150,15 +150,6 @@ SET(
 	src/fruitlib/grid/sobel_ignore_borders.hpp
 	src/fruitlib/grid/to_ppm.hpp
 	src/fruitlib/grid/zip_with.hpp
-	src/fruitlib/input/optional_key_callback.hpp
-	src/fruitlib/input/optional_mouse_axis_callback.hpp
-	src/fruitlib/input/optional_mouse_button_callback.hpp
-	src/fruitlib/input/state.cpp
-	src/fruitlib/input/state.hpp
-	src/fruitlib/input/state_fwd.hpp
-	src/fruitlib/input/state_manager.cpp
-	src/fruitlib/input/state_manager.hpp
-	src/fruitlib/input/state_manager_fwd.hpp
 	src/fruitlib/json/convert_from.hpp
 	src/fruitlib/json/convert_to.hpp
 	src/fruitlib/json/detail/is_array.hpp

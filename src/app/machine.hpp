@@ -17,8 +17,6 @@
 #include "../fruitlib/scenic/nodes/intrusive_group_fwd.hpp"
 #include "../fruitlib/audio/sound_controller_fwd.hpp"
 #include "../fruitlib/audio/music_controller_fwd.hpp"
-#include "../fruitlib/input/state_fwd.hpp"
-#include "../fruitlib/input/state_manager_fwd.hpp"
 #include "../fruitlib/font/cache_fwd.hpp"
 #include <sge/time/callback.hpp>
 #include <sge/time/time.hpp>
@@ -86,12 +84,6 @@ public:
 
 	fruitlib::audio::music_controller const &
 	music_controller() const;
-
-	fruitlib::input::state &
-	game_input_state();
-
-	fruitlib::input::state_manager &
-	input_manager();
 
 	fruitcut::app::background &
 	background();

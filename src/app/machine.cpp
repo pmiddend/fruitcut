@@ -114,18 +114,6 @@ fruitcut::app::machine::music_controller() const
 	return impl_->music_controller();
 }
 
-fruitcut::fruitlib::input::state &
-fruitcut::app::machine::game_input_state()
-{
-	return impl_->game_input_state();
-}
-
-fruitcut::fruitlib::input::state_manager &
-fruitcut::app::machine::input_manager()
-{
-	return impl_->input_manager();
-}
-
 fruitcut::app::background &
 fruitcut::app::machine::background()
 {

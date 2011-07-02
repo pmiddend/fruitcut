@@ -24,6 +24,7 @@
 #include <sge/image/colors.hpp>
 #include <sge/input/keyboard/action.hpp>
 #include <sge/input/keyboard/key_code.hpp>
+#include <sge/input/keyboard/device.hpp>
 #include <sge/log/global_context.hpp>
 #include <sge/md3/create.hpp>
 #include <sge/parse/json/json.hpp>
@@ -137,12 +138,6 @@ fruitcut::app::machine_impl::machine_impl(
 			config_file_,
 			fruitlib::json::path(
 				FCPPT_TEXT("fonts")))),
-	input_manager_(
-		systems_),
-	game_state_(
-		input_manager_),
-	previous_state_(
-		0),
 	current_time_(
 		sge::time::clock::now()),
 	transformed_time_(
@@ -218,21 +213,19 @@ fruitcut::app::machine_impl::machine_impl(
 							/ FCPPT_TEXT("camera")
 							/ FCPPT_TEXT("initial-position"))),
 			// Maus und Keyboard
-			game_state_,
-			game_state_,
+			systems_.keyboard_collector(),
+			systems_.mouse_collector(),
 			sge::camera::activation_state::inactive)),
 	camera_node_(
 		camera_,
 		timer_callback()),
 	toggle_camera_connection_(
-		game_state_.key_callback(
+		systems_.keyboard_collector().key_callback(
 			sge::input::keyboard::action(
 				sge::input::keyboard::key_code::f2, 
 				std::tr1::bind(
 					&machine_impl::toggle_camera,
 					this)))),
-	camera_state_(
-		input_manager_),
 	viewport_change_connection_(
 		systems_.viewport_manager().manage_callback(
 			std::tr1::bind(
@@ -304,8 +297,6 @@ fruitcut::app::machine_impl::machine_impl(
 		camera_node_);
 	scene_node_.insert_dont_care(
 		point_sprites_);
-	input_manager_.current_state(
-		game_state_);
 	systems_.audio_player().gain(
 		fruitlib::json::find_and_convert_member<sge::audio::scalar>(
 			config_file(),
@@ -399,18 +390,6 @@ fruitcut::fruitlib::audio::music_controller const &
 fruitcut::app::machine_impl::music_controller() const
 {
 	return music_controller_;
-}
-
-fruitcut::fruitlib::input::state &
-fruitcut::app::machine_impl::game_input_state()
-{
-	return game_state_;
-}
-
-fruitcut::fruitlib::input::state_manager &
-fruitcut::app::machine_impl::input_manager()
-{
-	return input_manager_;
 }
 
 fruitcut::app::background &
