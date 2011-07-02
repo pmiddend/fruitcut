@@ -178,7 +178,6 @@ private:
 	app::overlay overlay_node_;
 	fruitlib::log::scoped_sequence_ptr activated_loggers_;
 	fruitlib::font::cache font_cache_;
-	app::quick_log quick_log_;
 	fcppt::signal::scoped_connection exit_connection_;
 	sge::time::point current_time_,transformed_time_;
 	sge::time::funit time_factor_;
@@ -188,6 +187,7 @@ private:
 	fruitlib::audio::music_controller music_controller_;
 	fruitlib::scenic::nodes::music_controller music_controller_node_;
 	fcppt::signal::scoped_connection music_volume_change_connection_;
+	app::quick_log quick_log_;
 	sge::camera::object camera_;
 	fruitlib::scenic::nodes::camera camera_node_;
 	fcppt::signal::scoped_connection toggle_camera_connection_;

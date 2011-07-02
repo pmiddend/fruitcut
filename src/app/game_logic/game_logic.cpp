@@ -110,7 +110,7 @@ fruitcut::app::game_logic::game_logic::game_logic(
 				FCPPT_TEXT("score")),
 			SGE_FONT_TEXT_LIT("0"),
 			sge::font::rect::null(),
-			sge::font::text::align_h::left,
+			sge::font::text::align_h::right,
 			sge::font::text::align_v::top,
 			sge::font::text::flags::none),
 		sge::image::color::any::object(

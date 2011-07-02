@@ -4,6 +4,7 @@
 #include "../fruitlib/scenic/nodes/intrusive_group.hpp"
 #include "../fruitlib/font/intrusive_scene_node.hpp"
 #include "../fruitlib/font/cache_fwd.hpp"
+#include "../fruitlib/audio/sound_controller_fwd.hpp"
 #include <sge/renderer/scalar.hpp>
 #include <sge/viewport/manager_fwd.hpp>
 #include <sge/parse/json/object_fwd.hpp>
@@ -32,7 +33,8 @@ public:
 		sge::parse::json::object const &,
 		fruitlib::font::cache &,
 		sge::viewport::manager &,
-		sge::renderer::device const &);
+		sge::renderer::device const &,
+		fruitlib::audio::sound_controller &);
 
 	// Take fcppt::string instead of font::text::string here for
 	// convenience
@@ -50,6 +52,7 @@ private:
 	std::deque<sge::font::text::string>
 	message_sequence;
 
+	fruitlib::audio::sound_controller &sound_controller_;
 	fruitlib::font::intrusive_scene_node font_node_;
 	fractional_dimension fractional_size_;
 	fcppt::signal::scoped_connection viewport_change_connection_;

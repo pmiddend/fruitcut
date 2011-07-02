@@ -1,5 +1,6 @@
 #include "running.hpp"
 #include "paused.hpp"
+#include "../../quick_log.hpp"
 #include "../gameover/superstate.hpp"
 #include "../../postprocessing.hpp"
 #include "../gameover/choose_name.hpp"

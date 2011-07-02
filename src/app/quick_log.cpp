@@ -1,6 +1,8 @@
 #include "quick_log.hpp"
 #include "../fruitlib/font/cache.hpp"
+#include "../fruitlib/resource_tree/path.hpp"
 #include "../fruitlib/font/object_parameters.hpp"
+#include "../fruitlib/audio/sound_controller.hpp"
 #include "../fruitlib/time_format/string_to_duration.hpp"
 #include "../fruitlib/font/object.hpp"
 #include "../fruitlib/json/find_and_convert_member.hpp"
@@ -24,13 +26,17 @@
 #include <fcppt/cref.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <boost/algorithm/string/join.hpp>
+#include <iostream>
 
 fruitcut::app::quick_log::quick_log(
 	sge::parse::json::object const &_config_file,
 	fruitlib::font::cache &_font_cache,
 	sge::viewport::manager &_viewport_manager,
-	sge::renderer::device const &_renderer)
+	sge::renderer::device const &_renderer,
+	fruitlib::audio::sound_controller &_sound_controller)
 :
+	sound_controller_(
+		_sound_controller),
 	font_node_(
 		fruitlib::font::object_parameters(
 			_font_cache.metrics(
@@ -89,6 +95,10 @@ fruitcut::app::quick_log::add_message(
 
 	if(!message_delete_timer_.active())
 		message_delete_timer_.activate();
+
+	sound_controller_.play(
+		fruitlib::resource_tree::path(
+			FCPPT_TEXT("quick_log")));
 }
 
 void
@@ -105,7 +115,7 @@ fruitcut::app::quick_log::viewport_change(
 
 	font_node_.object().bounding_box(
 		sge::font::rect(
-			sge::font::rect::vector(),
+			sge::font::rect::vector::null(),
 			fcppt::math::dim::structure_cast<sge::font::rect::dim>(
 				fcppt::math::dim::structure_cast<fractional_dimension>(
 					viewport_size) * 

@@ -138,11 +138,6 @@ fruitcut::app::machine_impl::machine_impl(
 			config_file_,
 			fruitlib::json::path(
 				FCPPT_TEXT("fonts")))),
-	quick_log_(
-		config_file_,
-		font_cache_,
-		systems_.viewport_manager(),
-		systems_.renderer()),
 	current_time_(
 		sge::time::clock::now()),
 	transformed_time_(
@@ -194,6 +189,12 @@ fruitcut::app::machine_impl::machine_impl(
 					&fruitlib::audio::music_controller::volume),
 				&music_controller_,
 				std::tr1::placeholders::_1))),
+	quick_log_(
+		config_file_,
+		font_cache_,
+		systems_.viewport_manager(),
+		systems_.renderer(),
+		sound_controller_),
 	camera_(
 		sge::camera::parameters(
 			// Leave projection object empty for now, we have to wait for a viewport change
