@@ -1,1 +1,5 @@
 This is a list of differences to the last release.
+
+0.2:
+	- MSVC fixes
+	- Made the server optional (use the cmake variable ENABLE_SERVER to control if it's built)

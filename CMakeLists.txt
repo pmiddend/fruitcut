@@ -628,44 +628,6 @@ TARGET_LINK_LIBRARIES(
 	${CEGUI_LIBRARIES}
 	${BULLET_LIBRARIES}
 	${Boost_LIBRARIES})
-# app end
-
-# server begin
-SET(
-	SERVER_FILES
-	src/server/listener.cpp
-	src/server/listener.hpp
-	src/server/program_options/command_line_parameters.hpp
-	src/server/program_options/detail/bad_cast.cpp
-	src/server/program_options/detail/bad_cast.hpp
-	src/server/program_options/detail/holder_get.hpp
-	src/server/program_options/detail/option_base.cpp
-	src/server/program_options/detail/option_base.hpp
-	src/server/program_options/detail/option_holder.hpp
-	src/server/program_options/detail/option_holder_base.cpp
-	src/server/program_options/detail/option_holder_base.hpp
-	src/server/program_options/detail/option_holder_base_fwd.hpp
-	src/server/program_options/detail/option_holder_base_ptr.hpp
-	src/server/program_options/detail/type_info.cpp
-	src/server/program_options/detail/type_info.hpp
-	src/server/program_options/help_was_needed.cpp
-	src/server/program_options/help_was_needed.hpp
-	src/server/program_options/make_command_line_parameters.cpp
-	src/server/program_options/make_command_line_parameters.hpp
-	src/server/program_options/object.cpp
-	src/server/program_options/object.hpp
-	src/server/program_options/option.hpp
-	src/server/program_options/option_sequence.cpp
-	src/server/program_options/option_sequence.hpp
-	src/server/server.cpp
-	src/server/std_error_string.cpp
-	src/server/std_error_string.hpp
-)
-
-ADD_EXECUTABLE(
-	fruitcut_server
-	${SERVER_FILES})
-# server end
 
 INSTALL(
 	TARGETS
@@ -673,10 +635,52 @@ INSTALL(
 	DESTINATION
 	${INSTALL_BINARY_DIR}
 )
+# app end
 
-INSTALL(
-	TARGETS
-	fruitcut_server
-	DESTINATION
-	${INSTALL_BINARY_DIR}
-)
+# server begin
+OPTION(ENABLE_SERVER "Build the server (beware: it's POSIX only!)" OFF)
+
+IF(ENABLE_SERVER)
+	SET(
+		SERVER_FILES
+		src/server/listener.cpp
+		src/server/listener.hpp
+		src/server/program_options/command_line_parameters.hpp
+		src/server/program_options/detail/bad_cast.cpp
+		src/server/program_options/detail/bad_cast.hpp
+		src/server/program_options/detail/holder_get.hpp
+		src/server/program_options/detail/option_base.cpp
+		src/server/program_options/detail/option_base.hpp
+		src/server/program_options/detail/option_holder.hpp
+		src/server/program_options/detail/option_holder_base.cpp
+		src/server/program_options/detail/option_holder_base.hpp
+		src/server/program_options/detail/option_holder_base_fwd.hpp
+		src/server/program_options/detail/option_holder_base_ptr.hpp
+		src/server/program_options/detail/type_info.cpp
+		src/server/program_options/detail/type_info.hpp
+		src/server/program_options/help_was_needed.cpp
+		src/server/program_options/help_was_needed.hpp
+		src/server/program_options/make_command_line_parameters.cpp
+		src/server/program_options/make_command_line_parameters.hpp
+		src/server/program_options/object.cpp
+		src/server/program_options/object.hpp
+		src/server/program_options/option.hpp
+		src/server/program_options/option_sequence.cpp
+		src/server/program_options/option_sequence.hpp
+		src/server/server.cpp
+		src/server/std_error_string.cpp
+		src/server/std_error_string.hpp
+	)
+
+	ADD_EXECUTABLE(
+		fruitcut_server
+		${SERVER_FILES})
+
+	INSTALL(
+		TARGETS
+		fruitcut_server
+		DESTINATION
+		${INSTALL_BINARY_DIR}
+	)
+ENDIF()
+# server end
