@@ -309,3 +309,9 @@ fruitcut::app::machine::fruit_prototypes()
 {
 	return impl_->fruit_prototypes();
 }
+
+fruitcut::app::quick_log &
+fruitcut::app::machine::quick_log()
+{
+	return impl_->quick_log();
+}

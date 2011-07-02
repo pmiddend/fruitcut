@@ -1,4 +1,10 @@
 {
+	"quick-log" : 
+	{
+		"screen-percentage" : [0.2,0.1],
+		"font-color" : [1.0,1.0,1.0,1.0],
+		"message-deletion-time" : "1s"
+	},
 	"effects-volume" : 1.0,
 	"ambient-intensity" : 0.4,
 	"main-light-source" : 
@@ -39,7 +45,7 @@
 		{
 			"filename" : "tweaked.json"
 		},
-		"instructional" : 
+		"quick-log" : 
 		{
 			"filename" : "default.ttf",
 			"size" : 16

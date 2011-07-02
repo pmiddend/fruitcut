@@ -18,7 +18,6 @@ LINK_DIRECTORIES(${Boost_LIBRARY_DIRS})
 FIND_PACKAGE(Fcppt REQUIRED)
 INCLUDE_DIRECTORIES(${Fcppt_INCLUDE_DIRS})
 ADD_DEFINITIONS(${Fcppt_DEFINITIONS})
-
 # fcppt end
 
 # awl begin
@@ -422,6 +421,8 @@ SET(
 	src/fruitlib/uniform_random.hpp
 )
 
+FCPPT_UTILS_ADD_SOURCE_GROUPS("${FRUITLIB_FILES}")
+
 SET(
 	APP_FILES
 	src/app/background.cpp
@@ -564,6 +565,9 @@ SET(
 	src/app/postprocessing.cpp
 	src/app/postprocessing.hpp
 	src/app/postprocessing_fwd.hpp
+	src/app/quick_log.cpp
+	src/app/quick_log.hpp
+	src/app/quick_log_fwd.hpp
 	src/app/scene.cpp
 	src/app/scene.hpp
 	src/app/scene_fwd.hpp
@@ -601,6 +605,8 @@ SET(
 	src/app/states/menu.hpp
 	src/app/states/menu_fwd.hpp
 )
+
+FCPPT_UTILS_ADD_SOURCE_GROUPS("${APP_FILES}")
 
 # library begin
 ADD_LIBRARY(
@@ -640,37 +646,41 @@ INSTALL(
 # server begin
 OPTION(ENABLE_SERVER "Build the server (beware: it's POSIX only!)" OFF)
 
+# this has to be defined here so update_cmake recognizes it
+SET(
+	SERVER_FILES
+	src/server/listener.cpp
+	src/server/listener.hpp
+	src/server/program_options/command_line_parameters.hpp
+	src/server/program_options/detail/bad_cast.cpp
+	src/server/program_options/detail/bad_cast.hpp
+	src/server/program_options/detail/holder_get.hpp
+	src/server/program_options/detail/option_base.cpp
+	src/server/program_options/detail/option_base.hpp
+	src/server/program_options/detail/option_holder.hpp
+	src/server/program_options/detail/option_holder_base.cpp
+	src/server/program_options/detail/option_holder_base.hpp
+	src/server/program_options/detail/option_holder_base_fwd.hpp
+	src/server/program_options/detail/option_holder_base_ptr.hpp
+	src/server/program_options/detail/type_info.cpp
+	src/server/program_options/detail/type_info.hpp
+	src/server/program_options/help_was_needed.cpp
+	src/server/program_options/help_was_needed.hpp
+	src/server/program_options/make_command_line_parameters.cpp
+	src/server/program_options/make_command_line_parameters.hpp
+	src/server/program_options/object.cpp
+	src/server/program_options/object.hpp
+	src/server/program_options/option.hpp
+	src/server/program_options/option_sequence.cpp
+	src/server/program_options/option_sequence.hpp
+	src/server/server.cpp
+	src/server/std_error_string.cpp
+	src/server/std_error_string.hpp
+)
+
 IF(ENABLE_SERVER)
-	SET(
-		SERVER_FILES
-		src/server/listener.cpp
-		src/server/listener.hpp
-		src/server/program_options/command_line_parameters.hpp
-		src/server/program_options/detail/bad_cast.cpp
-		src/server/program_options/detail/bad_cast.hpp
-		src/server/program_options/detail/holder_get.hpp
-		src/server/program_options/detail/option_base.cpp
-		src/server/program_options/detail/option_base.hpp
-		src/server/program_options/detail/option_holder.hpp
-		src/server/program_options/detail/option_holder_base.cpp
-		src/server/program_options/detail/option_holder_base.hpp
-		src/server/program_options/detail/option_holder_base_fwd.hpp
-		src/server/program_options/detail/option_holder_base_ptr.hpp
-		src/server/program_options/detail/type_info.cpp
-		src/server/program_options/detail/type_info.hpp
-		src/server/program_options/help_was_needed.cpp
-		src/server/program_options/help_was_needed.hpp
-		src/server/program_options/make_command_line_parameters.cpp
-		src/server/program_options/make_command_line_parameters.hpp
-		src/server/program_options/object.cpp
-		src/server/program_options/object.hpp
-		src/server/program_options/option.hpp
-		src/server/program_options/option_sequence.cpp
-		src/server/program_options/option_sequence.hpp
-		src/server/server.cpp
-		src/server/std_error_string.cpp
-		src/server/std_error_string.hpp
-	)
+
+	FCPPT_UTILS_ADD_SOURCE_GROUPS("${SERVER_FILES}")
 
 	ADD_EXECUTABLE(
 		fruitcut_server

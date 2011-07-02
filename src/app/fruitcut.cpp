@@ -77,7 +77,7 @@ int main(
 	char *argv[])
 try
 {
-#ifndef FCPPT_HAVE_POSIX
+#if defined(FCPPT_HAVE_BACKTRACE) && defined(FCPPT_POSIX_PLATFORM)
 	signal_stack_printer stack_printer(
 		SIGSEGV);
 #endif

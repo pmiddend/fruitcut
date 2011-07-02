@@ -5,6 +5,7 @@
 #include "background.hpp"
 #include "directional_light_source.hpp"
 #include "config_variables.hpp"
+#include "quick_log.hpp"
 #include "../fruitlib/audio/music_controller.hpp"
 #include "../fruitlib/audio/sound_controller.hpp"
 #include "../fruitlib/font/cache.hpp"
@@ -162,6 +163,9 @@ public:
 	fruit::prototype_sequence &
 	fruit_prototypes();
 
+	app::quick_log &
+	quick_log();
+
 	~machine_impl();
 private:
 	fruitlib::rng_creator rng_creator_;
@@ -174,6 +178,7 @@ private:
 	app::overlay overlay_node_;
 	fruitlib::log::scoped_sequence_ptr activated_loggers_;
 	fruitlib::font::cache font_cache_;
+	app::quick_log quick_log_;
 	fcppt::signal::scoped_connection exit_connection_;
 	sge::time::point current_time_,transformed_time_;
 	sge::time::funit time_factor_;

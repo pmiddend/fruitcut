@@ -3,6 +3,7 @@
 
 #include "machine_impl_fwd.hpp"
 #include "config_variables_fwd.hpp"
+#include "quick_log_fwd.hpp"
 #include "states/loading_fwd.hpp"
 #include "postprocessing_fwd.hpp"
 #include "background_fwd.hpp"
@@ -180,6 +181,9 @@ public:
 
 	fruit::prototype_sequence &
 	fruit_prototypes();
+
+	app::quick_log &
+	quick_log();
 private:
 	/*
 		This part needs some explanation. What are we doing here? 

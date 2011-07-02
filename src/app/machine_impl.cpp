@@ -138,6 +138,11 @@ fruitcut::app::machine_impl::machine_impl(
 			config_file_,
 			fruitlib::json::path(
 				FCPPT_TEXT("fonts")))),
+	quick_log_(
+		config_file_,
+		font_cache_,
+		systems_.viewport_manager(),
+		systems_.renderer()),
 	current_time_(
 		sge::time::clock::now()),
 	transformed_time_(
@@ -297,6 +302,8 @@ fruitcut::app::machine_impl::machine_impl(
 		camera_node_);
 	scene_node_.insert_dont_care(
 		point_sprites_);
+	overlay_node_.insert_dont_care(
+		quick_log_);
 	systems_.audio_player().gain(
 		fruitlib::json::find_and_convert_member<sge::audio::scalar>(
 			config_file(),
@@ -549,6 +556,12 @@ fruitcut::app::fruit::prototype_sequence &
 fruitcut::app::machine_impl::fruit_prototypes()
 {
 	return fruit_prototypes_;
+}
+
+fruitcut::app::quick_log &
+fruitcut::app::machine_impl::quick_log()
+{
+	return quick_log_;
 }
 
 fruitcut::app::machine_impl::~machine_impl()
