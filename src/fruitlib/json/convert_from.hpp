@@ -10,6 +10,7 @@
 #include <fcppt/text.hpp>
 #include <fcppt/lexical_cast.hpp>
 #include <boost/mpl/and.hpp>
+#include <boost/mpl/not.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <boost/type_traits/is_floating_point.hpp>
 
@@ -42,9 +43,16 @@ convert_from(
 
 template<typename T>
 typename
-boost::enable_if_c
+boost::enable_if
 <
-	boost::is_integral<T>::value && !boost::is_same<T,bool>::value,
+	boost::mpl::and_
+	<
+		boost::is_integral<T>,
+		boost::mpl::not_
+		<
+			boost::is_same<T,bool>
+		>
+	>,
 	T const
 >::type
 convert_from(
@@ -62,12 +70,24 @@ convert_from(
 
 template<typename T>
 typename
-boost::enable_if_c
+boost::enable_if
 <
-	fcppt::type_traits::is_iterable<T>::value 
-		&& !detail::is_array<T>::value
-		&& !boost::is_same<T,sge::parse::json::string>::value
-		&& !fcppt::math::matrix::is_matrix<T>::value,
+	boost::mpl::and_
+	<
+		fcppt::type_traits::is_iterable<T>,
+		boost::mpl::not_
+		<
+			detail::is_array<T>
+		>,
+		boost::mpl::not_
+		<
+			boost::is_same<T,sge::parse::json::string>
+		>,
+		boost::mpl::not_
+		<
+			fcppt::math::matrix::is_matrix<T>
+		>
+	>,
 	T const
 >::type
 convert_from(
@@ -105,12 +125,27 @@ convert_from(
 
 template<typename T>
 typename
-boost::enable_if_c
+boost::enable_if
 <
-	!boost::is_floating_point<T>::value 
-		&& !boost::is_integral<T>::value
-		&& !fcppt::type_traits::is_iterable<T>::value
-		&& !boost::is_same<T,sge::parse::json::value>::value,
+	boost::mpl::and_
+	<
+		boost::mpl::not_
+		<
+			boost::is_floating_point<T>
+		>,
+		boost::mpl::not_
+		<
+			boost::is_integral<T>
+		>,
+		boost::mpl::not_
+		<
+			fcppt::type_traits::is_iterable<T>
+		>,
+		boost::mpl::not_
+		<
+			boost::is_same<T,sge::parse::json::value>
+		>
+	>,
 	T const
 >::type
 convert_from(
@@ -155,9 +190,16 @@ fruitcut::fruitlib::json::convert_from(
 // Assume int_type
 template<typename T>
 typename
-boost::enable_if_c
+boost::enable_if
 <
-	boost::is_integral<T>::value && !boost::is_same<T,bool>::value,
+	boost::mpl::and_
+	<
+		boost::is_integral<T>,
+		boost::mpl::not_
+		<
+			boost::is_same<T,bool>
+		>
+	>,
 	T const
 >::type
 fruitcut::fruitlib::json::convert_from(
@@ -229,12 +271,24 @@ fruitcut::fruitlib::json::convert_from(
 // - have insert(iterator,value)
 template<typename T>
 typename
-boost::enable_if_c
+boost::enable_if
 <
-	fcppt::type_traits::is_iterable<T>::value 
-		&& !fruitcut::fruitlib::json::detail::is_array<T>::value
-		&& !boost::is_same<T,sge::parse::json::string>::value
-		&& !fcppt::math::matrix::is_matrix<T>::value,
+	boost::mpl::and_
+	<
+		fcppt::type_traits::is_iterable<T>,
+		boost::mpl::not_
+		<
+			fruitcut::fruitlib::json::detail::is_array<T>
+		>,
+		boost::mpl::not_
+		<
+			boost::is_same<T,sge::parse::json::string>
+		>,
+		boost::mpl::not_
+		<
+			fcppt::math::matrix::is_matrix<T>
+		>
+	>,
 	T const
 >::type
 fruitcut::fruitlib::json::convert_from(
@@ -346,12 +400,27 @@ fruitcut::fruitlib::json::convert_from(
 // Everything else -> has to be a json type!
 template<typename T>
 typename
-boost::enable_if_c
+boost::enable_if
 <
-	!boost::is_floating_point<T>::value 
-		&& !boost::is_integral<T>::value
-		&& !fcppt::type_traits::is_iterable<T>::value
-		&& !boost::is_same<T,sge::parse::json::value>::value,
+	boost::mpl::and_
+	<
+		boost::mpl::not_
+		<
+			boost::is_floating_point<T>
+		>,
+		boost::mpl::not_
+		<
+			boost::is_integral<T>
+		>,
+		boost::mpl::not_
+		<
+			fcppt::type_traits::is_iterable<T>
+		>,
+		boost::mpl::not_
+		<
+			boost::is_same<T,sge::parse::json::value>
+		>
+	>,
 	T const
 >::type
 fruitcut::fruitlib::json::convert_from(
