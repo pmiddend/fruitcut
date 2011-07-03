@@ -5,11 +5,13 @@
 #include "main_fwd.hpp"
 #include "../../events/declare_transition_type.hpp"
 #include "../../events/declare_transition_reaction.hpp"
+#include "../../gui/button.hpp"
+#include "../../gui/progress_slider.hpp"
 #include <sge/cegui/toolbox/scoped_layout.hpp>
 #include <sge/cegui/toolbox/scoped_gui_sheet.hpp>
+#include <fcppt/signal/scoped_connection.hpp>
 #include <boost/statechart/state.hpp>
 #include <boost/mpl/vector/vector10.hpp>
-#include <CEGUIEvent.h>
 
 namespace fruitcut
 {
@@ -44,11 +46,26 @@ public:
 private:
 	sge::cegui::toolbox::scoped_layout layout_;
 	sge::cegui::toolbox::scoped_gui_sheet gui_sheet_;
-	CEGUI::Event::ScopedConnection main_menu_button_connection_;
+	gui::button main_menu_button_;
+	fcppt::signal::scoped_connection main_menu_button_connection_;
+	gui::progress_slider music_volume_slider_;
+	fcppt::signal::scoped_connection music_volume_connection_;
+	gui::progress_slider effects_volume_slider_;
+	fcppt::signal::scoped_connection effects_volume_connection_;
+	gui::progress_slider splatter_slider_;
+	fcppt::signal::scoped_connection splatter_connection_;
 
-	bool
-	main_menu_button_pushed(
-		CEGUI::EventArgs const &);
+	void
+	music_volume_callback(
+		gui::progress_slider::value_type);
+
+	void
+	effects_volume_callback(
+		gui::progress_slider::value_type);
+
+	void
+	particle_callback(
+		gui::progress_slider::value_type);
 };
 }
 }

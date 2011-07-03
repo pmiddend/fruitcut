@@ -530,6 +530,8 @@ SET(
 	src/app/game_logic/game_logic.hpp
 	src/app/gui/button.cpp
 	src/app/gui/button.hpp
+	src/app/gui/progress_slider.cpp
+	src/app/gui/progress_slider.hpp
 	src/app/light_source_from_json.cpp
 	src/app/light_source_from_json.hpp
 	src/app/load_user_config.cpp

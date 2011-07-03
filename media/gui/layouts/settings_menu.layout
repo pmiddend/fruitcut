@@ -59,7 +59,7 @@
             <Property Name="Text" Value="-" />
             <Property Name="UnifiedAreaRect" Value="{{0.421053,0},{0.193548,0},{0.494737,0},{0.268817,0}}" />
         </Window>
-        <Window Type="Fruitcut/ProgressBar" Name="SettingsMenu/MusicVolumeProgressBar" >
+        <Window Type="Fruitcut/ProgressBar" Name="SettingsMenu/MusicVolumeProgress" >
             <Property Name="StepSize" Value="0.01" />
             <Property Name="CurrentProgress" Value="0" />
             <Property Name="UnifiedAreaRect" Value="{{0.51579,0},{0.193548,0},{0.831579,0},{0.268817,0}}" />
