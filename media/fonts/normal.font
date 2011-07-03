@@ -3,7 +3,7 @@
 	Name="normal" 
 	Filename="default.ttf" 
 	Type="FreeType" 
-	Size="12" 
+	Size="16" 
 	NativeHorzRes="800" 
 	NativeVertRes="600" 
-	AutoScaled="true"/>
+	AutoScaled="false"/>

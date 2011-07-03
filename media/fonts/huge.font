@@ -1,9 +1,9 @@
 <?xml version="1.0"  encoding="UTF-8" ?>
 <Font 
-	Name="normal" 
-	Filename="DejaVuSans.ttf" 
+	Name="huge" 
+	Filename="default.ttf" 
 	Type="FreeType" 
-	Size="4" 
+	Size="48" 
 	NativeHorzRes="800" 
 	NativeVertRes="600" 
-	AutoScaled="true"/>
+	AutoScaled="false"/>

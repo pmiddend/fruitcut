@@ -1,5 +1,6 @@
 #include "highscore.hpp"
 #include "../menu/main.hpp"
+#include "../ingame/running.hpp"
 #include "../../exception.hpp"
 #include "../../../media_path.hpp"
 #include "../../../fruitlib/audio/sound_controller.hpp"
@@ -194,7 +195,7 @@ fruitcut::app::states::gameover::highscore::highscore(
 	gui_sheet_(
 		*CEGUI::WindowManager::getSingleton().getWindow("Highscore")),
 	quit_button_connection_(
-		CEGUI::WindowManager::getSingleton().getWindow("Highscore/QuitButton")->subscribeEvent(
+		CEGUI::WindowManager::getSingleton().getWindow("Highscore/Quit")->subscribeEvent(
 			CEGUI::PushButton::EventClicked,
 			CEGUI::Event::Subscriber(
 				std::tr1::bind(
@@ -202,11 +203,19 @@ fruitcut::app::states::gameover::highscore::highscore(
 					this,
 					std::tr1::placeholders::_1)))),
 	reset_button_connection_(
-		CEGUI::WindowManager::getSingleton().getWindow("Highscore/ResetButton")->subscribeEvent(
+		CEGUI::WindowManager::getSingleton().getWindow("Highscore/Reset")->subscribeEvent(
 			CEGUI::PushButton::EventClicked,
 			CEGUI::Event::Subscriber(
 				std::tr1::bind(
 					&highscore::reset_button_pushed,
+					this,
+					std::tr1::placeholders::_1)))),
+	main_menu_button_connection_(
+		CEGUI::WindowManager::getSingleton().getWindow("Highscore/MainMenu")->subscribeEvent(
+			CEGUI::PushButton::EventClicked,
+			CEGUI::Event::Subscriber(
+				std::tr1::bind(
+					&highscore::main_menu_button_pushed,
 					this,
 					std::tr1::placeholders::_1))))
 {
@@ -266,6 +275,10 @@ FRUITCUT_APP_EVENTS_DEFINE_TRANSITION_REACTION(
 	menu::main,
 	gameover::highscore)
 
+FRUITCUT_APP_EVENTS_DEFINE_TRANSITION_REACTION(
+	ingame::superstate,
+	gameover::highscore)
+
 fruitcut::app::states::gameover::highscore::~highscore()
 {
 }
@@ -283,6 +296,18 @@ fruitcut::app::states::gameover::highscore::quit_button_pushed(
 
 bool
 fruitcut::app::states::gameover::highscore::reset_button_pushed(
+	CEGUI::EventArgs const &)
+{
+	context<machine>().sound_controller().play(
+		fruitlib::resource_tree::path(
+			FCPPT_TEXT("button_clicked")));
+	FRUITCUT_APP_EVENTS_POST_TRANSITION(
+		ingame::superstate);
+	return true;
+}
+
+bool
+fruitcut::app::states::gameover::highscore::main_menu_button_pushed(
 	CEGUI::EventArgs const &)
 {
 	context<machine>().sound_controller().play(

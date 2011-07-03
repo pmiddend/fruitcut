@@ -2,6 +2,7 @@
 #define FRUITCUT_APP_STATES_MENU_MAIN_HPP_INCLUDED
 
 #include "superstate.hpp"
+#include "settings_fwd.hpp"
 #include "../../logo.hpp"
 #include "../../events/declare_transition_type.hpp"
 #include "../../events/declare_transition_reaction.hpp"
@@ -28,10 +29,12 @@ class main
 {
 public:
 	typedef
-	boost::mpl::vector1
+	boost::mpl::vector2
 	<
 		FRUITCUT_APP_EVENTS_DECLARE_TRANSITION_TYPE(
-			ingame::superstate)
+			ingame::superstate),
+		FRUITCUT_APP_EVENTS_DECLARE_TRANSITION_TYPE(
+			menu::settings)
 	>
 	reactions;
 
@@ -42,6 +45,9 @@ public:
 	FRUITCUT_APP_EVENTS_DECLARE_TRANSITION_REACTION(
 		ingame::superstate);
 
+	FRUITCUT_APP_EVENTS_DECLARE_TRANSITION_REACTION(
+		menu::settings);
+
 	~main();
 private:
 	fcppt::signal::scoped_connection viewport_change_connection_;
@@ -50,6 +56,7 @@ private:
 	sge::cegui::toolbox::scoped_gui_sheet gui_sheet_;
 	CEGUI::Event::ScopedConnection quit_button_connection_;
 	CEGUI::Event::ScopedConnection start_button_connection_;
+	CEGUI::Event::ScopedConnection settings_button_connection_;
 	CEGUI::Event::ScopedConnection music_slider_pulled_connection_;
 	CEGUI::Event::ScopedConnection effects_slider_pulled_connection_;
 	CEGUI::Event::ScopedConnection splatter_slider_pulled_connection_;
@@ -60,6 +67,10 @@ private:
 
 	bool
 	start_button_pushed(
+		CEGUI::EventArgs const &);
+
+	bool
+	settings_button_pushed(
 		CEGUI::EventArgs const &);
 
 	bool

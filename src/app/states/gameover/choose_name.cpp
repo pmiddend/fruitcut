@@ -32,7 +32,7 @@ fruitcut::app::states::gameover::choose_name::choose_name(
 	gui_sheet_(
 		*CEGUI::WindowManager::getSingleton().getWindow("NameChooser")),
 	continue_button_connection_(
-		CEGUI::WindowManager::getSingleton().getWindow("NameChooser/ContinueButton")->subscribeEvent(
+		CEGUI::WindowManager::getSingleton().getWindow("NameChooser/Continue")->subscribeEvent(
 			CEGUI::PushButton::EventClicked,
 			CEGUI::Event::Subscriber(
 				std::tr1::bind(
@@ -40,12 +40,11 @@ fruitcut::app::states::gameover::choose_name::choose_name(
 					this,
 					std::tr1::placeholders::_1))))
 {
-	CEGUI::WindowManager::getSingleton().getWindow("NameChooser/Congratulations")->setText(
+	CEGUI::WindowManager::getSingleton().getWindow("NameChooser/Score")->setText(
 		sge::cegui::to_cegui_string(
-			FCPPT_TEXT("Congratulations!\nYour score:\n")+
-			fcppt::lexical_cast<fcppt::string>(
+		fcppt::lexical_cast<fcppt::string>(
 				context<machine>().last_game_score()),
-			context<machine>().systems().charconv_system()));
+		context<machine>().systems().charconv_system()));
 }
 
 FRUITCUT_APP_EVENTS_DEFINE_TRANSITION_REACTION(
@@ -61,7 +60,7 @@ fruitcut::app::states::gameover::choose_name::continue_button_pushed(
 	CEGUI::EventArgs const &)
 {
 	CEGUI::String const name = 
-		CEGUI::WindowManager::getSingleton().getWindow("NameChooser/NameBox")->getText();
+		CEGUI::WindowManager::getSingleton().getWindow("NameChooser/Name")->getText();
 	if(name.empty())
 	{
 		context<machine>().sound_controller().play(

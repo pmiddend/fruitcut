@@ -3,6 +3,7 @@
 
 #include "superstate.hpp"
 #include "../menu/main_fwd.hpp"
+#include "../ingame/superstate_fwd.hpp"
 #include "../../events/declare_transition_type.hpp"
 #include "../../events/declare_transition_reaction.hpp"
 #include <CEGUIEvent.h>
@@ -26,10 +27,12 @@ class highscore
 {
 public:
 	typedef
-	boost::mpl::vector1
+	boost::mpl::vector2
 	<
 		FRUITCUT_APP_EVENTS_DECLARE_TRANSITION_TYPE(
-			menu::main)
+			menu::main),
+		FRUITCUT_APP_EVENTS_DECLARE_TRANSITION_TYPE(
+			ingame::superstate)
 	>
 	reactions;
 
@@ -40,13 +43,17 @@ public:
 	FRUITCUT_APP_EVENTS_DECLARE_TRANSITION_REACTION(
 		menu::main);
 
+	FRUITCUT_APP_EVENTS_DECLARE_TRANSITION_REACTION(
+		ingame::superstate);
+
 	~highscore();
 private:
 	sge::cegui::toolbox::scoped_layout layout_;
 	sge::cegui::toolbox::scoped_gui_sheet gui_sheet_;
 	CEGUI::Event::ScopedConnection 
 		quit_button_connection_,
-		reset_button_connection_;
+		reset_button_connection_,
+		main_menu_button_connection_;
 
 	bool
 	quit_button_pushed(
@@ -54,6 +61,10 @@ private:
 
 	bool
 	reset_button_pushed(
+		CEGUI::EventArgs const &);
+
+	bool
+	main_menu_button_pushed(
 		CEGUI::EventArgs const &);
 };
 }

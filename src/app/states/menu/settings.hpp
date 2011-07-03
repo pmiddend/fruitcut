@@ -45,24 +45,9 @@ private:
 	sge::cegui::toolbox::scoped_layout layout_;
 	sge::cegui::toolbox::scoped_gui_sheet gui_sheet_;
 	CEGUI::Event::ScopedConnection main_menu_button_connection_;
-	CEGUI::Event::ScopedConnection music_slider_pulled_connection_;
-	CEGUI::Event::ScopedConnection effects_slider_pulled_connection_;
-	CEGUI::Event::ScopedConnection splatter_slider_pulled_connection_;
 
 	bool
 	main_menu_button_pushed(
-		CEGUI::EventArgs const &);
-
-	bool
-	music_slider_pulled(
-		CEGUI::EventArgs const &);
-
-	bool
-	effects_slider_pulled(
-		CEGUI::EventArgs const &);
-
-	bool
-	splatter_slider_pulled(
 		CEGUI::EventArgs const &);
 };
 }

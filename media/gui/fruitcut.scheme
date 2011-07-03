@@ -1,8 +1,10 @@
 <?xml version="1.0" ?>
 <GUIScheme Name="Fruitcut">
     <Imageset Filename="fruitcut.imageset" />
+    <Font Filename="small.font" />
     <Font Filename="normal.font" />
     <Font Filename="big.font" />
+    <Font Filename="huge.font" />
     <LookNFeel Filename="fruitcut.looknfeel" />
     <WindowRendererSet Filename="CEGUIFalagardWRBase" />
     <FalagardMapping WindowType="Fruitcut/Button"               TargetType="CEGUI/PushButton"       Renderer="Falagard/Button"              LookNFeel="Fruitcut/PushButton" />

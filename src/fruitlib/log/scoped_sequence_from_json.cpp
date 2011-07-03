@@ -9,6 +9,8 @@
 #include <fcppt/log/level_from_string.hpp>
 #include <fcppt/move.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/container/ptr/push_back_unique_ptr.hpp>
 #include <fcppt/tr1/functional.hpp>
 
 fruitcut::fruitlib::log::scoped_sequence_ptr
@@ -17,7 +19,7 @@ fruitcut::fruitlib::log::scoped_sequence_from_json(
 	sge::parse::json::array const &a)
 {
 	scoped_sequence_ptr result(
-		new scoped_sequence());
+		fcppt::make_unique_ptr<scoped_sequence>());
 
 	try
 	{
@@ -35,8 +37,9 @@ fruitcut::fruitlib::log::scoped_sequence_from_json(
 				throw exception(
 					FCPPT_TEXT("The loggers have to be stored in an array of pairs [name,level], this was not the case with at least one logger pair"));
 
-			result->push_back(
-				new scoped(
+			fcppt::container::ptr::push_back_unique_ptr(
+				*result,
+				fcppt::make_unique_ptr<scoped>(
 					std::tr1::ref(
 						context),
 					string_to_location(

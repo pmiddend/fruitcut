@@ -1,4 +1,5 @@
 #include "main.hpp"
+#include "settings.hpp"
 #include "../../config_variables.hpp"
 #include "../ingame/running.hpp"
 #include "../../events/define_transition_reaction.hpp"
@@ -46,6 +47,14 @@ fruitcut::app::states::menu::main::main(
 				std::tr1::bind(
 					&main::start_button_pushed,
 					this,
+					std::tr1::placeholders::_1)))),
+	settings_button_connection_(
+		CEGUI::WindowManager::getSingleton().getWindow("MainMenu/Settings")->subscribeEvent(
+			CEGUI::PushButton::EventClicked,
+			CEGUI::Event::Subscriber(
+				std::tr1::bind(
+					&main::settings_button_pushed,
+					this,
 					std::tr1::placeholders::_1))))
 {
 	context<machine>().overlay_node().insert_dont_care(
@@ -54,6 +63,10 @@ fruitcut::app::states::menu::main::main(
 
 FRUITCUT_APP_EVENTS_DEFINE_TRANSITION_REACTION(
 	ingame::superstate,
+	menu::main)
+
+FRUITCUT_APP_EVENTS_DEFINE_TRANSITION_REACTION(
+	menu::settings,
 	menu::main)
 
 fruitcut::app::states::menu::main::~main()
@@ -74,5 +87,14 @@ fruitcut::app::states::menu::main::start_button_pushed(
 {
 	FRUITCUT_APP_EVENTS_POST_TRANSITION(
 		ingame::superstate);
+	return true;
+}
+
+bool
+fruitcut::app::states::menu::main::settings_button_pushed(
+	CEGUI::EventArgs const &)
+{
+	FRUITCUT_APP_EVENTS_POST_TRANSITION(
+		menu::settings);
 	return true;
 }

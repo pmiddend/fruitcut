@@ -1,49 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <GUILayout >
-    <Window Type="DefaultWindow" Name="MainMenu" >
-        <Property Name="UnifiedAreaRect" Value="{{0,0},{0,0},{1,0},{1,0}}" />
-        <Window Type="Fruitcut/CaptionedStaticText" Name="Root/CaptionedStaticText" >
-            <Property Name="CaptionFont" Value="normal" />
-            <Property Name="CaptionText" Value="Main Menu" />
-            <Property Name="UnifiedAreaRect" Value="{{0.351562,0},{0.605469,0},{0.644531,0},{0.989583,0}}" />
-            <AutoWindow NameSuffix="__auto_caption__" >
-                <Property Name="Text" Value="Main Menu" />
+    <Window Type="Fruitcut/CaptionedStaticText" Name="MainMenu" >
+        <Property Name="CaptionFont" Value="big" />
+        <Property Name="CaptionText" Value="Main Menu" />
+        <Property Name="UnifiedAreaRect" Value="{{0.356445,0},{0.533854,0},{0.65918,0},{0.957031,0}}" />
+        <AutoWindow NameSuffix="__auto_caption__" >
+            <Property Name="Font" Value="big" />
+            <Property Name="Text" Value="Main Menu" />
+        </AutoWindow>
+        <AutoWindow NameSuffix="__auto_hscrollbar__" >
+            <AutoWindow NameSuffix="__auto_incbtn__" >
+                <Property Name="Visible" Value="False" />
             </AutoWindow>
-            <AutoWindow NameSuffix="__auto_hscrollbar__" >
-                <AutoWindow NameSuffix="__auto_incbtn__" >
-                    <Property Name="Visible" Value="False" />
-                </AutoWindow>
-                <AutoWindow NameSuffix="__auto_decbtn__" >
-                    <Property Name="Visible" Value="False" />
-                </AutoWindow>
-                <AutoWindow NameSuffix="__auto_thumb__" />
+            <AutoWindow NameSuffix="__auto_decbtn__" >
+                <Property Name="Visible" Value="False" />
             </AutoWindow>
-            <AutoWindow NameSuffix="__auto_vscrollbar__" >
-                <AutoWindow NameSuffix="__auto_incbtn__" >
-                    <Property Name="Visible" Value="False" />
-                </AutoWindow>
-                <AutoWindow NameSuffix="__auto_decbtn__" >
-                    <Property Name="Visible" Value="False" />
-                </AutoWindow>
-                <AutoWindow NameSuffix="__auto_thumb__" />
+            <AutoWindow NameSuffix="__auto_thumb__" />
+        </AutoWindow>
+        <AutoWindow NameSuffix="__auto_vscrollbar__" >
+            <AutoWindow NameSuffix="__auto_incbtn__" >
+                <Property Name="Visible" Value="False" />
             </AutoWindow>
-            <Window Type="Fruitcut/Button" Name="MainMenu/StartGame" >
-                <Property Name="Text" Value="Start game" />
-                <Property Name="UnifiedAreaRect" Value="{{0.233333,0},{0.20339,0},{0.783333,0},{0.338983,0}}" />
-            </Window>
-            <Window Type="Fruitcut/Button" Name="MainMenu/Quit" >
-                <Property Name="Text" Value="Quit" />
-                <Property Name="UnifiedAreaRect" Value="{{0.233333,0},{0.711865,0},{0.783333,0},{0.847458,0}}" />
-            </Window>
-            <Window Type="Fruitcut/Button" Name="MainMenu/Highscores" >
-                <Property Name="Text" Value="Highscores" />
-                <Property Name="UnifiedAreaRect" Value="{{0.233333,0},{0.542373,0},{0.783333,0},{0.677966,0}}" />
-            </Window>
-            <Window Type="Fruitcut/Button" Name="MainMenu/Settings" >
-                <Property Name="Text" Value="Settings" />
-                <Property Name="UnifiedAreaRect" Value="{{0.233333,0},{0.372882,0},{0.783333,0},{0.508475,0}}" />
-            </Window>
+            <AutoWindow NameSuffix="__auto_decbtn__" >
+                <Property Name="Visible" Value="False" />
+            </AutoWindow>
+            <AutoWindow NameSuffix="__auto_thumb__" />
+        </AutoWindow>
+        <Window Type="Fruitcut/Button" Name="MainMenu/StartGame" >
+            <Property Name="Font" Value="normal" />
+            <Property Name="Text" Value="Start Game" />
+            <Property Name="UnifiedAreaRect" Value="{{0.177419,0},{0.230769,0},{0.83871,0},{0.353846,0}}" />
+        </Window>
+        <Window Type="Fruitcut/Button" Name="MainMenu/Settings" >
+            <Property Name="Font" Value="normal" />
+            <Property Name="Text" Value="Settings" />
+            <Property Name="UnifiedAreaRect" Value="{{0.177419,0},{0.4,0},{0.83871,0},{0.523077,0}}" />
+        </Window>
+        <Window Type="Fruitcut/Button" Name="MainMenu/Highscores" >
+            <Property Name="Font" Value="normal" />
+            <Property Name="Text" Value="Highscores" />
+            <Property Name="UnifiedAreaRect" Value="{{0.177419,0},{0.569231,0},{0.83871,0},{0.692308,0}}" />
+        </Window>
+        <Window Type="Fruitcut/Button" Name="MainMenu/Quit" >
+            <Property Name="Font" Value="normal" />
+            <Property Name="Text" Value="Quit" />
+            <Property Name="UnifiedAreaRect" Value="{{0.177419,0},{0.738462,0},{0.83871,0},{0.861538,0}}" />
         </Window>
     </Window>
 </GUILayout>
