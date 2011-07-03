@@ -1,4 +1,5 @@
 #include "json_equal.hpp"
+#include <fcppt/nonassignable.hpp>
 #include <boost/variant/apply_visitor.hpp>
 #include <boost/variant/get.hpp>
 #include <algorithm>
@@ -9,6 +10,8 @@ namespace
 {
 class equality_visitor
 {
+FCPPT_NONASSIGNABLE(
+	equality_visitor);
 public:
 	typedef
 	bool

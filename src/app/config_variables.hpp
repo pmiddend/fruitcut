@@ -46,6 +46,9 @@ private:
 	// why we introduce this variable.
 	struct destructor_write_hack
 	{
+	FCPPT_NONCOPYABLE(
+		destructor_write_hack);
+	public:
 		destructor_write_hack(
 			sge::parse::json::object &);
 

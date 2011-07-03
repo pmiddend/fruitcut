@@ -5,6 +5,7 @@
 // We friendify pp::system, but pp::system is in another namespace, so
 // it needs a FUCKING forward declaration, wtf?
 #include "../system_fwd.hpp"
+#include <fcppt/noncopyable.hpp>
 #include <vector>
 
 namespace fruitcut
@@ -17,6 +18,8 @@ namespace filter
 {
 class base
 {
+FCPPT_NONCOPYABLE(
+	base);
 public:
 	explicit
 	base();
