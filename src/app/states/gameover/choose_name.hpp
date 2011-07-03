@@ -5,16 +5,12 @@
 #include "highscore_fwd.hpp"
 #include "../../events/declare_transition_type.hpp"
 #include "../../events/declare_transition_reaction.hpp"
-#include <CEGUIEvent.h>
+#include "../../gui/button.hpp"
 #include <sge/cegui/toolbox/scoped_layout.hpp>
 #include <sge/cegui/toolbox/scoped_gui_sheet.hpp>
+#include <fcppt/signal/scoped_connection.hpp>
 #include <boost/statechart/state.hpp>
 #include <boost/mpl/vector/vector10.hpp>
-
-namespace CEGUI
-{
-class EventArgs;
-}
 
 namespace fruitcut
 {
@@ -49,11 +45,11 @@ public:
 private:
 	sge::cegui::toolbox::scoped_layout layout_;
 	sge::cegui::toolbox::scoped_gui_sheet gui_sheet_;
-	CEGUI::Event::ScopedConnection continue_button_connection_;
+	gui::button continue_button_;
+	fcppt::signal::scoped_connection continue_button_connection_;
 
-	bool
-	continue_button_pushed(
-		CEGUI::EventArgs const &);
+	void
+	continue_button_pushed();
 };
 }
 }

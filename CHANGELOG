@@ -9,3 +9,6 @@ This is a list of differences to the last release.
 	- Moved the cursor to the top right
 	- Screenshots are now saved in a "screenshots" directory
 	- Desaturation is now controlled by the loading progress
+	- Fixed menu resize bug
+	- Added settings menu
+	- Restructured some of the old menus

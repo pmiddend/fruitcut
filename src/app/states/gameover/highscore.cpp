@@ -6,6 +6,7 @@
 #include "../../../fruitlib/audio/sound_controller.hpp"
 #include "../../../fruitlib/resource_tree/path.hpp"
 #include "../../events/define_transition_reaction.hpp"
+#include "../../events/return_post_transition_functor.hpp"
 #include "../../events/post_transition.hpp"
 #include <sge/cegui/to_cegui_string.hpp>
 #include <sge/cegui/from_cegui_string.hpp>
@@ -194,30 +195,31 @@ fruitcut::app::states::gameover::highscore::highscore(
 		context<machine>().systems().charconv_system()),
 	gui_sheet_(
 		*CEGUI::WindowManager::getSingleton().getWindow("Highscore")),
+	quit_button_(
+		context<machine>().sound_controller(),
+		*CEGUI::WindowManager::getSingleton().getWindow(
+			"Highscore/Quit")),
+	reset_button_(
+		context<machine>().sound_controller(),
+		*CEGUI::WindowManager::getSingleton().getWindow(
+			"Highscore/Reset")),
+	main_menu_button_(
+		context<machine>().sound_controller(),
+		*CEGUI::WindowManager::getSingleton().getWindow(
+			"Highscore/MainMenu")),
 	quit_button_connection_(
-		CEGUI::WindowManager::getSingleton().getWindow("Highscore/Quit")->subscribeEvent(
-			CEGUI::PushButton::EventClicked,
-			CEGUI::Event::Subscriber(
-				std::tr1::bind(
-					&highscore::quit_button_pushed,
-					this,
-					std::tr1::placeholders::_1)))),
+		quit_button_.push_callback(
+			std::tr1::bind(
+				&app::machine::quit,
+				&context<app::machine>()))),
 	reset_button_connection_(
-		CEGUI::WindowManager::getSingleton().getWindow("Highscore/Reset")->subscribeEvent(
-			CEGUI::PushButton::EventClicked,
-			CEGUI::Event::Subscriber(
-				std::tr1::bind(
-					&highscore::reset_button_pushed,
-					this,
-					std::tr1::placeholders::_1)))),
+		reset_button_.push_callback(
+			FRUITCUT_APP_EVENTS_RETURN_POST_TRANSITION_FUNCTOR(
+				ingame::superstate))),
 	main_menu_button_connection_(
-		CEGUI::WindowManager::getSingleton().getWindow("Highscore/MainMenu")->subscribeEvent(
-			CEGUI::PushButton::EventClicked,
-			CEGUI::Event::Subscriber(
-				std::tr1::bind(
-					&highscore::main_menu_button_pushed,
-					this,
-					std::tr1::placeholders::_1))))
+		main_menu_button_.push_callback(
+			FRUITCUT_APP_EVENTS_RETURN_POST_TRANSITION_FUNCTOR(
+				menu::main)))
 {
 	highscore_sequence entries = 
 		load_highscore();
@@ -281,39 +283,4 @@ FRUITCUT_APP_EVENTS_DEFINE_TRANSITION_REACTION(
 
 fruitcut::app::states::gameover::highscore::~highscore()
 {
-}
-
-bool
-fruitcut::app::states::gameover::highscore::quit_button_pushed(
-	CEGUI::EventArgs const &)
-{
-	context<machine>().sound_controller().play(
-		fruitlib::resource_tree::path(
-			FCPPT_TEXT("button_clicked")));
-	context<machine>().quit();
-	return true;
-}
-
-bool
-fruitcut::app::states::gameover::highscore::reset_button_pushed(
-	CEGUI::EventArgs const &)
-{
-	context<machine>().sound_controller().play(
-		fruitlib::resource_tree::path(
-			FCPPT_TEXT("button_clicked")));
-	FRUITCUT_APP_EVENTS_POST_TRANSITION(
-		ingame::superstate);
-	return true;
-}
-
-bool
-fruitcut::app::states::gameover::highscore::main_menu_button_pushed(
-	CEGUI::EventArgs const &)
-{
-	context<machine>().sound_controller().play(
-		fruitlib::resource_tree::path(
-			FCPPT_TEXT("button_clicked")));
-	FRUITCUT_APP_EVENTS_POST_TRANSITION(
-		menu::main);
-	return true;
 }

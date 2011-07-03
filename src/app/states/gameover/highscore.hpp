@@ -6,9 +6,10 @@
 #include "../ingame/superstate_fwd.hpp"
 #include "../../events/declare_transition_type.hpp"
 #include "../../events/declare_transition_reaction.hpp"
-#include <CEGUIEvent.h>
+#include "../../gui/button.hpp"
 #include <sge/cegui/toolbox/scoped_layout.hpp>
 #include <sge/cegui/toolbox/scoped_gui_sheet.hpp>
+#include <fcppt/signal/scoped_connection.hpp>
 #include <boost/statechart/state.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 
@@ -50,22 +51,13 @@ public:
 private:
 	sge::cegui::toolbox::scoped_layout layout_;
 	sge::cegui::toolbox::scoped_gui_sheet gui_sheet_;
-	CEGUI::Event::ScopedConnection 
-		quit_button_connection_,
-		reset_button_connection_,
-		main_menu_button_connection_;
-
-	bool
-	quit_button_pushed(
-		CEGUI::EventArgs const &);
-
-	bool
-	reset_button_pushed(
-		CEGUI::EventArgs const &);
-
-	bool
-	main_menu_button_pushed(
-		CEGUI::EventArgs const &);
+	gui::button quit_button_;
+	gui::button reset_button_;
+	gui::button main_menu_button_;
+	fcppt::signal::scoped_connection quit_button_connection_;
+	fcppt::signal::scoped_connection reset_button_connection_;
+	fcppt::signal::scoped_connection main_menu_button_connection_;
+		
 };
 }
 }

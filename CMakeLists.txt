@@ -443,6 +443,7 @@ SET(
 	src/app/events/define_transition_reaction.hpp
 	src/app/events/generic_transition.hpp
 	src/app/events/post_transition.hpp
+	src/app/events/return_post_transition_functor.hpp
 	src/app/exception.cpp
 	src/app/exception.hpp
 	src/app/fruit/area.hpp
@@ -527,6 +528,8 @@ SET(
 	src/app/fruitcut.cpp
 	src/app/game_logic/game_logic.cpp
 	src/app/game_logic/game_logic.hpp
+	src/app/gui/button.cpp
+	src/app/gui/button.hpp
 	src/app/light_source_from_json.cpp
 	src/app/light_source_from_json.hpp
 	src/app/load_user_config.cpp
@@ -605,6 +608,7 @@ SET(
 	src/app/states/ingame/running_fwd.hpp
 	src/app/states/ingame/superstate.cpp
 	src/app/states/ingame/superstate.hpp
+	src/app/states/ingame/superstate_fwd.hpp
 	src/app/states/loading.cpp
 	src/app/states/loading.hpp
 	src/app/states/loading_fwd.hpp
@@ -613,6 +617,7 @@ SET(
 	src/app/states/menu/main_fwd.hpp
 	src/app/states/menu/settings.cpp
 	src/app/states/menu/settings.hpp
+	src/app/states/menu/settings_fwd.hpp
 	src/app/states/menu/superstate.cpp
 	src/app/states/menu/superstate.hpp
 	src/app/states/menu/superstate_fwd.hpp

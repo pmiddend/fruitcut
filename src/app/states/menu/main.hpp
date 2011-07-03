@@ -3,6 +3,7 @@
 
 #include "superstate.hpp"
 #include "settings_fwd.hpp"
+#include "../../gui/button.hpp"
 #include "../../logo.hpp"
 #include "../../events/declare_transition_type.hpp"
 #include "../../events/declare_transition_reaction.hpp"
@@ -12,7 +13,6 @@
 #include <fcppt/signal/scoped_connection.hpp>
 #include <boost/statechart/state.hpp>
 #include <boost/mpl/vector/vector10.hpp>
-#include <CEGUIEvent.h>
 
 namespace fruitcut
 {
@@ -54,36 +54,12 @@ private:
 	app::logo logo_;
 	sge::cegui::toolbox::scoped_layout layout_;
 	sge::cegui::toolbox::scoped_gui_sheet gui_sheet_;
-	CEGUI::Event::ScopedConnection quit_button_connection_;
-	CEGUI::Event::ScopedConnection start_button_connection_;
-	CEGUI::Event::ScopedConnection settings_button_connection_;
-	CEGUI::Event::ScopedConnection music_slider_pulled_connection_;
-	CEGUI::Event::ScopedConnection effects_slider_pulled_connection_;
-	CEGUI::Event::ScopedConnection splatter_slider_pulled_connection_;
-
-	bool
-	quit_button_pushed(
-		CEGUI::EventArgs const &);
-
-	bool
-	start_button_pushed(
-		CEGUI::EventArgs const &);
-
-	bool
-	settings_button_pushed(
-		CEGUI::EventArgs const &);
-
-	bool
-	music_slider_pulled(
-		CEGUI::EventArgs const &);
-
-	bool
-	effects_slider_pulled(
-		CEGUI::EventArgs const &);
-
-	bool
-	splatter_slider_pulled(
-		CEGUI::EventArgs const &);
+	gui::button settings_button_;
+	gui::button quit_button_;
+	gui::button start_button_;
+	fcppt::signal::scoped_connection settings_button_connection_;
+	fcppt::signal::scoped_connection quit_button_connection_;
+	fcppt::signal::scoped_connection start_button_connection_;
 };
 }
 }

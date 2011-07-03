@@ -11,7 +11,7 @@
 #include "../../fruit/hull/projected.hpp"
 #include "../../fruit/hull/ring.hpp"
 #include "../../events/define_transition_reaction.hpp"
-#include "../../events/generic_transition.hpp"
+#include "../../events/return_post_transition_functor.hpp"
 #include "../../events/post_transition.hpp"
 #include "../../../fruitlib/json/find_and_convert_member.hpp"
 #include "../../../fruitlib/math/multiply_matrix4_vector3.hpp"
@@ -105,15 +105,8 @@ fruitcut::app::states::ingame::running::running(
 		context<machine>().systems().keyboard_collector().key_callback(
 			sge::input::keyboard::action(
 				sge::input::keyboard::key_code::p, 
-				std::tr1::bind(
-					// Note that using post_event does something unexpected. If
-					// you use that, you get a tick event first and _then_ the
-					// toggle_pause event, which is not the desired behaviour
-					// (post_event posts to the queue, process_event immediately
-					// processes it)
-					&machine::post_event,
-					&context<machine>(),
-					events::generic_transition<ingame::paused>()))))
+				FRUITCUT_APP_EVENTS_RETURN_POST_TRANSITION_FUNCTOR(
+					ingame::paused))))
 {
 	context<machine>().overlay_node().insert_dont_care(
 		update_node_);

@@ -1,18 +1,14 @@
 #include "main.hpp"
 #include "settings.hpp"
-#include "../../config_variables.hpp"
 #include "../ingame/running.hpp"
 #include "../../events/define_transition_reaction.hpp"
+#include "../../events/return_post_transition_functor.hpp"
 #include "../../events/post_transition.hpp"
-#include "../../../fruitlib/json/find_and_convert_member.hpp"
-#include "../../../fruitlib/audio/sound_controller.hpp"
 #include "../../../media_path.hpp"
 #include <sge/systems/instance.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <CEGUIWindowManager.h>
-#include <elements/CEGUIPushButton.h>
-#include <elements/CEGUISlider.h>
 
 fruitcut::app::states::menu::main::main(
 	my_context ctx)
@@ -32,30 +28,31 @@ fruitcut::app::states::menu::main::main(
 		context<machine>().systems().charconv_system()),
 	gui_sheet_(
 		*CEGUI::WindowManager::getSingleton().getWindow("MainMenu")),
-	quit_button_connection_(
-		CEGUI::WindowManager::getSingleton().getWindow("MainMenu/Quit")->subscribeEvent(
-			CEGUI::PushButton::EventClicked,
-			CEGUI::Event::Subscriber(
-				std::tr1::bind(
-					&main::quit_button_pushed,
-					this,
-					std::tr1::placeholders::_1)))),
-	start_button_connection_(
-		CEGUI::WindowManager::getSingleton().getWindow("MainMenu/StartGame")->subscribeEvent(
-			CEGUI::PushButton::EventClicked,
-			CEGUI::Event::Subscriber(
-				std::tr1::bind(
-					&main::start_button_pushed,
-					this,
-					std::tr1::placeholders::_1)))),
+	settings_button_(
+		context<machine>().sound_controller(),
+		*CEGUI::WindowManager::getSingleton().getWindow(
+			"MainMenu/Settings")),
+	quit_button_(
+		context<machine>().sound_controller(),
+		*CEGUI::WindowManager::getSingleton().getWindow(
+			"MainMenu/Quit")),
+	start_button_(
+		context<machine>().sound_controller(),
+		*CEGUI::WindowManager::getSingleton().getWindow(
+			"MainMenu/StartGame")),
 	settings_button_connection_(
-		CEGUI::WindowManager::getSingleton().getWindow("MainMenu/Settings")->subscribeEvent(
-			CEGUI::PushButton::EventClicked,
-			CEGUI::Event::Subscriber(
-				std::tr1::bind(
-					&main::settings_button_pushed,
-					this,
-					std::tr1::placeholders::_1))))
+		settings_button_.push_callback(
+			FRUITCUT_APP_EVENTS_RETURN_POST_TRANSITION_FUNCTOR(
+				menu::settings))),
+	quit_button_connection_(
+		quit_button_.push_callback(
+			std::tr1::bind(
+				&app::machine::quit,
+				&context<app::machine>()))),
+	start_button_connection_(
+		start_button_.push_callback(
+			FRUITCUT_APP_EVENTS_RETURN_POST_TRANSITION_FUNCTOR(
+				ingame::superstate)))
 {
 	context<machine>().overlay_node().insert_dont_care(
 		logo_);
@@ -71,30 +68,4 @@ FRUITCUT_APP_EVENTS_DEFINE_TRANSITION_REACTION(
 
 fruitcut::app::states::menu::main::~main()
 {
-}
-
-bool
-fruitcut::app::states::menu::main::quit_button_pushed(
-	CEGUI::EventArgs const &)
-{
-	context<machine>().quit();
-	return true;
-}
-
-bool
-fruitcut::app::states::menu::main::start_button_pushed(
-	CEGUI::EventArgs const &)
-{
-	FRUITCUT_APP_EVENTS_POST_TRANSITION(
-		ingame::superstate);
-	return true;
-}
-
-bool
-fruitcut::app::states::menu::main::settings_button_pushed(
-	CEGUI::EventArgs const &)
-{
-	FRUITCUT_APP_EVENTS_POST_TRANSITION(
-		menu::settings);
-	return true;
 }
