@@ -4,6 +4,7 @@
 #include "../world_fwd.hpp"
 #include "object_fwd.hpp"
 #include "../group/sequence.hpp"
+#include <fcppt/noncopyable.hpp>
 
 namespace fruitcut
 {
@@ -15,6 +16,8 @@ namespace rigid_body
 {
 class scoped
 {
+FCPPT_NONCOPYABLE(
+	scoped);
 public:
 	explicit
 	scoped(

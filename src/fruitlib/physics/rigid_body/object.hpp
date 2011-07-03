@@ -13,7 +13,7 @@
 #include <fcppt/noncopyable.hpp>
 
 class btRigidBody;
-class btDefaultMotionState;
+struct btDefaultMotionState;
 
 namespace fruitcut
 {

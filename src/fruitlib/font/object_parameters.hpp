@@ -12,6 +12,7 @@
 #include <sge/font/text/flags_field.hpp>
 #include <fcppt/container/bitfield/bitfield.hpp>
 #include <fcppt/math/box/box.hpp>
+#include <fcppt/nonassignable.hpp>
 
 namespace fruitcut
 {
@@ -21,6 +22,8 @@ namespace font
 {
 class object_parameters
 {
+FCPPT_NONASSIGNABLE(
+	object_parameters);
 public:
 	explicit
 	object_parameters(

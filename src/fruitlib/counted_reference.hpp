@@ -151,7 +151,7 @@ template<typename T>
 bool
 counted_reference<T>::boolean_test() const
 {
-	return ptr_;
+	return ptr_ != 0;
 }
 }
 }
