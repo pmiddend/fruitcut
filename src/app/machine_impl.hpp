@@ -174,7 +174,6 @@ private:
 	sge::parse::json::object const config_file_;
 	app::config_variables config_variables_;
 	sge::systems::instance const systems_;
-	sge::renderer::state::scoped base_render_state_;
 	sge::md3::loader_ptr md3_loader_;
 	app::scene scene_node_;
 	app::overlay overlay_node_;
@@ -204,6 +203,7 @@ private:
 	point_sprite::system_node point_sprites_;
 	app::screen_shooter screen_shooter_;
 	fruit::prototype_sequence fruit_prototypes_;
+	sge::renderer::state::scoped base_render_state_;
 
 	void
 	toggle_camera();

@@ -116,13 +116,6 @@ fruitcut::app::machine_impl::machine_impl(
 					sge::image::capabilities_field::null(),
 					fcppt::assign::make_container<sge::extension_set>
 						(FCPPT_TEXT("png"))))),
-	base_render_state_(
-		systems_.renderer(),
-		sge::renderer::state::list
-			(sge::renderer::state::depth_func::less)
-			(sge::renderer::state::cull_mode::off)
-			(sge::renderer::state::bool_::clear_depth_buffer = true)
-			(sge::renderer::state::float_::depth_buffer_clear_val = 1.0f)),
 	md3_loader_(
 		sge::md3::create()),
 	scene_node_(
@@ -293,7 +286,17 @@ fruitcut::app::machine_impl::machine_impl(
 		systems_.keyboard_collector(),
 		systems_.renderer(),
 		systems_.image_loader(),
-		quick_log_)
+		quick_log_),
+	fruit_prototypes_(),
+	base_render_state_(
+		systems_.renderer(),
+		sge::renderer::state::list
+			(sge::renderer::state::depth_func::less)
+			(sge::renderer::state::cull_mode::off)
+			(sge::renderer::state::bool_::clear_depth_buffer = true)
+			(sge::renderer::state::bool_::clear_back_buffer = true)
+			(sge::renderer::state::color::back_buffer_clear_color = sge::image::colors::black())
+			(sge::renderer::state::float_::depth_buffer_clear_val = 1.0f))
 {
 	intrusive_group::insert_dont_care(
 		music_controller_node_);

@@ -7,7 +7,6 @@
 #include "../events/declare_transition_reaction.hpp"
 #include "../../fruitlib/scenic/nodes/intrusive.hpp"
 #include "../../fruitlib/font/intrusive_scene_node.hpp"
-#include <sge/renderer/state/scoped.hpp>
 #include <sge/parse/json/json.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <boost/statechart/state.hpp>
@@ -43,7 +42,6 @@ public:
 
 	~loading();
 private:
-	sge::renderer::state::scoped scoped_render_state_;
 	fcppt::signal::scoped_connection viewport_change_connection_;
 	sge::parse::json::element_vector const fruit_array_;
 	sge::parse::json::element_vector::const_iterator current_fruit_;

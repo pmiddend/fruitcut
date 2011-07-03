@@ -57,6 +57,9 @@ fruitcut::app::shadow_map::shadow_map(
 				fcppt::optional<sge::renderer::scalar>())) * 
 		_modelview)
 {
+	// Do an initial clear of the texture to prevent race conditions
+	// (the shadow map might be rendered before its first update)
+	update();
 }
 
 sge::renderer::texture::planar_ptr const

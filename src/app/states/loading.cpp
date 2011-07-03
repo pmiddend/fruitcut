@@ -8,7 +8,6 @@
 #include "../../fruitlib/font/object_parameters.hpp"
 #include "../../fruitlib/font/cache.hpp"
 #include "../postprocessing.hpp"
-#include <sge/renderer/state/state.hpp>
 #include <sge/renderer/viewport_size.hpp>
 #include <sge/font/font.hpp>
 #include <sge/systems/instance.hpp>
@@ -26,13 +25,6 @@ fruitcut::app::states::loading::loading(
 	my_base(
 		ctx),
 	fruitlib::scenic::nodes::intrusive(),
-	scoped_render_state_(
-		context<machine>().systems().renderer(),
-		sge::renderer::state::list
-			(sge::renderer::state::depth_func::less)
-			(sge::renderer::state::cull_mode::off)
-			(sge::renderer::state::bool_::clear_depth_buffer = true)
-			(sge::renderer::state::float_::depth_buffer_clear_val = 1.0f)),
 	viewport_change_connection_(
 		context<machine>().systems().viewport_manager().manage_callback(
 			std::tr1::bind(
