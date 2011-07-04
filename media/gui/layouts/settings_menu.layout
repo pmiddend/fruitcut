@@ -57,6 +57,7 @@
         </Window>
         <Window Type="Fruitcut/Button" Name="SettingsMenu/MusicVolumeDecrease" >
             <Property Name="Text" Value="-" />
+            <Property Name="WantsMultiClickEvents" Value="False" />
             <Property Name="UnifiedAreaRect" Value="{{0.421053,0},{0.193548,0},{0.494737,0},{0.268817,0}}" />
         </Window>
         <Window Type="Fruitcut/ProgressBar" Name="SettingsMenu/MusicVolumeProgress" >
@@ -66,6 +67,7 @@
         </Window>
         <Window Type="Fruitcut/Button" Name="SettingsMenu/MusicVolumeIncrease" >
             <Property Name="Text" Value="+" />
+            <Property Name="WantsMultiClickEvents" Value="False" />
             <Property Name="UnifiedAreaRect" Value="{{0.852631,0},{0.193548,0},{0.926316,0},{0.268817,0}}" />
         </Window>
         <Window Type="Fruitcut/StaticText" Name="SettingsMenu/StaticText2" >
@@ -93,6 +95,7 @@
         </Window>
         <Window Type="Fruitcut/Button" Name="SettingsMenu/EffectsVolumeDecrease" >
             <Property Name="Text" Value="-" />
+            <Property Name="WantsMultiClickEvents" Value="False" />
             <Property Name="UnifiedAreaRect" Value="{{0.421053,0},{0.376344,0},{0.494737,0},{0.451613,0}}" />
         </Window>
         <Window Type="Fruitcut/ProgressBar" Name="SettingsMenu/EffectsVolumeProgress" >
@@ -102,6 +105,7 @@
         </Window>
         <Window Type="Fruitcut/Button" Name="SettingsMenu/EffectsVolumeIncrease" >
             <Property Name="Text" Value="+" />
+            <Property Name="WantsMultiClickEvents" Value="False" />
             <Property Name="UnifiedAreaRect" Value="{{0.852631,0},{0.376344,0},{0.926316,0},{0.451613,0}}" />
         </Window>
         <Window Type="Fruitcut/StaticText" Name="SettingsMenu/StaticText22" >
@@ -129,6 +133,7 @@
         </Window>
         <Window Type="Fruitcut/Button" Name="SettingsMenu/ParticleDensityDecrease" >
             <Property Name="Text" Value="-" />
+            <Property Name="WantsMultiClickEvents" Value="False" />
             <Property Name="UnifiedAreaRect" Value="{{0.421053,0},{0.569892,0},{0.494737,0},{0.645161,0}}" />
         </Window>
         <Window Type="Fruitcut/ProgressBar" Name="SettingsMenu/ParticleDensityProgress" >
@@ -138,6 +143,7 @@
         </Window>
         <Window Type="Fruitcut/Button" Name="SettingsMenu/ParticleDensityIncrease" >
             <Property Name="Text" Value="+" />
+            <Property Name="WantsMultiClickEvents" Value="False" />
             <Property Name="UnifiedAreaRect" Value="{{0.852631,0},{0.569892,0},{0.926316,0},{0.645161,0}}" />
         </Window>
     </Window>
