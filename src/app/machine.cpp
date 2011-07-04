@@ -2,10 +2,6 @@
 #include "machine_impl.hpp"
 #include "exception.hpp"
 #include <sge/systems/instance.hpp>
-#include <sge/systems/running_to_false.hpp>
-#include <sge/input/keyboard/device.hpp>
-#include <sge/input/keyboard/action.hpp>
-#include <sge/input/keyboard/key_code.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/type_name.hpp>
 #include <typeinfo>
@@ -19,13 +15,7 @@ fruitcut::app::machine::machine(
 			argc,
 			argv)),
 	queued_events_(),
-	running_(),
-	running_to_false_connection_(
-		impl_->systems().keyboard_collector().key_callback(
-			sge::input::keyboard::action(
-				sge::input::keyboard::key_code::escape,
-				sge::systems::running_to_false(
-					running_))))
+	running_()
 {
 }
 

@@ -3,6 +3,7 @@
 #include <elements/CEGUIProgressBar.h>
 #include <fcppt/tr1/functional.hpp>
 #include <algorithm>
+#include <iostream>
 
 namespace
 {
@@ -66,6 +67,7 @@ fruitcut::app::gui::progress_slider::increase_callback()
 			static_cast<value_type>(
 				1),
 			progress_window_.getProgress() + increase_amount));
+	std::cout << progress_window_.getProgress() << "\n";
 	value_changed_signal_(
 		progress_window_.getProgress());
 }
@@ -78,6 +80,7 @@ fruitcut::app::gui::progress_slider::decrease_callback()
 			static_cast<value_type>(
 				0),
 			progress_window_.getProgress() - increase_amount));
+	std::cout << progress_window_.getProgress() << "\n";
 	value_changed_signal_(
 		progress_window_.getProgress());
 }

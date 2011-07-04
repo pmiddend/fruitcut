@@ -241,7 +241,6 @@ private:
 	fcppt::scoped_ptr<app::machine_impl> impl_;
 	queued_event_list queued_events_;
 	bool running_;
-	fcppt::signal::scoped_connection running_to_false_connection_;
 };
 }
 }

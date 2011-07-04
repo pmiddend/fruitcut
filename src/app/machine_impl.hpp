@@ -179,7 +179,6 @@ private:
 	app::overlay overlay_node_;
 	fruitlib::log::scoped_sequence_ptr activated_loggers_;
 	fruitlib::font::cache font_cache_;
-	fcppt::signal::scoped_connection exit_connection_;
 	sge::time::point current_time_,transformed_time_;
 	sge::time::funit time_factor_;
 	fruitlib::audio::sound_controller sound_controller_;
