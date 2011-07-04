@@ -1226,6 +1226,7 @@
         <PropertyDefinition name="HoverTextColour" initialValue="FF000000" redrawOnWrite="true" />
         <PropertyDefinition name="PushedTextColour" initialValue="FF000000" redrawOnWrite="true" />
         <PropertyDefinition name="DisabledTextColour" initialValue="FF888888" redrawOnWrite="true" />
+        <Property name="WantsMultiClickEvents" value="False" />
         <ImagerySection name="label">
             <TextComponent>
                 <Area>
