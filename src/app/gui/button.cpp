@@ -45,11 +45,9 @@ fruitcut::app::gui::button::internal_push_callback(
 	CEGUI::EventArgs const &)
 {
 	push_signal_();
-/*
 	sound_controller_.play(
 		fruitlib::resource_tree::path(
 			FCPPT_TEXT("button_clicked")));
-*/
 	return 
 		true;
 }

@@ -5,10 +5,10 @@
 #include "../resource_tree/path.hpp"
 #include "../uniform_random.hpp"
 #include "../rng_creator_fwd.hpp"
+#include "group/player.hpp"
 #include <sge/audio/multi_loader_fwd.hpp>
 #include <sge/audio/player_fwd.hpp>
 #include <sge/audio/pool/object.hpp>
-#include <sge/audio/pool/gain_factor.hpp>
 #include <sge/audio/sound/positional_parameters.hpp>
 #include <sge/audio/sound/base_ptr.hpp>
 #include <sge/audio/buffer_ptr.hpp>
@@ -58,7 +58,7 @@ public:
 		fcppt::filesystem::path const &,
 		sge::audio::multi_loader &,
 		sge::audio::player &,
-		sge::audio::pool::gain_factor const &);
+		sge::audio::scalar initial_gain);
 
 	void
 	play(
@@ -74,19 +74,19 @@ public:
 	void
 	update();
 
-	sge::audio::pool::gain_factor::value_type
-	gain_factor() const;
+	sge::audio::scalar
+	gain() const;
 
 	void
-	gain_factor(
-		sge::audio::pool::gain_factor::value_type);
+	gain(
+		sge::audio::scalar);
 
-	sge::audio::pool::pitch_factor::value_type
-	pitch_factor() const;
+	sge::audio::scalar
+	pitch() const;
 
 	void
-	pitch_factor(
-		sge::audio::pool::pitch_factor::value_type);
+	pitch(
+		sge::audio::scalar);
 
 	~sound_controller();
 private:
@@ -105,7 +105,7 @@ private:
 	fcppt::unique_ptr<resource_tree_type>
 	resource_tree_ptr;
 
-	sge::audio::player &player_;
+	group::player player_;
 	resource_tree_ptr sounds_;
 	sge::audio::pool::object pool_;
 

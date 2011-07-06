@@ -151,8 +151,8 @@ fruitcut::app::machine_impl::machine_impl(
 		fruitcut::media_path()/FCPPT_TEXT("sounds"),
 		systems_.audio_loader(),
 		systems_.audio_player(),
-		sge::audio::pool::gain_factor(
-			fruitlib::json::find_and_convert_member<sge::audio::pool::gain_factor::value_type>(
+		sge::audio::scalar(
+			fruitlib::json::find_and_convert_member<sge::audio::scalar>(
 				config_file(),
 				fruitlib::json::path(
 					FCPPT_TEXT("effects-volume"))))),
@@ -162,7 +162,7 @@ fruitcut::app::machine_impl::machine_impl(
 		config_variables_.effects_volume().change_callback(
 			std::tr1::bind(
 				static_cast<void(fruitlib::audio::sound_controller::*)(sge::audio::scalar)>(
-					&fruitlib::audio::sound_controller::gain_factor),
+					&fruitlib::audio::sound_controller::gain),
 				&sound_controller_,
 				std::tr1::placeholders::_1))),
 	music_controller_(

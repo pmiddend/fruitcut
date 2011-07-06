@@ -37,7 +37,7 @@ ADD_EXECUTABLE(
 
 TARGET_LINK_LIBRARIES(
 	fruitcut_example_json_output
-	fruitcut_library
+	fruitlib
 	${Fcppt_LIBRARIES}
 	${SGE_LIBRARIES}
 	${Boost_LIBRARIES})

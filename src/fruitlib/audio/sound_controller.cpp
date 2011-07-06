@@ -61,10 +61,14 @@ fruitcut::fruitlib::audio::sound_controller::sound_controller(
 	fcppt::filesystem::path const &_base_path,
 	sge::audio::multi_loader &_loader,
 	sge::audio::player &_player,
-	sge::audio::pool::gain_factor const &_gain_factor)
+	sge::audio::scalar const _initial_gain)
 :
 	player_(
-		_player),
+		_player,
+		_initial_gain,
+		// Pitch
+		static_cast<sge::audio::scalar>(
+			1)),
 	sounds_(
 		fruitlib::resource_tree::from_directory_tree<resource_tree_type>(
 			_base_path,
@@ -73,18 +77,14 @@ fruitcut::fruitlib::audio::sound_controller::sound_controller(
 				fcppt::ref(
 					_loader),
 				fcppt::ref(
-					_player),
+					player_),
 				std::tr1::placeholders::_1),
 			std::tr1::bind(
 				&create_random_from_directory,
 				fcppt::ref(
 					_rng_creator),
 				std::tr1::placeholders::_1))),
-	pool_(
-		_gain_factor,
-		sge::audio::pool::pitch_factor(
-			static_cast<sge::audio::pool::pitch_factor::value_type>(
-				1)))
+	pool_()
 {
 }
 
@@ -98,10 +98,8 @@ fruitcut::fruitlib::audio::sound_controller::play(
 			target_path);
 
 	if(target_tree.value().is_leaf())
-	{
 		do_play(
 			target_tree.value().leaf_value()->create_nonpositional());
-	}
 	else
 	{
 		resource_tree_type &target_file = 
@@ -157,33 +155,33 @@ fruitcut::fruitlib::audio::sound_controller::update()
 	pool_.update();
 }
 
-sge::audio::pool::gain_factor::value_type
-fruitcut::fruitlib::audio::sound_controller::gain_factor() const
+sge::audio::scalar
+fruitcut::fruitlib::audio::sound_controller::gain() const
 {
 	return 
-		pool_.gain_factor();
+		player_.gain();
 }
 
 void
-fruitcut::fruitlib::audio::sound_controller::gain_factor(
-	sge::audio::pool::gain_factor::value_type const _gain)
+fruitcut::fruitlib::audio::sound_controller::gain(
+	sge::audio::scalar const _gain)
 {
-	pool_.gain_factor(
+	player_.gain(
 		_gain);
 }
 
-sge::audio::pool::pitch_factor::value_type
-fruitcut::fruitlib::audio::sound_controller::pitch_factor() const
+sge::audio::scalar
+fruitcut::fruitlib::audio::sound_controller::pitch() const
 {
 	return 
-		pool_.pitch_factor();
+		player_.pitch();
 }
 
 void
-fruitcut::fruitlib::audio::sound_controller::pitch_factor(
-	sge::audio::pool::pitch_factor::value_type const _pitch)
+fruitcut::fruitlib::audio::sound_controller::pitch(
+	sge::audio::scalar const _pitch)
 {
-	pool_.pitch_factor(
+	player_.pitch(
 		_pitch);
 }
 

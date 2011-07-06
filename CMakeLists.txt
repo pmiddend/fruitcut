@@ -105,6 +105,18 @@ ENDIF()
 SET(
 	FRUITLIB_FILES
 	src/fruitlib/animation.hpp
+	src/fruitlib/audio/group/buffer.cpp
+	src/fruitlib/audio/group/buffer.hpp
+	src/fruitlib/audio/group/buffer_fwd.hpp
+	src/fruitlib/audio/group/player.cpp
+	src/fruitlib/audio/group/player.hpp
+	src/fruitlib/audio/group/player_fwd.hpp
+	src/fruitlib/audio/group/sound_base.cpp
+	src/fruitlib/audio/group/sound_base.hpp
+	src/fruitlib/audio/group/sound_base_fwd.hpp
+	src/fruitlib/audio/group/sound_positional.cpp
+	src/fruitlib/audio/group/sound_positional.hpp
+	src/fruitlib/audio/group/sound_positional_fwd.hpp
 	src/fruitlib/audio/music_controller.cpp
 	src/fruitlib/audio/music_controller.hpp
 	src/fruitlib/audio/music_controller_fwd.hpp
@@ -629,10 +641,10 @@ FCPPT_UTILS_ADD_SOURCE_GROUPS("${APP_FILES}")
 
 # library begin
 ADD_LIBRARY(
-	fruitcut_library STATIC ${FRUITLIB_FILES})
+	fruitlib STATIC ${FRUITLIB_FILES})
 
 TARGET_LINK_LIBRARIES(
-	fruitcut_library
+	fruitlib
 	${Fcppt_LIBRARIES}
 	${CEGUI_LIBRARIES}
 	${SGE_LIBRARIES}
@@ -647,7 +659,7 @@ ADD_EXECUTABLE(
 
 TARGET_LINK_LIBRARIES(
 	fruitcut
-	fruitcut_library
+	fruitlib
 	${Fcppt_LIBRARIES}
 	${SGE_LIBRARIES}
 	${CEGUI_LIBRARIES}

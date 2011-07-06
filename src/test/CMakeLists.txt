@@ -32,7 +32,7 @@ FUNCTION(
 		${FRUITCUT_TEST_NAME}
 		${FRUITCUT_DEFAULT_LINK_TARGET}
 		${Boost_UNIT_TEST_FRAMEWORK_LIBRARY}
-		fruitcut_library
+		fruitlib
 		${Fcppt_LIBRARIES}
 		${SGE_LIBRARIES}
 	)
