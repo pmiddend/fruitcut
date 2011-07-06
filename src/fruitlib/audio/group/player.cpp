@@ -1,5 +1,6 @@
 #include "player.hpp"
 #include "buffer.hpp"
+#include "sound_positional.hpp"
 #include "../../exception.hpp"
 #include <fcppt/text.hpp>
 #include <fcppt/ref.hpp>
@@ -74,6 +75,14 @@ fruitcut::fruitlib::audio::group::player::gain(
 		++i)
 		i->global_gain(
 			_gain);
+
+	for(
+		sound_sequence::iterator i = 
+			sounds_.begin();
+		i != sounds_.end();
+		++i)
+		i->global_gain(
+			_gain);
 }
 
 sge::audio::scalar
@@ -121,21 +130,32 @@ fruitcut::fruitlib::audio::group::player::create_buffer(
 
 sge::audio::sound::positional_ptr const 
 fruitcut::fruitlib::audio::group::player::create_positional_stream(
-	sge::audio::file_ptr,
-	sge::audio::sound::positional_parameters const &)
+	sge::audio::file_ptr const f,
+	sge::audio::sound::positional_parameters const &pp)
 {
-	throw 
-		fruitlib::exception(
-			FCPPT_TEXT("Streams are not supported"));
+	return 
+		fcppt::make_shared_ptr<group::sound_positional>(
+			fcppt::ref(
+				*this),
+			impl_.create_positional_stream(
+				f,
+				pp),
+			gain_,
+			pitch_);
 }
 
 sge::audio::sound::base_ptr const 
 fruitcut::fruitlib::audio::group::player::create_nonpositional_stream(
-	sge::audio::file_ptr)
+	sge::audio::file_ptr const f)
 {
-	throw 
-		fruitlib::exception(
-			FCPPT_TEXT("Streams are not supported"));
+	return 
+		fcppt::make_shared_ptr<group::sound_base>(
+			fcppt::ref(
+				*this),
+			impl_.create_nonpositional_stream(
+				f),
+			gain_,
+			pitch_);
 }
 
 sge::audio::player_capabilities_field const
@@ -164,5 +184,23 @@ fruitcut::fruitlib::audio::group::player::remove_buffer(
 	FCPPT_ASSERT((
 		fcppt::algorithm::ptr_container_erase(
 			buffers_,
+			&b)));
+}
+
+void
+fruitcut::fruitlib::audio::group::player::add_sound(
+	group::sound_base &b)
+{
+	sounds_.push_back(
+		&b);
+}
+
+void
+fruitcut::fruitlib::audio::group::player::remove_sound(
+	group::sound_base &b)
+{
+	FCPPT_ASSERT((
+		fcppt::algorithm::ptr_container_erase(
+			sounds_,
 			&b)));
 }

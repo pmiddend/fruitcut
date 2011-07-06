@@ -21,6 +21,7 @@
 #include <fcppt/filesystem/directory_iterator.hpp>
 #include <boost/next_prior.hpp>
 #include <iterator>
+#include <iostream>
 
 namespace
 {
@@ -49,10 +50,13 @@ fruitcut::fruitlib::audio::music_controller::music_controller(
 	sge::audio::player &_player,
 	sge::time::duration const &_crossfade,
 	fcppt::filesystem::path const &_base_path,
-	sge::audio::scalar const _volume)
+	sge::audio::scalar const _initial_gain)
 :
-	volume_(
-		_volume),
+	player_(
+		_player,
+		_initial_gain,
+		static_cast<sge::audio::scalar>(
+			1)),
 	sounds_(
 		fruitlib::resource_tree::from_directory_tree<resource_tree_type>(
 			_base_path,
@@ -67,8 +71,6 @@ fruitcut::fruitlib::audio::music_controller::music_controller(
 				std::tr1::placeholders::_1))),
 	crossfade_(
 		_crossfade),
-	player_(
-		_player),
 	silence_buffer_(
 		player_.create_buffer(
 			*_audio_loader.load(
@@ -84,38 +86,32 @@ fruitcut::fruitlib::audio::music_controller::music_controller(
 void
 fruitcut::fruitlib::audio::music_controller::update()
 {
-	if (new_source_)
-	{
-		if (crossfade_.expired())
-		{
-			FCPPT_ASSERT(
-				current_source_);
-			current_source_->stop();
-			current_source_ = new_source_;
-			new_source_.reset();
-		}
-		else
-		{
-			current_source_->gain(
-				//static_cast<sge::audio::scalar>(1) - 
-				volume_ 
-					- static_cast<sge::audio::scalar>(
-						crossfade_.elapsed_frames()) 
-					* volume_);
-			new_source_->gain(
-				static_cast<sge::audio::scalar>(
-					crossfade_.elapsed_frames())
-					* volume_);
+	if(current_source_)
+		current_source_->update();
 
-			new_source_->update();
-		}
+	if(!new_source_)
+		return;
+
+	if(crossfade_.expired())
+	{
+		FCPPT_ASSERT(
+			current_source_);
+		current_source_->stop();
+		current_source_ = new_source_;
+		new_source_.reset();
 	}
 	else
+	{
 		current_source_->gain(
-			volume_);
+			static_cast<sge::audio::scalar>(1) 
+				- static_cast<sge::audio::scalar>(
+					crossfade_.elapsed_frames()));
+		new_source_->gain(
+			static_cast<sge::audio::scalar>(
+				crossfade_.elapsed_frames()));
 
-	if (current_source_)
-		current_source_->update();
+		new_source_->update();
+	}
 }
 
 void
@@ -158,33 +154,25 @@ fruitcut::fruitlib::audio::music_controller::stop()
 }
 
 sge::audio::scalar
-fruitcut::fruitlib::audio::music_controller::volume() const
+fruitcut::fruitlib::audio::music_controller::gain() const
 {
-	return volume_;
+	return 
+		player_.gain();
 }
 
 void
-fruitcut::fruitlib::audio::music_controller::volume(
-	sge::audio::scalar const _volume)
+fruitcut::fruitlib::audio::music_controller::gain(
+	sge::audio::scalar const _gain)
 {
-	volume_ = _volume;
-	
-	current_source_->gain(
-		std::min(
-			current_source_->gain(),
-			_volume));
-	if(new_source_)
-		new_source_->gain(
-			std::min(
-				new_source_->gain(),
-				_volume));
+	player_.gain(
+		_gain);
 }
 
 fruitcut::fruitlib::audio::music_controller::~music_controller() {}
 
 void
 fruitcut::fruitlib::audio::music_controller::do_play(
-	sge::audio::sound::base_ptr b)
+	sge::audio::sound::base_ptr const b)
 {
 	b->gain(
 		static_cast<sge::audio::scalar>(0));

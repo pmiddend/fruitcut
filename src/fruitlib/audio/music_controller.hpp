@@ -5,6 +5,7 @@
 #include "../rng_creator_fwd.hpp"
 #include "../resource_tree/make_type.hpp"
 #include "../resource_tree/path.hpp"
+#include "group/player.hpp"
 #include <sge/audio/multi_loader_fwd.hpp>
 #include <sge/audio/player_fwd.hpp>
 #include <sge/audio/file_ptr.hpp>
@@ -51,10 +52,10 @@ public:
 	stop();
 
 	sge::audio::scalar
-	volume() const;
+	gain() const;
 
 	void
-	volume(
+	gain(
 		sge::audio::scalar);
 
 	~music_controller();
@@ -74,11 +75,11 @@ private:
 	fcppt::unique_ptr<resource_tree_type>
 	resource_tree_ptr;
 
-	sge::audio::scalar volume_;
+	group::player player_;
+
 	resource_tree_ptr sounds_;
 	sge::time::timer crossfade_;
 
-	sge::audio::player &player_;
 	sge::audio::buffer_ptr silence_buffer_;
 	sge::audio::sound::base_ptr silence_source_;
 

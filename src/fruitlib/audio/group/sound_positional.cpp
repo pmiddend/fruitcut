@@ -21,6 +21,24 @@ fruitcut::fruitlib::audio::group::sound_positional::sound_positional(
 {
 }
 
+fruitcut::fruitlib::audio::group::sound_positional::sound_positional(
+	group::player &_player,
+	sge::audio::sound::positional_ptr const _impl,
+	sge::audio::scalar const _global_gain,
+	sge::audio::scalar const _global_pitch)
+:
+	group::sound_base(
+		_player,
+		_impl,
+		_global_gain,
+		_global_pitch),
+	sge::audio::sound::positional(),
+	impl_(
+		dynamic_cast<sge::audio::sound::positional &>(
+			*sound_base::impl_))
+{
+}
+
 void 
 fruitcut::fruitlib::audio::group::sound_positional::play(
 	sge::audio::sound::repeat::type const _repeat)

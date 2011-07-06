@@ -71,7 +71,7 @@
 	"music" : 
 	{  
 		"volume" : 1.0,
-		"crossfade-time" : "10s"
+		"crossfade-time" : "3s"
 	},
 	"textures" : 
 	{

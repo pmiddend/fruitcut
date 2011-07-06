@@ -1,4 +1,5 @@
 #include "sound_base.hpp"
+#include "player.hpp"
 #include "buffer.hpp"
 #include <iostream>
 
@@ -7,8 +8,9 @@ fruitcut::fruitlib::audio::group::sound_base::sound_base(
 	sge::audio::scalar const _global_gain,
 	sge::audio::scalar const _global_pitch)
 :
+	player_(),
 	buffer_(
-		_buffer),
+		&_buffer),
 	impl_(
 		_buffer.impl_->create_nonpositional()),
 	global_gain_(
@@ -25,6 +27,35 @@ fruitcut::fruitlib::audio::group::sound_base::sound_base(
 	pitch(
 		pitch());
 	_buffer.add_sound(
+		*this);
+}
+
+fruitcut::fruitlib::audio::group::sound_base::sound_base(
+	group::player &_player,
+	sge::audio::sound::base_ptr const _impl,
+	sge::audio::scalar const _global_gain,
+	sge::audio::scalar const _global_pitch)
+:
+	player_(
+		&_player),
+	buffer_(
+		0),
+	impl_(
+		_impl),
+	global_gain_(
+		_global_gain),
+	local_gain_(
+		impl_->gain()),
+	global_pitch_(
+		_global_pitch),
+	local_pitch_(
+		impl_->pitch())
+{
+	gain(
+		gain());
+	pitch(
+		pitch());
+	_player.add_sound(
 		*this);
 }
 
@@ -132,8 +163,12 @@ fruitcut::fruitlib::audio::group::sound_base::global_pitch(
 
 fruitcut::fruitlib::audio::group::sound_base::~sound_base()
 {
-	buffer_.remove_sound(
-		*this);
+	if(buffer_)
+		buffer_->remove_sound(
+			*this);
+	else
+		player_->remove_sound(
+			*this);
 }
 
 fruitcut::fruitlib::audio::group::sound_base::sound_base(
@@ -142,8 +177,9 @@ fruitcut::fruitlib::audio::group::sound_base::sound_base(
 	sge::audio::scalar const _global_gain,
 	sge::audio::scalar const _global_pitch)
 :
+	player_(),
 	buffer_(
-		_buffer),
+		&_buffer),
 	impl_(
 		_impl),
 	global_gain_(

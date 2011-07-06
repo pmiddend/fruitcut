@@ -187,7 +187,7 @@ fruitcut::app::machine_impl::machine_impl(
 		config_variables_.music_volume().change_callback(
 			std::tr1::bind(
 				static_cast<void(fruitlib::audio::music_controller::*)(sge::audio::scalar)>(
-					&fruitlib::audio::music_controller::volume),
+					&fruitlib::audio::music_controller::gain),
 				&music_controller_,
 				std::tr1::placeholders::_1))),
 	quick_log_(

@@ -3,6 +3,7 @@
 
 #include "sound_base.hpp"
 #include "buffer_fwd.hpp"
+#include "player_fwd.hpp"
 #include <sge/audio/audio.hpp>
 #include <fcppt/noncopyable.hpp>
 
@@ -26,6 +27,13 @@ public:
 	sound_positional(
 		group::buffer &,
 		sge::audio::sound::positional_parameters const &,
+		sge::audio::scalar gain,
+		sge::audio::scalar pitch);
+
+	explicit
+	sound_positional(
+		group::player &,
+		sge::audio::sound::positional_ptr,
 		sge::audio::scalar gain,
 		sge::audio::scalar pitch);
 

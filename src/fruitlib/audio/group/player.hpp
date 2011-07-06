@@ -2,6 +2,7 @@
 #define FRUITCUT_FRUITLIB_AUDIO_GROUP_PLAYER_HPP_INCLUDED
 
 #include "buffer_fwd.hpp"
+#include "sound_base_fwd.hpp"
 #include <sge/audio/player.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/container/bitfield/bitfield.hpp>
@@ -78,13 +79,19 @@ public:
 	~player();
 private:
 	friend class group::buffer;
+	friend class group::sound_base;
 
 	typedef
 	boost::ptr_vector<group::buffer,boost::view_clone_allocator>
 	buffer_sequence;
 
+	typedef
+	boost::ptr_vector<group::sound_base,boost::view_clone_allocator>
+	sound_sequence;
+
 	sge::audio::player &impl_;
 	buffer_sequence buffers_;
+	sound_sequence sounds_;
 	sge::audio::scalar gain_,pitch_;
 
 	void
@@ -94,6 +101,14 @@ private:
 	void
 	remove_buffer(
 		group::buffer &);
+
+	void
+	add_sound(
+		group::sound_base &);
+
+	void
+	remove_sound(
+		group::sound_base &);
 };
 }
 }
