@@ -104,7 +104,7 @@ fruitcut::app::states::ingame::running::running(
 	transit_to_paused_connection_(
 		context<machine>().systems().keyboard_collector().key_callback(
 			sge::input::keyboard::action(
-				sge::input::keyboard::key_code::p, 
+				sge::input::keyboard::key_code::escape, 
 				FRUITCUT_APP_EVENTS_RETURN_POST_TRANSITION_FUNCTOR(
 					ingame::paused))))
 {

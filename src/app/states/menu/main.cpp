@@ -6,6 +6,7 @@
 #include "../../events/post_transition.hpp"
 #include "../../../media_path.hpp"
 #include <sge/systems/instance.hpp>
+#include <sge/cegui/system.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <CEGUIWindowManager.h>
@@ -27,18 +28,18 @@ fruitcut::app::states::menu::main::main(
 			/FCPPT_TEXT("main_menu.layout"),
 		context<machine>().systems().charconv_system()),
 	gui_sheet_(
-		*CEGUI::WindowManager::getSingleton().getWindow("MainMenu")),
+		*context<machine>().gui_system().window_manager().getWindow("MainMenu")),
 	settings_button_(
 		context<machine>().sound_controller(),
-		*CEGUI::WindowManager::getSingleton().getWindow(
+		*context<machine>().gui_system().window_manager().getWindow(
 			"MainMenu/Settings")),
 	quit_button_(
 		context<machine>().sound_controller(),
-		*CEGUI::WindowManager::getSingleton().getWindow(
+		*context<machine>().gui_system().window_manager().getWindow(
 			"MainMenu/Quit")),
 	start_button_(
 		context<machine>().sound_controller(),
-		*CEGUI::WindowManager::getSingleton().getWindow(
+		*context<machine>().gui_system().window_manager().getWindow(
 			"MainMenu/StartGame")),
 	settings_button_connection_(
 		settings_button_.push_callback(

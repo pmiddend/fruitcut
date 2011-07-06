@@ -12,3 +12,5 @@ This is a list of differences to the last release.
 	- Fixed menu resize bug
 	- Added settings menu
 	- Restructured some of the old menus
+	- Fixed buffer underrun problems with OpenAL
+	- Added ingame menu

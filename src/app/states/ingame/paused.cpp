@@ -1,5 +1,6 @@
 #include "paused.hpp"
 #include "running.hpp"
+#include "../menu/main.hpp"
 #include "../../../fruitlib/time_format/string_to_duration_exn.hpp"
 #include "../../../fruitlib/json/find_and_convert_member.hpp"
 #include "../../../fruitlib/pp/texture/use_screen_size.hpp"
@@ -7,6 +8,7 @@
 #include "../../../media_path.hpp"
 #include "../../postprocessing.hpp"
 #include "../../events/define_transition_reaction.hpp"
+#include "../../events/return_post_transition_functor.hpp"
 #include "../../events/generic_transition.hpp"
 #include "../../scene.hpp"
 #include <sge/renderer/device.hpp>
@@ -14,12 +16,14 @@
 #include <sge/input/keyboard/key_code.hpp>
 #include <sge/input/keyboard/device.hpp>
 #include <sge/systems/instance.hpp>
+#include <sge/cegui/system.hpp>
 #include <sge/time/time.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <iostream>
+#include <CEGUIWindowManager.h>
 
 fruitcut::app::states::ingame::paused::paused(
 	my_context ctx)
@@ -63,7 +67,7 @@ fruitcut::app::states::ingame::paused::paused(
 	transit_to_running_connection_(
 		context<machine>().systems().keyboard_collector().key_callback(
 			sge::input::keyboard::action(
-				sge::input::keyboard::key_code::p, 
+				sge::input::keyboard::key_code::escape, 
 				std::tr1::bind(
 					// Note that using post_event does something unexpected. If
 					// you use that, you get a tick event first and _then_ the
@@ -72,8 +76,53 @@ fruitcut::app::states::ingame::paused::paused(
 					// processes it)
 					&machine::post_event,
 					&context<machine>(),
-					events::generic_transition<ingame::running>()))))
+					events::generic_transition<ingame::running>())))),
+	gui_node_(
+		context<machine>().gui_system(),
+		context<machine>().timer_callback()),
+	gui_keyboard_(
+		context<machine>().gui_syringe(),
+		context<machine>().systems().keyboard_collector()),
+	gui_cursor_(
+		context<machine>().gui_syringe(),
+		context<machine>().systems().cursor_demuxer()),
+	layout_(
+		fruitcut::media_path()
+			/FCPPT_TEXT("gui")
+			/FCPPT_TEXT("layouts")
+			/FCPPT_TEXT("ingame_menu.layout"),
+		context<machine>().systems().charconv_system()),
+	gui_sheet_(
+		*context<machine>().gui_system().window_manager().getWindow("MainMenu")),
+	continue_button_(
+		context<machine>().sound_controller(),
+		*context<machine>().gui_system().window_manager().getWindow(
+			"IngameMenu/Continue")),
+	main_menu_button_(
+		context<machine>().sound_controller(),
+		*context<machine>().gui_system().window_manager().getWindow(
+			"IngameMenu/MainMenu")),
+	quit_button_(
+		context<machine>().sound_controller(),
+		*context<machine>().gui_system().window_manager().getWindow(
+			"IngameMenu/Quit")),
+	continue_connection_(
+		continue_button_.push_callback(
+			FRUITCUT_APP_EVENTS_RETURN_POST_TRANSITION_FUNCTOR(
+				ingame::running))),
+	main_menu_connection_(
+		main_menu_button_.push_callback(
+			FRUITCUT_APP_EVENTS_RETURN_POST_TRANSITION_FUNCTOR(
+				menu::main))),
+	quit_connection_(
+		quit_button_.push_callback(
+			std::tr1::bind(
+				&app::machine::quit,
+				&context<app::machine>())))
 {
+	context<machine>().overlay_node().insert_dont_care(
+		gui_node_);
+
 	context<machine>().root_node().insert_after(
 		*this,
 		context<machine>().scene_node());
@@ -92,6 +141,10 @@ fruitcut::app::states::ingame::paused::paused(
 
 FRUITCUT_APP_EVENTS_DEFINE_TRANSITION_REACTION(
 	ingame::running,
+	ingame::paused)
+
+FRUITCUT_APP_EVENTS_DEFINE_TRANSITION_REACTION(
+	menu::main,
 	ingame::paused)
 
 fruitcut::app::states::ingame::paused::~paused()

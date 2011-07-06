@@ -2,8 +2,12 @@
 #include "main.hpp"
 #include "../../../fruitlib/audio/music_controller.hpp"
 #include "../../../fruitlib/resource_tree/path.hpp"
-#include <fcppt/text.hpp>
 #include <sge/systems/instance.hpp>
+#include <sge/input/keyboard/action.hpp>
+#include <sge/input/keyboard/key_code.hpp>
+#include <sge/input/keyboard/device.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/tr1/functional.hpp>
 
 fruitcut::app::states::menu::superstate::superstate(
 	my_context const ctx)
@@ -18,7 +22,14 @@ fruitcut::app::states::menu::superstate::superstate(
 		context<machine>().systems().keyboard_collector()),
 	gui_cursor_(
 		context<machine>().gui_syringe(),
-		context<machine>().systems().cursor_demuxer())
+		context<machine>().systems().cursor_demuxer()),
+	escape_connection_(
+		context<app::machine>().systems().keyboard_collector().key_callback(
+			sge::input::keyboard::action(
+				sge::input::keyboard::key_code::escape,
+				std::tr1::bind(
+					&app::machine::quit,
+					&context<app::machine>()))))
 {
 	context<machine>().overlay_node().insert_dont_care(
 		gui_node_);

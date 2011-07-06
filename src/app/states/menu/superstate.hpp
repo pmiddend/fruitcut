@@ -6,6 +6,7 @@
 #include "../../../fruitlib/scenic/nodes/gui_system.hpp"
 #include <sge/cegui/default_cursor.hpp>
 #include <sge/cegui/default_keyboard.hpp>
+#include <fcppt/signal/scoped_connection.hpp>
 #include <boost/statechart/state.hpp>
 
 namespace fruitcut
@@ -31,6 +32,7 @@ private:
 	fruitlib::scenic::nodes::gui_system gui_node_;
 	sge::cegui::default_keyboard gui_keyboard_;
 	sge::cegui::default_cursor gui_cursor_;
+	fcppt::signal::scoped_connection escape_connection_;
 };
 }
 }

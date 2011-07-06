@@ -1,6 +1,7 @@
 #include "box3.hpp"
 #include "cut_mesh.hpp"
 #include "manager.hpp"
+#include "../exception.hpp"
 #include "prototype_from_json.hpp"
 #include "../../fruitlib/math/multiply_matrix4_vector3.hpp"
 #include "../../fruitlib/math/plane/basic.hpp"
@@ -32,7 +33,6 @@
 #include <fcppt/container/ptr/push_back_unique_ptr.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/assert_message.hpp>
 #include <fcppt/assert.hpp>
 #include <iostream>
 
@@ -80,9 +80,8 @@ fruitcut::app::fruit::manager::manager(
 	cut_signal_(),
 	remove_signal_()
 {
-	FCPPT_ASSERT_MESSAGE(
-		!prototypes_.empty(),
-		FCPPT_TEXT("No fruits specified!"));
+	if(prototypes_.empty())
+		throw app::exception(FCPPT_TEXT("You didn't specify any fruits"));
 }
 
 

@@ -9,6 +9,7 @@
 #include "../../events/return_post_transition_functor.hpp"
 #include "../../events/post_transition.hpp"
 #include <sge/cegui/to_cegui_string.hpp>
+#include <sge/cegui/system.hpp>
 #include <sge/cegui/from_cegui_string.hpp>
 #include <sge/cegui/toolbox/append_row.hpp>
 #include <sge/cegui/toolbox/row.hpp>
@@ -194,18 +195,18 @@ fruitcut::app::states::gameover::highscore::highscore(
 		media_path()/FCPPT_TEXT("gui")/FCPPT_TEXT("layouts")/FCPPT_TEXT("highscore.layout"),
 		context<machine>().systems().charconv_system()),
 	gui_sheet_(
-		*CEGUI::WindowManager::getSingleton().getWindow("Highscore")),
+		*context<machine>().gui_system().window_manager().getWindow("Highscore")),
 	quit_button_(
 		context<machine>().sound_controller(),
-		*CEGUI::WindowManager::getSingleton().getWindow(
+		*context<machine>().gui_system().window_manager().getWindow(
 			"Highscore/Quit")),
 	reset_button_(
 		context<machine>().sound_controller(),
-		*CEGUI::WindowManager::getSingleton().getWindow(
+		*context<machine>().gui_system().window_manager().getWindow(
 			"Highscore/Reset")),
 	main_menu_button_(
 		context<machine>().sound_controller(),
-		*CEGUI::WindowManager::getSingleton().getWindow(
+		*context<machine>().gui_system().window_manager().getWindow(
 			"Highscore/MainMenu")),
 	quit_button_connection_(
 		quit_button_.push_callback(
@@ -251,7 +252,7 @@ fruitcut::app::states::gameover::highscore::highscore(
 
 		sge::cegui::toolbox::append_row(
 			dynamic_cast<CEGUI::MultiColumnList &>(
-				*CEGUI::WindowManager::getSingleton().getWindow("Highscore/List")),
+				*context<machine>().gui_system().window_manager().getWindow("Highscore/List")),
 			fcppt::assign::make_container<sge::cegui::toolbox::row>
 				(sge::cegui::to_cegui_string(
 					fcppt::lexical_cast<fcppt::string>(
