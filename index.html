@@ -6,45 +6,7 @@
 <link rel="stylesheet" type="text/css" href="fruitcut.css" />
 <link rel="icon" href="icon.png" type="image/png"/>
 <title>fruitcut</title>
-<script type="application/javascript">//<![CDATA[
-instructions = document.getElementsByClassName("instructions");
-showhide = document.getElementsByClassName("showhide");
-
-function toggle(div, button) {
-	if(div.style.display == "inline") {
-		div.style.display = "none";
-		button.innerHTML = "show instructions";
-	}
-	else {
-		div.style.display = "inline";
-		button.innerHTML = "hide instructions";
-	}
-} 
-
-window.addEventListener("load", function (event) {
-	init();
-}, false);
-
-function init() {
-	var i = 0;
-	var elem;
-	for (i = 0; i < instructions.length; ++i)
-	{
-		elem = instructions[i];
-		elem.style.display = "none";
-	}
-	for (i = 0; i < showhide.length; ++i)
-	{
-		elem = showhide[i];
-		elem.style.display = "inline";
-		elem.addEventListener("click", function (e) {
-			instr = this.parentNode.nextElementSibling;
-			toggle(instr, this);
-			},
-			false);
-	}
-}
-//]]></script>
+<script type="application/javascript" src="toggle.js"></script>
 </head>
 
 <body>
@@ -71,7 +33,7 @@ function init() {
 		</ol>
 	</li>
 	<li>
-		<a href="#releases">Releases with changelog</a>
+		<a href="#releases">Releases &amp; Changelog</a>
 	</li>
 	<li>
 		<a href="#download">Download and Installation</a>
@@ -119,7 +81,7 @@ here are some current screenshots, as well as an assortment of gameplay videos -
 <a name="vids">
 </a>
 <h3>Videos</h3>
-<div class="media" style="display: none">
+<div class="media">
 	<object type="application/x-shockwave-flash" data="http://www.youtube.com/v/yWkI3zzLhzk?rel=0">
 		<param name="movie" value="http://www.youtube.com/v/yWkI3zzLhzk?rel=0" />
 	</object>
@@ -134,7 +96,7 @@ here are some current screenshots, as well as an assortment of gameplay videos -
 		</tr>
 	</table>
 </div>
-<div class="media" style="display: none">
+<div class="media">
 	<object type="application/x-shockwave-flash" data="http://www.youtube.com/v/ZRXP9MuTM_s?rel=0">
 		<param name="movie" value="http://www.youtube.com/v/ZRXP9MuTM_s?rel=0" />
 	</object>
@@ -151,30 +113,32 @@ here are some current screenshots, as well as an assortment of gameplay videos -
 </div>
 
 <a name="releases">
+</a>
 <h2>
-Download and Installation
+Releases &amp; Changelog
+<button type="button" class="showhide" style="display: none;">show</button>
 </h2>
-
+<div class="hideable">
 <ul>
 	<li><strong>0.1</strong>, 07/01/2011, 19:32: Initial release (no changelog available)</li>
 </ul>
+</div>
 
 <a name="download">
 </a>
 <h2>
 Download and Installation
+<button type="button" class="showhide" style="display: none;">show</button>
 </h2>
+<div class="hideable">
 
 <a name="gentoo">
 </a>
 <h3>
 Gentoo
+<button type="button" class="showhide" style="display: none;">show</button>
 </h3>
-<p>
-<!-- disabled by default if there's no javascript -->
-<button class="showhide" type="button" style="display: none;">show instructions</button>
-</p>
-<div class="instructions">
+<div class="hideable">
 <p>
 The libraries needed to run fruitcut are partially available in portage (OpenAL, libpng etc.), the rest (sge, fcppt, mizuiro, awl) is available via Freundlich's Gentoo repository:
 </p>
@@ -225,12 +189,10 @@ to make it work. It depends on your system configuration.
 </a>
 <h3>
 Arch
+<button class="showhide" type="button" style="display: none;">show</button>
 </h3>
-<p>
 <!-- disabled by default if there's no javascript -->
-<button class="showhide" type="button" style="display: none;">show instructions</button>
-</p>
-<div class="instructions">
+<div class="hideable">
 The git versions of fruitcut, as well as its dependencies, have been posted to the <a href="https://aur.archlinux.org/">AUR</a>. Please follow the instructions on the <a href="https://wiki.archlinux.org/index.php/Arch_User_Repository">Wiki page</a> to install it.
 </div>
 
@@ -238,12 +200,9 @@ The git versions of fruitcut, as well as its dependencies, have been posted to t
 </a>
 <h3>
 Build from source on Linux (generic)
+<button class="showhide" type="button" style="display: none;">show</button>
 </h3>
-<p>
-<!-- disabled by default if there's no javascript -->
-<button class="showhide" type="button" style="display: none;">show instructions</button>
-</p>
-<div class="instructions">
+<div class="hideable">
 <p>
 First of all, make sure you have the following dependencies installed
 (on Debian-like distributions, you might need the associated -devel
@@ -277,6 +236,7 @@ chmod +x compile_and_install_fruitcut
 <p>
 After it has completed its task, it will tell you how to start the game.
 </p>
+</div>
 </div>
 
 <a name="contact">

@@ -171,3 +171,18 @@ td.name
 	min-width: 256px;
 	padding: 0em 1em 0em 1em;
 }
+
+.showhide
+{
+	border-style: outset;
+	border-width: 1px;
+	border-color: #000;
+	background-color: #fec;
+	color: #372700;
+	padding-left: 0.5em;
+	padding-right: 0.5em;
+	position: absolute;
+	right: 1em;
+	margin-top: 0.25em;
+}
+
