@@ -12,7 +12,7 @@
 		"message-deletion-time" : "1s"
 	},
 	"effects-volume" : 1.0,
-	"ambient-intensity" : 0.4,
+	"ambient-intensity" : 0.3,
 	"main-light-source" : 
 	{
 		"position" : [-17.9842,5.92555,15.1196],
@@ -23,7 +23,6 @@
 				[-0.616515,0.263517,0.741935,0.0],
 				[0.0,0.0,0.0,1.0]
 			]
-			
 	},
 	"shadow-map" : 
 	{
@@ -57,7 +56,7 @@
 			"size" : 24
 		}
 	},
-	"background-repeat" : 3.0,
+	"background-repeat" : 1.5,
 	"mouse" : 
 	{
 		"trail-update-rate-ms" : 50,
@@ -146,10 +145,10 @@
 			"material" : 
 			{
 				"diffuse-color" : [1.0,1.0,1.0,1.0],
-				"diffuse-coefficient" : 0.5,
+				"diffuse-coefficient" : 0.8,
 				"specular-color" : [1.0,1.0,1.0,1.0],
-				"specular-coefficient" : 0.5,
-				"specular-shininess" : 40.0
+				"specular-coefficient" : 0.2,
+				"specular-shininess" : 10.0
 			},
 			"tags" : []
 		},
@@ -159,9 +158,9 @@
 			"material" : 
 			{
 				"diffuse-color" : [1.0,1.0,1.0,1.0],
-				"diffuse-coefficient" : 0.5,
+				"diffuse-coefficient" : 0.8,
 				"specular-color" : [1.0,1.0,1.0,1.0],
-				"specular-coefficient" : 0.5,
+				"specular-coefficient" : 1.0,
 				"specular-shininess" : 40.0
 			},
 			"tags" : []
@@ -172,10 +171,10 @@
 			"material" : 
 			{
 				"diffuse-color" : [1.0,1.0,1.0,1.0],
-				"diffuse-coefficient" : 0.5,
+				"diffuse-coefficient" : 0.8,
 				"specular-color" : [1.0,1.0,1.0,1.0],
-				"specular-coefficient" : 0.5,
-				"specular-shininess" : 40.0
+				"specular-coefficient" : 0.2,
+				"specular-shininess" : 10.0
 			},
 			"tags" : []
 		},
@@ -185,9 +184,9 @@
 			"material" : 
 			{
 				"diffuse-color" : [1.0,1.0,1.0,1.0],
-				"diffuse-coefficient" : 0.5,
+				"diffuse-coefficient" : 0.8,
 				"specular-color" : [1.0,1.0,1.0,1.0],
-				"specular-coefficient" : 0.5,
+				"specular-coefficient" : 1.0,
 				"specular-shininess" : 40.0
 			},
 			"tags" : []
@@ -198,9 +197,9 @@
 			"material" : 
 			{
 				"diffuse-color" : [1.0,1.0,1.0,1.0],
-				"diffuse-coefficient" : 0.5,
+				"diffuse-coefficient" : 0.8,
 				"specular-color" : [1.0,1.0,1.0,1.0],
-				"specular-coefficient" : 0.5,
+				"specular-coefficient" : 1.0,
 				"specular-shininess" : 40.0
 			},
 			"tags" : []
@@ -211,9 +210,9 @@
 			"material" : 
 			{
 				"diffuse-color" : [1.0,1.0,1.0,1.0],
-				"diffuse-coefficient" : 0.5,
+				"diffuse-coefficient" : 0.8,
 				"specular-color" : [1.0,1.0,1.0,1.0],
-				"specular-coefficient" : 0.5,
+				"specular-coefficient" : 0.8,
 				"specular-shininess" : 40.0
 			},
 			"tags" : []
@@ -224,10 +223,10 @@
 			"material" : 
 			{
 				"diffuse-color" : [1.0,1.0,1.0,1.0],
-				"diffuse-coefficient" : 0.5,
+				"diffuse-coefficient" : 0.8,
 				"specular-color" : [1.0,1.0,1.0,1.0],
-				"specular-coefficient" : 0.5,
-				"specular-shininess" : 40.0
+				"specular-coefficient" : 0.2,
+				"specular-shininess" : 10.0
 			},
 			"tags" : ["meat"]
 		}
