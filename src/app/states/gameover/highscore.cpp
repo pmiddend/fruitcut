@@ -192,9 +192,11 @@ fruitcut::app::states::gameover::highscore::highscore(
 	my_base(
 		ctx),
 	layout_(
+		context<machine>().gui_system(),
 		media_path()/FCPPT_TEXT("gui")/FCPPT_TEXT("layouts")/FCPPT_TEXT("highscore.layout"),
 		context<machine>().systems().charconv_system()),
 	gui_sheet_(
+		context<machine>().gui_system(),
 		*context<machine>().gui_system().window_manager().getWindow("Highscore")),
 	quit_button_(
 		context<machine>().sound_controller(),

@@ -3,6 +3,7 @@
 
 #include "superstate.hpp"
 #include "settings_fwd.hpp"
+#include "highscore_fwd.hpp"
 #include "../../gui/button.hpp"
 #include "../../logo.hpp"
 #include "../../events/declare_transition_type.hpp"
@@ -29,12 +30,14 @@ class main
 {
 public:
 	typedef
-	boost::mpl::vector2
+	boost::mpl::vector3
 	<
 		FRUITCUT_APP_EVENTS_DECLARE_TRANSITION_TYPE(
 			ingame::superstate),
 		FRUITCUT_APP_EVENTS_DECLARE_TRANSITION_TYPE(
-			menu::settings)
+			menu::settings),
+		FRUITCUT_APP_EVENTS_DECLARE_TRANSITION_TYPE(
+			menu::highscore)
 	>
 	reactions;
 
@@ -48,6 +51,9 @@ public:
 	FRUITCUT_APP_EVENTS_DECLARE_TRANSITION_REACTION(
 		menu::settings);
 
+	FRUITCUT_APP_EVENTS_DECLARE_TRANSITION_REACTION(
+		menu::highscore);
+
 	~main();
 private:
 	fcppt::signal::scoped_connection viewport_change_connection_;
@@ -55,9 +61,11 @@ private:
 	sge::cegui::toolbox::scoped_layout layout_;
 	sge::cegui::toolbox::scoped_gui_sheet gui_sheet_;
 	gui::button settings_button_;
+	gui::button highscore_button_;
 	gui::button quit_button_;
 	gui::button start_button_;
 	fcppt::signal::scoped_connection settings_button_connection_;
+	fcppt::signal::scoped_connection highscore_button_connection_;
 	fcppt::signal::scoped_connection quit_button_connection_;
 	fcppt::signal::scoped_connection start_button_connection_;
 };

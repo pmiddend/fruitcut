@@ -1,4 +1,10 @@
 {
+	"highscore-providers" : 
+	[
+		{
+			"url" : "file:///$CACHE_PATH/highscore.json"
+		}
+	],
 	"quick-log" : 
 	{
 		"screen-percentage" : [0.2,0.1],

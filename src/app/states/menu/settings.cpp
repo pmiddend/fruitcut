@@ -21,12 +21,14 @@ fruitcut::app::states::menu::settings::settings(
 	my_base(
 		ctx),
 	layout_(
+		context<machine>().gui_system(),
 		fruitcut::media_path()
 			/FCPPT_TEXT("gui")
 			/FCPPT_TEXT("layouts")
 			/FCPPT_TEXT("settings_menu.layout"),
 		context<machine>().systems().charconv_system()),
 	gui_sheet_(
+		context<machine>().gui_system(),
 		*context<app::machine>().gui_system().window_manager().getWindow("SettingsMenu")),
 	main_menu_button_(
 		context<machine>().sound_controller(),

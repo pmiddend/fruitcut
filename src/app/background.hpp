@@ -21,10 +21,6 @@ namespace fruitcut
 {
 namespace app
 {
-// The background is separate because
-// a) it is immortal
-// b) it has repetition
-// c) it has additional logic (splatting!)
 class background
 :
 	public fruitlib::scenic::nodes::intrusive

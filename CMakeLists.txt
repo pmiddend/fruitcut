@@ -102,6 +102,8 @@ IF(ENABLE_TEST)
 	ADD_SUBDIRECTORY(src/test)
 ENDIF()
 
+ADD_SUBDIRECTORY(src/sandbox)
+
 SET(
 	FRUITLIB_FILES
 	src/fruitlib/animation.hpp
@@ -544,6 +546,32 @@ SET(
 	src/app/gui/button.hpp
 	src/app/gui/progress_slider.cpp
 	src/app/gui/progress_slider.hpp
+	src/app/highscore/callbacks/error_received.hpp
+	src/app/highscore/callbacks/error_received_fn.hpp
+	src/app/highscore/callbacks/list_received.hpp
+	src/app/highscore/callbacks/list_received_fn.hpp
+	src/app/highscore/callbacks/message_received.hpp
+	src/app/highscore/callbacks/message_received_fn.hpp
+	src/app/highscore/callbacks/rank_received.hpp
+	src/app/highscore/callbacks/rank_received_fn.hpp
+	src/app/highscore/entry.cpp
+	src/app/highscore/entry.hpp
+	src/app/highscore/entry_set.hpp
+	src/app/highscore/json_to_entry_set.cpp
+	src/app/highscore/json_to_entry_set.hpp
+	src/app/highscore/name.hpp
+	src/app/highscore/provider/connection_base.cpp
+	src/app/highscore/provider/connection_base.hpp
+	src/app/highscore/provider/connection_base_fwd.hpp
+	src/app/highscore/provider/connection_base_ptr.hpp
+	src/app/highscore/provider/file/connection.cpp
+	src/app/highscore/provider/file/connection.hpp
+	src/app/highscore/provider/file/object.cpp
+	src/app/highscore/provider/file/object.hpp
+	src/app/highscore/provider/identifier.hpp
+	src/app/highscore/provider/object_base.cpp
+	src/app/highscore/provider/object_base.hpp
+	src/app/highscore/rank.hpp
 	src/app/light_source_from_json.cpp
 	src/app/light_source_from_json.hpp
 	src/app/load_user_config.cpp
@@ -626,6 +654,9 @@ SET(
 	src/app/states/loading.cpp
 	src/app/states/loading.hpp
 	src/app/states/loading_fwd.hpp
+	src/app/states/menu/highscore.cpp
+	src/app/states/menu/highscore.hpp
+	src/app/states/menu/highscore_fwd.hpp
 	src/app/states/menu/main.cpp
 	src/app/states/menu/main.hpp
 	src/app/states/menu/main_fwd.hpp

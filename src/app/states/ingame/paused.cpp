@@ -87,12 +87,14 @@ fruitcut::app::states::ingame::paused::paused(
 		context<machine>().gui_syringe(),
 		context<machine>().systems().cursor_demuxer()),
 	layout_(
+		context<machine>().gui_system(),
 		fruitcut::media_path()
 			/FCPPT_TEXT("gui")
 			/FCPPT_TEXT("layouts")
 			/FCPPT_TEXT("ingame_menu.layout"),
 		context<machine>().systems().charconv_system()),
 	gui_sheet_(
+		context<machine>().gui_system(),
 		*context<machine>().gui_system().window_manager().getWindow("MainMenu")),
 	continue_button_(
 		context<machine>().sound_controller(),
