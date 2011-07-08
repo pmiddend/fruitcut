@@ -2,12 +2,12 @@ hideables = document.getElementsByClassName("hideable");
 showhide = document.getElementsByClassName("showhide");
 
 function toggle(div, button) {
-	if(div.style.display == "inline") {
+	if(div.style.display == "block") {
 		div.style.display = "none";
 		button.innerHTML = "show";
 	}
 	else {
-		div.style.display = "inline";
+		div.style.display = "block";
 		button.innerHTML = "hide";
 	}
 } 
@@ -27,7 +27,7 @@ function init() {
 	for (i = 0; i < showhide.length; ++i)
 	{
 		elem = showhide[i];
-		elem.style.display = "inline";
+		elem.style.display = "block";
 		elem.addEventListener("click", function (e) {
 			instr = this.parentNode.nextElementSibling;
 			toggle(instr, this);

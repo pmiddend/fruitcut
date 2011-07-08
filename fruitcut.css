@@ -186,3 +186,12 @@ td.name
 	margin-top: 0.25em;
 }
 
+.hideable
+{
+	border-style: dotted;
+	border-color:#aa8;
+	border-width: 0px 0px 0px 2px;
+	padding-left: 1em;
+	margin-left: 1%;
+	margin-right: 5%;
+}
