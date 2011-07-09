@@ -40,7 +40,7 @@
             </AutoWindow>
         </Window>
         <Window Type="Fruitcut/DropDownMenu" Name="Highscores/Source" >
-            <Property Name="UnifiedAreaRect" Value="{{0.0891892,0},{0.0161073,0},{0.791892,0},{0.0920835,0}}" />
+            <Property Name="UnifiedAreaRect" Value="{{0.0891892,0},{0.0161073,0},{0.791892,0},{0.516107,0}}" />
             <Property Name="MaxEditTextLength" Value="4294967295" />
             <AutoWindow NameSuffix="__auto_editbox__" >
                 <Property Name="Font" Value="normal" />
@@ -85,7 +85,7 @@
         </Window>
         <Window Type="Fruitcut/MultiColumnList" Name="Highscores/List" >
             <Property Name="Font" Value="normal" />
-            <Property Name="UnifiedAreaRect" Value="{{0.0135135,-1},{0.0692906,0},{0.981081,0},{0.631515,0}}" />
+            <Property Name="UnifiedAreaRect" Value="{{0.0135135,-5},{0.0692906,0},{0.981081,0},{0.639113,0}}" />
             <AutoWindow NameSuffix="__auto_hscrollbar__" >
                 <AutoWindow NameSuffix="__auto_incbtn__" >
                     <Property Name="Visible" Value="False" />
@@ -132,11 +132,13 @@
                 </AutoWindow>
                 <AutoWindow NameSuffix="__auto_thumb__" />
             </AutoWindow>
-            <Window Type="Fruitcut/StaticText" Name="Highscores/MessageLog" >
-                <Property Name="Font" Value="normal" />
-                <Property Name="FrameEnabled" Value="False" />
-                <Property Name="UnifiedAreaRect" Value="{{0.0111732,0},{0.2,0},{0.988827,0},{0.942857,0}}" />
-                <Property Name="BackgroundEnabled" Value="False" />
+            <Window Type="Fruitcut/MultiLineEditbox" Name="Highscores/MessageLog" >
+                <Property Name="Text" >
+</Property>
+                <Property Name="ReadOnly" Value="True" />
+                <Property Name="MaxTextLength" Value="4294967295" />
+                <Property Name="UnifiedAreaRect" Value="{{0.0100559,0},{0.257143,0},{0.987709,0},{0.942857,0}}" />
+                <Property Name="TextParsingEnabled" Value="False" />
                 <AutoWindow NameSuffix="__auto_hscrollbar__" >
                     <AutoWindow NameSuffix="__auto_incbtn__" >
                         <Property Name="Visible" Value="False" />

@@ -544,8 +544,24 @@ SET(
 	src/app/game_logic/game_logic.hpp
 	src/app/gui/button.cpp
 	src/app/gui/button.hpp
+	src/app/gui/combobox.cpp
+	src/app/gui/combobox.hpp
 	src/app/gui/progress_slider.cpp
 	src/app/gui/progress_slider.hpp
+	src/app/gui/table/column.cpp
+	src/app/gui/table/column.hpp
+	src/app/gui/table/column_sequence.hpp
+	src/app/gui/table/model.cpp
+	src/app/gui/table/model.hpp
+	src/app/gui/table/model_fwd.hpp
+	src/app/gui/table/row.hpp
+	src/app/gui/table/row_added.hpp
+	src/app/gui/table/row_added_fn.hpp
+	src/app/gui/table/row_index.hpp
+	src/app/gui/table/row_removed.hpp
+	src/app/gui/table/row_removed_fn.hpp
+	src/app/gui/table/view.cpp
+	src/app/gui/table/view.hpp
 	src/app/highscore/callbacks/error_received.hpp
 	src/app/highscore/callbacks/error_received_fn.hpp
 	src/app/highscore/callbacks/list_received.hpp
@@ -557,6 +573,8 @@ SET(
 	src/app/highscore/entry.cpp
 	src/app/highscore/entry.hpp
 	src/app/highscore/entry_set.hpp
+	src/app/highscore/gui_model.cpp
+	src/app/highscore/gui_model.hpp
 	src/app/highscore/json_to_entry_set.cpp
 	src/app/highscore/json_to_entry_set.hpp
 	src/app/highscore/name.hpp
@@ -571,6 +589,10 @@ SET(
 	src/app/highscore/provider/identifier.hpp
 	src/app/highscore/provider/object_base.cpp
 	src/app/highscore/provider/object_base.hpp
+	src/app/highscore/provider/object_base_fwd.hpp
+	src/app/highscore/provider_sequence.hpp
+	src/app/highscore/providers_from_json.cpp
+	src/app/highscore/providers_from_json.hpp
 	src/app/highscore/rank.hpp
 	src/app/light_source_from_json.cpp
 	src/app/light_source_from_json.hpp
