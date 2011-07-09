@@ -99,10 +99,8 @@ void
 fruitcut::app::states::menu::highscore::switch_provider(
 	app::highscore::provider::object_base &new_provider)
 {
-	std::cout << "Switching the provider, creating a new connection\n";
 	connection_ = 
 		new_provider.create_connection();
-	std::cout << "done\n";
 
 	context<app::machine>().gui_system().window_manager().getWindow(
 		"Highscores/MessageLog")->setText(
@@ -129,16 +127,13 @@ fruitcut::app::states::menu::highscore::switch_provider(
 				this,
 				std::tr1::placeholders::_1));
 
-	std::cout << "Retrieving list\n";
 	connection_->retrieve_list();
-	std::cout << "Done\n";
 }
 
 void
 fruitcut::app::states::menu::highscore::list_received(
 	app::highscore::entry_set const &entries)
 {
-	std::cout << "list received callback\n";
 	table_model_.reset(
 		entries);
 }
@@ -147,7 +142,6 @@ void
 fruitcut::app::states::menu::highscore::text_received(
 	fcppt::string const &s)
 {
-	std::cout << "got some text: " << s << "\n";
 	CEGUI::Window &w = 
 		*context<app::machine>().gui_system().window_manager().getWindow(
 			"Highscores/MessageLog");
