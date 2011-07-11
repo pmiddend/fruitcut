@@ -1,6 +1,8 @@
-#ifndef FRUITCUT_APP_HIGHSCORE_PROVIDER_FILE_CONNECTION_HPP_INCLUDED
-#define FRUITCUT_APP_HIGHSCORE_PROVIDER_FILE_CONNECTION_HPP_INCLUDED
+#ifndef FRUITCUT_APP_HIGHSCORE_PROVIDER_NET_CONNECTION_HPP_INCLUDED
+#define FRUITCUT_APP_HIGHSCORE_PROVIDER_NET_CONNECTION_HPP_INCLUDED
 
+#include "port.hpp"
+#include "host.hpp"
 #include "../connection_base.hpp"
 #include "../../callbacks/message_received_fn.hpp"
 #include "../../callbacks/message_received.hpp"
@@ -10,10 +12,14 @@
 #include "../../callbacks/list_received.hpp"
 #include "../../callbacks/rank_received_fn.hpp"
 #include "../../callbacks/rank_received.hpp"
+#include <sge/parse/json/object_fwd.hpp>
 #include <fcppt/signal/object.hpp>
-#include <fcppt/filesystem/path.hpp>
+#include <fcppt/function/object.hpp>
 #include <fcppt/signal/auto_connection.hpp>
+#include <fcppt/utf8/string.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <boost/asio.hpp>
+#include <string>
 
 namespace fruitcut
 {
@@ -23,7 +29,7 @@ namespace highscore
 {
 namespace provider
 {
-namespace file
+namespace net
 {
 class connection
 :
@@ -34,7 +40,8 @@ FCPPT_NONCOPYABLE(
 public:
 	explicit
 	connection(
-		fcppt::filesystem::path const &);
+		net::host::value_type const &,
+		net::port::value_type const &);
 
 	void
 	post_rank(
@@ -65,11 +72,57 @@ public:
 
 	~connection();
 private:
-	fcppt::filesystem::path const path_;
+	net::host::value_type host_;
+	net::port::value_type port_;
 	fcppt::signal::object<callbacks::message_received_fn> message_received_;
 	fcppt::signal::object<callbacks::error_received_fn> error_received_;
 	fcppt::signal::object<callbacks::list_received_fn> list_received_;
 	fcppt::signal::object<callbacks::rank_received_fn> rank_received_;
+	boost::asio::io_service io_service_;
+	boost::asio::ip::tcp::resolver resolver_;
+	boost::asio::ip::tcp::socket socket_;
+	fcppt::utf8::string request_;
+	boost::asio::streambuf size_response_;
+	fcppt::utf8::string content_;
+
+	typedef
+	fcppt::function::object<void(sge::parse::json::object const &)>
+	json_handler;
+
+	void 
+	handle_resolve(
+		boost::system::error_code const &,
+		boost::asio::ip::tcp::resolver::iterator,
+		json_handler const &);
+
+	void 
+	handle_connect(
+		boost::system::error_code const &,
+		boost::asio::ip::tcp::resolver::iterator,
+		json_handler const &);
+
+	void
+	handle_write_request(
+		boost::system::error_code const &,
+		json_handler const &);
+
+	void
+	handle_read_size(
+		boost::system::error_code const &,
+		json_handler const &);
+
+	void
+	handle_read_content(
+		boost::system::error_code const &,
+		json_handler const &);
+
+	void
+	handle_list_received(
+		sge::parse::json::object const &);
+
+	void
+	handle_rank_received(
+		sge::parse::json::object const &);
 };
 }
 }

@@ -25,7 +25,7 @@
 #include <sge/camera/object_fwd.hpp>
 #include <sge/cegui/system_fwd.hpp>
 #include <sge/cegui/syringe_fwd.hpp>
-#include <sge/md3/loader_fwd.hpp>
+#include <sge/model/md3/loader_fwd.hpp>
 #include <sge/systems/instance_fwd.hpp>
 #include <boost/statechart/state_machine.hpp>
 #include <boost/statechart/event_base.hpp>
@@ -56,7 +56,7 @@ public:
 	sge::systems::instance const &
 	systems() const;
 
-	sge::md3::loader &
+	sge::model::md3::loader &
 	md3_loader();
 
 	app::config_variables &

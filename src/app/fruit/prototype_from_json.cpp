@@ -4,7 +4,7 @@
 #include "../../media_path.hpp"
 #include "../../fruitlib/json/find_and_convert_member.hpp"
 #include <sge/parse/json/json.hpp>
-#include <sge/md3/loader.hpp>
+#include <sge/model/md3/loader.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/texture/texture.hpp>
 #include <sge/renderer/resource_flags.hpp>
@@ -28,7 +28,7 @@ json_to_tag(
 fruitcut::app::fruit::prototype const
 fruitcut::app::fruit::prototype_from_json(
 	sge::parse::json::value const &v,
-	sge::md3::loader &model_loader,
+	sge::model::md3::loader &model_loader,
 	sge::image2d::multi_loader &image_loader,
 	sge::renderer::device &renderer)
 {

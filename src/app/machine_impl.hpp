@@ -25,7 +25,7 @@
 #include <sge/renderer/state/scoped.hpp>
 #include <sge/cegui/syringe.hpp>
 #include <sge/cegui/system.hpp>
-#include <sge/md3/loader_ptr.hpp>
+#include <sge/model/md3/loader_ptr.hpp>
 #include <sge/font/metrics_ptr.hpp>
 #include <sge/parse/json/object.hpp>
 #include <sge/systems/instance.hpp>
@@ -54,7 +54,7 @@ public:
 	sge::systems::instance const &
 	systems() const;
 
-	sge::md3::loader &
+	sge::model::md3::loader &
 	md3_loader();
 
 	app::config_variables &
@@ -174,7 +174,7 @@ private:
 	sge::parse::json::object const config_file_;
 	app::config_variables config_variables_;
 	sge::systems::instance const systems_;
-	sge::md3::loader_ptr md3_loader_;
+	sge::model::md3::loader_ptr md3_loader_;
 	app::scene scene_node_;
 	app::overlay overlay_node_;
 	fruitlib::log::scoped_sequence_ptr activated_loggers_;

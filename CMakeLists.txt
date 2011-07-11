@@ -53,7 +53,7 @@ FIND_PACKAGE(
 	input
 	renderer
 	line_drawer
-	md3
+	modelmd3
 	parse 
 	shader
 	sprite 
@@ -447,6 +447,8 @@ SET(
 	src/app/config_variables.cpp
 	src/app/config_variables.hpp
 	src/app/config_variables_fwd.hpp
+	src/app/current_commit.cpp
+	src/app/current_commit.hpp
 	src/app/cut_context_fwd.hpp
 	src/app/dim2.hpp
 	src/app/directional_light_source.cpp
@@ -587,6 +589,12 @@ SET(
 	src/app/highscore/provider/file/object.cpp
 	src/app/highscore/provider/file/object.hpp
 	src/app/highscore/provider/identifier.hpp
+	src/app/highscore/provider/net/connection.cpp
+	src/app/highscore/provider/net/connection.hpp
+	src/app/highscore/provider/net/host.hpp
+	src/app/highscore/provider/net/object.cpp
+	src/app/highscore/provider/net/object.hpp
+	src/app/highscore/provider/net/port.hpp
 	src/app/highscore/provider/object_base.cpp
 	src/app/highscore/provider/object_base.hpp
 	src/app/highscore/provider/object_base_fwd.hpp

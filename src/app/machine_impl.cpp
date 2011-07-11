@@ -26,7 +26,7 @@
 #include <sge/input/keyboard/key_code.hpp>
 #include <sge/input/keyboard/device.hpp>
 #include <sge/log/global_context.hpp>
-#include <sge/md3/create.hpp>
+#include <sge/model/md3/create.hpp>
 #include <sge/parse/json/json.hpp>
 #include <sge/renderer/aspect.hpp>
 #include <sge/renderer/depth_stencil_buffer.hpp>
@@ -117,7 +117,7 @@ fruitcut::app::machine_impl::machine_impl(
 					fcppt::assign::make_container<sge::extension_set>
 						(FCPPT_TEXT("png"))))),
 	md3_loader_(
-		sge::md3::create()),
+		sge::model::md3::create()),
 	scene_node_(
 		systems_,
 		config_file_),
@@ -335,7 +335,7 @@ fruitcut::app::machine_impl::systems() const
 	return systems_;
 }
 
-sge::md3::loader &
+sge::model::md3::loader &
 fruitcut::app::machine_impl::md3_loader()
 {
 	return *md3_loader_;
