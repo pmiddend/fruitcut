@@ -13,15 +13,15 @@ class listener
 {
 public:
 	typedef
-	std::tr1::function<void(int)>
+	std::tr1::function<void(server::listener &,int)>
 	client_create_callback;
 
 	typedef
-	std::tr1::function<void(int,std::string)>
+	std::tr1::function<void(server::listener &,int,std::string)>
 	client_data_callback;
 
 	typedef
-	std::tr1::function<void(int)>
+	std::tr1::function<void(server::listener &,int)>
 	client_quit_callback;
 
 	explicit

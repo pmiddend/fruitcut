@@ -162,6 +162,8 @@ fruitcut::server::listener::run_once()
 
 			if(on_client_create_)
 				on_client_create_(
+					std::tr1::ref(
+						*this),
 					new_fd);
 
 			continue;
@@ -187,6 +189,8 @@ fruitcut::server::listener::run_once()
 
 			if(on_client_quit_)
 				on_client_quit_(
+					std::tr1::ref(
+						*this),
 					i);
 
 			if(
@@ -212,6 +216,8 @@ fruitcut::server::listener::run_once()
 
 		if(on_receive_data_)
 			on_receive_data_(
+				std::tr1::ref(
+					*this),
 				i,
 				data);
 	}

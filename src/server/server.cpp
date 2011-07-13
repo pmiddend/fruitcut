@@ -1,9 +1,12 @@
 #include "listener.hpp"
+#include "parse_command.hpp"
+#include "process_command.hpp"
 #include "program_options/help_was_needed.hpp"
 #include "program_options/object.hpp"
 #include "program_options/make_command_line_parameters.hpp"
 #include "program_options/option.hpp"
 #include "program_options/option_sequence.hpp"
+#include "ascii_to_native_char.hpp"
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
@@ -29,6 +32,7 @@ fd_to_string;
 
 void
 add_to_map(
+	fruitcut::server::listener &,
 	fd_to_string &_fd_to_string,
 	int const _fd)
 {
@@ -40,6 +44,7 @@ add_to_map(
 
 void
 process_new_data(
+	fruitcut::server::listener &l,
 	fd_to_string &_fd_to_string,
 	int const _fd,
 	std::string const &_data)
@@ -61,7 +66,10 @@ process_new_data(
 		_data;
 
 	std::string::size_type const newline_pos = 
-		found->second.find('\n');
+		found->second.find(
+			static_cast<char>(
+				// ascii newline
+				10));
 
 	if(newline_pos == std::string::npos)
 		return;
@@ -69,11 +77,19 @@ process_new_data(
 	if(static_cast<std::string::size_type>(_data.length()-1) > newline_pos)
 		throw 
 			std::runtime_error(
-				"Got an invalid package; there was data after the newline:\n\n\""+(found->second)+"\"");
+				"Got an invalid package; there was data after the newline:\n\n\""+
+				(found->second)+
+				"\"");
+
+	fruitcut::server::process_command(
+		fruitcut::server::parse_command(
+			found->second),
+		l);
 }
 
 void
 remove_from_map(
+	fruitcut::server::listener &,
 	fd_to_string &_fd_to_string,
 	int const _fd)
 {
@@ -110,18 +126,21 @@ try
 			&add_to_map,
 			std::tr1::ref(
 				fd_to_string_),
-			std::tr1::placeholders::_1),
+			std::tr1::placeholders::_1,
+			std::tr1::placeholders::_2),
 		std::tr1::bind(
 			&process_new_data,
 			std::tr1::ref(
 				fd_to_string_),
 			std::tr1::placeholders::_1,
-			std::tr1::placeholders::_2),
+			std::tr1::placeholders::_2,
+			std::tr1::placeholders::_3),
 		std::tr1::bind(
 			&remove_from_map,
 			std::tr1::ref(
 				fd_to_string_),
-			std::tr1::placeholders::_1));
+			std::tr1::placeholders::_1,
+			std::tr1::placeholders::_2));
 
 	while(true)
 		listener_.run_once();

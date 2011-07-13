@@ -27,7 +27,7 @@
         <Window Type="Fruitcut/Button" Name="IngameMenu/MainMenu" >
             <Property Name="Font" Value="normal" />
             <Property Name="Text" Value="Main Menu" />
-            <Property Name="UnifiedAreaRect" Value="{{0.0435452,0},{0.66004,-2},{0.501047,-1},{0.802938,-1}}" />
+            <Property Name="UnifiedAreaRect" Value="{{0.0435452,0},{0.78207,-40},{0.501047,-1},{0.924968,-39}}" />
         </Window>
     </Window>
 </GUILayout>
