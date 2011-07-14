@@ -1,5 +1,6 @@
 #include "providers_from_json.hpp"
 #include "provider/file/object.hpp"
+#include "provider/net/object.hpp"
 #include "../name.hpp"
 #include "../exception.hpp"
 #include "../../fruitlib/json/find_and_convert_member.hpp"
@@ -80,6 +81,16 @@ fruitcut::app::highscore::providers_from_json(
 				result,
 				fcppt::make_unique_ptr<provider::file::object>(
 					address));
+		}
+		else if(protocol == FCPPT_TEXT("fruitcut"))
+		{
+			fcppt::container::ptr::push_back_unique_ptr(
+				result,
+				fcppt::make_unique_ptr<provider::net::object>(
+					provider::net::host(
+						address),
+					provider::net::port(
+						port)));
 		}
 		else
 			throw app::exception(FCPPT_TEXT("Unsupported highscore protocol \"")+protocol+FCPPT_TEXT("\""));

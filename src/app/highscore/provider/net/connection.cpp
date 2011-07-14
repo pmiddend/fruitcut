@@ -7,8 +7,9 @@
 #include <fcppt/to_std_string.hpp>
 #include <fcppt/lexical_cast.hpp>
 #include <fcppt/io/cerr.hpp>
-#include <fcppt/utf8/convert.hpp>
+#include <fcppt/utf8/from_fcppt_string.hpp>
 #include <fcppt/utf8/from_std_string.hpp>
+#include <fcppt/utf8/to_fcppt_string.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/to_std_string.hpp>
@@ -52,7 +53,7 @@ fruitcut::app::highscore::provider::net::connection::post_rank(
 	socket_.close();
 
 	request_ = 
-		fcppt::utf8::convert(
+		fcppt::utf8::from_fcppt_string(
 			FCPPT_TEXT("PUT ")+
 			app::current_commit()+
 			FCPPT_TEXT(" ")+
@@ -98,7 +99,7 @@ fruitcut::app::highscore::provider::net::connection::retrieve_list()
 	socket_.close();
 
 	request_ = 
-		fcppt::utf8::convert(
+		fcppt::utf8::from_fcppt_string(
 			FCPPT_TEXT("GET ")+
 			app::current_commit()+
 			FCPPT_TEXT("\n"));
@@ -321,7 +322,7 @@ fruitcut::app::highscore::provider::net::connection::handle_read_size(
 
 	std::string::size_type content_size = 
 		fcppt::lexical_cast<std::string::size_type>(
-			fcppt::utf8::convert(
+			fcppt::utf8::to_fcppt_string(
 				fcppt::utf8::from_std_string(
 					response_line)));
 
@@ -366,7 +367,7 @@ fruitcut::app::highscore::provider::net::connection::handle_read_content(
 		FCPPT_TEXT(" bytes, processing..."));
 
 	fcppt::string const content_converted = 
-		fcppt::utf8::convert(
+		fcppt::utf8::to_fcppt_string(
 			content_);
 
 	fcppt::string::const_iterator current = 
