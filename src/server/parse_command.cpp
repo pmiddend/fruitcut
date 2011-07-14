@@ -13,7 +13,7 @@ fruitcut::server::parse_command(
 		i < s.size();
 		++i)
 	{
-		if(s[i] == static_cast<char>(10))
+		if(s[i] != static_cast<char>(32))
 			continue;
 
 		parts.push_back(

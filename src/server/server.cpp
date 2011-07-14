@@ -1,102 +1,21 @@
-#include "listener.hpp"
-#include "parse_command.hpp"
-#include "process_command.hpp"
-#include "program_options/help_was_needed.hpp"
 #include "program_options/object.hpp"
-#include "program_options/make_command_line_parameters.hpp"
-#include "program_options/option.hpp"
 #include "program_options/option_sequence.hpp"
-#include "ascii_to_native_char.hpp"
-#include <sys/types.h>
-#include <sys/socket.h>
-#include <netinet/in.h>
-#include <arpa/inet.h>
-#include <cerrno>
-#include <cstring>
-#include <cstdlib>
+#include "program_options/option.hpp"
+#include "program_options/help_was_needed.hpp"
+#include "program_options/make_command_line_parameters.hpp"
+#include "listener.hpp"
+#include "controller.hpp"
+#include <string>
+#include <tr1/memory>
+#include <fstream>
 #include <iostream>
 #include <ostream>
-#include <vector>
-#include <string>
-#include <typeinfo>
 #include <stdexcept>
-#include <sstream>
-#include <tr1/functional>
-#include <map>
+#include <exception>
+#include <cstdlib>
 
-namespace
-{
-typedef
-std::map<int,std::string> 
-fd_to_string;
-
-void
-add_to_map(
-	fruitcut::server::listener &,
-	fd_to_string &_fd_to_string,
-	int const _fd)
-{
-	_fd_to_string.insert(
-		fd_to_string::value_type(
-			_fd,
-			std::string()));
-}
-
-void
-process_new_data(
-	fruitcut::server::listener &l,
-	fd_to_string &_fd_to_string,
-	int const _fd,
-	std::string const &_data)
-{
-	fd_to_string::iterator found = 
-		_fd_to_string.find(
-			_fd);
-
-	if(found == _fd_to_string.end())
-	{
-		std::stringstream ss;
-		ss << "Couldn't find client " << _fd << " in the client list!\n";
-		throw 
-			std::runtime_error(
-				ss.str());
-	}
-
-	found->second += 
-		_data;
-
-	std::string::size_type const newline_pos = 
-		found->second.find(
-			static_cast<char>(
-				// ascii newline
-				10));
-
-	if(newline_pos == std::string::npos)
-		return;
-		
-	if(static_cast<std::string::size_type>(_data.length()-1) > newline_pos)
-		throw 
-			std::runtime_error(
-				"Got an invalid package; there was data after the newline:\n\n\""+
-				(found->second)+
-				"\"");
-
-	fruitcut::server::process_command(
-		fruitcut::server::parse_command(
-			found->second),
-		l);
-}
-
-void
-remove_from_map(
-	fruitcut::server::listener &,
-	fd_to_string &_fd_to_string,
-	int const _fd)
-{
-	_fd_to_string.erase(
-		_fd);
-}
-}
+#include "highscore_from_file.hpp"
+#include "highscore_to_string.hpp"
 
 int 
 main(
@@ -104,43 +23,46 @@ main(
 	char *argv[]) 
 try
 {
-	using namespace fruitcut::server;
-
-	program_options::object my_options(
-		program_options::option_sequence()
-			(program_options::option<short>("port",1337))
-			(program_options::option<std::string>("data-dir",""))
-			(program_options::option<int>("listen-queue-size",10)),
-		program_options::make_command_line_parameters(
+	fruitcut::server::program_options::object my_options(
+		fruitcut::server::program_options::option_sequence()
+			(fruitcut::server::program_options::option<short>("port",1337))
+			(fruitcut::server::program_options::option<std::string>("data-dir","/tmp"))
+			(fruitcut::server::program_options::option<std::string>("log-file","-"))
+			(fruitcut::server::program_options::option<int>("listen-queue-size",10)),
+		fruitcut::server::program_options::make_command_line_parameters(
 			argc,
 			argv));
 
-	fd_to_string fd_to_string_;
+	std::tr1::shared_ptr<std::ofstream> external_log_file;
 
-	listener listener_(
+	std::ostream *log_stream = 
+		&std::clog;
+
+	if(my_options.get<std::string>("log-file") != "-")
+	{
+		external_log_file.reset(
+			new std::ofstream(
+				my_options.get<std::string>("log-file").c_str()));
+
+		if(!external_log_file->is_open())
+			throw 
+				std::runtime_error("Couldn't open log file \""+my_options.get<std::string>("log-file")+"\"");
+
+		log_stream  = 
+			external_log_file.get();
+	}
+
+	fruitcut::server::listener listener_(
 		my_options.get<short>(
 			"port"),
 		my_options.get<int>(
 			"listen-queue-size"),
-		std::tr1::bind(
-			&add_to_map,
-			std::tr1::ref(
-				fd_to_string_),
-			std::tr1::placeholders::_1,
-			std::tr1::placeholders::_2),
-		std::tr1::bind(
-			&process_new_data,
-			std::tr1::ref(
-				fd_to_string_),
-			std::tr1::placeholders::_1,
-			std::tr1::placeholders::_2,
-			std::tr1::placeholders::_3),
-		std::tr1::bind(
-			&remove_from_map,
-			std::tr1::ref(
-				fd_to_string_),
-			std::tr1::placeholders::_1,
-			std::tr1::placeholders::_2));
+		*log_stream);
+
+	fruitcut::server::controller controller_(
+		listener_,
+		my_options.get<std::string>("data-dir"),
+		*log_stream);
 
 	while(true)
 		listener_.run_once();

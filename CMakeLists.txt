@@ -741,8 +741,41 @@ OPTION(ENABLE_SERVER "Build the server (beware: it's POSIX only!)" OFF)
 # this has to be defined here so update_cmake recognizes it
 SET(
 	SERVER_FILES
+	src/server/ascii_native_translation.cpp
+	src/server/ascii_native_translation.hpp
+	src/server/ascii_to_native.cpp
+	src/server/ascii_to_native.hpp
+	src/server/ascii_to_native_char.cpp
+	src/server/ascii_to_native_char.hpp
+	src/server/command.hpp
+	src/server/controller.cpp
+	src/server/controller.hpp
+	src/server/current_datetime.cpp
+	src/server/current_datetime.hpp
+	src/server/highscore_entry.cpp
+	src/server/highscore_entry.hpp
+	src/server/highscore_from_file.cpp
+	src/server/highscore_from_file.hpp
+	src/server/highscore_sequence.hpp
+	src/server/highscore_to_json.cpp
+	src/server/highscore_to_json.hpp
+	src/server/highscore_to_string.cpp
+	src/server/highscore_to_string.hpp
+	src/server/lexical_cast.hpp
 	src/server/listener.cpp
 	src/server/listener.hpp
+	src/server/listener_fwd.hpp
+	src/server/logger.hpp
+	src/server/native_to_ascii.cpp
+	src/server/native_to_ascii.hpp
+	src/server/native_to_ascii_char.cpp
+	src/server/native_to_ascii_char.hpp
+	src/server/output_tm.cpp
+	src/server/output_tm.hpp
+	src/server/parse_command.cpp
+	src/server/parse_command.hpp
+	src/server/process_command.cpp
+	src/server/process_command.hpp
 	src/server/program_options/command_line_parameters.hpp
 	src/server/program_options/detail/bad_cast.cpp
 	src/server/program_options/detail/bad_cast.hpp
