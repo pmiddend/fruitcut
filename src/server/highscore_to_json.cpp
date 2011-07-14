@@ -19,7 +19,8 @@ fruitcut::server::highscore_to_json(
 		++it)
 	{
 		result += server::native_to_ascii("{ \"name\" : \"")+(it->name())+server::native_to_ascii("\", ");
-		result += server::native_to_ascii("\"score\" : "+server::lexical_cast<std::string>(it->score()));
+		result += server::native_to_ascii("\"score\" : "+server::lexical_cast<std::string>(it->score()))+server::native_to_ascii(", ");
+		result += server::native_to_ascii("\"date-time\" : \"")+it->datetime()+server::native_to_ascii("\"");
 		result += server::native_to_ascii("}");
 		if(it != --scores.end())
 			result += server::native_to_ascii(",");

@@ -11,6 +11,15 @@ namespace fruitcut
 {
 namespace server
 {
+/**
+	This class is the "network" layer, doing the following:
+
+	- Listen on a port
+	- Accept connections (and call the user)
+	- Call the user when new data arrives
+	- Call the user when a client disconnects
+	- Let the user send data to a client (queueing it up until the local port is ready to send)
+ */
 class listener
 {
 public:

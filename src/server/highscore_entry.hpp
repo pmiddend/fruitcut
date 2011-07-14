@@ -16,7 +16,8 @@ public:
 	explicit
 	highscore_entry(
 		std::string const &name,
-		std::string const &score);
+		std::string const &score,
+		std::string const &datetime);
 
 	std::string const &
 	name() const;
@@ -27,12 +28,17 @@ public:
 	unsigned 
 	score_numerical() const;
 
+	std::string const &
+	datetime() const;
+
 	bool
-	operator==(highscore_entry const &) const;
+	operator==(
+		highscore_entry const &) const;
 private:
 	std::string name_;
 	std::string score_;
 	unsigned score_numerical_;
+	std::string datetime_;
 };
 }
 }

@@ -82,7 +82,6 @@ private:
 	boost::asio::ip::tcp::resolver resolver_;
 	boost::asio::ip::tcp::socket socket_;
 	fcppt::utf8::string request_;
-	boost::asio::streambuf size_response_;
 	fcppt::utf8::string content_;
 
 	typedef

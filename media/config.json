@@ -5,7 +5,7 @@
 			"url" : "file:///$CACHE_PATH/highscore.json"
 		},
 		{
-			"url" : "fruitcut:///localhost:1337"
+			"url" : "fruitcut://localhost:1337"
 		}
 	],
 	"quick-log" : 

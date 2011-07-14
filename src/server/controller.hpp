@@ -10,6 +10,10 @@ namespace fruitcut
 {
 namespace server
 {
+/**
+	The controller takes a listener and implements the fruitcut protocol
+	above it. To manage the content, we have the "process_command" function.
+ */
 class controller
 {
 public:

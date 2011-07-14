@@ -3,9 +3,6 @@
 #include <stdexcept>
 #include <fstream>
 
-
-#include <iostream>
-
 fruitcut::server::highscore_sequence const 
 fruitcut::server::highscore_from_file(
 	std::string const &s)
@@ -21,7 +18,7 @@ fruitcut::server::highscore_from_file(
 	char const separator = 
 		0;
 
-	std::string name,score;
+	std::string name,score,datetime;
 	while(
 		std::getline(
 			stream,
@@ -30,12 +27,17 @@ fruitcut::server::highscore_from_file(
 		std::getline(
 			stream,
 			score,
+			separator) &&
+		std::getline(
+			stream,
+			datetime,
 			separator))
 	{
 		result.push_back(
 			server::highscore_entry(
 				name,
-				score));
+				score,
+				datetime));
 	}
 
 	return result;

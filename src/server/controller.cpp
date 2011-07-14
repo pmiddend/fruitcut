@@ -1,9 +1,12 @@
 #include "controller.hpp"
 #include "listener.hpp"
 #include "process_command.hpp"
+#include "native_to_ascii_char.hpp"
 #include "parse_command.hpp"
+#include "native_to_ascii.hpp"
 #include "logger.hpp"
 #include "lexical_cast.hpp"
+#include "format_output_size.hpp"
 #include <tr1/functional>
 #include <stdexcept>
 
@@ -76,9 +79,8 @@ fruitcut::server::controller::client_new_data(
 
 	std::string::size_type const newline_pos = 
 		found->second.find(
-			static_cast<char>(
-				// ascii newline
-				10));
+			server::native_to_ascii_char(
+				'\n'));
 
 	if(newline_pos == std::string::npos)
 		return;
@@ -96,13 +98,25 @@ fruitcut::server::controller::client_new_data(
 	found->second.erase(
 		--found->second.end());
 
-	_listener.send(
-		_fd,
+	std::string output = 
 		fruitcut::server::process_command(
 			log_stream_,
 			fruitcut::server::parse_command(
 				found->second),
-			data_dir_));
+			data_dir_);
+
+	// Add size
+	output = 
+		server::native_to_ascii(
+			server::format_output_size(
+				output.size()))+
+		output;
+
+	server::logger(log_stream_) << "Sending: \"" << output << "\"...";
+
+	_listener.send(
+		_fd,
+		output);
 }
 
 void

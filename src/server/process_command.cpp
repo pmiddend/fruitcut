@@ -86,7 +86,7 @@ fruitcut::server::process_command(
 
 	if(command_name == 'P')
 	{
-		if(c.size() != 4u)
+		if(c.size() != 5u)
 		{
 			server::logger(log_stream) 
 				<< ": Error: the command: " 
@@ -103,7 +103,9 @@ fruitcut::server::process_command(
 			score = 
 				c[2],
 			name = 
-				c[3];
+				c[3],
+			datetime = 
+				c[4];
 
 		server::highscore_sequence highscore(
 			server::highscore_from_file(
@@ -122,7 +124,8 @@ fruitcut::server::process_command(
 
 		server::highscore_entry new_entry(
 			name,
-			score);
+			score,
+			datetime);
 
 		highscore.push_back(
 			new_entry);

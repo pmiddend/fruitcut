@@ -12,14 +12,25 @@
 #include <fcppt/utf8/to_fcppt_string.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/from_std_string.hpp>
+#include <fcppt/io/istringstream.hpp>
 #include <fcppt/to_std_string.hpp>
+#include <fcppt/optional.hpp>
 #include <string>
+#include <iomanip>
 
 namespace
 {
-char const ascii_newline = 
-	static_cast<char>(
-		10);
+fcppt::optional<std::string::size_type>
+parse_content_size(
+	fcppt::string const &s)
+{
+	fcppt::io::istringstream ss(
+		s);
+	std::string::size_type result;
+	if (!(ss >> std::hex >> std::setfill(FCPPT_TEXT('0')) >> std::setw(8) >> result))
+		return fcppt::optional<std::string::size_type>();
+	return result;
+}
 }
 
 fruitcut::app::highscore::provider::net::connection::connection(
@@ -40,7 +51,6 @@ fruitcut::app::highscore::provider::net::connection::connection(
 	socket_(
 		io_service_),
 	request_(),
-	size_response_(),
 	content_()
 {
 }
@@ -54,13 +64,14 @@ fruitcut::app::highscore::provider::net::connection::post_rank(
 
 	request_ = 
 		fcppt::utf8::from_fcppt_string(
-			FCPPT_TEXT("PUT ")+
+			FCPPT_TEXT("P ")+
 			app::current_commit()+
 			FCPPT_TEXT(" ")+
 			name.get()+
 			FCPPT_TEXT(" ")+
 			fcppt::lexical_cast<fcppt::string>(
-				score.get()));
+				score.get())+
+			FCPPT_TEXT("\n"));
 
 	message_received_(
 		FCPPT_TEXT("Initiating connection to ")+
@@ -100,7 +111,7 @@ fruitcut::app::highscore::provider::net::connection::retrieve_list()
 
 	request_ = 
 		fcppt::utf8::from_fcppt_string(
-			FCPPT_TEXT("GET ")+
+			FCPPT_TEXT("G ")+
 			app::current_commit()+
 			FCPPT_TEXT("\n"));
 
@@ -278,13 +289,14 @@ fruitcut::app::highscore::provider::net::connection::handle_write_request(
 	message_received_(
 		FCPPT_TEXT("Sending the request worked, now reading the number of bytes in the answer..."));
 
-	boost::asio::async_read_until(
+	content_.resize(
+		8);
+
+	boost::asio::async_read(
 		socket_, 
-		size_response_, 
-		std::string(
-			static_cast<std::string::size_type>(
-				1),
-			ascii_newline),
+		boost::asio::buffer(
+			&content_[0],
+			content_.size()), 
 		std::tr1::bind(
 			&connection::handle_read_size, 
 			this,
@@ -305,26 +317,20 @@ fruitcut::app::highscore::provider::net::connection::handle_read_size(
 		return;
 	}
 
-	std::istream response_stream(
-		&size_response_);
+	fcppt::optional<std::string::size_type> const content_size = 
+		parse_content_size(
+			fcppt::utf8::to_fcppt_string(
+				content_));
 
-	std::string response_line;
-	if(
-		!std::getline(
-			response_stream,
-			response_line,
-			ascii_newline))
+	if(!content_size)
 	{
 		error_received_(
-			FCPPT_TEXT("Somehow, we didn't really receive a complete line..."));
+			FCPPT_TEXT("Invalid content size: \"")+
+			fcppt::utf8::to_fcppt_string(
+				content_)+
+			FCPPT_TEXT("\""));
 		return;
 	}
-
-	std::string::size_type content_size = 
-		fcppt::lexical_cast<std::string::size_type>(
-			fcppt::utf8::to_fcppt_string(
-				fcppt::utf8::from_std_string(
-					response_line)));
 
 	message_received_(
 		FCPPT_TEXT("The server sent a projected size of ")+
@@ -333,7 +339,7 @@ fruitcut::app::highscore::provider::net::connection::handle_read_size(
 		FCPPT_TEXT(" bytes, requesting those bytes..."));
 
 	content_.resize(
-		content_size);
+		*content_size);
 
 	boost::asio::async_read(
 		socket_, 
@@ -352,6 +358,7 @@ fruitcut::app::highscore::provider::net::connection::handle_read_content(
 	boost::system::error_code const &error,
 	json_handler const &continue_here)
 {
+	std::cout << "in read content\n";
 	if(error)
 	{
 		error_received_(
