@@ -2,7 +2,7 @@
 
 fruitcut::app::highscore::entry::entry(
 	highscore::name const &_name,
-	fruitcut::app::score const &_score,
+	highscore::score const &_score,
 	boost::posix_time::ptime const _date_time)
 :
 	name_(
@@ -21,7 +21,7 @@ fruitcut::app::highscore::entry::name() const
 		name_;
 }
 
-fruitcut::app::score::value_type
+fruitcut::app::highscore::score::value_type
 fruitcut::app::highscore::entry::score() const
 {
 	return 

@@ -188,7 +188,7 @@ fruitcut::app::machine::rng_creator()
 	return impl_->rng_creator();
 }
 
-fruitcut::app::score
+fruitcut::app::highscore::score::value_type
 fruitcut::app::machine::last_game_score() const
 {
 	return impl_->last_game_score();
@@ -196,7 +196,7 @@ fruitcut::app::machine::last_game_score() const
 
 void
 fruitcut::app::machine::last_game_score(
-	score const &_last_game_score)
+	highscore::score::value_type const &_last_game_score)
 {
 	impl_->last_game_score(
 		_last_game_score);

@@ -58,7 +58,7 @@ fruitcut::app::highscore::provider::net::connection::connection(
 void
 fruitcut::app::highscore::provider::net::connection::post_rank(
 	highscore::name const &name,
-	app::score const &score)
+	highscore::score const &score)
 {
 	socket_.close();
 
@@ -335,7 +335,7 @@ fruitcut::app::highscore::provider::net::connection::handle_read_size(
 	message_received_(
 		FCPPT_TEXT("The server sent a projected size of ")+
 		fcppt::lexical_cast<fcppt::string>(
-			content_size)+
+			*content_size)+
 		FCPPT_TEXT(" bytes, requesting those bytes..."));
 
 	content_.resize(
@@ -358,7 +358,6 @@ fruitcut::app::highscore::provider::net::connection::handle_read_content(
 	boost::system::error_code const &error,
 	json_handler const &continue_here)
 {
-	std::cout << "in read content\n";
 	if(error)
 	{
 		error_received_(

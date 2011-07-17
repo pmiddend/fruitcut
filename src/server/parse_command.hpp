@@ -2,7 +2,7 @@
 #define FRUITCUT_SERVER_PARSE_COMMAND_HPP_INCLUDED
 
 #include "command.hpp"
-#include <string>
+#include "ascii/string.hpp"
 
 namespace fruitcut
 {
@@ -10,7 +10,7 @@ namespace server
 {
 server::command const
 parse_command(
-	std::string const &);
+	ascii::string const &);
 }
 }
 

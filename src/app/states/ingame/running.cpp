@@ -158,8 +158,7 @@ fruitcut::app::states::ingame::running::update()
 	if(context<superstate>().game_logic().finished())
 	{
 		context<machine>().last_game_score(
-			app::score(
-				context<superstate>().game_logic().score()));
+			context<superstate>().game_logic().score());
 		FRUITCUT_APP_EVENTS_POST_TRANSITION(
 			gameover::superstate);
 	}

@@ -1,7 +1,7 @@
 #ifndef FRUITCUT_APP_MACHINE_IMPL_HPP_INCLUDED
 #define FRUITCUT_APP_MACHINE_IMPL_HPP_INCLUDED
 
-#include "score.hpp"
+#include "highscore/score.hpp"
 #include "background.hpp"
 #include "directional_light_source.hpp"
 #include "config_variables.hpp"
@@ -126,12 +126,12 @@ public:
 	fruitlib::rng_creator &
 	rng_creator();
 
-	score
+	highscore::score::value_type
 	last_game_score() const;
 
 	void
 	last_game_score(
-		score const &);
+		highscore::score::value_type const &);
 
 	scene &
 	scene_node();
@@ -198,7 +198,7 @@ private:
 	fcppt::chrono::milliseconds::rep desired_fps_;
 	sge::cegui::system gui_system_;
 	sge::cegui::syringe gui_syringe_;
-	app::score last_game_score_;
+	highscore::score::value_type last_game_score_;
 	point_sprite::system_node point_sprites_;
 	app::screen_shooter screen_shooter_;
 	fruit::prototype_sequence fruit_prototypes_;

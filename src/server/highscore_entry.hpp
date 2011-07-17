@@ -1,7 +1,8 @@
 #ifndef FRUITCUT_SERVER_HIGHSCORE_ENTRY_HPP_INCLUDED
 #define FRUITCUT_SERVER_HIGHSCORE_ENTRY_HPP_INCLUDED
 
-#include <string>
+#include "ascii/string.hpp"
+#include "score.hpp"
 
 namespace fruitcut
 {
@@ -15,30 +16,26 @@ public:
 
 	explicit
 	highscore_entry(
-		std::string const &name,
-		std::string const &score,
-		std::string const &datetime);
+		ascii::string const &name,
+		server::score,
+		ascii::string const &datetime);
 
-	std::string const &
+	ascii::string const &
 	name() const;
 
-	std::string const & 
+	server::score
 	score() const;
 
-	unsigned 
-	score_numerical() const;
-
-	std::string const &
+	ascii::string const &
 	datetime() const;
 
 	bool
 	operator==(
 		highscore_entry const &) const;
 private:
-	std::string name_;
-	std::string score_;
-	unsigned score_numerical_;
-	std::string datetime_;
+	ascii::string name_;
+	server::score score_;
+	ascii::string datetime_;
 };
 }
 }

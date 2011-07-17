@@ -22,7 +22,7 @@ fruitcut::app::highscore::provider::file::connection::connection(
 void
 fruitcut::app::highscore::provider::file::connection::post_rank(
 	highscore::name const &_name,
-	app::score const &_score)
+	highscore::score const &_score)
 {
 	sge::parse::json::object result;
 	if(!sge::parse::json::parse_file(path_,result))

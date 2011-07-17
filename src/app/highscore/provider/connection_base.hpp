@@ -2,7 +2,7 @@
 #define FRUITCUT_APP_HIGHSCORE_PROVIDER_CONNECTION_BASE_HPP_INCLUDED
 
 #include "../name.hpp"
-#include "../../score.hpp"
+#include "../score.hpp"
 #include "../callbacks/message_received.hpp"
 #include "../callbacks/error_received.hpp"
 #include "../callbacks/list_received.hpp"
@@ -23,7 +23,7 @@ public:
 	virtual void
 	post_rank(
 		highscore::name const &,
-		app::score const &) = 0;
+		highscore::score const &) = 0;
 
 	virtual void
 	retrieve_list() = 0;

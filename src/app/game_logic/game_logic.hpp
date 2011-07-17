@@ -9,7 +9,7 @@
 #include "../../fruitlib/font/intrusive_scene_node.hpp"
 #include "../../fruitlib/font/cache_fwd.hpp"
 #include "../../fruitlib/scenic/nodes/intrusive.hpp"
-#include "../score.hpp"
+#include "../highscore/score.hpp"
 #include <sge/parse/json/object_fwd.hpp>
 #include <sge/renderer/scalar.hpp>
 #include <sge/renderer/device_fwd.hpp>
@@ -50,11 +50,11 @@ public:
 	bool 
 	finished() const;
 
-	fruitcut::app::score::value_type
+	highscore::score::value_type
 	score() const;
 private:
 	fruit::area::value_type const area_score_factor_;
-	fruitcut::app::score::value_type score_,iterating_score_;
+	highscore::score::value_type score_,iterating_score_;
 	sge::time::timer round_timer_;
 	fcppt::signal::scoped_connection 
 		fruit_added_connection_,
@@ -94,7 +94,7 @@ private:
 
 	void
 	increase_score(
-		fruitcut::app::score const &);
+		highscore::score::value_type const &);
 };
 }
 }

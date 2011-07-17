@@ -204,7 +204,7 @@ fruitcut::app::game_logic::game_logic::finished() const
 		round_timer_.expired();
 }
 
-fruitcut::app::score::value_type
+fruitcut::app::highscore::score::value_type
 fruitcut::app::game_logic::game_logic::score() const
 {
 	return 
@@ -243,12 +243,11 @@ fruitcut::app::game_logic::game_logic::fruit_cut(
 	}
 	else
 		increase_score(
-			app::score(
-				static_cast<app::score::value_type>(
-					static_cast<app::score::value_type>(
-						multiplier_) *
-					context.area() * 
-					area_score_factor_)));
+			static_cast<highscore::score::value_type>(
+				static_cast<fruit::area::value_type>(
+					multiplier_) *
+				context.area() * 
+				area_score_factor_));
 	if (!multiplier_timer_.expired())
 	{
 		++multi_count_;
@@ -370,8 +369,8 @@ fruitcut::app::game_logic::game_logic::render()
 
 void
 fruitcut::app::game_logic::game_logic::increase_score(
-	fruitcut::app::score const &s)
+	highscore::score::value_type const &s)
 {
 	score_ += 
-		s.get();
+		s;
 }

@@ -1,8 +1,9 @@
 #ifndef FRUITCUT_SERVER_CONTROLLER_HPP_INCLUDED
 #define FRUITCUT_SERVER_CONTROLLER_HPP_INCLUDED
 
-#include "listener_fwd.hpp"
-#include <string>
+#include "listener/base_fwd.hpp"
+#include "byte_sequence.hpp"
+#include "command_processor_fwd.hpp"
 #include <map>
 #include <iosfwd>
 
@@ -19,32 +20,30 @@ class controller
 public:
 	explicit
 	controller(
-		server::listener &,
-		std::string const &data_dir,
+		server::listener::base &,
+		server::command_processor &,
 		std::ostream &log_stream);
 private:
 	typedef
-	std::map<int,std::string> 
+	std::map<int,server::byte_sequence> 
 	fd_to_data;
 
-	std::string const data_dir_;
+	server::command_processor &command_processor_;
 	std::ostream &log_stream_;
 	fd_to_data fd_to_data_;
 
 	void
 	client_connect(
-		fruitcut::server::listener &,
 		int);
 
 	void
-	client_new_data(
-		fruitcut::server::listener &,
+	client_receive_data(
+		fruitcut::server::listener::base &,
 		int,
-		std::string const &);
+		server::byte_sequence const &);
 
 	void
 	client_disconnect(
-		fruitcut::server::listener &,
 		int);
 };
 }

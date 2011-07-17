@@ -29,7 +29,7 @@
 #include <fcppt/from_std_string.hpp>
 #include <boost/range/algorithm/sort.hpp>
 
-#include "../../score.hpp"
+#include "../../highscore/score.hpp"
 #include "../../name.hpp"
 #include "../../../fruitlib/json/find_and_convert_member.hpp"
 #include "../../../fruitlib/json/convert_from.hpp"
@@ -53,13 +53,13 @@ struct highscore_entry
 {
 public:
 	fcppt::string name;
-	fruitcut::app::score::value_type score_;
+	fruitcut::app::highscore::score::value_type score_;
 	boost::posix_time::ptime date_time;
 
 	explicit
 	highscore_entry(
 		fcppt::string const &_name,
-		fruitcut::app::score::value_type const _score,
+		fruitcut::app::highscore::score::value_type const _score,
 		boost::posix_time::ptime _date_time)
 	:
 		name(
@@ -128,7 +128,7 @@ load_highscore()
 					*current_entry,
 					fruitcut::fruitlib::json::path(
 						FCPPT_TEXT("name"))),
-				fruitcut::fruitlib::json::find_and_convert_member<fruitcut::app::score::value_type>(
+				fruitcut::fruitlib::json::find_and_convert_member<fruitcut::app::highscore::score::value_type>(
 					*current_entry,
 					fruitcut::fruitlib::json::path(
 						FCPPT_TEXT("score"))),
@@ -232,7 +232,7 @@ fruitcut::app::states::gameover::highscore::highscore(
 			sge::cegui::from_cegui_string(
 				context<superstate>().name(),
 				context<machine>().systems().charconv_system()),
-			context<machine>().last_game_score().get(),
+			context<machine>().last_game_score(),
 			boost::posix_time::second_clock::universal_time()));
 
 	boost::sort(

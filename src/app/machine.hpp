@@ -8,7 +8,7 @@
 #include "postprocessing_fwd.hpp"
 #include "background_fwd.hpp"
 #include "shadow_map_fwd.hpp"
-#include "score.hpp"
+#include "highscore/score.hpp"
 #include "scene_fwd.hpp"
 #include "fruit/prototype_sequence.hpp"
 #include "overlay.hpp"
@@ -128,12 +128,12 @@ public:
 	fruitlib::rng_creator &
 	rng_creator();
 
-	app::score
+	highscore::score::value_type
 	last_game_score() const;
 
 	void
 	last_game_score(
-		app::score const &);
+		highscore::score::value_type const &);
 
 	void
 	quit();

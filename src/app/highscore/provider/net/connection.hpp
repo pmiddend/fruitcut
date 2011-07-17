@@ -2,6 +2,8 @@
 #define FRUITCUT_APP_HIGHSCORE_PROVIDER_NET_CONNECTION_HPP_INCLUDED
 
 #include "port.hpp"
+#include "../../name.hpp"
+#include "../../score.hpp"
 #include "host.hpp"
 #include "../connection_base.hpp"
 #include "../../callbacks/message_received_fn.hpp"
@@ -46,7 +48,7 @@ public:
 	void
 	post_rank(
 		highscore::name const &,
-		app::score const &);
+		highscore::score const &);
 
 	void
 	retrieve_list();

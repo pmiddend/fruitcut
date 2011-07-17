@@ -40,8 +40,8 @@ fruitcut::app::highscore::json_to_entry_set(
 						*current_entry,
 						fruitcut::fruitlib::json::path(
 							FCPPT_TEXT("name")))),
-				app::score(
-					fruitcut::fruitlib::json::find_and_convert_member<app::score::value_type>(
+				highscore::score(
+					fruitcut::fruitlib::json::find_and_convert_member<highscore::score::value_type>(
 						*current_entry,
 						fruitcut::fruitlib::json::path(
 							FCPPT_TEXT("score")))),

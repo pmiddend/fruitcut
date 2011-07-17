@@ -3,8 +3,9 @@
 #include "program_options/option.hpp"
 #include "program_options/help_was_needed.hpp"
 #include "program_options/make_command_line_parameters.hpp"
-#include "listener.hpp"
+#include "listener/posix_select.hpp"
 #include "controller.hpp"
+#include "command_processor.hpp"
 #include <string>
 #include <tr1/memory>
 #include <fstream>
@@ -13,9 +14,6 @@
 #include <stdexcept>
 #include <exception>
 #include <cstdlib>
-
-#include "highscore_from_file.hpp"
-#include "highscore_to_string.hpp"
 
 int 
 main(
@@ -52,20 +50,25 @@ try
 			external_log_file.get();
 	}
 
-	fruitcut::server::listener listener_(
-		my_options.get<short>(
-			"port"),
-		my_options.get<int>(
-			"listen-queue-size"),
-		*log_stream);
+	std::tr1::shared_ptr<fruitcut::server::listener::posix_select> listener_(
+		new fruitcut::server::listener::posix_select(
+			my_options.get<short>(
+				"port"),
+			my_options.get<int>(
+				"listen-queue-size"),
+			*log_stream));
+
+	fruitcut::server::command_processor processor_(
+		*log_stream,
+		my_options.get<std::string>("data-dir"));
 
 	fruitcut::server::controller controller_(
-		listener_,
-		my_options.get<std::string>("data-dir"),
+		*listener_,
+		processor_,
 		*log_stream);
 
 	while(true)
-		listener_.run_once();
+		listener_->run_once();
 }
 catch(
 	fruitcut::server::program_options::help_was_needed const &e)

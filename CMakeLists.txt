@@ -580,6 +580,8 @@ SET(
 	src/app/highscore/json_to_entry_set.cpp
 	src/app/highscore/json_to_entry_set.hpp
 	src/app/highscore/name.hpp
+	src/app/highscore/post_model.cpp
+	src/app/highscore/post_model.hpp
 	src/app/highscore/provider/connection_base.cpp
 	src/app/highscore/provider/connection_base.hpp
 	src/app/highscore/provider/connection_base_fwd.hpp
@@ -602,6 +604,7 @@ SET(
 	src/app/highscore/providers_from_json.cpp
 	src/app/highscore/providers_from_json.hpp
 	src/app/highscore/rank.hpp
+	src/app/highscore/score.hpp
 	src/app/light_source_from_json.cpp
 	src/app/light_source_from_json.hpp
 	src/app/load_user_config.cpp
@@ -655,7 +658,6 @@ SET(
 	src/app/scoped_scene_activation.hpp
 	src/app/scoped_time_factor.cpp
 	src/app/scoped_time_factor.hpp
-	src/app/score.hpp
 	src/app/screen_shooter.cpp
 	src/app/screen_shooter.hpp
 	src/app/shadow_map.cpp
@@ -669,6 +671,8 @@ SET(
 	src/app/states/gameover/highscore.cpp
 	src/app/states/gameover/highscore.hpp
 	src/app/states/gameover/highscore_fwd.hpp
+	src/app/states/gameover/ranking.cpp
+	src/app/states/gameover/ranking.hpp
 	src/app/states/gameover/superstate.cpp
 	src/app/states/gameover/superstate.hpp
 	src/app/states/gameover/superstate_fwd.hpp
@@ -741,41 +745,64 @@ OPTION(ENABLE_SERVER "Build the server (beware: it's POSIX only!)" OFF)
 # this has to be defined here so update_cmake recognizes it
 SET(
 	SERVER_FILES
-	src/server/ascii_native_translation.cpp
-	src/server/ascii_native_translation.hpp
-	src/server/ascii_to_native.cpp
-	src/server/ascii_to_native.hpp
-	src/server/ascii_to_native_char.cpp
-	src/server/ascii_to_native_char.hpp
+	src/server/ascii/char.hpp
+	src/server/ascii/char_traits.hpp
+	src/server/ascii/from_ascii_char.cpp
+	src/server/ascii/from_byte_sequence.cpp
+	src/server/ascii/from_byte_sequence.hpp
+	src/server/ascii/from_native.cpp
+	src/server/ascii/from_native.hpp
+	src/server/ascii/from_native_char.hpp
+	src/server/ascii/is_digit.cpp
+	src/server/ascii/is_digit.hpp
+	src/server/ascii/is_letter.cpp
+	src/server/ascii/is_letter.hpp
+	src/server/ascii/string.hpp
+	src/server/ascii/to_byte_sequence.cpp
+	src/server/ascii/to_byte_sequence.hpp
+	src/server/ascii/to_native.cpp
+	src/server/ascii/to_native.hpp
+	src/server/ascii/to_native_char.cpp
+	src/server/ascii/to_native_char.hpp
+	src/server/ascii/to_native_translation.cpp
+	src/server/ascii/to_native_translation.hpp
+	src/server/byte_sequence.hpp
 	src/server/command.hpp
+	src/server/command_processor.cpp
+	src/server/command_processor.hpp
+	src/server/command_processor_fwd.hpp
 	src/server/controller.cpp
 	src/server/controller.hpp
 	src/server/current_datetime.cpp
 	src/server/current_datetime.hpp
+	src/server/format_output_size.hpp
 	src/server/highscore_entry.cpp
 	src/server/highscore_entry.hpp
-	src/server/highscore_from_file.cpp
-	src/server/highscore_from_file.hpp
+	src/server/highscore_from_plain_file.cpp
+	src/server/highscore_from_plain_file.hpp
 	src/server/highscore_sequence.hpp
 	src/server/highscore_to_json.cpp
 	src/server/highscore_to_json.hpp
-	src/server/highscore_to_string.cpp
-	src/server/highscore_to_string.hpp
+	src/server/highscore_to_plain_file.cpp
+	src/server/highscore_to_plain_file.hpp
 	src/server/lexical_cast.hpp
-	src/server/listener.cpp
-	src/server/listener.hpp
-	src/server/listener_fwd.hpp
+	src/server/listener/base.cpp
+	src/server/listener/base.hpp
+	src/server/listener/base_fwd.hpp
+	src/server/listener/callbacks/connect.hpp
+	src/server/listener/callbacks/connect_fn.hpp
+	src/server/listener/callbacks/disconnect.hpp
+	src/server/listener/callbacks/disconnect_fn.hpp
+	src/server/listener/callbacks/receive_data.hpp
+	src/server/listener/callbacks/receive_data_fn.hpp
+	src/server/listener/posix_select.cpp
+	src/server/listener/posix_select.hpp
 	src/server/logger.hpp
-	src/server/native_to_ascii.cpp
-	src/server/native_to_ascii.hpp
-	src/server/native_to_ascii_char.cpp
-	src/server/native_to_ascii_char.hpp
 	src/server/output_tm.cpp
 	src/server/output_tm.hpp
 	src/server/parse_command.cpp
 	src/server/parse_command.hpp
-	src/server/process_command.cpp
-	src/server/process_command.hpp
+	src/server/path.hpp
 	src/server/program_options/command_line_parameters.hpp
 	src/server/program_options/detail/bad_cast.cpp
 	src/server/program_options/detail/bad_cast.hpp
@@ -798,6 +825,9 @@ SET(
 	src/server/program_options/option.hpp
 	src/server/program_options/option_sequence.cpp
 	src/server/program_options/option_sequence.hpp
+	src/server/score.hpp
+	src/server/separator.cpp
+	src/server/separator.hpp
 	src/server/server.cpp
 	src/server/std_error_string.cpp
 	src/server/std_error_string.hpp

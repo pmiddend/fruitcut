@@ -2,8 +2,8 @@
 #define FRUITCUT_APP_STATES_MENU_HIGHSCORE_HPP_INCLUDED
 
 #include "superstate.hpp"
-#include "../../highscore/provider_sequence.hpp"
 #include "../../../fruitlib/scenic/nodes/intrusive.hpp"
+#include "../../highscore/provider_sequence.hpp"
 #include "../../highscore/provider/object_base.hpp"
 #include "../../highscore/provider/connection_base_ptr.hpp"
 #include "../../highscore/gui_model.hpp"

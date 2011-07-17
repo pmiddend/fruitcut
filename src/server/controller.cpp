@@ -1,65 +1,69 @@
 #include "controller.hpp"
-#include "listener.hpp"
-#include "process_command.hpp"
-#include "native_to_ascii_char.hpp"
+#include "listener/base.hpp"
+#include "command_processor.hpp"
 #include "parse_command.hpp"
-#include "native_to_ascii.hpp"
 #include "logger.hpp"
 #include "lexical_cast.hpp"
 #include "format_output_size.hpp"
+#include "ascii/string.hpp"
+#include "ascii/from_native_char.hpp"
+#include "ascii/to_native.hpp"
+#include "ascii/from_native.hpp"
+#include "ascii/to_byte_sequence.hpp"
+#include "ascii/from_byte_sequence.hpp"
 #include <tr1/functional>
 #include <stdexcept>
+#include <iterator>
+#include <algorithm>
 
 fruitcut::server::controller::controller(
-	server::listener &_listener,
-	std::string const &_data_dir,
+	server::listener::base &_listener,
+	server::command_processor &_command_processor,
 	std::ostream &_log_stream)
 :
-	data_dir_(
-		_data_dir),
+	command_processor_(
+		_command_processor),
 	log_stream_(
 		_log_stream),
 	fd_to_data_()
 {
-	_listener.on_client_create(
+	_listener.client_connect(
 		std::tr1::bind(
 			&controller::client_connect,
 			this,
+			std::tr1::placeholders::_1));
+
+	_listener.client_receive_data(
+		std::tr1::bind(
+			&controller::client_receive_data,
+			this,
+			std::tr1::ref(
+				_listener),
 			std::tr1::placeholders::_1,
 			std::tr1::placeholders::_2));
 
-	_listener.on_receive_data(
-		std::tr1::bind(
-			&controller::client_new_data,
-			this,
-			std::tr1::placeholders::_1,
-			std::tr1::placeholders::_2,
-			std::tr1::placeholders::_3));
-
-	_listener.on_client_quit(
+	_listener.client_disconnect(
 		std::tr1::bind(
 			&controller::client_disconnect,
 			this,
-			std::tr1::placeholders::_1,
-			std::tr1::placeholders::_2));
+			std::tr1::placeholders::_1));
 }
 
 void
 fruitcut::server::controller::client_connect(
-	fruitcut::server::listener &,
 	int const _fd)
 {
 	fd_to_data_.insert(
 		fd_to_data::value_type(
 			_fd,
-			std::string()));
+			server::byte_sequence()));
 }
 
 void
-fruitcut::server::controller::client_new_data(
-	fruitcut::server::listener &_listener,
+fruitcut::server::controller::client_receive_data(
+	fruitcut::server::listener::base &_listener,
 	int const _fd,
-	std::string const &_data)
+	server::byte_sequence const &_data)
 {
 	fd_to_data::iterator found = 
 		fd_to_data_.find(
@@ -74,54 +78,60 @@ fruitcut::server::controller::client_new_data(
 					_fd));
 	}
 
-	found->second += 
-		_data;
+	std::copy(
+		_data.begin(),
+		_data.end(),
+		std::back_inserter(
+			found->second));
 
-	std::string::size_type const newline_pos = 
-		found->second.find(
-			server::native_to_ascii_char(
+	ascii::string converted = 
+		ascii::from_byte_sequence(
+			found->second);
+
+	ascii::string::size_type const newline_pos = 
+		converted.find(
+			ascii::from_native_char(
 				'\n'));
 
-	if(newline_pos == std::string::npos)
+	if(newline_pos == ascii::string::npos)
 		return;
 		
-	if(static_cast<std::string::size_type>(_data.length()-1) > newline_pos)
+	if(static_cast<ascii::string::size_type>(converted.length()-1) > newline_pos)
 	{
 		server::logger(log_stream_) << 
 			"Got an invalid package from client " << _fd << "; there was data after the newline:\n\n\""+
-			(found->second)+
+			ascii::to_native(
+				converted)+
 			"\"";
 		return;
 	}
 
 	// erase the newline!
-	found->second.erase(
-		--found->second.end());
+	converted.erase(
+		--converted.end());
 
-	std::string output = 
-		fruitcut::server::process_command(
-			log_stream_,
-			fruitcut::server::parse_command(
-				found->second),
-			data_dir_);
+	ascii::string output = 
+		command_processor_.process(
+			server::parse_command(
+				converted));
 
 	// Add size
 	output = 
-		server::native_to_ascii(
+		ascii::from_native(
 			server::format_output_size(
 				output.size()))+
 		output;
 
-	server::logger(log_stream_) << "Sending: \"" << output << "\"...";
+	server::logger(log_stream_) << "Sending: \"" << ascii::to_native(output) << "\"...";
 
 	_listener.send(
 		_fd,
-		output);
+		ascii::to_byte_sequence(
+			output));
 }
 
 void
 fruitcut::server::controller::client_disconnect(
-	fruitcut::server::listener &,
 	int const _fd)
 {
 	fd_to_data_.erase(

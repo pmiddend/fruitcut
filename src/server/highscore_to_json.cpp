@@ -1,16 +1,16 @@
 #include "highscore_to_json.hpp"
-#include "native_to_ascii.hpp"
 #include "lexical_cast.hpp"
+#include "ascii/from_native.hpp"
 #include <string>
 
-std::string const
+fruitcut::server::ascii::string const
 fruitcut::server::highscore_to_json(
 	server::highscore_sequence const &scores)
 {
-	std::string result;
+	ascii::string result;
 
 	result += 
-		server::native_to_ascii("{ \"entries\" : [");
+		ascii::from_native("{ \"entries\" : [");
 
 	for(
 		server::highscore_sequence::const_iterator it = 
@@ -18,15 +18,15 @@ fruitcut::server::highscore_to_json(
 		it != scores.end();
 		++it)
 	{
-		result += server::native_to_ascii("{ \"name\" : \"")+(it->name())+server::native_to_ascii("\", ");
-		result += server::native_to_ascii("\"score\" : "+server::lexical_cast<std::string>(it->score()))+server::native_to_ascii(", ");
-		result += server::native_to_ascii("\"date-time\" : \"")+it->datetime()+server::native_to_ascii("\"");
-		result += server::native_to_ascii("}");
+		result += ascii::from_native("{ \"name\" : \"")+(it->name())+ascii::from_native("\", ");
+		result += ascii::from_native("\"score\" : "+server::lexical_cast<std::string>(it->score()))+ascii::from_native(", ");
+		result += ascii::from_native("\"date-time\" : \"")+it->datetime()+ascii::from_native("\"");
+		result += ascii::from_native("}");
 		if(it != --scores.end())
-			result += server::native_to_ascii(",");
+			result += ascii::from_native(",");
 	}
 
-	result += server::native_to_ascii(" ] }");
+	result += ascii::from_native(" ] }");
 
 	return 	
 		result;
