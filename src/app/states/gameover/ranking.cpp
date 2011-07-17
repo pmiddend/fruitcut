@@ -5,10 +5,15 @@
 #include "../../events/return_post_transition_functor.hpp"
 #include "../../../media_path.hpp"
 #include "../../highscore/providers_from_json.hpp"
+#include "../../highscore/name.hpp"
+#include "../../highscore/score.hpp"
 #include <sge/systems/instance.hpp>
 #include <sge/cegui/system.hpp>
+#include <sge/cegui/from_cegui_string.hpp>
+#include <sge/cegui/to_cegui_string.hpp>
 #include <CEGUIWindowManager.h>
 #include <fcppt/text.hpp>
+#include <fcppt/tr1/functional.hpp>
 
 fruitcut::app::states::gameover::ranking::ranking(
 	my_context ctx)
@@ -51,12 +56,26 @@ fruitcut::app::states::gameover::ranking::ranking(
 			std::tr1::bind(
 				&app::machine::quit,
 				&context<app::machine>()))),
-	providers_()/*,
+	providers_(),
+	post_model_(
+		providers_),
 	table_view_(
 		context<app::machine>().systems().charconv_system(),
 		*context<machine>().gui_system().window_manager().getWindow(
 			"Ranking/List"),
-		table_model_)*/
+		post_model_),
+	message_received_connection_(
+		post_model_.message_received(
+			std::tr1::bind(
+				&ranking::message_received,
+				this,
+				std::tr1::placeholders::_1))),
+	error_received_connection_(
+		post_model_.error_received(
+			std::tr1::bind(
+				&ranking::error_received,
+				this,
+				std::tr1::placeholders::_1)))
 {
 	context<app::machine>().root_node().insert_dont_care(
 		*this);
@@ -64,6 +83,14 @@ fruitcut::app::states::gameover::ranking::ranking(
 	app::highscore::providers_from_json(
 		context<app::machine>().config_file(),
 		providers_);
+
+	post_model_.post(
+		highscore::name(
+			sge::cegui::from_cegui_string(
+				context<superstate>().name(),
+				context<machine>().systems().charconv_system())),
+		highscore::score(
+			context<machine>().last_game_score()));
 }
 
 FRUITCUT_APP_EVENTS_DEFINE_TRANSITION_REACTION(
@@ -81,9 +108,40 @@ fruitcut::app::states::gameover::ranking::~ranking()
 void
 fruitcut::app::states::gameover::ranking::update()
 {
+	post_model_.update();
 }
 
 void
 fruitcut::app::states::gameover::ranking::render()
 {
+}
+
+void
+fruitcut::app::states::gameover::ranking::message_received(
+	fcppt::string const &s)
+{
+	CEGUI::Window &w = 
+		*context<app::machine>().gui_system().window_manager().getWindow(
+			"Ranking/MessageLog");
+
+	w.setText(
+		w.getText()+
+		sge::cegui::to_cegui_string(
+			s,
+			context<app::machine>().systems().charconv_system()));
+}
+
+void
+fruitcut::app::states::gameover::ranking::error_received(
+	fcppt::string const &s)
+{
+	CEGUI::Window &w = 
+		*context<app::machine>().gui_system().window_manager().getWindow(
+			"Ranking/MessageLog");
+
+	w.setText(
+		w.getText()+
+		sge::cegui::to_cegui_string(
+			s,
+			context<app::machine>().systems().charconv_system()));
 }

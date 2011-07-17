@@ -6,7 +6,7 @@
 #include "../../highscore/provider_sequence.hpp"
 #include "../../highscore/provider/object_base.hpp"
 #include "../../highscore/provider/connection_base_ptr.hpp"
-#include "../../highscore/gui_model.hpp"
+#include "../../highscore/get_model.hpp"
 #include "../../highscore/entry_set.hpp"
 #include "settings_fwd.hpp"
 #include "../../gui/button.hpp"
@@ -67,7 +67,7 @@ private:
 	fcppt::signal::shared_connection message_connection_;
 	fcppt::signal::shared_connection error_connection_;
 	fcppt::signal::shared_connection list_connection_;
-	app::highscore::gui_model table_model_;
+	app::highscore::get_model table_model_;
 	gui::table::view table_view_;
 
 	void

@@ -2,6 +2,7 @@
 #include "logger.hpp"
 #include "separator.hpp"
 #include "highscore_from_plain_file.hpp"
+#include "generate_datetime.hpp"
 #include "highscore_to_json.hpp"
 #include "highscore_to_plain_file.hpp"
 #include "lexical_cast.hpp"
@@ -177,10 +178,10 @@ fruitcut::server::ascii::string const
 fruitcut::server::command_processor::handle_put(
 	server::command const &c)
 {
-	if(c.size() != 5u)
+	if(c.size() != 4u)
 	{
 		server::logger(log_stream_) 
-			<< ": Error: the put command gets 4 parameters!";
+			<< ": Error: the put command gets 3 parameters!";
 		return
 			make_error_response(
 				ascii::from_native(
@@ -193,9 +194,7 @@ fruitcut::server::command_processor::handle_put(
 		score = 
 			c[2],
 		name = 
-			c[3],
-		datetime = 
-			c[4];
+			c[3];
 
 	if(
 		!validate_filename(
@@ -250,7 +249,8 @@ fruitcut::server::command_processor::handle_put(
 		server::lexical_cast<server::score>(
 			ascii::to_native(
 				score)),
-		datetime);
+		ascii::from_native(
+			server::generate_datetime()));
 
 	highscore.push_back(
 		new_entry);

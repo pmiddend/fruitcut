@@ -242,6 +242,7 @@ SET(
 	src/fruitlib/math/triangle/vertex_access.hpp
 	src/fruitlib/math/triangle/weak_compare.hpp
 	src/fruitlib/math/triangle_plane_intersection.hpp
+	src/fruitlib/math/unproject.hpp
 	src/fruitlib/math/view_plane_distance.cpp
 	src/fruitlib/math/view_plane_distance.hpp
 	src/fruitlib/math/view_plane_rect.cpp
@@ -575,8 +576,8 @@ SET(
 	src/app/highscore/entry.cpp
 	src/app/highscore/entry.hpp
 	src/app/highscore/entry_set.hpp
-	src/app/highscore/gui_model.cpp
-	src/app/highscore/gui_model.hpp
+	src/app/highscore/get_model.cpp
+	src/app/highscore/get_model.hpp
 	src/app/highscore/json_to_entry_set.cpp
 	src/app/highscore/json_to_entry_set.hpp
 	src/app/highscore/name.hpp
@@ -776,6 +777,8 @@ SET(
 	src/server/current_datetime.cpp
 	src/server/current_datetime.hpp
 	src/server/format_output_size.hpp
+	src/server/generate_datetime.cpp
+	src/server/generate_datetime.hpp
 	src/server/highscore_entry.cpp
 	src/server/highscore_entry.hpp
 	src/server/highscore_from_plain_file.cpp

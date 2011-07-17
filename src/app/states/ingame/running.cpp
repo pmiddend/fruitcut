@@ -15,6 +15,7 @@
 #include "../../events/post_transition.hpp"
 #include "../../../fruitlib/json/find_and_convert_member.hpp"
 #include "../../../fruitlib/math/multiply_matrix4_vector3.hpp"
+#include "../../../fruitlib/math/unproject.hpp"
 #include "../../../fruitlib/resource_tree/path.hpp"
 #include "../../../fruitlib/audio/sound_controller.hpp"
 #include <sge/font/pos.hpp>
@@ -276,7 +277,7 @@ fruitcut::app::states::ingame::running::process_fruit(
 				0)),
 		// unproject 'em
 		point1_unprojected = 
-			fcppt::math::matrix::unproject(
+			fruitlib::math::unproject(
 				point1,
 				inverse_mvp,
 				// The points are already "un-viewported", but they are in
@@ -286,7 +287,7 @@ fruitcut::app::states::ingame::running::process_fruit(
 					fcppt::math::dim::structure_cast<dim2>(
 						context<machine>().systems().renderer().onscreen_target().viewport().get().size()))),
 		point2_unprojected = 
-			fcppt::math::matrix::unproject(
+			fruitlib::math::unproject(
 				point2,
 				inverse_mvp,
 				// The points are already "un-viewported", but they are in
@@ -296,7 +297,7 @@ fruitcut::app::states::ingame::running::process_fruit(
 					fcppt::math::dim::structure_cast<dim2>(
 						context<machine>().systems().renderer().onscreen_target().viewport().get().size()))),
 		point3_unprojected = 
-			fcppt::math::matrix::unproject(
+			fruitlib::math::unproject(
 				sge::renderer::vector3(
 					point1.x(),
 					point1.y(),

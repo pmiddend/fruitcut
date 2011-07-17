@@ -10,10 +10,12 @@
 #include "../../gui/table/view.hpp"
 #include "../../../fruitlib/scenic/nodes/intrusive.hpp"
 #include "../../highscore/provider_sequence.hpp"
+#include "../../highscore/post_model.hpp"
 #include "../../gui/table/view.hpp"
 #include <sge/cegui/toolbox/scoped_layout.hpp>
 #include <sge/cegui/toolbox/scoped_gui_sheet.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
+#include <fcppt/string.hpp>
 #include <boost/statechart/state.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 
@@ -63,13 +65,24 @@ private:
 	fcppt::signal::scoped_connection highscore_button_connection_;
 	fcppt::signal::scoped_connection quit_button_connection_;
 	app::highscore::provider_sequence providers_;
-//	gui::table::view table_view_;
+	highscore::post_model post_model_;
+	gui::table::view table_view_;
+	fcppt::signal::scoped_connection message_received_connection_;
+	fcppt::signal::scoped_connection error_received_connection_;
 		
 	void
 	update();
 
 	void
 	render();
+
+	void
+	message_received(
+		fcppt::string const &);
+
+	void
+	error_received(
+		fcppt::string const &);
 };
 }
 }
