@@ -1,6 +1,12 @@
 #include "line_drawer.hpp"
 #include <sge/line_drawer/object.hpp>
-#include <sge/renderer/renderer.hpp>
+#include <sge/renderer/projection/orthogonal.hpp>
+#include <sge/renderer/onscreen_target.hpp>
+#include <sge/renderer/device.hpp>
+#include <sge/renderer/scoped_transform.hpp>
+#include <sge/renderer/matrix_mode.hpp>
+#include <sge/renderer/matrix4.hpp>
+#include <sge/renderer/scalar.hpp>
 #include <fcppt/math/matrix/matrix.hpp>
 #include <fcppt/math/box/box.hpp>
 
@@ -27,18 +33,12 @@ fruitcut::fruitlib::scenic::nodes::line_drawer::render()
 		sge::renderer::scoped_transform projection_scope(
 			*renderer_,
 			sge::renderer::matrix_mode::projection,
-			fcppt::math::matrix::orthogonal(
-				static_cast<sge::renderer::scalar>(
+			sge::renderer::projection::orthogonal(
+				fcppt::math::box::structure_cast<sge::renderer::projection::rect>(
+					renderer_->onscreen_target().viewport().get()),
+				sge::renderer::projection::near(
 					0),
-				static_cast<sge::renderer::scalar>(
-					renderer_->onscreen_target().viewport().get().w()),
-				static_cast<sge::renderer::scalar>(
-					0),
-				static_cast<sge::renderer::scalar>(
-					renderer_->onscreen_target().viewport().get().h()),
-				static_cast<sge::renderer::scalar>(
-					0),
-				static_cast<sge::renderer::scalar>(
+				sge::renderer::projection::far(
 					10)));
 
 		sge::renderer::scoped_transform world_scope(

@@ -40,7 +40,9 @@ fruitcut::app::fruit::shadow_render_node::shadow_render_node(
 				sge::shader::variable(
 					"mvp",
 					sge::shader::variable_type::uniform,
-					sge::renderer::matrix4())),
+					sge::shader::matrix(
+						sge::renderer::matrix4(),
+						sge::shader::matrix_flags::projection))),
 			sge::shader::sampler_sequence())),
 	mvp_(
 		_mvp)
@@ -71,7 +73,9 @@ fruitcut::app::fruit::shadow_render_node::render()
 
 		shader_.update_uniform(
 			"mvp",
-			mvp_ * i->world_transform());
+			sge::shader::matrix(
+				mvp_ * i->world_transform(),
+				sge::shader::matrix_flags::projection));
 
 		renderer_.render_nonindexed(
 			sge::renderer::first_vertex(

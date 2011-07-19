@@ -20,21 +20,25 @@ fruitcut::fruitlib::json::parse_projection(
 
 	return 
 		sge::camera::projection::perspective(
-			aspect
-			?
-				*aspect
-			:
+			sge::renderer::projection::aspect(
+				aspect
+				?
+					*aspect
+				:
+					json::find_and_convert_member<sge::renderer::scalar>(
+						o,
+						json::path(FCPPT_TEXT("aspect")))),
+			sge::renderer::projection::fov(
+				fcppt::math::deg_to_rad(
+					json::find_and_convert_member<sge::renderer::scalar>(
+						o,
+						json::path(FCPPT_TEXT("fov"))))),
+			sge::renderer::projection::near(
 				json::find_and_convert_member<sge::renderer::scalar>(
 					o,
-					json::path(FCPPT_TEXT("aspect"))),
-			fcppt::math::deg_to_rad(
+					json::path(FCPPT_TEXT("near")))),
+			sge::renderer::projection::far(
 				json::find_and_convert_member<sge::renderer::scalar>(
 					o,
-					json::path(FCPPT_TEXT("fov")))),
-			json::find_and_convert_member<sge::renderer::scalar>(
-				o,
-				json::path(FCPPT_TEXT("near"))),
-			json::find_and_convert_member<sge::renderer::scalar>(
-				o,
-				json::path(FCPPT_TEXT("far"))));
+					json::path(FCPPT_TEXT("far")))));
 }

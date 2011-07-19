@@ -2,7 +2,7 @@
 #define FRUITCUT_APP_STATES_GAMEOVER_CHOOSE_NAME_HPP_INCLUDED
 
 #include "superstate.hpp"
-#include "highscore_fwd.hpp"
+#include "ranking_fwd.hpp"
 #include "../../events/declare_transition_type.hpp"
 #include "../../events/declare_transition_reaction.hpp"
 #include "../../gui/button.hpp"
@@ -30,7 +30,7 @@ public:
 	boost::mpl::vector1
 	<
 		FRUITCUT_APP_EVENTS_DECLARE_TRANSITION_TYPE(
-			gameover::highscore)
+			gameover::ranking)
 	>
 	reactions;
 
@@ -39,7 +39,7 @@ public:
 		my_context);
 
 	FRUITCUT_APP_EVENTS_DECLARE_TRANSITION_REACTION(
-		gameover::highscore);
+		gameover::ranking);
 
 	~choose_name();
 private:

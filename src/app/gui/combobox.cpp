@@ -12,7 +12,6 @@ fruitcut::app::gui::combobox::combobox(
 	impl_(
 		dynamic_cast<CEGUI::Combobox &>(
 			_impl)),
-	values_(),
 	callbacks_(),
 	selection_changed_connection_(
 		impl_.subscribeEvent(
@@ -31,23 +30,10 @@ fruitcut::app::gui::combobox::add(
 	std::string const &text,
 	choose_callback const &callback)
 {
-	fcppt::container::ptr::push_back_unique_ptr(
-		values_,
-		fcppt::make_unique_ptr<CEGUI::ListboxTextItem>(
-			CEGUI::String(
-				text),
-			// index
-			0u,
-			// user data
-			static_cast<void*>(
-				0), 
-			// disabled
-			false, 
-			// auto delete (this is the important part)
-			false));
-
 	impl_.addItem(
-		&(*(--values_.end())));
+		new CEGUI::ListboxTextItem(
+			CEGUI::String(
+				text)));
 
 	callbacks_.push_back(
 		callback);

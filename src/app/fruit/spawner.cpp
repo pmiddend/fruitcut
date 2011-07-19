@@ -157,7 +157,7 @@ fruitcut::app::fruit::spawner::update()
 	fruitlib::physics::vector3 const position(
 		zero_plane.left() + x * zero_plane.size().w(),
 		zero_plane.pos().y() - bounding_box_radius,
-		bounding_box_radius);
+		-bounding_box_radius);
 
 	fruitlib::physics::scalar const magnitude = 
 		linear_velocity_rng_();

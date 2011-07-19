@@ -153,11 +153,15 @@ fruitcut::app::background::background(
 				(sge::shader::variable(
 					"mvp",
 					sge::shader::variable_type::uniform,
-					sge::renderer::matrix4()))
+					sge::shader::matrix(
+						sge::renderer::matrix4(),
+						sge::shader::matrix_flags::projection)))
 				(sge::shader::variable(
 					"shadow_mvp",
 					sge::shader::variable_type::uniform,
-					_mvp)),
+					sge::shader::matrix(
+						_mvp,
+						sge::shader::matrix_flags::projection))),
 			fcppt::assign::make_container<sge::shader::sampler_sequence>
 				(sge::shader::sampler(
 					"tex",
@@ -275,7 +279,9 @@ fruitcut::app::background::render()
 
 	shader_.update_uniform(
 		"mvp",
-		camera_.mvp());
+		sge::shader::matrix(
+			camera_.mvp(),
+			sge::shader::matrix_flags::projection));
 
 	sge::renderer::state::scoped scoped_state(
 		renderer_,

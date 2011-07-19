@@ -19,10 +19,10 @@ fruitcut::fruitlib::math::view_plane_rect(
 			static_cast<sge::renderer::scalar>(
 				2 * 
 				std::tan(
-					perspective.fov()/2) * distance_to_origin),
+					perspective.fov().get()/2) * distance_to_origin),
 		width = 
 			static_cast<sge::renderer::scalar>(
-				height * perspective.aspect());
+				height * perspective.aspect().get());
 
 	return 
 		box_type(

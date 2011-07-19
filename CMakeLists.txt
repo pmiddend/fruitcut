@@ -669,9 +669,6 @@ SET(
 	src/app/states/gameover/choose_name.cpp
 	src/app/states/gameover/choose_name.hpp
 	src/app/states/gameover/choose_name_fwd.hpp
-	src/app/states/gameover/highscore.cpp
-	src/app/states/gameover/highscore.hpp
-	src/app/states/gameover/highscore_fwd.hpp
 	src/app/states/gameover/ranking.cpp
 	src/app/states/gameover/ranking.hpp
 	src/app/states/gameover/superstate.cpp

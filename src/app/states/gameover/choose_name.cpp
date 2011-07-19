@@ -1,5 +1,5 @@
 #include "choose_name.hpp"
-#include "highscore.hpp"
+#include "ranking.hpp"
 #include "../../events/define_transition_reaction.hpp"
 #include "../../events/post_transition.hpp"
 #include "../../../media_path.hpp"
@@ -47,7 +47,7 @@ fruitcut::app::states::gameover::choose_name::choose_name(
 }
 
 FRUITCUT_APP_EVENTS_DEFINE_TRANSITION_REACTION(
-	gameover::highscore,
+	gameover::ranking,
 	gameover::choose_name)
 
 fruitcut::app::states::gameover::choose_name::~choose_name()
@@ -71,6 +71,6 @@ fruitcut::app::states::gameover::choose_name::continue_button_pushed()
 		context<superstate>().name(
 			name);
 		FRUITCUT_APP_EVENTS_POST_TRANSITION(
-			gameover::highscore);
+			gameover::ranking);
 	}
 }

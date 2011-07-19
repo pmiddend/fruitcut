@@ -45,5 +45,5 @@ fruitcut::fruitlib::math::view_plane_distance(
 				plane_vec4[3]));
 
 	return 
-		near_plane.lambda() + p.near();
+		near_plane.lambda() + p.near().get();
 }

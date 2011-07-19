@@ -47,26 +47,34 @@ fruitcut::app::fruit::default_render_node::default_render_node(
 				(sge::shader::variable(
 					"mvp",
 					sge::shader::variable_type::uniform,
-					sge::renderer::matrix4()))
+					sge::shader::matrix(
+						sge::renderer::matrix4(),
+						sge::shader::matrix_flags::projection)))
 				(sge::shader::variable(
 					"mv",
 					sge::shader::variable_type::uniform,
-					sge::renderer::matrix4()))
+					sge::shader::matrix(
+						sge::renderer::matrix4(),
+						sge::shader::matrix_flags::none)))
 				(sge::shader::variable(
 					"normal_matrix",
 					sge::shader::variable_type::uniform,
-					sge::renderer::matrix4()))
+					sge::shader::matrix(
+						sge::renderer::matrix4(),
+						sge::shader::matrix_flags::none)))
 				(sge::shader::variable(
 					"world",
 					sge::shader::variable_type::uniform,
-					sge::renderer::matrix4()))
+					sge::shader::matrix(
+						sge::renderer::matrix4(),
+						sge::shader::matrix_flags::none)))
 				(sge::shader::variable(
 					"light_position",
-					sge::shader::variable_type::const_,
+					sge::shader::variable_type::constant,
 					light.position()))
 				(sge::shader::variable(
 					"ambient_intensity",
-					sge::shader::variable_type::const_,
+					sge::shader::variable_type::constant,
 					_ambient_intensity))
 				(sge::shader::variable(
 					"diffuse_color",
@@ -113,7 +121,9 @@ fruitcut::app::fruit::default_render_node::render()
 
 	shader_.update_uniform(
 		"world",
-		camera_.world());
+		sge::shader::matrix(
+			camera_.world(),
+			sge::shader::matrix_flags::none));
 
 	for(object_sequence::const_iterator i = manager_.fruits().begin(); i != manager_.fruits().end(); ++i)
 	{
@@ -129,17 +139,23 @@ fruitcut::app::fruit::default_render_node::render()
 
 		shader_.update_uniform(
 			"mvp",
-			camera_.mvp() * i->world_transform());
+			sge::shader::matrix(
+				camera_.mvp() * i->world_transform(),
+				sge::shader::matrix_flags::projection));
 
 		shader_.update_uniform(
 			"mv",
-			camera_.world() * i->world_transform());
+			sge::shader::matrix(
+				camera_.world() * i->world_transform(),
+				sge::shader::matrix_flags::projection));
 
 		shader_.update_uniform(
 			"normal_matrix",
-			fcppt::math::matrix::transpose(
-				fcppt::math::matrix::inverse(
-					camera_.world() * i->world_transform())));
+			sge::shader::matrix(
+				fcppt::math::matrix::transpose(
+					fcppt::math::matrix::inverse(
+						camera_.world() * i->world_transform())),
+				sge::shader::matrix_flags::projection));
 
 		// Material shit
 		shader_.update_uniform(

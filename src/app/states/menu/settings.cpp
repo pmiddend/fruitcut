@@ -66,7 +66,7 @@ fruitcut::app::states::menu::settings::settings(
 		"SettingsMenu/ParticleDensity",
 		context<machine>().config_variables().splatter_count_to_area_factor().value()),
 	splatter_connection_(
-		music_volume_slider_.value_changed(
+		splatter_slider_.value_changed(
 			std::tr1::bind(
 				&settings::particle_callback,
 				this,

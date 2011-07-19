@@ -42,7 +42,7 @@ fruitcut::fruitlib::pp::filter::highlight::highlight(
 					sge::renderer::vector2()))
 				(sge::shader::variable(
 					"threshold",
-					sge::shader::variable_type::const_,
+					sge::shader::variable_type::constant,
 					_threshold)),
 			fcppt::assign::make_container<sge::shader::sampler_sequence>(
 				sge::shader::sampler(

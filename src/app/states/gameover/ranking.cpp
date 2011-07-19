@@ -38,7 +38,7 @@ fruitcut::app::states::gameover::ranking::ranking(
 	highscore_button_(
 		context<machine>().sound_controller(),
 		*context<machine>().gui_system().window_manager().getWindow(
-			"Ranking/Highscore")),
+			"Ranking/Highscores")),
 	quit_button_(
 		context<machine>().sound_controller(),
 		*context<machine>().gui_system().window_manager().getWindow(

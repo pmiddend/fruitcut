@@ -138,7 +138,7 @@ fruitcut::app::states::ingame::superstate::superstate(
 			fruitlib::physics::rigid_body::angular_velocity(
 				fruitlib::physics::vector3::null()),
 			fcppt::make_shared_ptr<btStaticPlaneShape>(
-				btVector3(0,0,1),
+				btVector3(0,0,-1),
 				0),
 			fruitlib::physics::rigid_body::solidity::solid,
 			fruitlib::physics::rigid_body::optional_mass(),
