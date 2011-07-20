@@ -1,5 +1,6 @@
 #include "connection.hpp"
 #include "../../json_to_entry_set.hpp"
+#include "../../../../fruitlib/utf8_file_to_fcppt_string.hpp"
 #include <sge/parse/json/json.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
@@ -25,7 +26,12 @@ fruitcut::app::highscore::provider::file::connection::post_rank(
 	highscore::score const &_score)
 {
 	sge::parse::json::object result;
-	if(!sge::parse::json::parse_file(path_,result))
+	fcppt::string const converted_file = 
+		fruitlib::utf8_file_to_fcppt_string(
+			path_);
+	fcppt::string::const_iterator current_position = 
+		converted_file.begin();
+	if(!sge::parse::json::parse_range(current_position,converted_file.end(),result))
 	{
 		error_received_(
 			FCPPT_TEXT("Couldn't parse file \"")+

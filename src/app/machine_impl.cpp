@@ -3,7 +3,9 @@
 #include "../fruitlib/json/parse_projection.hpp"
 #include "../fruitlib/json/find_and_convert_member.hpp"
 #include "../fruitlib/json/merge_trees.hpp"
+#include "../fruitlib/json/parse_string_exn.hpp"
 #include "../fruitlib/json/merge_command_line_parameters.hpp"
+#include "../fruitlib/utf8_file_to_fcppt_string.hpp"
 #include "../fruitlib/create_command_line_parameters.hpp"
 #include "../fruitlib/log/scoped_sequence_from_json.hpp"
 #include "../fruitlib/rng_creator.hpp"
@@ -72,8 +74,9 @@ fruitcut::app::machine_impl::machine_impl(
 	config_file_(
 		fruitlib::json::merge_command_line_parameters(
 			fruitlib::json::merge_trees(
-				sge::parse::json::parse_file_exn(
-					fruitcut::media_path()/FCPPT_TEXT("config.json")),
+				fruitlib::json::parse_string_exn(
+					fruitlib::utf8_file_to_fcppt_string(
+						fruitcut::media_path()/FCPPT_TEXT("config.json"))),
 				user_config_file_),
 			fruitlib::create_command_line_parameters(
 				argc,

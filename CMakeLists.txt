@@ -201,6 +201,8 @@ SET(
 	src/fruitlib/json/parse_random_inclusive_range.hpp
 	src/fruitlib/json/parse_rgba8_color.cpp
 	src/fruitlib/json/parse_rgba8_color.hpp
+	src/fruitlib/json/parse_string_exn.cpp
+	src/fruitlib/json/parse_string_exn.hpp
 	src/fruitlib/json/path.cpp
 	src/fruitlib/json/path.hpp
 	src/fruitlib/json/path_fwd.hpp
@@ -436,6 +438,8 @@ SET(
 	src/fruitlib/time_format/tags/minutes.hpp
 	src/fruitlib/time_format/tags/seconds.hpp
 	src/fruitlib/uniform_random.hpp
+	src/fruitlib/utf8_file_to_fcppt_string.cpp
+	src/fruitlib/utf8_file_to_fcppt_string.hpp
 )
 
 FCPPT_UTILS_ADD_SOURCE_GROUPS("${FRUITLIB_FILES}")
@@ -671,6 +675,7 @@ SET(
 	src/app/states/gameover/choose_name_fwd.hpp
 	src/app/states/gameover/ranking.cpp
 	src/app/states/gameover/ranking.hpp
+	src/app/states/gameover/ranking_fwd.hpp
 	src/app/states/gameover/superstate.cpp
 	src/app/states/gameover/superstate.hpp
 	src/app/states/gameover/superstate_fwd.hpp

@@ -4,7 +4,7 @@
     <Window Type="Fruitcut/FrameWindow" Name="NameChooser" >
         <Property Name="CaptionFont" Value="normal" />
         <Property Name="TitlebarEnabled" Value="True" />
-        <Property Name="UnifiedAreaRect" Value="{{0.288086,0},{0.195312,0},{0.776367,0},{0.826823,0}}" />
+        <Property Name="UnifiedAreaRect" Value="{{0.273438,0},{0.182291,0},{0.820312,-80},{0.820313,0}}" />
         <AutoWindow NameSuffix="__auto_titlebar__" >
             <Property Name="Font" Value="normal" />
         </AutoWindow>
@@ -69,8 +69,9 @@
         <Window Type="Fruitcut/Editbox" Name="NameChooser/Name" >
             <Property Name="Font" Value="normal" />
             <Property Name="MaxTextLength" Value="4294967295" />
-            <Property Name="UnifiedAreaRect" Value="{{0.376289,-1},{0.614622,0},{0.953608,-1},{0.718156,0}}" />
+            <Property Name="UnifiedAreaRect" Value="{{0.376289,-1},{0.534095,0},{0.953608,-1},{0.637629,0}}" />
             <Property Name="TextParsingEnabled" Value="False" />
+            <Property Name="ValidationString" Value="[^&quot; ]+" />
         </Window>
         <Window Type="Fruitcut/Button" Name="NameChooser/Continue" >
             <Property Name="Font" Value="normal" />
@@ -80,7 +81,31 @@
         <Window Type="Fruitcut/StaticText" Name="NameChooser/StaticText" >
             <Property Name="Font" Value="normal" />
             <Property Name="Text" Value="Name:" />
-            <Property Name="UnifiedAreaRect" Value="{{0.0670103,0},{0.614622,0},{0.345361,0},{0.718156,0}}" />
+            <Property Name="UnifiedAreaRect" Value="{{0.0670103,0},{0.534095,0},{0.345361,0},{0.637629,0}}" />
+            <AutoWindow NameSuffix="__auto_hscrollbar__" >
+                <AutoWindow NameSuffix="__auto_incbtn__" >
+                    <Property Name="Visible" Value="False" />
+                </AutoWindow>
+                <AutoWindow NameSuffix="__auto_decbtn__" >
+                    <Property Name="Visible" Value="False" />
+                </AutoWindow>
+                <AutoWindow NameSuffix="__auto_thumb__" />
+            </AutoWindow>
+            <AutoWindow NameSuffix="__auto_vscrollbar__" >
+                <AutoWindow NameSuffix="__auto_incbtn__" >
+                    <Property Name="Visible" Value="False" />
+                </AutoWindow>
+                <AutoWindow NameSuffix="__auto_decbtn__" >
+                    <Property Name="Visible" Value="False" />
+                </AutoWindow>
+                <AutoWindow NameSuffix="__auto_thumb__" />
+            </AutoWindow>
+        </Window>
+        <Window Type="Fruitcut/StaticText" Name="NameChooser/StaticText2" >
+            <Property Name="Font" Value="small" />
+            <Property Name="Text" Value="Note that spaces and the &quot; character are not allowed in the name" />
+            <Property Name="FrameEnabled" Value="False" />
+            <Property Name="UnifiedAreaRect" Value="{{0.37497,1},{0.649133,2},{0.946967,2},{0.717895,4}}" />
             <AutoWindow NameSuffix="__auto_hscrollbar__" >
                 <AutoWindow NameSuffix="__auto_incbtn__" >
                     <Property Name="Visible" Value="False" />
