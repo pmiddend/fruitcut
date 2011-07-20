@@ -11,7 +11,6 @@
 #include <sge/audio/player.hpp>
 #include <sge/audio/sound/positional.hpp>
 #include <sge/audio/sound/repeat.hpp>
-#include <sge/audio/pool/stop_mode.hpp>
 #include <fcppt/filesystem/directory_iterator.hpp>
 #include <fcppt/filesystem/path.hpp>
 #include <fcppt/random/make_last_exclusive_range.hpp>
@@ -194,7 +193,6 @@ fruitcut::fruitlib::audio::sound_controller::do_play(
 	b->play(
 		sge::audio::sound::repeat::once);
 
-	pool_.add(
-		b,
-		sge::audio::pool::stop_mode::play_once);
+	pool_.insert(
+		b);
 }

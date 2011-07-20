@@ -6,6 +6,7 @@
 #include "../uniform_random.hpp"
 #include "../rng_creator_fwd.hpp"
 #include "group/player.hpp"
+#include "pool.hpp"
 #include <sge/audio/multi_loader_fwd.hpp>
 #include <sge/audio/player_fwd.hpp>
 #include <sge/audio/pool/object.hpp>
@@ -107,7 +108,7 @@ private:
 
 	group::player player_;
 	resource_tree_ptr sounds_;
-	sge::audio::pool::object pool_;
+	audio::pool pool_;
 
 	void
 	do_play(

@@ -122,6 +122,8 @@ SET(
 	src/fruitlib/audio/music_controller.cpp
 	src/fruitlib/audio/music_controller.hpp
 	src/fruitlib/audio/music_controller_fwd.hpp
+	src/fruitlib/audio/pool.cpp
+	src/fruitlib/audio/pool.hpp
 	src/fruitlib/audio/sound_controller.cpp
 	src/fruitlib/audio/sound_controller.hpp
 	src/fruitlib/audio/sound_controller_fwd.hpp

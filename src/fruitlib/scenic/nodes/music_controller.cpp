@@ -1,5 +1,6 @@
 #include "music_controller.hpp"
 #include "../../audio/music_controller.hpp"
+#include <iostream>
 
 fruitcut::fruitlib::scenic::nodes::music_controller::music_controller(
 	audio::music_controller &_music_controller)
