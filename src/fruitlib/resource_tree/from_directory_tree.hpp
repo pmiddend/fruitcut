@@ -9,7 +9,6 @@
 #include <fcppt/filesystem/stem.hpp>
 #include <fcppt/function/object.hpp>
 #include <fcppt/string.hpp>
-#include <fcppt/assert.hpp>
 #include <fcppt/unique_ptr.hpp>
 #include <fcppt/move.hpp>
 #include <fcppt/make_unique_ptr.hpp>
@@ -42,10 +41,6 @@ from_directory_tree(
 	typedef typename
 	tree_type::value_type
 	node_type;
-
-	FCPPT_ASSERT(
-		fcppt::filesystem::exists(
-			root));
 
 	if(!fcppt::filesystem::is_directory(root))
 	{

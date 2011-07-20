@@ -33,6 +33,8 @@ class ranking
 	public boost::statechart::state<ranking,superstate>,
 	public fruitlib::scenic::nodes::intrusive
 {
+FCPPT_NONCOPYABLE(
+	ranking);
 public:
 	typedef
 	boost::mpl::vector2

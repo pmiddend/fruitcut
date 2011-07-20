@@ -21,6 +21,7 @@
 #include <sge/renderer/device_ptr.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/scoped_ptr.hpp>
+#include <fcppt/noncopyable.hpp>
 #include <boost/statechart/state.hpp>
 
 namespace fruitcut
@@ -37,6 +38,8 @@ class superstate
 	// doesn't have to be
 	public boost::statechart::state<superstate,machine,running>
 {
+FCPPT_NONCOPYABLE(
+	superstate);
 public:
 	explicit
 	superstate(

@@ -21,6 +21,7 @@
 #include <sge/cegui/default_cursor.hpp>
 #include <sge/cegui/toolbox/scoped_gui_sheet.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
+#include <fcppt/noncopyable.hpp>
 #include <boost/statechart/state.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 
@@ -38,6 +39,8 @@ class paused
 	public boost::statechart::state<paused,superstate>,
 	public fruitlib::scenic::nodes::intrusive
 {
+FCPPT_NONCOPYABLE(
+	paused);
 public:
 	typedef
 	boost::mpl::vector2

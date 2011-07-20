@@ -7,6 +7,7 @@
 #include <sge/cegui/default_cursor.hpp>
 #include <sge/cegui/default_keyboard.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
+#include <fcppt/noncopyable.hpp>
 #include <boost/statechart/state.hpp>
 
 namespace fruitcut
@@ -22,6 +23,8 @@ class superstate
 	// The second argument has to be a complete type
 	public boost::statechart::state<superstate,machine,main>
 {
+FCPPT_NONCOPYABLE(
+	superstate);
 public:
 	explicit
 	superstate(

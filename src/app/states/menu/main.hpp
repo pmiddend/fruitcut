@@ -12,6 +12,7 @@
 #include <sge/cegui/toolbox/scoped_layout.hpp>
 #include <sge/cegui/toolbox/scoped_gui_sheet.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
+#include <fcppt/noncopyable.hpp>
 #include <boost/statechart/state.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 
@@ -28,6 +29,8 @@ class main
 	// The second argument has to be a complete type
 	public boost::statechart::state<main,menu::superstate>
 {
+FCPPT_NONCOPYABLE(
+	main);
 public:
 	typedef
 	boost::mpl::vector3

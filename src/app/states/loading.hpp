@@ -11,6 +11,7 @@
 #include <boost/mpl/vector/vector10.hpp>
 #include <boost/statechart/state.hpp>
 #include <boost/statechart/custom_reaction.hpp>
+#include <fcppt/noncopyable.hpp>
 
 namespace fruitcut
 {
@@ -24,6 +25,8 @@ class loading
 	public boost::statechart::state<loading,machine>,
 	public fruitlib::scenic::nodes::intrusive
 {
+FCPPT_NONCOPYABLE(
+	loading);
 public:
 	typedef
 	boost::mpl::vector1

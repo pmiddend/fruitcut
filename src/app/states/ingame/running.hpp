@@ -15,6 +15,7 @@
 #include <sge/renderer/state/scoped.hpp>
 #include <sge/line_drawer/line_sequence.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
+#include <fcppt/noncopyable.hpp>
 #include <boost/statechart/state.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 
@@ -31,6 +32,8 @@ class running
 	// The second argument has to be a complete type
 	public boost::statechart::state<running,superstate>
 {
+FCPPT_NONCOPYABLE(
+	running);
 public:
 	typedef
 	boost::mpl::vector2
