@@ -17,6 +17,10 @@
         <Window Type="Fruitcut/MultiColumnList" Name="Ranking/List" >
             <Property Name="Font" Value="normal" />
             <Property Name="UnifiedAreaRect" Value="{{0.0801527,-1},{0.167502,-1},{0.919847,-1},{0.600433,1}}" />
+            <Property Name="SortSettingEnabled" Value="False" />
+            <AutoWindow NameSuffix="__auto_listheader__" >
+                <Property Name="SortSettingEnabled" Value="False" />
+            </AutoWindow>
             <AutoWindow NameSuffix="__auto_hscrollbar__" >
                 <AutoWindow NameSuffix="__auto_incbtn__" >
                     <Property Name="Visible" Value="False" />

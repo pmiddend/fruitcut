@@ -86,6 +86,10 @@
         <Window Type="Fruitcut/MultiColumnList" Name="Highscores/List" >
             <Property Name="Font" Value="normal" />
             <Property Name="UnifiedAreaRect" Value="{{0.0135135,-5},{0.0692906,0},{0.981081,0},{0.639113,0}}" />
+            <Property Name="SortSettingEnabled" Value="False" />
+            <AutoWindow NameSuffix="__auto_listheader__" >
+                <Property Name="SortSettingEnabled" Value="False" />
+            </AutoWindow>
             <AutoWindow NameSuffix="__auto_hscrollbar__" >
                 <AutoWindow NameSuffix="__auto_incbtn__" >
                     <Property Name="Visible" Value="False" />
