@@ -51,15 +51,22 @@ fruitcut::app::highscore::providers_from_json(
 		fcppt::string::const_iterator current_position = 
 			uri.begin();
 
+		typedef
+		qi::as<fcppt::string>
+		as_fcppt_string_type;
+
+		as_fcppt_string_type const as_fcppt_string = 
+			as_fcppt_string_type();
+
 		bool const parse_result = 
 			qi::parse(
 				current_position,
 				uri.end(),
-				(qi::as_string[+~qi::standard_wide::char_(FCPPT_TEXT(':'))])[boost::phoenix::ref(protocol) = qi::_1] >> 
-				qi::lit("://") >> 
+				(as_fcppt_string[+~qi::standard_wide::char_(FCPPT_TEXT(':'))])[boost::phoenix::ref(protocol) = qi::_1] >> 
+				qi::lit(FCPPT_TEXT("://")) >> 
 				(
-					((qi::as_string[+~qi::char_(FCPPT_TEXT(':'))])[boost::phoenix::ref(address) = qi::_1] >> qi::lit(FCPPT_TEXT(':')) >> qi::uint_[boost::phoenix::ref(port) = qi::_1]) | 
-					(qi::as_string[+qi::standard_wide::char_])[boost::phoenix::ref(address) = qi::_1]));
+					((as_fcppt_string[+~qi::standard_wide::char_(FCPPT_TEXT(':'))])[boost::phoenix::ref(address) = qi::_1] >> qi::lit(FCPPT_TEXT(':')) >> qi::uint_[boost::phoenix::ref(port) = qi::_1]) | 
+					(as_fcppt_string[+qi::standard_wide::char_])[boost::phoenix::ref(address) = qi::_1]));
 
 		if(!parse_result || current_position != uri.end())
 			throw 
