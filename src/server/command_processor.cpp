@@ -192,9 +192,9 @@ fruitcut::server::command_processor::handle_put(
 		revision = 
 			c[1],
 		score = 
-			c[2],
+			c[3],
 		name = 
-			c[3];
+			c[2];
 
 	if(
 		!validate_filename(

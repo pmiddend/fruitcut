@@ -133,6 +133,7 @@
                 <AutoWindow NameSuffix="__auto_thumb__" />
             </AutoWindow>
             <Window Type="Fruitcut/MultiLineEditbox" Name="Highscores/MessageLog" >
+                <Property Name="Font" Value="small" />
                 <Property Name="Text" >
 </Property>
                 <Property Name="ReadOnly" Value="True" />

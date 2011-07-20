@@ -48,7 +48,7 @@ fruitcut::app::states::gameover::ranking::ranking(
 			FRUITCUT_APP_EVENTS_RETURN_POST_TRANSITION_FUNCTOR(
 				menu::main))),
 	highscore_button_connection_(
-		main_menu_button_.push_callback(
+		highscore_button_.push_callback(
 			FRUITCUT_APP_EVENTS_RETURN_POST_TRANSITION_FUNCTOR(
 				menu::highscore))),
 	quit_button_connection_(

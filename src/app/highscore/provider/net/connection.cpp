@@ -403,6 +403,7 @@ fruitcut::app::highscore::provider::net::connection::handle_read_content(
 		error_received_(
 			FCPPT_TEXT("The server signaled an error: ")+
 			(*json_error));
+		return;
 	}
 
 	continue_here(
