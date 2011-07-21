@@ -10,6 +10,27 @@
 #include <fcppt/math/matrix/matrix.hpp>
 #include <fcppt/math/box/box.hpp>
 
+namespace
+{
+sge::renderer::projection::rect const
+projection_rect_from_viewport(
+	sge::renderer::pixel_rect const &viewport)
+{
+	return 
+		sge::renderer::projection::rect(
+			sge::renderer::projection::rect::vector(
+				static_cast<sge::renderer::scalar>(
+					viewport.left()),
+				static_cast<sge::renderer::scalar>(
+					viewport.bottom())),
+			sge::renderer::projection::rect::dim(
+				static_cast<sge::renderer::scalar>(
+					viewport.size().w()),
+				static_cast<sge::renderer::scalar>(
+					-viewport.size().h())));
+}
+}
+
 fruitcut::fruitlib::scenic::nodes::line_drawer::line_drawer(
 	sge::line_drawer::object &_object,
 	sge::renderer::device *_renderer)
@@ -34,7 +55,7 @@ fruitcut::fruitlib::scenic::nodes::line_drawer::render()
 			*renderer_,
 			sge::renderer::matrix_mode::projection,
 			sge::renderer::projection::orthogonal(
-				fcppt::math::box::structure_cast<sge::renderer::projection::rect>(
+				::projection_rect_from_viewport(
 					renderer_->onscreen_target().viewport().get()),
 				sge::renderer::projection::near(
 					0),
