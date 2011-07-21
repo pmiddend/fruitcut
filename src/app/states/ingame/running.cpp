@@ -5,6 +5,7 @@
 #include "../../postprocessing.hpp"
 #include "../gameover/choose_name.hpp"
 #include "../../dim2.hpp"
+#include "../../scene.hpp"
 #include "../../fruit/plane.hpp"
 #include "../../fruit/triangle_traits.hpp"
 #include "../../fruit/hull/trail_intersection.hpp"
@@ -107,8 +108,17 @@ fruitcut::app::states::ingame::running::running(
 			sge::input::keyboard::action(
 				sge::input::keyboard::key_code::escape, 
 				FRUITCUT_APP_EVENTS_RETURN_POST_TRANSITION_FUNCTOR(
-					ingame::paused))))
+					ingame::paused)))),
+	sword_trail_(
+		context<app::machine>().systems().renderer(),
+		context<app::machine>().systems().renderer().onscreen_target(),
+		context<app::machine>().systems().image_loader(),
+		context<app::machine>().systems().cursor_demuxer(),
+		context<app::machine>().timer_callback(),
+		context<app::machine>().config_file())
 {
+	context<machine>().scene_node().push_back(
+		sword_trail_);
 	context<machine>().overlay_node().insert_dont_care(
 		update_node_);
 	context<machine>().overlay_node().insert_dont_care(
@@ -212,6 +222,7 @@ void
 fruitcut::app::states::ingame::running::draw_mouse_trail(
 	sge::line_drawer::line_sequence &lines)
 {
+	std::wcerr << "drawing mouse trail\n";
 	if (cursor_trail_.positions().empty())
 		return;
 

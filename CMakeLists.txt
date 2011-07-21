@@ -705,6 +705,8 @@ SET(
 	src/app/states/menu/superstate.cpp
 	src/app/states/menu/superstate.hpp
 	src/app/states/menu/superstate_fwd.hpp
+	src/app/sword_trail.cpp
+	src/app/sword_trail.hpp
 )
 
 FCPPT_UTILS_ADD_SOURCE_GROUPS("${APP_FILES}")

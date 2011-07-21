@@ -137,7 +137,7 @@
 		"area-score-factor" : 100.0,
 		"score-font-color" : [1.0,0.9,0.7,1.0],
 		"timer-font-color" : [0.7,0.7,0.9,1.0],
-		"draw-mouse-trail" : true,
+		"draw-mouse-trail" : false,
 		"draw-bbs" : false
 	},
 	"fruits" : 
@@ -255,5 +255,12 @@
 		"speed-distortion-range" : [-3.0,3.0],
 		"size-range" : [15.0,100.0],
 		"lifetime-millis-range" : [100,1500]
+	},
+	"sword-mouse-trail" : 
+	{
+		"position-storage-size" : 8,
+		"update-interval" : "50ms",
+		"element-lifetime" : "500ms",
+		"sword-width" : 10.0
 	}
 }

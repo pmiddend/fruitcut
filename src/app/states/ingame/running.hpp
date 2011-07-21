@@ -3,6 +3,7 @@
 
 #include "superstate.hpp"
 #include "paused_fwd.hpp"
+#include "../../sword_trail.hpp"
 #include "../gameover/superstate_fwd.hpp"
 #include "../../fruit/object_fwd.hpp"
 #include "../../events/declare_transition_type.hpp"
@@ -69,6 +70,7 @@ private:
 		draw_mouse_trail_,
 		draw_bbs_;
 	fcppt::signal::scoped_connection transit_to_paused_connection_;
+	app::sword_trail sword_trail_;
 
 	void
 	update();
