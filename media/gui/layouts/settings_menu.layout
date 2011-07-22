@@ -35,7 +35,7 @@
         <Window Type="Fruitcut/StaticText" Name="SettingsMenu/StaticText" >
             <Property Name="Font" Value="normal" />
             <Property Name="Text" Value="Music volume" />
-            <Property Name="UnifiedAreaRect" Value="{{0.0421053,0},{0.182796,0},{0.389474,0},{0.27957,0}}" />
+            <Property Name="UnifiedAreaRect" Value="{{0.0421053,0},{0.182796,0},{0.0421053,168},{0.182796,48}}" />
             <AutoWindow NameSuffix="__auto_hscrollbar__" >
                 <AutoWindow NameSuffix="__auto_incbtn__" >
                     <Property Name="Visible" Value="False" />
@@ -71,7 +71,7 @@
         <Window Type="Fruitcut/StaticText" Name="SettingsMenu/StaticText2" >
             <Property Name="Font" Value="normal" />
             <Property Name="Text" Value="Effects volume" />
-            <Property Name="UnifiedAreaRect" Value="{{0.0421053,0},{0.365592,0},{0.389474,0},{0.462366,0}}" />
+            <Property Name="UnifiedAreaRect" Value="{{0.0421053,0},{0.365592,0},{0.0421053,168},{0.365592,48}}" />
             <AutoWindow NameSuffix="__auto_hscrollbar__" >
                 <AutoWindow NameSuffix="__auto_incbtn__" >
                     <Property Name="Visible" Value="False" />
@@ -107,7 +107,7 @@
         <Window Type="Fruitcut/StaticText" Name="SettingsMenu/StaticText22" >
             <Property Name="Font" Value="normal" />
             <Property Name="Text" Value="Particle density" />
-            <Property Name="UnifiedAreaRect" Value="{{0.0421053,0},{0.55914,0},{0.389474,0},{0.655914,0}}" />
+            <Property Name="UnifiedAreaRect" Value="{{0.0421053,0},{0.55914,0},{0.0421053,168},{0.55914,48}}" />
             <AutoWindow NameSuffix="__auto_hscrollbar__" >
                 <AutoWindow NameSuffix="__auto_incbtn__" >
                     <Property Name="Visible" Value="False" />

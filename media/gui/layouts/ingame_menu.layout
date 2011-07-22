@@ -6,7 +6,7 @@
         <Property Name="Text" Value="Paused" />
         <Property Name="CaptionFont" Value="big" />
         <Property Name="TitlebarEnabled" Value="True" />
-        <Property Name="UnifiedAreaRect" Value="{{0.244141,0},{0.279948,0},{0.742188,0},{0.755208,0}}" />
+        <Property Name="UnifiedAreaRect" Value="{{0.3,0},{0.25,0},{0.7,0},{0.45,128}}" />
         <AutoWindow NameSuffix="__auto_titlebar__" >
             <Property Name="Font" Value="big" />
             <Property Name="Text" Value="Paused" />
@@ -17,17 +17,17 @@
         <Window Type="Fruitcut/Button" Name="IngameMenu/Continue" >
             <Property Name="Font" Value="normal" />
             <Property Name="Text" Value="Continue..." />
-            <Property Name="UnifiedAreaRect" Value="{{0.264289,1},{0.172967,-2},{0.752094,1},{0.380779,-3}}" />
+            <Property Name="UnifiedAreaRect" Value="{{0.25,0},{0,16},{0.75,0},{0.35,16}}" />
         </Window>
         <Window Type="Fruitcut/Button" Name="IngameMenu/Quit" >
             <Property Name="Font" Value="normal" />
             <Property Name="Text" Value="Quit" />
-            <Property Name="UnifiedAreaRect" Value="{{0.434528,37},{0.78207,-40},{0.89203,36},{0.924968,-39}}" />
+            <Property Name="UnifiedAreaRect" Value="{{0.5,16},{0.6,0},{1,-16},{0.85,0}}" />
         </Window>
         <Window Type="Fruitcut/Button" Name="IngameMenu/MainMenu" >
             <Property Name="Font" Value="normal" />
             <Property Name="Text" Value="Main Menu" />
-            <Property Name="UnifiedAreaRect" Value="{{0.0435452,0},{0.78207,-40},{0.501047,-1},{0.924968,-39}}" />
+            <Property Name="UnifiedAreaRect" Value="{{0,16},{0.6,0},{0.5,-16},{0.85,0}}" />
         </Window>
     </Window>
 </GUILayout>
