@@ -240,7 +240,7 @@
 	},
 	"fruit-spawner" :
 	{
-		"spawn-range-seconds" : [0.5,3.0],
+		"spawn-range-seconds" : [0.25,1.0],
 		"linear-velocity-range" : [16.0,22.0],
 		"angular-velocity-range" : [0.0,3.0]
 	},
@@ -251,9 +251,9 @@
 	"splatter-generator" :
 	{
 		"splatter-count-to-area-factor" : 1.0,
-		"speed-range" : [10.0,350.0],
-		"speed-distortion-range" : [-3.0,3.0],
-		"size-range" : [15.0,100.0],
+		"speed-range" : [50.0,550.0],
+		"speed-distortion-range" : [-1.5,1.5],
+		"size-range" : [50.0,120.0],
 		"lifetime-millis-range" : [100,1500]
 	},
 	"sword-mouse-trail" : 
