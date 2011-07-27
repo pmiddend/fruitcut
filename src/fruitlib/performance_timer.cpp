@@ -1,6 +1,6 @@
 #include "performance_timer.hpp"
-#include <sge/time/time.hpp>
-#include <fcppt/chrono/chrono.hpp>
+#include <fcppt/chrono/duration_cast.hpp>
+#include <fcppt/chrono/milliseconds.hpp>
 #include <iostream>
 
 fruitcut::fruitlib::performance_timer::performance_timer(
@@ -12,17 +12,18 @@ fruitcut::fruitlib::performance_timer::performance_timer(
 	callback_(
 		_callback),
 	beginning_(
-		sge::time::now())
+		clock::now())
 {
 }
 
 fruitcut::fruitlib::performance_timer::~performance_timer()
 {
-	sge::time::duration const diff = 
-		sge::time::now() - beginning_;
+	clock::duration const diff = 
+		clock::now() - beginning_;
 
 	fcppt::chrono::milliseconds::rep const ms = 
-		fcppt::chrono::duration_cast<fcppt::chrono::milliseconds>(diff).count();
+		fcppt::chrono::duration_cast<fcppt::chrono::milliseconds>(
+			diff).count();
 
 	if(!threshold_ || diff > (*threshold_))
 	{

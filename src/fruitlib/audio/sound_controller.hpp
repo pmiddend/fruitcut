@@ -9,7 +9,6 @@
 #include "pool.hpp"
 #include <sge/audio/multi_loader_fwd.hpp>
 #include <sge/audio/player_fwd.hpp>
-#include <sge/audio/pool/object.hpp>
 #include <sge/audio/sound/positional_parameters.hpp>
 #include <sge/audio/sound/base_ptr.hpp>
 #include <sge/audio/buffer_ptr.hpp>

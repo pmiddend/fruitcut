@@ -7,6 +7,8 @@
 #include <fcppt/platform.hpp>
 #include <iostream>
 
+#include <boost/filesystem/operations.hpp>
+
 #if defined(FCPPT_HAVE_BACKTRACE) && defined(FCPPT_POSIX_PLATFORM)
 #define FRUITCUT_HAVE_SIGNAL_STACK_PRINTER
 #include <fcppt/noncopyable.hpp>
@@ -78,6 +80,7 @@ int main(
 	char *argv[])
 try
 {
+	boost::filesystem3::directory_iterator it,it2(it);
 #if defined(FRUITCUT_HAVE_SIGNAL_STACK_PRINTER)
 	signal_stack_printer stack_printer(
 		SIGSEGV);

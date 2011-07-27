@@ -4,13 +4,13 @@
 #include "box.hpp"
 #include "vector3.hpp"
 #include "scalar.hpp"
+#include "duration.hpp"
 #include "group/object_fwd.hpp"
 #include "group/id.hpp"
 #include "group/sequence.hpp"
 #include "rigid_body/collision_callback.hpp"
 #include "rigid_body/object_fwd.hpp"
 #include "rigid_body/collision_callback_fn.hpp"
-#include <sge/time/duration.hpp>
 #include <fcppt/signal/object.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -41,7 +41,7 @@ public:
 
 	void
 	update(
-		sge::time::duration const &);
+		physics::duration const &);
 
 	vector3 const
 	gravity() const;

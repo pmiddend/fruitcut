@@ -12,7 +12,7 @@
 fruitcut::app::fruit::hull::intersection_pair const
 fruitcut::app::fruit::hull::trail_intersection(
 	ring const &hull,
-	fruitlib::cursor_trail::position_buffer const &positions)
+	app::cursor_trail::position_buffer const &positions)
 {
 	typedef
 	std::vector<ring::value_type>
@@ -30,7 +30,7 @@ fruitcut::app::fruit::hull::trail_intersection(
 			positions.size()));
 
 	for(
-		fruitlib::cursor_trail::position_buffer::const_iterator cursor_pos = 
+		app::cursor_trail::position_buffer::const_iterator cursor_pos = 
 			positions.begin();
 		cursor_pos != positions.end();
 		++cursor_pos)

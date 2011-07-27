@@ -1,5 +1,4 @@
 #include "sword_trail.hpp"
-#include "../fruitlib/cursor_trail.hpp"
 #include "../fruitlib/time_format/string_to_duration.hpp"
 #include "../fruitlib/json/path.hpp"
 #include "../fruitlib/json/find_and_convert_member.hpp"

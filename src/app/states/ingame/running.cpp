@@ -69,13 +69,12 @@ fruitcut::app::states::ingame::running::running(
 				context<machine>().config_file(),
 				fruitlib::json::path(FCPPT_TEXT("mouse"))
 					/ FCPPT_TEXT("trail-update-rate-ms"))),
-		fruitlib::json::find_and_convert_member<fruitlib::cursor_trail::size_type>(
+		context<machine>().timer_callback(),
+		fruitlib::json::find_and_convert_member<app::cursor_trail::size_type>(
 				context<machine>().config_file(),
 				fruitlib::json::path(FCPPT_TEXT("mouse"))
 					/ FCPPT_TEXT("trail-samples")),
 		context<machine>().systems().renderer().onscreen_target()),
-	cursor_trail_node_(
-		cursor_trail_),
 	update_node_(
 		std::tr1::bind(
 			&running::update,
@@ -124,7 +123,7 @@ fruitcut::app::states::ingame::running::running(
 	context<machine>().overlay_node().insert_dont_care(
 		line_drawer_node_);
 	context<machine>().overlay_node().insert_dont_care(
-		cursor_trail_node_);
+		cursor_trail_);
 	context<machine>().postprocessing().active(
 		true);
 	viewport_change();
@@ -227,7 +226,7 @@ fruitcut::app::states::ingame::running::draw_mouse_trail(
 		return;
 
 	for(
-		fruitlib::cursor_trail::position_buffer::const_iterator i = 
+		app::cursor_trail::position_buffer::const_iterator i = 
 			cursor_trail_.positions().begin(); 
 		i != boost::prior(cursor_trail_.positions().end()); 
 		++i)
@@ -348,7 +347,7 @@ fruitcut::app::states::ingame::running::process_fruit(
 			plane_scalar),
 		// cut direction
 		first_plane_vector,
-		cursor_trail_.expiry_duration(),
+		cursor_trail_.total_expiry_duration(),
 		context<machine>().timer_callback());
 
 	//cursor_trail_.clear();

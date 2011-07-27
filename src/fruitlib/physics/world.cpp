@@ -11,9 +11,7 @@
 #include <BulletCollision/CollisionDispatch/btCollisionDispatcher.h>
 #include <BulletDynamics/ConstraintSolver/btSequentialImpulseConstraintSolver.h>
 #include <BulletDynamics/Dynamics/btDiscreteDynamicsWorld.h>
-#include <fcppt/chrono/duration_cast.hpp>
 #include <fcppt/chrono/duration_impl.hpp>
-#include <fcppt/chrono/milliseconds.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
@@ -92,14 +90,10 @@ fruitcut::fruitlib::physics::world::world(
 
 void
 fruitcut::fruitlib::physics::world::update(
-	sge::time::duration const &delta)
+	physics::duration const &delta)
 {
 	world_->stepSimulation(
-		static_cast<scalar>(
-			fcppt::chrono::duration_cast<fcppt::chrono::milliseconds>(
-				delta).count())/
-		static_cast<scalar>(
-			1000),
+		delta.count(),
 		// Maximum simulation substeps: The fixed time step is 1/60. We
 		// have to choose the substep count so that time_delta is _just_
 		// less than the fixed time.

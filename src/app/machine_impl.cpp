@@ -201,31 +201,31 @@ fruitcut::app::machine_impl::machine_impl(
 		sound_controller_),
 	camera_(
 		sge::camera::parameters(
-			// Leave projection object empty for now, we have to wait for a viewport change
-			sge::camera::projection::object(),
-			fruitlib::json::find_and_convert_member<sge::renderer::scalar>(
-				config_file_,
-				fruitlib::json::path(FCPPT_TEXT("ingame"))
-					/ FCPPT_TEXT("camera")
-					/ FCPPT_TEXT("movement-speed")),
+			sge::camera::movement_speed(
+				fruitlib::json::find_and_convert_member<sge::renderer::scalar>(
+					config_file_,
+					fruitlib::json::path(FCPPT_TEXT("ingame"))
+						/ FCPPT_TEXT("camera")
+						/ FCPPT_TEXT("movement-speed"))),
 			// mousespeed
-			fruitlib::json::find_and_convert_member<sge::renderer::scalar>(
-				config_file_,
-				fruitlib::json::path(FCPPT_TEXT("ingame"))
-					/ FCPPT_TEXT("camera")
-					/ FCPPT_TEXT("mouse-speed")),
-			// position
-			sge::camera::identity_gizmo()
-				.position(
-					fruitlib::json::find_and_convert_member<sge::renderer::vector3>(
-						config_file_,
-						fruitlib::json::path(FCPPT_TEXT("ingame"))
-							/ FCPPT_TEXT("camera")
-							/ FCPPT_TEXT("initial-position"))),
-			// Maus und Keyboard
+			sge::camera::rotation_speed(
+				fruitlib::json::find_and_convert_member<sge::renderer::scalar>(
+					config_file_,
+					fruitlib::json::path(FCPPT_TEXT("ingame"))
+						/ FCPPT_TEXT("camera")
+						/ FCPPT_TEXT("mouse-speed"))),
 			systems_.keyboard_collector(),
-			systems_.mouse_collector(),
-			sge::camera::activation_state::inactive)),
+			systems_.mouse_collector())
+			.active(
+				false)
+			.gizmo(
+				sge::camera::identity_gizmo()
+					.position(
+						fruitlib::json::find_and_convert_member<sge::renderer::vector3>(
+							config_file_,
+							fruitlib::json::path(FCPPT_TEXT("ingame"))
+								/ FCPPT_TEXT("camera")
+								/ FCPPT_TEXT("initial-position"))))), 
 	camera_node_(
 		camera_,
 		timer_callback()),
@@ -583,16 +583,11 @@ fruitcut::app::machine_impl::~machine_impl()
 {
 }
 
-// FIXME: This could be a nice phoenix actor
 void
 fruitcut::app::machine_impl::toggle_camera()
 {
-	camera_.activation(
-		camera_.activation() == sge::camera::activation_state::active
-		?
-			sge::camera::activation_state::inactive
-		:
-			sge::camera::activation_state::active);
+	camera_.active(
+		!camera_.active());
 }
 
 void

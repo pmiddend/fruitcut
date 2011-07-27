@@ -1,9 +1,9 @@
 #ifndef FRUITCUT_FRUITLIB_PERFORMANCE_TIMER_HPP_INCLUDED
 #define FRUITCUT_FRUITLIB_PERFORMANCE_TIMER_HPP_INCLUDED
 
-#include <sge/time/duration.hpp>
-#include <sge/time/point.hpp>
-#include <fcppt/chrono/chrono.hpp>
+#include <fcppt/chrono/high_resolution_clock.hpp>
+#include <fcppt/chrono/duration.hpp>
+#include <fcppt/chrono/time_point.hpp>
 #include <fcppt/function/object.hpp>
 #include <fcppt/optional.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -18,11 +18,15 @@ FCPPT_NONCOPYABLE(
 	performance_timer);
 public:
 	typedef
-	fcppt::optional<sge::time::duration>
+	fcppt::chrono::high_resolution_clock
+	clock;
+
+	typedef
+	fcppt::optional<clock::duration>
 	optional_threshold;
 
 	typedef
-	fcppt::function::object<void(sge::time::duration const &)>
+	fcppt::function::object<void(clock::duration const &)>
 	optional_callback;
 
 	explicit
@@ -34,7 +38,7 @@ public:
 private:
 	optional_threshold const threshold_;
 	optional_callback const callback_;
-	sge::time::point const beginning_;
+	clock::time_point const beginning_;
 };
 }
 }

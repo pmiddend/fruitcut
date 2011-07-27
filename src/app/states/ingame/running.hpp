@@ -4,13 +4,12 @@
 #include "superstate.hpp"
 #include "paused_fwd.hpp"
 #include "../../sword_trail.hpp"
+#include "../../cursor_trail.hpp"
 #include "../gameover/superstate_fwd.hpp"
 #include "../../fruit/object_fwd.hpp"
 #include "../../events/declare_transition_type.hpp"
 #include "../../events/declare_transition_reaction.hpp"
 #include "../../../fruitlib/scenic/nodes/line_drawer.hpp"
-#include "../../../fruitlib/cursor_trail.hpp"
-#include "../../../fruitlib/scenic/nodes/cursor_trail.hpp"
 #include "../../../fruitlib/scenic/nodes/intrusive_with_callbacks.hpp"
 #include <sge/line_drawer/object.hpp>
 #include <sge/renderer/state/scoped.hpp>
@@ -60,8 +59,7 @@ public:
 private:
 	sge::line_drawer::object line_drawer_;
 	fruitlib::scenic::nodes::line_drawer line_drawer_node_;
-	fruitlib::cursor_trail cursor_trail_;
-	fruitlib::scenic::nodes::cursor_trail cursor_trail_node_;
+	app::cursor_trail cursor_trail_;
 	fruitlib::scenic::nodes::intrusive_with_callbacks update_node_;
 	fcppt::signal::scoped_connection 
 		viewport_change_connection_,

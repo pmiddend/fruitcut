@@ -3,6 +3,7 @@
 
 #include "../animation.hpp"
 #include "../scenic/scale.hpp"
+#include <fcppt/chrono/milliseconds.hpp>
 
 namespace fruitcut
 {
@@ -11,7 +12,7 @@ namespace fruitlib
 namespace font
 {
 typedef
-fruitlib::animation<scenic::scale>
+fruitlib::animation<scenic::scale,fcppt::chrono::milliseconds>
 scale_animation;
 }
 }

@@ -14,3 +14,4 @@ This is a list of differences to the last release.
 	- Restructured some of the old menus
 	- Fixed buffer underrun problems with OpenAL
 	- Added ingame menu
+	- Added mouse trail

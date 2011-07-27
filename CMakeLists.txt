@@ -133,8 +133,6 @@ SET(
 	src/fruitlib/counted_reference.hpp
 	src/fruitlib/create_command_line_parameters.cpp
 	src/fruitlib/create_command_line_parameters.hpp
-	src/fruitlib/cursor_trail.cpp
-	src/fruitlib/cursor_trail.hpp
 	src/fruitlib/cursor_trail_fwd.hpp
 	src/fruitlib/delayed_ptr_sequence.hpp
 	src/fruitlib/exception.cpp
@@ -142,8 +140,6 @@ SET(
 	src/fruitlib/font/cache.cpp
 	src/fruitlib/font/cache.hpp
 	src/fruitlib/font/cache_fwd.hpp
-	src/fruitlib/font/damped_oscillation.cpp
-	src/fruitlib/font/damped_oscillation.hpp
 	src/fruitlib/font/drawer/object.cpp
 	src/fruitlib/font/drawer/object.hpp
 	src/fruitlib/font/drawer/object_fwd.hpp
@@ -251,36 +247,13 @@ SET(
 	src/fruitlib/math/view_plane_distance.hpp
 	src/fruitlib/math/view_plane_rect.cpp
 	src/fruitlib/math/view_plane_rect.hpp
-	src/fruitlib/particle/objects/base.cpp
-	src/fruitlib/particle/objects/base.hpp
-	src/fruitlib/particle/objects/base_fwd.hpp
-	src/fruitlib/particle/objects/permanent_sprite.cpp
-	src/fruitlib/particle/objects/permanent_sprite.hpp
-	src/fruitlib/particle/objects/simple.cpp
-	src/fruitlib/particle/objects/simple.hpp
-	src/fruitlib/particle/objects/unique_base_ptr.hpp
-	src/fruitlib/particle/point_sprite/animation.hpp
-	src/fruitlib/particle/point_sprite/choices.hpp
-	src/fruitlib/particle/point_sprite/elements.hpp
-	src/fruitlib/particle/point_sprite/object.hpp
-	src/fruitlib/particle/point_sprite/parameters.hpp
-	src/fruitlib/particle/point_sprite/system.hpp
-	src/fruitlib/particle/point_sprite/type_choices.hpp
-	src/fruitlib/particle/sprite/animation.hpp
-	src/fruitlib/particle/sprite/choices.hpp
-	src/fruitlib/particle/sprite/elements.hpp
-	src/fruitlib/particle/sprite/object.hpp
-	src/fruitlib/particle/sprite/parameters.hpp
-	src/fruitlib/particle/sprite/system.hpp
-	src/fruitlib/particle/sprite/type_choices.hpp
-	src/fruitlib/particle/system.cpp
-	src/fruitlib/particle/system.hpp
 	src/fruitlib/performance_timer.cpp
 	src/fruitlib/performance_timer.hpp
 	src/fruitlib/physics/box.hpp
 	src/fruitlib/physics/debugger.cpp
 	src/fruitlib/physics/debugger.hpp
 	src/fruitlib/physics/debugger_fwd.hpp
+	src/fruitlib/physics/duration.hpp
 	src/fruitlib/physics/group/id.hpp
 	src/fruitlib/physics/group/object.cpp
 	src/fruitlib/physics/group/object.hpp
@@ -373,6 +346,9 @@ SET(
 	src/fruitlib/pp/texture/use_screen_size.cpp
 	src/fruitlib/pp/texture/use_screen_size.hpp
 	src/fruitlib/random_generator.hpp
+	src/fruitlib/rectangle_aligner.hpp
+	src/fruitlib/rectangle_manager/object.hpp
+	src/fruitlib/rectangle_manager/state.hpp
 	src/fruitlib/resource_tree/from_directory_tree.hpp
 	src/fruitlib/resource_tree/is_resource_tree.hpp
 	src/fruitlib/resource_tree/make_type.hpp
@@ -393,8 +369,6 @@ SET(
 	src/fruitlib/scenic/nodes/camera.hpp
 	src/fruitlib/scenic/nodes/console.cpp
 	src/fruitlib/scenic/nodes/console.hpp
-	src/fruitlib/scenic/nodes/cursor_trail.cpp
-	src/fruitlib/scenic/nodes/cursor_trail.hpp
 	src/fruitlib/scenic/nodes/group.cpp
 	src/fruitlib/scenic/nodes/group.hpp
 	src/fruitlib/scenic/nodes/gui_system.cpp
@@ -456,6 +430,8 @@ SET(
 	src/app/config_variables_fwd.hpp
 	src/app/current_commit.cpp
 	src/app/current_commit.hpp
+	src/app/cursor_trail.cpp
+	src/app/cursor_trail.hpp
 	src/app/cut_context_fwd.hpp
 	src/app/dim2.hpp
 	src/app/directional_light_source.cpp

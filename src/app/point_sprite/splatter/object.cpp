@@ -2,6 +2,7 @@
 #include "parameters.hpp"
 #include "../parameters.hpp"
 #include <sge/time/timer.hpp>
+#include <sge/time/second.hpp>
 
 fruitcut::app::point_sprite::splatter::object::object(
 	parameters const &p)

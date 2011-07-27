@@ -29,7 +29,9 @@ fruitcut::fruitlib::scenic::nodes::camera::update()
 	//std::cerr << "pos: " << object_.gizmo().position() << "\n";
 
 	object_.update(
-		timer_.reset());
+		sge::camera::duration(
+			static_cast<sge::camera::duration::rep>(
+				timer_.reset())));
 }
 
 void
