@@ -5,8 +5,6 @@
 #include <sge/renderer/pixel_rect.hpp>
 #include <sge/renderer/vector2.hpp>
 #include <sge/renderer/target_base.hpp>
-#include <sge/timer/reset_when_expired.hpp>
-#include <sge/timer/parameters.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/math/vector/length.hpp>
 #include <fcppt/math/vector/structure_cast.hpp>
