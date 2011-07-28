@@ -142,6 +142,20 @@ fruitcut::app::game_logic::object::object(
 						/ FCPPT_TEXT("timer-font-color")))),
 		static_cast<fruitlib::scenic::scale>(
 			1)),
+	multiplier_font_node_(
+		fruitlib::font::object_parameters(
+			_font_cache.metrics(
+				FCPPT_TEXT("score")),
+			_font_cache.drawer(
+				FCPPT_TEXT("score")),
+			SGE_FONT_TEXT_LIT(""),
+			sge::font::rect::null(),
+			sge::font::text::align_h::center,
+			sge::font::text::align_v::bottom,
+			sge::font::text::flags::none),
+			sge::image::colors::white(),
+		static_cast<fruitlib::scenic::scale>(
+			1)),
 	score_increase_timer_(
 		fruitlib::time_format::string_to_duration_exn<sge::time::duration>(
 			fruitlib::json::find_and_convert_member<fcppt::string>(
@@ -149,6 +163,15 @@ fruitcut::app::game_logic::object::object(
 				fruitlib::json::path(
 					FCPPT_TEXT("ingame"))
 					/ FCPPT_TEXT("score-increase-timer"))),
+		sge::time::activation_state::active,
+		_time_callback),
+	multiplier_timer_(
+		fruitlib::time_format::string_to_duration_exn<sge::time::duration>(
+			fruitlib::json::find_and_convert_member<fcppt::string>(
+				_config_file,
+				fruitlib::json::path(
+					FCPPT_TEXT("ingame"))
+					/ FCPPT_TEXT("multiplier-timer"))),
 		sge::time::activation_state::active,
 		_time_callback),
 	penalty_timer_(
@@ -161,6 +184,7 @@ fruitcut::app::game_logic::object::object(
 		sge::time::activation_state::inactive,
 		_time_callback),
 	multiplier_(1),
+	multi_count_(0),
 	renderer_(
 		_renderer)
 {
