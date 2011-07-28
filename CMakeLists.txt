@@ -532,8 +532,8 @@ SET(
 	src/app/fruit/triangle.hpp
 	src/app/fruit/triangle_traits.hpp
 	src/app/fruitcut.cpp
-	src/app/game_logic/game_logic.cpp
-	src/app/game_logic/game_logic.hpp
+	src/app/game_logic/object.cpp
+	src/app/game_logic/object.hpp
 	src/app/gui/button.cpp
 	src/app/gui/button.hpp
 	src/app/gui/combobox.cpp

@@ -8,7 +8,7 @@
 #include "../../fruitlib/time_format/milliseconds.hpp"
 #include "../../fruitlib/time_format/seconds.hpp"
 #include "../fruit/manager.hpp"
-#include "game_logic.hpp"
+#include "object.hpp"
 #include <sge/font/dim.hpp>
 #include <sge/font/pos.hpp>
 #include <sge/font/rect.hpp>
@@ -46,7 +46,7 @@
 #include <boost/cstdint.hpp>
 #include <iostream>
 
-fruitcut::app::game_logic::game_logic::game_logic(
+fruitcut::app::game_logic::object::object(
 	sge::time::callback const &_time_callback,
 	// to get round seconds and stuff
 	sge::parse::json::object const &_config_file,
@@ -82,25 +82,25 @@ fruitcut::app::game_logic::game_logic::game_logic(
 	fruit_added_connection_(
 		_fruit_manager.spawn_callback(
 			std::tr1::bind(
-				&game_logic::fruit_added,
+				&object::fruit_added,
 				this,
 				std::tr1::placeholders::_1))),
 	fruit_cut_connection_(
 		_fruit_manager.cut_callback(
 			std::tr1::bind(
-				&game_logic::fruit_cut,
+				&object::fruit_cut,
 				this,
 				std::tr1::placeholders::_1))),
 	fruit_removed_connection_(
 		_fruit_manager.remove_callback(
 			std::tr1::bind(
-				&game_logic::fruit_removed,
+				&object::fruit_removed,
 				this,
 				std::tr1::placeholders::_1))),
 	viewport_changed_connection_(
 		_viewport.manage_callback(
 			std::tr1::bind(
-				&game_logic::viewport_changed,
+				&object::viewport_changed,
 				this))),
 	score_font_node_(
 		fruitlib::font::object_parameters(
@@ -142,20 +142,6 @@ fruitcut::app::game_logic::game_logic::game_logic(
 						/ FCPPT_TEXT("timer-font-color")))),
 		static_cast<fruitlib::scenic::scale>(
 			1)),
-	multiplier_font_node_(
-		fruitlib::font::object_parameters(
-			_font_cache.metrics(
-				FCPPT_TEXT("score")),
-			_font_cache.drawer(
-				FCPPT_TEXT("score")),
-			SGE_FONT_TEXT_LIT(""),
-			sge::font::rect::null(),
-			sge::font::text::align_h::center,
-			sge::font::text::align_v::bottom,
-			sge::font::text::flags::none),
-			sge::image::colors::white(),
-		static_cast<fruitlib::scenic::scale>(
-			1)),
 	score_increase_timer_(
 		fruitlib::time_format::string_to_duration_exn<sge::time::duration>(
 			fruitlib::json::find_and_convert_member<fcppt::string>(
@@ -163,15 +149,6 @@ fruitcut::app::game_logic::game_logic::game_logic(
 				fruitlib::json::path(
 					FCPPT_TEXT("ingame"))
 					/ FCPPT_TEXT("score-increase-timer"))),
-		sge::time::activation_state::active,
-		_time_callback),
-	multiplier_timer_(
-		fruitlib::time_format::string_to_duration_exn<sge::time::duration>(
-			fruitlib::json::find_and_convert_member<fcppt::string>(
-				_config_file,
-				fruitlib::json::path(
-					FCPPT_TEXT("ingame"))
-					/ FCPPT_TEXT("multiplier-timer"))),
 		sge::time::activation_state::active,
 		_time_callback),
 	penalty_timer_(
@@ -184,7 +161,6 @@ fruitcut::app::game_logic::game_logic::game_logic(
 		sge::time::activation_state::inactive,
 		_time_callback),
 	multiplier_(1),
-	multi_count_(0),
 	renderer_(
 		_renderer)
 {
@@ -198,33 +174,33 @@ fruitcut::app::game_logic::game_logic::game_logic(
 }
 
 bool
-fruitcut::app::game_logic::game_logic::finished() const
+fruitcut::app::game_logic::object::finished() const
 {
 	return 
 		round_timer_.expired();
 }
 
 fruitcut::app::highscore::score::value_type
-fruitcut::app::game_logic::game_logic::score() const
+fruitcut::app::game_logic::object::score() const
 {
 	return 
 		score_;
 }
 
 void
-fruitcut::app::game_logic::game_logic::fruit_added(
+fruitcut::app::game_logic::object::fruit_added(
 	fruit::object const &)
 {
 }
 
 void
-fruitcut::app::game_logic::game_logic::fruit_removed(
+fruitcut::app::game_logic::object::fruit_removed(
 	fruit::object const &)
 {
 }
 
 void
-fruitcut::app::game_logic::game_logic::fruit_cut(
+fruitcut::app::game_logic::object::fruit_cut(
 	fruit::cut_context const &context)
 {
 	fruit::tag_set ts = context.old().prototype().tags();
@@ -270,7 +246,7 @@ fruitcut::app::game_logic::game_logic::fruit_cut(
 }
 
 void
-fruitcut::app::game_logic::game_logic::viewport_changed()
+fruitcut::app::game_logic::object::viewport_changed()
 {
 	sge::font::dim const &viewport_dim = 
 		fcppt::math::dim::structure_cast<sge::font::dim>(
@@ -305,7 +281,7 @@ fruitcut::app::game_logic::game_logic::viewport_changed()
 }
 
 void
-fruitcut::app::game_logic::game_logic::update()
+fruitcut::app::game_logic::object::update()
 {
 	if (penalty_timer_.active() && penalty_timer_.expired())
 	{
@@ -363,12 +339,12 @@ fruitcut::app::game_logic::game_logic::update()
 }
 
 void
-fruitcut::app::game_logic::game_logic::render()
+fruitcut::app::game_logic::object::render()
 {
 }
 
 void
-fruitcut::app::game_logic::game_logic::increase_score(
+fruitcut::app::game_logic::object::increase_score(
 	highscore::score::value_type const &s)
 {
 	score_ += 

@@ -3,7 +3,7 @@
 
 #include "running_fwd.hpp"
 #include "../../splatter_generator.hpp"
-#include "../../game_logic/game_logic.hpp"
+#include "../../game_logic/object.hpp"
 #include "../../machine.hpp"
 #include "../../fruit/manager.hpp"
 #include "../../fruit/object_fwd.hpp"
@@ -66,10 +66,10 @@ public:
 	fruitlib::physics::debugger &
 	physics_debugger();
 
-	fruitcut::app::game_logic::game_logic &
+	fruitcut::app::game_logic::object &
 	game_logic();
 
-	fruitcut::app::game_logic::game_logic const &
+	fruitcut::app::game_logic::object const &
 	game_logic() const;
 
 	~superstate();
@@ -83,7 +83,7 @@ private:
 	fruit::default_render_node fruit_default_render_node_;
 	fruit::shadow_render_node fruit_shadow_render_node_;
 	fruit::spawner fruit_spawner_;
-	fruitcut::app::game_logic::game_logic game_logic_;
+	fruitcut::app::game_logic::object game_logic_;
 	fcppt::signal::scoped_connection cut_connection_;
 	app::splatter_generator splatter_generator_;
 	fruitlib::physics::group::object background_group_;

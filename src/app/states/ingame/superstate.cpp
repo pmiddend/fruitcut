@@ -224,13 +224,13 @@ fruitcut::app::states::ingame::superstate::physics_debugger()
 	return physics_debugger_;
 }
 
-fruitcut::app::game_logic::game_logic &
+fruitcut::app::game_logic::object &
 fruitcut::app::states::ingame::superstate::game_logic()
 {
 	return game_logic_;
 }
 
-fruitcut::app::game_logic::game_logic const &
+fruitcut::app::game_logic::object const &
 fruitcut::app::states::ingame::superstate::game_logic() const
 {
 	return game_logic_;

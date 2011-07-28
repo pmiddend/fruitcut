@@ -1,5 +1,5 @@
-#ifndef FRUITCUT_APP_GAME_LOGIC_HPP_INCLUDED
-#define FRUITCUT_APP_GAME_LOGIC_HPP_INCLUDED
+#ifndef FRUITCUT_APP_GAME_LOGIC_OBJECT_HPP_INCLUDED
+#define FRUITCUT_APP_GAME_LOGIC_OBJECT_HPP_INCLUDED
 
 #include "../overlay.hpp"
 #include "../fruit/manager_fwd.hpp"
@@ -25,15 +25,15 @@ namespace app
 {
 namespace game_logic
 {
-class game_logic
+class object
 :
 	public fruitlib::scenic::nodes::intrusive
 {
 FCPPT_NONCOPYABLE(
-	game_logic);
+	object);
 public:
 	explicit
-	game_logic(
+	object(
 		sge::time::callback const &,
 		// to get round seconds and stuff
 		sge::parse::json::object const &,
@@ -63,11 +63,9 @@ private:
 		viewport_changed_connection_;
 	fruitlib::font::intrusive_scene_node score_font_node_;
 	fruitlib::font::intrusive_scene_node timer_font_node_;
-	fruitlib::font::intrusive_scene_node multiplier_font_node_;
 	sge::time::timer score_increase_timer_;
-	sge::time::timer multiplier_timer_;
 	sge::time::timer penalty_timer_;
-	int multiplier_;
+	multiplier multiplier_;
 	unsigned multi_count_;
 	sge::renderer::device &renderer_;
 
