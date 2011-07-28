@@ -35,7 +35,7 @@
 
 fruitcut::app::fruit::spawner::spawner(
 	fruit::manager &_manager,
-	fruitlib::random_generator const &_random_generator,
+	fruitlib::random_generator &_random_generator,
 	sge::parse::json::object const &_config_file,
 	sge::camera::object const &_camera,
 	sge::time::callback const &_callback)

@@ -335,14 +335,14 @@ private:
 				this->first_dead_element()) << "\n";
 		*/
 
-		fcppt::random::uniform<difference_type> element_position_rng(
+		fcppt::random::uniform<difference_type,fcppt::random::default_generator &> element_position_rng(
 			fcppt::random::make_last_exclusive_range(
 				static_cast<difference_type>(
 					0),
 				std::distance(
 					list_.begin(),
-					this->first_dead_element()))/*,
-			kill_generator_*/);
+					this->first_dead_element())),
+			kill_generator_);
 
 		difference_type const to_kill_index = 
 			element_position_rng();

@@ -30,7 +30,6 @@
 #include <fcppt/math/dim/dim.hpp>
 #include <fcppt/move.hpp>
 #include <fcppt/ref.hpp>
-#include <fcppt/cref.hpp>
 #include <fcppt/text.hpp>
 #include <boost/next_prior.hpp>
 #include <boost/spirit/home/phoenix/object.hpp>
@@ -42,7 +41,7 @@ namespace
 {
 fruitcut::fruitlib::uniform_random<std::size_t>::type const
 create_random_from_directory(
-	fruitcut::fruitlib::random_generator const &_random_generator,
+	fruitcut::fruitlib::random_generator &_random_generator,
 	fcppt::filesystem::path const &p)
 {
 	return 
@@ -75,7 +74,7 @@ create_part_from_file(
 
 fruitcut::app::point_sprite::system_node::system_node(
 	fcppt::filesystem::path const &_base_path,
-	fruitlib::random_generator const &_random_generator,
+	fruitlib::random_generator &_random_generator,
 	sge::renderer::device &_renderer,
 	sge::image2d::multi_loader &_image_loader,
 	sge::camera::object const &_camera)
@@ -117,7 +116,7 @@ fruitcut::app::point_sprite::system_node::system_node(
 				std::tr1::placeholders::_1),
 			std::tr1::bind(
 				&create_random_from_directory,
-				fcppt::cref(
+				fcppt::ref(
 					_random_generator),
 				std::tr1::placeholders::_1))),
 	shader_(

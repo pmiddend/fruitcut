@@ -492,8 +492,8 @@ fruitcut::app::machine_impl::gui_syringe() const
 	return gui_syringe_;
 }
 
-fruitcut::fruitlib::random_generator const &
-fruitcut::app::machine_impl::random_generator() const
+fruitcut::fruitlib::random_generator &
+fruitcut::app::machine_impl::random_generator()
 {
 	return random_generator_;
 }

@@ -31,7 +31,7 @@ public:
 		sge::parse::json::object const &,
 		fruitlib::json::user_config_variable<fruit::area::value_type> &_splatter_count_to_area_factor,
 		point_sprite::system_node &,
-		fruitlib::random_generator const &,
+		fruitlib::random_generator &,
 		point_sprite::splatter::acceleration const &,
 		sge::time::callback const &);
 
@@ -66,7 +66,7 @@ private:
 	lifetime_millis_rng;
 
 	point_sprite::system_node &point_sprites_;
-	fruitlib::random_generator const &random_generator_;
+	fruitlib::random_generator &random_generator_;
 	point_sprite::splatter::acceleration::value_type acceleration_;
 	sge::time::callback const time_callback_;
 	cut_direction_rng cut_direction_rng_;

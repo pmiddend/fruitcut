@@ -54,7 +54,7 @@ FCPPT_NONCOPYABLE(
 public:
 	explicit 
 	sound_controller(
-		fruitlib::random_generator const &,
+		fruitlib::random_generator &,
 		fcppt::filesystem::path const &,
 		sge::audio::multi_loader &,
 		sge::audio::player &,

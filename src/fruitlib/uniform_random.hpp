@@ -13,7 +13,7 @@ template<typename T>
 struct uniform_random
 {
 	typedef
-	fcppt::random::uniform<T,fruitlib::random_generator>
+	fcppt::random::uniform<T,fruitlib::random_generator &>
 	type;
 };
 }

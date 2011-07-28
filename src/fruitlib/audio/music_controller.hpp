@@ -34,7 +34,7 @@ FCPPT_NONCOPYABLE(
 public:
 	explicit
 	music_controller(
-		fruitlib::random_generator const &,
+		fruitlib::random_generator &,
 		sge::audio::multi_loader &,
 		sge::audio::player &,
 		sge::time::duration const &,

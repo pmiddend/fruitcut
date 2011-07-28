@@ -36,7 +36,7 @@ public:
 	explicit
 	system_node(
 		fcppt::filesystem::path const &,
-		fruitlib::random_generator const &,
+		fruitlib::random_generator &,
 		sge::renderer::device &,
 		sge::image2d::multi_loader &,
 		sge::camera::object const &);

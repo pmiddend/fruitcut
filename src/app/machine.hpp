@@ -125,8 +125,8 @@ public:
 	sge::cegui::syringe const &
 	gui_syringe() const;
 
-	fruitlib::random_generator const &
-	random_generator() const;
+	fruitlib::random_generator &
+	random_generator();
 
 	highscore::score::value_type
 	last_game_score() const;

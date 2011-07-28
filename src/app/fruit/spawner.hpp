@@ -41,7 +41,7 @@ public:
 	explicit
 	spawner(
 		fruit::manager &,
-		fruitlib::random_generator const &,
+		fruitlib::random_generator &,
 		sge::parse::json::object const &config_file,
 		sge::camera::object const &,
 		sge::time::callback const &);
