@@ -1,5 +1,4 @@
 #include "music_controller.hpp"
-#include "../rng_creator.hpp"
 #include "../exception.hpp"
 #include "../resource_tree/from_directory_tree.hpp"
 #include "../resource_tree/navigate_to_path.hpp"
@@ -17,6 +16,7 @@
 #include <fcppt/filesystem/directory_iterator.hpp>
 #include <fcppt/filesystem/path.hpp>
 #include <fcppt/ref.hpp>
+#include <fcppt/cref.hpp>
 #include <fcppt/random/make_last_exclusive_range.hpp>
 #include <fcppt/filesystem/directory_iterator.hpp>
 #include <boost/next_prior.hpp>
@@ -27,7 +27,7 @@ namespace
 {
 fruitcut::fruitlib::uniform_random<std::size_t>::type
 create_random_from_directory(
-	fruitcut::fruitlib::rng_creator &_rng_creator,
+	fruitcut::fruitlib::random_generator const &_random_generator,
 	fcppt::filesystem::path const &p)
 {
 	return 
@@ -40,12 +40,12 @@ create_random_from_directory(
 						fcppt::filesystem::directory_iterator(
 							p),
 						fcppt::filesystem::directory_iterator()))),
-				_rng_creator.create());
+				_random_generator);
 }
 }
 
 fruitcut::fruitlib::audio::music_controller::music_controller(
-	fruitlib::rng_creator &_rng_creator,
+	fruitlib::random_generator const &_random_generator,
 	sge::audio::multi_loader &_audio_loader,
 	sge::audio::player &_player,
 	sge::time::duration const &_crossfade,
@@ -66,8 +66,8 @@ fruitcut::fruitlib::audio::music_controller::music_controller(
 				std::tr1::placeholders::_1),
 			std::tr1::bind(
 				&create_random_from_directory,
-				fcppt::ref(
-					_rng_creator),
+				fcppt::cref(
+					_random_generator),
 				std::tr1::placeholders::_1))),
 	crossfade_(
 		_crossfade),

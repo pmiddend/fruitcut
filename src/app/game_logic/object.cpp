@@ -160,7 +160,7 @@ fruitcut::app::game_logic::object::object(
 					/ FCPPT_TEXT("penalty-timer"))),
 		sge::time::activation_state::inactive,
 		_time_callback),
-	multiplier_(1),
+	//multiplier_(1),
 	renderer_(
 		_renderer)
 {
@@ -168,8 +168,10 @@ fruitcut::app::game_logic::object::object(
 		score_font_node_);
 	_overlay.insert_dont_care(
 		timer_font_node_);
+	/*
 	_overlay.insert_dont_care(
 		multiplier_font_node_);
+	*/
 	viewport_changed();
 }
 
@@ -203,6 +205,7 @@ void
 fruitcut::app::game_logic::object::fruit_cut(
 	fruit::cut_context const &context)
 {
+#if 0
 	fruit::tag_set ts = context.old().prototype().tags();
 	if(ts.find(FCPPT_TEXT("meat")) != ts.end())
 	{
@@ -243,11 +246,13 @@ fruitcut::app::game_logic::object::fruit_cut(
 						multiplier_) +
 					SGE_FONT_TEXT_LIT("x"));
 	}
+#endif
 }
 
 void
 fruitcut::app::game_logic::object::viewport_changed()
 {
+#if 0
 	sge::font::dim const &viewport_dim = 
 		fcppt::math::dim::structure_cast<sge::font::dim>(
 			renderer_.onscreen_target().viewport().get().size());
@@ -278,11 +283,13 @@ fruitcut::app::game_logic::object::viewport_changed()
 						viewport_dim.h()) * 
 					static_cast<sge::renderer::scalar>(
 						0.2)))));
+#endif
 }
 
 void
 fruitcut::app::game_logic::object::update()
 {
+#if 0
 	if (penalty_timer_.active() && penalty_timer_.expired())
 	{
 		penalty_timer_.reset();
@@ -336,6 +343,7 @@ fruitcut::app::game_logic::object::update()
 			fcppt::lexical_cast<sge::font::text::string>(
 				iterating_score_));
 	}
+#endif
 }
 
 void

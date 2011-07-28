@@ -3,7 +3,6 @@
 #include "../../fruitlib/physics/scalar.hpp"
 #include "../../fruitlib/physics/vector3.hpp"
 #include "../../fruitlib/physics/matrix4.hpp"
-#include "../../fruitlib/rng_creator.hpp"
 #include "../../fruitlib/json/find_and_convert_member.hpp"
 #include "../../fruitlib/json/parse_random_inclusive_range.hpp"
 #include "../../fruitlib/math/box_radius.hpp"
@@ -36,7 +35,7 @@
 
 fruitcut::app::fruit::spawner::spawner(
 	fruit::manager &_manager,
-	fruitlib::rng_creator &_rng_creator,
+	fruitlib::random_generator const &_random_generator,
 	sge::parse::json::object const &_config_file,
 	sge::camera::object const &_camera,
 	sge::time::callback const &_callback)
@@ -52,20 +51,20 @@ fruitcut::app::fruit::spawner::spawner(
 				fruitlib::json::path(
 					FCPPT_TEXT("fruit-spawner"))
 					/ FCPPT_TEXT("spawn-range-seconds"))),
-		_rng_creator.create()),
+		_random_generator),
 	prototype_rng_(
 		fcppt::random::make_last_exclusive_range(
 			static_cast<prototype_sequence::size_type>(
 				0),
 			manager_.prototypes().size()),
-		_rng_creator.create()),
+		_random_generator),
 	x_rng_(
 		fcppt::random::make_inclusive_range(
  			static_cast<fruitlib::physics::scalar>(
 				0),
 			static_cast<fruitlib::physics::scalar>(
 				1)),
-		_rng_creator.create()),
+		_random_generator),
 	linear_velocity_rng_(
 		fruitlib::json::parse_random_inclusive_range<fruitlib::physics::scalar>(
  			fruitlib::json::find_and_convert_member<sge::parse::json::array>(
@@ -73,7 +72,7 @@ fruitcut::app::fruit::spawner::spawner(
 				fruitlib::json::path(
 					FCPPT_TEXT("fruit-spawner"))
 					/ FCPPT_TEXT("linear-velocity-range"))),
-		_rng_creator.create()),
+		_random_generator),
 	angular_velocity_rng_(
 		fruitlib::json::parse_random_inclusive_range<fruitlib::physics::scalar>(
  			fruitlib::json::find_and_convert_member<sge::parse::json::array>(
@@ -81,12 +80,12 @@ fruitcut::app::fruit::spawner::spawner(
 				fruitlib::json::path(
 					FCPPT_TEXT("fruit-spawner"))
 					/ FCPPT_TEXT("angular-velocity-range"))),
-		_rng_creator.create()),
+		_random_generator),
 	angle_rng_(
 		fcppt::random::make_inclusive_range(
 				0.0f,
 				1.0f),
-		_rng_creator.create()),
+		_random_generator),
 	timer_(
 		sge::time::duration(),
 		sge::time::activation_state::inactive,

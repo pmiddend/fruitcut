@@ -65,7 +65,7 @@ private:
 	fruitlib::font::intrusive_scene_node timer_font_node_;
 	sge::time::timer score_increase_timer_;
 	sge::time::timer penalty_timer_;
-	multiplier multiplier_;
+	//multiplier multiplier_;
 	unsigned multi_count_;
 	sge::renderer::device &renderer_;
 

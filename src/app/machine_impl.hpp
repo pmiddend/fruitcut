@@ -10,7 +10,7 @@
 #include "../fruitlib/audio/sound_controller.hpp"
 #include "../fruitlib/font/cache.hpp"
 #include "../fruitlib/log/scoped_sequence_ptr.hpp"
-#include "../fruitlib/rng_creator.hpp"
+#include "../fruitlib/random_generator.hpp"
 #include "../fruitlib/scenic/nodes/camera.hpp"
 #include "../fruitlib/scenic/nodes/intrusive_group.hpp"
 #include "../fruitlib/scenic/nodes/music_controller.hpp"
@@ -123,8 +123,8 @@ public:
 	sge::cegui::syringe const &
 	gui_syringe() const;
 
-	fruitlib::rng_creator &
-	rng_creator();
+	fruitlib::random_generator const &
+	random_generator() const;
 
 	highscore::score::value_type
 	last_game_score() const;
@@ -169,7 +169,7 @@ public:
 
 	~machine_impl();
 private:
-	fruitlib::rng_creator rng_creator_;
+	fruitlib::random_generator random_generator_;
 	sge::parse::json::object user_config_file_;
 	sge::parse::json::object const config_file_;
 	app::config_variables config_variables_;

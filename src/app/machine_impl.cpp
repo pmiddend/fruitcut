@@ -8,7 +8,7 @@
 #include "../fruitlib/utf8_file_to_fcppt_string.hpp"
 #include "../fruitlib/create_command_line_parameters.hpp"
 #include "../fruitlib/log/scoped_sequence_from_json.hpp"
-#include "../fruitlib/rng_creator.hpp"
+#include "../fruitlib/random_generator.hpp"
 #include "../fruitlib/time_format/string_to_duration.hpp"
 #include "light_source_from_json.hpp"
 #include "load_user_config.hpp"
@@ -66,8 +66,8 @@ fruitcut::app::machine_impl::machine_impl(
 	char *argv[])
 :
 	fruitlib::scenic::nodes::intrusive_group(),
-	rng_creator_(
-		static_cast<fruitlib::rng_creator::value_type>(
+	random_generator_(
+		static_cast<fruitlib::random_generator::result_type>(
 			fcppt::chrono::high_resolution_clock::now().time_since_epoch().count())),
 	user_config_file_(
 		app::load_user_config()),
@@ -150,7 +150,7 @@ fruitcut::app::machine_impl::machine_impl(
 		static_cast<sge::time::funit>(
 			1)),
 	sound_controller_(
-		rng_creator_,
+		random_generator_,
 		fruitcut::media_path()/FCPPT_TEXT("sounds"),
 		systems_.audio_loader(),
 		systems_.audio_player(),
@@ -169,7 +169,7 @@ fruitcut::app::machine_impl::machine_impl(
 				&sound_controller_,
 				std::tr1::placeholders::_1))),
 	music_controller_(
-		rng_creator_,
+		random_generator_,
 		systems_.audio_loader(),
 		systems_.audio_player(),
 		*fruitlib::time_format::string_to_duration<sge::time::duration>(
@@ -281,7 +281,7 @@ fruitcut::app::machine_impl::machine_impl(
 		31337),
 	point_sprites_(
 		fruitcut::media_path()/FCPPT_TEXT("point_sprites"),
-		rng_creator_,
+		random_generator_,
 		systems_.renderer(),
 		systems_.image_loader(),
 		camera_),
@@ -492,10 +492,10 @@ fruitcut::app::machine_impl::gui_syringe() const
 	return gui_syringe_;
 }
 
-fruitcut::fruitlib::rng_creator &
-fruitcut::app::machine_impl::rng_creator()
+fruitcut::fruitlib::random_generator const &
+fruitcut::app::machine_impl::random_generator() const
 {
-	return rng_creator_;
+	return random_generator_;
 }
 
 fruitcut::app::highscore::score::value_type

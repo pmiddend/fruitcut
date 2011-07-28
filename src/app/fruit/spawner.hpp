@@ -5,7 +5,7 @@
 #include "../../fruitlib/physics/scalar.hpp"
 #include "../../fruitlib/uniform_random.hpp"
 #include "../../fruitlib/scenic/nodes/intrusive.hpp"
-#include "../../fruitlib/rng_creator_fwd.hpp"
+#include "../../fruitlib/random_generator.hpp"
 #include "manager_fwd.hpp"
 #include <sge/camera/object_fwd.hpp>
 #include <sge/time/callback.hpp>
@@ -41,7 +41,7 @@ public:
 	explicit
 	spawner(
 		fruit::manager &,
-		fruitlib::rng_creator &,
+		fruitlib::random_generator const &,
 		sge::parse::json::object const &config_file,
 		sge::camera::object const &,
 		sge::time::callback const &);
