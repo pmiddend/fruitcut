@@ -192,8 +192,10 @@ fruitcut::app::game_logic::object::object(
 		score_font_node_);
 	_overlay.insert_dont_care(
 		timer_font_node_);
+	/*
 	_overlay.insert_dont_care(
 		multiplier_font_node_);
+	*/
 	viewport_changed();
 }
 

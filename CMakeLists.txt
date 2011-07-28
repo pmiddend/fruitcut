@@ -364,9 +364,6 @@ SET(
 	src/fruitlib/resource_tree/object.hpp
 	src/fruitlib/resource_tree/path.cpp
 	src/fruitlib/resource_tree/path.hpp
-	src/fruitlib/rng_creator.cpp
-	src/fruitlib/rng_creator.hpp
-	src/fruitlib/rng_creator_fwd.hpp
 	src/fruitlib/scenic/color.hpp
 	src/fruitlib/scenic/exception.cpp
 	src/fruitlib/scenic/exception.hpp

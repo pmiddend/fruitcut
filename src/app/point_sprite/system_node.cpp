@@ -2,7 +2,6 @@
 #include "../exception.hpp"
 #include "../../media_path.hpp"
 #include "../../fruitlib/uniform_random.hpp"
-#include "../../fruitlib/rng_creator.hpp"
 #include "../../fruitlib/resource_tree/from_directory_tree.hpp"
 #include "../../fruitlib/resource_tree/navigate_to_path.hpp"
 #include "../../fruitlib/resource_tree/path.hpp"
@@ -31,6 +30,7 @@
 #include <fcppt/math/dim/dim.hpp>
 #include <fcppt/move.hpp>
 #include <fcppt/ref.hpp>
+#include <fcppt/cref.hpp>
 #include <fcppt/text.hpp>
 #include <boost/next_prior.hpp>
 #include <boost/spirit/home/phoenix/object.hpp>
@@ -42,7 +42,7 @@ namespace
 {
 fruitcut::fruitlib::uniform_random<std::size_t>::type const
 create_random_from_directory(
-	fruitcut::fruitlib::rng_creator &_rng_creator,
+	fruitcut::fruitlib::random_generator const &_random_generator,
 	fcppt::filesystem::path const &p)
 {
 	return 
@@ -55,7 +55,7 @@ create_random_from_directory(
 						fcppt::filesystem::directory_iterator(
 							p),
 						fcppt::filesystem::directory_iterator()))),
-				_rng_creator.create());
+				_random_generator);
 }
 
 sge::texture::part_ptr const
@@ -75,7 +75,7 @@ create_part_from_file(
 
 fruitcut::app::point_sprite::system_node::system_node(
 	fcppt::filesystem::path const &_base_path,
-	fruitlib::rng_creator &_rng_creator,
+	fruitlib::random_generator const &_random_generator,
 	sge::renderer::device &_renderer,
 	sge::image2d::multi_loader &_image_loader,
 	sge::camera::object const &_camera)
@@ -117,8 +117,8 @@ fruitcut::app::point_sprite::system_node::system_node(
 				std::tr1::placeholders::_1),
 			std::tr1::bind(
 				&create_random_from_directory,
-				fcppt::ref(
-					_rng_creator),
+				fcppt::cref(
+					_random_generator),
 				std::tr1::placeholders::_1))),
 	shader_(
 		sge::shader::object_parameters(

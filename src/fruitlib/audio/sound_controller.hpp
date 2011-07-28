@@ -4,7 +4,7 @@
 #include "../resource_tree/make_type.hpp"
 #include "../resource_tree/path.hpp"
 #include "../uniform_random.hpp"
-#include "../rng_creator_fwd.hpp"
+#include "../random_generator.hpp"
 #include "group/player.hpp"
 #include "pool.hpp"
 #include <sge/audio/multi_loader_fwd.hpp>
@@ -54,7 +54,7 @@ FCPPT_NONCOPYABLE(
 public:
 	explicit 
 	sound_controller(
-		fruitlib::rng_creator &,
+		fruitlib::random_generator const &,
 		fcppt::filesystem::path const &,
 		sge::audio::multi_loader &,
 		sge::audio::player &,

@@ -4,7 +4,7 @@
 #include "fruit/cut_context_fwd.hpp"
 #include "fruit/area.hpp"
 #include "../fruitlib/uniform_random.hpp"
-#include "../fruitlib/rng_creator_fwd.hpp"
+#include "../fruitlib/random_generator.hpp"
 #include "../fruitlib/json/user_config_variable.hpp"
 #include "point_sprite/color_format.hpp"
 #include "point_sprite/splatter/size.hpp"
@@ -31,7 +31,7 @@ public:
 		sge::parse::json::object const &,
 		fruitlib::json::user_config_variable<fruit::area::value_type> &_splatter_count_to_area_factor,
 		point_sprite::system_node &,
-		fruitlib::rng_creator &,
+		fruitlib::random_generator const &,
 		point_sprite::splatter::acceleration const &,
 		sge::time::callback const &);
 
@@ -66,7 +66,7 @@ private:
 	lifetime_millis_rng;
 
 	point_sprite::system_node &point_sprites_;
-	fruitlib::rng_creator &rng_creator_;
+	fruitlib::random_generator const &random_generator_;
 	point_sprite::splatter::acceleration::value_type acceleration_;
 	sge::time::callback const time_callback_;
 	cut_direction_rng cut_direction_rng_;

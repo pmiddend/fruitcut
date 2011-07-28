@@ -14,7 +14,7 @@
 #include "overlay.hpp"
 #include "point_sprite/system_node_fwd.hpp"
 #include "directional_light_source_fwd.hpp"
-#include "../fruitlib/rng_creator_fwd.hpp"
+#include "../fruitlib/random_generator.hpp"
 #include "../fruitlib/scenic/nodes/intrusive_group_fwd.hpp"
 #include "../fruitlib/audio/sound_controller_fwd.hpp"
 #include "../fruitlib/audio/music_controller_fwd.hpp"
@@ -125,8 +125,8 @@ public:
 	sge::cegui::syringe const &
 	gui_syringe() const;
 
-	fruitlib::rng_creator &
-	rng_creator();
+	fruitlib::random_generator const &
+	random_generator() const;
 
 	highscore::score::value_type
 	last_game_score() const;

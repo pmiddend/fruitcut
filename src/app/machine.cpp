@@ -182,10 +182,10 @@ fruitcut::app::machine::gui_syringe() const
 	return impl_->gui_syringe();
 }
 
-fruitcut::fruitlib::rng_creator &
-fruitcut::app::machine::rng_creator()
+fruitcut::fruitlib::random_generator const &
+fruitcut::app::machine::random_generator() const
 {
-	return impl_->rng_creator();
+	return impl_->random_generator();
 }
 
 fruitcut::app::highscore::score::value_type
