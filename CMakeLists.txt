@@ -355,7 +355,6 @@ SET(
 	src/fruitlib/rectangle_manager/rectangle_instance_decl.hpp
 	src/fruitlib/rectangle_manager/rectangle_instance_fwd.hpp
 	src/fruitlib/rectangle_manager/rectangle_instance_impl.hpp
-	src/fruitlib/rectangle_manager/state.hpp
 	src/fruitlib/resource_tree/from_directory_tree.hpp
 	src/fruitlib/resource_tree/is_resource_tree.hpp
 	src/fruitlib/resource_tree/make_type.hpp

@@ -185,9 +185,14 @@ void
 fruitcut::fruitlib::rectangle_manager::object<T>::erase(
 	instance const &_instance)
 {
-	fcppt::algorithm::ptr_container_erase(
-		instances_,
-		&_instance);
+	if(_instance.killed())
+		fcppt::algorithm::ptr_container_erase(
+			dead_instances_,
+			&_instance);
+	else
+		fcppt::algorithm::ptr_container_erase(
+			instances_,
+			&_instance);
 }
 
 #endif

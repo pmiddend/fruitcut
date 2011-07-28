@@ -1,17 +1,13 @@
 #include "../../fruitlib/rectangle_manager/object.hpp"
 #include "../../fruitlib/rectangle_manager/rectangle_instance.hpp"
 #include "../../fruitlib/rectangle_manager/padding.hpp"
-#include <sge/config/media_path.hpp>
-#include <sge/image/color/format.hpp>
 #include <sge/image/colors.hpp>
-#include <sge/image2d/multi_loader.hpp>
 #include <sge/input/keyboard/action.hpp>
 #include <sge/input/keyboard/device.hpp>
 #include <sge/renderer/display_mode.hpp>
 #include <sge/renderer/no_multi_sampling.hpp>
 #include <sge/renderer/parameters.hpp>
 #include <sge/renderer/scoped_block.hpp>
-#include <sge/renderer/screen_size.hpp>
 #include <sge/renderer/state/bool.hpp>
 #include <sge/renderer/state/color.hpp>
 #include <sge/renderer/state/list.hpp>
@@ -19,16 +15,15 @@
 #include <sge/image/color/rgba8_format.hpp>
 #include <sge/time/timer.hpp>
 #include <sge/time/second.hpp>
-#include <sge/renderer/texture/filter/linear.hpp>
+#include <sge/time/second_f.hpp>
+#include <sge/time/funit.hpp>
 #include <sge/sprite/choices.hpp>
 #include <sge/sprite/default_equal.hpp>
 #include <sge/sprite/no_color.hpp>
 #include <sge/sprite/object_impl.hpp>
 #include <sge/sprite/parameters_impl.hpp>
 #include <sge/sprite/system.hpp>
-#include <sge/sprite/with_repetition.hpp>
-#include <sge/sprite/with_rotation.hpp>
-#include <sge/sprite/with_texture.hpp>
+#include <sge/sprite/with_color.hpp>
 #include <sge/sprite/with_dim.hpp>
 #include <sge/sprite/type_choices.hpp>
 #include <sge/sprite/intrusive/system_impl.hpp>
@@ -38,23 +33,21 @@
 #include <sge/systems/parameterless.hpp>
 #include <sge/systems/running_to_false.hpp>
 #include <sge/viewport/center_on_resize.hpp>
-#include <sge/texture/add_image.hpp>
-#include <sge/texture/no_fragmented.hpp>
-#include <sge/texture/manager.hpp>
-#include <sge/texture/part_fwd.hpp>
 #include <sge/window/instance.hpp>
-#include <fcppt/assign/make_container.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
+#include <fcppt/ref.hpp>
+#include <fcppt/container/ptr/push_back_unique_ptr.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/exception.hpp>
-#include <fcppt/ref.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/chrono/duration.hpp>
+#include <fcppt/random/uniform.hpp>
+#include <fcppt/random/make_inclusive_range.hpp>
 #include <boost/mpl/vector/vector10.hpp>
-#include <boost/spirit/home/phoenix/object/construct.hpp>
-#include <boost/spirit/home/phoenix/object/new.hpp>
+#include <boost/next_prior.hpp>
 #include <exception>
 #include <ostream>
 #include <cmath>
@@ -201,24 +194,39 @@ public:
 				10.0f),
 			10.0f),
 		list_(),
+		update_rng_(
+			fcppt::random::make_inclusive_range(
+				float_type(
+					0.1f),
+				float_type(
+					0.5f))),
+		action_rng_(
+			fcppt::random::make_inclusive_range(
+				0,
+				1)),
+		kill_element_rng_(
+			fcppt::random::make_inclusive_range(
+				float_type(
+					0),
+				float_type(
+					1))),
+		create_size_w_rng_(
+			fcppt::random::make_inclusive_range(
+				float_type(
+					50.f),
+				float_type(
+					500.f))),
+		create_size_h_rng_(
+			fcppt::random::make_inclusive_range(
+				float_type(
+					10.f),
+				float_type(
+					100.f))),
 		update_timer_(
-			sge::time::second(3))
+			sge::time::second_f(
+				static_cast<sge::time::funit>(
+					update_rng_())))
 	{
-		list_.push_back(
-			new rectangle(
-				sprite_system_,
-				rectangle_manager_,
-				rectangle_manager_type::dim(
-					200,
-					50)));
-
-		list_.push_back(
-			new rectangle(
-				sprite_system_,
-				rectangle_manager_,
-				rectangle_manager_type::dim(
-					200,
-					200)));
 	}
 
 	void
@@ -241,22 +249,21 @@ public:
 			if(std::abs(it->rectangle_instance().status_fraction() - 1.0f) < epsilon)
 			{
 				std::cout 
-					<< "Distance is " 
-					<< (std::abs(it->rectangle_instance().status_fraction() + 1.0f)) 
-					<< ", erasing\n";
-				list_.erase(
-					it);
+					<< "Finally erasing a rectangle\n";
+				it = 
+					list_.erase(
+						it);
 			}
 			else
 				++it;
 		}
 
-		static bool killed = false;
-		if(update_timer_.expired() && !killed)
+		if(update_timer_.update_b())
 		{
-			std::cout << "timer expired, killing\n";
-			list_.front().rectangle_instance().kill();
-			killed = true;
+			if((all_dead() || action_rng_()) && list_.size() < 20u)
+				action_create();
+			else
+				action_kill();
 		}
 	}
 
@@ -275,7 +282,60 @@ private:
 	sprite_system sprite_system_;
 	rectangle_manager_type rectangle_manager_;
 	rectangle_list list_;
+
+	fcppt::random::uniform<float_type> update_rng_;
+	fcppt::random::uniform<int> action_rng_;
+	fcppt::random::uniform<float_type> kill_element_rng_;
+	fcppt::random::uniform<float_type> create_size_w_rng_;
+	fcppt::random::uniform<float_type> create_size_h_rng_;
 	sge::time::timer update_timer_;
+
+	void
+	action_create()
+	{
+		std::cout << "Creating a new rectangle\n";
+		fcppt::container::ptr::push_back_unique_ptr(
+			list_,
+			fcppt::make_unique_ptr<rectangle>(
+				fcppt::ref(
+					sprite_system_),
+				fcppt::ref(
+					rectangle_manager_),
+				rectangle_manager_type::dim(
+					create_size_w_rng_(),
+					create_size_h_rng_())));
+	}
+
+	void
+	action_kill()
+	{
+		std::cout << "Killing a rectangle\n";
+		rectangle_list::iterator to_kill;
+		do
+		{
+			to_kill = 
+				boost::next(
+					list_.begin(),
+					static_cast<std::iterator_traits<rectangle_list::iterator>::difference_type>(
+						kill_element_rng_() * 
+						static_cast<float_type>(
+							list_.size()-1u)));
+		}
+		while(to_kill->rectangle_instance().killed());
+
+		to_kill->rectangle_instance().kill();
+	}
+
+	bool
+	all_dead() const
+	{
+		if(list_.empty())
+			return true;
+		for(rectangle_list::const_iterator i = list_.begin(); i != list_.end(); ++i)
+			if(!i->rectangle_instance().killed())
+				return false;
+		return true;
+	}
 };
 }
 

@@ -1,7 +1,6 @@
 #ifndef FRUITCUT_FRUITLIB_RECTANGLE_MANAGER_RECTANGLE_INSTANCE_DECL_HPP_INCLUDED
 #define FRUITCUT_FRUITLIB_RECTANGLE_MANAGER_RECTANGLE_INSTANCE_DECL_HPP_INCLUDED
 
-#include "state.hpp"
 #include "object_fwd.hpp"
 #include <fcppt/math/box/box.hpp>
 #include <fcppt/math/vector/vector.hpp>
@@ -65,12 +64,16 @@ public:
 	status_fraction(
 		value_type);
 
+	bool
+	killed() const;
+
 	~rectangle_instance();
 private:
 	manager_object &manager_;
 	rect bounds_;
 	vector target_;
 	value_type status_fraction_;
+	bool killed_;
 };
 }
 }
