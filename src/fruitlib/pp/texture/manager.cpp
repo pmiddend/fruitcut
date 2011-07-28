@@ -11,6 +11,7 @@
 #include <sge/renderer/texture/planar_parameters.hpp>
 #include <sge/renderer/texture/capabilities_field.hpp>
 #include <sge/renderer/texture/capabilities.hpp>
+#include <sge/renderer/texture/mipmap/off.hpp>
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/address_mode.hpp>
 #include <sge/renderer/texture/address_mode2.hpp>
@@ -53,7 +54,6 @@ fruitcut::fruitlib::pp::texture::manager::query(
 				:
 					d.size(),
 				d.image_format(),
-				d.filter(),
 				d.depth_stencil()));
 }
 
@@ -147,7 +147,7 @@ fruitcut::fruitlib::pp::texture::manager::query_internal(
 			sge::renderer::texture::planar_parameters(
 				d.size(),
 				d.image_format(),
-				d.filter(),
+				sge::renderer::texture::mipmap::off(),
 				sge::renderer::texture::address_mode2(
 					sge::renderer::texture::address_mode::clamp),
 				sge::renderer::resource_flags::none,

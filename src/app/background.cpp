@@ -17,10 +17,13 @@
 #include <sge/renderer/scoped_vertex_buffer.hpp>
 #include <sge/renderer/scoped_vertex_declaration.hpp>
 #include <sge/renderer/scoped_vertex_lock.hpp>
-#include <sge/renderer/stage_type.hpp>
 #include <sge/renderer/state/state.hpp>
 #include <sge/renderer/target_base.hpp>
-#include <sge/renderer/texture/texture.hpp>
+#include <sge/renderer/texture/mipmap/off.hpp>
+#include <sge/renderer/texture/planar_ptr.hpp>
+#include <sge/renderer/texture/create_planar_from_path.hpp>
+#include <sge/renderer/texture/address_mode2.hpp>
+#include <sge/renderer/texture/address_mode.hpp>
 #include <sge/renderer/vertex_count.hpp>
 #include <sge/renderer/vf/vf.hpp>
 #include <sge/renderer/viewport.hpp>
@@ -128,7 +131,7 @@ fruitcut::app::background::background(
 							FCPPT_TEXT("background")),
 			renderer_,
 			_image_loader,
-			sge::renderer::texture::filter::linear,
+			sge::renderer::texture::mipmap::off(),
 			sge::renderer::texture::address_mode2(
 				sge::renderer::texture::address_mode::repeat),
 			sge::renderer::resource_flags::none)),

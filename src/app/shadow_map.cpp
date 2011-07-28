@@ -36,7 +36,7 @@ fruitcut::app::shadow_map::shadow_map(
 						FCPPT_TEXT("shadow-map"))
 						/ FCPPT_TEXT("size")),
 				sge::image::color::format::rgb32f,
-				sge::renderer::texture::filter::linear,
+				sge::renderer::texture::mipmap::off(),
 				sge::renderer::texture::address_mode2(
 					sge::renderer::texture::address_mode::clamp),
 				sge::renderer::resource_flags::none,

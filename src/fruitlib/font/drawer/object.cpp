@@ -30,7 +30,7 @@ fruitcut::fruitlib::font::drawer::object::object(
 					renderer_),
 				// Is this safe? Could be a non-alpha format
 				renderer_.caps().preferred_texture_format(),
-				sge::renderer::texture::filter::linear,
+				sge::renderer::texture::mipmap::off(),
 				fcppt::math::dim::quad<sge::renderer::dim2>( 
 					256)))),
 	sprite_system_(

@@ -4,14 +4,11 @@
 fruitcut::fruitlib::pp::texture::descriptor::descriptor(
 	sge::renderer::dim2 const &_size,
 	sge::image::color::format::type const _image_format,
-	sge::renderer::texture::filter::object const &_filter,
 	depth_stencil_format::type const _depth_stencil)
 :
 	tuple_(
 		_size,
 		_image_format,
-		filter_wrapper(
-			_filter),
 		_depth_stencil)
 {
 }
@@ -32,19 +29,11 @@ fruitcut::fruitlib::pp::texture::descriptor::image_format() const
 			tuple_);
 }
 
-sge::renderer::texture::filter::object const &
-fruitcut::fruitlib::pp::texture::descriptor::filter() const
-{
-	return 
-		boost::fusion::get<2>(
-			tuple_).value();
-}
-
 fruitcut::fruitlib::pp::texture::depth_stencil_format::type 
 fruitcut::fruitlib::pp::texture::descriptor::depth_stencil() const
 {
 	return 
-		boost::fusion::get<3>(
+		boost::fusion::get<2>(
 			tuple_);
 }
 

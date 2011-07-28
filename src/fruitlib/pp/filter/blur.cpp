@@ -8,7 +8,6 @@
 #include <sge/renderer/resource_flags_none.hpp>
 #include <sge/renderer/scoped_block.hpp>
 #include <sge/renderer/scoped_target.hpp>
-#include <sge/renderer/texture/filter/linear.hpp>
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/planar_ptr.hpp>
 #include <sge/renderer/vector2.hpp>
@@ -85,13 +84,11 @@ fruitcut::fruitlib::pp::filter::blur::apply(
 				texture::descriptor(
 					texture_size_,
 					sge::image::color::format::rgb8,
-					sge::renderer::texture::filter::linear,
 					texture::depth_stencil_format::off)),
 			texture_manager_.query(
 				texture::descriptor(
 					texture_size_,
 					sge::image::color::format::rgb8,
-					sge::renderer::texture::filter::linear,
 					texture::depth_stencil_format::off))
 		}};
 

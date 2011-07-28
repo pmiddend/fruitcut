@@ -11,10 +11,10 @@ namespace state
 {
 enum type
 {
-	idle,
 	init,
+	moving,
 	terminate,
-	moving
+	size
 };
 }
 }

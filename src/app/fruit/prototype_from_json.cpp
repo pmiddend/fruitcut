@@ -59,7 +59,8 @@ fruitcut::app::fruit::prototype_from_json(
 								FCPPT_TEXT("texture"))),
 				renderer,
 				image_loader,
-				sge::renderer::texture::filter::trilinear,
+				sge::renderer::texture::mipmap::all_levels(
+					sge::renderer::texture::mipmap::auto_generate::yes),
 				sge::renderer::texture::address_mode2(
 					sge::renderer::texture::address_mode::clamp),
 				sge::renderer::resource_flags::readable),

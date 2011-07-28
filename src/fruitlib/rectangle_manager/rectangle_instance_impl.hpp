@@ -1,0 +1,89 @@
+#ifndef FRUITCUT_FRUITLIB_RECTANGLE_MANAGER_RECTANGLE_INSTANCE_IMPL_HPP_INCLUDED
+#define FRUITCUT_FRUITLIB_RECTANGLE_MANAGER_RECTANGLE_INSTANCE_IMPL_HPP_INCLUDED
+
+#include "object_impl.hpp"
+
+template<typename T>
+fruitcut::fruitlib::rectangle_manager::rectangle_instance<T>::rectangle_instance(
+	manager_object &_manager,
+	dim const &_bounds)
+:
+	manager_(
+		_manager),
+	bounds_(
+		vector::null(),
+		_bounds),
+	status_fraction_()
+{
+	manager_.insert(
+		*this);
+}
+
+template<typename T>
+typename
+fruitcut::fruitlib::rectangle_manager::rectangle_instance<T>::rect const &
+fruitcut::fruitlib::rectangle_manager::rectangle_instance<T>::bounds() const
+{
+	return bounds_;
+}
+
+template<typename T>
+void
+fruitcut::fruitlib::rectangle_manager::rectangle_instance<T>::pos(
+	vector const &_pos)
+{
+	bounds_.pos(  
+		_pos);
+}
+
+template<typename T>
+void
+fruitcut::fruitlib::rectangle_manager::rectangle_instance<T>::target(
+	vector const &_target)
+{
+	target_ = 
+		_target;
+}
+
+template<typename T>
+typename
+fruitcut::fruitlib::rectangle_manager::rectangle_instance<T>::vector const &
+fruitcut::fruitlib::rectangle_manager::rectangle_instance<T>::target() const
+{
+	return 
+		target_;
+}
+
+template<typename T>
+void
+fruitcut::fruitlib::rectangle_manager::rectangle_instance<T>::kill()
+{
+	manager_.kill(
+		*this);
+}
+
+template<typename T>
+typename
+fruitcut::fruitlib::rectangle_manager::rectangle_instance<T>::value_type
+fruitcut::fruitlib::rectangle_manager::rectangle_instance<T>::status_fraction() const
+{
+	return status_fraction_;
+}
+
+template<typename T>
+void
+fruitcut::fruitlib::rectangle_manager::rectangle_instance<T>::status_fraction(
+	value_type const _status_fraction)
+{
+	status_fraction_ = 
+		_status_fraction;
+}
+
+template<typename T>
+fruitcut::fruitlib::rectangle_manager::rectangle_instance<T>::~rectangle_instance()
+{
+	manager_.erase(
+		*this);
+}
+
+#endif

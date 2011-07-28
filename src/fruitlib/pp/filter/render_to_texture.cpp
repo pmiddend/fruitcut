@@ -4,7 +4,6 @@
 #include "../texture/instance.hpp"
 #include <sge/renderer/device.hpp>
 #include <sge/image/color/format.hpp>
-#include <sge/renderer/texture/filter/linear.hpp>
 #include <sge/renderer/scoped_target.hpp>
 #include <sge/renderer/scoped_block.hpp>
 #include <fcppt/io/cout.hpp>
@@ -39,7 +38,6 @@ fruitcut::fruitlib::pp::filter::render_to_texture::apply()
 			texture::descriptor(
 				texture_size_,
 				sge::image::color::format::rgb8,
-				sge::renderer::texture::filter::linear,
 				depth_stencil_));
 
 	sge::renderer::scoped_target scoped_target(

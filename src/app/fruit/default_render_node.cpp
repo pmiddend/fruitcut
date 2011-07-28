@@ -6,17 +6,20 @@
 #include <sge/camera/object.hpp>
 #include <sge/renderer/first_vertex.hpp>
 #include <sge/renderer/device.hpp>
+#include <sge/renderer/stage.hpp>
 #include <sge/renderer/vertex_buffer.hpp>
 #include <sge/renderer/matrix4.hpp>
 #include <sge/renderer/nonindexed_primitive_type.hpp>
 #include <sge/renderer/scoped_vertex_buffer.hpp>
 #include <sge/renderer/size_type.hpp>
-#include <sge/renderer/stage_type.hpp>
 #include <sge/renderer/state/state.hpp>
 #include <sge/renderer/texture/planar_ptr.hpp>
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/scoped.hpp>
 #include <sge/renderer/vertex_count.hpp>
+#include <sge/renderer/texture/filter/scoped.hpp>
+#include <sge/renderer/texture/filter/trilinear.hpp>
+#include <sge/renderer/stage.hpp>
 #include <sge/shader/shader.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/math/matrix/matrix.hpp>
@@ -115,6 +118,12 @@ fruitcut::app::fruit::default_render_node::render()
 		sge::renderer::state::list
 			(sge::renderer::state::depth_func::less));
 
+	sge::renderer::texture::filter::scoped scoped_filter(
+		renderer_,
+		sge::renderer::stage(
+			0),
+		sge::renderer::texture::filter::trilinear());
+
 	sge::shader::scoped scoped_shader(
 		shader_,
 		sge::shader::activation_method::vertex_declaration);
@@ -134,7 +143,7 @@ fruitcut::app::fruit::default_render_node::render()
 		sge::renderer::texture::scoped scoped_tex(
 			renderer_,
 			*i->prototype().texture(),
-			static_cast<sge::renderer::stage_type>(
+			sge::renderer::stage(
 				0));
 
 		shader_.update_uniform(

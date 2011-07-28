@@ -66,7 +66,6 @@ fruitcut::fruitlib::pp::filter::add::apply(
 			texture::descriptor(
 				dimension_,
 				sge::image::color::format::rgb8,
-				sge::renderer::texture::filter::linear,
 				texture::depth_stencil_format::off));
 
 	shader_.update_uniform(

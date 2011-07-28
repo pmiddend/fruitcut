@@ -10,11 +10,11 @@
 #include <sge/texture/part_raw.hpp>
 #include <sge/renderer/target_base.hpp>
 #include <sge/renderer/pixel_rect.hpp>
-#include <sge/renderer/texture/filter/linear.hpp>
 #include <sge/input/cursor/object.hpp>
 #include <sge/input/cursor/position_unit.hpp>
 #include <sge/input/cursor/position.hpp>
 #include <sge/renderer/texture/address_mode2.hpp>
+#include <sge/renderer/texture/mipmap/off.hpp>
 #include <sge/renderer/texture/address_mode.hpp>
 #include <sge/renderer/resource_flags_none.hpp>
 #include <sge/time/millisecond.hpp>
@@ -80,7 +80,7 @@ fruitcut::app::sword_trail::sword_trail(
 				fruitcut::media_path() / FCPPT_TEXT("textures") / FCPPT_TEXT("sword_particle.png"),
 				_renderer,
 				_image_loader,
-				sge::renderer::texture::filter::linear,
+				sge::renderer::texture::mipmap::off(),
 				sge::renderer::texture::address_mode2(
 					sge::renderer::texture::address_mode::repeat),
 				sge::renderer::resource_flags::none))),

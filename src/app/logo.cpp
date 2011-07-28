@@ -46,7 +46,7 @@ fruitcut::app::logo::logo(
 										/ FCPPT_TEXT("logo")),
 						renderer_,
 						_image_loader,
-						sge::renderer::texture::filter::linear,
+						sge::renderer::texture::mipmap::off(),
 						sge::renderer::texture::address_mode2(
 							sge::renderer::texture::address_mode::clamp),
 						sge::renderer::resource_flags::none)))

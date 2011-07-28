@@ -335,8 +335,6 @@ SET(
 	src/fruitlib/pp/texture/depth_stencil_format.hpp
 	src/fruitlib/pp/texture/descriptor.cpp
 	src/fruitlib/pp/texture/descriptor.hpp
-	src/fruitlib/pp/texture/filter_wrapper.cpp
-	src/fruitlib/pp/texture/filter_wrapper.hpp
 	src/fruitlib/pp/texture/instance.cpp
 	src/fruitlib/pp/texture/instance.hpp
 	src/fruitlib/pp/texture/instance_fwd.hpp
@@ -347,7 +345,16 @@ SET(
 	src/fruitlib/pp/texture/use_screen_size.hpp
 	src/fruitlib/random_generator.hpp
 	src/fruitlib/rectangle_aligner.hpp
+	src/fruitlib/rectangle_manager/duration.hpp
 	src/fruitlib/rectangle_manager/object.hpp
+	src/fruitlib/rectangle_manager/object_decl.hpp
+	src/fruitlib/rectangle_manager/object_fwd.hpp
+	src/fruitlib/rectangle_manager/object_impl.hpp
+	src/fruitlib/rectangle_manager/padding.hpp
+	src/fruitlib/rectangle_manager/rectangle_instance.hpp
+	src/fruitlib/rectangle_manager/rectangle_instance_decl.hpp
+	src/fruitlib/rectangle_manager/rectangle_instance_fwd.hpp
+	src/fruitlib/rectangle_manager/rectangle_instance_impl.hpp
 	src/fruitlib/rectangle_manager/state.hpp
 	src/fruitlib/resource_tree/from_directory_tree.hpp
 	src/fruitlib/resource_tree/is_resource_tree.hpp
