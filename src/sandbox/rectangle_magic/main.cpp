@@ -36,21 +36,28 @@
 #include <sge/window/instance.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
 #include <fcppt/ref.hpp>
-#include <fcppt/container/ptr/push_back_unique_ptr.hpp>
+#include <fcppt/container/ptr/push_front_unique_ptr.hpp>
+#include <fcppt/container/ptr/insert_unique_ptr.hpp>
 #include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/unique_ptr.hpp>
+#include <fcppt/move.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/chrono/duration.hpp>
+#include <fcppt/chrono/high_resolution_clock.hpp>
 #include <fcppt/random/uniform.hpp>
+#include <fcppt/random/default_generator.hpp>
 #include <fcppt/random/make_inclusive_range.hpp>
+#include <fcppt/random/make_last_exclusive_range.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <boost/next_prior.hpp>
 #include <exception>
 #include <ostream>
 #include <cmath>
+#include <iterator>
 #include <cstdlib>
 
 namespace
@@ -204,12 +211,9 @@ public:
 			fcppt::random::make_inclusive_range(
 				0,
 				1)),
-		kill_element_rng_(
-			fcppt::random::make_inclusive_range(
-				float_type(
-					0),
-				float_type(
-					1))),
+		kill_generator_(
+			static_cast<fcppt::random::default_generator::result_type>(
+				fcppt::chrono::high_resolution_clock::now().time_since_epoch().count())),
 		create_size_w_rng_(
 			fcppt::random::make_inclusive_range(
 				float_type(
@@ -248,8 +252,10 @@ public:
 			it->update();
 			if(std::abs(it->rectangle_instance().status_fraction() - 1.0f) < epsilon)
 			{
+				/*
 				std::cout 
 					<< "Finally erasing a rectangle\n";
+				*/
 				it = 
 					list_.erase(
 						it);
@@ -260,7 +266,7 @@ public:
 
 		if(update_timer_.update_b())
 		{
-			if((all_dead() || action_rng_()) && list_.size() < 20u)
+			if(all_dead() || action_rng_())
 				action_create();
 			else
 				action_kill();
@@ -285,7 +291,7 @@ private:
 
 	fcppt::random::uniform<float_type> update_rng_;
 	fcppt::random::uniform<int> action_rng_;
-	fcppt::random::uniform<float_type> kill_element_rng_;
+	fcppt::random::default_generator kill_generator_;
 	fcppt::random::uniform<float_type> create_size_w_rng_;
 	fcppt::random::uniform<float_type> create_size_h_rng_;
 	sge::time::timer update_timer_;
@@ -294,7 +300,7 @@ private:
 	action_create()
 	{
 		std::cout << "Creating a new rectangle\n";
-		fcppt::container::ptr::push_back_unique_ptr(
+		fcppt::container::ptr::push_front_unique_ptr(
 			list_,
 			fcppt::make_unique_ptr<rectangle>(
 				fcppt::ref(
@@ -309,21 +315,86 @@ private:
 	void
 	action_kill()
 	{
-		std::cout << "Killing a rectangle\n";
-		rectangle_list::iterator to_kill;
-		do
-		{
-			to_kill = 
-				boost::next(
+		/*
+		std::cout 
+			<< "Killing a rectangle, all dead is " 
+			<< all_dead() 
+			<< ", number of elements: " 
+			<< list_.size() 
+			<< "\n";
+		*/
+
+		typedef
+		std::iterator_traits<rectangle_list::iterator>::difference_type
+		difference_type;
+
+		/*
+		std::cout << "First dead element: " << 
+			std::distance(
+				list_.begin(),
+				this->first_dead_element()) << "\n";
+		*/
+
+		fcppt::random::uniform<difference_type> element_position_rng(
+			fcppt::random::make_last_exclusive_range(
+				static_cast<difference_type>(
+					0),
+				std::distance(
 					list_.begin(),
-					static_cast<std::iterator_traits<rectangle_list::iterator>::difference_type>(
-						kill_element_rng_() * 
-						static_cast<float_type>(
-							list_.size()-1u)));
+					this->first_dead_element()))/*,
+			kill_generator_*/);
+
+		difference_type const to_kill_index = 
+			element_position_rng();
+
+	//	std::cout << "To kill index: " << to_kill_index << "\n";
+
+		std::cout << '|';
+		for(difference_type i = 0; i < static_cast<difference_type>(list_.size()); ++i)
+		{
+			if(i == to_kill_index)
+				std::cout << '#';
+			else if (i == std::distance(list_.begin(),first_dead_element()))
+				std::cout << 'f';
+			else if (boost::next(list_.begin(),i)->rectangle_instance().killed())
+				std::cout << 'd';
+			else
+				std::cout << '-';
 		}
-		while(to_kill->rectangle_instance().killed());
+		std::cout << "|\n";
+
+		rectangle_list::iterator to_kill = 
+			boost::next(
+				list_.begin(),
+				to_kill_index);
 
 		to_kill->rectangle_instance().kill();
+
+		fcppt::unique_ptr<rectangle> released_element(
+			list_.release(
+				to_kill).release());
+
+		fcppt::container::ptr::insert_unique_ptr(
+			list_,
+			this->first_dead_element(),
+			fcppt::move(
+				released_element));
+	}
+
+	rectangle_list::iterator const
+	first_dead_element() 
+	{
+		for(rectangle_list::iterator i = list_.begin(); i != list_.end(); ++i)
+			if(i->rectangle_instance().killed())
+			{
+				for(rectangle_list::iterator j = i; j != list_.end(); ++j)
+				{
+					if(!j->rectangle_instance().killed())
+						throw std::runtime_error("Fuck mann!");
+				}
+				return i;
+			}
+		return list_.end();
 	}
 
 	bool
