@@ -1,7 +1,10 @@
 #ifndef FRUITCUT_APP_SWORD_TRAIL_HPP_INCLUDED
 #define FRUITCUT_APP_SWORD_TRAIL_HPP_INCLUDED
 
-#include "../fruitlib/scenic/nodes/intrusive.hpp"
+#include "../fruitlib/scenic/node.hpp"
+#include "../fruitlib/scenic/parent_fwd.hpp"
+#include "../fruitlib/scenic/events/update_fwd.hpp"
+#include "../fruitlib/scenic/events/render_fwd.hpp"
 #include <sge/image2d/multi_loader_fwd.hpp>
 #include <sge/image/color/rgba8_format.hpp>
 #include <sge/input/cursor/object_fwd.hpp>
@@ -27,21 +30,24 @@
 #include <boost/mpl/vector/vector10.hpp>
 #include <boost/circular_buffer.hpp>
 
-#include <fcppt/shared_ptr.hpp>
-
 namespace fruitcut
 {
 namespace app
 {
 class sword_trail
 :
-	public fruitlib::scenic::nodes::intrusive
+	public fruitlib::scenic::node<sword_trail>
 {
 FCPPT_NONCOPYABLE(
 	sword_trail);
 public:
+	typedef
+	boost::mpl::vector2<fruitlib::scenic::events::update,fruitlib::scenic::events::render>
+	scene_reactions;
+
 	explicit
 	sword_trail(
+		fruitlib::scenic::parent const &,
 		sge::renderer::device &,
 		sge::renderer::target_base &,
 		sge::image2d::multi_loader &,
@@ -50,6 +56,14 @@ public:
 		sge::parse::json::object const &);
 
 	~sword_trail();
+
+	void
+	react(
+		fruitlib::scenic::events::update const &);
+
+	void
+	react(
+		fruitlib::scenic::events::render const &);
 private:
 	typedef 
 	sge::sprite::choices
@@ -111,11 +125,6 @@ private:
 	timer_buffer timers_;
 	sge::time::timer update_timer_;
 
-	void
-	update();
-
-	void
-	render();
 };
 }
 }

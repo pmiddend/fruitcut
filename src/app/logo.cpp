@@ -2,6 +2,7 @@
 #include "../fruitlib/json/find_and_convert_member.hpp"
 #include "../fruitlib/json/parse_animation.hpp"
 #include "../fruitlib/json/parse_color.hpp"
+#include "../fruitlib/scenic/events/render.hpp"
 #include "../media_path.hpp"
 #include <sge/viewport/manager.hpp>
 #include <sge/image2d/image2d.hpp>
@@ -22,11 +23,14 @@
 #include <fcppt/text.hpp>
 
 fruitcut::app::logo::logo(
+	fruitlib::scenic::parent const &_parent,
 	sge::renderer::device &_renderer,
 	sge::viewport::manager &_viewport_manager,
 	sge::image2d::multi_loader &_image_loader,
 	sge::parse::json::object const &_config_file)
 :
+	node_base(
+		_parent),
 	renderer_(
 		_renderer),
 	sprite_system_(
@@ -63,13 +67,13 @@ fruitcut::app::logo::logo(
 	viewport_change();
 }
 
-void
-fruitcut::app::logo::update()
+fruitcut::app::logo::~logo()
 {
 }
 
 void
-fruitcut::app::logo::render()
+fruitcut::app::logo::react(
+	fruitlib::scenic::events::render const &)
 {
 	sprite_system_.render_all(
 		sge::sprite::default_equal());

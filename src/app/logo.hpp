@@ -1,7 +1,9 @@
 #ifndef FRUITCUT_APP_LOGO_HPP_INCLUDED
 #define FRUITCUT_APP_LOGO_HPP_INCLUDED
 
-#include "../fruitlib/scenic/nodes/intrusive.hpp"
+#include "../fruitlib/scenic/node.hpp"
+#include "../fruitlib/scenic/parent_fwd.hpp"
+#include "../fruitlib/scenic/events/render_fwd.hpp"
 #include "../fruitlib/animation.hpp"
 #include <sge/sprite/sprite.hpp>
 #include <sge/renderer/device_fwd.hpp>
@@ -19,17 +21,28 @@ namespace app
 {
 class logo
 :
-	public fruitlib::scenic::nodes::intrusive
+	public fruitlib::scenic::node<logo>
 {
 FCPPT_NONCOPYABLE(
 	logo);
 public:
+	typedef
+	boost::mpl::vector1<fruitlib::scenic::events::render>
+	scene_reactions;
+
 	explicit
 	logo(
+		fruitlib::scenic::parent const &,
 		sge::renderer::device &,
 		sge::viewport::manager &,
 		sge::image2d::multi_loader &,
 		sge::parse::json::object const &);
+
+	~logo();
+
+	void
+	react(
+		fruitlib::scenic::events::render const &);
 private:
 	typedef 
 	boost::mpl::vector7
@@ -81,12 +94,6 @@ private:
 	sprite_system sprite_system_;
 	sprite_object sprite_object_;
 	fcppt::signal::scoped_connection viewport_change_connection_;
-
-	void
-	update();
-
-	void
-	render();
 
 	void
 	viewport_change();

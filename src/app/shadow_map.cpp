@@ -1,6 +1,9 @@
 #include "shadow_map.hpp"
 #include "../fruitlib/json/find_and_convert_member.hpp"
 #include "../fruitlib/json/parse_projection.hpp"
+#include "../fruitlib/scenic/events/update.hpp"
+#include "../fruitlib/scenic/update_duration.hpp"
+#include "../fruitlib/scenic/events/render.hpp"
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/dim2.hpp>
 #include <sge/renderer/scalar.hpp>
@@ -16,15 +19,19 @@
 #include <sge/camera/projection/to_matrix.hpp>
 #include <fcppt/math/dim/dim.hpp>
 #include <fcppt/math/matrix/matrix.hpp>
+#include <fcppt/chrono/duration_impl.hpp>
 #include <fcppt/math/deg_to_rad.hpp>
 #include <fcppt/text.hpp>
 #include <iostream>
 
 fruitcut::app::shadow_map::shadow_map(
+	fruitlib::scenic::parent const &_parent,
 	sge::parse::json::object const &_config,
 	sge::renderer::device &_renderer,
 	sge::renderer::matrix4 const &_modelview)
 :
+	node_base(
+		_parent),
 	renderer_(
 		_renderer),
 	texture_(
@@ -59,7 +66,9 @@ fruitcut::app::shadow_map::shadow_map(
 {
 	// Do an initial clear of the texture to prevent race conditions
 	// (the shadow map might be rendered before its first update)
-	update();
+	react(
+		fruitlib::scenic::events::update(
+			fruitlib::scenic::update_duration()));
 }
 
 sge::renderer::texture::planar_ptr const
@@ -78,13 +87,10 @@ fruitcut::app::shadow_map::~shadow_map()
 {
 }
 
-void
-fruitcut::app::shadow_map::render()
-{
-}
 
 void
-fruitcut::app::shadow_map::update()
+fruitcut::app::shadow_map::react(
+	fruitlib::scenic::events::update const &)
 {
 	sge::renderer::state::scoped scoped_state(
 		renderer_,
@@ -100,5 +106,6 @@ fruitcut::app::shadow_map::update()
 	sge::renderer::scoped_block block(
 		renderer_);
 
-	intrusive_group::render();
+	node_base::forward_to_children(
+		fruitlib::scenic::events::render());
 }

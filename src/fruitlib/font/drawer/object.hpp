@@ -3,11 +3,13 @@
 
 #include "transform_callback.hpp"
 #include "parameters_fwd.hpp"
+#include "../color.hpp"
+#include "../color_format.hpp"
 #include <sge/font/font.hpp>
 #include <sge/texture/texture.hpp>
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/sprite/sprite.hpp>
-#include <sge/image/color/color.hpp>
+#include <sge/image/color/rgba8_format.hpp>
 #include <fcppt/variant/object_impl.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/math/vector/vector.hpp>
@@ -54,9 +56,9 @@ public:
 
 	void
 	color(
-		sge::image::color::any::object const &);
+		font::color const &);
 
-	sge::image::color::any::object const &
+	font::color const &
 	color() const;
 
 	void
@@ -81,7 +83,7 @@ private:
 		<
 			int,
 			float,
-			sge::image::color::rgba8_format
+			font::color_format
 		>,
 		boost::mpl::vector3
 		<
@@ -105,7 +107,7 @@ private:
 	sprite_container;
 
 	sge::renderer::device &renderer_;
-	sge::image::color::any::object color_;
+	font::color color_;
 	sge::texture::manager texture_manager_;
 	texture_map textures_;
 	sprite_system sprite_system_;

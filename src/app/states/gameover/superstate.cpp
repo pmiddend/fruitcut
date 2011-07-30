@@ -1,4 +1,5 @@
 #include "superstate.hpp"
+#include "../../depths/overlay.hpp"
 #include <sge/systems/instance.hpp>
 
 fruitcut::app::states::gameover::superstate::superstate(
@@ -7,8 +8,11 @@ fruitcut::app::states::gameover::superstate::superstate(
 	my_base(
 		ctx),
 	gui_node_(
-		context<machine>().gui_system(),
-		context<machine>().timer_callback()),
+		fruitlib::scenic::parent(
+			context<machine>().overlay_node(),
+			fruitlib::scenic::depth(
+				depths::overlay::dont_care)),
+		context<machine>().gui_system()),
 	gui_keyboard_(
 		context<machine>().gui_syringe(),
 		context<machine>().systems().keyboard_collector()),
@@ -18,8 +22,6 @@ fruitcut::app::states::gameover::superstate::superstate(
 	name_(
 		"You shouldn't see this")
 {
-	context<machine>().overlay_node().insert_dont_care(
-		gui_node_);
 }
 
 void

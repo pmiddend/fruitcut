@@ -12,7 +12,10 @@
 #include "object_sequence.hpp"
 #include "object_fwd.hpp"
 #include "plane.hpp"
-#include "../../fruitlib/scenic/nodes/intrusive.hpp"
+#include "../../fruitlib/scenic/node.hpp"
+#include "../../fruitlib/scenic/parent_fwd.hpp"
+#include "../../fruitlib/scenic/events/update_fwd.hpp"
+#include "../../fruitlib/scenic/events/render_fwd.hpp"
 #include "../../fruitlib/physics/world_fwd.hpp"
 #include "../../fruitlib/physics/group/object.hpp"
 #include <sge/image2d/multi_loader_fwd.hpp>
@@ -29,6 +32,7 @@
 #include <fcppt/signal/object.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <boost/mpl/vector/vector10.hpp>
 
 namespace fruitcut
 {
@@ -44,13 +48,18 @@ namespace fruit
  */
 class manager
 :
-	public fruitlib::scenic::nodes::intrusive
+	public fruitlib::scenic::node<manager>
 {
 FCPPT_NONCOPYABLE(
 	manager);
 public:
+	typedef
+	boost::mpl::vector1<fruitlib::scenic::events::update>
+	scene_reactions;
+
 	explicit
 	manager(
+		fruitlib::scenic::parent const &,
 		fruit::prototype_sequence const &,
 		sge::renderer::device &renderer,
 		fruitlib::physics::world &,
@@ -106,6 +115,10 @@ public:
 	vertex_declaration() const;
 
 	~manager();
+
+	void
+	react(
+		fruitlib::scenic::events::update const &);
 private:
 	prototype_sequence const &prototypes_;
 	sge::renderer::device &renderer_;
@@ -120,12 +133,6 @@ private:
 
 	void
 	delete_distant_fruits();
-
-	void
-	update();
-
-	void
-	render();
 };
 }
 }

@@ -4,7 +4,10 @@
 #include "system.hpp"
 #include "base.hpp"
 #include "unique_base_ptr.hpp"
-#include "../../fruitlib/scenic/nodes/intrusive.hpp"
+#include "../../fruitlib/scenic/node.hpp"
+#include "../../fruitlib/scenic/parent_fwd.hpp"
+#include "../../fruitlib/scenic/events/update_fwd.hpp"
+#include "../../fruitlib/scenic/events/render_fwd.hpp"
 #include "../../fruitlib/resource_tree/make_type.hpp"
 #include "../../fruitlib/resource_tree/path.hpp"
 #include "../../fruitlib/uniform_random.hpp"
@@ -18,6 +21,7 @@
 #include <fcppt/unique_ptr.hpp>
 #include <fcppt/filesystem/path.hpp>
 #include <boost/ptr_container/ptr_list.hpp>
+#include <boost/mpl/vector/vector10.hpp>
 #include <cstddef>
 
 namespace fruitcut
@@ -28,13 +32,18 @@ namespace point_sprite
 {
 class system_node
 :
-	public fruitlib::scenic::nodes::intrusive
+	public fruitlib::scenic::node<system_node>
 {
 FCPPT_NONCOPYABLE(
 	system_node);
 public:
+	typedef
+	boost::mpl::vector2<fruitlib::scenic::events::render,fruitlib::scenic::events::update>
+	scene_reactions;
+
 	explicit
 	system_node(
+		fruitlib::scenic::parent const &,
 		fcppt::filesystem::path const &,
 		fruitlib::random_generator &,
 		sge::renderer::device &,
@@ -56,6 +65,14 @@ public:
 		fruitlib::resource_tree::path const &);
 
 	~system_node();
+
+	void
+	react(
+		fruitlib::scenic::events::update const &);
+
+	void
+	react(
+		fruitlib::scenic::events::render const &);
 private:
 	typedef
 	boost::ptr_list<point_sprite::base>
@@ -84,11 +101,6 @@ private:
 	resource_tree_ptr textures_;
 	sge::shader::object shader_;
 
-	void
-	update();
-
-	void
-	render();
 };
 }
 }

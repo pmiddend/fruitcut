@@ -133,13 +133,14 @@ SET(
 	src/fruitlib/counted_reference.hpp
 	src/fruitlib/create_command_line_parameters.cpp
 	src/fruitlib/create_command_line_parameters.hpp
-	src/fruitlib/cursor_trail_fwd.hpp
 	src/fruitlib/delayed_ptr_sequence.hpp
 	src/fruitlib/exception.cpp
 	src/fruitlib/exception.hpp
 	src/fruitlib/font/cache.cpp
 	src/fruitlib/font/cache.hpp
 	src/fruitlib/font/cache_fwd.hpp
+	src/fruitlib/font/color.hpp
+	src/fruitlib/font/color_format.hpp
 	src/fruitlib/font/drawer/object.cpp
 	src/fruitlib/font/drawer/object.hpp
 	src/fruitlib/font/drawer/object_fwd.hpp
@@ -153,13 +154,12 @@ SET(
 	src/fruitlib/font/drawer/transform_callback.hpp
 	src/fruitlib/font/drawer/transform_callback_fn.hpp
 	src/fruitlib/font/identifier.hpp
-	src/fruitlib/font/intrusive_scene_node.cpp
-	src/fruitlib/font/intrusive_scene_node.hpp
 	src/fruitlib/font/object.cpp
 	src/fruitlib/font/object.hpp
 	src/fruitlib/font/object_parameters.cpp
 	src/fruitlib/font/object_parameters.hpp
 	src/fruitlib/font/object_parameters_fwd.hpp
+	src/fruitlib/font/scale.hpp
 	src/fruitlib/font/scale_animation.hpp
 	src/fruitlib/font/scene_node.cpp
 	src/fruitlib/font/scene_node.hpp
@@ -363,42 +363,36 @@ SET(
 	src/fruitlib/resource_tree/object.hpp
 	src/fruitlib/resource_tree/path.cpp
 	src/fruitlib/resource_tree/path.hpp
-	src/fruitlib/scenic/color.hpp
-	src/fruitlib/scenic/exception.cpp
-	src/fruitlib/scenic/exception.hpp
-	src/fruitlib/scenic/nodes/base.cpp
-	src/fruitlib/scenic/nodes/base.hpp
-	src/fruitlib/scenic/nodes/camera.cpp
-	src/fruitlib/scenic/nodes/camera.hpp
-	src/fruitlib/scenic/nodes/console.cpp
-	src/fruitlib/scenic/nodes/console.hpp
-	src/fruitlib/scenic/nodes/group.cpp
-	src/fruitlib/scenic/nodes/group.hpp
-	src/fruitlib/scenic/nodes/gui_system.cpp
-	src/fruitlib/scenic/nodes/gui_system.hpp
-	src/fruitlib/scenic/nodes/immortal.cpp
-	src/fruitlib/scenic/nodes/immortal.hpp
-	src/fruitlib/scenic/nodes/intrusive.cpp
-	src/fruitlib/scenic/nodes/intrusive.hpp
-	src/fruitlib/scenic/nodes/intrusive_group.cpp
-	src/fruitlib/scenic/nodes/intrusive_group.hpp
-	src/fruitlib/scenic/nodes/intrusive_group_fwd.hpp
-	src/fruitlib/scenic/nodes/intrusive_with_callbacks.cpp
-	src/fruitlib/scenic/nodes/intrusive_with_callbacks.hpp
-	src/fruitlib/scenic/nodes/line_drawer.cpp
-	src/fruitlib/scenic/nodes/line_drawer.hpp
-	src/fruitlib/scenic/nodes/music_controller.cpp
-	src/fruitlib/scenic/nodes/music_controller.hpp
-	src/fruitlib/scenic/nodes/sound_controller.cpp
-	src/fruitlib/scenic/nodes/sound_controller.hpp
-	src/fruitlib/scenic/nodes/with_color.cpp
-	src/fruitlib/scenic/nodes/with_color.hpp
-	src/fruitlib/scenic/nodes/with_lifetime.cpp
-	src/fruitlib/scenic/nodes/with_lifetime.hpp
-	src/fruitlib/scenic/nodes/with_scale.cpp
-	src/fruitlib/scenic/nodes/with_scale.hpp
-	src/fruitlib/scenic/scale.hpp
-	src/fruitlib/scenic/scale_animation.hpp
+	src/fruitlib/scenic/adaptors/camera.cpp
+	src/fruitlib/scenic/adaptors/camera.hpp
+	src/fruitlib/scenic/adaptors/console.cpp
+	src/fruitlib/scenic/adaptors/console.hpp
+	src/fruitlib/scenic/adaptors/gui_system.cpp
+	src/fruitlib/scenic/adaptors/gui_system.hpp
+	src/fruitlib/scenic/adaptors/line_drawer.cpp
+	src/fruitlib/scenic/adaptors/line_drawer.hpp
+	src/fruitlib/scenic/base.cpp
+	src/fruitlib/scenic/base.hpp
+	src/fruitlib/scenic/base_fwd.hpp
+	src/fruitlib/scenic/depth.hpp
+	src/fruitlib/scenic/detail/reaction_chooser.hpp
+	src/fruitlib/scenic/events/base.cpp
+	src/fruitlib/scenic/events/base.hpp
+	src/fruitlib/scenic/events/base_fwd.hpp
+	src/fruitlib/scenic/events/render.cpp
+	src/fruitlib/scenic/events/render.hpp
+	src/fruitlib/scenic/events/render_fwd.hpp
+	src/fruitlib/scenic/events/update.cpp
+	src/fruitlib/scenic/events/update.hpp
+	src/fruitlib/scenic/events/update_fwd.hpp
+	src/fruitlib/scenic/no_parent.cpp
+	src/fruitlib/scenic/no_parent.hpp
+	src/fruitlib/scenic/node.hpp
+	src/fruitlib/scenic/optional_parent.hpp
+	src/fruitlib/scenic/parent.cpp
+	src/fruitlib/scenic/parent.hpp
+	src/fruitlib/scenic/parent_fwd.hpp
+	src/fruitlib/scenic/update_duration.hpp
 	src/fruitlib/time_format/context.hpp
 	src/fruitlib/time_format/domain.hpp
 	src/fruitlib/time_format/duration_to_string.hpp
@@ -436,6 +430,9 @@ SET(
 	src/app/cursor_trail.cpp
 	src/app/cursor_trail.hpp
 	src/app/cut_context_fwd.hpp
+	src/app/depths/overlay.hpp
+	src/app/depths/root.hpp
+	src/app/depths/scene.hpp
 	src/app/dim2.hpp
 	src/app/directional_light_source.cpp
 	src/app/directional_light_source.hpp
@@ -605,6 +602,7 @@ SET(
 	src/app/machine_impl_fwd.hpp
 	src/app/name.cpp
 	src/app/name.hpp
+	src/app/overlay.cpp
 	src/app/overlay.hpp
 	src/app/point_sprite/base.cpp
 	src/app/point_sprite/base.hpp
@@ -614,7 +612,6 @@ SET(
 	src/app/point_sprite/elements.hpp
 	src/app/point_sprite/object.hpp
 	src/app/point_sprite/parameters.hpp
-	src/app/point_sprite/splatter.hpp
 	src/app/point_sprite/splatter/acceleration.hpp
 	src/app/point_sprite/splatter/linear_velocity.hpp
 	src/app/point_sprite/splatter/object.cpp

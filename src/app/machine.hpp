@@ -15,7 +15,7 @@
 #include "point_sprite/system_node_fwd.hpp"
 #include "directional_light_source_fwd.hpp"
 #include "../fruitlib/random_generator.hpp"
-#include "../fruitlib/scenic/nodes/intrusive_group_fwd.hpp"
+#include "../fruitlib/scenic/base_fwd.hpp"
 #include "../fruitlib/audio/sound_controller_fwd.hpp"
 #include "../fruitlib/audio/music_controller_fwd.hpp"
 #include "../fruitlib/font/cache_fwd.hpp"
@@ -163,7 +163,7 @@ public:
 	time_factor(
 		sge::time::funit);
 
-	fruitlib::scenic::nodes::intrusive_group &
+	fruitlib::scenic::base &
 	root_node();
 
 	~machine();

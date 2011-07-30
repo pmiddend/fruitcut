@@ -7,6 +7,7 @@
 #include "../../fruitlib/json/parse_random_inclusive_range.hpp"
 #include "../../fruitlib/math/box_radius.hpp"
 #include "../../fruitlib/math/view_plane_rect.hpp"
+#include "../../fruitlib/scenic/events/render.hpp"
 #include <sge/time/funit.hpp>
 #include <sge/time/duration.hpp>
 #include <sge/time/second_f.hpp>
@@ -34,12 +35,15 @@
 #include "../../fruitlib/math/plane/basic.hpp"
 
 fruitcut::app::fruit::spawner::spawner(
+	fruitlib::scenic::parent const &_parent,
 	fruit::manager &_manager,
 	fruitlib::random_generator &_random_generator,
 	sge::parse::json::object const &_config_file,
 	sge::camera::object const &_camera,
 	sge::time::callback const &_callback)
 :
+	node_base(
+		_parent),
 	manager_(
 		_manager),
 	camera_(
@@ -105,17 +109,8 @@ fruitcut::app::fruit::spawner::spawn_callback(
 }
 
 void
-fruitcut::app::fruit::spawner::reset_timer()
-{
-	if(!timer_.active())
-		timer_.activate();
-	timer_.interval(
-		sge::time::second_f(
-			seconds_rng_()));
-}
-
-void
-fruitcut::app::fruit::spawner::update()
+fruitcut::app::fruit::spawner::react(
+	fruitlib::scenic::events::render const &)
 {
 	if(camera_.projection_object().empty())
 		return;
@@ -200,6 +195,11 @@ fruitcut::app::fruit::spawner::update()
 }
 
 void
-fruitcut::app::fruit::spawner::render()
+fruitcut::app::fruit::spawner::reset_timer()
 {
+	if(!timer_.active())
+		timer_.activate();
+	timer_.interval(
+		sge::time::second_f(
+			seconds_rng_()));
 }

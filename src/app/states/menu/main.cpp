@@ -4,7 +4,10 @@
 #include "../ingame/running.hpp"
 #include "../../events/define_transition_reaction.hpp"
 #include "../../events/return_post_transition_functor.hpp"
+#include "../../../fruitlib/scenic/parent.hpp"
+#include "../../../fruitlib/scenic/depth.hpp"
 #include "../../../media_path.hpp"
+#include "../../depths/overlay.hpp"
 #include <sge/systems/instance.hpp>
 #include <sge/cegui/system.hpp>
 #include <fcppt/text.hpp>
@@ -17,6 +20,10 @@ fruitcut::app::states::menu::main::main(
 	my_base(
 		ctx),
 	logo_(
+		fruitlib::scenic::parent(
+			context<app::machine>().overlay_node(),
+			fruitlib::scenic::depth(
+				depths::overlay::dont_care)),
 		context<machine>().systems().renderer(),
 		context<machine>().systems().viewport_manager(),
 		context<machine>().systems().image_loader(),
@@ -65,8 +72,6 @@ fruitcut::app::states::menu::main::main(
 			FRUITCUT_APP_EVENTS_RETURN_POST_TRANSITION_FUNCTOR(
 				ingame::superstate)))
 {
-	context<machine>().overlay_node().insert_dont_care(
-		logo_);
 }
 
 FRUITCUT_APP_EVENTS_DEFINE_TRANSITION_REACTION(

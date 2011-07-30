@@ -8,7 +8,8 @@
 #include "../../events/declare_transition_reaction.hpp"
 #include "../../gui/button.hpp"
 #include "../../gui/table/view.hpp"
-#include "../../../fruitlib/scenic/nodes/intrusive.hpp"
+#include "../../../fruitlib/scenic/node.hpp"
+#include "../../../fruitlib/scenic/events/update_fwd.hpp"
 #include "../../highscore/provider_sequence.hpp"
 #include "../../highscore/post_model.hpp"
 #include "../../gui/table/view.hpp"
@@ -31,7 +32,7 @@ class ranking
 :
 	// The second argument has to be a complete type
 	public boost::statechart::state<ranking,superstate>,
-	public fruitlib::scenic::nodes::intrusive
+	public fruitlib::scenic::node<ranking>
 {
 FCPPT_NONCOPYABLE(
 	ranking);
@@ -46,6 +47,10 @@ public:
 	>
 	reactions;
 
+	typedef
+	boost::mpl::vector1<fruitlib::scenic::events::update>
+	scene_reactions;
+
 	explicit
 	ranking(
 		my_context);
@@ -57,6 +62,10 @@ public:
 		menu::highscore);
 
 	~ranking();
+		
+	void
+	react(
+		fruitlib::scenic::events::update const &);
 private:
 	sge::cegui::toolbox::scoped_layout layout_;
 	sge::cegui::toolbox::scoped_gui_sheet gui_sheet_;
@@ -71,12 +80,6 @@ private:
 	gui::table::view table_view_;
 	fcppt::signal::scoped_connection message_received_connection_;
 	fcppt::signal::scoped_connection error_received_connection_;
-		
-	void
-	update();
-
-	void
-	render();
 
 	void
 	message_received(

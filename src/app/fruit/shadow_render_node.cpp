@@ -2,6 +2,7 @@
 #include "manager.hpp"
 #include "model_vf/format.hpp"
 #include "../../media_path.hpp"
+#include "../../fruitlib/scenic/events/render.hpp"
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/first_vertex.hpp>
 #include <sge/renderer/matrix4.hpp>
@@ -18,11 +19,14 @@
 #include <fcppt/math/matrix/matrix.hpp>
 
 fruitcut::app::fruit::shadow_render_node::shadow_render_node(
+	fruitlib::scenic::parent const &_parent,
 	sge::renderer::device &_renderer,
 	sge::renderer::vertex_declaration &_vertex_declaration,
 	fruit::manager const &_manager,
 	sge::renderer::matrix4 const &_mvp)
 :
+	node_base(
+		_parent),
 	renderer_(
 		_renderer),
 	vertex_declaration_(
@@ -54,7 +58,8 @@ fruitcut::app::fruit::shadow_render_node::~shadow_render_node()
 }
 
 void
-fruitcut::app::fruit::shadow_render_node::render()
+fruitcut::app::fruit::shadow_render_node::react(
+	fruitlib::scenic::events::render const &)
 {
 	sge::shader::scoped scoped_shader(
 		shader_,
@@ -85,10 +90,4 @@ fruitcut::app::fruit::shadow_render_node::render()
 				i->vb().size()),
 			sge::renderer::nonindexed_primitive_type::triangle);
 	}
-	
-}
-
-void
-fruitcut::app::fruit::shadow_render_node::update()
-{
 }

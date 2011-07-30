@@ -5,6 +5,9 @@
 #include "../resource_tree/path.hpp"
 #include "../uniform_random.hpp"
 #include "../random_generator.hpp"
+#include "../scenic/parent_fwd.hpp"
+#include "../scenic/node.hpp"
+#include "../scenic/events/update.hpp"
 #include "group/player.hpp"
 #include "pool.hpp"
 #include <sge/audio/multi_loader_fwd.hpp>
@@ -16,6 +19,7 @@
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/unique_ptr.hpp>
 #include <fcppt/filesystem/path.hpp>
+#include <boost/mpl/vector/vector10.hpp>
 #include <cstddef>
 
 namespace fruitcut
@@ -48,12 +52,19 @@ namespace audio
 /// Also, we store "sound groups", which aggregate more than one sound
 /// so you can randomly play one of them.
 class sound_controller
+:
+	public scenic::node<sound_controller>
 {
 FCPPT_NONCOPYABLE(
 	sound_controller);
 public:
+	typedef
+	boost::mpl::vector1<scenic::events::update>
+	scene_reactions;
+
 	explicit 
 	sound_controller(
+		scenic::parent const &,
 		fruitlib::random_generator &,
 		fcppt::filesystem::path const &,
 		sge::audio::multi_loader &,
@@ -69,11 +80,6 @@ public:
 		resource_tree::path const &,
 		sge::audio::sound::positional_parameters const &);
 
-	// The pool has update which needs to be called so the sounds are
-	// deleted properly
-	void
-	update();
-
 	sge::audio::scalar
 	gain() const;
 
@@ -87,6 +93,12 @@ public:
 	void
 	pitch(
 		sge::audio::scalar);
+
+	// The pool has update which needs to be called so the sounds are
+	// deleted properly
+	void
+	react(
+		scenic::events::update const &);
 
 	~sound_controller();
 private:

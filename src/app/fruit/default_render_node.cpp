@@ -1,5 +1,6 @@
 #include "default_render_node.hpp"
 #include "../../media_path.hpp"
+#include "../../fruitlib/scenic/events/render.hpp"
 #include "model_vf/format.hpp"
 #include "manager.hpp"
 #include "../directional_light_source.hpp"
@@ -26,6 +27,7 @@
 #include <fcppt/text.hpp>
 
 fruitcut::app::fruit::default_render_node::default_render_node(
+	fruitlib::scenic::parent const &_parent,
 	sge::renderer::device &_renderer,
 	sge::renderer::vertex_declaration &_vertex_declaration,
 	fruit::manager const &_manager,
@@ -33,6 +35,8 @@ fruitcut::app::fruit::default_render_node::default_render_node(
 	app::directional_light_source const &light,
 	sge::renderer::scalar const _ambient_intensity)
 :
+	node_base(
+		_parent),
 	renderer_(
 		_renderer),
 	manager_(
@@ -111,7 +115,8 @@ fruitcut::app::fruit::default_render_node::~default_render_node()
 }
 
 void
-fruitcut::app::fruit::default_render_node::render()
+fruitcut::app::fruit::default_render_node::react(
+	fruitlib::scenic::events::render const &)
 {
 	sge::renderer::state::scoped scoped_state(
 		renderer_,
@@ -195,9 +200,4 @@ fruitcut::app::fruit::default_render_node::render()
 				i->vb().size()),
 			sge::renderer::nonindexed_primitive_type::triangle);
 	}
-}
-
-void
-fruitcut::app::fruit::default_render_node::update()
-{
 }

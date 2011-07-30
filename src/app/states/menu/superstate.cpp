@@ -2,6 +2,9 @@
 #include "main.hpp"
 #include "../../../fruitlib/audio/music_controller.hpp"
 #include "../../../fruitlib/resource_tree/path.hpp"
+#include "../../../fruitlib/scenic/parent.hpp"
+#include "../../../fruitlib/scenic/depth.hpp"
+#include "../../depths/overlay.hpp"
 #include <sge/systems/instance.hpp>
 #include <sge/input/keyboard/action.hpp>
 #include <sge/input/keyboard/key_code.hpp>
@@ -15,8 +18,11 @@ fruitcut::app::states::menu::superstate::superstate(
 	my_base(
 		ctx),
 	gui_node_(
-		context<machine>().gui_system(),
-		context<machine>().timer_callback()),
+		fruitlib::scenic::parent(
+			context<machine>().overlay_node(),
+			fruitlib::scenic::depth(
+				depths::overlay::dont_care)),
+		context<machine>().gui_system()),
 	gui_keyboard_(
 		context<machine>().gui_syringe(),
 		context<machine>().systems().keyboard_collector()),
@@ -31,9 +37,6 @@ fruitcut::app::states::menu::superstate::superstate(
 					&app::machine::quit,
 					&context<app::machine>()))))
 {
-	context<machine>().overlay_node().insert_dont_care(
-		gui_node_);
-
 	context<machine>().music_controller().play(
 		fruitlib::resource_tree::path(
 			FCPPT_TEXT("menu")));

@@ -14,11 +14,16 @@
 #include "../../events/define_transition_reaction.hpp"
 #include "../../events/return_post_transition_functor.hpp"
 #include "../../events/post_transition.hpp"
+#include "../../depths/root.hpp"
+#include "../../depths/scene.hpp"
+#include "../../depths/overlay.hpp"
 #include "../../../fruitlib/json/find_and_convert_member.hpp"
 #include "../../../fruitlib/math/multiply_matrix4_vector3.hpp"
 #include "../../../fruitlib/math/unproject.hpp"
 #include "../../../fruitlib/resource_tree/path.hpp"
 #include "../../../fruitlib/audio/sound_controller.hpp"
+#include "../../../fruitlib/scenic/parent.hpp"
+#include "../../../fruitlib/scenic/depth.hpp"
 #include <sge/font/pos.hpp>
 #include <sge/font/rect.hpp>
 #include <sge/font/text/text.hpp>
@@ -57,12 +62,25 @@ fruitcut::app::states::ingame::running::running(
 :
 	my_base(
 		ctx),
+	node_base(
+		fruitlib::scenic::parent(
+			context<app::machine>().root_node(),
+			fruitlib::scenic::depth(
+				depths::root::dont_care))),
 	line_drawer_(
 		context<machine>().systems().renderer()),
 	line_drawer_node_(
+		fruitlib::scenic::parent(
+			context<machine>().overlay_node(),
+			fruitlib::scenic::depth(
+				depths::overlay::dont_care)),
 		line_drawer_,
-		&(context<machine>().systems().renderer())),
+		&context<machine>().systems().renderer()),
 	cursor_trail_(
+		fruitlib::scenic::parent(
+			context<app::machine>().root_node(),
+			fruitlib::scenic::depth(
+				depths::root::dont_care)),
 		context<machine>().systems().cursor_demuxer(),
 		sge::time::millisecond(
 			fruitlib::json::find_and_convert_member<sge::time::unit>(
@@ -75,11 +93,6 @@ fruitcut::app::states::ingame::running::running(
 				fruitlib::json::path(FCPPT_TEXT("mouse"))
 					/ FCPPT_TEXT("trail-samples")),
 		context<machine>().systems().renderer().onscreen_target()),
-	update_node_(
-		std::tr1::bind(
-			&running::update,
-			this),
-		fruitlib::scenic::nodes::intrusive_with_callbacks::render_callback()),
 	viewport_change_connection_(
 		context<machine>().systems().viewport_manager().manage_callback(
 			std::tr1::bind(
@@ -109,6 +122,10 @@ fruitcut::app::states::ingame::running::running(
 				FRUITCUT_APP_EVENTS_RETURN_POST_TRANSITION_FUNCTOR(
 					ingame::paused)))),
 	sword_trail_(
+		fruitlib::scenic::parent(
+			context<app::machine>().scene_node(),
+			fruitlib::scenic::depth(
+				depths::scene::sword_trail)),
 		context<app::machine>().systems().renderer(),
 		context<app::machine>().systems().renderer().onscreen_target(),
 		context<app::machine>().systems().image_loader(),
@@ -116,14 +133,6 @@ fruitcut::app::states::ingame::running::running(
 		context<app::machine>().timer_callback(),
 		context<app::machine>().config_file())
 {
-	context<machine>().scene_node().push_back(
-		sword_trail_);
-	context<machine>().overlay_node().insert_dont_care(
-		update_node_);
-	context<machine>().overlay_node().insert_dont_care(
-		line_drawer_node_);
-	context<machine>().overlay_node().insert_dont_care(
-		cursor_trail_);
 	context<machine>().postprocessing().active(
 		true);
 	viewport_change();
@@ -142,7 +151,8 @@ fruitcut::app::states::ingame::running::~running()
 }
 
 void
-fruitcut::app::states::ingame::running::update()
+fruitcut::app::states::ingame::running::react(
+	fruitlib::scenic::events::update const &)
 {
 	if(draw_bbs_ || draw_mouse_trail_)
 	{

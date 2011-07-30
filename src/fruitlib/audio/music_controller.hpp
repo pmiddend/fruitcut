@@ -5,6 +5,9 @@
 #include "../random_generator.hpp"
 #include "../resource_tree/make_type.hpp"
 #include "../resource_tree/path.hpp"
+#include "../scenic/node.hpp"
+#include "../scenic/parent_fwd.hpp"
+#include "../scenic/events/update_fwd.hpp"
 #include "group/player.hpp"
 #include <sge/audio/multi_loader_fwd.hpp>
 #include <sge/audio/player_fwd.hpp>
@@ -28,21 +31,25 @@ namespace fruitlib
 namespace audio
 {
 class music_controller
+:
+	public scenic::node<music_controller>
 {
 FCPPT_NONCOPYABLE(
 	music_controller);
 public:
+	typedef
+	boost::mpl::vector1<scenic::events::update>
+	scene_reactions;
+
 	explicit
 	music_controller(
+		scenic::parent const &,
 		fruitlib::random_generator &,
 		sge::audio::multi_loader &,
 		sge::audio::player &,
 		sge::time::duration const &,
 		fcppt::filesystem::path const &,
 		sge::audio::scalar volume);
-
-	void
-	update();
 
 	void
 	play(
@@ -57,6 +64,10 @@ public:
 	void
 	gain(
 		sge::audio::scalar);
+
+	void
+	react(
+		scenic::events::update const &);
 
 	~music_controller();
 private:

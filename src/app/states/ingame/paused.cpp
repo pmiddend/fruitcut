@@ -3,10 +3,15 @@
 #include "../menu/main.hpp"
 #include "../../../fruitlib/time_format/string_to_duration_exn.hpp"
 #include "../../../fruitlib/json/find_and_convert_member.hpp"
+#include "../../../fruitlib/scenic/parent.hpp"
 #include "../../../fruitlib/pp/texture/use_screen_size.hpp"
 #include "../../../fruitlib/pp/filter/blur.hpp"
+#include "../../../fruitlib/scenic/events/render.hpp"
+#include "../../../fruitlib/scenic/events/update.hpp"
 #include "../../../media_path.hpp"
 #include "../../postprocessing.hpp"
+#include "../../depths/root.hpp"
+#include "../../depths/overlay.hpp"
 #include "../../events/define_transition_reaction.hpp"
 #include "../../events/return_post_transition_functor.hpp"
 #include "../../events/generic_transition.hpp"
@@ -30,6 +35,11 @@ fruitcut::app::states::ingame::paused::paused(
 :
 	my_base(
 		ctx),
+	node_base(
+		fruitlib::scenic::parent(
+			context<machine>().root_node(),
+			fruitlib::scenic::depth(
+				depths::root::paused))),
 	time_factor_(
 		context<machine>(),
 		static_cast<sge::time::funit>(
@@ -78,8 +88,11 @@ fruitcut::app::states::ingame::paused::paused(
 					&context<machine>(),
 					events::generic_transition<ingame::running>())))),
 	gui_node_(
-		context<machine>().gui_system(),
-		context<machine>().timer_callback()),
+		fruitlib::scenic::parent(
+			context<machine>().overlay_node(),
+			fruitlib::scenic::depth(
+				depths::overlay::dont_care)),
+		context<machine>().gui_system()),
 	gui_keyboard_(
 		context<machine>().gui_syringe(),
 		context<machine>().systems().keyboard_collector()),
@@ -122,13 +135,6 @@ fruitcut::app::states::ingame::paused::paused(
 				&app::machine::quit,
 				&context<app::machine>())))
 {
-	context<machine>().overlay_node().insert_dont_care(
-		gui_node_);
-
-	context<machine>().root_node().insert_after(
-		*this,
-		context<machine>().scene_node());
-
 	system_.add_filter(
 		inject_texture_,
 		FCPPT_TEXT("inject_texture"),
@@ -154,13 +160,15 @@ fruitcut::app::states::ingame::paused::~paused()
 }
 
 void
-fruitcut::app::states::ingame::paused::render()
+fruitcut::app::states::ingame::paused::react(
+	fruitlib::scenic::events::render const &)
 {
 	system_.render_result();
 }
 
 void
-fruitcut::app::states::ingame::paused::update()
+fruitcut::app::states::ingame::paused::react(
+	fruitlib::scenic::events::update const &)
 {
 	if(!blur_iterations_ || (blur_iterations_ < max_blur_iterations_ && blur_timer_.update_b()))
 	{

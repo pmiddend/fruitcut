@@ -1,9 +1,11 @@
 #ifndef FRUITCUT_APP_QUICK_LOG_HPP_INCLUDED
 #define FRUITCUT_APP_QUICK_LOG_HPP_INCLUDED
 
-#include "../fruitlib/scenic/nodes/intrusive_group.hpp"
-#include "../fruitlib/font/intrusive_scene_node.hpp"
+#include "../fruitlib/scenic/node.hpp"
+#include "../fruitlib/scenic/parent_fwd.hpp"
+#include "../fruitlib/scenic/events/update_fwd.hpp"
 #include "../fruitlib/font/cache_fwd.hpp"
+#include "../fruitlib/font/scene_node.hpp"
 #include "../fruitlib/audio/sound_controller_fwd.hpp"
 #include <sge/renderer/scalar.hpp>
 #include <sge/viewport/manager_fwd.hpp>
@@ -15,6 +17,7 @@
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/string.hpp>
+#include <boost/mpl/vector/vector10.hpp>
 #include <deque>
 
 namespace fruitcut
@@ -23,13 +26,18 @@ namespace app
 {
 class quick_log
 :
-	public fruitlib::scenic::nodes::intrusive_group
+	public fruitlib::scenic::node<quick_log>
 {
 FCPPT_NONCOPYABLE(
 	quick_log);
 public:
+	typedef
+	boost::mpl::vector1<fruitlib::scenic::events::update>
+	scene_reactions;
+
 	explicit
 	quick_log(
+		fruitlib::scenic::parent const &,
 		sge::parse::json::object const &,
 		fruitlib::font::cache &,
 		sge::viewport::manager &,
@@ -41,6 +49,10 @@ public:
 	void
 	add_message(
 		fcppt::string const &);
+	
+	void
+	react(
+		fruitlib::scenic::events::update const &);
 private:
 	typedef
 	fcppt::math::dim::static_<sge::renderer::scalar,2>::type
@@ -53,7 +65,7 @@ private:
 	message_sequence;
 
 	fruitlib::audio::sound_controller &sound_controller_;
-	fruitlib::font::intrusive_scene_node font_node_;
+	fruitlib::font::scene_node font_node_;
 	fractional_dimension fractional_size_;
 	fcppt::signal::scoped_connection viewport_change_connection_;
 	sge::time::timer message_delete_timer_;
@@ -62,9 +74,6 @@ private:
 	void
 	viewport_change(
 		sge::renderer::device const &);
-	
-	void
-	update();
 };
 }
 }

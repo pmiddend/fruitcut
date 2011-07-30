@@ -1,7 +1,9 @@
 #ifndef FRUITCUT_APP_SHADOW_MAP_HPP_INCLUDED
 #define FRUITCUT_APP_SHADOW_MAP_HPP_INCLUDED
 
-#include "../fruitlib/scenic/nodes/intrusive_group.hpp"
+#include "../fruitlib/scenic/node.hpp"
+#include "../fruitlib/scenic/parent_fwd.hpp"
+#include "../fruitlib/scenic/events/update_fwd.hpp"
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/texture/planar_fwd.hpp>
 #include <sge/renderer/target_ptr.hpp>
@@ -10,6 +12,7 @@
 #include <sge/parse/json/object_fwd.hpp>
 #include <fcppt/math/matrix/matrix.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <boost/mpl/vector/vector10.hpp>
 
 namespace fruitcut
 {
@@ -29,13 +32,18 @@ namespace app
  */
 class shadow_map
 :
-	public fruitlib::scenic::nodes::intrusive_group
+	public fruitlib::scenic::node<shadow_map>
 {
 FCPPT_NONCOPYABLE(
 	shadow_map);
 public:
+	typedef
+	boost::mpl::vector1<fruitlib::scenic::events::update>
+	scene_reactions;
+
 	explicit
 	shadow_map(
+		fruitlib::scenic::parent const &,
 		sge::parse::json::object const &,
 		sge::renderer::device &,
 		sge::renderer::matrix4 const &);
@@ -47,19 +55,15 @@ public:
 	mvp() const;
 
 	~shadow_map();
+
+	void
+	react(
+		fruitlib::scenic::events::update const &);
 private:
 	sge::renderer::device &renderer_;
 	sge::renderer::texture::planar_ptr texture_;
 	sge::renderer::target_ptr target_;
 	sge::renderer::matrix4 mvp_;
-
-	// override
-	void
-	render();
-
-	// override
-	void
-	update();
 };
 }
 }

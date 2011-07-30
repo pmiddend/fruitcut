@@ -1,12 +1,15 @@
 #ifndef FRUITCUT_FRUITLIB_FONT_SCENE_NODE_HPP_INCLUDED
 #define FRUITCUT_FRUITLIB_FONT_SCENE_NODE_HPP_INCLUDED
 
-#include "../scenic/nodes/with_color.hpp"
-#include "../scenic/nodes/with_scale.hpp"
-#include "../scenic/color.hpp"
+#include "color.hpp"
+#include "scale.hpp"
+#include "../scenic/parent_fwd.hpp"
+#include "../scenic/events/render_fwd.hpp"
+#include "../scenic/node.hpp"
 #include "object_parameters_fwd.hpp"
 #include "object.hpp"
 #include <fcppt/noncopyable.hpp>
+#include <boost/mpl/vector/vector10.hpp>
 
 namespace fruitcut
 {
@@ -16,47 +19,50 @@ namespace font
 {
 class scene_node
 :
-	public scenic::nodes::with_color,
-	public scenic::nodes::with_scale
+	public fruitlib::scenic::node<scene_node>
 {
 FCPPT_NONCOPYABLE(
 	scene_node);
 public:
+	typedef
+	boost::mpl::vector1<fruitlib::scenic::events::render>
+	scene_reactions;
+
 	explicit
 	scene_node(
+		fruitlib::scenic::parent const &,
 		object_parameters const &,
-		scenic::color const &,
-		scenic::scale);
+		font::color const &,
+		font::scale const &);
 
-	void
-	render();
-
-	void
-	update();
-
-	scenic::color const
+	font::color const
 	color() const;
 
 	void
 	color(
-		scenic::color const &);
+		font::color const &);
 
-	scenic::scale
+	font::scale::value_type
 	scale() const;
 
 	void
 	scale(
-		scenic::scale);
+		font::scale::value_type);
 
 	font::object &
 	object();
 
 	font::object const &
 	object() const;
+
+	void
+	react(
+		fruitlib::scenic::events::render const &);
 private:
 	font::object object_;
-	scenic::color color_;
-	scenic::scale scale_;
+	font::color color_;
+	font::scale::value_type scale_;
+
 };
 }
 }

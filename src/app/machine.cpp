@@ -258,10 +258,10 @@ fruitcut::app::machine::time_factor(
 		_time_factor);
 }
 
-fruitcut::fruitlib::scenic::nodes::intrusive_group &
+fruitcut::fruitlib::scenic::base &
 fruitcut::app::machine::root_node()
 {
-	return *impl_;
+	return impl_->root_node();
 }
 
 fruitcut::app::machine::~machine()

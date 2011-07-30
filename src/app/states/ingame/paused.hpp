@@ -12,8 +12,8 @@
 #include "../../../fruitlib/pp/system.hpp"
 #include "../../../fruitlib/pp/filter/inject_texture.hpp"
 #include "../../../fruitlib/pp/filter/blur.hpp"
-#include "../../../fruitlib/scenic/nodes/intrusive.hpp"
-#include "../../../fruitlib/scenic/nodes/gui_system.hpp"
+#include "../../../fruitlib/scenic/adaptors/gui_system.hpp"
+#include "../../../fruitlib/scenic/node.hpp"
 #include <sge/renderer/texture/planar_ptr.hpp>
 #include <sge/time/timer.hpp>
 #include <sge/cegui/toolbox/scoped_layout.hpp>
@@ -37,7 +37,7 @@ class paused
 :
 	// The second argument has to be a complete type
 	public boost::statechart::state<paused,superstate>,
-	public fruitlib::scenic::nodes::intrusive
+	public fruitlib::scenic::node<paused>
 {
 FCPPT_NONCOPYABLE(
 	paused);
@@ -52,6 +52,10 @@ public:
 	>
 	reactions;
 
+	typedef
+	boost::mpl::vector2<fruitlib::scenic::events::render,fruitlib::scenic::events::update>
+	scene_reactions;
+
 	explicit
 	paused(
 		my_context);
@@ -63,6 +67,14 @@ public:
 		menu::main);
 
 	~paused();
+
+	void
+	react(
+		fruitlib::scenic::events::render const &);
+
+	void
+	react(
+		fruitlib::scenic::events::update const &);
 private:
 	app::scoped_time_factor time_factor_;
 	app::scoped_scene_activation scene_deactivation_;
@@ -75,7 +87,7 @@ private:
 	sge::time::timer blur_timer_;
 	fcppt::signal::scoped_connection transit_to_running_connection_;
 
-	fruitlib::scenic::nodes::gui_system gui_node_;
+	fruitlib::scenic::adaptors::gui_system gui_node_;
 	sge::cegui::default_keyboard gui_keyboard_;
 	sge::cegui::default_cursor gui_cursor_;
 	sge::cegui::toolbox::scoped_layout layout_;
@@ -86,12 +98,6 @@ private:
 	fcppt::signal::scoped_connection continue_connection_;
 	fcppt::signal::scoped_connection main_menu_connection_;
 	fcppt::signal::scoped_connection quit_connection_;
-
-	void
-	render();
-
-	void
-	update();
 };
 }
 }

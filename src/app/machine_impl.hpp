@@ -11,10 +11,10 @@
 #include "../fruitlib/font/cache.hpp"
 #include "../fruitlib/log/scoped_sequence_ptr.hpp"
 #include "../fruitlib/random_generator.hpp"
-#include "../fruitlib/scenic/nodes/camera.hpp"
-#include "../fruitlib/scenic/nodes/intrusive_group.hpp"
-#include "../fruitlib/scenic/nodes/music_controller.hpp"
-#include "../fruitlib/scenic/nodes/sound_controller.hpp"
+#include "../fruitlib/scenic/adaptors/camera.hpp"
+#include "../fruitlib/scenic/events/update_fwd.hpp"
+#include "../fruitlib/scenic/events/render_fwd.hpp"
+#include "../fruitlib/scenic/node.hpp"
 #include "screen_shooter.hpp"
 #include "overlay.hpp"
 #include "point_sprite/system_node.hpp"
@@ -30,6 +30,7 @@
 #include <sge/parse/json/object.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/time/time.hpp>
+#include <boost/mpl/vector/vector10.hpp>
 #include <fcppt/chrono/chrono.hpp>
 
 namespace fruitcut
@@ -38,11 +39,15 @@ namespace app
 {
 class machine_impl
 :
-	public fruitlib::scenic::nodes::intrusive_group
+	public fruitlib::scenic::node<machine_impl>
 {
 FCPPT_NONCOPYABLE(
 	machine_impl);
 public:
+	typedef
+	boost::mpl::vector2<fruitlib::scenic::events::update,fruitlib::scenic::events::render>
+	scene_reactions;
+
 	explicit
 	machine_impl(
 		int argc,
@@ -133,6 +138,12 @@ public:
 	last_game_score(
 		highscore::score::value_type const &);
 
+	fruitlib::scenic::base &
+	root_node();
+
+	fruitlib::scenic::base const &
+	root_node() const;
+
 	scene &
 	scene_node();
 
@@ -168,6 +179,14 @@ public:
 	quick_log();
 
 	~machine_impl();
+
+	void
+	react(
+		fruitlib::scenic::events::update const &);
+
+	void
+	react(
+		fruitlib::scenic::events::render const &);
 private:
 	fruitlib::random_generator random_generator_;
 	sge::parse::json::object user_config_file_;
@@ -179,17 +198,16 @@ private:
 	app::overlay overlay_node_;
 	fruitlib::log::scoped_sequence_ptr activated_loggers_;
 	fruitlib::font::cache font_cache_;
+	sge::time::timer second_timer_;
 	sge::time::point current_time_,transformed_time_;
 	sge::time::funit time_factor_;
 	fruitlib::audio::sound_controller sound_controller_;
-	fruitlib::scenic::nodes::sound_controller sound_controller_node_;
 	fcppt::signal::scoped_connection effects_volume_change_connection_;
 	fruitlib::audio::music_controller music_controller_;
-	fruitlib::scenic::nodes::music_controller music_controller_node_;
 	fcppt::signal::scoped_connection music_volume_change_connection_;
 	app::quick_log quick_log_;
 	sge::camera::object camera_;
-	fruitlib::scenic::nodes::camera camera_node_;
+	fruitlib::scenic::adaptors::camera camera_node_;
 	fcppt::signal::scoped_connection toggle_camera_connection_;
 	fcppt::signal::scoped_connection viewport_change_connection_;
 	app::directional_light_source main_light_source_;
@@ -212,14 +230,6 @@ private:
 
 	void 
 	manage_rendering();
-
-	// @override
-	void
-	update();
-
-	// @override
-	void
-	render();
 };
 }
 }

@@ -2,17 +2,25 @@
 #include "menu/main.hpp"
 #include "../fruit/prototype_from_json.hpp"
 #include "../events/define_transition_reaction.hpp"
+#include "../depths/root.hpp"
+#include "../depths/overlay.hpp"
 #include "../events/post_transition.hpp"
 #include "../../fruitlib/json/find_and_convert_member.hpp"
-#include "../../fruitlib/json/parse_color.hpp"
+#include "../../fruitlib/json/parse_rgba8_color.hpp"
 #include "../../fruitlib/font/object_parameters.hpp"
+#include "../../fruitlib/font/color_format.hpp"
+#include "../../fruitlib/scenic/parent.hpp"
+#include "../../fruitlib/scenic/events/render.hpp"
+#include "../../fruitlib/scenic/events/update.hpp"
+#include "../../fruitlib/scenic/depth.hpp"
+#include "../../fruitlib/font/scale.hpp"
 #include "../../fruitlib/font/cache.hpp"
 #include "../postprocessing.hpp"
 #include <sge/renderer/viewport_size.hpp>
 #include <sge/font/font.hpp>
 #include <sge/systems/instance.hpp>
-#include <sge/image/color/rgba8.hpp>
 #include <sge/image/colors.hpp>
+#include <sge/image/color/convert.hpp>
 #include <sge/viewport/manager.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/text.hpp>
@@ -24,7 +32,11 @@ fruitcut::app::states::loading::loading(
 :
 	my_base(
 		ctx),
-	fruitlib::scenic::nodes::intrusive(),
+	node_base(
+		fruitlib::scenic::parent(
+			context<app::machine>().root_node(),
+			fruitlib::scenic::depth(
+				depths::root::dont_care))),
 	viewport_change_connection_(
 		context<machine>().systems().viewport_manager().manage_callback(
 			std::tr1::bind(
@@ -38,6 +50,10 @@ fruitcut::app::states::loading::loading(
 	current_fruit_(
 		fruit_array_.begin()),
 	font_node_(
+		fruitlib::scenic::parent(
+			context<app::machine>().overlay_node(),
+			fruitlib::scenic::depth(
+				depths::overlay::dont_care)),
 		fruitlib::font::object_parameters(
 			context<machine>().font_cache().metrics(
 				FCPPT_TEXT("score")),
@@ -48,14 +64,14 @@ fruitcut::app::states::loading::loading(
 			sge::font::text::align_h::center,
 			sge::font::text::align_v::top,
 			sge::font::text::flags::none),
-		sge::image::color::any::object(
-			fruitlib::json::parse_color<sge::image::color::rgba8>(
+		sge::image::color::convert<fruitlib::font::color_format>(
+			fruitlib::json::parse_rgba8_color(
 				fruitlib::json::find_and_convert_member<sge::parse::json::value>(
 					context<machine>().config_file(),
 					fruitlib::json::path(
 						FCPPT_TEXT("loading"))
 						/ FCPPT_TEXT("font-color")))),
-		static_cast<fruitlib::scenic::scale>(
+		fruitlib::font::scale(
 			1))
 {
 	context<machine>().postprocessing().desaturate_filter().factor(
@@ -65,12 +81,6 @@ fruitcut::app::states::loading::loading(
 	// We already hae a viewport? Ok, then go
 	if(sge::renderer::viewport_size(context<machine>().systems().renderer()).content())
 		viewport_change();
-
-	context<machine>().root_node().insert_dont_care(
-		*this);
-
-	context<machine>().overlay_node().insert_dont_care(
-		font_node_);
 }
 
 FRUITCUT_APP_EVENTS_DEFINE_TRANSITION_REACTION(
@@ -82,21 +92,8 @@ fruitcut::app::states::loading::~loading()
 }
 
 void
-fruitcut::app::states::loading::viewport_change()
-{
-	sge::font::dim const &viewport_dim = 
-		fcppt::math::dim::structure_cast<sge::font::dim>(
-			sge::renderer::viewport_size(
-				context<machine>().systems().renderer()));
-
-	font_node_.object().bounding_box(
-		sge::font::rect(
-			sge::font::pos::null(),
-			viewport_dim));
-}
-
-void
-fruitcut::app::states::loading::update()
+fruitcut::app::states::loading::react(
+	fruitlib::scenic::events::update const &)
 {
 	if(current_fruit_ == fruit_array_.end())
 	{
@@ -133,8 +130,17 @@ fruitcut::app::states::loading::update()
 }
 
 void
-fruitcut::app::states::loading::render()
+fruitcut::app::states::loading::viewport_change()
 {
+	sge::font::dim const &viewport_dim = 
+		fcppt::math::dim::structure_cast<sge::font::dim>(
+			sge::renderer::viewport_size(
+				context<machine>().systems().renderer()));
+
+	font_node_.object().bounding_box(
+		sge::font::rect(
+			sge::font::pos::null(),
+			viewport_dim));
 }
 
 

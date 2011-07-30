@@ -1,7 +1,9 @@
 #ifndef FRUITCUT_APP_BACKGROUND_HPP_INCLUDED
 #define FRUITCUT_APP_BACKGROUND_HPP_INCLUDED
 
-#include "../fruitlib/scenic/nodes/intrusive.hpp"
+#include "../fruitlib/scenic/node.hpp"
+#include "../fruitlib/scenic/parent_fwd.hpp"
+#include "../fruitlib/scenic/events/render_fwd.hpp"
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/scalar.hpp>
 #include <sge/renderer/vertex_buffer_ptr.hpp>
@@ -16,6 +18,7 @@
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/math/matrix/matrix.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
+#include <boost/mpl/vector/vector10.hpp>
 
 namespace fruitcut
 {
@@ -23,13 +26,18 @@ namespace app
 {
 class background
 :
-	public fruitlib::scenic::nodes::intrusive
+	public fruitlib::scenic::node<background>
 {
 FCPPT_NONCOPYABLE(
 	background);
 public:
+	typedef
+	boost::mpl::vector1<fruitlib::scenic::events::render>
+	scene_reactions;
+
 	explicit
 	background(
+		fruitlib::scenic::parent const &,
 		sge::renderer::device &,
 		sge::viewport::manager &,
 		sge::image2d::multi_loader &,
@@ -42,6 +50,10 @@ public:
 	viewport_changed();
 
 	~background();
+
+	void
+	react(
+		fruitlib::scenic::events::render const &);
 private:
 	sge::renderer::device &renderer_;
 	sge::camera::object const &camera_;
@@ -52,11 +64,6 @@ private:
 	sge::renderer::scalar const reps_;
 	fcppt::signal::scoped_connection viewport_changed_connection_;
 
-	void
-	render();
-
-	void
-	update();
 };
 }
 }

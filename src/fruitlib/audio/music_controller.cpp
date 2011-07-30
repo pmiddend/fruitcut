@@ -3,6 +3,7 @@
 #include "../resource_tree/from_directory_tree.hpp"
 #include "../resource_tree/navigate_to_path.hpp"
 #include "../resource_tree/path.hpp"
+#include "../scenic/events/update.hpp"
 #include <sge/audio/sound/repeat.hpp>
 #include <sge/audio/sound/base.hpp>
 #include <sge/audio/player.hpp>
@@ -44,6 +45,7 @@ create_random_from_directory(
 }
 
 fruitcut::fruitlib::audio::music_controller::music_controller(
+	scenic::parent const &_group,
 	fruitlib::random_generator &_random_generator,
 	sge::audio::multi_loader &_audio_loader,
 	sge::audio::player &_player,
@@ -51,6 +53,8 @@ fruitcut::fruitlib::audio::music_controller::music_controller(
 	fcppt::filesystem::path const &_base_path,
 	sge::audio::scalar const _initial_gain)
 :
+	node_base(
+		_group),
 	player_(
 		_player,
 		_initial_gain,
@@ -80,37 +84,6 @@ fruitcut::fruitlib::audio::music_controller::music_controller(
 		silence_source_),
 	new_source_()
 {
-}
-
-void
-fruitcut::fruitlib::audio::music_controller::update()
-{
-	if(current_source_)
-		current_source_->update();
-
-	if(!new_source_)
-		return;
-
-	if(crossfade_.expired())
-	{
-		FCPPT_ASSERT(
-			current_source_);
-		current_source_->stop();
-		current_source_ = new_source_;
-		new_source_.reset();
-	}
-	else
-	{
-		current_source_->gain(
-			static_cast<sge::audio::scalar>(1) 
-				- static_cast<sge::audio::scalar>(
-					crossfade_.elapsed_frames()));
-		new_source_->gain(
-			static_cast<sge::audio::scalar>(
-				crossfade_.elapsed_frames()));
-
-		new_source_->update();
-	}
 }
 
 void
@@ -167,7 +140,40 @@ fruitcut::fruitlib::audio::music_controller::gain(
 		_gain);
 }
 
+void
+fruitcut::fruitlib::audio::music_controller::react(
+	scenic::events::update const &)
+{
+	if(current_source_)
+		current_source_->update();
+
+	if(!new_source_)
+		return;
+
+	if(crossfade_.expired())
+	{
+		FCPPT_ASSERT(
+			current_source_);
+		current_source_->stop();
+		current_source_ = new_source_;
+		new_source_.reset();
+	}
+	else
+	{
+		current_source_->gain(
+			static_cast<sge::audio::scalar>(1) 
+				- static_cast<sge::audio::scalar>(
+					crossfade_.elapsed_frames()));
+		new_source_->gain(
+			static_cast<sge::audio::scalar>(
+				crossfade_.elapsed_frames()));
+
+		new_source_->update();
+	}
+}
+
 fruitcut::fruitlib::audio::music_controller::~music_controller() {}
+
 
 void
 fruitcut::fruitlib::audio::music_controller::do_play(

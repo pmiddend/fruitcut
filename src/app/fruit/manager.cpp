@@ -9,6 +9,7 @@
 #include "../../fruitlib/math/plane/normalize.hpp"
 #include "../../fruitlib/math/box_radius.hpp"
 #include "../../fruitlib/physics/vector3.hpp"
+#include "../../fruitlib/scenic/events/update.hpp"
 #include "../../fruitlib/physics/rigid_body/mass.hpp"
 #include "../../media_path.hpp"
 #include "mesh.hpp"
@@ -58,11 +59,14 @@ calculate_new_linear_velocity(
 }
 
 fruitcut::app::fruit::manager::manager(
+	fruitlib::scenic::parent const &_parent,
 	fruit::prototype_sequence const &_prototypes,
 	sge::renderer::device &_renderer,
 	fruitlib::physics::world &physics_world,
 	sge::camera::object &_camera)
 :
+	node_base(
+		_parent),
 	prototypes_(
 		_prototypes),
 	renderer_(
@@ -283,6 +287,14 @@ fruitcut::app::fruit::manager::~manager()
 }
 
 void
+fruitcut::app::fruit::manager::react(
+	fruitlib::scenic::events::update const &)
+{
+	fruits_.update();
+	delete_distant_fruits();
+}
+
+void
 fruitcut::app::fruit::manager::delete_distant_fruits()
 {
 	typedef
@@ -331,16 +343,4 @@ fruitcut::app::fruit::manager::delete_distant_fruits()
 		}
 	}
 	fruits_.update();
-}
-
-void
-fruitcut::app::fruit::manager::update()
-{
-	fruits_.update();
-	delete_distant_fruits();
-}
-
-void
-fruitcut::app::fruit::manager::render()
-{
 }

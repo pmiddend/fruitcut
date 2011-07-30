@@ -4,10 +4,15 @@
 #include "../../point_sprite/system_node.hpp"
 #include "../../shadow_map.hpp"
 #include "../../scene.hpp"
+#include "../../depths/root.hpp"
+#include "../../depths/scene.hpp"
+#include "../../depths/overlay.hpp"
 #include "../../../fruitlib/audio/music_controller.hpp"
+#include "../../../fruitlib/scenic/parent.hpp"
 #include "../../../fruitlib/audio/sound_controller.hpp"
 #include "../../../fruitlib/resource_tree/path.hpp"
 #include "../../../fruitlib/json/find_and_convert_member.hpp"
+#include "../../../fruitlib/scenic/events/render.hpp"
 #include "../../../fruitlib/json/parse_color.hpp"
 #include "../../../fruitlib/physics/vector3.hpp"
 #include "../../../fruitlib/physics/rigid_body/parameters.hpp"
@@ -58,6 +63,10 @@ fruitcut::app::states::ingame::superstate::superstate(
 				FCPPT_TEXT("physics"))
 				/ FCPPT_TEXT("gravity"))),
 	physics_world_node_(
+		fruitlib::scenic::parent(
+			context<app::machine>().root_node(),
+			fruitlib::scenic::depth(
+				depths::root::dont_care)),
 		physics_world_,
 		context<machine>().timer_callback()),
 	physics_debugger_(
@@ -65,6 +74,10 @@ fruitcut::app::states::ingame::superstate::superstate(
 		context<machine>().systems().renderer(),
 		context<machine>().camera()),
 	physics_debugger_node_(
+		fruitlib::scenic::parent(
+			context<app::machine>().overlay_node(),
+			fruitlib::scenic::depth(
+				depths::overlay::dont_care)),
 		physics_debugger_),
 	physics_debugger_connection_(
 		context<machine>().systems().keyboard_collector().key_callback(
@@ -74,11 +87,19 @@ fruitcut::app::states::ingame::superstate::superstate(
 					&superstate::toggle_physics_debugger,
 					this)))),
 	fruit_manager_(
+		fruitlib::scenic::parent(
+			context<app::machine>().root_node(),
+			fruitlib::scenic::depth(
+				depths::root::dont_care)),
 		context<machine>().fruit_prototypes(),
 		context<machine>().systems().renderer(),
 		physics_world_,
 		context<machine>().camera()),
 	fruit_default_render_node_(
+		fruitlib::scenic::parent(
+			context<app::machine>().scene_node(),
+			fruitlib::scenic::depth(
+				depths::scene::fruits)),
 		context<machine>().systems().renderer(),
 		fruit_manager_.vertex_declaration(),
 		fruit_manager_,
@@ -89,17 +110,29 @@ fruitcut::app::states::ingame::superstate::superstate(
 			fruitlib::json::path(
 				FCPPT_TEXT("ambient-intensity")))),
 	fruit_shadow_render_node_(
+		fruitlib::scenic::parent(
+			context<app::machine>().shadow_map(),
+			fruitlib::scenic::depth(
+				0)),
 		context<machine>().systems().renderer(),
 		fruit_manager_.vertex_declaration(),
 		fruit_manager_,
 		context<machine>().shadow_map().mvp()),
 	fruit_spawner_(
+		fruitlib::scenic::parent(
+			context<app::machine>().root_node(),
+			fruitlib::scenic::depth(
+				depths::root::dont_care)),
 		fruit_manager_,
 		context<machine>().random_generator(),
 		context<machine>().config_file(),
 		context<machine>().camera(),
 		context<machine>().timer_callback()),
 	game_logic_(
+		fruitlib::scenic::parent(
+			context<app::machine>().root_node(),
+			fruitlib::scenic::depth(
+				depths::root::dont_care)),
 		context<machine>().timer_callback(),
 		context<machine>().config_file(),
 		fruit_manager_,
@@ -146,23 +179,6 @@ fruitcut::app::states::ingame::superstate::superstate(
 	background_body_scope_()
 {
 	// scene
-	context<machine>().scene_node().insert_dont_care(
-		fruit_manager_);
-	context<machine>().scene_node().insert_before(
-		fruit_default_render_node_,
-		context<machine>().point_sprites());
-	context<machine>().scene_node().insert_dont_care(
-		fruit_spawner_);
-	context<machine>().shadow_map().insert_dont_care(
-		fruit_shadow_render_node_);
-	context<machine>().scene_node().insert_dont_care(
-		game_logic_);
-	context<machine>().scene_node().insert_dont_care(
-		physics_world_node_);
-	// overlay
-	context<machine>().overlay_node().insert_dont_care(
-		physics_debugger_node_);
-
 	context<machine>().music_controller().play(
 		fruitlib::resource_tree::path(
 			FCPPT_TEXT("random")));

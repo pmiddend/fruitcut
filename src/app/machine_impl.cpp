@@ -1,5 +1,8 @@
 #include "machine_impl.hpp"
 #include "name.hpp"
+#include "depths/root.hpp"
+#include "depths/scene.hpp"
+#include "depths/overlay.hpp"
 #include "../fruitlib/json/parse_projection.hpp"
 #include "../fruitlib/json/find_and_convert_member.hpp"
 #include "../fruitlib/json/merge_trees.hpp"
@@ -9,6 +12,12 @@
 #include "../fruitlib/create_command_line_parameters.hpp"
 #include "../fruitlib/log/scoped_sequence_from_json.hpp"
 #include "../fruitlib/random_generator.hpp"
+#include "../fruitlib/scenic/no_parent.hpp"
+#include "../fruitlib/scenic/update_duration.hpp"
+#include "../fruitlib/scenic/events/render.hpp"
+#include "../fruitlib/scenic/events/update.hpp"
+#include "../fruitlib/scenic/parent.hpp"
+#include "../fruitlib/scenic/depth.hpp"
 #include "../fruitlib/time_format/string_to_duration.hpp"
 #include "light_source_from_json.hpp"
 #include "load_user_config.hpp"
@@ -65,7 +74,8 @@ fruitcut::app::machine_impl::machine_impl(
 	int const argc,
 	char *argv[])
 :
-	fruitlib::scenic::nodes::intrusive_group(),
+	node_base(
+		fruitlib::scenic::no_parent()),
 	random_generator_(
 		static_cast<fruitlib::random_generator::result_type>(
 			fcppt::chrono::high_resolution_clock::now().time_since_epoch().count())),
@@ -122,9 +132,18 @@ fruitcut::app::machine_impl::machine_impl(
 	md3_loader_(
 		sge::model::md3::create()),
 	scene_node_(
+		fruitlib::scenic::parent(
+			root_node(),
+			fruitlib::scenic::depth(
+				depths::root::scene)),
 		systems_,
 		config_file_),
-	overlay_node_(),
+	overlay_node_(
+		fruitlib::scenic::parent(
+			*this,
+			fruitlib::scenic::depth(
+				depths::root::overlay)),
+		systems_.renderer()),
 	activated_loggers_(
 		fruitlib::log::scoped_sequence_from_json(
 			sge::log::global_context(),
@@ -142,6 +161,9 @@ fruitcut::app::machine_impl::machine_impl(
 			config_file_,
 			fruitlib::json::path(
 				FCPPT_TEXT("fonts")))),
+	second_timer_(
+		sge::time::second(
+			1)),
 	current_time_(
 		sge::time::clock::now()),
 	transformed_time_(
@@ -150,6 +172,10 @@ fruitcut::app::machine_impl::machine_impl(
 		static_cast<sge::time::funit>(
 			1)),
 	sound_controller_(
+		fruitlib::scenic::parent(
+			root_node(),
+			fruitlib::scenic::depth(
+				depths::root::dont_care)),
 		random_generator_,
 		fruitcut::media_path()/FCPPT_TEXT("sounds"),
 		systems_.audio_loader(),
@@ -159,8 +185,6 @@ fruitcut::app::machine_impl::machine_impl(
 				config_file(),
 				fruitlib::json::path(
 					FCPPT_TEXT("effects-volume"))))),
-	sound_controller_node_(
-		sound_controller_),
 	effects_volume_change_connection_(
 		config_variables_.effects_volume().change_callback(
 			std::tr1::bind(
@@ -169,6 +193,10 @@ fruitcut::app::machine_impl::machine_impl(
 				&sound_controller_,
 				std::tr1::placeholders::_1))),
 	music_controller_(
+		fruitlib::scenic::parent(
+			root_node(),
+			fruitlib::scenic::depth(
+				depths::root::dont_care)),
 		random_generator_,
 		systems_.audio_loader(),
 		systems_.audio_player(),
@@ -184,8 +212,6 @@ fruitcut::app::machine_impl::machine_impl(
 			fruitlib::json::path(
 				FCPPT_TEXT("music"))
 				/ FCPPT_TEXT("volume"))),
-	music_controller_node_(
-		music_controller_),
 	music_volume_change_connection_(
 		config_variables_.music_volume().change_callback(
 			std::tr1::bind(
@@ -194,6 +220,10 @@ fruitcut::app::machine_impl::machine_impl(
 				&music_controller_,
 				std::tr1::placeholders::_1))),
 	quick_log_(
+		fruitlib::scenic::parent(
+			overlay_node(),
+			fruitlib::scenic::depth(
+				depths::overlay::dont_care)),
 		config_file_,
 		font_cache_,
 		systems_.viewport_manager(),
@@ -227,8 +257,11 @@ fruitcut::app::machine_impl::machine_impl(
 								/ FCPPT_TEXT("camera")
 								/ FCPPT_TEXT("initial-position"))))), 
 	camera_node_(
-		camera_,
-		timer_callback()),
+		fruitlib::scenic::parent(
+			root_node(),
+			fruitlib::scenic::depth(
+				depths::root::dont_care)),	
+		camera_),
 	toggle_camera_connection_(
 		systems_.keyboard_collector().key_callback(
 			sge::input::keyboard::action(
@@ -248,10 +281,18 @@ fruitcut::app::machine_impl::machine_impl(
 				fruitlib::json::path(
 					FCPPT_TEXT("main-light-source"))))),
 	shadow_map_(
+		fruitlib::scenic::parent(
+			root_node(),
+			fruitlib::scenic::depth(
+				depths::root::shadow_map)),
 		config_file_,
 		systems_.renderer(),
 		main_light_source_.model_view()),
 	background_(
+		fruitlib::scenic::parent(
+			scene_node(),
+			fruitlib::scenic::depth(
+				depths::scene::background)),
 		systems_.renderer(),
 		systems_.viewport_manager(),
 		systems_.image_loader(),
@@ -280,6 +321,10 @@ fruitcut::app::machine_impl::machine_impl(
 		// Something invalid so you get the error (if there is one)
 		31337),
 	point_sprites_(
+		fruitlib::scenic::parent(
+			scene_node(),
+			fruitlib::scenic::depth(
+				depths::scene::splatter)),
 		fruitcut::media_path()/FCPPT_TEXT("point_sprites"),
 		random_generator_,
 		systems_.renderer(),
@@ -301,24 +346,6 @@ fruitcut::app::machine_impl::machine_impl(
 			(sge::renderer::state::color::back_buffer_clear_color = sge::image::colors::black())
 			(sge::renderer::state::float_::depth_buffer_clear_val = 1.0f))
 {
-	intrusive_group::insert_dont_care(
-		music_controller_node_);
-	intrusive_group::insert_dont_care(
-		sound_controller_node_);
-	intrusive_group::insert_dont_care(
-		scene_node_);
-	intrusive_group::insert_dont_care(
-		overlay_node_);
-	intrusive_group::insert_dont_care(
-		shadow_map_);
-	scene_node_.push_front(
-		background_);
-	scene_node_.insert_dont_care(
-		camera_node_);
-	scene_node_.insert_dont_care(
-		point_sprites_);
-	overlay_node_.insert_dont_care(
-		quick_log_);
 	systems_.audio_player().gain(
 		fruitlib::json::find_and_convert_member<sge::audio::scalar>(
 			config_file(),
@@ -368,8 +395,13 @@ fruitcut::app::machine_impl::run_once()
 	sge::time::point const before_frame = 
 		sge::time::clock::now();
 	systems_.window().dispatch();
-	update();
-	render();
+	react(
+		fruitlib::scenic::events::update(
+			fruitlib::scenic::update_duration(
+				static_cast<fruitlib::scenic::update_duration::rep>(
+					second_timer_.reset()))));
+	react(
+		fruitlib::scenic::events::render());
 	fcppt::chrono::milliseconds const diff = 
 		fcppt::chrono::duration_cast<fcppt::chrono::milliseconds>(
 			sge::time::clock::now() - before_frame);
@@ -511,6 +543,18 @@ fruitcut::app::machine_impl::last_game_score(
 	last_game_score_ = _last_game_score;
 }
 
+fruitcut::fruitlib::scenic::base &
+fruitcut::app::machine_impl::root_node()
+{
+	return *this;
+}
+
+fruitcut::fruitlib::scenic::base const &
+fruitcut::app::machine_impl::root_node() const
+{
+	return *this;
+}
+
 fruitcut::app::scene &
 fruitcut::app::machine_impl::scene_node()
 {
@@ -584,6 +628,50 @@ fruitcut::app::machine_impl::~machine_impl()
 }
 
 void
+fruitcut::app::machine_impl::react(
+	fruitlib::scenic::events::update const &e)
+{
+	// So what does this do? Well, we effectively manage two "clocks"
+	// here. One goes along with the real clock (with
+	// sge::time::clock) and knows the "real" current time. The other
+	// one (transformed_time) might be faster or slower than the real
+	// clock. The real clock acts as a "duration difference" giver.
+	sge::time::point const latest_time = 
+		sge::time::clock::now();
+
+	sge::time::duration const diff = 
+		sge::time::duration(
+			static_cast<sge::time::timer::interval_type>(
+				time_factor_ * 
+				static_cast<sge::time::funit>(
+					(latest_time - current_time_).count())));
+
+	transformed_time_ += 
+		diff;
+
+	current_time_ = 
+		latest_time;
+
+	node_base::forward_to_children(
+		e);
+}
+
+void
+fruitcut::app::machine_impl::react(
+	fruitlib::scenic::events::render const &e)
+{
+	// Do we even have a viewport?
+	if (!sge::renderer::viewport_size(systems_.renderer()).content())
+		return;
+
+	sge::renderer::scoped_block scoped_block(
+		systems_.renderer());
+
+	node_base::forward_to_children(
+		e);
+}
+
+void
 fruitcut::app::machine_impl::toggle_camera()
 {
 	camera_.active(
@@ -607,42 +695,3 @@ fruitcut::app::machine_impl::viewport_change()
 					systems_.renderer()))));
 }
 
-void
-fruitcut::app::machine_impl::update()
-{
-	// So what does this do? Well, we effectively manage two "clocks"
-	// here. One goes along with the real clock (with
-	// sge::time::clock) and knows the "real" current time. The other
-	// one (transformed_time) might be faster or slower than the real
-	// clock. The real clock acts as a "duration difference" giver.
-	sge::time::point const latest_time = 
-		sge::time::clock::now();
-
-	sge::time::duration const diff = 
-		sge::time::duration(
-			static_cast<sge::time::timer::interval_type>(
-				time_factor_ * 
-				static_cast<sge::time::funit>(
-					(latest_time - current_time_).count())));
-
-	transformed_time_ += 
-		diff;
-
-	current_time_ = 
-		latest_time;
-
-	intrusive_group::update();
-}
-
-void
-fruitcut::app::machine_impl::render()
-{
-	// Do we even have a viewport?
-	if (!sge::renderer::viewport_size(systems_.renderer()).content())
-		return;
-
-	sge::renderer::scoped_block scoped_block(
-		systems_.renderer());
-
-	intrusive_group::render();
-}

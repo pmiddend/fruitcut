@@ -3,13 +3,15 @@
 #include "../fruitlib/resource_tree/path.hpp"
 #include "../fruitlib/font/object_parameters.hpp"
 #include "../fruitlib/audio/sound_controller.hpp"
+#include "../fruitlib/scenic/events/update.hpp"
+#include "../fruitlib/scenic/events/render.hpp"
 #include "../fruitlib/time_format/string_to_duration.hpp"
 #include "../fruitlib/font/object.hpp"
+#include "../fruitlib/font/scale.hpp"
+#include "../fruitlib/font/color_format.hpp"
 #include "../fruitlib/json/find_and_convert_member.hpp"
 #include "../fruitlib/json/parse_rgba8_color.hpp"
 #include "../fruitlib/json/path.hpp"
-#include "../fruitlib/scenic/scale.hpp"
-#include "../fruitlib/scenic/color.hpp"
 #include <sge/parse/json/json.hpp>
 #include <sge/time/time.hpp>
 #include <sge/font/text/flags_none.hpp>
@@ -18,6 +20,7 @@
 #include <sge/viewport/manager.hpp>
 #include <sge/renderer/viewport_size.hpp>
 #include <sge/renderer/screen_size.hpp>
+#include <sge/image/color/convert.hpp>
 #include <fcppt/math/dim/dim.hpp>
 #include <fcppt/math/vector/vector.hpp>
 #include <fcppt/math/box/box.hpp>
@@ -29,15 +32,22 @@
 #include <iostream>
 
 fruitcut::app::quick_log::quick_log(
+	fruitlib::scenic::parent const &_parent,
 	sge::parse::json::object const &_config_file,
 	fruitlib::font::cache &_font_cache,
 	sge::viewport::manager &_viewport_manager,
 	sge::renderer::device const &_renderer,
 	fruitlib::audio::sound_controller &_sound_controller)
 :
+	node_base(
+		_parent),
 	sound_controller_(
 		_sound_controller),
 	font_node_(
+		fruitlib::scenic::parent(
+			*this,
+			fruitlib::scenic::depth(
+				0)),
 		fruitlib::font::object_parameters(
 			_font_cache.metrics(
 				FCPPT_TEXT("quick-log")),
@@ -49,13 +59,13 @@ fruitcut::app::quick_log::quick_log(
 			sge::font::text::align_h::left,
 			sge::font::text::align_v::top,
 			sge::font::text::flags::none),
-		fruitlib::scenic::color(
+		sge::image::color::convert<fruitlib::font::color_format>(
 			fruitlib::json::parse_rgba8_color(
 				fruitlib::json::find_and_convert_member<sge::parse::json::value>(
 					_config_file,
 					fruitlib::json::path(
 						FCPPT_TEXT("quick-log")) / FCPPT_TEXT("font-color")))),
-		static_cast<fruitlib::scenic::scale>(
+		fruitlib::font::scale(
 			1)),
 	fractional_size_(
 		fruitlib::json::find_and_convert_member<fractional_dimension>(
@@ -80,9 +90,6 @@ fruitcut::app::quick_log::quick_log(
 {
 	viewport_change(
 		_renderer);
-
-	intrusive_group::insert_dont_care(
-		font_node_);
 }
 
 void
@@ -99,6 +106,29 @@ fruitcut::app::quick_log::add_message(
 	sound_controller_.play(
 		fruitlib::resource_tree::path(
 			FCPPT_TEXT("quick_log")));
+}
+
+void
+fruitcut::app::quick_log::react(
+	fruitlib::scenic::events::update const &e)
+{
+	if(message_delete_timer_.active() && message_delete_timer_.update_b())
+	{
+		messages_.pop_back();
+		if(messages_.empty())
+			message_delete_timer_.deactivate();
+	}
+
+	font_node_.object().text(
+		boost::algorithm::join(
+			messages_,
+			// It's a template function, better use the "real" container
+			// type, so sge::font::text::string()
+			sge::font::text::string(
+				SGE_FONT_TEXT_LIT("\n"))));
+
+	node_base::forward_to_children(
+		e);
 }
 
 void
@@ -122,23 +152,3 @@ fruitcut::app::quick_log::viewport_change(
 				fractional_size_)));
 }
 
-void
-fruitcut::app::quick_log::update()
-{
-	if(message_delete_timer_.active() && message_delete_timer_.update_b())
-	{
-		messages_.pop_back();
-		if(messages_.empty())
-			message_delete_timer_.deactivate();
-	}
-
-	font_node_.object().text(
-		boost::algorithm::join(
-			messages_,
-			// It's a template function, better use the "real" container
-			// type, so sge::font::text::string()
-			sge::font::text::string(
-				SGE_FONT_TEXT_LIT("\n"))));
-
-	intrusive_group::update();
-}

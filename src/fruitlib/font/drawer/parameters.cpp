@@ -1,5 +1,8 @@
 #include "parameters.hpp"
+#include "../color_format.hpp"
 #include <sge/image/colors.hpp>
+#include <sge/image/color/any/object.hpp>
+#include <sge/image/color/any/convert.hpp>
 #include <boost/spirit/home/phoenix/core.hpp>
 
 fruitcut::fruitlib::font::drawer::parameters::parameters(
@@ -8,7 +11,8 @@ fruitcut::fruitlib::font::drawer::parameters::parameters(
 	renderer_(
 		_renderer),
 	color_(
-		sge::image::colors::white()),
+		sge::image::color::any::convert<font::color_format>(
+			sge::image::colors::white())),
 	transform_callback_(
 		boost::phoenix::arg_names::arg2)
 {
@@ -22,13 +26,13 @@ fruitcut::fruitlib::font::drawer::parameters::renderer() const
 
 void
 fruitcut::fruitlib::font::drawer::parameters::color(
-	sge::image::color::any::object const &_color)
+	font::color const &_color)
 {
 	color_ = 
 		_color;
 }
 
-sge::image::color::any::object const &
+fruitcut::fruitlib::font::color const &
 fruitcut::fruitlib::font::drawer::parameters::color() const
 {
 	return color_;

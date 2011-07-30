@@ -55,12 +55,15 @@ create_buffer_from_path(
 }
 
 fruitcut::fruitlib::audio::sound_controller::sound_controller(
+	scenic::parent const &_parent,
 	fruitlib::random_generator &_random_generator,
 	fcppt::filesystem::path const &_base_path,
 	sge::audio::multi_loader &_loader,
 	sge::audio::player &_player,
 	sge::audio::scalar const _initial_gain)
 :
+	node_base(
+		_parent),
 	player_(
 		_player,
 		_initial_gain,
@@ -147,12 +150,6 @@ fruitcut::fruitlib::audio::sound_controller::play_positional(
 	}
 }
 
-void
-fruitcut::fruitlib::audio::sound_controller::update()
-{
-	pool_.update();
-}
-
 sge::audio::scalar
 fruitcut::fruitlib::audio::sound_controller::gain() const
 {
@@ -183,7 +180,15 @@ fruitcut::fruitlib::audio::sound_controller::pitch(
 		_pitch);
 }
 
+void
+fruitcut::fruitlib::audio::sound_controller::react(
+	scenic::events::update const &)
+{
+	pool_.update();
+}
+
 fruitcut::fruitlib::audio::sound_controller::~sound_controller() {}
+
 
 void
 fruitcut::fruitlib::audio::sound_controller::do_play(

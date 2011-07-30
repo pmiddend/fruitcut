@@ -2,6 +2,8 @@
 #include "../exception.hpp"
 #include "../../media_path.hpp"
 #include "../../fruitlib/uniform_random.hpp"
+#include "../../fruitlib/scenic/events/update.hpp"
+#include "../../fruitlib/scenic/events/render.hpp"
 #include "../../fruitlib/resource_tree/from_directory_tree.hpp"
 #include "../../fruitlib/resource_tree/navigate_to_path.hpp"
 #include "../../fruitlib/resource_tree/path.hpp"
@@ -73,12 +75,15 @@ create_part_from_file(
 
 
 fruitcut::app::point_sprite::system_node::system_node(
+	fruitlib::scenic::parent const &_parent,
 	fcppt::filesystem::path const &_base_path,
 	fruitlib::random_generator &_random_generator,
 	sge::renderer::device &_renderer,
 	sge::image2d::multi_loader &_image_loader,
 	sge::camera::object const &_camera)
 :
+	node_base(
+		_parent),
 	renderer_(
 		_renderer),
 	camera_(
@@ -194,7 +199,8 @@ fruitcut::app::point_sprite::system_node::~system_node()
 }
 
 void
-fruitcut::app::point_sprite::system_node::update()
+fruitcut::app::point_sprite::system_node::react(
+	fruitlib::scenic::events::update const &)
 {
 	for(child_sequence::iterator i = children_.begin(); i != children_.end();)
 	{
@@ -209,7 +215,8 @@ fruitcut::app::point_sprite::system_node::update()
 }
 
 void
-fruitcut::app::point_sprite::system_node::render()
+fruitcut::app::point_sprite::system_node::react(
+	fruitlib::scenic::events::render const &)
 {
 	sge::shader::scoped scoped_shader(
 		shader_,

@@ -5,8 +5,9 @@
 #include "../machine.hpp"
 #include "../events/declare_transition_type.hpp"
 #include "../events/declare_transition_reaction.hpp"
-#include "../../fruitlib/scenic/nodes/intrusive.hpp"
-#include "../../fruitlib/font/intrusive_scene_node.hpp"
+#include "../../fruitlib/scenic/node.hpp"
+#include "../../fruitlib/scenic/events/update_fwd.hpp"
+#include "../../fruitlib/font/scene_node.hpp"
 #include <sge/parse/json/json.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <boost/statechart/state.hpp>
@@ -23,7 +24,7 @@ class loading
 :
 	// The second argument has to be a complete type
 	public boost::statechart::state<loading,machine>,
-	public fruitlib::scenic::nodes::intrusive
+	public fruitlib::scenic::node<loading>
 {
 FCPPT_NONCOPYABLE(
 	loading);
@@ -36,6 +37,10 @@ public:
 	>
 	reactions;
 
+	typedef
+	boost::mpl::vector1<fruitlib::scenic::events::update>
+	scene_reactions;
+
 	explicit
 	loading(
 		my_context);
@@ -44,20 +49,18 @@ public:
 		menu::superstate);
 
 	~loading();
+
+	void
+	react(
+		fruitlib::scenic::events::update const &);
 private:
 	fcppt::signal::scoped_connection viewport_change_connection_;
 	sge::parse::json::element_vector const fruit_array_;
 	sge::parse::json::element_vector::const_iterator current_fruit_;
-	fruitlib::font::intrusive_scene_node font_node_;
+	fruitlib::font::scene_node font_node_;
 
 	void
 	viewport_change();
-
-	void
-	update();
-
-	void
-	render();
 };
 }
 }

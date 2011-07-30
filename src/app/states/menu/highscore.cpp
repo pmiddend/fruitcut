@@ -5,6 +5,10 @@
 #include "../../highscore/provider/object_base.hpp"
 #include "../../highscore/provider/connection_base.hpp"
 #include "../../events/return_post_transition_functor.hpp"
+#include "../../depths/root.hpp"
+#include "../../../fruitlib/scenic/parent.hpp"
+#include "../../../fruitlib/scenic/depth.hpp"
+#include "../../../fruitlib/scenic/events/update.hpp"
 #include "../../../media_path.hpp"
 #include <sge/systems/instance.hpp>
 #include <sge/cegui/system.hpp>
@@ -22,7 +26,11 @@ fruitcut::app::states::menu::highscore::highscore(
 :
 	my_base(
 		ctx),
-	fruitlib::scenic::nodes::intrusive(),
+	node_base(
+		fruitlib::scenic::parent(
+			context<app::machine>().root_node(),
+			fruitlib::scenic::depth(
+				depths::root::dont_care))),
 	layout_(
 		context<machine>().gui_system(),
 		fruitcut::media_path()
@@ -65,9 +73,6 @@ fruitcut::app::states::menu::highscore::highscore(
 			"Highscores/List"),
 		table_model_)
 {
-	context<app::machine>().root_node().insert_dont_care(
-		*this);
-
 	app::highscore::providers_from_json(
 		context<app::machine>().config_file(),
 		providers_);
@@ -93,6 +98,14 @@ FRUITCUT_APP_EVENTS_DEFINE_TRANSITION_REACTION(
 
 fruitcut::app::states::menu::highscore::~highscore()
 {
+}
+
+void
+fruitcut::app::states::menu::highscore::react(
+	fruitlib::scenic::events::update const &)
+{
+	if(connection_)
+		connection_->update();
 }
 
 void
@@ -151,16 +164,4 @@ fruitcut::app::states::menu::highscore::text_received(
 		sge::cegui::to_cegui_string(
 			s,
 			context<app::machine>().systems().charconv_system()));
-}
-
-void
-fruitcut::app::states::menu::highscore::update()
-{
-	if(connection_)
-		connection_->update();
-}
-
-void
-fruitcut::app::states::menu::highscore::render()
-{
 }

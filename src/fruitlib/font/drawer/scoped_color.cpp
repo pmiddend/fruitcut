@@ -2,8 +2,8 @@
 #include "object.hpp"
 
 fruitcut::fruitlib::font::drawer::scoped_color::scoped_color(
-	object &_object,
-	sge::image::color::any::object const &_new_color)
+	drawer::object &_object,
+	font::color const &_new_color)
 :
 	object_(
 		_object),

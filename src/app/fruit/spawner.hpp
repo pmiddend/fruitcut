@@ -4,7 +4,9 @@
 #include "prototype_sequence.hpp"
 #include "../../fruitlib/physics/scalar.hpp"
 #include "../../fruitlib/uniform_random.hpp"
-#include "../../fruitlib/scenic/nodes/intrusive.hpp"
+#include "../../fruitlib/scenic/node.hpp"
+#include "../../fruitlib/scenic/parent_fwd.hpp"
+#include "../../fruitlib/scenic/events/render_fwd.hpp"
 #include "../../fruitlib/random_generator.hpp"
 #include "manager_fwd.hpp"
 #include <sge/camera/object_fwd.hpp>
@@ -15,6 +17,7 @@
 #include <fcppt/function/object.hpp>
 #include <fcppt/signal/object.hpp>
 #include <fcppt/signal/auto_connection.hpp>
+#include <boost/mpl/vector/vector10.hpp>
 
 namespace fruitcut
 {
@@ -24,11 +27,15 @@ namespace fruit
 {
 class spawner
 :
-	public fruitlib::scenic::nodes::intrusive
+	public fruitlib::scenic::node<spawner>
 {
 FCPPT_NONCOPYABLE(
 	spawner);
 public:
+	typedef
+	boost::mpl::vector1<fruitlib::scenic::events::render>
+	scene_reactions;
+
 	// This should have more info, for example the position of the
 	// spawned fruit, but there you go.
 	typedef
@@ -40,6 +47,7 @@ public:
 
 	explicit
 	spawner(
+		fruitlib::scenic::parent const &,
 		fruit::manager &,
 		fruitlib::random_generator &,
 		sge::parse::json::object const &config_file,
@@ -49,6 +57,10 @@ public:
 	fcppt::signal::auto_connection
 	spawn_callback(
 		spawn_callback_function const &);
+
+	void
+	react(
+		fruitlib::scenic::events::render const &);
 private:
 	fruit::manager &manager_;
 	sge::camera::object const &camera_;
@@ -66,12 +78,6 @@ private:
 
 	void
 	reset_timer();
-
-	void
-	update();
-
-	void
-	render();
 };
 }
 }

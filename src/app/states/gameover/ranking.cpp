@@ -2,8 +2,11 @@
 #include "../menu/main.hpp"
 #include "../menu/highscore.hpp"
 #include "../../events/define_transition_reaction.hpp"
+#include "../../depths/root.hpp"
 #include "../../events/return_post_transition_functor.hpp"
 #include "../../../media_path.hpp"
+#include "../../../fruitlib/scenic/parent.hpp"
+#include "../../../fruitlib/scenic/events/update.hpp"
 #include "../../highscore/providers_from_json.hpp"
 #include "../../highscore/name.hpp"
 #include "../../highscore/score.hpp"
@@ -20,7 +23,11 @@ fruitcut::app::states::gameover::ranking::ranking(
 :
 	my_base(
 		ctx),
-	fruitlib::scenic::nodes::intrusive(),
+	node_base(
+		fruitlib::scenic::parent(
+			context<app::machine>().root_node(),
+			fruitlib::scenic::depth(
+				depths::root::dont_care))),
 	layout_(
 		context<machine>().gui_system(),
 		fruitcut::media_path()
@@ -77,9 +84,6 @@ fruitcut::app::states::gameover::ranking::ranking(
 				this,
 				std::tr1::placeholders::_1)))
 {
-	context<app::machine>().root_node().insert_dont_care(
-		*this);
-
 	app::highscore::providers_from_json(
 		context<app::machine>().config_file(),
 		providers_);
@@ -106,14 +110,10 @@ fruitcut::app::states::gameover::ranking::~ranking()
 }
 
 void
-fruitcut::app::states::gameover::ranking::update()
+fruitcut::app::states::gameover::ranking::react(
+	fruitlib::scenic::events::update const &)
 {
 	post_model_.update();
-}
-
-void
-fruitcut::app::states::gameover::ranking::render()
-{
 }
 
 void

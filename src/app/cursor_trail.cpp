@@ -1,4 +1,5 @@
 #include "cursor_trail.hpp"
+#include "../fruitlib/scenic/events/update.hpp"
 #include <sge/input/cursor/object.hpp>
 #include <sge/input/cursor/position.hpp>
 #include <sge/input/cursor/position_unit.hpp>
@@ -31,13 +32,15 @@ transform_position(
 }
 
 fruitcut::app::cursor_trail::cursor_trail(
+	fruitlib::scenic::parent const &_parent,
 	sge::input::cursor::object &_cursor,
 	sge::time::duration const &_update_frequency,
 	sge::time::callback const &_callback,
 	size_type const _sample_count,
 	sge::renderer::target_base &_target)
 :
-	fruitlib::scenic::nodes::intrusive(),
+	node_base(
+		_parent),
 	cursor_(
 		_cursor),
 	positions_(
@@ -79,7 +82,8 @@ fruitcut::app::cursor_trail::~cursor_trail()
 }
 
 void
-fruitcut::app::cursor_trail::update()
+fruitcut::app::cursor_trail::react(
+	fruitlib::scenic::events::update const &)
 {
 	if(
 		!update_timer_.update_b())
@@ -89,9 +93,4 @@ fruitcut::app::cursor_trail::update()
 		transform_position(
 			cursor_.position(),
 			target_.viewport().get()));
-}
-
-void
-fruitcut::app::cursor_trail::render()
-{
 }

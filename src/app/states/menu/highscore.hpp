@@ -2,7 +2,9 @@
 #define FRUITCUT_APP_STATES_MENU_HIGHSCORE_HPP_INCLUDED
 
 #include "superstate.hpp"
-#include "../../../fruitlib/scenic/nodes/intrusive.hpp"
+#include "../../../fruitlib/scenic/node.hpp"
+#include "../../../fruitlib/scenic/parent_fwd.hpp"
+#include "../../../fruitlib/scenic/events/update_fwd.hpp"
 #include "../../highscore/provider_sequence.hpp"
 #include "../../highscore/provider/object_base.hpp"
 #include "../../highscore/provider/connection_base_ptr.hpp"
@@ -33,7 +35,7 @@ class highscore
 :
 	// The second argument has to be a complete type
 	public boost::statechart::state<highscore,menu::superstate>,
-	public fruitlib::scenic::nodes::intrusive
+	public fruitlib::scenic::node<highscore>
 {
 FCPPT_NONCOPYABLE(
 	highscore);
@@ -46,6 +48,10 @@ public:
 	>
 	reactions;
 
+	typedef
+	boost::mpl::vector1<fruitlib::scenic::events::update>
+	scene_reactions;
+
 	explicit
 	highscore(
 		my_context);
@@ -54,6 +60,10 @@ public:
 		menu::main);
 
 	~highscore();
+
+	void
+	react(
+		fruitlib::scenic::events::update const &);
 private:
 	sge::cegui::toolbox::scoped_layout layout_;
 	sge::cegui::toolbox::scoped_gui_sheet gui_sheet_;
@@ -81,12 +91,6 @@ private:
 	void
 	text_received(
 		fcppt::string const &);
-
-	void
-	update();
-
-	void
-	render();
 };
 }
 }

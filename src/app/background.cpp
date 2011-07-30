@@ -2,6 +2,7 @@
 #include "../media_path.hpp"
 #include "../fruitlib/json/find_and_convert_member.hpp"
 #include "../fruitlib/math/view_plane_rect.hpp"
+#include "../fruitlib/scenic/events/render.hpp"
 #include <sge/viewport/manager.hpp>
 #include <sge/parse/json/json.hpp>
 #include <sge/renderer/device.hpp>
@@ -104,8 +105,8 @@ vertex_view;
 }
 }
 
-// The background doesn't use OpenGL-3 because of...lazyness
 fruitcut::app::background::background(
+	fruitlib::scenic::parent const &_parent,
 	sge::renderer::device &_renderer,
 	sge::viewport::manager &_viewport_manager,
 	sge::image2d::multi_loader &_image_loader,
@@ -114,6 +115,8 @@ fruitcut::app::background::background(
 	sge::parse::json::object const &_config,
 	sge::camera::object const &_camera)
 :
+	node_base(
+		_parent),
 	renderer_(
 		_renderer),
 	camera_(
@@ -267,7 +270,8 @@ fruitcut::app::background::~background()
 }
 
 void
-fruitcut::app::background::render()
+fruitcut::app::background::react(
+	fruitlib::scenic::events::render const &)
 {
 	sge::shader::scoped scoped_shader(
 		shader_,
@@ -300,9 +304,4 @@ fruitcut::app::background::render()
 		sge::renderer::vertex_count(
 			6),
 		sge::renderer::nonindexed_primitive_type::triangle);
-}
-
-void
-fruitcut::app::background::update()
-{
 }

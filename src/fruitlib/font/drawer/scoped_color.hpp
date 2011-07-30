@@ -2,7 +2,7 @@
 #define FRUITCUT_FRUITLIB_FONT_DRAWER_SCOPED_COLOR_HPP_INCLUDED
 
 #include "object_fwd.hpp"
-#include <sge/image/color/any/object.hpp>
+#include "../color.hpp"
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/variant/object.hpp>
 
@@ -21,13 +21,13 @@ FCPPT_NONCOPYABLE(
 public:
 	explicit
 	scoped_color(
-		object &,
-		sge::image::color::any::object const &);
+		drawer::object &,
+		font::color const &);
 
 	~scoped_color();
 private:
-	object &object_;
-	sge::image::color::any::object const old_color_;
+	drawer::object &object_;
+	font::color const old_color_;
 };
 }
 }

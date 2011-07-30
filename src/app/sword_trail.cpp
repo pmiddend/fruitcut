@@ -1,6 +1,8 @@
 #include "sword_trail.hpp"
 #include "../fruitlib/time_format/string_to_duration.hpp"
 #include "../fruitlib/json/path.hpp"
+#include "../fruitlib/scenic/events/update.hpp"
+#include "../fruitlib/scenic/events/render.hpp"
 #include "../fruitlib/json/find_and_convert_member.hpp"
 #include "../media_path.hpp"
 #include <sge/sprite/dont_sort.hpp>
@@ -47,6 +49,7 @@ transform_position(
 }
 
 fruitcut::app::sword_trail::sword_trail(
+	fruitlib::scenic::parent const &_parent,
 	sge::renderer::device &_renderer,
 	sge::renderer::target_base &_target,
 	sge::image2d::multi_loader &_image_loader,
@@ -54,6 +57,8 @@ fruitcut::app::sword_trail::sword_trail(
 	sge::time::callback const &_time_callback,
 	sge::parse::json::object const &_config_file)
 :
+	node_base(
+		_parent),
 	cursor_(
 		_cursor),
 	target_(
@@ -108,7 +113,8 @@ fruitcut::app::sword_trail::~sword_trail()
 }
 
 void
-fruitcut::app::sword_trail::update()
+fruitcut::app::sword_trail::react(
+	fruitlib::scenic::events::update const &)
 {
 	for(timer_buffer::size_type i = 0; i < timers_.size(); ++i)
 		sprites_[static_cast<sprite_buffer::size_type>(i)].h(
@@ -173,7 +179,8 @@ fruitcut::app::sword_trail::update()
 }
 
 void
-fruitcut::app::sword_trail::render()
+fruitcut::app::sword_trail::react(
+		fruitlib::scenic::events::render const &)
 {
 	sprite_system_.render(
 		sprites_.begin(),

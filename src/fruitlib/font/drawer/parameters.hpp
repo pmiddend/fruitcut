@@ -2,7 +2,7 @@
 #define FRUITCUT_FRUITLIB_FONT_DRAWER_PARAMETERS_HPP_INCLUDED
 
 #include "transform_callback.hpp"
-#include <sge/image/color/any/object.hpp>
+#include "../color.hpp"
 #include <sge/renderer/device_fwd.hpp>
 #include <fcppt/variant/object.hpp>
 #include <fcppt/nonassignable.hpp>
@@ -29,9 +29,9 @@ public:
 
 	void
 	color(
-		sge::image::color::any::object const &);
+		font::color const &);
 
-	sge::image::color::any::object const &
+	font::color const &
 	color() const;
 
 	void
@@ -42,7 +42,7 @@ public:
 	transform_callback() const;
 private:
 	sge::renderer::device &renderer_;
-	sge::image::color::any::object color_;
+	font::color color_;
 	fruitcut::fruitlib::font::drawer::transform_callback transform_callback_;
 };
 }

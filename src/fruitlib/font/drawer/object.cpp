@@ -6,7 +6,6 @@
 #include <sge/renderer/caps.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/image2d/image2d.hpp>
-#include <sge/image/color/color.hpp>
 #include <sge/sprite/sprite.hpp>
 #include <fcppt/math/box/box.hpp>
 #include <fcppt/math/dim/dim.hpp>
@@ -99,9 +98,7 @@ fruitcut::fruitlib::font::drawer::object::draw_char(
 				fcppt::math::dim::structure_cast<sprite_object::dim>(
 					transformation.size()))
 			.color(
-				// TODO:
-				sge::image::color::any::convert<sprite_object::color_format>( 
-					color_))
+				color_)
 			.elements()));
 }
 
@@ -117,13 +114,13 @@ fruitcut::fruitlib::font::drawer::object::end_rendering()
 
 void
 fruitcut::fruitlib::font::drawer::object::color(
-	sge::image::color::any::object const &_color)
+	font::color const &_color)
 {
 	color_ = 
 		_color;
 }
 
-sge::image::color::any::object const &
+fruitcut::fruitlib::font::color const &
 fruitcut::fruitlib::font::drawer::object::color() const
 {
 	return color_;

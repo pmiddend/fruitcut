@@ -9,8 +9,9 @@
 #include "../../fruit/object_fwd.hpp"
 #include "../../events/declare_transition_type.hpp"
 #include "../../events/declare_transition_reaction.hpp"
-#include "../../../fruitlib/scenic/nodes/line_drawer.hpp"
-#include "../../../fruitlib/scenic/nodes/intrusive_with_callbacks.hpp"
+#include "../../../fruitlib/scenic/adaptors/line_drawer.hpp"
+#include "../../../fruitlib/scenic/node.hpp"
+#include "../../../fruitlib/scenic/events/update_fwd.hpp"
 #include <sge/line_drawer/object.hpp>
 #include <sge/renderer/state/scoped.hpp>
 #include <sge/line_drawer/line_sequence.hpp>
@@ -30,7 +31,8 @@ namespace ingame
 class running
 :
 	// The second argument has to be a complete type
-	public boost::statechart::state<running,superstate>
+	public boost::statechart::state<running,superstate>,
+	public fruitlib::scenic::node<running>
 {
 FCPPT_NONCOPYABLE(
 	running);
@@ -45,6 +47,13 @@ public:
 	>
 	reactions;
 
+	typedef
+	boost::mpl::vector1
+	<
+		fruitlib::scenic::events::update
+	>
+	scene_reactions;
+
 	explicit
 	running(
 		my_context);
@@ -56,11 +65,14 @@ public:
 		gameover::superstate);
 
 	~running();
+
+	void
+	react(
+		fruitlib::scenic::events::update const &);
 private:
 	sge::line_drawer::object line_drawer_;
-	fruitlib::scenic::nodes::line_drawer line_drawer_node_;
+	fruitlib::scenic::adaptors::line_drawer line_drawer_node_;
 	app::cursor_trail cursor_trail_;
-	fruitlib::scenic::nodes::intrusive_with_callbacks update_node_;
 	fcppt::signal::scoped_connection 
 		viewport_change_connection_,
 		fruit_spawned_connection_;
@@ -69,9 +81,6 @@ private:
 		draw_bbs_;
 	fcppt::signal::scoped_connection transit_to_paused_connection_;
 	app::sword_trail sword_trail_;
-
-	void
-	update();
 
 	void
 	draw_fruit_bbs(

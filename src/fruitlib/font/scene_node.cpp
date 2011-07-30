@@ -2,7 +2,7 @@
 #include "drawer/scoped_transformation.hpp"
 #include "drawer/scoped_color.hpp"
 #include "drawer/object.hpp"
-#include "../scenic/scale.hpp"
+#include "../scenic/events/render.hpp"
 #include <sge/font/rect.hpp>
 #include <sge/font/pos.hpp>
 #include <fcppt/math/vector/vector.hpp>
@@ -16,10 +16,10 @@ sge::font::rect const
 scale_transformation(
 	sge::font::rect const &total_rect,
 	sge::font::rect const &character_rect,
-	fruitcut::fruitlib::scenic::scale const s)
+	fruitcut::fruitlib::font::scale::value_type const s)
 {
 	typedef
-	fruitcut::fruitlib::scenic::scale
+	fruitcut::fruitlib::font::scale::value_type
 	real;
 
 	sge::font::pos const c = 
@@ -52,43 +52,23 @@ scale_transformation(
 }
 
 fruitcut::fruitlib::font::scene_node::scene_node(
+	fruitlib::scenic::parent const &_parent,
 	object_parameters const &_params,
-	scenic::color const &_color,
-	scenic::scale const _scale)
+	font::color const &_color,
+	font::scale const &_scale)
 :
+	node_base(
+		_parent),
 	object_(
 		_params),
 	color_(
 		_color),
 	scale_(
-		_scale)
+		_scale.get())
 {
 }
 
-void
-fruitcut::fruitlib::font::scene_node::render()
-{
-	drawer::scoped_color scoped_color(
-		object_.drawer(),
-		color_);
-
-	drawer::scoped_transformation scoped_transformation(
-		object_.drawer(),
-		std::tr1::bind(
-			&scale_transformation,
-			std::tr1::placeholders::_1,
-			std::tr1::placeholders::_2,
-			scale_));
-
-	object_.render();
-}
-
-void
-fruitcut::fruitlib::font::scene_node::update()
-{
-}
-
-fruitcut::fruitlib::scenic::color const
+fruitcut::fruitlib::font::color const
 fruitcut::fruitlib::font::scene_node::color() const
 {
 	return color_;
@@ -96,13 +76,13 @@ fruitcut::fruitlib::font::scene_node::color() const
 
 void
 fruitcut::fruitlib::font::scene_node::color(
-	fruitcut::fruitlib::scenic::color const &_color)
+	fruitcut::fruitlib::font::color const &_color)
 {
 	color_ = 
 		_color;
 }
 
-fruitcut::fruitlib::scenic::scale
+fruitcut::fruitlib::font::scale::value_type
 fruitcut::fruitlib::font::scene_node::scale() const
 {
 	return scale_;
@@ -110,7 +90,7 @@ fruitcut::fruitlib::font::scene_node::scale() const
 
 void
 fruitcut::fruitlib::font::scene_node::scale(
-	fruitcut::fruitlib::scenic::scale const _scale)
+	fruitcut::fruitlib::font::scale::value_type const _scale)
 {
 	scale_ = 
 		_scale;
@@ -127,3 +107,23 @@ fruitcut::fruitlib::font::scene_node::object() const
 {
 	return object_;
 }
+
+void
+fruitcut::fruitlib::font::scene_node::react(
+	fruitlib::scenic::events::render const &)
+{
+	drawer::scoped_color scoped_color(
+		object_.drawer(),
+		color_);
+
+	drawer::scoped_transformation scoped_transformation(
+		object_.drawer(),
+		std::tr1::bind(
+			&scale_transformation,
+			std::tr1::placeholders::_1,
+			std::tr1::placeholders::_2,
+			scale_));
+
+	object_.render();
+}
+
