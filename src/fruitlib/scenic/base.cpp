@@ -1,4 +1,5 @@
 #include "base.hpp"
+#include <iostream>
 
 fruitcut::fruitlib::scenic::base::child_sequence const &
 fruitcut::fruitlib::scenic::base::children() const
@@ -68,7 +69,7 @@ fruitcut::fruitlib::scenic::base::add_child(
 			children_.insert(
 				it,
 				_child);
-			break;
+			return;
 		}
 	}
 

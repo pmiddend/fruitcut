@@ -140,7 +140,7 @@ fruitcut::app::machine_impl::machine_impl(
 		config_file_),
 	overlay_node_(
 		fruitlib::scenic::parent(
-			*this,
+			root_node(),
 			fruitlib::scenic::depth(
 				depths::root::overlay)),
 		systems_.renderer()),
