@@ -32,7 +32,6 @@
 #include <sge/font/size_type.hpp>
 #include <sge/font/system.hpp>
 #include <sge/font/text/lit.hpp>
-#include <sge/image/colors.hpp>
 #include <sge/input/keyboard/action.hpp>
 #include <sge/input/keyboard/key_code.hpp>
 #include <sge/input/keyboard/device.hpp>
@@ -45,13 +44,10 @@
 #include <sge/renderer/parameters.hpp>
 #include <sge/renderer/resource_flags_none.hpp>
 #include <sge/renderer/scalar.hpp>
-#include <sge/renderer/scoped_block.hpp>
-#include <sge/renderer/texture/texture.hpp>
 #include <sge/renderer/vector3.hpp>
 #include <sge/renderer/viewport_size.hpp>
 #include <sge/renderer/visual_depth.hpp>
 #include <sge/renderer/vsync.hpp>
-#include <sge/renderer/state/state.hpp>
 #include <sge/sprite/parameters.hpp>
 #include <sge/systems/systems.hpp>
 #include <sge/texture/part_raw.hpp>
@@ -329,15 +325,7 @@ fruitapp::machine_impl::machine_impl(
 		systems_.renderer(),
 		systems_.image_loader(),
 		quick_log_),
-	fruit_prototypes_(),
-	base_render_state_(
-		systems_.renderer(),
-		sge::renderer::state::list
-			(sge::renderer::state::depth_func::less)
-			(sge::renderer::state::bool_::clear_depth_buffer = true)
-			(sge::renderer::state::bool_::clear_back_buffer = true)
-			(sge::renderer::state::color::back_buffer_clear_color = sge::image::colors::black())
-			(sge::renderer::state::float_::depth_buffer_clear_val = 1.0f))
+	fruit_prototypes_()
 {
 	systems_.audio_player().gain(
 		fruitlib::json::find_and_convert_member<sge::audio::scalar>(

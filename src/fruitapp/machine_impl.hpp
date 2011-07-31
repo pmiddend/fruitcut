@@ -21,7 +21,6 @@
 #include "shadow_map.hpp"
 #include "fruit/prototype_sequence.hpp"
 #include <sge/camera/object.hpp>
-#include <sge/renderer/state/scoped.hpp>
 #include <sge/cegui/syringe.hpp>
 #include <sge/cegui/system.hpp>
 #include <sge/model/md3/loader_ptr.hpp>
@@ -212,7 +211,6 @@ private:
 	point_sprite::system_node point_sprites_;
 	fruitapp::screen_shooter screen_shooter_;
 	fruit::prototype_sequence fruit_prototypes_;
-	sge::renderer::state::scoped base_render_state_;
 
 	void
 	toggle_camera();

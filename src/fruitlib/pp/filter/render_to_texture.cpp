@@ -6,11 +6,13 @@
 #include <sge/image/color/format.hpp>
 #include <sge/renderer/scoped_target.hpp>
 #include <sge/renderer/scoped_block.hpp>
+#include <sge/renderer/state/scoped.hpp>
 #include <fcppt/io/cout.hpp>
 #include <iostream>
 
 fruitlib::pp::filter::render_to_texture::render_to_texture(
 	sge::renderer::device &_renderer,
+	sge::renderer::state::list const &_state_list,
 	texture::manager &_texture_manager,
 	sge::renderer::dim2 const &_texture_size,
 	callback const &_callback,
@@ -18,6 +20,8 @@ fruitlib::pp::filter::render_to_texture::render_to_texture(
 :
 	renderer_(
 		_renderer),
+	state_list_(
+		_state_list),
 	texture_manager_(
 		_texture_manager),
 	texture_size_(
@@ -39,6 +43,10 @@ fruitlib::pp::filter::render_to_texture::apply()
 				texture_size_,
 				sge::image::color::format::rgb8,
 				depth_stencil_));
+
+	sge::renderer::state::scoped scoped_state(
+		renderer_,
+		state_list_);
 
 	sge::renderer::scoped_target scoped_target(
 		renderer_,

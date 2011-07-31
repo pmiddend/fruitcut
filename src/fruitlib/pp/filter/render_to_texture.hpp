@@ -8,6 +8,7 @@
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/target_ptr.hpp>
 #include <sge/renderer/dim2.hpp>
+#include <sge/renderer/state/list.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/function/object.hpp>
 
@@ -29,6 +30,7 @@ public:
 	explicit	
 	render_to_texture(
 		sge::renderer::device &,
+		sge::renderer::state::list const &,
 		texture::manager &,
 		sge::renderer::dim2 const &,
 		callback const &,
@@ -40,6 +42,7 @@ public:
 	~render_to_texture();
 private:
 	sge::renderer::device &renderer_;
+	sge::renderer::state::list const state_list_;
 	texture::manager &texture_manager_;
 	sge::renderer::dim2 const texture_size_;
 	callback const callback_;

@@ -8,6 +8,8 @@
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/dim2.hpp>
 #include <sge/renderer/scalar.hpp>
+#include <sge/renderer/state/state.hpp>
+#include <sge/image/colors.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/function/object.hpp>
 #include <fcppt/assign/make_container.hpp>
@@ -30,6 +32,12 @@ fruitapp::postprocessing::postprocessing(
 		filter_manager_),
 	rtt_filter_(
 		_renderer,
+		sge::renderer::state::list
+			(sge::renderer::state::depth_func::less)
+			(sge::renderer::state::bool_::clear_depth_buffer = true)
+			(sge::renderer::state::bool_::clear_back_buffer = true)
+			(sge::renderer::state::color::back_buffer_clear_color = sge::image::colors::black())
+			(sge::renderer::state::float_::depth_buffer_clear_val = 1.0f),
 		texture_manager_,
 		fruitlib::pp::texture::use_screen_size(),
 		render_callback,
