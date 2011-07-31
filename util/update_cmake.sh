@@ -30,4 +30,4 @@ update_cmake_file \
 update_cmake_file \
 	CMakeLists.txt \
 	SERVER_FILES \
-	src/server \
+	src/fruitserver \
