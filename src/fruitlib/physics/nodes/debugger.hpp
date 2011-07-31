@@ -3,7 +3,7 @@
 
 #include "../debugger_fwd.hpp"
 #include "../../scenic/node.hpp"
-#include "../../scenic/parent_fwd.hpp"
+#include "../../scenic/optional_parent.hpp"
 #include "../../scenic/events/update_fwd.hpp"
 #include "../../scenic/events/render_fwd.hpp"
 #include <fcppt/noncopyable.hpp>
@@ -34,7 +34,7 @@ public:
 
 	explicit
 	debugger(
-		fruitlib::scenic::parent const &,
+		fruitlib::scenic::optional_parent const &,
 		physics::debugger &);
 
 	~debugger();

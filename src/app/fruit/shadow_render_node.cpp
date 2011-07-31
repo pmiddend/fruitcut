@@ -19,7 +19,7 @@
 #include <fcppt/math/matrix/matrix.hpp>
 
 fruitcut::app::fruit::shadow_render_node::shadow_render_node(
-	fruitlib::scenic::parent const &_parent,
+	fruitlib::scenic::optional_parent const &_parent,
 	sge::renderer::device &_renderer,
 	sge::renderer::vertex_declaration &_vertex_declaration,
 	fruit::manager const &_manager,

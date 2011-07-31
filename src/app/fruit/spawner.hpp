@@ -5,7 +5,7 @@
 #include "../../fruitlib/physics/scalar.hpp"
 #include "../../fruitlib/uniform_random.hpp"
 #include "../../fruitlib/scenic/node.hpp"
-#include "../../fruitlib/scenic/parent_fwd.hpp"
+#include "../../fruitlib/scenic/optional_parent.hpp"
 #include "../../fruitlib/scenic/events/update_fwd.hpp"
 #include "../../fruitlib/random_generator.hpp"
 #include "manager_fwd.hpp"
@@ -47,7 +47,7 @@ public:
 
 	explicit
 	spawner(
-		fruitlib::scenic::parent const &,
+		fruitlib::scenic::optional_parent const &,
 		fruit::manager &,
 		fruitlib::random_generator &,
 		sge::parse::json::object const &config_file,

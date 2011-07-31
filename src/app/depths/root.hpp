@@ -13,8 +13,7 @@ enum type
 {
 	dont_care,
 	shadow_map,
-	scene,
-	paused
+	scene
 };
 }
 }

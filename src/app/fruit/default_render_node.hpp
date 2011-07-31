@@ -33,7 +33,7 @@ public:
 
 	explicit
 	default_render_node(
-		fruitlib::scenic::parent const &,
+		fruitlib::scenic::optional_parent const &,
 		sge::renderer::device &,
 		sge::renderer::vertex_declaration &,
 		fruit::manager const &,

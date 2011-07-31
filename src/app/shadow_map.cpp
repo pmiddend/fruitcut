@@ -25,7 +25,7 @@
 #include <iostream>
 
 fruitcut::app::shadow_map::shadow_map(
-	fruitlib::scenic::parent const &_parent,
+	fruitlib::scenic::optional_parent const &_parent,
 	sge::parse::json::object const &_config,
 	sge::renderer::device &_renderer,
 	sge::renderer::matrix4 const &_modelview)

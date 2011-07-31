@@ -55,6 +55,9 @@ public:
 	fruitlib::pp::filter::manager &
 	filter_manager();
 
+	bool
+	active();
+
 	void
 	active(
 		bool);

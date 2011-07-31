@@ -5,7 +5,7 @@
 #include "base.hpp"
 #include "unique_base_ptr.hpp"
 #include "../../fruitlib/scenic/node.hpp"
-#include "../../fruitlib/scenic/parent_fwd.hpp"
+#include "../../fruitlib/scenic/optional_parent.hpp"
 #include "../../fruitlib/scenic/events/update_fwd.hpp"
 #include "../../fruitlib/scenic/events/render_fwd.hpp"
 #include "../../fruitlib/resource_tree/make_type.hpp"
@@ -43,7 +43,7 @@ public:
 
 	explicit
 	system_node(
-		fruitlib::scenic::parent const &,
+		fruitlib::scenic::optional_parent const &,
 		fcppt::filesystem::path const &,
 		fruitlib::random_generator &,
 		sge::renderer::device &,

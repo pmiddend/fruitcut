@@ -7,7 +7,7 @@
 #include <fcppt/math/dim/basic_impl.hpp>
 
 fruitcut::app::overlay::overlay(
-	fruitlib::scenic::parent const &_parent,
+	fruitlib::scenic::optional_parent const &_parent,
 	sge::renderer::device &_renderer,
 	app::postprocessing &_postprocessing)
 :

@@ -3,7 +3,7 @@
 #include "../fruitlib/scenic/events/update.hpp"
 
 fruitcut::app::scene::scene(
-	fruitlib::scenic::parent const &_parent)
+	fruitlib::scenic::optional_parent const &_parent)
 :
 	node_base(
 		_parent),

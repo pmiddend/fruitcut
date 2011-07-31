@@ -2,7 +2,7 @@
 #define FRUITCUT_FRUITLIB_SCENIC_ADAPTORS_GUI_SYSTEM_HPP_INCLUDED
 
 #include "../node.hpp"
-#include "../parent_fwd.hpp"
+#include "../optional_parent.hpp"
 #include "../events/render_fwd.hpp"
 #include "../events/update_fwd.hpp"
 #include <sge/cegui/system.hpp>
@@ -30,7 +30,7 @@ public:
 
 	explicit
 	gui_system(
-		scenic::parent const &,
+		scenic::optional_parent const &,
 		sge::cegui::system &);
 
 	~gui_system();

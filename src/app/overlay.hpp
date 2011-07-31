@@ -3,7 +3,7 @@
 
 #include "postprocessing_fwd.hpp"
 #include "../fruitlib/scenic/node.hpp"
-#include "../fruitlib/scenic/parent_fwd.hpp"
+#include "../fruitlib/scenic/optional_parent.hpp"
 #include "../fruitlib/scenic/events/update_fwd.hpp"
 #include "../fruitlib/scenic/events/base_fwd.hpp"
 #include <sge/renderer/device_fwd.hpp>
@@ -27,7 +27,7 @@ public:
 
 	explicit
 	overlay(
-		fruitlib::scenic::parent const &,
+		fruitlib::scenic::optional_parent const &,
 		sge::renderer::device &,
 		app::postprocessing &);
 

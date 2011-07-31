@@ -37,15 +37,18 @@ fruitcut::app::states::ingame::paused::paused(
 		ctx),
 	node_base(
 		fruitlib::scenic::parent(
-			context<machine>().root_node(),
+			context<machine>().overlay_node(),
 			fruitlib::scenic::depth(
-				depths::root::paused))),
+				depths::overlay::paused))),
 	time_factor_(
 		context<machine>(),
 		static_cast<sge::time::funit>(
 			0)),
 	scene_deactivation_(
 		context<machine>().scene_node(),
+		false),
+	pp_deactivation_(
+		context<machine>().postprocessing(),
 		false),
 	system_(
 		context<machine>().postprocessing().filter_manager()),

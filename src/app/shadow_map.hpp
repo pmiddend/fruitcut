@@ -2,7 +2,7 @@
 #define FRUITCUT_APP_SHADOW_MAP_HPP_INCLUDED
 
 #include "../fruitlib/scenic/node.hpp"
-#include "../fruitlib/scenic/parent_fwd.hpp"
+#include "../fruitlib/scenic/optional_parent.hpp"
 #include "../fruitlib/scenic/events/update_fwd.hpp"
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/texture/planar_fwd.hpp>
@@ -43,7 +43,7 @@ public:
 
 	explicit
 	shadow_map(
-		fruitlib::scenic::parent const &,
+		fruitlib::scenic::optional_parent const &,
 		sge::parse::json::object const &,
 		sge::renderer::device &,
 		sge::renderer::matrix4 const &);

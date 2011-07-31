@@ -8,7 +8,7 @@
 #include <iostream>
 
 fruitcut::fruitlib::physics::nodes::world::world(
-	scenic::parent const &_parent,
+	scenic::optional_parent const &_parent,
 	physics::world &_world,
 	sge::time::callback const &_time_callback)
 :

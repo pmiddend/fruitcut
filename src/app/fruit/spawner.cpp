@@ -35,7 +35,7 @@
 #include "../../fruitlib/math/plane/basic.hpp"
 
 fruitcut::app::fruit::spawner::spawner(
-	fruitlib::scenic::parent const &_parent,
+	fruitlib::scenic::optional_parent const &_parent,
 	fruit::manager &_manager,
 	fruitlib::random_generator &_random_generator,
 	sge::parse::json::object const &_config_file,

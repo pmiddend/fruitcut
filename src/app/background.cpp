@@ -106,7 +106,7 @@ vertex_view;
 }
 
 fruitcut::app::background::background(
-	fruitlib::scenic::parent const &_parent,
+	fruitlib::scenic::optional_parent const &_parent,
 	sge::renderer::device &_renderer,
 	sge::viewport::manager &_viewport_manager,
 	sge::image2d::multi_loader &_image_loader,

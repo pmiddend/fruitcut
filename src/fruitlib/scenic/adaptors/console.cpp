@@ -3,7 +3,7 @@
 #include <sge/console/gfx.hpp>
 
 fruitcut::fruitlib::scenic::adaptors::console::console(
-	scenic::parent const &_parent,
+	scenic::optional_parent const &_parent,
 	sge::console::gfx &_gfx)
 :
 	node_base(

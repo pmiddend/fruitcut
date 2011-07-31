@@ -6,7 +6,7 @@
 #include "../resource_tree/make_type.hpp"
 #include "../resource_tree/path.hpp"
 #include "../scenic/node.hpp"
-#include "../scenic/parent_fwd.hpp"
+#include "../scenic/optional_parent.hpp"
 #include "../scenic/events/update_fwd.hpp"
 #include "group/player.hpp"
 #include <sge/audio/multi_loader_fwd.hpp>
@@ -43,7 +43,7 @@ public:
 
 	explicit
 	music_controller(
-		scenic::parent const &,
+		scenic::optional_parent const &,
 		fruitlib::random_generator &,
 		sge::audio::multi_loader &,
 		sge::audio::player &,

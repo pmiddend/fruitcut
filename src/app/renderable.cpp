@@ -10,7 +10,7 @@
 #include <fcppt/text.hpp>
 
 fruitcut::app::renderable::renderable(
-	fruitlib::scenic::parent const &_parent,
+	fruitlib::scenic::optional_parent const &_parent,
 	sge::systems::instance const &_systems,
 	sge::parse::json::object const &_config_file)
 :

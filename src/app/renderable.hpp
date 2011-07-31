@@ -5,7 +5,7 @@
 #include "overlay.hpp"
 #include "postprocessing.hpp"
 #include "../fruitlib/scenic/node.hpp"
-#include "../fruitlib/scenic/parent_fwd.hpp"
+#include "../fruitlib/scenic/optional_parent.hpp"
 #include <sge/systems/instance_fwd.hpp>
 #include <sge/parse/json/object_fwd.hpp>
 
@@ -28,7 +28,7 @@ namespace app
 	- This callback function triggers scene::render_children.
 	- scene::render_children sends a render event to its children
 	- The rendering output isn't displayed, but saved in a texture.
-	- The "overlay" node is updated. This first updates the nodes
+	- The "overlay" node is updated. This first updates the node's
     children (forwards the update event)
 	- Then, still as a reaction to the update event, the overlay begins
     a new scoped render block, this time rendering directly to the
@@ -44,7 +44,7 @@ class renderable
 public:
 	explicit
 	renderable(
-		fruitlib::scenic::parent const &,
+		fruitlib::scenic::optional_parent const &,
 		sge::systems::instance const &,
 		sge::parse::json::object const &);
 

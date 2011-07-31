@@ -2,7 +2,7 @@
 #define FRUITCUT_APP_CURSOR_TRAIL_HPP_INCLUDED
 
 #include "../fruitlib/scenic/node.hpp"
-#include "../fruitlib/scenic/parent_fwd.hpp"
+#include "../fruitlib/scenic/optional_parent.hpp"
 #include "../fruitlib/scenic/events/update_fwd.hpp"
 #include <sge/input/cursor/object_fwd.hpp>
 #include <sge/input/cursor/position.hpp>
@@ -41,7 +41,7 @@ public:
 
 	explicit
 	cursor_trail(
-		fruitlib::scenic::parent const &,
+		fruitlib::scenic::optional_parent const &,
 		sge::input::cursor::object &,
 		sge::time::duration const &,
 		sge::time::callback const &,

@@ -41,7 +41,7 @@ public:
 
 	explicit
 	object(
-		fruitlib::scenic::parent const &,
+		fruitlib::scenic::optional_parent const &,
 		sge::time::callback const &,
 		// to get round seconds and stuff
 		sge::parse::json::object const &,

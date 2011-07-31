@@ -59,7 +59,7 @@ calculate_new_linear_velocity(
 }
 
 fruitcut::app::fruit::manager::manager(
-	fruitlib::scenic::parent const &_parent,
+	fruitlib::scenic::optional_parent const &_parent,
 	fruit::prototype_sequence const &_prototypes,
 	sge::renderer::device &_renderer,
 	fruitlib::physics::world &physics_world,

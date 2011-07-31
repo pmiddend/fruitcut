@@ -52,7 +52,7 @@ scale_transformation(
 }
 
 fruitcut::fruitlib::font::scene_node::scene_node(
-	fruitlib::scenic::parent const &_parent,
+	fruitlib::scenic::optional_parent const &_parent,
 	object_parameters const &_params,
 	font::color const &_color,
 	font::scale const &_scale)

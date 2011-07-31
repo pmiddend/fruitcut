@@ -45,7 +45,7 @@ create_random_from_directory(
 }
 
 fruitcut::fruitlib::audio::music_controller::music_controller(
-	scenic::parent const &_group,
+	scenic::optional_parent const &_group,
 	fruitlib::random_generator &_random_generator,
 	sge::audio::multi_loader &_audio_loader,
 	sge::audio::player &_player,

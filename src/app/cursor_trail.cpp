@@ -32,7 +32,7 @@ transform_position(
 }
 
 fruitcut::app::cursor_trail::cursor_trail(
-	fruitlib::scenic::parent const &_parent,
+	fruitlib::scenic::optional_parent const &_parent,
 	sge::input::cursor::object &_cursor,
 	sge::time::duration const &_update_frequency,
 	sge::time::callback const &_callback,

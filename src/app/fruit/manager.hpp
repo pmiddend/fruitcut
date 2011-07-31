@@ -13,7 +13,7 @@
 #include "object_fwd.hpp"
 #include "plane.hpp"
 #include "../../fruitlib/scenic/node.hpp"
-#include "../../fruitlib/scenic/parent_fwd.hpp"
+#include "../../fruitlib/scenic/optional_parent.hpp"
 #include "../../fruitlib/scenic/events/update_fwd.hpp"
 #include "../../fruitlib/scenic/events/render_fwd.hpp"
 #include "../../fruitlib/physics/world_fwd.hpp"
@@ -59,7 +59,7 @@ public:
 
 	explicit
 	manager(
-		fruitlib::scenic::parent const &,
+		fruitlib::scenic::optional_parent const &,
 		fruit::prototype_sequence const &,
 		sge::renderer::device &renderer,
 		fruitlib::physics::world &,

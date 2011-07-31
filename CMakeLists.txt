@@ -375,6 +375,7 @@ SET(
 	src/fruitlib/scenic/base.hpp
 	src/fruitlib/scenic/base_fwd.hpp
 	src/fruitlib/scenic/depth.hpp
+	src/fruitlib/scenic/detail/has_scene_reactions.hpp
 	src/fruitlib/scenic/detail/reaction_chooser.hpp
 	src/fruitlib/scenic/events/base.cpp
 	src/fruitlib/scenic/events/base.hpp
@@ -639,6 +640,8 @@ SET(
 	src/app/scene.cpp
 	src/app/scene.hpp
 	src/app/scene_fwd.hpp
+	src/app/scoped_pp_activation.cpp
+	src/app/scoped_pp_activation.hpp
 	src/app/scoped_scene_activation.cpp
 	src/app/scoped_scene_activation.hpp
 	src/app/scoped_time_factor.cpp

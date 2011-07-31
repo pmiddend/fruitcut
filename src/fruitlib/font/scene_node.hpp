@@ -3,7 +3,7 @@
 
 #include "color.hpp"
 #include "scale.hpp"
-#include "../scenic/parent_fwd.hpp"
+#include "../scenic/optional_parent.hpp"
 #include "../scenic/events/render_fwd.hpp"
 #include "../scenic/node.hpp"
 #include "object_parameters_fwd.hpp"
@@ -30,7 +30,7 @@ public:
 
 	explicit
 	scene_node(
-		fruitlib::scenic::parent const &,
+		fruitlib::scenic::optional_parent const &,
 		object_parameters const &,
 		font::color const &,
 		font::scale const &);

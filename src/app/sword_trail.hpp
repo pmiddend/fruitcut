@@ -2,7 +2,7 @@
 #define FRUITCUT_APP_SWORD_TRAIL_HPP_INCLUDED
 
 #include "../fruitlib/scenic/node.hpp"
-#include "../fruitlib/scenic/parent_fwd.hpp"
+#include "../fruitlib/scenic/optional_parent.hpp"
 #include "../fruitlib/scenic/events/update_fwd.hpp"
 #include "../fruitlib/scenic/events/render_fwd.hpp"
 #include <sge/image2d/multi_loader_fwd.hpp>
@@ -47,7 +47,7 @@ public:
 
 	explicit
 	sword_trail(
-		fruitlib::scenic::parent const &,
+		fruitlib::scenic::optional_parent const &,
 		sge::renderer::device &,
 		sge::renderer::target_base &,
 		sge::image2d::multi_loader &,

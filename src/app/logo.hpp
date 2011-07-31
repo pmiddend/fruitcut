@@ -2,7 +2,7 @@
 #define FRUITCUT_APP_LOGO_HPP_INCLUDED
 
 #include "../fruitlib/scenic/node.hpp"
-#include "../fruitlib/scenic/parent_fwd.hpp"
+#include "../fruitlib/scenic/optional_parent.hpp"
 #include "../fruitlib/scenic/events/render_fwd.hpp"
 #include "../fruitlib/animation.hpp"
 #include <sge/sprite/sprite.hpp>
@@ -32,7 +32,7 @@ public:
 
 	explicit
 	logo(
-		fruitlib::scenic::parent const &,
+		fruitlib::scenic::optional_parent const &,
 		sge::renderer::device &,
 		sge::viewport::manager &,
 		sge::image2d::multi_loader &,

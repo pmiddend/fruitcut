@@ -11,6 +11,7 @@ namespace overlay
 {
 enum type
 {
+	paused,
 	dont_care
 };
 }

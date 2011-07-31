@@ -2,7 +2,7 @@
 #define FRUITCUT_FRUITLIB_SCENIC_ADAPTORS_CONSOLE_HPP_INCLUDED
 
 #include "../node.hpp"
-#include "../parent_fwd.hpp"
+#include "../optional_parent.hpp"
 #include "../events/render_fwd.hpp"
 #include <sge/console/gfx_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -29,7 +29,7 @@ public:
 
 	explicit
 	console(
-		scenic::parent const &parent,
+		scenic::optional_parent const &parent,
 		sge::console::gfx &);
 
 	~console();

@@ -2,7 +2,7 @@
 #define FRUITCUT_FRUITLIB_SCENIC_ADAPTORS_LINE_DRAWER_HPP_INCLUDED
 
 #include "../node.hpp"
-#include "../parent_fwd.hpp"
+#include "../optional_parent.hpp"
 #include "../events/render_fwd.hpp"
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/line_drawer/object_fwd.hpp>
@@ -30,7 +30,7 @@ public:
 
 	explicit
 	line_drawer(
-		scenic::parent const &,
+		scenic::optional_parent const &,
 		sge::line_drawer::object &,
 		sge::renderer::device *);
 

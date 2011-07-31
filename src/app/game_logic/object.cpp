@@ -52,7 +52,7 @@
 #include <iostream>
 
 fruitcut::app::game_logic::object::object(
-	fruitlib::scenic::parent const &_parent,
+	fruitlib::scenic::optional_parent const &_parent,
 	sge::time::callback const &_time_callback,
 	// to get round seconds and stuff
 	sge::parse::json::object const &_config_file,

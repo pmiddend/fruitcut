@@ -4,7 +4,7 @@
 #include "../../scenic/events/update.hpp"
 
 fruitcut::fruitlib::physics::nodes::debugger::debugger(
-	fruitlib::scenic::parent const &_parent,
+	fruitlib::scenic::optional_parent const &_parent,
 	physics::debugger &_debugger)
 :
 	node_base(

@@ -5,7 +5,7 @@
 #include "../resource_tree/path.hpp"
 #include "../uniform_random.hpp"
 #include "../random_generator.hpp"
-#include "../scenic/parent_fwd.hpp"
+#include "../scenic/optional_parent.hpp"
 #include "../scenic/node.hpp"
 #include "../scenic/events/update.hpp"
 #include "group/player.hpp"
@@ -64,7 +64,7 @@ public:
 
 	explicit 
 	sound_controller(
-		scenic::parent const &,
+		scenic::optional_parent const &,
 		fruitlib::random_generator &,
 		fcppt::filesystem::path const &,
 		sge::audio::multi_loader &,

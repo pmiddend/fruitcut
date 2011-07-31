@@ -3,7 +3,7 @@
 
 #include "manager_fwd.hpp"
 #include "../../fruitlib/scenic/node.hpp"
-#include "../../fruitlib/scenic/parent_fwd.hpp"
+#include "../../fruitlib/scenic/optional_parent.hpp"
 #include "../../fruitlib/scenic/events/render_fwd.hpp"
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/vertex_declaration_fwd.hpp>
@@ -33,7 +33,7 @@ public:
 
 	explicit
 	shadow_render_node(
-		fruitlib::scenic::parent const &,
+		fruitlib::scenic::optional_parent const &,
 		sge::renderer::device &,
 		sge::renderer::vertex_declaration &,
 		fruit::manager const &,

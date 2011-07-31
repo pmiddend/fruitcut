@@ -147,6 +147,13 @@ fruitcut::app::postprocessing::filter_manager()
 	return filter_manager_;
 }
 
+bool
+fruitcut::app::postprocessing::active()
+{
+	return 
+		active_;
+}
+
 void
 fruitcut::app::postprocessing::active(
 	bool const _active)

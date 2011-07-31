@@ -49,7 +49,7 @@ transform_position(
 }
 
 fruitcut::app::sword_trail::sword_trail(
-	fruitlib::scenic::parent const &_parent,
+	fruitlib::scenic::optional_parent const &_parent,
 	sge::renderer::device &_renderer,
 	sge::renderer::target_base &_target,
 	sge::image2d::multi_loader &_image_loader,

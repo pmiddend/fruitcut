@@ -2,7 +2,7 @@
 #define FRUITCUT_APP_SCENE_HPP_INCLUDED
 
 #include "../fruitlib/scenic/node.hpp"
-#include "../fruitlib/scenic/parent_fwd.hpp"
+#include "../fruitlib/scenic/optional_parent.hpp"
 #include "../fruitlib/scenic/events/update_fwd.hpp"
 #include <boost/mpl/vector/vector10.hpp>
 
@@ -21,7 +21,7 @@ public:
 
 	explicit
 	scene(
-		fruitlib::scenic::parent const &);
+		fruitlib::scenic::optional_parent const &);
 
 	void
 	active(

@@ -2,7 +2,7 @@
 #define FRUITCUT_FRUITLIB_SCENIC_NODE_HPP_INCLUDED
 
 #include "base.hpp"
-#include "parent_fwd.hpp"
+#include "optional_parent.hpp"
 #include "detail/reaction_chooser.hpp"
 #include "detail/has_scene_reactions.hpp"
 #include <fcppt/noncopyable.hpp>

@@ -32,7 +32,7 @@
 #include <iostream>
 
 fruitcut::app::quick_log::quick_log(
-	fruitlib::scenic::parent const &_parent,
+	fruitlib::scenic::optional_parent const &_parent,
 	sge::parse::json::object const &_config_file,
 	fruitlib::font::cache &_font_cache,
 	sge::viewport::manager &_viewport_manager,

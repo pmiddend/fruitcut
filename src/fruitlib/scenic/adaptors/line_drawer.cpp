@@ -37,7 +37,7 @@ projection_rect_from_viewport(
 }
 
 fruitcut::fruitlib::scenic::adaptors::line_drawer::line_drawer(
-	scenic::parent const &_parent,
+	scenic::optional_parent const &_parent,
 	sge::line_drawer::object &_object,
 	sge::renderer::device * const _renderer)
 :

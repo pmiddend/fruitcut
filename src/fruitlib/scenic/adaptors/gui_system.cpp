@@ -6,7 +6,7 @@
 #include <fcppt/chrono/duration_cast.hpp>
 
 fruitcut::fruitlib::scenic::adaptors::gui_system::gui_system(
-	scenic::parent const &_parent,
+	scenic::optional_parent const &_parent,
 	sge::cegui::system &_system)
 :
 	node_base(

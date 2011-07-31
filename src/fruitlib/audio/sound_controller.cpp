@@ -55,7 +55,7 @@ create_buffer_from_path(
 }
 
 fruitcut::fruitlib::audio::sound_controller::sound_controller(
-	scenic::parent const &_parent,
+	scenic::optional_parent const &_parent,
 	fruitlib::random_generator &_random_generator,
 	fcppt::filesystem::path const &_base_path,
 	sge::audio::multi_loader &_loader,

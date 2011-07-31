@@ -75,7 +75,7 @@ create_part_from_file(
 
 
 fruitcut::app::point_sprite::system_node::system_node(
-	fruitlib::scenic::parent const &_parent,
+	fruitlib::scenic::optional_parent const &_parent,
 	fcppt::filesystem::path const &_base_path,
 	fruitlib::random_generator &_random_generator,
 	sge::renderer::device &_renderer,

@@ -2,7 +2,7 @@
 #define FRUITCUT_FRUITLIB_PHYSICS_NODES_WORLD_HPP_INCLUDED
 
 #include "../../scenic/node.hpp"
-#include "../../scenic/parent_fwd.hpp"
+#include "../../scenic/optional_parent.hpp"
 #include "../../scenic/events/update_fwd.hpp"
 #include "../world_fwd.hpp"
 #include <sge/time/timer.hpp>
@@ -31,7 +31,7 @@ public:
 
 	explicit
 	world(
-		fruitlib::scenic::parent const &,
+		fruitlib::scenic::optional_parent const &,
 		physics::world &,
 		sge::time::callback const &);
 
