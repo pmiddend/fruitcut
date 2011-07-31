@@ -634,6 +634,8 @@ SET(
 	src/app/quick_log.cpp
 	src/app/quick_log.hpp
 	src/app/quick_log_fwd.hpp
+	src/app/renderable.cpp
+	src/app/renderable.hpp
 	src/app/scene.cpp
 	src/app/scene.hpp
 	src/app/scene_fwd.hpp

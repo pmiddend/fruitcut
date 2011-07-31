@@ -7,7 +7,7 @@
 #include "../../fruitlib/json/parse_random_inclusive_range.hpp"
 #include "../../fruitlib/math/box_radius.hpp"
 #include "../../fruitlib/math/view_plane_rect.hpp"
-#include "../../fruitlib/scenic/events/render.hpp"
+#include "../../fruitlib/scenic/events/update.hpp"
 #include <sge/time/funit.hpp>
 #include <sge/time/duration.hpp>
 #include <sge/time/second_f.hpp>
@@ -110,7 +110,7 @@ fruitcut::app::fruit::spawner::spawn_callback(
 
 void
 fruitcut::app::fruit::spawner::react(
-	fruitlib::scenic::events::render const &)
+	fruitlib::scenic::events::update const &)
 {
 	if(camera_.projection_object().empty())
 		return;

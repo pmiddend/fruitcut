@@ -4,6 +4,9 @@
 #include "../fruitlib/pp/system.hpp"
 #include "../fruitlib/pp/texture/manager.hpp"
 #include "../fruitlib/pp/filter/render_to_texture.hpp"
+#include "../fruitlib/scenic/events/update_fwd.hpp"
+#include "../fruitlib/scenic/optional_parent.hpp"
+#include "../fruitlib/scenic/node.hpp"
 #include "../fruitlib/pp/filter/manager.hpp"
 #include "../fruitlib/pp/filter/ssaa.hpp"
 #include "../fruitlib/pp/filter/highlight.hpp"
@@ -15,22 +18,27 @@
 #include <sge/parse/json/object_fwd.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/function/object.hpp>
+#include <boost/mpl/vector/vector10.hpp>
 
 namespace fruitcut
 {
 namespace app
 {
 class postprocessing
+:
+	public fruitlib::scenic::node<postprocessing>
 {
 public:
+	typedef
+	boost::mpl::vector1<fruitlib::scenic::events::update>
+	scene_reactions;
+
 	explicit
 	postprocessing(
+		fruitlib::scenic::optional_parent const &,
 		sge::renderer::device &,
 		fcppt::function::object<void ()> const &render_func,
 		sge::parse::json::object const &);
-
-	void
-	update();
 
 	void
 	render_result();
@@ -53,6 +61,10 @@ public:
 
 	void
 	viewport_changed();
+
+	void
+	react(
+		fruitlib::scenic::events::update const &);
 private:
 	fruitlib::pp::texture::manager texture_manager_;
 	fruitlib::pp::filter::manager filter_manager_;

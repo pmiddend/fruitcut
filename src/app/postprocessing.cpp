@@ -3,6 +3,7 @@
 #include "../fruitlib/json/find_and_convert_member.hpp"
 #include "../fruitlib/pp/dependency_set.hpp"
 #include "../fruitlib/pp/texture/depth_stencil_format.hpp"
+#include "../fruitlib/scenic/events/update.hpp"
 #include "../fruitlib/pp/texture/use_screen_size.hpp"
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/dim2.hpp>
@@ -13,10 +14,13 @@
 #include <iostream>
 
 fruitcut::app::postprocessing::postprocessing(
+	fruitlib::scenic::optional_parent const &_parent,
 	sge::renderer::device &_renderer,
 	fcppt::function::object<void ()> const &render_callback,
 	sge::parse::json::object const &config)
 :
+	node_base(
+		_parent),
 	texture_manager_(
 		_renderer),
 	filter_manager_(
@@ -112,13 +116,6 @@ fruitcut::app::postprocessing::postprocessing(
 }
 
 void
-fruitcut::app::postprocessing::update()
-{
-	if (active_)
-		system_.update();
-}
-
-void
 fruitcut::app::postprocessing::render_result()
 {
 	if (active_)
@@ -164,3 +161,10 @@ fruitcut::app::postprocessing::viewport_changed()
 	texture_manager_.clear_screen_textures();
 }
 
+void
+fruitcut::app::postprocessing::react(
+	fruitlib::scenic::events::update const &)
+{
+	if (active_)
+		system_.update();
+}

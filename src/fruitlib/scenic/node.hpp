@@ -4,11 +4,13 @@
 #include "base.hpp"
 #include "parent_fwd.hpp"
 #include "detail/reaction_chooser.hpp"
+#include "detail/has_scene_reactions.hpp"
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/type_name.hpp>
 #include <fcppt/mpl/for_each.hpp>
 #include <boost/intrusive/list.hpp>
+#include <boost/utility/enable_if.hpp>
 #include <typeinfo>
 
 namespace fruitcut
@@ -42,6 +44,20 @@ public:
 	process(
 		events::base const &e)
 	{
+		this->process_impl<Derived>(
+			e);
+	}
+protected:
+	template<typename Derived2>
+	typename
+	boost::enable_if
+	<
+		detail::has_scene_reactions<Derived2>,
+		void
+	>::type
+	process_impl(
+		events::base const &e)
+	{
 		bool event_unconsumed = 
 			true;
 		fcppt::mpl::for_each<typename Derived::scene_reactions>(
@@ -54,7 +70,21 @@ public:
 			static_cast<Derived &>(*this).unconsumed(
 				e);
 	}
-protected:
+
+	template<typename Derived2>
+	typename
+	boost::disable_if
+	<
+		detail::has_scene_reactions<Derived2>,
+		void
+	>::type
+	process_impl(
+		events::base const &e)
+	{
+		static_cast<Derived &>(*this).unconsumed(
+			e);
+	}
+
 	void
 	unconsumed(
 		events::base const &e)

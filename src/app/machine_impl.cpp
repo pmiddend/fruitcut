@@ -131,19 +131,13 @@ fruitcut::app::machine_impl::machine_impl(
 						(FCPPT_TEXT("png"))))),
 	md3_loader_(
 		sge::model::md3::create()),
-	scene_node_(
+	renderable_(
 		fruitlib::scenic::parent(
 			root_node(),
 			fruitlib::scenic::depth(
 				depths::root::scene)),
 		systems_,
 		config_file_),
-	overlay_node_(
-		fruitlib::scenic::parent(
-			root_node(),
-			fruitlib::scenic::depth(
-				depths::root::overlay)),
-		systems_.renderer()),
 	activated_loggers_(
 		fruitlib::log::scoped_sequence_from_json(
 			sge::log::global_context(),
@@ -386,7 +380,7 @@ fruitcut::app::machine_impl::config_variables() const
 fruitcut::app::postprocessing &
 fruitcut::app::machine_impl::postprocessing()
 {
-	return scene_node_.postprocessing();
+	return renderable_.postprocessing();
 }
 
 void
@@ -400,8 +394,6 @@ fruitcut::app::machine_impl::run_once()
 			fruitlib::scenic::update_duration(
 				static_cast<fruitlib::scenic::update_duration::rep>(
 					second_timer_.reset()))));
-	react(
-		fruitlib::scenic::events::render());
 	fcppt::chrono::milliseconds const diff = 
 		fcppt::chrono::duration_cast<fcppt::chrono::milliseconds>(
 			sge::time::clock::now() - before_frame);
@@ -558,25 +550,25 @@ fruitcut::app::machine_impl::root_node() const
 fruitcut::app::scene &
 fruitcut::app::machine_impl::scene_node()
 {
-	return scene_node_;
+	return renderable_.scene();
 }
 
 fruitcut::app::scene const &
 fruitcut::app::machine_impl::scene_node() const
 {
-	return scene_node_;
+	return renderable_.scene();
 }
 
 fruitcut::app::overlay &
 fruitcut::app::machine_impl::overlay_node()
 {
-	return overlay_node_;
+	return renderable_.overlay();
 }
 
 fruitcut::app::overlay const &
 fruitcut::app::machine_impl::overlay_node() const
 {
-	return overlay_node_;
+	return renderable_.overlay();
 }
 
 fruitcut::app::point_sprite::system_node &
@@ -657,21 +649,6 @@ fruitcut::app::machine_impl::react(
 }
 
 void
-fruitcut::app::machine_impl::react(
-	fruitlib::scenic::events::render const &e)
-{
-	// Do we even have a viewport?
-	if (!sge::renderer::viewport_size(systems_.renderer()).content())
-		return;
-
-	sge::renderer::scoped_block scoped_block(
-		systems_.renderer());
-
-	node_base::forward_to_children(
-		e);
-}
-
-void
 fruitcut::app::machine_impl::toggle_camera()
 {
 	camera_.active(
@@ -681,7 +658,7 @@ fruitcut::app::machine_impl::toggle_camera()
 void
 fruitcut::app::machine_impl::viewport_change()
 {
-	scene_node_.postprocessing().viewport_changed();
+	renderable_.postprocessing().viewport_changed();
 	background_.viewport_changed();
 	camera_.projection_object(
 		fruitlib::json::parse_projection(

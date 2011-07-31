@@ -1,9 +1,10 @@
 #ifndef FRUITCUT_APP_OVERLAY_HPP_INCLUDED
 #define FRUITCUT_APP_OVERLAY_HPP_INCLUDED
 
+#include "postprocessing_fwd.hpp"
 #include "../fruitlib/scenic/node.hpp"
 #include "../fruitlib/scenic/parent_fwd.hpp"
-#include "../fruitlib/scenic/events/render_fwd.hpp"
+#include "../fruitlib/scenic/events/update_fwd.hpp"
 #include "../fruitlib/scenic/events/base_fwd.hpp"
 #include <sge/renderer/device_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -21,21 +22,23 @@ FCPPT_NONCOPYABLE(
 	overlay);
 public:
 	typedef
-	boost::mpl::vector1<fruitlib::scenic::events::render>
+	boost::mpl::vector1<fruitlib::scenic::events::update>
 	scene_reactions;
 
 	explicit
 	overlay(
 		fruitlib::scenic::parent const &,
-		sge::renderer::device &);
+		sge::renderer::device &,
+		app::postprocessing &);
 
 	~overlay();
 
 	void
 	react(
-		fruitlib::scenic::events::render const &);
+		fruitlib::scenic::events::update const &);
 private:
 	sge::renderer::device &renderer_;
+	app::postprocessing &postprocessing_;
 };
 }
 }

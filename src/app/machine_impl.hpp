@@ -16,9 +16,8 @@
 #include "../fruitlib/scenic/events/render_fwd.hpp"
 #include "../fruitlib/scenic/node.hpp"
 #include "screen_shooter.hpp"
-#include "overlay.hpp"
 #include "point_sprite/system_node.hpp"
-#include "scene.hpp"
+#include "renderable.hpp"
 #include "shadow_map.hpp"
 #include "fruit/prototype_sequence.hpp"
 #include <sge/camera/object.hpp>
@@ -45,7 +44,7 @@ FCPPT_NONCOPYABLE(
 	machine_impl);
 public:
 	typedef
-	boost::mpl::vector2<fruitlib::scenic::events::update,fruitlib::scenic::events::render>
+	boost::mpl::vector1<fruitlib::scenic::events::update>
 	scene_reactions;
 
 	explicit
@@ -183,10 +182,6 @@ public:
 	void
 	react(
 		fruitlib::scenic::events::update const &);
-
-	void
-	react(
-		fruitlib::scenic::events::render const &);
 private:
 	fruitlib::random_generator random_generator_;
 	sge::parse::json::object user_config_file_;
@@ -194,8 +189,7 @@ private:
 	app::config_variables config_variables_;
 	sge::systems::instance const systems_;
 	sge::model::md3::loader_ptr md3_loader_;
-	app::scene scene_node_;
-	app::overlay overlay_node_;
+	app::renderable renderable_;
 	fruitlib::log::scoped_sequence_ptr activated_loggers_;
 	fruitlib::font::cache font_cache_;
 	sge::time::timer second_timer_;

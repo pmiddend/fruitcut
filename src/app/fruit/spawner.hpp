@@ -6,7 +6,7 @@
 #include "../../fruitlib/uniform_random.hpp"
 #include "../../fruitlib/scenic/node.hpp"
 #include "../../fruitlib/scenic/parent_fwd.hpp"
-#include "../../fruitlib/scenic/events/render_fwd.hpp"
+#include "../../fruitlib/scenic/events/update_fwd.hpp"
 #include "../../fruitlib/random_generator.hpp"
 #include "manager_fwd.hpp"
 #include <sge/camera/object_fwd.hpp>
@@ -33,7 +33,7 @@ FCPPT_NONCOPYABLE(
 	spawner);
 public:
 	typedef
-	boost::mpl::vector1<fruitlib::scenic::events::render>
+	boost::mpl::vector1<fruitlib::scenic::events::update>
 	scene_reactions;
 
 	// This should have more info, for example the position of the
@@ -60,7 +60,7 @@ public:
 
 	void
 	react(
-		fruitlib::scenic::events::render const &);
+		fruitlib::scenic::events::update const &);
 private:
 	fruit::manager &manager_;
 	sge::camera::object const &camera_;
