@@ -1,7 +1,7 @@
 #ifndef FRUITLIB_FONT_SCALE_ANIMATION_HPP_INCLUDED
 #define FRUITLIB_FONT_SCALE_ANIMATION_HPP_INCLUDED
 
-#include "../animation.hpp"
+#include <fruitlib/animation.hpp>
 #include "scale.hpp"
 #include <fcppt/chrono/milliseconds.hpp>
 

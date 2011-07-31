@@ -1,12 +1,12 @@
 #ifndef FRUITAPP_HIGHSCORE_PROVIDER_CONNECTION_BASE_HPP_INCLUDED
 #define FRUITAPP_HIGHSCORE_PROVIDER_CONNECTION_BASE_HPP_INCLUDED
 
-#include "../name.hpp"
-#include "../score.hpp"
-#include "../callbacks/message_received.hpp"
-#include "../callbacks/error_received.hpp"
-#include "../callbacks/list_received.hpp"
-#include "../callbacks/rank_received.hpp"
+#include <fruitapp/highscore/name.hpp>
+#include <fruitapp/highscore/score.hpp>
+#include <fruitapp/highscore/callbacks/message_received.hpp>
+#include <fruitapp/highscore/callbacks/error_received.hpp>
+#include <fruitapp/highscore/callbacks/list_received.hpp>
+#include <fruitapp/highscore/callbacks/rank_received.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 
 namespace fruitapp

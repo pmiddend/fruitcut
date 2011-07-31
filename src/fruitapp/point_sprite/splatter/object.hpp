@@ -4,11 +4,11 @@
 #include "parameters_fwd.hpp"
 #include "linear_velocity.hpp"
 #include "acceleration.hpp"
-#include "../vector.hpp"
-#include "../object.hpp"
-#include "../base.hpp"
-#include "../system.hpp"
-#include "../color.hpp"
+#include <fruitapp/point_sprite/vector.hpp>
+#include <fruitapp/point_sprite/object.hpp>
+#include <fruitapp/point_sprite/base.hpp>
+#include <fruitapp/point_sprite/system.hpp>
+#include <fruitapp/point_sprite/color.hpp>
 #include <sge/time/timer.hpp>
 #include <fcppt/noncopyable.hpp>
 

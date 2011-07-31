@@ -1,7 +1,7 @@
 #ifndef FRUITAPP_FRUIT_CALLBACKS_REMOVE_FN_HPP_INCLUDED
 #define FRUITAPP_FRUIT_CALLBACKS_REMOVE_FN_HPP_INCLUDED
 
-#include "../object_fwd.hpp"
+#include <fruitapp/fruit/object_fwd.hpp>
 
 namespace fruitapp
 {

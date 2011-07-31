@@ -3,10 +3,10 @@
 
 #include "superstate.hpp"
 #include "main_fwd.hpp"
-#include "../../events/declare_transition_type.hpp"
-#include "../../events/declare_transition_reaction.hpp"
-#include "../../gui/button.hpp"
-#include "../../gui/progress_slider.hpp"
+#include <fruitapp/events/declare_transition_type.hpp>
+#include <fruitapp/events/declare_transition_reaction.hpp>
+#include <fruitapp/gui/button.hpp>
+#include <fruitapp/gui/progress_slider.hpp>
 #include <sge/cegui/toolbox/scoped_layout.hpp>
 #include <sge/cegui/toolbox/scoped_gui_sheet.hpp>
 #include <fcppt/signal/scoped_connection.hpp>

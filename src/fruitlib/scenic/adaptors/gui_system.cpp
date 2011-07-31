@@ -1,6 +1,6 @@
 #include "gui_system.hpp"
-#include "../events/update.hpp"
-#include "../events/render.hpp"
+#include <fruitlib/scenic/events/update.hpp>
+#include <fruitlib/scenic/events/render.hpp>
 #include <sge/cegui/system.hpp>
 #include <sge/cegui/duration.hpp>
 #include <fcppt/chrono/duration_cast.hpp>

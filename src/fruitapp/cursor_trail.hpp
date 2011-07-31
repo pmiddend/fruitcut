@@ -1,9 +1,9 @@
 #ifndef FRUITCUT_APP_CURSOR_TRAIL_HPP_INCLUDED
 #define FRUITCUT_APP_CURSOR_TRAIL_HPP_INCLUDED
 
-#include "../fruitlib/scenic/node.hpp"
-#include "../fruitlib/scenic/optional_parent.hpp"
-#include "../fruitlib/scenic/events/update_fwd.hpp"
+#include <fruitlib/scenic/node.hpp>
+#include <fruitlib/scenic/optional_parent.hpp>
+#include <fruitlib/scenic/events/update_fwd.hpp>
 #include <sge/input/cursor/object_fwd.hpp>
 #include <sge/input/cursor/position.hpp>
 #include <sge/renderer/target_base_fwd.hpp>

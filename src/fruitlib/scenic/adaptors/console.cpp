@@ -1,5 +1,5 @@
 #include "console.hpp"
-#include "../../scenic/events/render.hpp"
+#include <fruitlib/scenic/events/render.hpp>
 #include <sge/console/gfx.hpp>
 
 fruitlib::scenic::adaptors::console::console(

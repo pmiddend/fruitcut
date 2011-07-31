@@ -1,6 +1,6 @@
 #include "base.hpp"
-#include "../texture/counted_instance.hpp"
-#include "../texture/instance.hpp"
+#include <fruitlib/pp/texture/counted_instance.hpp>
+#include <fruitlib/pp/texture/instance.hpp>
 #include "nullary.hpp"
 #include "unary.hpp"
 #include "binary.hpp"

@@ -1,5 +1,5 @@
 #include "camera.hpp"
-#include "../events/update.hpp"
+#include <fruitlib/scenic/events/update.hpp>
 #include <sge/camera/duration.hpp>
 #include <sge/camera/object.hpp>
 #include <fcppt/chrono/duration_cast.hpp>

@@ -3,7 +3,7 @@
 
 #include "ring.hpp"
 #include "intersection_pair.hpp"
-#include "../../cursor_trail.hpp"
+#include <fruitapp/cursor_trail.hpp>
 #include <fcppt/optional.hpp>
 #include <fcppt/homogenous_pair.hpp>
 

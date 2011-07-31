@@ -1,5 +1,5 @@
 #include "scoped.hpp"
-#include "../exception.hpp"
+#include <fruitlib/exception.hpp>
 #include <fcppt/log/context.hpp>
 #include <fcppt/log/object.hpp>
 #include <fcppt/log/activate_levels.hpp>

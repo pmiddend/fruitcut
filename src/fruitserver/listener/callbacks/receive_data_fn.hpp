@@ -1,7 +1,7 @@
 #ifndef FRUITSERVER_LISTENER_CALLBACKS_RECEIVE_DATA_FN_HPP_INCLUDED
 #define FRUITSERVER_LISTENER_CALLBACKS_RECEIVE_DATA_FN_HPP_INCLUDED
 
-#include "../../byte_sequence.hpp"
+#include <fruitserver/byte_sequence.hpp>
 
 namespace fruitserver
 {

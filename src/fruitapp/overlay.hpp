@@ -2,10 +2,10 @@
 #define FRUITAPP_OVERLAY_HPP_INCLUDED
 
 #include "postprocessing_fwd.hpp"
-#include "../fruitlib/scenic/node.hpp"
-#include "../fruitlib/scenic/optional_parent.hpp"
-#include "../fruitlib/scenic/events/update_fwd.hpp"
-#include "../fruitlib/scenic/events/base_fwd.hpp"
+#include <fruitlib/scenic/node.hpp>
+#include <fruitlib/scenic/optional_parent.hpp>
+#include <fruitlib/scenic/events/update_fwd.hpp>
+#include <fruitlib/scenic/events/base_fwd.hpp>
 #include <sge/renderer/device_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <boost/mpl/vector/vector10.hpp>

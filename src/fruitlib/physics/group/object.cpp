@@ -1,6 +1,6 @@
 #include "object.hpp"
 #include "id.hpp"
-#include "../world.hpp"
+#include <fruitlib/physics/world.hpp>
 
 fruitlib::physics::group::object::object(
 	physics::world &_world)

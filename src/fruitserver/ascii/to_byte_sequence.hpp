@@ -1,7 +1,7 @@
 #ifndef FRUITSERVER_ASCII_TO_BYTE_SEQUENCE_HPP_INCLUDED
 #define FRUITSERVER_ASCII_TO_BYTE_SEQUENCE_HPP_INCLUDED
 
-#include "../byte_sequence.hpp"
+#include <fruitserver/byte_sequence.hpp>
 #include "string.hpp"
 
 namespace fruitserver

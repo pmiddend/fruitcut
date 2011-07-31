@@ -1,10 +1,10 @@
 #include "sword_trail.hpp"
-#include "../fruitlib/time_format/string_to_duration.hpp"
-#include "../fruitlib/json/path.hpp"
-#include "../fruitlib/scenic/events/update.hpp"
-#include "../fruitlib/scenic/events/render.hpp"
-#include "../fruitlib/json/find_and_convert_member.hpp"
-#include "../media_path.hpp"
+#include <fruitlib/time_format/string_to_duration.hpp>
+#include <fruitlib/json/path.hpp>
+#include <fruitlib/scenic/events/update.hpp>
+#include <fruitlib/scenic/events/render.hpp>
+#include <fruitlib/json/find_and_convert_member.hpp>
+#include <media_path.hpp>
 #include <sge/sprite/dont_sort.hpp>
 #include <sge/sprite/default_equal.hpp>
 #include <sge/image2d/multi_loader.hpp>

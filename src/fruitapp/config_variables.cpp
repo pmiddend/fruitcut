@@ -1,7 +1,7 @@
 #include "config_variables.hpp"
 #include "name.hpp"
-#include "../fruitlib/json/path.hpp"
-#include "../fruitlib/json/output_tabbed.hpp"
+#include <fruitlib/json/path.hpp>
+#include <fruitlib/json/output_tabbed.hpp>
 #include <sge/config/config_path.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/io/cerr.hpp>

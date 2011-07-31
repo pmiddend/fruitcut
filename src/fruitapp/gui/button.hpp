@@ -1,7 +1,7 @@
 #ifndef FRUITAPP_GUI_BUTTON_HPP_INCLUDED
 #define FRUITAPP_GUI_BUTTON_HPP_INCLUDED
 
-#include "../../fruitlib/audio/sound_controller_fwd.hpp"
+#include <fruitlib/audio/sound_controller_fwd.hpp>
 #include <fcppt/signal/object.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/function/object.hpp>

@@ -3,9 +3,9 @@
 
 #include "superstate.hpp"
 #include "ranking_fwd.hpp"
-#include "../../events/declare_transition_type.hpp"
-#include "../../events/declare_transition_reaction.hpp"
-#include "../../gui/button.hpp"
+#include <fruitapp/events/declare_transition_type.hpp>
+#include <fruitapp/events/declare_transition_reaction.hpp>
+#include <fruitapp/gui/button.hpp>
 #include <sge/cegui/toolbox/scoped_layout.hpp>
 #include <sge/cegui/toolbox/scoped_gui_sheet.hpp>
 #include <fcppt/signal/scoped_connection.hpp>

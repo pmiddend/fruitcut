@@ -1,6 +1,6 @@
 #include "button.hpp"
-#include "../../fruitlib/audio/sound_controller.hpp"
-#include "../../fruitlib/resource_tree/path.hpp"
+#include <fruitlib/audio/sound_controller.hpp>
+#include <fruitlib/resource_tree/path.hpp>
 #include <elements/CEGUIPushButton.h>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/text.hpp>

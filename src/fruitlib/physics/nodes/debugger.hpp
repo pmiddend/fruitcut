@@ -1,11 +1,11 @@
 #ifndef FRUITLIB_PHYSICS_NODES_DEBUGGER_HPP_INCLUDED
 #define FRUITLIB_PHYSICS_NODES_DEBUGGER_HPP_INCLUDED
 
-#include "../debugger_fwd.hpp"
-#include "../../scenic/node.hpp"
-#include "../../scenic/optional_parent.hpp"
-#include "../../scenic/events/update_fwd.hpp"
-#include "../../scenic/events/render_fwd.hpp"
+#include <fruitlib/physics/debugger_fwd.hpp>
+#include <fruitlib/scenic/node.hpp>
+#include <fruitlib/scenic/optional_parent.hpp>
+#include <fruitlib/scenic/events/update_fwd.hpp>
+#include <fruitlib/scenic/events/render_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 

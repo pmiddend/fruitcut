@@ -7,7 +7,7 @@
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/strong_typedef.hpp>
-#include "../../fruitlib/json/convert_from.hpp"
+#include <fruitlib/json/convert_from.hpp>
 
 namespace sgejson = sge::parse::json;
 namespace fruitlibjson = fruitlib::json;

@@ -6,7 +6,7 @@
 #include "is_null.hpp"
 #include "path_to_string.hpp"
 #include "find_object_exn.hpp"
-#include "../exception.hpp"
+#include <fruitlib/exception.hpp>
 #include <sge/parse/json/json.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert.hpp>

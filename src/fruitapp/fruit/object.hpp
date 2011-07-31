@@ -5,8 +5,8 @@
 #include "mesh.hpp"
 #include "prototype_fwd.hpp"
 #include "object_parameters_fwd.hpp"
-#include "../../fruitlib/physics/rigid_body/object.hpp"
-#include "../../fruitlib/physics/rigid_body/scoped.hpp"
+#include <fruitlib/physics/rigid_body/object.hpp>
+#include <fruitlib/physics/rigid_body/scoped.hpp>
 #include <sge/renderer/vertex_buffer_fwd.hpp>
 #include <sge/renderer/vertex_buffer_ptr.hpp>
 #include <sge/renderer/texture/planar_ptr.hpp>

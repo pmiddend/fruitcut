@@ -2,9 +2,9 @@
 #define FRUITAPP_FRUIT_SHADOW_RENDER_NODE_HPP_INCLUDED
 
 #include "manager_fwd.hpp"
-#include "../../fruitlib/scenic/node.hpp"
-#include "../../fruitlib/scenic/optional_parent.hpp"
-#include "../../fruitlib/scenic/events/render_fwd.hpp"
+#include <fruitlib/scenic/node.hpp>
+#include <fruitlib/scenic/optional_parent.hpp>
+#include <fruitlib/scenic/events/render_fwd.hpp>
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/vertex_declaration_fwd.hpp>
 #include <sge/renderer/matrix4.hpp>

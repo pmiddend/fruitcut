@@ -1,10 +1,10 @@
 #include "providers_from_json.hpp"
 #include "provider/file/object.hpp"
 #include "provider/net/object.hpp"
-#include "../name.hpp"
-#include "../exception.hpp"
-#include "../../fruitlib/json/find_and_convert_member.hpp"
-#include "../../fruitlib/json/convert_from.hpp"
+#include <fruitapp/name.hpp>
+#include <fruitapp/exception.hpp>
+#include <fruitlib/json/find_and_convert_member.hpp>
+#include <fruitlib/json/convert_from.hpp>
 #include <sge/parse/json/json.hpp>
 #include <sge/config/cache_path.hpp>
 #include <boost/algorithm/string/replace.hpp>

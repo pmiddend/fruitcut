@@ -8,10 +8,10 @@
 #include "transformation.hpp"
 #include "angular_velocity.hpp"
 #include "user_data.hpp"
-#include "../world_fwd.hpp"
-#include "../vector3.hpp"
-#include "../matrix4.hpp"
-#include "../shared_shape_ptr.hpp"
+#include <fruitlib/physics/world_fwd.hpp>
+#include <fruitlib/physics/vector3.hpp>
+#include <fruitlib/physics/matrix4.hpp>
+#include <fruitlib/physics/shared_shape_ptr.hpp>
 
 namespace fruitlib
 {

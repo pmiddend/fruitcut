@@ -1,9 +1,9 @@
 #ifndef FRUITLIB_SCENIC_ADAPTORS_LINE_DRAWER_HPP_INCLUDED
 #define FRUITLIB_SCENIC_ADAPTORS_LINE_DRAWER_HPP_INCLUDED
 
-#include "../node.hpp"
-#include "../optional_parent.hpp"
-#include "../events/render_fwd.hpp"
+#include <fruitlib/scenic/node.hpp>
+#include <fruitlib/scenic/optional_parent.hpp>
+#include <fruitlib/scenic/events/render_fwd.hpp>
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/line_drawer/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>

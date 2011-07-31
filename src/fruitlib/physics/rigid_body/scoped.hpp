@@ -1,9 +1,9 @@
 #ifndef FRUITLIB_PHYSICS_RIGID_BODY_SCOPED_HPP_INCLUDED
 #define FRUITLIB_PHYSICS_RIGID_BODY_SCOPED_HPP_INCLUDED
 
-#include "../world_fwd.hpp"
+#include <fruitlib/physics/world_fwd.hpp>
 #include "object_fwd.hpp"
-#include "../group/sequence.hpp"
+#include <fruitlib/physics/group/sequence.hpp>
 #include <fcppt/noncopyable.hpp>
 
 namespace fruitlib

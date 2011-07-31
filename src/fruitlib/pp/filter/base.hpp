@@ -1,8 +1,8 @@
 #ifndef FRUITLIB_PP_FILTER_BASE_HPP_INCLUDED
 #define FRUITLIB_PP_FILTER_BASE_HPP_INCLUDED
 
-#include "../texture/counted_instance.hpp"
-#include "../system_fwd.hpp"
+#include <fruitlib/pp/texture/counted_instance.hpp>
+#include <fruitlib/pp/system_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <vector>
 

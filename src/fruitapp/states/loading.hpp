@@ -2,13 +2,13 @@
 #define FRUITAPP_STATES_LOADING_HPP_INCLUDED
 
 #include "menu/superstate_fwd.hpp"
-#include "../machine.hpp"
-#include "../events/declare_transition_type.hpp"
-#include "../events/declare_transition_reaction.hpp"
-#include "../../fruitlib/scenic/node.hpp"
-#include "../../fruitlib/scenic/events/update_fwd.hpp"
-#include "../../fruitlib/scenic/events/viewport_change_fwd.hpp"
-#include "../../fruitlib/font/scene_node.hpp"
+#include <fruitapp/machine.hpp>
+#include <fruitapp/events/declare_transition_type.hpp>
+#include <fruitapp/events/declare_transition_reaction.hpp>
+#include <fruitlib/scenic/node.hpp>
+#include <fruitlib/scenic/events/update_fwd.hpp>
+#include <fruitlib/scenic/events/viewport_change_fwd.hpp>
+#include <fruitlib/font/scene_node.hpp>
 #include <sge/parse/json/json.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <boost/statechart/state.hpp>

@@ -1,8 +1,8 @@
 #include "prototype_from_json.hpp"
 #include "model_to_mesh.hpp"
 #include "material/from_json.hpp"
-#include "../../media_path.hpp"
-#include "../../fruitlib/json/find_and_convert_member.hpp"
+#include <media_path.hpp>
+#include <fruitlib/json/find_and_convert_member.hpp>
 #include <sge/parse/json/json.hpp>
 #include <sge/model/md3/loader.hpp>
 #include <sge/renderer/device.hpp>

@@ -2,9 +2,9 @@
 #define FRUITLIB_PP_FILTER_RENDER_TO_TEXTURE_HPP_INCLUDED
 
 #include "nullary.hpp"
-#include "../texture/counted_instance.hpp"
-#include "../texture/manager_fwd.hpp"
-#include "../texture/depth_stencil_format.hpp"
+#include <fruitlib/pp/texture/counted_instance.hpp>
+#include <fruitlib/pp/texture/manager_fwd.hpp>
+#include <fruitlib/pp/texture/depth_stencil_format.hpp>
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/target_ptr.hpp>
 #include <sge/renderer/dim2.hpp>

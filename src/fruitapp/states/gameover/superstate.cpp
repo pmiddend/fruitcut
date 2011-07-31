@@ -1,5 +1,5 @@
 #include "superstate.hpp"
-#include "../../depths/overlay.hpp"
+#include <fruitapp/depths/overlay.hpp>
 #include <sge/systems/instance.hpp>
 
 fruitapp::states::gameover::superstate::superstate(

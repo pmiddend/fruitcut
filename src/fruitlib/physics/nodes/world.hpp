@@ -1,10 +1,10 @@
 #ifndef FRUITLIB_PHYSICS_NODES_WORLD_HPP_INCLUDED
 #define FRUITLIB_PHYSICS_NODES_WORLD_HPP_INCLUDED
 
-#include "../../scenic/node.hpp"
-#include "../../scenic/optional_parent.hpp"
-#include "../../scenic/events/update_fwd.hpp"
-#include "../world_fwd.hpp"
+#include <fruitlib/scenic/node.hpp>
+#include <fruitlib/scenic/optional_parent.hpp>
+#include <fruitlib/scenic/events/update_fwd.hpp>
+#include <fruitlib/physics/world_fwd.hpp>
 #include <sge/time/timer.hpp>
 #include <sge/time/callback.hpp>
 #include <fcppt/noncopyable.hpp>

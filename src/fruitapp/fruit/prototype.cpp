@@ -1,7 +1,7 @@
 #include "prototype.hpp"
 #include "mesh_to_point_cloud.hpp"
-#include "../../fruitlib/geometry_traits/box.hpp"
-#include "../../fruitlib/average_colors.hpp"
+#include <fruitlib/geometry_traits/box.hpp>
+#include <fruitlib/average_colors.hpp>
 #include <sge/image2d/view/sub.hpp>
 #include <sge/image2d/rect.hpp>
 #include <sge/image2d/dim.hpp>

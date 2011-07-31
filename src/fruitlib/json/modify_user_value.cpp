@@ -2,7 +2,7 @@
 #include "find_and_convert_member.hpp"
 #include "make_recursive_objects.hpp"
 #include "path_to_string.hpp"
-#include "../exception.hpp"
+#include <fruitlib/exception.hpp>
 #include <sge/parse/json/json.hpp>
 #include <boost/variant/get.hpp>
 #include <fcppt/type_name.hpp>

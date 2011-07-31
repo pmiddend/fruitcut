@@ -1,7 +1,7 @@
 #ifndef FRUITAPP_POINT_SPRITE_SPLATTER_ACCELERATION_HPP_INCLUDED
 #define FRUITAPP_POINT_SPRITE_SPLATTER_ACCELERATION_HPP_INCLUDED
 
-#include "../vector.hpp"
+#include <fruitapp/point_sprite/vector.hpp>
 #include <fcppt/strong_typedef.hpp>
 
 namespace fruitapp

@@ -1,9 +1,9 @@
 #include "sound_controller.hpp"
-#include "../resource_tree/navigate_to_path.hpp"
-#include "../resource_tree/from_directory_tree.hpp"
-#include "../resource_tree/path.hpp"
-#include "../uniform_random.hpp"
-#include "../exception.hpp"
+#include <fruitlib/resource_tree/navigate_to_path.hpp>
+#include <fruitlib/resource_tree/from_directory_tree.hpp>
+#include <fruitlib/resource_tree/path.hpp>
+#include <fruitlib/uniform_random.hpp>
+#include <fruitlib/exception.hpp>
 #include <sge/audio/buffer.hpp>
 #include <sge/audio/buffer_ptr.hpp>
 #include <sge/audio/multi_loader.hpp>

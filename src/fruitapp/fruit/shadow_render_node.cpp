@@ -1,8 +1,8 @@
 #include "shadow_render_node.hpp"
 #include "manager.hpp"
 #include "model_vf/format.hpp"
-#include "../../media_path.hpp"
-#include "../../fruitlib/scenic/events/render.hpp"
+#include <media_path.hpp>
+#include <fruitlib/scenic/events/render.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/first_vertex.hpp>
 #include <sge/renderer/matrix4.hpp>

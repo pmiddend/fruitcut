@@ -1,7 +1,7 @@
 #ifndef FRUITAPP_HIGHSCORE_CALLBACKS_RANK_RECEIVED_FN_HPP_INCLUDED
 #define FRUITAPP_HIGHSCORE_CALLBACKS_RANK_RECEIVED_FN_HPP_INCLUDED
 
-#include "../rank.hpp"
+#include <fruitapp/highscore/rank.hpp>
 
 namespace fruitapp
 {

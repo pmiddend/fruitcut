@@ -1,7 +1,7 @@
 #ifndef FRUITLIB_PP_FILTER_MANAGER_HPP_INCLUDED
 #define FRUITLIB_PP_FILTER_MANAGER_HPP_INCLUDED
 
-#include "../screen_vf/quad.hpp"
+#include <fruitlib/pp/screen_vf/quad.hpp>
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/shader/shader.hpp>
 #include <fcppt/noncopyable.hpp>

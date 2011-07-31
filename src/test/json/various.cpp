@@ -1,8 +1,8 @@
 #include "json_equal.hpp"
 #include "object_from_string.hpp"
-#include "../../fruitlib/json/make_recursive_objects.hpp"
-#include "../../fruitlib/json/merge_command_line_parameters.hpp"
-#include "../../fruitlib/json/path.hpp"
+#include <fruitlib/json/make_recursive_objects.hpp>
+#include <fruitlib/json/merge_command_line_parameters.hpp>
+#include <fruitlib/json/path.hpp>
 #include <sge/parse/json/json.hpp>
 #include <boost/test/unit_test.hpp>
 

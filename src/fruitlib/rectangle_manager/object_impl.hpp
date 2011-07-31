@@ -2,7 +2,7 @@
 #define FRUITLIB_RECTANGLE_MANAGER_OBJECT_IMPL_HPP_INCLUDED
 
 #include "object_decl.hpp"
-#include "../exception.hpp"
+#include <fruitlib/exception.hpp>
 #include <fcppt/algorithm/ptr_container_erase.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/text.hpp>

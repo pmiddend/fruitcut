@@ -1,5 +1,5 @@
-#include "../../fruitlib/geometry_traits/vector.hpp"
-#include "../../fruitlib/geometry_traits/box.hpp"
+#include <fruitlib/geometry_traits/vector.hpp>
+#include <fruitlib/geometry_traits/box.hpp>
 #include <boost/geometry/geometry.hpp>
 #include <boost/geometry/multi/multi.hpp>
 #include <boost/geometry/multi/geometries/multi_point.hpp>

@@ -1,7 +1,7 @@
 #include "desaturate.hpp"
-#include "../texture/descriptor.hpp"
-#include "../texture/instance.hpp"
-#include "../texture/manager.hpp"
+#include <fruitlib/pp/texture/descriptor.hpp>
+#include <fruitlib/pp/texture/instance.hpp>
+#include <fruitlib/pp/texture/manager.hpp>
 #include "manager.hpp"
 #include <sge/image/color/format.hpp>
 #include <sge/renderer/glsl/scoped_program.hpp>

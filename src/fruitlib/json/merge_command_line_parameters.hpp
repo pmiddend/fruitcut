@@ -1,7 +1,7 @@
 #ifndef FRUITLIB_JSON_MERGE_COMMAND_LINE_PARAMETERS_HPP_INCLUDED
 #define FRUITLIB_JSON_MERGE_COMMAND_LINE_PARAMETERS_HPP_INCLUDED
 
-#include "../command_line_parameters.hpp"
+#include <fruitlib/command_line_parameters.hpp>
 #include <sge/parse/json/object.hpp>
 
 namespace fruitlib

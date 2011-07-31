@@ -14,11 +14,11 @@
 #include "overlay.hpp"
 #include "point_sprite/system_node_fwd.hpp"
 #include "directional_light_source_fwd.hpp"
-#include "../fruitlib/random_generator.hpp"
-#include "../fruitlib/scenic/base_fwd.hpp"
-#include "../fruitlib/audio/sound_controller_fwd.hpp"
-#include "../fruitlib/audio/music_controller_fwd.hpp"
-#include "../fruitlib/font/cache_fwd.hpp"
+#include <fruitlib/random_generator.hpp>
+#include <fruitlib/scenic/base_fwd.hpp>
+#include <fruitlib/audio/sound_controller_fwd.hpp>
+#include <fruitlib/audio/music_controller_fwd.hpp>
+#include <fruitlib/font/cache_fwd.hpp>
 #include <sge/time/callback.hpp>
 #include <sge/time/time.hpp>
 #include <sge/parse/json/object_fwd.hpp>

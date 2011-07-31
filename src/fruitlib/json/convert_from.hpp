@@ -1,7 +1,7 @@
 #ifndef FRUITLIB_JSON_CONVERT_FROM_HPP_INCLUDED
 #define FRUITLIB_JSON_CONVERT_FROM_HPP_INCLUDED
 
-#include "../exception.hpp"
+#include <fruitlib/exception.hpp>
 #include "detail/is_array.hpp"
 #include <sge/parse/json/json.hpp>
 #include <fcppt/math/matrix/matrix.hpp>

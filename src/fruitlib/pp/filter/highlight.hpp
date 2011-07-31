@@ -1,8 +1,8 @@
 #ifndef FRUITLIB_PP_FILTER_HIGHLIGHT_HPP_INCLUDED
 #define FRUITLIB_PP_FILTER_HIGHLIGHT_HPP_INCLUDED
 
-#include "../texture/counted_instance.hpp"
-#include "../texture/manager_fwd.hpp"
+#include <fruitlib/pp/texture/counted_instance.hpp>
+#include <fruitlib/pp/texture/manager_fwd.hpp>
 #include "unary.hpp"
 #include "manager_fwd.hpp"
 #include <sge/renderer/device_fwd.hpp>

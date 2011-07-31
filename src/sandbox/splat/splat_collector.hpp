@@ -1,10 +1,10 @@
 #ifndef FRUITCUT_SANDBOX_SPLAT_COLLECTOR_HPP_INCLUDED
 #define FRUITCUT_SANDBOX_SPLAT_COLLECTOR_HPP_INCLUDED
 
-#include "../../fruitlib/particle/sprite/system.hpp"
-#include "../../fruitlib/particle/sprite/object.hpp"
-#include "../../fruitlib/particle/sprite/parameters.hpp"
-#include "../../fruitlib/pp/screen_vf/quad.hpp"
+#include <fruitlib/particle/sprite/system.hpp>
+#include <fruitlib/particle/sprite/object.hpp>
+#include <fruitlib/particle/sprite/parameters.hpp>
+#include <fruitlib/pp/screen_vf/quad.hpp>
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/sprite/object_impl.hpp>
 #include <sge/sprite/intrusive/system_impl.hpp>

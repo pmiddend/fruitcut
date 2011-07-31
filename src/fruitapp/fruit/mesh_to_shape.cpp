@@ -1,6 +1,6 @@
 #include "mesh_to_shape.hpp"
 #include "mesh.hpp"
-#include "../../fruitlib/physics/shared_shape_ptr.hpp"
+#include <fruitlib/physics/shared_shape_ptr.hpp>
 #include <fcppt/container/raw_vector.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <BulletCollision/CollisionShapes/btConvexHullShape.h>

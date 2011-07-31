@@ -4,8 +4,8 @@
 #include "scene.hpp"
 #include "overlay.hpp"
 #include "postprocessing.hpp"
-#include "../fruitlib/scenic/node.hpp"
-#include "../fruitlib/scenic/optional_parent.hpp"
+#include <fruitlib/scenic/node.hpp>
+#include <fruitlib/scenic/optional_parent.hpp>
 #include <sge/systems/instance_fwd.hpp>
 #include <sge/parse/json/object_fwd.hpp>
 

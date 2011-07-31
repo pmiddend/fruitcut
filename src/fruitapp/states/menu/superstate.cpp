@@ -1,10 +1,10 @@
 #include "superstate.hpp"
 #include "main.hpp"
-#include "../../../fruitlib/audio/music_controller.hpp"
-#include "../../../fruitlib/resource_tree/path.hpp"
-#include "../../../fruitlib/scenic/parent.hpp"
-#include "../../../fruitlib/scenic/depth.hpp"
-#include "../../depths/overlay.hpp"
+#include <fruitlib/audio/music_controller.hpp>
+#include <fruitlib/resource_tree/path.hpp>
+#include <fruitlib/scenic/parent.hpp>
+#include <fruitlib/scenic/depth.hpp>
+#include <fruitapp/depths/overlay.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/input/keyboard/action.hpp>
 #include <sge/input/keyboard/key_code.hpp>

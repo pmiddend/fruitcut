@@ -2,12 +2,12 @@
 #define FRUITAPP_FRUIT_TRIANGLE_TRAITS_HPP_INCLUDED
 
 #include "triangle.hpp"
-#include "../../fruitlib/math/triangle/vector_type.hpp"
-#include "../../fruitlib/math/triangle/interpolation_pair.hpp"
-#include "../../fruitlib/math/triangle/vertex_access.hpp"
-#include "../../fruitlib/math/triangle/scalar_type.hpp"
-#include "../../fruitlib/math/triangle/create_from_interpolation.hpp"
-#include "../../fruitlib/math/triangle/size_type.hpp"
+#include <fruitlib/math/triangle/vector_type.hpp>
+#include <fruitlib/math/triangle/interpolation_pair.hpp>
+#include <fruitlib/math/triangle/vertex_access.hpp>
+#include <fruitlib/math/triangle/scalar_type.hpp>
+#include <fruitlib/math/triangle/create_from_interpolation.hpp>
+#include <fruitlib/math/triangle/size_type.hpp>
 
 namespace fruitlib
 {

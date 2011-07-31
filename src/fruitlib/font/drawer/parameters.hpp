@@ -2,7 +2,7 @@
 #define FRUITLIB_FONT_DRAWER_PARAMETERS_HPP_INCLUDED
 
 #include "transform_callback.hpp"
-#include "../color.hpp"
+#include <fruitlib/font/color.hpp>
 #include <sge/renderer/device_fwd.hpp>
 #include <fcppt/variant/object.hpp>
 #include <fcppt/nonassignable.hpp>

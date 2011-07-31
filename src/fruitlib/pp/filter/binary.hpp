@@ -2,7 +2,7 @@
 #define FRUITLIB_PP_FILTER_BINARY_HPP_INCLUDED
 
 #include "base.hpp"
-#include "../texture/counted_instance.hpp"
+#include <fruitlib/pp/texture/counted_instance.hpp>
 
 namespace fruitlib
 {

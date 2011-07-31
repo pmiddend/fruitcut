@@ -1,7 +1,7 @@
 #include "json_to_entry_set.hpp"
-#include "../../fruitlib/json/find_and_convert_member.hpp"
-#include "../../fruitlib/json/convert_from.hpp"
-#include "../../fruitlib/json/path.hpp"
+#include <fruitlib/json/find_and_convert_member.hpp>
+#include <fruitlib/json/convert_from.hpp>
+#include <fruitlib/json/path.hpp>
 #include <sge/parse/json/json.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/to_std_string.hpp>

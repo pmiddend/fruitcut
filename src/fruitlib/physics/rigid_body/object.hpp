@@ -1,8 +1,8 @@
 #ifndef FRUITLIB_PHYSICS_RIGID_BODY_OBJECT_HPP_INCLUDED
 #define FRUITLIB_PHYSICS_RIGID_BODY_OBJECT_HPP_INCLUDED
 
-#include "../shared_shape_ptr.hpp"
-#include "../world_fwd.hpp"
+#include <fruitlib/physics/shared_shape_ptr.hpp>
+#include <fruitlib/physics/world_fwd.hpp>
 #include "transformation.hpp"
 #include "linear_velocity.hpp"
 #include "angular_velocity.hpp"

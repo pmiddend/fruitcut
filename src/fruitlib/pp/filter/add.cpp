@@ -1,8 +1,8 @@
 #include "add.hpp"
 #include "manager.hpp"
-#include "../texture/instance.hpp"
-#include "../texture/manager.hpp"
-#include "../texture/descriptor.hpp"
+#include <fruitlib/pp/texture/instance.hpp>
+#include <fruitlib/pp/texture/manager.hpp>
+#include <fruitlib/pp/texture/descriptor.hpp>
 #include <sge/shader/shader.hpp>
 #include <sge/renderer/scoped_target.hpp>
 #include <sge/renderer/scoped_block.hpp>

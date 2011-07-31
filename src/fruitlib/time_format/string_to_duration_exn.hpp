@@ -2,7 +2,7 @@
 #define FRUITLIB_TIME_FORMAT_STRING_TO_DURATION_EXN_HPP_INCLUDED
 
 #include "string_to_duration.hpp"
-#include "../exception.hpp"
+#include <fruitlib/exception.hpp>
 #include <fcppt/optional.hpp>
 #include <fcppt/text.hpp>
 #include <string>

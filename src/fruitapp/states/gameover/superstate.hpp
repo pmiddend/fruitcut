@@ -2,8 +2,8 @@
 #define FRUITAPP_STATES_GAMEOVER_SUPERSTATE_HPP_INCLUDED
 
 #include "choose_name_fwd.hpp"
-#include "../../machine.hpp"
-#include "../../../fruitlib/scenic/adaptors/gui_system.hpp"
+#include <fruitapp/machine.hpp>
+#include <fruitlib/scenic/adaptors/gui_system.hpp>
 #include <sge/cegui/default_cursor.hpp>
 #include <sge/cegui/default_keyboard.hpp>
 #include <CEGUIString.h>

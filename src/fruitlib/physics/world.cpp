@@ -3,7 +3,7 @@
 #include "structure_cast.hpp"
 #include "rigid_body/collision_data.hpp"
 #include "rigid_body/object.hpp"
-#include "../exception.hpp"
+#include <fruitlib/exception.hpp>
 #include <BulletCollision/CollisionDispatch/btDefaultCollisionConfiguration.h>
 #include <BulletCollision/CollisionDispatch/btCollisionDispatcher.h>
 //#include <BulletCollision/BroadphaseCollision/btAxisSweep3.h>

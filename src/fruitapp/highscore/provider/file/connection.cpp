@@ -1,6 +1,6 @@
 #include "connection.hpp"
-#include "../../json_to_entry_set.hpp"
-#include "../../../../fruitlib/utf8_file_to_fcppt_string.hpp"
+#include <fruitapp/highscore/json_to_entry_set.hpp>
+#include <fruitlib/utf8_file_to_fcppt_string.hpp>
 #include <sge/parse/json/json.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>

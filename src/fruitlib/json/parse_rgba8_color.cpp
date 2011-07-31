@@ -1,6 +1,6 @@
 #include "parse_rgba8_color.hpp"
 #include "convert_from.hpp"
-#include "../exception.hpp"
+#include <fruitlib/exception.hpp>
 #include <sge/parse/json/json.hpp>
 #include <sge/image/color/init.hpp>
 #include <fcppt/text.hpp>

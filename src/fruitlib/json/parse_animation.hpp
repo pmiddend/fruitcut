@@ -2,8 +2,8 @@
 #define FRUITLIB_JSON_PARSE_ANIMATION_HPP_INCLUDED
 
 #include "find_and_convert_member.hpp"
-#include "../animation.hpp"
-#include "../exception.hpp"
+#include <fruitlib/animation.hpp>
+#include <fruitlib/exception.hpp>
 #include <sge/parse/json/array.hpp>
 #include <sge/parse/json/value.hpp>
 #include <sge/parse/json/invalid_get.hpp>

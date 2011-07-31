@@ -1,6 +1,6 @@
-#include "../../fruitlib/rectangle_manager/object.hpp"
-#include "../../fruitlib/rectangle_manager/rectangle_instance.hpp"
-#include "../../fruitlib/rectangle_manager/padding.hpp"
+#include <fruitlib/rectangle_manager/object.hpp>
+#include <fruitlib/rectangle_manager/rectangle_instance.hpp>
+#include <fruitlib/rectangle_manager/padding.hpp>
 #include <sge/image/colors.hpp>
 #include <sge/input/keyboard/action.hpp>
 #include <sge/input/keyboard/device.hpp>

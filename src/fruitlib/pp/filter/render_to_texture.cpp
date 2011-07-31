@@ -1,7 +1,7 @@
 #include "render_to_texture.hpp"
-#include "../texture/manager.hpp"
-#include "../texture/descriptor.hpp"
-#include "../texture/instance.hpp"
+#include <fruitlib/pp/texture/manager.hpp>
+#include <fruitlib/pp/texture/descriptor.hpp>
+#include <fruitlib/pp/texture/instance.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/image/color/format.hpp>
 #include <sge/renderer/scoped_target.hpp>

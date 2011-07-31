@@ -1,5 +1,5 @@
 #include "line_drawer.hpp"
-#include "../events/render.hpp"
+#include <fruitlib/scenic/events/render.hpp>
 #include <sge/line_drawer/object.hpp>
 #include <sge/renderer/scoped_transform.hpp>
 #include <sge/renderer/device.hpp>

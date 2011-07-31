@@ -1,9 +1,9 @@
 #ifndef FRUITAPP_HIGHSCORE_PROVIDER_FILE_OBJECT_HPP_INCLUDED
 #define FRUITAPP_HIGHSCORE_PROVIDER_FILE_OBJECT_HPP_INCLUDED
 
-#include "../object_base.hpp"
-#include "../identifier.hpp"
-#include "../connection_base_ptr.hpp"
+#include <fruitapp/highscore/provider/object_base.hpp>
+#include <fruitapp/highscore/provider/identifier.hpp>
+#include <fruitapp/highscore/provider/connection_base_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/filesystem/path.hpp>
 

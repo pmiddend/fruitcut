@@ -1,7 +1,7 @@
 #include "splat_collector.hpp"
-#include "../../fruitlib/particle/sprite/parameters.hpp"
-#include "../../media_path.hpp"
-#include "../../fruitlib/pp/screen_vf/format.hpp"
+#include <fruitlib/particle/sprite/parameters.hpp>
+#include <media_path.hpp>
+#include <fruitlib/pp/screen_vf/format.hpp>
 #include <sge/image/color/format.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/dim2.hpp>

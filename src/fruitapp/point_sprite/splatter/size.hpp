@@ -1,7 +1,7 @@
 #ifndef FRUITAPP_POINT_SPRITE_SPLATTER_SIZE_HPP_INCLUDED
 #define FRUITAPP_POINT_SPRITE_SPLATTER_SIZE_HPP_INCLUDED
 
-#include "../object.hpp"
+#include <fruitapp/point_sprite/object.hpp>
 #include <fcppt/strong_typedef.hpp>
 
 namespace fruitapp

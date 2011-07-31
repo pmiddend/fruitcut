@@ -1,13 +1,13 @@
 #include "spawner.hpp"
 #include "manager.hpp"
-#include "../../fruitlib/physics/scalar.hpp"
-#include "../../fruitlib/physics/vector3.hpp"
-#include "../../fruitlib/physics/matrix4.hpp"
-#include "../../fruitlib/json/find_and_convert_member.hpp"
-#include "../../fruitlib/json/parse_random_inclusive_range.hpp"
-#include "../../fruitlib/math/box_radius.hpp"
-#include "../../fruitlib/math/view_plane_rect.hpp"
-#include "../../fruitlib/scenic/events/update.hpp"
+#include <fruitlib/physics/scalar.hpp>
+#include <fruitlib/physics/vector3.hpp>
+#include <fruitlib/physics/matrix4.hpp>
+#include <fruitlib/json/find_and_convert_member.hpp>
+#include <fruitlib/json/parse_random_inclusive_range.hpp>
+#include <fruitlib/math/box_radius.hpp>
+#include <fruitlib/math/view_plane_rect.hpp>
+#include <fruitlib/scenic/events/update.hpp>
 #include <sge/time/funit.hpp>
 #include <sge/time/duration.hpp>
 #include <sge/time/second_f.hpp>
@@ -31,8 +31,8 @@
 
 
 #include <sge/renderer/vector4.hpp>
-#include "../../fruitlib/math/plane/normalize.hpp"
-#include "../../fruitlib/math/plane/basic.hpp"
+#include <fruitlib/math/plane/normalize.hpp>
+#include <fruitlib/math/plane/basic.hpp>
 
 fruitapp::fruit::spawner::spawner(
 	fruitlib::scenic::optional_parent const &_parent,

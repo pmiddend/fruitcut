@@ -1,8 +1,8 @@
 #ifndef FRUITAPP_POINT_SPRITE_SPLATTER_PARAMETERS_HPP_INCLUDED
 #define FRUITAPP_POINT_SPRITE_SPLATTER_PARAMETERS_HPP_INCLUDED
 
-#include "../system.hpp"
-#include "../color.hpp"
+#include <fruitapp/point_sprite/system.hpp>
+#include <fruitapp/point_sprite/color.hpp>
 #include "position.hpp"
 #include "linear_velocity.hpp"
 #include "acceleration.hpp"

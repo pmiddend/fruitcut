@@ -1,5 +1,5 @@
 #include "scoped.hpp"
-#include "../world.hpp"
+#include <fruitlib/physics/world.hpp>
 #include <BulletDynamics/Dynamics/btRigidBody.h>
 #include <BulletDynamics/Dynamics/btDiscreteDynamicsWorld.h>
 

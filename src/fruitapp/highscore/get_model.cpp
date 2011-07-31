@@ -1,5 +1,5 @@
 #include "get_model.hpp"
-#include "../gui/table/column.hpp"
+#include <fruitapp/gui/table/column.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/lexical_cast.hpp>
 #include <fcppt/from_std_string.hpp>

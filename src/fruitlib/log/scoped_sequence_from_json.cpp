@@ -1,7 +1,7 @@
 #include "scoped_sequence_from_json.hpp"
 #include "string_to_location.hpp"
 #include "scoped.hpp"
-#include "../exception.hpp"
+#include <fruitlib/exception.hpp>
 #include <sge/parse/json/array.hpp>
 #include <sge/parse/json/object.hpp>
 #include <sge/parse/json/element_vector.hpp>

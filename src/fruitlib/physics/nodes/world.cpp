@@ -1,6 +1,6 @@
 #include "world.hpp"
-#include "../world.hpp"
-#include "../../scenic/events/update.hpp"
+#include <fruitlib/physics/world.hpp>
+#include <fruitlib/scenic/events/update.hpp>
 #include <sge/time/second.hpp>
 #include <sge/time/second_f.hpp>
 #include <sge/time/duration.hpp>

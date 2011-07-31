@@ -5,11 +5,11 @@
 #include "mesh_to_shape.hpp"
 #include "box3.hpp"
 #include "prototype.hpp"
-#include "../../fruitlib/geometry_traits/box.hpp"
-#include "../../fruitlib/geometry_traits/vector.hpp"
-#include "../../fruitlib/physics/rigid_body/parameters.hpp"
-#include "../../fruitlib/physics/group/sequence.hpp"
-#include "../../fruitlib/physics/world_fwd.hpp"
+#include <fruitlib/geometry_traits/box.hpp>
+#include <fruitlib/geometry_traits/vector.hpp>
+#include <fruitlib/physics/rigid_body/parameters.hpp>
+#include <fruitlib/physics/group/sequence.hpp>
+#include <fruitlib/physics/world_fwd.hpp>
 #include <sge/time/activation_state.hpp>
 #include <sge/renderer/matrix4.hpp>
 #include <sge/renderer/vector3.hpp>

@@ -1,4 +1,4 @@
-#include "../../fruitlib/json/output_tabbed.hpp"
+#include <fruitlib/json/output_tabbed.hpp>
 #include <sge/parse/json/json.hpp>
 #include <fcppt/io/cout.hpp>
 #include <fcppt/from_std_string.hpp>

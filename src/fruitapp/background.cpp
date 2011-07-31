@@ -1,9 +1,9 @@
 #include "background.hpp"
-#include "../media_path.hpp"
-#include "../fruitlib/json/find_and_convert_member.hpp"
-#include "../fruitlib/math/view_plane_rect.hpp"
-#include "../fruitlib/scenic/events/render.hpp"
-#include "../fruitlib/scenic/events/viewport_change.hpp"
+#include <media_path.hpp>
+#include <fruitlib/json/find_and_convert_member.hpp>
+#include <fruitlib/math/view_plane_rect.hpp>
+#include <fruitlib/scenic/events/render.hpp>
+#include <fruitlib/scenic/events/viewport_change.hpp>
 #include <sge/parse/json/json.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/viewport_size.hpp>

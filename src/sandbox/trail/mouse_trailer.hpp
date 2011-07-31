@@ -1,8 +1,8 @@
 #ifndef FRUITCUT_SANDBOX_MOUSE_TRAILER_HPP_INCLUDED
 #define FRUITCUT_SANDBOX_MOUSE_TRAILER_HPP_INCLUDED
 
-#include "../../fruitlib/particle/sprite/system.hpp"
-#include "../../fruitlib/particle/sprite/object.hpp"
+#include <fruitlib/particle/sprite/system.hpp>
+#include <fruitlib/particle/sprite/object.hpp>
 #include "sword_particle.hpp"
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/image2d/multi_loader_fwd.hpp>

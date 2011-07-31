@@ -1,8 +1,8 @@
 #ifndef FRUITLIB_PP_FILTER_INJECT_TEXTURE_HPP_INCLUDED
 #define FRUITLIB_PP_FILTER_INJECT_TEXTURE_HPP_INCLUDED
 
-#include "../texture/manager_fwd.hpp"
-#include "../texture/counted_instance.hpp"
+#include <fruitlib/pp/texture/manager_fwd.hpp>
+#include <fruitlib/pp/texture/counted_instance.hpp>
 #include "nullary.hpp"
 #include <sge/renderer/texture/planar_ptr.hpp>
 

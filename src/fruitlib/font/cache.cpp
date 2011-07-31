@@ -1,7 +1,7 @@
 #include "cache.hpp"
 #include "drawer/object.hpp"
 #include "drawer/parameters.hpp"
-#include "../json/find_and_convert_member.hpp"
+#include <fruitlib/json/find_and_convert_member.hpp>
 #include <sge/font/system_ptr.hpp>
 #include <sge/font/bitmap/create.hpp>
 #include <sge/renderer/device_ptr.hpp>

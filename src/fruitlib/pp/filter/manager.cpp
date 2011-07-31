@@ -1,5 +1,5 @@
 #include "manager.hpp"
-#include "../screen_vf/format.hpp"
+#include <fruitlib/pp/screen_vf/format.hpp>
 #include <sge/shader/shader.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 

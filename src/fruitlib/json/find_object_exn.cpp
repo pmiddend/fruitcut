@@ -1,7 +1,7 @@
 #include "find_object_exn.hpp"
 #include "path_to_string.hpp"
 #include "path.hpp"
-#include "../exception.hpp"
+#include <fruitlib/exception.hpp>
 #include <sge/parse/json/json.hpp>
 #include <fcppt/type_name.hpp>
 #include <fcppt/text.hpp>

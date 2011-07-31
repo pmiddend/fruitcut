@@ -1,4 +1,4 @@
-#include "../fruitlib/delayed_ptr_sequence.hpp"
+#include <fruitlib/delayed_ptr_sequence.hpp>
 #include <boost/test/unit_test.hpp>
 #include <boost/ptr_container/ptr_vector.hpp>
 #include <fcppt/make_unique_ptr.hpp>

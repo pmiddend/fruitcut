@@ -1,9 +1,9 @@
 #include "post_model.hpp"
 #include "provider/object_base.hpp"
 #include "provider/connection_base.hpp"
-#include "../gui/table/column.hpp"
-#include "../gui/table/row.hpp"
-#include "../gui/table/row_index.hpp"
+#include <fruitapp/gui/table/column.hpp>
+#include <fruitapp/gui/table/row.hpp>
+#include <fruitapp/gui/table/row_index.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/container/ptr/push_back_unique_ptr.hpp>
 #include <fcppt/text.hpp>

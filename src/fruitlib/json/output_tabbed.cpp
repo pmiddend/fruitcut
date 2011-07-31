@@ -1,5 +1,5 @@
 #include "output_tabbed.hpp"
-#include "../exception.hpp"
+#include <fruitlib/exception.hpp>
 #include <sge/parse/json/json.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/string.hpp>

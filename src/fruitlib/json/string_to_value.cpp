@@ -1,5 +1,5 @@
 #include "string_to_value.hpp"
-#include "../exception.hpp"
+#include <fruitlib/exception.hpp>
 #include <sge/parse/json/member_name_equal.hpp>
 #include <sge/parse/json/array.hpp>
 #include <sge/parse/json/object.hpp>

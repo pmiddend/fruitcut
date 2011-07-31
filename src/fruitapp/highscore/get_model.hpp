@@ -1,12 +1,12 @@
 #ifndef FRUITAPP_HIGHSCORE_GET_MODEL_HPP_INCLUDED
 #define FRUITAPP_HIGHSCORE_GET_MODEL_HPP_INCLUDED
 
-#include "../gui/table/model.hpp"
-#include "../gui/table/row_added.hpp"
-#include "../gui/table/row_removed.hpp"
-#include "../gui/table/row_added_fn.hpp"
-#include "../gui/table/row_removed_fn.hpp"
-#include "../gui/table/column_sequence.hpp"
+#include <fruitapp/gui/table/model.hpp>
+#include <fruitapp/gui/table/row_added.hpp>
+#include <fruitapp/gui/table/row_removed.hpp>
+#include <fruitapp/gui/table/row_added_fn.hpp>
+#include <fruitapp/gui/table/row_removed_fn.hpp>
+#include <fruitapp/gui/table/column_sequence.hpp>
 #include "entry_set.hpp"
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/signal/auto_connection.hpp>

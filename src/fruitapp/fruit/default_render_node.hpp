@@ -2,10 +2,10 @@
 #define FRUITAPP_FRUIT_DEFAULT_RENDER_NODE_HPP_INCLUDED
 
 #include "manager_fwd.hpp"
-#include "../directional_light_source_fwd.hpp"
-#include "../../fruitlib/scenic/node.hpp"
-#include "../../fruitlib/scenic/parent_fwd.hpp"
-#include "../../fruitlib/scenic/events/render_fwd.hpp"
+#include <fruitapp/directional_light_source_fwd.hpp>
+#include <fruitlib/scenic/node.hpp>
+#include <fruitlib/scenic/parent_fwd.hpp>
+#include <fruitlib/scenic/events/render_fwd.hpp>
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/scalar.hpp>
 #include <sge/renderer/vertex_declaration_fwd.hpp>

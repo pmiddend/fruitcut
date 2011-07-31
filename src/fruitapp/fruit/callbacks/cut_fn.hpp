@@ -1,7 +1,7 @@
 #ifndef FRUITAPP_FRUIT_CALLBACKS_CUT_FN_HPP_INCLUDED
 #define FRUITAPP_FRUIT_CALLBACKS_CUT_FN_HPP_INCLUDED
 
-#include "../cut_context.hpp"
+#include <fruitapp/fruit/cut_context.hpp>
 
 namespace fruitapp
 {

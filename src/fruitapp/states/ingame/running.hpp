@@ -3,16 +3,16 @@
 
 #include "superstate.hpp"
 #include "paused_fwd.hpp"
-#include "../../sword_trail.hpp"
-#include "../../cursor_trail.hpp"
-#include "../gameover/superstate_fwd.hpp"
-#include "../../fruit/object_fwd.hpp"
-#include "../../events/declare_transition_type.hpp"
-#include "../../events/declare_transition_reaction.hpp"
-#include "../../../fruitlib/scenic/adaptors/line_drawer.hpp"
-#include "../../../fruitlib/scenic/node.hpp"
-#include "../../../fruitlib/scenic/events/update_fwd.hpp"
-#include "../../../fruitlib/scenic/events/viewport_change_fwd.hpp"
+#include <fruitapp/sword_trail.hpp>
+#include <fruitapp/cursor_trail.hpp>
+#include <fruitapp/states/gameover/superstate_fwd.hpp>
+#include <fruitapp/fruit/object_fwd.hpp>
+#include <fruitapp/events/declare_transition_type.hpp>
+#include <fruitapp/events/declare_transition_reaction.hpp>
+#include <fruitlib/scenic/adaptors/line_drawer.hpp>
+#include <fruitlib/scenic/node.hpp>
+#include <fruitlib/scenic/events/update_fwd.hpp>
+#include <fruitlib/scenic/events/viewport_change_fwd.hpp>
 #include <sge/line_drawer/object.hpp>
 #include <sge/renderer/state/scoped.hpp>
 #include <sge/line_drawer/line_sequence.hpp>

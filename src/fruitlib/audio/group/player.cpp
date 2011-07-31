@@ -1,7 +1,7 @@
 #include "player.hpp"
 #include "buffer.hpp"
 #include "sound_positional.hpp"
-#include "../../exception.hpp"
+#include <fruitlib/exception.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/ref.hpp>
 #include <fcppt/assert.hpp>

@@ -1,8 +1,8 @@
 #include "json_equal.hpp"
 #include "object_from_string.hpp"
-#include "../../fruitlib/json/find_object.hpp"
-#include "../../fruitlib/json/find_object_exn.hpp"
-#include "../../fruitlib/json/path.hpp"
+#include <fruitlib/json/find_object.hpp>
+#include <fruitlib/json/find_object_exn.hpp>
+#include <fruitlib/json/path.hpp>
 #include <sge/parse/json/json.hpp>
 #include <boost/test/unit_test.hpp>
 #include <fcppt/text.hpp>

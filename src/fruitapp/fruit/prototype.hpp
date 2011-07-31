@@ -5,7 +5,7 @@
 #include "box3.hpp"
 #include "tag_set.hpp"
 #include "material/object.hpp"
-#include "../../fruitlib/physics/rigid_body/mass.hpp"
+#include <fruitlib/physics/rigid_body/mass.hpp>
 #include <sge/renderer/texture/planar_ptr.hpp>
 #include <sge/image/color/any/object.hpp>
 #include <fcppt/math/box/basic_impl.hpp>

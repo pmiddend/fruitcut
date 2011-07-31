@@ -1,5 +1,5 @@
 #include "inject_texture.hpp"
-#include "../texture/manager.hpp"
+#include <fruitlib/pp/texture/manager.hpp>
 
 fruitlib::pp::filter::inject_texture::inject_texture(
 	texture::manager &_texture_manager)

@@ -1,8 +1,8 @@
 #ifndef FRUITAPP_FRUIT_MAKE_COORDINATE_SYSTEM_HPP_INCLUDED
 #define FRUITAPP_FRUIT_MAKE_COORDINATE_SYSTEM_HPP_INCLUDED
 
-#include "../../fruitlib/math/line/distance_to_point.hpp"
-#include "../../fruitlib/math/line/basic.hpp"
+#include <fruitlib/math/line/distance_to_point.hpp>
+#include <fruitlib/math/line/basic.hpp>
 #include <fcppt/optional.hpp>
 #include <fcppt/math/matrix/matrix.hpp>
 #include <fcppt/math/vector/vector.hpp>

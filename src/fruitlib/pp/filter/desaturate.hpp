@@ -3,7 +3,7 @@
 
 #include "unary.hpp"
 #include "manager_fwd.hpp"
-#include "../texture/manager_fwd.hpp"
+#include <fruitlib/pp/texture/manager_fwd.hpp>
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/target_ptr.hpp>
 #include <sge/renderer/scalar.hpp>

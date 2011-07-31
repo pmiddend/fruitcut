@@ -1,13 +1,13 @@
 #ifndef FRUITLIB_AUDIO_SOUND_CONTROLLER_HPP_INCLUDED
 #define FRUITLIB_AUDIO_SOUND_CONTROLLER_HPP_INCLUDED
 
-#include "../resource_tree/make_type.hpp"
-#include "../resource_tree/path.hpp"
-#include "../uniform_random.hpp"
-#include "../random_generator.hpp"
-#include "../scenic/optional_parent.hpp"
-#include "../scenic/node.hpp"
-#include "../scenic/events/update.hpp"
+#include <fruitlib/resource_tree/make_type.hpp>
+#include <fruitlib/resource_tree/path.hpp>
+#include <fruitlib/uniform_random.hpp>
+#include <fruitlib/random_generator.hpp>
+#include <fruitlib/scenic/optional_parent.hpp>
+#include <fruitlib/scenic/node.hpp>
+#include <fruitlib/scenic/events/update.hpp>
 #include "group/player.hpp"
 #include "pool.hpp"
 #include <sge/audio/multi_loader_fwd.hpp>

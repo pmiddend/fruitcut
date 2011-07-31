@@ -3,8 +3,8 @@
 
 #include "transform_callback.hpp"
 #include "parameters_fwd.hpp"
-#include "../color.hpp"
-#include "../color_format.hpp"
+#include <fruitlib/font/color.hpp>
+#include <fruitlib/font/color_format.hpp>
 #include <sge/font/font.hpp>
 #include <sge/texture/texture.hpp>
 #include <sge/renderer/device_fwd.hpp>

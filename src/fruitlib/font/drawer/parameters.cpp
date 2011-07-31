@@ -1,5 +1,5 @@
 #include "parameters.hpp"
-#include "../color_format.hpp"
+#include <fruitlib/font/color_format.hpp>
 #include <sge/image/colors.hpp>
 #include <sge/image/color/any/object.hpp>
 #include <sge/image/color/any/convert.hpp>

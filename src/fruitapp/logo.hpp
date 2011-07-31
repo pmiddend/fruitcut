@@ -1,11 +1,11 @@
 #ifndef FRUITAPP_LOGO_HPP_INCLUDED
 #define FRUITAPP_LOGO_HPP_INCLUDED
 
-#include "../fruitlib/scenic/node.hpp"
-#include "../fruitlib/scenic/optional_parent.hpp"
-#include "../fruitlib/scenic/events/render_fwd.hpp"
-#include "../fruitlib/scenic/events/viewport_change_fwd.hpp"
-#include "../fruitlib/animation.hpp"
+#include <fruitlib/scenic/node.hpp>
+#include <fruitlib/scenic/optional_parent.hpp>
+#include <fruitlib/scenic/events/render_fwd.hpp>
+#include <fruitlib/scenic/events/viewport_change_fwd.hpp>
+#include <fruitlib/animation.hpp>
 #include <sge/sprite/sprite.hpp>
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/image/color/rgba8_format.hpp>

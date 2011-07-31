@@ -2,7 +2,7 @@
 #define FRUITLIB_FONT_DRAWER_SCOPED_COLOR_HPP_INCLUDED
 
 #include "object_fwd.hpp"
-#include "../color.hpp"
+#include <fruitlib/font/color.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/variant/object.hpp>
 

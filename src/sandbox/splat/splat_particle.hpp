@@ -1,8 +1,8 @@
 #ifndef FRUITCUT_SANDBOX_SPLAT_PARTICLE_HPP_INCLUDED
 #define FRUITCUT_SANDBOX_SPLAT_PARTICLE_HPP_INCLUDED
 
-#include "../../fruitlib/particle/sprite/parameters.hpp"
-#include "../../fruitlib/particle/sprite/object.hpp"
+#include <fruitlib/particle/sprite/parameters.hpp>
+#include <fruitlib/particle/sprite/object.hpp>
 #include <sge/renderer/vector2.hpp>
 #include <sge/sprite/object_impl.hpp>
 #include <sge/time/duration.hpp>

@@ -1,9 +1,9 @@
 #ifndef FRUITAPP_STATES_MENU_SUPERSTATE_HPP_INCLUDED
 #define FRUITAPP_STATES_MENU_SUPERSTATE_HPP_INCLUDED
 
-#include "../../machine.hpp"
+#include <fruitapp/machine.hpp>
 #include "main_fwd.hpp"
-#include "../../../fruitlib/scenic/adaptors/gui_system.hpp"
+#include <fruitlib/scenic/adaptors/gui_system.hpp>
 #include <sge/cegui/default_cursor.hpp>
 #include <sge/cegui/default_keyboard.hpp>
 #include <fcppt/signal/scoped_connection.hpp>

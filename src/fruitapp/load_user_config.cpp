@@ -1,7 +1,7 @@
 #include "load_user_config.hpp"
 #include "name.hpp"
-#include "../fruitlib/utf8_file_to_fcppt_string.hpp"
-#include "../fruitlib/json/parse_string_exn.hpp"
+#include <fruitlib/utf8_file_to_fcppt_string.hpp>
+#include <fruitlib/json/parse_string_exn.hpp>
 #include <sge/config/config_path.hpp>
 #include <sge/parse/json/json.hpp>
 #include <fcppt/text.hpp>

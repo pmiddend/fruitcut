@@ -1,11 +1,11 @@
 #include "cut_mesh.hpp"
 #include "cut_mesh_result.hpp"
 #include "make_coordinate_system.hpp"
-#include "../../fruitlib/geometry_traits/box.hpp"
-#include "../../fruitlib/geometry_traits/vector.hpp"
-#include "../../fruitlib/math/cut_triangle_at_plane.hpp"
-#include "../../fruitlib/math/triangle/area.hpp"
-#include "../../fruitlib/math/triangle_plane_intersection.hpp"
+#include <fruitlib/geometry_traits/box.hpp>
+#include <fruitlib/geometry_traits/vector.hpp>
+#include <fruitlib/math/cut_triangle_at_plane.hpp>
+#include <fruitlib/math/triangle/area.hpp>
+#include <fruitlib/math/triangle_plane_intersection.hpp>
 #include "triangle.hpp"
 #include "triangle_traits.hpp"
 #include <sge/renderer/matrix4.hpp>

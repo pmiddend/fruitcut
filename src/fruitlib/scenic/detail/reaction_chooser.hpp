@@ -1,7 +1,7 @@
 #ifndef FRUITLIB_SCENIC_DETAIL_REACTION_CHOOSER_HPP_INCLUDED
 #define FRUITLIB_SCENIC_DETAIL_REACTION_CHOOSER_HPP_INCLUDED
 
-#include "../events/base_fwd.hpp"
+#include <fruitlib/scenic/events/base_fwd.hpp>
 #include <fcppt/nonassignable.hpp>
 #include <fcppt/mpl/for_each.hpp>
 #include <typeinfo>

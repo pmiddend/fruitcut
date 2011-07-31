@@ -1,7 +1,7 @@
 #include "merge_command_line_parameters.hpp"
 #include "string_to_value.hpp"
-#include "../command_line_parameters.hpp"
-#include "../exception.hpp"
+#include <fruitlib/command_line_parameters.hpp>
+#include <fruitlib/exception.hpp>
 #include <sge/parse/json/json.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/string.hpp>

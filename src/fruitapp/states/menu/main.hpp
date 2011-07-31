@@ -4,11 +4,11 @@
 #include "superstate.hpp"
 #include "settings_fwd.hpp"
 #include "highscore_fwd.hpp"
-#include "../../gui/button.hpp"
-#include "../../logo.hpp"
-#include "../../events/declare_transition_type.hpp"
-#include "../../events/declare_transition_reaction.hpp"
-#include "../ingame/superstate_fwd.hpp"
+#include <fruitapp/gui/button.hpp>
+#include <fruitapp/logo.hpp>
+#include <fruitapp/events/declare_transition_type.hpp>
+#include <fruitapp/events/declare_transition_reaction.hpp>
+#include <fruitapp/states/ingame/superstate_fwd.hpp>
 #include <sge/cegui/toolbox/scoped_layout.hpp>
 #include <sge/cegui/toolbox/scoped_gui_sheet.hpp>
 #include <fcppt/signal/scoped_connection.hpp>

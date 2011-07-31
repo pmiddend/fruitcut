@@ -1,6 +1,6 @@
 #include "object.hpp"
 #include "parameters.hpp"
-#include "../parameters.hpp"
+#include <fruitapp/point_sprite/parameters.hpp>
 #include <sge/time/timer.hpp>
 #include <sge/time/second.hpp>
 

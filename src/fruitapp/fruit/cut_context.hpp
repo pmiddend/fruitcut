@@ -4,7 +4,7 @@
 #include "object_fwd.hpp"
 #include "area.hpp"
 #include "mesh.hpp"
-#include "../../fruitlib/physics/vector3.hpp"
+#include <fruitlib/physics/vector3.hpp>
 #include <fcppt/container/array.hpp>
 #include <fcppt/reference_wrapper.hpp>
 

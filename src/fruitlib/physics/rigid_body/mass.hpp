@@ -1,7 +1,7 @@
 #ifndef FRUITLIB_PHYSICS_RIGID_BODY_MASS_HPP_INCLUDED
 #define FRUITLIB_PHYSICS_RIGID_BODY_MASS_HPP_INCLUDED
 
-#include "../scalar.hpp"
+#include <fruitlib/physics/scalar.hpp>
 #include <fcppt/strong_typedef.hpp>
 
 namespace fruitlib

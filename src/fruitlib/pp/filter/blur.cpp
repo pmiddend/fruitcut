@@ -1,8 +1,8 @@
 #include "blur.hpp"
 #include "manager.hpp"
-#include "../texture/manager.hpp"
-#include "../texture/instance.hpp"
-#include "../texture/descriptor.hpp"
+#include <fruitlib/pp/texture/manager.hpp>
+#include <fruitlib/pp/texture/instance.hpp>
+#include <fruitlib/pp/texture/descriptor.hpp>
 #include <sge/image/color/format.hpp>
 #include <sge/renderer/glsl/scoped_program.hpp>
 #include <sge/renderer/resource_flags_none.hpp>

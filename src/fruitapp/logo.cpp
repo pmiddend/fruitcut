@@ -1,10 +1,10 @@
 #include "logo.hpp"
-#include "../fruitlib/json/find_and_convert_member.hpp"
-#include "../fruitlib/json/parse_animation.hpp"
-#include "../fruitlib/json/parse_color.hpp"
-#include "../fruitlib/scenic/events/render.hpp"
-#include "../fruitlib/scenic/events/viewport_change.hpp"
-#include "../media_path.hpp"
+#include <fruitlib/json/find_and_convert_member.hpp>
+#include <fruitlib/json/parse_animation.hpp>
+#include <fruitlib/json/parse_color.hpp>
+#include <fruitlib/scenic/events/render.hpp>
+#include <fruitlib/scenic/events/viewport_change.hpp>
+#include <media_path.hpp>
 #include <sge/image2d/image2d.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/viewport_size.hpp>

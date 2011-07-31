@@ -4,7 +4,7 @@
 #include "callbacks/receive_data.hpp"
 #include "callbacks/connect.hpp"
 #include "callbacks/disconnect.hpp"
-#include "../byte_sequence.hpp"
+#include <fruitserver/byte_sequence.hpp>
 #include <string>
 
 namespace fruitserver

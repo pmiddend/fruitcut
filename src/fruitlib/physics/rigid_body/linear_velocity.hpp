@@ -1,7 +1,7 @@
 #ifndef FRUITLIB_PHYSICS_RIGID_BODY_LINEAR_VELOCITY_HPP_INCLUDED
 #define FRUITLIB_PHYSICS_RIGID_BODY_LINEAR_VELOCITY_HPP_INCLUDED
 
-#include "../vector3.hpp"
+#include <fruitlib/physics/vector3.hpp>
 #include <fcppt/strong_typedef.hpp>
 #include <fcppt/math/vector/vector.hpp>
 

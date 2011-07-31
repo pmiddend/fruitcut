@@ -3,9 +3,9 @@
 
 #include "fruit/cut_context_fwd.hpp"
 #include "fruit/area.hpp"
-#include "../fruitlib/uniform_random.hpp"
-#include "../fruitlib/random_generator.hpp"
-#include "../fruitlib/json/user_config_variable.hpp"
+#include <fruitlib/uniform_random.hpp>
+#include <fruitlib/random_generator.hpp>
+#include <fruitlib/json/user_config_variable.hpp>
 #include "point_sprite/color_format.hpp"
 #include "point_sprite/splatter/size.hpp"
 #include "point_sprite/splatter/linear_velocity.hpp"

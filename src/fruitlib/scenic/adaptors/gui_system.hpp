@@ -1,10 +1,10 @@
 #ifndef FRUITLIB_SCENIC_ADAPTORS_GUI_SYSTEM_HPP_INCLUDED
 #define FRUITLIB_SCENIC_ADAPTORS_GUI_SYSTEM_HPP_INCLUDED
 
-#include "../node.hpp"
-#include "../optional_parent.hpp"
-#include "../events/render_fwd.hpp"
-#include "../events/update_fwd.hpp"
+#include <fruitlib/scenic/node.hpp>
+#include <fruitlib/scenic/optional_parent.hpp>
+#include <fruitlib/scenic/events/render_fwd.hpp>
+#include <fruitlib/scenic/events/update_fwd.hpp>
 #include <sge/cegui/system.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <boost/mpl/vector/vector10.hpp>

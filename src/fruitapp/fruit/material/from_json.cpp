@@ -1,5 +1,5 @@
 #include "from_json.hpp"
-#include "../../../fruitlib/json/find_and_convert_member.hpp"
+#include <fruitlib/json/find_and_convert_member.hpp>
 
 fruitapp::fruit::material::object const
 fruitapp::fruit::material::from_json(

@@ -2,7 +2,7 @@
 #define FRUITLIB_PHYSICS_GROUP_OBJECT_HPP_INCLUDED
 
 #include "id.hpp"
-#include "../world_fwd.hpp"
+#include <fruitlib/physics/world_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 
 namespace fruitlib

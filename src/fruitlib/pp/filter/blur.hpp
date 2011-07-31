@@ -3,8 +3,8 @@
 
 #include "unary.hpp"
 #include "manager_fwd.hpp"
-#include "../texture/manager_fwd.hpp"
-#include "../texture/counted_instance.hpp"
+#include <fruitlib/pp/texture/manager_fwd.hpp>
+#include <fruitlib/pp/texture/counted_instance.hpp>
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/dim2.hpp>
 #include <sge/shader/object_fwd.hpp>

@@ -1,8 +1,8 @@
 #include "connection.hpp"
-#include "../../../current_commit.hpp"
-#include "../../json_to_entry_set.hpp"
-#include "../../../../fruitlib/json/find_and_convert_member.hpp"
-#include "../../../../fruitlib/json/path.hpp"
+#include <fruitapp/current_commit.hpp>
+#include <fruitapp/highscore/json_to_entry_set.hpp>
+#include <fruitlib/json/find_and_convert_member.hpp>
+#include <fruitlib/json/path.hpp>
 #include <sge/parse/json/json.hpp>
 #include <fcppt/to_std_string.hpp>
 #include <fcppt/lexical_cast.hpp>
