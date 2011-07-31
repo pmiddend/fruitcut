@@ -25,7 +25,7 @@ update_cmake_file \
 update_cmake_file \
 	CMakeLists.txt \
 	APP_FILES \
-	src/app \
+	src/fruitapp \
 
 update_cmake_file \
 	CMakeLists.txt \
