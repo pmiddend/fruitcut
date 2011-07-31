@@ -1,10 +1,10 @@
 #ifndef FRUITAPP_HIGHSCORE_PROVIDER_NET_CONNECTION_HPP_INCLUDED
 #define FRUITAPP_HIGHSCORE_PROVIDER_NET_CONNECTION_HPP_INCLUDED
 
-#include "port.hpp"
+#include <fruitapp/highscore/provider/net/port.hpp>
 #include <fruitapp/highscore/name.hpp>
 #include <fruitapp/highscore/score.hpp>
-#include "host.hpp"
+#include <fruitapp/highscore/provider/net/host.hpp>
 #include <fruitapp/highscore/provider/connection_base.hpp>
 #include <fruitapp/highscore/callbacks/message_received_fn.hpp>
 #include <fruitapp/highscore/callbacks/message_received.hpp>

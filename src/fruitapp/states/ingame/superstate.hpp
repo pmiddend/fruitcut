@@ -1,7 +1,7 @@
 #ifndef FRUITAPP_STATES_INGAME_SUPERSTATE_HPP_INCLUDED
 #define FRUITAPP_STATES_INGAME_SUPERSTATE_HPP_INCLUDED
 
-#include "running_fwd.hpp"
+#include <fruitapp/states/ingame/running_fwd.hpp>
 #include <fruitapp/splatter_generator.hpp>
 #include <fruitapp/game_logic/object.hpp>
 #include <fruitapp/machine.hpp>

@@ -1,9 +1,9 @@
 #ifndef FRUITAPP_POINT_SPRITE_SYSTEM_NODE_HPP_INCLUDED
 #define FRUITAPP_POINT_SPRITE_SYSTEM_NODE_HPP_INCLUDED
 
-#include "system.hpp"
-#include "base.hpp"
-#include "unique_base_ptr.hpp"
+#include <fruitapp/point_sprite/system.hpp>
+#include <fruitapp/point_sprite/base.hpp>
+#include <fruitapp/point_sprite/unique_base_ptr.hpp>
 #include <fruitlib/scenic/node.hpp>
 #include <fruitlib/scenic/optional_parent.hpp>
 #include <fruitlib/scenic/events/update_fwd.hpp>

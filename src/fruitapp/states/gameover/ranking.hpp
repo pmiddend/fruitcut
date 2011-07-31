@@ -1,7 +1,7 @@
 #ifndef FRUITAPP_STATES_GAMEOVER_RANKING_HPP_INCLUDED
 #define FRUITAPP_STATES_GAMEOVER_RANKING_HPP_INCLUDED
 
-#include "superstate.hpp"
+#include <fruitapp/states/gameover/superstate.hpp>
 #include <fruitapp/states/menu/main_fwd.hpp>
 #include <fruitapp/states/menu/highscore_fwd.hpp>
 #include <fruitapp/events/declare_transition_type.hpp>

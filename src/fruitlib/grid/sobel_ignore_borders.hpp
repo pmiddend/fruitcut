@@ -1,8 +1,8 @@
 #ifndef FRUITLIB_GRID_SOBEL_IGNORE_BORDERS_HPP_INCLUDED
 #define FRUITLIB_GRID_SOBEL_IGNORE_BORDERS_HPP_INCLUDED
 
-#include "zip_with.hpp"
-#include "convolve_ignore_borders.hpp"
+#include <fruitlib/grid/zip_with.hpp>
+#include <fruitlib/grid/convolve_ignore_borders.hpp>
 #include <fcppt/container/grid/object.hpp>
 #include <fcppt/math/vector/static.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>

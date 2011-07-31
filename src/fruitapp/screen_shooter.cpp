@@ -1,6 +1,6 @@
-#include "screen_shooter.hpp"
-#include "name.hpp"
-#include "quick_log.hpp"
+#include <fruitapp/screen_shooter.hpp>
+#include <fruitapp/name.hpp>
+#include <fruitapp/quick_log.hpp>
 #include <sge/input/keyboard/device.hpp>
 #include <sge/input/keyboard/key_code.hpp>
 #include <sge/input/keyboard/action.hpp>

@@ -1,4 +1,4 @@
-#include "path.hpp"
+#include <fruitlib/json/path.hpp>
 #include <iostream>
 
 fruitlib::json::path::path(

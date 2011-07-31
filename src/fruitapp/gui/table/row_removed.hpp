@@ -1,7 +1,7 @@
 #ifndef FRUITAPP_GUI_TABLE_ROW_REMOVED_HPP_INCLUDED
 #define FRUITAPP_GUI_TABLE_ROW_REMOVED_HPP_INCLUDED
 
-#include "row_removed_fn.hpp"
+#include <fruitapp/gui/table/row_removed_fn.hpp>
 #include <fcppt/function/object.hpp>
 
 namespace fruitapp

@@ -1,7 +1,7 @@
 #ifndef FRUITLIB_JSON_STRING_TO_PATH_HPP_INCLUDED
 #define FRUITLIB_JSON_STRING_TO_PATH_HPP_INCLUDED
 
-#include "path.hpp"
+#include <fruitlib/json/path.hpp>
 #include <fcppt/string.hpp>
 
 namespace fruitlib

@@ -1,9 +1,9 @@
 #ifndef FRUITAPP_POINT_SPRITE_SPLATTER_OBJECT_HPP_INCLUDED
 #define FRUITAPP_POINT_SPRITE_SPLATTER_OBJECT_HPP_INCLUDED
 
-#include "parameters_fwd.hpp"
-#include "linear_velocity.hpp"
-#include "acceleration.hpp"
+#include <fruitapp/point_sprite/splatter/parameters_fwd.hpp>
+#include <fruitapp/point_sprite/splatter/linear_velocity.hpp>
+#include <fruitapp/point_sprite/splatter/acceleration.hpp>
 #include <fruitapp/point_sprite/vector.hpp>
 #include <fruitapp/point_sprite/object.hpp>
 #include <fruitapp/point_sprite/base.hpp>

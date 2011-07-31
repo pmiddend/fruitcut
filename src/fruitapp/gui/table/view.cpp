@@ -1,5 +1,5 @@
-#include "view.hpp"
-#include "model.hpp"
+#include <fruitapp/gui/table/view.hpp>
+#include <fruitapp/gui/table/model.hpp>
 #include <sge/cegui/to_cegui_string.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/assert_message.hpp>

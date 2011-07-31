@@ -1,7 +1,7 @@
-#include "scene_node.hpp"
-#include "drawer/scoped_transformation.hpp"
-#include "drawer/scoped_color.hpp"
-#include "drawer/object.hpp"
+#include <fruitlib/font/scene_node.hpp>
+#include <fruitlib/font/drawer/scoped_transformation.hpp>
+#include <fruitlib/font/drawer/scoped_color.hpp>
+#include <fruitlib/font/drawer/object.hpp>
 #include <fruitlib/scenic/events/render.hpp>
 #include <sge/font/rect.hpp>
 #include <sge/font/pos.hpp>

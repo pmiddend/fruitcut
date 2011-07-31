@@ -1,5 +1,5 @@
-#include "superstate.hpp"
-#include "main.hpp"
+#include <fruitapp/states/menu/superstate.hpp>
+#include <fruitapp/states/menu/main.hpp>
 #include <fruitlib/audio/music_controller.hpp>
 #include <fruitlib/resource_tree/path.hpp>
 #include <fruitlib/scenic/parent.hpp>

@@ -1,6 +1,6 @@
-#include "prototype_from_json.hpp"
-#include "model_to_mesh.hpp"
-#include "material/from_json.hpp"
+#include <fruitapp/fruit/prototype_from_json.hpp>
+#include <fruitapp/fruit/model_to_mesh.hpp>
+#include <fruitapp/fruit/material/from_json.hpp>
 #include <media_path.hpp>
 #include <fruitlib/json/find_and_convert_member.hpp>
 #include <sge/parse/json/json.hpp>

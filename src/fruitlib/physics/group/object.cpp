@@ -1,5 +1,5 @@
-#include "object.hpp"
-#include "id.hpp"
+#include <fruitlib/physics/group/object.hpp>
+#include <fruitlib/physics/group/id.hpp>
 #include <fruitlib/physics/world.hpp>
 
 fruitlib::physics::group::object::object(

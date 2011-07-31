@@ -1,4 +1,4 @@
-#include "pool.hpp"
+#include <fruitlib/audio/pool.hpp>
 #include <sge/audio/sound/base.hpp>
 #include <sge/audio/sound/play_status.hpp>
 

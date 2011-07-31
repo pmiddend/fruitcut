@@ -2,7 +2,7 @@
 #define FRUITSERVER_ASCII_TO_BYTE_SEQUENCE_HPP_INCLUDED
 
 #include <fruitserver/byte_sequence.hpp>
-#include "string.hpp"
+#include <fruitserver/ascii/string.hpp>
 
 namespace fruitserver
 {

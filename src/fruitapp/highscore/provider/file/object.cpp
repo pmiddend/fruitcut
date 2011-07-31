@@ -1,5 +1,5 @@
-#include "object.hpp"
-#include "connection.hpp"
+#include <fruitapp/highscore/provider/file/object.hpp>
+#include <fruitapp/highscore/provider/file/connection.hpp>
 #include <fcppt/filesystem/stem.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>

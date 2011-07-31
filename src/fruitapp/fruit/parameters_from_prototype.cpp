@@ -1,5 +1,5 @@
-#include "parameters_from_prototype.hpp"
-#include "prototype.hpp"
+#include <fruitapp/fruit/parameters_from_prototype.hpp>
+#include <fruitapp/fruit/prototype.hpp>
 #include <fruitlib/physics/world_fwd.hpp>
 #include <fruitlib/physics/scalar.hpp>
 #include <fruitlib/physics/vector3.hpp>

@@ -1,7 +1,7 @@
 #ifndef FRUITAPP_GUI_TABLE_COLUMN_SEQUENCE_HPP_INCLUDED
 #define FRUITAPP_GUI_TABLE_COLUMN_SEQUENCE_HPP_INCLUDED
 
-#include "column.hpp"
+#include <fruitapp/gui/table/column.hpp>
 #include <vector>
 
 namespace fruitapp

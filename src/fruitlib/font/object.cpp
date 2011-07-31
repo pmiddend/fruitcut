@@ -1,6 +1,6 @@
-#include "object.hpp"
-#include "object_parameters.hpp"
-#include "drawer/object.hpp"
+#include <fruitlib/font/object.hpp>
+#include <fruitlib/font/object_parameters.hpp>
+#include <fruitlib/font/drawer/object.hpp>
 #include <sge/font/text/draw.hpp>
 #include <sge/font/text/part.hpp>
 

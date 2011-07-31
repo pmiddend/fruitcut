@@ -1,14 +1,14 @@
 #ifndef FRUITLIB_MATH_CUT_TRIANGLE_AT_PLANE_HPP_INCLUDED
 #define FRUITLIB_MATH_CUT_TRIANGLE_AT_PLANE_HPP_INCLUDED
 
-#include "plane/distance_to_point.hpp"
-#include "line_plane_intersection.hpp"
-#include "triangle_plane_intersection.hpp"
-#include "triangle/create_from_interpolation.hpp"
-#include "triangle/vector_type.hpp"
-#include "triangle/interpolation_pair.hpp"
-#include "triangle/vertex_access.hpp"
-#include "triangle/scalar_type.hpp"
+#include <fruitlib/math/plane/distance_to_point.hpp>
+#include <fruitlib/math/line_plane_intersection.hpp>
+#include <fruitlib/math/triangle_plane_intersection.hpp>
+#include <fruitlib/math/triangle/create_from_interpolation.hpp>
+#include <fruitlib/math/triangle/vector_type.hpp>
+#include <fruitlib/math/triangle/interpolation_pair.hpp>
+#include <fruitlib/math/triangle/vertex_access.hpp>
+#include <fruitlib/math/triangle/scalar_type.hpp>
 #include <fcppt/math/size_type.hpp>
 #include <fcppt/io/cout.hpp>
 #include <boost/spirit/home/phoenix/operator/comparison.hpp> 

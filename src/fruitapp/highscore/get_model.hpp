@@ -7,7 +7,7 @@
 #include <fruitapp/gui/table/row_added_fn.hpp>
 #include <fruitapp/gui/table/row_removed_fn.hpp>
 #include <fruitapp/gui/table/column_sequence.hpp>
-#include "entry_set.hpp"
+#include <fruitapp/highscore/entry_set.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/object.hpp>

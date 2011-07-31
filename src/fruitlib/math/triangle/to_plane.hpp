@@ -1,7 +1,7 @@
 #ifndef FRUITLIB_MATH_TRIANGLE_TO_PLANE_HPP_INCLUDED
 #define FRUITLIB_MATH_TRIANGLE_TO_PLANE_HPP_INCLUDED
 
-#include "basic.hpp"
+#include <fruitlib/math/triangle/basic.hpp>
 #include <fruitlib/math/plane/basic.hpp>
 #include <fcppt/math/vector/vector.hpp>
 

@@ -1,4 +1,4 @@
-#include "bad_cast.hpp"
+#include <fruitserver/program_options/detail/bad_cast.hpp>
 
 fruitserver::program_options::detail::bad_cast::bad_cast(
 	std::string const &_string)

@@ -1,10 +1,10 @@
 #ifndef FRUITLIB_SCENIC_NODE_HPP_INCLUDED
 #define FRUITLIB_SCENIC_NODE_HPP_INCLUDED
 
-#include "base.hpp"
-#include "optional_parent.hpp"
-#include "detail/reaction_chooser.hpp"
-#include "detail/has_scene_reactions.hpp"
+#include <fruitlib/scenic/base.hpp>
+#include <fruitlib/scenic/optional_parent.hpp>
+#include <fruitlib/scenic/detail/reaction_chooser.hpp>
+#include <fruitlib/scenic/detail/has_scene_reactions.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/type_name.hpp>

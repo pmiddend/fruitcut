@@ -1,8 +1,8 @@
 #ifndef FRUITLIB_PP_FILTER_SSAA_HPP_INCLUDED
 #define FRUITLIB_PP_FILTER_SSAA_HPP_INCLUDED
 
-#include "unary.hpp"
-#include "manager_fwd.hpp"
+#include <fruitlib/pp/filter/unary.hpp>
+#include <fruitlib/pp/filter/manager_fwd.hpp>
 #include <fruitlib/pp/texture/manager_fwd.hpp>
 #include <fruitlib/pp/texture/counted_instance.hpp>
 #include <sge/renderer/dim2.hpp>

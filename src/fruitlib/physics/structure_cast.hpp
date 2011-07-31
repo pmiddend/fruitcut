@@ -1,7 +1,7 @@
 #ifndef FRUITLIB_PHYSICS_STRUCTURE_CAST_HPP_INCLUDED
 #define FRUITLIB_PHYSICS_STRUCTURE_CAST_HPP_INCLUDED
 
-#include "scalar.hpp"
+#include <fruitlib/physics/scalar.hpp>
 #include <LinearMath/btVector3.h>
 #include <LinearMath/btMatrix3x3.h>
 #include <fcppt/math/vector/has_dim.hpp>

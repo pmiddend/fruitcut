@@ -1,5 +1,5 @@
-#include "create_command_line_parameters.hpp"
-#include "command_line_parameters.hpp"
+#include <fruitlib/create_command_line_parameters.hpp>
+#include <fruitlib/command_line_parameters.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <cstddef>
 

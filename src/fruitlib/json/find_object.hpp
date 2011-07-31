@@ -2,7 +2,7 @@
 #define FRUITLIB_JSON_FIND_OBJECT_HPP_INCLUDED
 
 #include <sge/parse/json/object_fwd.hpp>
-#include "path_fwd.hpp"
+#include <fruitlib/json/path_fwd.hpp>
 
 namespace fruitlib
 {

@@ -1,16 +1,16 @@
 #ifndef FRUITLIB_PHYSICS_WORLD_HPP_INCLUDED
 #define FRUITLIB_PHYSICS_WORLD_HPP_INCLUDED
 
-#include "box.hpp"
-#include "vector3.hpp"
-#include "scalar.hpp"
-#include "duration.hpp"
-#include "group/object_fwd.hpp"
-#include "group/id.hpp"
-#include "group/sequence.hpp"
-#include "rigid_body/collision_callback.hpp"
-#include "rigid_body/object_fwd.hpp"
-#include "rigid_body/collision_callback_fn.hpp"
+#include <fruitlib/physics/box.hpp>
+#include <fruitlib/physics/vector3.hpp>
+#include <fruitlib/physics/scalar.hpp>
+#include <fruitlib/physics/duration.hpp>
+#include <fruitlib/physics/group/object_fwd.hpp>
+#include <fruitlib/physics/group/id.hpp>
+#include <fruitlib/physics/group/sequence.hpp>
+#include <fruitlib/physics/rigid_body/collision_callback.hpp>
+#include <fruitlib/physics/rigid_body/object_fwd.hpp>
+#include <fruitlib/physics/rigid_body/collision_callback_fn.hpp>
 #include <fcppt/signal/object.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/noncopyable.hpp>

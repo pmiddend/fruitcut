@@ -1,4 +1,4 @@
-#include "highscore_entry.hpp"
+#include <fruitserver/highscore_entry.hpp>
 #include <string>
 
 fruitserver::highscore_entry::highscore_entry()

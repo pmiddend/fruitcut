@@ -1,7 +1,7 @@
 #ifndef FRUITSERVER_LISTENER_CALLBACKS_DISCONNECT_HPP_INCLUDED
 #define FRUITSERVER_LISTENER_CALLBACKS_DISCONNECT_HPP_INCLUDED
 
-#include "disconnect_fn.hpp"
+#include <fruitserver/listener/callbacks/disconnect_fn.hpp>
 #include <tr1/functional>
 
 namespace fruitserver

@@ -8,8 +8,8 @@
 #include <fruitlib/scenic/optional_parent.hpp>
 #include <fruitlib/scenic/node.hpp>
 #include <fruitlib/scenic/events/update.hpp>
-#include "group/player.hpp"
-#include "pool.hpp"
+#include <fruitlib/audio/group/player.hpp>
+#include <fruitlib/audio/pool.hpp>
 #include <sge/audio/multi_loader_fwd.hpp>
 #include <sge/audio/player_fwd.hpp>
 #include <sge/audio/sound/positional_parameters.hpp>

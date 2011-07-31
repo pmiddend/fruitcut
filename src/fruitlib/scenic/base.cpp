@@ -1,4 +1,4 @@
-#include "base.hpp"
+#include <fruitlib/scenic/base.hpp>
 #include <iostream>
 
 fruitlib::scenic::base::child_sequence const &

@@ -1,4 +1,4 @@
-#include "get_model.hpp"
+#include <fruitapp/highscore/get_model.hpp>
 #include <fruitapp/gui/table/column.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/lexical_cast.hpp>

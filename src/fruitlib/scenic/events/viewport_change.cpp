@@ -1,4 +1,4 @@
-#include "viewport_change.hpp"
+#include <fruitlib/scenic/events/viewport_change.hpp>
 
 fruitlib::scenic::events::viewport_change::viewport_change()
 :

@@ -1,6 +1,6 @@
-#include "machine.hpp"
-#include "machine_impl.hpp"
-#include "exception.hpp"
+#include <fruitapp/machine.hpp>
+#include <fruitapp/machine_impl.hpp>
+#include <fruitapp/exception.hpp>
 #include <sge/systems/instance.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/type_name.hpp>

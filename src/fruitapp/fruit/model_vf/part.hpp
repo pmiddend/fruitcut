@@ -1,9 +1,9 @@
 #ifndef FRUITAPP_FRUIT_MODEL_VF_PART_HPP_INCLUDED
 #define FRUITAPP_FRUIT_MODEL_VF_PART_HPP_INCLUDED
 
-#include "position.hpp"
-#include "texcoord.hpp"
-#include "normal.hpp"
+#include <fruitapp/fruit/model_vf/position.hpp>
+#include <fruitapp/fruit/model_vf/texcoord.hpp>
+#include <fruitapp/fruit/model_vf/normal.hpp>
 #include <sge/renderer/vf/part.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 

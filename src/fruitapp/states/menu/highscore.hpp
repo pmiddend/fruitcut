@@ -1,7 +1,7 @@
 #ifndef FRUITAPP_STATES_MENU_HIGHSCORE_HPP_INCLUDED
 #define FRUITAPP_STATES_MENU_HIGHSCORE_HPP_INCLUDED
 
-#include "superstate.hpp"
+#include <fruitapp/states/menu/superstate.hpp>
 #include <fruitlib/scenic/node.hpp>
 #include <fruitlib/scenic/parent_fwd.hpp>
 #include <fruitlib/scenic/events/update_fwd.hpp>
@@ -10,7 +10,7 @@
 #include <fruitapp/highscore/provider/connection_base_ptr.hpp>
 #include <fruitapp/highscore/get_model.hpp>
 #include <fruitapp/highscore/entry_set.hpp>
-#include "settings_fwd.hpp"
+#include <fruitapp/states/menu/settings_fwd.hpp>
 #include <fruitapp/gui/button.hpp>
 #include <fruitapp/gui/table/view.hpp>
 #include <fruitapp/gui/combobox.hpp>

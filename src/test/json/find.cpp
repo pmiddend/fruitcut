@@ -1,5 +1,5 @@
-#include "json_equal.hpp"
-#include "object_from_string.hpp"
+#include <test/json/json_equal.hpp>
+#include <test/json/object_from_string.hpp>
 #include <fruitlib/json/find_object.hpp>
 #include <fruitlib/json/find_object_exn.hpp>
 #include <fruitlib/json/path.hpp>

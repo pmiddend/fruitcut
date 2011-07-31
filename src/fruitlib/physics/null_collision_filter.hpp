@@ -1,7 +1,7 @@
 #ifndef FRUITLIB_PHYSICS_NULL_COLLISION_FILTER_HPP_INCLUDED
 #define FRUITLIB_PHYSICS_NULL_COLLISION_FILTER_HPP_INCLUDED
 
-#include "world_fwd.hpp"
+#include <fruitlib/physics/world_fwd.hpp>
 #include <BulletCollision/BroadphaseCollision/btOverlappingPairCache.h>
 #include <fcppt/noncopyable.hpp>
 

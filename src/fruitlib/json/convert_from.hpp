@@ -2,7 +2,7 @@
 #define FRUITLIB_JSON_CONVERT_FROM_HPP_INCLUDED
 
 #include <fruitlib/exception.hpp>
-#include "detail/is_array.hpp"
+#include <fruitlib/json/detail/is_array.hpp>
 #include <sge/parse/json/json.hpp>
 #include <fcppt/math/matrix/matrix.hpp>
 #include <fcppt/type_traits/is_iterable.hpp>

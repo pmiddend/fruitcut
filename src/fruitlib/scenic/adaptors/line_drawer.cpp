@@ -1,4 +1,4 @@
-#include "line_drawer.hpp"
+#include <fruitlib/scenic/adaptors/line_drawer.hpp>
 #include <fruitlib/scenic/events/render.hpp>
 #include <sge/line_drawer/object.hpp>
 #include <sge/renderer/scoped_transform.hpp>

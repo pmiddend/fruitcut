@@ -1,6 +1,6 @@
-#include "highscore_to_json.hpp"
-#include "lexical_cast.hpp"
-#include "ascii/from_native.hpp"
+#include <fruitserver/highscore_to_json.hpp>
+#include <fruitserver/lexical_cast.hpp>
+#include <fruitserver/ascii/from_native.hpp>
 #include <string>
 
 fruitserver::ascii::string const

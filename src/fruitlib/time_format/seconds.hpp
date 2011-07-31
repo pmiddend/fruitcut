@@ -1,7 +1,7 @@
 #ifndef FRUITLIB_TIME_FORMAT_SECONDS_HPP_INCLUDED
 #define FRUITLIB_TIME_FORMAT_SECONDS_HPP_INCLUDED
 
-#include "tags/seconds.hpp"
+#include <fruitlib/time_format/tags/seconds.hpp>
 #include <boost/proto/proto.hpp>
 
 namespace fruitlib

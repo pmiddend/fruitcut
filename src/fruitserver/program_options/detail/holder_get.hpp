@@ -1,9 +1,9 @@
 #ifndef FRUITSERVER_PROGRAM_OPTIONS_DETAIL_HOLDER_GET_HPP_INCLUDED
 #define FRUITSERVER_PROGRAM_OPTIONS_DETAIL_HOLDER_GET_HPP_INCLUDED
 
-#include "bad_cast.hpp"
-#include "option_holder_base.hpp"
-#include "option_holder.hpp"
+#include <fruitserver/program_options/detail/bad_cast.hpp>
+#include <fruitserver/program_options/detail/option_holder_base.hpp>
+#include <fruitserver/program_options/detail/option_holder.hpp>
 #include <string>
 #include <typeinfo>
 

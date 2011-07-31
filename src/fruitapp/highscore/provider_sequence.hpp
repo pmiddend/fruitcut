@@ -1,7 +1,7 @@
 #ifndef FRUITAPP_HIGHSCORE_PROVIDER_SEQUENCE_HPP_INCLUDED
 #define FRUITAPP_HIGHSCORE_PROVIDER_SEQUENCE_HPP_INCLUDED
 
-#include "provider/object_base_fwd.hpp"
+#include <fruitapp/highscore/provider/object_base_fwd.hpp>
 #include <boost/ptr_container/ptr_vector.hpp>
 
 namespace fruitapp

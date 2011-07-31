@@ -1,7 +1,7 @@
 #ifndef FRUITAPP_SCREEN_SHOOTER_HPP_INCLUDED
 #define FRUITAPP_SCREEN_SHOOTER_HPP_INCLUDED
 
-#include "quick_log_fwd.hpp"
+#include <fruitapp/quick_log_fwd.hpp>
 #include <sge/input/keyboard/device_fwd.hpp>
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/image2d/multi_loader_fwd.hpp>

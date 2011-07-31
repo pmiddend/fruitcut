@@ -1,4 +1,4 @@
-#include "camera.hpp"
+#include <fruitlib/scenic/adaptors/camera.hpp>
 #include <fruitlib/scenic/events/update.hpp>
 #include <sge/camera/duration.hpp>
 #include <sge/camera/object.hpp>

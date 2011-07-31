@@ -1,7 +1,7 @@
 #ifndef FRUITLIB_PP_FILTER_WRAPPER_HPP_INCLUDED
 #define FRUITLIB_PP_FILTER_WRAPPER_HPP_INCLUDED
 
-#include "base_fwd.hpp"
+#include <fruitlib/pp/filter/base_fwd.hpp>
 #include <fcppt/string.hpp>
 
 namespace fruitlib

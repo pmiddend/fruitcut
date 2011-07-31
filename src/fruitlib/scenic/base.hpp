@@ -1,9 +1,9 @@
 #ifndef FRUITLIB_SCENIC_BASE_HPP_INCLUDED
 #define FRUITLIB_SCENIC_BASE_HPP_INCLUDED
 
-#include "events/base_fwd.hpp"
-#include "optional_parent.hpp"
-#include "depth.hpp"
+#include <fruitlib/scenic/events/base_fwd.hpp>
+#include <fruitlib/scenic/optional_parent.hpp>
+#include <fruitlib/scenic/depth.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <boost/intrusive/list.hpp>
 

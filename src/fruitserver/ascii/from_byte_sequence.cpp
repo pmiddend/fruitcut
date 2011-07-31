@@ -1,4 +1,4 @@
-#include "from_byte_sequence.hpp"
+#include <fruitserver/ascii/from_byte_sequence.hpp>
 
 fruitserver::ascii::string const
 fruitserver::ascii::from_byte_sequence(

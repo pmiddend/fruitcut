@@ -1,7 +1,7 @@
 #ifndef FRUITLIB_PP_SCREEN_VF_PART_HPP_INCLUDED
 #define FRUITLIB_PP_SCREEN_VF_PART_HPP_INCLUDED
 
-#include "position.hpp"
+#include <fruitlib/pp/screen_vf/position.hpp>
 #include <sge/renderer/vf/part.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 

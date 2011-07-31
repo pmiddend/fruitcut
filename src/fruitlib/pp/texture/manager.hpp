@@ -1,9 +1,9 @@
 #ifndef FRUITLIB_PP_TEXTURE_MANAGER_HPP_INCLUDED
 #define FRUITLIB_PP_TEXTURE_MANAGER_HPP_INCLUDED
 
-#include "descriptor.hpp"
-#include "instance.hpp"
-#include "counted_instance.hpp"
+#include <fruitlib/pp/texture/descriptor.hpp>
+#include <fruitlib/pp/texture/instance.hpp>
+#include <fruitlib/pp/texture/counted_instance.hpp>
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/texture/planar_fwd.hpp>
 #include <fcppt/noncopyable.hpp>

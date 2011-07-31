@@ -1,7 +1,7 @@
 #ifndef FRUITLIB_TIME_FORMAT_FORMATTER_HPP_INCLUDED
 #define FRUITLIB_TIME_FORMAT_FORMATTER_HPP_INCLUDED
 
-#include "domain.hpp"
+#include <fruitlib/time_format/domain.hpp>
 #include <boost/proto/proto.hpp>
 
 namespace fruitlib

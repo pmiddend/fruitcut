@@ -1,10 +1,10 @@
-#include "object.hpp"
-#include "mesh_to_vertex_buffer.hpp"
-#include "mesh_to_point_cloud.hpp"
-#include "object_parameters.hpp"
-#include "mesh_to_shape.hpp"
-#include "box3.hpp"
-#include "prototype.hpp"
+#include <fruitapp/fruit/object.hpp>
+#include <fruitapp/fruit/mesh_to_vertex_buffer.hpp>
+#include <fruitapp/fruit/mesh_to_point_cloud.hpp>
+#include <fruitapp/fruit/object_parameters.hpp>
+#include <fruitapp/fruit/mesh_to_shape.hpp>
+#include <fruitapp/fruit/box3.hpp>
+#include <fruitapp/fruit/prototype.hpp>
 #include <fruitlib/geometry_traits/box.hpp>
 #include <fruitlib/geometry_traits/vector.hpp>
 #include <fruitlib/physics/rigid_body/parameters.hpp>

@@ -1,7 +1,7 @@
 #ifndef FRUITLIB_FONT_DRAWER_TRANSFORM_CALLBACK_HPP_INCLUDED
 #define FRUITLIB_FONT_DRAWER_TRANSFORM_CALLBACK_HPP_INCLUDED
 
-#include "transform_callback_fn.hpp"
+#include <fruitlib/font/drawer/transform_callback_fn.hpp>
 #include <fcppt/function/object.hpp>
 
 namespace fruitlib

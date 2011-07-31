@@ -1,4 +1,4 @@
-#include "string_to_location.hpp"
+#include <fruitlib/log/string_to_location.hpp>
 #include <boost/spirit/home/phoenix/core.hpp>
 #include <boost/spirit/home/phoenix/operator.hpp>
 #include <boost/algorithm/string/split.hpp>

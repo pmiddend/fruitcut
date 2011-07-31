@@ -1,10 +1,10 @@
 #ifndef FRUITAPP_FRUIT_PROTOTYPE_HPP_INCLUDED
 #define FRUITAPP_FRUIT_PROTOTYPE_HPP_INCLUDED
 
-#include "mesh.hpp"
-#include "box3.hpp"
-#include "tag_set.hpp"
-#include "material/object.hpp"
+#include <fruitapp/fruit/mesh.hpp>
+#include <fruitapp/fruit/box3.hpp>
+#include <fruitapp/fruit/tag_set.hpp>
+#include <fruitapp/fruit/material/object.hpp>
 #include <fruitlib/physics/rigid_body/mass.hpp>
 #include <sge/renderer/texture/planar_ptr.hpp>
 #include <sge/image/color/any/object.hpp>

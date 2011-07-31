@@ -1,5 +1,5 @@
-#include "parse_projection.hpp"
-#include "find_and_convert_member.hpp"
+#include <fruitlib/json/parse_projection.hpp>
+#include <fruitlib/json/find_and_convert_member.hpp>
 #include <sge/camera/projection/projection.hpp>
 #include <sge/renderer/scalar.hpp>
 #include <fcppt/math/deg_to_rad.hpp>

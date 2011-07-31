@@ -1,4 +1,4 @@
-#include "connection.hpp"
+#include <fruitapp/highscore/provider/net/connection.hpp>
 #include <fruitapp/current_commit.hpp>
 #include <fruitapp/highscore/json_to_entry_set.hpp>
 #include <fruitlib/json/find_and_convert_member.hpp>

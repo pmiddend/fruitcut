@@ -1,4 +1,4 @@
-#include "button.hpp"
+#include <fruitapp/gui/button.hpp>
 #include <fruitlib/audio/sound_controller.hpp>
 #include <fruitlib/resource_tree/path.hpp>
 #include <elements/CEGUIPushButton.h>

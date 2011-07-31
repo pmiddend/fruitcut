@@ -3,7 +3,7 @@
 
 #include <fruitlib/pp/texture/manager_fwd.hpp>
 #include <fruitlib/pp/texture/counted_instance.hpp>
-#include "nullary.hpp"
+#include <fruitlib/pp/filter/nullary.hpp>
 #include <sge/renderer/texture/planar_ptr.hpp>
 
 namespace fruitlib

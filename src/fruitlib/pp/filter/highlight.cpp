@@ -1,5 +1,5 @@
-#include "highlight.hpp"
-#include "manager.hpp"
+#include <fruitlib/pp/filter/highlight.hpp>
+#include <fruitlib/pp/filter/manager.hpp>
 #include <fruitlib/pp/texture/manager.hpp>
 #include <fruitlib/pp/texture/descriptor.hpp>
 #include <fruitlib/pp/texture/instance.hpp>

@@ -1,8 +1,8 @@
 #ifndef FRUITLIB_FONT_CACHE_HPP_INCLUDED
 #define FRUITLIB_FONT_CACHE_HPP_INCLUDED
 
-#include "drawer/object_fwd.hpp"
-#include "identifier.hpp"
+#include <fruitlib/font/drawer/object_fwd.hpp>
+#include <fruitlib/font/identifier.hpp>
 #include <sge/font/system_fwd.hpp>
 #include <sge/font/metrics_ptr.hpp>
 #include <sge/renderer/device_fwd.hpp>

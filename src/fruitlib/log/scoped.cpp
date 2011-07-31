@@ -1,4 +1,4 @@
-#include "scoped.hpp"
+#include <fruitlib/log/scoped.hpp>
 #include <fruitlib/exception.hpp>
 #include <fcppt/log/context.hpp>
 #include <fcppt/log/object.hpp>

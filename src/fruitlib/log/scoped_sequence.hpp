@@ -1,7 +1,7 @@
 #ifndef FRUITLIB_LOG_SCOPED_SEQUENCE_HPP_INCLUDED
 #define FRUITLIB_LOG_SCOPED_SEQUENCE_HPP_INCLUDED
 
-#include "scoped.hpp"
+#include <fruitlib/log/scoped.hpp>
 #include <boost/ptr_container/ptr_vector.hpp>
 
 namespace fruitlib

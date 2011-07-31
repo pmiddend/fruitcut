@@ -1,4 +1,4 @@
-#include "json_to_entry_set.hpp"
+#include <fruitapp/highscore/json_to_entry_set.hpp>
 #include <fruitlib/json/find_and_convert_member.hpp>
 #include <fruitlib/json/convert_from.hpp>
 #include <fruitlib/json/path.hpp>

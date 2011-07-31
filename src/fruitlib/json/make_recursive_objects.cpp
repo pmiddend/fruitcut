@@ -1,6 +1,6 @@
-#include "make_recursive_objects.hpp"
-#include "path_to_string.hpp"
-#include "path.hpp"
+#include <fruitlib/json/make_recursive_objects.hpp>
+#include <fruitlib/json/path_to_string.hpp>
+#include <fruitlib/json/path.hpp>
 #include <sge/parse/json/json.hpp>
 #include <boost/variant/get.hpp>
 #include <fcppt/string.hpp>

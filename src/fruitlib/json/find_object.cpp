@@ -1,6 +1,6 @@
-#include "find_object.hpp"
-#include "path_to_string.hpp"
-#include "path.hpp"
+#include <fruitlib/json/find_object.hpp>
+#include <fruitlib/json/path_to_string.hpp>
+#include <fruitlib/json/path.hpp>
 #include <sge/parse/json/json.hpp>
 #include <fcppt/type_name.hpp>
 #include <fcppt/text.hpp>

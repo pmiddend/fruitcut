@@ -1,4 +1,4 @@
-#include "json_equal.hpp"
+#include <test/json/json_equal.hpp>
 #include <fcppt/nonassignable.hpp>
 #include <boost/variant/apply_visitor.hpp>
 #include <boost/variant/get.hpp>

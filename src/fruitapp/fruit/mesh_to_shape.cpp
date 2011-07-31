@@ -1,5 +1,5 @@
-#include "mesh_to_shape.hpp"
-#include "mesh.hpp"
+#include <fruitapp/fruit/mesh_to_shape.hpp>
+#include <fruitapp/fruit/mesh.hpp>
 #include <fruitlib/physics/shared_shape_ptr.hpp>
 #include <fcppt/container/raw_vector.hpp>
 #include <fcppt/make_shared_ptr.hpp>

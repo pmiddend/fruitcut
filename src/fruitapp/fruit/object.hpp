@@ -1,10 +1,10 @@
 #ifndef FRUITAPP_FRUIT_OBJECT_HPP_INCLUDED
 #define FRUITAPP_FRUIT_OBJECT_HPP_INCLUDED
 
-#include "box3.hpp"
-#include "mesh.hpp"
-#include "prototype_fwd.hpp"
-#include "object_parameters_fwd.hpp"
+#include <fruitapp/fruit/box3.hpp>
+#include <fruitapp/fruit/mesh.hpp>
+#include <fruitapp/fruit/prototype_fwd.hpp>
+#include <fruitapp/fruit/object_parameters_fwd.hpp>
 #include <fruitlib/physics/rigid_body/object.hpp>
 #include <fruitlib/physics/rigid_body/scoped.hpp>
 #include <sge/renderer/vertex_buffer_fwd.hpp>

@@ -1,4 +1,4 @@
-#include "progress_slider.hpp"
+#include <fruitapp/gui/progress_slider.hpp>
 #include <CEGUIWindowManager.h>
 #include <elements/CEGUIProgressBar.h>
 #include <fcppt/tr1/functional.hpp>

@@ -1,8 +1,8 @@
 #ifndef FRUITSERVER_COMMAND_PROCESSOR_HPP_INCLUDED
 #define FRUITSERVER_COMMAND_PROCESSOR_HPP_INCLUDED
 
-#include "command.hpp"
-#include "ascii/string.hpp"
+#include <fruitserver/command.hpp>
+#include <fruitserver/ascii/string.hpp>
 #include <iosfwd>
 #include <map>
 

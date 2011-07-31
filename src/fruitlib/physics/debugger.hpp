@@ -1,7 +1,7 @@
 #ifndef FRUITLIB_PHYSICS_DEBUGGER_HPP_INCLUDED
 #define FRUITLIB_PHYSICS_DEBUGGER_HPP_INCLUDED
 
-#include "world_fwd.hpp"
+#include <fruitlib/physics/world_fwd.hpp>
 #include <sge/camera/object_fwd.hpp>
 #include <sge/line_drawer/object.hpp>
 #include <sge/line_drawer/scoped_lock.hpp>

@@ -1,6 +1,6 @@
-#include "sound_base.hpp"
-#include "player.hpp"
-#include "buffer.hpp"
+#include <fruitlib/audio/group/sound_base.hpp>
+#include <fruitlib/audio/group/player.hpp>
+#include <fruitlib/audio/group/buffer.hpp>
 #include <iostream>
 
 fruitlib::audio::group::sound_base::sound_base(

@@ -1,5 +1,5 @@
-#include "trail_intersection.hpp"
-#include "intersection_pair.hpp"
+#include <fruitapp/fruit/hull/trail_intersection.hpp>
+#include <fruitapp/fruit/hull/intersection_pair.hpp>
 #include <fcppt/optional.hpp>
 #include <fcppt/homogenous_pair.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>

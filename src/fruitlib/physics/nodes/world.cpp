@@ -1,4 +1,4 @@
-#include "world.hpp"
+#include <fruitlib/physics/nodes/world.hpp>
 #include <fruitlib/physics/world.hpp>
 #include <fruitlib/scenic/events/update.hpp>
 #include <sge/time/second.hpp>

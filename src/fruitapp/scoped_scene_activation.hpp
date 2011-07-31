@@ -1,7 +1,7 @@
 #ifndef FRUITAPP_SCOPED_SCENE_ACTIVATION_HPP_INCLUDED
 #define FRUITAPP_SCOPED_SCENE_ACTIVATION_HPP_INCLUDED
 
-#include "scene_fwd.hpp"
+#include <fruitapp/scene_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 
 namespace fruitapp

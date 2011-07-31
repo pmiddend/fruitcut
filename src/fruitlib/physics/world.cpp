@@ -1,8 +1,8 @@
-#include "world.hpp"
-#include "group/object.hpp"
-#include "structure_cast.hpp"
-#include "rigid_body/collision_data.hpp"
-#include "rigid_body/object.hpp"
+#include <fruitlib/physics/world.hpp>
+#include <fruitlib/physics/group/object.hpp>
+#include <fruitlib/physics/structure_cast.hpp>
+#include <fruitlib/physics/rigid_body/collision_data.hpp>
+#include <fruitlib/physics/rigid_body/object.hpp>
 #include <fruitlib/exception.hpp>
 #include <BulletCollision/CollisionDispatch/btDefaultCollisionConfiguration.h>
 #include <BulletCollision/CollisionDispatch/btCollisionDispatcher.h>

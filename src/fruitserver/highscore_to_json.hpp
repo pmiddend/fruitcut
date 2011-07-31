@@ -1,8 +1,8 @@
 #ifndef FRUITSERVER_HIGHSCORE_TO_JSON_HPP_INCLUDED
 #define FRUITSERVER_HIGHSCORE_TO_JSON_HPP_INCLUDED
 
-#include "highscore_sequence.hpp"
-#include "ascii/string.hpp"
+#include <fruitserver/highscore_sequence.hpp>
+#include <fruitserver/ascii/string.hpp>
 #include <string>
 
 namespace fruitserver

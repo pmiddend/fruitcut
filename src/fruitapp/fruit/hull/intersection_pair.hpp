@@ -3,7 +3,7 @@
 
 #include <fcppt/optional.hpp>
 #include <fcppt/homogenous_pair.hpp>
-#include "ring.hpp"
+#include <fruitapp/fruit/hull/ring.hpp>
 
 namespace fruitapp
 {

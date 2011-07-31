@@ -1,4 +1,4 @@
-#include "mouse_trailer.hpp"
+#include <sandbox/trail/mouse_trailer.hpp>
 #include <media_path.hpp>
 #include <sge/image/color/init.hpp>
 #include <sge/input/mouse/axis_event.hpp>

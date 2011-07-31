@@ -1,8 +1,8 @@
 #ifndef FRUITAPP_FRUIT_MESH_TO_POINT_CLOUD_HPP_INCLUDED
 #define FRUITAPP_FRUIT_MESH_TO_POINT_CLOUD_HPP_INCLUDED
 
-#include "point_cloud.hpp"
-#include "mesh_fwd.hpp"
+#include <fruitapp/fruit/point_cloud.hpp>
+#include <fruitapp/fruit/mesh_fwd.hpp>
 
 namespace fruitapp
 {

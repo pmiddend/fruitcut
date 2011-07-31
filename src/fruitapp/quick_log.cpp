@@ -1,4 +1,4 @@
-#include "quick_log.hpp"
+#include <fruitapp/quick_log.hpp>
 #include <fruitlib/font/cache.hpp>
 #include <fruitlib/resource_tree/path.hpp>
 #include <fruitlib/font/object_parameters.hpp>

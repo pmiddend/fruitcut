@@ -1,5 +1,5 @@
-#include "superstate.hpp"
-#include "running.hpp"
+#include <fruitapp/states/ingame/superstate.hpp>
+#include <fruitapp/states/ingame/running.hpp>
 #include <fruitapp/config_variables.hpp>
 #include <fruitapp/point_sprite/system_node.hpp>
 #include <fruitapp/shadow_map.hpp>

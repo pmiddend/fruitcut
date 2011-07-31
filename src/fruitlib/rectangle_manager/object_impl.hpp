@@ -1,7 +1,7 @@
 #ifndef FRUITLIB_RECTANGLE_MANAGER_OBJECT_IMPL_HPP_INCLUDED
 #define FRUITLIB_RECTANGLE_MANAGER_OBJECT_IMPL_HPP_INCLUDED
 
-#include "object_decl.hpp"
+#include <fruitlib/rectangle_manager/object_decl.hpp>
 #include <fruitlib/exception.hpp>
 #include <fcppt/algorithm/ptr_container_erase.hpp>
 #include <fcppt/exception.hpp>

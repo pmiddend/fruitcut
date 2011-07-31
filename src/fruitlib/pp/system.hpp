@@ -1,10 +1,10 @@
 #ifndef FRUITLIB_PP_SYSTEM_HPP_INCLUDED
 #define FRUITLIB_PP_SYSTEM_HPP_INCLUDED
 
-#include "filter/base_fwd.hpp"
-#include "filter/wrapper.hpp"
-#include "filter/manager_fwd.hpp"
-#include "dependency_set.hpp"
+#include <fruitlib/pp/filter/base_fwd.hpp>
+#include <fruitlib/pp/filter/wrapper.hpp>
+#include <fruitlib/pp/filter/manager_fwd.hpp>
+#include <fruitlib/pp/dependency_set.hpp>
 #include <sge/renderer/texture/planar_ptr.hpp>
 #include <sge/renderer/target_ptr.hpp>
 #include <sge/shader/object_fwd.hpp>

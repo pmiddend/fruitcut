@@ -1,5 +1,5 @@
-#include "choose_name.hpp"
-#include "ranking.hpp"
+#include <fruitapp/states/gameover/choose_name.hpp>
+#include <fruitapp/states/gameover/ranking.hpp>
 #include <fruitapp/events/define_transition_reaction.hpp>
 #include <fruitapp/events/post_transition.hpp>
 #include <media_path.hpp>

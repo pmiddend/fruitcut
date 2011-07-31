@@ -1,7 +1,7 @@
 #ifndef FRUITLIB_PHYSICS_RIGID_BODY_OPTIONAL_MASS_HPP_INCLUDED
 #define FRUITLIB_PHYSICS_RIGID_BODY_OPTIONAL_MASS_HPP_INCLUDED
 
-#include "mass.hpp"
+#include <fruitlib/physics/rigid_body/mass.hpp>
 #include <fcppt/optional.hpp>
 
 namespace fruitlib

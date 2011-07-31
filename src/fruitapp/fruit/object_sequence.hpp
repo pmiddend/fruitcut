@@ -1,7 +1,7 @@
 #ifndef FRUITAPP_FRUIT_SEQUENCE_HPP_INCLUDED
 #define FRUITAPP_FRUIT_SEQUENCE_HPP_INCLUDED
 
-#include "object.hpp"
+#include <fruitapp/fruit/object.hpp>
 #include <fruitlib/delayed_ptr_sequence.hpp>
 #include <boost/ptr_container/ptr_list.hpp>
 

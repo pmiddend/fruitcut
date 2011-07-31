@@ -2,7 +2,7 @@
 #define FRUITLIB_PP_TEXTURE_COUNTED_INSTANCE_HPP_INCLUDED
 
 #include <fruitlib/counted_reference.hpp>
-#include "instance_fwd.hpp"
+#include <fruitlib/pp/texture/instance_fwd.hpp>
 
 namespace fruitlib
 {

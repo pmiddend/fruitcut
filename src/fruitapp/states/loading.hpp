@@ -1,7 +1,7 @@
 #ifndef FRUITAPP_STATES_LOADING_HPP_INCLUDED
 #define FRUITAPP_STATES_LOADING_HPP_INCLUDED
 
-#include "menu/superstate_fwd.hpp"
+#include <fruitapp/states/menu/superstate_fwd.hpp>
 #include <fruitapp/machine.hpp>
 #include <fruitapp/events/declare_transition_type.hpp>
 #include <fruitapp/events/declare_transition_reaction.hpp>

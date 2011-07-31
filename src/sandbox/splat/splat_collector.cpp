@@ -1,4 +1,4 @@
-#include "splat_collector.hpp"
+#include <sandbox/splat/splat_collector.hpp>
 #include <fruitlib/particle/sprite/parameters.hpp>
 #include <media_path.hpp>
 #include <fruitlib/pp/screen_vf/format.hpp>

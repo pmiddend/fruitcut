@@ -1,4 +1,4 @@
-#include "renderable.hpp"
+#include <fruitapp/renderable.hpp>
 #include <fruitlib/scenic/parent.hpp>
 #include <fruitlib/scenic/depth.hpp>
 #include <fruitlib/scenic/events/render.hpp>

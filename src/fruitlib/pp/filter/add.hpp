@@ -1,8 +1,8 @@
 #ifndef FRUITLIB_PP_FILTER_ADD_HPP_INCLUDED
 #define FRUITLIB_PP_FILTER_ADD_HPP_INCLUDED
 
-#include "binary.hpp"
-#include "manager_fwd.hpp"
+#include <fruitlib/pp/filter/binary.hpp>
+#include <fruitlib/pp/filter/manager_fwd.hpp>
 #include <fruitlib/pp/texture/counted_instance.hpp>
 #include <fruitlib/pp/texture/manager_fwd.hpp>
 #include <sge/renderer/dim2.hpp>

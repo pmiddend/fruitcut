@@ -1,10 +1,10 @@
 #ifndef FRUITLIB_RESOURCE_TREE_NAVIGATE_TO_PATH_HPP_INCLUDED
 #define FRUITLIB_RESOURCE_TREE_NAVIGATE_TO_PATH_HPP_INCLUDED
 
-#include "make_type.hpp"
+#include <fruitlib/resource_tree/make_type.hpp>
 #include <fruitlib/exception.hpp>
-#include "is_resource_tree.hpp"
-#include "path.hpp"
+#include <fruitlib/resource_tree/is_resource_tree.hpp>
+#include <fruitlib/resource_tree/path.hpp>
 #include <fcppt/text.hpp>
 #include <boost/next_prior.hpp>
 #include <boost/mpl/if.hpp>

@@ -1,8 +1,8 @@
 #ifndef FRUITLIB_FONT_DRAWER_SCOPED_TRANSFORMATION_HPP_INCLUDED
 #define FRUITLIB_FONT_DRAWER_SCOPED_TRANSFORMATION_HPP_INCLUDED
 
-#include "transform_callback.hpp"
-#include "object_fwd.hpp"
+#include <fruitlib/font/drawer/transform_callback.hpp>
+#include <fruitlib/font/drawer/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 
 namespace fruitlib

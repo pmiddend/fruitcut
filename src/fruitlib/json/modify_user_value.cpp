@@ -1,7 +1,7 @@
-#include "modify_user_value.hpp"
-#include "find_and_convert_member.hpp"
-#include "make_recursive_objects.hpp"
-#include "path_to_string.hpp"
+#include <fruitlib/json/modify_user_value.hpp>
+#include <fruitlib/json/find_and_convert_member.hpp>
+#include <fruitlib/json/make_recursive_objects.hpp>
+#include <fruitlib/json/path_to_string.hpp>
 #include <fruitlib/exception.hpp>
 #include <sge/parse/json/json.hpp>
 #include <boost/variant/get.hpp>

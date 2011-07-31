@@ -1,9 +1,9 @@
 #ifndef FRUITLIB_RECTANGLE_MANAGER_OBJECT_DECL_HPP_INCLUDED
 #define FRUITLIB_RECTANGLE_MANAGER_OBJECT_DECL_HPP_INCLUDED
 
-#include "object_fwd.hpp"
-#include "padding.hpp"
-#include "rectangle_instance_fwd.hpp"
+#include <fruitlib/rectangle_manager/object_fwd.hpp>
+#include <fruitlib/rectangle_manager/padding.hpp>
+#include <fruitlib/rectangle_manager/rectangle_instance_fwd.hpp>
 #include <fcppt/math/box/box.hpp>
 #include <fcppt/math/vector/vector.hpp>
 #include <fcppt/math/dim/dim.hpp>

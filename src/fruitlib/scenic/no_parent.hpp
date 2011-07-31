@@ -1,7 +1,7 @@
 #ifndef FRUITLIB_SCENIC_NO_PARENT_HPP_INCLUDED
 #define FRUITLIB_SCENIC_NO_PARENT_HPP_INCLUDED
 
-#include "optional_parent.hpp"
+#include <fruitlib/scenic/optional_parent.hpp>
 
 namespace fruitlib
 {

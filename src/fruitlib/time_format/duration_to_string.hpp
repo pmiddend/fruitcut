@@ -1,8 +1,8 @@
 #ifndef FRUITLIB_TIME_FORMAT_DURATION_TO_STRING_HPP_INCLUDED
 #define FRUITLIB_TIME_FORMAT_DURATION_TO_STRING_HPP_INCLUDED
 
-#include "context.hpp"
-#include "grammar.hpp"
+#include <fruitlib/time_format/context.hpp>
+#include <fruitlib/time_format/grammar.hpp>
 #include <fcppt/chrono/duration.hpp>
 #include <boost/mpl/assert.hpp>
 #include <boost/proto/proto.hpp>

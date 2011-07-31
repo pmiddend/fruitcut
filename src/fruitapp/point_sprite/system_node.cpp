@@ -1,4 +1,4 @@
-#include "system_node.hpp"
+#include <fruitapp/point_sprite/system_node.hpp>
 #include <fruitapp/exception.hpp>
 #include <media_path.hpp>
 #include <fruitlib/uniform_random.hpp>

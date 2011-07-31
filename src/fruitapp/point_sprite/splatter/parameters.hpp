@@ -3,10 +3,10 @@
 
 #include <fruitapp/point_sprite/system.hpp>
 #include <fruitapp/point_sprite/color.hpp>
-#include "position.hpp"
-#include "linear_velocity.hpp"
-#include "acceleration.hpp"
-#include "size.hpp"
+#include <fruitapp/point_sprite/splatter/position.hpp>
+#include <fruitapp/point_sprite/splatter/linear_velocity.hpp>
+#include <fruitapp/point_sprite/splatter/acceleration.hpp>
+#include <fruitapp/point_sprite/splatter/size.hpp>
 #include <sge/time/duration.hpp>
 #include <sge/time/callback.hpp>
 #include <sge/texture/part_ptr.hpp>

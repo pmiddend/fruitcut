@@ -1,7 +1,7 @@
 #ifndef FRUITAPP_OVERLAY_HPP_INCLUDED
 #define FRUITAPP_OVERLAY_HPP_INCLUDED
 
-#include "postprocessing_fwd.hpp"
+#include <fruitapp/postprocessing_fwd.hpp>
 #include <fruitlib/scenic/node.hpp>
 #include <fruitlib/scenic/optional_parent.hpp>
 #include <fruitlib/scenic/events/update_fwd.hpp>

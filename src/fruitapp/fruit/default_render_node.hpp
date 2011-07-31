@@ -1,7 +1,7 @@
 #ifndef FRUITAPP_FRUIT_DEFAULT_RENDER_NODE_HPP_INCLUDED
 #define FRUITAPP_FRUIT_DEFAULT_RENDER_NODE_HPP_INCLUDED
 
-#include "manager_fwd.hpp"
+#include <fruitapp/fruit/manager_fwd.hpp>
 #include <fruitapp/directional_light_source_fwd.hpp>
 #include <fruitlib/scenic/node.hpp>
 #include <fruitlib/scenic/parent_fwd.hpp>

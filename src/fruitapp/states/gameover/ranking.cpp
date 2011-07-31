@@ -1,4 +1,4 @@
-#include "ranking.hpp"
+#include <fruitapp/states/gameover/ranking.hpp>
 #include <fruitapp/states/menu/main.hpp>
 #include <fruitapp/states/menu/highscore.hpp>
 #include <fruitapp/events/define_transition_reaction.hpp>

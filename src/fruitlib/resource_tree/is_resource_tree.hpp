@@ -1,7 +1,7 @@
 #ifndef FRUITLIB_RESOURCE_TREE_IS_RESOURCE_TREE_HPP_INCLUDED
 #define FRUITLIB_RESOURCE_TREE_IS_RESOURCE_TREE_HPP_INCLUDED
 
-#include "node.hpp"
+#include <fruitlib/resource_tree/node.hpp>
 #include <fcppt/container/tree/object.hpp>
 #include <boost/mpl/bool.hpp>
 

@@ -1,7 +1,7 @@
 #ifndef FRUITLIB_JSON_MODIFY_USER_VALUE_HPP_INCLUDED
 #define FRUITLIB_JSON_MODIFY_USER_VALUE_HPP_INCLUDED
 
-#include "path_fwd.hpp"
+#include <fruitlib/json/path_fwd.hpp>
 #include <sge/parse/json/json.hpp>
 
 namespace fruitlib

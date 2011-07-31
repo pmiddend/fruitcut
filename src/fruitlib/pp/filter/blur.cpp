@@ -1,5 +1,5 @@
-#include "blur.hpp"
-#include "manager.hpp"
+#include <fruitlib/pp/filter/blur.hpp>
+#include <fruitlib/pp/filter/manager.hpp>
 #include <fruitlib/pp/texture/manager.hpp>
 #include <fruitlib/pp/texture/instance.hpp>
 #include <fruitlib/pp/texture/descriptor.hpp>

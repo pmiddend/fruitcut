@@ -1,4 +1,4 @@
-#include "splat_particle.hpp"
+#include <sandbox/splat/splat_particle.hpp>
 #include <sge/image/color/init.hpp>
 #include <sge/sprite/parameters_impl.hpp>
 #include <sge/time/second_f.hpp>

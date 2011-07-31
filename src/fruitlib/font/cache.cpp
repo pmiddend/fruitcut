@@ -1,6 +1,6 @@
-#include "cache.hpp"
-#include "drawer/object.hpp"
-#include "drawer/parameters.hpp"
+#include <fruitlib/font/cache.hpp>
+#include <fruitlib/font/drawer/object.hpp>
+#include <fruitlib/font/drawer/parameters.hpp>
 #include <fruitlib/json/find_and_convert_member.hpp>
 #include <sge/font/system_ptr.hpp>
 #include <sge/font/bitmap/create.hpp>

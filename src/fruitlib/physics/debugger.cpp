@@ -1,6 +1,6 @@
-#include "debugger.hpp"
-#include "world.hpp"
-#include "structure_cast.hpp"
+#include <fruitlib/physics/debugger.hpp>
+#include <fruitlib/physics/world.hpp>
+#include <fruitlib/physics/structure_cast.hpp>
 #include <sge/line_drawer/line.hpp>
 #include <sge/line_drawer/scoped_lock.hpp>
 #include <BulletDynamics/Dynamics/btDiscreteDynamicsWorld.h>

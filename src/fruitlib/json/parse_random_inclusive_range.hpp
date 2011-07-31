@@ -1,7 +1,7 @@
 #ifndef FRUITLIB_JSON_PARSE_RANDOM_INCLUSIVE_RANGE_HPP_INCLUDED
 #define FRUITLIB_JSON_PARSE_RANDOM_INCLUSIVE_RANGE_HPP_INCLUDED
 
-#include "convert_from.hpp"
+#include <fruitlib/json/convert_from.hpp>
 #include <fcppt/random/make_inclusive_range.hpp>
 #include <fcppt/random/inclusive_range.hpp>
 #include <sge/parse/json/array.hpp>

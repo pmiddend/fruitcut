@@ -1,8 +1,8 @@
 #ifndef FRUITSERVER_ASCII_STRING_HPP_INCLUDED
 #define FRUITSERVER_ASCII_STRING_HPP_INCLUDED
 
-#include "char.hpp"
-#include "char_traits.hpp"
+#include <fruitserver/ascii/char.hpp>
+#include <fruitserver/ascii/char_traits.hpp>
 #include <string>
 
 namespace fruitserver

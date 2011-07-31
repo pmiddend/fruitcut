@@ -1,4 +1,4 @@
-#include "output_tabbed.hpp"
+#include <fruitlib/json/output_tabbed.hpp>
 #include <fruitlib/exception.hpp>
 #include <sge/parse/json/json.hpp>
 #include <fcppt/text.hpp>

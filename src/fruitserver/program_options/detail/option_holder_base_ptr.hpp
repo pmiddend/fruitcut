@@ -1,7 +1,7 @@
 #ifndef FRUITSERVER_PROGRAM_OPTIONS_DETAIL_OPTION_HOLDER_BASE_PTR_HPP_INCLUDED
 #define FRUITSERVER_PROGRAM_OPTIONS_DETAIL_OPTION_HOLDER_BASE_PTR_HPP_INCLUDED
 
-#include "option_holder_base_fwd.hpp"
+#include <fruitserver/program_options/detail/option_holder_base_fwd.hpp>
 #include <tr1/memory>
 
 namespace fruitserver

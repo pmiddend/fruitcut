@@ -1,8 +1,8 @@
 #ifndef FRUITLIB_AUDIO_GROUP_PLAYER_HPP_INCLUDED
 #define FRUITLIB_AUDIO_GROUP_PLAYER_HPP_INCLUDED
 
-#include "buffer_fwd.hpp"
-#include "sound_base_fwd.hpp"
+#include <fruitlib/audio/group/buffer_fwd.hpp>
+#include <fruitlib/audio/group/sound_base_fwd.hpp>
 #include <sge/audio/player.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/container/bitfield/bitfield.hpp>

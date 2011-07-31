@@ -1,11 +1,11 @@
 #ifndef FRUITAPP_MACHINE_IMPL_HPP_INCLUDED
 #define FRUITAPP_MACHINE_IMPL_HPP_INCLUDED
 
-#include "highscore/score.hpp"
-#include "background.hpp"
-#include "directional_light_source.hpp"
-#include "config_variables.hpp"
-#include "quick_log.hpp"
+#include <fruitapp/highscore/score.hpp>
+#include <fruitapp/background.hpp>
+#include <fruitapp/directional_light_source.hpp>
+#include <fruitapp/config_variables.hpp>
+#include <fruitapp/quick_log.hpp>
 #include <fruitlib/audio/music_controller.hpp>
 #include <fruitlib/audio/sound_controller.hpp>
 #include <fruitlib/font/cache.hpp>
@@ -15,11 +15,11 @@
 #include <fruitlib/scenic/events/update_fwd.hpp>
 #include <fruitlib/scenic/events/render_fwd.hpp>
 #include <fruitlib/scenic/node.hpp>
-#include "screen_shooter.hpp"
-#include "point_sprite/system_node.hpp"
-#include "renderable.hpp"
-#include "shadow_map.hpp"
-#include "fruit/prototype_sequence.hpp"
+#include <fruitapp/screen_shooter.hpp>
+#include <fruitapp/point_sprite/system_node.hpp>
+#include <fruitapp/renderable.hpp>
+#include <fruitapp/shadow_map.hpp>
+#include <fruitapp/fruit/prototype_sequence.hpp>
 #include <sge/camera/object.hpp>
 #include <sge/cegui/syringe.hpp>
 #include <sge/cegui/system.hpp>

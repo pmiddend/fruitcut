@@ -1,5 +1,5 @@
-#include "ssaa.hpp"
-#include "manager.hpp"
+#include <fruitlib/pp/filter/ssaa.hpp>
+#include <fruitlib/pp/filter/manager.hpp>
 #include <fruitlib/pp/texture/instance.hpp>
 #include <fruitlib/pp/texture/manager.hpp>
 #include <sge/image/color/format.hpp>

@@ -1,7 +1,7 @@
 #ifndef FRUITLIB_UNIFORM_RANDOM_HPP_INCLUDED
 #define FRUITLIB_UNIFORM_RANDOM_HPP_INCLUDED
 
-#include "random_generator.hpp"
+#include <fruitlib/random_generator.hpp>
 #include <fcppt/random/uniform.hpp>
 
 // See random_generator for why this is here

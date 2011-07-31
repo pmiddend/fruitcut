@@ -2,7 +2,7 @@
 #define FRUITLIB_FONT_SCALE_ANIMATION_HPP_INCLUDED
 
 #include <fruitlib/animation.hpp>
-#include "scale.hpp"
+#include <fruitlib/font/scale.hpp>
 #include <fcppt/chrono/milliseconds.hpp>
 
 namespace fruitlib

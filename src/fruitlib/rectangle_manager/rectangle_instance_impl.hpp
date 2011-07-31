@@ -1,7 +1,7 @@
 #ifndef FRUITLIB_RECTANGLE_MANAGER_RECTANGLE_INSTANCE_IMPL_HPP_INCLUDED
 #define FRUITLIB_RECTANGLE_MANAGER_RECTANGLE_INSTANCE_IMPL_HPP_INCLUDED
 
-#include "object_impl.hpp"
+#include <fruitlib/rectangle_manager/object_impl.hpp>
 
 template<typename T>
 fruitlib::rectangle_manager::rectangle_instance<T>::rectangle_instance(

@@ -1,9 +1,9 @@
 #ifndef FRUITLIB_MATH_TRIANGLE_RANDOM_POINT_HPP_INCLUDED
 #define FRUITLIB_MATH_TRIANGLE_RANDOM_POINT_HPP_INCLUDED
 
-#include "vector_type.hpp"
-#include "scalar_type.hpp"
-#include "vertex_access.hpp"
+#include <fruitlib/math/triangle/vector_type.hpp>
+#include <fruitlib/math/triangle/scalar_type.hpp>
+#include <fruitlib/math/triangle/vertex_access.hpp>
 #include <fcppt/math/vector/vector.hpp>
 #include <algorithm>
 

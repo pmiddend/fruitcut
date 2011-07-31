@@ -1,5 +1,5 @@
-#include "string_to_path.hpp"
-#include "path.hpp"
+#include <fruitlib/json/string_to_path.hpp>
+#include <fruitlib/json/path.hpp>
 #include <boost/algorithm/string/split.hpp>
 #include <boost/algorithm/string/classification.hpp>
 #include <fcppt/text.hpp>

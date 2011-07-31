@@ -1,4 +1,4 @@
-#include "background.hpp"
+#include <fruitapp/background.hpp>
 #include <media_path.hpp>
 #include <fruitlib/json/find_and_convert_member.hpp>
 #include <fruitlib/math/view_plane_rect.hpp>

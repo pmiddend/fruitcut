@@ -1,10 +1,10 @@
 #ifndef FRUITLIB_JSON_USER_CONFIG_VARIABLE_HPP_INCLUDED
 #define FRUITLIB_JSON_USER_CONFIG_VARIABLE_HPP_INCLUDED
 
-#include "path.hpp"
-#include "modify_user_value.hpp"
-#include "find_and_convert_member.hpp"
-#include "convert_to.hpp"
+#include <fruitlib/json/path.hpp>
+#include <fruitlib/json/modify_user_value.hpp>
+#include <fruitlib/json/find_and_convert_member.hpp>
+#include <fruitlib/json/convert_to.hpp>
 #include <sge/parse/json/json.hpp>
 #include <fcppt/function/object.hpp>
 #include <fcppt/signal/signal.hpp>

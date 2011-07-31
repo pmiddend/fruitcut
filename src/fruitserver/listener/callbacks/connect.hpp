@@ -1,7 +1,7 @@
 #ifndef FRUITSERVER_LISTENER_CALLBACKS_CONNECT_HPP_INCLUDED
 #define FRUITSERVER_LISTENER_CALLBACKS_CONNECT_HPP_INCLUDED
 
-#include "connect_fn.hpp"
+#include <fruitserver/listener/callbacks/connect_fn.hpp>
 #include <tr1/functional>
 
 namespace fruitserver

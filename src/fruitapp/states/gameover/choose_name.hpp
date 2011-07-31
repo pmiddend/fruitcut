@@ -1,8 +1,8 @@
 #ifndef FRUITAPP_STATES_GAMEOVER_CHOOSE_NAME_HPP_INCLUDED
 #define FRUITAPP_STATES_GAMEOVER_CHOOSE_NAME_HPP_INCLUDED
 
-#include "superstate.hpp"
-#include "ranking_fwd.hpp"
+#include <fruitapp/states/gameover/superstate.hpp>
+#include <fruitapp/states/gameover/ranking_fwd.hpp>
 #include <fruitapp/events/declare_transition_type.hpp>
 #include <fruitapp/events/declare_transition_reaction.hpp>
 #include <fruitapp/gui/button.hpp>

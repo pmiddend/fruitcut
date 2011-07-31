@@ -3,12 +3,12 @@
 
 #include <fruitlib/physics/shared_shape_ptr.hpp>
 #include <fruitlib/physics/world_fwd.hpp>
-#include "transformation.hpp"
-#include "linear_velocity.hpp"
-#include "angular_velocity.hpp"
-#include "position.hpp"
-#include "parameters_fwd.hpp"
-#include "user_data.hpp"
+#include <fruitlib/physics/rigid_body/transformation.hpp>
+#include <fruitlib/physics/rigid_body/linear_velocity.hpp>
+#include <fruitlib/physics/rigid_body/angular_velocity.hpp>
+#include <fruitlib/physics/rigid_body/position.hpp>
+#include <fruitlib/physics/rigid_body/parameters_fwd.hpp>
+#include <fruitlib/physics/rigid_body/user_data.hpp>
 #include <fcppt/scoped_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
 

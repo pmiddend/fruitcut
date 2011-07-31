@@ -1,5 +1,5 @@
-#include "config_variables.hpp"
-#include "name.hpp"
+#include <fruitapp/config_variables.hpp>
+#include <fruitapp/name.hpp>
 #include <fruitlib/json/path.hpp>
 #include <fruitlib/json/output_tabbed.hpp>
 #include <sge/config/config_path.hpp>

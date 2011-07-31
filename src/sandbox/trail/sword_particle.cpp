@@ -1,4 +1,4 @@
-#include "sword_particle.hpp"
+#include <sandbox/trail/sword_particle.hpp>
 #include <sge/image/color/init.hpp>
 #include <sge/sprite/parameters_impl.hpp>
 #include <fcppt/chrono/high_resolution_clock.hpp>

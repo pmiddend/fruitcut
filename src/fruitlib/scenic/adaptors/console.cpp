@@ -1,4 +1,4 @@
-#include "console.hpp"
+#include <fruitlib/scenic/adaptors/console.hpp>
 #include <fruitlib/scenic/events/render.hpp>
 #include <sge/console/gfx.hpp>
 

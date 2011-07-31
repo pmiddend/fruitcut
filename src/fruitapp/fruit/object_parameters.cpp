@@ -1,4 +1,4 @@
-#include "object_parameters.hpp"
+#include <fruitapp/fruit/object_parameters.hpp>
 
 fruitapp::fruit::object_parameters::object_parameters(
 	fruit::prototype const &_prototype,

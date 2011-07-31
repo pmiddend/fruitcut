@@ -1,8 +1,8 @@
 #ifndef FRUITLIB_MATH_LINE_PLANE_INTERSECTION_HPP_INCLUDED
 #define FRUITLIB_MATH_LINE_PLANE_INTERSECTION_HPP_INCLUDED
 
-#include "line/basic.hpp"
-#include "plane/basic.hpp"
+#include <fruitlib/math/line/basic.hpp>
+#include <fruitlib/math/plane/basic.hpp>
 #include <fcppt/math/size_type.hpp>
 #include <fcppt/math/almost_zero.hpp>
 #include <fcppt/optional.hpp>

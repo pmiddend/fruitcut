@@ -1,4 +1,4 @@
-#include "directional_light_source.hpp"
+#include <fruitapp/directional_light_source.hpp>
 #include <fcppt/math/matrix/matrix.hpp>
 
 fruitapp::directional_light_source::directional_light_source()

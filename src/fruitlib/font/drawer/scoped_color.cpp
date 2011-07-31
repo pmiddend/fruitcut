@@ -1,5 +1,5 @@
-#include "scoped_color.hpp"
-#include "object.hpp"
+#include <fruitlib/font/drawer/scoped_color.hpp>
+#include <fruitlib/font/drawer/object.hpp>
 
 fruitlib::font::drawer::scoped_color::scoped_color(
 	drawer::object &_object,

@@ -1,4 +1,4 @@
-#include "entry.hpp"
+#include <fruitapp/highscore/entry.hpp>
 
 fruitapp::highscore::entry::entry(
 	highscore::name const &_name,

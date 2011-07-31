@@ -1,7 +1,7 @@
 #ifndef FRUITLIB_PP_SCREEN_VF_VERTEX_VIEW_HPP_INCLUDED
 #define FRUITLIB_PP_SCREEN_VF_VERTEX_VIEW_HPP_INCLUDED
 
-#include "part.hpp"
+#include <fruitlib/pp/screen_vf/part.hpp>
 #include <sge/renderer/vf/view.hpp>
 
 namespace fruitlib

@@ -1,8 +1,8 @@
 #ifndef FRUITAPP_POINT_SPRITE_CHOICES_HPP_INCLUDED
 #define FRUITAPP_POINT_SPRITE_CHOICES_HPP_INCLUDED
 
-#include "type_choices.hpp"
-#include "elements.hpp"
+#include <fruitapp/point_sprite/type_choices.hpp>
+#include <fruitapp/point_sprite/elements.hpp>
 #include <sge/sprite/choices.hpp>
 
 namespace fruitapp

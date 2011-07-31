@@ -1,5 +1,5 @@
-#include "parse_rgba8_color.hpp"
-#include "convert_from.hpp"
+#include <fruitlib/json/parse_rgba8_color.hpp>
+#include <fruitlib/json/convert_from.hpp>
 #include <fruitlib/exception.hpp>
 #include <sge/parse/json/json.hpp>
 #include <sge/image/color/init.hpp>

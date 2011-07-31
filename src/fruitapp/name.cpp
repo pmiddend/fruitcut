@@ -1,4 +1,4 @@
-#include "name.hpp"
+#include <fruitapp/name.hpp>
 #include <fcppt/text.hpp>
 
 fcppt::string const

@@ -1,7 +1,7 @@
 #ifndef FRUITAPP_GUI_PROGRESS_SLIDER_HPP_INCLUDED
 #define FRUITAPP_GUI_PROGRESS_SLIDER_HPP_INCLUDED
 
-#include "button.hpp"
+#include <fruitapp/gui/button.hpp>
 #include <fruitlib/audio/sound_controller_fwd.hpp>
 #include <fcppt/function/object.hpp>
 #include <fcppt/signal/scoped_connection.hpp>

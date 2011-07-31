@@ -1,7 +1,7 @@
 #ifndef FRUITSERVER_ASCII_TO_NATIVE_HPP_INCLUDED
 #define FRUITSERVER_ASCII_TO_NATIVE_HPP_INCLUDED
 
-#include "string.hpp"
+#include <fruitserver/ascii/string.hpp>
 #include <string>
 
 namespace fruitserver

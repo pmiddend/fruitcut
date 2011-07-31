@@ -1,9 +1,9 @@
 #ifndef FRUITLIB_AUDIO_GROUP_BUFFER_HPP_INCLUDED
 #define FRUITLIB_AUDIO_GROUP_BUFFER_HPP_INCLUDED
 
-#include "player_fwd.hpp"
-#include "sound_base_fwd.hpp"
-#include "sound_positional_fwd.hpp"
+#include <fruitlib/audio/group/player_fwd.hpp>
+#include <fruitlib/audio/group/sound_base_fwd.hpp>
+#include <fruitlib/audio/group/sound_positional_fwd.hpp>
 #include <sge/audio/buffer.hpp>
 #include <sge/audio/scalar.hpp>
 #include <sge/audio/buffer_ptr.hpp>

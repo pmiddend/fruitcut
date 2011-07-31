@@ -1,6 +1,6 @@
-#include "player.hpp"
-#include "buffer.hpp"
-#include "sound_positional.hpp"
+#include <fruitlib/audio/group/player.hpp>
+#include <fruitlib/audio/group/buffer.hpp>
+#include <fruitlib/audio/group/sound_positional.hpp>
 #include <fruitlib/exception.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/ref.hpp>

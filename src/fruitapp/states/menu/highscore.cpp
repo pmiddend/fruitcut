@@ -1,5 +1,5 @@
-#include "highscore.hpp"
-#include "main.hpp"
+#include <fruitapp/states/menu/highscore.hpp>
+#include <fruitapp/states/menu/main.hpp>
 #include <fruitapp/events/define_transition_reaction.hpp>
 #include <fruitapp/highscore/providers_from_json.hpp>
 #include <fruitapp/highscore/provider/object_base.hpp>

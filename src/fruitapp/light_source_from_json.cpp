@@ -1,4 +1,4 @@
-#include "light_source_from_json.hpp"
+#include <fruitapp/light_source_from_json.hpp>
 #include <fruitlib/json/find_and_convert_member.hpp>
 
 fruitapp::directional_light_source const

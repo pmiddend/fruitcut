@@ -1,5 +1,5 @@
-#include "object.hpp"
-#include "connection.hpp"
+#include <fruitapp/highscore/provider/net/object.hpp>
+#include <fruitapp/highscore/provider/net/connection.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 
 fruitapp::highscore::provider::net::object::object(

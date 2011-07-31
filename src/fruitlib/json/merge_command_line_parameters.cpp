@@ -1,5 +1,5 @@
-#include "merge_command_line_parameters.hpp"
-#include "string_to_value.hpp"
+#include <fruitlib/json/merge_command_line_parameters.hpp>
+#include <fruitlib/json/string_to_value.hpp>
 #include <fruitlib/command_line_parameters.hpp>
 #include <fruitlib/exception.hpp>
 #include <sge/parse/json/json.hpp>

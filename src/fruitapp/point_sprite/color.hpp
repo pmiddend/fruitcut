@@ -1,7 +1,7 @@
 #ifndef FRUITAPP_POINT_SPRITE_COLOR_HPP_INCLUDED
 #define FRUITAPP_POINT_SPRITE_COLOR_HPP_INCLUDED
 
-#include "color_format.hpp"
+#include <fruitapp/point_sprite/color_format.hpp>
 #include <mizuiro/color/object.hpp>
 
 namespace fruitapp

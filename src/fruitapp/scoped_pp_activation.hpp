@@ -1,7 +1,7 @@
 #ifndef FRUITAPP_SCOPED_PP_ACTIVATION_HPP_INCLUDED
 #define FRUITAPP_SCOPED_PP_ACTIVATION_HPP_INCLUDED
 
-#include "postprocessing_fwd.hpp"
+#include <fruitapp/postprocessing_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 
 namespace fruitapp

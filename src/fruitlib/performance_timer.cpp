@@ -1,4 +1,4 @@
-#include "performance_timer.hpp"
+#include <fruitlib/performance_timer.hpp>
 #include <fcppt/chrono/duration_cast.hpp>
 #include <fcppt/chrono/milliseconds.hpp>
 #include <iostream>

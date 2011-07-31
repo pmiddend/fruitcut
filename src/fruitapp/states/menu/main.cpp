@@ -1,6 +1,6 @@
-#include "main.hpp"
-#include "settings.hpp"
-#include "highscore.hpp"
+#include <fruitapp/states/menu/main.hpp>
+#include <fruitapp/states/menu/settings.hpp>
+#include <fruitapp/states/menu/highscore.hpp>
 #include <fruitapp/states/ingame/running.hpp>
 #include <fruitapp/events/define_transition_reaction.hpp>
 #include <fruitapp/events/return_post_transition_functor.hpp>

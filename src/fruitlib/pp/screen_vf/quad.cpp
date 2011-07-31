@@ -1,6 +1,6 @@
-#include "quad.hpp"
-#include "vertex_view.hpp"
-#include "format.hpp"
+#include <fruitlib/pp/screen_vf/quad.hpp>
+#include <fruitlib/pp/screen_vf/vertex_view.hpp>
+#include <fruitlib/pp/screen_vf/format.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/first_vertex.hpp>
 #include <sge/renderer/lock_mode.hpp>

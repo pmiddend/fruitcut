@@ -1,6 +1,6 @@
-#include "providers_from_json.hpp"
-#include "provider/file/object.hpp"
-#include "provider/net/object.hpp"
+#include <fruitapp/highscore/providers_from_json.hpp>
+#include <fruitapp/highscore/provider/file/object.hpp>
+#include <fruitapp/highscore/provider/net/object.hpp>
 #include <fruitapp/name.hpp>
 #include <fruitapp/exception.hpp>
 #include <fruitlib/json/find_and_convert_member.hpp>

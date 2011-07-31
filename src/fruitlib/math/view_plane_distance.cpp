@@ -1,6 +1,6 @@
-#include "view_plane_distance.hpp"
-#include "plane/basic.hpp"
-#include "plane/normalize.hpp"
+#include <fruitlib/math/view_plane_distance.hpp>
+#include <fruitlib/math/plane/basic.hpp>
+#include <fruitlib/math/plane/normalize.hpp>
 #include <fcppt/math/vector/vector.hpp>
 #include <fcppt/math/matrix/matrix.hpp>
 

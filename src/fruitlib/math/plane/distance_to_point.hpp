@@ -1,8 +1,8 @@
 #ifndef FRUITLIB_MATH_PLANE_DISTANCE_TO_POINT_HPP_INCLUDED
 #define FRUITLIB_MATH_PLANE_DISTANCE_TO_POINT_HPP_INCLUDED
 
-#include "basic.hpp"
-#include "normalize.hpp"
+#include <fruitlib/math/plane/basic.hpp>
+#include <fruitlib/math/plane/normalize.hpp>
 
 namespace fruitlib
 {

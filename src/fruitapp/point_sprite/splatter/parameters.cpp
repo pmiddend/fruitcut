@@ -1,4 +1,4 @@
-#include "parameters.hpp"
+#include <fruitapp/point_sprite/splatter/parameters.hpp>
 
 fruitapp::point_sprite::splatter::parameters::parameters(
 	fruitapp::point_sprite::system &_system,

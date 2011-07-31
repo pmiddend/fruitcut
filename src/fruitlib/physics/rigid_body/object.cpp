@@ -1,5 +1,5 @@
-#include "object.hpp"
-#include "parameters.hpp"
+#include <fruitlib/physics/rigid_body/object.hpp>
+#include <fruitlib/physics/rigid_body/parameters.hpp>
 #include <fruitlib/physics/scalar.hpp>
 #include <fruitlib/physics/matrix4_to_matrix3.hpp>
 #include <fruitlib/physics/matrix3_to_matrix4.hpp>

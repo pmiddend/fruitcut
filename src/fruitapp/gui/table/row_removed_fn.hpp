@@ -1,7 +1,7 @@
 #ifndef FRUITAPP_GUI_TABLE_ROW_REMOVED_FN_HPP_INCLUDED
 #define FRUITAPP_GUI_TABLE_ROW_REMOVED_FN_HPP_INCLUDED
 
-#include "row_index.hpp"
+#include <fruitapp/gui/table/row_index.hpp>
 
 namespace fruitapp
 {

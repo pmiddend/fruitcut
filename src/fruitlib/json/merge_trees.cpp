@@ -1,4 +1,4 @@
-#include "merge_trees.hpp"
+#include <fruitlib/json/merge_trees.hpp>
 #include <sge/parse/json/array.hpp>
 #include <sge/parse/json/value.hpp>
 #include <sge/parse/json/member.hpp>

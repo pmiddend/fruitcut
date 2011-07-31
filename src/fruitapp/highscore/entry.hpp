@@ -1,8 +1,8 @@
 #ifndef FRUITAPP_HIGHSCORE_ENTRY_HPP_INCLUDED
 #define FRUITAPP_HIGHSCORE_ENTRY_HPP_INCLUDED
 
-#include "name.hpp"
-#include "score.hpp"
+#include <fruitapp/highscore/name.hpp>
+#include <fruitapp/highscore/score.hpp>
 #include <boost/date_time/posix_time/posix_time.hpp>
 
 namespace fruitapp

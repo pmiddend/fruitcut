@@ -1,4 +1,4 @@
-#include "gui_system.hpp"
+#include <fruitlib/scenic/adaptors/gui_system.hpp>
 #include <fruitlib/scenic/events/update.hpp>
 #include <fruitlib/scenic/events/render.hpp>
 #include <sge/cegui/system.hpp>

@@ -1,7 +1,7 @@
 #ifndef FRUITSERVER_PROGRAM_OPTIONS_DETAIL_OPTION_HOLDER_BASE_HPP_INCLUDED
 #define FRUITSERVER_PROGRAM_OPTIONS_DETAIL_OPTION_HOLDER_BASE_HPP_INCLUDED
 
-#include "type_info.hpp"
+#include <fruitserver/program_options/detail/type_info.hpp>
 #include <string>
 
 namespace fruitserver

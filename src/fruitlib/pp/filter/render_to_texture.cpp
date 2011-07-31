@@ -1,4 +1,4 @@
-#include "render_to_texture.hpp"
+#include <fruitlib/pp/filter/render_to_texture.hpp>
 #include <fruitlib/pp/texture/manager.hpp>
 #include <fruitlib/pp/texture/descriptor.hpp>
 #include <fruitlib/pp/texture/instance.hpp>

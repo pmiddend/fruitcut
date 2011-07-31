@@ -1,4 +1,4 @@
-#include "manager.hpp"
+#include <fruitlib/pp/filter/manager.hpp>
 #include <fruitlib/pp/screen_vf/format.hpp>
 #include <sge/shader/shader.hpp>
 #include <fcppt/make_shared_ptr.hpp>

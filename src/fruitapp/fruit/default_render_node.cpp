@@ -1,8 +1,8 @@
-#include "default_render_node.hpp"
+#include <fruitapp/fruit/default_render_node.hpp>
 #include <media_path.hpp>
 #include <fruitlib/scenic/events/render.hpp>
-#include "model_vf/format.hpp"
-#include "manager.hpp"
+#include <fruitapp/fruit/model_vf/format.hpp>
+#include <fruitapp/fruit/manager.hpp>
 #include <fruitapp/directional_light_source.hpp>
 #include <sge/camera/object.hpp>
 #include <sge/renderer/first_vertex.hpp>

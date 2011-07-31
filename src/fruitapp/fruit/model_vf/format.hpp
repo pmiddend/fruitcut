@@ -1,7 +1,7 @@
 #ifndef FRUITAPP_FRUIT_MODEL_VF_FORMAT_HPP_INCLUDED
 #define FRUITAPP_FRUIT_MODEL_VF_FORMAT_HPP_INCLUDED
 
-#include "part.hpp"
+#include <fruitapp/fruit/model_vf/part.hpp>
 #include <sge/renderer/vf/format.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 

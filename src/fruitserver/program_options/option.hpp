@@ -1,9 +1,9 @@
 #ifndef FRUITSERVER_PROGRAM_OPTIONS_OPTION_HPP_INCLUDED
 #define FRUITSERVER_PROGRAM_OPTIONS_OPTION_HPP_INCLUDED
 
-#include "detail/option_base.hpp"
-#include "detail/option_holder.hpp"
-#include "detail/option_holder_base_ptr.hpp"
+#include <fruitserver/program_options/detail/option_base.hpp>
+#include <fruitserver/program_options/detail/option_holder.hpp>
+#include <fruitserver/program_options/detail/option_holder_base_ptr.hpp>
 #include <string>
 
 namespace fruitserver

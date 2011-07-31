@@ -1,5 +1,5 @@
-#include "prototype.hpp"
-#include "mesh_to_point_cloud.hpp"
+#include <fruitapp/fruit/prototype.hpp>
+#include <fruitapp/fruit/mesh_to_point_cloud.hpp>
 #include <fruitlib/geometry_traits/box.hpp>
 #include <fruitlib/average_colors.hpp>
 #include <sge/image2d/view/sub.hpp>

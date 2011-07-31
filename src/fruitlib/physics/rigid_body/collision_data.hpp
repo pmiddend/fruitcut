@@ -1,7 +1,7 @@
 #ifndef FRUITLIB_PHYSICS_RIGID_BODY_COLLISION_DATA_HPP_INCLUDED
 #define FRUITLIB_PHYSICS_RIGID_BODY_COLLISION_DATA_HPP_INCLUDED
 
-#include "user_data.hpp"
+#include <fruitlib/physics/rigid_body/user_data.hpp>
 
 namespace fruitlib
 {

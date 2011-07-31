@@ -1,4 +1,4 @@
-#include "splatter.hpp"
+#include <sandbox/splat/splatter.hpp>
 #include <media_path.hpp>
 #include <fruitlib/particle/sprite/parameters.hpp>
 #include <fruitlib/particle/sprite/object.hpp>

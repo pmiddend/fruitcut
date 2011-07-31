@@ -12,7 +12,7 @@
 #include <fruitlib/time_format/seconds.hpp>
 #include <fruitapp/fruit/manager.hpp>
 #include <fruitapp/depths/overlay.hpp>
-#include "object.hpp"
+#include <fruitapp/game_logic/object.hpp>
 #include <sge/font/dim.hpp>
 #include <sge/font/pos.hpp>
 #include <sge/font/rect.hpp>

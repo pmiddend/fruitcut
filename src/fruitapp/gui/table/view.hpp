@@ -1,9 +1,9 @@
 #ifndef FRUITAPP_GUI_TABLE_VIEW_HPP_INCLUDED
 #define FRUITAPP_GUI_TABLE_VIEW_HPP_INCLUDED
 
-#include "model_fwd.hpp"
-#include "row.hpp"
-#include "row_index.hpp"
+#include <fruitapp/gui/table/model_fwd.hpp>
+#include <fruitapp/gui/table/row.hpp>
+#include <fruitapp/gui/table/row_index.hpp>
 #include <sge/charconv/system_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/signal/scoped_connection.hpp>

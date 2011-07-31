@@ -1,4 +1,4 @@
-#include "sound_controller.hpp"
+#include <fruitlib/audio/sound_controller.hpp>
 #include <fruitlib/resource_tree/navigate_to_path.hpp>
 #include <fruitlib/resource_tree/from_directory_tree.hpp>
 #include <fruitlib/resource_tree/path.hpp>

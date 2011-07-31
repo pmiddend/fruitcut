@@ -1,5 +1,5 @@
-#include "utf8_file_to_fcppt_string.hpp"
-#include "exception.hpp"
+#include <fruitlib/utf8_file_to_fcppt_string.hpp>
+#include <fruitlib/exception.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/io/cifstream.hpp>

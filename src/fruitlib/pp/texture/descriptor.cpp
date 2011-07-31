@@ -1,4 +1,4 @@
-#include "descriptor.hpp"
+#include <fruitlib/pp/texture/descriptor.hpp>
 #include <fcppt/math/dim/comparison.hpp>
 
 fruitlib::pp::texture::descriptor::descriptor(

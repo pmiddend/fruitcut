@@ -1,9 +1,9 @@
 #ifndef FRUITAPP_FRUIT_CUT_MESH_RESULT_HPP_INCLUDED
 #define FRUITAPP_FRUIT_CUT_MESH_RESULT_HPP_INCLUDED
 
-#include "mesh.hpp"
-#include "box3.hpp"
-#include "area.hpp"
+#include <fruitapp/fruit/mesh.hpp>
+#include <fruitapp/fruit/box3.hpp>
+#include <fruitapp/fruit/area.hpp>
 #include <sge/renderer/vector3.hpp>
 #include <fcppt/math/vector/vector.hpp>
 #include <fcppt/noncopyable.hpp>

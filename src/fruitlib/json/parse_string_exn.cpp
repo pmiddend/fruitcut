@@ -1,4 +1,4 @@
-#include "parse_string_exn.hpp"
+#include <fruitlib/json/parse_string_exn.hpp>
 #include <sge/parse/json/parse_range.hpp>
 #include <sge/parse/json/object.hpp>
 #include <sge/parse/json/exception.hpp>

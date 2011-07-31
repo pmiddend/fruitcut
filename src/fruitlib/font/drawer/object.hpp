@@ -1,8 +1,8 @@
 #ifndef FRUITLIB_FONT_DRAWER_OBJECT_HPP_INCLUDED
 #define FRUITLIB_FONT_DRAWER_OBJECT_HPP_INCLUDED
 
-#include "transform_callback.hpp"
-#include "parameters_fwd.hpp"
+#include <fruitlib/font/drawer/transform_callback.hpp>
+#include <fruitlib/font/drawer/parameters_fwd.hpp>
 #include <fruitlib/font/color.hpp>
 #include <fruitlib/font/color_format.hpp>
 #include <sge/font/font.hpp>

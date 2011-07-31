@@ -1,4 +1,4 @@
-#include "path.hpp"
+#include <fruitlib/resource_tree/path.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/string.hpp>
 #include <boost/next_prior.hpp>

@@ -1,7 +1,7 @@
 #ifndef FRUITAPP_FRUIT_CALLBACKS_SPAWN_HPP_INCLUDED
 #define FRUITAPP_FRUIT_CALLBACKS_SPAWN_HPP_INCLUDED
 
-#include "spawn_fn.hpp"
+#include <fruitapp/fruit/callbacks/spawn_fn.hpp>
 #include <fcppt/function/object.hpp>
 
 namespace fruitapp

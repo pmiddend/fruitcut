@@ -1,7 +1,7 @@
 #ifndef FRUITAPP_FRUIT_CALLBACKS_REMOVE_HPP_INCLUDED
 #define FRUITAPP_FRUIT_CALLBACKS_REMOVE_HPP_INCLUDED
 
-#include "remove_fn.hpp"
+#include <fruitapp/fruit/callbacks/remove_fn.hpp>
 #include <fcppt/function/object.hpp>
 
 namespace fruitapp

@@ -1,5 +1,5 @@
-#include "loading.hpp"
-#include "menu/main.hpp"
+#include <fruitapp/states/loading.hpp>
+#include <fruitapp/states/menu/main.hpp>
 #include <fruitapp/fruit/prototype_from_json.hpp>
 #include <fruitapp/events/define_transition_reaction.hpp>
 #include <fruitapp/depths/root.hpp>

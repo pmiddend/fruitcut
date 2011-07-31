@@ -1,7 +1,7 @@
 #ifndef FRUITLIB_RESOURCE_TREE_FROM_DIRECTORY_TREE_HPP_INCLUDED
 #define FRUITLIB_RESOURCE_TREE_FROM_DIRECTORY_TREE_HPP_INCLUDED
 
-#include "make_type.hpp"
+#include <fruitlib/resource_tree/make_type.hpp>
 #include <fcppt/filesystem/path.hpp>
 #include <fcppt/filesystem/exists.hpp>
 #include <fcppt/filesystem/is_directory.hpp>

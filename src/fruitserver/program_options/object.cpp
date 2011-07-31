@@ -1,7 +1,7 @@
-#include "object.hpp"
-#include "option_sequence.hpp"
-#include "help_was_needed.hpp"
-#include "command_line_parameters.hpp"
+#include <fruitserver/program_options/object.hpp>
+#include <fruitserver/program_options/option_sequence.hpp>
+#include <fruitserver/program_options/help_was_needed.hpp>
+#include <fruitserver/program_options/command_line_parameters.hpp>
 #include <string>
 #include <stdexcept>
 

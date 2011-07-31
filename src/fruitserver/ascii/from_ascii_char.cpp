@@ -1,5 +1,5 @@
-#include "from_native_char.hpp"
-#include "to_native_translation.hpp"
+#include <fruitserver/ascii/from_native_char.hpp>
+#include <fruitserver/ascii/to_native_translation.hpp>
 #include <stdexcept>
 #include <string>
 

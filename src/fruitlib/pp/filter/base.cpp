@@ -1,9 +1,9 @@
-#include "base.hpp"
+#include <fruitlib/pp/filter/base.hpp>
 #include <fruitlib/pp/texture/counted_instance.hpp>
 #include <fruitlib/pp/texture/instance.hpp>
-#include "nullary.hpp"
-#include "unary.hpp"
-#include "binary.hpp"
+#include <fruitlib/pp/filter/nullary.hpp>
+#include <fruitlib/pp/filter/unary.hpp>
+#include <fruitlib/pp/filter/binary.hpp>
 #include <fcppt/assert_message.hpp>
 #include <fcppt/text.hpp>
 

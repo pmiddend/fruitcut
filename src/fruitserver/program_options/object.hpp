@@ -1,11 +1,11 @@
 #ifndef FRUITSERVER_PROGRAM_OPTIONS_OBJECT_HPP_INCLUDED
 #define FRUITSERVER_PROGRAM_OPTIONS_OBJECT_HPP_INCLUDED
 
-#include "detail/bad_cast.hpp"
-#include "detail/holder_get.hpp"
-#include "option_sequence.hpp"
-#include "detail/option_holder_base_ptr.hpp"
-#include "command_line_parameters.hpp"
+#include <fruitserver/program_options/detail/bad_cast.hpp>
+#include <fruitserver/program_options/detail/holder_get.hpp>
+#include <fruitserver/program_options/option_sequence.hpp>
+#include <fruitserver/program_options/detail/option_holder_base_ptr.hpp>
+#include <fruitserver/program_options/command_line_parameters.hpp>
 #include <tr1/unordered_map>
 #include <string>
 #include <ostream>

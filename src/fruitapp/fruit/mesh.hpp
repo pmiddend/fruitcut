@@ -1,7 +1,7 @@
 #ifndef FRUITAPP_FRUIT_MESH_HPP_INCLUDED
 #define FRUITAPP_FRUIT_MESH_HPP_INCLUDED
 
-#include "triangle.hpp"
+#include <fruitapp/fruit/triangle.hpp>
 #include <vector>
 
 namespace fruitapp

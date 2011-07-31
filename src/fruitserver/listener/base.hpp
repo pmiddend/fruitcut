@@ -1,9 +1,9 @@
 #ifndef FRUITSERVER_LISTENER_BASE_HPP_INCLUDED
 #define FRUITSERVER_LISTENER_BASE_HPP_INCLUDED
 
-#include "callbacks/receive_data.hpp"
-#include "callbacks/connect.hpp"
-#include "callbacks/disconnect.hpp"
+#include <fruitserver/listener/callbacks/receive_data.hpp>
+#include <fruitserver/listener/callbacks/connect.hpp>
+#include <fruitserver/listener/callbacks/disconnect.hpp>
 #include <fruitserver/byte_sequence.hpp>
 #include <string>
 

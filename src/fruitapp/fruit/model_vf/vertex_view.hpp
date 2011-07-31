@@ -1,7 +1,7 @@
 #ifndef FRUITAPP_FRUIT_MODEL_VF_VERTEX_VIEW_HPP_INCLUDED
 #define FRUITAPP_FRUIT_MODEL_VF_VERTEX_VIEW_HPP_INCLUDED
 
-#include "part.hpp"
+#include <fruitapp/fruit/model_vf/part.hpp>
 #include <sge/renderer/vf/view.hpp>
 
 namespace fruitapp

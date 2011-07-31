@@ -2,7 +2,7 @@
 #include <sge/parse/json/json.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/container/array.hpp>
-#include "json_equal.hpp"
+#include <test/json/json_equal.hpp>
 #include <fruitlib/json/convert_to.hpp>
 #include <typeinfo>
 #include <vector>

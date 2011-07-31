@@ -1,9 +1,9 @@
 #ifndef FRUITAPP_RENDERABLE_HPP_INCLUDED
 #define FRUITAPP_RENDERABLE_HPP_INCLUDED
 
-#include "scene.hpp"
-#include "overlay.hpp"
-#include "postprocessing.hpp"
+#include <fruitapp/scene.hpp>
+#include <fruitapp/overlay.hpp>
+#include <fruitapp/postprocessing.hpp>
 #include <fruitlib/scenic/node.hpp>
 #include <fruitlib/scenic/optional_parent.hpp>
 #include <sge/systems/instance_fwd.hpp>

@@ -1,4 +1,4 @@
-#include "from_json.hpp"
+#include <fruitapp/fruit/material/from_json.hpp>
 #include <fruitlib/json/find_and_convert_member.hpp>
 
 fruitapp::fruit::material::object const

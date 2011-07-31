@@ -1,5 +1,5 @@
-#include "spawner.hpp"
-#include "manager.hpp"
+#include <fruitapp/fruit/spawner.hpp>
+#include <fruitapp/fruit/manager.hpp>
 #include <fruitlib/physics/scalar.hpp>
 #include <fruitlib/physics/vector3.hpp>
 #include <fruitlib/physics/matrix4.hpp>

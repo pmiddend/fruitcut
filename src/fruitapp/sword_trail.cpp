@@ -1,4 +1,4 @@
-#include "sword_trail.hpp"
+#include <fruitapp/sword_trail.hpp>
 #include <fruitlib/time_format/string_to_duration.hpp>
 #include <fruitlib/json/path.hpp>
 #include <fruitlib/scenic/events/update.hpp>

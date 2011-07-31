@@ -1,8 +1,8 @@
 #ifndef FRUITAPP_STATES_INGAME_RUNNING_HPP_INCLUDED
 #define FRUITAPP_STATES_INGAME_RUNNING_HPP_INCLUDED
 
-#include "superstate.hpp"
-#include "paused_fwd.hpp"
+#include <fruitapp/states/ingame/superstate.hpp>
+#include <fruitapp/states/ingame/paused_fwd.hpp>
 #include <fruitapp/sword_trail.hpp>
 #include <fruitapp/cursor_trail.hpp>
 #include <fruitapp/states/gameover/superstate_fwd.hpp>

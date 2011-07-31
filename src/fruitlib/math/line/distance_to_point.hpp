@@ -1,7 +1,7 @@
 #ifndef FRUITLIB_MATH_LINE_DISTANCE_TO_POINT_HPP_INCLUDED
 #define FRUITLIB_MATH_LINE_DISTANCE_TO_POINT_HPP_INCLUDED
 
-#include "basic.hpp"
+#include <fruitlib/math/line/basic.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
 #include <fcppt/math/vector/length.hpp>
 #include <fcppt/math/vector/dot.hpp>

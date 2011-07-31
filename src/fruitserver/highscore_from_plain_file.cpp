@@ -1,9 +1,9 @@
-#include "highscore_from_plain_file.hpp"
-#include "separator.hpp"
-#include "ascii/string.hpp"
-#include "ascii/char_traits.hpp"
-#include "ascii/to_native.hpp"
-#include "lexical_cast.hpp"
+#include <fruitserver/highscore_from_plain_file.hpp>
+#include <fruitserver/separator.hpp>
+#include <fruitserver/ascii/string.hpp>
+#include <fruitserver/ascii/char_traits.hpp>
+#include <fruitserver/ascii/to_native.hpp>
+#include <fruitserver/lexical_cast.hpp>
 #include <string>
 #include <stdexcept>
 #include <fstream>

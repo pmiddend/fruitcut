@@ -1,6 +1,6 @@
-#include "post_model.hpp"
-#include "provider/object_base.hpp"
-#include "provider/connection_base.hpp"
+#include <fruitapp/highscore/post_model.hpp>
+#include <fruitapp/highscore/provider/object_base.hpp>
+#include <fruitapp/highscore/provider/connection_base.hpp>
 #include <fruitapp/gui/table/column.hpp>
 #include <fruitapp/gui/table/row.hpp>
 #include <fruitapp/gui/table/row_index.hpp>

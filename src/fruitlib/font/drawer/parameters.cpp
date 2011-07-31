@@ -1,4 +1,4 @@
-#include "parameters.hpp"
+#include <fruitlib/font/drawer/parameters.hpp>
 #include <fruitlib/font/color_format.hpp>
 #include <sge/image/colors.hpp>
 #include <sge/image/color/any/object.hpp>

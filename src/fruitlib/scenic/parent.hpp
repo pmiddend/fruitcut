@@ -1,8 +1,8 @@
 #ifndef FRUITLIB_SCENIC_PARENT_HPP_INCLUDED
 #define FRUITLIB_SCENIC_PARENT_HPP_INCLUDED
 
-#include "base_fwd.hpp"
-#include "depth.hpp"
+#include <fruitlib/scenic/base_fwd.hpp>
+#include <fruitlib/scenic/depth.hpp>
 
 namespace fruitlib
 {

@@ -1,5 +1,5 @@
-#include "settings.hpp"
-#include "main.hpp"
+#include <fruitapp/states/menu/settings.hpp>
+#include <fruitapp/states/menu/main.hpp>
 #include <fruitapp/config_variables.hpp>
 #include <fruitapp/events/define_transition_reaction.hpp>
 #include <fruitapp/events/return_post_transition_functor.hpp>

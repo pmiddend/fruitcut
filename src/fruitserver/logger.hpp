@@ -1,7 +1,7 @@
 #ifndef FRUITSERVER_LOGGER_HPP_INCLUDED
 #define FRUITSERVER_LOGGER_HPP_INCLUDED
 
-#include "current_datetime.hpp"
+#include <fruitserver/current_datetime.hpp>
 #include <ostream>
 #include <sstream>
 

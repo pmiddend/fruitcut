@@ -1,7 +1,7 @@
 #ifndef FRUITAPP_SCOPED_TIME_FACTOR_HPP_INCLUDED
 #define FRUITAPP_SCOPED_TIME_FACTOR_HPP_INCLUDED
 
-#include "machine_fwd.hpp"
+#include <fruitapp/machine_fwd.hpp>
 #include <sge/time/funit.hpp>
 #include <fcppt/noncopyable.hpp>
 

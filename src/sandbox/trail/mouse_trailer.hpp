@@ -3,7 +3,7 @@
 
 #include <fruitlib/particle/sprite/system.hpp>
 #include <fruitlib/particle/sprite/object.hpp>
-#include "sword_particle.hpp"
+#include <sandbox/trail/sword_particle.hpp>
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/image2d/multi_loader_fwd.hpp>
 #include <sge/input/mouse/axis_event_fwd.hpp>

@@ -1,8 +1,8 @@
 #ifndef FRUITCUT_SANDBOX_SPLATTER_HPP_INCLUDED
 #define FRUITCUT_SANDBOX_SPLATTER_HPP_INCLUDED
 
-#include "splat_collector.hpp"
-#include "splat_particle.hpp"
+#include <sandbox/splat/splat_collector.hpp>
+#include <sandbox/splat/splat_particle.hpp>
 #include <fruitlib/particle/sprite/system.hpp>
 #include <fruitlib/particle/sprite/object.hpp>
 #include <sge/sprite/object_impl.hpp>

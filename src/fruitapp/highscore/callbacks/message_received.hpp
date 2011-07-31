@@ -1,7 +1,7 @@
 #ifndef FRUITAPP_HIGHSCORE_CALLBACKS_MESSAGE_RECEIVED_HPP_INCLUDED
 #define FRUITAPP_HIGHSCORE_CALLBACKS_MESSAGE_RECEIVED_HPP_INCLUDED
 
-#include "message_received_fn.hpp"
+#include <fruitapp/highscore/callbacks/message_received_fn.hpp>
 #include <fcppt/function/object.hpp>
 
 namespace fruitapp

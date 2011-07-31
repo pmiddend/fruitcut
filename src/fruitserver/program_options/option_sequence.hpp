@@ -1,7 +1,7 @@
 #ifndef FRUITSERVER_PROGRAM_OPTIONS_OPTION_SEQUENCE_HPP_INCLUDED
 #define FRUITSERVER_PROGRAM_OPTIONS_OPTION_SEQUENCE_HPP_INCLUDED
 
-#include "detail/option_base.hpp"
+#include <fruitserver/program_options/detail/option_base.hpp>
 #include <vector>
 
 namespace fruitserver

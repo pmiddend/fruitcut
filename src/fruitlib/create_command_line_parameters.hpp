@@ -1,7 +1,7 @@
 #ifndef FRUITLIB_CREATE_COMMAND_LINE_PARAMETERS_HPP_INCLUDED
 #define FRUITLIB_CREATE_COMMAND_LINE_PARAMETERS_HPP_INCLUDED
 
-#include "command_line_parameters.hpp"
+#include <fruitlib/command_line_parameters.hpp>
 
 namespace fruitlib
 {

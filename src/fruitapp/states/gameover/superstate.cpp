@@ -1,4 +1,4 @@
-#include "superstate.hpp"
+#include <fruitapp/states/gameover/superstate.hpp>
 #include <fruitapp/depths/overlay.hpp>
 #include <sge/systems/instance.hpp>
 

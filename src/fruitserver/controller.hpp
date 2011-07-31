@@ -1,9 +1,9 @@
 #ifndef FRUITSERVER_CONTROLLER_HPP_INCLUDED
 #define FRUITSERVER_CONTROLLER_HPP_INCLUDED
 
-#include "listener/base_fwd.hpp"
-#include "byte_sequence.hpp"
-#include "command_processor_fwd.hpp"
+#include <fruitserver/listener/base_fwd.hpp>
+#include <fruitserver/byte_sequence.hpp>
+#include <fruitserver/command_processor_fwd.hpp>
 #include <map>
 #include <iosfwd>
 

@@ -1,8 +1,8 @@
 #ifndef FRUITSERVER_HIGHSCORE_ENTRY_HPP_INCLUDED
 #define FRUITSERVER_HIGHSCORE_ENTRY_HPP_INCLUDED
 
-#include "ascii/string.hpp"
-#include "score.hpp"
+#include <fruitserver/ascii/string.hpp>
+#include <fruitserver/score.hpp>
 
 namespace fruitserver
 {

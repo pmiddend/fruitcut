@@ -1,8 +1,8 @@
-#include "machine_impl.hpp"
-#include "name.hpp"
-#include "depths/root.hpp"
-#include "depths/scene.hpp"
-#include "depths/overlay.hpp"
+#include <fruitapp/machine_impl.hpp>
+#include <fruitapp/name.hpp>
+#include <fruitapp/depths/root.hpp>
+#include <fruitapp/depths/scene.hpp>
+#include <fruitapp/depths/overlay.hpp>
 #include <fruitlib/json/parse_projection.hpp>
 #include <fruitlib/json/find_and_convert_member.hpp>
 #include <fruitlib/json/merge_trees.hpp>
@@ -20,8 +20,8 @@
 #include <fruitlib/scenic/parent.hpp>
 #include <fruitlib/scenic/depth.hpp>
 #include <fruitlib/time_format/string_to_duration.hpp>
-#include "light_source_from_json.hpp"
-#include "load_user_config.hpp"
+#include <fruitapp/light_source_from_json.hpp>
+#include <fruitapp/load_user_config.hpp>
 #include <media_path.hpp>
 #include <sge/audio/player.hpp>
 #include <sge/camera/camera.hpp>

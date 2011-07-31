@@ -1,8 +1,8 @@
 #ifndef FRUITAPP_STATES_INGAME_PAUSED_HPP_INCLUDED
 #define FRUITAPP_STATES_INGAME_PAUSED_HPP_INCLUDED
 
-#include "superstate.hpp"
-#include "running_fwd.hpp"
+#include <fruitapp/states/ingame/superstate.hpp>
+#include <fruitapp/states/ingame/running_fwd.hpp>
 #include <fruitapp/states/menu/main_fwd.hpp>
 #include <fruitapp/gui/button.hpp>
 #include <fruitapp/scoped_scene_activation.hpp>

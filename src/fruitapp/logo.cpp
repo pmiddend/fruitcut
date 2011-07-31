@@ -1,4 +1,4 @@
-#include "logo.hpp"
+#include <fruitapp/logo.hpp>
 #include <fruitlib/json/find_and_convert_member.hpp>
 #include <fruitlib/json/parse_animation.hpp>
 #include <fruitlib/json/parse_color.hpp>

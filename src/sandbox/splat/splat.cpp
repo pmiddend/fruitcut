@@ -1,4 +1,4 @@
-#include "splatter.hpp"
+#include <sandbox/splat/splatter.hpp>
 #include <sge/image/capabilities.hpp>
 #include <sge/image/colors.hpp>
 #include <sge/input/keyboard/action.hpp>

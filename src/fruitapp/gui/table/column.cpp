@@ -1,4 +1,4 @@
-#include "column.hpp"
+#include <fruitapp/gui/table/column.hpp>
 
 fruitapp::gui::table::column::column(
 	fcppt::string const &_name,

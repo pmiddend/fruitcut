@@ -1,5 +1,5 @@
-#include "scoped_pp_activation.hpp"
-#include "postprocessing.hpp"
+#include <fruitapp/scoped_pp_activation.hpp>
+#include <fruitapp/postprocessing.hpp>
 
 fruitapp::scoped_pp_activation::scoped_pp_activation(
 	fruitapp::postprocessing &_pp,

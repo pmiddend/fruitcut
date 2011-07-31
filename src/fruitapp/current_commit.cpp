@@ -1,4 +1,4 @@
-#include "current_commit.hpp"
+#include <fruitapp/current_commit.hpp>
 #include <fcppt/text.hpp>
 
 fcppt::string const

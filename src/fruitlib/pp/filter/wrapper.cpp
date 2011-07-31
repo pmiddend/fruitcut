@@ -1,4 +1,4 @@
-#include "wrapper.hpp"
+#include <fruitlib/pp/filter/wrapper.hpp>
 #include <fcppt/assert.hpp>
 
 fruitlib::pp::filter::wrapper::wrapper()

@@ -1,5 +1,5 @@
-#include "scoped_scene_activation.hpp"
-#include "scene.hpp"
+#include <fruitapp/scoped_scene_activation.hpp>
+#include <fruitapp/scene.hpp>
 
 fruitapp::scoped_scene_activation::scoped_scene_activation(
 	scene &_scene,

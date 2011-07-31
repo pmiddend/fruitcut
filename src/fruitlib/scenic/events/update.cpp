@@ -1,4 +1,4 @@
-#include "update.hpp"
+#include <fruitlib/scenic/events/update.hpp>
 
 fruitlib::scenic::events::update::update(
 	scenic::update_duration const &_delta)

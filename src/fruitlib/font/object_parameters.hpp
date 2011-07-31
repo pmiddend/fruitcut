@@ -1,9 +1,9 @@
 #ifndef FRUITLIB_FONT_OBJECT_PARAMETERS_HPP_INCLUDED
 #define FRUITLIB_FONT_OBJECT_PARAMETERS_HPP_INCLUDED
 
-#include "object_parameters_fwd.hpp"
-#include "drawer/object_fwd.hpp"
-#include "identifier.hpp"
+#include <fruitlib/font/object_parameters_fwd.hpp>
+#include <fruitlib/font/drawer/object_fwd.hpp>
+#include <fruitlib/font/identifier.hpp>
 #include <sge/font/metrics_ptr.hpp>
 #include <sge/font/rect.hpp>
 #include <sge/font/text/string.hpp>

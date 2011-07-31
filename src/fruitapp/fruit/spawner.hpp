@@ -1,14 +1,14 @@
 #ifndef FRUITAPP_FRUIT_SPAWNER_HPP_INCLUDED
 #define FRUITAPP_FRUIT_SPAWNER_HPP_INCLUDED
 
-#include "prototype_sequence.hpp"
+#include <fruitapp/fruit/prototype_sequence.hpp>
 #include <fruitlib/physics/scalar.hpp>
 #include <fruitlib/uniform_random.hpp>
 #include <fruitlib/scenic/node.hpp>
 #include <fruitlib/scenic/optional_parent.hpp>
 #include <fruitlib/scenic/events/update_fwd.hpp>
 #include <fruitlib/random_generator.hpp>
-#include "manager_fwd.hpp"
+#include <fruitapp/fruit/manager_fwd.hpp>
 #include <sge/camera/object_fwd.hpp>
 #include <sge/time/callback.hpp>
 #include <sge/time/timer.hpp>

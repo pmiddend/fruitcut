@@ -1,16 +1,16 @@
 #ifndef FRUITAPP_SPLATTER_GENERATOR_HPP_INCLUDED
 #define FRUITAPP_SPLATTER_GENERATOR_HPP_INCLUDED
 
-#include "fruit/cut_context_fwd.hpp"
-#include "fruit/area.hpp"
+#include <fruitapp/fruit/cut_context_fwd.hpp>
+#include <fruitapp/fruit/area.hpp>
 #include <fruitlib/uniform_random.hpp>
 #include <fruitlib/random_generator.hpp>
 #include <fruitlib/json/user_config_variable.hpp>
-#include "point_sprite/color_format.hpp"
-#include "point_sprite/splatter/size.hpp"
-#include "point_sprite/splatter/linear_velocity.hpp"
-#include "point_sprite/splatter/acceleration.hpp"
-#include "point_sprite/system_node_fwd.hpp"
+#include <fruitapp/point_sprite/color_format.hpp>
+#include <fruitapp/point_sprite/splatter/size.hpp>
+#include <fruitapp/point_sprite/splatter/linear_velocity.hpp>
+#include <fruitapp/point_sprite/splatter/acceleration.hpp>
+#include <fruitapp/point_sprite/system_node_fwd.hpp>
 #include <sge/parse/json/object_fwd.hpp>
 #include <sge/time/callback.hpp>
 #include <sge/renderer/scalar.hpp>

@@ -1,8 +1,8 @@
 #ifndef FRUITAPP_FRUIT_HULL_TRAIL_INTERSECTION_HPP_INCLUDED
 #define FRUITAPP_FRUIT_HULL_TRAIL_INTERSECTION_HPP_INCLUDED
 
-#include "ring.hpp"
-#include "intersection_pair.hpp"
+#include <fruitapp/fruit/hull/ring.hpp>
+#include <fruitapp/fruit/hull/intersection_pair.hpp>
 #include <fruitapp/cursor_trail.hpp>
 #include <fcppt/optional.hpp>
 #include <fcppt/homogenous_pair.hpp>

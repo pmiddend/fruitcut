@@ -1,7 +1,7 @@
 #ifndef FRUITLIB_PHYSICS_RIGID_BODY_COLLISION_CALLBACK_HPP_INCLUDED
 #define FRUITLIB_PHYSICS_RIGID_BODY_COLLISION_CALLBACK_HPP_INCLUDED
 
-#include "collision_callback_fn.hpp"
+#include <fruitlib/physics/rigid_body/collision_callback_fn.hpp>
 #include <fcppt/function/object.hpp>
 
 namespace fruitlib

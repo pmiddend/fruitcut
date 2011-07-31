@@ -1,5 +1,5 @@
-#include "paused.hpp"
-#include "running.hpp"
+#include <fruitapp/states/ingame/paused.hpp>
+#include <fruitapp/states/ingame/running.hpp>
 #include <fruitapp/states/menu/main.hpp>
 #include <fruitlib/time_format/string_to_duration_exn.hpp>
 #include <fruitlib/json/find_and_convert_member.hpp>

@@ -1,4 +1,4 @@
-#include "object.hpp"
+#include <fruitapp/fruit/material/object.hpp>
 
 fruitapp::fruit::material::object::object(
 	material::diffuse_color const &_diffuse_color,

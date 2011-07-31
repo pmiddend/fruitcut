@@ -1,9 +1,9 @@
 #ifndef FRUITLIB_TIME_FORMAT_CONTEXT_HPP_INCLUDED
 #define FRUITLIB_TIME_FORMAT_CONTEXT_HPP_INCLUDED
 
-#include "tags/milliseconds.hpp"
-#include "tags/seconds.hpp"
-#include "tags/minutes.hpp"
+#include <fruitlib/time_format/tags/milliseconds.hpp>
+#include <fruitlib/time_format/tags/seconds.hpp>
+#include <fruitlib/time_format/tags/minutes.hpp>
 #include <fcppt/chrono/duration_cast.hpp>
 #include <fcppt/chrono/seconds.hpp>
 #include <fcppt/chrono/milliseconds.hpp>

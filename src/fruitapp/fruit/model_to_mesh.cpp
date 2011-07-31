@@ -1,5 +1,5 @@
-#include "model_to_mesh.hpp"
-#include "triangle.hpp"
+#include <fruitapp/fruit/model_to_mesh.hpp>
+#include <fruitapp/fruit/triangle.hpp>
 #include <sge/renderer/vector2.hpp>
 #include <sge/renderer/vector3.hpp>
 #include <sge/model/md3/md3.hpp>

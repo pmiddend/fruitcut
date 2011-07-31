@@ -1,7 +1,7 @@
 #ifndef FRUITLIB_PHYSICS_MATRIX3_HPP_INCLUDED
 #define FRUITLIB_PHYSICS_MATRIX3_HPP_INCLUDED
 
-#include "scalar.hpp"
+#include <fruitlib/physics/scalar.hpp>
 #include <fcppt/math/matrix/static.hpp>
 
 namespace fruitlib

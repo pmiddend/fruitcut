@@ -1,7 +1,7 @@
 #ifndef FRUITLIB_PP_TEXTURE_DESCRIPTOR_HPP_INCLUDED
 #define FRUITLIB_PP_TEXTURE_DESCRIPTOR_HPP_INCLUDED
 
-#include "depth_stencil_format.hpp"
+#include <fruitlib/pp/texture/depth_stencil_format.hpp>
 #include <sge/renderer/dim2.hpp>
 #include <sge/image/color/format.hpp>
 #include <sge/renderer/resource_flags_field.hpp>

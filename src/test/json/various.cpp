@@ -1,5 +1,5 @@
-#include "json_equal.hpp"
-#include "object_from_string.hpp"
+#include <test/json/json_equal.hpp>
+#include <test/json/object_from_string.hpp>
 #include <fruitlib/json/make_recursive_objects.hpp>
 #include <fruitlib/json/merge_command_line_parameters.hpp>
 #include <fruitlib/json/path.hpp>

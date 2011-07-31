@@ -1,7 +1,7 @@
 #ifndef FRUITAPP_FRUIT_MODEL_TO_MESH_HPP_INCLUDED
 #define FRUITAPP_FRUIT_MODEL_TO_MESH_HPP_INCLUDED
 
-#include "mesh.hpp"
+#include <fruitapp/fruit/mesh.hpp>
 #include <sge/model/md3/object_fwd.hpp>
 
 namespace fruitapp

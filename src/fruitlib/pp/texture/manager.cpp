@@ -1,7 +1,7 @@
-#include "manager.hpp"
-#include "instance.hpp"
-#include "use_screen_size.hpp"
-#include "counted_instance.hpp"
+#include <fruitlib/pp/texture/manager.hpp>
+#include <fruitlib/pp/texture/instance.hpp>
+#include <fruitlib/pp/texture/use_screen_size.hpp>
+#include <fruitlib/pp/texture/counted_instance.hpp>
 #include <sge/renderer/resource_flags_none.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/dim2.hpp>

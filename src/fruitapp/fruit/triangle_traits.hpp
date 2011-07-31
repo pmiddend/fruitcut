@@ -1,7 +1,7 @@
 #ifndef FRUITAPP_FRUIT_TRIANGLE_TRAITS_HPP_INCLUDED
 #define FRUITAPP_FRUIT_TRIANGLE_TRAITS_HPP_INCLUDED
 
-#include "triangle.hpp"
+#include <fruitapp/fruit/triangle.hpp>
 #include <fruitlib/math/triangle/vector_type.hpp>
 #include <fruitlib/math/triangle/interpolation_pair.hpp>
 #include <fruitlib/math/triangle/vertex_access.hpp>

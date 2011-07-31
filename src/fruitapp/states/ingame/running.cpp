@@ -1,5 +1,5 @@
-#include "running.hpp"
-#include "paused.hpp"
+#include <fruitapp/states/ingame/running.hpp>
+#include <fruitapp/states/ingame/paused.hpp>
 #include <fruitapp/quick_log.hpp>
 #include <fruitapp/states/gameover/superstate.hpp>
 #include <fruitapp/postprocessing.hpp>

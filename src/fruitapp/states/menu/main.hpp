@@ -1,9 +1,9 @@
 #ifndef FRUITAPP_STATES_MENU_MAIN_HPP_INCLUDED
 #define FRUITAPP_STATES_MENU_MAIN_HPP_INCLUDED
 
-#include "superstate.hpp"
-#include "settings_fwd.hpp"
-#include "highscore_fwd.hpp"
+#include <fruitapp/states/menu/superstate.hpp>
+#include <fruitapp/states/menu/settings_fwd.hpp>
+#include <fruitapp/states/menu/highscore_fwd.hpp>
 #include <fruitapp/gui/button.hpp>
 #include <fruitapp/logo.hpp>
 #include <fruitapp/events/declare_transition_type.hpp>

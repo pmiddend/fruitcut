@@ -1,5 +1,5 @@
-#include "null_collision_filter.hpp"
-#include "world.hpp"
+#include <fruitlib/physics/null_collision_filter.hpp>
+#include <fruitlib/physics/world.hpp>
 #include <BulletDynamics/Dynamics/btDiscreteDynamicsWorld.h>
 
 fruitlib::physics::null_collision_filter::null_collision_filter(

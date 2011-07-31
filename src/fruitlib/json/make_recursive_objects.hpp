@@ -1,7 +1,7 @@
 #ifndef FRUITLIB_JSON_MAKE_RECURSIVE_OBJECTS_HPP_INCLUDED
 #define FRUITLIB_JSON_MAKE_RECURSIVE_OBJECTS_HPP_INCLUDED
 
-#include "path_fwd.hpp"
+#include <fruitlib/json/path_fwd.hpp>
 #include <sge/parse/json/object.hpp>
 
 namespace fruitlib

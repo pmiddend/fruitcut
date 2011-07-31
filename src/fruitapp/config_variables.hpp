@@ -2,7 +2,7 @@
 #define FRUITAPP_CONFIG_VARIABLES_HPP_INCLUDED
 
 #include <fruitlib/json/user_config_variable.hpp>
-#include "fruit/area.hpp"
+#include <fruitapp/fruit/area.hpp>
 #include <sge/parse/json/object_fwd.hpp>
 #include <sge/audio/scalar.hpp>
 

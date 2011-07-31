@@ -1,7 +1,7 @@
 #ifndef FRUITAPP_HIGHSCORE_PROVIDER_CONNECTION_BASE_PTR_HPP_INCLUDED
 #define FRUITAPP_HIGHSCORE_PROVIDER_CONNECTION_BASE_PTR_HPP_INCLUDED
 
-#include "connection_base_fwd.hpp"
+#include <fruitapp/highscore/provider/connection_base_fwd.hpp>
 #include <fcppt/unique_ptr.hpp>
 
 namespace fruitapp

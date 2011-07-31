@@ -1,4 +1,4 @@
-#include "cut_mesh_result.hpp"
+#include <fruitapp/fruit/cut_mesh_result.hpp>
 
 fruitapp::fruit::cut_mesh_result::cut_mesh_result()
 :

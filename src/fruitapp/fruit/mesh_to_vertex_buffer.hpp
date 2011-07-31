@@ -1,7 +1,7 @@
 #ifndef FRUITAPP_FRUIT_MESH_TO_VERTEX_BUFFER_HPP_INCLUDED
 #define FRUITAPP_FRUIT_MESH_TO_VERTEX_BUFFER_HPP_INCLUDED
 
-#include "mesh_fwd.hpp"
+#include <fruitapp/fruit/mesh_fwd.hpp>
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/vertex_buffer_ptr.hpp>
 #include <sge/renderer/vertex_declaration_fwd.hpp>

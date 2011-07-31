@@ -1,5 +1,5 @@
-#include "path_to_string.hpp"
-#include "path.hpp"
+#include <fruitlib/json/path_to_string.hpp>
+#include <fruitlib/json/path.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 

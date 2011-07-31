@@ -1,4 +1,4 @@
-#include "object_from_string.hpp"
+#include <test/json/object_from_string.hpp>
 #include <sge/parse/json/json.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/io/istringstream.hpp>

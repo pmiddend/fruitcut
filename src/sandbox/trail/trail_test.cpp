@@ -1,4 +1,4 @@
-#include "mouse_trailer.hpp"
+#include <sandbox/trail/mouse_trailer.hpp>
 #include <sge/all_extensions.hpp>
 #include <sge/image/colors.hpp>
 #include <sge/input/keyboard/action.hpp>

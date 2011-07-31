@@ -1,5 +1,5 @@
-#include "object.hpp"
-#include "parameters.hpp"
+#include <fruitlib/font/drawer/object.hpp>
+#include <fruitlib/font/drawer/parameters.hpp>
 #include <sge/texture/texture.hpp>
 #include <sge/renderer/texture/texture.hpp>
 #include <sge/renderer/state/state.hpp>

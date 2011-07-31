@@ -1,8 +1,8 @@
-#include "desaturate.hpp"
+#include <fruitlib/pp/filter/desaturate.hpp>
 #include <fruitlib/pp/texture/descriptor.hpp>
 #include <fruitlib/pp/texture/instance.hpp>
 #include <fruitlib/pp/texture/manager.hpp>
-#include "manager.hpp"
+#include <fruitlib/pp/filter/manager.hpp>
 #include <sge/image/color/format.hpp>
 #include <sge/renderer/glsl/scoped_program.hpp>
 #include <sge/renderer/scoped_block.hpp>

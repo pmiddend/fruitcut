@@ -1,7 +1,7 @@
 #ifndef FRUITLIB_MATH_TRIANGLE_WEAK_COMPARE_HPP_INCLUDED
 #define FRUITLIB_MATH_TRIANGLE_WEAK_COMPARE_HPP_INCLUDED
 
-#include "basic.hpp"
+#include <fruitlib/math/triangle/basic.hpp>
 #include <fcppt/math/range_compare.hpp>
 #include <boost/range/numeric.hpp>
 #include <boost/spirit/home/phoenix/bind.hpp>
