@@ -4,6 +4,7 @@
 #include "../../fruitlib/json/find_and_convert_member.hpp"
 #include "../../fruitlib/json/parse_rgba8_color.hpp"
 #include "../../fruitlib/scenic/events/update.hpp"
+#include "../../fruitlib/scenic/events/viewport_change.hpp"
 #include "../../fruitlib/scenic/events/render.hpp"
 #include "../../fruitlib/time_format/string_to_duration_exn.hpp"
 #include "../../fruitlib/time_format/duration_to_string.hpp"
@@ -33,7 +34,6 @@
 #include <sge/time/duration.hpp>
 #include <sge/time/unit.hpp>
 #include <sge/time/millisecond.hpp>
-#include <sge/viewport/manager.hpp>
 #include <mizuiro/color/convert.hpp>
 #include <mizuiro/color/homogenous_static.hpp>
 #include <mizuiro/color/init.hpp>
@@ -63,8 +63,7 @@ fruitapp::game_logic::object::object(
 	fruit::manager &_fruit_manager,
 	fruitlib::font::cache &_font_cache,
 	overlay &_overlay,
-	sge::renderer::device &_renderer,
-	sge::viewport::manager &_viewport)
+	sge::renderer::device &_renderer)
 :
 	node_base(
 		_parent),
@@ -105,11 +104,6 @@ fruitapp::game_logic::object::object(
 				&object::fruit_removed,
 				this,
 				std::tr1::placeholders::_1))),
-	viewport_changed_connection_(
-		_viewport.manage_callback(
-			std::tr1::bind(
-				&object::viewport_changed,
-				this))),
 	score_font_node_(
 		fruitlib::scenic::parent(
 			_overlay,
@@ -209,7 +203,8 @@ fruitapp::game_logic::object::object(
 	renderer_(
 		_renderer)
 {
-	viewport_changed();
+	react(
+		fruitlib::scenic::events::viewport_change());
 }
 
 bool
@@ -285,6 +280,42 @@ fruitapp::game_logic::object::react(
 }
 
 void
+fruitapp::game_logic::object::react(
+	fruitlib::scenic::events::viewport_change const &)
+{
+	sge::font::dim const &viewport_dim = 
+		fcppt::math::dim::structure_cast<sge::font::dim>(
+			renderer_.onscreen_target().viewport().get().size());
+
+	score_font_node_.object().bounding_box(
+		sge::font::rect(
+			sge::font::pos::null(),
+			viewport_dim));
+
+	multiplier_font_node_.object().bounding_box(
+		sge::font::rect(
+			sge::font::pos::null(),
+			sge::font::dim(
+				viewport_dim.w(),
+				static_cast<sge::font::unit>(
+					static_cast<sge::renderer::scalar>(
+						viewport_dim.h()) * 
+					static_cast<sge::renderer::scalar>(
+						0.9)))));
+
+	timer_font_node_.object().bounding_box(
+		sge::font::rect(
+			sge::font::pos::null(),
+			sge::font::dim(
+				viewport_dim.w(),
+				static_cast<sge::font::unit>(
+					static_cast<sge::renderer::scalar>(
+						viewport_dim.h()) * 
+					static_cast<sge::renderer::scalar>(
+						0.2)))));
+}
+
+void
 fruitapp::game_logic::object::fruit_added(
 	fruit::object const &)
 {
@@ -342,42 +373,6 @@ fruitapp::game_logic::object::fruit_cut(
 					SGE_FONT_TEXT_LIT("x"));
 	}
 }
-
-void
-fruitapp::game_logic::object::viewport_changed()
-{
-	sge::font::dim const &viewport_dim = 
-		fcppt::math::dim::structure_cast<sge::font::dim>(
-			renderer_.onscreen_target().viewport().get().size());
-
-	score_font_node_.object().bounding_box(
-		sge::font::rect(
-			sge::font::pos::null(),
-			viewport_dim));
-
-	multiplier_font_node_.object().bounding_box(
-		sge::font::rect(
-			sge::font::pos::null(),
-			sge::font::dim(
-				viewport_dim.w(),
-				static_cast<sge::font::unit>(
-					static_cast<sge::renderer::scalar>(
-						viewport_dim.h()) * 
-					static_cast<sge::renderer::scalar>(
-						0.9)))));
-
-	timer_font_node_.object().bounding_box(
-		sge::font::rect(
-			sge::font::pos::null(),
-			sge::font::dim(
-				viewport_dim.w(),
-				static_cast<sge::font::unit>(
-					static_cast<sge::renderer::scalar>(
-						viewport_dim.h()) * 
-					static_cast<sge::renderer::scalar>(
-						0.2)))));
-}
-
 
 void
 fruitapp::game_logic::object::increase_score(

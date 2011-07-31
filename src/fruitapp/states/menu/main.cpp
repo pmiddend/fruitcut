@@ -25,7 +25,6 @@ fruitapp::states::menu::main::main(
 			fruitlib::scenic::depth(
 				depths::overlay::dont_care)),
 		context<machine>().systems().renderer(),
-		context<machine>().systems().viewport_manager(),
 		context<machine>().systems().image_loader(),
 		context<machine>().config_file()),
 	layout_(

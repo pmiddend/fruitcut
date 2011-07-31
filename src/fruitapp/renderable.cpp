@@ -3,6 +3,7 @@
 #include "../fruitlib/scenic/depth.hpp"
 #include "../fruitlib/scenic/events/render.hpp"
 #include "../fruitlib/scenic/events/update.hpp"
+#include "../fruitlib/scenic/events/viewport_change.hpp"
 #include "../fruitlib/json/find_and_convert_member.hpp"
 #include "../fruitlib/json/path.hpp"
 #include <sge/systems/instance.hpp>

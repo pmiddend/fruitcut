@@ -10,8 +10,9 @@
 #include "../../fruitlib/font/object_parameters.hpp"
 #include "../../fruitlib/font/color_format.hpp"
 #include "../../fruitlib/scenic/parent.hpp"
-#include "../../fruitlib/scenic/events/render.hpp"
 #include "../../fruitlib/scenic/events/update.hpp"
+#include "../../fruitlib/scenic/events/viewport_change.hpp"
+#include "../../fruitlib/scenic/events/render.hpp"
 #include "../../fruitlib/scenic/depth.hpp"
 #include "../../fruitlib/font/scale.hpp"
 #include "../../fruitlib/font/cache.hpp"
@@ -21,8 +22,6 @@
 #include <sge/systems/instance.hpp>
 #include <sge/image/colors.hpp>
 #include <sge/image/color/convert.hpp>
-#include <sge/viewport/manager.hpp>
-#include <fcppt/tr1/functional.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/lexical_cast.hpp>
 #include <iterator>
@@ -37,11 +36,6 @@ fruitapp::states::loading::loading(
 			context<fruitapp::machine>().root_node(),
 			fruitlib::scenic::depth(
 				depths::root::dont_care))),
-	viewport_change_connection_(
-		context<machine>().systems().viewport_manager().manage_callback(
-			std::tr1::bind(
-				&loading::viewport_change,
-				this))),
 	fruit_array_(
 		fruitlib::json::find_and_convert_member<sge::parse::json::array>(
 			context<machine>().config_file(),
@@ -80,7 +74,8 @@ fruitapp::states::loading::loading(
 
 	// We already hae a viewport? Ok, then go
 	if(sge::renderer::viewport_size(context<machine>().systems().renderer()).content())
-		viewport_change();
+		react(
+			fruitlib::scenic::events::viewport_change());
 }
 
 FRUITAPP_EVENTS_DEFINE_TRANSITION_REACTION(
@@ -130,7 +125,8 @@ fruitapp::states::loading::react(
 }
 
 void
-fruitapp::states::loading::viewport_change()
+fruitapp::states::loading::react(
+	fruitlib::scenic::events::viewport_change const &)
 {
 	sge::font::dim const &viewport_dim = 
 		fcppt::math::dim::structure_cast<sge::font::dim>(

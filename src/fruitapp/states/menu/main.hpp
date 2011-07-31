@@ -57,7 +57,6 @@ public:
 
 	~main();
 private:
-	fcppt::signal::scoped_connection viewport_change_connection_;
 	fruitapp::logo logo_;
 	sge::cegui::toolbox::scoped_layout layout_;
 	sge::cegui::toolbox::scoped_gui_sheet gui_sheet_;

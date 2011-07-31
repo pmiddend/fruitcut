@@ -12,6 +12,7 @@
 #include "../../../fruitlib/scenic/adaptors/line_drawer.hpp"
 #include "../../../fruitlib/scenic/node.hpp"
 #include "../../../fruitlib/scenic/events/update_fwd.hpp"
+#include "../../../fruitlib/scenic/events/viewport_change_fwd.hpp"
 #include <sge/line_drawer/object.hpp>
 #include <sge/renderer/state/scoped.hpp>
 #include <sge/line_drawer/line_sequence.hpp>
@@ -46,9 +47,10 @@ public:
 	reactions;
 
 	typedef
-	boost::mpl::vector1
+	boost::mpl::vector2
 	<
-		fruitlib::scenic::events::update
+		fruitlib::scenic::events::update,
+		fruitlib::scenic::events::viewport_change
 	>
 	scene_reactions;
 
@@ -67,16 +69,17 @@ public:
 	void
 	react(
 		fruitlib::scenic::events::update const &);
+
+	void
+	react(
+		fruitlib::scenic::events::viewport_change const &);
 private:
 	sge::line_drawer::object line_drawer_;
 	fruitlib::scenic::adaptors::line_drawer line_drawer_node_;
 	fruitapp::cursor_trail cursor_trail_;
-	fcppt::signal::scoped_connection 
-		viewport_change_connection_,
-		fruit_spawned_connection_;
-	bool 
-		draw_mouse_trail_,
-		draw_bbs_;
+	fcppt::signal::scoped_connection fruit_spawned_connection_;
+	bool draw_mouse_trail_;
+	bool draw_bbs_;
 	fcppt::signal::scoped_connection transit_to_paused_connection_;
 	fruitapp::sword_trail sword_trail_;
 
@@ -91,9 +94,6 @@ private:
 	void
 	process_fruit(
 		fruit::object const &);
-
-	void
-	viewport_change();
 };
 }
 }

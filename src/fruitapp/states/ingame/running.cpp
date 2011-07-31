@@ -24,6 +24,8 @@
 #include "../../../fruitlib/audio/sound_controller.hpp"
 #include "../../../fruitlib/scenic/parent.hpp"
 #include "../../../fruitlib/scenic/depth.hpp"
+#include "../../../fruitlib/scenic/events/viewport_change.hpp"
+#include "../../../fruitlib/scenic/events/update.hpp"
 #include <sge/font/pos.hpp>
 #include <sge/font/rect.hpp>
 #include <sge/font/text/text.hpp>
@@ -45,7 +47,6 @@
 #include <sge/time/millisecond.hpp>
 #include <sge/time/second.hpp>
 #include <sge/time/unit.hpp>
-#include <sge/viewport/manager.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/math/vector/vector.hpp>
 #include <fcppt/math/dim/dim.hpp>
@@ -93,11 +94,6 @@ fruitapp::states::ingame::running::running(
 				fruitlib::json::path(FCPPT_TEXT("mouse"))
 					/ FCPPT_TEXT("trail-samples")),
 		context<machine>().systems().renderer().onscreen_target()),
-	viewport_change_connection_(
-		context<machine>().systems().viewport_manager().manage_callback(
-			std::tr1::bind(
-				&running::viewport_change,
-				this))),
 	fruit_spawned_connection_(
 		context<superstate>().fruit_spawner().spawn_callback(
 			std::tr1::bind(
@@ -135,7 +131,8 @@ fruitapp::states::ingame::running::running(
 {
 	context<machine>().postprocessing().active(
 		true);
-	viewport_change();
+	react(
+		fruitlib::scenic::events::viewport_change());
 }
 
 FRUITAPP_EVENTS_DEFINE_TRANSITION_REACTION(
@@ -182,6 +179,13 @@ fruitapp::states::ingame::running::react(
 		FRUITAPP_EVENTS_POST_TRANSITION(
 			gameover::superstate);
 	}
+}
+
+void
+fruitapp::states::ingame::running::react(
+	fruitlib::scenic::events::viewport_change const &)
+{
+	cursor_trail_.clear();
 }
 
 void
@@ -361,10 +365,4 @@ fruitapp::states::ingame::running::process_fruit(
 		context<machine>().timer_callback());
 
 	//cursor_trail_.clear();
-}
-
-void
-fruitapp::states::ingame::running::viewport_change()
-{
-	cursor_trail_.clear();
 }

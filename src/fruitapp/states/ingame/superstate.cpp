@@ -9,6 +9,7 @@
 #include "../../depths/overlay.hpp"
 #include "../../../fruitlib/audio/music_controller.hpp"
 #include "../../../fruitlib/scenic/parent.hpp"
+#include "../../../fruitlib/scenic/events/viewport_change.hpp"
 #include "../../../fruitlib/audio/sound_controller.hpp"
 #include "../../../fruitlib/resource_tree/path.hpp"
 #include "../../../fruitlib/json/find_and_convert_member.hpp"
@@ -138,8 +139,7 @@ fruitapp::states::ingame::superstate::superstate(
 		fruit_manager_,
 		context<machine>().font_cache(),
 		context<machine>().overlay_node(),
-		context<machine>().systems().renderer(),
-		context<machine>().systems().viewport_manager()),
+		context<machine>().systems().renderer()),
 	cut_connection_(
 		fruit_manager_.cut_callback(
 			std::tr1::bind(

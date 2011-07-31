@@ -7,6 +7,7 @@
 #include "../events/declare_transition_reaction.hpp"
 #include "../../fruitlib/scenic/node.hpp"
 #include "../../fruitlib/scenic/events/update_fwd.hpp"
+#include "../../fruitlib/scenic/events/viewport_change_fwd.hpp"
 #include "../../fruitlib/font/scene_node.hpp"
 #include <sge/parse/json/json.hpp>
 #include <boost/mpl/vector/vector10.hpp>
@@ -36,7 +37,7 @@ public:
 	reactions;
 
 	typedef
-	boost::mpl::vector1<fruitlib::scenic::events::update>
+	boost::mpl::vector2<fruitlib::scenic::events::update,fruitlib::scenic::events::viewport_change>
 	scene_reactions;
 
 	explicit
@@ -51,14 +52,14 @@ public:
 	void
 	react(
 		fruitlib::scenic::events::update const &);
+
+	void
+	react(
+		fruitlib::scenic::events::viewport_change const &);
 private:
-	fcppt::signal::scoped_connection viewport_change_connection_;
 	sge::parse::json::element_vector const fruit_array_;
 	sge::parse::json::element_vector::const_iterator current_fruit_;
 	fruitlib::font::scene_node font_node_;
-
-	void
-	viewport_change();
 };
 }
 }

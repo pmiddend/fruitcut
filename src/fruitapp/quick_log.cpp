@@ -5,6 +5,7 @@
 #include "../fruitlib/audio/sound_controller.hpp"
 #include "../fruitlib/scenic/events/update.hpp"
 #include "../fruitlib/scenic/events/render.hpp"
+#include "../fruitlib/scenic/events/viewport_change.hpp"
 #include "../fruitlib/time_format/string_to_duration.hpp"
 #include "../fruitlib/font/object.hpp"
 #include "../fruitlib/font/scale.hpp"
@@ -17,7 +18,6 @@
 #include <sge/font/text/flags_none.hpp>
 #include <sge/font/text/from_fcppt_string.hpp>
 #include <sge/font/text/lit.hpp>
-#include <sge/viewport/manager.hpp>
 #include <sge/renderer/viewport_size.hpp>
 #include <sge/renderer/screen_size.hpp>
 #include <sge/image/color/convert.hpp>
@@ -35,12 +35,13 @@ fruitapp::quick_log::quick_log(
 	fruitlib::scenic::optional_parent const &_parent,
 	sge::parse::json::object const &_config_file,
 	fruitlib::font::cache &_font_cache,
-	sge::viewport::manager &_viewport_manager,
 	sge::renderer::device const &_renderer,
 	fruitlib::audio::sound_controller &_sound_controller)
 :
 	node_base(
 		_parent),
+	renderer_(
+		_renderer),
 	sound_controller_(
 		_sound_controller),
 	font_node_(
@@ -72,13 +73,6 @@ fruitapp::quick_log::quick_log(
 			_config_file,
 			fruitlib::json::path(
 				FCPPT_TEXT("quick-log")) / FCPPT_TEXT("screen-percentage"))),
-	viewport_change_connection_(
-		_viewport_manager.manage_callback(
-			std::tr1::bind(
-				&quick_log::viewport_change,
-				this,
-				fcppt::cref(
-					_renderer)))),
 	message_delete_timer_(
 		*fruitlib::time_format::string_to_duration<sge::time::duration>(
 			fruitlib::json::find_and_convert_member<fcppt::string>(
@@ -88,8 +82,8 @@ fruitapp::quick_log::quick_log(
 		sge::time::activation_state::inactive),
 	messages_()
 {
-	viewport_change(
-		_renderer);
+	react(
+		fruitlib::scenic::events::viewport_change());
 }
 
 void
@@ -132,12 +126,12 @@ fruitapp::quick_log::react(
 }
 
 void
-fruitapp::quick_log::viewport_change(
-	sge::renderer::device const &_renderer)
+fruitapp::quick_log::react(
+	fruitlib::scenic::events::viewport_change const &)
 {
 	sge::renderer::screen_size const viewport_size = 
 		sge::renderer::viewport_size(
-			_renderer);
+			renderer_);
 
 	// No viewport yet? Quit!
 	if(!viewport_size.content())

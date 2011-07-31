@@ -5,6 +5,7 @@
 #include "../fruitlib/pp/texture/manager.hpp"
 #include "../fruitlib/pp/filter/render_to_texture.hpp"
 #include "../fruitlib/scenic/events/update_fwd.hpp"
+#include "../fruitlib/scenic/events/viewport_change_fwd.hpp"
 #include "../fruitlib/scenic/optional_parent.hpp"
 #include "../fruitlib/scenic/node.hpp"
 #include "../fruitlib/pp/filter/manager.hpp"
@@ -28,7 +29,7 @@ class postprocessing
 {
 public:
 	typedef
-	boost::mpl::vector1<fruitlib::scenic::events::update>
+	boost::mpl::vector2<fruitlib::scenic::events::update,fruitlib::scenic::events::viewport_change>
 	scene_reactions;
 
 	explicit
@@ -61,11 +62,12 @@ public:
 		bool);
 
 	void
-	viewport_changed();
+	react(
+		fruitlib::scenic::events::update const &);
 
 	void
 	react(
-		fruitlib::scenic::events::update const &);
+		fruitlib::scenic::events::viewport_change const &);
 private:
 	fruitlib::pp::texture::manager texture_manager_;
 	fruitlib::pp::filter::manager filter_manager_;

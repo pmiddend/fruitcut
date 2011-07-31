@@ -4,17 +4,16 @@
 #include "../fruitlib/scenic/node.hpp"
 #include "../fruitlib/scenic/optional_parent.hpp"
 #include "../fruitlib/scenic/events/update_fwd.hpp"
+#include "../fruitlib/scenic/events/viewport_change_fwd.hpp"
 #include "../fruitlib/font/cache_fwd.hpp"
 #include "../fruitlib/font/scene_node.hpp"
 #include "../fruitlib/audio/sound_controller_fwd.hpp"
 #include <sge/renderer/scalar.hpp>
-#include <sge/viewport/manager_fwd.hpp>
 #include <sge/parse/json/object_fwd.hpp>
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/time/timer.hpp>
 #include <sge/font/text/string.hpp>
 #include <fcppt/math/dim/dim.hpp>
-#include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/string.hpp>
 #include <boost/mpl/vector/vector10.hpp>
@@ -30,7 +29,7 @@ FCPPT_NONCOPYABLE(
 	quick_log);
 public:
 	typedef
-	boost::mpl::vector1<fruitlib::scenic::events::update>
+	boost::mpl::vector2<fruitlib::scenic::events::update,fruitlib::scenic::events::viewport_change>
 	scene_reactions;
 
 	explicit
@@ -38,7 +37,6 @@ public:
 		fruitlib::scenic::optional_parent const &,
 		sge::parse::json::object const &,
 		fruitlib::font::cache &,
-		sge::viewport::manager &,
 		sge::renderer::device const &,
 		fruitlib::audio::sound_controller &);
 
@@ -51,6 +49,10 @@ public:
 	void
 	react(
 		fruitlib::scenic::events::update const &);
+
+	void
+	react(
+		fruitlib::scenic::events::viewport_change const &);
 private:
 	typedef
 	fcppt::math::dim::static_<sge::renderer::scalar,2>::type
@@ -62,16 +64,12 @@ private:
 	std::deque<sge::font::text::string>
 	message_sequence;
 
+	sge::renderer::device const &renderer_;
 	fruitlib::audio::sound_controller &sound_controller_;
 	fruitlib::font::scene_node font_node_;
 	fractional_dimension fractional_size_;
-	fcppt::signal::scoped_connection viewport_change_connection_;
 	sge::time::timer message_delete_timer_;
 	message_sequence messages_; 
-
-	void
-	viewport_change(
-		sge::renderer::device const &);
 };
 }
 

@@ -389,6 +389,8 @@ SET(
 	src/fruitlib/scenic/events/update.cpp
 	src/fruitlib/scenic/events/update.hpp
 	src/fruitlib/scenic/events/update_fwd.hpp
+	src/fruitlib/scenic/events/viewport_change.cpp
+	src/fruitlib/scenic/events/viewport_change.hpp
 	src/fruitlib/scenic/no_parent.cpp
 	src/fruitlib/scenic/no_parent.hpp
 	src/fruitlib/scenic/node.hpp

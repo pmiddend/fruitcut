@@ -4,12 +4,12 @@
 #include "../fruitlib/scenic/node.hpp"
 #include "../fruitlib/scenic/optional_parent.hpp"
 #include "../fruitlib/scenic/events/render_fwd.hpp"
+#include "../fruitlib/scenic/events/viewport_change_fwd.hpp"
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/scalar.hpp>
 #include <sge/renderer/vertex_buffer_ptr.hpp>
 #include <sge/renderer/vertex_declaration_ptr.hpp>
 #include <sge/renderer/texture/planar_ptr.hpp>
-#include <sge/viewport/manager_fwd.hpp>
 #include <sge/image2d/multi_loader_fwd.hpp>
 #include <sge/parse/json/object_fwd.hpp>
 #include <sge/renderer/matrix4.hpp>
@@ -30,28 +30,28 @@ FCPPT_NONCOPYABLE(
 	background);
 public:
 	typedef
-	boost::mpl::vector1<fruitlib::scenic::events::render>
+	boost::mpl::vector2<fruitlib::scenic::events::render,fruitlib::scenic::events::viewport_change>
 	scene_reactions;
 
 	explicit
 	background(
 		fruitlib::scenic::optional_parent const &,
 		sge::renderer::device &,
-		sge::viewport::manager &,
 		sge::image2d::multi_loader &,
 		sge::renderer::texture::planar_ptr,
 		sge::renderer::matrix4 const &,
 		sge::parse::json::object const &,
 		sge::camera::object const &);
 
-	void
-	viewport_changed();
-
 	~background();
 
 	void
 	react(
 		fruitlib::scenic::events::render const &);
+
+	void
+	react(
+		fruitlib::scenic::events::viewport_change const &);
 private:
 	sge::renderer::device &renderer_;
 	sge::camera::object const &camera_;
@@ -60,7 +60,6 @@ private:
 	sge::renderer::vertex_buffer_ptr vb_;
 	sge::shader::object shader_;
 	sge::renderer::scalar const reps_;
-	fcppt::signal::scoped_connection viewport_changed_connection_;
 
 };
 }

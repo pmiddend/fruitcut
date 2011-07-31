@@ -7,6 +7,7 @@
 #include "../fruitlib/json/find_and_convert_member.hpp"
 #include "../fruitlib/json/merge_trees.hpp"
 #include "../fruitlib/json/parse_string_exn.hpp"
+#include "../fruitlib/scenic/events/viewport_change.hpp"
 #include "../fruitlib/json/merge_command_line_parameters.hpp"
 #include "../fruitlib/utf8_file_to_fcppt_string.hpp"
 #include "../fruitlib/create_command_line_parameters.hpp"
@@ -216,7 +217,6 @@ fruitapp::machine_impl::machine_impl(
 				depths::overlay::dont_care)),
 		config_file_,
 		font_cache_,
-		systems_.viewport_manager(),
 		systems_.renderer(),
 		sound_controller_),
 	camera_(
@@ -284,7 +284,6 @@ fruitapp::machine_impl::machine_impl(
 			fruitlib::scenic::depth(
 				depths::scene::background)),
 		systems_.renderer(),
-		systems_.viewport_manager(),
 		systems_.image_loader(),
 		shadow_map_.texture(),
 		shadow_map_.mvp(),
@@ -645,8 +644,6 @@ fruitapp::machine_impl::toggle_camera()
 void
 fruitapp::machine_impl::viewport_change()
 {
-	renderable_.postprocessing().viewport_changed();
-	background_.viewport_changed();
 	camera_.projection_object(
 		fruitlib::json::parse_projection(
 			fruitlib::json::find_and_convert_member<sge::parse::json::object>(
@@ -657,5 +654,8 @@ fruitapp::machine_impl::viewport_change()
 			sge::renderer::aspect(
 				sge::renderer::viewport_size(
 					systems_.renderer()))));
+
+	node_base::forward_to_children(
+		fruitlib::scenic::events::viewport_change());
 }
 

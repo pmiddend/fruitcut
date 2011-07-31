@@ -4,6 +4,7 @@
 #include "../fruitlib/pp/dependency_set.hpp"
 #include "../fruitlib/pp/texture/depth_stencil_format.hpp"
 #include "../fruitlib/scenic/events/update.hpp"
+#include "../fruitlib/scenic/events/viewport_change.hpp"
 #include "../fruitlib/pp/texture/use_screen_size.hpp"
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/dim2.hpp>
@@ -171,15 +172,16 @@ fruitapp::postprocessing::active(
 }
 
 void
-fruitapp::postprocessing::viewport_changed()
-{
-	texture_manager_.clear_screen_textures();
-}
-
-void
 fruitapp::postprocessing::react(
 	fruitlib::scenic::events::update const &)
 {
 	if (active_)
 		system_.update();
+}
+
+void
+fruitapp::postprocessing::react(
+	fruitlib::scenic::events::viewport_change const &)
+{
+	texture_manager_.clear_screen_textures();
 }

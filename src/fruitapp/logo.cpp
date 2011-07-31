@@ -3,8 +3,8 @@
 #include "../fruitlib/json/parse_animation.hpp"
 #include "../fruitlib/json/parse_color.hpp"
 #include "../fruitlib/scenic/events/render.hpp"
+#include "../fruitlib/scenic/events/viewport_change.hpp"
 #include "../media_path.hpp"
-#include <sge/viewport/manager.hpp>
 #include <sge/image2d/image2d.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/viewport_size.hpp>
@@ -15,7 +15,6 @@
 #include <sge/texture/part_raw.hpp>
 #include <sge/parse/json/json.hpp>
 #include <mizuiro/color/operators.hpp>
-#include <fcppt/tr1/functional.hpp>
 #include <fcppt/math/dim/dim.hpp>
 #include <fcppt/math/vector/vector.hpp>
 #include <fcppt/make_shared_ptr.hpp>
@@ -25,7 +24,6 @@
 fruitapp::logo::logo(
 	fruitlib::scenic::optional_parent const &_parent,
 	sge::renderer::device &_renderer,
-	sge::viewport::manager &_viewport_manager,
 	sge::image2d::multi_loader &_image_loader,
 	sge::parse::json::object const &_config_file)
 :
@@ -57,14 +55,10 @@ fruitapp::logo::logo(
 			.texture_size()
 			.system(
 				&sprite_system_)
-			.elements()),
-	viewport_change_connection_(
-		_viewport_manager.manage_callback(
-			std::tr1::bind(
-				&logo::viewport_change,
-				this)))
+			.elements())
 {
-	viewport_change();
+	react(
+		fruitlib::scenic::events::viewport_change());
 }
 
 fruitapp::logo::~logo()
@@ -80,7 +74,8 @@ fruitapp::logo::react(
 }
 
 void
-fruitapp::logo::viewport_change()
+fruitapp::logo::react(
+	fruitlib::scenic::events::viewport_change const &)
 {
 	sge::renderer::screen_size const viewport_size = 
 		sge::renderer::viewport_size(

@@ -11,13 +11,13 @@
 #include "../../fruitlib/scenic/node.hpp"
 #include "../../fruitlib/scenic/parent_fwd.hpp"
 #include "../../fruitlib/scenic/events/update_fwd.hpp"
+#include "../../fruitlib/scenic/events/viewport_change_fwd.hpp"
 #include "../highscore/score.hpp"
 #include <sge/parse/json/object_fwd.hpp>
 #include <sge/renderer/scalar.hpp>
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/time/callback.hpp>
 #include <sge/time/timer.hpp>
-#include <sge/viewport/manager_fwd.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <boost/mpl/vector/vector10.hpp>
@@ -34,7 +34,7 @@ FCPPT_NONCOPYABLE(
 	object);
 public:
 	typedef
-	boost::mpl::vector1<fruitlib::scenic::events::update>
+	boost::mpl::vector2<fruitlib::scenic::events::update,fruitlib::scenic::events::viewport_change>
 	scene_reactions;
 
 	explicit
@@ -50,8 +50,7 @@ public:
 		fruit::manager &,
 		fruitlib::font::cache &,
 		overlay &,
-		sge::renderer::device &,
-		sge::viewport::manager &);
+		sge::renderer::device &);
 
 	bool 
 	finished() const;
@@ -62,6 +61,10 @@ public:
 	void
 	react(
 		fruitlib::scenic::events::update const &);
+
+	void
+	react(
+		fruitlib::scenic::events::viewport_change const &);
 private:
 	fruit::area::value_type const area_score_factor_;
 	highscore::score::value_type score_,iterating_score_;
@@ -69,8 +72,7 @@ private:
 	fcppt::signal::scoped_connection 
 		fruit_added_connection_,
 		fruit_cut_connection_,
-		fruit_removed_connection_,
-		viewport_changed_connection_;
+		fruit_removed_connection_;
 	fruitlib::font::scene_node score_font_node_;
 	fruitlib::font::scene_node timer_font_node_;
 	fruitlib::font::scene_node multiplier_font_node_;
@@ -92,10 +94,6 @@ private:
 	void
 	fruit_cut(
 		fruit::cut_context const &);
-
-	void
-	viewport_changed();
-
 
 	void
 	increase_score(

@@ -3,7 +3,7 @@
 #include "../fruitlib/json/find_and_convert_member.hpp"
 #include "../fruitlib/math/view_plane_rect.hpp"
 #include "../fruitlib/scenic/events/render.hpp"
-#include <sge/viewport/manager.hpp>
+#include "../fruitlib/scenic/events/viewport_change.hpp"
 #include <sge/parse/json/json.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/viewport_size.hpp>
@@ -108,7 +108,6 @@ vertex_view;
 fruitapp::background::background(
 	fruitlib::scenic::optional_parent const &_parent,
 	sge::renderer::device &_renderer,
-	sge::viewport::manager &_viewport_manager,
 	sge::image2d::multi_loader &_image_loader,
 	sge::renderer::texture::planar_ptr const _shadow_texture,
 	sge::renderer::matrix4 const &_mvp,
@@ -179,18 +178,57 @@ fruitapp::background::background(
 		fruitlib::json::find_and_convert_member<sge::renderer::scalar>(
 			_config,
 			fruitlib::json::path(
-				FCPPT_TEXT("background-repeat")))),
-	viewport_changed_connection_(
-		_viewport_manager.manage_callback(
-			std::tr1::bind(
-				&background::viewport_changed,
-				this)))
+				FCPPT_TEXT("background-repeat"))))
 {
-	viewport_changed();
+	react(
+		fruitlib::scenic::events::viewport_change());
+}
+
+
+fruitapp::background::~background()
+{
 }
 
 void
-fruitapp::background::viewport_changed()
+fruitapp::background::react(
+	fruitlib::scenic::events::render const &)
+{
+	sge::shader::scoped scoped_shader(
+		shader_,
+		sge::shader::activate_everything());
+
+	sge::renderer::scoped_vertex_buffer scoped_vb(
+		renderer_,
+		*vb_);
+
+	sge::renderer::pixel_rect const viewport_rect =
+		renderer_.onscreen_target().viewport().get();
+
+	shader_.update_uniform(
+		"mvp",
+		sge::shader::matrix(
+			camera_.mvp(),
+			sge::shader::matrix_flags::projection));
+
+	sge::renderer::state::scoped scoped_state(
+		renderer_,
+		sge::renderer::state::list
+			(sge::renderer::state::bool_::enable_alpha_blending = false)
+			(sge::renderer::state::cull_mode::off)
+			(sge::renderer::state::depth_func::less)
+			(sge::renderer::state::stencil_func::off)
+			(sge::renderer::state::draw_mode::fill));
+
+	renderer_.render_nonindexed(
+		sge::renderer::first_vertex(0),
+		sge::renderer::vertex_count(
+			6),
+		sge::renderer::nonindexed_primitive_type::triangle);
+}
+
+void
+fruitapp::background::react(
+	fruitlib::scenic::events::viewport_change const &)
 {
 	// Don't have a viewport yet?
 	if(camera_.projection_object().empty())
@@ -263,45 +301,4 @@ fruitapp::background::viewport_changed()
 	(vb_it++)->set<vf::texcoord>(
 		vf::texcoord::packed_type(
 			reps_,reps_));
-}
-
-fruitapp::background::~background()
-{
-}
-
-void
-fruitapp::background::react(
-	fruitlib::scenic::events::render const &)
-{
-	sge::shader::scoped scoped_shader(
-		shader_,
-		sge::shader::activate_everything());
-
-	sge::renderer::scoped_vertex_buffer scoped_vb(
-		renderer_,
-		*vb_);
-
-	sge::renderer::pixel_rect const viewport_rect =
-		renderer_.onscreen_target().viewport().get();
-
-	shader_.update_uniform(
-		"mvp",
-		sge::shader::matrix(
-			camera_.mvp(),
-			sge::shader::matrix_flags::projection));
-
-	sge::renderer::state::scoped scoped_state(
-		renderer_,
-		sge::renderer::state::list
-			(sge::renderer::state::bool_::enable_alpha_blending = false)
-			(sge::renderer::state::cull_mode::off)
-			(sge::renderer::state::depth_func::less)
-			(sge::renderer::state::stencil_func::off)
-			(sge::renderer::state::draw_mode::fill));
-
-	renderer_.render_nonindexed(
-		sge::renderer::first_vertex(0),
-		sge::renderer::vertex_count(
-			6),
-		sge::renderer::nonindexed_primitive_type::triangle);
 }
