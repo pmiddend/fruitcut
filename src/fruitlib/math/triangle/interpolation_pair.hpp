@@ -1,11 +1,9 @@
-#ifndef FRUITCUT_FRUITLIB_MATH_TRIANGLE_INTERPOLATION_PAIR_HPP_INCLUDED
-#define FRUITCUT_FRUITLIB_MATH_TRIANGLE_INTERPOLATION_PAIR_HPP_INCLUDED
+#ifndef FRUITLIB_MATH_TRIANGLE_INTERPOLATION_PAIR_HPP_INCLUDED
+#define FRUITLIB_MATH_TRIANGLE_INTERPOLATION_PAIR_HPP_INCLUDED
 
 #include "size_type.hpp"
 #include "scalar_type.hpp"
 
-namespace fruitcut
-{
 namespace fruitlib
 {
 namespace math
@@ -56,7 +54,6 @@ private:
 	triangle::size_type index1_,index2_;
 	scalar value_;
 };
-}
 }
 }
 }

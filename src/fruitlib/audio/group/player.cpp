@@ -9,7 +9,7 @@
 #include <fcppt/algorithm/ptr_container_erase.hpp>
 #include <iostream>
 
-fruitcut::fruitlib::audio::group::player::player(
+fruitlib::audio::group::player::player(
 	sge::audio::player &_impl,
 	sge::audio::scalar const _gain,
 	sge::audio::scalar const _pitch)
@@ -24,28 +24,28 @@ fruitcut::fruitlib::audio::group::player::player(
 }
 
 sge::audio::listener &
-fruitcut::fruitlib::audio::group::player::listener()
+fruitlib::audio::group::player::listener()
 {
 	return 
 		impl_.listener();
 }
 
 sge::audio::scalar 
-fruitcut::fruitlib::audio::group::player::speed_of_sound() const
+fruitlib::audio::group::player::speed_of_sound() const
 {
 	return 
 		impl_.speed_of_sound();
 }
 
 sge::audio::scalar 
-fruitcut::fruitlib::audio::group::player::doppler_factor() const
+fruitlib::audio::group::player::doppler_factor() const
 {
 	return 
 		impl_.doppler_factor();
 }
 
 void 
-fruitcut::fruitlib::audio::group::player::speed_of_sound(
+fruitlib::audio::group::player::speed_of_sound(
 	sge::audio::scalar const _speed_of_sound)
 {
 	return 
@@ -54,7 +54,7 @@ fruitcut::fruitlib::audio::group::player::speed_of_sound(
 }
 
 void
-fruitcut::fruitlib::audio::group::player::doppler_factor(
+fruitlib::audio::group::player::doppler_factor(
 	sge::audio::scalar const _doppler_factor)
 {
 	return
@@ -63,7 +63,7 @@ fruitcut::fruitlib::audio::group::player::doppler_factor(
 }
 
 void
-fruitcut::fruitlib::audio::group::player::gain(
+fruitlib::audio::group::player::gain(
 	sge::audio::scalar const _gain)
 {
 	gain_ = 
@@ -86,14 +86,14 @@ fruitcut::fruitlib::audio::group::player::gain(
 }
 
 sge::audio::scalar
-fruitcut::fruitlib::audio::group::player::gain() const
+fruitlib::audio::group::player::gain() const
 {
 	return
 		gain_;
 }
 
 void
-fruitcut::fruitlib::audio::group::player::pitch(
+fruitlib::audio::group::player::pitch(
 	sge::audio::scalar const _pitch)
 {
 	pitch_ = 
@@ -108,14 +108,14 @@ fruitcut::fruitlib::audio::group::player::pitch(
 }
 
 sge::audio::scalar
-fruitcut::fruitlib::audio::group::player::pitch() const
+fruitlib::audio::group::player::pitch() const
 {
 	return
 		pitch_;
 }
 
 sge::audio::buffer_ptr const
-fruitcut::fruitlib::audio::group::player::create_buffer(
+fruitlib::audio::group::player::create_buffer(
 	sge::audio::file &f)
 {
 	return 
@@ -129,7 +129,7 @@ fruitcut::fruitlib::audio::group::player::create_buffer(
 }
 
 sge::audio::sound::positional_ptr const 
-fruitcut::fruitlib::audio::group::player::create_positional_stream(
+fruitlib::audio::group::player::create_positional_stream(
 	sge::audio::file_ptr const f,
 	sge::audio::sound::positional_parameters const &pp)
 {
@@ -145,7 +145,7 @@ fruitcut::fruitlib::audio::group::player::create_positional_stream(
 }
 
 sge::audio::sound::base_ptr const 
-fruitcut::fruitlib::audio::group::player::create_nonpositional_stream(
+fruitlib::audio::group::player::create_nonpositional_stream(
 	sge::audio::file_ptr const f)
 {
 	return 
@@ -159,18 +159,18 @@ fruitcut::fruitlib::audio::group::player::create_nonpositional_stream(
 }
 
 sge::audio::player_capabilities_field const
-fruitcut::fruitlib::audio::group::player::capabilities() const
+fruitlib::audio::group::player::capabilities() const
 {
 	return 
 		impl_.capabilities();
 }
 
-fruitcut::fruitlib::audio::group::player::~player()
+fruitlib::audio::group::player::~player()
 {
 }
 
 void
-fruitcut::fruitlib::audio::group::player::add_buffer(
+fruitlib::audio::group::player::add_buffer(
 	group::buffer &b)
 {
 	buffers_.push_back(
@@ -178,7 +178,7 @@ fruitcut::fruitlib::audio::group::player::add_buffer(
 }
 
 void
-fruitcut::fruitlib::audio::group::player::remove_buffer(
+fruitlib::audio::group::player::remove_buffer(
 	group::buffer &b)
 {
 	FCPPT_ASSERT((
@@ -188,7 +188,7 @@ fruitcut::fruitlib::audio::group::player::remove_buffer(
 }
 
 void
-fruitcut::fruitlib::audio::group::player::add_sound(
+fruitlib::audio::group::player::add_sound(
 	group::sound_base &b)
 {
 	sounds_.push_back(
@@ -196,7 +196,7 @@ fruitcut::fruitlib::audio::group::player::add_sound(
 }
 
 void
-fruitcut::fruitlib::audio::group::player::remove_sound(
+fruitlib::audio::group::player::remove_sound(
 	group::sound_base &b)
 {
 	FCPPT_ASSERT((

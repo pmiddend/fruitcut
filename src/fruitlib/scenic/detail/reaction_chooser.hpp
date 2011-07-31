@@ -1,13 +1,11 @@
-#ifndef FRUITCUT_FRUITLIB_SCENIC_DETAIL_REACTION_CHOOSER_HPP_INCLUDED
-#define FRUITCUT_FRUITLIB_SCENIC_DETAIL_REACTION_CHOOSER_HPP_INCLUDED
+#ifndef FRUITLIB_SCENIC_DETAIL_REACTION_CHOOSER_HPP_INCLUDED
+#define FRUITLIB_SCENIC_DETAIL_REACTION_CHOOSER_HPP_INCLUDED
 
 #include "../events/base_fwd.hpp"
 #include <fcppt/nonassignable.hpp>
 #include <fcppt/mpl/for_each.hpp>
 #include <typeinfo>
 
-namespace fruitcut
-{
 namespace fruitlib
 {
 namespace scenic
@@ -53,7 +51,6 @@ private:
 	events::base const &event_;
 	bool &unconsumed_;
 };
-}
 }
 }
 }

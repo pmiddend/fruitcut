@@ -4,7 +4,7 @@
 #include <sge/camera/object.hpp>
 #include <fcppt/chrono/duration_cast.hpp>
 
-fruitcut::fruitlib::scenic::adaptors::camera::camera(
+fruitlib::scenic::adaptors::camera::camera(
 	scenic::optional_parent const &_parent,
 	sge::camera::object &_camera)
 :
@@ -15,12 +15,12 @@ fruitcut::fruitlib::scenic::adaptors::camera::camera(
 {
 }
 
-fruitcut::fruitlib::scenic::adaptors::camera::~camera()
+fruitlib::scenic::adaptors::camera::~camera()
 {
 }
 
 void
-fruitcut::fruitlib::scenic::adaptors::camera::react(
+fruitlib::scenic::adaptors::camera::react(
 	scenic::events::update const &d)
 {
 	camera_.update(

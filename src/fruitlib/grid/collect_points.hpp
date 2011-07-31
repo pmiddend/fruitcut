@@ -1,5 +1,5 @@
-#ifndef FRUITCUT_FRUITLIB_GRID_COLLECT_POINTS_HPP_INCLUDED
-#define FRUITCUT_FRUITLIB_GRID_COLLECT_POINTS_HPP_INCLUDED
+#ifndef FRUITLIB_GRID_COLLECT_POINTS_HPP_INCLUDED
+#define FRUITLIB_GRID_COLLECT_POINTS_HPP_INCLUDED
 
 #include <fcppt/container/grid/size_type.hpp>
 #include <fcppt/container/grid/object.hpp>
@@ -7,8 +7,6 @@
 #include <fcppt/tr1/type_traits.hpp>
 #include <boost/static_assert.hpp>
 
-namespace fruitcut
-{
 namespace fruitlib
 {
 namespace grid
@@ -40,7 +38,6 @@ collect_points(
 				result.push_back(
 					p);
 	return result;
-}
 }
 }
 }

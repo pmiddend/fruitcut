@@ -1,5 +1,5 @@
-#ifndef FRUITCUT_FRUITLIB_DELAYED_PTR_SEQUENCE_HPP_INCLUDED
-#define FRUITCUT_FRUITLIB_DELAYED_PTR_SEQUENCE_HPP_INCLUDED
+#ifndef FRUITLIB_DELAYED_PTR_SEQUENCE_HPP_INCLUDED
+#define FRUITLIB_DELAYED_PTR_SEQUENCE_HPP_INCLUDED
 
 #include <fcppt/unique_ptr.hpp>
 #include <fcppt/move.hpp>
@@ -9,8 +9,6 @@
 #include <boost/ptr_container/clone_allocator.hpp>
 #include <memory>
 
-namespace fruitcut
-{
 namespace fruitlib
 {
 template
@@ -180,7 +178,6 @@ private:
 	implementation_sequence new_values_;
 	view_implementation_sequence old_values_;
 };
-}
 }
 
 #endif

@@ -1,7 +1,7 @@
 #include "descriptor.hpp"
 #include <fcppt/math/dim/comparison.hpp>
 
-fruitcut::fruitlib::pp::texture::descriptor::descriptor(
+fruitlib::pp::texture::descriptor::descriptor(
 	sge::renderer::dim2 const &_size,
 	sge::image::color::format::type const _image_format,
 	depth_stencil_format::type const _depth_stencil)
@@ -14,7 +14,7 @@ fruitcut::fruitlib::pp::texture::descriptor::descriptor(
 }
 
 sge::renderer::dim2 const &
-fruitcut::fruitlib::pp::texture::descriptor::size() const
+fruitlib::pp::texture::descriptor::size() const
 {
 	return 
 		boost::fusion::get<0>(
@@ -22,15 +22,15 @@ fruitcut::fruitlib::pp::texture::descriptor::size() const
 }
 
 sge::image::color::format::type 
-fruitcut::fruitlib::pp::texture::descriptor::image_format() const
+fruitlib::pp::texture::descriptor::image_format() const
 {
 	return 
 		boost::fusion::get<1>(
 			tuple_);
 }
 
-fruitcut::fruitlib::pp::texture::depth_stencil_format::type 
-fruitcut::fruitlib::pp::texture::descriptor::depth_stencil() const
+fruitlib::pp::texture::depth_stencil_format::type 
+fruitlib::pp::texture::descriptor::depth_stencil() const
 {
 	return 
 		boost::fusion::get<2>(
@@ -38,7 +38,7 @@ fruitcut::fruitlib::pp::texture::descriptor::depth_stencil() const
 }
 
 bool 
-fruitcut::fruitlib::pp::texture::descriptor::operator<(
+fruitlib::pp::texture::descriptor::operator<(
 	descriptor const &r) const
 {
 	return 

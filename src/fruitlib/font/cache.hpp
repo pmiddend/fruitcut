@@ -1,5 +1,5 @@
-#ifndef FRUITCUT_FRUITLIB_FONT_CACHE_HPP_INCLUDED
-#define FRUITCUT_FRUITLIB_FONT_CACHE_HPP_INCLUDED
+#ifndef FRUITLIB_FONT_CACHE_HPP_INCLUDED
+#define FRUITLIB_FONT_CACHE_HPP_INCLUDED
 
 #include "drawer/object_fwd.hpp"
 #include "identifier.hpp"
@@ -15,8 +15,6 @@
 #include <list>
 #include <map>
 
-namespace fruitcut
-{
 namespace fruitlib
 {
 namespace font
@@ -38,7 +36,7 @@ public:
 	metrics(
 		identifier const &);
 
-	fruitcut::fruitlib::font::drawer::object &
+	drawer::object &
 	drawer(
 		identifier const &);
 
@@ -51,7 +49,7 @@ private:
 	metrics_sequence;
 
 	typedef
-	boost::ptr_list<fruitcut::fruitlib::font::drawer::object>
+	boost::ptr_list<drawer::object>
 	drawer_sequence;
 
 	typedef
@@ -76,7 +74,6 @@ private:
 	to_drawer to_drawer_;
 	fcppt::filesystem::path const base_path_;
 };
-}
 }
 }
 

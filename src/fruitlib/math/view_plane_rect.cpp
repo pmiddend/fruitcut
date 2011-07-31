@@ -2,7 +2,7 @@
 #include "view_plane_distance.hpp"
 
 fcppt::math::box::basic<sge::renderer::scalar,2> const
-fruitcut::fruitlib::math::view_plane_rect(
+fruitlib::math::view_plane_rect(
 	sge::renderer::matrix4 const &mvp,
 	sge::camera::projection::perspective const &perspective)
 {

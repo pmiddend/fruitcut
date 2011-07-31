@@ -1,5 +1,5 @@
-#ifndef FRUITCUT_FRUITLIB_GRID_FROM_IMAGE_HPP_INCLUDED
-#define FRUITCUT_FRUITLIB_GRID_FROM_IMAGE_HPP_INCLUDED
+#ifndef FRUITLIB_GRID_FROM_IMAGE_HPP_INCLUDED
+#define FRUITLIB_GRID_FROM_IMAGE_HPP_INCLUDED
 
 #include <sge/image2d/file_ptr.hpp>
 #include <sge/image2d/file.hpp>
@@ -12,8 +12,6 @@
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/optional.hpp>
 
-namespace fruitcut
-{
 namespace fruitlib
 {
 namespace grid
@@ -40,7 +38,6 @@ from_image(
 			f,
 			sge::image2d::view::optional_pitch()));
 	return result;
-}
 }
 }
 }

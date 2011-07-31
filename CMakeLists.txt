@@ -104,6 +104,9 @@ ENDIF()
 
 ADD_SUBDIRECTORY(src/sandbox)
 
+INCLUDE_DIRECTORIES(${CMAKE_SOURCE_DIR}/src/fruitlib)
+INCLUDE_DIRECTORIES(${CMAKE_SOURCE_DIR}/src)
+
 SET(
 	FRUITLIB_FILES
 	src/fruitlib/animation.hpp

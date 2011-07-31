@@ -1,5 +1,5 @@
-#ifndef FRUITCUT_FRUITLIB_SCENIC_ADAPTORS_GUI_SYSTEM_HPP_INCLUDED
-#define FRUITCUT_FRUITLIB_SCENIC_ADAPTORS_GUI_SYSTEM_HPP_INCLUDED
+#ifndef FRUITLIB_SCENIC_ADAPTORS_GUI_SYSTEM_HPP_INCLUDED
+#define FRUITLIB_SCENIC_ADAPTORS_GUI_SYSTEM_HPP_INCLUDED
 
 #include "../node.hpp"
 #include "../optional_parent.hpp"
@@ -9,8 +9,6 @@
 #include <fcppt/noncopyable.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 
-namespace fruitcut
-{
 namespace fruitlib
 {
 namespace scenic
@@ -45,7 +43,6 @@ public:
 private:
 	sge::cegui::system &system_;
 };
-}
 }
 }
 }

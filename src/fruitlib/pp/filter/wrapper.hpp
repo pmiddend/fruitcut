@@ -1,11 +1,9 @@
-#ifndef FRUITCUT_FRUITLIB_PP_FILTER_WRAPPER_HPP_INCLUDED
-#define FRUITCUT_FRUITLIB_PP_FILTER_WRAPPER_HPP_INCLUDED
+#ifndef FRUITLIB_PP_FILTER_WRAPPER_HPP_INCLUDED
+#define FRUITLIB_PP_FILTER_WRAPPER_HPP_INCLUDED
 
 #include "base_fwd.hpp"
 #include <fcppt/string.hpp>
 
-namespace fruitcut
-{
 namespace fruitlib
 {
 namespace pp
@@ -41,7 +39,6 @@ private:
 	fcppt::string name_;
 	bool active_;
 };
-}
 }
 }
 }

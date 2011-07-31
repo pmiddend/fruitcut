@@ -5,7 +5,7 @@
 #include <fcppt/log/activate_levels.hpp>
 #include <iostream>
 
-fruitcut::fruitlib::log::scoped::scoped(
+fruitlib::log::scoped::scoped(
 	fcppt::log::context &_context,
 	fcppt::log::location const &_location,
 	fcppt::log::level::type const &_new_level)
@@ -29,7 +29,7 @@ fruitcut::fruitlib::log::scoped::scoped(
 		_new_level);
 }
 
-fruitcut::fruitlib::log::scoped::~scoped()
+fruitlib::log::scoped::~scoped()
 {
 	for(
 		fcppt::log::enabled_level_array::const_iterator r = 

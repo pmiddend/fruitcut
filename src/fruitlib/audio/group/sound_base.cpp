@@ -3,7 +3,7 @@
 #include "buffer.hpp"
 #include <iostream>
 
-fruitcut::fruitlib::audio::group::sound_base::sound_base(
+fruitlib::audio::group::sound_base::sound_base(
 	group::buffer &_buffer,
 	sge::audio::scalar const _global_gain,
 	sge::audio::scalar const _global_pitch)
@@ -30,7 +30,7 @@ fruitcut::fruitlib::audio::group::sound_base::sound_base(
 		*this);
 }
 
-fruitcut::fruitlib::audio::group::sound_base::sound_base(
+fruitlib::audio::group::sound_base::sound_base(
 	group::player &_player,
 	sge::audio::sound::base_ptr const _impl,
 	sge::audio::scalar const _global_gain,
@@ -60,7 +60,7 @@ fruitcut::fruitlib::audio::group::sound_base::sound_base(
 }
 
 void 
-fruitcut::fruitlib::audio::group::sound_base::play(
+fruitlib::audio::group::sound_base::play(
 	sge::audio::sound::repeat::type const _repeat)
 {
 	return
@@ -69,28 +69,28 @@ fruitcut::fruitlib::audio::group::sound_base::play(
 }
 
 sge::audio::sound::repeat::type
-fruitcut::fruitlib::audio::group::sound_base::repeat() const
+fruitlib::audio::group::sound_base::repeat() const
 {
 	return
 		impl_->repeat();
 }
 
 void 
-fruitcut::fruitlib::audio::group::sound_base::toggle_pause()
+fruitlib::audio::group::sound_base::toggle_pause()
 {
 	return
 		impl_->toggle_pause();
 }
 
 sge::audio::sound::play_status::type 
-fruitcut::fruitlib::audio::group::sound_base::status() const
+fruitlib::audio::group::sound_base::status() const
 {
 	return
 		impl_->status();
 }
 
 void 
-fruitcut::fruitlib::audio::group::sound_base::gain(
+fruitlib::audio::group::sound_base::gain(
 	sge::audio::scalar const _local_gain)
 {
 	local_gain_ = 
@@ -102,14 +102,14 @@ fruitcut::fruitlib::audio::group::sound_base::gain(
 }
 
 sge::audio::scalar 
-fruitcut::fruitlib::audio::group::sound_base::gain() const
+fruitlib::audio::group::sound_base::gain() const
 {
 	return
 		local_gain_;
 }
 
 void 
-fruitcut::fruitlib::audio::group::sound_base::pitch(
+fruitlib::audio::group::sound_base::pitch(
 	sge::audio::scalar const _local_pitch)
 {
 	local_pitch_ = 
@@ -121,28 +121,28 @@ fruitcut::fruitlib::audio::group::sound_base::pitch(
 }
 
 sge::audio::scalar 
-fruitcut::fruitlib::audio::group::sound_base::pitch() const
+fruitlib::audio::group::sound_base::pitch() const
 {
 	return
 		local_pitch_;
 }
 
 void 
-fruitcut::fruitlib::audio::group::sound_base::stop()
+fruitlib::audio::group::sound_base::stop()
 {
 	return
 		impl_->stop();
 }
 
 void
-fruitcut::fruitlib::audio::group::sound_base::update()
+fruitlib::audio::group::sound_base::update()
 {
 	return
 		impl_->update();
 }
 
 void
-fruitcut::fruitlib::audio::group::sound_base::global_gain(
+fruitlib::audio::group::sound_base::global_gain(
 	sge::audio::scalar const _global_gain)
 {
 	global_gain_ = 
@@ -152,7 +152,7 @@ fruitcut::fruitlib::audio::group::sound_base::global_gain(
 }
 
 void
-fruitcut::fruitlib::audio::group::sound_base::global_pitch(
+fruitlib::audio::group::sound_base::global_pitch(
 	sge::audio::scalar const _global_pitch)
 {
 	global_pitch_ = 
@@ -161,7 +161,7 @@ fruitcut::fruitlib::audio::group::sound_base::global_pitch(
 		pitch());
 }
 
-fruitcut::fruitlib::audio::group::sound_base::~sound_base()
+fruitlib::audio::group::sound_base::~sound_base()
 {
 	if(buffer_)
 		buffer_->remove_sound(
@@ -171,7 +171,7 @@ fruitcut::fruitlib::audio::group::sound_base::~sound_base()
 			*this);
 }
 
-fruitcut::fruitlib::audio::group::sound_base::sound_base(
+fruitlib::audio::group::sound_base::sound_base(
 	group::buffer &_buffer,
 	sge::audio::sound::base_ptr const _impl,
 	sge::audio::scalar const _global_gain,

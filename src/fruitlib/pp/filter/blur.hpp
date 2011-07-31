@@ -1,5 +1,5 @@
-#ifndef FRUITCUT_FRUITLIB_PP_FILTER_BLUR_HPP_INCLUDED
-#define FRUITCUT_FRUITLIB_PP_FILTER_BLUR_HPP_INCLUDED
+#ifndef FRUITLIB_PP_FILTER_BLUR_HPP_INCLUDED
+#define FRUITLIB_PP_FILTER_BLUR_HPP_INCLUDED
 
 #include "unary.hpp"
 #include "manager_fwd.hpp"
@@ -14,8 +14,6 @@
 #include <boost/ptr_container/ptr_array.hpp>
 #include <cstddef>
 
-namespace fruitcut
-{
 namespace fruitlib
 {
 namespace pp
@@ -64,7 +62,6 @@ private:
 		instance_array &,
 		size_type);
 };
-}
 }
 }
 }

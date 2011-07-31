@@ -9,8 +9,6 @@
 #include "../../fruitlib/math/triangle/create_from_interpolation.hpp"
 #include "../../fruitlib/math/triangle/size_type.hpp"
 
-namespace fruitcut
-{
 namespace fruitlib
 {
 namespace math
@@ -68,7 +66,6 @@ struct create_from_interpolation<fruitcut::app::fruit::triangle>
 		return result;
 	}
 };
-}
 }
 }
 }

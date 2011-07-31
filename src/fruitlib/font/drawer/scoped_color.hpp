@@ -1,13 +1,11 @@
-#ifndef FRUITCUT_FRUITLIB_FONT_DRAWER_SCOPED_COLOR_HPP_INCLUDED
-#define FRUITCUT_FRUITLIB_FONT_DRAWER_SCOPED_COLOR_HPP_INCLUDED
+#ifndef FRUITLIB_FONT_DRAWER_SCOPED_COLOR_HPP_INCLUDED
+#define FRUITLIB_FONT_DRAWER_SCOPED_COLOR_HPP_INCLUDED
 
 #include "object_fwd.hpp"
 #include "../color.hpp"
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/variant/object.hpp>
 
-namespace fruitcut
-{
 namespace fruitlib
 {
 namespace font
@@ -29,7 +27,6 @@ private:
 	drawer::object &object_;
 	font::color const old_color_;
 };
-}
 }
 }
 }

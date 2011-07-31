@@ -10,7 +10,7 @@
 #include <string>
 
 fcppt::string const
-fruitcut::fruitlib::utf8_file_to_fcppt_string(
+fruitlib::utf8_file_to_fcppt_string(
 	fcppt::filesystem::path const &path)
 {
 	fcppt::io::cifstream file_stream(

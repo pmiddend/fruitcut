@@ -1,15 +1,11 @@
-#ifndef FRUITCUT_FRUITLIB_PP_FILTER_BASE_HPP_INCLUDED
-#define FRUITCUT_FRUITLIB_PP_FILTER_BASE_HPP_INCLUDED
+#ifndef FRUITLIB_PP_FILTER_BASE_HPP_INCLUDED
+#define FRUITLIB_PP_FILTER_BASE_HPP_INCLUDED
 
 #include "../texture/counted_instance.hpp"
-// We friendify pp::system, but pp::system is in another namespace, so
-// it needs a FUCKING forward declaration, wtf?
 #include "../system_fwd.hpp"
 #include <fcppt/noncopyable.hpp>
 #include <vector>
 
-namespace fruitcut
-{
 namespace fruitlib
 {
 namespace pp
@@ -27,7 +23,7 @@ public:
 	virtual 
 	~base();
 private:
-	friend class fruitcut::fruitlib::pp::system;
+	friend class pp::system;
 
 	typedef 
 	std::vector<texture::counted_instance> 
@@ -42,7 +38,6 @@ private:
 	texture::counted_instance const
 	dispatch();
 };
-}
 }
 }
 }

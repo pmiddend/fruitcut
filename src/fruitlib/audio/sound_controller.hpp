@@ -1,5 +1,5 @@
-#ifndef FRUITCUT_FRUITLIB_AUDIO_SOUND_CONTROLLER_HPP_INCLUDED
-#define FRUITCUT_FRUITLIB_AUDIO_SOUND_CONTROLLER_HPP_INCLUDED
+#ifndef FRUITLIB_AUDIO_SOUND_CONTROLLER_HPP_INCLUDED
+#define FRUITLIB_AUDIO_SOUND_CONTROLLER_HPP_INCLUDED
 
 #include "../resource_tree/make_type.hpp"
 #include "../resource_tree/path.hpp"
@@ -22,8 +22,6 @@
 #include <boost/mpl/vector/vector10.hpp>
 #include <cstddef>
 
-namespace fruitcut
-{
 namespace fruitlib
 {
 namespace audio
@@ -125,7 +123,6 @@ private:
 	do_play(
 		sge::audio::sound::base_ptr);
 };
-}
 }
 }
 

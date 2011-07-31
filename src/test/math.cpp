@@ -35,11 +35,11 @@ fcppt::math::vector::static_<scalar,2>::type
 vector2;
 
 typedef
-fruitcut::fruitlib::math::line::basic<scalar,N>
+fruitlib::math::line::basic<scalar,N>
 line3;
 
 typedef
-fruitcut::fruitlib::math::plane::basic<scalar,N>
+fruitlib::math::plane::basic<scalar,N>
 plane3;
 
 typedef
@@ -83,8 +83,6 @@ public:
 };
 }
 
-namespace fruitcut
-{
 namespace fruitlib
 {
 namespace math
@@ -139,7 +137,6 @@ struct create_from_interpolation<triangle3>
 }
 }
 }
-}
 
 namespace
 {
@@ -155,7 +152,7 @@ fcppt::io::ostream &operator<<(fcppt::io::ostream &s,triangle3 const &p)
 }
 
 typedef
-fruitcut::fruitlib::math::triangle_plane_intersection<triangle3>
+fruitlib::math::triangle_plane_intersection<triangle3>
 intersection_type;
 }
 
@@ -173,7 +170,7 @@ BOOST_AUTO_TEST_CASE(line_plane)
 	fcppt::io::cout << FCPPT_TEXT("Checking intersection of a plane and a line\n");
 
 	fcppt::optional<vector3> const intersection = 
-		fruitcut::fruitlib::math::line_plane_intersection<scalar,N>(
+		fruitlib::math::line_plane_intersection<scalar,N>(
 			line3(
 				vector3(-4.5,1.5,0.0),
 				line_direction),
@@ -215,7 +212,7 @@ BOOST_AUTO_TEST_CASE(line_plane_no_intersection)
 	fcppt::io::cout << FCPPT_TEXT("Checking intersection of a plane and a line which are parallel\n");
 
 	fcppt::optional<vector3> const intersection = 
-		fruitcut::fruitlib::math::line_plane_intersection<scalar,N>(
+		fruitlib::math::line_plane_intersection<scalar,N>(
 			line3(
 				vector3(-4.5,1.5,0.0),
 				line_direction),
@@ -273,7 +270,7 @@ BOOST_AUTO_TEST_CASE(cut_triangle_test)
 		fcppt::io::cout << FCPPT_TEXT("Cutting a triangle which shouldn't be cut\n");
 
 		intersection_type const is =
-			fruitcut::fruitlib::math::cut_triangle_at_plane(
+			fruitlib::math::cut_triangle_at_plane(
 				upper_triangle,
 				p);
 
@@ -312,7 +309,7 @@ BOOST_AUTO_TEST_CASE(cut_triangle_test)
 		fcppt::io::cout << FCPPT_TEXT("Cutting a triangle should be cut completely\n");
 
 		intersection_type const is = 
-			fruitcut::fruitlib::math::cut_triangle_at_plane(
+			fruitlib::math::cut_triangle_at_plane(
 				lower_triangle,
 				p);
 
@@ -334,7 +331,7 @@ BOOST_AUTO_TEST_CASE(cut_triangle_test)
 		fcppt::io::cout << FCPPT_TEXT("Cutting a triangle should be cut in half\n");
 
 		intersection_type const is = 
-			fruitcut::fruitlib::math::cut_triangle_at_plane(
+			fruitlib::math::cut_triangle_at_plane(
 				middle_triangle,
 				p);
 
@@ -393,7 +390,7 @@ BOOST_AUTO_TEST_CASE(cut_triangle_test)
 		fcppt::io::cout << FCPPT_TEXT("Cutting the same triangle in the other half\n");
 
 		intersection_type const is = 
-			fruitcut::fruitlib::math::cut_triangle_at_plane(
+			fruitlib::math::cut_triangle_at_plane(
 				middle_triangle,
 				new_plane);
 
@@ -479,7 +476,7 @@ BOOST_AUTO_TEST_CASE(orthonorm)
 BOOST_AUTO_TEST_CASE(d_to_point)
 {
 	typedef
-	fruitcut::fruitlib::math::line::basic<scalar,2>
+	fruitlib::math::line::basic<scalar,2>
 	line_type;
 
 	typedef
@@ -498,7 +495,7 @@ BOOST_AUTO_TEST_CASE(d_to_point)
 		<< FCPPT_TEXT("Checking if a point is on a line (it should be)...\n");
 
 	BOOST_CHECK((
-		fruitcut::fruitlib::math::line::distance_to_point<scalar,2>(
+		fruitlib::math::line::distance_to_point<scalar,2>(
 			vector_type(
 				4.5,2.5),
 			l) < epsilon));
@@ -509,14 +506,14 @@ BOOST_AUTO_TEST_CASE(d_to_point)
 	fcppt::io::cout 
 		<< FCPPT_TEXT("Distance should be 1.11803, is ") 
 		<< 
-			fruitcut::fruitlib::math::line::distance_to_point<scalar,2>(
+			fruitlib::math::line::distance_to_point<scalar,2>(
 				vector_type(
 					3,3),
 				l) 
 		<< FCPPT_TEXT("\n");
 
 	BOOST_CHECK((
-		fruitcut::fruitlib::math::line::distance_to_point<scalar,2>(
+		fruitlib::math::line::distance_to_point<scalar,2>(
 			vector_type(
 				3,3),
 			l) - static_cast<scalar>(1.11803) < epsilon));
@@ -524,14 +521,14 @@ BOOST_AUTO_TEST_CASE(d_to_point)
 	fcppt::io::cout 
 		<< FCPPT_TEXT("Another test: this time, the distance should be 1.78885 and is ") 
 		<< 
-			fruitcut::fruitlib::math::line::distance_to_point<scalar,2>(
+			fruitlib::math::line::distance_to_point<scalar,2>(
 				vector_type(
 					0.5,-1.5),
 				l) 
 		<< FCPPT_TEXT("...\n");
 
 	BOOST_CHECK((
-		fruitcut::fruitlib::math::line::distance_to_point<scalar,2>(
+		fruitlib::math::line::distance_to_point<scalar,2>(
 			vector_type(
 				0.5,-1.5),
 			l) - static_cast<scalar>(1.78885) < epsilon));

@@ -6,7 +6,7 @@
 #include <vector>
 
 fcppt::log::location const
-fruitcut::fruitlib::log::string_to_location(
+fruitlib::log::string_to_location(
 	fcppt::string const &input,
 	fcppt::char_type const delimiter)
 {

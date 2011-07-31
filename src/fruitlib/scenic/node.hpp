@@ -1,5 +1,5 @@
-#ifndef FRUITCUT_FRUITLIB_SCENIC_NODE_HPP_INCLUDED
-#define FRUITCUT_FRUITLIB_SCENIC_NODE_HPP_INCLUDED
+#ifndef FRUITLIB_SCENIC_NODE_HPP_INCLUDED
+#define FRUITLIB_SCENIC_NODE_HPP_INCLUDED
 
 #include "base.hpp"
 #include "optional_parent.hpp"
@@ -13,8 +13,6 @@
 #include <boost/utility/enable_if.hpp>
 #include <typeinfo>
 
-namespace fruitcut
-{
 namespace fruitlib
 {
 namespace scenic
@@ -93,7 +91,6 @@ protected:
 			e);
 	}
 };
-}
 }
 }
 

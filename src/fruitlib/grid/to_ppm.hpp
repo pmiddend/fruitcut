@@ -1,5 +1,5 @@
-#ifndef FRUITCUT_FRUITLIB_GRID_TO_PPM_HPP_INCLUDED
-#define FRUITCUT_FRUITLIB_GRID_TO_PPM_HPP_INCLUDED
+#ifndef FRUITLIB_GRID_TO_PPM_HPP_INCLUDED
+#define FRUITLIB_GRID_TO_PPM_HPP_INCLUDED
 
 #include <fcppt/container/grid/object.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
@@ -9,8 +9,6 @@
 #include <ostream>
 #include <limits>
 
-namespace fruitcut
-{
 namespace fruitlib
 {
 namespace grid
@@ -46,7 +44,6 @@ to_ppm(
 			s << static_cast<numeric_type>(g[d]) << s.widen(' ');
 		s << s.widen('\n');
 	}
-}
 }
 }
 }

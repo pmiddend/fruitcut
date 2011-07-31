@@ -1,7 +1,7 @@
 #include "scoped_transformation.hpp"
 #include "object.hpp"
 
-fruitcut::fruitlib::font::drawer::scoped_transformation::scoped_transformation(
+fruitlib::font::drawer::scoped_transformation::scoped_transformation(
 	object &_drawer,
 	transform_callback const &_new_callback)
 :
@@ -14,7 +14,7 @@ fruitcut::fruitlib::font::drawer::scoped_transformation::scoped_transformation(
 		_new_callback);
 }
 
-fruitcut::fruitlib::font::drawer::scoped_transformation::~scoped_transformation()
+fruitlib::font::drawer::scoped_transformation::~scoped_transformation()
 {
 	drawer_.transform_callback(
 		old_callback_);

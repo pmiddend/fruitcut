@@ -31,7 +31,7 @@
 #include <utility>
 #include <memory>
 
-fruitcut::fruitlib::pp::texture::manager::manager(
+fruitlib::pp::texture::manager::manager(
 	sge::renderer::device &_renderer)
 :
 	renderer_(
@@ -40,8 +40,8 @@ fruitcut::fruitlib::pp::texture::manager::manager(
 {
 }
 
-fruitcut::fruitlib::pp::texture::counted_instance const
-fruitcut::fruitlib::pp::texture::manager::query(
+fruitlib::pp::texture::counted_instance const
+fruitlib::pp::texture::manager::query(
 	descriptor const &d)
 {
 	return 
@@ -57,8 +57,8 @@ fruitcut::fruitlib::pp::texture::manager::query(
 				d.depth_stencil()));
 }
 
-fruitcut::fruitlib::pp::texture::counted_instance const
-fruitcut::fruitlib::pp::texture::manager::query(
+fruitlib::pp::texture::counted_instance const
+fruitlib::pp::texture::manager::query(
 	sge::renderer::texture::planar &t)
 {
 	for (texture_map::iterator i = textures_.begin(); i != textures_.end(); ++i)
@@ -84,7 +84,7 @@ fruitcut::fruitlib::pp::texture::manager::query(
 }
 
 void
-fruitcut::fruitlib::pp::texture::manager::clear_screen_textures()
+fruitlib::pp::texture::manager::clear_screen_textures()
 {
 	sge::renderer::dim2 const onscreen_dim = 
 		fcppt::math::dim::structure_cast<sge::renderer::dim2>(
@@ -108,12 +108,12 @@ fruitcut::fruitlib::pp::texture::manager::clear_screen_textures()
 	}
 }
 
-fruitcut::fruitlib::pp::texture::manager::~manager()
+fruitlib::pp::texture::manager::~manager()
 {
 }
 
-fruitcut::fruitlib::pp::texture::counted_instance const
-fruitcut::fruitlib::pp::texture::manager::query_internal(
+fruitlib::pp::texture::counted_instance const
+fruitlib::pp::texture::manager::query_internal(
 	descriptor const &d)
 {
 	boost::iterator_range<texture_map::iterator> eq_range = 

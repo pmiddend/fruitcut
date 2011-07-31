@@ -1,6 +1,6 @@
 #include "object_parameters.hpp"
 
-fruitcut::fruitlib::font::object_parameters::object_parameters(
+fruitlib::font::object_parameters::object_parameters(
 	sge::font::metrics_ptr const _metrics,
 	font::drawer::object &_drawer,
 	sge::font::text::string const &_text,
@@ -27,43 +27,43 @@ fruitcut::fruitlib::font::object_parameters::object_parameters(
 }
 
 sge::font::metrics_ptr const
-fruitcut::fruitlib::font::object_parameters::metrics() const
+fruitlib::font::object_parameters::metrics() const
 {
 	return metrics_;
 }
 
-fruitcut::fruitlib::font::drawer::object &
-fruitcut::fruitlib::font::object_parameters::drawer() const
+fruitlib::font::drawer::object &
+fruitlib::font::object_parameters::drawer() const
 {
 	return drawer_;
 }
 
 sge::font::text::string const &
-fruitcut::fruitlib::font::object_parameters::text() const
+fruitlib::font::object_parameters::text() const
 {
 	return text_;
 }
 
 sge::font::rect const &
-fruitcut::fruitlib::font::object_parameters::bounding_box() const
+fruitlib::font::object_parameters::bounding_box() const
 {
 	return bounding_box_;
 }
 
 sge::font::text::align_h::type 
-fruitcut::fruitlib::font::object_parameters::alignment_h() const
+fruitlib::font::object_parameters::alignment_h() const
 {
 	return alignment_h_;
 }
 
 sge::font::text::align_v::type 
-fruitcut::fruitlib::font::object_parameters::alignment_v() const
+fruitlib::font::object_parameters::alignment_v() const
 {
 	return alignment_v_;
 }
 
 sge::font::text::flags_field const &
-fruitcut::fruitlib::font::object_parameters::flags() const
+fruitlib::font::object_parameters::flags() const
 {
 	return flags_;
 }

@@ -11,7 +11,7 @@
 #include <fcppt/string.hpp>
 
 sge::parse::json::value const
-fruitcut::fruitlib::json::string_to_value(
+fruitlib::json::string_to_value(
 	fcppt::string const &s)
 {
 	using namespace sge::parse::json;

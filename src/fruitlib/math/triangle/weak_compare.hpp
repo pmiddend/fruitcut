@@ -1,5 +1,5 @@
-#ifndef FRUITCUT_FRUITLIB_MATH_TRIANGLE_WEAK_COMPARE_HPP_INCLUDED
-#define FRUITCUT_FRUITLIB_MATH_TRIANGLE_WEAK_COMPARE_HPP_INCLUDED
+#ifndef FRUITLIB_MATH_TRIANGLE_WEAK_COMPARE_HPP_INCLUDED
+#define FRUITLIB_MATH_TRIANGLE_WEAK_COMPARE_HPP_INCLUDED
 
 #include "basic.hpp"
 #include <fcppt/math/range_compare.hpp>
@@ -8,8 +8,6 @@
 #include <boost/spirit/home/phoenix/core/argument.hpp>
 #include <algorithm>
 
-namespace fruitcut
-{
 namespace fruitlib
 {
 namespace math
@@ -72,7 +70,6 @@ weak_compare(
 				boost::phoenix::arg_names::arg1,
 				boost::phoenix::arg_names::arg2,
 				epsilon));
-}
 }
 }
 }

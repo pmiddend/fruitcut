@@ -1,12 +1,10 @@
-#ifndef FRUITCUT_FRUITLIB_AUDIO_POOL_HPP_INCLUDED
-#define FRUITCUT_FRUITLIB_AUDIO_POOL_HPP_INCLUDED
+#ifndef FRUITLIB_AUDIO_POOL_HPP_INCLUDED
+#define FRUITLIB_AUDIO_POOL_HPP_INCLUDED
 
 #include <sge/audio/sound/base_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <vector>
 
-namespace fruitcut
-{
 namespace fruitlib
 {
 namespace audio
@@ -34,7 +32,6 @@ private:
 
 	sound_sequence sounds_;
 };
-}
 }
 }
 

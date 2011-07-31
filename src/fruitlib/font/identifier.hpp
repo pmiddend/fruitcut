@@ -1,10 +1,8 @@
-#ifndef FRUITCUT_FRUITLIB_FONT_IDENTIFIER_HPP_INCLUDED
-#define FRUITCUT_FRUITLIB_FONT_IDENTIFIER_HPP_INCLUDED
+#ifndef FRUITLIB_FONT_IDENTIFIER_HPP_INCLUDED
+#define FRUITLIB_FONT_IDENTIFIER_HPP_INCLUDED
 
 #include <fcppt/string.hpp>
 
-namespace fruitcut
-{
 namespace fruitlib
 {
 namespace font
@@ -14,7 +12,6 @@ namespace font
 typedef
 fcppt::string
 identifier;
-}
 }
 }
 

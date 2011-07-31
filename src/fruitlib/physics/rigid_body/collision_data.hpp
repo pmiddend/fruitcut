@@ -1,10 +1,8 @@
-#ifndef FRUITCUT_FRUITLIB_PHYSICS_RIGID_BODY_COLLISION_DATA_HPP_INCLUDED
-#define FRUITCUT_FRUITLIB_PHYSICS_RIGID_BODY_COLLISION_DATA_HPP_INCLUDED
+#ifndef FRUITLIB_PHYSICS_RIGID_BODY_COLLISION_DATA_HPP_INCLUDED
+#define FRUITLIB_PHYSICS_RIGID_BODY_COLLISION_DATA_HPP_INCLUDED
 
 #include "user_data.hpp"
 
-namespace fruitcut
-{
 namespace fruitlib
 {
 namespace physics
@@ -27,7 +25,6 @@ public:
 private:
 	rigid_body::user_data body1_,body2_;
 };
-}
 }
 }
 }

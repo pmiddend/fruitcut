@@ -1,13 +1,11 @@
-#ifndef FRUITCUT_FRUITLIB_RESOURCE_TREE_NODE_HPP_INCLUDED
-#define FRUITCUT_FRUITLIB_RESOURCE_TREE_NODE_HPP_INCLUDED
+#ifndef FRUITLIB_RESOURCE_TREE_NODE_HPP_INCLUDED
+#define FRUITLIB_RESOURCE_TREE_NODE_HPP_INCLUDED
 
 #include <fcppt/variant/object.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/variant/apply_unary.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 
-namespace fruitcut
-{
 namespace fruitlib
 {
 namespace resource_tree
@@ -135,7 +133,6 @@ private:
 	fcppt::string name_;
 	value_type value_;
 };
-}
 }
 }
 

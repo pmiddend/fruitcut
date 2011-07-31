@@ -10,7 +10,7 @@
 #include <typeinfo>
 
 sge::parse::json::object *
-fruitcut::fruitlib::json::find_object(
+fruitlib::json::find_object(
 	sge::parse::json::object &input_object,
 	json::path const &p)
 {
@@ -56,7 +56,7 @@ fruitcut::fruitlib::json::find_object(
 }
 
 sge::parse::json::object const *
-fruitcut::fruitlib::json::find_object(
+fruitlib::json::find_object(
 	sge::parse::json::object const &input_object,
 	json::path const &p)
 {

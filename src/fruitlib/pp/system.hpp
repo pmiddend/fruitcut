@@ -1,5 +1,5 @@
-#ifndef FRUITCUT_FRUITLIB_PP_SYSTEM_HPP_INCLUDED
-#define FRUITCUT_FRUITLIB_PP_SYSTEM_HPP_INCLUDED
+#ifndef FRUITLIB_PP_SYSTEM_HPP_INCLUDED
+#define FRUITLIB_PP_SYSTEM_HPP_INCLUDED
 
 #include "filter/base_fwd.hpp"
 #include "filter/wrapper.hpp"
@@ -16,8 +16,6 @@
 #include <fcppt/tr1/unordered_set.hpp>
 #include <map>
 
-namespace fruitcut
-{
 namespace fruitlib
 {
 namespace pp
@@ -145,7 +143,6 @@ private:
 	sge::shader::object &shader_;
 	sge::renderer::texture::planar_ptr result_texture_;
 };
-}
 }
 }
 

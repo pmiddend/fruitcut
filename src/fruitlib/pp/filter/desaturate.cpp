@@ -16,7 +16,7 @@
 #include <fcppt/text.hpp>
 #include <iostream>
 
-fruitcut::fruitlib::pp::filter::desaturate::desaturate(
+fruitlib::pp::filter::desaturate::desaturate(
 	sge::renderer::device &_renderer,
 	filter::manager &_filter_manager,
 	texture::manager &_texture_manager,
@@ -53,16 +53,16 @@ fruitcut::fruitlib::pp::filter::desaturate::desaturate(
 }
 
 void
-fruitcut::fruitlib::pp::filter::desaturate::factor(
+fruitlib::pp::filter::desaturate::factor(
 	sge::renderer::scalar const _factor)
 {
 	factor_ = 
 		_factor;
 }
 
-fruitcut::fruitlib::pp::texture::counted_instance const
-fruitcut::fruitlib::pp::filter::desaturate::apply(
-	fruitcut::fruitlib::pp::texture::counted_instance const input)
+fruitlib::pp::texture::counted_instance const
+fruitlib::pp::filter::desaturate::apply(
+	fruitlib::pp::texture::counted_instance const input)
 {
 	shader_.update_texture(
 		"tex",

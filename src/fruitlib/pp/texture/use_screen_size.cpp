@@ -3,7 +3,7 @@
 #include <limits>
 
 sge::renderer::dim2 const
-fruitcut::fruitlib::pp::texture::use_screen_size()
+fruitlib::pp::texture::use_screen_size()
 {
 	return 
 		sge::renderer::dim2(

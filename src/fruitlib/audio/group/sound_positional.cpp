@@ -2,7 +2,7 @@
 #include "buffer.hpp"
 #include <sge/audio/buffer.hpp>
 
-fruitcut::fruitlib::audio::group::sound_positional::sound_positional(
+fruitlib::audio::group::sound_positional::sound_positional(
 	group::buffer &_buffer,
 	sge::audio::sound::positional_parameters const &_pp,
 	sge::audio::scalar const _global_gain,
@@ -21,7 +21,7 @@ fruitcut::fruitlib::audio::group::sound_positional::sound_positional(
 {
 }
 
-fruitcut::fruitlib::audio::group::sound_positional::sound_positional(
+fruitlib::audio::group::sound_positional::sound_positional(
 	group::player &_player,
 	sge::audio::sound::positional_ptr const _impl,
 	sge::audio::scalar const _global_gain,
@@ -40,7 +40,7 @@ fruitcut::fruitlib::audio::group::sound_positional::sound_positional(
 }
 
 void 
-fruitcut::fruitlib::audio::group::sound_positional::play(
+fruitlib::audio::group::sound_positional::play(
 	sge::audio::sound::repeat::type const _repeat)
 {
 	return 
@@ -49,28 +49,28 @@ fruitcut::fruitlib::audio::group::sound_positional::play(
 }
 
 sge::audio::sound::repeat::type
-fruitcut::fruitlib::audio::group::sound_positional::repeat() const
+fruitlib::audio::group::sound_positional::repeat() const
 {
 	return
 		sound_base::repeat();
 }
 
 void 
-fruitcut::fruitlib::audio::group::sound_positional::toggle_pause()
+fruitlib::audio::group::sound_positional::toggle_pause()
 {
 	return
 		sound_base::toggle_pause();
 }
 
 sge::audio::sound::play_status::type 
-fruitcut::fruitlib::audio::group::sound_positional::status() const
+fruitlib::audio::group::sound_positional::status() const
 {
 	return 
 		sound_base::status();
 }
 
 void 
-fruitcut::fruitlib::audio::group::sound_positional::gain(
+fruitlib::audio::group::sound_positional::gain(
 	sge::audio::scalar const _gain)
 {
 	return
@@ -79,14 +79,14 @@ fruitcut::fruitlib::audio::group::sound_positional::gain(
 }
 
 sge::audio::scalar 
-fruitcut::fruitlib::audio::group::sound_positional::gain() const
+fruitlib::audio::group::sound_positional::gain() const
 {
 	return
 		sound_base::gain();
 }
 
 void 
-fruitcut::fruitlib::audio::group::sound_positional::pitch(
+fruitlib::audio::group::sound_positional::pitch(
 	sge::audio::scalar const _pitch)
 {
 	return
@@ -95,35 +95,35 @@ fruitcut::fruitlib::audio::group::sound_positional::pitch(
 }
 
 sge::audio::scalar 
-fruitcut::fruitlib::audio::group::sound_positional::pitch() const
+fruitlib::audio::group::sound_positional::pitch() const
 {
 	return
 		sound_base::pitch();
 }
 
 void 
-fruitcut::fruitlib::audio::group::sound_positional::stop()
+fruitlib::audio::group::sound_positional::stop()
 {
 	return
 		sound_base::stop();
 }
 
 void
-fruitcut::fruitlib::audio::group::sound_positional::update()
+fruitlib::audio::group::sound_positional::update()
 {
 	return
 		sound_base::update();
 }
 
 sge::audio::vector const 
-fruitcut::fruitlib::audio::group::sound_positional::position() const
+fruitlib::audio::group::sound_positional::position() const
 {
 	return 
 		impl_.position();
 }
 
 void 
-fruitcut::fruitlib::audio::group::sound_positional::position(
+fruitlib::audio::group::sound_positional::position(
 	sge::audio::vector const &_position)
 {
 	return
@@ -132,14 +132,14 @@ fruitcut::fruitlib::audio::group::sound_positional::position(
 }
 
 sge::audio::vector const 
-fruitcut::fruitlib::audio::group::sound_positional::linear_velocity() const
+fruitlib::audio::group::sound_positional::linear_velocity() const
 {
 	return
 		impl_.linear_velocity();
 }
 
 void 
-fruitcut::fruitlib::audio::group::sound_positional::linear_velocity(
+fruitlib::audio::group::sound_positional::linear_velocity(
 	sge::audio::vector const &_linear_velocity)
 {
 	return
@@ -148,7 +148,7 @@ fruitcut::fruitlib::audio::group::sound_positional::linear_velocity(
 }
 
 void 
-fruitcut::fruitlib::audio::group::sound_positional::rolloff(
+fruitlib::audio::group::sound_positional::rolloff(
 	sge::audio::scalar const _rolloff)
 {
 	return
@@ -157,14 +157,14 @@ fruitcut::fruitlib::audio::group::sound_positional::rolloff(
 }
 
 sge::audio::scalar 
-fruitcut::fruitlib::audio::group::sound_positional::rolloff() const
+fruitlib::audio::group::sound_positional::rolloff() const
 {
 	return
 		impl_.rolloff();
 }
 
 void 
-fruitcut::fruitlib::audio::group::sound_positional::direction(
+fruitlib::audio::group::sound_positional::direction(
 	sge::audio::vector const &_direction)
 {
 	return
@@ -173,14 +173,14 @@ fruitcut::fruitlib::audio::group::sound_positional::direction(
 }
 
 sge::audio::vector const 
-fruitcut::fruitlib::audio::group::sound_positional::direction() const
+fruitlib::audio::group::sound_positional::direction() const
 {
 	return 
 		impl_.direction();
 }
 
 void 
-fruitcut::fruitlib::audio::group::sound_positional::inner_cone_angle(
+fruitlib::audio::group::sound_positional::inner_cone_angle(
 	sge::audio::scalar const _inner_cone_angle)
 {
 	return
@@ -189,14 +189,14 @@ fruitcut::fruitlib::audio::group::sound_positional::inner_cone_angle(
 }
 
 sge::audio::scalar 
-fruitcut::fruitlib::audio::group::sound_positional::inner_cone_angle() const
+fruitlib::audio::group::sound_positional::inner_cone_angle() const
 {
 	return
 		impl_.inner_cone_angle();
 }
 
 void 
-fruitcut::fruitlib::audio::group::sound_positional::outer_cone_angle(
+fruitlib::audio::group::sound_positional::outer_cone_angle(
 	sge::audio::scalar const _outer_cone_angle)
 {
 	return
@@ -205,7 +205,7 @@ fruitcut::fruitlib::audio::group::sound_positional::outer_cone_angle(
 }
 
 sge::audio::scalar 
-fruitcut::fruitlib::audio::group::sound_positional::outer_cone_angle() const
+fruitlib::audio::group::sound_positional::outer_cone_angle() const
 {
 	return 
 		impl_.outer_cone_angle();

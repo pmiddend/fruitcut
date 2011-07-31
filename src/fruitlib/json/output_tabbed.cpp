@@ -102,7 +102,7 @@ public:
 		sge::parse::json::string const &o) const
 	{
 		if(o.find(FCPPT_TEXT('\"')) != sge::parse::json::string::npos)
-			throw fruitcut::fruitlib::exception(FCPPT_TEXT("quoted strings are unsupported"));
+			throw fruitlib::exception(FCPPT_TEXT("quoted strings are unsupported"));
 		return make_tabs()+FCPPT_TEXT("\"")+o+FCPPT_TEXT("\"");
 	}
 
@@ -163,7 +163,7 @@ private:
 }
 
 fcppt::string const
-fruitcut::fruitlib::json::output_tabbed(
+fruitlib::json::output_tabbed(
 	sge::parse::json::object const &o)
 {
 	sge::parse::json::value v(

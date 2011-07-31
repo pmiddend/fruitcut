@@ -1,4 +1,4 @@
-#include "average_colors.hpp"
+#include <fruitlib/average_colors.hpp>
 #include <sge/image2d/view/const_object.hpp>
 #include <fcppt/variant/apply_unary.hpp>
 #include <fcppt/nonassignable.hpp>
@@ -253,7 +253,7 @@ view_visitor::operator()(
 }
 
 sge::image::color::any::object const 
-fruitcut::fruitlib::average_colors(
+fruitlib::average_colors(
 	sge::image2d::view::const_object const &input_view)
 {
 	return 

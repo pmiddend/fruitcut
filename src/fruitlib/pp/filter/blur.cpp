@@ -21,7 +21,7 @@
 #include <fcppt/ref.hpp>
 #include <iostream>
 
-fruitcut::fruitlib::pp::filter::blur::blur(
+fruitlib::pp::filter::blur::blur(
 	sge::renderer::device &_renderer,
 	filter::manager &_filter_manager,
 	texture::manager &_texture_manager,
@@ -67,8 +67,8 @@ fruitcut::fruitlib::pp::filter::blur::blur(
 		iterations_);
 }
 
-fruitcut::fruitlib::pp::texture::counted_instance const
-fruitcut::fruitlib::pp::filter::blur::apply(
+fruitlib::pp::texture::counted_instance const
+fruitlib::pp::filter::blur::apply(
 	texture::counted_instance const input)
 {
 	// Step 1: Set input texture of shader 0 to "input"
@@ -135,12 +135,12 @@ fruitcut::fruitlib::pp::filter::blur::apply(
 	return instances[1];
 }
 
-fruitcut::fruitlib::pp::filter::blur::~blur()
+fruitlib::pp::filter::blur::~blur()
 {
 }
 
 void
-fruitcut::fruitlib::pp::filter::blur::render(
+fruitlib::pp::filter::blur::render(
 	instance_array &textures,
 	size_type const i)
 {

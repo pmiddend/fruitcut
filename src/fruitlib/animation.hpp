@@ -1,5 +1,5 @@
-#ifndef FRUITCUT_FRUITLIB_ANIMATION_HPP_INCLUDED
-#define FRUITCUT_FRUITLIB_ANIMATION_HPP_INCLUDED
+#ifndef FRUITLIB_ANIMATION_HPP_INCLUDED
+#define FRUITLIB_ANIMATION_HPP_INCLUDED
 
 #include <sge/time/timer.hpp>
 #include <sge/time/duration.hpp>
@@ -9,14 +9,12 @@
 #include <fcppt/chrono/duration.hpp>
 #include <fcppt/math/interpolation/trigonometric.hpp>
 #include <fcppt/assert.hpp>
-#include <boost/next_prior.hpp>
 #include <fcppt/scoped_ptr.hpp>
 #include <fcppt/make_unique_ptr.hpp>
+#include <boost/next_prior.hpp>
 #include <vector>
 #include <utility>
 
-namespace fruitcut
-{
 namespace fruitlib
 {
 template<typename T>
@@ -111,7 +109,6 @@ private:
 	fcppt::scoped_ptr<sge::time::timer> current_timer_;
 	typename value_sequence::const_iterator current_value_;
 };
-}
 }
 
 #endif

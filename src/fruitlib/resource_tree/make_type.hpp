@@ -1,11 +1,9 @@
-#ifndef FRUITCUT_FRUITLIB_RESOURCE_TREE_MAKE_TYPE_HPP_INCLUDED
-#define FRUITCUT_FRUITLIB_RESOURCE_TREE_MAKE_TYPE_HPP_INCLUDED
+#ifndef FRUITLIB_RESOURCE_TREE_MAKE_TYPE_HPP_INCLUDED
+#define FRUITLIB_RESOURCE_TREE_MAKE_TYPE_HPP_INCLUDED
 
 #include "node.hpp"
 #include <fcppt/container/tree/object.hpp>
 
-namespace fruitcut
-{
 namespace fruitlib
 {
 namespace resource_tree
@@ -20,7 +18,6 @@ struct make_type
 	>
 	type;
 };
-}
 }
 }
 

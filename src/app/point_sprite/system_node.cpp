@@ -41,13 +41,13 @@
 
 namespace
 {
-fruitcut::fruitlib::uniform_random<std::size_t>::type const
+fruitlib::uniform_random<std::size_t>::type const
 create_random_from_directory(
-	fruitcut::fruitlib::random_generator &_random_generator,
+	fruitlib::random_generator &_random_generator,
 	fcppt::filesystem::path const &p)
 {
 	return 
-		fruitcut::fruitlib::uniform_random<std::size_t>::type(
+		fruitlib::uniform_random<std::size_t>::type(
 			fcppt::random::make_last_exclusive_range(
 				static_cast<std::size_t>(
 					0),

@@ -1,5 +1,5 @@
-#ifndef FRUITCUT_FRUITLIB_PP_SCREEN_VF_QUAD_HPP_INCLUDED
-#define FRUITCUT_FRUITLIB_PP_SCREEN_VF_QUAD_HPP_INCLUDED
+#ifndef FRUITLIB_PP_SCREEN_VF_QUAD_HPP_INCLUDED
+#define FRUITLIB_PP_SCREEN_VF_QUAD_HPP_INCLUDED
 
 #include <sge/renderer/vertex_buffer_ptr.hpp>
 #include <sge/renderer/vertex_declaration_ptr.hpp>
@@ -7,8 +7,6 @@
 #include <sge/renderer/device_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 
-namespace fruitcut
-{
 namespace fruitlib
 {
 namespace pp
@@ -42,7 +40,6 @@ private:
 	sge::renderer::vertex_declaration_ptr declaration_;
 	sge::renderer::vertex_buffer_ptr buffer_;
 };
-}
 }
 }
 }

@@ -1,5 +1,5 @@
-#ifndef FRUITCUT_FRUITLIB_MATH_BOX_RADIUS_HPP_INCLUDED
-#define FRUITCUT_FRUITLIB_MATH_BOX_RADIUS_HPP_INCLUDED
+#ifndef FRUITLIB_MATH_BOX_RADIUS_HPP_INCLUDED
+#define FRUITLIB_MATH_BOX_RADIUS_HPP_INCLUDED
 
 #include <fcppt/math/vector/vector.hpp>
 #include <fcppt/math/dim/dim.hpp>
@@ -7,8 +7,6 @@
 #include <boost/utility/enable_if.hpp>
 #include <boost/type_traits/is_floating_point.hpp>
 
-namespace fruitcut
-{
 namespace fruitlib
 {
 namespace math
@@ -27,7 +25,6 @@ box_radius(
 		fcppt::math::vector::length(
 			fcppt::math::dim::structure_cast<typename fcppt::math::box::basic<T,N>::vector>(
 				b.size()/static_cast<T>(2)));
-}
 }
 }
 }

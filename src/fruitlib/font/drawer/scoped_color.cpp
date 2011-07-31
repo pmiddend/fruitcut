@@ -1,7 +1,7 @@
 #include "scoped_color.hpp"
 #include "object.hpp"
 
-fruitcut::fruitlib::font::drawer::scoped_color::scoped_color(
+fruitlib::font::drawer::scoped_color::scoped_color(
 	drawer::object &_object,
 	font::color const &_new_color)
 :
@@ -14,7 +14,7 @@ fruitcut::fruitlib::font::drawer::scoped_color::scoped_color(
 		_new_color);
 }
 
-fruitcut::fruitlib::font::drawer::scoped_color::~scoped_color()
+fruitlib::font::drawer::scoped_color::~scoped_color()
 {
 	object_.color(
 		old_color_);

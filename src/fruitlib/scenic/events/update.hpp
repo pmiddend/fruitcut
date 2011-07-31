@@ -1,13 +1,11 @@
-#ifndef FRUITCUT_FRUITLIB_SCENIC_EVENTS_UPDATE_HPP_INCLUDED
-#define FRUITCUT_FRUITLIB_SCENIC_EVENTS_UPDATE_HPP_INCLUDED
+#ifndef FRUITLIB_SCENIC_EVENTS_UPDATE_HPP_INCLUDED
+#define FRUITLIB_SCENIC_EVENTS_UPDATE_HPP_INCLUDED
 
 #include "base.hpp"
 #include "../update_duration.hpp"
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/chrono/duration_impl.hpp>
 
-namespace fruitcut
-{
 namespace fruitlib
 {
 namespace scenic
@@ -32,7 +30,6 @@ public:
 private:
 	scenic::update_duration const delta_;
 };
-}
 }
 }
 }

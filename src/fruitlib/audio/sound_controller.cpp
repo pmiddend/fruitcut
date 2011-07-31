@@ -23,13 +23,13 @@
 
 namespace
 {
-fruitcut::fruitlib::uniform_random<std::size_t>::type
+fruitlib::uniform_random<std::size_t>::type
 create_random_from_directory(
-	fruitcut::fruitlib::random_generator &_random_generator,
+	fruitlib::random_generator &_random_generator,
 	fcppt::filesystem::path const &p)
 {
 	return 
-		fruitcut::fruitlib::uniform_random<std::size_t>::type(
+		fruitlib::uniform_random<std::size_t>::type(
 			fcppt::random::make_last_exclusive_range(
 				static_cast<std::size_t>(
 					0),
@@ -54,7 +54,7 @@ create_buffer_from_path(
 }
 }
 
-fruitcut::fruitlib::audio::sound_controller::sound_controller(
+fruitlib::audio::sound_controller::sound_controller(
 	scenic::optional_parent const &_parent,
 	fruitlib::random_generator &_random_generator,
 	fcppt::filesystem::path const &_base_path,
@@ -90,7 +90,7 @@ fruitcut::fruitlib::audio::sound_controller::sound_controller(
 }
 
 void
-fruitcut::fruitlib::audio::sound_controller::play(
+fruitlib::audio::sound_controller::play(
 	resource_tree::path const &target_path)
 {
 	resource_tree_type &target_tree =
@@ -118,7 +118,7 @@ fruitcut::fruitlib::audio::sound_controller::play(
 }
 
 void
-fruitcut::fruitlib::audio::sound_controller::play_positional(
+fruitlib::audio::sound_controller::play_positional(
 	resource_tree::path const &target_path,
 	sge::audio::sound::positional_parameters const &pp)
 {
@@ -151,14 +151,14 @@ fruitcut::fruitlib::audio::sound_controller::play_positional(
 }
 
 sge::audio::scalar
-fruitcut::fruitlib::audio::sound_controller::gain() const
+fruitlib::audio::sound_controller::gain() const
 {
 	return 
 		player_.gain();
 }
 
 void
-fruitcut::fruitlib::audio::sound_controller::gain(
+fruitlib::audio::sound_controller::gain(
 	sge::audio::scalar const _gain)
 {
 	player_.gain(
@@ -166,14 +166,14 @@ fruitcut::fruitlib::audio::sound_controller::gain(
 }
 
 sge::audio::scalar
-fruitcut::fruitlib::audio::sound_controller::pitch() const
+fruitlib::audio::sound_controller::pitch() const
 {
 	return 
 		player_.pitch();
 }
 
 void
-fruitcut::fruitlib::audio::sound_controller::pitch(
+fruitlib::audio::sound_controller::pitch(
 	sge::audio::scalar const _pitch)
 {
 	player_.pitch(
@@ -181,17 +181,17 @@ fruitcut::fruitlib::audio::sound_controller::pitch(
 }
 
 void
-fruitcut::fruitlib::audio::sound_controller::react(
+fruitlib::audio::sound_controller::react(
 	scenic::events::update const &)
 {
 	pool_.update();
 }
 
-fruitcut::fruitlib::audio::sound_controller::~sound_controller() {}
+fruitlib::audio::sound_controller::~sound_controller() {}
 
 
 void
-fruitcut::fruitlib::audio::sound_controller::do_play(
+fruitlib::audio::sound_controller::do_play(
 	sge::audio::sound::base_ptr const b)
 {
 	b->play(

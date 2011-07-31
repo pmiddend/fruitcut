@@ -27,7 +27,7 @@ public:
 		sge::parse::json::object const &update) const
 	{
 		return 
-			fruitcut::fruitlib::json::merge_trees(
+			fruitlib::json::merge_trees(
 				original,
 				update);
 	}
@@ -43,8 +43,6 @@ public:
 };
 }
 
-namespace fruitcut
-{
 namespace fruitlib
 {
 namespace stdlib
@@ -65,10 +63,7 @@ union_(
 }
 }
 }
-}
 
-namespace fruitcut
-{
 namespace fruitlib
 {
 namespace json
@@ -86,10 +81,9 @@ key_set(
 }
 }
 }
-}
 
 sge::parse::json::object const
-fruitcut::fruitlib::json::merge_trees(
+fruitlib::json::merge_trees(
 	sge::parse::json::object const &original,
 	sge::parse::json::object const &update)
 {
@@ -102,7 +96,7 @@ fruitcut::fruitlib::json::merge_trees(
 	string_set;
 
 	string_set const union_set = 
-		fruitcut::fruitlib::stdlib::union_(
+		fruitlib::stdlib::union_(
 			key_set(
 				original),
 			key_set(

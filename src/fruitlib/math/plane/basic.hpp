@@ -1,12 +1,10 @@
-#ifndef FRUITCUT_FRUITLIB_MATH_PLANE_BASIC_HPP_INCLUDED
-#define FRUITCUT_FRUITLIB_MATH_PLANE_BASIC_HPP_INCLUDED
+#ifndef FRUITLIB_MATH_PLANE_BASIC_HPP_INCLUDED
+#define FRUITLIB_MATH_PLANE_BASIC_HPP_INCLUDED
 
 #include <fcppt/math/vector/vector.hpp>
 #include <fcppt/math/size_type.hpp>
 #include <fcppt/io/ostream.hpp>
 
-namespace fruitcut
-{
 namespace fruitlib
 {
 namespace math
@@ -60,13 +58,12 @@ private:
 }
 }
 }
-}
 
 template<typename T,fcppt::math::size_type N>
 fcppt::io::ostream &
 operator<<(
 	fcppt::io::ostream &s,
-	fruitcut::fruitlib::math::plane::basic<T,N> const &p)
+	fruitlib::math::plane::basic<T,N> const &p)
 {
 	return 
 		s << s.widen('(') << p.normal() << s.widen(',') 

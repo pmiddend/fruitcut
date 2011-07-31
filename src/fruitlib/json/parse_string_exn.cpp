@@ -6,7 +6,7 @@
 #include <fcppt/string.hpp>
 
 sge::parse::json::object const
-fruitcut::fruitlib::json::parse_string_exn(
+fruitlib::json::parse_string_exn(
 	fcppt::string const &s)
 {
 	sge::parse::json::object result;

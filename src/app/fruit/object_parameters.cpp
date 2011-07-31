@@ -50,7 +50,7 @@ fruitcut::app::fruit::object_parameters::prototype() const
 	return prototype_;
 }
 
-fruitcut::fruitlib::physics::world &
+fruitlib::physics::world &
 fruitcut::app::fruit::object_parameters::physics_world() const
 {
 	return world_;
@@ -74,37 +74,37 @@ fruitcut::app::fruit::object_parameters::mesh() const
 	return mesh_;
 }
 
-fruitcut::fruitlib::physics::group::object & 
+fruitlib::physics::group::object & 
 fruitcut::app::fruit::object_parameters::fruit_group() const
 {
 	return fruit_group_;
 }
 
-fruitcut::fruitlib::physics::scalar 
+fruitlib::physics::scalar 
 fruitcut::app::fruit::object_parameters::mass() const
 {
 	return mass_;
 }
 
-fruitcut::fruitlib::physics::vector3 const &
+fruitlib::physics::vector3 const &
 fruitcut::app::fruit::object_parameters::position() const
 {
 	return position_;
 }
 
-fruitcut::fruitlib::physics::matrix4 const &
+fruitlib::physics::matrix4 const &
 fruitcut::app::fruit::object_parameters::transformation() const
 {
 	return transformation_;
 }
 
-fruitcut::fruitlib::physics::vector3 const &
+fruitlib::physics::vector3 const &
 fruitcut::app::fruit::object_parameters::linear_velocity() const
 {
 	return linear_velocity_;
 }
 
-fruitcut::fruitlib::physics::vector3 const &
+fruitlib::physics::vector3 const &
 fruitcut::app::fruit::object_parameters::angular_velocity() const
 {
 	return angular_velocity_;

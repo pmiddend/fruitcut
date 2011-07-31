@@ -92,7 +92,7 @@ fruitcut::app::fruit::object::world_transform() const
 			body_.world_transform());
 }
 
-fruitcut::fruitlib::physics::rigid_body::object const &
+fruitlib::physics::rigid_body::object const &
 fruitcut::app::fruit::object::body() const
 {
 	return 

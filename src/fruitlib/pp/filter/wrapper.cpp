@@ -1,7 +1,7 @@
 #include "wrapper.hpp"
 #include <fcppt/assert.hpp>
 
-fruitcut::fruitlib::pp::filter::wrapper::wrapper()
+fruitlib::pp::filter::wrapper::wrapper()
 :
 	filter_(
 		0),
@@ -12,7 +12,7 @@ fruitcut::fruitlib::pp::filter::wrapper::wrapper()
 {
 }
 
-fruitcut::fruitlib::pp::filter::wrapper::wrapper(
+fruitlib::pp::filter::wrapper::wrapper(
 	base &_filter,
 	fcppt::string const &_name,
 	bool const _active)
@@ -26,8 +26,8 @@ fruitcut::fruitlib::pp::filter::wrapper::wrapper(
 {
 }
 
-fruitcut::fruitlib::pp::filter::base &
-fruitcut::fruitlib::pp::filter::wrapper::filter() const
+fruitlib::pp::filter::base &
+fruitlib::pp::filter::wrapper::filter() const
 {
 	FCPPT_ASSERT(
 		filter_);
@@ -35,20 +35,20 @@ fruitcut::fruitlib::pp::filter::wrapper::filter() const
 }
 
 bool 
-fruitcut::fruitlib::pp::filter::wrapper::active() const
+fruitlib::pp::filter::wrapper::active() const
 {
 	return active_;
 }
 
 void 
-fruitcut::fruitlib::pp::filter::wrapper::active(
+fruitlib::pp::filter::wrapper::active(
 	bool const _active)
 {
 	active_ = _active;
 }
 
 fcppt::string const
-fruitcut::fruitlib::pp::filter::wrapper::name() const
+fruitlib::pp::filter::wrapper::name() const
 {
 	return name_;
 }

@@ -38,7 +38,7 @@ fruitcut::app::fruit::cut_context::area() const
 	return area_;
 }
 
-fruitcut::fruitlib::physics::vector3 const &
+fruitlib::physics::vector3 const &
 fruitcut::app::fruit::cut_context::cut_direction() const
 {
 	return cut_direction_;

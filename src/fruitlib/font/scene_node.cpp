@@ -16,10 +16,10 @@ sge::font::rect const
 scale_transformation(
 	sge::font::rect const &total_rect,
 	sge::font::rect const &character_rect,
-	fruitcut::fruitlib::font::scale::value_type const s)
+	fruitlib::font::scale::value_type const s)
 {
 	typedef
-	fruitcut::fruitlib::font::scale::value_type
+	fruitlib::font::scale::value_type
 	real;
 
 	sge::font::pos const c = 
@@ -51,7 +51,7 @@ scale_transformation(
 }
 }
 
-fruitcut::fruitlib::font::scene_node::scene_node(
+fruitlib::font::scene_node::scene_node(
 	fruitlib::scenic::optional_parent const &_parent,
 	object_parameters const &_params,
 	font::color const &_color,
@@ -68,48 +68,48 @@ fruitcut::fruitlib::font::scene_node::scene_node(
 {
 }
 
-fruitcut::fruitlib::font::color const
-fruitcut::fruitlib::font::scene_node::color() const
+fruitlib::font::color const
+fruitlib::font::scene_node::color() const
 {
 	return color_;
 }
 
 void
-fruitcut::fruitlib::font::scene_node::color(
-	fruitcut::fruitlib::font::color const &_color)
+fruitlib::font::scene_node::color(
+	fruitlib::font::color const &_color)
 {
 	color_ = 
 		_color;
 }
 
-fruitcut::fruitlib::font::scale::value_type
-fruitcut::fruitlib::font::scene_node::scale() const
+fruitlib::font::scale::value_type
+fruitlib::font::scene_node::scale() const
 {
 	return scale_;
 }
 
 void
-fruitcut::fruitlib::font::scene_node::scale(
-	fruitcut::fruitlib::font::scale::value_type const _scale)
+fruitlib::font::scene_node::scale(
+	fruitlib::font::scale::value_type const _scale)
 {
 	scale_ = 
 		_scale;
 }
 
-fruitcut::fruitlib::font::object &
-fruitcut::fruitlib::font::scene_node::object()
+fruitlib::font::object &
+fruitlib::font::scene_node::object()
 {
 	return object_;
 }
 
-fruitcut::fruitlib::font::object const &
-fruitcut::fruitlib::font::scene_node::object() const
+fruitlib::font::object const &
+fruitlib::font::scene_node::object() const
 {
 	return object_;
 }
 
 void
-fruitcut::fruitlib::font::scene_node::react(
+fruitlib::font::scene_node::react(
 	fruitlib::scenic::events::render const &)
 {
 	drawer::scoped_color scoped_color(

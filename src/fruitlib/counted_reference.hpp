@@ -1,11 +1,9 @@
-#ifndef FRUITCUT_FRUITLIB_COUNTED_REFERENCE_HPP_INCLUDED
-#define FRUITCUT_FRUITLIB_COUNTED_REFERENCE_HPP_INCLUDED
+#ifndef FRUITLIB_COUNTED_REFERENCE_HPP_INCLUDED
+#define FRUITLIB_COUNTED_REFERENCE_HPP_INCLUDED
 
 #include <fcppt/safe_bool.hpp>
 #include <fcppt/function/object.hpp>
 
-namespace fruitcut
-{
 namespace fruitlib
 {
 template<typename T>
@@ -152,7 +150,6 @@ bool
 counted_reference<T>::boolean_test() const
 {
 	return ptr_ != 0;
-}
 }
 }
 

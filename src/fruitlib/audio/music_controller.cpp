@@ -25,13 +25,13 @@
 
 namespace
 {
-fruitcut::fruitlib::uniform_random<std::size_t>::type
+fruitlib::uniform_random<std::size_t>::type
 create_random_from_directory(
-	fruitcut::fruitlib::random_generator &_random_generator,
+	fruitlib::random_generator &_random_generator,
 	fcppt::filesystem::path const &p)
 {
 	return 
-		fruitcut::fruitlib::uniform_random<std::size_t>::type(
+		fruitlib::uniform_random<std::size_t>::type(
 			fcppt::random::make_last_exclusive_range(
 				static_cast<std::size_t>(
 					0),
@@ -44,7 +44,7 @@ create_random_from_directory(
 }
 }
 
-fruitcut::fruitlib::audio::music_controller::music_controller(
+fruitlib::audio::music_controller::music_controller(
 	scenic::optional_parent const &_group,
 	fruitlib::random_generator &_random_generator,
 	sge::audio::multi_loader &_audio_loader,
@@ -87,7 +87,7 @@ fruitcut::fruitlib::audio::music_controller::music_controller(
 }
 
 void
-fruitcut::fruitlib::audio::music_controller::play(
+fruitlib::audio::music_controller::play(
 	resource_tree::path const &target_path)
 {
 	resource_tree_type &target_tree =
@@ -119,21 +119,21 @@ fruitcut::fruitlib::audio::music_controller::play(
 }
 
 void
-fruitcut::fruitlib::audio::music_controller::stop()
+fruitlib::audio::music_controller::stop()
 {
 	do_play(
 		silence_source_);
 }
 
 sge::audio::scalar
-fruitcut::fruitlib::audio::music_controller::gain() const
+fruitlib::audio::music_controller::gain() const
 {
 	return 
 		player_.gain();
 }
 
 void
-fruitcut::fruitlib::audio::music_controller::gain(
+fruitlib::audio::music_controller::gain(
 	sge::audio::scalar const _gain)
 {
 	player_.gain(
@@ -141,7 +141,7 @@ fruitcut::fruitlib::audio::music_controller::gain(
 }
 
 void
-fruitcut::fruitlib::audio::music_controller::react(
+fruitlib::audio::music_controller::react(
 	scenic::events::update const &)
 {
 	if(current_source_)
@@ -172,11 +172,11 @@ fruitcut::fruitlib::audio::music_controller::react(
 	}
 }
 
-fruitcut::fruitlib::audio::music_controller::~music_controller() {}
+fruitlib::audio::music_controller::~music_controller() {}
 
 
 void
-fruitcut::fruitlib::audio::music_controller::do_play(
+fruitlib::audio::music_controller::do_play(
 	sge::audio::sound::base_ptr const b)
 {
 	b->gain(

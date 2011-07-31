@@ -5,7 +5,7 @@
 #include <fcppt/math/matrix/matrix.hpp>
 
 sge::renderer::scalar
-fruitcut::fruitlib::math::view_plane_distance(
+fruitlib::math::view_plane_distance(
 	sge::renderer::matrix4 const &m,
 	sge::camera::projection::perspective const &p)
 {

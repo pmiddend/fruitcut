@@ -1,11 +1,9 @@
-#ifndef FRUITCUT_FRUITLIB_SCENIC_PARENT_HPP_INCLUDED
-#define FRUITCUT_FRUITLIB_SCENIC_PARENT_HPP_INCLUDED
+#ifndef FRUITLIB_SCENIC_PARENT_HPP_INCLUDED
+#define FRUITLIB_SCENIC_PARENT_HPP_INCLUDED
 
 #include "base_fwd.hpp"
 #include "depth.hpp"
 
-namespace fruitcut
-{
 namespace fruitlib
 {
 namespace scenic
@@ -27,7 +25,6 @@ private:
 	scenic::base &object_;
 	scenic::depth::value_type const depth_;
 };
-}
 }
 }
 

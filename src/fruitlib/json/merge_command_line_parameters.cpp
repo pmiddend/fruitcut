@@ -45,7 +45,7 @@ process_option(
 			>> boost::spirit::lit('=')
 			>> *encoding::char_,
 			result ) )
-		throw fruitcut::fruitlib::exception(
+		throw fruitlib::exception(
 			FCPPT_TEXT("The command line parameter \"")+
 			input+
 			FCPPT_TEXT("\" has an invalid format. See --help to see what that means."));
@@ -82,7 +82,7 @@ process_option(
 				element));
 
 	if (it == target->members.end())
-		throw fruitcut::fruitlib::exception(
+		throw fruitlib::exception(
 			FCPPT_TEXT("Couldn't find member \"")+
 			element+
 			FCPPT_TEXT("\", did you mean: ")+
@@ -95,14 +95,14 @@ process_option(
 				element));
 
 	it->value = 
-		fruitcut::fruitlib::json::string_to_value(
+		fruitlib::json::string_to_value(
 			boost::fusion::at_c<1>(
 				result));
 }
 }
 
 sge::parse::json::object const
-fruitcut::fruitlib::json::merge_command_line_parameters(
+fruitlib::json::merge_command_line_parameters(
 	sge::parse::json::object input,
 	fruitlib::command_line_parameters const &parameters)
 {

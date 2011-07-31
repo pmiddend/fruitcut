@@ -1,6 +1,6 @@
 #include "parent.hpp"
 
-fruitcut::fruitlib::scenic::parent::parent(
+fruitlib::scenic::parent::parent(
 	scenic::base &_object,
 	scenic::depth const &_depth)
 :
@@ -11,14 +11,14 @@ fruitcut::fruitlib::scenic::parent::parent(
 {
 }
 
-fruitcut::fruitlib::scenic::base &
-fruitcut::fruitlib::scenic::parent::object() const
+fruitlib::scenic::base &
+fruitlib::scenic::parent::object() const
 {
 	return object_;
 }
 
-fruitcut::fruitlib::scenic::depth::value_type
-fruitcut::fruitlib::scenic::parent::depth() const
+fruitlib::scenic::depth::value_type
+fruitlib::scenic::parent::depth() const
 {
 	return depth_;
 }

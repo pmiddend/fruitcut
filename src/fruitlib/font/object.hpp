@@ -1,5 +1,5 @@
-#ifndef FRUITCUT_FRUITLIB_FONT_OBJECT_HPP_INCLUDED
-#define FRUITCUT_FRUITLIB_FONT_OBJECT_HPP_INCLUDED
+#ifndef FRUITLIB_FONT_OBJECT_HPP_INCLUDED
+#define FRUITLIB_FONT_OBJECT_HPP_INCLUDED
 
 #include "object_parameters_fwd.hpp"
 #include "drawer/object_fwd.hpp"
@@ -14,8 +14,6 @@
 #include <fcppt/math/box/box.hpp>
 #include <fcppt/noncopyable.hpp>
 
-namespace fruitcut
-{
 namespace fruitlib
 {
 namespace font
@@ -83,7 +81,6 @@ private:
 	sge::font::text::align_v::type alignment_v_;
 	sge::font::text::flags_field flags_;
 };
-}
 }
 }
 

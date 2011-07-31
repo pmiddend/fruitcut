@@ -17,7 +17,7 @@
 #include <iterator>
 #include <list>
 
-fruitcut::fruitlib::pp::system::system(
+fruitlib::pp::system::system(
 	filter::manager &_filter_manager)
 :
 	filter_manager_(
@@ -34,7 +34,7 @@ fruitcut::fruitlib::pp::system::system(
 }
 
 void
-fruitcut::fruitlib::pp::system::update()
+fruitlib::pp::system::update()
 {
 	typedef
 	std::list<vertex_descriptor>
@@ -81,13 +81,13 @@ fruitcut::fruitlib::pp::system::update()
 }
 
 sge::renderer::texture::planar_ptr const
-fruitcut::fruitlib::pp::system::result_texture()
+fruitlib::pp::system::result_texture()
 {
 	return result_texture_;
 }
 
 void
-fruitcut::fruitlib::pp::system::render_result()
+fruitlib::pp::system::render_result()
 {
 	shader_.update_texture(
 		"tex",
@@ -101,7 +101,7 @@ fruitcut::fruitlib::pp::system::render_result()
 }
 
 void
-fruitcut::fruitlib::pp::system::add_filter(
+fruitlib::pp::system::add_filter(
 	filter::base &b,
 	fcppt::string const &name,
 	dependency_set const &deps)
@@ -150,7 +150,7 @@ fruitcut::fruitlib::pp::system::add_filter(
 }
 
 void
-fruitcut::fruitlib::pp::system::toggle_filter(
+fruitlib::pp::system::toggle_filter(
 	fcppt::string const &name)
 {
 	if (name_to_vertex_.find(name) == name_to_vertex_.end())
@@ -168,10 +168,10 @@ fruitcut::fruitlib::pp::system::toggle_filter(
 		!current_filter.active());
 }
 
-fruitcut::fruitlib::pp::system::filter_name_set const
-fruitcut::fruitlib::pp::system::filter_names() const
+fruitlib::pp::system::filter_name_set const
+fruitlib::pp::system::filter_names() const
 {
-	fruitcut::fruitlib::pp::system::filter_name_set key_set;
+	fruitlib::pp::system::filter_name_set key_set;
 	for(name_to_vertex::const_iterator r = name_to_vertex_.begin(); r != name_to_vertex_.end(); ++r)
 		key_set.insert(
 			r->first);

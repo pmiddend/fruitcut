@@ -15,7 +15,7 @@ namespace
 {
 sge::parse::json::object *
 create_or_navigate_path(
-	fruitcut::fruitlib::json::path const &input_path,
+	fruitlib::json::path const &input_path,
 	sge::parse::json::object * const old,
 	fcppt::string const &new_member)
 {
@@ -43,7 +43,7 @@ create_or_navigate_path(
 		throw 
 			sge::parse::json::exception(
 				FCPPT_TEXT("Couldn't navigate to (make_recursive) \"")+
-				fruitcut::fruitlib::json::path_to_string(
+				fruitlib::json::path_to_string(
 					input_path)+
 				FCPPT_TEXT("\", stopped at \"")+
 				new_member+
@@ -59,7 +59,7 @@ create_or_navigate_path(
 }
 
 sge::parse::json::object &
-fruitcut::fruitlib::json::make_recursive_objects(
+fruitlib::json::make_recursive_objects(
 	sge::parse::json::object &input_object,
 	json::path const &input_path)
 {

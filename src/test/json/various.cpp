@@ -7,7 +7,7 @@
 #include <boost/test/unit_test.hpp>
 
 namespace sgejson = sge::parse::json;
-namespace fruitlibjson = fruitcut::fruitlib::json;
+namespace fruitlibjson = fruitlib::json;
 
 BOOST_AUTO_TEST_CASE(
 	json_make_recursive)
@@ -70,12 +70,12 @@ BOOST_AUTO_TEST_CASE(
 BOOST_AUTO_TEST_CASE(
 	json_merge_command_line_parameters)
 {
-	fruitcut::fruitlib::command_line_parameters params;
+	fruitlib::command_line_parameters params;
 
 	params.push_back(
 		FCPPT_TEXT("foo/bar=\"baz\""));
 
-	fruitcut::fruitlib::command_line_parameters wrongparams;
+	fruitlib::command_line_parameters wrongparams;
 
 	wrongparams.push_back(
 		FCPPT_TEXT("foo/bar=3"));

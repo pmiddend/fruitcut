@@ -64,7 +64,7 @@ fruitcut::app::fruit::prototype::bounding_box() const
 	return bounding_box_;
 }
 
-fruitcut::fruitlib::physics::rigid_body::mass::value_type
+fruitlib::physics::rigid_body::mass::value_type
 fruitcut::app::fruit::prototype::mass() const
 {
 	return mass_;

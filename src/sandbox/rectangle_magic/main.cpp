@@ -97,15 +97,15 @@ sge::sprite::parameters<sprite_choices>
 sprite_parameters;
 
 typedef
-fruitcut::fruitlib::rectangle_manager::object<float_type>
+fruitlib::rectangle_manager::object<float_type>
 rectangle_manager_type;
 
 typedef
-fruitcut::fruitlib::rectangle_manager::rectangle_instance<float_type>
+fruitlib::rectangle_manager::rectangle_instance<float_type>
 rectangle_instance_type;
 
 typedef
-fruitcut::fruitlib::rectangle_manager::padding<float_type>
+fruitlib::rectangle_manager::padding<float_type>
 padding_type;
 
 sge::image::color::rgba8 const

@@ -1,11 +1,9 @@
-#ifndef FRUITCUT_FRUITLIB_MATH_LINE_BASIC_HPP_INCLUDED
-#define FRUITCUT_FRUITLIB_MATH_LINE_BASIC_HPP_INCLUDED
+#ifndef FRUITLIB_MATH_LINE_BASIC_HPP_INCLUDED
+#define FRUITLIB_MATH_LINE_BASIC_HPP_INCLUDED
 
 #include <fcppt/math/vector/vector.hpp>
 #include <fcppt/assert_message.hpp>
 
-namespace fruitcut
-{
 namespace fruitlib
 {
 namespace math
@@ -50,7 +48,6 @@ private:
 	vector point_;
 	vector direction_;
 };
-}
 }
 }
 }

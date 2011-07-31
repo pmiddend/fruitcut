@@ -5,7 +5,7 @@
 #include <sge/cegui/duration.hpp>
 #include <fcppt/chrono/duration_cast.hpp>
 
-fruitcut::fruitlib::scenic::adaptors::gui_system::gui_system(
+fruitlib::scenic::adaptors::gui_system::gui_system(
 	scenic::optional_parent const &_parent,
 	sge::cegui::system &_system)
 :
@@ -16,12 +16,12 @@ fruitcut::fruitlib::scenic::adaptors::gui_system::gui_system(
 {
 }
 
-fruitcut::fruitlib::scenic::adaptors::gui_system::~gui_system()
+fruitlib::scenic::adaptors::gui_system::~gui_system()
 {
 }
 
 void
-fruitcut::fruitlib::scenic::adaptors::gui_system::react(
+fruitlib::scenic::adaptors::gui_system::react(
 	events::update const &d)
 {
 	system_.update(
@@ -30,7 +30,7 @@ fruitcut::fruitlib::scenic::adaptors::gui_system::react(
 }
 
 void
-fruitcut::fruitlib::scenic::adaptors::gui_system::react(
+fruitlib::scenic::adaptors::gui_system::react(
 	events::render const &)
 {
 	system_.render();

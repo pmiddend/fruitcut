@@ -1,5 +1,5 @@
-#ifndef FRUITCUT_FRUITLIB_PHYSICS_RIGID_BODY_PARAMETERS_HPP_INCLUDED
-#define FRUITCUT_FRUITLIB_PHYSICS_RIGID_BODY_PARAMETERS_HPP_INCLUDED
+#ifndef FRUITLIB_PHYSICS_RIGID_BODY_PARAMETERS_HPP_INCLUDED
+#define FRUITLIB_PHYSICS_RIGID_BODY_PARAMETERS_HPP_INCLUDED
 
 #include "solidity.hpp"
 #include "optional_mass.hpp"
@@ -13,8 +13,6 @@
 #include "../matrix4.hpp"
 #include "../shared_shape_ptr.hpp"
 
-namespace fruitcut
-{
 namespace fruitlib
 {
 namespace physics
@@ -70,7 +68,6 @@ private:
 	rigid_body::optional_mass mass_;
 	rigid_body::user_data user_data_;
 };
-}
 }
 }
 }

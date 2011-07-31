@@ -1,5 +1,5 @@
-#ifndef FRUITCUT_FRUITLIB_RECTANGLE_MANAGER_OBJECT_DECL_HPP_INCLUDED
-#define FRUITCUT_FRUITLIB_RECTANGLE_MANAGER_OBJECT_DECL_HPP_INCLUDED
+#ifndef FRUITLIB_RECTANGLE_MANAGER_OBJECT_DECL_HPP_INCLUDED
+#define FRUITLIB_RECTANGLE_MANAGER_OBJECT_DECL_HPP_INCLUDED
 
 #include "object_fwd.hpp"
 #include "padding.hpp"
@@ -11,8 +11,6 @@
 #include <fcppt/noncopyable.hpp>
 #include <boost/ptr_container/ptr_list.hpp>
 
-namespace fruitcut
-{
 namespace fruitlib
 {
 namespace rectangle_manager
@@ -91,7 +89,6 @@ private:
 	erase(
 		instance const &);
 };
-}
 }
 }
 

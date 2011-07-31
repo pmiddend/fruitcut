@@ -1,5 +1,5 @@
-#ifndef FRUITCUT_FRUITLIB_PHYSICS_DEBUGGER_HPP_INCLUDED
-#define FRUITCUT_FRUITLIB_PHYSICS_DEBUGGER_HPP_INCLUDED
+#ifndef FRUITLIB_PHYSICS_DEBUGGER_HPP_INCLUDED
+#define FRUITLIB_PHYSICS_DEBUGGER_HPP_INCLUDED
 
 #include "world_fwd.hpp"
 #include <sge/camera/object_fwd.hpp>
@@ -14,8 +14,6 @@
 #include <fcppt/scoped_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
 
-namespace fruitcut
-{
 namespace fruitlib
 {
 namespace physics
@@ -120,7 +118,6 @@ private:
 	sge::line_drawer::object line_drawer_;
 	fcppt::scoped_ptr<sge::line_drawer::scoped_lock> scoped_lock_;
 };
-}
 }
 }
 

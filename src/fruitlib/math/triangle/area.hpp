@@ -1,5 +1,5 @@
-#ifndef FRUITCUT_FRUITLIB_MATH_TRIANGLE_AREA_HPP_INCLUDED
-#define FRUITCUT_FRUITLIB_MATH_TRIANGLE_AREA_HPP_INCLUDED
+#ifndef FRUITLIB_MATH_TRIANGLE_AREA_HPP_INCLUDED
+#define FRUITLIB_MATH_TRIANGLE_AREA_HPP_INCLUDED
 
 #include "scalar_type.hpp"
 #include "vector_type.hpp"
@@ -7,8 +7,6 @@
 #include <fcppt/math/vector/vector.hpp>
 #include <cmath>
 
-namespace fruitcut
-{
 namespace fruitlib
 {
 namespace math
@@ -33,7 +31,6 @@ area(
 			0.5) * 
 		std::abs(
 			ab.x() * ac.y() - ac.x() * ab.y());
-}
 }
 }
 }

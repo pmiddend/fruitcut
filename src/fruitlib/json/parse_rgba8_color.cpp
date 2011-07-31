@@ -7,7 +7,7 @@
 #include <vector>
 
 sge::image::color::rgba8 const
-fruitcut::fruitlib::json::parse_rgba8_color(
+fruitlib::json::parse_rgba8_color(
 	sge::parse::json::value const &v)
 {
 	try

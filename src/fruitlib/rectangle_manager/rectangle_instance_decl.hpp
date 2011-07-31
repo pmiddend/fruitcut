@@ -1,12 +1,10 @@
-#ifndef FRUITCUT_FRUITLIB_RECTANGLE_MANAGER_RECTANGLE_INSTANCE_DECL_HPP_INCLUDED
-#define FRUITCUT_FRUITLIB_RECTANGLE_MANAGER_RECTANGLE_INSTANCE_DECL_HPP_INCLUDED
+#ifndef FRUITLIB_RECTANGLE_MANAGER_RECTANGLE_INSTANCE_DECL_HPP_INCLUDED
+#define FRUITLIB_RECTANGLE_MANAGER_RECTANGLE_INSTANCE_DECL_HPP_INCLUDED
 
 #include "object_fwd.hpp"
 #include <fcppt/math/box/box.hpp>
 #include <fcppt/math/vector/vector.hpp>
 
-namespace fruitcut
-{
 namespace fruitlib
 {
 namespace rectangle_manager
@@ -75,7 +73,6 @@ private:
 	value_type status_fraction_;
 	bool killed_;
 };
-}
 }
 }
 

@@ -1,5 +1,5 @@
-#ifndef FRUITCUT_FRUITLIB_MATH_LINE_PLANE_INTERSECTION_HPP_INCLUDED
-#define FRUITCUT_FRUITLIB_MATH_LINE_PLANE_INTERSECTION_HPP_INCLUDED
+#ifndef FRUITLIB_MATH_LINE_PLANE_INTERSECTION_HPP_INCLUDED
+#define FRUITLIB_MATH_LINE_PLANE_INTERSECTION_HPP_INCLUDED
 
 #include "line/basic.hpp"
 #include "plane/basic.hpp"
@@ -7,8 +7,6 @@
 #include <fcppt/math/almost_zero.hpp>
 #include <fcppt/optional.hpp>
 
-namespace fruitcut
-{
 namespace fruitlib
 {
 namespace math
@@ -38,7 +36,6 @@ line_plane_intersection(
 				+ (p.lambda() - fcppt::math::vector::dot(p.normal(),l.point()))
 				/ fcppt::math::vector::dot(p.normal(),l.direction())
 				* l.direction());
-}
 }
 }
 }

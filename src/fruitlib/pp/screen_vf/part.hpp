@@ -1,12 +1,10 @@
-#ifndef FRUITCUT_FRUITLIB_PP_SCREEN_VF_PART_HPP_INCLUDED
-#define FRUITCUT_FRUITLIB_PP_SCREEN_VF_PART_HPP_INCLUDED
+#ifndef FRUITLIB_PP_SCREEN_VF_PART_HPP_INCLUDED
+#define FRUITLIB_PP_SCREEN_VF_PART_HPP_INCLUDED
 
 #include "position.hpp"
 #include <sge/renderer/vf/part.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 
-namespace fruitcut
-{
 namespace fruitlib
 {
 namespace pp
@@ -22,7 +20,6 @@ sge::renderer::vf::part
 	>
 > 
 part;
-}
 }
 }
 }

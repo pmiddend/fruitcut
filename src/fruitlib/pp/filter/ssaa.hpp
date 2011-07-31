@@ -1,5 +1,5 @@
-#ifndef FRUITCUT_FRUITLIB_PP_FILTER_SSAA_HPP_INCLUDED
-#define FRUITCUT_FRUITLIB_PP_FILTER_SSAA_HPP_INCLUDED
+#ifndef FRUITLIB_PP_FILTER_SSAA_HPP_INCLUDED
+#define FRUITLIB_PP_FILTER_SSAA_HPP_INCLUDED
 
 #include "unary.hpp"
 #include "manager_fwd.hpp"
@@ -12,8 +12,6 @@
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/filesystem/path.hpp>
 
-namespace fruitcut
-{
 namespace fruitlib
 {
 namespace pp
@@ -46,7 +44,6 @@ private:
 	sge::renderer::dim2 const texture_size_;
 	sge::shader::object &shader_;
 };
-}
 }
 }
 }

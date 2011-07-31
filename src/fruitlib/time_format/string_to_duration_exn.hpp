@@ -1,5 +1,5 @@
-#ifndef FRUITCUT_FRUITLIB_TIME_FORMAT_STRING_TO_DURATION_EXN_HPP_INCLUDED
-#define FRUITCUT_FRUITLIB_TIME_FORMAT_STRING_TO_DURATION_EXN_HPP_INCLUDED
+#ifndef FRUITLIB_TIME_FORMAT_STRING_TO_DURATION_EXN_HPP_INCLUDED
+#define FRUITLIB_TIME_FORMAT_STRING_TO_DURATION_EXN_HPP_INCLUDED
 
 #include "string_to_duration.hpp"
 #include "../exception.hpp"
@@ -7,8 +7,6 @@
 #include <fcppt/text.hpp>
 #include <string>
 
-namespace fruitcut
-{
 namespace fruitlib
 {
 namespace time_format
@@ -31,7 +29,6 @@ string_to_duration_exn(
 		throw fruitlib::exception(FCPPT_TEXT("\"")+input_string+FCPPT_TEXT("\" is not a valid time string"));
 
 	return *result;
-}
 }
 }
 }

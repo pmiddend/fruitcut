@@ -1,11 +1,9 @@
-#ifndef FRUITCUT_FRUITLIB_EXCEPTION_HPP_INCLUDED
-#define FRUITCUT_FRUITLIB_EXCEPTION_HPP_INCLUDED
+#ifndef FRUITLIB_EXCEPTION_HPP_INCLUDED
+#define FRUITLIB_EXCEPTION_HPP_INCLUDED
 
 #include <fcppt/exception.hpp>
 #include <fcppt/string.hpp>
 
-namespace fruitcut
-{
 namespace fruitlib
 {
 class exception
@@ -20,7 +18,6 @@ public:
 	virtual 
 	~exception() throw();
 };
-}
 }
 
 #endif

@@ -4,7 +4,7 @@
 #include <sge/font/text/draw.hpp>
 #include <sge/font/text/part.hpp>
 
-fruitcut::fruitlib::font::object::object(
+fruitlib::font::object::object(
 	font::object_parameters const &p)
 :
 	metrics_(
@@ -25,7 +25,7 @@ fruitcut::fruitlib::font::object::object(
 }
 
 void
-fruitcut::fruitlib::font::object::render()
+fruitlib::font::object::render()
 {
 	sge::font::text::draw(
 		*metrics_,
@@ -38,25 +38,25 @@ fruitcut::fruitlib::font::object::render()
 }
 
 sge::font::metrics &
-fruitcut::fruitlib::font::object::metrics() const
+fruitlib::font::object::metrics() const
 {
 	return *metrics_;
 }
 
-fruitcut::fruitlib::font::drawer::object &
-fruitcut::fruitlib::font::object::drawer() const
+fruitlib::font::drawer::object &
+fruitlib::font::object::drawer() const
 {
 	return drawer_;
 }
 
 sge::font::text::string const &
-fruitcut::fruitlib::font::object::text() const
+fruitlib::font::object::text() const
 {
 	return text_;
 }
 
 void
-fruitcut::fruitlib::font::object::text(
+fruitlib::font::object::text(
 	sge::font::text::string const &_text)
 {
 	text_ = 
@@ -64,13 +64,13 @@ fruitcut::fruitlib::font::object::text(
 }
 
 sge::font::rect const &
-fruitcut::fruitlib::font::object::bounding_box() const
+fruitlib::font::object::bounding_box() const
 {
 	return bounding_box_;
 }
 
 void
-fruitcut::fruitlib::font::object::bounding_box(
+fruitlib::font::object::bounding_box(
 	sge::font::rect const &_bounding_box)
 {
 	bounding_box_ = 
@@ -78,13 +78,13 @@ fruitcut::fruitlib::font::object::bounding_box(
 }
 
 sge::font::text::align_h::type 
-fruitcut::fruitlib::font::object::alignment_h() const
+fruitlib::font::object::alignment_h() const
 {
 	return alignment_h_;
 }
 
 void
-fruitcut::fruitlib::font::object::alignment_h(
+fruitlib::font::object::alignment_h(
 	sge::font::text::align_h::type _alignment_h)
 {
 	alignment_h_ = 
@@ -92,13 +92,13 @@ fruitcut::fruitlib::font::object::alignment_h(
 }
 
 sge::font::text::align_v::type 
-fruitcut::fruitlib::font::object::alignment_v() const
+fruitlib::font::object::alignment_v() const
 {
 	return alignment_v_;
 }
 
 void
-fruitcut::fruitlib::font::object::alignment_v(
+fruitlib::font::object::alignment_v(
 	sge::font::text::align_v::type const _alignment_v)
 {
 	alignment_v_ = 
@@ -106,19 +106,19 @@ fruitcut::fruitlib::font::object::alignment_v(
 }
 
 sge::font::text::flags_field const &
-fruitcut::fruitlib::font::object::flags() const
+fruitlib::font::object::flags() const
 {
 	return flags_;
 }
 
 void
-fruitcut::fruitlib::font::object::flags(
+fruitlib::font::object::flags(
 	sge::font::text::flags_field const &_flags)
 {
 	flags_ = 
 		_flags;
 }
 
-fruitcut::fruitlib::font::object::~object()
+fruitlib::font::object::~object()
 {
 }

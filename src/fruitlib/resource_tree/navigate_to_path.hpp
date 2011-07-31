@@ -1,5 +1,5 @@
-#ifndef FRUITCUT_FRUITLIB_RESOURCE_TREE_NAVIGATE_TO_PATH_HPP_INCLUDED
-#define FRUITCUT_FRUITLIB_RESOURCE_TREE_NAVIGATE_TO_PATH_HPP_INCLUDED
+#ifndef FRUITLIB_RESOURCE_TREE_NAVIGATE_TO_PATH_HPP_INCLUDED
+#define FRUITLIB_RESOURCE_TREE_NAVIGATE_TO_PATH_HPP_INCLUDED
 
 #include "make_type.hpp"
 #include "../exception.hpp"
@@ -10,8 +10,6 @@
 #include <boost/mpl/if.hpp>
 #include <boost/type_traits/is_const.hpp>
 
-namespace fruitcut
-{
 namespace fruitlib
 {
 namespace resource_tree
@@ -96,7 +94,6 @@ navigate_to_path(
 			t,
 			p,
 			p.values().begin());
-}
 }
 }
 }

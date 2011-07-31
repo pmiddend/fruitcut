@@ -36,7 +36,7 @@ projection_rect_from_viewport(
 }
 }
 
-fruitcut::fruitlib::scenic::adaptors::line_drawer::line_drawer(
+fruitlib::scenic::adaptors::line_drawer::line_drawer(
 	scenic::optional_parent const &_parent,
 	sge::line_drawer::object &_object,
 	sge::renderer::device * const _renderer)
@@ -50,12 +50,12 @@ fruitcut::fruitlib::scenic::adaptors::line_drawer::line_drawer(
 {
 }
 
-fruitcut::fruitlib::scenic::adaptors::line_drawer::~line_drawer()
+fruitlib::scenic::adaptors::line_drawer::~line_drawer()
 {
 }
 
 void
-fruitcut::fruitlib::scenic::adaptors::line_drawer::react(
+fruitlib::scenic::adaptors::line_drawer::react(
 	events::render const &)
 {
 	if(renderer_)

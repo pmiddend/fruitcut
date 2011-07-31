@@ -1,5 +1,5 @@
-#ifndef FRUITCUT_FRUITLIB_MATH_CUT_TRIANGLE_AT_PLANE_HPP_INCLUDED
-#define FRUITCUT_FRUITLIB_MATH_CUT_TRIANGLE_AT_PLANE_HPP_INCLUDED
+#ifndef FRUITLIB_MATH_CUT_TRIANGLE_AT_PLANE_HPP_INCLUDED
+#define FRUITLIB_MATH_CUT_TRIANGLE_AT_PLANE_HPP_INCLUDED
 
 #include "plane/distance_to_point.hpp"
 #include "line_plane_intersection.hpp"
@@ -19,8 +19,6 @@
 #include <vector>
 #include <algorithm>
 
-namespace fruitcut
-{
 namespace fruitlib
 {
 namespace math
@@ -205,7 +203,6 @@ cut_triangle_at_plane(
 	}
 	
 	return result;
-}
 }
 }
 }

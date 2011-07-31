@@ -129,19 +129,19 @@ fruitcut::app::postprocessing::result_texture()
 		system_.result_texture();
 }
 
-fruitcut::fruitlib::pp::filter::desaturate &
+fruitlib::pp::filter::desaturate &
 fruitcut::app::postprocessing::desaturate_filter()
 {
 	return desaturate_filter_;
 }
 
-fruitcut::fruitlib::pp::texture::manager &
+fruitlib::pp::texture::manager &
 fruitcut::app::postprocessing::texture_manager()
 {
 	return texture_manager_;
 }
 
-fruitcut::fruitlib::pp::filter::manager &
+fruitlib::pp::filter::manager &
 fruitcut::app::postprocessing::filter_manager()
 {
 	return filter_manager_;

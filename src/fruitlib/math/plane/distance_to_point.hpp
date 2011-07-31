@@ -1,11 +1,9 @@
-#ifndef FRUITCUT_FRUITLIB_MATH_PLANE_DISTANCE_TO_POINT_HPP_INCLUDED
-#define FRUITCUT_FRUITLIB_MATH_PLANE_DISTANCE_TO_POINT_HPP_INCLUDED
+#ifndef FRUITLIB_MATH_PLANE_DISTANCE_TO_POINT_HPP_INCLUDED
+#define FRUITLIB_MATH_PLANE_DISTANCE_TO_POINT_HPP_INCLUDED
 
 #include "basic.hpp"
 #include "normalize.hpp"
 
-namespace fruitcut
-{
 namespace fruitlib
 {
 namespace math
@@ -27,7 +25,6 @@ distance_to_point(
 			p.normal(),
 			d) 
 			- p.lambda();
-}
 }
 }
 }

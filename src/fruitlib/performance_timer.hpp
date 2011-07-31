@@ -1,5 +1,5 @@
-#ifndef FRUITCUT_FRUITLIB_PERFORMANCE_TIMER_HPP_INCLUDED
-#define FRUITCUT_FRUITLIB_PERFORMANCE_TIMER_HPP_INCLUDED
+#ifndef FRUITLIB_PERFORMANCE_TIMER_HPP_INCLUDED
+#define FRUITLIB_PERFORMANCE_TIMER_HPP_INCLUDED
 
 #include <fcppt/chrono/high_resolution_clock.hpp>
 #include <fcppt/chrono/duration.hpp>
@@ -8,8 +8,6 @@
 #include <fcppt/optional.hpp>
 #include <fcppt/noncopyable.hpp>
 
-namespace fruitcut
-{
 namespace fruitlib
 {
 class performance_timer
@@ -40,7 +38,6 @@ private:
 	optional_callback const callback_;
 	clock::time_point const beginning_;
 };
-}
 }
 
 #endif

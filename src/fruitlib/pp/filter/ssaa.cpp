@@ -17,7 +17,7 @@
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <iostream>
 
-fruitcut::fruitlib::pp::filter::ssaa::ssaa(
+fruitlib::pp::filter::ssaa::ssaa(
 	sge::renderer::device &_renderer,
 	filter::manager &_filter_manager,
 	texture::manager &_texture_manager,
@@ -46,9 +46,9 @@ fruitcut::fruitlib::pp::filter::ssaa::ssaa(
 {
 }
 
-fruitcut::fruitlib::pp::texture::counted_instance const
-fruitcut::fruitlib::pp::filter::ssaa::apply(
-	fruitcut::fruitlib::pp::texture::counted_instance const input)
+fruitlib::pp::texture::counted_instance const
+fruitlib::pp::filter::ssaa::apply(
+	fruitlib::pp::texture::counted_instance const input)
 {
 	shader_.update_texture(
 		"tex",
@@ -82,6 +82,6 @@ fruitcut::fruitlib::pp::filter::ssaa::apply(
 	return result;
 }
 
-fruitcut::fruitlib::pp::filter::ssaa::~ssaa()
+fruitlib::pp::filter::ssaa::~ssaa()
 {
 }

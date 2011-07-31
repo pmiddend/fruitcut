@@ -1,5 +1,5 @@
-#ifndef FRUITCUT_FRUITLIB_FONT_DRAWER_OBJECT_HPP_INCLUDED
-#define FRUITCUT_FRUITLIB_FONT_DRAWER_OBJECT_HPP_INCLUDED
+#ifndef FRUITLIB_FONT_DRAWER_OBJECT_HPP_INCLUDED
+#define FRUITLIB_FONT_DRAWER_OBJECT_HPP_INCLUDED
 
 #include "transform_callback.hpp"
 #include "parameters_fwd.hpp"
@@ -18,8 +18,6 @@
 #include <map>
 #include <vector>
 
-namespace fruitcut
-{
 namespace fruitlib
 {
 namespace font
@@ -63,9 +61,9 @@ public:
 
 	void
 	transform_callback(
-		fruitcut::fruitlib::font::drawer::transform_callback const &);
+		font::drawer::transform_callback const &);
 
-	fruitcut::fruitlib::font::drawer::transform_callback const &
+	font::drawer::transform_callback const &
 	transform_callback() const;
 private:
 	typedef 
@@ -113,7 +111,7 @@ private:
 	sprite_system sprite_system_;
 	sprite_container sprites_;
 	sge::font::rect bounding_rect_;
-	fruitcut::fruitlib::font::drawer::transform_callback transform_callback_;
+	font::drawer::transform_callback transform_callback_;
 
 	sge::texture::const_part_ptr const
 	cached_texture(
@@ -121,7 +119,6 @@ private:
 		sge::font::const_image_view const &);
 
 };
-}
 }
 }
 }

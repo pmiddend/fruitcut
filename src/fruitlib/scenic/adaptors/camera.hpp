@@ -1,5 +1,5 @@
-#ifndef FRUITCUT_FRUITLIB_SCENIC_ADAPTORS_CAMERA_HPP_INCLUDED
-#define FRUITCUT_FRUITLIB_SCENIC_ADAPTORS_CAMERA_HPP_INCLUDED
+#ifndef FRUITLIB_SCENIC_ADAPTORS_CAMERA_HPP_INCLUDED
+#define FRUITLIB_SCENIC_ADAPTORS_CAMERA_HPP_INCLUDED
 
 #include "../events/update_fwd.hpp"
 #include "../node.hpp"
@@ -8,8 +8,6 @@
 #include <fcppt/noncopyable.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 
-namespace fruitcut
-{
 namespace fruitlib
 {
 namespace scenic
@@ -40,7 +38,6 @@ public:
 private:
 	sge::camera::object &camera_;
 };
-}
 }
 }
 }

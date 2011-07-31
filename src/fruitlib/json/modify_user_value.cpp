@@ -13,7 +13,7 @@
 #include <typeinfo>
 
 void
-fruitcut::fruitlib::json::modify_user_value(
+fruitlib::json::modify_user_value(
 	sge::parse::json::object const &structure_json,
 	sge::parse::json::object &user_json,
 	json::path const &input_path,

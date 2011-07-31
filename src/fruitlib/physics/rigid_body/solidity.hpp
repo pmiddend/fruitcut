@@ -1,8 +1,6 @@
-#ifndef FRUITCUT_FRUITLIB_PHYSICS_RIGID_BODY_SOLIDITY_HPP_INCLUDED
-#define FRUITCUT_FRUITLIB_PHYSICS_RIGID_BODY_SOLIDITY_HPP_INCLUDED
+#ifndef FRUITLIB_PHYSICS_RIGID_BODY_SOLIDITY_HPP_INCLUDED
+#define FRUITLIB_PHYSICS_RIGID_BODY_SOLIDITY_HPP_INCLUDED
 
-namespace fruitcut
-{
 namespace fruitlib
 {
 namespace physics
@@ -16,7 +14,6 @@ enum type
 	solid,
 	nonsolid
 };
-}
 }
 }
 }

@@ -1,13 +1,11 @@
-#ifndef FRUITCUT_FRUITLIB_AUDIO_GROUP_SOUND_BASE_HPP_INCLUDED
-#define FRUITCUT_FRUITLIB_AUDIO_GROUP_SOUND_BASE_HPP_INCLUDED
+#ifndef FRUITLIB_AUDIO_GROUP_SOUND_BASE_HPP_INCLUDED
+#define FRUITLIB_AUDIO_GROUP_SOUND_BASE_HPP_INCLUDED
 
 #include "buffer_fwd.hpp"
 #include "player_fwd.hpp"
 #include <sge/audio/audio.hpp>
 #include <fcppt/noncopyable.hpp>
 
-namespace fruitcut
-{
 namespace fruitlib
 {
 namespace audio
@@ -92,7 +90,6 @@ protected:
 	sge::audio::scalar global_pitch_;
 	sge::audio::scalar local_pitch_;
 };
-}
 }
 }
 }

@@ -3,7 +3,7 @@
 #include "../../scenic/events/render.hpp"
 #include "../../scenic/events/update.hpp"
 
-fruitcut::fruitlib::physics::nodes::debugger::debugger(
+fruitlib::physics::nodes::debugger::debugger(
 	fruitlib::scenic::optional_parent const &_parent,
 	physics::debugger &_debugger)
 :
@@ -14,19 +14,19 @@ fruitcut::fruitlib::physics::nodes::debugger::debugger(
 {
 }
 
-fruitcut::fruitlib::physics::nodes::debugger::~debugger()
+fruitlib::physics::nodes::debugger::~debugger()
 {
 }
 
 void
-fruitcut::fruitlib::physics::nodes::debugger::react(
+fruitlib::physics::nodes::debugger::react(
 	fruitlib::scenic::events::update const &)
 {
 	debugger_.update();
 }
 
 void
-fruitcut::fruitlib::physics::nodes::debugger::react(
+fruitlib::physics::nodes::debugger::react(
 	fruitlib::scenic::events::render const &)
 {
 	debugger_.render();

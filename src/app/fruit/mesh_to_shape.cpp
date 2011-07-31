@@ -6,7 +6,7 @@
 #include <BulletCollision/CollisionShapes/btConvexHullShape.h>
 #include <iostream>
 
-fruitcut::fruitlib::physics::shared_shape_ptr const
+fruitlib::physics::shared_shape_ptr const
 fruitcut::app::fruit::mesh_to_shape(
 	mesh const &m)
 {

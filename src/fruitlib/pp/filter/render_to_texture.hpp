@@ -1,5 +1,5 @@
-#ifndef FRUITCUT_FRUITLIB_PP_FILTER_RENDER_TO_TEXTURE_HPP_INCLUDED
-#define FRUITCUT_FRUITLIB_PP_FILTER_RENDER_TO_TEXTURE_HPP_INCLUDED
+#ifndef FRUITLIB_PP_FILTER_RENDER_TO_TEXTURE_HPP_INCLUDED
+#define FRUITLIB_PP_FILTER_RENDER_TO_TEXTURE_HPP_INCLUDED
 
 #include "nullary.hpp"
 #include "../texture/counted_instance.hpp"
@@ -11,8 +11,6 @@
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/function/object.hpp>
 
-namespace fruitcut
-{
 namespace fruitlib
 {
 namespace pp
@@ -47,7 +45,6 @@ private:
 	callback const callback_;
 	texture::depth_stencil_format::type depth_stencil_;
 };
-}
 }
 }
 }

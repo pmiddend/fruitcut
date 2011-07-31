@@ -1,12 +1,10 @@
-#ifndef FRUITCUT_FRUITLIB_FONT_DRAWER_SCOPED_TRANSFORMATION_HPP_INCLUDED
-#define FRUITCUT_FRUITLIB_FONT_DRAWER_SCOPED_TRANSFORMATION_HPP_INCLUDED
+#ifndef FRUITLIB_FONT_DRAWER_SCOPED_TRANSFORMATION_HPP_INCLUDED
+#define FRUITLIB_FONT_DRAWER_SCOPED_TRANSFORMATION_HPP_INCLUDED
 
 #include "transform_callback.hpp"
 #include "object_fwd.hpp"
 #include <fcppt/noncopyable.hpp>
 
-namespace fruitcut
-{
 namespace fruitlib
 {
 namespace font
@@ -28,7 +26,6 @@ private:
 	object &drawer_;
 	transform_callback const old_callback_;
 };
-}
 }
 }
 }

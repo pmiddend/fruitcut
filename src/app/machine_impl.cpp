@@ -334,7 +334,6 @@ fruitcut::app::machine_impl::machine_impl(
 		systems_.renderer(),
 		sge::renderer::state::list
 			(sge::renderer::state::depth_func::less)
-			(sge::renderer::state::cull_mode::off)
 			(sge::renderer::state::bool_::clear_depth_buffer = true)
 			(sge::renderer::state::bool_::clear_back_buffer = true)
 			(sge::renderer::state::color::back_buffer_clear_color = sge::image::colors::black())
@@ -414,25 +413,25 @@ fruitcut::app::machine_impl::timer_callback() const
 				&transformed_time_));
 }
 
-fruitcut::fruitlib::audio::sound_controller &
+fruitlib::audio::sound_controller &
 fruitcut::app::machine_impl::sound_controller()
 {
 	return sound_controller_;
 }
 
-fruitcut::fruitlib::audio::sound_controller const &
+fruitlib::audio::sound_controller const &
 fruitcut::app::machine_impl::sound_controller() const
 {
 	return sound_controller_;
 }
 
-fruitcut::fruitlib::audio::music_controller &
+fruitlib::audio::music_controller &
 fruitcut::app::machine_impl::music_controller()
 {
 	return music_controller_;
 }
 
-fruitcut::fruitlib::audio::music_controller const &
+fruitlib::audio::music_controller const &
 fruitcut::app::machine_impl::music_controller() const
 {
 	return music_controller_;
@@ -480,13 +479,13 @@ fruitcut::app::machine_impl::camera() const
 	return camera_;
 }
 
-fruitcut::fruitlib::font::cache &
+fruitlib::font::cache &
 fruitcut::app::machine_impl::font_cache()
 {
 	return font_cache_;
 }
 
-fruitcut::fruitlib::font::cache const &
+fruitlib::font::cache const &
 fruitcut::app::machine_impl::font_cache() const
 {
 	return font_cache_;
@@ -516,7 +515,7 @@ fruitcut::app::machine_impl::gui_syringe() const
 	return gui_syringe_;
 }
 
-fruitcut::fruitlib::random_generator &
+fruitlib::random_generator &
 fruitcut::app::machine_impl::random_generator()
 {
 	return random_generator_;
@@ -535,13 +534,13 @@ fruitcut::app::machine_impl::last_game_score(
 	last_game_score_ = _last_game_score;
 }
 
-fruitcut::fruitlib::scenic::base &
+fruitlib::scenic::base &
 fruitcut::app::machine_impl::root_node()
 {
 	return *this;
 }
 
-fruitcut::fruitlib::scenic::base const &
+fruitlib::scenic::base const &
 fruitcut::app::machine_impl::root_node() const
 {
 	return *this;

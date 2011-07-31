@@ -4,8 +4,8 @@
 #include <boost/algorithm/string/classification.hpp>
 #include <fcppt/text.hpp>
 
-fruitcut::fruitlib::json::path const
-fruitcut::fruitlib::json::string_to_path(
+fruitlib::json::path const
+fruitlib::json::string_to_path(
 	fcppt::string const &input_path)
 {
 	json::path::sequence_type parts;

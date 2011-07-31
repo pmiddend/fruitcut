@@ -1,22 +1,22 @@
 #include "base.hpp"
 #include <iostream>
 
-fruitcut::fruitlib::scenic::base::child_sequence const &
-fruitcut::fruitlib::scenic::base::children() const
+fruitlib::scenic::base::child_sequence const &
+fruitlib::scenic::base::children() const
 {
 	return 
 		children_;
 }
 
-fruitcut::fruitlib::scenic::base::child_sequence &
-fruitcut::fruitlib::scenic::base::children()
+fruitlib::scenic::base::child_sequence &
+fruitlib::scenic::base::children()
 {
 	return
 		children_;
 }
 
 void
-fruitcut::fruitlib::scenic::base::forward_to_children(
+fruitlib::scenic::base::forward_to_children(
 	events::base const &e)
 {
 	for(
@@ -28,17 +28,17 @@ fruitcut::fruitlib::scenic::base::forward_to_children(
 			e);
 }
 
-fruitcut::fruitlib::scenic::depth::value_type
-fruitcut::fruitlib::scenic::base::depth() const
+fruitlib::scenic::depth::value_type
+fruitlib::scenic::base::depth() const
 {
 	return depth_;
 }
 
-fruitcut::fruitlib::scenic::base::~base()
+fruitlib::scenic::base::~base()
 {
 }
 
-fruitcut::fruitlib::scenic::base::base(
+fruitlib::scenic::base::base(
 	scenic::optional_parent const &_parent)
 :
 	children_(),
@@ -55,7 +55,7 @@ fruitcut::fruitlib::scenic::base::base(
 }
 
 void
-fruitcut::fruitlib::scenic::base::add_child(
+fruitlib::scenic::base::add_child(
 	base &_child)
 {
 	for(

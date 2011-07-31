@@ -1,5 +1,5 @@
-#ifndef FRUITCUT_FRUITLIB_MATH_TRIANGLE_RANDOM_POINT_HPP_INCLUDED
-#define FRUITCUT_FRUITLIB_MATH_TRIANGLE_RANDOM_POINT_HPP_INCLUDED
+#ifndef FRUITLIB_MATH_TRIANGLE_RANDOM_POINT_HPP_INCLUDED
+#define FRUITLIB_MATH_TRIANGLE_RANDOM_POINT_HPP_INCLUDED
 
 #include "vector_type.hpp"
 #include "scalar_type.hpp"
@@ -7,8 +7,6 @@
 #include <fcppt/math/vector/vector.hpp>
 #include <algorithm>
 
-namespace fruitcut
-{
 namespace fruitlib
 {
 namespace math
@@ -55,7 +53,6 @@ random_point(
 		a1 * triangle::vertex_access<Triangle>::get(t,0) + 
 		a2 * triangle::vertex_access<Triangle>::get(t,1) +
 		a3 * triangle::vertex_access<Triangle>::get(t,2);
-}
 }
 }
 }

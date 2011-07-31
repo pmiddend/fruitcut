@@ -7,25 +7,25 @@
 #include <fcppt/assert_message.hpp>
 #include <fcppt/text.hpp>
 
-fruitcut::fruitlib::pp::filter::base::base()
+fruitlib::pp::filter::base::base()
 {
 }
 
-fruitcut::fruitlib::pp::filter::base::~base()
+fruitlib::pp::filter::base::~base()
 {
 }
 
 // for an explanation see system.hpp
 void
-fruitcut::fruitlib::pp::filter::base::enqueue(
+fruitlib::pp::filter::base::enqueue(
 	texture::counted_instance const &tex)
 {
 	textures_.push_back(
 		tex);
 }
 
-fruitcut::fruitlib::pp::texture::counted_instance const
-fruitcut::fruitlib::pp::filter::base::dispatch()
+fruitlib::pp::texture::counted_instance const
+fruitlib::pp::filter::base::dispatch()
 {
 	texture::counted_instance result;
 	if (textures_.empty())

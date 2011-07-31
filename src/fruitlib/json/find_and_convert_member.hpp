@@ -1,5 +1,5 @@
-#ifndef FRUITCUT_FRUITLIB_JSON_FIND_AND_CONVERT_MEMBER_HPP_INCLUDED
-#define FRUITCUT_FRUITLIB_JSON_FIND_AND_CONVERT_MEMBER_HPP_INCLUDED
+#ifndef FRUITLIB_JSON_FIND_AND_CONVERT_MEMBER_HPP_INCLUDED
+#define FRUITLIB_JSON_FIND_AND_CONVERT_MEMBER_HPP_INCLUDED
 
 #include "path.hpp"
 #include "convert_from.hpp"
@@ -12,8 +12,6 @@
 #include <fcppt/assert.hpp>
 #include <boost/range/algorithm/find_if.hpp>
 
-namespace fruitcut
-{
 namespace fruitlib
 {
 namespace json
@@ -83,7 +81,6 @@ find_and_convert_member(
 				FCPPT_TEXT("\": ")+
 				e.string());
 	}
-}
 }
 }
 }

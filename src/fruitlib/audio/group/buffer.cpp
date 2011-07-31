@@ -8,7 +8,7 @@
 #include <fcppt/algorithm/ptr_container_erase.hpp>
 #include <iostream>
 
-fruitcut::fruitlib::audio::group::buffer::buffer(
+fruitlib::audio::group::buffer::buffer(
 	group::player &_player,
 	sge::audio::file &_file,
 	sge::audio::scalar const _global_gain,
@@ -30,7 +30,7 @@ fruitcut::fruitlib::audio::group::buffer::buffer(
 }
 
 sge::audio::sound::positional_ptr const
-fruitcut::fruitlib::audio::group::buffer::create_positional(
+fruitlib::audio::group::buffer::create_positional(
 	sge::audio::sound::positional_parameters const &p)
 {
 	return 
@@ -43,7 +43,7 @@ fruitcut::fruitlib::audio::group::buffer::create_positional(
 }
 
 sge::audio::sound::base_ptr const
-fruitcut::fruitlib::audio::group::buffer::create_nonpositional()
+fruitlib::audio::group::buffer::create_nonpositional()
 {
 	return 
 		fcppt::make_shared_ptr<group::sound_base>(
@@ -54,7 +54,7 @@ fruitcut::fruitlib::audio::group::buffer::create_nonpositional()
 }
 
 void
-fruitcut::fruitlib::audio::group::buffer::global_gain(
+fruitlib::audio::group::buffer::global_gain(
 	sge::audio::scalar const _global_gain)
 {
 	global_gain_ = 
@@ -70,7 +70,7 @@ fruitcut::fruitlib::audio::group::buffer::global_gain(
 }
 
 void
-fruitcut::fruitlib::audio::group::buffer::global_pitch(
+fruitlib::audio::group::buffer::global_pitch(
 	sge::audio::scalar const _global_pitch)
 {
 	global_pitch_ = 
@@ -85,14 +85,14 @@ fruitcut::fruitlib::audio::group::buffer::global_pitch(
 			_global_pitch);
 }
 
-fruitcut::fruitlib::audio::group::buffer::~buffer()
+fruitlib::audio::group::buffer::~buffer()
 {
 	player_.remove_buffer(
 		*this);
 }
 
 void
-fruitcut::fruitlib::audio::group::buffer::add_sound(
+fruitlib::audio::group::buffer::add_sound(
 	group::sound_base &b)
 {
 	sounds_.push_back(
@@ -100,7 +100,7 @@ fruitcut::fruitlib::audio::group::buffer::add_sound(
 }
 
 void
-fruitcut::fruitlib::audio::group::buffer::remove_sound(
+fruitlib::audio::group::buffer::remove_sound(
 	group::sound_base &b)
 {
 	FCPPT_ASSERT((

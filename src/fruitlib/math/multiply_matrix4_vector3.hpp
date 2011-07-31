@@ -1,5 +1,5 @@
-#ifndef FRUITCUT_FRUITLIB_MATH_MULTIPLY_MATRIX4_VECTOR3_HPP_INCLUDED
-#define FRUITCUT_FRUITLIB_MATH_MULTIPLY_MATRIX4_VECTOR3_HPP_INCLUDED
+#ifndef FRUITLIB_MATH_MULTIPLY_MATRIX4_VECTOR3_HPP_INCLUDED
+#define FRUITLIB_MATH_MULTIPLY_MATRIX4_VECTOR3_HPP_INCLUDED
 
 #include <fcppt/math/vector/static.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
@@ -10,8 +10,6 @@
 // arithmetic doesn't contain vector arithmetic
 #include <fcppt/math/matrix/vector.hpp>
 
-namespace fruitcut
-{
 namespace fruitlib
 {
 namespace math
@@ -33,7 +31,6 @@ multiply_matrix4_vector3(
 			fcppt::math::vector::construct(
 				v,
 				static_cast<T>(0)));
-}
 }
 }
 }

@@ -3,8 +3,8 @@
 #include <fcppt/from_std_string.hpp>
 #include <cstddef>
 
-fruitcut::fruitlib::command_line_parameters const
-fruitcut::fruitlib::create_command_line_parameters(
+fruitlib::command_line_parameters const
+fruitlib::create_command_line_parameters(
 	int const argc,
 	char *argv[])
 {

@@ -198,13 +198,13 @@ fruitcut::app::states::ingame::superstate::superstate(
 					background_group_))));
 }
 
-fruitcut::fruitlib::physics::world &
+fruitlib::physics::world &
 fruitcut::app::states::ingame::superstate::physics_world()
 {
 	return physics_world_;
 }
 
-fruitcut::fruitlib::physics::world const &
+fruitlib::physics::world const &
 fruitcut::app::states::ingame::superstate::physics_world() const
 {
 	return physics_world_;
@@ -234,7 +234,7 @@ fruitcut::app::states::ingame::superstate::fruit_spawner() const
 	return fruit_spawner_;
 }
 
-fruitcut::fruitlib::physics::debugger &
+fruitlib::physics::debugger &
 fruitcut::app::states::ingame::superstate::physics_debugger()
 {
 	return physics_debugger_;

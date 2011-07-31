@@ -1,5 +1,5 @@
-#ifndef FRUITCUT_FRUITLIB_PP_FILTER_HIGHLIGHT_HPP_INCLUDED
-#define FRUITCUT_FRUITLIB_PP_FILTER_HIGHLIGHT_HPP_INCLUDED
+#ifndef FRUITLIB_PP_FILTER_HIGHLIGHT_HPP_INCLUDED
+#define FRUITLIB_PP_FILTER_HIGHLIGHT_HPP_INCLUDED
 
 #include "../texture/counted_instance.hpp"
 #include "../texture/manager_fwd.hpp"
@@ -12,8 +12,6 @@
 #include <fcppt/math/dim/dim.hpp>
 #include <fcppt/filesystem/path.hpp>
 
-namespace fruitcut
-{
 namespace fruitlib
 {
 namespace pp
@@ -43,7 +41,6 @@ private:
 	sge::renderer::dim2 texture_size_;
 	sge::shader::object &shader_;
 };
-}
 }
 }
 }

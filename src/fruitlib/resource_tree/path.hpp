@@ -1,11 +1,9 @@
-#ifndef FRUITCUT_FRUITLIB_RESOURCE_TREE_PATH_HPP_INCLUDED
-#define FRUITCUT_FRUITLIB_RESOURCE_TREE_PATH_HPP_INCLUDED
+#ifndef FRUITLIB_RESOURCE_TREE_PATH_HPP_INCLUDED
+#define FRUITLIB_RESOURCE_TREE_PATH_HPP_INCLUDED
 
 #include <fcppt/string.hpp>
 #include <vector>
 
-namespace fruitcut
-{
 namespace fruitlib
 {
 namespace resource_tree
@@ -33,7 +31,6 @@ public:
 private:
 	value_sequence values_;
 };
-}
 }
 }
 

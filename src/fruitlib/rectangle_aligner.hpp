@@ -1,12 +1,10 @@
-#ifndef FRUITCUT_FRUITLIB_RECTANGLE_ALIGNER_HPP_INCLUDED
-#define FRUITCUT_FRUITLIB_RECTANGLE_ALIGNER_HPP_INCLUDED
+#ifndef FRUITLIB_RECTANGLE_ALIGNER_HPP_INCLUDED
+#define FRUITLIB_RECTANGLE_ALIGNER_HPP_INCLUDED
 
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/math/box/box.hpp>
 #include <list>
 
-namespace fruitcut
-{
 namespace fruitlib
 {
 template<typename T>
@@ -39,7 +37,6 @@ private:
 	rect const bounding_rect_;
 	rect_sequence rects_;
 };
-}
 }
 
 #endif

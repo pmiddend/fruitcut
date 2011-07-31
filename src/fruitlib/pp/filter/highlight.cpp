@@ -16,7 +16,7 @@
 #include <fcppt/text.hpp>
 #include <iostream>
 
-fruitcut::fruitlib::pp::filter::highlight::highlight(
+fruitlib::pp::filter::highlight::highlight(
 	sge::renderer::device &_renderer,
 	filter::manager &_filter_manager,
 	texture::manager &_texture_manager,
@@ -50,8 +50,8 @@ fruitcut::fruitlib::pp::filter::highlight::highlight(
 {
 }
 
-fruitcut::fruitlib::pp::texture::counted_instance const
-fruitcut::fruitlib::pp::filter::highlight::apply(
+fruitlib::pp::texture::counted_instance const
+fruitlib::pp::filter::highlight::apply(
 	texture::counted_instance const input)
 {
 	shader_.update_texture(

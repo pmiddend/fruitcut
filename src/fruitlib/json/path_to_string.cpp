@@ -4,7 +4,7 @@
 #include <fcppt/text.hpp>
 
 fcppt::string const
-fruitcut::fruitlib::json::path_to_string(
+fruitlib::json::path_to_string(
 	json::path const &p)
 {
 	fcppt::string result;

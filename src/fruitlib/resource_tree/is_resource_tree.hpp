@@ -1,12 +1,10 @@
-#ifndef FRUITCUT_FRUITLIB_RESOURCE_TREE_IS_RESOURCE_TREE_HPP_INCLUDED
-#define FRUITCUT_FRUITLIB_RESOURCE_TREE_IS_RESOURCE_TREE_HPP_INCLUDED
+#ifndef FRUITLIB_RESOURCE_TREE_IS_RESOURCE_TREE_HPP_INCLUDED
+#define FRUITLIB_RESOURCE_TREE_IS_RESOURCE_TREE_HPP_INCLUDED
 
 #include "node.hpp"
 #include <fcppt/container/tree/object.hpp>
 #include <boost/mpl/bool.hpp>
 
-namespace fruitcut
-{
 namespace fruitlib
 {
 namespace resource_tree
@@ -22,7 +20,6 @@ struct is_resource_tree
 		resource_tree::node<T,U>
 	>
 > : boost::mpl::true_ {};
-}
 }
 }
 

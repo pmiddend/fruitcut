@@ -15,7 +15,7 @@
 #include <utility>
 #include <iostream>
 
-fruitcut::fruitlib::font::drawer::object::object(
+fruitlib::font::drawer::object::object(
 	parameters const &params)
 :
 	renderer_(
@@ -39,11 +39,11 @@ fruitcut::fruitlib::font::drawer::object::object(
 		params.transform_callback())
 {}
 
-fruitcut::fruitlib::font::drawer::object::~object()
+fruitlib::font::drawer::object::~object()
 {}
 
 void
-fruitcut::fruitlib::font::drawer::object::begin_rendering(
+fruitlib::font::drawer::object::begin_rendering(
 	sge::font::text::drawer::size_type const buffer_chars,
 	sge::font::pos const &origin,
 	sge::font::dim const &size)
@@ -59,7 +59,7 @@ fruitcut::fruitlib::font::drawer::object::begin_rendering(
 }
 
 void
-fruitcut::fruitlib::font::drawer::object::draw_char(
+fruitlib::font::drawer::object::draw_char(
 	sge::font::text::char_type const _char,
 	sge::font::pos const &_pos,
 	sge::font::const_image_view const &_data)
@@ -103,7 +103,7 @@ fruitcut::fruitlib::font::drawer::object::draw_char(
 }
 
 void
-fruitcut::fruitlib::font::drawer::object::end_rendering()
+fruitlib::font::drawer::object::end_rendering()
 {
 	sprite_system_.render(
 		sprites_.begin(),
@@ -113,35 +113,35 @@ fruitcut::fruitlib::font::drawer::object::end_rendering()
 }
 
 void
-fruitcut::fruitlib::font::drawer::object::color(
+fruitlib::font::drawer::object::color(
 	font::color const &_color)
 {
 	color_ = 
 		_color;
 }
 
-fruitcut::fruitlib::font::color const &
-fruitcut::fruitlib::font::drawer::object::color() const
+fruitlib::font::color const &
+fruitlib::font::drawer::object::color() const
 {
 	return color_;
 }
 
 void
-fruitcut::fruitlib::font::drawer::object::transform_callback(
-	fruitcut::fruitlib::font::drawer::transform_callback const &_transform_callback)
+fruitlib::font::drawer::object::transform_callback(
+	fruitlib::font::drawer::transform_callback const &_transform_callback)
 {
 	transform_callback_ = 
 		_transform_callback;
 }
 
-fruitcut::fruitlib::font::drawer::transform_callback const &
-fruitcut::fruitlib::font::drawer::object::transform_callback() const
+fruitlib::font::drawer::transform_callback const &
+fruitlib::font::drawer::object::transform_callback() const
 {
 	return transform_callback_;
 }
 
 sge::texture::const_part_ptr const
-fruitcut::fruitlib::font::drawer::object::cached_texture(
+fruitlib::font::drawer::object::cached_texture(
 	sge::font::text::char_type const _ch,
 	sge::font::const_image_view const &_data)
 {

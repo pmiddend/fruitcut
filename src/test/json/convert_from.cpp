@@ -10,7 +10,7 @@
 #include "../../fruitlib/json/convert_from.hpp"
 
 namespace sgejson = sge::parse::json;
-namespace fruitlibjson = fruitcut::fruitlib::json;
+namespace fruitlibjson = fruitlib::json;
 
 namespace
 {

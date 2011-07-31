@@ -1,5 +1,5 @@
-#ifndef FRUITCUT_FRUITLIB_GRID_SOBEL_IGNORE_BORDERS_HPP_INCLUDED
-#define FRUITCUT_FRUITLIB_GRID_SOBEL_IGNORE_BORDERS_HPP_INCLUDED
+#ifndef FRUITLIB_GRID_SOBEL_IGNORE_BORDERS_HPP_INCLUDED
+#define FRUITLIB_GRID_SOBEL_IGNORE_BORDERS_HPP_INCLUDED
 
 #include "zip_with.hpp"
 #include "convolve_ignore_borders.hpp"
@@ -12,8 +12,6 @@
 #include <boost/spirit/home/phoenix/operator/arithmetic.hpp>
 #include <cmath>
 
-namespace fruitcut
-{
 namespace fruitlib
 {
 namespace grid
@@ -51,7 +49,6 @@ sobel_ignore_borders(
 				boost::phoenix::arg_names::arg2 * boost::phoenix::arg_names::arg2));
 }
 
-}
 }
 }
 

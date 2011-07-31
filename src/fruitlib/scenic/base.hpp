@@ -1,5 +1,5 @@
-#ifndef FRUITCUT_FRUITLIB_SCENIC_BASE_HPP_INCLUDED
-#define FRUITCUT_FRUITLIB_SCENIC_BASE_HPP_INCLUDED
+#ifndef FRUITLIB_SCENIC_BASE_HPP_INCLUDED
+#define FRUITLIB_SCENIC_BASE_HPP_INCLUDED
 
 #include "events/base_fwd.hpp"
 #include "optional_parent.hpp"
@@ -7,8 +7,6 @@
 #include <fcppt/noncopyable.hpp>
 #include <boost/intrusive/list.hpp>
 
-namespace fruitcut
-{
 namespace fruitlib
 {
 namespace scenic
@@ -62,7 +60,6 @@ private:
 	add_child(
 		scenic::base &);
 };
-}
 }
 }
 

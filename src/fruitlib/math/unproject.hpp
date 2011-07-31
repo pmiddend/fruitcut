@@ -1,5 +1,5 @@
-#ifndef FRUITCUT_FRUITLIB_MATH_UNPROJECT_HPP_INCLUDED
-#define FRUITCUT_FRUITLIB_MATH_UNPROJECT_HPP_INCLUDED
+#ifndef FRUITLIB_MATH_UNPROJECT_HPP_INCLUDED
+#define FRUITLIB_MATH_UNPROJECT_HPP_INCLUDED
 
 #include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/math/matrix/basic_impl.hpp>
@@ -11,8 +11,6 @@
 #include <fcppt/math/box/basic_impl.hpp>
 #include <boost/utility/enable_if.hpp>
 
-namespace fruitcut
-{
 namespace fruitlib
 {
 namespace math
@@ -76,7 +74,6 @@ unproject(
 			static_cast<T>(result[3] * result[0]),
 			static_cast<T>(result[3] * result[1]),
 			static_cast<T>(result[3] * result[2]));
-}
 }
 }
 }

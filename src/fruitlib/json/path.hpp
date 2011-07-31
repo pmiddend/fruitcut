@@ -1,11 +1,9 @@
-#ifndef FRUITCUT_FRUITLIB_JSON_PATH_HPP_INCLUDED
-#define FRUITCUT_FRUITLIB_JSON_PATH_HPP_INCLUDED
+#ifndef FRUITLIB_JSON_PATH_HPP_INCLUDED
+#define FRUITLIB_JSON_PATH_HPP_INCLUDED
 
 #include <fcppt/string.hpp>
 #include <vector>
 
-namespace fruitcut
-{
 namespace fruitlib
 {
 namespace json
@@ -59,7 +57,6 @@ public:
 private:
 	sequence_type sequence_;
 };
-}
 }
 }
 

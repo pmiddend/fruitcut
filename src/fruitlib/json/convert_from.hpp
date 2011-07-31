@@ -1,5 +1,5 @@
-#ifndef FRUITCUT_FRUITLIB_JSON_CONVERT_FROM_HPP_INCLUDED
-#define FRUITCUT_FRUITLIB_JSON_CONVERT_FROM_HPP_INCLUDED
+#ifndef FRUITLIB_JSON_CONVERT_FROM_HPP_INCLUDED
+#define FRUITLIB_JSON_CONVERT_FROM_HPP_INCLUDED
 
 #include "../exception.hpp"
 #include "detail/is_array.hpp"
@@ -14,8 +14,6 @@
 #include <boost/utility/enable_if.hpp>
 #include <boost/type_traits/is_floating_point.hpp>
 
-namespace fruitcut
-{
 namespace fruitlib
 {
 namespace json
@@ -153,7 +151,6 @@ convert_from(
 // End forward declarations
 }
 }
-}
 
 // Assume float_type
 template<typename T>
@@ -163,7 +160,7 @@ boost::enable_if_c
 	boost::is_floating_point<T>::value,
 	T const
 >::type
-fruitcut::fruitlib::json::convert_from(
+fruitlib::json::convert_from(
 	sge::parse::json::value const &v)
 {
 	return 
@@ -180,7 +177,7 @@ boost::enable_if_c
 	boost::is_same<T,bool>::value,
 	bool
 >::type
-fruitcut::fruitlib::json::convert_from(
+fruitlib::json::convert_from(
 	sge::parse::json::value const &v)
 {
 	return 
@@ -202,7 +199,7 @@ boost::enable_if
 	>,
 	T const
 >::type
-fruitcut::fruitlib::json::convert_from(
+fruitlib::json::convert_from(
 	sge::parse::json::value const &v)
 {
 	return 
@@ -219,7 +216,7 @@ boost::enable_if_c
 	fcppt::math::matrix::is_matrix<T>::value,
 	T const
 >::type
-fruitcut::fruitlib::json::convert_from(
+fruitlib::json::convert_from(
 	sge::parse::json::value const &v)
 {
 	sge::parse::json::element_vector const 
@@ -278,7 +275,7 @@ boost::enable_if
 		fcppt::type_traits::is_iterable<T>,
 		boost::mpl::not_
 		<
-			fruitcut::fruitlib::json::detail::is_array<T>
+			fruitlib::json::detail::is_array<T>
 		>,
 		boost::mpl::not_
 		<
@@ -291,7 +288,7 @@ boost::enable_if
 	>,
 	T const
 >::type
-fruitcut::fruitlib::json::convert_from(
+fruitlib::json::convert_from(
 	sge::parse::json::value const &v)
 {
 	sge::parse::json::array const &a = 
@@ -328,10 +325,10 @@ template<typename T>
 typename
 boost::enable_if_c
 <
-	fruitcut::fruitlib::json::detail::is_array<T>::value,
+	fruitlib::json::detail::is_array<T>::value,
 	T const
 >::type
-fruitcut::fruitlib::json::convert_from(
+fruitlib::json::convert_from(
 	sge::parse::json::value const &v)
 {
 	T result;
@@ -374,7 +371,7 @@ boost::enable_if_c
 	boost::is_same<T,sge::parse::json::string>::value,
 	T const
 >::type
-fruitcut::fruitlib::json::convert_from(
+fruitlib::json::convert_from(
 	sge::parse::json::value const &v)
 {
 	return 
@@ -391,7 +388,7 @@ boost::enable_if_c
 	boost::is_same<T,sge::parse::json::value>::value,
 	sge::parse::json::value const
 >::type
-fruitcut::fruitlib::json::convert_from(
+fruitlib::json::convert_from(
 	sge::parse::json::value const &v)
 {
 	return v;
@@ -423,7 +420,7 @@ boost::enable_if
 	>,
 	T const
 >::type
-fruitcut::fruitlib::json::convert_from(
+fruitlib::json::convert_from(
 	sge::parse::json::value const &v)
 {
 	return 

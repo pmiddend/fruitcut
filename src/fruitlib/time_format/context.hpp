@@ -1,5 +1,5 @@
-#ifndef FRUITCUT_FRUITLIB_TIME_FORMAT_CONTEXT_HPP_INCLUDED
-#define FRUITCUT_FRUITLIB_TIME_FORMAT_CONTEXT_HPP_INCLUDED
+#ifndef FRUITLIB_TIME_FORMAT_CONTEXT_HPP_INCLUDED
+#define FRUITLIB_TIME_FORMAT_CONTEXT_HPP_INCLUDED
 
 #include "tags/milliseconds.hpp"
 #include "tags/seconds.hpp"
@@ -16,8 +16,6 @@
 #include <sstream>
 #include <iomanip>
 
-namespace fruitcut
-{
 namespace fruitlib
 {
 namespace time_format
@@ -119,7 +117,6 @@ public:
 private:
 	rep minutes_,seconds_,milliseconds_;
 };
-}
 }
 }
 

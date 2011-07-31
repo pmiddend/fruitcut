@@ -1,5 +1,5 @@
-#ifndef FRUITCUT_FRUITLIB_PHYSICS_WORLD_HPP_INCLUDED
-#define FRUITCUT_FRUITLIB_PHYSICS_WORLD_HPP_INCLUDED
+#ifndef FRUITLIB_PHYSICS_WORLD_HPP_INCLUDED
+#define FRUITLIB_PHYSICS_WORLD_HPP_INCLUDED
 
 #include "box.hpp"
 #include "vector3.hpp"
@@ -23,8 +23,6 @@ class btDiscreteDynamicsWorld;
 class btBroadphaseInterface;
 class btDynamicsWorld;
 
-namespace fruitcut
-{
 namespace fruitlib
 {
 namespace physics
@@ -96,7 +94,6 @@ private:
 	internal_tick_callback(
 		physics::scalar);
 };
-}
 }
 }
 

@@ -1,10 +1,10 @@
-#ifndef FRUITCUT_FRUITLIB_RECTANGLE_MANAGER_RECTANGLE_INSTANCE_IMPL_HPP_INCLUDED
-#define FRUITCUT_FRUITLIB_RECTANGLE_MANAGER_RECTANGLE_INSTANCE_IMPL_HPP_INCLUDED
+#ifndef FRUITLIB_RECTANGLE_MANAGER_RECTANGLE_INSTANCE_IMPL_HPP_INCLUDED
+#define FRUITLIB_RECTANGLE_MANAGER_RECTANGLE_INSTANCE_IMPL_HPP_INCLUDED
 
 #include "object_impl.hpp"
 
 template<typename T>
-fruitcut::fruitlib::rectangle_manager::rectangle_instance<T>::rectangle_instance(
+fruitlib::rectangle_manager::rectangle_instance<T>::rectangle_instance(
 	manager_object &_manager,
 	dim const &_bounds)
 :
@@ -23,15 +23,15 @@ fruitcut::fruitlib::rectangle_manager::rectangle_instance<T>::rectangle_instance
 
 template<typename T>
 typename
-fruitcut::fruitlib::rectangle_manager::rectangle_instance<T>::rect const &
-fruitcut::fruitlib::rectangle_manager::rectangle_instance<T>::bounds() const
+fruitlib::rectangle_manager::rectangle_instance<T>::rect const &
+fruitlib::rectangle_manager::rectangle_instance<T>::bounds() const
 {
 	return bounds_;
 }
 
 template<typename T>
 void
-fruitcut::fruitlib::rectangle_manager::rectangle_instance<T>::pos(
+fruitlib::rectangle_manager::rectangle_instance<T>::pos(
 	vector const &_pos)
 {
 	bounds_.pos(  
@@ -40,7 +40,7 @@ fruitcut::fruitlib::rectangle_manager::rectangle_instance<T>::pos(
 
 template<typename T>
 void
-fruitcut::fruitlib::rectangle_manager::rectangle_instance<T>::target(
+fruitlib::rectangle_manager::rectangle_instance<T>::target(
 	vector const &_target)
 {
 	target_ = 
@@ -49,8 +49,8 @@ fruitcut::fruitlib::rectangle_manager::rectangle_instance<T>::target(
 
 template<typename T>
 typename
-fruitcut::fruitlib::rectangle_manager::rectangle_instance<T>::vector const &
-fruitcut::fruitlib::rectangle_manager::rectangle_instance<T>::target() const
+fruitlib::rectangle_manager::rectangle_instance<T>::vector const &
+fruitlib::rectangle_manager::rectangle_instance<T>::target() const
 {
 	return 
 		target_;
@@ -58,7 +58,7 @@ fruitcut::fruitlib::rectangle_manager::rectangle_instance<T>::target() const
 
 template<typename T>
 void
-fruitcut::fruitlib::rectangle_manager::rectangle_instance<T>::kill()
+fruitlib::rectangle_manager::rectangle_instance<T>::kill()
 {
 	killed_ = 
 		true;
@@ -68,15 +68,15 @@ fruitcut::fruitlib::rectangle_manager::rectangle_instance<T>::kill()
 
 template<typename T>
 typename
-fruitcut::fruitlib::rectangle_manager::rectangle_instance<T>::value_type
-fruitcut::fruitlib::rectangle_manager::rectangle_instance<T>::status_fraction() const
+fruitlib::rectangle_manager::rectangle_instance<T>::value_type
+fruitlib::rectangle_manager::rectangle_instance<T>::status_fraction() const
 {
 	return status_fraction_;
 }
 
 template<typename T>
 void
-fruitcut::fruitlib::rectangle_manager::rectangle_instance<T>::status_fraction(
+fruitlib::rectangle_manager::rectangle_instance<T>::status_fraction(
 	value_type const _status_fraction)
 {
 	status_fraction_ = 
@@ -85,14 +85,14 @@ fruitcut::fruitlib::rectangle_manager::rectangle_instance<T>::status_fraction(
 
 template<typename T>
 bool
-fruitcut::fruitlib::rectangle_manager::rectangle_instance<T>::killed() const
+fruitlib::rectangle_manager::rectangle_instance<T>::killed() const
 {
 	return 
 		killed_;
 }
 
 template<typename T>
-fruitcut::fruitlib::rectangle_manager::rectangle_instance<T>::~rectangle_instance()
+fruitlib::rectangle_manager::rectangle_instance<T>::~rectangle_instance()
 {
 	manager_.erase(
 		*this);

@@ -1,5 +1,5 @@
-#ifndef FRUITCUT_FRUITLIB_MATH_LINE_DISTANCE_TO_POINT_HPP_INCLUDED
-#define FRUITCUT_FRUITLIB_MATH_LINE_DISTANCE_TO_POINT_HPP_INCLUDED
+#ifndef FRUITLIB_MATH_LINE_DISTANCE_TO_POINT_HPP_INCLUDED
+#define FRUITLIB_MATH_LINE_DISTANCE_TO_POINT_HPP_INCLUDED
 
 #include "basic.hpp"
 #include <fcppt/math/vector/arithmetic.hpp>
@@ -7,8 +7,6 @@
 #include <fcppt/math/vector/dot.hpp>
 #include <fcppt/math/size_type.hpp>
 
-namespace fruitcut
-{
 namespace fruitlib
 {
 namespace math
@@ -33,7 +31,6 @@ distance_to_point(
 					l.direction(),
 					l.direction())) 
 			* l.direction());
-}
 }
 }
 }

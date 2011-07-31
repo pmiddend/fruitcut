@@ -39,13 +39,13 @@
 
 namespace
 {
-fruitcut::fruitlib::physics::vector3 const
+fruitlib::physics::vector3 const
 calculate_new_linear_velocity(
-	fruitcut::fruitlib::physics::vector3 const &old_velocity,
-	fruitcut::fruitlib::physics::vector3 const &normal_velocity)
+	fruitlib::physics::vector3 const &old_velocity,
+	fruitlib::physics::vector3 const &normal_velocity)
 {
-	fruitcut::fruitlib::physics::scalar const old_to_new_velocity_factor = 
-		static_cast<fruitcut::fruitlib::physics::scalar>(
+	fruitlib::physics::scalar const old_to_new_velocity_factor = 
+		static_cast<fruitlib::physics::scalar>(
 			0.5);
 
 	return 
@@ -258,13 +258,13 @@ fruitcut::app::fruit::manager::spawn_callback(
 			cc);
 }
 
-fruitcut::fruitlib::physics::group::object &
+fruitlib::physics::group::object &
 fruitcut::app::fruit::manager::fruit_group()
 {
 	return fruit_group_;
 }
 
-fruitcut::fruitlib::physics::group::object const &
+fruitlib::physics::group::object const &
 fruitcut::app::fruit::manager::fruit_group() const
 {
 	return fruit_group_;

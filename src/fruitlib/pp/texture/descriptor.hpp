@@ -1,5 +1,5 @@
-#ifndef FRUITCUT_FRUITLIB_PP_TEXTURE_DESCRIPTOR_HPP_INCLUDED
-#define FRUITCUT_FRUITLIB_PP_TEXTURE_DESCRIPTOR_HPP_INCLUDED
+#ifndef FRUITLIB_PP_TEXTURE_DESCRIPTOR_HPP_INCLUDED
+#define FRUITLIB_PP_TEXTURE_DESCRIPTOR_HPP_INCLUDED
 
 #include "depth_stencil_format.hpp"
 #include <sge/renderer/dim2.hpp>
@@ -9,8 +9,6 @@
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <boost/fusion/tuple.hpp>
 
-namespace fruitcut
-{
 namespace fruitlib
 {
 namespace pp
@@ -50,7 +48,6 @@ private:
 
 	tuple_type tuple_;
 };
-}
 }
 }
 }

@@ -1,5 +1,5 @@
-#ifndef FRUITCUT_FRUITLIB_MATH_TRIANGLE_BASIC_HPP_INCLUDED
-#define FRUITCUT_FRUITLIB_MATH_TRIANGLE_BASIC_HPP_INCLUDED
+#ifndef FRUITLIB_MATH_TRIANGLE_BASIC_HPP_INCLUDED
+#define FRUITLIB_MATH_TRIANGLE_BASIC_HPP_INCLUDED
 
 #include <fcppt/math/vector/vector.hpp>
 #include <fcppt/math/size_type.hpp>
@@ -7,8 +7,6 @@
 #include <fcppt/container/array.hpp>
 #include <algorithm>
 
-namespace fruitcut
-{
 namespace fruitlib
 {
 namespace math
@@ -70,13 +68,12 @@ private:
 }
 }
 }
-}
 
 template<typename T,fcppt::math::size_type N,typename Data>
 fcppt::io::ostream &
 operator<<(
 	fcppt::io::ostream &s,
-	fruitcut::fruitlib::math::triangle::basic<T,N,Data> const &p)
+	fruitlib::math::triangle::basic<T,N,Data> const &p)
 {
 	return 
 		s 

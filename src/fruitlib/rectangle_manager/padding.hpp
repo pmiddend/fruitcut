@@ -1,8 +1,6 @@
-#ifndef FRUITCUT_FRUITLIB_RECTANGLE_MANAGER_PADDING_HPP_INCLUDED
-#define FRUITCUT_FRUITLIB_RECTANGLE_MANAGER_PADDING_HPP_INCLUDED
+#ifndef FRUITLIB_RECTANGLE_MANAGER_PADDING_HPP_INCLUDED
+#define FRUITLIB_RECTANGLE_MANAGER_PADDING_HPP_INCLUDED
 
-namespace fruitcut
-{
 namespace fruitlib
 {
 namespace rectangle_manager
@@ -46,7 +44,6 @@ public:
 		return middle_;
 	}
 };
-}
 }
 }
 

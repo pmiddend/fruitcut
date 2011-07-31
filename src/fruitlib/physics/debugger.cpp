@@ -15,7 +15,7 @@
 #include <iostream>
 #include <ostream>
 
-fruitcut::fruitlib::physics::debugger::debugger(
+fruitlib::physics::debugger::debugger(
 	world &_world,
 	sge::renderer::device &_renderer,
 	sge::camera::object &_camera)
@@ -39,7 +39,7 @@ fruitcut::fruitlib::physics::debugger::debugger(
 }
 
 void
-fruitcut::fruitlib::physics::debugger::update()
+fruitlib::physics::debugger::update()
 {
 	scoped_lock_.take(
 		fcppt::make_unique_ptr<sge::line_drawer::scoped_lock>(
@@ -55,7 +55,7 @@ fruitcut::fruitlib::physics::debugger::update()
 }
 
 void
-fruitcut::fruitlib::physics::debugger::render()
+fruitlib::physics::debugger::render()
 {
 	if (debug_mode_ == btIDebugDraw::DBG_NoDebug)
 		return;
@@ -74,7 +74,7 @@ fruitcut::fruitlib::physics::debugger::render()
 }
 
 void
-fruitcut::fruitlib::physics::debugger::active(
+fruitlib::physics::debugger::active(
 	bool const _active)
 {
 	setDebugMode(
@@ -86,12 +86,12 @@ fruitcut::fruitlib::physics::debugger::active(
 }
 
 bool 
-fruitcut::fruitlib::physics::debugger::active() const
+fruitlib::physics::debugger::active() const
 {
 	return debug_mode_ != btIDebugDraw::DBG_NoDebug;
 }
 
-fruitcut::fruitlib::physics::debugger::~debugger()
+fruitlib::physics::debugger::~debugger()
 {
 	world_.handle().setDebugDrawer(
 		0);
@@ -99,7 +99,7 @@ fruitcut::fruitlib::physics::debugger::~debugger()
 
 // @override
 void
-fruitcut::fruitlib::physics::debugger::drawLine(
+fruitlib::physics::debugger::drawLine(
 	btVector3 const &from,
 	btVector3 const &to,
 	btVector3 const &color)
@@ -113,7 +113,7 @@ fruitcut::fruitlib::physics::debugger::drawLine(
 
 // @override
 void
-fruitcut::fruitlib::physics::debugger::drawLine(
+fruitlib::physics::debugger::drawLine(
 	btVector3 const &from,
 	btVector3 const &to,
 	btVector3 const &from_color,
@@ -144,7 +144,7 @@ fruitcut::fruitlib::physics::debugger::drawLine(
 
 // @override
 void
-fruitcut::fruitlib::physics::debugger::drawContactPoint(
+fruitlib::physics::debugger::drawContactPoint(
 	btVector3 const &point,
 	btVector3 const &normal,
 	btScalar distance,
@@ -159,7 +159,7 @@ fruitcut::fruitlib::physics::debugger::drawContactPoint(
 
 // @override
 void	
-fruitcut::fruitlib::physics::debugger::draw3dText(
+fruitlib::physics::debugger::draw3dText(
 	btVector3 const&,
 	char const*)
 {
@@ -167,7 +167,7 @@ fruitcut::fruitlib::physics::debugger::draw3dText(
 
 // @override
 void
-fruitcut::fruitlib::physics::debugger::reportErrorWarning(
+fruitlib::physics::debugger::reportErrorWarning(
 	char const* warningString)
 {
 	std::cerr 
@@ -178,7 +178,7 @@ fruitcut::fruitlib::physics::debugger::reportErrorWarning(
 
 // @override
 void 
-fruitcut::fruitlib::physics::debugger::setDebugMode(
+fruitlib::physics::debugger::setDebugMode(
 	int const _debug_mode)
 {
 	debug_mode_ = _debug_mode;
@@ -186,7 +186,7 @@ fruitcut::fruitlib::physics::debugger::setDebugMode(
 
 // @override
 int 
-fruitcut::fruitlib::physics::debugger::getDebugMode() const
+fruitlib::physics::debugger::getDebugMode() const
 {
 	return debug_mode_;
 }

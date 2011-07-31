@@ -3,7 +3,7 @@
 #include <fcppt/string.hpp>
 #include <boost/next_prior.hpp>
 
-fruitcut::fruitlib::resource_tree::path::path(
+fruitlib::resource_tree::path::path(
 	fcppt::string const &s)
 :
 	values_(
@@ -12,8 +12,8 @@ fruitcut::fruitlib::resource_tree::path::path(
 	values_[0] = s;
 }
 
-fruitcut::fruitlib::resource_tree::path &
-fruitcut::fruitlib::resource_tree::path::operator/(
+fruitlib::resource_tree::path &
+fruitlib::resource_tree::path::operator/(
 	fcppt::string const &s)
 {
 	values_.push_back(
@@ -21,14 +21,14 @@ fruitcut::fruitlib::resource_tree::path::operator/(
 	return *this;
 }
 
-fruitcut::fruitlib::resource_tree::path::value_sequence const &
-fruitcut::fruitlib::resource_tree::path::values() const
+fruitlib::resource_tree::path::value_sequence const &
+fruitlib::resource_tree::path::values() const
 {
 	return values_;
 }
 
 fcppt::string const
-fruitcut::fruitlib::resource_tree::path::string() const
+fruitlib::resource_tree::path::string() const
 {
 	fcppt::string result;
 	for(

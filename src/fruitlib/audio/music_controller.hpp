@@ -1,5 +1,5 @@
-#ifndef FRUITCUT_FRUITLIB_AUDIO_MUSIC_CONTROLLER_HPP_INCLUDED
-#define FRUITCUT_FRUITLIB_AUDIO_MUSIC_CONTROLLER_HPP_INCLUDED
+#ifndef FRUITLIB_AUDIO_MUSIC_CONTROLLER_HPP_INCLUDED
+#define FRUITLIB_AUDIO_MUSIC_CONTROLLER_HPP_INCLUDED
 
 #include "../uniform_random.hpp"
 #include "../random_generator.hpp"
@@ -24,8 +24,6 @@
 #include <vector>
 #include <map>
 
-namespace fruitcut
-{
 namespace fruitlib
 {
 namespace audio
@@ -106,7 +104,6 @@ private:
 	choose_random(
 		resource_tree_type const &);
 };
-}
 }
 }
 

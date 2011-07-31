@@ -1,5 +1,5 @@
-#ifndef FRUITCUT_FRUITLIB_TIME_FORMAT_STRING_TO_DURATION_HPP_INCLUDED
-#define FRUITCUT_FRUITLIB_TIME_FORMAT_STRING_TO_DURATION_HPP_INCLUDED
+#ifndef FRUITLIB_TIME_FORMAT_STRING_TO_DURATION_HPP_INCLUDED
+#define FRUITLIB_TIME_FORMAT_STRING_TO_DURATION_HPP_INCLUDED
 
 #include <fcppt/chrono/chrono.hpp>
 #include <fcppt/optional.hpp>
@@ -13,8 +13,6 @@
 #include <boost/type_traits/remove_cv.hpp>
 #include <string>
 
-namespace fruitcut
-{
 namespace fruitlib
 {
 namespace time_format
@@ -189,7 +187,6 @@ string_to_duration(
 			target_duration(
 				0),
 			fold_functor_type());
-}
 }
 }
 }

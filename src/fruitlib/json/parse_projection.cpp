@@ -8,7 +8,7 @@
 #include <fcppt/text.hpp>
 
 sge::camera::projection::object const
-fruitcut::fruitlib::json::parse_projection(
+fruitlib::json::parse_projection(
 	sge::parse::json::object const &o,
 	fcppt::optional<sge::renderer::scalar> const &aspect)
 {

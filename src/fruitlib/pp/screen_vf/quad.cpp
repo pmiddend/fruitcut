@@ -16,7 +16,7 @@
 #include <sge/shader/shader.hpp>
 #include <fcppt/math/vector/vector.hpp>
 
-fruitcut::fruitlib::pp::screen_vf::quad::quad(
+fruitlib::pp::screen_vf::quad::quad(
 	sge::renderer::device &_renderer)
 :
 	renderer_(
@@ -74,7 +74,7 @@ fruitcut::fruitlib::pp::screen_vf::quad::quad(
 }
 
 void
-fruitcut::fruitlib::pp::screen_vf::quad::render()
+fruitlib::pp::screen_vf::quad::render()
 {
 	sge::renderer::scoped_vertex_buffer const scoped_vb_(
 		renderer_,
@@ -89,17 +89,17 @@ fruitcut::fruitlib::pp::screen_vf::quad::render()
 }
 
 sge::renderer::vertex_declaration &
-fruitcut::fruitlib::pp::screen_vf::quad::vertex_declaration()
+fruitlib::pp::screen_vf::quad::vertex_declaration()
 {
 	return *declaration_;
 }
 
 sge::renderer::vertex_declaration const &
-fruitcut::fruitlib::pp::screen_vf::quad::vertex_declaration() const
+fruitlib::pp::screen_vf::quad::vertex_declaration() const
 {
 	return *declaration_;
 }
 
-fruitcut::fruitlib::pp::screen_vf::quad::~quad()
+fruitlib::pp::screen_vf::quad::~quad()
 {
 }

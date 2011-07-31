@@ -1,5 +1,5 @@
-#ifndef FRUITCUT_FRUITLIB_RECTANGLE_MANAGER_OBJECT_IMPL_HPP_INCLUDED
-#define FRUITCUT_FRUITLIB_RECTANGLE_MANAGER_OBJECT_IMPL_HPP_INCLUDED
+#ifndef FRUITLIB_RECTANGLE_MANAGER_OBJECT_IMPL_HPP_INCLUDED
+#define FRUITLIB_RECTANGLE_MANAGER_OBJECT_IMPL_HPP_INCLUDED
 
 #include "object_decl.hpp"
 #include "../exception.hpp"
@@ -10,7 +10,7 @@
 #include <boost/next_prior.hpp>
 
 template<typename T>
-fruitcut::fruitlib::rectangle_manager::object<T>::object(
+fruitlib::rectangle_manager::object<T>::object(
 	rect const &_bounding_rect,
 	padding const &_padding,
 	value_type const _speed)
@@ -28,7 +28,7 @@ fruitcut::fruitlib::rectangle_manager::object<T>::object(
 
 template<typename T>
 void
-fruitcut::fruitlib::rectangle_manager::object<T>::update(
+fruitlib::rectangle_manager::object<T>::update(
 	duration const &d)
 {
 	value_type const epsilon = 
@@ -73,13 +73,13 @@ fruitcut::fruitlib::rectangle_manager::object<T>::update(
 }
 
 template<typename T>
-fruitcut::fruitlib::rectangle_manager::object<T>::~object()
+fruitlib::rectangle_manager::object<T>::~object()
 {
 }
 
 template<typename T>
 void
-fruitcut::fruitlib::rectangle_manager::object<T>::insert(
+fruitlib::rectangle_manager::object<T>::insert(
 	instance &_instance)
 {
 	_instance.status_fraction(
@@ -119,7 +119,7 @@ fruitcut::fruitlib::rectangle_manager::object<T>::insert(
 
 template<typename T>
 void
-fruitcut::fruitlib::rectangle_manager::object<T>::kill(
+fruitlib::rectangle_manager::object<T>::kill(
 	instance const &_instance)
 {
 	for(
@@ -182,7 +182,7 @@ fruitcut::fruitlib::rectangle_manager::object<T>::kill(
 
 template<typename T>
 void
-fruitcut::fruitlib::rectangle_manager::object<T>::erase(
+fruitlib::rectangle_manager::object<T>::erase(
 	instance const &_instance)
 {
 	if(_instance.killed())

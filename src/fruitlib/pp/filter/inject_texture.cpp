@@ -1,7 +1,7 @@
 #include "inject_texture.hpp"
 #include "../texture/manager.hpp"
 
-fruitcut::fruitlib::pp::filter::inject_texture::inject_texture(
+fruitlib::pp::filter::inject_texture::inject_texture(
 	texture::manager &_texture_manager)
 :
 	texture_manager_(
@@ -11,21 +11,21 @@ fruitcut::fruitlib::pp::filter::inject_texture::inject_texture(
 }
 
 void
-fruitcut::fruitlib::pp::filter::inject_texture::texture(
+fruitlib::pp::filter::inject_texture::texture(
 	sge::renderer::texture::planar_ptr const _texture)
 {
 	texture_ = 
 		_texture;
 }
 
-fruitcut::fruitlib::pp::texture::counted_instance const
-fruitcut::fruitlib::pp::filter::inject_texture::apply()
+fruitlib::pp::texture::counted_instance const
+fruitlib::pp::filter::inject_texture::apply()
 {
 	return 
 		texture_manager_.query(
 			*texture_);
 }
 
-fruitcut::fruitlib::pp::filter::inject_texture::~inject_texture()
+fruitlib::pp::filter::inject_texture::~inject_texture()
 {
 }

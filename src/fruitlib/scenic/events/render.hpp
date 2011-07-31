@@ -1,11 +1,9 @@
-#ifndef FRUITCUT_FRUITLIB_SCENIC_EVENTS_RENDER_HPP_INCLUDED
-#define FRUITCUT_FRUITLIB_SCENIC_EVENTS_RENDER_HPP_INCLUDED
+#ifndef FRUITLIB_SCENIC_EVENTS_RENDER_HPP_INCLUDED
+#define FRUITLIB_SCENIC_EVENTS_RENDER_HPP_INCLUDED
 
 #include "base.hpp"
 #include <fcppt/noncopyable.hpp>
 
-namespace fruitcut
-{
 namespace fruitlib
 {
 namespace scenic
@@ -24,7 +22,6 @@ public:
 
 	~render();
 };
-}
 }
 }
 }

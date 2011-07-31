@@ -95,6 +95,8 @@ fruitcut::app::shadow_map::react(
 	sge::renderer::state::scoped scoped_state(
 		renderer_,
 		sge::renderer::state::list
+			(sge::renderer::state::float_::depth_buffer_clear_val = 1.0f)
+			(sge::renderer::state::depth_func::less)
 			(sge::renderer::state::bool_::clear_depth_buffer = true)
 			(sge::renderer::state::bool_::clear_back_buffer = true)
 			(sge::renderer::state::color::back_buffer_clear_color = sge::image::colors::black()));

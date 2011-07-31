@@ -1,11 +1,9 @@
-#ifndef FRUITCUT_FRUITLIB_JSON_MODIFY_USER_VALUE_HPP_INCLUDED
-#define FRUITCUT_FRUITLIB_JSON_MODIFY_USER_VALUE_HPP_INCLUDED
+#ifndef FRUITLIB_JSON_MODIFY_USER_VALUE_HPP_INCLUDED
+#define FRUITLIB_JSON_MODIFY_USER_VALUE_HPP_INCLUDED
 
 #include "path_fwd.hpp"
 #include <sge/parse/json/json.hpp>
 
-namespace fruitcut
-{
 namespace fruitlib
 {
 namespace json
@@ -27,7 +25,6 @@ modify_user_value(
 	sge::parse::json::object &user_json,
 	json::path const &path,
 	sge::parse::json::value const &new_value);
-}
 }
 }
 

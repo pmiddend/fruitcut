@@ -9,7 +9,7 @@
 #include <fcppt/string.hpp>
 
 namespace sgejson = sge::parse::json;
-namespace fruitlibjson = fruitcut::fruitlib::json;
+namespace fruitlibjson = fruitlib::json;
 
 BOOST_AUTO_TEST_CASE(
 	json_find_object)

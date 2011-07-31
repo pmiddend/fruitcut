@@ -11,7 +11,7 @@ main(
 {
 	fcppt::io::cout 
 		<< 
-			fruitcut::fruitlib::json::output_tabbed(
+			fruitlib::json::output_tabbed(
 				sge::parse::json::parse_file_exn(
 					fcppt::from_std_string(
 						argv[1]))) 

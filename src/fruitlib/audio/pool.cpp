@@ -2,14 +2,14 @@
 #include <sge/audio/sound/base.hpp>
 #include <sge/audio/sound/play_status.hpp>
 
-fruitcut::fruitlib::audio::pool::pool()
+fruitlib::audio::pool::pool()
 :
 	sounds_()
 {
 }
 
 void
-fruitcut::fruitlib::audio::pool::update()
+fruitlib::audio::pool::update()
 {
 	for(
 		sound_sequence::iterator i = 
@@ -27,13 +27,13 @@ fruitcut::fruitlib::audio::pool::update()
 }
 
 void
-fruitcut::fruitlib::audio::pool::insert(
+fruitlib::audio::pool::insert(
 	sge::audio::sound::base_ptr const _new)
 {
 	sounds_.push_back(
 		_new);
 }
 
-fruitcut::fruitlib::audio::pool::~pool()
+fruitlib::audio::pool::~pool()
 {
 }

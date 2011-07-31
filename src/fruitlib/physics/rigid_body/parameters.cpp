@@ -1,6 +1,6 @@
 #include "parameters.hpp"
 
-fruitcut::fruitlib::physics::rigid_body::parameters::parameters(
+fruitlib::physics::rigid_body::parameters::parameters(
 	rigid_body::position const &_position,
 	rigid_body::transformation const &_transformation,
 	rigid_body::linear_velocity const &_linear_velocity,
@@ -29,54 +29,54 @@ fruitcut::fruitlib::physics::rigid_body::parameters::parameters(
 {
 }
 
-fruitcut::fruitlib::physics::rigid_body::position::value_type const &
-fruitcut::fruitlib::physics::rigid_body::parameters::position() const
+fruitlib::physics::rigid_body::position::value_type const &
+fruitlib::physics::rigid_body::parameters::position() const
 {
 	return position_;
 }
 
-fruitcut::fruitlib::physics::rigid_body::transformation::value_type const &
-fruitcut::fruitlib::physics::rigid_body::parameters::transformation() const
+fruitlib::physics::rigid_body::transformation::value_type const &
+fruitlib::physics::rigid_body::parameters::transformation() const
 {
 	return transformation_;
 }
 
-fruitcut::fruitlib::physics::rigid_body::linear_velocity::value_type const &
-fruitcut::fruitlib::physics::rigid_body::parameters::linear_velocity() const
+fruitlib::physics::rigid_body::linear_velocity::value_type const &
+fruitlib::physics::rigid_body::parameters::linear_velocity() const
 {
 	return linear_velocity_;
 }
 
-fruitcut::fruitlib::physics::rigid_body::angular_velocity::value_type const &
-fruitcut::fruitlib::physics::rigid_body::parameters::angular_velocity() const
+fruitlib::physics::rigid_body::angular_velocity::value_type const &
+fruitlib::physics::rigid_body::parameters::angular_velocity() const
 {
 	return angular_velocity_;
 }
 
-fruitcut::fruitlib::physics::shared_shape_ptr const
-fruitcut::fruitlib::physics::rigid_body::parameters::shape() const
+fruitlib::physics::shared_shape_ptr const
+fruitlib::physics::rigid_body::parameters::shape() const
 {
 	return shape_;
 }
 
-fruitcut::fruitlib::physics::rigid_body::solidity::type
-fruitcut::fruitlib::physics::rigid_body::parameters::solidity() const
+fruitlib::physics::rigid_body::solidity::type
+fruitlib::physics::rigid_body::parameters::solidity() const
 {
 	return solidity_;
 }
 
-fruitcut::fruitlib::physics::rigid_body::optional_mass const &
-fruitcut::fruitlib::physics::rigid_body::parameters::mass() const
+fruitlib::physics::rigid_body::optional_mass const &
+fruitlib::physics::rigid_body::parameters::mass() const
 {
 	return mass_;
 }
 
-fruitcut::fruitlib::physics::rigid_body::user_data const &
-fruitcut::fruitlib::physics::rigid_body::parameters::user_data() const
+fruitlib::physics::rigid_body::user_data const &
+fruitlib::physics::rigid_body::parameters::user_data() const
 {
 	return user_data_;
 }
 
-fruitcut::fruitlib::physics::rigid_body::parameters::~parameters()
+fruitlib::physics::rigid_body::parameters::~parameters()
 {
 }

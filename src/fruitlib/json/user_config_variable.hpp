@@ -1,5 +1,5 @@
-#ifndef FRUITCUT_FRUITLIB_JSON_USER_CONFIG_VARIABLE_HPP_INCLUDED
-#define FRUITCUT_FRUITLIB_JSON_USER_CONFIG_VARIABLE_HPP_INCLUDED
+#ifndef FRUITLIB_JSON_USER_CONFIG_VARIABLE_HPP_INCLUDED
+#define FRUITLIB_JSON_USER_CONFIG_VARIABLE_HPP_INCLUDED
 
 #include "path.hpp"
 #include "modify_user_value.hpp"
@@ -11,8 +11,6 @@
 #include <fcppt/noncopyable.hpp>
 #include <iostream>
 
-namespace fruitcut
-{
 namespace fruitlib
 {
 namespace json
@@ -93,7 +91,6 @@ private:
 	T value_;
 	fcppt::signal::object<callback_fn> callback_; 
 };
-}
 }
 }
 

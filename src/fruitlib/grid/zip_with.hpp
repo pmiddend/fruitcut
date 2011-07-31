@@ -1,13 +1,11 @@
-#ifndef FRUITCUT_FRUITLIB_GRID_ZIP_WITH_HPP_INCLUDED
-#define FRUITCUT_FRUITLIB_GRID_ZIP_WITH_HPP_INCLUDED
+#ifndef FRUITLIB_GRID_ZIP_WITH_HPP_INCLUDED
+#define FRUITLIB_GRID_ZIP_WITH_HPP_INCLUDED
 
 #include <fcppt/container/grid/size_type.hpp>
 #include <fcppt/container/grid/object.hpp>
 #include <fcppt/assert.hpp>
 #include <algorithm>
 
-namespace fruitcut
-{
 namespace fruitlib
 {
 namespace grid
@@ -36,7 +34,6 @@ zip_with(
 		result.begin(),
 		f);
 	return result;
-}
 }
 }
 }

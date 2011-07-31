@@ -1,5 +1,5 @@
-#ifndef FRUITCUT_FRUITLIB_PP_FILTER_MANAGER_HPP_INCLUDED
-#define FRUITCUT_FRUITLIB_PP_FILTER_MANAGER_HPP_INCLUDED
+#ifndef FRUITLIB_PP_FILTER_MANAGER_HPP_INCLUDED
+#define FRUITLIB_PP_FILTER_MANAGER_HPP_INCLUDED
 
 #include "../screen_vf/quad.hpp"
 #include <sge/renderer/device_fwd.hpp>
@@ -7,8 +7,6 @@
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/tr1/unordered_map.hpp>
 
-namespace fruitcut
-{
 namespace fruitlib
 {
 namespace pp
@@ -62,7 +60,6 @@ private:
 		sge::shader::variable_sequence const &,
 		sge::shader::sampler_sequence const &);
 };
-}
 }
 }
 }

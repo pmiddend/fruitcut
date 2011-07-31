@@ -27,7 +27,7 @@ BOOST_STATIC_ASSERT((
 
 namespace
 {
-fruitcut::fruitlib::physics::rigid_body::user_data const
+fruitlib::physics::rigid_body::user_data const
 void_ptr_to_body(
 	void *p)
 {
@@ -42,12 +42,12 @@ void_ptr_to_body(
 		co->getUserPointer());
 
 	return 
-		static_cast<fruitcut::fruitlib::physics::rigid_body::object *>(
+		static_cast<fruitlib::physics::rigid_body::object *>(
 			co->getUserPointer())->user_data();
 }
 }
 
-fruitcut::fruitlib::physics::world::world(
+fruitlib::physics::world::world(
 	box const &/*world_size*/,
 	vector3 const &_gravity)
 :
@@ -89,7 +89,7 @@ fruitcut::fruitlib::physics::world::world(
 }
 
 void
-fruitcut::fruitlib::physics::world::update(
+fruitlib::physics::world::update(
 	physics::duration const &delta)
 {
 	world_->stepSimulation(
@@ -100,8 +100,8 @@ fruitcut::fruitlib::physics::world::update(
 		3);
 }
 
-fruitcut::fruitlib::physics::vector3 const
-fruitcut::fruitlib::physics::world::gravity() const
+fruitlib::physics::vector3 const
+fruitlib::physics::world::gravity() const
 {
 	return 
 		structure_cast<vector3>(
@@ -109,7 +109,7 @@ fruitcut::fruitlib::physics::world::gravity() const
 }
 
 void
-fruitcut::fruitlib::physics::world::gravity(
+fruitlib::physics::world::gravity(
 	vector3 const &_gravity)
 {
 	world_->setGravity(
@@ -118,13 +118,13 @@ fruitcut::fruitlib::physics::world::gravity(
 }
 
 btDiscreteDynamicsWorld &
-fruitcut::fruitlib::physics::world::handle()
+fruitlib::physics::world::handle()
 {
 	return *world_;
 }
 
 void
-fruitcut::fruitlib::physics::world::add_body(
+fruitlib::physics::world::add_body(
 	rigid_body::object &_body,
 	group::sequence const &_groups)
 {
@@ -146,7 +146,7 @@ fruitcut::fruitlib::physics::world::add_body(
 }
 
 void
-fruitcut::fruitlib::physics::world::remove_body(
+fruitlib::physics::world::remove_body(
 	rigid_body::object &_body)
 {
 	world_->removeRigidBody(
@@ -154,7 +154,7 @@ fruitcut::fruitlib::physics::world::remove_body(
 }
 
 void
-fruitcut::fruitlib::physics::world::make_groups_collide(
+fruitlib::physics::world::make_groups_collide(
 	group::object &a,
 	group::object &b)
 {
@@ -164,8 +164,8 @@ fruitcut::fruitlib::physics::world::make_groups_collide(
 		a);
 }
 
-fruitcut::fruitlib::physics::group::id
-fruitcut::fruitlib::physics::world::next_group_id()
+fruitlib::physics::group::id
+fruitlib::physics::world::next_group_id()
 {
 	if(next_group_id_ == std::numeric_limits<group::id>::max())
 		throw fruitlib::exception(
@@ -179,7 +179,7 @@ fruitcut::fruitlib::physics::world::next_group_id()
 }
 
 fcppt::signal::auto_connection
-fruitcut::fruitlib::physics::world::rigid_body_collision(
+fruitlib::physics::world::rigid_body_collision(
 	rigid_body::collision_callback const &f)
 {
 	return 
@@ -187,12 +187,12 @@ fruitcut::fruitlib::physics::world::rigid_body_collision(
 			f);
 }
 
-fruitcut::fruitlib::physics::world::~world()
+fruitlib::physics::world::~world()
 {
 }
 
 void
-fruitcut::fruitlib::physics::world::internal_tick_callback_static(
+fruitlib::physics::world::internal_tick_callback_static(
 	btDynamicsWorld *w,
 	btScalar const time_step)
 {
@@ -205,7 +205,7 @@ fruitcut::fruitlib::physics::world::internal_tick_callback_static(
 }
 
 void
-fruitcut::fruitlib::physics::world::internal_tick_callback(
+fruitlib::physics::world::internal_tick_callback(
 	btScalar /* time_step */)
 {
 	for(

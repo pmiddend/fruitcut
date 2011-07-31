@@ -1,11 +1,9 @@
-#ifndef FRUITCUT_FRUITLIB_PP_TEXTURE_USE_SCREEN_SIZE_HPP_INCLUDED
-#define FRUITCUT_FRUITLIB_PP_TEXTURE_USE_SCREEN_SIZE_HPP_INCLUDED
+#ifndef FRUITLIB_PP_TEXTURE_USE_SCREEN_SIZE_HPP_INCLUDED
+#define FRUITLIB_PP_TEXTURE_USE_SCREEN_SIZE_HPP_INCLUDED
 
 #include <sge/renderer/dim2.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 
-namespace fruitcut
-{
 namespace fruitlib
 {
 namespace pp
@@ -21,7 +19,6 @@ namespace texture
 // optional value)
 sge::renderer::dim2 const
 use_screen_size();
-}
 }
 }
 }

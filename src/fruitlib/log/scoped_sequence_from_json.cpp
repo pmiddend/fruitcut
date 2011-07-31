@@ -13,8 +13,8 @@
 #include <fcppt/container/ptr/push_back_unique_ptr.hpp>
 #include <fcppt/tr1/functional.hpp>
 
-fruitcut::fruitlib::log::scoped_sequence_ptr
-fruitcut::fruitlib::log::scoped_sequence_from_json(
+fruitlib::log::scoped_sequence_ptr
+fruitlib::log::scoped_sequence_from_json(
 	fcppt::log::context &context,
 	sge::parse::json::array const &a)
 {

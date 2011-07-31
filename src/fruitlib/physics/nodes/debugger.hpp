@@ -1,5 +1,5 @@
-#ifndef FRUITCUT_FRUITLIB_PHYSICS_NODES_DEBUGGER_HPP_INCLUDED
-#define FRUITCUT_FRUITLIB_PHYSICS_NODES_DEBUGGER_HPP_INCLUDED
+#ifndef FRUITLIB_PHYSICS_NODES_DEBUGGER_HPP_INCLUDED
+#define FRUITLIB_PHYSICS_NODES_DEBUGGER_HPP_INCLUDED
 
 #include "../debugger_fwd.hpp"
 #include "../../scenic/node.hpp"
@@ -9,8 +9,6 @@
 #include <fcppt/noncopyable.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 
-namespace fruitcut
-{
 namespace fruitlib
 {
 namespace physics
@@ -49,7 +47,6 @@ public:
 private:
 	physics::debugger &debugger_;
 };
-}
 }
 }
 }

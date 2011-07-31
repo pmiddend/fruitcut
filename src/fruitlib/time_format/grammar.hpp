@@ -1,10 +1,8 @@
-#ifndef FRUITCUT_FRUITLIB_TIME_FORMAT_GRAMMAR_HPP_INCLUDED
-#define FRUITCUT_FRUITLIB_TIME_FORMAT_GRAMMAR_HPP_INCLUDED
+#ifndef FRUITLIB_TIME_FORMAT_GRAMMAR_HPP_INCLUDED
+#define FRUITLIB_TIME_FORMAT_GRAMMAR_HPP_INCLUDED
 
 #include <boost/proto/proto.hpp>
 
-namespace fruitcut
-{
 namespace fruitlib
 {
 namespace time_format
@@ -20,7 +18,6 @@ class grammar
 {
 public:
 };
-}
 }
 }
 

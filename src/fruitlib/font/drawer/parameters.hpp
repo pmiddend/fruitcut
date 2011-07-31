@@ -1,5 +1,5 @@
-#ifndef FRUITCUT_FRUITLIB_FONT_DRAWER_PARAMETERS_HPP_INCLUDED
-#define FRUITCUT_FRUITLIB_FONT_DRAWER_PARAMETERS_HPP_INCLUDED
+#ifndef FRUITLIB_FONT_DRAWER_PARAMETERS_HPP_INCLUDED
+#define FRUITLIB_FONT_DRAWER_PARAMETERS_HPP_INCLUDED
 
 #include "transform_callback.hpp"
 #include "../color.hpp"
@@ -7,8 +7,6 @@
 #include <fcppt/variant/object.hpp>
 #include <fcppt/nonassignable.hpp>
 
-namespace fruitcut
-{
 namespace fruitlib
 {
 namespace font
@@ -36,16 +34,15 @@ public:
 
 	void
 	transform_callback(
-		fruitcut::fruitlib::font::drawer::transform_callback const &);
+		drawer::transform_callback const &);
 
-	fruitcut::fruitlib::font::drawer::transform_callback const &
+	drawer::transform_callback const &
 	transform_callback() const;
 private:
 	sge::renderer::device &renderer_;
 	font::color color_;
-	fruitcut::fruitlib::font::drawer::transform_callback transform_callback_;
+	drawer::transform_callback transform_callback_;
 };
-}
 }
 }
 }

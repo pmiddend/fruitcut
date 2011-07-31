@@ -1,5 +1,5 @@
-#ifndef FRUITCUT_FRUITLIB_PP_TEXTURE_MANAGER_HPP_INCLUDED
-#define FRUITCUT_FRUITLIB_PP_TEXTURE_MANAGER_HPP_INCLUDED
+#ifndef FRUITLIB_PP_TEXTURE_MANAGER_HPP_INCLUDED
+#define FRUITLIB_PP_TEXTURE_MANAGER_HPP_INCLUDED
 
 #include "descriptor.hpp"
 #include "instance.hpp"
@@ -9,8 +9,6 @@
 #include <fcppt/noncopyable.hpp>
 #include <boost/ptr_container/ptr_map.hpp>
 
-namespace fruitcut
-{
 namespace fruitlib
 {
 namespace pp
@@ -69,7 +67,6 @@ private:
 	query_internal(
 		descriptor const &);
 };
-}
 }
 }
 }

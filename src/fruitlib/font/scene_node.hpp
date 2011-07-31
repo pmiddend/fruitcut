@@ -1,5 +1,5 @@
-#ifndef FRUITCUT_FRUITLIB_FONT_SCENE_NODE_HPP_INCLUDED
-#define FRUITCUT_FRUITLIB_FONT_SCENE_NODE_HPP_INCLUDED
+#ifndef FRUITLIB_FONT_SCENE_NODE_HPP_INCLUDED
+#define FRUITLIB_FONT_SCENE_NODE_HPP_INCLUDED
 
 #include "color.hpp"
 #include "scale.hpp"
@@ -11,8 +11,6 @@
 #include <fcppt/noncopyable.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 
-namespace fruitcut
-{
 namespace fruitlib
 {
 namespace font
@@ -64,7 +62,6 @@ private:
 	font::scale::value_type scale_;
 
 };
-}
 }
 }
 

@@ -3,7 +3,7 @@
 #include <fcppt/chrono/milliseconds.hpp>
 #include <iostream>
 
-fruitcut::fruitlib::performance_timer::performance_timer(
+fruitlib::performance_timer::performance_timer(
 	optional_threshold const &_threshold,
 	optional_callback const &_callback)
 :
@@ -16,7 +16,7 @@ fruitcut::fruitlib::performance_timer::performance_timer(
 {
 }
 
-fruitcut::fruitlib::performance_timer::~performance_timer()
+fruitlib::performance_timer::~performance_timer()
 {
 	clock::duration const diff = 
 		clock::now() - beginning_;

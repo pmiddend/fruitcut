@@ -1,11 +1,9 @@
-#ifndef FRUITCUT_FRUITLIB_PHYSICS_MATRIX3_TO_MATRIX4_HPP_INCLUDED
-#define FRUITCUT_FRUITLIB_PHYSICS_MATRIX3_TO_MATRIX4_HPP_INCLUDED
+#ifndef FRUITLIB_PHYSICS_MATRIX3_TO_MATRIX4_HPP_INCLUDED
+#define FRUITLIB_PHYSICS_MATRIX3_TO_MATRIX4_HPP_INCLUDED
 
 #include <fcppt/math/matrix/static.hpp>
 #include <fcppt/math/matrix/basic_impl.hpp>
 
-namespace fruitcut
-{
 namespace fruitlib
 {
 namespace physics
@@ -24,7 +22,6 @@ matrix3_to_matrix4(
 			m[1][0],m[1][1],m[1][2],static_cast<T>(0),
 			m[2][0],m[2][1],m[2][2],static_cast<T>(0),
 			static_cast<T>(0),static_cast<T>(0),static_cast<T>(0),static_cast<T>(1));
-}
 }
 }
 }

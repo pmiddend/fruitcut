@@ -1,12 +1,10 @@
-#ifndef FRUITCUT_FRUITLIB_PP_TEXTURE_INSTANCE_HPP_INCLUDED
-#define FRUITCUT_FRUITLIB_PP_TEXTURE_INSTANCE_HPP_INCLUDED
+#ifndef FRUITLIB_PP_TEXTURE_INSTANCE_HPP_INCLUDED
+#define FRUITLIB_PP_TEXTURE_INSTANCE_HPP_INCLUDED
 
 #include "descriptor.hpp"
 #include <sge/renderer/texture/planar_ptr.hpp>
 #include <sge/renderer/target_ptr.hpp>
 
-namespace fruitcut
-{
 namespace fruitlib
 {
 namespace pp
@@ -46,7 +44,6 @@ private:
 	sge::renderer::target_ptr target_;
 	bool locked_;
 };
-}
 }
 }
 }

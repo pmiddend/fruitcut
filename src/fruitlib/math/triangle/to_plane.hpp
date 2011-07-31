@@ -1,12 +1,10 @@
-#ifndef FRUITCUT_FRUITLIB_MATH_TRIANGLE_TO_PLANE_HPP_INCLUDED
-#define FRUITCUT_FRUITLIB_MATH_TRIANGLE_TO_PLANE_HPP_INCLUDED
+#ifndef FRUITLIB_MATH_TRIANGLE_TO_PLANE_HPP_INCLUDED
+#define FRUITLIB_MATH_TRIANGLE_TO_PLANE_HPP_INCLUDED
 
 #include "basic.hpp"
 #include "../plane/basic.hpp"
 #include <fcppt/math/vector/vector.hpp>
 
-namespace fruitcut
-{
 namespace fruitlib
 {
 namespace math
@@ -29,7 +27,6 @@ to_plane(
 			fcppt::math::vector::dot(
 				normal,
 				t.points[0]));
-}
 }
 }
 }

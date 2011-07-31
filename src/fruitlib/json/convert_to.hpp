@@ -1,5 +1,5 @@
-#ifndef FRUITCUT_FRUITLIB_JSON_CONVERT_TO_HPP_INCLUDED
-#define FRUITCUT_FRUITLIB_JSON_CONVERT_TO_HPP_INCLUDED
+#ifndef FRUITLIB_JSON_CONVERT_TO_HPP_INCLUDED
+#define FRUITLIB_JSON_CONVERT_TO_HPP_INCLUDED
 
 #include <sge/parse/json/json.hpp>
 #include <fcppt/type_traits/is_iterable.hpp>
@@ -8,8 +8,6 @@
 #include <boost/type_traits/is_integral.hpp>
 #include <fcppt/string.hpp>
 
-namespace fruitcut
-{
 namespace fruitlib
 {
 namespace json
@@ -82,7 +80,6 @@ convert_to(
 			json::convert_to(
 				*i));
 	return result;
-}
 }
 }
 }

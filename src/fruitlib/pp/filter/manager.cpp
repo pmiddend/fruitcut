@@ -3,7 +3,7 @@
 #include <sge/shader/shader.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 
-fruitcut::fruitlib::pp::filter::manager::manager(
+fruitlib::pp::filter::manager::manager(
 	sge::renderer::device &_renderer,
 	fcppt::filesystem::path const &_base_path)
 :
@@ -19,7 +19,7 @@ fruitcut::fruitlib::pp::filter::manager::manager(
 }
 
 sge::shader::object &
-fruitcut::fruitlib::pp::filter::manager::lookup_shader(
+fruitlib::pp::filter::manager::lookup_shader(
 	fcppt::string const &name,
 	sge::shader::variable_sequence const &variables,
 	sge::shader::sampler_sequence const &samplers)
@@ -39,24 +39,24 @@ fruitcut::fruitlib::pp::filter::manager::lookup_shader(
 		*(found_shader->second);
 }
 
-fruitcut::fruitlib::pp::screen_vf::quad &
-fruitcut::fruitlib::pp::filter::manager::quad()
+fruitlib::pp::screen_vf::quad &
+fruitlib::pp::filter::manager::quad()
 {
 	return quad_;
 }
 
-fruitcut::fruitlib::pp::screen_vf::quad const &
-fruitcut::fruitlib::pp::filter::manager::quad() const
+fruitlib::pp::screen_vf::quad const &
+fruitlib::pp::filter::manager::quad() const
 {
 	return quad_;
 }
 
-fruitcut::fruitlib::pp::filter::manager::~manager()
+fruitlib::pp::filter::manager::~manager()
 {
 }
 
-fruitcut::fruitlib::pp::filter::manager::name_to_shader::iterator const
-fruitcut::fruitlib::pp::filter::manager::create_shader(
+fruitlib::pp::filter::manager::name_to_shader::iterator const
+fruitlib::pp::filter::manager::create_shader(
 	fcppt::string const &name,
 	sge::shader::variable_sequence const &variables,
 	sge::shader::sampler_sequence const &samplers)

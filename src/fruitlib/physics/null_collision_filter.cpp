@@ -2,7 +2,7 @@
 #include "world.hpp"
 #include <BulletDynamics/Dynamics/btDiscreteDynamicsWorld.h>
 
-fruitcut::fruitlib::physics::null_collision_filter::null_collision_filter(
+fruitlib::physics::null_collision_filter::null_collision_filter(
 	world &_world)
 :
 	world_(
@@ -13,14 +13,14 @@ fruitcut::fruitlib::physics::null_collision_filter::null_collision_filter(
 }
 
 bool
-fruitcut::fruitlib::physics::null_collision_filter::needBroadphaseCollision(
+fruitlib::physics::null_collision_filter::needBroadphaseCollision(
 	btBroadphaseProxy *,
 	btBroadphaseProxy *) const
 {
 	return false;
 }
 
-fruitcut::fruitlib::physics::null_collision_filter::~null_collision_filter()
+fruitlib::physics::null_collision_filter::~null_collision_filter()
 {
 	world_.handle().getPairCache()->setOverlapFilterCallback(
 		0);

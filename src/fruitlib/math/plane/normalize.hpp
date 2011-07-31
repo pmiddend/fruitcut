@@ -1,12 +1,10 @@
-#ifndef FRUITCUT_FRUITLIB_MATH_PLANE_NORMALIZE_HPP_INCLUDED
-#define FRUITCUT_FRUITLIB_MATH_PLANE_NORMALIZE_HPP_INCLUDED
+#ifndef FRUITLIB_MATH_PLANE_NORMALIZE_HPP_INCLUDED
+#define FRUITLIB_MATH_PLANE_NORMALIZE_HPP_INCLUDED
 
 #include "basic.hpp"
 #include <fcppt/math/vector/vector.hpp>
 #include <fcppt/math/size_type.hpp>
 
-namespace fruitcut
-{
 namespace fruitlib
 {
 namespace math
@@ -25,7 +23,6 @@ normalize(
 			p.lambda()/
 			fcppt::math::vector::length(
 				p.normal()));
-}
 }
 }
 }

@@ -22,7 +22,7 @@
 #include <utility>
 #include <map>
 
-fruitcut::fruitlib::font::cache::cache(
+fruitlib::font::cache::cache(
 	sge::font::system &_font_system,
 	sge::renderer::device &_renderer,
 	sge::image2d::multi_loader &_image_loader,
@@ -96,8 +96,8 @@ fruitcut::fruitlib::font::cache::cache(
 						font_size));
 				fcppt::container::ptr::push_back_unique_ptr(
 					drawers_,
-					fcppt::make_unique_ptr<fruitcut::fruitlib::font::drawer::object>(
-						fruitcut::fruitlib::font::drawer::parameters(
+					fcppt::make_unique_ptr<fruitlib::font::drawer::object>(
+						fruitlib::font::drawer::parameters(
 							_renderer)));
 				cached_value = 
 					ttf_fonts_.insert(
@@ -136,8 +136,8 @@ fruitcut::fruitlib::font::cache::cache(
 						_image_loader));
 				fcppt::container::ptr::push_back_unique_ptr(
 					drawers_,
-					fcppt::make_unique_ptr<fruitcut::fruitlib::font::drawer::object>(
-						fruitcut::fruitlib::font::drawer::parameters(
+					fcppt::make_unique_ptr<fruitlib::font::drawer::object>(
+						fruitlib::font::drawer::parameters(
 							_renderer)));
 				cached_value = 
 					bitmap_fonts_.insert(
@@ -166,7 +166,7 @@ fruitcut::fruitlib::font::cache::cache(
 }
 
 sge::font::metrics_ptr const
-fruitcut::fruitlib::font::cache::metrics(
+fruitlib::font::cache::metrics(
 	fcppt::string const &identifier)
 {
 	to_metrics::const_iterator i = 
@@ -180,8 +180,8 @@ fruitcut::fruitlib::font::cache::metrics(
 	return *(i->second);
 }
 
-fruitcut::fruitlib::font::drawer::object &
-fruitcut::fruitlib::font::cache::drawer(
+fruitlib::font::drawer::object &
+fruitlib::font::cache::drawer(
 	fcppt::string const &identifier)
 {
 	to_drawer::const_iterator i = 
@@ -193,6 +193,6 @@ fruitcut::fruitlib::font::cache::drawer(
 	return *(i->second);
 }
 
-fruitcut::fruitlib::font::cache::~cache()
+fruitlib::font::cache::~cache()
 {
 }

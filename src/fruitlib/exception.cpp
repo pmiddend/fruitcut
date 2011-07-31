@@ -2,13 +2,13 @@
 #include <fcppt/string.hpp>
 #include <fcppt/exception.hpp>
 
-fruitcut::fruitlib::exception::exception(
+fruitlib::exception::exception(
 	fcppt::string const &_string)
 :
 	fcppt::exception(
 		_string)
 {}
 
-fruitcut::fruitlib::exception::~exception() throw()
+fruitlib::exception::~exception() throw()
 {
 }

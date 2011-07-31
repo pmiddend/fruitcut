@@ -2,7 +2,7 @@
 #include "id.hpp"
 #include "../world.hpp"
 
-fruitcut::fruitlib::physics::group::object::object(
+fruitlib::physics::group::object::object(
 	physics::world &_world)
 :
 	category_(
@@ -14,12 +14,12 @@ fruitcut::fruitlib::physics::group::object::object(
 {
 }
 
-fruitcut::fruitlib::physics::group::object::~object()
+fruitlib::physics::group::object::~object()
 {
 }
 
 void
-fruitcut::fruitlib::physics::group::object::collides_with(
+fruitlib::physics::group::object::collides_with(
 	group::object const &other)
 {
 	collides_ |= other.category_;

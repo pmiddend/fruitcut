@@ -2,7 +2,7 @@
 #include "../../scenic/events/render.hpp"
 #include <sge/console/gfx.hpp>
 
-fruitcut::fruitlib::scenic::adaptors::console::console(
+fruitlib::scenic::adaptors::console::console(
 	scenic::optional_parent const &_parent,
 	sge::console::gfx &_gfx)
 :
@@ -13,12 +13,12 @@ fruitcut::fruitlib::scenic::adaptors::console::console(
 {
 }
 
-fruitcut::fruitlib::scenic::adaptors::console::~console()
+fruitlib::scenic::adaptors::console::~console()
 {
 }
 
 void
-fruitcut::fruitlib::scenic::adaptors::console::react(
+fruitlib::scenic::adaptors::console::react(
 	events::render const &)
 {
 	if(gfx_.active())

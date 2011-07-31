@@ -1,5 +1,5 @@
-#ifndef FRUITCUT_FRUITLIB_PHYSICS_RIGID_BODY_OBJECT_HPP_INCLUDED
-#define FRUITCUT_FRUITLIB_PHYSICS_RIGID_BODY_OBJECT_HPP_INCLUDED
+#ifndef FRUITLIB_PHYSICS_RIGID_BODY_OBJECT_HPP_INCLUDED
+#define FRUITLIB_PHYSICS_RIGID_BODY_OBJECT_HPP_INCLUDED
 
 #include "../shared_shape_ptr.hpp"
 #include "../world_fwd.hpp"
@@ -15,8 +15,6 @@
 class btRigidBody;
 struct btDefaultMotionState;
 
-namespace fruitcut
-{
 namespace fruitlib
 {
 namespace physics
@@ -59,7 +57,6 @@ private:
 	fcppt::scoped_ptr<btRigidBody> body_;
 	rigid_body::user_data user_data_;
 };
-}
 }
 }
 }

@@ -1,5 +1,5 @@
-#ifndef FRUITCUT_FRUITLIB_PHYSICS_NODES_WORLD_HPP_INCLUDED
-#define FRUITCUT_FRUITLIB_PHYSICS_NODES_WORLD_HPP_INCLUDED
+#ifndef FRUITLIB_PHYSICS_NODES_WORLD_HPP_INCLUDED
+#define FRUITLIB_PHYSICS_NODES_WORLD_HPP_INCLUDED
 
 #include "../../scenic/node.hpp"
 #include "../../scenic/optional_parent.hpp"
@@ -10,8 +10,6 @@
 #include <fcppt/noncopyable.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 
-namespace fruitcut
-{
 namespace fruitlib
 {
 namespace physics
@@ -44,7 +42,6 @@ protected:
 	physics::world &world_;
 	sge::time::timer timer_;
 };
-}
 }
 }
 }

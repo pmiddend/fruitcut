@@ -5,7 +5,7 @@
 
 BOOST_AUTO_TEST_CASE(ptr_sequence)
 {
-	fruitcut::fruitlib::delayed_ptr_sequence<int,boost::ptr_vector> seq;
+	fruitlib::delayed_ptr_sequence<int,boost::ptr_vector> seq;
 	seq.push_back(
 		fcppt::make_unique_ptr<int>());
 	BOOST_CHECK(

@@ -1,5 +1,5 @@
-#ifndef FRUITCUT_FRUITLIB_LOG_SCOPED_HPP_INCLUDED
-#define FRUITCUT_FRUITLIB_LOG_SCOPED_HPP_INCLUDED
+#ifndef FRUITLIB_LOG_SCOPED_HPP_INCLUDED
+#define FRUITLIB_LOG_SCOPED_HPP_INCLUDED
 
 #include <fcppt/log/context_fwd.hpp>
 #include <fcppt/log/location.hpp>
@@ -9,8 +9,6 @@
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/container/array.hpp>
 
-namespace fruitcut
-{
 namespace fruitlib
 {
 namespace log
@@ -31,7 +29,6 @@ private:
 	fcppt::log::object *object_;
 	fcppt::log::enabled_level_array old_levels_;
 };
-}
 }
 }
 

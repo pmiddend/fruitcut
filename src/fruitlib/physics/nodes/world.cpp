@@ -7,7 +7,7 @@
 #include <sge/time/activation_state.hpp>
 #include <iostream>
 
-fruitcut::fruitlib::physics::nodes::world::world(
+fruitlib::physics::nodes::world::world(
 	scenic::optional_parent const &_parent,
 	physics::world &_world,
 	sge::time::callback const &_time_callback)
@@ -23,12 +23,12 @@ fruitcut::fruitlib::physics::nodes::world::world(
 {
 }
 
-fruitcut::fruitlib::physics::nodes::world::~world()
+fruitlib::physics::nodes::world::~world()
 {
 }
 
 void
-fruitcut::fruitlib::physics::nodes::world::react(
+fruitlib::physics::nodes::world::react(
 	scenic::events::update const &)
 {
 	world_.update(

@@ -1,13 +1,11 @@
-#ifndef FRUITCUT_FRUITLIB_PHYSICS_RIGID_BODY_SCOPED_HPP_INCLUDED
-#define FRUITCUT_FRUITLIB_PHYSICS_RIGID_BODY_SCOPED_HPP_INCLUDED
+#ifndef FRUITLIB_PHYSICS_RIGID_BODY_SCOPED_HPP_INCLUDED
+#define FRUITLIB_PHYSICS_RIGID_BODY_SCOPED_HPP_INCLUDED
 
 #include "../world_fwd.hpp"
 #include "object_fwd.hpp"
 #include "../group/sequence.hpp"
 #include <fcppt/noncopyable.hpp>
 
-namespace fruitcut
-{
 namespace fruitlib
 {
 namespace physics
@@ -30,7 +28,6 @@ private:
 	world &world_;
 	rigid_body::object &body_;
 };
-}
 }
 }
 }

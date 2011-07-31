@@ -80,25 +80,25 @@ fruitcut::app::machine::timer_callback() const
 	return impl_->timer_callback();
 }
 
-fruitcut::fruitlib::audio::sound_controller &
+fruitlib::audio::sound_controller &
 fruitcut::app::machine::sound_controller()
 {
 	return impl_->sound_controller();
 }
 
-fruitcut::fruitlib::audio::sound_controller const &
+fruitlib::audio::sound_controller const &
 fruitcut::app::machine::sound_controller() const
 {
 	return impl_->sound_controller();
 }
 
-fruitcut::fruitlib::audio::music_controller &
+fruitlib::audio::music_controller &
 fruitcut::app::machine::music_controller()
 {
 	return impl_->music_controller();
 }
 
-fruitcut::fruitlib::audio::music_controller const &
+fruitlib::audio::music_controller const &
 fruitcut::app::machine::music_controller() const
 {
 	return impl_->music_controller();
@@ -146,13 +146,13 @@ fruitcut::app::machine::camera() const
 	return impl_->camera();
 }
 
-fruitcut::fruitlib::font::cache &
+fruitlib::font::cache &
 fruitcut::app::machine::font_cache()
 {
 	return impl_->font_cache();
 }
 
-fruitcut::fruitlib::font::cache const &
+fruitlib::font::cache const &
 fruitcut::app::machine::font_cache() const
 {
 	return impl_->font_cache();
@@ -182,7 +182,7 @@ fruitcut::app::machine::gui_syringe() const
 	return impl_->gui_syringe();
 }
 
-fruitcut::fruitlib::random_generator &
+fruitlib::random_generator &
 fruitcut::app::machine::random_generator()
 {
 	return impl_->random_generator();
@@ -258,7 +258,7 @@ fruitcut::app::machine::time_factor(
 		_time_factor);
 }
 
-fruitcut::fruitlib::scenic::base &
+fruitlib::scenic::base &
 fruitcut::app::machine::root_node()
 {
 	return impl_->root_node();

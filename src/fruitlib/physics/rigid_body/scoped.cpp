@@ -3,7 +3,7 @@
 #include <BulletDynamics/Dynamics/btRigidBody.h>
 #include <BulletDynamics/Dynamics/btDiscreteDynamicsWorld.h>
 
-fruitcut::fruitlib::physics::rigid_body::scoped::scoped(
+fruitlib::physics::rigid_body::scoped::scoped(
 	world &_world,
 	rigid_body::object &_body,
 	group::sequence const &_groups)
@@ -18,7 +18,7 @@ fruitcut::fruitlib::physics::rigid_body::scoped::scoped(
 		_groups);
 }
 
-fruitcut::fruitlib::physics::rigid_body::scoped::~scoped()
+fruitlib::physics::rigid_body::scoped::~scoped()
 {
 	world_.remove_body(
 		body_);

@@ -1,5 +1,5 @@
-#ifndef FRUITCUT_FRUITLIB_JSON_PARSE_ANIMATION_HPP_INCLUDED
-#define FRUITCUT_FRUITLIB_JSON_PARSE_ANIMATION_HPP_INCLUDED
+#ifndef FRUITLIB_JSON_PARSE_ANIMATION_HPP_INCLUDED
+#define FRUITLIB_JSON_PARSE_ANIMATION_HPP_INCLUDED
 
 #include "find_and_convert_member.hpp"
 #include "../animation.hpp"
@@ -13,8 +13,6 @@
 #include <boost/variant/get.hpp>
 #include <fcppt/text.hpp>
 
-namespace fruitcut
-{
 namespace fruitlib
 {
 namespace json
@@ -75,7 +73,6 @@ parse_animation(
 	}
 
 	return values;
-}
 }
 }
 }

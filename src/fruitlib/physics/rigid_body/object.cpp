@@ -25,7 +25,7 @@ btRigidBody::btRigidBodyConstructionInfo const
 create_construction_info(
 	btMotionState *motion_state,
 	btCollisionShape *shape,
-	fruitcut::fruitlib::physics::rigid_body::optional_mass const &mass)
+	fruitlib::physics::rigid_body::optional_mass const &mass)
 {
 	btVector3 inertia(0,0,0);
 	if (mass)
@@ -45,7 +45,7 @@ create_construction_info(
 }
 }
 
-fruitcut::fruitlib::physics::rigid_body::object::object(
+fruitlib::physics::rigid_body::object::object(
 	rigid_body::parameters const &params)
 :
 	shape_(
@@ -79,8 +79,8 @@ fruitcut::fruitlib::physics::rigid_body::object::object(
 		DISABLE_DEACTIVATION);
 }
 
-fruitcut::fruitlib::physics::rigid_body::transformation::value_type const
-fruitcut::fruitlib::physics::rigid_body::object::world_transform() const
+fruitlib::physics::rigid_body::transformation::value_type const
+fruitlib::physics::rigid_body::object::world_transform() const
 {
 	btTransform deftr;
 	motion_state_->getWorldTransform(
@@ -94,8 +94,8 @@ fruitcut::fruitlib::physics::rigid_body::object::world_transform() const
 				deftr.getBasis()));
 }
 
-fruitcut::fruitlib::physics::rigid_body::transformation::value_type const
-fruitcut::fruitlib::physics::rigid_body::object::transformation() const
+fruitlib::physics::rigid_body::transformation::value_type const
+fruitlib::physics::rigid_body::object::transformation() const
 {
 	btTransform deftr;
 	motion_state_->getWorldTransform(
@@ -106,24 +106,24 @@ fruitcut::fruitlib::physics::rigid_body::object::transformation() const
 				deftr.getBasis()));
 }
 
-fruitcut::fruitlib::physics::rigid_body::linear_velocity::value_type const
-fruitcut::fruitlib::physics::rigid_body::object::linear_velocity() const
+fruitlib::physics::rigid_body::linear_velocity::value_type const
+fruitlib::physics::rigid_body::object::linear_velocity() const
 {
 	return 
 		structure_cast<vector3>(
 			body_->getLinearVelocity());
 }
 
-fruitcut::fruitlib::physics::rigid_body::angular_velocity::value_type const
-fruitcut::fruitlib::physics::rigid_body::object::angular_velocity() const
+fruitlib::physics::rigid_body::angular_velocity::value_type const
+fruitlib::physics::rigid_body::object::angular_velocity() const
 {
 	return 
 		structure_cast<vector3>(
 			body_->getAngularVelocity());
 }
 
-fruitcut::fruitlib::physics::rigid_body::position::value_type const
-fruitcut::fruitlib::physics::rigid_body::object::position() const
+fruitlib::physics::rigid_body::position::value_type const
+fruitlib::physics::rigid_body::object::position() const
 {
 	btTransform deftr;
 	motion_state_->getWorldTransform(
@@ -133,12 +133,12 @@ fruitcut::fruitlib::physics::rigid_body::object::position() const
 			deftr.getOrigin());
 }
 
-fruitcut::fruitlib::physics::rigid_body::user_data const &
-fruitcut::fruitlib::physics::rigid_body::object::user_data() const
+fruitlib::physics::rigid_body::user_data const &
+fruitlib::physics::rigid_body::object::user_data() const
 {
 	return user_data_;
 }
 
-fruitcut::fruitlib::physics::rigid_body::object::~object()
+fruitlib::physics::rigid_body::object::~object()
 {
 }

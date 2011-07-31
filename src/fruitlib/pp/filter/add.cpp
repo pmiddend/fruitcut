@@ -16,7 +16,7 @@
 #include <fcppt/math/dim/output.hpp>
 #include <iostream>
 
-fruitcut::fruitlib::pp::filter::add::add(
+fruitlib::pp::filter::add::add(
 	sge::renderer::device &_renderer,
 	filter::manager &_filter_manager,
 	texture::manager &_texture_manager,
@@ -44,8 +44,8 @@ fruitcut::fruitlib::pp::filter::add::add(
 {
 }
 
-fruitcut::fruitlib::pp::texture::counted_instance const
-fruitcut::fruitlib::pp::filter::add::apply(
+fruitlib::pp::texture::counted_instance const
+fruitlib::pp::filter::add::apply(
 	texture::counted_instance const input1,
 	texture::counted_instance const input2)
 {
@@ -86,6 +86,6 @@ fruitcut::fruitlib::pp::filter::add::apply(
 		result;
 }
 
-fruitcut::fruitlib::pp::filter::add::~add()
+fruitlib::pp::filter::add::~add()
 {
 }

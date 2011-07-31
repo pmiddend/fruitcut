@@ -1,5 +1,5 @@
-#ifndef FRUITCUT_FRUITLIB_RESOURCE_TREE_OBJECT_HPP_INCLUDED
-#define FRUITCUT_FRUITLIB_RESOURCE_TREE_OBJECT_HPP_INCLUDED
+#ifndef FRUITLIB_RESOURCE_TREE_OBJECT_HPP_INCLUDED
+#define FRUITLIB_RESOURCE_TREE_OBJECT_HPP_INCLUDED
 
 #include <fcppt/container/tree/object.hpp>
 #include <fcppt/variant/variant.hpp>
@@ -8,8 +8,6 @@
 #include <utility>
 #include <fcppt/noncopyable.hpp>
 
-namespace fruitcut
-{
 namespace fruitlib
 {
 namespace resource_tree
@@ -39,7 +37,6 @@ public:
 	{
 	}
 };
-}
 }
 }
 

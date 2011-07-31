@@ -1,3 +1,3 @@
 #include "milliseconds.hpp"
 
-boost::proto::terminal<fruitcut::fruitlib::time_format::tags::milliseconds>::type const fruitcut::fruitlib::time_format::milliseconds = {{}};
+boost::proto::terminal<fruitlib::time_format::tags::milliseconds>::type const fruitlib::time_format::milliseconds = {{}};

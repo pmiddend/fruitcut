@@ -10,7 +10,7 @@
 #include <typeinfo>
 
 sge::parse::json::object &
-fruitcut::fruitlib::json::find_object_exn(
+fruitlib::json::find_object_exn(
 	sge::parse::json::object &input_object,
 	json::path const &p)
 {
@@ -63,7 +63,7 @@ fruitcut::fruitlib::json::find_object_exn(
 }
 
 sge::parse::json::object const &
-fruitcut::fruitlib::json::find_object_exn(
+fruitlib::json::find_object_exn(
 	sge::parse::json::object const &input_object,
 	json::path const &p)
 {

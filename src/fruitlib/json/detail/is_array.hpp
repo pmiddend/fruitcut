@@ -1,5 +1,5 @@
-#ifndef FRUITCUT_FRUITLIB_JSON_DETAIL_IS_ARRAY_HPP_INCLUDED
-#define FRUITCUT_FRUITLIB_JSON_DETAIL_IS_ARRAY_HPP_INCLUDED
+#ifndef FRUITLIB_JSON_DETAIL_IS_ARRAY_HPP_INCLUDED
+#define FRUITLIB_JSON_DETAIL_IS_ARRAY_HPP_INCLUDED
 
 #include <fcppt/container/array.hpp>
 #include <fcppt/tr1/array.hpp>
@@ -9,8 +9,6 @@
 #include <boost/array.hpp>
 #include <cstddef>
 
-namespace fruitcut
-{
 namespace fruitlib
 {
 namespace json
@@ -68,7 +66,6 @@ struct is_array
 		>::type
 	> 
 > : boost::mpl::true_ {};
-}
 }
 }
 }

@@ -9,7 +9,7 @@
 #include <fcppt/io/cout.hpp>
 #include <iostream>
 
-fruitcut::fruitlib::pp::filter::render_to_texture::render_to_texture(
+fruitlib::pp::filter::render_to_texture::render_to_texture(
 	sge::renderer::device &_renderer,
 	texture::manager &_texture_manager,
 	sge::renderer::dim2 const &_texture_size,
@@ -29,8 +29,8 @@ fruitcut::fruitlib::pp::filter::render_to_texture::render_to_texture(
 {
 }
 
-fruitcut::fruitlib::pp::texture::counted_instance const
-fruitcut::fruitlib::pp::filter::render_to_texture::apply()
+fruitlib::pp::texture::counted_instance const
+fruitlib::pp::filter::render_to_texture::apply()
 {
 	//std::cerr << "rtt::apply\n";
 	texture::counted_instance const result = 
@@ -52,6 +52,6 @@ fruitcut::fruitlib::pp::filter::render_to_texture::apply()
 	return result;
 }
 
-fruitcut::fruitlib::pp::filter::render_to_texture::~render_to_texture()
+fruitlib::pp::filter::render_to_texture::~render_to_texture()
 {
 }

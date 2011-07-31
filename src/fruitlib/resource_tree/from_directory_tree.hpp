@@ -1,5 +1,5 @@
-#ifndef FRUITCUT_FRUITLIB_RESOURCE_TREE_FROM_DIRECTORY_TREE_HPP_INCLUDED
-#define FRUITCUT_FRUITLIB_RESOURCE_TREE_FROM_DIRECTORY_TREE_HPP_INCLUDED
+#ifndef FRUITLIB_RESOURCE_TREE_FROM_DIRECTORY_TREE_HPP_INCLUDED
+#define FRUITLIB_RESOURCE_TREE_FROM_DIRECTORY_TREE_HPP_INCLUDED
 
 #include "make_type.hpp"
 #include <fcppt/filesystem/path.hpp>
@@ -13,8 +13,6 @@
 #include <fcppt/move.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 
-namespace fruitcut
-{
 namespace fruitlib
 {
 namespace resource_tree
@@ -77,7 +75,6 @@ from_directory_tree(
 	return 
 		fcppt::move(
 			result);
-}
 }
 }
 }

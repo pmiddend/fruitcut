@@ -5,7 +5,7 @@
 #include <sge/image/color/any/convert.hpp>
 #include <boost/spirit/home/phoenix/core.hpp>
 
-fruitcut::fruitlib::font::drawer::parameters::parameters(
+fruitlib::font::drawer::parameters::parameters(
 	sge::renderer::device &_renderer)
 :
 	renderer_(
@@ -19,35 +19,35 @@ fruitcut::fruitlib::font::drawer::parameters::parameters(
 }
 
 sge::renderer::device &
-fruitcut::fruitlib::font::drawer::parameters::renderer() const
+fruitlib::font::drawer::parameters::renderer() const
 {
 	return renderer_;
 }
 
 void
-fruitcut::fruitlib::font::drawer::parameters::color(
+fruitlib::font::drawer::parameters::color(
 	font::color const &_color)
 {
 	color_ = 
 		_color;
 }
 
-fruitcut::fruitlib::font::color const &
-fruitcut::fruitlib::font::drawer::parameters::color() const
+fruitlib::font::color const &
+fruitlib::font::drawer::parameters::color() const
 {
 	return color_;
 }
 
 void
-fruitcut::fruitlib::font::drawer::parameters::transform_callback(
-	fruitcut::fruitlib::font::drawer::transform_callback const &_transform_callback)
+fruitlib::font::drawer::parameters::transform_callback(
+	fruitlib::font::drawer::transform_callback const &_transform_callback)
 {
 	transform_callback_ = 
 		_transform_callback;
 }
 
-fruitcut::fruitlib::font::drawer::transform_callback const &
-fruitcut::fruitlib::font::drawer::parameters::transform_callback() const
+fruitlib::font::drawer::transform_callback const &
+fruitlib::font::drawer::parameters::transform_callback() const
 {
 	return 
 		transform_callback_;

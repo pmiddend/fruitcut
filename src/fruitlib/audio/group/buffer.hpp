@@ -1,5 +1,5 @@
-#ifndef FRUITCUT_FRUITLIB_AUDIO_GROUP_BUFFER_HPP_INCLUDED
-#define FRUITCUT_FRUITLIB_AUDIO_GROUP_BUFFER_HPP_INCLUDED
+#ifndef FRUITLIB_AUDIO_GROUP_BUFFER_HPP_INCLUDED
+#define FRUITLIB_AUDIO_GROUP_BUFFER_HPP_INCLUDED
 
 #include "player_fwd.hpp"
 #include "sound_base_fwd.hpp"
@@ -11,8 +11,6 @@
 #include <fcppt/noncopyable.hpp>
 #include <boost/ptr_container/ptr_vector.hpp>
 
-namespace fruitcut
-{
 namespace fruitlib
 {
 namespace audio
@@ -70,7 +68,6 @@ private:
 	remove_sound(
 		group::sound_base &);
 };
-}
 }
 }
 }
