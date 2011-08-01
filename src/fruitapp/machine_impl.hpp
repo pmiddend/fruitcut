@@ -29,7 +29,7 @@
 #include <sge/systems/instance.hpp>
 #include <sge/time/time.hpp>
 #include <boost/mpl/vector/vector10.hpp>
-#include <fcppt/chrono/chrono.hpp>
+#include <fcppt/chrono/milliseconds.hpp>
 
 namespace fruitapp
 {

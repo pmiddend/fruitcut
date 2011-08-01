@@ -58,6 +58,7 @@
 #include <sge/window/instance.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/chrono/high_resolution_clock.hpp>
+#include <fcppt/chrono/time_point_arithmetic.hpp>
 #include <fcppt/chrono/milliseconds.hpp>
 #include <fcppt/chrono/duration_impl.hpp>
 #include <fcppt/chrono/duration_cast.hpp>
