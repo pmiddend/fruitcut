@@ -52,12 +52,17 @@
 #include <sge/sprite/parameters.hpp>
 #include <sge/systems/systems.hpp>
 #include <sge/texture/part_raw.hpp>
-#include <sge/time/time.hpp>
+#include <sge/timer/parameters.hpp>
+#include <sge/timer/elapsed_and_reset.hpp>
 #include <sge/viewport/fill_on_resize.hpp>
 #include <sge/viewport/manager.hpp>
 #include <sge/window/instance.hpp>
 #include <fcppt/assign/make_container.hpp>
-#include <fcppt/chrono/chrono.hpp>
+#include <fcppt/chrono/seconds.hpp>
+#include <fcppt/chrono/duration_cast.hpp>
+#include <fcppt/chrono/high_resolution_clock.hpp>
+#include <fcppt/chrono/time_point.hpp>
+#include <fcppt/chrono/milliseconds.hpp>
 #include <fcppt/container/bitfield/bitfield.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/math/dim/dim.hpp>
@@ -153,15 +158,9 @@ fruitapp::machine_impl::machine_impl(
 			fruitlib::json::path(
 				FCPPT_TEXT("fonts")))),
 	second_timer_(
-		sge::time::second(
-			1)),
-	current_time_(
-		sge::time::clock::now()),
-	transformed_time_(
-		current_time_),
-	time_factor_(
-		static_cast<sge::time::funit>(
-			1)),
+		sge::timer::parameters<sge::timer::clocks::standard>(
+			fcppt::chrono::seconds(
+				1))),
 	sound_controller_(
 		fruitlib::scenic::parent(
 			root_node(),
@@ -372,32 +371,33 @@ fruitapp::machine_impl::postprocessing()
 void
 fruitapp::machine_impl::run_once()
 {
-	sge::time::point const before_frame = 
-		sge::time::clock::now();
+	fcppt::chrono::high_resolution_clock::time_point const before_frame = 
+		fcppt::chrono::high_resolution_clock::now();
+
 	systems_.window().dispatch();
-	react(
+
+	clock_.update();
+
+	node_base::forward_to_children(
 		fruitlib::scenic::events::update(
-			fruitlib::scenic::update_duration(
-				static_cast<fruitlib::scenic::update_duration::rep>(
-					second_timer_.reset()))));
+			sge::timer::elapsed_and_reset<fruitlib::scenic::update_duration>(
+				second_timer_)));
+
 	fcppt::chrono::milliseconds const diff = 
 		fcppt::chrono::duration_cast<fcppt::chrono::milliseconds>(
-			sge::time::clock::now() - before_frame);
+			fcppt::chrono::high_resolution_clock::now() - before_frame);
+
 	if (diff.count() < static_cast<fcppt::chrono::milliseconds::rep>(1000/desired_fps_))
 		fcppt::time::sleep_any(
 			fcppt::chrono::milliseconds(
 				static_cast<fcppt::chrono::milliseconds::rep>(1000/desired_fps_ - diff.count())));
 }
 
-sge::time::callback const 
-fruitapp::machine_impl::timer_callback() const
+fruitapp::ingame_clock const &
+fruitapp::machine_impl::clock() const
 {
 	return 
-		std::tr1::bind(
-			&sge::time::duration::count,
-			std::tr1::bind(
-				&sge::time::point::time_since_epoch,
-				&transformed_time_));
+		clock_;
 }
 
 fruitlib::audio::sound_controller &
@@ -569,18 +569,18 @@ fruitapp::machine_impl::point_sprites() const
 	return point_sprites_;
 }
 
-sge::time::funit
+fruitapp::ingame_clock::float_type
 fruitapp::machine_impl::time_factor() const
 {
-	return time_factor_;
+	return clock_.factor();
 }
 
 void
 fruitapp::machine_impl::time_factor(
-	sge::time::funit const _time_factor)
+ fruitapp::ingame_clock::float_type const _time_factor)
 {
-	time_factor_ = 
-		_time_factor;
+	clock_.factor(
+		_time_factor);
 }
 
 fruitapp::fruit::prototype_sequence const &
@@ -603,35 +603,6 @@ fruitapp::machine_impl::quick_log()
 
 fruitapp::machine_impl::~machine_impl()
 {
-}
-
-void
-fruitapp::machine_impl::react(
-	fruitlib::scenic::events::update const &e)
-{
-	// So what does this do? Well, we effectively manage two "clocks"
-	// here. One goes along with the real clock (with
-	// sge::time::clock) and knows the "real" current time. The other
-	// one (transformed_time) might be faster or slower than the real
-	// clock. The real clock acts as a "duration difference" giver.
-	sge::time::point const latest_time = 
-		sge::time::clock::now();
-
-	sge::time::duration const diff = 
-		sge::time::duration(
-			static_cast<sge::time::timer::interval_type>(
-				time_factor_ * 
-				static_cast<sge::time::funit>(
-					(latest_time - current_time_).count())));
-
-	transformed_time_ += 
-		diff;
-
-	current_time_ = 
-		latest_time;
-
-	node_base::forward_to_children(
-		e);
 }
 
 void

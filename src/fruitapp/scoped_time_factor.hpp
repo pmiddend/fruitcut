@@ -3,6 +3,7 @@
 
 #include <fruitapp/machine_fwd.hpp>
 #include <sge/time/funit.hpp>
+#include <fruitapp/ingame_clock.hpp>
 #include <fcppt/noncopyable.hpp>
 
 namespace fruitapp
@@ -15,12 +16,12 @@ public:
 	explicit
 	scoped_time_factor(
 		machine &,
-		sge::time::funit);
+		fruitapp::ingame_clock::float_type);
 
 	~scoped_time_factor();
 private:
 	machine &m_;
-	sge::time::funit const old_factor_;
+	fruitapp::ingame_clock::float_type const old_factor_;
 };
 }
 

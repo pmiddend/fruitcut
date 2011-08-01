@@ -20,6 +20,7 @@
 #include <fruitapp/renderable.hpp>
 #include <fruitapp/shadow_map.hpp>
 #include <fruitapp/fruit/prototype_sequence.hpp>
+#include <fruitapp/ingame_clock.hpp>
 #include <sge/camera/object.hpp>
 #include <sge/cegui/syringe.hpp>
 #include <sge/cegui/system.hpp>
@@ -27,8 +28,8 @@
 #include <sge/font/metrics_ptr.hpp>
 #include <sge/parse/json/object.hpp>
 #include <sge/systems/instance.hpp>
-#include <sge/time/time.hpp>
-#include <boost/mpl/vector/vector10.hpp>
+#include <sge/timer/basic.hpp>
+#include <sge/timer/clocks/standard.hpp>
 #include <fcppt/chrono/chrono.hpp>
 
 namespace fruitapp
@@ -40,10 +41,6 @@ class machine_impl
 FCPPT_NONCOPYABLE(
 	machine_impl);
 public:
-	typedef
-	boost::mpl::vector1<fruitlib::scenic::events::update>
-	scene_reactions;
-
 	explicit
 	machine_impl(
 		int argc,
@@ -70,8 +67,8 @@ public:
 	fruitapp::postprocessing &
 	postprocessing();
 
-	sge::time::callback const 
-	timer_callback() const;
+	fruitapp::ingame_clock const &
+	clock() const;
 
 	fruitlib::audio::sound_controller &
 	sound_controller();
@@ -158,12 +155,12 @@ public:
 	point_sprite::system_node const &
 	point_sprites() const;
 
-	sge::time::funit
+	fruitapp::ingame_clock::float_type
 	time_factor() const;
 
 	void
 	time_factor(
-		sge::time::funit);
+		fruitapp::ingame_clock::float_type);
 
 	fruit::prototype_sequence const &
 	fruit_prototypes() const;
@@ -175,10 +172,6 @@ public:
 	quick_log();
 
 	~machine_impl();
-
-	void
-	react(
-		fruitlib::scenic::events::update const &);
 private:
 	fruitlib::random_generator random_generator_;
 	sge::parse::json::object user_config_file_;
@@ -189,9 +182,8 @@ private:
 	fruitapp::renderable renderable_;
 	fruitlib::log::scoped_sequence_ptr activated_loggers_;
 	fruitlib::font::cache font_cache_;
-	sge::time::timer second_timer_;
-	sge::time::point current_time_,transformed_time_;
-	sge::time::funit time_factor_;
+	sge::timer::basic<sge::timer::clocks::standard> second_timer_;
+	fruitapp::ingame_clock clock_;
 	fruitlib::audio::sound_controller sound_controller_;
 	fcppt::signal::scoped_connection effects_volume_change_connection_;
 	fruitlib::audio::music_controller music_controller_;

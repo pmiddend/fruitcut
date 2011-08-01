@@ -3,7 +3,7 @@
 
 fruitapp::scoped_time_factor::scoped_time_factor(
 	machine &_m,
-	sge::time::funit const _new_factor)
+	fruitapp::ingame_clock::float_type const _new_factor)
 :
 	m_(
 		_m),
