@@ -30,7 +30,7 @@
 #include <sge/systems/instance.hpp>
 #include <sge/timer/basic.hpp>
 #include <sge/timer/clocks/standard.hpp>
-#include <fcppt/chrono/chrono.hpp>
+#include <fcppt/chrono/milliseconds.hpp>
 
 namespace fruitapp
 {

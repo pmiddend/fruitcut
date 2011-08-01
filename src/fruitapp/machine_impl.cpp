@@ -62,7 +62,9 @@
 #include <fcppt/chrono/duration_cast.hpp>
 #include <fcppt/chrono/high_resolution_clock.hpp>
 #include <fcppt/chrono/time_point.hpp>
+#include <fcppt/chrono/time_point_arithmetic.hpp>
 #include <fcppt/chrono/milliseconds.hpp>
+#include <fcppt/chrono/duration_impl.hpp>
 #include <fcppt/container/bitfield/bitfield.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/math/dim/dim.hpp>
