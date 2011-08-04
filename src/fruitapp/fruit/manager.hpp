@@ -12,6 +12,7 @@
 #include <fruitapp/fruit/object_sequence.hpp>
 #include <fruitapp/fruit/object_fwd.hpp>
 #include <fruitapp/fruit/plane.hpp>
+#include <fruitapp/ingame_clock.hpp>
 #include <fruitlib/scenic/node.hpp>
 #include <fruitlib/scenic/optional_parent.hpp>
 #include <fruitlib/scenic/events/update_fwd.hpp>
@@ -25,8 +26,6 @@
 #include <sge/renderer/vertex_declaration_ptr.hpp>
 #include <sge/shader/object.hpp>
 #include <sge/camera/object_fwd.hpp>
-#include <sge/time/callback.hpp>
-#include <sge/time/duration.hpp>
 #include <fcppt/chrono/duration.hpp>
 #include <fcppt/math/matrix/matrix.hpp>
 #include <fcppt/signal/object.hpp>
@@ -61,7 +60,8 @@ public:
 		fruit::prototype_sequence const &,
 		sge::renderer::device &renderer,
 		fruitlib::physics::world &,
-		sge::camera::object &);
+		sge::camera::object &,
+		fruitapp::ingame_clock const &);
 
 	// cut_fruit gets a duration indicating how long the new fruits are
 	// to be banned from further cutting (which would result in paper
@@ -71,8 +71,7 @@ public:
 		object const &,
 		plane const &,
 		fruitlib::physics::vector3 const &,
-		sge::time::duration const &,
-		sge::time::callback const &);
+		fruitapp::ingame_clock::duration const &);
 
 	void
 	spawn(
@@ -128,6 +127,7 @@ private:
 	fcppt::signal::object<callbacks::cut_fn> cut_signal_;
 	fcppt::signal::object<callbacks::remove_fn> remove_signal_;
 	fcppt::signal::object<callbacks::spawn_fn> spawn_signal_;
+	fruitapp::ingame_clock const &clock_;
 
 	void
 	delete_distant_fruits();

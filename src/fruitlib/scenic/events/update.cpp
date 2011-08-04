@@ -1,18 +1,9 @@
 #include <fruitlib/scenic/events/update.hpp>
 
-fruitlib::scenic::events::update::update(
-	scenic::update_duration const &_delta)
+fruitlib::scenic::events::update::update()
 :
-	events::base(),
-	delta_(
-		_delta)
+	events::base()
 {
-}
-
-fruitlib::scenic::update_duration const
-fruitlib::scenic::events::update::delta() const
-{
-	return delta_;
 }
 
 fruitlib::scenic::events::update::~update()

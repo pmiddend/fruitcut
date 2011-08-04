@@ -3,6 +3,7 @@
 
 #include <fruitapp/fruit/mesh.hpp>
 #include <fruitapp/fruit/prototype_fwd.hpp>
+#include <fruitapp/ingame_clock.hpp>
 #include <fruitlib/physics/scalar.hpp>
 #include <fruitlib/physics/world_fwd.hpp>
 #include <fruitlib/physics/vector3.hpp>
@@ -11,8 +12,6 @@
 #include <sge/renderer/texture/planar_ptr.hpp>
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/vertex_declaration_fwd.hpp>
-#include <sge/time/duration.hpp>
-#include <sge/time/callback.hpp>
 #include <fcppt/math/vector/vector.hpp>
 #include <fcppt/math/matrix/matrix.hpp>
 #include <fcppt/chrono/duration.hpp>
@@ -41,8 +40,8 @@ public:
 		fruitlib::physics::matrix4 const &_transformation,
 		fruitlib::physics::vector3 const &_linear_velocity,
 		fruitlib::physics::vector3 const &_angular_velocity,
-		sge::time::duration const &_lock_duration,
-		sge::time::callback const &_timer_callback);
+		fruitapp::ingame_clock::duration const &_lock_duration,
+		fruitapp::ingame_clock const &);
 
 	fruit::prototype const &
 	prototype() const;
@@ -77,11 +76,11 @@ public:
 	fruitlib::physics::vector3 const &
 	angular_velocity() const;
 
-	sge::time::duration const &
+	fruitapp::ingame_clock::duration const &
 	lock_duration() const;
 
-	sge::time::callback const &
-	timer_callback() const;
+	fruitapp::ingame_clock const &
+	clock() const;
 private:
 	fruit::prototype const &prototype_;
 	fruitlib::physics::world &world_;
@@ -94,8 +93,8 @@ private:
 	fruitlib::physics::matrix4 const transformation_;
 	fruitlib::physics::vector3 const linear_velocity_;
 	fruitlib::physics::vector3 const angular_velocity_;
-	sge::time::duration const lock_duration_;
-	sge::time::callback const timer_callback_;
+	fruitapp::ingame_clock::duration const lock_duration_;
+	fruitapp::ingame_clock const &clock_;
 };
 }
 }

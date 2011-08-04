@@ -74,10 +74,10 @@ fruitapp::machine::run()
 	}
 }
 
-sge::time::callback const 
-fruitapp::machine::timer_callback() const
+fruitapp::ingame_clock const & 
+fruitapp::machine::ingame_clock() const
 {
-	return impl_->timer_callback();
+	return impl_->ingame_clock();
 }
 
 fruitlib::audio::sound_controller &
@@ -244,7 +244,7 @@ fruitapp::machine::point_sprites() const
 	return impl_->point_sprites();
 }
 
-sge::time::funit
+fruitapp::ingame_clock::float_type
 fruitapp::machine::time_factor() const
 {
 	return impl_->time_factor();
@@ -252,7 +252,7 @@ fruitapp::machine::time_factor() const
 
 void
 fruitapp::machine::time_factor(
-	sge::time::funit const _time_factor)
+	fruitapp::ingame_clock::float_type const _time_factor)
 {
 	impl_->time_factor(
 		_time_factor);
@@ -262,6 +262,18 @@ fruitlib::scenic::base &
 fruitapp::machine::root_node()
 {
 	return impl_->root_node();
+}
+
+fruitlib::scenic::delta::callback const
+fruitapp::machine::ingame_clock_callback() const
+{
+	return impl_->ingame_clock_callback();
+}
+
+fruitlib::scenic::delta::callback const
+fruitapp::machine::standard_clock_callback() const
+{
+	return impl_->standard_clock_callback();
 }
 
 fruitapp::machine::~machine()

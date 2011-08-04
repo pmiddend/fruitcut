@@ -19,6 +19,7 @@
 #include <fruitapp/depths/overlay.hpp>
 #include <fruitlib/json/find_and_convert_member.hpp>
 #include <fruitlib/math/multiply_matrix4_vector3.hpp>
+#include <fruitlib/time_format/find_and_convert_duration.hpp>
 #include <fruitlib/math/unproject.hpp>
 #include <fruitlib/resource_tree/path.hpp>
 #include <fruitlib/audio/sound_controller.hpp>
@@ -82,13 +83,12 @@ fruitapp::states::ingame::running::running(
 			context<fruitapp::machine>().root_node(),
 			fruitlib::scenic::depth(
 				depths::root::dont_care)),
-		context<machine>().systems().cursor_demuxer(),
-		sge::time::millisecond(
-			fruitlib::json::find_and_convert_member<sge::time::unit>(
-				context<machine>().config_file(),
-				fruitlib::json::path(FCPPT_TEXT("mouse"))
-					/ FCPPT_TEXT("trail-update-rate-ms"))),
-		context<machine>().timer_callback(),
+		context<fruitapp::machine>().systems().cursor_demuxer(),
+		context<fruitapp::machine>().ingame_clock(),
+		fruitlib::time_format::find_and_convert_duration<ingame_clock::duration>(
+			context<machine>().config_file(),
+			fruitlib::json::path(FCPPT_TEXT("mouse"))
+					/ FCPPT_TEXT("trail-update-rate")),
 		fruitlib::json::find_and_convert_member<fruitapp::cursor_trail::size_type>(
 				context<machine>().config_file(),
 				fruitlib::json::path(FCPPT_TEXT("mouse"))
@@ -126,7 +126,7 @@ fruitapp::states::ingame::running::running(
 		context<fruitapp::machine>().systems().renderer().onscreen_target(),
 		context<fruitapp::machine>().systems().image_loader(),
 		context<fruitapp::machine>().systems().cursor_demuxer(),
-		context<fruitapp::machine>().timer_callback(),
+		context<fruitapp::machine>().ingame_clock(),
 		context<fruitapp::machine>().config_file())
 {
 	context<machine>().postprocessing().active(
@@ -361,8 +361,7 @@ fruitapp::states::ingame::running::process_fruit(
 			plane_scalar),
 		// cut direction
 		first_plane_vector,
-		cursor_trail_.total_expiry_duration(),
-		context<machine>().timer_callback());
+		cursor_trail_.total_expiry_duration());
 
 	//cursor_trail_.clear();
 }

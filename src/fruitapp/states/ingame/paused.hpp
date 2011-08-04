@@ -16,11 +16,12 @@
 #include <fruitlib/scenic/adaptors/gui_system.hpp>
 #include <fruitlib/scenic/node.hpp>
 #include <sge/renderer/texture/planar_ptr.hpp>
-#include <sge/time/timer.hpp>
 #include <sge/cegui/toolbox/scoped_layout.hpp>
 #include <sge/cegui/default_keyboard.hpp>
 #include <sge/cegui/default_cursor.hpp>
 #include <sge/cegui/toolbox/scoped_gui_sheet.hpp>
+#include <sge/timer/basic.hpp>
+#include <sge/timer/clocks/standard.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <boost/statechart/state.hpp>
@@ -118,7 +119,7 @@ private:
 	sge::renderer::texture::planar_ptr current_texture_;
 	fruitlib::pp::filter::blur::size_type blur_iterations_;
 	fruitlib::pp::filter::blur::size_type const max_blur_iterations_;
-	sge::time::timer blur_timer_;
+	sge::timer::basic<sge::timer::clocks::standard> blur_timer_;
 	fcppt::signal::scoped_connection transit_to_running_connection_;
 	fruitlib::scenic::adaptors::gui_system gui_node_;
 	sge::cegui::default_keyboard gui_keyboard_;

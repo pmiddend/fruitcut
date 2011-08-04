@@ -20,10 +20,11 @@
 #include <fruitlib/json/parse_random_inclusive_range.hpp>
 #include <sge/renderer/scalar.hpp>
 #include <sge/parse/json/json.hpp>
-#include <sge/time/millisecond.hpp>
 #include <sge/image/color/any/convert.hpp>
 #include <mizuiro/color/channel/alpha.hpp>
 #include <fcppt/random/make_last_exclusive_range.hpp>
+#include <fcppt/chrono/duration_cast.hpp>
+#include <fcppt/chrono/milliseconds.hpp>
 #include <fcppt/random/make_inclusive_range.hpp>
 #include <fcppt/math/vector/vector.hpp>
 #include <fcppt/make_unique_ptr.hpp>
@@ -36,7 +37,7 @@ fruitapp::splatter_generator::splatter_generator(
 	point_sprite::system_node &_point_sprites,
 	fruitlib::random_generator &_random_generator,
 	point_sprite::splatter::acceleration const &_acceleration,
-	sge::time::callback const &_time_callback)
+	fruitapp::ingame_clock const &_clock)
 :
 	point_sprites_(
 		_point_sprites),
@@ -44,8 +45,8 @@ fruitapp::splatter_generator::splatter_generator(
 		_random_generator),
 	acceleration_(
 		_acceleration.get()),
-	time_callback_(
-		_time_callback),
+	clock_(
+		_clock),
 	cut_direction_rng_(
 		fcppt::random::make_inclusive_range(
 			0u,
@@ -80,7 +81,7 @@ fruitapp::splatter_generator::splatter_generator(
 				std::numeric_limits<point_sprite::color_format::channel_type>::max()/2)),
 		random_generator_),	
 	lifetime_millis_rng_(
-		fruitlib::json::parse_random_inclusive_range<sge::time::unit>(
+		fruitlib::json::parse_random_inclusive_range<fcppt::chrono::milliseconds::rep>(
 			fruitlib::json::find_and_convert_member<sge::parse::json::array>(
 				config_file,
 				fruitlib::json::path(FCPPT_TEXT("splatter-generator"))
@@ -174,9 +175,10 @@ fruitapp::splatter_generator::fruit_was_cut(
 						point_sprites_.lookup_texture(
 							fruitlib::resource_tree::path(
 								FCPPT_TEXT("spray"))),
-						sge::time::millisecond(
-							lifetime_millis_rng_()),
-						time_callback_))));
+						fcppt::chrono::duration_cast<fruitapp::ingame_clock::duration>(
+							fcppt::chrono::milliseconds(
+								lifetime_millis_rng_())),
+						clock_))));
 	}
 }
 

@@ -68,8 +68,8 @@ fruitapp::states::ingame::superstate::superstate(
 			context<fruitapp::machine>().root_node(),
 			fruitlib::scenic::depth(
 				depths::root::dont_care)),
-		physics_world_,
-		context<machine>().timer_callback()),
+		context<fruitapp::machine>().ingame_clock_callback(),
+		physics_world_),
 	physics_debugger_(
 		physics_world_,
 		context<machine>().systems().renderer(),
@@ -95,7 +95,8 @@ fruitapp::states::ingame::superstate::superstate(
 		context<machine>().fruit_prototypes(),
 		context<machine>().systems().renderer(),
 		physics_world_,
-		context<machine>().camera()),
+		context<machine>().camera(),
+		context<fruitapp::machine>().ingame_clock()),
 	fruit_default_render_node_(
 		fruitlib::scenic::parent(
 			context<fruitapp::machine>().scene_node(),
@@ -128,13 +129,13 @@ fruitapp::states::ingame::superstate::superstate(
 		context<machine>().random_generator(),
 		context<machine>().config_file(),
 		context<machine>().camera(),
-		context<machine>().timer_callback()),
+		context<machine>().ingame_clock()),
 	game_logic_(
 		fruitlib::scenic::parent(
 			context<fruitapp::machine>().root_node(),
 			fruitlib::scenic::depth(
 				depths::root::dont_care)),
-		context<machine>().timer_callback(),
+		context<machine>().ingame_clock(),
 		context<machine>().config_file(),
 		fruit_manager_,
 		context<machine>().font_cache(),
@@ -154,7 +155,7 @@ fruitapp::states::ingame::superstate::superstate(
 		point_sprite::splatter::acceleration(
 			fcppt::math::vector::structure_cast<point_sprite::splatter::acceleration::value_type>(
 				physics_world_.gravity())),
-		context<machine>().timer_callback()),
+		context<machine>().ingame_clock()),
 	background_group_(
 		physics_world_),
 	background_physics_(

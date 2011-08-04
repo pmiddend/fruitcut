@@ -10,7 +10,7 @@
 #include <fruitlib/physics/rigid_body/parameters.hpp>
 #include <fruitlib/physics/group/sequence.hpp>
 #include <fruitlib/physics/world_fwd.hpp>
-#include <sge/time/activation_state.hpp>
+#include <sge/timer/parameters.hpp>
 #include <sge/renderer/matrix4.hpp>
 #include <sge/renderer/vector3.hpp>
 #include <sge/renderer/texture/planar_ptr.hpp>
@@ -60,9 +60,9 @@ fruitapp::fruit::object::object(
 			mesh_)),
 	// A fruit originating from another fruit is banned for a specific duration
 	lock_timer_(
-		p.lock_duration(),
-		sge::time::activation_state::active,
-		p.timer_callback())
+		fruitapp::ingame_timer::parameters(
+			p.clock(),
+			p.lock_duration()))
 {
 }
 

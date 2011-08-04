@@ -9,7 +9,7 @@
 #include <fruitapp/point_sprite/base.hpp>
 #include <fruitapp/point_sprite/system.hpp>
 #include <fruitapp/point_sprite/color.hpp>
-#include <sge/time/timer.hpp>
+#include <fruitapp/ingame_timer.hpp>
 #include <fcppt/noncopyable.hpp>
 
 namespace fruitapp
@@ -40,8 +40,8 @@ private:
 	point_sprite::object object_;
 	splatter::linear_velocity::value_type linear_velocity_;
 	splatter::acceleration::value_type acceleration_;
-	sge::time::timer life_timer_;
-	sge::time::timer second_timer_;
+	fruitapp::ingame_timer life_timer_;
+	fruitapp::ingame_timer second_timer_;
 };
 }
 }

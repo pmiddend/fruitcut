@@ -4,9 +4,10 @@
 #include <fruitlib/scenic/node.hpp>
 #include <fruitlib/scenic/optional_parent.hpp>
 #include <fruitlib/scenic/events/update_fwd.hpp>
+#include <fruitlib/scenic/delta/callback.hpp>
+#include <fruitlib/scenic/delta/timer.hpp>
+#include <fruitlib/scenic/delta/clock.hpp>
 #include <fruitlib/physics/world_fwd.hpp>
-#include <sge/time/timer.hpp>
-#include <sge/time/callback.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 
@@ -30,8 +31,8 @@ public:
 	explicit
 	world(
 		fruitlib::scenic::optional_parent const &,
-		physics::world &,
-		sge::time::callback const &);
+		scenic::delta::callback const &,
+		physics::world &);
 
 	~world();
 
@@ -39,8 +40,9 @@ public:
 	react(
 		fruitlib::scenic::events::update const &);
 protected:
+	scenic::delta::clock clock_;
+	scenic::delta::timer timer_;
 	physics::world &world_;
-	sge::time::timer timer_;
 };
 }
 }

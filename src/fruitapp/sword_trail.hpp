@@ -5,6 +5,8 @@
 #include <fruitlib/scenic/optional_parent.hpp>
 #include <fruitlib/scenic/events/update_fwd.hpp>
 #include <fruitlib/scenic/events/render_fwd.hpp>
+#include <fruitapp/ingame_clock.hpp>
+#include <fruitapp/ingame_timer.hpp>
 #include <sge/image2d/multi_loader_fwd.hpp>
 #include <sge/image/color/rgba8_format.hpp>
 #include <sge/input/cursor/object_fwd.hpp>
@@ -20,10 +22,6 @@
 #include <sge/sprite/with_rotation.hpp>
 #include <sge/sprite/with_texture.hpp>
 #include <sge/texture/part_ptr.hpp>
-#include <sge/time/timer.hpp>
-#include <sge/time/funit.hpp>
-#include <sge/time/callback.hpp>
-#include <sge/time/duration.hpp>
 #include <sge/parse/json/object.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/chrono/duration_impl.hpp>
@@ -50,7 +48,7 @@ public:
 		sge::renderer::target_base &,
 		sge::image2d::multi_loader &,
 		sge::input::cursor::object &,
-		sge::time::callback const &,
+		fruitapp::ingame_clock const &,
 		sge::parse::json::object const &);
 
 	~sword_trail();
@@ -63,15 +61,20 @@ public:
 	react(
 		fruitlib::scenic::events::render const &);
 private:
+	// Arbitrary choice
+	typedef
+	float
+	float_type;
+
 	typedef 
 	sge::sprite::choices
 	<
 		sge::sprite::type_choices
 		<
 			// position type
-			sge::time::funit,
+			float_type,
 			// rotation/etc type
-			sge::time::funit,
+			float_type,
 			sge::image::color::rgba8_format
 		>,
 		boost::mpl::vector3
@@ -106,22 +109,21 @@ private:
 	typedef	
 	boost::circular_buffer
 	<
-		fcppt::shared_ptr<sge::time::timer> 
+		fcppt::shared_ptr<fruitapp::ingame_timer> 
 	>
 	timer_buffer;
 
 	sge::input::cursor::object &cursor_;
 	sge::renderer::target_base &target_;
-	sge::time::callback const time_callback_;
-	sge::time::duration const update_interval_;
-	sge::time::duration const element_lifetime_;
+	fruitapp::ingame_clock const &clock_;
+	fruitapp::ingame_clock::duration const element_lifetime_;
 	sprite_object::unit const max_width_;
 	sge::texture::part_ptr texture_;
 	sprite_system sprite_system_;
 	position_buffer positions_;
 	sprite_buffer sprites_;
 	timer_buffer timers_;
-	sge::time::timer update_timer_;
+	fruitapp::ingame_timer update_timer_;
 
 };
 }

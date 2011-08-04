@@ -1,15 +1,15 @@
 #include <fruitapp/point_sprite/splatter/parameters.hpp>
 
 fruitapp::point_sprite::splatter::parameters::parameters(
-	fruitapp::point_sprite::system &_system,
-	fruitapp::point_sprite::splatter::position const &_position,
-	fruitapp::point_sprite::splatter::linear_velocity const &_linear_velocity,
-	fruitapp::point_sprite::splatter::acceleration const &_acceleration,
-	fruitapp::point_sprite::splatter::size const &_size,
-	fruitapp::point_sprite::color const &_color,
+	point_sprite::system &_system,
+	point_sprite::splatter::position const &_position,
+	point_sprite::splatter::linear_velocity const &_linear_velocity,
+	point_sprite::splatter::acceleration const &_acceleration,
+	point_sprite::splatter::size const &_size,
+	point_sprite::color const &_color,
 	sge::texture::part_ptr const _texture,
-	sge::time::duration const &_life_time,
-	sge::time::callback const &_time_callback)
+	fruitapp::ingame_clock::duration const &_life_time,
+	fruitapp::ingame_clock const &_clock)
 :
 	system_(
 		_system),
@@ -27,8 +27,8 @@ fruitapp::point_sprite::splatter::parameters::parameters(
 		_texture),
 	life_time_(
 		_life_time),
-	time_callback_(
-		_time_callback)
+	clock_(
+		_clock)
 {
 }
 
@@ -74,16 +74,16 @@ fruitapp::point_sprite::splatter::parameters::texture() const
 	return texture_;
 }
 
-sge::time::duration const &
+fruitapp::ingame_clock::duration const &
 fruitapp::point_sprite::splatter::parameters::life_time() const
 {
 	return life_time_;
 }
 
-sge::time::callback const &
-fruitapp::point_sprite::splatter::parameters::time_callback() const
+fruitapp::ingame_clock const &
+fruitapp::point_sprite::splatter::parameters::clock() const
 {
-	return time_callback_;
+	return clock_;
 }
 
 fruitapp::point_sprite::splatter::parameters::~parameters()

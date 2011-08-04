@@ -12,7 +12,8 @@ fruitapp::states::gameover::superstate::superstate(
 			context<machine>().overlay_node(),
 			fruitlib::scenic::depth(
 				depths::overlay::dont_care)),
-		context<machine>().gui_system()),
+		context<machine>().gui_system(),
+		context<fruitapp::machine>().standard_clock_callback()),
 	gui_keyboard_(
 		context<machine>().gui_syringe(),
 		context<machine>().systems().keyboard_collector()),

@@ -33,6 +33,7 @@
 #include <fcppt/assign/make_array.hpp>
 #include <fcppt/container/ptr/push_back_unique_ptr.hpp>
 #include <fcppt/string.hpp>
+#include <fcppt/cref.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert.hpp>
 #include <iostream>
@@ -63,7 +64,8 @@ fruitapp::fruit::manager::manager(
 	fruit::prototype_sequence const &_prototypes,
 	sge::renderer::device &_renderer,
 	fruitlib::physics::world &physics_world,
-	sge::camera::object &_camera)
+	sge::camera::object &_camera,
+	fruitapp::ingame_clock const &_clock)
 :
 	node_base(
 		_parent),
@@ -82,7 +84,9 @@ fruitapp::fruit::manager::manager(
 		physics_world_),
 	fruits_(),
 	cut_signal_(),
-	remove_signal_()
+	remove_signal_(),
+	clock_(
+		_clock)
 {
 	if(prototypes_.empty())
 		throw fruitapp::exception(FCPPT_TEXT("You didn't specify any fruits"));
@@ -94,8 +98,7 @@ fruitapp::fruit::manager::cut(
 	fruit::object const &current_fruit,
 	plane const &original_plane,
 	fruitlib::physics::vector3 const &cut_direction,
-	sge::time::duration const &lock_duration,
-	sge::time::callback const &time_callback)
+	fruitapp::ingame_clock::duration const &lock_duration)
 {
 	if(current_fruit.locked())
 		return;
@@ -169,7 +172,7 @@ fruitapp::fruit::manager::cut(
 									p->normal())))),
 					current_fruit.body().angular_velocity(),
 					lock_duration,
-					time_callback)));
+					clock_)));
 	}
 
 	FCPPT_ASSERT(
@@ -213,7 +216,9 @@ fruitapp::fruit::manager::spawn(
 				// I don't see any sense in specifying that here
 				fruitlib::physics::matrix4::identity(),
 				linear_velocity,
-				angular_velocity)));
+				angular_velocity,
+				fcppt::cref(
+					clock_))));
 
 	spawn_signal_(
 		*fruits_.cend());

@@ -1,5 +1,6 @@
 #include <fruitapp/machine_impl.hpp>
 #include <fruitapp/name.hpp>
+#include <fruitapp/scoped_frame_limiter.hpp>
 #include <fruitapp/depths/root.hpp>
 #include <fruitapp/depths/scene.hpp>
 #include <fruitapp/depths/overlay.hpp>
@@ -14,12 +15,11 @@
 #include <fruitlib/log/scoped_sequence_from_json.hpp>
 #include <fruitlib/random_generator.hpp>
 #include <fruitlib/scenic/no_parent.hpp>
-#include <fruitlib/scenic/update_duration.hpp>
 #include <fruitlib/scenic/events/render.hpp>
 #include <fruitlib/scenic/events/update.hpp>
 #include <fruitlib/scenic/parent.hpp>
 #include <fruitlib/scenic/depth.hpp>
-#include <fruitlib/time_format/string_to_duration.hpp>
+#include <fruitlib/time_format/find_and_convert_duration.hpp>
 #include <fruitapp/light_source_from_json.hpp>
 #include <fruitapp/load_user_config.hpp>
 #include <media_path.hpp>
@@ -60,19 +60,45 @@
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/chrono/seconds.hpp>
 #include <fcppt/chrono/duration_cast.hpp>
+#include <fcppt/chrono/duration_impl.hpp>
 #include <fcppt/chrono/high_resolution_clock.hpp>
 #include <fcppt/chrono/time_point.hpp>
-#include <fcppt/chrono/time_point_arithmetic.hpp>
 #include <fcppt/chrono/milliseconds.hpp>
-#include <fcppt/chrono/duration_impl.hpp>
 #include <fcppt/container/bitfield/bitfield.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/math/dim/dim.hpp>
 #include <fcppt/math/vector/vector.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/time/sleep_any.hpp>
+#include <fcppt/nonassignable.hpp>
 #include <fcppt/tr1/functional.hpp>
+//#include <boost/spirit/home/phoenix/core.hpp>
+
+namespace
+{
+struct phoenix_ref_broken_hack
+{
+FCPPT_NONASSIGNABLE(
+	phoenix_ref_broken_hack);
+public:
+	explicit
+	phoenix_ref_broken_hack(
+		fruitlib::scenic::delta::duration const &_duration)
+	:
+		duration_(
+			_duration)
+	{
+	}
+
+	fruitlib::scenic::delta::duration const
+	operator()() const
+	{
+		return duration_;
+	}
+
+	fruitlib::scenic::delta::duration const &duration_;
+};
+}
 
 fruitapp::machine_impl::machine_impl(
 	int const argc,
@@ -163,6 +189,9 @@ fruitapp::machine_impl::machine_impl(
 		sge::timer::parameters<sge::timer::clocks::standard>(
 			fcppt::chrono::seconds(
 				1))),
+	ingame_clock_(),
+	ingame_clock_delta_(),
+	standard_clock_delta_(),
 	sound_controller_(
 		fruitlib::scenic::parent(
 			root_node(),
@@ -189,15 +218,15 @@ fruitapp::machine_impl::machine_impl(
 			root_node(),
 			fruitlib::scenic::depth(
 				depths::root::dont_care)),
+		standard_clock_callback(),
 		random_generator_,
 		systems_.audio_loader(),
 		systems_.audio_player(),
-		*fruitlib::time_format::string_to_duration<sge::time::duration>(
-			fruitlib::json::find_and_convert_member<fcppt::string>(
-				config_file(),
-				fruitlib::json::path(
-					FCPPT_TEXT("music"))
-					/ FCPPT_TEXT("crossfade-time"))),
+		fruitlib::time_format::find_and_convert_duration<fruitlib::scenic::delta::duration>(
+			config_file(),
+			fruitlib::json::path(
+				FCPPT_TEXT("music"))
+				/ FCPPT_TEXT("crossfade-time")),
 		fruitcut::media_path()/FCPPT_TEXT("music"),
 		fruitlib::json::find_and_convert_member<sge::audio::scalar>(
 			config_file(),
@@ -252,7 +281,8 @@ fruitapp::machine_impl::machine_impl(
 			root_node(),
 			fruitlib::scenic::depth(
 				depths::root::dont_care)),	
-		camera_),
+		camera_,
+		standard_clock_callback()),
 	toggle_camera_connection_(
 		systems_.keyboard_collector().key_callback(
 			sge::input::keyboard::action(
@@ -373,33 +403,34 @@ fruitapp::machine_impl::postprocessing()
 void
 fruitapp::machine_impl::run_once()
 {
-	fcppt::chrono::high_resolution_clock::time_point const before_frame = 
-		fcppt::chrono::high_resolution_clock::now();
+	fruitapp::scoped_frame_limiter sfl(
+		desired_fps_);
 
 	systems_.window().dispatch();
 
-	clock_.update();
+	standard_clock_delta_ = 
+		sge::timer::elapsed_and_reset<fruitlib::scenic::delta::duration>(
+			second_timer_);
+
+	ingame_clock_delta_ = 
+		fruitapp::ingame_clock::duration(
+			static_cast<fruitapp::ingame_clock::duration::rep>(
+				ingame_clock_.factor() * 
+				static_cast<fruitapp::ingame_clock::float_type>(
+					fcppt::chrono::duration_cast<fruitapp::ingame_clock::duration>(
+						standard_clock_delta_).count())));
+
+	ingame_clock_.update();
 
 	node_base::forward_to_children(
-		fruitlib::scenic::events::update(
-			sge::timer::elapsed_and_reset<fruitlib::scenic::update_duration>(
-				second_timer_)));
-
-	fcppt::chrono::milliseconds const diff = 
-		fcppt::chrono::duration_cast<fcppt::chrono::milliseconds>(
-			fcppt::chrono::high_resolution_clock::now() - before_frame);
-
-	if (diff.count() < static_cast<fcppt::chrono::milliseconds::rep>(1000/desired_fps_))
-		fcppt::time::sleep_any(
-			fcppt::chrono::milliseconds(
-				static_cast<fcppt::chrono::milliseconds::rep>(1000/desired_fps_ - diff.count())));
+		fruitlib::scenic::events::update());
 }
 
 fruitapp::ingame_clock const &
-fruitapp::machine_impl::clock() const
+fruitapp::machine_impl::ingame_clock() const
 {
 	return 
-		clock_;
+		ingame_clock_;
 }
 
 fruitlib::audio::sound_controller &
@@ -559,6 +590,26 @@ fruitapp::machine_impl::overlay_node() const
 	return renderable_.overlay();
 }
 
+fruitlib::scenic::delta::callback const
+fruitapp::machine_impl::ingame_clock_callback() const
+{
+	return 
+		phoenix_ref_broken_hack(
+			ingame_clock_delta_);
+		/*
+		boost::phoenix::ref(
+			ingame_clock_delta_);
+		*/
+}
+
+fruitlib::scenic::delta::callback const
+fruitapp::machine_impl::standard_clock_callback() const
+{
+	return 
+		phoenix_ref_broken_hack(
+			standard_clock_delta_);
+}
+
 fruitapp::point_sprite::system_node &
 fruitapp::machine_impl::point_sprites() 
 {
@@ -574,14 +625,14 @@ fruitapp::machine_impl::point_sprites() const
 fruitapp::ingame_clock::float_type
 fruitapp::machine_impl::time_factor() const
 {
-	return clock_.factor();
+	return ingame_clock_.factor();
 }
 
 void
 fruitapp::machine_impl::time_factor(
  fruitapp::ingame_clock::float_type const _time_factor)
 {
-	clock_.factor(
+	ingame_clock_.factor(
 		_time_factor);
 }
 

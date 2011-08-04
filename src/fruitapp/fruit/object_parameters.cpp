@@ -12,8 +12,8 @@ fruitapp::fruit::object_parameters::object_parameters(
 	fruitlib::physics::matrix4 const &_transformation,
 	fruitlib::physics::vector3 const &_linear_velocity,
 	fruitlib::physics::vector3 const &_angular_velocity,
-	sge::time::duration const &_lock_duration,
-	sge::time::callback const &_timer_callback)
+	fruitapp::ingame_clock::duration const &_lock_duration,
+	fruitapp::ingame_clock const &_clock)
 :
 	prototype_(
 		_prototype),
@@ -39,8 +39,8 @@ fruitapp::fruit::object_parameters::object_parameters(
 		_angular_velocity),
 	lock_duration_(
 		_lock_duration),
-	timer_callback_(
-		_timer_callback)
+	clock_(
+		_clock)
 {
 }
 
@@ -110,14 +110,14 @@ fruitapp::fruit::object_parameters::angular_velocity() const
 	return angular_velocity_;
 }
 
-sge::time::duration const &
+fruitapp::ingame_clock::duration const &
 fruitapp::fruit::object_parameters::lock_duration() const
 {
 	return lock_duration_;
 }
 
-sge::time::callback const &
-fruitapp::fruit::object_parameters::timer_callback() const
+fruitapp::ingame_clock const &
+fruitapp::fruit::object_parameters::clock() const
 {
-	return timer_callback_;
+	return clock_;
 }

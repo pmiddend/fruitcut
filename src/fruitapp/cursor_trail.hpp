@@ -1,15 +1,14 @@
 #ifndef FRUITCUT_APP_CURSOR_TRAIL_HPP_INCLUDED
 #define FRUITCUT_APP_CURSOR_TRAIL_HPP_INCLUDED
 
+#include <fruitapp/ingame_timer.hpp>
+#include <fruitapp/ingame_clock.hpp>
 #include <fruitlib/scenic/node.hpp>
 #include <fruitlib/scenic/optional_parent.hpp>
 #include <fruitlib/scenic/events/update_fwd.hpp>
 #include <sge/input/cursor/object_fwd.hpp>
 #include <sge/input/cursor/position.hpp>
 #include <sge/renderer/target_base_fwd.hpp>
-#include <sge/time/timer.hpp>
-#include <sge/time/duration.hpp>
-#include <sge/time/callback.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <boost/circular_buffer.hpp>
@@ -41,8 +40,8 @@ public:
 	cursor_trail(
 		fruitlib::scenic::optional_parent const &,
 		sge::input::cursor::object &,
-		sge::time::duration const &,
-		sge::time::callback const &,
+		fruitapp::ingame_clock const &,
+		fruitapp::ingame_clock::duration const &update_duration,
 		size_type sample_count,
 		sge::renderer::target_base &);
 
@@ -55,7 +54,7 @@ public:
 	// This is the time a cursor position sample has until it
 	// expires. The fruit manager uses this to determine when to unlock
 	// a fruit
-	sge::time::duration const
+	fruitapp::ingame_clock::duration const
 	total_expiry_duration() const;
 
 	~cursor_trail();
@@ -66,7 +65,7 @@ public:
 private:
 	sge::input::cursor::object &cursor_;
 	position_buffer positions_;
-	sge::time::timer update_timer_;
+	fruitapp::ingame_timer update_timer_;
 	sge::renderer::target_base &target_;
 
 };

@@ -62,7 +62,7 @@
 	"background-repeat" : 1.5,
 	"mouse" : 
 	{
-		"trail-update-rate-ms" : 50,
+		"trail-update-rate" : "50ms",
 		"trail-samples" : 5
 	},
 	"graphics" :

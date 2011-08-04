@@ -8,6 +8,10 @@
 #include <fruitlib/scenic/node.hpp>
 #include <fruitlib/scenic/optional_parent.hpp>
 #include <fruitlib/scenic/events/update_fwd.hpp>
+#include <fruitlib/scenic/delta/callback.hpp>
+#include <fruitlib/scenic/delta/duration.hpp>
+#include <fruitlib/scenic/delta/timer.hpp>
+#include <fruitlib/scenic/delta/clock.hpp>
 #include <fruitlib/audio/group/player.hpp>
 #include <sge/audio/multi_loader_fwd.hpp>
 #include <sge/audio/player_fwd.hpp>
@@ -15,7 +19,9 @@
 #include <sge/audio/buffer_ptr.hpp>
 #include <sge/audio/scalar.hpp>
 #include <sge/audio/sound/base_ptr.hpp>
-#include <sge/time/timer.hpp>
+#include <sge/timer/basic.hpp>
+#include <sge/timer/clocks/delta.hpp>
+#include <sge/timer/clocks/standard.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/unique_ptr.hpp>
@@ -42,10 +48,11 @@ public:
 	explicit
 	music_controller(
 		scenic::optional_parent const &,
+		scenic::delta::callback const &,
 		fruitlib::random_generator &,
 		sge::audio::multi_loader &,
 		sge::audio::player &,
-		sge::time::duration const &,
+		scenic::delta::duration const &,
 		fcppt::filesystem::path const &,
 		sge::audio::scalar volume);
 
@@ -85,10 +92,9 @@ private:
 	resource_tree_ptr;
 
 	group::player player_;
-
 	resource_tree_ptr sounds_;
-	sge::time::timer crossfade_;
-
+	scenic::delta::clock clock_;
+	scenic::delta::timer crossfade_;
 	sge::audio::buffer_ptr silence_buffer_;
 	sge::audio::sound::base_ptr silence_source_;
 

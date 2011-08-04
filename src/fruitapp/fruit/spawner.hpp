@@ -9,9 +9,9 @@
 #include <fruitlib/scenic/events/update_fwd.hpp>
 #include <fruitlib/random_generator.hpp>
 #include <fruitapp/fruit/manager_fwd.hpp>
+#include <fruitapp/ingame_clock.hpp>
+#include <fruitapp/ingame_timer.hpp>
 #include <sge/camera/object_fwd.hpp>
-#include <sge/time/callback.hpp>
-#include <sge/time/timer.hpp>
 #include <sge/parse/json/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/function/object.hpp>
@@ -50,7 +50,7 @@ public:
 		fruitlib::random_generator &,
 		sge::parse::json::object const &config_file,
 		sge::camera::object const &,
-		sge::time::callback const &);
+		fruitapp::ingame_clock const &);
 
 	fcppt::signal::auto_connection
 	spawn_callback(
@@ -62,7 +62,7 @@ public:
 private:
 	fruit::manager &manager_;
 	sge::camera::object const &camera_;
-	fruitlib::uniform_random<sge::time::funit>::type seconds_rng_;
+	fruitlib::uniform_random<fruitapp::ingame_clock::float_type>::type seconds_rng_;
 	fruitlib::uniform_random<prototype_sequence::size_type>::type prototype_rng_;
 	// x for x coordinate. This is a scalar rather than
 	// renderer::pixel_unit because the viewport might change and I
@@ -71,7 +71,7 @@ private:
 	fruitlib::uniform_random<fruitlib::physics::scalar>::type linear_velocity_rng_;
 	fruitlib::uniform_random<fruitlib::physics::scalar>::type angular_velocity_rng_;
 	fruitlib::uniform_random<fruitlib::physics::scalar>::type angle_rng_;
-	sge::time::timer timer_;
+	fruitapp::ingame_timer timer_;
 	fcppt::signal::object<spawn_callback_fn> spawn_signal_;
 
 	void

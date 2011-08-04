@@ -5,7 +5,6 @@
 #include <fruitlib/scenic/optional_parent.hpp>
 #include <fruitlib/scenic/events/render_fwd.hpp>
 #include <fruitlib/scenic/events/viewport_change_fwd.hpp>
-#include <fruitlib/animation.hpp>
 #include <sge/sprite/sprite.hpp>
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/image/color/rgba8_format.hpp>
@@ -85,10 +84,6 @@ private:
 	typedef 
 	sge::sprite::parameters<sprite_choices> 
 	sprite_parameters;
-
-	typedef
-	fruitlib::animation<sprite_object::color_type>
-	color_animation;
 
 	sge::renderer::device &renderer_;
 	sprite_system sprite_system_;

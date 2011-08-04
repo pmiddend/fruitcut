@@ -2,7 +2,6 @@
 #include <fruitlib/json/find_and_convert_member.hpp>
 #include <fruitlib/json/parse_projection.hpp>
 #include <fruitlib/scenic/events/update.hpp>
-#include <fruitlib/scenic/update_duration.hpp>
 #include <fruitlib/scenic/events/render.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/dim2.hpp>
@@ -67,8 +66,7 @@ fruitapp::shadow_map::shadow_map(
 	// Do an initial clear of the texture to prevent race conditions
 	// (the shadow map might be rendered before its first update)
 	react(
-		fruitlib::scenic::events::update(
-			fruitlib::scenic::update_duration()));
+		fruitlib::scenic::events::update());
 }
 
 sge::renderer::texture::planar_ptr const

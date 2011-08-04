@@ -1,7 +1,7 @@
 #include <fruitapp/states/ingame/paused.hpp>
 #include <fruitapp/states/ingame/running.hpp>
 #include <fruitapp/states/menu/main.hpp>
-#include <fruitlib/time_format/string_to_duration_exn.hpp>
+#include <fruitlib/time_format/find_and_convert_duration.hpp>
 #include <fruitlib/json/find_and_convert_member.hpp>
 #include <fruitlib/scenic/parent.hpp>
 #include <fruitlib/pp/texture/use_screen_size.hpp>
@@ -21,8 +21,8 @@
 #include <sge/input/keyboard/key_code.hpp>
 #include <sge/input/keyboard/device.hpp>
 #include <sge/systems/instance.hpp>
+#include <sge/timer/reset_when_expired.hpp>
 #include <sge/cegui/system.hpp>
-#include <sge/time/time.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/tr1/functional.hpp>
@@ -42,8 +42,7 @@ fruitapp::states::ingame::paused::paused(
 				depths::overlay::paused))),
 	time_factor_(
 		context<machine>(),
-		static_cast<sge::time::funit>(
-			0)),
+		0.0f),
 	scene_deactivation_(
 		context<machine>().scene_node(),
 		false),
@@ -72,8 +71,8 @@ fruitapp::states::ingame::paused::paused(
 			fruitlib::json::path(FCPPT_TEXT("paused"))
 				/ FCPPT_TEXT("max-blur-iterations"))),
 	blur_timer_(
-		fruitlib::time_format::string_to_duration_exn<sge::time::duration>(
-			fruitlib::json::find_and_convert_member<fcppt::string>(
+		sge::timer::parameters<sge::timer::clocks::standard>(
+			fruitlib::time_format::find_and_convert_duration<sge::timer::clocks::standard::duration>(
 				context<machine>().config_file(),
 				fruitlib::json::path(FCPPT_TEXT("paused"))
 					/ FCPPT_TEXT("blur-frequency-time")))),
@@ -95,7 +94,8 @@ fruitapp::states::ingame::paused::paused(
 			context<machine>().overlay_node(),
 			fruitlib::scenic::depth(
 				depths::overlay::dont_care)),
-		context<machine>().gui_system()),
+		context<machine>().gui_system(),
+		context<fruitapp::machine>().standard_clock_callback()),
 	gui_keyboard_(
 		context<machine>().gui_syringe(),
 		context<machine>().systems().keyboard_collector()),
@@ -173,7 +173,7 @@ void
 fruitapp::states::ingame::paused::react(
 	fruitlib::scenic::events::update const &)
 {
-	if(!blur_iterations_ || (blur_iterations_ < max_blur_iterations_ && blur_timer_.update_b()))
+	if(!blur_iterations_ || (blur_iterations_ < max_blur_iterations_ && sge::timer::reset_when_expired(blur_timer_)))
 	{
 		inject_texture_.texture(
 			current_texture_);

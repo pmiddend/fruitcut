@@ -5,6 +5,7 @@
 #include <fruitapp/fruit/mesh.hpp>
 #include <fruitapp/fruit/prototype_fwd.hpp>
 #include <fruitapp/fruit/object_parameters_fwd.hpp>
+#include <fruitapp/ingame_timer.hpp>
 #include <fruitlib/physics/rigid_body/object.hpp>
 #include <fruitlib/physics/rigid_body/scoped.hpp>
 #include <sge/renderer/vertex_buffer_fwd.hpp>
@@ -12,7 +13,6 @@
 #include <sge/renderer/texture/planar_ptr.hpp>
 #include <sge/renderer/matrix4.hpp>
 #include <sge/renderer/vector3.hpp>
-#include <sge/time/timer.hpp>
 #include <fcppt/math/matrix/matrix.hpp>
 #include <fcppt/math/vector/vector.hpp>
 #include <fcppt/math/box/box.hpp>
@@ -71,7 +71,7 @@ private:
 	fruitlib::physics::rigid_body::object body_;
 	fruitlib::physics::rigid_body::scoped body_scope_;
 	sge::renderer::vertex_buffer_ptr vb_;
-	sge::time::timer lock_timer_;
+	fruitapp::ingame_timer lock_timer_;
 };
 }
 }

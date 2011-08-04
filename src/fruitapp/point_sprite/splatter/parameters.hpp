@@ -7,8 +7,7 @@
 #include <fruitapp/point_sprite/splatter/linear_velocity.hpp>
 #include <fruitapp/point_sprite/splatter/acceleration.hpp>
 #include <fruitapp/point_sprite/splatter/size.hpp>
-#include <sge/time/duration.hpp>
-#include <sge/time/callback.hpp>
+#include <fruitapp/ingame_clock.hpp>
 #include <sge/texture/part_ptr.hpp>
 #include <fcppt/chrono/duration.hpp>
 #include <fcppt/nonassignable.hpp>
@@ -26,42 +25,42 @@ FCPPT_NONASSIGNABLE(
 public:
 	explicit
 	parameters(
-		fruitapp::point_sprite::system &,
-		fruitapp::point_sprite::splatter::position const &,
-		fruitapp::point_sprite::splatter::linear_velocity const &,
-		fruitapp::point_sprite::splatter::acceleration const &,
-		fruitapp::point_sprite::splatter::size const &,
-		fruitapp::point_sprite::color const &,
+		point_sprite::system &,
+		point_sprite::splatter::position const &,
+		point_sprite::splatter::linear_velocity const &,
+		point_sprite::splatter::acceleration const &,
+		point_sprite::splatter::size const &,
+		point_sprite::color const &,
 		sge::texture::part_ptr,
-		sge::time::duration const &,
-		sge::time::callback const &);
+		fruitapp::ingame_clock::duration const &,
+		fruitapp::ingame_clock const &);
 
-	fruitapp::point_sprite::system &
+	point_sprite::system &
 	system() const;
 
-	fruitapp::point_sprite::splatter::position::value_type const &
+	point_sprite::splatter::position::value_type const &
 	position() const;
 
-	fruitapp::point_sprite::splatter::linear_velocity::value_type const &
+	point_sprite::splatter::linear_velocity::value_type const &
 	linear_velocity() const;
 
-	fruitapp::point_sprite::splatter::acceleration::value_type const &
+	point_sprite::splatter::acceleration::value_type const &
 	acceleration() const;
 
-	fruitapp::point_sprite::splatter::size::value_type const &
+	point_sprite::splatter::size::value_type const &
 	size() const;
 
-	fruitapp::point_sprite::color const &
+	point_sprite::color const &
 	color() const;
 
 	sge::texture::part_ptr const
 	texture() const;
 
-	sge::time::duration const &
+	fruitapp::ingame_clock::duration const &
 	life_time() const;
 
-	sge::time::callback const &
-	time_callback() const;
+	fruitapp::ingame_clock const &
+	clock() const;
 
 	~parameters();
 private:
@@ -72,8 +71,8 @@ private:
 	fruitapp::point_sprite::splatter::size::value_type const size_;
 	fruitapp::point_sprite::color const color_;
 	sge::texture::part_ptr const texture_;
-	sge::time::duration const life_time_;
-	sge::time::callback const time_callback_;
+	fruitapp::ingame_clock::duration const life_time_;
+	fruitapp::ingame_clock const &clock_;
 };
 }
 }

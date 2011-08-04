@@ -1,6 +1,10 @@
 #include <fruitlib/rectangle_manager/object.hpp>
 #include <fruitlib/rectangle_manager/rectangle_instance.hpp>
 #include <fruitlib/rectangle_manager/padding.hpp>
+#include <sge/timer/basic.hpp>
+#include <sge/timer/elapsed_fractional_and_reset.hpp>
+#include <sge/timer/clocks/standard.hpp>
+#include <sge/timer/reset_when_expired.hpp>
 #include <sge/image/colors.hpp>
 #include <sge/input/keyboard/action.hpp>
 #include <sge/input/keyboard/device.hpp>
@@ -13,10 +17,6 @@
 #include <sge/renderer/state/list.hpp>
 #include <sge/image/color/rgba8.hpp>
 #include <sge/image/color/rgba8_format.hpp>
-#include <sge/time/timer.hpp>
-#include <sge/time/second.hpp>
-#include <sge/time/second_f.hpp>
-#include <sge/time/funit.hpp>
 #include <sge/sprite/choices.hpp>
 #include <sge/sprite/default_equal.hpp>
 #include <sge/sprite/no_color.hpp>
@@ -43,6 +43,7 @@
 #include <fcppt/move.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
+#include <fcppt/chrono/seconds.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -185,8 +186,9 @@ public:
 		sge::renderer::device &_renderer)
 	:
 		frame_timer_(
-			sge::time::second(
-				1)),
+			sge::timer::parameters<sge::timer::clocks::standard>(
+				fcppt::chrono::seconds(
+					1))),
 		sprite_system_(
 			_renderer),
 		rectangle_manager_(
@@ -227,8 +229,8 @@ public:
 				float_type(
 					100.f))),
 		update_timer_(
-			sge::time::second_f(
-				static_cast<sge::time::funit>(
+			sge::timer::parameters<sge::timer::clocks::standard>(
+				fcppt::chrono::duration<float_type>(
 					update_rng_())))
 	{
 	}
@@ -238,8 +240,8 @@ public:
 	{
 		rectangle_manager_.update(
 			rectangle_manager_type::duration(
-				static_cast<float_type>(
-					frame_timer_.reset())));
+				sge::timer::elapsed_fractional_and_reset<float_type>(
+					frame_timer_)));
 
 		float_type const epsilon = 
 			0.01f;
@@ -264,7 +266,7 @@ public:
 				++it;
 		}
 
-		if(update_timer_.update_b())
+		if(sge::timer::reset_when_expired(update_timer_))
 		{
 			if(all_dead() || action_rng_())
 				action_create();
@@ -284,7 +286,7 @@ private:
 	boost::ptr_list<rectangle>
 	rectangle_list;
 
-	sge::time::timer frame_timer_;
+	sge::timer::basic<sge::timer::clocks::standard> frame_timer_;
 	sprite_system sprite_system_;
 	rectangle_manager_type rectangle_manager_;
 	rectangle_list list_;
@@ -294,7 +296,7 @@ private:
 	fcppt::random::default_generator kill_generator_;
 	fcppt::random::uniform<float_type> create_size_w_rng_;
 	fcppt::random::uniform<float_type> create_size_h_rng_;
-	sge::time::timer update_timer_;
+	sge::timer::basic<sge::timer::clocks::standard> update_timer_;
 
 	void
 	action_create()

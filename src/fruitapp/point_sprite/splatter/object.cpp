@@ -1,8 +1,9 @@
 #include <fruitapp/point_sprite/splatter/object.hpp>
 #include <fruitapp/point_sprite/splatter/parameters.hpp>
 #include <fruitapp/point_sprite/parameters.hpp>
-#include <sge/time/timer.hpp>
-#include <sge/time/second.hpp>
+#include <sge/timer/parameters.hpp>
+#include <sge/timer/elapsed_fractional_and_reset.hpp>
+#include <fcppt/chrono/seconds.hpp>
 
 fruitapp::point_sprite::splatter::object::object(
 	parameters const &p)
@@ -31,13 +32,14 @@ fruitapp::point_sprite::splatter::object::object(
 	acceleration_(
 		p.acceleration()),
 	life_timer_(
-		p.life_time(),
-		sge::time::activation_state::active,
-		p.time_callback()),
+		fruitapp::ingame_timer::parameters(
+			p.clock(),
+			p.life_time())),
 	second_timer_(
-		sge::time::second(1),
-		sge::time::activation_state::active,
-		p.time_callback())
+		fruitapp::ingame_timer::parameters(
+			p.clock(),
+			fcppt::chrono::seconds(
+				1)))
 {
 	
 }
@@ -50,8 +52,8 @@ void
 fruitapp::point_sprite::splatter::object::update()
 {
 	point_sprite::object::unit const time_delta = 
-		static_cast<point_sprite::object::unit>(
-			second_timer_.reset());
+		sge::timer::elapsed_fractional_and_reset<point_sprite::object::unit>(
+			second_timer_);
 
 	object_.pos(
 		object_.pos() + 

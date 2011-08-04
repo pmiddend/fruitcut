@@ -3,6 +3,8 @@
 #include <sge/input/cursor/object.hpp>
 #include <sge/input/cursor/position.hpp>
 #include <sge/input/cursor/position_unit.hpp>
+#include <sge/timer/parameters.hpp>
+#include <sge/timer/reset_when_expired.hpp>
 #include <sge/renderer/pixel_rect.hpp>
 #include <sge/renderer/vector2.hpp>
 #include <sge/renderer/target_base.hpp>
@@ -13,6 +15,7 @@
 #include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/math/vector/output.hpp>
 #include <fcppt/chrono/duration.hpp>
+#include <fcppt/chrono/duration_arithmetic.hpp>
 #include <iostream>
 
 namespace
@@ -34,8 +37,8 @@ transform_position(
 fruitapp::cursor_trail::cursor_trail(
 	fruitlib::scenic::optional_parent const &_parent,
 	sge::input::cursor::object &_cursor,
-	sge::time::duration const &_update_frequency,
-	sge::time::callback const &_callback,
+	fruitapp::ingame_clock const &_clock,
+	fruitapp::ingame_clock::duration const &_update_frequency,
 	size_type const _sample_count,
 	sge::renderer::target_base &_target)
 :
@@ -46,9 +49,9 @@ fruitapp::cursor_trail::cursor_trail(
 	positions_(
 		_sample_count),
 	update_timer_(
-		_update_frequency,
-		sge::time::activation_state::active,
-		_callback),
+		fruitapp::ingame_timer::parameters(
+			_clock,
+			_update_frequency)),
 	target_(
 		_target)
 {
@@ -66,15 +69,13 @@ fruitapp::cursor_trail::clear()
 	positions_.clear();
 }
 
-sge::time::duration const
+fruitapp::ingame_clock::duration const
 fruitapp::cursor_trail::total_expiry_duration() const
 {
 	return 
-		sge::time::duration(
-			static_cast<sge::time::duration::rep>(
-				update_timer_.interval() * 
-				static_cast<sge::time::duration::rep>(
-					positions_.capacity())));
+		static_cast<fruitapp::ingame_clock::duration::rep>(
+			positions_.capacity()) * 
+		update_timer_.interval<fruitapp::ingame_clock::duration>();
 }
 
 fruitapp::cursor_trail::~cursor_trail()
@@ -86,7 +87,8 @@ fruitapp::cursor_trail::react(
 	fruitlib::scenic::events::update const &)
 {
 	if(
-		!update_timer_.update_b())
+		!sge::timer::reset_when_expired(
+			update_timer_))
 		return;
 
 	positions_.push_back(

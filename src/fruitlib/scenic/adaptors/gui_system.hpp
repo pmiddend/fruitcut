@@ -5,6 +5,9 @@
 #include <fruitlib/scenic/optional_parent.hpp>
 #include <fruitlib/scenic/events/render_fwd.hpp>
 #include <fruitlib/scenic/events/update_fwd.hpp>
+#include <fruitlib/scenic/delta/callback.hpp>
+#include <fruitlib/scenic/delta/timer.hpp>
+#include <fruitlib/scenic/delta/clock.hpp>
 #include <sge/cegui/system.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <boost/mpl/vector/vector10.hpp>
@@ -29,7 +32,8 @@ public:
 	explicit
 	gui_system(
 		scenic::optional_parent const &,
-		sge::cegui::system &);
+		sge::cegui::system &,
+		scenic::delta::callback const &);
 
 	~gui_system();
 
@@ -41,6 +45,8 @@ public:
 	react(
 		events::render const &);
 private:
+	scenic::delta::clock clock_;
+	scenic::delta::timer timer_;
 	sge::cegui::system &system_;
 };
 }

@@ -10,6 +10,9 @@
 #include <sge/audio/scalar.hpp>
 #include <sge/audio/multi_loader.hpp>
 #include <sge/audio/buffer.hpp>
+#include <sge/timer/parameters.hpp>
+#include <sge/timer/elapsed_fractional.hpp>
+#include <sge/timer/remaining_fractional.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/io/cout.hpp>
 #include <fcppt/tr1/functional.hpp>
@@ -46,10 +49,11 @@ create_random_from_directory(
 
 fruitlib::audio::music_controller::music_controller(
 	scenic::optional_parent const &_group,
+	scenic::delta::callback const &_time_callback,
 	fruitlib::random_generator &_random_generator,
 	sge::audio::multi_loader &_audio_loader,
 	sge::audio::player &_player,
-	sge::time::duration const &_crossfade,
+	scenic::delta::duration const &_crossfade,
 	fcppt::filesystem::path const &_base_path,
 	sge::audio::scalar const _initial_gain)
 :
@@ -72,8 +76,12 @@ fruitlib::audio::music_controller::music_controller(
 				fcppt::ref(
 					_random_generator),
 				std::tr1::placeholders::_1))),
+	clock_(
+		_time_callback),
 	crossfade_(
-		_crossfade),
+		scenic::delta::timer::parameters(
+			clock_,
+			_crossfade)),
 	silence_buffer_(
 		player_.create_buffer(
 			*_audio_loader.load(
@@ -144,6 +152,8 @@ void
 fruitlib::audio::music_controller::react(
 	scenic::events::update const &)
 {
+	clock_.update();
+	
 	if(current_source_)
 		current_source_->update();
 
@@ -161,12 +171,11 @@ fruitlib::audio::music_controller::react(
 	else
 	{
 		current_source_->gain(
-			static_cast<sge::audio::scalar>(1) 
-				- static_cast<sge::audio::scalar>(
-					crossfade_.elapsed_frames()));
+			sge::timer::remaining_fractional<sge::audio::scalar>(
+				crossfade_));
 		new_source_->gain(
-			static_cast<sge::audio::scalar>(
-				crossfade_.elapsed_frames()));
+			sge::timer::elapsed_fractional<sge::audio::scalar>(
+				crossfade_));
 
 		new_source_->update();
 	}

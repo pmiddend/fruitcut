@@ -11,7 +11,8 @@
 #include <sge/renderer/scalar.hpp>
 #include <sge/parse/json/object_fwd.hpp>
 #include <sge/renderer/device_fwd.hpp>
-#include <sge/time/timer.hpp>
+#include <sge/timer/basic.hpp>
+#include <sge/timer/clocks/standard.hpp>
 #include <sge/font/text/string.hpp>
 #include <fcppt/math/dim/dim.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -68,7 +69,7 @@ private:
 	fruitlib::audio::sound_controller &sound_controller_;
 	fruitlib::font::scene_node font_node_;
 	fractional_dimension fractional_size_;
-	sge::time::timer message_delete_timer_;
+	sge::timer::basic<sge::timer::clocks::standard> message_delete_timer_;
 	message_sequence messages_; 
 };
 }

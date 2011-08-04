@@ -109,7 +109,10 @@ ADD_SUBDIRECTORY(src/sandbox)
 
 SET(
 	FRUITLIB_FILES
-	src/fruitlib/animation.hpp
+	src/fruitlib/animation/basic.hpp
+	src/fruitlib/animation/interpolate/linear.hpp
+	src/fruitlib/animation/interpolate/trigonometric.hpp
+	src/fruitlib/animation/keyframe.hpp
 	src/fruitlib/audio/group/buffer.cpp
 	src/fruitlib/audio/group/buffer.hpp
 	src/fruitlib/audio/group/buffer_fwd.hpp
@@ -377,6 +380,12 @@ SET(
 	src/fruitlib/scenic/base.cpp
 	src/fruitlib/scenic/base.hpp
 	src/fruitlib/scenic/base_fwd.hpp
+	src/fruitlib/scenic/delta/callback.hpp
+	src/fruitlib/scenic/delta/clock.cpp
+	src/fruitlib/scenic/delta/clock.hpp
+	src/fruitlib/scenic/delta/clock_impl.hpp
+	src/fruitlib/scenic/delta/duration.hpp
+	src/fruitlib/scenic/delta/timer.hpp
 	src/fruitlib/scenic/depth.hpp
 	src/fruitlib/scenic/detail/has_scene_reactions.hpp
 	src/fruitlib/scenic/detail/reaction_chooser.hpp
@@ -391,6 +400,7 @@ SET(
 	src/fruitlib/scenic/events/update_fwd.hpp
 	src/fruitlib/scenic/events/viewport_change.cpp
 	src/fruitlib/scenic/events/viewport_change.hpp
+	src/fruitlib/scenic/events/viewport_change_fwd.hpp
 	src/fruitlib/scenic/no_parent.cpp
 	src/fruitlib/scenic/no_parent.hpp
 	src/fruitlib/scenic/node.hpp
@@ -398,10 +408,10 @@ SET(
 	src/fruitlib/scenic/parent.cpp
 	src/fruitlib/scenic/parent.hpp
 	src/fruitlib/scenic/parent_fwd.hpp
-	src/fruitlib/scenic/update_duration.hpp
 	src/fruitlib/time_format/context.hpp
 	src/fruitlib/time_format/domain.hpp
 	src/fruitlib/time_format/duration_to_string.hpp
+	src/fruitlib/time_format/find_and_convert_duration.hpp
 	src/fruitlib/time_format/formatter.hpp
 	src/fruitlib/time_format/formatter_fwd.hpp
 	src/fruitlib/time_format/grammar.hpp
@@ -594,6 +604,8 @@ SET(
 	src/fruitapp/highscore/providers_from_json.hpp
 	src/fruitapp/highscore/rank.hpp
 	src/fruitapp/highscore/score.hpp
+	src/fruitapp/ingame_clock.hpp
+	src/fruitapp/ingame_timer.hpp
 	src/fruitapp/light_source_from_json.cpp
 	src/fruitapp/light_source_from_json.hpp
 	src/fruitapp/load_user_config.cpp
@@ -645,6 +657,8 @@ SET(
 	src/fruitapp/scene.cpp
 	src/fruitapp/scene.hpp
 	src/fruitapp/scene_fwd.hpp
+	src/fruitapp/scoped_frame_limiter.cpp
+	src/fruitapp/scoped_frame_limiter.hpp
 	src/fruitapp/scoped_pp_activation.cpp
 	src/fruitapp/scoped_pp_activation.hpp
 	src/fruitapp/scoped_scene_activation.cpp

@@ -14,13 +14,13 @@
 #include <fruitapp/overlay.hpp>
 #include <fruitapp/point_sprite/system_node_fwd.hpp>
 #include <fruitapp/directional_light_source_fwd.hpp>
+#include <fruitapp/ingame_clock.hpp>
 #include <fruitlib/random_generator.hpp>
+#include <fruitlib/scenic/delta/callback.hpp>
 #include <fruitlib/scenic/base_fwd.hpp>
 #include <fruitlib/audio/sound_controller_fwd.hpp>
 #include <fruitlib/audio/music_controller_fwd.hpp>
 #include <fruitlib/font/cache_fwd.hpp>
-#include <sge/time/callback.hpp>
-#include <sge/time/time.hpp>
 #include <sge/parse/json/object_fwd.hpp>
 #include <sge/camera/object_fwd.hpp>
 #include <sge/cegui/system_fwd.hpp>
@@ -69,8 +69,8 @@ public:
 	fruitapp::postprocessing &
 	postprocessing();
 
-	sge::time::callback const 
-	timer_callback() const;
+	fruitapp::ingame_clock const &
+	ingame_clock() const;
 
 	fruitlib::audio::sound_controller &
 	sound_controller();
@@ -154,15 +154,21 @@ public:
 	point_sprite::system_node const &
 	point_sprites() const;
 
-	sge::time::funit
+	fruitapp::ingame_clock::float_type
 	time_factor() const;
 
 	void
 	time_factor(
-		sge::time::funit);
+		fruitapp::ingame_clock::float_type);
 
 	fruitlib::scenic::base &
 	root_node();
+
+	fruitlib::scenic::delta::callback const
+	ingame_clock_callback() const;
+	
+	fruitlib::scenic::delta::callback const
+	standard_clock_callback() const;
 
 	~machine();
 

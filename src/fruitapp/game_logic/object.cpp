@@ -6,7 +6,7 @@
 #include <fruitlib/scenic/events/update.hpp>
 #include <fruitlib/scenic/events/viewport_change.hpp>
 #include <fruitlib/scenic/events/render.hpp>
-#include <fruitlib/time_format/string_to_duration_exn.hpp>
+#include <fruitlib/time_format/find_and_convert_duration.hpp>
 #include <fruitlib/time_format/duration_to_string.hpp>
 #include <fruitlib/time_format/milliseconds.hpp>
 #include <fruitlib/time_format/seconds.hpp>
@@ -30,10 +30,10 @@
 #include <sge/renderer/onscreen_target.hpp>
 #include <sge/renderer/scalar.hpp>
 #include <sge/renderer/viewport.hpp>
-#include <sge/time/activation_state.hpp>
-#include <sge/time/duration.hpp>
-#include <sge/time/unit.hpp>
-#include <sge/time/millisecond.hpp>
+#include <sge/timer/parameters.hpp>
+#include <sge/timer/reset_when_expired.hpp>
+#include <sge/timer/elapsed_fractional.hpp>
+#include <sge/timer/remaining.hpp>
 #include <mizuiro/color/convert.hpp>
 #include <mizuiro/color/homogenous_static.hpp>
 #include <mizuiro/color/init.hpp>
@@ -53,7 +53,7 @@
 
 fruitapp::game_logic::object::object(
 	fruitlib::scenic::optional_parent const &_parent,
-	sge::time::callback const &_time_callback,
+	fruitapp::ingame_clock const &_clock,
 	// to get round seconds and stuff
 	sge::parse::json::object const &_config_file,
 	// to get 
@@ -78,14 +78,13 @@ fruitapp::game_logic::object::object(
 	iterating_score_(
 		score_),
 	round_timer_(
-		fruitlib::time_format::string_to_duration_exn<sge::time::duration>(
-			fruitlib::json::find_and_convert_member<fcppt::string>(
+		fruitapp::ingame_timer::parameters(
+			_clock,
+			fruitlib::time_format::find_and_convert_duration<fruitapp::ingame_clock::duration>(
 				_config_file,
 				fruitlib::json::path(
 					FCPPT_TEXT("ingame"))
-					/ FCPPT_TEXT("round-time"))),
-		sge::time::activation_state::active,
-		_time_callback),
+					/ FCPPT_TEXT("round-time")))),
 	fruit_added_connection_(
 		_fruit_manager.spawn_callback(
 			std::tr1::bind(
@@ -172,32 +171,29 @@ fruitapp::game_logic::object::object(
 		fruitlib::font::scale(
 			1)),
 	score_increase_timer_(
-		fruitlib::time_format::string_to_duration_exn<sge::time::duration>(
-			fruitlib::json::find_and_convert_member<fcppt::string>(
+		fruitapp::ingame_timer::parameters(
+			_clock,
+			fruitlib::time_format::find_and_convert_duration<fruitapp::ingame_timer::duration>(
 				_config_file,
 				fruitlib::json::path(
 					FCPPT_TEXT("ingame"))
-					/ FCPPT_TEXT("score-increase-timer"))),
-		sge::time::activation_state::active,
-		_time_callback),
+					/ FCPPT_TEXT("score-increase-timer")))),
 	multiplier_timer_(
-		fruitlib::time_format::string_to_duration_exn<sge::time::duration>(
-			fruitlib::json::find_and_convert_member<fcppt::string>(
+		fruitapp::ingame_timer::parameters(
+			_clock,
+			fruitlib::time_format::find_and_convert_duration<fruitapp::ingame_timer::duration>(
 				_config_file,
 				fruitlib::json::path(
 					FCPPT_TEXT("ingame"))
-					/ FCPPT_TEXT("multiplier-timer"))),
-		sge::time::activation_state::active,
-		_time_callback),
+					/ FCPPT_TEXT("multiplier-timer")))),
 	penalty_timer_(
-		fruitlib::time_format::string_to_duration_exn<sge::time::duration>(
-			fruitlib::json::find_and_convert_member<fcppt::string>(
+		fruitapp::ingame_timer::parameters(
+			_clock,
+			fruitlib::time_format::find_and_convert_duration<fruitapp::ingame_timer::duration>(
 				_config_file,
 				fruitlib::json::path(
 					FCPPT_TEXT("ingame"))
-					/ FCPPT_TEXT("penalty-timer"))),
-		sge::time::activation_state::inactive,
-		_time_callback),
+					/ FCPPT_TEXT("penalty-timer")))),
 	multiplier_(1),
 	multi_count_(0),
 	renderer_(
@@ -228,9 +224,11 @@ fruitapp::game_logic::object::react(
 	if (penalty_timer_.active() && penalty_timer_.expired())
 	{
 		penalty_timer_.reset();
-		penalty_timer_.deactivate();
+		penalty_timer_.active(
+			false);
 		multiplier_timer_.reset();
-		multiplier_timer_.activate();
+		multiplier_timer_.active(
+			true);
 		multiplier_ = 1;
 		multiplier_font_node_.object().text(
 				SGE_FONT_TEXT_LIT(""));
@@ -258,18 +256,18 @@ fruitapp::game_logic::object::react(
 			(mizuiro::color::init::hue %= 
 					0.34 *
 					(1.f - 
-						multiplier_timer_.elapsed_frames()))
+						sge::timer::elapsed_fractional<float>(multiplier_timer_)))
 			(mizuiro::color::init::saturation %= 1.0)
 			(mizuiro::color::init::value %= 1.0)
 			(mizuiro::color::init::alpha %= 1.0))));
 	}
 	timer_font_node_.object().text(
 		fruitlib::time_format::duration_to_string<sge::font::text::string>(
-			sge::time::duration(
-				round_timer_.time_left()),
+			sge::timer::remaining<fruitapp::ingame_clock::duration>(
+				round_timer_),
 			fruitlib::time_format::seconds));
 
-	if(score_increase_timer_.update_b())
+	if(sge::timer::reset_when_expired(score_increase_timer_))
 	{
 		iterating_score_ += 
 			(score_ - iterating_score_)/10;
@@ -334,9 +332,11 @@ fruitapp::game_logic::object::fruit_cut(
 	fruit::tag_set ts = context.old().prototype().tags();
 	if(ts.find(FCPPT_TEXT("meat")) != ts.end())
 	{
-		penalty_timer_.activate();
+		penalty_timer_.active(
+			true);
 		penalty_timer_.reset();
-		multiplier_timer_.deactivate();
+		multiplier_timer_.active(
+			false);
 		multiplier_timer_.reset();
 		multiplier_ = 0;
 		multi_count_ = 0;

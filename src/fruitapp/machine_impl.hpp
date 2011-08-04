@@ -14,6 +14,8 @@
 #include <fruitlib/scenic/adaptors/camera.hpp>
 #include <fruitlib/scenic/events/update_fwd.hpp>
 #include <fruitlib/scenic/events/render_fwd.hpp>
+#include <fruitlib/scenic/delta/callback.hpp>
+#include <fruitlib/scenic/delta/duration.hpp>
 #include <fruitlib/scenic/node.hpp>
 #include <fruitapp/screen_shooter.hpp>
 #include <fruitapp/point_sprite/system_node.hpp>
@@ -68,7 +70,7 @@ public:
 	postprocessing();
 
 	fruitapp::ingame_clock const &
-	clock() const;
+	ingame_clock() const;
 
 	fruitlib::audio::sound_controller &
 	sound_controller();
@@ -149,6 +151,12 @@ public:
 	overlay const &
 	overlay_node() const;
 
+	fruitlib::scenic::delta::callback const
+	ingame_clock_callback() const;
+	
+	fruitlib::scenic::delta::callback const
+	standard_clock_callback() const;
+
 	point_sprite::system_node &
 	point_sprites();
 
@@ -183,7 +191,9 @@ private:
 	fruitlib::log::scoped_sequence_ptr activated_loggers_;
 	fruitlib::font::cache font_cache_;
 	sge::timer::basic<sge::timer::clocks::standard> second_timer_;
-	fruitapp::ingame_clock clock_;
+	fruitapp::ingame_clock ingame_clock_;
+	fruitlib::scenic::delta::duration ingame_clock_delta_;
+	fruitlib::scenic::delta::duration standard_clock_delta_;
 	fruitlib::audio::sound_controller sound_controller_;
 	fcppt::signal::scoped_connection effects_volume_change_connection_;
 	fruitlib::audio::music_controller music_controller_;

@@ -2,6 +2,8 @@
 #define FRUITAPP_GAME_LOGIC_OBJECT_HPP_INCLUDED
 
 #include <fruitapp/overlay.hpp>
+#include <fruitapp/ingame_clock.hpp>
+#include <fruitapp/ingame_timer.hpp>
 #include <fruitapp/fruit/manager_fwd.hpp>
 #include <fruitapp/fruit/object_fwd.hpp>
 #include <fruitapp/fruit/cut_context_fwd.hpp>
@@ -16,8 +18,6 @@
 #include <sge/parse/json/object_fwd.hpp>
 #include <sge/renderer/scalar.hpp>
 #include <sge/renderer/device_fwd.hpp>
-#include <sge/time/callback.hpp>
-#include <sge/time/timer.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <boost/mpl/vector/vector10.hpp>
@@ -40,7 +40,7 @@ public:
 	explicit
 	object(
 		fruitlib::scenic::optional_parent const &,
-		sge::time::callback const &,
+		fruitapp::ingame_clock const &,
 		// to get round seconds and stuff
 		sge::parse::json::object const &,
 		// to get 
@@ -68,17 +68,16 @@ public:
 private:
 	fruit::area::value_type const area_score_factor_;
 	highscore::score::value_type score_,iterating_score_;
-	sge::time::timer round_timer_;
-	fcppt::signal::scoped_connection 
-		fruit_added_connection_,
-		fruit_cut_connection_,
-		fruit_removed_connection_;
+	fruitapp::ingame_timer round_timer_;
+	fcppt::signal::scoped_connection fruit_added_connection_;
+	fcppt::signal::scoped_connection fruit_cut_connection_;
+	fcppt::signal::scoped_connection fruit_removed_connection_;
 	fruitlib::font::scene_node score_font_node_;
 	fruitlib::font::scene_node timer_font_node_;
 	fruitlib::font::scene_node multiplier_font_node_;
-	sge::time::timer score_increase_timer_;
-	sge::time::timer multiplier_timer_;
-	sge::time::timer penalty_timer_;
+	fruitapp::ingame_timer score_increase_timer_;
+	fruitapp::ingame_timer multiplier_timer_;
+	fruitapp::ingame_timer penalty_timer_;
 	int multiplier_;
 	unsigned multi_count_;
 	sge::renderer::device &renderer_;

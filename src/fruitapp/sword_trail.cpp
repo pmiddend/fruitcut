@@ -1,5 +1,5 @@
 #include <fruitapp/sword_trail.hpp>
-#include <fruitlib/time_format/string_to_duration.hpp>
+#include <fruitlib/time_format/find_and_convert_duration.hpp>
 #include <fruitlib/json/path.hpp>
 #include <fruitlib/scenic/events/update.hpp>
 #include <fruitlib/scenic/events/render.hpp>
@@ -7,6 +7,9 @@
 #include <media_path.hpp>
 #include <sge/sprite/dont_sort.hpp>
 #include <sge/sprite/default_equal.hpp>
+#include <sge/timer/parameters.hpp>
+#include <sge/timer/elapsed_fractional.hpp>
+#include <sge/timer/reset_when_expired.hpp>
 #include <sge/image2d/multi_loader.hpp>
 #include <sge/renderer/texture/create_planar_from_path.hpp>
 #include <sge/texture/part_raw.hpp>
@@ -54,7 +57,7 @@ fruitapp::sword_trail::sword_trail(
 	sge::renderer::target_base &_target,
 	sge::image2d::multi_loader &_image_loader,
 	sge::input::cursor::object &_cursor,
-	sge::time::callback const &_time_callback,
+	fruitapp::ingame_clock const &_clock,
 	sge::parse::json::object const &_config_file)
 :
 	node_base(
@@ -63,18 +66,12 @@ fruitapp::sword_trail::sword_trail(
 		_cursor),
 	target_(
 		_target),
-	time_callback_(
-		_time_callback),
-	update_interval_(
-		*fruitlib::time_format::string_to_duration<sge::time::duration>(
-			fruitlib::json::find_and_convert_member<fcppt::string>(
-				_config_file,
-				fruitlib::json::path(FCPPT_TEXT("sword-mouse-trail")) / FCPPT_TEXT("update-interval")))),
+	clock_(
+		_clock),
 	element_lifetime_(
-		*fruitlib::time_format::string_to_duration<sge::time::duration>(
-			fruitlib::json::find_and_convert_member<fcppt::string>(
-				_config_file,
-				fruitlib::json::path(FCPPT_TEXT("sword-mouse-trail")) / FCPPT_TEXT("element-lifetime")))),
+		fruitlib::time_format::find_and_convert_duration<fruitapp::ingame_clock::duration>(
+			_config_file,
+			fruitlib::json::path(FCPPT_TEXT("sword-mouse-trail")) / FCPPT_TEXT("element-lifetime"))),
 	max_width_(
 		fruitlib::json::find_and_convert_member<sprite_object::unit>(
 			_config_file,
@@ -102,9 +99,11 @@ fruitapp::sword_trail::sword_trail(
 		static_cast<sprite_buffer::size_type>(
 			positions_.capacity()-1)),
 	update_timer_(
-		update_interval_,
-		sge::time::activation_state::active,
-		_time_callback)
+		fruitapp::ingame_timer::parameters(
+			clock_,
+			fruitlib::time_format::find_and_convert_duration<fruitapp::ingame_clock::duration>(
+				_config_file,
+				fruitlib::json::path(FCPPT_TEXT("sword-mouse-trail")) / FCPPT_TEXT("update-interval"))))
 {
 }
 
@@ -119,10 +118,11 @@ fruitapp::sword_trail::react(
 	for(timer_buffer::size_type i = 0; i < timers_.size(); ++i)
 		sprites_[static_cast<sprite_buffer::size_type>(i)].h(
 			std::max(
-				static_cast<sge::time::funit>(0.0),
-				(1.0f - timers_[i]->elapsed_frames()) * max_width_));
+				static_cast<sprite_object::unit>(
+					0),
+				(1.0f - sge::timer::elapsed_fractional<sprite_object::unit>(*timers_[i])) * max_width_));
 
-	if (!update_timer_.update_b())
+	if (!sge::timer::reset_when_expired(update_timer_))
 		return;
 
 	sprite_object::unit const epsilon = 
@@ -171,11 +171,10 @@ fruitapp::sword_trail::react(
 				.elements()));
 
 	timers_.push_back(
-		fcppt::make_shared_ptr<sge::time::timer>(
-			element_lifetime_,
-			sge::time::activation_state::active,
-			time_callback_,
-			sge::time::expiration_state::not_expired));
+		fcppt::make_shared_ptr<fruitapp::ingame_timer>(
+			fruitapp::ingame_timer::parameters(
+				clock_,
+				element_lifetime_)));
 }
 
 void

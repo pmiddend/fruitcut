@@ -1,7 +1,5 @@
 #include <fruitapp/logo.hpp>
 #include <fruitlib/json/find_and_convert_member.hpp>
-#include <fruitlib/json/parse_animation.hpp>
-#include <fruitlib/json/parse_color.hpp>
 #include <fruitlib/scenic/events/render.hpp>
 #include <fruitlib/scenic/events/viewport_change.hpp>
 #include <media_path.hpp>

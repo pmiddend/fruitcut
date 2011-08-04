@@ -2,14 +2,12 @@
 #define FRUITLIB_JSON_PARSE_ANIMATION_HPP_INCLUDED
 
 #include <fruitlib/json/find_and_convert_member.hpp>
-#include <fruitlib/animation.hpp>
+#include <fruitlib/time_format/find_and_convert_duration.hpp>
 #include <fruitlib/exception.hpp>
 #include <sge/parse/json/array.hpp>
 #include <sge/parse/json/value.hpp>
 #include <sge/parse/json/invalid_get.hpp>
 #include <sge/parse/json/find_member_exn.hpp>
-#include <sge/time/second_f.hpp>
-#include <sge/time/funit.hpp>
 #include <boost/variant/get.hpp>
 #include <fcppt/text.hpp>
 
@@ -17,9 +15,13 @@ namespace fruitlib
 {
 namespace json
 {
-template<typename Animation,typename ValueParser>
+template
+<
+	typename Animation,
+	typename ValueParser
+>
 typename 
-Animation::value_sequence const
+Animation::keyframe_sequence const
 parse_animation(
 	sge::parse::json::array const &a,
 	ValueParser const &parse_value)
@@ -28,11 +30,19 @@ parse_animation(
 	Animation::value_sequence
 	result_type;
 
+	typedef typename 
+	Animation::duration
+	duration;
+
 	typedef typename
-	result_type::value_type
+	Animation::value_type
 	value_type;
 
-	result_type values;
+	typedef typename
+	Animation::keyframe
+	keyframe_type;
+
+	result_type keyframes;
 
 	for(
 		sge::parse::json::element_vector::const_iterator v = 
@@ -46,23 +56,17 @@ parse_animation(
 				boost::get<sge::parse::json::object>(
 					*v);
 
-			sge::parse::json::float_type time_seconds = 
-				sge::parse::json::find_member_exn<sge::parse::json::float_type>(
-					o.members,
-					FCPPT_TEXT("time"));
-			sge::parse::json::value const &colorvalue = 
-				fruitlib::json::find_and_convert_member<sge::parse::json::value>(
+			keyframes.push_back(
+				keyframe_type(
+					parse_value(
+						json::find_and_convert_member<sge::parse::json::value>(
+							o,
+							json::path(
+								FCPPT_TEXT("color")))),
+					time_format::find_and_convert_duration<duration>(
 						o,
-						fruitlib::json::path(
-							FCPPT_TEXT("color")));
-
-			values.push_back(
-				value_type(
-					sge::time::second_f(
-						static_cast<sge::time::funit>(
-							time_seconds)),
-				parse_value(
-					colorvalue)));
+						json::path(
+							FCPPT_TEXT("time")))));
 		}
 		catch (boost::bad_get const &)
 		{
@@ -72,7 +76,8 @@ parse_animation(
 		}
 	}
 
-	return values;
+	return 
+		keyframes;
 }
 }
 }

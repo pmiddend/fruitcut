@@ -3,6 +3,7 @@
 
 #include <fruitapp/fruit/cut_context_fwd.hpp>
 #include <fruitapp/fruit/area.hpp>
+#include <fruitapp/ingame_clock.hpp>
 #include <fruitlib/uniform_random.hpp>
 #include <fruitlib/random_generator.hpp>
 #include <fruitlib/json/user_config_variable.hpp>
@@ -12,9 +13,8 @@
 #include <fruitapp/point_sprite/splatter/acceleration.hpp>
 #include <fruitapp/point_sprite/system_node_fwd.hpp>
 #include <sge/parse/json/object_fwd.hpp>
-#include <sge/time/callback.hpp>
 #include <sge/renderer/scalar.hpp>
-#include <sge/time/unit.hpp>
+#include <fcppt/chrono/milliseconds.hpp>
 #include <fcppt/noncopyable.hpp>
 
 namespace fruitapp
@@ -31,7 +31,7 @@ public:
 		point_sprite::system_node &,
 		fruitlib::random_generator &,
 		point_sprite::splatter::acceleration const &,
-		sge::time::callback const &);
+		fruitapp::ingame_clock const &);
 
 	void
 	fruit_was_cut(
@@ -60,13 +60,13 @@ private:
 	alpha_rng;
 
 	typedef
-	fruitlib::uniform_random<sge::time::unit>::type
+	fruitlib::uniform_random<fcppt::chrono::milliseconds::rep>::type
 	lifetime_millis_rng;
 
 	point_sprite::system_node &point_sprites_;
 	fruitlib::random_generator &random_generator_;
 	point_sprite::splatter::acceleration::value_type acceleration_;
-	sge::time::callback const time_callback_;
+	fruitapp::ingame_clock const &clock_;
 	cut_direction_rng cut_direction_rng_;
 	speed_rng speed_rng_;
 	distortion_rng distortion_rng_;

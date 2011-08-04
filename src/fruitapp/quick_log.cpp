@@ -6,7 +6,7 @@
 #include <fruitlib/scenic/events/update.hpp>
 #include <fruitlib/scenic/events/render.hpp>
 #include <fruitlib/scenic/events/viewport_change.hpp>
-#include <fruitlib/time_format/string_to_duration.hpp>
+#include <fruitlib/time_format/find_and_convert_duration.hpp>
 #include <fruitlib/font/object.hpp>
 #include <fruitlib/font/scale.hpp>
 #include <fruitlib/font/color_format.hpp>
@@ -14,7 +14,8 @@
 #include <fruitlib/json/parse_rgba8_color.hpp>
 #include <fruitlib/json/path.hpp>
 #include <sge/parse/json/json.hpp>
-#include <sge/time/time.hpp>
+#include <sge/timer/parameters.hpp>
+#include <sge/timer/reset_when_expired.hpp>
 #include <sge/font/text/flags_none.hpp>
 #include <sge/font/text/from_fcppt_string.hpp>
 #include <sge/font/text/lit.hpp>
@@ -74,12 +75,13 @@ fruitapp::quick_log::quick_log(
 			fruitlib::json::path(
 				FCPPT_TEXT("quick-log")) / FCPPT_TEXT("screen-percentage"))),
 	message_delete_timer_(
-		*fruitlib::time_format::string_to_duration<sge::time::duration>(
-			fruitlib::json::find_and_convert_member<fcppt::string>(
+		sge::timer::parameters<sge::timer::clocks::standard>(
+			fruitlib::time_format::find_and_convert_duration<sge::timer::clocks::standard::duration>(
 				_config_file,
 				fruitlib::json::path(
-					FCPPT_TEXT("quick-log")) / FCPPT_TEXT("message-deletion-time"))),
-		sge::time::activation_state::inactive),
+					FCPPT_TEXT("quick-log")) / FCPPT_TEXT("message-deletion-time"))).
+		active(
+			false)),
 	messages_()
 {
 	react(
@@ -95,7 +97,8 @@ fruitapp::quick_log::add_message(
 			new_message));
 
 	if(!message_delete_timer_.active())
-		message_delete_timer_.activate();
+		message_delete_timer_.active(
+			true);
 
 	sound_controller_.play(
 		fruitlib::resource_tree::path(
@@ -106,11 +109,12 @@ void
 fruitapp::quick_log::react(
 	fruitlib::scenic::events::update const &e)
 {
-	if(message_delete_timer_.active() && message_delete_timer_.update_b())
+	if(message_delete_timer_.active() && sge::timer::reset_when_expired(message_delete_timer_))
 	{
 		messages_.pop_back();
 		if(messages_.empty())
-			message_delete_timer_.deactivate();
+			message_delete_timer_.active(
+				false);
 	}
 
 	font_node_.object().text(

@@ -1,25 +1,26 @@
 #include <fruitlib/physics/nodes/world.hpp>
 #include <fruitlib/physics/world.hpp>
 #include <fruitlib/scenic/events/update.hpp>
-#include <sge/time/second.hpp>
-#include <sge/time/second_f.hpp>
-#include <sge/time/duration.hpp>
-#include <sge/time/activation_state.hpp>
+#include <sge/timer/parameters.hpp>
+#include <sge/timer/elapsed_and_reset.hpp>
+#include <fcppt/chrono/seconds.hpp>
 #include <iostream>
 
 fruitlib::physics::nodes::world::world(
 	scenic::optional_parent const &_parent,
-	physics::world &_world,
-	sge::time::callback const &_time_callback)
+	scenic::delta::callback const &_time_callback,
+	physics::world &_world)
 :
 	node_base(
 		_parent),
-	world_(
-		_world),
+	clock_(
+		_time_callback),
 	timer_(
-		sge::time::second(1),
-		sge::time::activation_state::active,
-		_time_callback)
+		scenic::delta::timer::parameters(
+			clock_,
+			fcppt::chrono::seconds(1))),
+	world_(
+		_world)
 {
 }
 
@@ -32,6 +33,6 @@ fruitlib::physics::nodes::world::react(
 	scenic::events::update const &)
 {
 	world_.update(
-		sge::time::second_f(
-			timer_.reset()));
+		sge::timer::elapsed_and_reset<physics::duration>(
+			timer_));
 }
