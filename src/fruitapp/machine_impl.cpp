@@ -1,10 +1,10 @@
 #include <fruitapp/machine_impl.hpp>
 #include <fruitapp/name.hpp>
-#include <fruitapp/scoped_frame_limiter.hpp>
 #include <fruitapp/depths/root.hpp>
 #include <fruitapp/depths/scene.hpp>
 #include <fruitapp/depths/overlay.hpp>
 #include <fruitlib/json/parse_projection.hpp>
+#include <fruitlib/scoped_frame_limiter.hpp>
 #include <fruitlib/json/find_and_convert_member.hpp>
 #include <fruitlib/json/merge_trees.hpp>
 #include <fruitlib/json/parse_string_exn.hpp>
@@ -22,7 +22,7 @@
 #include <fruitlib/time_format/find_and_convert_duration.hpp>
 #include <fruitapp/light_source_from_json.hpp>
 #include <fruitapp/load_user_config.hpp>
-#include <media_path.hpp>
+#include "../media_path.hpp"
 #include <sge/audio/player.hpp>
 #include <sge/camera/camera.hpp>
 #include <sge/cegui/cursor_visibility.hpp>
@@ -321,7 +321,7 @@ fruitapp::machine_impl::machine_impl(
 		config_file_,
 		camera_),
 	desired_fps_(
-		fruitlib::json::find_and_convert_member<fcppt::chrono::milliseconds::rep>(
+		fruitlib::json::find_and_convert_member<unsigned>(
 			config_file(),
 			fruitlib::json::path(FCPPT_TEXT("graphics"))
 				/ FCPPT_TEXT("desired-fps"))),
@@ -403,8 +403,9 @@ fruitapp::machine_impl::postprocessing()
 void
 fruitapp::machine_impl::run_once()
 {
-	fruitapp::scoped_frame_limiter sfl(
-		desired_fps_);
+	fruitlib::scoped_frame_limiter sfl(
+		static_cast<fruitlib::scoped_frame_limiter::fps_type>(
+			desired_fps_));
 
 	systems_.window().dispatch();
 

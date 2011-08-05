@@ -2,7 +2,7 @@
 #include <fruitapp/states/gameover/ranking.hpp>
 #include <fruitapp/events/define_transition_reaction.hpp>
 #include <fruitapp/events/post_transition.hpp>
-#include <media_path.hpp>
+#include "../../../media_path.hpp"
 #include <fruitlib/resource_tree/path.hpp>
 #include <fruitlib/audio/sound_controller.hpp>
 #include <sge/cegui/to_cegui_string.hpp>

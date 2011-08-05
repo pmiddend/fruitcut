@@ -4,7 +4,7 @@
 #include <fruitapp/events/define_transition_reaction.hpp>
 #include <fruitapp/depths/root.hpp>
 #include <fruitapp/events/return_post_transition_functor.hpp>
-#include <media_path.hpp>
+#include "../../../media_path.hpp"
 #include <fruitlib/scenic/parent.hpp>
 #include <fruitapp/highscore/providers_from_json.hpp>
 #include <fruitapp/highscore/name.hpp>

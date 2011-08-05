@@ -6,7 +6,7 @@
 #include <fruitlib/scenic/parent.hpp>
 #include <fruitlib/pp/texture/use_screen_size.hpp>
 #include <fruitlib/pp/filter/blur.hpp>
-#include <media_path.hpp>
+#include "../../../media_path.hpp"
 #include <fruitapp/postprocessing.hpp>
 #include <fruitapp/depths/root.hpp>
 #include <fruitapp/depths/overlay.hpp>

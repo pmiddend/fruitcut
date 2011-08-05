@@ -32,7 +32,6 @@
 #include <sge/systems/instance.hpp>
 #include <sge/timer/basic.hpp>
 #include <sge/timer/clocks/standard.hpp>
-#include <fcppt/chrono/milliseconds.hpp>
 
 namespace fruitapp
 {
@@ -206,7 +205,7 @@ private:
 	fruitapp::directional_light_source main_light_source_;
 	fruitapp::shadow_map shadow_map_;
 	fruitapp::background background_;
-	fcppt::chrono::milliseconds::rep desired_fps_;
+	unsigned desired_fps_;
 	sge::cegui::system gui_system_;
 	sge::cegui::syringe gui_syringe_;
 	highscore::score::value_type last_game_score_;

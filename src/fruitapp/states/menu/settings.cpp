@@ -7,7 +7,7 @@
 #include <fruitlib/json/find_and_convert_member.hpp>
 #include <fruitlib/resource_tree/path.hpp>
 #include <fruitlib/audio/sound_controller.hpp>
-#include <media_path.hpp>
+#include "../../../media_path.hpp"
 #include <sge/systems/instance.hpp>
 #include <sge/audio/scalar.hpp>
 #include <sge/cegui/system.hpp>

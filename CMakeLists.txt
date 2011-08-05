@@ -405,6 +405,8 @@ SET(
 	src/fruitlib/scenic/parent.cpp
 	src/fruitlib/scenic/parent.hpp
 	src/fruitlib/scenic/parent_fwd.hpp
+	src/fruitlib/scoped_frame_limiter.cpp
+	src/fruitlib/scoped_frame_limiter.hpp
 	src/fruitlib/time_format/context.hpp
 	src/fruitlib/time_format/domain.hpp
 	src/fruitlib/time_format/duration_to_string.hpp
@@ -654,8 +656,6 @@ SET(
 	src/fruitapp/scene.cpp
 	src/fruitapp/scene.hpp
 	src/fruitapp/scene_fwd.hpp
-	src/fruitapp/scoped_frame_limiter.cpp
-	src/fruitapp/scoped_frame_limiter.hpp
 	src/fruitapp/scoped_pp_activation.cpp
 	src/fruitapp/scoped_pp_activation.hpp
 	src/fruitapp/scoped_scene_activation.cpp

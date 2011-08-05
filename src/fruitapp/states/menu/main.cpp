@@ -6,7 +6,7 @@
 #include <fruitapp/events/return_post_transition_functor.hpp>
 #include <fruitlib/scenic/parent.hpp>
 #include <fruitlib/scenic/depth.hpp>
-#include <media_path.hpp>
+#include "../../../media_path.hpp"
 #include <fruitapp/depths/overlay.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/cegui/system.hpp>

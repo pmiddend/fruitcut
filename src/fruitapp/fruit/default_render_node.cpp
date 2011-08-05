@@ -1,5 +1,5 @@
 #include <fruitapp/fruit/default_render_node.hpp>
-#include <media_path.hpp>
+#include "../../media_path.hpp"
 #include <fruitlib/scenic/events/render.hpp>
 #include <fruitapp/fruit/model_vf/format.hpp>
 #include <fruitapp/fruit/manager.hpp>

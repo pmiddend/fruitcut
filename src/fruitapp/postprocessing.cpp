@@ -1,5 +1,5 @@
 #include <fruitapp/postprocessing.hpp>
-#include <media_path.hpp>
+#include "../media_path.hpp"
 #include <fruitlib/json/find_and_convert_member.hpp>
 #include <fruitlib/pp/dependency_set.hpp>
 #include <fruitlib/pp/texture/depth_stencil_format.hpp>

@@ -8,7 +8,7 @@
 #include <fruitapp/depths/root.hpp>
 #include <fruitlib/scenic/parent.hpp>
 #include <fruitlib/scenic/depth.hpp>
-#include <media_path.hpp>
+#include "../../../media_path.hpp"
 #include <sge/systems/instance.hpp>
 #include <sge/cegui/system.hpp>
 #include <sge/cegui/to_cegui_string.hpp>

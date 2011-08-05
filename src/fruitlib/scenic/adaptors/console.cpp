@@ -22,5 +22,5 @@ fruitlib::scenic::adaptors::console::react(
 	events::render const &)
 {
 	if(gfx_.active())
-		gfx_.draw();
+		gfx_.render();
 }

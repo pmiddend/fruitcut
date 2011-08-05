@@ -1,7 +1,7 @@
 #include <fruitapp/fruit/shadow_render_node.hpp>
 #include <fruitapp/fruit/manager.hpp>
 #include <fruitapp/fruit/model_vf/format.hpp>
-#include <media_path.hpp>
+#include "../../media_path.hpp"
 #include <fruitlib/scenic/events/render.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/first_vertex.hpp>
