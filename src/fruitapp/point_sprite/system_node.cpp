@@ -2,8 +2,6 @@
 #include <fruitapp/exception.hpp>
 #include <media_path.hpp>
 #include <fruitlib/uniform_random.hpp>
-#include <fruitlib/scenic/events/update.hpp>
-#include <fruitlib/scenic/events/render.hpp>
 #include <fruitlib/resource_tree/from_directory_tree.hpp>
 #include <fruitlib/resource_tree/navigate_to_path.hpp>
 #include <fruitlib/resource_tree/path.hpp>

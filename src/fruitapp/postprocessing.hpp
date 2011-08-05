@@ -4,8 +4,8 @@
 #include <fruitlib/pp/system.hpp>
 #include <fruitlib/pp/texture/manager.hpp>
 #include <fruitlib/pp/filter/render_to_texture.hpp>
-#include <fruitlib/scenic/events/update_fwd.hpp>
-#include <fruitlib/scenic/events/viewport_change_fwd.hpp>
+#include <fruitlib/scenic/events/update.hpp>
+#include <fruitlib/scenic/events/viewport_change.hpp>
 #include <fruitlib/scenic/optional_parent.hpp>
 #include <fruitlib/scenic/node.hpp>
 #include <fruitlib/pp/filter/manager.hpp>

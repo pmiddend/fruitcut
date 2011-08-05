@@ -5,7 +5,7 @@
 #include <fruitapp/ingame_clock.hpp>
 #include <fruitlib/scenic/node.hpp>
 #include <fruitlib/scenic/optional_parent.hpp>
-#include <fruitlib/scenic/events/update_fwd.hpp>
+#include <fruitlib/scenic/events/update.hpp>
 #include <sge/input/cursor/object_fwd.hpp>
 #include <sge/input/cursor/position.hpp>
 #include <sge/renderer/target_base_fwd.hpp>

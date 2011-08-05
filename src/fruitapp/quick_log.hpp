@@ -3,8 +3,8 @@
 
 #include <fruitlib/scenic/node.hpp>
 #include <fruitlib/scenic/optional_parent.hpp>
-#include <fruitlib/scenic/events/update_fwd.hpp>
-#include <fruitlib/scenic/events/viewport_change_fwd.hpp>
+#include <fruitlib/scenic/events/update.hpp>
+#include <fruitlib/scenic/events/viewport_change.hpp>
 #include <fruitlib/font/cache_fwd.hpp>
 #include <fruitlib/font/scene_node.hpp>
 #include <fruitlib/audio/sound_controller_fwd.hpp>

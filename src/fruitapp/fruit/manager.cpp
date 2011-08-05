@@ -9,7 +9,6 @@
 #include <fruitlib/math/plane/normalize.hpp>
 #include <fruitlib/math/box_radius.hpp>
 #include <fruitlib/physics/vector3.hpp>
-#include <fruitlib/scenic/events/update.hpp>
 #include <fruitlib/physics/rigid_body/mass.hpp>
 #include <media_path.hpp>
 #include <fruitapp/fruit/mesh.hpp>

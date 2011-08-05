@@ -3,7 +3,7 @@
 
 #include <fruitlib/scenic/node.hpp>
 #include <fruitlib/scenic/optional_parent.hpp>
-#include <fruitlib/scenic/events/update_fwd.hpp>
+#include <fruitlib/scenic/events/update.hpp>
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/texture/planar_fwd.hpp>
 #include <sge/renderer/target_ptr.hpp>

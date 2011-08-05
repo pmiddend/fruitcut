@@ -3,7 +3,7 @@
 
 #include <fruitlib/scenic/node.hpp>
 #include <fruitlib/scenic/optional_parent.hpp>
-#include <fruitlib/scenic/events/render_fwd.hpp>
+#include <fruitlib/scenic/events/render.hpp>
 #include <sge/console/gfx_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <boost/mpl/vector/vector10.hpp>

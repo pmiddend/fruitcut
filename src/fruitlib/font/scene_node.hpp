@@ -4,7 +4,7 @@
 #include <fruitlib/font/color.hpp>
 #include <fruitlib/font/scale.hpp>
 #include <fruitlib/scenic/optional_parent.hpp>
-#include <fruitlib/scenic/events/render_fwd.hpp>
+#include <fruitlib/scenic/events/render.hpp>
 #include <fruitlib/scenic/node.hpp>
 #include <fruitlib/font/object_parameters_fwd.hpp>
 #include <fruitlib/font/object.hpp>

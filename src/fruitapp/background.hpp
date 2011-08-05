@@ -3,8 +3,8 @@
 
 #include <fruitlib/scenic/node.hpp>
 #include <fruitlib/scenic/optional_parent.hpp>
-#include <fruitlib/scenic/events/render_fwd.hpp>
-#include <fruitlib/scenic/events/viewport_change_fwd.hpp>
+#include <fruitlib/scenic/events/render.hpp>
+#include <fruitlib/scenic/events/viewport_change.hpp>
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/scalar.hpp>
 #include <sge/renderer/vertex_buffer_ptr.hpp>

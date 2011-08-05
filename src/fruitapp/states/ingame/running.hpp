@@ -11,8 +11,8 @@
 #include <fruitapp/events/declare_transition_reaction.hpp>
 #include <fruitlib/scenic/adaptors/line_drawer.hpp>
 #include <fruitlib/scenic/node.hpp>
-#include <fruitlib/scenic/events/update_fwd.hpp>
-#include <fruitlib/scenic/events/viewport_change_fwd.hpp>
+#include <fruitlib/scenic/events/update.hpp>
+#include <fruitlib/scenic/events/viewport_change.hpp>
 #include <sge/line_drawer/object.hpp>
 #include <sge/renderer/state/scoped.hpp>
 #include <sge/line_drawer/line_sequence.hpp>

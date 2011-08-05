@@ -10,9 +10,6 @@
 #include <fruitlib/font/object_parameters.hpp>
 #include <fruitlib/font/color_format.hpp>
 #include <fruitlib/scenic/parent.hpp>
-#include <fruitlib/scenic/events/update.hpp>
-#include <fruitlib/scenic/events/viewport_change.hpp>
-#include <fruitlib/scenic/events/render.hpp>
 #include <fruitlib/scenic/depth.hpp>
 #include <fruitlib/font/scale.hpp>
 #include <fruitlib/font/cache.hpp>

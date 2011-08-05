@@ -1,5 +1,4 @@
 #include <fruitapp/cursor_trail.hpp>
-#include <fruitlib/scenic/events/update.hpp>
 #include <sge/input/cursor/object.hpp>
 #include <sge/input/cursor/position.hpp>
 #include <sge/input/cursor/position_unit.hpp>

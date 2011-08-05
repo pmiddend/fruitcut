@@ -12,8 +12,8 @@
 #include <fruitlib/font/scene_node.hpp>
 #include <fruitlib/scenic/node.hpp>
 #include <fruitlib/scenic/parent_fwd.hpp>
-#include <fruitlib/scenic/events/update_fwd.hpp>
-#include <fruitlib/scenic/events/viewport_change_fwd.hpp>
+#include <fruitlib/scenic/events/update.hpp>
+#include <fruitlib/scenic/events/viewport_change.hpp>
 #include <fruitapp/highscore/score.hpp>
 #include <sge/parse/json/object_fwd.hpp>
 #include <sge/renderer/scalar.hpp>

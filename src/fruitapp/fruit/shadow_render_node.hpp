@@ -4,7 +4,7 @@
 #include <fruitapp/fruit/manager_fwd.hpp>
 #include <fruitlib/scenic/node.hpp>
 #include <fruitlib/scenic/optional_parent.hpp>
-#include <fruitlib/scenic/events/render_fwd.hpp>
+#include <fruitlib/scenic/events/render.hpp>
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/vertex_declaration_fwd.hpp>
 #include <sge/renderer/matrix4.hpp>

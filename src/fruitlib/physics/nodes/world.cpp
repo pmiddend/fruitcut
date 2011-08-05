@@ -1,6 +1,5 @@
 #include <fruitlib/physics/nodes/world.hpp>
 #include <fruitlib/physics/world.hpp>
-#include <fruitlib/scenic/events/update.hpp>
 #include <sge/timer/parameters.hpp>
 #include <sge/timer/elapsed.hpp>
 #include <sge/timer/elapsed_and_reset.hpp>

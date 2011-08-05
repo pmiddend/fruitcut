@@ -1,7 +1,6 @@
 #include <fruitapp/shadow_map.hpp>
 #include <fruitlib/json/find_and_convert_member.hpp>
 #include <fruitlib/json/parse_projection.hpp>
-#include <fruitlib/scenic/events/update.hpp>
 #include <fruitlib/scenic/events/render.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/dim2.hpp>

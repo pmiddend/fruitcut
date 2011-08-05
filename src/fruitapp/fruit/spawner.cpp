@@ -7,7 +7,6 @@
 #include <fruitlib/json/parse_random_inclusive_range.hpp>
 #include <fruitlib/math/box_radius.hpp>
 #include <fruitlib/math/view_plane_rect.hpp>
-#include <fruitlib/scenic/events/update.hpp>
 #include <sge/camera/object.hpp>
 #include <sge/camera/projection/object.hpp>
 #include <sge/camera/projection/perspective.hpp>

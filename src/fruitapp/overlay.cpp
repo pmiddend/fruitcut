@@ -1,7 +1,6 @@
 #include <fruitapp/overlay.hpp>
 #include <fruitapp/postprocessing.hpp>
 #include <fruitlib/scenic/events/render.hpp>
-#include <fruitlib/scenic/events/update.hpp>
 #include <sge/renderer/viewport_size.hpp>
 #include <sge/renderer/state/state.hpp>
 #include <sge/renderer/scoped_block.hpp>

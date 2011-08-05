@@ -3,7 +3,6 @@
 #include <fruitlib/resource_tree/from_directory_tree.hpp>
 #include <fruitlib/resource_tree/navigate_to_path.hpp>
 #include <fruitlib/resource_tree/path.hpp>
-#include <fruitlib/scenic/events/update.hpp>
 #include <sge/audio/sound/repeat.hpp>
 #include <sge/audio/sound/base.hpp>
 #include <sge/audio/player.hpp>

@@ -4,7 +4,7 @@
 #include <fruitapp/states/menu/superstate.hpp>
 #include <fruitlib/scenic/node.hpp>
 #include <fruitlib/scenic/parent_fwd.hpp>
-#include <fruitlib/scenic/events/update_fwd.hpp>
+#include <fruitlib/scenic/events/update.hpp>
 #include <fruitapp/highscore/provider_sequence.hpp>
 #include <fruitapp/highscore/provider/object_base.hpp>
 #include <fruitapp/highscore/provider/connection_base_ptr.hpp>

@@ -6,7 +6,7 @@
 #include <fruitlib/uniform_random.hpp>
 #include <fruitlib/scenic/node.hpp>
 #include <fruitlib/scenic/optional_parent.hpp>
-#include <fruitlib/scenic/events/update_fwd.hpp>
+#include <fruitlib/scenic/events/update.hpp>
 #include <fruitlib/random_generator.hpp>
 #include <fruitapp/fruit/manager_fwd.hpp>
 #include <fruitapp/ingame_clock.hpp>

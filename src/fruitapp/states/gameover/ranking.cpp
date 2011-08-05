@@ -6,7 +6,6 @@
 #include <fruitapp/events/return_post_transition_functor.hpp>
 #include <media_path.hpp>
 #include <fruitlib/scenic/parent.hpp>
-#include <fruitlib/scenic/events/update.hpp>
 #include <fruitapp/highscore/providers_from_json.hpp>
 #include <fruitapp/highscore/name.hpp>
 #include <fruitapp/highscore/score.hpp>

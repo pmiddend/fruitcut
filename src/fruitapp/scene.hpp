@@ -3,7 +3,7 @@
 
 #include <fruitlib/scenic/node.hpp>
 #include <fruitlib/scenic/optional_parent.hpp>
-#include <fruitlib/scenic/events/update_fwd.hpp>
+#include <fruitlib/scenic/events/update.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 
 namespace fruitapp

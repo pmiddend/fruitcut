@@ -12,8 +12,8 @@
 #include <fruitlib/log/scoped_sequence_ptr.hpp>
 #include <fruitlib/random_generator.hpp>
 #include <fruitlib/scenic/adaptors/camera.hpp>
-#include <fruitlib/scenic/events/update_fwd.hpp>
-#include <fruitlib/scenic/events/render_fwd.hpp>
+#include <fruitlib/scenic/events/update.hpp>
+#include <fruitlib/scenic/events/render.hpp>
 #include <fruitlib/scenic/delta/callback.hpp>
 #include <fruitlib/scenic/delta/duration.hpp>
 #include <fruitlib/scenic/node.hpp>

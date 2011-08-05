@@ -6,8 +6,8 @@
 #include <fruitapp/point_sprite/unique_base_ptr.hpp>
 #include <fruitlib/scenic/node.hpp>
 #include <fruitlib/scenic/optional_parent.hpp>
-#include <fruitlib/scenic/events/update_fwd.hpp>
-#include <fruitlib/scenic/events/render_fwd.hpp>
+#include <fruitlib/scenic/events/update.hpp>
+#include <fruitlib/scenic/events/render.hpp>
 #include <fruitlib/resource_tree/make_type.hpp>
 #include <fruitlib/resource_tree/path.hpp>
 #include <fruitlib/uniform_random.hpp>

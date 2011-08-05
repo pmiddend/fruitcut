@@ -3,9 +3,6 @@
 #include <fruitlib/font/object_parameters.hpp>
 #include <fruitlib/json/find_and_convert_member.hpp>
 #include <fruitlib/json/parse_rgba8_color.hpp>
-#include <fruitlib/scenic/events/update.hpp>
-#include <fruitlib/scenic/events/viewport_change.hpp>
-#include <fruitlib/scenic/events/render.hpp>
 #include <fruitlib/time_format/find_and_convert_duration.hpp>
 #include <fruitlib/time_format/duration_to_string.hpp>
 #include <fruitlib/time_format/milliseconds.hpp>

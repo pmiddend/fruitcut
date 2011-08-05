@@ -3,9 +3,6 @@
 #include <fruitlib/resource_tree/path.hpp>
 #include <fruitlib/font/object_parameters.hpp>
 #include <fruitlib/audio/sound_controller.hpp>
-#include <fruitlib/scenic/events/update.hpp>
-#include <fruitlib/scenic/events/render.hpp>
-#include <fruitlib/scenic/events/viewport_change.hpp>
 #include <fruitlib/time_format/find_and_convert_duration.hpp>
 #include <fruitlib/font/object.hpp>
 #include <fruitlib/font/scale.hpp>

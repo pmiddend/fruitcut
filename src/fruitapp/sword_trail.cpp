@@ -1,8 +1,6 @@
 #include <fruitapp/sword_trail.hpp>
 #include <fruitlib/time_format/find_and_convert_duration.hpp>
 #include <fruitlib/json/path.hpp>
-#include <fruitlib/scenic/events/update.hpp>
-#include <fruitlib/scenic/events/render.hpp>
 #include <fruitlib/json/find_and_convert_member.hpp>
 #include <media_path.hpp>
 #include <sge/sprite/dont_sort.hpp>

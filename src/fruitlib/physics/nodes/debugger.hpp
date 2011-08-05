@@ -4,8 +4,8 @@
 #include <fruitlib/physics/debugger_fwd.hpp>
 #include <fruitlib/scenic/node.hpp>
 #include <fruitlib/scenic/optional_parent.hpp>
-#include <fruitlib/scenic/events/update_fwd.hpp>
-#include <fruitlib/scenic/events/render_fwd.hpp>
+#include <fruitlib/scenic/events/update.hpp>
+#include <fruitlib/scenic/events/render.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 

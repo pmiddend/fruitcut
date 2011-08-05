@@ -25,8 +25,6 @@
 #include <fruitlib/audio/sound_controller.hpp>
 #include <fruitlib/scenic/parent.hpp>
 #include <fruitlib/scenic/depth.hpp>
-#include <fruitlib/scenic/events/viewport_change.hpp>
-#include <fruitlib/scenic/events/update.hpp>
 #include <sge/font/pos.hpp>
 #include <sge/font/rect.hpp>
 #include <sge/font/text/text.hpp>

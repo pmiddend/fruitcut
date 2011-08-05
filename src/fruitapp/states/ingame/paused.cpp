@@ -6,8 +6,6 @@
 #include <fruitlib/scenic/parent.hpp>
 #include <fruitlib/pp/texture/use_screen_size.hpp>
 #include <fruitlib/pp/filter/blur.hpp>
-#include <fruitlib/scenic/events/render.hpp>
-#include <fruitlib/scenic/events/update.hpp>
 #include <media_path.hpp>
 #include <fruitapp/postprocessing.hpp>
 #include <fruitapp/depths/root.hpp>

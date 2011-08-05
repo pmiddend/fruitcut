@@ -9,7 +9,7 @@
 #include <fruitapp/gui/button.hpp>
 #include <fruitapp/gui/table/view.hpp>
 #include <fruitlib/scenic/node.hpp>
-#include <fruitlib/scenic/events/update_fwd.hpp>
+#include <fruitlib/scenic/events/update.hpp>
 #include <fruitapp/highscore/provider_sequence.hpp>
 #include <fruitapp/highscore/post_model.hpp>
 #include <fruitapp/gui/table/view.hpp>

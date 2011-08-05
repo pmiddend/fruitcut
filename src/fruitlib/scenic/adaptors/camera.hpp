@@ -1,7 +1,7 @@
 #ifndef FRUITLIB_SCENIC_ADAPTORS_CAMERA_HPP_INCLUDED
 #define FRUITLIB_SCENIC_ADAPTORS_CAMERA_HPP_INCLUDED
 
-#include <fruitlib/scenic/events/update_fwd.hpp>
+#include <fruitlib/scenic/events/update.hpp>
 #include <fruitlib/scenic/node.hpp>
 #include <fruitlib/scenic/delta/callback.hpp>
 #include <fruitlib/scenic/delta/timer.hpp>
