@@ -596,10 +596,6 @@ fruitapp::machine_impl::ingame_clock_callback() const
 	return 
 		phoenix_ref_broken_hack(
 			ingame_clock_delta_);
-		/*
-		boost::phoenix::ref(
-			ingame_clock_delta_);
-		*/
 }
 
 fruitlib::scenic::delta::callback const

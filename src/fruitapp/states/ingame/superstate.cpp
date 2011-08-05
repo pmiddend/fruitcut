@@ -29,10 +29,6 @@
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/scalar.hpp>
 #include <sge/systems/instance.hpp>
-#include <sge/time/activation_state.hpp>
-#include <sge/time/second.hpp>
-#include <sge/time/unit.hpp>
-#include <sge/time/second.hpp>
 #include <sge/image/color/convert.hpp>
 #include <sge/image/color/rgba8.hpp>
 #include <sge/image/colors.hpp>

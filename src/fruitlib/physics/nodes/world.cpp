@@ -2,9 +2,9 @@
 #include <fruitlib/physics/world.hpp>
 #include <fruitlib/scenic/events/update.hpp>
 #include <sge/timer/parameters.hpp>
+#include <sge/timer/elapsed.hpp>
 #include <sge/timer/elapsed_and_reset.hpp>
 #include <fcppt/chrono/seconds.hpp>
-#include <iostream>
 
 fruitlib::physics::nodes::world::world(
 	scenic::optional_parent const &_parent,
@@ -32,6 +32,7 @@ void
 fruitlib::physics::nodes::world::react(
 	scenic::events::update const &)
 {
+	clock_.update();
 	world_.update(
 		sge::timer::elapsed_and_reset<physics::duration>(
 			timer_));

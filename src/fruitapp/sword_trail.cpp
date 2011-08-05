@@ -22,7 +22,6 @@
 #include <sge/renderer/texture/mipmap/off.hpp>
 #include <sge/renderer/texture/address_mode.hpp>
 #include <sge/renderer/resource_flags_none.hpp>
-#include <sge/time/millisecond.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/math/box/box.hpp>
 #include <fcppt/math/dim/dim.hpp>

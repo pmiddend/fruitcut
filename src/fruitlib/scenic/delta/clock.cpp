@@ -1,5 +1,6 @@
 #include <fruitlib/scenic/delta/clock.hpp>
 #include <fcppt/chrono/time_point_arithmetic.hpp>
+#include <iostream>
 
 fruitlib::scenic::delta::clock::clock(
 	delta::callback const &_callback)

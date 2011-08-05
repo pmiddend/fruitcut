@@ -2,7 +2,6 @@
 #define FRUITAPP_SCOPED_TIME_FACTOR_HPP_INCLUDED
 
 #include <fruitapp/machine_fwd.hpp>
-#include <sge/time/funit.hpp>
 #include <fruitapp/ingame_clock.hpp>
 #include <fcppt/noncopyable.hpp>
 

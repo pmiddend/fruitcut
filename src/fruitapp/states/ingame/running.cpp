@@ -45,9 +45,6 @@
 #include <sge/renderer/scalar.hpp>
 #include <sge/renderer/viewport.hpp>
 #include <sge/systems/instance.hpp>
-#include <sge/time/millisecond.hpp>
-#include <sge/time/second.hpp>
-#include <sge/time/unit.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/math/vector/vector.hpp>
 #include <fcppt/math/dim/dim.hpp>
