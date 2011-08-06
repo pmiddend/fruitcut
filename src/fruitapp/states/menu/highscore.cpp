@@ -13,6 +13,7 @@
 #include <sge/cegui/system.hpp>
 #include <sge/cegui/to_cegui_string.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/string.hpp>
 #include <fcppt/ref.hpp>
 #include <fcppt/to_std_string.hpp>
 #include <fcppt/tr1/functional.hpp>

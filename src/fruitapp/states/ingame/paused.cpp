@@ -20,6 +20,8 @@
 #include <sge/input/keyboard/device.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/timer/reset_when_expired.hpp>
+#include <sge/timer/clocks/standard.hpp>
+#include <sge/timer/parameters.hpp>
 #include <sge/cegui/system.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>

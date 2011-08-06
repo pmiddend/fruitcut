@@ -7,6 +7,8 @@
 #include <sge/parse/json/element_vector.hpp>
 #include <sge/parse/json/get.hpp>
 #include <fcppt/log/level_from_string.hpp>
+#include <fcppt/log/context.hpp>
+#include <fcppt/string.hpp>
 #include <fcppt/move.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/make_unique_ptr.hpp>

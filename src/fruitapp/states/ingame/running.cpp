@@ -1,10 +1,11 @@
 #include <fruitapp/states/ingame/running.hpp>
 #include <fruitapp/states/ingame/paused.hpp>
 #include <fruitapp/quick_log.hpp>
+#include <fruitapp/renderer_dim2.hpp>
+#include <fruitapp/renderer_rect.hpp>
 #include <fruitapp/states/gameover/superstate.hpp>
 #include <fruitapp/postprocessing.hpp>
 #include <fruitapp/states/gameover/choose_name.hpp>
-#include <fruitapp/dim2.hpp>
 #include <fruitapp/scene.hpp>
 #include <fruitapp/fruit/plane.hpp>
 #include <fruitapp/fruit/triangle_traits.hpp>
@@ -35,18 +36,29 @@
 #include <sge/input/keyboard/key_code.hpp>
 #include <sge/input/keyboard/device.hpp>
 #include <sge/line_drawer/render_to_screen.hpp>
+#include <sge/line_drawer/line_sequence.hpp>
+#include <sge/line_drawer/line.hpp>
 #include <sge/line_drawer/scoped_lock.hpp>
 #include <sge/camera/object.hpp>
 #include <sge/renderer/device.hpp>
+#include <sge/renderer/vector2.hpp>
+#include <sge/renderer/vector3.hpp>
+#include <sge/renderer/matrix4.hpp>
 #include <sge/renderer/onscreen_target.hpp>
 #include <sge/renderer/onscreen_target.hpp>
 #include <sge/renderer/scalar.hpp>
 #include <sge/renderer/viewport.hpp>
 #include <sge/systems/instance.hpp>
 #include <fcppt/tr1/functional.hpp>
-#include <fcppt/math/vector/vector.hpp>
-#include <fcppt/math/dim/dim.hpp>
-#include <fcppt/math/matrix/matrix.hpp>
+#include <fcppt/math/vector/basic_impl.hpp>
+#include <fcppt/math/vector/dot.hpp>
+#include <fcppt/math/vector/cross.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
+#include <fcppt/math/dim/structure_cast.hpp>
+#include <fcppt/math/box/basic_impl.hpp>
+#include <fcppt/math/matrix/inverse.hpp>
+#include <fcppt/math/matrix/transpose.hpp>
+#include <fcppt/math/matrix/basic_impl.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/ref.hpp>
 #include <boost/next_prior.hpp>
@@ -301,9 +313,9 @@ fruitapp::states::ingame::running::process_fruit(
 				inverse_mvp,
 				// The points are already "un-viewported", but they are in
 				// screenspace, so use the screen rect here
-				fcppt::math::box::basic<sge::renderer::scalar,2>(
+				fruitapp::renderer_rect(
 					sge::renderer::vector2::null(),
-					fcppt::math::dim::structure_cast<dim2>(
+					fcppt::math::dim::structure_cast<fruitapp::renderer_dim2>(
 						context<machine>().systems().renderer().onscreen_target().viewport().get().size()))),
 		point2_unprojected = 
 			fruitlib::math::unproject(
@@ -311,9 +323,9 @@ fruitapp::states::ingame::running::process_fruit(
 				inverse_mvp,
 				// The points are already "un-viewported", but they are in
 				// screenspace, so use the screen rect here
-				fcppt::math::box::basic<sge::renderer::scalar,2>(
+				fruitapp::renderer_rect(
 					sge::renderer::vector2::null(),
-					fcppt::math::dim::structure_cast<dim2>(
+					fcppt::math::dim::structure_cast<fruitapp::renderer_dim2>(
 						context<machine>().systems().renderer().onscreen_target().viewport().get().size()))),
 		point3_unprojected = 
 			fruitlib::math::unproject(
@@ -323,9 +335,9 @@ fruitapp::states::ingame::running::process_fruit(
 					static_cast<sge::renderer::scalar>(
 						0.5)),
 				inverse_mvp,
-				fcppt::math::box::basic<sge::renderer::scalar,2>(
+				fruitapp::renderer_rect(
 					sge::renderer::vector2::null(),
-					fcppt::math::dim::structure_cast<dim2>(
+					fcppt::math::dim::structure_cast<fruitapp::renderer_dim2>(
 						context<machine>().systems().renderer().onscreen_target().viewport().get().size()))),
 		first_plane_vector = 
 			point2_unprojected - point1_unprojected,

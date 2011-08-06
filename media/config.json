@@ -236,7 +236,21 @@
 	],
 	"physics" : 
 	{
-		"gravity" : [0.0,-10.0,0.0]
+		"default-gravity" : [0.0,-10.0,0.0]
+	},
+	"bonsu" : 
+	{
+		"manager" : 
+		{
+			"rectangle-speed" : 10.0
+			"rectangle-height-fraction" : 0.8
+		},
+		"gravity" : 
+		{
+			"default-gravity" : [0.0,-10.0,0.0],
+			"decreased-gravity" : [0.0,-5.0,0.0],
+			"duration" : "10s"
+		}
 	},
 	"fruit-spawner" :
 	{

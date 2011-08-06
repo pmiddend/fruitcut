@@ -1,5 +1,10 @@
 #include <fruitapp/light_source_from_json.hpp>
 #include <fruitlib/json/find_and_convert_member.hpp>
+#include <sge/renderer/matrix4.hpp>
+#include <sge/renderer/vector3.hpp>
+#include <sge/parse/json/object_fwd.hpp>
+#include <fcppt/math/vector/basic_impl.hpp>
+#include <fcppt/math/matrix/basic_impl.hpp>
 
 fruitapp::directional_light_source const
 fruitapp::light_source_from_json(

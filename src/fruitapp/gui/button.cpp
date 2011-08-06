@@ -3,6 +3,7 @@
 #include <fruitlib/resource_tree/path.hpp>
 #include <elements/CEGUIPushButton.h>
 #include <fcppt/tr1/functional.hpp>
+#include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/text.hpp>
 
 fruitapp::gui::button::button(

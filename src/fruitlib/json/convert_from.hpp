@@ -4,7 +4,7 @@
 #include <fruitlib/exception.hpp>
 #include <fruitlib/json/detail/is_array.hpp>
 #include <sge/parse/json/json.hpp>
-#include <fcppt/math/matrix/matrix.hpp>
+#include <fcppt/math/matrix/is_matrix.hpp>
 #include <fcppt/type_traits/is_iterable.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>

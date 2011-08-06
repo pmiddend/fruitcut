@@ -4,6 +4,9 @@
 #include <fcppt/container/array.hpp>
 #include <fcppt/tr1/array.hpp>
 #include <fcppt/math/vector/static.hpp>
+#include <fcppt/math/size_type.hpp>
+#include <fcppt/math/vector/basic_impl.hpp>
+#include <fcppt/math/detail/static_storage.hpp>
 #include <fcppt/math/dim/static.hpp>
 #include <boost/mpl/bool.hpp>
 #include <boost/array.hpp>

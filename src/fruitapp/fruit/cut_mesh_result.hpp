@@ -5,7 +5,8 @@
 #include <fruitapp/fruit/box3.hpp>
 #include <fruitapp/fruit/area.hpp>
 #include <sge/renderer/vector3.hpp>
-#include <fcppt/math/vector/vector.hpp>
+#include <fcppt/math/vector/basic_impl.hpp>
+#include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/noncopyable.hpp>
 
 namespace fruitapp

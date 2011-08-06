@@ -1,4 +1,5 @@
 #include <fruitlib/json/path.hpp>
+#include <fcppt/string.hpp>
 #include <iostream>
 
 fruitlib::json::path::path(

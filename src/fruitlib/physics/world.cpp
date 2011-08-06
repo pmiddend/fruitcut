@@ -17,6 +17,7 @@
 #include <fcppt/math/vector/arithmetic.hpp>
 #include <fcppt/math/vector/dim.hpp>
 #include <fcppt/assert.hpp>
+#include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/text.hpp>
 #include <boost/static_assert.hpp>
 #include <iostream>

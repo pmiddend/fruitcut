@@ -10,6 +10,7 @@
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/math/matrix/has_dim.hpp>
 #include <fcppt/math/matrix/basic_impl.hpp>
+#include <fcppt/math/size_type.hpp>
 #include <boost/utility/enable_if.hpp>
 
 namespace fruitlib

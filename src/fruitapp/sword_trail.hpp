@@ -24,6 +24,7 @@
 #include <sge/texture/part_ptr.hpp>
 #include <sge/parse/json/object.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/shared_ptr.hpp>
 #include <fcppt/chrono/duration_impl.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <boost/circular_buffer.hpp>

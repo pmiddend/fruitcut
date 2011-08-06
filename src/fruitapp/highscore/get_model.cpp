@@ -4,6 +4,8 @@
 #include <fcppt/lexical_cast.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/string.hpp>
+#include <fcppt/signal/auto_connection.hpp>
 #include <boost/date_time/posix_time/posix_time.hpp>
 #include <boost/date_time/c_local_time_adjustor.hpp>
 #include <iterator>

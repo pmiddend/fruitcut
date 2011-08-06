@@ -12,6 +12,7 @@
 #include <sge/shader/shader.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/io/cerr.hpp>
+#include <fcppt/string.hpp>
 #include <boost/graph/topological_sort.hpp>
 #include <iostream>
 #include <iterator>

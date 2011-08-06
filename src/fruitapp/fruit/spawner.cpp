@@ -10,6 +10,9 @@
 #include <sge/camera/object.hpp>
 #include <sge/camera/projection/object.hpp>
 #include <sge/camera/projection/perspective.hpp>
+#include <sge/parse/json/array.hpp>
+#include <sge/parse/json/object.hpp>
+#include <sge/renderer/scalar.hpp>
 #include <fcppt/random/make_inclusive_range.hpp>
 #include <fcppt/random/make_last_exclusive_range.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
@@ -22,6 +25,7 @@
 #include <fcppt/text.hpp>
 #include <fcppt/assert.hpp>
 #include <fcppt/chrono/duration.hpp>
+#include <fcppt/signal/auto_connection.hpp>
 #include <cmath>
 #include <iostream>
 

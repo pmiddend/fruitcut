@@ -4,6 +4,7 @@
 #include <fruitlib/json/find_and_convert_member.hpp>
 #include <fruitlib/json/path.hpp>
 #include <sge/systems/instance.hpp>
+#include <sge/parse/json/object_fwd.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/text.hpp>
 

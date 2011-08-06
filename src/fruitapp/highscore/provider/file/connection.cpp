@@ -5,6 +5,8 @@
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
+#include <fcppt/filesystem/path.hpp>
+#include <fcppt/signal/auto_connection.hpp>
 #include <boost/date_time/posix_time/posix_time.hpp>
 #include <iterator>
 

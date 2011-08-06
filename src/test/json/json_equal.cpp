@@ -1,5 +1,13 @@
-#include <test/json/json_equal.hpp>
+#include "json_equal.hpp"
+#include <sge/parse/json/array.hpp>
+#include <sge/parse/json/float_type.hpp>
+#include <sge/parse/json/object.hpp>
+#include <sge/parse/json/member.hpp>
+#include <sge/parse/json/null.hpp>
+#include <sge/parse/json/int_type.hpp>
+#include <sge/parse/json/value.hpp>
 #include <fcppt/nonassignable.hpp>
+#include <fcppt/string.hpp>
 #include <boost/variant/apply_visitor.hpp>
 #include <boost/variant/get.hpp>
 #include <algorithm>

@@ -6,6 +6,7 @@
 #include <fcppt/variant/object.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/optional.hpp>
 
 sge::camera::projection::object const
 fruitlib::json::parse_projection(

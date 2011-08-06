@@ -13,7 +13,16 @@
 #include <sge/renderer/vertex_buffer.hpp>
 #include <sge/renderer/vertex_count.hpp>
 #include <sge/renderer/vertex_declaration.hpp>
-#include <sge/shader/shader.hpp>
+#include <sge/shader/object_parameters.hpp>
+#include <sge/shader/vf_to_string.hpp>
+#include <sge/shader/variable_sequence.hpp>
+#include <sge/shader/sampler_sequence.hpp>
+#include <sge/shader/matrix.hpp>
+#include <sge/shader/variable_type.hpp>
+#include <sge/shader/matrix_flags.hpp>
+#include <sge/shader/variable.hpp>
+#include <sge/shader/activate_everything.hpp>
+#include <sge/shader/scoped.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/math/matrix/matrix.hpp>

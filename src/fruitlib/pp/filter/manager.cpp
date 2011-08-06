@@ -2,6 +2,9 @@
 #include <fruitlib/pp/screen_vf/format.hpp>
 #include <sge/shader/shader.hpp>
 #include <fcppt/make_shared_ptr.hpp>
+#include <fcppt/filesystem/path.hpp>
+#include <fcppt/shared_ptr.hpp>
+#include <fcppt/string.hpp>
 
 fruitlib::pp::filter::manager::manager(
 	sge::renderer::device &_renderer,

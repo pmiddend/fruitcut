@@ -8,6 +8,7 @@
 #include <sge/renderer/dim2.hpp>
 #include <sge/renderer/scalar.hpp>
 #include <sge/renderer/state/state.hpp>
+#include <sge/parse/json/object_fwd.hpp>
 #include <sge/image/colors.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/function/object.hpp>

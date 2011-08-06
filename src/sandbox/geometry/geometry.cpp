@@ -4,7 +4,8 @@
 #include <boost/geometry/multi/multi.hpp>
 #include <boost/geometry/multi/geometries/multi_point.hpp>
 #include <fcppt/math/vector/vector.hpp>
-#include <fcppt/math/box/box.hpp>
+#include <fcppt/math/box/basic_impl.hpp>
+#include <fcppt/math/box/output.hpp>
 #include <vector>
 #include <iostream>
 

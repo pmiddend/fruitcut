@@ -3,7 +3,9 @@
 
 #include <fruitlib/math/triangle/basic.hpp>
 #include <fruitlib/math/plane/basic.hpp>
-#include <fcppt/math/vector/vector.hpp>
+#include <fcppt/math/vector/cross.hpp>
+#include <fcppt/math/vector/dot.hpp>
+#include <fcppt/math/vector/normalize.hpp>
 
 namespace fruitlib
 {

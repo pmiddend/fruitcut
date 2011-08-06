@@ -4,6 +4,7 @@
 #include <fruitlib/json/find_and_convert_member.hpp>
 #include "../media_path.hpp"
 #include <sge/sprite/dont_sort.hpp>
+#include <sge/renderer/device_fwd.hpp>
 #include <sge/sprite/default_equal.hpp>
 #include <sge/timer/parameters.hpp>
 #include <sge/timer/elapsed_fractional.hpp>
@@ -20,10 +21,14 @@
 #include <sge/renderer/texture/mipmap/off.hpp>
 #include <sge/renderer/texture/address_mode.hpp>
 #include <sge/renderer/resource_flags_none.hpp>
+#include <sge/renderer/resource_flags.hpp>
+#include <sge/parse/json/object_fwd.hpp>
 #include <fcppt/make_shared_ptr.hpp>
-#include <fcppt/math/box/box.hpp>
-#include <fcppt/math/dim/dim.hpp>
-#include <fcppt/math/vector/vector.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
+#include <fcppt/math/vector/atan2.hpp>
+#include <fcppt/math/vector/basic_impl.hpp>
+#include <fcppt/math/vector/structure_cast.hpp>
+#include <fcppt/math/vector/length.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <boost/next_prior.hpp>

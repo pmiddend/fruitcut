@@ -6,16 +6,35 @@
 #include <fruitlib/resource_tree/navigate_to_path.hpp>
 #include <fruitlib/resource_tree/path.hpp>
 #include <sge/camera/object.hpp>
+#include <sge/renderer/device_fwd.hpp>
 #include <sge/image2d/file.hpp>
 #include <sge/image2d/multi_loader.hpp>
 #include <sge/image/color/format.hpp>
+#include <sge/texture/manager_fwd.hpp>
 #include <sge/renderer/dim2.hpp>
 #include <sge/renderer/glsl/scoped_program.hpp>
 #include <sge/renderer/matrix4.hpp>
 #include <sge/renderer/resource_flags_none.hpp>
-#include <sge/renderer/state/state.hpp>
-#include <sge/renderer/texture/texture.hpp>
-#include <sge/shader/shader.hpp>
+#include <sge/renderer/state/scoped.hpp>
+#include <sge/renderer/state/trampoline.hpp>
+#include <sge/renderer/state/list.hpp>
+#include <sge/renderer/state/depth_func.hpp>
+#include <sge/renderer/texture/mipmap/off.hpp>
+#include <sge/renderer/texture/address_mode2.hpp>
+#include <sge/renderer/texture/address_mode.hpp>
+#include <sge/renderer/texture/planar_ptr.hpp>
+#include <sge/texture/part_ptr.hpp>
+#include <sge/shader/object_parameters.hpp>
+#include <sge/shader/scoped.hpp>
+#include <sge/shader/activate_bare.hpp>
+#include <sge/shader/vertex_format_string.hpp>
+#include <sge/shader/variable.hpp>
+#include <sge/shader/variable_sequence.hpp>
+#include <sge/shader/variable_type.hpp>
+#include <sge/shader/matrix.hpp>
+#include <sge/shader/matrix_flags.hpp>
+#include <sge/shader/sampler_sequence.hpp>
+#include <sge/shader/sampler.hpp>
 #include <sge/sprite/default_equal.hpp>
 #include <sge/texture/add_image.hpp>
 #include <sge/texture/fragmented_unique_ptr.hpp>
@@ -27,6 +46,7 @@
 #include <fcppt/container/ptr/push_back_unique_ptr.hpp>
 #include <fcppt/random/make_last_exclusive_range.hpp>
 #include <fcppt/filesystem/directory_iterator.hpp>
+#include <fcppt/filesystem/path.hpp>
 #include <fcppt/math/dim/dim.hpp>
 #include <fcppt/move.hpp>
 #include <fcppt/ref.hpp>
@@ -94,16 +114,7 @@ fruitapp::point_sprite::system_node::system_node(
 				sge::image::color::format::rgba8,
 				sge::renderer::texture::mipmap::off(),
 				sge::renderer::texture::address_mode2(
-					sge::renderer::texture::address_mode::clamp))
-			/*
-			boost::phoenix::new_<sge::texture::rect_fragmented>(
-				fcppt::ref(
-					_renderer),
-				sge::image::color::format::rgba8,
-				sge::renderer::texture::filter::linear,
-				sge::renderer::dim2(
-					512,
-					512))*/)),
+					sge::renderer::texture::address_mode::clamp)))),
 	system_(
 		renderer_),
 	children_(),

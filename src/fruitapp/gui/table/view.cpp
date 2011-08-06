@@ -1,10 +1,12 @@
 #include <fruitapp/gui/table/view.hpp>
 #include <fruitapp/gui/table/model.hpp>
 #include <sge/cegui/to_cegui_string.hpp>
+#include <sge/charconv/system_fwd.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/assert_message.hpp>
 #include <fcppt/lexical_cast.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/string.hpp>
 #include <elements/CEGUIMultiColumnList.h>
 #include <elements/CEGUIListboxTextItem.h>
 #include <iostream>

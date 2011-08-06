@@ -1,9 +1,10 @@
-#include <boost/test/unit_test.hpp>
+#include "json_equal.hpp"
+#include <fruitlib/json/convert_to.hpp>
 #include <sge/parse/json/json.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/string.hpp>
 #include <fcppt/container/array.hpp>
-#include <test/json/json_equal.hpp>
-#include <fruitlib/json/convert_to.hpp>
+#include <boost/test/unit_test.hpp>
 #include <typeinfo>
 #include <vector>
 

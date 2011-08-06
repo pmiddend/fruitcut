@@ -1,6 +1,7 @@
 #include <fruitapp/highscore/provider/file/object.hpp>
 #include <fruitapp/highscore/provider/file/connection.hpp>
 #include <fcppt/filesystem/stem.hpp>
+#include <fcppt/filesystem/path.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
 

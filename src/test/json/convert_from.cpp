@@ -1,8 +1,14 @@
 #include <boost/test/unit_test.hpp>
 #include <sge/parse/json/json.hpp>
 #include <fcppt/string.hpp>
-#include <fcppt/math/matrix/matrix.hpp>
-#include <fcppt/math/vector/vector.hpp>
+#include <fcppt/math/matrix/static.hpp>
+#include <fcppt/math/matrix/basic_impl.hpp>
+#include <fcppt/math/matrix/comparison.hpp>
+#include <fcppt/math/matrix/output.hpp>
+#include <fcppt/math/vector/static.hpp>
+#include <fcppt/math/vector/basic_impl.hpp>
+#include <fcppt/math/vector/comparison.hpp>
+#include <fcppt/math/vector/output.hpp>
 #include <fcppt/container/array.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/text.hpp>

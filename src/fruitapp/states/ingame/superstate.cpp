@@ -32,9 +32,10 @@
 #include <sge/image/color/convert.hpp>
 #include <sge/image/color/rgba8.hpp>
 #include <sge/image/colors.hpp>
-#include <fcppt/math/box/box.hpp>
-#include <fcppt/math/dim/dim.hpp>
-#include <fcppt/math/vector/vector.hpp>
+#include <fcppt/math/box/basic_impl.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
+#include <fcppt/math/vector/structure_cast.hpp>
+#include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/make_unique_ptr.hpp>

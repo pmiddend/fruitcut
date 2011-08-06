@@ -9,7 +9,9 @@
 #include <sge/image2d/view/to_const.hpp>
 #include <sge/renderer/texture/scoped_planar_lock.hpp>
 #include <sge/renderer/texture/planar.hpp>
+#include <sge/renderer/texture/planar_ptr.hpp>
 #include <sge/renderer/lock_mode.hpp>
+#include <sge/image/color/any/object_fwd.hpp>
 #include <fcppt/math/vector/vector.hpp>
 #include <fcppt/math/dim/dim.hpp>
 #include <fcppt/math/box/box.hpp>

@@ -1,4 +1,5 @@
 #include <fruitapp/fruit/cut_mesh_result.hpp>
+#include <sge/renderer/vector3.hpp>
 
 fruitapp::fruit::cut_mesh_result::cut_mesh_result()
 :

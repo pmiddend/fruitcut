@@ -1,5 +1,7 @@
 #include <fruitlib/json/output_tabbed.hpp>
-#include <sge/parse/json/json.hpp>
+#include <sge/parse/json/parse_file_exn.hpp>
+#include <sge/parse/json/object.hpp>
+#include <sge/parse/json/array.hpp>
 #include <fcppt/io/cout.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/text.hpp>

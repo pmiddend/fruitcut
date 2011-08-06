@@ -4,8 +4,11 @@
 #include <fruitlib/math/line/distance_to_point.hpp>
 #include <fruitlib/math/line/basic.hpp>
 #include <fcppt/optional.hpp>
-#include <fcppt/math/matrix/matrix.hpp>
-#include <fcppt/math/vector/vector.hpp>
+#include <fcppt/math/matrix/basic_impl.hpp>
+#include <fcppt/math/matrix/static.hpp>
+#include <fcppt/math/vector/cross.hpp>
+#include <fcppt/math/vector/normalize.hpp>
+#include <fcppt/math/vector/orthogonalize.hpp>
 #include <fcppt/math/range_compare.hpp>
 #include <fcppt/assign/make_array.hpp>
 #include <fcppt/container/array.hpp>

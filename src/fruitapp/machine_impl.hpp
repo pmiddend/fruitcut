@@ -23,10 +23,12 @@
 #include <fruitapp/shadow_map.hpp>
 #include <fruitapp/fruit/prototype_sequence.hpp>
 #include <fruitapp/ingame_clock.hpp>
+#include <fcppt/signal/scoped_connection.hpp>
 #include <sge/camera/object.hpp>
 #include <sge/cegui/syringe.hpp>
 #include <sge/cegui/system.hpp>
 #include <sge/model/md3/loader_ptr.hpp>
+#include <sge/model/md3/loader_fwd.hpp>
 #include <sge/font/metrics_ptr.hpp>
 #include <sge/parse/json/object.hpp>
 #include <sge/systems/instance.hpp>

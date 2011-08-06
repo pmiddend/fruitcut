@@ -4,6 +4,7 @@
 #include <fruitlib/rectangle_manager/object_decl.hpp>
 #include <fruitlib/exception.hpp>
 #include <fcppt/algorithm/ptr_container_erase.hpp>
+#include <fcppt/math/vector/length.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/chrono/duration.hpp>

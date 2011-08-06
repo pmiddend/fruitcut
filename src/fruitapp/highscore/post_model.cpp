@@ -5,6 +5,9 @@
 #include <fruitapp/gui/table/row.hpp>
 #include <fruitapp/gui/table/row_index.hpp>
 #include <fcppt/assign/make_container.hpp>
+#include <fcppt/signal/shared_connection.hpp>
+#include <fcppt/signal/auto_connection.hpp>
+#include <fcppt/string.hpp>
 #include <fcppt/container/ptr/push_back_unique_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/move.hpp>

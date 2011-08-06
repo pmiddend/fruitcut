@@ -14,7 +14,8 @@
 #include <sge/timer/basic.hpp>
 #include <sge/timer/clocks/standard.hpp>
 #include <sge/font/text/string.hpp>
-#include <fcppt/math/dim/dim.hpp>
+#include <fcppt/math/dim/static.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/string.hpp>
 #include <boost/mpl/vector/vector10.hpp>

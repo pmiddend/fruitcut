@@ -7,7 +7,8 @@
 #include <fruitlib/json/convert_to.hpp>
 #include <sge/parse/json/json.hpp>
 #include <fcppt/function/object.hpp>
-#include <fcppt/signal/signal.hpp>
+#include <fcppt/signal/auto_connection.hpp>
+#include <fcppt/signal/object.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <iostream>
 

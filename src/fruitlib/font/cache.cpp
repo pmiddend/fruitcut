@@ -14,6 +14,7 @@
 #include <fcppt/assert.hpp>
 #include <fcppt/assert_message.hpp>
 #include <fcppt/filesystem/extension_without_dot.hpp>
+#include <fcppt/filesystem/path.hpp>
 #include <fcppt/container/ptr/push_back_unique_ptr.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/tr1/type_traits.hpp>

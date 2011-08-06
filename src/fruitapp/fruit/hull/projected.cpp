@@ -6,7 +6,9 @@
 #include <sge/renderer/scalar.hpp>
 #include <sge/renderer/target_base_ptr.hpp>
 #include <sge/renderer/target_base.hpp>
+#include <sge/renderer/vector2.hpp>
 #include <sge/renderer/vector3.hpp>
+#include <sge/renderer/matrix4.hpp>
 #include <sge/renderer/vector4.hpp>
 #include <sge/renderer/viewport.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
@@ -22,6 +24,7 @@
 #include <fcppt/math/matrix/output.hpp>
 #include <fcppt/math/box/output.hpp>
 #include <fcppt/math/dim/output.hpp>
+#include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/math/vector/output.hpp>
 #include <boost/geometry/geometry.hpp>
 #include <boost/geometry/multi/multi.hpp>

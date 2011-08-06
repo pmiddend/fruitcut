@@ -11,7 +11,8 @@
 #include <sge/renderer/texture/planar_ptr.hpp>
 #include <sge/renderer/vector2.hpp>
 #include <sge/shader/shader.hpp>
-#include <fcppt/math/dim/dim.hpp>
+#include <fcppt/math/dim/structure_cast.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/text.hpp>
 #include <iostream>

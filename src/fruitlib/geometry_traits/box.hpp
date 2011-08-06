@@ -3,6 +3,7 @@
 
 #include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
+#include <fcppt/math/size_type.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
 #include <boost/geometry/geometry.hpp>
 #include <cstddef>

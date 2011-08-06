@@ -3,6 +3,7 @@
 #include <boost/algorithm/string/split.hpp>
 #include <boost/algorithm/string/classification.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/string.hpp>
 
 fruitlib::json::path const
 fruitlib::json::string_to_path(

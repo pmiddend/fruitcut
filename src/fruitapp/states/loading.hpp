@@ -9,7 +9,7 @@
 #include <fruitlib/scenic/events/update.hpp>
 #include <fruitlib/scenic/events/viewport_change.hpp>
 #include <fruitlib/font/scene_node.hpp>
-#include <sge/parse/json/json.hpp>
+#include <sge/parse/json/element_vector.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <boost/statechart/state.hpp>
 #include <boost/statechart/custom_reaction.hpp>

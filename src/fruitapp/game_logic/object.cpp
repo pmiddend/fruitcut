@@ -31,6 +31,10 @@
 #include <sge/timer/reset_when_expired.hpp>
 #include <sge/timer/elapsed_fractional.hpp>
 #include <sge/timer/remaining.hpp>
+#include <sge/parse/json/object_fwd.hpp>
+#include <sge/parse/json/value.hpp>
+#include <sge/font/text/string.hpp>
+#include <sge/font/text/flags.hpp>
 #include <mizuiro/color/convert.hpp>
 #include <mizuiro/color/homogenous_static.hpp>
 #include <mizuiro/color/init.hpp>

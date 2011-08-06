@@ -6,6 +6,7 @@
 #include <sge/parse/json/json.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/filesystem/exists.hpp>
+#include <fcppt/filesystem/path.hpp>
 
 sge::parse::json::object const
 fruitapp::load_user_config()

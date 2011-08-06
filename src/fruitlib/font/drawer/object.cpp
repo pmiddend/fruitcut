@@ -7,9 +7,10 @@
 #include <sge/renderer/device.hpp>
 #include <sge/image2d/image2d.hpp>
 #include <sge/sprite/sprite.hpp>
-#include <fcppt/math/box/box.hpp>
-#include <fcppt/math/dim/dim.hpp>
-#include <fcppt/math/vector/vector.hpp>
+#include <fcppt/math/box/basic_impl.hpp>
+#include <fcppt/math/dim/structure_cast.hpp>
+#include <fcppt/math/dim/quad.hpp>
+#include <fcppt/math/vector/structure_cast.hpp>
 #include <fcppt/ref.hpp>
 #include <boost/spirit/home/phoenix/object.hpp>
 #include <utility>

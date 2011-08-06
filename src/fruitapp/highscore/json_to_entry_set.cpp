@@ -5,6 +5,7 @@
 #include <sge/parse/json/json.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/to_std_string.hpp>
+#include <fcppt/string.hpp>
 #include <boost/date_time/posix_time/posix_time.hpp>
 #include <vector>
 

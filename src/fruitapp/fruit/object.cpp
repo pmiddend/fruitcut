@@ -12,10 +12,11 @@
 #include <fruitlib/physics/world_fwd.hpp>
 #include <sge/timer/parameters.hpp>
 #include <sge/renderer/matrix4.hpp>
+#include <sge/renderer/vertex_buffer_fwd.hpp>
 #include <sge/renderer/vector3.hpp>
 #include <sge/renderer/texture/planar_ptr.hpp>
-#include <fcppt/math/matrix/matrix.hpp>
-#include <fcppt/math/vector/vector.hpp>
+#include <fcppt/math/matrix/structure_cast.hpp>
+#include <fcppt/math/vector/structure_cast.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/ref.hpp>
 #include <boost/geometry/geometry.hpp>

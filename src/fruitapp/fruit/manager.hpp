@@ -24,6 +24,7 @@
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/matrix4.hpp>
 #include <sge/renderer/vertex_declaration_ptr.hpp>
+#include <sge/renderer/vertex_declaration_fwd.hpp>
 #include <sge/shader/object.hpp>
 #include <sge/camera/object_fwd.hpp>
 #include <fcppt/chrono/duration.hpp>

@@ -1,5 +1,8 @@
 #include <fruitapp/directional_light_source.hpp>
-#include <fcppt/math/matrix/matrix.hpp>
+#include <sge/renderer/vector3.hpp>
+#include <sge/renderer/matrix4.hpp>
+#include <fcppt/math/matrix/translation.hpp>
+#include <fcppt/math/matrix/arithmetic.hpp>
 
 fruitapp::directional_light_source::directional_light_source()
 :

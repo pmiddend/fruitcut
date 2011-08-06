@@ -15,6 +15,7 @@
 #include <sge/cegui/to_cegui_string.hpp>
 #include <CEGUIWindowManager.h>
 #include <fcppt/text.hpp>
+#include <fcppt/string.hpp>
 #include <fcppt/tr1/functional.hpp>
 
 fruitapp::states::gameover::ranking::ranking(

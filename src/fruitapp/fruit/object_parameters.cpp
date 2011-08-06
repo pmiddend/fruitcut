@@ -1,4 +1,6 @@
 #include <fruitapp/fruit/object_parameters.hpp>
+#include <sge/renderer/device_fwd.hpp>
+#include <sge/renderer/vertex_declaration_fwd.hpp>
 
 fruitapp::fruit::object_parameters::object_parameters(
 	fruit::prototype const &_prototype,

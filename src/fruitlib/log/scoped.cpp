@@ -1,6 +1,9 @@
 #include <fruitlib/log/scoped.hpp>
 #include <fruitlib/exception.hpp>
 #include <fcppt/log/context.hpp>
+#include <fcppt/log/enabled_level_array.hpp>
+#include <fcppt/log/level.hpp>
+#include <fcppt/log/location.hpp>
 #include <fcppt/log/object.hpp>
 #include <fcppt/log/activate_levels.hpp>
 #include <iostream>

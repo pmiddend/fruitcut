@@ -349,7 +349,6 @@ SET(
 	src/fruitlib/pp/texture/use_screen_size.cpp
 	src/fruitlib/pp/texture/use_screen_size.hpp
 	src/fruitlib/random_generator.hpp
-	src/fruitlib/rectangle_aligner.hpp
 	src/fruitlib/rectangle_manager/duration.hpp
 	src/fruitlib/rectangle_manager/object.hpp
 	src/fruitlib/rectangle_manager/object_decl.hpp
@@ -447,7 +446,6 @@ SET(
 	src/fruitapp/depths/overlay.hpp
 	src/fruitapp/depths/root.hpp
 	src/fruitapp/depths/scene.hpp
-	src/fruitapp/dim2.hpp
 	src/fruitapp/directional_light_source.cpp
 	src/fruitapp/directional_light_source.hpp
 	src/fruitapp/directional_light_source_fwd.hpp
@@ -652,6 +650,8 @@ SET(
 	src/fruitapp/quick_log_fwd.hpp
 	src/fruitapp/renderable.cpp
 	src/fruitapp/renderable.hpp
+	src/fruitapp/renderer_dim2.hpp
+	src/fruitapp/renderer_rect.hpp
 	src/fruitapp/scene.cpp
 	src/fruitapp/scene.hpp
 	src/fruitapp/scene_fwd.hpp

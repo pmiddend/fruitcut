@@ -1,9 +1,11 @@
 #ifndef FRUITLIB_MATH_BOX_RADIUS_HPP_INCLUDED
 #define FRUITLIB_MATH_BOX_RADIUS_HPP_INCLUDED
 
-#include <fcppt/math/vector/vector.hpp>
-#include <fcppt/math/dim/dim.hpp>
-#include <fcppt/math/box/box.hpp>
+#include <fcppt/math/vector/length.hpp>
+#include <fcppt/math/size_type.hpp>
+#include <fcppt/math/dim/structure_cast.hpp>
+#include <fcppt/math/dim/arithmetic.hpp>
+#include <fcppt/math/box/basic_impl.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <boost/type_traits/is_floating_point.hpp>
 

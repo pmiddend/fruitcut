@@ -2,6 +2,7 @@
 #include <CEGUIWindowManager.h>
 #include <elements/CEGUIProgressBar.h>
 #include <fcppt/tr1/functional.hpp>
+#include <fcppt/signal/auto_connection.hpp>
 #include <algorithm>
 
 namespace

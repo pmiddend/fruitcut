@@ -1,5 +1,6 @@
 #include <fruitlib/pp/filter/wrapper.hpp>
 #include <fcppt/assert.hpp>
+#include <fcppt/string.hpp>
 
 fruitlib::pp::filter::wrapper::wrapper()
 :

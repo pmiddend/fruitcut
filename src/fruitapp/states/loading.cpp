@@ -15,12 +15,28 @@
 #include <fruitlib/font/cache.hpp>
 #include <fruitapp/postprocessing.hpp>
 #include <sge/renderer/viewport_size.hpp>
-#include <sge/font/font.hpp>
+#include <sge/renderer/scalar.hpp>
+#include <sge/parse/json/array.hpp>
+#include <sge/parse/json/value.hpp>
+#include <sge/font/rect.hpp>
+#include <sge/font/pos.hpp>
+#include <sge/font/text/align_h.hpp>
+#include <sge/font/text/lit.hpp>
+#include <sge/font/text/flags.hpp>
+#include <sge/font/text/align_v.hpp>
+#include <sge/font/text/flags_none.hpp>
+#include <sge/font/text/string.hpp>
+#include <sge/font/dim.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/image/colors.hpp>
 #include <sge/image/color/convert.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/lexical_cast.hpp>
+#include <fcppt/math/matrix/basic_impl.hpp>
+#include <fcppt/math/vector/basic_impl.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
+#include <fcppt/math/box/basic_impl.hpp>
+#include <fcppt/math/dim/structure_cast.hpp>
 #include <iterator>
 
 fruitapp::states::loading::loading(

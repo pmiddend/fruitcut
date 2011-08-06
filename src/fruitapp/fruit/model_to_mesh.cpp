@@ -2,8 +2,12 @@
 #include <fruitapp/fruit/triangle.hpp>
 #include <sge/renderer/vector2.hpp>
 #include <sge/renderer/vector3.hpp>
-#include <sge/model/md3/md3.hpp>
-#include <fcppt/math/vector/vector.hpp>
+#include <sge/model/md3/normal_sequence.hpp>
+#include <sge/model/md3/index_sequence.hpp>
+#include <sge/model/md3/texcoord_sequence.hpp>
+#include <sge/model/md3/object.hpp>
+#include <fcppt/math/vector/structure_cast.hpp>
+#include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/assert.hpp>
 #include <fcppt/string.hpp>
 #include <boost/next_prior.hpp>

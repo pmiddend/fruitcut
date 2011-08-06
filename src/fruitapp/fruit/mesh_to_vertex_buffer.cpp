@@ -7,6 +7,9 @@
 #include <fruitapp/fruit/model_vf/normal.hpp>
 #include <fruitapp/fruit/model_vf/texcoord.hpp>
 #include <sge/renderer/device.hpp>
+#include <sge/renderer/vertex_buffer_ptr.hpp>
+#include <sge/renderer/vertex_declaration_fwd.hpp>
+#include <sge/renderer/resource_flags.hpp>
 #include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/resource_flags_none.hpp>
 #include <sge/renderer/scoped_vertex_lock.hpp>

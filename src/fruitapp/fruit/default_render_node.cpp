@@ -10,10 +10,14 @@
 #include <sge/renderer/stage.hpp>
 #include <sge/renderer/vertex_buffer.hpp>
 #include <sge/renderer/matrix4.hpp>
+#include <sge/renderer/vector4.hpp>
 #include <sge/renderer/nonindexed_primitive_type.hpp>
 #include <sge/renderer/scoped_vertex_buffer.hpp>
 #include <sge/renderer/size_type.hpp>
-#include <sge/renderer/state/state.hpp>
+#include <sge/renderer/state/trampoline.hpp>
+#include <sge/renderer/state/scoped.hpp>
+#include <sge/renderer/state/list.hpp>
+#include <sge/renderer/state/depth_func.hpp>
 #include <sge/renderer/texture/planar_ptr.hpp>
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/scoped.hpp>
@@ -21,9 +25,24 @@
 #include <sge/renderer/texture/filter/scoped.hpp>
 #include <sge/renderer/texture/filter/trilinear.hpp>
 #include <sge/renderer/stage.hpp>
-#include <sge/shader/shader.hpp>
+#include <sge/shader/object_parameters.hpp>
+#include <sge/shader/vf_to_string.hpp>
+#include <sge/shader/variable.hpp>
+#include <sge/shader/sampler.hpp>
+#include <sge/shader/variable_type.hpp>
+#include <sge/shader/matrix.hpp>
+#include <sge/shader/matrix_flags.hpp>
+#include <sge/shader/sampler_sequence.hpp>
+#include <sge/shader/sampler.hpp>
+#include <sge/shader/scoped.hpp>
+#include <sge/shader/activation_method.hpp>
+#include <sge/shader/variable_sequence.hpp>
+#include <sge/renderer/scalar.hpp>
+#include <sge/renderer/vertex_declaration.hpp>
 #include <fcppt/assign/make_container.hpp>
-#include <fcppt/math/matrix/matrix.hpp>
+#include <fcppt/math/matrix/inverse.hpp>
+#include <fcppt/math/matrix/transpose.hpp>
+#include <fcppt/math/matrix/arithmetic.hpp>
 #include <fcppt/text.hpp>
 
 fruitapp::fruit::default_render_node::default_render_node(

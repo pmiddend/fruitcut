@@ -1,7 +1,14 @@
 #ifndef FRUITCUT_TEST_JSON_JSON_EQUAL_HPP_INCLUDED
 #define FRUITCUT_TEST_JSON_JSON_EQUAL_HPP_INCLUDED
 
-#include <sge/parse/json/json.hpp>
+#include <sge/parse/json/null.hpp>
+#include <sge/parse/json/object_fwd.hpp>
+#include <sge/parse/json/array_fwd.hpp>
+#include <sge/parse/json/int_type.hpp>
+#include <sge/parse/json/member_fwd.hpp>
+#include <sge/parse/json/float_type.hpp>
+#include <sge/parse/json/value.hpp>
+#include <fcppt/string.hpp>
 
 namespace fruitcut
 {

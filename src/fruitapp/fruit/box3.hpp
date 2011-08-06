@@ -1,7 +1,7 @@
 #ifndef FRUITAPP_FRUIT_BOX3_HPP_INCLUDED
 #define FRUITAPP_FRUIT_BOX3_HPP_INCLUDED
 
-#include <fcppt/math/box/box.hpp>
+#include <fcppt/math/box/basic_decl.hpp>
 #include <sge/renderer/scalar.hpp>
 
 namespace fruitapp

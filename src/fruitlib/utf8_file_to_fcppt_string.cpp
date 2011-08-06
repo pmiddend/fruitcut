@@ -2,6 +2,7 @@
 #include <fruitlib/exception.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
+#include <fcppt/filesystem/path.hpp>
 #include <fcppt/io/cifstream.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/utf8/from_std_string.hpp>

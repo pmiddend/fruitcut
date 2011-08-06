@@ -21,6 +21,7 @@
 #include <sge/renderer/scalar.hpp>
 #include <sge/parse/json/json.hpp>
 #include <sge/image/color/any/convert.hpp>
+#include <sge/renderer/vector3.hpp>
 #include <mizuiro/color/channel/alpha.hpp>
 #include <fcppt/random/make_last_exclusive_range.hpp>
 #include <fcppt/chrono/duration_cast.hpp>

@@ -6,6 +6,7 @@
 #include <sge/parse/json/json.hpp>
 #include <fcppt/to_std_string.hpp>
 #include <fcppt/lexical_cast.hpp>
+#include <fcppt/string.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/utf8/from_fcppt_string.hpp>
 #include <fcppt/utf8/from_std_string.hpp>
@@ -14,6 +15,7 @@
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/io/istringstream.hpp>
 #include <fcppt/to_std_string.hpp>
+#include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/optional.hpp>
 #include <string>
 #include <iomanip>
