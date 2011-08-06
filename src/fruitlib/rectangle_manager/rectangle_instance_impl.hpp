@@ -13,7 +13,8 @@ fruitlib::rectangle_manager::rectangle_instance<T>::rectangle_instance(
 	bounds_(
 		vector::null(),
 		_bounds),
-	status_fraction_(),
+	status_fraction_(
+		-1.f),
 	killed_(
 		false)
 {
@@ -27,6 +28,58 @@ fruitlib::rectangle_manager::rectangle_instance<T>::rect const &
 fruitlib::rectangle_manager::rectangle_instance<T>::bounds() const
 {
 	return bounds_;
+}
+
+template<typename T>
+typename
+fruitlib::rectangle_manager::rectangle_instance<T>::vector const &
+fruitlib::rectangle_manager::rectangle_instance<T>::target() const
+{
+	return 
+		target_;
+}
+
+template<typename T>
+void
+fruitlib::rectangle_manager::rectangle_instance<T>::kill()
+{
+	manager_.kill(
+		*this);
+	killed_ = 
+		true;
+}
+
+template<typename T>
+void
+fruitlib::rectangle_manager::rectangle_instance<T>::revive()
+{
+	manager_.revive(
+		*this);
+	killed_ =
+		false;
+}
+
+template<typename T>
+typename
+fruitlib::rectangle_manager::rectangle_instance<T>::value_type
+fruitlib::rectangle_manager::rectangle_instance<T>::status_fraction() const
+{
+	return status_fraction_;
+}
+
+template<typename T>
+bool
+fruitlib::rectangle_manager::rectangle_instance<T>::killed() const
+{
+	return 
+		killed_;
+}
+
+template<typename T>
+fruitlib::rectangle_manager::rectangle_instance<T>::~rectangle_instance()
+{
+	manager_.erase(
+		*this);
 }
 
 template<typename T>
@@ -48,54 +101,12 @@ fruitlib::rectangle_manager::rectangle_instance<T>::target(
 }
 
 template<typename T>
-typename
-fruitlib::rectangle_manager::rectangle_instance<T>::vector const &
-fruitlib::rectangle_manager::rectangle_instance<T>::target() const
-{
-	return 
-		target_;
-}
-
-template<typename T>
-void
-fruitlib::rectangle_manager::rectangle_instance<T>::kill()
-{
-	killed_ = 
-		true;
-	manager_.kill(
-		*this);
-}
-
-template<typename T>
-typename
-fruitlib::rectangle_manager::rectangle_instance<T>::value_type
-fruitlib::rectangle_manager::rectangle_instance<T>::status_fraction() const
-{
-	return status_fraction_;
-}
-
-template<typename T>
 void
 fruitlib::rectangle_manager::rectangle_instance<T>::status_fraction(
 	value_type const _status_fraction)
 {
 	status_fraction_ = 
 		_status_fraction;
-}
-
-template<typename T>
-bool
-fruitlib::rectangle_manager::rectangle_instance<T>::killed() const
-{
-	return 
-		killed_;
-}
-
-template<typename T>
-fruitlib::rectangle_manager::rectangle_instance<T>::~rectangle_instance()
-{
-	manager_.erase(
-		*this);
 }
 
 #endif

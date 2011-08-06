@@ -3,6 +3,7 @@
 
 #include <fruitlib/rectangle_manager/object_fwd.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
+#include <fcppt/math/box/rect.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
 
 namespace fruitlib
@@ -41,6 +42,31 @@ public:
 	rect const &
 	bounds() const;
 
+	vector const &
+	target() const;
+
+	void
+	kill();
+
+	void
+	revive();
+
+	value_type
+	status_fraction() const;
+
+	bool
+	killed() const;
+
+	~rectangle_instance();
+private:
+	friend class object<T>;
+
+	manager_object &manager_;
+	rect bounds_;
+	vector target_;
+	value_type status_fraction_;
+	bool killed_;
+
 	void
 	pos(
 		vector const &);
@@ -49,29 +75,10 @@ public:
 	target(
 		vector const &);
 
-	vector const &
-	target() const;
-
-	void
-	kill();
-
-	value_type
-	status_fraction() const;
-
 	void
 	status_fraction(
 		value_type);
 
-	bool
-	killed() const;
-
-	~rectangle_instance();
-private:
-	manager_object &manager_;
-	rect bounds_;
-	vector target_;
-	value_type status_fraction_;
-	bool killed_;
 };
 }
 }

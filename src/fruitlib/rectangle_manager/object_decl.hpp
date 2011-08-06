@@ -87,8 +87,17 @@ private:
 		instance const &);
 
 	void
+	revive(
+		instance const &);
+
+	void
 	erase(
 		instance const &);
+
+	void
+	insert_impl(
+		instance &,
+		bool set_position);
 };
 }
 }

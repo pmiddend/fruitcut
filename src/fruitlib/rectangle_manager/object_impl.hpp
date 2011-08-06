@@ -83,39 +83,9 @@ void
 fruitlib::rectangle_manager::object<T>::insert(
 	instance &_instance)
 {
-	_instance.status_fraction(
-		-1.f);
-
-	if(instances_.empty())
-	{
-		_instance.target(
-			vector(
-				padding_.left(),
-				padding_.top()));
-
-		_instance.pos(
-			vector(
-				bounding_rect_.left() - _instance.bounds().size().w(),
-				_instance.target().y()));
-	}
-	else
-	{
-		rect const &last_rect = 
-			instances_.back().bounds();
-
-		_instance.target(
-			vector(
-				padding_.left(),
-				last_rect.bottom() + padding_.middle()));
-
-		_instance.pos(
-			vector(
-				bounding_rect_.left() - _instance.bounds().size().w(),
-				_instance.target().y()));
-	}
-	
-	instances_.push_back(
-		&_instance);
+	this->insert_impl(
+		_instance,
+		true);
 }
 
 template<typename T>
@@ -183,6 +153,23 @@ fruitlib::rectangle_manager::object<T>::kill(
 
 template<typename T>
 void
+fruitlib::rectangle_manager::object<T>::revive(
+	instance const &_instance)
+{
+	FCPPT_ASSERT(
+		_instance.killed());
+	
+	fcppt::algorithm::ptr_container_erase(
+		dead_instances_,
+		&_instance);
+
+	this->insert_impl(
+		_instance,
+		false);
+}
+
+template<typename T>
+void
 fruitlib::rectangle_manager::object<T>::erase(
 	instance const &_instance)
 {
@@ -194,6 +181,46 @@ fruitlib::rectangle_manager::object<T>::erase(
 		fcppt::algorithm::ptr_container_erase(
 			instances_,
 			&_instance);
+}
+
+template<typename T>
+void
+fruitlib::rectangle_manager::object<T>::insert_impl(
+	instance &_instance,
+	bool const set_position)
+{
+	if(instances_.empty())
+	{
+		_instance.target(
+			vector(
+				padding_.left(),
+				padding_.top()));
+
+		if(set_position)
+			_instance.pos(
+				vector(
+					bounding_rect_.left() - _instance.bounds().size().w(),
+					_instance.target().y()));
+	}
+	else
+	{
+		rect const &last_rect = 
+			instances_.back().bounds();
+
+		_instance.target(
+			vector(
+				padding_.left(),
+				last_rect.bottom() + padding_.middle()));
+
+		if(set_position)
+			_instance.pos(
+				vector(
+					bounding_rect_.left() - _instance.bounds().size().w(),
+					_instance.target().y()));
+	}
+	
+	instances_.push_back(
+		&_instance);
 }
 
 #endif
