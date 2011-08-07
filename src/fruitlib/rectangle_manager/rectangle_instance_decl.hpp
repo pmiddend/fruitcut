@@ -10,6 +10,10 @@ namespace fruitlib
 {
 namespace rectangle_manager
 {
+/**
+	This class should have no internal logic, every change should be
+	made by the manager.
+ */
 template<typename T>
 class rectangle_instance
 {
@@ -45,6 +49,9 @@ public:
 	vector const &
 	target() const;
 
+	value_type
+	speed() const;
+
 	void
 	kill();
 
@@ -66,6 +73,7 @@ private:
 	vector target_;
 	value_type status_fraction_;
 	bool killed_;
+	value_type speed_;
 
 	void
 	pos(
@@ -74,6 +82,10 @@ private:
 	void
 	target(
 		vector const &);
+
+	void
+	speed(
+		value_type);
 
 	void
 	status_fraction(

@@ -106,7 +106,7 @@ public:
 	object(
 		rect const &,
 		padding const &,
-		value_type speed);
+		value_type acceleration);
 
 	void
 	update(
@@ -126,7 +126,7 @@ private:
 
 	rect const bounding_rect_;
 	padding const padding_;
-	value_type const speed_;
+	value_type const acceleration_;
 	instance_sequence instances_;
 	instance_sequence dead_instances_;
 
@@ -145,6 +145,11 @@ private:
 	void
 	erase(
 		instance const &);
+
+	void
+	update_kinematics(
+		duration const &,
+		instance &);
 
 	void
 	insert_impl(

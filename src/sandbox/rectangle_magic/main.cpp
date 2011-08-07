@@ -217,7 +217,7 @@ public:
 				10.0f,
 				10.0f,
 				10.0f),
-			10.0f),
+			2000.0f),
 		list_(),
 		update_rng_(
 			fcppt::random::make_inclusive_range(

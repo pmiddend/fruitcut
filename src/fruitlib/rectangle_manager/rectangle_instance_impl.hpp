@@ -11,12 +11,15 @@ fruitlib::rectangle_manager::rectangle_instance<T>::rectangle_instance(
 	manager_(
 		_manager),
 	bounds_(
-		vector::null(),
+		vector(),
 		_bounds),
+	target_(),
 	status_fraction_(
 		-1.f),
 	killed_(
-		false)
+		false),
+	speed_(
+		0.0f)
 {
 	manager_.insert(
 		*this);
@@ -37,6 +40,15 @@ fruitlib::rectangle_manager::rectangle_instance<T>::target() const
 {
 	return 
 		target_;
+}
+
+template<typename T>
+typename
+fruitlib::rectangle_manager::rectangle_instance<T>::value_type
+fruitlib::rectangle_manager::rectangle_instance<T>::speed() const
+{
+	return 
+		speed_;
 }
 
 template<typename T>
@@ -98,6 +110,15 @@ fruitlib::rectangle_manager::rectangle_instance<T>::target(
 {
 	target_ = 
 		_target;
+}
+
+template<typename T>
+void
+fruitlib::rectangle_manager::rectangle_instance<T>::speed(
+	value_type const _speed)
+{
+	speed_ = 
+		_speed;
 }
 
 template<typename T>

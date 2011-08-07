@@ -3,9 +3,14 @@
 
 #include <fruitlib/rectangle_manager/object_decl.hpp>
 #include <fruitlib/exception.hpp>
+#include <fruitlib/math/line/point_intersection.hpp>
+#include <fruitlib/math/line/basic.hpp>
 #include <fcppt/algorithm/ptr_container_erase.hpp>
 #include <fcppt/math/vector/length.hpp>
+#include <fcppt/math/vector/output.hpp>
+#include <fcppt/math/vector/normalize.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/assert.hpp>
 #include <fcppt/chrono/duration.hpp>
 #include <boost/next_prior.hpp>
 
@@ -13,14 +18,14 @@ template<typename T>
 fruitlib::rectangle_manager::object<T>::object(
 	rect const &_bounding_rect,
 	padding const &_padding,
-	value_type const _speed)
+	value_type const _acceleration)
 :
 	bounding_rect_(
 		_bounding_rect),
 	padding_(
 		_padding),
-	speed_(
-		_speed),
+	acceleration_(
+		_acceleration),
 	instances_(),
 	dead_instances_()
 {
@@ -31,21 +36,14 @@ void
 fruitlib::rectangle_manager::object<T>::update(
 	duration const &d)
 {
-	value_type const epsilon = 
-		0.01f;
-
 	for(
 		instance_iterator it = instances_.begin(); 
 		it != instances_.end(); 
 		++it)
 	{
-		it->pos(
-			it->bounds().pos() + (it->target() - it->bounds().pos()) * d.count() * speed_);
-
-		// To avoid jittering
-		if(fcppt::math::vector::length(it->bounds().pos() - it->target()) < epsilon)
-			it->pos(
-				it->target());
+		this->update_kinematics(
+			d,
+			*it);
 
 		it->status_fraction(
 			(it->bounds().pos().x() - it->target().x())/
@@ -57,13 +55,9 @@ fruitlib::rectangle_manager::object<T>::update(
 		it != dead_instances_.end(); 
 		++it)
 	{
-		it->pos(
-			it->bounds().pos() + (it->target() - it->bounds().pos()) * d.count());
-
-		// To avoid jittering
-		if(fcppt::math::vector::length(it->bounds().pos() - it->target()) < epsilon)
-			it->pos(
-				it->target());
+		this->update_kinematics(
+			d,
+			*it);
 
 		it->status_fraction(
 			1.0f +
@@ -184,39 +178,117 @@ fruitlib::rectangle_manager::object<T>::erase(
 
 template<typename T>
 void
+fruitlib::rectangle_manager::object<T>::update_kinematics(
+	duration const &d,
+	instance &_instance)
+{
+	vector const pos_to_target_vector = 
+		_instance.target() - _instance.bounds().pos();
+
+	value_type const distance_to_target = 
+		fcppt::math::vector::length(
+			pos_to_target_vector);
+
+	// Bail out if nothing has to be done
+	if(distance_to_target < 0.01f)
+	{
+		_instance.pos(
+			_instance.target());
+		_instance.speed(
+			0.0f);
+		return;
+	}
+
+	value_type const speed_magnitude = 
+		d.count() * 
+		_instance.speed();
+
+	if(speed_magnitude < 0.001f)
+	{
+		_instance.speed(
+			_instance.speed() + d.count() * acceleration_);
+		return;
+	}
+
+	vector const speed_vector = 
+		speed_magnitude *
+		// This call is safe now, since we have the if above
+		pos_to_target_vector / distance_to_target;
+
+	// Check if we hit the target along our way, using the current speed.
+	value_type const target_intersection = 
+		fruitlib::math::line::point_intersection(
+			_instance.target(),
+			// Constructing a line is safe now, because speed_vector's
+			// size is large enough
+			fruitlib::math::line::basic<value_type,2>(
+				_instance.bounds().pos(),
+				speed_vector));
+
+	// We got a hit!
+	if(target_intersection < 1.0f)
+	{
+		_instance.pos(
+			_instance.target());
+		_instance.speed(
+			0.0f);
+	}
+	else
+	{
+		_instance.pos(
+			_instance.bounds().pos() + speed_vector);
+		_instance.speed(
+			// We want to add acceleration to the speed, but we cannot just
+			// say "speed + acceleration" since that'll just add the number
+			// "acceleration" component-wise. What we really want to do is
+			// add to the tip of the speed vector.
+			_instance.speed() + d.count() * acceleration_);
+	}
+}
+
+template<typename T>
+void
 fruitlib::rectangle_manager::object<T>::insert_impl(
 	instance &_instance,
 	bool const set_position)
 {
+	vector position;
+	vector target;
+
 	if(instances_.empty())
 	{
-		_instance.target(
+		target = 
 			vector(
 				padding_.left(),
-				padding_.top()));
+				padding_.top());
 
-		if(set_position)
-			_instance.pos(
-				vector(
-					bounding_rect_.left() - _instance.bounds().size().w(),
-					_instance.target().y()));
+		position = 
+			vector(
+				bounding_rect_.left() - _instance.bounds().size().w(),
+				target.y());
 	}
 	else
 	{
 		rect const &last_rect = 
 			instances_.back().bounds();
 
-		_instance.target(
+		target = 
 			vector(
 				padding_.left(),
-				last_rect.bottom() + padding_.middle()));
+				last_rect.bottom() + padding_.middle());
 
-		if(set_position)
-			_instance.pos(
-				vector(
-					bounding_rect_.left() - _instance.bounds().size().w(),
-					_instance.target().y()));
+		position = 
+			vector(
+				bounding_rect_.left() - _instance.bounds().size().w(),
+				target.y());
 	}
+
+	_instance.target(
+		target);
+
+	if(set_position)
+		_instance.pos(
+			position);
 	
 	instances_.push_back(
 		&_instance);
