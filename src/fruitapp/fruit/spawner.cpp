@@ -18,10 +18,8 @@
 #include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/math/box/output.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
-#include <fcppt/math/vector/length.hpp>
 #include <fcppt/math/vector/output.hpp>
 #include <fcppt/math/pi.hpp>
-#include <fcppt/math/rad_to_deg.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert.hpp>
 #include <fcppt/chrono/duration.hpp>

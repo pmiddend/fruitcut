@@ -9,9 +9,7 @@
 #include <fruitlib/math/triangle/interpolation_pair.hpp>
 #include <fruitlib/math/triangle/vertex_access.hpp>
 #include <fruitlib/math/triangle/scalar_type.hpp>
-#include <fcppt/math/size_type.hpp>
 #include <fcppt/math/vector/length.hpp>
-#include <fcppt/io/cout.hpp>
 #include <boost/spirit/home/phoenix/operator/comparison.hpp> 
 #include <boost/spirit/home/phoenix/operator/if_else.hpp> 
 #include <boost/spirit/home/phoenix/core/argument.hpp>

@@ -17,8 +17,6 @@
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/math/dim/dim.hpp>
 #include <fcppt/assert.hpp>
-#include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/ref.hpp>
 #include <iostream>
 
 fruitlib::pp::filter::blur::blur(

@@ -1,6 +1,4 @@
 #include <fruitapp/gui/combobox.hpp>
-#include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/container/ptr/push_back_unique_ptr.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <elements/CEGUICombobox.h>
 #include <elements/CEGUIListboxTextItem.h>

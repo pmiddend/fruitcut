@@ -7,7 +7,6 @@
 #include <fruitlib/scenic/detail/has_scene_reactions.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/type_name.hpp>
 #include <fcppt/mpl/for_each.hpp>
 #include <boost/intrusive/list.hpp>
 #include <boost/utility/enable_if.hpp>

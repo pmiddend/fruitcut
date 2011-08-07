@@ -4,8 +4,6 @@
 #include <fruitapp/fruit/hull/ring.hpp>
 #include <fruitapp/fruit/hull/intersection_pair.hpp>
 #include <fruitapp/cursor_trail.hpp>
-#include <fcppt/optional.hpp>
-#include <fcppt/homogenous_pair.hpp>
 
 namespace fruitapp
 {

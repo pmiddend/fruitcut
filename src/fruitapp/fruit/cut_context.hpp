@@ -6,7 +6,6 @@
 #include <fruitapp/fruit/mesh.hpp>
 #include <fruitlib/physics/vector3.hpp>
 #include <fcppt/container/array.hpp>
-#include <fcppt/reference_wrapper.hpp>
 
 namespace fruitapp
 {

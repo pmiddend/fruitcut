@@ -60,7 +60,6 @@
 #include <fcppt/math/matrix/transpose.hpp>
 #include <fcppt/math/matrix/basic_impl.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/ref.hpp>
 #include <boost/next_prior.hpp>
 #include <iostream>
 

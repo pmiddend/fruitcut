@@ -6,7 +6,6 @@
 #include <sge/parse/json/json.hpp>
 #include <boost/variant/get.hpp>
 #include <fcppt/type_name.hpp>
-#include <fcppt/string.hpp>
 #include <fcppt/assert.hpp>
 #include <numeric>
 #include <algorithm>

@@ -10,11 +10,9 @@
 #include <sge/config/cache_path.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/from_std_string.hpp>
-#include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/filesystem/create_directory_exn.hpp>
 #include <fcppt/filesystem/exists.hpp>
 #include <fcppt/filesystem/path.hpp>
-#include <fcppt/io/cout.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/ref.hpp>

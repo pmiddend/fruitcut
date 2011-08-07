@@ -31,7 +31,6 @@
 #include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/string.hpp>
-#include <fcppt/cref.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <boost/algorithm/string/join.hpp>
 #include <iostream>

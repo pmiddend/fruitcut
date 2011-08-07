@@ -8,7 +8,6 @@
 #include <fcppt/chrono/seconds.hpp>
 #include <fcppt/chrono/milliseconds.hpp>
 #include <fcppt/chrono/duration.hpp>
-#include <fcppt/from_std_wstring.hpp>
 #include <fcppt/math/mod.hpp>
 #include <fcppt/lexical_cast.hpp>
 #include <boost/type_traits/make_unsigned.hpp>

@@ -3,7 +3,6 @@
 
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/function/object.hpp>
-#include <fcppt/signal/shared_connection.hpp>
 #include <CEGUIEvent.h>
 #include <vector>
 #include <string>

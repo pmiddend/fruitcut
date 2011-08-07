@@ -29,7 +29,6 @@
 #include <sge/systems/instance_fwd.hpp>
 #include <boost/statechart/state_machine.hpp>
 #include <boost/statechart/event_base.hpp>
-#include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/scoped_ptr.hpp>
 
 namespace fruitapp

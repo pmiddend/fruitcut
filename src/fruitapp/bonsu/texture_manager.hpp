@@ -6,7 +6,6 @@
 #include <sge/texture/manager.hpp>
 #include <sge/image2d/multi_loader_fwd.hpp>
 #include <sge/renderer/device_fwd.hpp>
-#include <fcppt/string.hpp>
 #include <boost/unordered_map.hpp>
 
 namespace fruitapp

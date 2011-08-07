@@ -26,7 +26,6 @@
 #include <sge/renderer/vector3.hpp>
 #include <sge/renderer/vector4.hpp>
 #include <sge/renderer/vf/dynamic/make_format.hpp>
-#include <fcppt/assign/make_container.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/math/matrix/matrix.hpp>
 #include <fcppt/math/vector/normalize.hpp>
@@ -39,7 +38,6 @@
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/unique_ptr.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/string.hpp>
 #include <fcppt/cref.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert.hpp>

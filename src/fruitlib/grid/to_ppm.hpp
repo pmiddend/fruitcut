@@ -3,7 +3,7 @@
 
 #include <fcppt/container/grid/object.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
-#include <fcppt/tr1/type_traits.hpp>
+#include <boost/type_traits/is_unsigned.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <boost/type_traits/promote.hpp>
 #include <ostream>
@@ -17,7 +17,7 @@ template<typename Char,typename T>
 typename
 boost::enable_if_c
 <
-	std::tr1::is_unsigned<T>::value,
+	boost::is_unsigned<T>::value,
 	void
 >::type
 to_ppm(

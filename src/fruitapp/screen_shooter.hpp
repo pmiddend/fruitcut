@@ -7,7 +7,6 @@
 #include <sge/image2d/multi_loader_fwd.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/string.hpp>
 
 namespace fruitapp
 {

@@ -66,10 +66,14 @@ private:
 	boost::ptr_list<bonsu::instance_wrapper>
 	bonsu_list;
 
+	sge::renderer::device &renderer_;
 	bonsu::texture_manager texture_manager_;
 	sprite::system sprite_system_;
 	bonsu::scalar rectangle_speed_;
 	bonsu::scalar rectangle_bounding_rect_height_;
+	bonsu::scalar rectangle_padding_left_;
+	bonsu::scalar rectangle_padding_top_;
+	bonsu::scalar rectangle_padding_middle_;
 	fcppt::scoped_ptr<rectangle::manager> rectangle_manager_;
 	bonsu_list bonsu_;
 

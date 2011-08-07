@@ -3,7 +3,6 @@
 
 #include <fruitlib/scenic/events/base_fwd.hpp>
 #include <fcppt/nonassignable.hpp>
-#include <fcppt/mpl/for_each.hpp>
 #include <typeinfo>
 
 namespace fruitlib

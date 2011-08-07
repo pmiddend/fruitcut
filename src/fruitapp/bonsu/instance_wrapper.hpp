@@ -23,8 +23,7 @@ public:
 	instance_wrapper(
 		bonsu::instance::base &,
 		bonsu::sprite::system &,
-		bonsu::texture_manager &,
-		bonsu::rectangle::manager &);
+		bonsu::texture_manager &);
 
 	void
 	update();
@@ -32,12 +31,16 @@ public:
 	bonsu::instance::base &
 	instance() const;
 
+	void
+	reset_rectangle_manager(
+		bonsu::rectangle::manager &);
+
 	~instance_wrapper();
 private:
 	bonsu::instance::base &instance_;
 	bonsu::sprite::object main_sprite_;
 	bonsu::sprite::object overlay_sprite_;
-	bonsu::rectangle::manager &rectangle_manager_;
+	bonsu::rectangle::manager *rectangle_manager_;
 	fcppt::scoped_ptr<bonsu::rectangle::instance> rectangle_instance_;
 	bool previous_active_state_;
 

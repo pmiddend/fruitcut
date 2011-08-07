@@ -42,7 +42,6 @@
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/ref.hpp>
-#include <fcppt/lexical_cast.hpp>
 #include <BulletCollision/CollisionShapes/btStaticPlaneShape.h>
 #include <boost/statechart/event_base.hpp>
 #include <iostream>

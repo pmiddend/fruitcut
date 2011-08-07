@@ -41,7 +41,6 @@
 #include <sge/texture/part_raw.hpp>
 #include <sge/texture/rect_fragmented.hpp>
 #include <sge/texture/no_fragmented.hpp>
-#include <fcppt/algorithm/map.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/container/ptr/push_back_unique_ptr.hpp>
 #include <fcppt/random/make_last_exclusive_range.hpp>

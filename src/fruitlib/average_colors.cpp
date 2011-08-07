@@ -5,7 +5,6 @@
 #include <fcppt/math/box/box.hpp>
 #include <fcppt/math/vector/vector.hpp>
 #include <fcppt/math/dim/dim.hpp>
-#include <fcppt/from_std_string.hpp>
 #include <boost/type_traits/promote.hpp>
 #include <mizuiro/color/homogenous_static.hpp>
 #include <mizuiro/color/for_each_channel.hpp>

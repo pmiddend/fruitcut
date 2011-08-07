@@ -5,7 +5,7 @@
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/shader/shader.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/tr1/unordered_map.hpp>
+#include <boost/unordered_map.hpp>
 
 namespace fruitlib
 {
@@ -42,7 +42,7 @@ private:
 	shader_ptr;
 
 	typedef
-	std::tr1::unordered_map
+	boost::unordered_map
 	<
 		fcppt::string,
 		shader_ptr

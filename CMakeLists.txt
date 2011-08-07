@@ -435,6 +435,32 @@ SET(
 	src/fruitapp/background.cpp
 	src/fruitapp/background.hpp
 	src/fruitapp/background_fwd.hpp
+	src/fruitapp/bonsu/instance/base.cpp
+	src/fruitapp/bonsu/instance/base.hpp
+	src/fruitapp/bonsu/instance/base_fwd.hpp
+	src/fruitapp/bonsu/instance/gravity.cpp
+	src/fruitapp/bonsu/instance/gravity.hpp
+	src/fruitapp/bonsu/instance_wrapper.cpp
+	src/fruitapp/bonsu/instance_wrapper.hpp
+	src/fruitapp/bonsu/instance_wrapper_fwd.hpp
+	src/fruitapp/bonsu/manager.cpp
+	src/fruitapp/bonsu/manager.hpp
+	src/fruitapp/bonsu/manager_fwd.hpp
+	src/fruitapp/bonsu/progress_fraction.hpp
+	src/fruitapp/bonsu/rectangle/instance.hpp
+	src/fruitapp/bonsu/rectangle/manager.hpp
+	src/fruitapp/bonsu/rectangle/padding.hpp
+	src/fruitapp/bonsu/scalar.hpp
+	src/fruitapp/bonsu/sprite/choices.hpp
+	src/fruitapp/bonsu/sprite/color.hpp
+	src/fruitapp/bonsu/sprite/color_format.hpp
+	src/fruitapp/bonsu/sprite/object.hpp
+	src/fruitapp/bonsu/sprite/parameters.hpp
+	src/fruitapp/bonsu/sprite/system.hpp
+	src/fruitapp/bonsu/texture_identifier.hpp
+	src/fruitapp/bonsu/texture_manager.cpp
+	src/fruitapp/bonsu/texture_manager.hpp
+	src/fruitapp/bonsu/texture_manager_fwd.hpp
 	src/fruitapp/config_variables.cpp
 	src/fruitapp/config_variables.hpp
 	src/fruitapp/config_variables_fwd.hpp

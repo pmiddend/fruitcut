@@ -12,8 +12,8 @@
 #include <fcppt/string.hpp>
 #include <boost/graph/adjacency_list.hpp>
 #include <boost/graph/graph_traits.hpp>
-#include <fcppt/tr1/unordered_map.hpp>
-#include <fcppt/tr1/unordered_set.hpp>
+#include <boost/unordered_map.hpp>
+#include <boost/unordered_set.hpp>
 #include <map>
 
 namespace fruitlib
@@ -65,7 +65,7 @@ FCPPT_NONCOPYABLE(
 	system);
 public:
 	typedef
-	std::tr1::unordered_set<fcppt::string>
+	boost::unordered_set<fcppt::string>
 	filter_name_set;
 
 	explicit
@@ -129,7 +129,7 @@ private:
 	vertex_to_filter;
 
 	typedef
-	std::tr1::unordered_map
+	boost::unordered_map
 	<
 		fcppt::string,
 		vertex_descriptor

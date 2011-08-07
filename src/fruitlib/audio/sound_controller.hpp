@@ -15,7 +15,6 @@
 #include <sge/audio/sound/positional_parameters.hpp>
 #include <sge/audio/sound/base_ptr.hpp>
 #include <sge/audio/buffer_ptr.hpp>
-#include <fcppt/string.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/unique_ptr.hpp>
 #include <fcppt/filesystem/path.hpp>

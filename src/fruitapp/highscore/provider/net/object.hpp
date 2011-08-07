@@ -6,7 +6,6 @@
 #include <fruitapp/highscore/provider/object_base.hpp>
 #include <fruitapp/highscore/provider/identifier.hpp>
 #include <fruitapp/highscore/provider/connection_base_ptr.hpp>
-#include <fcppt/string.hpp>
 #include <fcppt/noncopyable.hpp>
 
 namespace fruitapp

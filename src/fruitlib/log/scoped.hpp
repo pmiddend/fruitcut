@@ -6,8 +6,9 @@
 #include <fcppt/log/level.hpp>
 #include <fcppt/log/enabled_level_array.hpp>
 #include <fcppt/log/object_fwd.hpp>
+// The enabled_level_array is a fcppt::container::array
+#include <fcppt/container/array_impl.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/container/array.hpp>
 
 namespace fruitlib
 {

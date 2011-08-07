@@ -33,7 +33,6 @@
 #include <fcppt/math/matrix/matrix.hpp>
 #include <fcppt/chrono/duration_impl.hpp>
 #include <fcppt/optional.hpp>
-#include <fcppt/math/deg_to_rad.hpp>
 #include <fcppt/text.hpp>
 #include <iostream>
 

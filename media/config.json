@@ -242,8 +242,11 @@
 	{
 		"manager" : 
 		{
-			"rectangle-speed" : 10.0
-			"rectangle-height-fraction" : 0.8
+			"rectangle-speed" : 10.0,
+			"rectangle-height-fraction" : 0.8,
+			"rectangle-padding-left-fraction" : 0.01,
+			"rectangle-padding-top-fraction" : 0.01,
+			"rectangle-padding-middle-fraction" : 0.01
 		},
 		"gravity" : 
 		{

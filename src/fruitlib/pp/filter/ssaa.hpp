@@ -10,7 +10,6 @@
 #include <sge/shader/object_fwd.hpp>
 #include <fcppt/math/dim/dim.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/filesystem/path.hpp>
 
 namespace fruitlib
 {

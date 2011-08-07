@@ -6,6 +6,7 @@
 #include <sge/image2d/multi_loader.hpp>
 #include <sge/texture/rect_fragmented.hpp>
 #include <sge/texture/add_image.hpp>
+#include <sge/texture/fragmented_unique_ptr.hpp>
 #include <sge/renderer/texture/mipmap/off.hpp>
 #include <sge/renderer/dim2.hpp>
 #include <fcppt/filesystem/directory_iterator.hpp>
@@ -14,7 +15,8 @@
 #include <fcppt/ref.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
-#include <boost/spirit/home/phoenix/object.hpp>
+#include <boost/spirit/home/phoenix/object/new.hpp>
+#include <boost/spirit/home/phoenix/object/construct.hpp>
 #include <utility>
 
 fruitapp::bonsu::texture_manager::texture_manager(
@@ -22,14 +24,15 @@ fruitapp::bonsu::texture_manager::texture_manager(
 	sge::image2d::multi_loader &_image_loader)
 :
 	texture_manager_(
-		boost::phoenix::new_<sge::texture::rect_fragmented>(
-			fcppt::ref(
-				_renderer),
-			sge::image::color::format::rgba8,
-			sge::renderer::texture::mipmap::off(),
-			sge::renderer::dim2(
-				512,
-				512))),
+		boost::phoenix::construct<sge::texture::fragmented_unique_ptr>(
+			boost::phoenix::new_<sge::texture::rect_fragmented>(
+				fcppt::ref(
+					_renderer),
+				sge::image::color::format::rgba8,
+				sge::renderer::texture::mipmap::off(),
+				sge::renderer::dim2(
+					512,
+					512)))),
 	textures_()
 {
 	for(

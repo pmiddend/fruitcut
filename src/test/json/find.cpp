@@ -6,7 +6,6 @@
 #include <sge/parse/json/json.hpp>
 #include <boost/test/unit_test.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/string.hpp>
 
 namespace sgejson = sge::parse::json;
 namespace fruitlibjson = fruitlib::json;

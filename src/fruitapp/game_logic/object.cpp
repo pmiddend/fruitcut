@@ -41,14 +41,10 @@
 #include <mizuiro/color/layout/hsva.hpp>
 #include <mizuiro/color/object.hpp>
 #include <fcppt/tr1/functional.hpp>
-#include <fcppt/math/clamp.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
-#include <fcppt/assign/make_container.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/string.hpp>
 #include <fcppt/lexical_cast.hpp>
-#include <fcppt/format.hpp>
 #include <boost/cstdint.hpp>
 #include <iostream>
 

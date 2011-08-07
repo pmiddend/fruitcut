@@ -5,7 +5,6 @@
 #include <fruitlib/exception.hpp>
 #include <fcppt/algorithm/ptr_container_erase.hpp>
 #include <fcppt/math/vector/length.hpp>
-#include <fcppt/exception.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/chrono/duration.hpp>
 #include <boost/next_prior.hpp>
@@ -154,7 +153,7 @@ fruitlib::rectangle_manager::object<T>::kill(
 template<typename T>
 void
 fruitlib::rectangle_manager::object<T>::revive(
-	instance const &_instance)
+	instance &_instance)
 {
 	FCPPT_ASSERT(
 		_instance.killed());

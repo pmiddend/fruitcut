@@ -8,8 +8,6 @@
 #include <sge/renderer/vector2.hpp>
 #include <sge/renderer/target_base.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
-#include <fcppt/math/vector/length.hpp>
-#include <fcppt/math/vector/structure_cast.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/math/vector/output.hpp>

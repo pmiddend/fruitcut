@@ -7,7 +7,6 @@
 #include <sge/renderer/scoped_target.hpp>
 #include <sge/renderer/scoped_block.hpp>
 #include <sge/renderer/state/scoped.hpp>
-#include <fcppt/io/cout.hpp>
 #include <iostream>
 
 fruitlib::pp::filter::render_to_texture::render_to_texture(

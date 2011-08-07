@@ -8,6 +8,6 @@ fruitapp::bonsu::instance::base::~base()
 fruitapp::bonsu::instance::base::base(
 	bonsu::manager &_manager)
 {
-	_manager.bonsu_.push_back(
+	_manager.insert(
 		*this);
 }

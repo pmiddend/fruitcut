@@ -20,8 +20,7 @@
 fruitapp::bonsu::instance_wrapper::instance_wrapper(
 	bonsu::instance::base &_instance,
 	bonsu::sprite::system &_sprite_system,
-	bonsu::texture_manager &_texture_manager,
-	bonsu::rectangle::manager &_rectangle_manager)
+	bonsu::texture_manager &_texture_manager)
 :
 	instance_(
 		_instance),
@@ -53,7 +52,7 @@ fruitapp::bonsu::instance_wrapper::instance_wrapper(
 				sge::image::colors::transparent())
 			.elements()),
 	rectangle_manager_(
-		_rectangle_manager),
+		0),
 	rectangle_instance_(),
 	previous_active_state_(
 		false)
@@ -63,51 +62,66 @@ fruitapp::bonsu::instance_wrapper::instance_wrapper(
 void
 fruitapp::bonsu::instance_wrapper::update()
 {
+	instance_.update();
+
 	bool const current_active_state = 
 		!instance_.dead();
 
 	if(!previous_active_state_ && current_active_state)
 	{
-		if(!rectangle_instance_)
-			rectangle_instance_.take(
-				fcppt::make_unique_ptr<bonsu::rectangle::instance>(
-					fcppt::ref(
-						rectangle_manager_),
-					main_sprite_.size()));
-		else
-			rectangle_instance_->revive();
+		if(rectangle_manager_)
+		{
+			if(!rectangle_instance_)
+				rectangle_instance_.take(
+					fcppt::make_unique_ptr<bonsu::rectangle::instance>(
+						fcppt::ref(
+							*rectangle_manager_),
+						main_sprite_.size()));
+			else
+				rectangle_instance_->revive();
+		}
 	}
 	else if(previous_active_state_ && current_active_state)
 	{
-		FCPPT_ASSERT(
-			rectangle_instance_);
-
-		synchronize();
+		if(rectangle_instance_)
+			synchronize();
 	}
 	else if(previous_active_state_ && !current_active_state)
 	{
 		FCPPT_ASSERT(
-			rectangle_instance_);
+			!rectangle_instance_ || !(rectangle_instance_->killed()));
 
-		FCPPT_ASSERT(
-			!rectangle_instance_->killed());
-
-		synchronize();
-
-		rectangle_instance_->kill();
+		if(rectangle_instance_)
+		{
+			synchronize();
+			rectangle_instance_->kill();
+		}
 	}
 	else
 	{
-		FCPPT_ASSERT(
-			rectangle_instance_);
-
-		synchronize();
+		if(rectangle_instance_)
+			synchronize();
 	}
 
 	previous_active_state_ = 
 		current_active_state;
+}
 
-	// - if viewport was reset, reset all rectangle instances
+fruitapp::bonsu::instance::base &
+fruitapp::bonsu::instance_wrapper::instance() const
+{
+	return instance_;
+}
+ 
+void
+fruitapp::bonsu::instance_wrapper::reset_rectangle_manager(
+	bonsu::rectangle::manager &_rectangle_manager)
+{
+	rectangle_manager_ = 
+		&_rectangle_manager;
+
+	previous_active_state_ = 
+		false;
 }
 
 fruitapp::bonsu::instance_wrapper::~instance_wrapper()
@@ -117,9 +131,6 @@ fruitapp::bonsu::instance_wrapper::~instance_wrapper()
 void
 fruitapp::bonsu::instance_wrapper::synchronize()
 {
-	FCPPT_ASSERT(
-		rectangle_instance_);
-
 	sprite::color const new_color(
 		(sge::image::color::init::red %= 1.0)
 		(sge::image::color::init::green %= 1.0)

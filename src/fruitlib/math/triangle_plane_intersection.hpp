@@ -2,7 +2,6 @@
 #define FRUITLIB_MATH_TRIANGLE_PLANE_INTERSECTION_HPP_INCLUDED
 
 #include <fruitlib/math/triangle/vector_type.hpp>
-#include <fcppt/math/size_type.hpp>
 #include <vector>
 
 namespace fruitlib

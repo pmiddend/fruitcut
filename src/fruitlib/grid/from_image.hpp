@@ -10,7 +10,6 @@
 #include <sge/image/raw_pointer.hpp>
 #include <fcppt/container/grid/object.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
-#include <fcppt/optional.hpp>
 
 namespace fruitlib
 {

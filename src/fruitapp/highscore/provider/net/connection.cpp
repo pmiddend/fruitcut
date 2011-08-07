@@ -9,7 +9,6 @@
 #include <fcppt/string.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/utf8/from_fcppt_string.hpp>
-#include <fcppt/utf8/from_std_string.hpp>
 #include <fcppt/utf8/to_fcppt_string.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/from_std_string.hpp>

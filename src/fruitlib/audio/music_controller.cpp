@@ -13,7 +13,6 @@
 #include <sge/timer/elapsed_fractional.hpp>
 #include <sge/timer/remaining_fractional.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/io/cout.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/assert.hpp>
 #include <fcppt/filesystem/directory_iterator.hpp>
