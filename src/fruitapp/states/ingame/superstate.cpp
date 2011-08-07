@@ -58,7 +58,7 @@ fruitapp::states::ingame::superstate::superstate(
 			context<machine>().config_file(),
 			fruitlib::json::path(
 				FCPPT_TEXT("physics"))
-				/ FCPPT_TEXT("gravity"))),
+				/ FCPPT_TEXT("default-gravity"))),
 	physics_world_node_(
 		fruitlib::scenic::parent(
 			context<fruitapp::machine>().root_node(),
@@ -134,9 +134,11 @@ fruitapp::states::ingame::superstate::superstate(
 		context<machine>().ingame_clock(),
 		context<machine>().config_file(),
 		fruit_manager_,
+		physics_world_,
 		context<machine>().font_cache(),
 		context<machine>().overlay_node(),
-		context<machine>().systems().renderer()),
+		context<machine>().systems().renderer(),
+		context<machine>().systems().image_loader()),
 	cut_connection_(
 		fruit_manager_.cut_callback(
 			std::tr1::bind(

@@ -23,6 +23,11 @@ namespace fruitapp
 {
 namespace bonsu
 {
+/**
+	How are bonsu managed in fruitcut:
+
+	Insert description here
+ */
 class manager
 :
 	public fruitlib::scenic::node<manager>

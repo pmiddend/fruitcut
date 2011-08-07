@@ -32,6 +32,16 @@ public:
 		fruitapp::ingame_clock const &);
 
 	void
+	activate();
+
+	~gravity();
+private:
+	fruitlib::physics::world &world_;
+	fruitlib::physics::vector3 const default_gravity_;
+	fruitlib::physics::vector3 const target_gravity_;
+	fruitapp::ingame_timer timer_;
+
+	void
 	update();
 
 	bonsu::texture_identifier const
@@ -42,16 +52,6 @@ public:
 
 	bonsu::progress_fraction
 	progress() const;
-
-	void
-	activate();
-
-	~gravity();
-private:
-	fruitlib::physics::world &world_;
-	fruitlib::physics::vector3 const default_gravity_;
-	fruitlib::physics::vector3 const target_gravity_;
-	fruitapp::ingame_timer timer_;
 };
 }
 }

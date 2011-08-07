@@ -3,6 +3,10 @@
 #include <fruitlib/font/object_parameters.hpp>
 #include <fruitlib/json/find_and_convert_member.hpp>
 #include <fruitlib/json/parse_rgba8_color.hpp>
+#include <fruitlib/scenic/events/viewport_change.hpp>
+#include <fruitlib/scenic/events/update.hpp>
+#include <fruitlib/scenic/parent.hpp>
+#include <fruitlib/scenic/depth.hpp>
 #include <fruitlib/time_format/find_and_convert_duration.hpp>
 #include <fruitlib/time_format/duration_to_string.hpp>
 #include <fruitlib/time_format/milliseconds.hpp>
@@ -23,6 +27,7 @@
 #include <sge/image/color/init.hpp>
 #include <sge/image/color/convert.hpp>
 #include <sge/image/colors.hpp>
+#include <sge/image2d/multi_loader_fwd.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/onscreen_target.hpp>
 #include <sge/renderer/scalar.hpp>
@@ -58,12 +63,24 @@ fruitapp::game_logic::object::object(
 	// - "fruit was deleted" 
 	// - "fruit was added" (we could consult the spawner for that, but that's not The Right Thing)
 	fruit::manager &_fruit_manager,
+	fruitlib::physics::world &_physics_world,
 	fruitlib::font::cache &_font_cache,
 	overlay &_overlay,
-	sge::renderer::device &_renderer)
+	sge::renderer::device &_renderer,
+	sge::image2d::multi_loader &_image_loader)
 :
 	node_base(
 		_parent),
+	renderer_(
+		_renderer),
+	bonsu_manager_(
+		fruitlib::scenic::parent(
+			*this,
+			fruitlib::scenic::depth(
+				0)),
+		_config_file,
+		_image_loader,
+		_renderer),
 	area_score_factor_(
 		fruitlib::json::find_and_convert_member<fruit::area::value_type>(
 			_config_file,
@@ -193,8 +210,11 @@ fruitapp::game_logic::object::object(
 					/ FCPPT_TEXT("penalty-timer")))),
 	multiplier_(1),
 	multi_count_(0),
-	renderer_(
-		_renderer)
+	gravity_bonsu_(
+		bonsu_manager_,
+		_config_file,
+		_physics_world,
+		_clock)
 {
 	react(
 		fruitlib::scenic::events::viewport_change());
@@ -216,7 +236,7 @@ fruitapp::game_logic::object::score() const
 
 void
 fruitapp::game_logic::object::react(
-	fruitlib::scenic::events::update const &)
+	fruitlib::scenic::events::update const &e)
 {
 	if (penalty_timer_.active() && penalty_timer_.expired())
 	{
@@ -272,11 +292,14 @@ fruitapp::game_logic::object::react(
 			fcppt::lexical_cast<sge::font::text::string>(
 				iterating_score_));
 	}
+
+	node_base::forward_to_children(
+		e);
 }
 
 void
 fruitapp::game_logic::object::react(
-	fruitlib::scenic::events::viewport_change const &)
+	fruitlib::scenic::events::viewport_change const &e)
 {
 	sge::font::dim const &viewport_dim = 
 		fcppt::math::dim::structure_cast<sge::font::dim>(
@@ -308,6 +331,9 @@ fruitapp::game_logic::object::react(
 						viewport_dim.h()) * 
 					static_cast<sge::renderer::scalar>(
 						0.2)))));
+
+	node_base::forward_to_children(
+		e);
 }
 
 void

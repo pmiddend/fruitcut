@@ -2,6 +2,8 @@
 #define FRUITAPP_GAME_LOGIC_OBJECT_HPP_INCLUDED
 
 #include <fruitapp/overlay.hpp>
+#include <fruitapp/bonsu/manager.hpp>
+#include <fruitapp/bonsu/instance/gravity.hpp>
 #include <fruitapp/ingame_clock.hpp>
 #include <fruitapp/ingame_timer.hpp>
 #include <fruitapp/fruit/manager_fwd.hpp>
@@ -10,6 +12,7 @@
 #include <fruitapp/fruit/area.hpp>
 #include <fruitlib/font/cache_fwd.hpp>
 #include <fruitlib/font/scene_node.hpp>
+#include <fruitlib/physics/world_fwd.hpp>
 #include <fruitlib/scenic/node.hpp>
 #include <fruitlib/scenic/parent_fwd.hpp>
 #include <fruitlib/scenic/events/update.hpp>
@@ -18,6 +21,7 @@
 #include <sge/parse/json/object_fwd.hpp>
 #include <sge/renderer/scalar.hpp>
 #include <sge/renderer/device_fwd.hpp>
+#include <sge/image2d/multi_loader_fwd.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <boost/mpl/vector/vector10.hpp>
@@ -48,9 +52,11 @@ public:
 		// - "fruit was deleted" 
 		// - "fruit was added" (we could consult the spawner for that, but that's not The Right Thing)
 		fruit::manager &,
+		fruitlib::physics::world &,
 		fruitlib::font::cache &,
 		overlay &,
-		sge::renderer::device &);
+		sge::renderer::device &,
+		sge::image2d::multi_loader &);
 
 	bool 
 	finished() const;
@@ -66,6 +72,8 @@ public:
 	react(
 		fruitlib::scenic::events::viewport_change const &);
 private:
+	sge::renderer::device &renderer_;
+	bonsu::manager bonsu_manager_;
 	fruit::area::value_type const area_score_factor_;
 	highscore::score::value_type score_,iterating_score_;
 	fruitapp::ingame_timer round_timer_;
@@ -80,7 +88,7 @@ private:
 	fruitapp::ingame_timer penalty_timer_;
 	int multiplier_;
 	unsigned multi_count_;
-	sge::renderer::device &renderer_;
+	fruitapp::bonsu::instance::gravity gravity_bonsu_;
 
 	void
 	fruit_added(

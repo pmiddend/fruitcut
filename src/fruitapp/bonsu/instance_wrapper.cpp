@@ -8,15 +8,18 @@
 #include <sge/image/colors.hpp>
 #include <sge/image/color/any/convert.hpp>
 #include <sge/texture/part_ptr.hpp>
+#include <sge/texture/part.hpp>
 #include <sge/image/color/init.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
+#include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/ref.hpp>
 #include <fcppt/assert.hpp>
 #include <cmath>
 
+// NOTE: Do NOT call any functions of _instance here because it's not complete!
 fruitapp::bonsu::instance_wrapper::instance_wrapper(
 	bonsu::instance::base &_instance,
 	bonsu::sprite::system &_sprite_system,
@@ -24,13 +27,11 @@ fruitapp::bonsu::instance_wrapper::instance_wrapper(
 :
 	instance_(
 		_instance),
+	texture_manager_(
+		_texture_manager),
 	main_sprite_(
 		sprite::parameters()
-			// pos omitted
-			.texture(
-				_texture_manager.lookup(
-					_instance.texture()))
-			.texture_size()
+			// pos, texture, texture_size omitted
 			.order(
 				0)
 			.system(
@@ -40,10 +41,7 @@ fruitapp::bonsu::instance_wrapper::instance_wrapper(
 			.elements()),
 	overlay_sprite_(
 		sprite::parameters()
-			// pos omitted
-			.texture(
-				sge::texture::part_ptr())
-			.texture_size()
+			// pos, texture, texture_size omitted
 			.order(
 				1)
 			.system(
@@ -72,13 +70,17 @@ fruitapp::bonsu::instance_wrapper::update()
 		if(rectangle_manager_)
 		{
 			if(!rectangle_instance_)
+			{
 				rectangle_instance_.take(
 					fcppt::make_unique_ptr<bonsu::rectangle::instance>(
 						fcppt::ref(
 							*rectangle_manager_),
 						main_sprite_.size()));
+			}
 			else
+			{
 				rectangle_instance_->revive();
+			}
 		}
 	}
 	else if(previous_active_state_ && current_active_state)
@@ -122,6 +124,8 @@ fruitapp::bonsu::instance_wrapper::reset_rectangle_manager(
 
 	previous_active_state_ = 
 		false;
+
+	rectangle_instance_.reset();
 }
 
 fruitapp::bonsu::instance_wrapper::~instance_wrapper()
@@ -138,6 +142,16 @@ fruitapp::bonsu::instance_wrapper::synchronize()
 		(sge::image::color::init::alpha %= 1.0f - std::abs(rectangle_instance_->status_fraction())));
 	main_sprite_.color(
 		new_color);
+
+	sge::texture::part_ptr const tex = 
+		texture_manager_.lookup(
+			instance_.texture());
+
+	main_sprite_.texture(
+		tex);
+	main_sprite_.size(
+		fcppt::math::dim::structure_cast<sprite::object::dim>(
+			tex->size()));
 	overlay_sprite_.color(
 		new_color);
 	main_sprite_.pos(

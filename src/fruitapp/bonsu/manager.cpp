@@ -46,17 +46,17 @@ fruitapp::bonsu::manager::manager(
 		fruitlib::json::find_and_convert_member<bonsu::scalar>(
 			_config_file,
 			fruitlib::json::string_to_path(
-				FCPPT_TEXT("bonsu/manager/rectangle-padding-left")))),
+				FCPPT_TEXT("bonsu/manager/rectangle-padding-left-fraction")))),
 	rectangle_padding_top_(
 		fruitlib::json::find_and_convert_member<bonsu::scalar>(
 			_config_file,
 			fruitlib::json::string_to_path(
-				FCPPT_TEXT("bonsu/manager/rectangle-padding-top")))),
+				FCPPT_TEXT("bonsu/manager/rectangle-padding-top-fraction")))),
 	rectangle_padding_middle_(
 		fruitlib::json::find_and_convert_member<bonsu::scalar>(
 			_config_file,
 			fruitlib::json::string_to_path(
-				FCPPT_TEXT("bonsu/manager/rectangle-padding-middle")))),
+				FCPPT_TEXT("bonsu/manager/rectangle-padding-middle-fraction")))),
 	rectangle_manager_(),
 	bonsu_()
 {
@@ -96,6 +96,7 @@ fruitapp::bonsu::manager::react(
 		fcppt::math::box::structure_cast<rectangle::manager::rect>(
 			renderer_.onscreen_target().viewport().get());
 
+	// A bit hacky, but ok.
 	if(viewport.size().content() < static_cast<bonsu::scalar>(0.1f))
 		return;
 
@@ -112,6 +113,7 @@ fruitapp::bonsu::manager::react(
 				viewport.size().h() * rectangle_padding_middle_),
 			rectangle_speed_));
 	
+	// Why would this be necessary?
 	for(
 		bonsu_list::iterator it = 
 			bonsu_.begin();

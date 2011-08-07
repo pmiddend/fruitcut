@@ -38,6 +38,7 @@ public:
 	~instance_wrapper();
 private:
 	bonsu::instance::base &instance_;
+	bonsu::texture_manager &texture_manager_;
 	bonsu::sprite::object main_sprite_;
 	bonsu::sprite::object overlay_sprite_;
 	bonsu::rectangle::manager *rectangle_manager_;

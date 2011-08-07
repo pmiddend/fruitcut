@@ -41,6 +41,16 @@ fruitapp::bonsu::instance::gravity::gravity(
 }
 
 void
+fruitapp::bonsu::instance::gravity::activate()
+{
+	timer_.reset();
+}
+
+fruitapp::bonsu::instance::gravity::~gravity()
+{
+}
+
+void
 fruitapp::bonsu::instance::gravity::update()
 {
 	world_.gravity(
@@ -73,12 +83,3 @@ fruitapp::bonsu::instance::gravity::progress() const
 			timer_);
 }
 
-void
-fruitapp::bonsu::instance::gravity::activate()
-{
-	timer_.reset();
-}
-
-fruitapp::bonsu::instance::gravity::~gravity()
-{
-}
