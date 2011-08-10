@@ -1,13 +1,12 @@
+#include "../../../media_path.hpp"
 #include <fruitapp/states/menu/settings.hpp>
 #include <fruitapp/states/menu/main.hpp>
 #include <fruitapp/config_variables.hpp>
 #include <fruitapp/events/define_transition_reaction.hpp>
 #include <fruitapp/events/return_post_transition_functor.hpp>
 #include <fruitapp/events/post_transition.hpp>
-#include <fruitlib/json/find_and_convert_member.hpp>
 #include <fruitlib/resource_tree/path.hpp>
 #include <fruitlib/audio/sound_controller.hpp>
-#include "../../../media_path.hpp"
 #include <sge/systems/instance.hpp>
 #include <sge/audio/scalar.hpp>
 #include <sge/cegui/system.hpp>

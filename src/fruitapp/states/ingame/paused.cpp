@@ -2,7 +2,6 @@
 #include <fruitapp/states/ingame/running.hpp>
 #include <fruitapp/states/menu/main.hpp>
 #include <fruitlib/time_format/find_and_convert_duration.hpp>
-#include <fruitlib/json/find_and_convert_member.hpp>
 #include <fruitlib/scenic/parent.hpp>
 #include <fruitlib/pp/texture/use_screen_size.hpp>
 #include <fruitlib/pp/filter/blur.hpp>
@@ -15,6 +14,7 @@
 #include <fruitapp/events/generic_transition.hpp>
 #include <fruitapp/scene.hpp>
 #include <sge/renderer/device.hpp>
+#include <sge/parse/json/find_and_convert_member.hpp>
 #include <sge/input/keyboard/action.hpp>
 #include <sge/input/keyboard/key_code.hpp>
 #include <sge/input/keyboard/device.hpp>
@@ -66,15 +66,15 @@ fruitapp::states::ingame::paused::paused(
 		static_cast<fruitlib::pp::filter::blur::size_type>(
 			0)),
 	max_blur_iterations_(
-		fruitlib::json::find_and_convert_member<fruitlib::pp::filter::blur::size_type>(
+		sge::parse::json::find_and_convert_member<fruitlib::pp::filter::blur::size_type>(
 			context<machine>().config_file(),
-			fruitlib::json::path(FCPPT_TEXT("paused"))
+			sge::parse::json::path(FCPPT_TEXT("paused"))
 				/ FCPPT_TEXT("max-blur-iterations"))),
 	blur_timer_(
 		sge::timer::parameters<sge::timer::clocks::standard>(
 			fruitlib::time_format::find_and_convert_duration<sge::timer::clocks::standard::duration>(
 				context<machine>().config_file(),
-				fruitlib::json::path(FCPPT_TEXT("paused"))
+				sge::parse::json::path(FCPPT_TEXT("paused"))
 					/ FCPPT_TEXT("blur-frequency-time")))),
 	transit_to_running_connection_(
 		context<machine>().systems().keyboard_collector().key_callback(

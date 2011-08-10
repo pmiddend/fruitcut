@@ -3,10 +3,10 @@
 #include <fruitlib/physics/scalar.hpp>
 #include <fruitlib/physics/vector3.hpp>
 #include <fruitlib/physics/matrix4.hpp>
-#include <fruitlib/json/find_and_convert_member.hpp>
-#include <fruitlib/json/parse_random_inclusive_range.hpp>
 #include <fruitlib/math/box_radius.hpp>
 #include <fruitlib/math/view_plane_rect.hpp>
+#include <fruitlib/json/parse_random_inclusive_range.hpp>
+#include <sge/parse/json/find_and_convert_member.hpp>
 #include <sge/camera/object.hpp>
 #include <sge/camera/projection/object.hpp>
 #include <sge/camera/projection/perspective.hpp>
@@ -48,9 +48,9 @@ fruitapp::fruit::spawner::spawner(
 		_camera),
 	seconds_rng_(
 		fruitlib::json::parse_random_inclusive_range<fruitapp::ingame_clock::float_type>(
- 			fruitlib::json::find_and_convert_member<sge::parse::json::array>(
+ 			sge::parse::json::find_and_convert_member<sge::parse::json::array>(
 				_config_file,
-				fruitlib::json::path(
+				sge::parse::json::path(
 					FCPPT_TEXT("fruit-spawner"))
 					/ FCPPT_TEXT("spawn-range-seconds"))),
 		_random_generator),
@@ -69,17 +69,17 @@ fruitapp::fruit::spawner::spawner(
 		_random_generator),
 	linear_velocity_rng_(
 		fruitlib::json::parse_random_inclusive_range<fruitlib::physics::scalar>(
- 			fruitlib::json::find_and_convert_member<sge::parse::json::array>(
+ 			sge::parse::json::find_and_convert_member<sge::parse::json::array>(
 				_config_file,
-				fruitlib::json::path(
+				sge::parse::json::path(
 					FCPPT_TEXT("fruit-spawner"))
 					/ FCPPT_TEXT("linear-velocity-range"))),
 		_random_generator),
 	angular_velocity_rng_(
 		fruitlib::json::parse_random_inclusive_range<fruitlib::physics::scalar>(
- 			fruitlib::json::find_and_convert_member<sge::parse::json::array>(
+ 			sge::parse::json::find_and_convert_member<sge::parse::json::array>(
 				_config_file,
-				fruitlib::json::path(
+				sge::parse::json::path(
 					FCPPT_TEXT("fruit-spawner"))
 					/ FCPPT_TEXT("angular-velocity-range"))),
 		_random_generator),

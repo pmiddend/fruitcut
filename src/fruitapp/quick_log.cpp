@@ -7,10 +7,9 @@
 #include <fruitlib/font/object.hpp>
 #include <fruitlib/font/scale.hpp>
 #include <fruitlib/font/color_format.hpp>
-#include <fruitlib/json/find_and_convert_member.hpp>
 #include <fruitlib/json/parse_rgba8_color.hpp>
-#include <fruitlib/json/path.hpp>
-#include <sge/parse/json/json.hpp>
+#include <sge/parse/json/find_and_convert_member.hpp>
+#include <sge/parse/json/path.hpp>
 #include <sge/timer/parameters.hpp>
 #include <sge/timer/reset_when_expired.hpp>
 #include <sge/font/text/flags_none.hpp>
@@ -66,22 +65,22 @@ fruitapp::quick_log::quick_log(
 			sge::font::text::flags::none),
 		sge::image::color::convert<fruitlib::font::color_format>(
 			fruitlib::json::parse_rgba8_color(
-				fruitlib::json::find_and_convert_member<sge::parse::json::value>(
+				sge::parse::json::find_and_convert_member<sge::parse::json::value>(
 					_config_file,
-					fruitlib::json::path(
+					sge::parse::json::path(
 						FCPPT_TEXT("quick-log")) / FCPPT_TEXT("font-color")))),
 		fruitlib::font::scale(
 			1)),
 	fractional_size_(
-		fruitlib::json::find_and_convert_member<fractional_dimension>(
+		sge::parse::json::find_and_convert_member<fractional_dimension>(
 			_config_file,
-			fruitlib::json::path(
+			sge::parse::json::path(
 				FCPPT_TEXT("quick-log")) / FCPPT_TEXT("screen-percentage"))),
 	message_delete_timer_(
 		sge::timer::parameters<sge::timer::clocks::standard>(
 			fruitlib::time_format::find_and_convert_duration<sge::timer::clocks::standard::duration>(
 				_config_file,
-				fruitlib::json::path(
+				sge::parse::json::path(
 					FCPPT_TEXT("quick-log")) / FCPPT_TEXT("message-deletion-time"))).
 		active(
 			false)),

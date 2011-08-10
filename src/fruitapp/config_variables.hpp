@@ -1,7 +1,7 @@
 #ifndef FRUITAPP_CONFIG_VARIABLES_HPP_INCLUDED
 #define FRUITAPP_CONFIG_VARIABLES_HPP_INCLUDED
 
-#include <fruitlib/json/user_config_variable.hpp>
+#include <sge/parse/json/config/user_config_variable.hpp>
 #include <fruitapp/fruit/area.hpp>
 #include <sge/parse/json/object_fwd.hpp>
 #include <sge/audio/scalar.hpp>
@@ -14,11 +14,11 @@ FCPPT_NONCOPYABLE(
 	config_variables);
 public:
 	typedef
-	fruitlib::json::user_config_variable<sge::audio::scalar>
+	sge::parse::json::config::user_config_variable<sge::audio::scalar>
 	audio_variable;
 
 	typedef
-	fruitlib::json::user_config_variable<fruit::area::value_type>
+	sge::parse::json::config::user_config_variable<fruit::area::value_type>
 	splatter_factor_variable;
 
 	explicit

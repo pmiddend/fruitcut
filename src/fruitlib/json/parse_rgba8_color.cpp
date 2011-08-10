@@ -1,7 +1,11 @@
 #include <fruitlib/json/parse_rgba8_color.hpp>
-#include <fruitlib/json/convert_from.hpp>
 #include <fruitlib/exception.hpp>
-#include <sge/parse/json/json.hpp>
+#include <sge/parse/json/convert_from.hpp>
+#include <sge/parse/json/float_type.hpp>
+#include <sge/parse/json/array.hpp>
+#include <sge/parse/json/object.hpp>
+#include <sge/parse/json/value.hpp>
+#include <sge/parse/json/get.hpp>
 #include <sge/image/color/init.hpp>
 #include <fcppt/text.hpp>
 #include <vector>
@@ -13,13 +17,13 @@ fruitlib::json::parse_rgba8_color(
 	try
 	{
 		sge::parse::json::array const &a = 
-			boost::get<sge::parse::json::array const>(
+			sge::parse::json::get<sge::parse::json::array const>(
 				v);
 
 		try
 		{
 			std::vector<sge::parse::json::float_type> const colors = 
-				json::convert_from<std::vector<sge::parse::json::float_type> >(
+				sge::parse::json::convert_from<std::vector<sge::parse::json::float_type> >(
 					a);
 
 			return 
@@ -29,14 +33,14 @@ fruitlib::json::parse_rgba8_color(
 					(sge::image::color::init::blue %= colors[2])
 					(sge::image::color::init::alpha %= colors[3]));
 		}
-		catch (boost::bad_get const &)
+		catch (sge::parse::json::invalid_get const &)
 		{
 			throw 
 				exception(
 					FCPPT_TEXT("The rgba color I expected didn't contain just floats (maybe you've used an integer?)!"));
 		}
 	}
-	catch (boost::bad_get const &)
+	catch (sge::parse::json::invalid_get const &)
 	{
 		throw 
 			exception(

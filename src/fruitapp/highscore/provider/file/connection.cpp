@@ -1,7 +1,10 @@
 #include <fruitapp/highscore/provider/file/connection.hpp>
 #include <fruitapp/highscore/json_to_entry_set.hpp>
 #include <fruitlib/utf8_file_to_fcppt_string.hpp>
-#include <sge/parse/json/json.hpp>
+#include <sge/parse/json/object.hpp>
+#include <sge/parse/json/array.hpp>
+#include <sge/parse/json/parse_range.hpp>
+#include <sge/parse/json/parse_file.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>

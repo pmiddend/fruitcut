@@ -1,12 +1,17 @@
 #include <fruitlib/font/cache.hpp>
 #include <fruitlib/font/drawer/object.hpp>
 #include <fruitlib/font/drawer/parameters.hpp>
-#include <fruitlib/json/find_and_convert_member.hpp>
+#include <sge/parse/json/find_and_convert_member.hpp>
+#include <sge/parse/json/object.hpp>
+#include <sge/parse/json/member_vector.hpp>
+#include <sge/parse/json/find_member_exn.hpp>
+#include <sge/parse/json/string.hpp>
+#include <sge/parse/json/path.hpp>
+#include <sge/parse/json/get.hpp>
 #include <sge/font/system_ptr.hpp>
 #include <sge/font/bitmap/create.hpp>
 #include <sge/renderer/device_ptr.hpp>
 #include <sge/image2d/multi_loader.hpp>
-#include <sge/parse/json/json.hpp>
 #include <sge/font/size_type.hpp>
 #include <sge/font/system.hpp>
 #include <fcppt/string.hpp>
@@ -77,9 +82,9 @@ fruitlib::font::cache::cache(
 		if(fcppt::filesystem::extension_without_dot(filename) == FCPPT_TEXT("ttf"))
 		{
 			sge::font::size_type font_size = 
-				json::find_and_convert_member<sge::font::size_type>(
+				sge::parse::json::find_and_convert_member<sge::font::size_type>(
 					current_font,
-					json::path(
+					sge::parse::json::path(
 						FCPPT_TEXT("size")));
 		
 			// (string,size) -> (metrics_it,drawer_it)

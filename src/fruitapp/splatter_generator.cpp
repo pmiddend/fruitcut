@@ -16,10 +16,12 @@
 #include <fruitlib/math/multiply_matrix4_vector3.hpp>
 #include <fruitlib/uniform_random.hpp>
 #include <fruitlib/resource_tree/path.hpp>
-#include <fruitlib/json/find_and_convert_member.hpp>
 #include <fruitlib/json/parse_random_inclusive_range.hpp>
+#include <sge/parse/json/config/user_config_variable.hpp>
+#include <sge/parse/json/find_and_convert_member.hpp>
+#include <sge/parse/json/object.hpp>
+#include <sge/parse/json/array.hpp>
 #include <sge/renderer/scalar.hpp>
-#include <sge/parse/json/json.hpp>
 #include <sge/image/color/any/convert.hpp>
 #include <sge/renderer/vector3.hpp>
 #include <mizuiro/color/channel/alpha.hpp>
@@ -34,7 +36,7 @@
 
 fruitapp::splatter_generator::splatter_generator(
 	sge::parse::json::object const &config_file,
-	fruitlib::json::user_config_variable<fruit::area::value_type> &_splatter_count_to_area_factor,
+	sge::parse::json::config::user_config_variable<fruit::area::value_type> &_splatter_count_to_area_factor,
 	point_sprite::system_node &_point_sprites,
 	fruitlib::random_generator &_random_generator,
 	point_sprite::splatter::acceleration const &_acceleration,
@@ -55,23 +57,23 @@ fruitapp::splatter_generator::splatter_generator(
 		random_generator_),
 	speed_rng_(
 		fruitlib::json::parse_random_inclusive_range<sge::renderer::scalar>(
-			fruitlib::json::find_and_convert_member<sge::parse::json::array>(
+			sge::parse::json::find_and_convert_member<sge::parse::json::array>(
 				config_file,
-				fruitlib::json::path(FCPPT_TEXT("splatter-generator"))
+				sge::parse::json::path(FCPPT_TEXT("splatter-generator"))
 					/ FCPPT_TEXT("speed-range"))),
 		random_generator_),
 	distortion_rng_(
 		fruitlib::json::parse_random_inclusive_range<sge::renderer::scalar>(
-			fruitlib::json::find_and_convert_member<sge::parse::json::array>(
+			sge::parse::json::find_and_convert_member<sge::parse::json::array>(
 				config_file,
-				fruitlib::json::path(FCPPT_TEXT("splatter-generator"))
+				sge::parse::json::path(FCPPT_TEXT("splatter-generator"))
 					/ FCPPT_TEXT("speed-distortion-range"))),
 		random_generator_),
 	size_rng_(
 		fruitlib::json::parse_random_inclusive_range<sge::renderer::scalar>(
-			fruitlib::json::find_and_convert_member<sge::parse::json::array>(
+			sge::parse::json::find_and_convert_member<sge::parse::json::array>(
 				config_file,
-				fruitlib::json::path(FCPPT_TEXT("splatter-generator"))
+				sge::parse::json::path(FCPPT_TEXT("splatter-generator"))
 					/ FCPPT_TEXT("size-range"))),
 		random_generator_),
 	alpha_rng_(
@@ -83,9 +85,9 @@ fruitapp::splatter_generator::splatter_generator(
 		random_generator_),	
 	lifetime_millis_rng_(
 		fruitlib::json::parse_random_inclusive_range<fcppt::chrono::milliseconds::rep>(
-			fruitlib::json::find_and_convert_member<sge::parse::json::array>(
+			sge::parse::json::find_and_convert_member<sge::parse::json::array>(
 				config_file,
-				fruitlib::json::path(FCPPT_TEXT("splatter-generator"))
+				sge::parse::json::path(FCPPT_TEXT("splatter-generator"))
 					/ FCPPT_TEXT("lifetime-millis-range"))),
 		random_generator_),
 	splatter_count_to_area_factor_(

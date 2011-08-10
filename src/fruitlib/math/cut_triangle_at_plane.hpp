@@ -103,7 +103,7 @@ cut_triangle_at_plane(
 		v = 
 			static_cast<size_type>(
 				std::distance(
-					signs.begin(),
+				signs.begin(),
 					std::find_if(
 						signs.begin(),
 						signs.end(),
@@ -120,6 +120,13 @@ cut_triangle_at_plane(
 				static_cast<size_type>(signs.size()-1)
 			:
 				static_cast<size_type>(v-1);
+
+	// If the line through one of the triangle edges is too small, the
+	// line::basic constructor will fail. But then again, when that
+	// happens, we know that our triangle is extremely small, so we
+	// might as well cull it.
+	if(points[v] == points[vprev] || points[v] == points[vnext])
+		return result;
 
 	vector const
 		s_1 = 

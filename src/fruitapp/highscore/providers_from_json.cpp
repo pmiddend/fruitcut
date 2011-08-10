@@ -3,9 +3,11 @@
 #include <fruitapp/highscore/provider/net/object.hpp>
 #include <fruitapp/name.hpp>
 #include <fruitapp/exception.hpp>
-#include <fruitlib/json/find_and_convert_member.hpp>
-#include <fruitlib/json/convert_from.hpp>
-#include <sge/parse/json/json.hpp>
+#include <sge/parse/json/find_and_convert_member.hpp>
+#include <sge/parse/json/convert_from.hpp>
+#include <sge/parse/json/array.hpp>
+#include <sge/parse/json/object.hpp>
+#include <sge/parse/json/element_vector.hpp>
 #include <sge/config/cache_path.hpp>
 #include <boost/algorithm/string/replace.hpp>
 #include <boost/config/warning_disable.hpp>
@@ -25,9 +27,9 @@ fruitapp::highscore::providers_from_json(
 	highscore::provider_sequence &result)
 {
 	sge::parse::json::array const &providers = 
-		fruitlib::json::find_and_convert_member<sge::parse::json::array>(
+		sge::parse::json::find_and_convert_member<sge::parse::json::array>(
 			config_file,
-			fruitlib::json::path(
+			sge::parse::json::path(
 				FCPPT_TEXT("highscore-providers")));
 
 	for(
@@ -37,10 +39,10 @@ fruitapp::highscore::providers_from_json(
 		++current_element)
 	{
 		fcppt::string const uri = 
-			fruitlib::json::find_and_convert_member<fcppt::string>(
-				fruitlib::json::convert_from<sge::parse::json::object>(
+			sge::parse::json::find_and_convert_member<fcppt::string>(
+				sge::parse::json::convert_from<sge::parse::json::object>(
 					*current_element),
-				fruitlib::json::path(
+				sge::parse::json::path(
 					FCPPT_TEXT("url")));
 
 		fcppt::string protocol,address;

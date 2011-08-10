@@ -1,9 +1,9 @@
-#include <fruitapp/postprocessing.hpp>
 #include "../media_path.hpp"
-#include <fruitlib/json/find_and_convert_member.hpp>
+#include <fruitapp/postprocessing.hpp>
 #include <fruitlib/pp/dependency_set.hpp>
 #include <fruitlib/pp/texture/depth_stencil_format.hpp>
 #include <fruitlib/pp/texture/use_screen_size.hpp>
+#include <sge/parse/json/find_and_convert_member.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/dim2.hpp>
 #include <sge/renderer/scalar.hpp>
@@ -51,25 +51,25 @@ fruitapp::postprocessing::postprocessing(
 		_renderer,
 		filter_manager_,
 		texture_manager_,
-		fruitlib::json::find_and_convert_member<sge::renderer::dim2>(
+		sge::parse::json::find_and_convert_member<sge::renderer::dim2>(
 			config,
-			fruitlib::json::path(
+			sge::parse::json::path(
 				FCPPT_TEXT("bloom-size"))),
-		fruitlib::json::find_and_convert_member<sge::renderer::scalar>(
+		sge::parse::json::find_and_convert_member<sge::renderer::scalar>(
 			config,
-			fruitlib::json::path(
+			sge::parse::json::path(
 				FCPPT_TEXT("highlight-threshold")))),
 	blur_filter_(
 		_renderer,
 		filter_manager_,
 		texture_manager_,
-		fruitlib::json::find_and_convert_member<sge::renderer::dim2>(
+		sge::parse::json::find_and_convert_member<sge::renderer::dim2>(
 			config,
-			fruitlib::json::path(
+			sge::parse::json::path(
 			FCPPT_TEXT("bloom-size"))),
-		fruitlib::json::find_and_convert_member<fruitlib::pp::filter::blur::size_type>(
+		sge::parse::json::find_and_convert_member<fruitlib::pp::filter::blur::size_type>(
 			config,
-			fruitlib::json::path(
+			sge::parse::json::path(
 				FCPPT_TEXT("bloom-iterations")))),
 	add_filter_(
 		_renderer,

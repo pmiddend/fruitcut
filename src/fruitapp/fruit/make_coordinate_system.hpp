@@ -9,6 +9,7 @@
 #include <fcppt/math/vector/cross.hpp>
 #include <fcppt/math/vector/normalize.hpp>
 #include <fcppt/math/vector/orthogonalize.hpp>
+#include <fcppt/math/vector/comparison.hpp>
 #include <fcppt/math/range_compare.hpp>
 #include <fcppt/assign/make_array.hpp>
 #include <fcppt/container/array.hpp>
@@ -18,6 +19,19 @@ namespace fruitapp
 {
 namespace fruit
 {
+/**
+	This function takes a list of points and tries to create a
+	"coordinate system" from it. A coordinate system is a set of 4
+	points. Three axes (all orthogonal to each other) and the coordinate
+	origin. 
+
+	The result is a matrix with the columns being these 4 vectors.
+
+	However, there is an optional<> around the matrix. This is for the
+	case where all the points are equal, for example.
+
+	Precondition: !points.empty()
+ */
 template<typename Container>
 fcppt::optional
 <
@@ -56,6 +70,9 @@ make_coordinate_system(
 	FCPPT_ASSERT(
 		!points.empty());
 
+
+	// First step: Find the first point that is not equal to points[0]
+	// (so we can form the first axis)
 	const_iterator first_other_point = 
 		boost::next(
 			points.begin());
@@ -68,10 +85,16 @@ make_coordinate_system(
 				epsilon))
 			break;
 
-	// All the points are equal
+	// All the points are equal?
 	if (first_other_point == points.end())
 		return fcppt::optional<matrix4>();
 
+	// Just to be sure.
+	FCPPT_ASSERT(
+		((*first_other_point) - (*points.begin())) != vector::null());
+
+	// Second step: Find the first point that is not colinear to the
+	// first two points (to form the second axis).
 	const_iterator second_other_point = 
 		boost::next(
 			first_other_point);
@@ -93,6 +116,7 @@ make_coordinate_system(
 	fcppt::container::array<vector,2>
 	direction_vectors;
 
+	// Create the axes and orthonormalize them
 	direction_vectors directions(
 		fcppt::assign::make_array<vector>
 			((*first_other_point) - (*points.begin()))
@@ -110,6 +134,7 @@ make_coordinate_system(
 			fcppt::math::vector::normalize(
 				*i);
 		
+	// And create the "canonical" third axis via cross
 	vector const crossed = 
 		fcppt::math::vector::cross(
 			directions[0],

@@ -1,9 +1,9 @@
-#include <fruitapp/background.hpp>
 #include "../media_path.hpp"
-#include <fruitlib/json/find_and_convert_member.hpp>
+#include <fruitapp/background.hpp>
 #include <fruitlib/math/view_plane_rect.hpp>
 #include <fruitlib/scenic/events/render.hpp>
 #include <fruitlib/scenic/events/viewport_change.hpp>
+#include <sge/parse/json/find_and_convert_member.hpp>
 #include <sge/parse/json/object_fwd.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/resource_flags.hpp>
@@ -156,9 +156,9 @@ fruitapp::background::background(
 				/ 
 					FCPPT_TEXT("textures")
 				/ 
-					fruitlib::json::find_and_convert_member<fcppt::string>(
+					sge::parse::json::find_and_convert_member<fcppt::string>(
 						_config,
-						fruitlib::json::path(
+						sge::parse::json::path(
 							FCPPT_TEXT("textures"))/
 							FCPPT_TEXT("background")),
 			renderer_,
@@ -205,9 +205,9 @@ fruitapp::background::background(
 					"shadow_map",
 					_shadow_texture)))),
 	reps_(
-		fruitlib::json::find_and_convert_member<sge::renderer::scalar>(
+		sge::parse::json::find_and_convert_member<sge::renderer::scalar>(
 			_config,
-			fruitlib::json::path(
+			sge::parse::json::path(
 				FCPPT_TEXT("background-repeat"))))
 {
 	react(

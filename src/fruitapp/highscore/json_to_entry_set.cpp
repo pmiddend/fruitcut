@@ -1,8 +1,9 @@
 #include <fruitapp/highscore/json_to_entry_set.hpp>
-#include <fruitlib/json/find_and_convert_member.hpp>
-#include <fruitlib/json/convert_from.hpp>
-#include <fruitlib/json/path.hpp>
-#include <sge/parse/json/json.hpp>
+#include <sge/parse/json/find_and_convert_member.hpp>
+#include <sge/parse/json/convert_from.hpp>
+#include <sge/parse/json/path.hpp>
+#include <sge/parse/json/array.hpp>
+#include <sge/parse/json/object.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/to_std_string.hpp>
 #include <fcppt/string.hpp>
@@ -14,9 +15,9 @@ fruitapp::highscore::json_to_entry_set(
 	sge::parse::json::object const &input_json)
 {
 	sge::parse::json::array const json_file = 
-		fruitlib::json::find_and_convert_member<sge::parse::json::array>(
+		sge::parse::json::find_and_convert_member<sge::parse::json::array>(
 			input_json,
-			fruitlib::json::path(
+			sge::parse::json::path(
 				FCPPT_TEXT("entries")));
 
 	highscore::entry_set result;
@@ -26,7 +27,7 @@ fruitapp::highscore::json_to_entry_set(
 	json_object_vector;
 
 	json_object_vector const json_objects(
-		(fruitlib::json::convert_from<json_object_vector>(
+		(sge::parse::json::convert_from<json_object_vector>(
 			json_file)));
 
 	for(
@@ -37,20 +38,20 @@ fruitapp::highscore::json_to_entry_set(
 		result.insert(
 			highscore::entry(
 				highscore::name(
-					fruitlib::json::find_and_convert_member<fcppt::string>(
+					sge::parse::json::find_and_convert_member<fcppt::string>(
 						*current_entry,
-						fruitlib::json::path(
+						sge::parse::json::path(
 							FCPPT_TEXT("name")))),
 				highscore::score(
-					fruitlib::json::find_and_convert_member<highscore::score::value_type>(
+					sge::parse::json::find_and_convert_member<highscore::score::value_type>(
 						*current_entry,
-						fruitlib::json::path(
+						sge::parse::json::path(
 							FCPPT_TEXT("score")))),
 				boost::posix_time::from_iso_string(
 					fcppt::to_std_string(
-						fruitlib::json::find_and_convert_member<fcppt::string>(
+						sge::parse::json::find_and_convert_member<fcppt::string>(
 							*current_entry,
-							fruitlib::json::path(
+							sge::parse::json::path(
 								FCPPT_TEXT("date-time")))))));
 
 	return result;
