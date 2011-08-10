@@ -1,9 +1,12 @@
 #include <fruitapp/highscore/provider/net/connection.hpp>
 #include <fruitapp/current_commit.hpp>
 #include <fruitapp/highscore/json_to_entry_set.hpp>
-#include <fruitlib/json/find_and_convert_member.hpp>
-#include <fruitlib/json/path.hpp>
-#include <sge/parse/json/json.hpp>
+#include <sge/parse/json/find_and_convert_member.hpp>
+#include <sge/parse/json/path.hpp>
+#include <sge/parse/json/object.hpp>
+#include <sge/parse/json/array.hpp>
+#include <sge/parse/json/parse_range.hpp>
+#include <sge/parse/json/find_member.hpp>
 #include <fcppt/to_std_string.hpp>
 #include <fcppt/lexical_cast.hpp>
 #include <fcppt/string.hpp>
@@ -427,8 +430,8 @@ fruitapp::highscore::provider::net::connection::handle_rank_received(
 {
 	rank_received_(
 		highscore::rank(
-			fruitlib::json::find_and_convert_member<highscore::rank::value_type>(
+			sge::parse::json::find_and_convert_member<highscore::rank::value_type>(
 				o,	
-				fruitlib::json::path(
+				sge::parse::json::path(
 					FCPPT_TEXT("rank")))));
 }

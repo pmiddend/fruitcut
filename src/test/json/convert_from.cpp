@@ -1,5 +1,11 @@
 #include <boost/test/unit_test.hpp>
-#include <sge/parse/json/json.hpp>
+#include <sge/parse/json/convert_from.hpp>
+#include <sge/parse/json/value.hpp>
+#include <sge/parse/json/float_type.hpp>
+#include <sge/parse/json/int_type.hpp>
+#include <sge/parse/json/array.hpp>
+#include <sge/parse/json/object.hpp>
+#include <sge/parse/json/exception.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/math/matrix/static.hpp>
 #include <fcppt/math/matrix/basic_impl.hpp>
@@ -13,10 +19,8 @@
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/strong_typedef.hpp>
-#include <fruitlib/json/convert_from.hpp>
 
 namespace sgejson = sge::parse::json;
-namespace fruitlibjson = fruitlib::json;
 
 namespace
 {
@@ -74,7 +78,7 @@ BOOST_AUTO_TEST_CASE(
 
 	// Check if conversion to the floating point types is ok
 	BOOST_CHECK_CLOSE(
-		fruitlibjson::convert_from<float>(
+		sgejson::convert_from<float>(
 			sgejson::value(
 				static_cast<sgejson::float_type>(
 					float_lit))),
@@ -82,7 +86,7 @@ BOOST_AUTO_TEST_CASE(
 		float_eps);
 
 	BOOST_CHECK_CLOSE(
-		fruitlibjson::convert_from<double>(
+		sgejson::convert_from<double>(
 			sgejson::value(
 				static_cast<sgejson::float_type>(
 					double_lit))),
@@ -90,7 +94,7 @@ BOOST_AUTO_TEST_CASE(
 		double_eps);
 
 	BOOST_CHECK_CLOSE(
-		fruitlibjson::convert_from<long double>(
+		sgejson::convert_from<long double>(
 			sgejson::value(
 				static_cast<sgejson::float_type>(
 					long_double_lit))),
@@ -100,35 +104,35 @@ BOOST_AUTO_TEST_CASE(
 	// Check if conversion to the NON floating point types is NOT ok and
 	// results in a sgejson::exception
 	BOOST_CHECK_THROW(
-		fruitlibjson::convert_from<int>(
+		sgejson::convert_from<int>(
 			sgejson::value(
 				static_cast<sgejson::float_type>(
 					1.0f))),
 		sgejson::exception);
 
 	BOOST_CHECK_THROW(
-		fruitlibjson::convert_from<char>(
+		sgejson::convert_from<char>(
 			sgejson::value(
 				static_cast<sgejson::float_type>(
 					1.0f))),
 		sgejson::exception);
 
 	BOOST_CHECK_THROW(
-		fruitlibjson::convert_from<unsigned int>(
+		sgejson::convert_from<unsigned int>(
 			sgejson::value(
 				static_cast<sgejson::float_type>(
 					1.0f))),
 		sgejson::exception);
 
 	BOOST_CHECK_THROW(
-		fruitlibjson::convert_from<short>(
+		sgejson::convert_from<short>(
 			sgejson::value(
 				static_cast<sgejson::float_type>(
 					1.0f))),
 		sgejson::exception);
 
 	BOOST_CHECK_THROW(
-		fruitlibjson::convert_from<void*>(
+		sgejson::convert_from<void*>(
 			sgejson::value(
 				static_cast<sgejson::float_type>(
 					1.0f))),
@@ -139,19 +143,19 @@ BOOST_AUTO_TEST_CASE(
 	json_convert_from_bool)
 {
 	BOOST_CHECK_EQUAL(
-		fruitlibjson::convert_from<bool>(
+		sgejson::convert_from<bool>(
 			sgejson::value(
 				true)),
 		true);
 
 	BOOST_CHECK_EQUAL(
-		fruitlibjson::convert_from<bool>(
+		sgejson::convert_from<bool>(
 			sgejson::value(
 				false)),
 		false);
 
 	BOOST_CHECK_THROW(
-		fruitlibjson::convert_from<bool>(
+		sgejson::convert_from<bool>(
 			sgejson::value(
 				static_cast<sgejson::int_type>(
 					1))),
@@ -162,21 +166,21 @@ BOOST_AUTO_TEST_CASE(
 	json_convert_from_integer)
 {
 	BOOST_CHECK_EQUAL(
-		fruitlibjson::convert_from<int>(
+		sgejson::convert_from<int>(
 			sgejson::value(
 				static_cast<sgejson::int_type>(
 					1))),
 		1);
 
 	BOOST_CHECK_EQUAL(
-		fruitlibjson::convert_from<unsigned>(
+		sgejson::convert_from<unsigned>(
 			sgejson::value(
 				static_cast<sgejson::int_type>(
 					1))),
 		1u);
 
 	BOOST_CHECK_EQUAL(
-		fruitlibjson::convert_from<char>(
+		sgejson::convert_from<char>(
 			sgejson::value(
 				static_cast<sgejson::int_type>(
 					1))),
@@ -184,7 +188,7 @@ BOOST_AUTO_TEST_CASE(
 			1));
 
 	BOOST_CHECK_THROW(
-		fruitlibjson::convert_from<int>(
+		sgejson::convert_from<int>(
 			sgejson::value(
 				fcppt::string(FCPPT_TEXT("foo")))),
 		sgejson::exception);
@@ -248,17 +252,17 @@ BOOST_AUTO_TEST_CASE(
 	right_integer_right_dimensions.elements[3] = temp_array;
 
 	BOOST_CHECK_THROW(
-		fruitlibjson::convert_from<matrix_type>(
+		sgejson::convert_from<matrix_type>(
 			wrong_integer_wrong_dimensions),
 		sgejson::exception);
 
 	BOOST_CHECK_THROW(
-		fruitlibjson::convert_from<matrix_type>(
+		sgejson::convert_from<matrix_type>(
 			right_integer_wrong_dimensions),
 		sgejson::exception);
 
 	BOOST_CHECK_EQUAL(
-		fruitlibjson::convert_from<matrix_type>(
+		sgejson::convert_from<matrix_type>(
 			right_integer_right_dimensions),
 		test_matrix);
 }
@@ -282,7 +286,7 @@ BOOST_AUTO_TEST_CASE(
 	math_vector_type;
 
 	BOOST_CHECK_EQUAL(
-		fruitlibjson::convert_from<math_vector_type>(
+		sgejson::convert_from<math_vector_type>(
 			homogenous_input),
 		math_vector_type(10,20,30));
 
@@ -299,7 +303,7 @@ BOOST_AUTO_TEST_CASE(
 		30);
 
 	BOOST_CHECK(
-		fruitlibjson::convert_from<vector>(
+		sgejson::convert_from<vector>(
 			homogenous_input) == real_vector);
 
 	typedef
@@ -310,7 +314,7 @@ BOOST_AUTO_TEST_CASE(
 		{{ 10, 20, 30 }};
 
 	BOOST_CHECK(
-		fruitlibjson::convert_from<array>(
+		sgejson::convert_from<array>(
 			homogenous_input) == array_);
 
 	// It has 4 elements, it's fucking huge!
@@ -322,7 +326,7 @@ BOOST_AUTO_TEST_CASE(
 		{{ 10, 20, 30, 40 }};
 
 	BOOST_CHECK_THROW(
-		fruitlibjson::convert_from<huge_array>(
+		sgejson::convert_from<huge_array>(
 			homogenous_input) == huge_array_,
 		sgejson::exception);
 
@@ -359,7 +363,7 @@ BOOST_AUTO_TEST_CASE(
 
 	BOOST_CHECK_EQUAL(
 		vector_2d(
-			fruitlibjson::convert_from<vector_2d::value_type>(
+			sgejson::convert_from<vector_2d::value_type>(
 				input_2d)),
 		expected_2d_output);
 
@@ -375,7 +379,7 @@ BOOST_AUTO_TEST_CASE(
 			FCPPT_TEXT("bar")));
 
 	BOOST_CHECK_THROW(
-		fruitlibjson::convert_from<array>(
+		sgejson::convert_from<array>(
 			heterogenous_input),
 		sgejson::exception);
 }
@@ -386,7 +390,7 @@ BOOST_AUTO_TEST_CASE(
 	// Can't use BOOST_CHECK_EQUAL here since fcppt::string doesn't have
 	// an operator<< for std::cout (boost.test is broken?)
 	BOOST_CHECK(
-		fruitlibjson::convert_from<fcppt::string>(
+		sgejson::convert_from<fcppt::string>(
 			fcppt::string(
 				FCPPT_TEXT("foobar"))) == 
 		fcppt::string(

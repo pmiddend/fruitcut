@@ -1,9 +1,10 @@
 #include <fruitapp/load_user_config.hpp>
 #include <fruitapp/name.hpp>
 #include <fruitlib/utf8_file_to_fcppt_string.hpp>
-#include <fruitlib/json/parse_string_exn.hpp>
+#include <sge/parse/json/parse_string_exn.hpp>
 #include <sge/config/config_path.hpp>
-#include <sge/parse/json/json.hpp>
+#include <sge/parse/json/object.hpp>
+#include <sge/parse/json/array.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/filesystem/exists.hpp>
 #include <fcppt/filesystem/path.hpp>
@@ -20,7 +21,7 @@ fruitapp::load_user_config()
 		fcppt::filesystem::exists(
 			final_name)
 		?
-			fruitlib::json::parse_string_exn(
+			sge::parse::json::parse_string_exn(
 				fruitlib::utf8_file_to_fcppt_string(
 					final_name))
 		:

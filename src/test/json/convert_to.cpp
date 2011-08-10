@@ -1,6 +1,10 @@
 #include "json_equal.hpp"
-#include <fruitlib/json/convert_to.hpp>
-#include <sge/parse/json/json.hpp>
+#include <sge/parse/json/convert_to.hpp>
+#include <sge/parse/json/value.hpp>
+#include <sge/parse/json/int_type.hpp>
+#include <sge/parse/json/null.hpp>
+#include <sge/parse/json/object.hpp>
+#include <sge/parse/json/array.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/container/array.hpp>
@@ -9,7 +13,6 @@
 #include <vector>
 
 namespace sgejson = sge::parse::json;
-namespace fruitlibjson = fruitlib::json;
 
 BOOST_AUTO_TEST_CASE(
 	json_convert_to)
@@ -22,7 +25,7 @@ BOOST_AUTO_TEST_CASE(
 
 	BOOST_CHECK((
 		fruitcut::test::json::json_equal(
-			fruitlibjson::convert_to(
+			sgejson::convert_to(
 				input_string),
 			sgejson::value(
 				input_string))));
@@ -31,7 +34,7 @@ BOOST_AUTO_TEST_CASE(
 
 	BOOST_CHECK((
 		fruitcut::test::json::json_equal(
-			fruitlibjson::convert_to(
+			sgejson::convert_to(
 				input_bool),
 			sgejson::value(
 				input_bool))));
@@ -41,7 +44,7 @@ BOOST_AUTO_TEST_CASE(
 
 	BOOST_CHECK((
 		fruitcut::test::json::json_equal(
-			fruitlibjson::convert_to(
+			sgejson::convert_to(
 				input_float),
 			sgejson::value(
 				input_float))));
@@ -51,14 +54,14 @@ BOOST_AUTO_TEST_CASE(
 
 	BOOST_CHECK((
 		fruitcut::test::json::json_equal(
-			fruitlibjson::convert_to(
+			sgejson::convert_to(
 				input_int),
 			sgejson::value(
 				input_int))));
 
 	BOOST_CHECK((
 		fruitcut::test::json::json_equal(
-			fruitlibjson::convert_to(
+			sgejson::convert_to(
 				sgejson::null()),
 			sgejson::value(
 				sgejson::null()))));
@@ -82,7 +85,7 @@ BOOST_AUTO_TEST_CASE(
 	// require because the test below uses input_array again
 	BOOST_CHECK((
 		fruitcut::test::json::json_equal(
-			fruitlibjson::convert_to(
+			sgejson::convert_to(
 				input_array),
 			sgejson::value(
 				expected_array))));
@@ -93,7 +96,7 @@ BOOST_AUTO_TEST_CASE(
 
 	BOOST_CHECK((
 		fruitcut::test::json::json_equal(
-			fruitlibjson::convert_to(
+			sgejson::convert_to(
 				real_array),
 			sgejson::value(
 				expected_array))));
@@ -135,7 +138,7 @@ BOOST_AUTO_TEST_CASE(
 
 	BOOST_CHECK((
 		fruitcut::test::json::json_equal(
-			fruitlibjson::convert_to(
+			sgejson::convert_to(
 				two_dim_array),
 			sgejson::value(
 				expected_2d_array))));

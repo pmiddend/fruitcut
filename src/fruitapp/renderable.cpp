@@ -1,8 +1,8 @@
 #include <fruitapp/renderable.hpp>
 #include <fruitlib/scenic/parent.hpp>
 #include <fruitlib/scenic/depth.hpp>
-#include <fruitlib/json/find_and_convert_member.hpp>
-#include <fruitlib/json/path.hpp>
+#include <sge/parse/json/path.hpp>
+#include <sge/parse/json/find_and_convert_member.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/parse/json/object_fwd.hpp>
 #include <fcppt/tr1/functional.hpp>
@@ -29,9 +29,9 @@ fruitapp::renderable::renderable(
 		std::tr1::bind(
 			&scene::render_children,
 			&scene_),
-		fruitlib::json::find_and_convert_member<sge::parse::json::object>(
+		sge::parse::json::find_and_convert_member<sge::parse::json::object>(
 			_config_file,
-			fruitlib::json::path(
+			sge::parse::json::path(
 				FCPPT_TEXT("pp")))),
 	overlay_(
 		fruitlib::scenic::parent(

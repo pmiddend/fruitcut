@@ -12,15 +12,14 @@
 #include <fruitlib/scenic/events/viewport_change.hpp>
 #include <fruitlib/audio/sound_controller.hpp>
 #include <fruitlib/resource_tree/path.hpp>
-#include <fruitlib/json/find_and_convert_member.hpp>
 #include <fruitlib/scenic/events/render.hpp>
-#include <fruitlib/json/parse_color.hpp>
 #include <fruitlib/physics/vector3.hpp>
 #include <fruitlib/physics/rigid_body/parameters.hpp>
 #include <fruitlib/physics/vector3.hpp>
 #include <fruitlib/physics/matrix4.hpp>
 #include <fruitlib/physics/scalar.hpp>
 #include <fruitlib/physics/box.hpp>
+#include <sge/parse/json/find_and_convert_member.hpp>
 #include <sge/input/keyboard/action.hpp>
 #include <sge/input/keyboard/device.hpp>
 #include <sge/input/keyboard/key_code.hpp>
@@ -55,11 +54,11 @@ fruitapp::states::ingame::superstate::superstate(
 	physics_world_(
 		// The box is ignored for now
 		fruitlib::physics::box(),
-		fruitlib::json::find_and_convert_member<fruitlib::physics::vector3>(
+		sge::parse::json::find_and_convert_member<fruitlib::physics::vector3>(
 			context<machine>().config_file(),
-			fruitlib::json::path(
+			sge::parse::json::path(
 				FCPPT_TEXT("physics"))
-				/ FCPPT_TEXT("gravity"))),
+				/ FCPPT_TEXT("default-gravity"))),
 	physics_world_node_(
 		fruitlib::scenic::parent(
 			context<fruitapp::machine>().root_node(),
@@ -104,9 +103,9 @@ fruitapp::states::ingame::superstate::superstate(
 		fruit_manager_,
 		context<machine>().camera(),
 		context<machine>().main_light_source(),
-		fruitlib::json::find_and_convert_member<sge::renderer::scalar>(
+		sge::parse::json::find_and_convert_member<sge::renderer::scalar>(
 			context<machine>().config_file(),
-			fruitlib::json::path(
+			sge::parse::json::path(
 				FCPPT_TEXT("ambient-intensity")))),
 	fruit_shadow_render_node_(
 		fruitlib::scenic::parent(

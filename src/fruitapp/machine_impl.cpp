@@ -5,11 +5,11 @@
 #include <fruitapp/depths/overlay.hpp>
 #include <fruitlib/json/parse_projection.hpp>
 #include <fruitlib/scoped_frame_limiter.hpp>
-#include <fruitlib/json/find_and_convert_member.hpp>
-#include <fruitlib/json/merge_trees.hpp>
-#include <fruitlib/json/parse_string_exn.hpp>
+#include <sge/parse/json/config/merge_trees.hpp>
+#include <sge/parse/json/config/merge_command_line_parameters.hpp>
+#include <sge/parse/json/find_and_convert_member.hpp>
+#include <sge/parse/json/parse_string_exn.hpp>
 #include <fruitlib/scenic/events/viewport_change.hpp>
-#include <fruitlib/json/merge_command_line_parameters.hpp>
 #include <fruitlib/utf8_file_to_fcppt_string.hpp>
 #include <fruitlib/create_command_line_parameters.hpp>
 #include <fruitlib/log/scoped_sequence_from_json.hpp>
@@ -136,9 +136,9 @@ fruitapp::machine_impl::machine_impl(
 	user_config_file_(
 		fruitapp::load_user_config()),
 	config_file_(
-		fruitlib::json::merge_command_line_parameters(
-			fruitlib::json::merge_trees(
-				fruitlib::json::parse_string_exn(
+		sge::parse::json::config::merge_command_line_parameters(
+			sge::parse::json::config::merge_trees(
+				sge::parse::json::parse_string_exn(
 					fruitlib::utf8_file_to_fcppt_string(
 						fruitcut::media_path()/FCPPT_TEXT("config.json"))),
 				user_config_file_),
@@ -153,9 +153,9 @@ fruitapp::machine_impl::machine_impl(
 			(sge::systems::window(
 				sge::window::simple_parameters(
 					fruitapp::name(),
-					fruitlib::json::find_and_convert_member<sge::window::dim>(
+					sge::parse::json::find_and_convert_member<sge::window::dim>(
 						config_file_,
-						fruitlib::json::path(
+						sge::parse::json::path(
 							FCPPT_TEXT("graphics"))
 							/ FCPPT_TEXT("window-size")))))
 			(sge::systems::renderer(
@@ -195,9 +195,9 @@ fruitapp::machine_impl::machine_impl(
 	activated_loggers_(
 		fruitlib::log::scoped_sequence_from_json(
 			sge::log::global_context(),
-			fruitlib::json::find_and_convert_member<sge::parse::json::array>(
+			sge::parse::json::find_and_convert_member<sge::parse::json::array>(
 				config_file_,
-				fruitlib::json::path(
+				sge::parse::json::path(
 					FCPPT_TEXT("loggers"))
 					/ FCPPT_TEXT("sge")))),
 	font_cache_(
@@ -205,9 +205,9 @@ fruitapp::machine_impl::machine_impl(
 		systems_.renderer(),
 		systems_.image_loader(),
 		fruitcut::media_path(),
-		fruitlib::json::find_and_convert_member<sge::parse::json::object>(
+		sge::parse::json::find_and_convert_member<sge::parse::json::object>(
 			config_file_,
-			fruitlib::json::path(
+			sge::parse::json::path(
 				FCPPT_TEXT("fonts")))),
 	second_timer_(
 		sge::timer::parameters<sge::timer::clocks::standard>(
@@ -226,9 +226,9 @@ fruitapp::machine_impl::machine_impl(
 		systems_.audio_loader(),
 		systems_.audio_player(),
 		sge::audio::scalar(
-			fruitlib::json::find_and_convert_member<sge::audio::scalar>(
+			sge::parse::json::find_and_convert_member<sge::audio::scalar>(
 				config_file(),
-				fruitlib::json::path(
+				sge::parse::json::path(
 					FCPPT_TEXT("effects-volume"))))),
 	effects_volume_change_connection_(
 		config_variables_.effects_volume().change_callback(
@@ -248,13 +248,13 @@ fruitapp::machine_impl::machine_impl(
 		systems_.audio_player(),
 		fruitlib::time_format::find_and_convert_duration<fruitlib::scenic::delta::duration>(
 			config_file(),
-			fruitlib::json::path(
+			sge::parse::json::path(
 				FCPPT_TEXT("music"))
 				/ FCPPT_TEXT("crossfade-time")),
 		fruitcut::media_path()/FCPPT_TEXT("music"),
-		fruitlib::json::find_and_convert_member<sge::audio::scalar>(
+		sge::parse::json::find_and_convert_member<sge::audio::scalar>(
 			config_file(),
-			fruitlib::json::path(
+			sge::parse::json::path(
 				FCPPT_TEXT("music"))
 				/ FCPPT_TEXT("volume"))),
 	music_volume_change_connection_(
@@ -276,16 +276,16 @@ fruitapp::machine_impl::machine_impl(
 	camera_(
 		sge::camera::parameters(
 			sge::camera::movement_speed(
-				fruitlib::json::find_and_convert_member<sge::renderer::scalar>(
+				sge::parse::json::find_and_convert_member<sge::renderer::scalar>(
 					config_file_,
-					fruitlib::json::path(FCPPT_TEXT("ingame"))
+					sge::parse::json::path(FCPPT_TEXT("ingame"))
 						/ FCPPT_TEXT("camera")
 						/ FCPPT_TEXT("movement-speed"))),
 			// mousespeed
 			sge::camera::rotation_speed(
-				fruitlib::json::find_and_convert_member<sge::renderer::scalar>(
+				sge::parse::json::find_and_convert_member<sge::renderer::scalar>(
 					config_file_,
-					fruitlib::json::path(FCPPT_TEXT("ingame"))
+					sge::parse::json::path(FCPPT_TEXT("ingame"))
 						/ FCPPT_TEXT("camera")
 						/ FCPPT_TEXT("mouse-speed"))),
 			systems_.keyboard_collector(),
@@ -295,9 +295,9 @@ fruitapp::machine_impl::machine_impl(
 			.gizmo(
 				sge::camera::identity_gizmo()
 					.position(
-						fruitlib::json::find_and_convert_member<sge::renderer::vector3>(
+						sge::parse::json::find_and_convert_member<sge::renderer::vector3>(
 							config_file_,
-							fruitlib::json::path(FCPPT_TEXT("ingame"))
+							sge::parse::json::path(FCPPT_TEXT("ingame"))
 								/ FCPPT_TEXT("camera")
 								/ FCPPT_TEXT("initial-position"))))), 
 	camera_node_(
@@ -321,9 +321,9 @@ fruitapp::machine_impl::machine_impl(
 				this))),
 	main_light_source_(
 		fruitapp::light_source_from_json(
-			fruitlib::json::find_and_convert_member<sge::parse::json::object>(
+			sge::parse::json::find_and_convert_member<sge::parse::json::object>(
 				config_file_,
-				fruitlib::json::path(
+				sge::parse::json::path(
 					FCPPT_TEXT("main-light-source"))))),
 	shadow_map_(
 		fruitlib::scenic::parent(
@@ -345,9 +345,9 @@ fruitapp::machine_impl::machine_impl(
 		config_file_,
 		camera_),
 	desired_fps_(
-		fruitlib::json::find_and_convert_member<unsigned>(
+		sge::parse::json::find_and_convert_member<unsigned>(
 			config_file(),
-			fruitlib::json::path(FCPPT_TEXT("graphics"))
+			sge::parse::json::path(FCPPT_TEXT("graphics"))
 				/ FCPPT_TEXT("desired-fps"))),
 	gui_system_(
 		sge::cegui::load_context(
@@ -382,9 +382,9 @@ fruitapp::machine_impl::machine_impl(
 	fruit_prototypes_()
 {
 	systems_.audio_player().gain(
-		fruitlib::json::find_and_convert_member<sge::audio::scalar>(
+		sge::parse::json::find_and_convert_member<sge::audio::scalar>(
 			config_file(),
-			fruitlib::json::path(
+			sge::parse::json::path(
 				FCPPT_TEXT("audio-volume"))));
 }
 
@@ -691,9 +691,9 @@ fruitapp::machine_impl::viewport_change()
 {
 	camera_.projection_object(
 		fruitlib::json::parse_projection(
-			fruitlib::json::find_and_convert_member<sge::parse::json::object>(
+			sge::parse::json::find_and_convert_member<sge::parse::json::object>(
 				config_file_,
-				fruitlib::json::path(FCPPT_TEXT("ingame"))
+				sge::parse::json::path(FCPPT_TEXT("ingame"))
 					/ FCPPT_TEXT("camera")
 					/ FCPPT_TEXT("projection")),
 			sge::renderer::aspect(

@@ -18,7 +18,6 @@
 #include <fruitapp/depths/root.hpp>
 #include <fruitapp/depths/scene.hpp>
 #include <fruitapp/depths/overlay.hpp>
-#include <fruitlib/json/find_and_convert_member.hpp>
 #include <fruitlib/math/multiply_matrix4_vector3.hpp>
 #include <fruitlib/time_format/find_and_convert_duration.hpp>
 #include <fruitlib/math/unproject.hpp>
@@ -26,6 +25,7 @@
 #include <fruitlib/audio/sound_controller.hpp>
 #include <fruitlib/scenic/parent.hpp>
 #include <fruitlib/scenic/depth.hpp>
+#include <sge/parse/json/find_and_convert_member.hpp>
 #include <sge/font/pos.hpp>
 #include <sge/font/rect.hpp>
 #include <sge/font/text/text.hpp>
@@ -94,11 +94,11 @@ fruitapp::states::ingame::running::running(
 		context<fruitapp::machine>().ingame_clock(),
 		fruitlib::time_format::find_and_convert_duration<ingame_clock::duration>(
 			context<machine>().config_file(),
-			fruitlib::json::path(FCPPT_TEXT("mouse"))
+			sge::parse::json::path(FCPPT_TEXT("mouse"))
 					/ FCPPT_TEXT("trail-update-rate")),
-		fruitlib::json::find_and_convert_member<fruitapp::cursor_trail::size_type>(
+		sge::parse::json::find_and_convert_member<fruitapp::cursor_trail::size_type>(
 				context<machine>().config_file(),
-				fruitlib::json::path(FCPPT_TEXT("mouse"))
+				sge::parse::json::path(FCPPT_TEXT("mouse"))
 					/ FCPPT_TEXT("trail-samples")),
 		context<machine>().systems().renderer().onscreen_target()),
 	fruit_spawned_connection_(
@@ -109,14 +109,14 @@ fruitapp::states::ingame::running::running(
 				fruitlib::resource_tree::path(
 					FCPPT_TEXT("fruit_was_spawned"))))),
 	draw_mouse_trail_(
-		fruitlib::json::find_and_convert_member<bool>(
+		sge::parse::json::find_and_convert_member<bool>(
 			context<machine>().config_file(),
-			fruitlib::json::path(FCPPT_TEXT("ingame"))
+			sge::parse::json::path(FCPPT_TEXT("ingame"))
 				/ FCPPT_TEXT("draw-mouse-trail"))),
 	draw_bbs_(
-		fruitlib::json::find_and_convert_member<bool>(
+		sge::parse::json::find_and_convert_member<bool>(
 			context<machine>().config_file(),
-			fruitlib::json::path(FCPPT_TEXT("ingame"))
+			sge::parse::json::path(FCPPT_TEXT("ingame"))
 				/ FCPPT_TEXT("draw-bbs"))),
 	transit_to_paused_connection_(
 		context<machine>().systems().keyboard_collector().key_callback(

@@ -1,13 +1,14 @@
 #include <test/json/json_equal.hpp>
 #include <test/json/object_from_string.hpp>
-#include <fruitlib/json/make_recursive_objects.hpp>
-#include <fruitlib/json/merge_command_line_parameters.hpp>
-#include <fruitlib/json/path.hpp>
-#include <sge/parse/json/json.hpp>
+#include <sge/parse/json/make_recursive_objects.hpp>
+#include <sge/parse/json/object.hpp>
+#include <sge/parse/json/config/merge_command_line_parameters.hpp>
+#include <sge/parse/json/exception.hpp>
+#include <sge/parse/json/path.hpp>
+#include <fcppt/text.hpp>
 #include <boost/test/unit_test.hpp>
 
 namespace sgejson = sge::parse::json;
-namespace fruitlibjson = fruitlib::json;
 
 BOOST_AUTO_TEST_CASE(
 	json_make_recursive)
@@ -17,9 +18,9 @@ BOOST_AUTO_TEST_CASE(
 			FCPPT_TEXT("{ \"string\" : \"foo\" }"));
 
 	sgejson::object &inner_object =
-		fruitlibjson::make_recursive_objects(
+		sgejson::make_recursive_objects(
 			current_object,
-			fruitlibjson::path(
+			sgejson::path(
 				FCPPT_TEXT("foo")));
 
 	BOOST_CHECK((
@@ -34,9 +35,9 @@ BOOST_AUTO_TEST_CASE(
 				FCPPT_TEXT("{ \"string\" : \"foo\", \"foo\" : {} }")))));
 
 	sgejson::object &new_inner_object =
-		fruitlibjson::make_recursive_objects(
+		sgejson::make_recursive_objects(
 			current_object,
-			fruitlibjson::path(
+			sgejson::path(
 				FCPPT_TEXT("foo"))
 				/ FCPPT_TEXT("bar"));
 
@@ -59,9 +60,9 @@ BOOST_AUTO_TEST_CASE(
 				FCPPT_TEXT("{}")))));
 
 	BOOST_CHECK_THROW((
-		fruitlibjson::make_recursive_objects(
+		sgejson::make_recursive_objects(
 			current_object,
-			fruitlibjson::path(
+			sgejson::path(
 				FCPPT_TEXT("string"))
 				/ FCPPT_TEXT("bar"))),
 		sgejson::exception);
@@ -70,12 +71,12 @@ BOOST_AUTO_TEST_CASE(
 BOOST_AUTO_TEST_CASE(
 	json_merge_command_line_parameters)
 {
-	fruitlib::command_line_parameters params;
+	sgejson::config::command_line_parameters params;
 
 	params.push_back(
 		FCPPT_TEXT("foo/bar=\"baz\""));
 
-	fruitlib::command_line_parameters wrongparams;
+	sgejson::config::command_line_parameters wrongparams;
 
 	wrongparams.push_back(
 		FCPPT_TEXT("foo/bar=3"));
@@ -85,7 +86,7 @@ BOOST_AUTO_TEST_CASE(
 			FCPPT_TEXT("{ \"foo\" : { \"bar\" : \"old\" } }"));
 
 	sgejson::object const merged =
-		fruitlibjson::merge_command_line_parameters(
+		sgejson::config::merge_command_line_parameters(
 			current_object,
 			params);
 
@@ -96,7 +97,7 @@ BOOST_AUTO_TEST_CASE(
 				FCPPT_TEXT("{ \"foo\" : { \"bar\" : \"baz\" } }")))));
 
 	BOOST_CHECK_THROW((
-		fruitlibjson::merge_command_line_parameters(
+		sgejson::config::merge_command_line_parameters(
 			current_object,
 			wrongparams)),
 		sgejson::exception);

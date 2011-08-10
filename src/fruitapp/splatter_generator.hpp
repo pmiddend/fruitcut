@@ -6,12 +6,12 @@
 #include <fruitapp/ingame_clock.hpp>
 #include <fruitlib/uniform_random.hpp>
 #include <fruitlib/random_generator.hpp>
-#include <fruitlib/json/user_config_variable.hpp>
 #include <fruitapp/point_sprite/color_format.hpp>
 #include <fruitapp/point_sprite/splatter/size.hpp>
 #include <fruitapp/point_sprite/splatter/linear_velocity.hpp>
 #include <fruitapp/point_sprite/splatter/acceleration.hpp>
 #include <fruitapp/point_sprite/system_node_fwd.hpp>
+#include <sge/parse/json/config/user_config_variable.hpp>
 #include <sge/parse/json/object_fwd.hpp>
 #include <sge/renderer/scalar.hpp>
 #include <fcppt/chrono/milliseconds.hpp>
@@ -27,7 +27,7 @@ public:
 	explicit
 	splatter_generator(
 		sge::parse::json::object const &,
-		fruitlib::json::user_config_variable<fruit::area::value_type> &_splatter_count_to_area_factor,
+		sge::parse::json::config::user_config_variable<fruit::area::value_type> &_splatter_count_to_area_factor,
 		point_sprite::system_node &,
 		fruitlib::random_generator &,
 		point_sprite::splatter::acceleration const &,
@@ -73,7 +73,7 @@ private:
 	size_rng size_rng_;
 	alpha_rng alpha_rng_;
 	lifetime_millis_rng lifetime_millis_rng_;
-	fruitlib::json::user_config_variable<fruit::area::value_type> &splatter_count_to_area_factor_;
+	sge::parse::json::config::user_config_variable<fruit::area::value_type> &splatter_count_to_area_factor_;
 };
 }
 

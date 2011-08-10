@@ -242,7 +242,7 @@
 	{
 		"manager" : 
 		{
-			"rectangle-speed" : 10.0
+			"rectangle-speed" : 10.0,
 			"rectangle-height-fraction" : 0.8
 		},
 		"gravity" : 

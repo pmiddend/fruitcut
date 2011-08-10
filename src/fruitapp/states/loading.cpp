@@ -5,7 +5,6 @@
 #include <fruitapp/depths/root.hpp>
 #include <fruitapp/depths/overlay.hpp>
 #include <fruitapp/events/post_transition.hpp>
-#include <fruitlib/json/find_and_convert_member.hpp>
 #include <fruitlib/json/parse_rgba8_color.hpp>
 #include <fruitlib/font/object_parameters.hpp>
 #include <fruitlib/font/color_format.hpp>
@@ -14,6 +13,7 @@
 #include <fruitlib/font/scale.hpp>
 #include <fruitlib/font/cache.hpp>
 #include <fruitapp/postprocessing.hpp>
+#include <sge/parse/json/find_and_convert_member.hpp>
 #include <sge/renderer/viewport_size.hpp>
 #include <sge/renderer/scalar.hpp>
 #include <sge/parse/json/array.hpp>
@@ -50,9 +50,9 @@ fruitapp::states::loading::loading(
 			fruitlib::scenic::depth(
 				depths::root::dont_care))),
 	fruit_array_(
-		fruitlib::json::find_and_convert_member<sge::parse::json::array>(
+		sge::parse::json::find_and_convert_member<sge::parse::json::array>(
 			context<machine>().config_file(),
-			fruitlib::json::path(
+			sge::parse::json::path(
 				FCPPT_TEXT("fruits"))).elements),
 	current_fruit_(
 		fruit_array_.begin()),
@@ -73,9 +73,9 @@ fruitapp::states::loading::loading(
 			sge::font::text::flags::none),
 		sge::image::color::convert<fruitlib::font::color_format>(
 			fruitlib::json::parse_rgba8_color(
-				fruitlib::json::find_and_convert_member<sge::parse::json::value>(
+				sge::parse::json::find_and_convert_member<sge::parse::json::value>(
 					context<machine>().config_file(),
-					fruitlib::json::path(
+					sge::parse::json::path(
 						FCPPT_TEXT("loading"))
 						/ FCPPT_TEXT("font-color")))),
 		fruitlib::font::scale(

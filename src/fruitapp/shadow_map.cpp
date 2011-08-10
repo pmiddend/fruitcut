@@ -1,7 +1,7 @@
 #include <fruitapp/shadow_map.hpp>
-#include <fruitlib/json/find_and_convert_member.hpp>
 #include <fruitlib/json/parse_projection.hpp>
 #include <fruitlib/scenic/events/render.hpp>
+#include <sge/parse/json/find_and_convert_member.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/dim2.hpp>
 #include <sge/renderer/scalar.hpp>
@@ -50,9 +50,9 @@ fruitapp::shadow_map::shadow_map(
 	texture_(
 		renderer_.create_planar_texture(
 			sge::renderer::texture::planar_parameters(
-				fruitlib::json::find_and_convert_member<sge::renderer::dim2>(
+				sge::parse::json::find_and_convert_member<sge::renderer::dim2>(
 					_config,
-					fruitlib::json::path(
+					sge::parse::json::path(
 						FCPPT_TEXT("shadow-map"))
 						/ FCPPT_TEXT("size")),
 				sge::image::color::format::rgb32f,
@@ -69,9 +69,9 @@ fruitapp::shadow_map::shadow_map(
 	mvp_(
 		sge::camera::projection::to_matrix(
 			fruitlib::json::parse_projection(
-				fruitlib::json::find_and_convert_member<sge::parse::json::object>(
+				sge::parse::json::find_and_convert_member<sge::parse::json::object>(
 					_config,
-					fruitlib::json::path(
+					sge::parse::json::path(
 						FCPPT_TEXT("shadow-map"))
 						/ FCPPT_TEXT("projection")),
 				fcppt::optional<sge::renderer::scalar>())) * 

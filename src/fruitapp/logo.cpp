@@ -1,5 +1,4 @@
 #include <fruitapp/logo.hpp>
-#include <fruitlib/json/find_and_convert_member.hpp>
 #include <fruitlib/scenic/events/render.hpp>
 #include <fruitlib/scenic/events/viewport_change.hpp>
 #include "../media_path.hpp"
@@ -16,6 +15,7 @@
 #include <sge/renderer/texture/address_mode.hpp>
 #include <sge/texture/part_raw.hpp>
 #include <sge/parse/json/object.hpp>
+#include <sge/parse/json/find_and_convert_member.hpp>
 #include <sge/sprite/center.hpp>
 #include <sge/sprite/default_parameters.hpp>
 #include <sge/sprite/default_equal.hpp>
@@ -46,9 +46,9 @@ fruitapp::logo::logo(
 						fruitcut::media_path() 
 							/ FCPPT_TEXT("textures") 
 							/ 
-								fruitlib::json::find_and_convert_member<fcppt::string>(
+								sge::parse::json::find_and_convert_member<fcppt::string>(
 									_config_file,
-									fruitlib::json::path(
+									sge::parse::json::path(
 										FCPPT_TEXT("textures"))
 										/ FCPPT_TEXT("logo")),
 						renderer_,

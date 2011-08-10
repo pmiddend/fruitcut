@@ -1,5 +1,7 @@
 #include <test/json/object_from_string.hpp>
-#include <sge/parse/json/json.hpp>
+#include <sge/parse/json/object.hpp>
+#include <sge/parse/json/array.hpp>
+#include <sge/parse/json/parse_stream.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/io/istringstream.hpp>
 #include <fcppt/assert.hpp>

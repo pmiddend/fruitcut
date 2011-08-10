@@ -1,9 +1,9 @@
 #include <fruitapp/sword_trail.hpp>
 #include <fruitlib/time_format/find_and_convert_duration.hpp>
-#include <fruitlib/json/path.hpp>
-#include <fruitlib/json/find_and_convert_member.hpp>
 #include "../media_path.hpp"
 #include <sge/sprite/dont_sort.hpp>
+#include <sge/parse/json/find_and_convert_member.hpp>
+#include <sge/parse/json/path.hpp>
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/sprite/default_equal.hpp>
 #include <sge/timer/parameters.hpp>
@@ -73,11 +73,11 @@ fruitapp::sword_trail::sword_trail(
 	element_lifetime_(
 		fruitlib::time_format::find_and_convert_duration<fruitapp::ingame_clock::duration>(
 			_config_file,
-			fruitlib::json::path(FCPPT_TEXT("sword-mouse-trail")) / FCPPT_TEXT("element-lifetime"))),
+			sge::parse::json::path(FCPPT_TEXT("sword-mouse-trail")) / FCPPT_TEXT("element-lifetime"))),
 	max_width_(
-		fruitlib::json::find_and_convert_member<sprite_object::unit>(
+		sge::parse::json::find_and_convert_member<sprite_object::unit>(
 			_config_file,
-			fruitlib::json::path(FCPPT_TEXT("sword-mouse-trail")) / FCPPT_TEXT("sword-width"))),
+			sge::parse::json::path(FCPPT_TEXT("sword-mouse-trail")) / FCPPT_TEXT("sword-width"))),
 	texture_(
 		fcppt::make_shared_ptr<sge::texture::part_raw>(
 			sge::renderer::texture::create_planar_from_path(
@@ -91,9 +91,9 @@ fruitapp::sword_trail::sword_trail(
 	sprite_system_(
 		_renderer),
 	positions_(
-		fruitlib::json::find_and_convert_member<position_buffer::size_type>(
+		sge::parse::json::find_and_convert_member<position_buffer::size_type>(
 			_config_file,
-			fruitlib::json::path(FCPPT_TEXT("sword-mouse-trail")) / FCPPT_TEXT("position-storage-size"))),
+			sge::parse::json::path(FCPPT_TEXT("sword-mouse-trail")) / FCPPT_TEXT("position-storage-size"))),
 	sprites_(
 		static_cast<sprite_buffer::size_type>(
 			positions_.capacity()-1)),
@@ -105,7 +105,7 @@ fruitapp::sword_trail::sword_trail(
 			clock_,
 			fruitlib::time_format::find_and_convert_duration<fruitapp::ingame_clock::duration>(
 				_config_file,
-				fruitlib::json::path(FCPPT_TEXT("sword-mouse-trail")) / FCPPT_TEXT("update-interval"))))
+				sge::parse::json::path(FCPPT_TEXT("sword-mouse-trail")) / FCPPT_TEXT("update-interval"))))
 {
 }
 

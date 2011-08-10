@@ -1,4 +1,4 @@
-#include <fruitlib/json/output_tabbed.hpp>
+#include <sge/parse/json/output_tabbed.hpp>
 #include <sge/parse/json/parse_file_exn.hpp>
 #include <sge/parse/json/object.hpp>
 #include <sge/parse/json/array.hpp>
@@ -13,7 +13,7 @@ main(
 {
 	fcppt::io::cout 
 		<< 
-			fruitlib::json::output_tabbed(
+			sge::parse::json::output_tabbed(
 				sge::parse::json::parse_file_exn(
 					fcppt::from_std_string(
 						argv[1]))) 

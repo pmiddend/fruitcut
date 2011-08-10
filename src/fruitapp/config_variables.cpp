@@ -1,7 +1,7 @@
 #include <fruitapp/config_variables.hpp>
 #include <fruitapp/name.hpp>
-#include <fruitlib/json/path.hpp>
-#include <fruitlib/json/output_tabbed.hpp>
+#include <sge/parse/json/path.hpp>
+#include <sge/parse/json/output_tabbed.hpp>
 #include <sge/config/config_path.hpp>
 #include <sge/parse/json/object_fwd.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
@@ -40,7 +40,7 @@ fruitapp::config_variables::destructor_write_hack::~destructor_write_hack()
 	}
 
 	file << 
-		fruitlib::json::output_tabbed(
+		sge::parse::json::output_tabbed(
 			user_config_file_);
 }
 
@@ -53,18 +53,18 @@ fruitapp::config_variables::config_variables(
 	music_volume_(
 		global_config,
 		user_config,
-		fruitlib::json::path(
+		sge::parse::json::path(
 			FCPPT_TEXT("music"))
 			/ FCPPT_TEXT("volume")),
 	effects_volume_(
 		global_config,
 		user_config,
-		fruitlib::json::path(
+		sge::parse::json::path(
 			FCPPT_TEXT("effects-volume"))),
 	splatter_count_to_area_factor_(
 		global_config,
 		user_config,
-		fruitlib::json::path(
+		sge::parse::json::path(
 			FCPPT_TEXT("splatter-generator"))
 			/ FCPPT_TEXT("splatter-count-to-area-factor"))
 {
