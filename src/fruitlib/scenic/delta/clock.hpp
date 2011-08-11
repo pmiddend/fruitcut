@@ -17,19 +17,19 @@ class clock
 FCPPT_NONCOPYABLE(
 	clock);
 public:
-	typedef typename
+	typedef
 	delta::clock_impl::rep
 	rep;
 
-	typedef typename
+	typedef
 	delta::clock_impl::period
 	period;
 
-	typedef typename
+	typedef
 	delta::clock_impl::duration
 	duration;
 
-	typedef typename
+	typedef
 	delta::clock_impl::time_point
 	time_point;
 
