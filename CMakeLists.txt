@@ -88,9 +88,16 @@ INCLUDE(
 )
 
 SGE_CONFIG_ADD_CUSTOM_PATH(
-	fruitcut	
+	fruitcut
 	media
 	${CMAKE_SOURCE_DIR}/media
+	${INSTALL_MEDIA_DIR}
+)
+
+INSTALL(
+	DIRECTORY
+	${CMAKE_SOURCE_DIR}/media/
+	DESTINATION
 	${INSTALL_MEDIA_DIR}
 )
 
