@@ -132,6 +132,7 @@ fruitapp::states::ingame::superstate::superstate(
 				depths::root::dont_care)),
 		context<machine>().ingame_clock(),
 		context<machine>().config_file(),
+		context<machine>().sound_controller(),
 		fruit_manager_,
 		physics_world_,
 		context<machine>().font_cache(),

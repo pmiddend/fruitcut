@@ -88,9 +88,16 @@ INCLUDE(
 )
 
 SGE_CONFIG_ADD_CUSTOM_PATH(
-	fruitcut	
+	fruitcut
 	media
 	${CMAKE_SOURCE_DIR}/media
+	${INSTALL_MEDIA_DIR}
+)
+
+INSTALL(
+	DIRECTORY
+	${CMAKE_SOURCE_DIR}/media/
+	DESTINATION
 	${INSTALL_MEDIA_DIR}
 )
 
@@ -435,6 +442,8 @@ SET(
 	src/fruitapp/config_variables_fwd.hpp
 	src/fruitapp/current_commit.cpp
 	src/fruitapp/current_commit.hpp
+	src/fruitapp/cursor_sound.cpp
+	src/fruitapp/cursor_sound.hpp
 	src/fruitapp/cursor_trail.cpp
 	src/fruitapp/cursor_trail.hpp
 	src/fruitapp/cut_context_fwd.hpp

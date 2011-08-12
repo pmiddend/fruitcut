@@ -4,6 +4,7 @@
 #include <fruitapp/states/ingame/superstate.hpp>
 #include <fruitapp/states/ingame/paused_fwd.hpp>
 #include <fruitapp/sword_trail.hpp>
+#include <fruitapp/cursor_sound.hpp>
 #include <fruitapp/cursor_trail.hpp>
 #include <fruitapp/states/gameover/superstate_fwd.hpp>
 #include <fruitapp/fruit/object_fwd.hpp>
@@ -76,6 +77,7 @@ public:
 private:
 	sge::line_drawer::object line_drawer_;
 	fruitlib::scenic::adaptors::line_drawer line_drawer_node_;
+	fruitapp::cursor_sound cursor_sound_;
 	fruitapp::cursor_trail cursor_trail_;
 	fcppt::signal::scoped_connection fruit_spawned_connection_;
 	bool draw_mouse_trail_;

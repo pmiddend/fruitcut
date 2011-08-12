@@ -13,6 +13,7 @@
 #include <fruitlib/font/cache_fwd.hpp>
 #include <fruitlib/font/scene_node.hpp>
 #include <fruitlib/physics/world_fwd.hpp>
+#include <fruitlib/audio/sound_controller.hpp>
 #include <fruitlib/scenic/node.hpp>
 #include <fruitlib/scenic/parent_fwd.hpp>
 #include <fruitlib/scenic/events/update.hpp>
@@ -51,6 +52,7 @@ public:
 		// - "fruit was cut"
 		// - "fruit was deleted" 
 		// - "fruit was added" (we could consult the spawner for that, but that's not The Right Thing)
+		fruitlib::audio::sound_controller &,
 		fruit::manager &,
 		fruitlib::physics::world &,
 		fruitlib::font::cache &,
@@ -77,6 +79,7 @@ private:
 	fruit::area::value_type const area_score_factor_;
 	highscore::score::value_type score_,iterating_score_;
 	fruitapp::ingame_timer round_timer_;
+	fruitlib::audio::sound_controller &sound_controller_;
 	fcppt::signal::scoped_connection fruit_added_connection_;
 	fcppt::signal::scoped_connection fruit_cut_connection_;
 	fcppt::signal::scoped_connection fruit_removed_connection_;
