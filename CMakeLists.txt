@@ -416,6 +416,8 @@ SET(
 	src/fruitapp/config_variables_fwd.hpp
 	src/fruitapp/current_commit.cpp
 	src/fruitapp/current_commit.hpp
+	src/fruitapp/cursor_sound.cpp
+	src/fruitapp/cursor_sound.hpp
 	src/fruitapp/cursor_trail.cpp
 	src/fruitapp/cursor_trail.hpp
 	src/fruitapp/cut_context_fwd.hpp

@@ -85,6 +85,15 @@ fruitapp::states::ingame::running::running(
 				depths::overlay::dont_care)),
 		line_drawer_,
 		&context<machine>().systems().renderer()),
+	cursor_sound_(
+		fruitlib::scenic::parent(
+			context<fruitapp::machine>().root_node(),
+			fruitlib::scenic::depth(
+				depths::root::dont_care)),
+		context<fruitapp::machine>().systems().cursor_demuxer(),
+		context<fruitapp::machine>().ingame_clock(),
+		context<machine>().systems().renderer(),
+		context<machine>().sound_controller()),
 	cursor_trail_(
 		fruitlib::scenic::parent(
 			context<fruitapp::machine>().root_node(),
