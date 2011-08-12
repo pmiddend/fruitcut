@@ -60,7 +60,7 @@ public:
 		menu::highscore);
 
 	~ranking();
-		
+
 	void
 	react(
 		fruitlib::scenic::events::update const &);

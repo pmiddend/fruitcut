@@ -17,7 +17,7 @@ fruitlib::scenic::delta::clock::~clock()
 void
 fruitlib::scenic::delta::clock::update()
 {
-	now_ += 
+	now_ +=
 		callback_();
 }
 

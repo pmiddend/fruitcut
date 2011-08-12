@@ -26,12 +26,12 @@ fruitlib::log::scoped_sequence_from_json(
 	try
 	{
 		for(
-			sge::parse::json::element_vector::const_iterator r = 
+			sge::parse::json::element_vector::const_iterator r =
 				a.elements.begin();
 			r != a.elements.end();
 			++r)
 		{
-			sge::parse::json::array const &current_pair = 
+			sge::parse::json::array const &current_pair =
 				sge::parse::json::get<sge::parse::json::array>(
 					*r);
 
@@ -59,7 +59,7 @@ fruitlib::log::scoped_sequence_from_json(
 			FCPPT_TEXT("The loggers have to be stored in an array of pairs [name,level], this was not the case with at least one logger pair"));
 	}
 
-	return 
+	return
 		fcppt::move(
 			result);
 }

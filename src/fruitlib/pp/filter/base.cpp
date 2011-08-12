@@ -29,14 +29,14 @@ fruitlib::pp::filter::base::dispatch()
 {
 	texture::counted_instance result;
 	if (textures_.empty())
-		result = 
+		result =
 			dynamic_cast<nullary &>(*this).apply();
 	else if (textures_.size() == 1)
-		result = 
+		result =
 			dynamic_cast<unary &>(*this).apply(
 				textures_.front());
 	else if (textures_.size() == 2)
-		result = 
+		result =
 			dynamic_cast<binary &>(*this).apply(
 				textures_.front(),
 				textures_.back());

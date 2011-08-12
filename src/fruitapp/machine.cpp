@@ -71,7 +71,7 @@ fruitapp::machine::run()
 		impl_->run_once();
 
 		for(
-			queued_event_list::const_iterator current_event = queued_events_.begin(); 
+			queued_event_list::const_iterator current_event = queued_events_.begin();
 			current_event != queued_events_.end();
 			++current_event)
 			base::process_event(
@@ -80,7 +80,7 @@ fruitapp::machine::run()
 	}
 }
 
-fruitapp::ingame_clock const & 
+fruitapp::ingame_clock const &
 fruitapp::machine::ingame_clock() const
 {
 	return impl_->ingame_clock();
@@ -239,13 +239,13 @@ fruitapp::machine::overlay_node() const
 }
 
 fruitapp::point_sprite::system_node &
-fruitapp::machine::point_sprites() 
+fruitapp::machine::point_sprites()
 {
 	return impl_->point_sprites();
 }
 
 fruitapp::point_sprite::system_node const &
-fruitapp::machine::point_sprites() const 
+fruitapp::machine::point_sprites() const
 {
 	return impl_->point_sprites();
 }
@@ -290,7 +290,7 @@ void
 fruitapp::machine::unconsumed_event(
 	boost::statechart::event_base const &e)
 {
-	throw 
+	throw
 		fruitapp::exception(
 			FCPPT_TEXT("Got an unconsumed event of type \"")+
 			fcppt::type_name(

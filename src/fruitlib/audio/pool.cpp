@@ -12,13 +12,13 @@ void
 fruitlib::audio::pool::update()
 {
 	for(
-		sound_sequence::iterator i = 
-			sounds_.begin(); 
+		sound_sequence::iterator i =
+			sounds_.begin();
 		i != sounds_.end();)
 	{
 		(*i)->update();
 		if((*i)->status() == sge::audio::sound::play_status::stopped)
-			i = 
+			i =
 				sounds_.erase(
 					i);
 		else

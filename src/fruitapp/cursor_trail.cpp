@@ -22,7 +22,7 @@ transform_position(
 	sge::input::cursor::position const &p,
 	sge::renderer::pixel_rect const &viewport)
 {
-	return 
+	return
 		sge::input::cursor::position(
 			static_cast<sge::input::cursor::position_unit>(
 				p.x() - viewport.pos().x()),
@@ -69,9 +69,9 @@ fruitapp::cursor_trail::clear()
 fruitapp::ingame_clock::duration const
 fruitapp::cursor_trail::total_expiry_duration() const
 {
-	return 
+	return
 		static_cast<fruitapp::ingame_clock::duration::rep>(
-			positions_.capacity()) * 
+			positions_.capacity()) *
 		update_timer_.interval<fruitapp::ingame_clock::duration>();
 }
 

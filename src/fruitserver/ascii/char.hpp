@@ -39,7 +39,7 @@ public:
 	value(
 		value_type const _value)
 	{
-		value_ = 
+		value_ =
 			_value;
 	}
 private:

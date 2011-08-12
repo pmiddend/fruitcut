@@ -37,6 +37,6 @@ fruitserver::output_tm(
 		&_tm,
 		'c');
 
-	return 
+	return
 		_stream;
 }

@@ -22,12 +22,12 @@ multiply_matrix4_vector3(
 	fcppt::math::matrix::basic<T,M1,M2,S1> const &m,
 	fcppt::math::vector::basic<T,N,S2> const &v)
 {
-	return 
+	return
 		fcppt::math::vector::narrow_cast
 		<
 			typename fcppt::math::vector::static_<T,3>::type
 		>(
-			m * 
+			m *
 			fcppt::math::vector::construct(
 				v,
 				static_cast<T>(0)));

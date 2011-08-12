@@ -133,7 +133,7 @@ fruitapp::postprocessing::render_result()
 sge::renderer::texture::planar_ptr const
 fruitapp::postprocessing::result_texture()
 {
-	return 
+	return
 		system_.result_texture();
 }
 
@@ -158,7 +158,7 @@ fruitapp::postprocessing::filter_manager()
 bool
 fruitapp::postprocessing::active()
 {
-	return 
+	return
 		active_;
 }
 
@@ -166,7 +166,7 @@ void
 fruitapp::postprocessing::active(
 	bool const _active)
 {
-	active_ = 
+	active_ =
 		_active;
 }
 

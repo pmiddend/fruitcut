@@ -11,10 +11,10 @@ template<typename Value,typename Clock>
 class keyframe
 {
 public:
-	typedef 
+	typedef
 	Value
 	value_type;
-	
+
 	typedef typename
 	Clock::duration
 	duration_type;

@@ -78,7 +78,7 @@ fruitapp::states::menu::highscore::highscore(
 		providers_);
 
 	for(
-		fruitapp::highscore::provider_sequence::iterator i = 
+		fruitapp::highscore::provider_sequence::iterator i =
 			providers_.begin();
 		i != providers_.end();
 		++i)
@@ -112,28 +112,28 @@ void
 fruitapp::states::menu::highscore::switch_provider(
 	fruitapp::highscore::provider::object_base &new_provider)
 {
-	connection_ = 
+	connection_ =
 		new_provider.create_connection();
 
 	context<fruitapp::machine>().gui_system().window_manager().getWindow(
 		"Highscores/MessageLog")->setText(
 		"");
 
-	message_connection_ = 
+	message_connection_ =
 		connection_->message_received(
 			std::tr1::bind(
 				&highscore::text_received,
 				this,
 				std::tr1::placeholders::_1));
 
-	error_connection_ = 
+	error_connection_ =
 		connection_->error_received(
 			std::tr1::bind(
 				&highscore::text_received,
 				this,
 				std::tr1::placeholders::_1));
 
-	list_connection_ = 
+	list_connection_ =
 		connection_->list_received(
 			std::tr1::bind(
 				&highscore::list_received,
@@ -155,7 +155,7 @@ void
 fruitapp::states::menu::highscore::text_received(
 	fcppt::string const &s)
 {
-	CEGUI::Window &w = 
+	CEGUI::Window &w =
 		*context<fruitapp::machine>().gui_system().window_manager().getWindow(
 			"Highscores/MessageLog");
 

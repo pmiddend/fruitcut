@@ -21,7 +21,7 @@ class highlight
 :
 	public unary
 {
-public:	
+public:
 	explicit
 	highlight(
 		sge::renderer::device &,

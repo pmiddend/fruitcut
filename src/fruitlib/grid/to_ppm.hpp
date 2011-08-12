@@ -25,7 +25,7 @@ to_ppm(
 	std::basic_ostream<Char> &s,
 	T const max_value = std::numeric_limits<T>::max())
 {
-	typedef 
+	typedef
 	fcppt::container::grid::object<T,2>
 	grid;
 
@@ -33,7 +33,7 @@ to_ppm(
 	boost::promote<typename grid::value_type>::type
 	numeric_type;
 
-	s 
+	s
 		<< s.widen('P') << s.widen('2') << s.widen('\n')
 		<< g.size().w() << s.widen(' ') << g.size().h() << s.widen('\n')
 		<< static_cast<numeric_type>(max_value) << s.widen('\n');

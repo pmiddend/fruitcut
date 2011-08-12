@@ -23,7 +23,7 @@ public:
 		std::ostream &log_stream);
 private:
 	typedef
-	std::map<int,fruitserver::byte_sequence> 
+	std::map<int,fruitserver::byte_sequence>
 	fd_to_data;
 
 	fruitserver::command_processor &command_processor_;

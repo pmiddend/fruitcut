@@ -55,7 +55,7 @@ protected:
 	process_impl(
 		events::base const &e)
 	{
-		bool event_unconsumed = 
+		bool event_unconsumed =
 			true;
 		fcppt::mpl::for_each<typename Derived::scene_reactions>(
 			detail::reaction_chooser<Derived>(

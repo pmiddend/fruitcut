@@ -22,7 +22,7 @@ fruitserver::parse_command(
 				static_cast<ascii::string::size_type>(
 					i - previous)));
 
-		previous = 
+		previous =
 			static_cast<ascii::string::size_type>(
 				i+1);
 	}
@@ -33,6 +33,6 @@ fruitserver::parse_command(
 			static_cast<ascii::string::size_type>(
 				s.size() - previous)));
 
-	return 
+	return
 		parts;
 }

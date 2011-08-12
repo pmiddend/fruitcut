@@ -18,17 +18,17 @@ typename triangle::scalar_type<Triangle>::type
 area(
 	Triangle const &t)
 {
-	typename triangle::vector_type<Triangle>::type 
+	typename triangle::vector_type<Triangle>::type
 		ab =
-			triangle::vertex_access<Triangle>::get(t,1) - 
+			triangle::vertex_access<Triangle>::get(t,1) -
 			triangle::vertex_access<Triangle>::get(t,0),
-		ac = 
-			triangle::vertex_access<Triangle>::get(t,2) - 
+		ac =
+			triangle::vertex_access<Triangle>::get(t,2) -
 			triangle::vertex_access<Triangle>::get(t,0);
 
-	return 
+	return
 		static_cast<typename triangle::scalar_type<Triangle>::type >(
-			0.5) * 
+			0.5) *
 		std::abs(
 			ab.x() * ac.y() - ac.x() * ab.y());
 }

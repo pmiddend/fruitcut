@@ -44,7 +44,7 @@ fruitlib::pp::texture::counted_instance const
 fruitlib::pp::texture::manager::query(
 	descriptor const &d)
 {
-	return 
+	return
 		query_internal(
 			descriptor(
 				d.size() == use_screen_size()
@@ -67,7 +67,7 @@ fruitlib::pp::texture::manager::query(
 		{
 			i->second->locked(
 				true);
-			return 
+			return
 				counted_instance(
 					*(i->second),
 					std::tr1::bind(
@@ -86,19 +86,19 @@ fruitlib::pp::texture::manager::query(
 void
 fruitlib::pp::texture::manager::clear_screen_textures()
 {
-	sge::renderer::dim2 const onscreen_dim = 
+	sge::renderer::dim2 const onscreen_dim =
 		fcppt::math::dim::structure_cast<sge::renderer::dim2>(
 			renderer_.onscreen_target().viewport().get().size());
 
 	// From the standard about associative containers:
 	// "and the erase members shall invalidate only iterators and references to the erased elements."
 	for(
-		texture_map::iterator 
-			it = 
-				textures_.begin(), 
-			next = 
-				it; 
-		it != textures_.end(); 
+		texture_map::iterator
+			it =
+				textures_.begin(),
+			next =
+				it;
+		it != textures_.end();
 		it = next)
 	{
 		++next;
@@ -116,13 +116,13 @@ fruitlib::pp::texture::counted_instance const
 fruitlib::pp::texture::manager::query_internal(
 	descriptor const &d)
 {
-	boost::iterator_range<texture_map::iterator> eq_range = 
+	boost::iterator_range<texture_map::iterator> eq_range =
 		textures_.equal_range(
 			d);
 
 	for(
-		texture_map::iterator i = eq_range.begin(); 
-		i != eq_range.end(); 
+		texture_map::iterator i = eq_range.begin();
+		i != eq_range.end();
 		++i)
 	{
 		// Texture is correct, but it's locked
@@ -132,7 +132,7 @@ fruitlib::pp::texture::manager::query_internal(
 		// Texture is correct and not locked!
 		i->second->locked(
 			true);
-		return 
+		return
 			counted_instance(
 				*(i->second),
 				std::tr1::bind(
@@ -142,7 +142,7 @@ fruitlib::pp::texture::manager::query_internal(
 					false));
 	}
 
-	sge::renderer::texture::planar_ptr new_texture = 
+	sge::renderer::texture::planar_ptr new_texture =
 		renderer_.create_planar_texture(
 			sge::renderer::texture::planar_parameters(
 				d.size(),
@@ -154,7 +154,7 @@ fruitlib::pp::texture::manager::query_internal(
 				sge::renderer::texture::capabilities_field(
 					sge::renderer::texture::capabilities::render_target)));
 
-	sge::renderer::target_ptr new_target = 
+	sge::renderer::target_ptr new_target =
 		sge::renderer::target_from_texture(
 			renderer_,
 			*new_texture);
@@ -184,7 +184,7 @@ fruitlib::pp::texture::manager::query_internal(
 	}
 
 	// There are no matching textures? Gotta create a new one!
-	texture_map::iterator const result = 
+	texture_map::iterator const result =
 		textures_.insert(
 			d,
 			std::auto_ptr<instance>(
@@ -194,7 +194,7 @@ fruitlib::pp::texture::manager::query_internal(
 					new_target,
 					true)));
 
-	return 
+	return
 		counted_instance(
 			*result->second,
 			std::tr1::bind(

@@ -3,6 +3,6 @@
 fruitlib::scenic::optional_parent const
 fruitlib::scenic::no_parent()
 {
-	return 
+	return
 		fruitlib::scenic::optional_parent();
 }

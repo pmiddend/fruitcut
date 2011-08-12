@@ -129,7 +129,7 @@ fruitapp::states::ingame::running::running(
 	transit_to_paused_connection_(
 		context<machine>().systems().keyboard_collector().key_callback(
 			sge::input::keyboard::action(
-				sge::input::keyboard::key_code::escape, 
+				sge::input::keyboard::key_code::escape,
 				FRUITAPP_EVENTS_RETURN_POST_TRANSITION_FUNCTOR(
 					ingame::paused)))),
 	sword_trail_(
@@ -180,9 +180,9 @@ fruitapp::states::ingame::running::react(
 	}
 
 	for(
-		fruit::object_sequence::const_iterator i = 
-			context<superstate>().fruit_manager().fruits().begin(); 
-		i != context<superstate>().fruit_manager().fruits().end(); 
+		fruit::object_sequence::const_iterator i =
+			context<superstate>().fruit_manager().fruits().begin();
+		i != context<superstate>().fruit_manager().fruits().end();
 		++i)
 		process_fruit(
 			*i);
@@ -208,20 +208,20 @@ fruitapp::states::ingame::running::draw_fruit_bbs(
 	sge::line_drawer::line_sequence &lines)
 {
 	for(
-		fruit::object_sequence::const_iterator i = 
-			context<superstate>().fruit_manager().fruits().begin(); 
+		fruit::object_sequence::const_iterator i =
+			context<superstate>().fruit_manager().fruits().begin();
 		i != context<superstate>().fruit_manager().fruits().end();
-		++i) 
+		++i)
 	{
-		fruit::hull::ring const hull = 
+		fruit::hull::ring const hull =
 			fruit::hull::projected(
 				*i,
 				context<machine>().systems().renderer().onscreen_target(),
 				context<machine>().camera().mvp());
 
 		for(
-			fruit::hull::ring::const_iterator hull_point = hull.begin(); 
-			hull_point != boost::prior(hull.end()); 
+			fruit::hull::ring::const_iterator hull_point = hull.begin();
+			hull_point != boost::prior(hull.end());
 			++hull_point)
 		{
 			lines.push_back(
@@ -255,9 +255,9 @@ fruitapp::states::ingame::running::draw_mouse_trail(
 		return;
 
 	for(
-		fruitapp::cursor_trail::position_buffer::const_iterator i = 
-			cursor_trail_.positions().begin(); 
-		i != boost::prior(cursor_trail_.positions().end()); 
+		fruitapp::cursor_trail::position_buffer::const_iterator i =
+			cursor_trail_.positions().begin();
+		i != boost::prior(cursor_trail_.positions().end());
 		++i)
 		lines.push_back(
 			sge::line_drawer::line(
@@ -283,7 +283,7 @@ void
 fruitapp::states::ingame::running::process_fruit(
 	fruit::object const &current_fruit)
 {
-	fruit::hull::intersection_pair const intersection = 
+	fruit::hull::intersection_pair const intersection =
 		fruit::hull::trail_intersection(
 			fruit::hull::projected(
 				current_fruit,
@@ -298,7 +298,7 @@ fruitapp::states::ingame::running::process_fruit(
 		fcppt::math::matrix::inverse(
 			context<machine>().camera().mvp());
 
-	sge::renderer::vector3 const 
+	sge::renderer::vector3 const
 		// Convert the points to 3D and to renderer::scalar
 		point1(
 			static_cast<sge::renderer::scalar>(
@@ -315,7 +315,7 @@ fruitapp::states::ingame::running::process_fruit(
 			static_cast<sge::renderer::scalar>(
 				0)),
 		// unproject 'em
-		point1_unprojected = 
+		point1_unprojected =
 			fruitlib::math::unproject(
 				point1,
 				inverse_mvp,
@@ -325,7 +325,7 @@ fruitapp::states::ingame::running::process_fruit(
 					sge::renderer::vector2::null(),
 					fcppt::math::dim::structure_cast<fruitapp::renderer_dim2>(
 						context<machine>().systems().renderer().onscreen_target().viewport().get().size()))),
-		point2_unprojected = 
+		point2_unprojected =
 			fruitlib::math::unproject(
 				point2,
 				inverse_mvp,
@@ -335,7 +335,7 @@ fruitapp::states::ingame::running::process_fruit(
 					sge::renderer::vector2::null(),
 					fcppt::math::dim::structure_cast<fruitapp::renderer_dim2>(
 						context<machine>().systems().renderer().onscreen_target().viewport().get().size()))),
-		point3_unprojected = 
+		point3_unprojected =
 			fruitlib::math::unproject(
 				sge::renderer::vector3(
 					point1.x(),
@@ -347,13 +347,13 @@ fruitapp::states::ingame::running::process_fruit(
 					sge::renderer::vector2::null(),
 					fcppt::math::dim::structure_cast<fruitapp::renderer_dim2>(
 						context<machine>().systems().renderer().onscreen_target().viewport().get().size()))),
-		first_plane_vector = 
+		first_plane_vector =
 			point2_unprojected - point1_unprojected,
-		second_plane_vector = 
+		second_plane_vector =
 			point3_unprojected - point1_unprojected,
 		// NOTE: For rotation matrices M and vectors a,b the following holds:
 		// cross(M*a,M*b) = M*cross(a,b)
-		plane_normal = 
+		plane_normal =
 			fruitlib::math::multiply_matrix4_vector3(
 				fcppt::math::matrix::transpose(
 					current_fruit.rotation()),
@@ -361,14 +361,14 @@ fruitapp::states::ingame::running::process_fruit(
 					first_plane_vector,
 					second_plane_vector));
 
-	sge::renderer::scalar const plane_scalar = 
+	sge::renderer::scalar const plane_scalar =
 		fcppt::math::vector::dot(
 			fruitlib::math::multiply_matrix4_vector3(
 				fcppt::math::matrix::transpose(
 					current_fruit.rotation()),
 				point1_unprojected - current_fruit.position()),
 			plane_normal);
-		
+
 	context<superstate>().fruit_manager().cut(
 		current_fruit,
 		fruit::plane(

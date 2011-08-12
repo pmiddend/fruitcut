@@ -48,10 +48,10 @@ public:
 	fruitlib::physics::rigid_body::object const &
 	body() const;
 
-	sge::renderer::matrix4 const 
+	sge::renderer::matrix4 const
 	rotation() const;
 
-	sge::renderer::vector3 const 
+	sge::renderer::vector3 const
 	position() const;
 
 	fruit::box3 const &

@@ -76,13 +76,13 @@ fruitapp::fruit::object_parameters::mesh() const
 	return mesh_;
 }
 
-fruitlib::physics::group::object & 
+fruitlib::physics::group::object &
 fruitapp::fruit::object_parameters::fruit_group() const
 {
 	return fruit_group_;
 }
 
-fruitlib::physics::scalar 
+fruitlib::physics::scalar
 fruitapp::fruit::object_parameters::mass() const
 {
 	return mass_;

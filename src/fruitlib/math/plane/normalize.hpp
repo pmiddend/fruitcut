@@ -17,7 +17,7 @@ basic<T,N> const
 normalize(
 	basic<T,N> const &p)
 {
-	return 
+	return
 		basic<T,N>(
 			fcppt::math::vector::normalize(
 				p.normal()),

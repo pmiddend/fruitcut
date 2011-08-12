@@ -18,7 +18,7 @@ operator()(
 	T const a,
 	T const b)
 {
-	return 
+	return
 		fcppt::math::interpolation::linear(
 			v,
 			a,

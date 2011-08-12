@@ -17,7 +17,7 @@ fruitlib::pp::filter::manager::manager(
 		renderer_),
 	name_to_shader_()
 {
-	
+
 }
 
 sge::shader::object &
@@ -26,18 +26,18 @@ fruitlib::pp::filter::manager::lookup_shader(
 	sge::shader::variable_sequence const &variables,
 	sge::shader::sampler_sequence const &samplers)
 {
-	name_to_shader::iterator found_shader = 
+	name_to_shader::iterator found_shader =
 		name_to_shader_.find(
 			name);
 
 	if(found_shader == name_to_shader_.end())
-		found_shader = 
+		found_shader =
 			create_shader(
 				name,
 				variables,
 				samplers);
 
-	return 
+	return
 		*(found_shader->second);
 }
 
@@ -63,7 +63,7 @@ fruitlib::pp::filter::manager::create_shader(
 	sge::shader::variable_sequence const &variables,
 	sge::shader::sampler_sequence const &samplers)
 {
-	return 
+	return
 		name_to_shader_.insert(
 			name_to_shader::value_type(
 				name,

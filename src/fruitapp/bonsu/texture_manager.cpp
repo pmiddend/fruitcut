@@ -42,7 +42,7 @@ fruitapp::bonsu::texture_manager::texture_manager(
 		++current_file)
 	{
 		if(fcppt::filesystem::is_directory(*current_file))
-			throw 
+			throw
 				fruitapp::exception(
 					FCPPT_TEXT("The bonsu directory is supposed to contain only files!"));
 
@@ -61,16 +61,16 @@ sge::texture::part_ptr const
 fruitapp::bonsu::texture_manager::lookup(
 	bonsu::texture_identifier const &name_)
 {
-	texture_map::const_iterator it = 
+	texture_map::const_iterator it =
 		textures_.find(
 			name_);
 
 	if(it == textures_.end())
-			throw 
+			throw
 				fruitapp::exception(
 					FCPPT_TEXT("The requested texture \"")+name_+FCPPT_TEXT("\" was not found!"));
 
-	return 
+	return
 		it->second;
 }
 

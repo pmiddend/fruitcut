@@ -20,14 +20,14 @@ distance_to_point(
 	typename basic<T,N>::vector const &p,
 	basic<T,N> const &l)
 {
-	T const intersection_value = 
+	T const intersection_value =
 		fruitlib::math::line::point_intersection(
 			p,
 			l);
-	return 
+	return
 		fcppt::math::vector::length(
-			p - 
-			l.point() - 
+			p -
+			l.point() -
 			intersection_value
 			* l.direction());
 }

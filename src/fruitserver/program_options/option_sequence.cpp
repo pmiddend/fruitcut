@@ -13,7 +13,7 @@ fruitserver::program_options::option_sequence::operator()(
 	options_.push_back(
 		new_option);
 
-	return 
+	return
 		*this;
 }
 

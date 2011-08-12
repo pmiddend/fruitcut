@@ -45,7 +45,7 @@ bool
 fruitapp::gui::combobox::selection_changed(
 	CEGUI::EventArgs const &)
 {
-	CEGUI::ListboxItem const * const selected = 
+	CEGUI::ListboxItem const * const selected =
 		impl_.getSelectedItem();
 
 	if(selected)
@@ -53,6 +53,6 @@ fruitapp::gui::combobox::selection_changed(
 			static_cast<callback_sequence::size_type>(
 				impl_.getItemIndex(
 					selected))]();
-	return 
+	return
 		true;
 }

@@ -9,7 +9,7 @@ fruitserver::ascii::from_byte_sequence(
 		static_cast<ascii::string::size_type>(
 			bytes.size()));
 	for(
-		ascii::string::size_type i = 
+		ascii::string::size_type i =
 			0;
 		i != s.size();
 		++i)

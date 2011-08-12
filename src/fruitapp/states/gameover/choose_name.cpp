@@ -57,7 +57,7 @@ fruitapp::states::gameover::choose_name::~choose_name()
 void
 fruitapp::states::gameover::choose_name::continue_button_pushed()
 {
-	CEGUI::String const name = 
+	CEGUI::String const name =
 		context<machine>().gui_system().window_manager().getWindow("NameChooser/Name")->getText();
 
 	if(name.empty())

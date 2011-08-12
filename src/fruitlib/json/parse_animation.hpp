@@ -20,17 +20,17 @@ template
 	typename Animation,
 	typename ValueParser
 >
-typename 
+typename
 Animation::keyframe_sequence const
 parse_animation(
 	sge::parse::json::array const &a,
 	ValueParser const &parse_value)
 {
-	typedef typename 
+	typedef typename
 	Animation::value_sequence
 	result_type;
 
-	typedef typename 
+	typedef typename
 	Animation::duration
 	duration;
 
@@ -45,14 +45,14 @@ parse_animation(
 	result_type keyframes;
 
 	for(
-		sge::parse::json::element_vector::const_iterator v = 
+		sge::parse::json::element_vector::const_iterator v =
 			a.elements.begin();
 		v != a.elements.end();
 		++v)
 	{
 		try
 		{
-			sge::parse::json::object const &o = 
+			sge::parse::json::object const &o =
 				boost::get<sge::parse::json::object>(
 					*v);
 
@@ -70,13 +70,13 @@ parse_animation(
 		}
 		catch (boost::bad_get const &)
 		{
-			throw 
+			throw
 				fruitlib::exception(
 					FCPPT_TEXT("An animation should consist of a list of objects. This one doesn't!"));
 		}
 	}
 
-	return 
+	return
 		keyframes;
 }
 }

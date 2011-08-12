@@ -30,13 +30,13 @@ public:
 	sge::audio::listener &
 	listener();
 
-	sge::audio::scalar 
+	sge::audio::scalar
 	speed_of_sound() const;
 
-	sge::audio::scalar 
+	sge::audio::scalar
 	doppler_factor() const;
 
-	void 
+	void
 	speed_of_sound(
 		sge::audio::scalar);
 
@@ -62,12 +62,12 @@ public:
 	create_buffer(
 		sge::audio::file &);
 
-	sge::audio::sound::positional_ptr const 
+	sge::audio::sound::positional_ptr const
 	create_positional_stream(
 		sge::audio::file_ptr,
 		sge::audio::sound::positional_parameters const &);
 
-	sge::audio::sound::base_ptr const 
+	sge::audio::sound::base_ptr const
 	create_nonpositional_stream(
 		sge::audio::file_ptr);
 

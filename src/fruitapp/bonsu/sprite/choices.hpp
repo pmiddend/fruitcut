@@ -17,7 +17,7 @@ namespace bonsu
 {
 namespace sprite
 {
-typedef 
+typedef
 sge::sprite::choices
 <
 	sge::sprite::type_choices
@@ -33,7 +33,7 @@ sge::sprite::choices
 		sge::sprite::with_texture,
 		sge::sprite::intrusive::tag
 	>
-> 
+>
 choices;
 }
 }

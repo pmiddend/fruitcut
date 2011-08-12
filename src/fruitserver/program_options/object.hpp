@@ -28,12 +28,12 @@ public:
 	get(
 		std::string const &name) const
 	{
-		name_to_holder::const_iterator const found = 
+		name_to_holder::const_iterator const found =
 			options_.find(
 				name);
 
 		if(found == options_.end())
-			throw 
+			throw
 				std::runtime_error(
 					"Couldn't find option with name \""+
 					name+
@@ -41,14 +41,14 @@ public:
 
 		try
 		{
-			return 
+			return
 				detail::holder_get<T>(
 					*(found->second));
 		}
 		catch(
 			detail::bad_cast const &e)
 		{
-			throw 
+			throw
 				std::runtime_error(
 					"Type error in program option \""+
 					name+
@@ -63,7 +63,7 @@ public:
 	~object();
 private:
 	typedef
-	std::tr1::unordered_map<std::string,detail::option_holder_base_ptr> 
+	std::tr1::unordered_map<std::string,detail::option_holder_base_ptr>
 	name_to_holder;
 
 	name_to_holder options_;

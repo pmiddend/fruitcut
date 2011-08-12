@@ -50,17 +50,17 @@ calculate_new_linear_velocity(
 	fruitlib::physics::vector3 const &old_velocity,
 	fruitlib::physics::vector3 const &normal_velocity)
 {
-	fruitlib::physics::scalar const old_to_new_velocity_factor = 
+	fruitlib::physics::scalar const old_to_new_velocity_factor =
 		static_cast<fruitlib::physics::scalar>(
 			0.5);
 
-	return 
-		old_to_new_velocity_factor * old_velocity + 
+	return
+		old_to_new_velocity_factor * old_velocity +
 			(1 - old_to_new_velocity_factor) *
 				fcppt::math::vector::length(
-					old_velocity) * 
+					old_velocity) *
 					normal_velocity;
-					
+
 }
 }
 
@@ -117,7 +117,7 @@ fruitapp::fruit::manager::cut(
 			original_plane,
 			plane(
 				-original_plane.normal(),
-				-original_plane.lambda())	
+				-original_plane.lambda())
 		}};
 
 	// We have to check if we split the fruit into one or two parts. If
@@ -127,7 +127,7 @@ fruitapp::fruit::manager::cut(
 	fruit::mesh cross_section;
 
 	for(
-		plane_array::const_iterator p = 
+		plane_array::const_iterator p =
 			planes.begin();
 		p != planes.end();
 		++p)
@@ -137,7 +137,7 @@ fruitapp::fruit::manager::cut(
 				current_fruit.mesh(),
 				*p));
 
-		cumulated_area += 
+		cumulated_area +=
 			cut_result->area().get();
 
 		// Note the return here. If this condition is true, we only split
@@ -162,7 +162,7 @@ fruitapp::fruit::manager::cut(
 					fruit_group_,
 					static_cast<fruitlib::physics::rigid_body::mass::value_type>(
 						cut_result->bounding_box().size().content()),
-					current_fruit.position() + 
+					current_fruit.position() +
 						fruitlib::math::multiply_matrix4_vector3(
 							current_fruit.body().transformation(),
 							fcppt::math::vector::structure_cast<fruitlib::physics::vector3>(
@@ -245,7 +245,7 @@ fcppt::signal::auto_connection
 fruitapp::fruit::manager::cut_callback(
 	fruitapp::fruit::callbacks::cut const &cc)
 {
-	return 
+	return
 		cut_signal_.connect(
 			cc);
 }
@@ -254,7 +254,7 @@ fcppt::signal::auto_connection
 fruitapp::fruit::manager::remove_callback(
 	fruitapp::fruit::callbacks::remove const &cc)
 {
-	return 
+	return
 		remove_signal_.connect(
 			cc);
 }
@@ -263,7 +263,7 @@ fcppt::signal::auto_connection
 fruitapp::fruit::manager::spawn_callback(
 	fruitapp::fruit::callbacks::spawn const &cc)
 {
-	return 
+	return
 		spawn_signal_.connect(
 			cc);
 }
@@ -311,10 +311,10 @@ fruitapp::fruit::manager::delete_distant_fruits()
 	fruitlib::math::plane::basic<sge::renderer::scalar,3>
 	plane_type;
 
-	sge::renderer::matrix4 const mvp =  
+	sge::renderer::matrix4 const mvp =
 		camera_.mvp();
 
-	sge::renderer::vector4 const 
+	sge::renderer::vector4 const
 		fourth_row(
 			mvp[3][0],
 			mvp[3][1],
@@ -325,10 +325,10 @@ fruitapp::fruit::manager::delete_distant_fruits()
 			mvp[1][1],
 			mvp[1][2],
 			mvp[1][3]),
-		plane_vec4 = 
+		plane_vec4 =
 			fourth_row - second_row;
 
-	plane_type const bottom_plane = 
+	plane_type const bottom_plane =
 		fruitlib::math::plane::normalize(
 			plane_type(
 				sge::renderer::vector3(
@@ -336,13 +336,13 @@ fruitapp::fruit::manager::delete_distant_fruits()
 					plane_vec4[1],
 					plane_vec4[2]),
 				plane_vec4[3]));
-	
+
 	for(object_sequence::iterator i = fruits_.begin(); i != fruits_.end(); ++i)
 	{
 		if(
-			fruitlib::math::plane::distance_to_point(bottom_plane,i->position()) > 
+			fruitlib::math::plane::distance_to_point(bottom_plane,i->position()) >
 			// This 2 is important here. If it weren't there, we would delete fruits which were just spawned.
-			static_cast<sge::renderer::scalar>(2) * 
+			static_cast<sge::renderer::scalar>(2) *
 			fruitlib::math::box_radius(
 				i->bounding_box()))
 		{

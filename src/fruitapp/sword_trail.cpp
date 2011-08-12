@@ -43,7 +43,7 @@ transform_position(
 {
 	return p;
 /*
-	return 
+	return
 		sge::input::cursor::position(
 			static_cast<sge::input::cursor::position_unit>(
 				p.x() - viewport.pos().x()),
@@ -127,10 +127,10 @@ fruitapp::sword_trail::react(
 	if (!sge::timer::reset_when_expired(update_timer_))
 		return;
 
-	sprite_object::unit const epsilon = 
+	sprite_object::unit const epsilon =
 		0.0001f;
 
-	sprite_object::vector const new_vector = 
+	sprite_object::vector const new_vector =
 		fcppt::math::vector::structure_cast<sprite_object::vector>(
 			transform_position(
 				cursor_.position(),
@@ -144,15 +144,15 @@ fruitapp::sword_trail::react(
 
 	if(positions_.size() == 1u)
 		return;
-	
-	sprite_object::vector const 
-		diff = 
+
+	sprite_object::vector const
+		diff =
 			(*boost::prior(positions_.end())) - (*boost::prior(positions_.end(),2)),
-		middle = 
-			((*boost::prior(positions_.end())) + (*boost::prior(positions_.end(),2))) 
+		middle =
+			((*boost::prior(positions_.end())) + (*boost::prior(positions_.end(),2)))
 				/ static_cast<sprite_object::unit>(2);
 
-	sprite_object::unit const angle = 
+	sprite_object::unit const angle =
 		fcppt::math::vector::atan2(
 			diff);
 

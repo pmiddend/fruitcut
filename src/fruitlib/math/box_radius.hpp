@@ -23,7 +23,7 @@ boost::enable_if_c
 box_radius(
 	fcppt::math::box::basic<T,N> const &b)
 {
-	return 
+	return
 		fcppt::math::vector::length(
 			fcppt::math::dim::structure_cast<typename fcppt::math::box::basic<T,N>::vector>(
 				b.size()/static_cast<T>(2)));

@@ -27,7 +27,7 @@ public:
 		T const &t)
 	{
 		ss_ << t;
-		return 
+		return
 			*this;
 	}
 

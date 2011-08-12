@@ -43,9 +43,9 @@ fruitapp::logo::logo(
 			.texture(
 				fcppt::make_shared_ptr<sge::texture::part_raw>(
 					sge::renderer::texture::create_planar_from_path(
-						fruitcut::media_path() 
-							/ FCPPT_TEXT("textures") 
-							/ 
+						fruitcut::media_path()
+							/ FCPPT_TEXT("textures")
+							/
 								sge::parse::json::find_and_convert_member<fcppt::string>(
 									_config_file,
 									sge::parse::json::path(
@@ -82,7 +82,7 @@ void
 fruitapp::logo::react(
 	fruitlib::scenic::events::viewport_change const &)
 {
-	sge::renderer::screen_size const viewport_size = 
+	sge::renderer::screen_size const viewport_size =
 		sge::renderer::viewport_size(
 			renderer_);
 

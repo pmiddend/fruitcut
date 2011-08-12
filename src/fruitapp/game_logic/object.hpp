@@ -48,9 +48,9 @@ public:
 		fruitapp::ingame_clock const &,
 		// to get round seconds and stuff
 		sge::parse::json::object const &,
-		// to get 
+		// to get
 		// - "fruit was cut"
-		// - "fruit was deleted" 
+		// - "fruit was deleted"
 		// - "fruit was added" (we could consult the spawner for that, but that's not The Right Thing)
 		fruitlib::audio::sound_controller &,
 		fruit::manager &,
@@ -60,7 +60,7 @@ public:
 		sge::renderer::device &,
 		sge::image2d::multi_loader &);
 
-	bool 
+	bool
 	finished() const;
 
 	highscore::score::value_type

@@ -24,7 +24,7 @@ duration_to_string(
 	ProtoExpression const &expression_tree)
 {
 	BOOST_MPL_ASSERT((boost::proto::matches<ProtoExpression, grammar>));
-	return 
+	return
 		boost::proto::eval(
 			expression_tree,
 			context<fcppt::chrono::duration<Rep,Period>,String>(

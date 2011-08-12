@@ -60,15 +60,15 @@ public:
 		target_color_(
 			_target_color)
 	{
-		
+
 	}
 
 	template<typename Channel>
 	result_type
 	operator()(
-		Channel const &c) const 	
+		Channel const &c) const
 	{
-		typedef typename 
+		typedef typename
 		mizuiro::color::types::channel_value<typename Color::format,Channel>::type
 		channel_value_type;
 
@@ -184,7 +184,7 @@ make_addition_functor(
 	SourceColor const &source,
 	DestColor &dest)
 {
-	return 
+	return
 		addition_functor<SourceColor,DestColor>(
 			source,
 			dest);
@@ -221,12 +221,12 @@ view_visitor::operator()(
 	typedef typename
 	promoted_color_format::channel_type
 	promoted_channel_type;
-	
-	promoted_channel_type 
+
+	promoted_channel_type
 		number_of_pixels = 0;
 	for(
-		iterator current_pixel = v.begin(); 
-		current_pixel != v.end(); 
+		iterator current_pixel = v.begin();
+		current_pixel != v.end();
 		++current_pixel)
 	{
 		mizuiro::color::for_each_channel(
@@ -245,17 +245,17 @@ view_visitor::operator()(
 			narrowed_result,
 			number_of_pixels));
 
-	return 
+	return
 		sge::image::color::any::object(
 			narrowed_result);
 }
 }
 
-sge::image::color::any::object const 
+sge::image::color::any::object const
 fruitlib::average_colors(
 	sge::image2d::view::const_object const &input_view)
 {
-	return 
+	return
 		fcppt::variant::apply_unary(
 			view_visitor(),
 			input_view.get());

@@ -12,24 +12,24 @@ fruitserver::program_options::object::object(
 	options_()
 {
 	for(
-		program_options::option_sequence::const_iterator it = 
+		program_options::option_sequence::const_iterator it =
 			_options.begin();
 		it != _options.end();
 		++it)
-		options_[it->name()] = 
+		options_[it->name()] =
 			it->holder();
 
 	for(
-		program_options::command_line_parameters::const_iterator it = 
+		program_options::command_line_parameters::const_iterator it =
 			_command_line.begin();
 		it != _command_line.end();
 		++it)
 	{
-		std::string current_argument = 
+		std::string current_argument =
 			*it;
 
 		if(current_argument.substr(0,2) != "--")
-			throw 
+			throw
 				std::runtime_error(
 					"Error parsing command line argument \""+
 					(*it)+
@@ -39,39 +39,39 @@ fruitserver::program_options::object::object(
 			current_argument.begin(),
 			current_argument.begin()+2);
 
-		std::string::size_type const position_of_equal = 
+		std::string::size_type const position_of_equal =
 			current_argument.find('=');
 
 		if(position_of_equal == std::string::npos)
 		{
 			// A little special case
 			if(current_argument == "help")
-				throw 
+				throw
 					help_was_needed(
 						help());
 
-			throw 
+			throw
 				std::runtime_error(
 					"Error parsing command line argument \""+
 					current_argument+
 					"\": Arguments have to be of the form \"foo=bar\"");
 		}
 
-		std::string const 
-			name = 
+		std::string const
+			name =
 				current_argument.substr(
 					0,
 					position_of_equal),
-			value = 
+			value =
 				current_argument.substr(
 					position_of_equal+1u);
 
-		name_to_holder::const_iterator const found = 
+		name_to_holder::const_iterator const found =
 			options_.find(
 				name);
 
 		if(found == options_.end())
-			throw 
+			throw
 				std::runtime_error(
 					"Couldn't find option with name \""+
 					name+

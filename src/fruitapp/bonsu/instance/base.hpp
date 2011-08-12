@@ -15,7 +15,7 @@ namespace instance
 {
 class base
 :
-	public 
+	public
 		boost::intrusive::list_base_hook
 		<
 			boost::intrusive::link_mode<boost::intrusive::auto_unlink>

@@ -76,7 +76,7 @@ public:
 				_clock,
 				keyframes_.empty()
 				?
-					throw 
+					throw
 						fruitlib::exception(
 							FCPPT_TEXT("You didn't specify any keyframes for the animation"))
 				:
@@ -90,7 +90,7 @@ public:
 		if(current_keyframe_ == keyframes_.end() || !current_timer_.expired())
 			return;
 
-		++current_keyframe_;		
+		++current_keyframe_;
 
 		// This is safe because keyframes_ cannot be empty (see ctor)
 		if(current_keyframe_ == --keyframes_.end())
@@ -106,10 +106,10 @@ public:
 	{
 		// This is safe because keyframes_ cannot be empty (see ctor)
 		if(current_keyframe_ == --keyframes_.end())
-			return 
+			return
 				current_keyframe_->value();
 
-		float_type const v = 
+		float_type const v =
 			// The timer could have expired but update didn't notice it, yet
 			current_timer_->expired()
 			?
@@ -118,7 +118,7 @@ public:
 				sge::timer::elapsed_fractional<float_type>(
 					current_timer_);
 
-		return 
+		return
 			Interpolator()(
 				v,
 				current_keyframe_->value(),
@@ -126,10 +126,10 @@ public:
 					current_keyframe_)->value());
 	}
 
-	bool 
+	bool
 	finished() const
 	{
-		return 
+		return
 			current_keyframe_ == --keyframes_.end() &&
 			current_timer_->expired();
 	}

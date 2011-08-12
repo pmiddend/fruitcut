@@ -303,7 +303,7 @@ fruitapp::game_logic::object::react(
 		{
 			sound_controller_.play(
 				fruitlib::resource_tree::path("score_increased"));
-			iterating_score_ += 
+			iterating_score_ +=
 				(score_diff)/10 + 1;
 		}
 		score_font_node_.object().text(

@@ -154,7 +154,7 @@ public:
 
 	fruitlib::scenic::delta::callback const
 	ingame_clock_callback() const;
-	
+
 	fruitlib::scenic::delta::callback const
 	standard_clock_callback() const;
 
@@ -221,7 +221,7 @@ private:
 	void
 	viewport_change();
 
-	void 
+	void
 	manage_rendering();
 };
 }

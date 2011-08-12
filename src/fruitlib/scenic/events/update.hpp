@@ -18,7 +18,7 @@ FCPPT_NONCOPYABLE(
 	update);
 public:
 	explicit
-	update(); 
+	update();
 
 	~update();
 };

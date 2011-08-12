@@ -13,7 +13,7 @@ namespace scenic
 {
 class base
 :
-	public 
+	public
 		boost::intrusive::list_base_hook
 		<
 			boost::intrusive::link_mode<boost::intrusive::auto_unlink>
@@ -26,7 +26,7 @@ public:
 	boost::intrusive::list
 	<
 		base,
-		boost::intrusive::constant_time_size<false> 
+		boost::intrusive::constant_time_size<false>
 	>
 	child_sequence;
 

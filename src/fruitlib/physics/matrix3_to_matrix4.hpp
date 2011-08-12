@@ -15,7 +15,7 @@ matrix3_to_matrix4(
 	typename
 	fcppt::math::matrix::static_<T,3,3>::type const &m)
 {
-	return 
+	return
 		typename
 		fcppt::math::matrix::static_<T,4,4>::type(
 			m[0][0],m[0][1],m[0][2],static_cast<T>(0),

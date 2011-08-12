@@ -37,8 +37,8 @@ fruitlib::rectangle_manager::object<T>::update(
 	duration const &d)
 {
 	for(
-		instance_iterator it = instances_.begin(); 
-		it != instances_.end(); 
+		instance_iterator it = instances_.begin();
+		it != instances_.end();
 		++it)
 	{
 		this->update_kinematics(
@@ -51,8 +51,8 @@ fruitlib::rectangle_manager::object<T>::update(
 	}
 
 	for(
-		instance_iterator it = dead_instances_.begin(); 
-		it != dead_instances_.end(); 
+		instance_iterator it = dead_instances_.begin();
+		it != dead_instances_.end();
 		++it)
 	{
 		this->update_kinematics(
@@ -87,9 +87,9 @@ fruitlib::rectangle_manager::object<T>::kill(
 	instance const &_instance)
 {
 	for(
-		instance_iterator i = 
-			instances_.begin(); 
-		i != instances_.end(); 
+		instance_iterator i =
+			instances_.begin();
+		i != instances_.end();
 		++i)
 	{
 		if(&(*i) != &_instance)
@@ -100,7 +100,7 @@ fruitlib::rectangle_manager::object<T>::kill(
 
 		if(i != --instances_.end())
 		{
-			instance_iterator next_to_deleted = 
+			instance_iterator next_to_deleted =
 				boost::next(
 					i);
 
@@ -108,13 +108,13 @@ fruitlib::rectangle_manager::object<T>::kill(
 				i->target());
 
 			for(
-				instance_iterator j = 
+				instance_iterator j =
 					boost::next(
-						next_to_deleted); 
-				j != instances_.end(); 
+						next_to_deleted);
+				j != instances_.end();
 				++j)
 			{
-				instance &prior_j = 
+				instance &prior_j =
 					*boost::prior(
 						j);
 
@@ -138,7 +138,7 @@ fruitlib::rectangle_manager::object<T>::kill(
 		return;
 	}
 
-	throw 
+	throw
 		fruitlib::exception(
 			FCPPT_TEXT("Tried to kill an instance which isn't found ")
 			FCPPT_TEXT("in the live instance pool (maybe you've killed it twice?)"));
@@ -151,7 +151,7 @@ fruitlib::rectangle_manager::object<T>::revive(
 {
 	FCPPT_ASSERT(
 		_instance.killed());
-	
+
 	fcppt::algorithm::ptr_container_erase(
 		dead_instances_,
 		&_instance);
@@ -182,10 +182,10 @@ fruitlib::rectangle_manager::object<T>::update_kinematics(
 	duration const &d,
 	instance &_instance)
 {
-	vector const pos_to_target_vector = 
+	vector const pos_to_target_vector =
 		_instance.target() - _instance.bounds().pos();
 
-	value_type const distance_to_target = 
+	value_type const distance_to_target =
 		fcppt::math::vector::length(
 			pos_to_target_vector);
 
@@ -199,8 +199,8 @@ fruitlib::rectangle_manager::object<T>::update_kinematics(
 		return;
 	}
 
-	value_type const speed_magnitude = 
-		d.count() * 
+	value_type const speed_magnitude =
+		d.count() *
 		_instance.speed();
 
 	if(speed_magnitude < 0.001f)
@@ -210,13 +210,13 @@ fruitlib::rectangle_manager::object<T>::update_kinematics(
 		return;
 	}
 
-	vector const speed_vector = 
+	vector const speed_vector =
 		speed_magnitude *
 		// This call is safe now, since we have the if above
 		pos_to_target_vector / distance_to_target;
 
 	// Check if we hit the target along our way, using the current speed.
-	value_type const target_intersection = 
+	value_type const target_intersection =
 		fruitlib::math::line::point_intersection(
 			_instance.target(),
 			// Constructing a line is safe now, because speed_vector's
@@ -257,27 +257,27 @@ fruitlib::rectangle_manager::object<T>::insert_impl(
 
 	if(instances_.empty())
 	{
-		target = 
+		target =
 			vector(
 				padding_.left(),
 				padding_.top());
 
-		position = 
+		position =
 			vector(
 				bounding_rect_.left() - _instance.bounds().size().w(),
 				target.y());
 	}
 	else
 	{
-		rect const &last_rect = 
+		rect const &last_rect =
 			instances_.back().bounds();
 
-		target = 
+		target =
 			vector(
 				padding_.left(),
 				last_rect.bottom() + padding_.middle());
 
-		position = 
+		position =
 			vector(
 				bounding_rect_.left() - _instance.bounds().size().w(),
 				target.y());
@@ -289,7 +289,7 @@ fruitlib::rectangle_manager::object<T>::insert_impl(
 	if(set_position)
 		_instance.pos(
 			position);
-	
+
 	instances_.push_back(
 		&_instance);
 }

@@ -21,10 +21,10 @@ fruitapp::fruit::model_to_mesh(
 	FCPPT_ASSERT(
 		!model.part_names().empty());
 
-	fcppt::string const part_name = 
+	fcppt::string const part_name =
 		model.part_names().front();
 
-	sge::model::md3::vertex_sequence const vertices = 
+	sge::model::md3::vertex_sequence const vertices =
 		model.vertices(
 			part_name);
 
@@ -32,7 +32,7 @@ fruitapp::fruit::model_to_mesh(
 		model.texcoords(
 			part_name));
 
-	sge::model::md3::texcoord_sequence const texcoords = 
+	sge::model::md3::texcoord_sequence const texcoords =
 		*model.texcoords(
 			part_name);
 
@@ -40,11 +40,11 @@ fruitapp::fruit::model_to_mesh(
 		model.normals(
 			part_name));
 
-	sge::model::md3::normal_sequence const normals = 
+	sge::model::md3::normal_sequence const normals =
 		*model.normals(
 			part_name);
 
-	sge::model::md3::index_sequence const indices = 
+	sge::model::md3::index_sequence const indices =
 		model.indices(
 			part_name);
 
@@ -64,28 +64,28 @@ fruitapp::fruit::model_to_mesh(
 		triangle::normal_array ns;
 		for (triangle::vertex_array::size_type i = 0; i < vt.size(); ++i)
 		{
-			vt[i] = 
+			vt[i] =
 				fcppt::math::vector::structure_cast<triangle::vector>(
 					vertices[
 						*boost::next(
 							index,
 							i)]);
 
-			ns[i] = 
+			ns[i] =
 				fcppt::math::vector::structure_cast<triangle::vector>(
 					normals[
 						*boost::next(
 							index,
 							i)]);
 
-			sge::renderer::vector2 const current_coord = 
+			sge::renderer::vector2 const current_coord =
 				fcppt::math::vector::structure_cast<sge::renderer::vector2>(
 					texcoords[
 						*boost::next(
 							index,
 							i)]);
-				
-			tc[i] = 
+
+			tc[i] =
 				sge::renderer::vector2(
 					current_coord.x()/* / 2*/,
 					current_coord.y());

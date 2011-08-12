@@ -58,7 +58,7 @@ fruitlib::pp::filter::highlight::apply(
 		"tex",
 		input->texture());
 
-	texture::counted_instance const result = 
+	texture::counted_instance const result =
 		texture_manager_.query(
 			texture::descriptor(
 				texture_size_,
@@ -76,7 +76,7 @@ fruitlib::pp::filter::highlight::apply(
 
 	sge::renderer::scoped_target const scoped_target(
 		renderer_,
-		*result->target()); 
+		*result->target());
 
 	sge::renderer::scoped_block const block(
 		renderer_);

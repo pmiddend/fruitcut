@@ -62,7 +62,7 @@ navigate_to_path(
 		if(current_it == boost::prior(p.values().end()))
 			return *i;
 
-		return 
+		return
 			detail::navigate_to_path(
 				t,
 				p,
@@ -89,7 +89,7 @@ navigate_to_path(
 	Tree &t,
 	resource_tree::path const &p)
 {
-	return 
+	return
 		detail::navigate_to_path(
 			t,
 			p,

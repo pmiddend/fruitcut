@@ -7,7 +7,7 @@ char
 ascii_to_native_char_impl(
 	std::size_t const c)
 {
-	return 
+	return
 		c > 127u
 		?
 			static_cast<char>(
@@ -22,7 +22,7 @@ char
 fruitserver::ascii::to_native_char(
 	ascii::char_ const &c)
 {
-	return 
+	return
 		ascii_to_native_char_impl(
 			static_cast<std::size_t>(
 				c.value()));

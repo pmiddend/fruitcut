@@ -50,13 +50,13 @@ fruitlib::font::object_parameters::bounding_box() const
 	return bounding_box_;
 }
 
-sge::font::text::align_h::type 
+sge::font::text::align_h::type
 fruitlib::font::object_parameters::alignment_h() const
 {
 	return alignment_h_;
 }
 
-sge::font::text::align_v::type 
+sge::font::text::align_v::type
 fruitlib::font::object_parameters::alignment_v() const
 {
 	return alignment_v_;

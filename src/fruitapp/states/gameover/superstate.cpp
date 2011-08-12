@@ -29,7 +29,7 @@ void
 fruitapp::states::gameover::superstate::name(
 	CEGUI::String const &_name)
 {
-	name_ = 
+	name_ =
 		_name;
 }
 

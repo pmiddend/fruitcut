@@ -33,7 +33,7 @@ public:
 	delta::clock_impl::time_point
 	time_point;
 
-	static bool const is_steady = 
+	static bool const is_steady =
 		true;
 
 	explicit

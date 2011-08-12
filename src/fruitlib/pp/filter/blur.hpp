@@ -31,7 +31,7 @@ public:
 	std::size_t
 	size_type;
 
-	explicit	
+	explicit
 	blur(
 		sge::renderer::device &,
 		filter::manager &,

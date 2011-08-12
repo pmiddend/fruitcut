@@ -42,7 +42,7 @@ public:
 		derived_.react(
 			static_cast<DerivedEvent const &>(
 				event_));
-		unconsumed_ = 
+		unconsumed_ =
 			false;
 	}
 private:

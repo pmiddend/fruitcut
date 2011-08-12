@@ -13,7 +13,7 @@ lexical_cast(
 {
 	Dest result;
 	std::stringstream ss;
-	
+
 	if (!(ss << s && ss >> result))
 		throw std::runtime_error("lexical_cast failed");
 

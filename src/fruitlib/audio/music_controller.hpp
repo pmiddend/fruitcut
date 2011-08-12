@@ -97,7 +97,7 @@ private:
 	sge::audio::buffer_ptr silence_buffer_;
 	sge::audio::sound::base_ptr silence_source_;
 
-	sge::audio::sound::base_ptr 
+	sge::audio::sound::base_ptr
 		current_source_,
 		new_source_;
 

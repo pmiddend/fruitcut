@@ -73,7 +73,7 @@ fruitapp::shadow_map::shadow_map(
 					sge::parse::json::path(
 						FCPPT_TEXT("shadow-map"))
 						/ FCPPT_TEXT("projection")),
-				fcppt::optional<sge::renderer::scalar>())) * 
+				fcppt::optional<sge::renderer::scalar>())) *
 		_modelview)
 {
 	// Do an initial clear of the texture to prevent race conditions

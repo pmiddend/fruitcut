@@ -11,8 +11,8 @@ namespace bonsu
 {
 namespace sprite
 {
-typedef 
-sge::sprite::system<sprite::choices>::type 
+typedef
+sge::sprite::system<sprite::choices>::type
 system;
 }
 }

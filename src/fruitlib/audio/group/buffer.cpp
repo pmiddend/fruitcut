@@ -33,7 +33,7 @@ sge::audio::sound::positional_ptr const
 fruitlib::audio::group::buffer::create_positional(
 	sge::audio::sound::positional_parameters const &p)
 {
-	return 
+	return
 		fcppt::make_shared_ptr<group::sound_positional>(
 			fcppt::ref(
 				*this),
@@ -45,7 +45,7 @@ fruitlib::audio::group::buffer::create_positional(
 sge::audio::sound::base_ptr const
 fruitlib::audio::group::buffer::create_nonpositional()
 {
-	return 
+	return
 		fcppt::make_shared_ptr<group::sound_base>(
 			fcppt::ref(
 				*this),
@@ -57,7 +57,7 @@ void
 fruitlib::audio::group::buffer::global_gain(
 	sge::audio::scalar const _global_gain)
 {
-	global_gain_ = 
+	global_gain_ =
 		_global_gain;
 
 	for(
@@ -73,7 +73,7 @@ void
 fruitlib::audio::group::buffer::global_pitch(
 	sge::audio::scalar const _global_pitch)
 {
-	global_pitch_ = 
+	global_pitch_ =
 		_global_pitch;
 
 	for(

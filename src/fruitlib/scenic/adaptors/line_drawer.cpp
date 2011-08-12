@@ -21,7 +21,7 @@ sge::renderer::projection::rect const
 projection_rect_from_viewport(
 	sge::renderer::pixel_rect const &viewport)
 {
-	return 
+	return
 		sge::renderer::projection::rect(
 			sge::renderer::projection::rect::vector(
 				static_cast<sge::renderer::scalar>(
@@ -75,7 +75,7 @@ fruitlib::scenic::adaptors::line_drawer::react(
 			*renderer_,
 			sge::renderer::matrix_mode::world,
 			sge::renderer::matrix4::identity());
-		
+
 		object_.render();
 	}
 	else

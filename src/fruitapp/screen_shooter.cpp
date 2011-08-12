@@ -32,7 +32,7 @@ fruitapp::screen_shooter::screen_shooter(
 	callback_connection_(
 		_keyboard.key_callback(
 			sge::input::keyboard::action(
-				sge::input::keyboard::key_code::f12, 
+				sge::input::keyboard::key_code::f12,
 				std::tr1::bind(
 					&screen_shooter::callback,
 					this,
@@ -49,12 +49,12 @@ void
 fruitapp::screen_shooter::callback(
 	fruitapp::quick_log &_log)
 {
-	fcppt::string const time_string = 
+	fcppt::string const time_string =
 		(fcppt::from_std_string(
 				boost::posix_time::to_iso_string(
 					boost::posix_time::second_clock::universal_time())));
 
-	fcppt::filesystem::path const target_dir = 
+	fcppt::filesystem::path const target_dir =
 		sge::config::cache_path(
 			fruitapp::name())
 			/ FCPPT_TEXT("screenshots");
@@ -63,7 +63,7 @@ fruitapp::screen_shooter::callback(
 		fcppt::filesystem::create_directory_exn(
 			target_dir);
 
-	fcppt::filesystem::path const dest_path = 
+	fcppt::filesystem::path const dest_path =
 		target_dir/(time_string+FCPPT_TEXT(".png"));
 
 	sge::renderer::screenshot(
@@ -71,6 +71,6 @@ fruitapp::screen_shooter::callback(
 		image_loader_,
 		dest_path);
 
-	_log.add_message( 
+	_log.add_message(
 		FCPPT_TEXT("Screenshot taken"));
 }

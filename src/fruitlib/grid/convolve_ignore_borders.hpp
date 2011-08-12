@@ -38,7 +38,7 @@ convolve_ignore_borders(
 	dim_value_type;
 
 	// The "other axis" or "counter axis" as I call it :>
-	size_type const caxis = 
+	size_type const caxis =
 		static_cast<size_type>(
 			1 - axis);
 
@@ -55,7 +55,7 @@ convolve_ignore_borders(
 	FCPPT_ASSERT(
 		!v.empty());
 
-	dim_value_type const distance = 
+	dim_value_type const distance =
 		static_cast<dim_value_type>(
 			(v.size()-1)/2);
 
@@ -72,13 +72,13 @@ convolve_ignore_borders(
 			for(dim_value_type x = 0; x < static_cast<dim_value_type>(v.size()); ++x)
 			{
 				dim newp;
-				newp[axis] = 
+				newp[axis] =
 					static_cast<dim_value_type>(
 						p[axis] - distance + x);
 				newp[caxis] = p[caxis];
 
-				result[p] += 
-					v[static_cast<typename vector::size_type>(x)] * 
+				result[p] +=
+					v[static_cast<typename vector::size_type>(x)] *
 					g[newp];
 			}
 		}

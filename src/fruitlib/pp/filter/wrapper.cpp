@@ -35,13 +35,13 @@ fruitlib::pp::filter::wrapper::filter() const
 	return *filter_;
 }
 
-bool 
+bool
 fruitlib::pp::filter::wrapper::active() const
 {
 	return active_;
 }
 
-void 
+void
 fruitlib::pp::filter::wrapper::active(
 	bool const _active)
 {

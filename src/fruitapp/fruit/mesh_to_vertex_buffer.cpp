@@ -25,7 +25,7 @@ fruitapp::fruit::mesh_to_vertex_buffer(
 	sge::renderer::vertex_declaration &vertex_decl,
 	mesh const &m)
 {
-	sge::renderer::vertex_buffer_ptr const vb = 
+	sge::renderer::vertex_buffer_ptr const vb =
 		renderer.create_vertex_buffer(
 			vertex_decl,
 			sge::renderer::vf::dynamic::part_index(
@@ -45,7 +45,7 @@ fruitapp::fruit::mesh_to_vertex_buffer(
 		vertices.begin());
 
 	for(
-		fruit::mesh::triangle_sequence::const_iterator t = 
+		fruit::mesh::triangle_sequence::const_iterator t =
 			m.triangles.begin();
 		t != m.triangles.end();
 		++t)

@@ -23,7 +23,7 @@ namespace fruit
 	This function takes a list of points and tries to create a
 	"coordinate system" from it. A coordinate system is a set of 4
 	points. Three axes (all orthogonal to each other) and the coordinate
-	origin. 
+	origin.
 
 	The result is a matrix with the columns being these 4 vectors.
 
@@ -35,7 +35,7 @@ namespace fruit
 template<typename Container>
 fcppt::optional
 <
-	typename 
+	typename
 	fcppt::math::matrix::static_
 	<
 		typename boost::mpl::identity<typename Container::value_type>::type::value_type,
@@ -63,7 +63,7 @@ make_coordinate_system(
 	Container::const_iterator
 	const_iterator;
 
-	typedef typename 
+	typedef typename
 	fcppt::math::matrix::static_<scalar,4,4>::type
 	matrix4;
 
@@ -73,7 +73,7 @@ make_coordinate_system(
 
 	// First step: Find the first point that is not equal to points[0]
 	// (so we can form the first axis)
-	const_iterator first_other_point = 
+	const_iterator first_other_point =
 		boost::next(
 			points.begin());
 
@@ -95,7 +95,7 @@ make_coordinate_system(
 
 	// Second step: Find the first point that is not colinear to the
 	// first two points (to form the second axis).
-	const_iterator second_other_point = 
+	const_iterator second_other_point =
 		boost::next(
 			first_other_point);
 
@@ -127,20 +127,20 @@ make_coordinate_system(
 		directions.end());
 
 	for(
-		typename direction_vectors::iterator i = directions.begin(); 
-		i != directions.end(); 
+		typename direction_vectors::iterator i = directions.begin();
+		i != directions.end();
 		++i)
-		(*i) = 
+		(*i) =
 			fcppt::math::vector::normalize(
 				*i);
-		
+
 	// And create the "canonical" third axis via cross
-	vector const crossed = 
+	vector const crossed =
 		fcppt::math::vector::cross(
 			directions[0],
 			directions[1]);
 
-	return 
+	return
 		matrix4(
 			directions[0][0],directions[1][0],crossed[0],(*points.begin())[0],
 			directions[0][1],directions[1][1],crossed[1],(*points.begin())[1],

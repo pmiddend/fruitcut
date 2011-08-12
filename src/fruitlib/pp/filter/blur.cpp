@@ -76,7 +76,7 @@ fruitlib::pp::filter::blur::apply(
 	// Proceed as neccessary, just flipping between 1 and 0 and
 	// forgetting "input"
 
-	instance_array instances = 
+	instance_array instances =
 		{{
 			texture_manager_.query(
 				texture::descriptor(
@@ -148,7 +148,7 @@ fruitlib::pp::filter::blur::render(
 
 	sge::renderer::scoped_target const target_(
 		renderer_,
-		*textures[i]->target()); 
+		*textures[i]->target());
 
 	sge::renderer::scoped_block const block_(
 		renderer_);

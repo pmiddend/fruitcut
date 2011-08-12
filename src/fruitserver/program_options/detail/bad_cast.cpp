@@ -2,7 +2,7 @@
 
 fruitserver::program_options::detail::bad_cast::bad_cast(
 	std::string const &_string)
-:	
+:
 	std::exception(),
 	what_(
 		_string)

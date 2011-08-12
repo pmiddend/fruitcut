@@ -22,23 +22,23 @@ scale_transformation(
 	fruitlib::font::scale::value_type
 	real;
 
-	sge::font::pos const c = 
+	sge::font::pos const c =
 		total_rect.pos() + total_rect.size()/2;
-	return 
+	return
 		sge::font::rect(
 			sge::font::pos(
 				static_cast<sge::font::pos::value_type>(
 					static_cast<real>(
-						c.x()) - 
+						c.x()) -
 					static_cast<real>(
-						c.x()) * s + 
+						c.x()) * s +
 					static_cast<real>(
 						character_rect.pos().x()) * s),
 				static_cast<sge::font::pos::value_type>(
 					static_cast<real>(
-						c.y()) - 
+						c.y()) -
 					static_cast<real>(
-						c.y()) * s + 
+						c.y()) * s +
 					static_cast<real>(
 						character_rect.pos().y()) * s)),
 			sge::font::dim(
@@ -78,7 +78,7 @@ void
 fruitlib::font::scene_node::color(
 	fruitlib::font::color const &_color)
 {
-	color_ = 
+	color_ =
 		_color;
 }
 
@@ -92,7 +92,7 @@ void
 fruitlib::font::scene_node::scale(
 	fruitlib::font::scale::value_type const _scale)
 {
-	scale_ = 
+	scale_ =
 		_scale;
 }
 

@@ -25,8 +25,8 @@ class context
 	public boost::proto::callable_context<context<Duration,String> const>
 {
 private:
-	typedef 
-	fcppt::chrono::milliseconds::rep 
+	typedef
+	fcppt::chrono::milliseconds::rep
 	rep;
 public:
 	typedef
@@ -49,17 +49,17 @@ public:
 		seconds_(),
 		milliseconds_()
 	{
-		typedef 
-		boost::make_unsigned<rep>::type 
+		typedef
+		boost::make_unsigned<rep>::type
 		urep;
 
-		fcppt::chrono::milliseconds const d = 
+		fcppt::chrono::milliseconds const d =
 			fcppt::chrono::duration_cast<fcppt::chrono::milliseconds>(
 				_impl);
 
-		minutes_ = 
+		minutes_ =
 			static_cast<rep>(
-				d.count() / 
+				d.count() /
 				static_cast<rep>(
 					1000*60));
 		rep const residue =
@@ -69,10 +69,10 @@ public:
 						d.count()),
 					static_cast<urep>(
 						1000*60)));
-		seconds_ = 
+		seconds_ =
 			static_cast<rep>(
 				residue / static_cast<rep>(1000));
-		milliseconds_ = 
+		milliseconds_ =
 			static_cast<rep>(
 				fcppt::math::mod(
 					static_cast<urep>(residue),
@@ -88,7 +88,7 @@ public:
 		oss << std::setfill(oss.widen('0')) << std::setw(2) << (milliseconds_/10);
 		return oss.str();
 		/*
-		return 
+		return
 			fcppt::lexical_cast<result_type>(
 				milliseconds_);
 		*/
@@ -99,7 +99,7 @@ public:
 		boost::proto::tag::terminal,
 		tags::seconds) const
 	{
-		return 
+		return
 			fcppt::lexical_cast<result_type>(
 				seconds_);
 	}
@@ -109,7 +109,7 @@ public:
 		boost::proto::tag::terminal,
 		tags::minutes) const
 	{
-		return 
+		return
 			fcppt::lexical_cast<result_type>(
 				minutes_);
 	}

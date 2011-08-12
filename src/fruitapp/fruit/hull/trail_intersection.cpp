@@ -27,7 +27,7 @@ fruitapp::fruit::hull::trail_intersection(
 			positions.size()));
 
 	for(
-		fruitapp::cursor_trail::position_buffer::const_iterator cursor_pos = 
+		fruitapp::cursor_trail::position_buffer::const_iterator cursor_pos =
 			positions.begin();
 		cursor_pos != positions.end();
 		++cursor_pos)
@@ -49,7 +49,7 @@ fruitapp::fruit::hull::trail_intersection(
 	if (result.size() < static_cast<result_points::size_type>(2))
 		return intersection_pair();
 
-	return 
+	return
 		intersection_pair::value_type(
 			result[0],
 			result[1]);

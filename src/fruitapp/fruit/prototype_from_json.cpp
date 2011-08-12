@@ -28,7 +28,7 @@ fruitapp::fruit::tag const
 json_to_tag(
 	sge::parse::json::value const &v)
 {
-	return 
+	return
 		sge::parse::json::get<fcppt::string>(
 			v);
 }
@@ -41,11 +41,11 @@ fruitapp::fruit::prototype_from_json(
 	sge::image2d::multi_loader &image_loader,
 	sge::renderer::device &renderer)
 {
-	sge::parse::json::object const &o = 
+	sge::parse::json::object const &o =
 		sge::parse::json::get<sge::parse::json::object>(
 			v);
 
-	return 
+	return
 		fruit::prototype(
 			fruit::model_to_mesh(
 				*model_loader.load(

@@ -31,35 +31,35 @@ public:
 		sge::audio::sound::base_ptr,
 		sge::audio::scalar global_gain,
 		sge::audio::scalar global_pitch);
-	
-	void 
+
+	void
 	play(
 		sge::audio::sound::repeat::type);
 
 	sge::audio::sound::repeat::type
 	repeat() const;
 
-	void 
+	void
 	toggle_pause();
 
-	sge::audio::sound::play_status::type 
+	sge::audio::sound::play_status::type
 	status() const;
 
-	void 
+	void
 	gain(
 		sge::audio::scalar);
 
-	sge::audio::scalar 
+	sge::audio::scalar
 	gain() const;
 
-	void 
+	void
 	pitch(
 		sge::audio::scalar);
 
-	sge::audio::scalar 
+	sge::audio::scalar
 	pitch() const;
 
-	void 
+	void
 	stop();
 
 	void

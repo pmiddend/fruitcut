@@ -51,19 +51,19 @@ fruitlib::pp::system::update()
 	// No filters found...
 	if (sorted.empty())
 		return;
-	
+
 	for(
-		vertex_list::const_iterator current_vertex = 
+		vertex_list::const_iterator current_vertex =
 			sorted.begin();
 		current_vertex != sorted.end();
 		++current_vertex)
 	{
-		texture::counted_instance const result = 
+		texture::counted_instance const result =
 			vertex_to_filter_[*current_vertex].filter().dispatch();
 
 		result_texture_ = result->texture();
 		for(
-			std::pair<out_edge_iterator,out_edge_iterator> out_edge_pair = 
+			std::pair<out_edge_iterator,out_edge_iterator> out_edge_pair =
 				boost::out_edges(
 					*current_vertex,
 					graph_);
@@ -76,7 +76,7 @@ fruitlib::pp::system::update()
 	}
 
 	/*
-	result_texture_ = 
+	result_texture_ =
 		vertex_to_filter_[sorted.back()].filter().textures_.front()->texture();
 	*/
 }
@@ -118,19 +118,19 @@ fruitlib::pp::system::add_filter(
 	// - add name association,
 	// - add dependencies
 
-	vertex_descriptor const new_vertex = 
+	vertex_descriptor const new_vertex =
 		boost::add_vertex(
 			graph_);
 
-	vertex_to_filter_[new_vertex] = 
+	vertex_to_filter_[new_vertex] =
 		filter::wrapper(
 			b,
 			name);
-	name_to_vertex_[name] = 
+	name_to_vertex_[name] =
 		new_vertex;
 
 	for(
-		dependency_set::const_iterator r = 
+		dependency_set::const_iterator r =
 			deps.begin();
 		r != deps.end();
 		++r)
@@ -142,7 +142,7 @@ fruitlib::pp::system::add_filter(
 			FCPPT_TEXT(" which was specified as the dependency for ")+
 			name+
 			FCPPT_TEXT(" was not found"));
-			
+
 		boost::add_edge(
 			name_to_vertex_[(*r)],
 			new_vertex,
@@ -163,7 +163,7 @@ fruitlib::pp::system::toggle_filter(
 	FCPPT_ASSERT(
 		vertex_to_filter_.find(name_to_vertex_[name]) != vertex_to_filter_.end());
 
-	filter::wrapper &current_filter = 
+	filter::wrapper &current_filter =
 		vertex_to_filter_[name_to_vertex_[name]];
 	current_filter.active(
 		!current_filter.active());
