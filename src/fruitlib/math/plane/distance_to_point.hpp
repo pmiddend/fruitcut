@@ -18,14 +18,14 @@ distance_to_point(
 	basic<T,N> const &p,
 	typename basic<T,N>::vector const &d)
 {
-	basic<T,N> const normalized = 
+	basic<T,N> const normalized =
 		plane::normalize(
 			p);
 
-	return 
+	return
 		fcppt::math::vector::dot(
 			p.normal(),
-			d) 
+			d)
 			- p.lambda();
 }
 }

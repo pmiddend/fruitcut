@@ -6,7 +6,7 @@
 std::string const
 fruitserver::generate_datetime()
 {
-	std::time_t const time_numeric = 
+	std::time_t const time_numeric =
 		std::time(0);
 
 	std::tm time_struct;
@@ -17,7 +17,7 @@ fruitserver::generate_datetime()
 
 	std::ostringstream ss;
 	// The setw and setfill are verbose, I know
-	ss 
+	ss
 		// tm_year is "since 1900"
 		<< (1900 + time_struct.tm_year)
 		// tm_mon is zero-based (wtf?)
@@ -29,6 +29,6 @@ fruitserver::generate_datetime()
 		<< std::setw(2) << std::setfill('0') << (time_struct.tm_min)
 		<< std::setw(2) << std::setfill('0') << (time_struct.tm_sec);
 
-	return 
+	return
 		ss.str();
 }

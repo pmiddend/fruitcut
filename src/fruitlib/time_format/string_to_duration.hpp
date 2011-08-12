@@ -42,7 +42,7 @@ struct duration_fold_functor
 	{
 		// This is either a "DurationType&" or "DurationType const &"
 		// because we're operating on a zip_view
-		typedef typename 
+		typedef typename
 		boost::fusion::result_of::at
 		<
 			OptionalRepDurationPair,
@@ -52,7 +52,7 @@ struct duration_fold_functor
 
 		// This is boost::optional<long> (note the remove_reference, else
 		// the code below breaks)
-		typedef typename 
+		typedef typename
 		boost::remove_cv
 		<
 			typename
@@ -72,10 +72,10 @@ struct duration_fold_functor
 			boost::fusion::at_c<0>(
 				oprep_and_duration));
 
-		return 
+		return
 			rep
 			?
-				accumulated_duration + 
+				accumulated_duration +
 				fcppt::chrono::duration_cast<result_type>(
 					source_duration(
 						*rep))
@@ -95,7 +95,7 @@ fcppt::optional<TargetDuration> const
 string_to_duration(
 	std::basic_string<Char,Traits> const &input_string)
 {
-	typedef 
+	typedef
 	std::basic_string<Char,Traits>
 	string;
 
@@ -131,7 +131,7 @@ string_to_duration(
 	parse_result_type;
 	*/
 
-	string_iterator it = 
+	string_iterator it =
 		input_string.begin();
 
 	parse_result_type parse_result;
@@ -141,10 +141,10 @@ string_to_duration(
 		input_string.end(),
 		// The grammar. Note the rule 'm' >> !'s'. This is neccessary
 		// because spirit matches "greedy"
-		-(boost::spirit::qi::long_ >> boost::spirit::qi::lit('d')) >> 
-		-(boost::spirit::qi::long_ >> boost::spirit::qi::lit('h')) >> 
-		-(boost::spirit::qi::long_ >> boost::spirit::qi::lit('m') >> !boost::spirit::qi::lit('s')) >> 
-		-(boost::spirit::qi::long_ >> boost::spirit::qi::lit('s')) >> 
+		-(boost::spirit::qi::long_ >> boost::spirit::qi::lit('d')) >>
+		-(boost::spirit::qi::long_ >> boost::spirit::qi::lit('h')) >>
+		-(boost::spirit::qi::long_ >> boost::spirit::qi::lit('m') >> !boost::spirit::qi::lit('s')) >>
+		-(boost::spirit::qi::long_ >> boost::spirit::qi::lit('s')) >>
 		-(boost::spirit::qi::long_ >> boost::spirit::qi::lit('m') >> boost::spirit::qi::lit('s')) >>
 		-(boost::spirit::qi::long_ >> boost::spirit::qi::lit('u') >> boost::spirit::qi::lit('s')) >>
 		-(boost::spirit::qi::long_ >> boost::spirit::qi::lit('n') >> boost::spirit::qi::lit('s')),
@@ -173,12 +173,12 @@ string_to_duration(
 		duration_types const &
 	>
 	sequence_pair;
-	
+
 	typedef
 	boost::fusion::zip_view<sequence_pair>
 	zipped_view;
 
-	typedef 
+	typedef
 	detail::duration_fold_functor<target_duration>
 	fold_functor_type;
 
@@ -186,7 +186,7 @@ string_to_duration(
 	// zip it with the chrono::durations, so we get pairs
 	// "(optional<duration>,chrono::duration)". These pairs we iterate
 	// over and accumulate the total duration
-	return 
+	return
 		boost::fusion::fold(
 			zipped_view(
 				sequence_pair(

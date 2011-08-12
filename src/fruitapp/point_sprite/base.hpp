@@ -12,12 +12,12 @@ class base
 FCPPT_NONCOPYABLE(
 	base);
 public:
-	virtual void 
+	virtual void
 	update() = 0;
 
 	virtual bool
 	dead() const = 0;
-	
+
 	virtual ~base();
 protected:
 	base();

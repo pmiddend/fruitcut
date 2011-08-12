@@ -26,7 +26,7 @@ fruitserver::highscore_entry::highscore_entry(
 fruitserver::ascii::string const &
 fruitserver::highscore_entry::name() const
 {
-	return 
+	return
 		name_;
 }
 
@@ -36,7 +36,7 @@ fruitserver::highscore_entry::score() const
 	return score_;
 }
 
-fruitserver::ascii::string const & 
+fruitserver::ascii::string const &
 fruitserver::highscore_entry::datetime() const
 {
 	return datetime_;
@@ -46,8 +46,8 @@ bool
 fruitserver::highscore_entry::operator==(
 	highscore_entry const &r) const
 {
-	return 
+	return
 		name_ == r.name_ &&
-		score_ == r.score_ && 
+		score_ == r.score_ &&
 		datetime_ == r.datetime_;
 }

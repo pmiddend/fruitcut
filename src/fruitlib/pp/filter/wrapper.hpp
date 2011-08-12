@@ -10,7 +10,7 @@ namespace pp
 {
 namespace filter
 {
-class wrapper 
+class wrapper
 {
 public:
 	explicit
@@ -25,14 +25,14 @@ public:
 	base &
 	filter() const;
 
-	bool 
+	bool
 	active() const;
 
-	void 
+	void
 	active(
 		bool);
 
-	fcppt::string const 
+	fcppt::string const
 	name() const;
 private:
 	base *filter_;

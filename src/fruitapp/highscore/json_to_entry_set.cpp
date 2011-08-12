@@ -14,16 +14,16 @@ fruitapp::highscore::entry_set const
 fruitapp::highscore::json_to_entry_set(
 	sge::parse::json::object const &input_json)
 {
-	sge::parse::json::array const json_file = 
+	sge::parse::json::array const json_file =
 		sge::parse::json::find_and_convert_member<sge::parse::json::array>(
 			input_json,
 			sge::parse::json::path(
 				FCPPT_TEXT("entries")));
 
 	highscore::entry_set result;
-	
+
 	typedef
-	std::vector<sge::parse::json::object> 
+	std::vector<sge::parse::json::object>
 	json_object_vector;
 
 	json_object_vector const json_objects(
@@ -31,7 +31,7 @@ fruitapp::highscore::json_to_entry_set(
 			json_file)));
 
 	for(
-		json_object_vector::const_iterator current_entry = 
+		json_object_vector::const_iterator current_entry =
 			json_objects.begin();
 		current_entry != json_objects.end();
 		++current_entry)

@@ -79,7 +79,7 @@ fruitapp::states::ingame::paused::paused(
 	transit_to_running_connection_(
 		context<machine>().systems().keyboard_collector().key_callback(
 			sge::input::keyboard::action(
-				sge::input::keyboard::key_code::escape, 
+				sge::input::keyboard::key_code::escape,
 				std::tr1::bind(
 					// Note that using post_event does something unexpected. If
 					// you use that, you get a tick event first and _then_ the
@@ -178,7 +178,7 @@ fruitapp::states::ingame::paused::react(
 		inject_texture_.texture(
 			current_texture_);
 		system_.update();
-		current_texture_ = 
+		current_texture_ =
 			system_.result_texture();
 		blur_iterations_++;
 	}

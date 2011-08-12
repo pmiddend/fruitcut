@@ -12,7 +12,7 @@ namespace fruitapp
 {
 namespace point_sprite
 {
-typedef 
+typedef
 boost::mpl::vector5
 <
 	sge::sprite::with_texture,
@@ -20,7 +20,7 @@ boost::mpl::vector5
 	sge::sprite::with_color,
 	sge::sprite::with_depth,
 	sge::sprite::intrusive::tag
-> 
+>
 elements;
 }
 }

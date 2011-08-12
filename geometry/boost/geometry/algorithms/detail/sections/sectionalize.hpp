@@ -461,7 +461,7 @@ struct sectionalize_box
         // (or polygon would be a helper-type).
         // Therefore we mimic a linestring/std::vector of 5 points
 
-        // TODO: might be replaced by assign_box_corners_oriented 
+        // TODO: might be replaced by assign_box_corners_oriented
         // or just "convert"
         point_type ll, lr, ul, ur;
         geometry::detail::assign_box_corners(box, ll, lr, ul, ur);

@@ -136,7 +136,7 @@ void
 fruitapp::quick_log::react(
 	fruitlib::scenic::events::viewport_change const &)
 {
-	sge::renderer::screen_size const viewport_size = 
+	sge::renderer::screen_size const viewport_size =
 		sge::renderer::viewport_size(
 			renderer_);
 
@@ -149,7 +149,7 @@ fruitapp::quick_log::react(
 			sge::font::rect::vector::null(),
 			fcppt::math::dim::structure_cast<sge::font::rect::dim>(
 				fcppt::math::dim::structure_cast<fractional_dimension>(
-					viewport_size) * 
+					viewport_size) *
 				fractional_size_)));
 }
 

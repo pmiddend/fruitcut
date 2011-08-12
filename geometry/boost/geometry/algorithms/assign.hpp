@@ -124,7 +124,7 @@ inline void assign_zero(Geometry& geometry)
 
 
 #ifndef DOXYGEN_NO_DETAIL
-namespace detail 
+namespace detail
 {
 // Note: this is moved to namespace detail because the names and parameter orders
 // are not yet 100% clear.

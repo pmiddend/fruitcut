@@ -27,7 +27,7 @@ sobel_ignore_borders(
 
 	vector f(1,0,-1),g(1,2,1);
 
-	return 
+	return
 		zip_with<T,T>(
 			convolve_ignore_borders<T>(
 				convolve_ignore_borders<T>(
@@ -45,7 +45,7 @@ sobel_ignore_borders(
 				1u),
 			boost::phoenix::bind(
 				static_cast<T (*)(T)>(&std::sqrt),
-				boost::phoenix::arg_names::arg1 * boost::phoenix::arg_names::arg1 + 
+				boost::phoenix::arg_names::arg1 * boost::phoenix::arg_names::arg1 +
 				boost::phoenix::arg_names::arg2 * boost::phoenix::arg_names::arg2));
 }
 

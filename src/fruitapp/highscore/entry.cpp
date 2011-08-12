@@ -17,32 +17,32 @@ fruitapp::highscore::entry::entry(
 fruitapp::highscore::name::value_type const &
 fruitapp::highscore::entry::name() const
 {
-	return 
+	return
 		name_;
 }
 
 fruitapp::highscore::score::value_type
 fruitapp::highscore::entry::score() const
 {
-	return 
+	return
 		score_;
 }
 
 boost::posix_time::ptime const
 fruitapp::highscore::entry::date_time() const
 {
-	return 
+	return
 		date_time_;
 }
 
-bool 
+bool
 fruitapp::highscore::entry::operator<(
 	highscore::entry const &right) const
 {
-	return 
+	return
 		score_ == right.score_
 		?
 			date_time_ < right.date_time_
 		:
-			score_ > right.score_; 
+			score_ > right.score_;
 }

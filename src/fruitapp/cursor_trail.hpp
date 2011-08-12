@@ -28,12 +28,12 @@ public:
 	boost::mpl::vector1<fruitlib::scenic::events::update>
 	scene_reactions;
 
-	typedef	
+	typedef
 	boost::circular_buffer<sge::input::cursor::position>
 	position_buffer;
 
 	typedef
-	position_buffer::size_type	
+	position_buffer::size_type
 	size_type;
 
 	explicit

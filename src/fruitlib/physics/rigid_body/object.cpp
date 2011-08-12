@@ -32,12 +32,12 @@ create_construction_info(
 		shape->calculateLocalInertia(
 			(*mass).get(),
 			inertia);
-	return 
+	return
 		btRigidBody::btRigidBodyConstructionInfo(
-				mass 
-				? 
-					(*mass).get() 
-				: 
+				mass
+				?
+					(*mass).get()
+				:
 					static_cast<btScalar>(0),
 				motion_state,
 				shape,
@@ -85,7 +85,7 @@ fruitlib::physics::rigid_body::object::world_transform() const
 	btTransform deftr;
 	motion_state_->getWorldTransform(
 		deftr);
-	return 
+	return
 		fcppt::math::matrix::translation(
 			structure_cast<vector3>(
 			 	deftr.getOrigin())) *
@@ -100,7 +100,7 @@ fruitlib::physics::rigid_body::object::transformation() const
 	btTransform deftr;
 	motion_state_->getWorldTransform(
 		deftr);
-	return 
+	return
 		matrix3_to_matrix4<scalar>(
 			structure_cast<matrix3>(
 				deftr.getBasis()));
@@ -109,7 +109,7 @@ fruitlib::physics::rigid_body::object::transformation() const
 fruitlib::physics::rigid_body::linear_velocity::value_type const
 fruitlib::physics::rigid_body::object::linear_velocity() const
 {
-	return 
+	return
 		structure_cast<vector3>(
 			body_->getLinearVelocity());
 }
@@ -117,7 +117,7 @@ fruitlib::physics::rigid_body::object::linear_velocity() const
 fruitlib::physics::rigid_body::angular_velocity::value_type const
 fruitlib::physics::rigid_body::object::angular_velocity() const
 {
-	return 
+	return
 		structure_cast<vector3>(
 			body_->getAngularVelocity());
 }
@@ -128,7 +128,7 @@ fruitlib::physics::rigid_body::object::position() const
 	btTransform deftr;
 	motion_state_->getWorldTransform(
 		deftr);
-	return 
+	return
 		structure_cast<vector3>(
 			deftr.getOrigin());
 }

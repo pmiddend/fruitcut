@@ -27,7 +27,7 @@ public:
 	sge::renderer::target_ptr const
 	target();
 
-	bool 
+	bool
 	locked() const;
 
 	void

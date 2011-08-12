@@ -10,11 +10,11 @@ namespace pp
 {
 namespace screen_vf
 {
-typedef 
+typedef
 sge::renderer::vf::view
 <
 	part
-> 
+>
 vertex_view;
 }
 }

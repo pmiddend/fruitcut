@@ -79,7 +79,7 @@ namespace tags
 SGE_RENDERER_VF_MAKE_UNSPECIFIED_TAG(position)
 }
 
-typedef 
+typedef
 sge::renderer::vf::unspecified
 <
 	sge::renderer::vf::vector
@@ -88,7 +88,7 @@ sge::renderer::vf::unspecified
 		2
 	>,
 	tags::position
-> 
+>
 position;
 
 namespace tags
@@ -96,7 +96,7 @@ namespace tags
 SGE_RENDERER_VF_MAKE_UNSPECIFIED_TAG(texcoord)
 }
 
-typedef 
+typedef
 sge::renderer::vf::unspecified
 <
 	sge::renderer::vf::vector
@@ -105,10 +105,10 @@ sge::renderer::vf::unspecified
 		2
 	>,
 	tags::texcoord
-> 
+>
 texcoord;
 
-typedef 
+typedef
 sge::renderer::vf::part
 <
 	boost::mpl::vector2
@@ -116,21 +116,21 @@ sge::renderer::vf::part
 		position,
 		texcoord
 	>
-> 
+>
 part;
 
-typedef 
+typedef
 sge::renderer::vf::format
 <
 	boost::mpl::vector1
 	<
 		part
 	>
-> 
+>
 format;
 
-typedef 
-sge::renderer::vf::view<part> 
+typedef
+sge::renderer::vf::view<part>
 vertex_view;
 }
 }
@@ -153,9 +153,9 @@ fruitapp::background::background(
 	texture_(
 		sge::renderer::texture::create_planar_from_path(
 			fruitcut::media_path()
-				/ 
+				/
 					FCPPT_TEXT("textures")
-				/ 
+				/
 					sge::parse::json::find_and_convert_member<fcppt::string>(
 						_config,
 						sge::parse::json::path(

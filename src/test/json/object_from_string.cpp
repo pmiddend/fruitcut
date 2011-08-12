@@ -15,7 +15,7 @@ fruitcut::test::json::object_from_string(
 	fcppt::io::istringstream input_file(
 		s);
 
-	bool const parse_result = 
+	bool const parse_result =
 		sge::parse::json::parse_stream(
 			input_file,
 			result_object);

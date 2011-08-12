@@ -15,10 +15,10 @@
 #include <exception>
 #include <cstdlib>
 
-int 
+int
 main(
 	int argc,
-	char *argv[]) 
+	char *argv[])
 try
 {
 	fruitserver::program_options::object my_options(
@@ -33,7 +33,7 @@ try
 
 	std::tr1::shared_ptr<std::ofstream> external_log_file;
 
-	std::ostream *log_stream = 
+	std::ostream *log_stream =
 		&std::clog;
 
 	if(my_options.get<std::string>("log-file") != "-")
@@ -43,10 +43,10 @@ try
 				my_options.get<std::string>("log-file").c_str()));
 
 		if(!external_log_file->is_open())
-			throw 
+			throw
 				std::runtime_error("Couldn't open log file \""+my_options.get<std::string>("log-file")+"\"");
 
-		log_stream  = 
+		log_stream  =
 			external_log_file.get();
 	}
 

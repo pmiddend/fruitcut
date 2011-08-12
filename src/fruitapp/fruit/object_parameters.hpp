@@ -58,10 +58,10 @@ public:
 	fruitapp::fruit::mesh const &
 	mesh() const;
 
-	fruitlib::physics::group::object & 
+	fruitlib::physics::group::object &
 	fruit_group() const;
 
-	fruitlib::physics::scalar 
+	fruitlib::physics::scalar
 	mass() const;
 
 	fruitlib::physics::vector3 const &

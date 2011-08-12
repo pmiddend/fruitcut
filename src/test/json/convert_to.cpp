@@ -39,7 +39,7 @@ BOOST_AUTO_TEST_CASE(
 			sgejson::value(
 				input_bool))));
 
-	sgejson::float_type input_float = 
+	sgejson::float_type input_float =
 		static_cast<sgejson::float_type>(1.0);
 
 	BOOST_CHECK((
@@ -49,7 +49,7 @@ BOOST_AUTO_TEST_CASE(
 			sgejson::value(
 				input_float))));
 
-	sgejson::int_type input_int = 
+	sgejson::int_type input_int =
 		static_cast<sgejson::int_type>(1.0);
 
 	BOOST_CHECK((
@@ -91,7 +91,7 @@ BOOST_AUTO_TEST_CASE(
 				expected_array))));
 
 	// The same with fixed arrays
-	fcppt::container::array<unsigned,3> const real_array = 
+	fcppt::container::array<unsigned,3> const real_array =
 		{{1,2,3}};
 
 	BOOST_CHECK((
@@ -102,7 +102,7 @@ BOOST_AUTO_TEST_CASE(
 				expected_array))));
 
 	// Can we go two-dimensional?
-	fcppt::container::array<fcppt::container::array<unsigned,2>,3> two_dim_array = 
+	fcppt::container::array<fcppt::container::array<unsigned,2>,3> two_dim_array =
 		{{
 			{{1,2}},
 			{{3,4}},
@@ -119,18 +119,18 @@ BOOST_AUTO_TEST_CASE(
 			2));
 	expected_2d_array.elements.push_back(
 		inner_2d_array);
-	inner_2d_array.elements[0] = 
+	inner_2d_array.elements[0] =
 		static_cast<sge::parse::json::int_type>(
 			3);
-	inner_2d_array.elements[1] = 
+	inner_2d_array.elements[1] =
 		static_cast<sge::parse::json::int_type>(
 			4);
 	expected_2d_array.elements.push_back(
 		inner_2d_array);
-	inner_2d_array.elements[0] = 
+	inner_2d_array.elements[0] =
 		static_cast<sge::parse::json::int_type>(
 			5);
-	inner_2d_array.elements[1] = 
+	inner_2d_array.elements[1] =
 		static_cast<sge::parse::json::int_type>(
 			6);
 	expected_2d_array.elements.push_back(

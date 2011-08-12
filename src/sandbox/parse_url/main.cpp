@@ -27,14 +27,14 @@ int main()
 	string protocol,url;
 	unsigned port = 1337;
 
-	bool res = 
+	bool res =
 		qi::parse(
 			start,
 			end,
-			(qi::as_string[+~qi::standard::char_(':')])[boost::phoenix::ref(protocol) = qi::_1] >> 
-			qi::lit("://") >> 
+			(qi::as_string[+~qi::standard::char_(':')])[boost::phoenix::ref(protocol) = qi::_1] >>
+			qi::lit("://") >>
 			(
-				((qi::as_string[+~qi::char_(':')])[boost::phoenix::ref(url) = qi::_1] >> qi::lit(':') >> qi::uint_[boost::phoenix::ref(port) = qi::_1]) | 
+				((qi::as_string[+~qi::char_(':')])[boost::phoenix::ref(url) = qi::_1] >> qi::lit(':') >> qi::uint_[boost::phoenix::ref(port) = qi::_1]) |
 				(qi::as_string[+qi::standard::char_])[boost::phoenix::ref(url) = qi::_1]));
 
 	if (start == end)

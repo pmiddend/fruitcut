@@ -72,7 +72,7 @@ fruitapp::fruit::prototype::mass() const
 	return mass_;
 }
 
-sge::renderer::texture::planar_ptr const 
+sge::renderer::texture::planar_ptr const
 fruitapp::fruit::prototype::texture() const
 {
 	return texture_;

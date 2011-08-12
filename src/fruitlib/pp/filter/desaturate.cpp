@@ -57,7 +57,7 @@ void
 fruitlib::pp::filter::desaturate::factor(
 	sge::renderer::scalar const _factor)
 {
-	factor_ = 
+	factor_ =
 		_factor;
 }
 
@@ -69,7 +69,7 @@ fruitlib::pp::filter::desaturate::apply(
 		"tex",
 		input->texture());
 
-	texture::counted_instance const result = 
+	texture::counted_instance const result =
 		texture_manager_.query(
 			texture::descriptor(
 				texture_size_,
@@ -91,7 +91,7 @@ fruitlib::pp::filter::desaturate::apply(
 
 	sge::renderer::scoped_target const scoped_target(
 		renderer_,
-		*result->target()); 
+		*result->target());
 
 	sge::renderer::scoped_block const block(
 		renderer_);

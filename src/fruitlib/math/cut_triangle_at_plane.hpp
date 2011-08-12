@@ -12,8 +12,8 @@
 #include <fcppt/math/size_type.hpp>
 #include <fcppt/math/vector/length.hpp>
 #include <fcppt/io/cout.hpp>
-#include <boost/spirit/home/phoenix/operator/comparison.hpp> 
-#include <boost/spirit/home/phoenix/operator/if_else.hpp> 
+#include <boost/spirit/home/phoenix/operator/comparison.hpp>
+#include <boost/spirit/home/phoenix/operator/if_else.hpp>
 #include <boost/spirit/home/phoenix/core/argument.hpp>
 #include <boost/spirit/home/phoenix/bind.hpp>
 #include <fcppt/container/array.hpp>
@@ -47,7 +47,7 @@ cut_triangle_at_plane(
 	scalar;
 
 	typedef
-	triangle_plane_intersection<triangle_type> 
+	triangle_plane_intersection<triangle_type>
 	result_type;
 
 	typedef
@@ -58,12 +58,12 @@ cut_triangle_at_plane(
 	scalar_sequence::size_type
 	size_type;
 
-	typename vector::size_type const N = 
+	typename vector::size_type const N =
 		vector::dim_wrapper::value;
 
 	result_type result;
 
-	fcppt::container::array<vector,3> const points = 
+	fcppt::container::array<vector,3> const points =
 	{{
 		triangle::vertex_access<triangle_type>::get(t,0),
 		triangle::vertex_access<triangle_type>::get(t,1),
@@ -73,12 +73,12 @@ cut_triangle_at_plane(
 	scalar_sequence signs;
 
 	for(std::size_t i = 0; i < 3; ++i)
-		signs[i] = 
+		signs[i] =
 			plane::distance_to_point(
 				p,
 				points[i]);
 
-	size_type const culled_vertices = 
+	size_type const culled_vertices =
 		static_cast<size_type>(
 			std::count_if(
 				signs.begin(),
@@ -101,8 +101,8 @@ cut_triangle_at_plane(
 	// So we've got either one or two vertices below the plane. v is the
 	// vertex which is "alone", either on the positive or the negative
 	// side of the plane
-	size_type const 
-		v = 
+	size_type const
+		v =
 			static_cast<size_type>(
 				std::distance(
 				signs.begin(),
@@ -114,9 +114,9 @@ cut_triangle_at_plane(
 								culled_vertices == static_cast<size_type>(1)),
 							boost::phoenix::arg_names::arg1 < static_cast<scalar>(0),
 							boost::phoenix::arg_names::arg1 >= static_cast<scalar>(0))))),
-		vnext = 
+		vnext =
 			static_cast<size_type>(v+1) % signs.size(),
-		vprev = 
+		vprev =
 			v == static_cast<size_type>(0)
 			?
 				static_cast<size_type>(signs.size()-1)
@@ -131,13 +131,13 @@ cut_triangle_at_plane(
 		return result;
 
 	vector const
-		s_1 = 
+		s_1 =
 			*line_plane_intersection<scalar,N>(
 				line::basic<scalar,N>(
 					points[vprev],
 					points[v] - points[vprev]),
 				p),
-		s_2 = 
+		s_2 =
 			*line_plane_intersection<scalar,N>(
 				line::basic<scalar,N>(
 					points[vnext],
@@ -148,7 +148,7 @@ cut_triangle_at_plane(
 	triangle::interpolation_pair<triangle_type>
 	interpolation_pair_type;
 
-	interpolation_pair_type const	
+	interpolation_pair_type const
 		v_pair(
 			v,
 			v,
@@ -209,7 +209,7 @@ cut_triangle_at_plane(
 				s_2_pair,
 				vnext_pair));
 	}
-	
+
 	return result;
 }
 }

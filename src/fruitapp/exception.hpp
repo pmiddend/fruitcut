@@ -11,11 +11,11 @@ class exception
 	public fcppt::exception
 {
 public:
-	explicit 
+	explicit
 	exception(
 		fcppt::string const &);
 
-	virtual 
+	virtual
 	~exception() throw();
 };
 }

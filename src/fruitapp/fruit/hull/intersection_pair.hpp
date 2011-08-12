@@ -14,7 +14,7 @@ namespace hull
 typedef
 fcppt::optional
 <
-	fcppt::homogenous_pair<hull::ring::value_type> 
+	fcppt::homogenous_pair<hull::ring::value_type>
 >
 intersection_pair;
 }

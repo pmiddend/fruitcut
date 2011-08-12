@@ -23,10 +23,10 @@ make_error_response(
 {
 	namespace ascii = fruitserver::ascii;
 	if(s.find(ascii::from_native_char('"')) != ascii::string::npos)
-		throw 
+		throw
 			std::runtime_error(
 				"Error response contains '\"'");
-	return 
+	return
 		ascii::from_native("{ \"error\" : \"")+
 		s+
 		ascii::from_native("\" }");
@@ -38,7 +38,7 @@ validate_filename(
 {
 	namespace ascii = fruitserver::ascii;
 	for(
-		ascii::string::const_iterator it = 
+		ascii::string::const_iterator it =
 			s.begin();
 		it != s.end();
 		++it)
@@ -53,7 +53,7 @@ validate_score(
 {
 	namespace ascii = fruitserver::ascii;
 	for(
-		ascii::string::const_iterator it = 
+		ascii::string::const_iterator it =
 			s.begin();
 		it != s.end();
 		++it)
@@ -68,7 +68,7 @@ validate_name(
 {
 	namespace ascii = fruitserver::ascii;
 	for(
-		ascii::string::const_iterator it = 
+		ascii::string::const_iterator it =
 			s.begin();
 		it != s.end();
 		++it)
@@ -89,16 +89,16 @@ score_comparator(
 fruitserver::command_processor::command_processor(
 	std::ostream &_log_stream,
 	std::string const &_data_dir)
-:	
+:
 	log_stream_(
 		_log_stream),
 	data_dir_(
 		_data_dir),
 	command_name_to_handler_()
 {
-	command_name_to_handler_[ascii::from_native("G")] = 
+	command_name_to_handler_[ascii::from_native("G")] =
 		&command_processor::handle_get;
-	command_name_to_handler_[ascii::from_native("P")] = 
+	command_name_to_handler_[ascii::from_native("P")] =
 		&command_processor::handle_put;
 }
 
@@ -108,31 +108,31 @@ fruitserver::command_processor::process(
 {
 	if(c.empty())
 	{
-		fruitserver::logger(log_stream_) 
+		fruitserver::logger(log_stream_)
 			<< ": Error: got an empty command";
 
-		return 
+		return
 			::make_error_response(
 				ascii::from_native(
 					"Got an empty command"));
 	}
 
-	command_name_to_handler::const_iterator handler = 
+	command_name_to_handler::const_iterator handler =
 		command_name_to_handler_.find(
 			c[0]);
 
 	if(handler == command_name_to_handler_.end())
 	{
-		fruitserver::logger(log_stream_) 
+		fruitserver::logger(log_stream_)
 			<< ": Error: Command unknown";
 
-		return 
+		return
 			::make_error_response(
 				ascii::from_native(
 					"Unknown command"));
 	}
 
-	return 
+	return
 		(this->*(handler->second))(
 			c);
 }
@@ -147,7 +147,7 @@ fruitserver::command_processor::handle_get(
 {
 	if(c.size() != 2u)
 	{
-		fruitserver::logger(log_stream_) 
+		fruitserver::logger(log_stream_)
 			<< ": Error: the get command doesn't get two parameters";
 		return
 			::make_error_response(
@@ -165,7 +165,7 @@ fruitserver::command_processor::handle_get(
 					"Invalid revision id (must only contain ascii letters and digits)"));
 	}
 
-	return 
+	return
 		fruitserver::highscore_to_json(
 			fruitserver::highscore_from_plain_file(
 				data_dir_+
@@ -180,7 +180,7 @@ fruitserver::command_processor::handle_put(
 {
 	if(c.size() != 4u)
 	{
-		fruitserver::logger(log_stream_) 
+		fruitserver::logger(log_stream_)
 			<< ": Error: the put command gets 3 parameters!";
 		return
 			make_error_response(
@@ -188,12 +188,12 @@ fruitserver::command_processor::handle_put(
 					"Got an invalid number of parameters"));
 	}
 
-	fruitserver::ascii::string const 
-		revision = 
+	fruitserver::ascii::string const
+		revision =
 			c[1],
-		score = 
+		score =
 			c[3],
-		name = 
+		name =
 			c[2];
 
 	if(
@@ -233,15 +233,15 @@ fruitserver::command_processor::handle_put(
 			ascii::to_native(
 				revision)));
 
-	fruitserver::logger(log_stream_) 
-		<< ": Got a highscore with " 
-		<< highscore.size() 
+	fruitserver::logger(log_stream_)
+		<< ": Got a highscore with "
+		<< highscore.size()
 		<< " entries";
 
-	fruitserver::logger(log_stream_) 
-		<< "Adding highscore entry with name " 
+	fruitserver::logger(log_stream_)
+		<< "Adding highscore entry with name "
 		<< ascii::to_native(name)
-		<< " and score " 
+		<< " and score "
 		<< ascii::to_native(score);
 
 	fruitserver::highscore_entry new_entry(
@@ -260,7 +260,7 @@ fruitserver::command_processor::handle_put(
 		highscore.end(),
 		&score_comparator);
 
-	std::size_t const rank = 
+	std::size_t const rank =
 		static_cast<std::size_t>(
 			std::distance(
 				highscore.begin(),
@@ -278,7 +278,7 @@ fruitserver::command_processor::handle_put(
 
 	fruitserver::logger(log_stream_) << ": Write completed, writing rank " << rank << "...";
 
-	return 
+	return
 		ascii::from_native("{\"rank\" : ")+
 		ascii::from_native(
 			fruitserver::lexical_cast<std::string>(

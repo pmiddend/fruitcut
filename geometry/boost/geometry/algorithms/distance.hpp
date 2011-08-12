@@ -417,7 +417,7 @@ struct distance
     static inline typename return_type<Strategy>::type apply(Point const& point,
                 Segment const& segment, Strategy const& strategy)
     {
-        
+
         typename point_type<Segment>::type p[2];
         geometry::detail::assign_point_from_index<0>(segment, p[0]);
         geometry::detail::assign_point_from_index<1>(segment, p[1]);

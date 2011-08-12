@@ -67,7 +67,7 @@ private:
 	float
 	float_type;
 
-	typedef 
+	typedef
 	sge::sprite::choices
 	<
 		sge::sprite::type_choices
@@ -84,33 +84,33 @@ private:
 			sge::sprite::with_texture,
 			sge::sprite::with_rotation
 		>
-	> 
+	>
 	sprite_choices;
 
-	typedef 
-	sge::sprite::system<sprite_choices>::type 
+	typedef
+	sge::sprite::system<sprite_choices>::type
 	sprite_system;
 
-	typedef 
-	sge::sprite::object<sprite_choices> 
+	typedef
+	sge::sprite::object<sprite_choices>
 	sprite_object;
 
-	typedef 
-	sge::sprite::parameters<sprite_choices> 
+	typedef
+	sge::sprite::parameters<sprite_choices>
 	sprite_parameters;
 
-	typedef 
-	boost::circular_buffer<sprite_object> 
+	typedef
+	boost::circular_buffer<sprite_object>
 	sprite_buffer;
 
-	typedef	
+	typedef
 	boost::circular_buffer<sprite_object::vector>
 	position_buffer;
 
-	typedef	
+	typedef
 	boost::circular_buffer
 	<
-		fcppt::shared_ptr<fruitapp::ingame_timer> 
+		fcppt::shared_ptr<fruitapp::ingame_timer>
 	>
 	timer_buffer;
 

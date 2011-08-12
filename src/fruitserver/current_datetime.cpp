@@ -6,10 +6,10 @@
 std::string const
 fruitserver::current_datetime()
 {
-	std::time_t const _time_count = 
+	std::time_t const _time_count =
 		std::time(
 			0);
-	std::tm const * const _tm = 
+	std::tm const * const _tm =
 		std::localtime(
 			&_time_count);
 	if(!_tm)
@@ -18,6 +18,6 @@ fruitserver::current_datetime()
 	fruitserver::output_tm(
 		ss,
 		*_tm);
-	return 
+	return
 		ss.str();
 }

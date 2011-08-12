@@ -27,7 +27,7 @@ public:
 	fcppt::function::object<void ()>
 	callback;
 
-	explicit	
+	explicit
 	render_to_texture(
 		sge::renderer::device &,
 		sge::renderer::state::list const &,

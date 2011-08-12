@@ -11,7 +11,7 @@ fruitserver::ascii::to_byte_sequence(
 		fruitserver::byte_sequence::size_type i = 0;
 		i < result.size();
 		++i)
-		result[i] = 
+		result[i] =
 			s[static_cast<ascii::string::size_type>(i)].value();
 	return result;
 }

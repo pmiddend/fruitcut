@@ -16,7 +16,7 @@ fruitapp::highscore::provider::file::object::object(
 fruitapp::highscore::provider::identifier::value_type const
 fruitapp::highscore::provider::file::object::identifier() const
 {
-	return 
+	return
 		FCPPT_TEXT("File \"")+
 		fcppt::filesystem::stem(
 			path_)+
@@ -26,7 +26,7 @@ fruitapp::highscore::provider::file::object::identifier() const
 fruitapp::highscore::provider::connection_base_ptr
 fruitapp::highscore::provider::file::object::create_connection()
 {
-	return 
+	return
 		fruitapp::highscore::provider::connection_base_ptr(
 			fcppt::make_unique_ptr<file::connection>(
 				path_));

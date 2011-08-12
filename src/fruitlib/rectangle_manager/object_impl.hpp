@@ -32,12 +32,12 @@ void
 fruitlib::rectangle_manager::object<T>::update(
 	duration const &d)
 {
-	value_type const epsilon = 
+	value_type const epsilon =
 		0.01f;
 
 	for(
-		instance_iterator it = instances_.begin(); 
-		it != instances_.end(); 
+		instance_iterator it = instances_.begin();
+		it != instances_.end();
 		++it)
 	{
 		it->pos(
@@ -54,8 +54,8 @@ fruitlib::rectangle_manager::object<T>::update(
 	}
 
 	for(
-		instance_iterator it = dead_instances_.begin(); 
-		it != dead_instances_.end(); 
+		instance_iterator it = dead_instances_.begin();
+		it != dead_instances_.end();
 		++it)
 	{
 		it->pos(
@@ -100,7 +100,7 @@ fruitlib::rectangle_manager::object<T>::insert(
 	}
 	else
 	{
-		rect const &last_rect = 
+		rect const &last_rect =
 			instances_.back().bounds();
 
 		_instance.target(
@@ -113,7 +113,7 @@ fruitlib::rectangle_manager::object<T>::insert(
 				bounding_rect_.left() - _instance.bounds().size().w(),
 				_instance.target().y()));
 	}
-	
+
 	instances_.push_back(
 		&_instance);
 }
@@ -124,9 +124,9 @@ fruitlib::rectangle_manager::object<T>::kill(
 	instance const &_instance)
 {
 	for(
-		instance_iterator i = 
-			instances_.begin(); 
-		i != instances_.end(); 
+		instance_iterator i =
+			instances_.begin();
+		i != instances_.end();
 		++i)
 	{
 		if(&(*i) != &_instance)
@@ -137,7 +137,7 @@ fruitlib::rectangle_manager::object<T>::kill(
 
 		if(i != --instances_.end())
 		{
-			instance_iterator next_to_deleted = 
+			instance_iterator next_to_deleted =
 				boost::next(
 					i);
 
@@ -145,13 +145,13 @@ fruitlib::rectangle_manager::object<T>::kill(
 				i->target());
 
 			for(
-				instance_iterator j = 
+				instance_iterator j =
 					boost::next(
-						next_to_deleted); 
-				j != instances_.end(); 
+						next_to_deleted);
+				j != instances_.end();
 				++j)
 			{
-				instance &prior_j = 
+				instance &prior_j =
 					*boost::prior(
 						j);
 
@@ -175,7 +175,7 @@ fruitlib::rectangle_manager::object<T>::kill(
 		return;
 	}
 
-	throw 
+	throw
 		fruitlib::exception(
 			FCPPT_TEXT("Tried to kill an instance which isn't found ")
 			FCPPT_TEXT("in the live instance pool (maybe you've killed it twice?)"));

@@ -28,7 +28,7 @@ class debugger
 {
 FCPPT_NONCOPYABLE(
 	debugger);
-public:	
+public:
 	explicit
 	debugger(
 		world &,
@@ -45,7 +45,7 @@ public:
 	active(
 		bool);
 
-	bool 
+	bool
 	active() const;
 
 	~debugger();
@@ -75,39 +75,39 @@ private:
 		btVector3 const & color);
 
 	// @override
-	void	
+	void
 	draw3dText(
 		btVector3 const&location,
 		char const*textString);
-	
+
 	// @override
 	void
 	reportErrorWarning(
 		char const* warningString);
 
 	// @override
-	void 
+	void
 	setDebugMode(
 		int);
 
 	// @override
-	int 
+	int
 	getDebugMode() const;
 
 	/*
 	void
 	drawBox(
-		btVector3 const& boxMin, 
-		btVector3 const& boxMax, 
-		btVector3 const& color, 
+		btVector3 const& boxMin,
+		btVector3 const& boxMax,
+		btVector3 const& color,
 		btScalar const alpha) {}
 
-	void	
+	void
 	drawTriangle(
 		btVector3 const& v0,
 		btVector3 const& v1,
 		btVector3 const& v2,
-		btVector3 const &color, 
+		btVector3 const &color,
 		btScalar alpha) {}
 	*/
 

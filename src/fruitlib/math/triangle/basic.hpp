@@ -26,7 +26,7 @@ public:
 	fcppt::math::vector::static_<T,N>::type
 	vector;
 
-	typedef 
+	typedef
 	fcppt::container::array<vector,3>
 	point_array;
 
@@ -75,16 +75,16 @@ operator<<(
 	fcppt::io::ostream &s,
 	fruitlib::math::triangle::basic<T,N,Data> const &p)
 {
-	return 
-		s 
-			<< s.widen('(') 
-			<< p.points()[0] 
+	return
+		s
+			<< s.widen('(')
+			<< p.points()[0]
 				<< s.widen(' ')  << s.widen('[') << p.data()[0] << s.widen(']')
 				<< s.widen(',')
 			<< p.points()[1]
 				<< s.widen(' ')  << s.widen('[') << p.data()[1] << s.widen(']')
 				<< s.widen(',')
-			<< p.points()[2] 
+			<< p.points()[2]
 				<< s.widen(' ')  << s.widen('[') << p.data()[2] << s.widen(']')
 			<< s.widen(')');
 }

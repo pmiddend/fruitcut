@@ -11,6 +11,6 @@ fruitserver::program_options::help_was_needed::help_was_needed(
 std::string const &
 fruitserver::program_options::help_was_needed::help_string() const
 {
-	return 
+	return
 		help_string_;
 }

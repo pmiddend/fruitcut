@@ -31,8 +31,8 @@ weak_compare(
 	typename value_type::point_array bcopy = b.points();
 
 	// Has to be an iterator so the mutating algorithm below works
-	typename value_type::point_array::iterator 
-		first_in_second = 
+	typename value_type::point_array::iterator
+		first_in_second =
 			std::find_if(
 				bcopy.begin(),
 				bcopy.end(),
@@ -55,7 +55,7 @@ weak_compare(
 		first_in_second,
 		bcopy.end());
 
-	return 
+	return
 		boost::inner_product(
 			a.points(),
 			bcopy,

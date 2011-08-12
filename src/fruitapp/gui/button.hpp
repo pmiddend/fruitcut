@@ -19,7 +19,7 @@ FCPPT_NONCOPYABLE(
 	button);
 public:
 	typedef
-	void 
+	void
 	push_callback_type();
 
 	typedef

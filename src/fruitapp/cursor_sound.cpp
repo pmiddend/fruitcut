@@ -24,7 +24,7 @@ transform_position(
 	sge::input::cursor::position const &p,
 	sge::renderer::pixel_rect const &viewport)
 {
-	return 
+	return
 		sge::input::cursor::position(
 			static_cast<sge::input::cursor::position_unit>(
 				p.x() - viewport.pos().x()),

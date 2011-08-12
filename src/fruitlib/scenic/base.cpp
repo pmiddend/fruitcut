@@ -4,7 +4,7 @@
 fruitlib::scenic::base::child_sequence const &
 fruitlib::scenic::base::children() const
 {
-	return 
+	return
 		children_;
 }
 
@@ -20,9 +20,9 @@ fruitlib::scenic::base::forward_to_children(
 	events::base const &e)
 {
 	for(
-		child_sequence::iterator it = 
-			children_.begin(); 
-		it != children_.end(); 
+		child_sequence::iterator it =
+			children_.begin();
+		it != children_.end();
 		++it)
 		it->process(
 			e);

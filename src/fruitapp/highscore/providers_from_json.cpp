@@ -26,19 +26,19 @@ fruitapp::highscore::providers_from_json(
 	sge::parse::json::object const &config_file,
 	highscore::provider_sequence &result)
 {
-	sge::parse::json::array const &providers = 
+	sge::parse::json::array const &providers =
 		sge::parse::json::find_and_convert_member<sge::parse::json::array>(
 			config_file,
 			sge::parse::json::path(
 				FCPPT_TEXT("highscore-providers")));
 
 	for(
-		sge::parse::json::element_vector::const_iterator current_element = 
+		sge::parse::json::element_vector::const_iterator current_element =
 			providers.elements.begin();
 		current_element != providers.elements.end();
 		++current_element)
 	{
-		fcppt::string const uri = 
+		fcppt::string const uri =
 			sge::parse::json::find_and_convert_member<fcppt::string>(
 				sge::parse::json::convert_from<sge::parse::json::object>(
 					*current_element),
@@ -50,33 +50,33 @@ fruitapp::highscore::providers_from_json(
 
 		namespace qi = boost::spirit::qi;
 
-		fcppt::string::const_iterator current_position = 
+		fcppt::string::const_iterator current_position =
 			uri.begin();
 
 		typedef
 		qi::as<fcppt::string>
 		as_fcppt_string_type;
 
-		as_fcppt_string_type const as_fcppt_string = 
+		as_fcppt_string_type const as_fcppt_string =
 			as_fcppt_string_type();
 
-		bool const parse_result = 
+		bool const parse_result =
 			qi::parse(
 				current_position,
 				uri.end(),
-				(as_fcppt_string[+~qi::standard_wide::char_(FCPPT_TEXT(':'))])[boost::phoenix::ref(protocol) = qi::_1] >> 
-				qi::lit(FCPPT_TEXT("://")) >> 
+				(as_fcppt_string[+~qi::standard_wide::char_(FCPPT_TEXT(':'))])[boost::phoenix::ref(protocol) = qi::_1] >>
+				qi::lit(FCPPT_TEXT("://")) >>
 				(
-					((as_fcppt_string[+~qi::standard_wide::char_(FCPPT_TEXT(':'))])[boost::phoenix::ref(address) = qi::_1] >> qi::lit(FCPPT_TEXT(':')) >> qi::uint_[boost::phoenix::ref(port) = qi::_1]) | 
+					((as_fcppt_string[+~qi::standard_wide::char_(FCPPT_TEXT(':'))])[boost::phoenix::ref(address) = qi::_1] >> qi::lit(FCPPT_TEXT(':')) >> qi::uint_[boost::phoenix::ref(port) = qi::_1]) |
 					(as_fcppt_string[+qi::standard_wide::char_])[boost::phoenix::ref(address) = qi::_1]));
 
 		if(!parse_result || current_position != uri.end())
-			throw 
+			throw
 				fruitapp::exception(
 					FCPPT_TEXT("Provider URI \"")+uri+FCPPT_TEXT("\" is invalid"));
 
 		if(protocol == FCPPT_TEXT("file"))
-			address = 
+			address =
 				boost::algorithm::replace_all_copy(
 					address,
 					FCPPT_TEXT("$CACHE_PATH"),

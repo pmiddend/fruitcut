@@ -46,35 +46,35 @@ fruitapp::fruit::hull::projected(
 	hull_point_cloud point_cloud;
 
 	typedef
-	fcppt::container::array<box3::vector,8> 
+	fcppt::container::array<box3::vector,8>
 	corner_point_array;
 
-	corner_point_array const corner_points = 
+	corner_point_array const corner_points =
 		fcppt::math::box::corner_points(
 			f.bounding_box());
 
 	for(
-		corner_point_array::const_iterator v = 
+		corner_point_array::const_iterator v =
 			corner_points.begin();
 		v != corner_points.end();
 		++v)
 	{
-		sge::renderer::vector4 const projected = 
-			mvp 
-				 * 
-					f.world_transform() 
-				* 
+		sge::renderer::vector4 const projected =
+			mvp
+				 *
+					f.world_transform()
+				*
 					fcppt::math::vector::construct(
 						(*v),
 						static_cast<box3::vector::value_type>(
 							1));
 
-		sge::renderer::vector2 const divided = 
+		sge::renderer::vector2 const divided =
 			fcppt::math::vector::narrow_cast<hull_point_cloud::value_type>(
 				projected / projected[3]);
 
-		sge::renderer::vector2 const window_coordinates = 
-			(divided + 
+		sge::renderer::vector2 const window_coordinates =
+			(divided +
 				sge::renderer::vector2(
 					static_cast<sge::renderer::scalar>(1),
 					static_cast<sge::renderer::scalar>(1)))

@@ -25,7 +25,7 @@ FCPPT_NONCOPYABLE(
 public:
 	explicit
 	get_model();
-	
+
 	gui::table::column_sequence const
 	columns() const;
 

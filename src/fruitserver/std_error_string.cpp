@@ -5,7 +5,7 @@
 std::string const
 fruitserver::std_error_string()
 {
-	return 
+	return
 		::strerror(
 			errno);
 }

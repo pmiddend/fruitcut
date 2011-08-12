@@ -31,7 +31,7 @@ fruitlib::font::drawer::object::object(
 				// Is this safe? Could be a non-alpha format
 				renderer_.caps().preferred_texture_format(),
 				sge::renderer::texture::mipmap::off(),
-				fcppt::math::dim::quad<sge::renderer::dim2>( 
+				fcppt::math::dim::quad<sge::renderer::dim2>(
 					256)))),
 	sprite_system_(
 		renderer_),
@@ -53,7 +53,7 @@ fruitlib::font::drawer::object::begin_rendering(
 	sprites_.reserve(
 		static_cast<sprite_container::size_type>(
 			buffer_chars));
-	bounding_rect_ = 
+	bounding_rect_ =
 		sge::font::rect(
 			origin,
 			size);
@@ -69,11 +69,11 @@ fruitlib::font::drawer::object::draw_char(
 		sge::image2d::view::dim(
 			_data));
 
-	typedef 
-	sge::sprite::parameters<sprite_choices> 
+	typedef
+	sge::sprite::parameters<sprite_choices>
 	sprite_parameters;
 
-	sge::font::rect const transformation = 
+	sge::font::rect const transformation =
 		transform_callback_(
 			bounding_rect_,
 			sge::font::rect(
@@ -117,7 +117,7 @@ void
 fruitlib::font::drawer::object::color(
 	font::color const &_color)
 {
-	color_ = 
+	color_ =
 		_color;
 }
 
@@ -131,7 +131,7 @@ void
 fruitlib::font::drawer::object::transform_callback(
 	fruitlib::font::drawer::transform_callback const &_transform_callback)
 {
-	transform_callback_ = 
+	transform_callback_ =
 		_transform_callback;
 }
 

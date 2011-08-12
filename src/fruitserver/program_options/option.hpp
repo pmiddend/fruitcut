@@ -16,7 +16,7 @@ option(
 	std::string const &name,
 	T const &value)
 {
-	return 
+	return
 		detail::option_base(
 			name,
 			detail::option_holder_base_ptr(

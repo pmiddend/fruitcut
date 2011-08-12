@@ -120,7 +120,7 @@ void
 fruitapp::states::gameover::ranking::message_received(
 	fcppt::string const &s)
 {
-	CEGUI::Window &w = 
+	CEGUI::Window &w =
 		*context<fruitapp::machine>().gui_system().window_manager().getWindow(
 			"Ranking/MessageLog");
 
@@ -135,7 +135,7 @@ void
 fruitapp::states::gameover::ranking::error_received(
 	fcppt::string const &s)
 {
-	CEGUI::Window &w = 
+	CEGUI::Window &w =
 		*context<fruitapp::machine>().gui_system().window_manager().getWindow(
 			"Ranking/MessageLog");
 

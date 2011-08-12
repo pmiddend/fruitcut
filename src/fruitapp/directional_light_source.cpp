@@ -14,22 +14,22 @@ fruitapp::directional_light_source::directional_light_source()
 sge::renderer::vector3 const &
 fruitapp::directional_light_source::position() const
 {
-	return 
+	return
 		position_;
 }
 
-void	
+void
 fruitapp::directional_light_source::position(
 	sge::renderer::vector3 const &_position)
 {
-	position_ = 
+	position_ =
 		_position;
 }
 
-sge::renderer::matrix4 const 
+sge::renderer::matrix4 const
 fruitapp::directional_light_source::model_view() const
 {
-	return 
+	return
 		transformation_ *
 		fcppt::math::matrix::translation(
 			-position_);
@@ -39,7 +39,7 @@ void
 fruitapp::directional_light_source::transformation(
 	sge::renderer::matrix4 const &_transformation)
 {
-	transformation_ = 
+	transformation_ =
 		_transformation;
 }
 

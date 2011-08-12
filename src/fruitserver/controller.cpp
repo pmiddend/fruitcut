@@ -65,13 +65,13 @@ fruitserver::controller::client_receive_data(
 	int const _fd,
 	fruitserver::byte_sequence const &_data)
 {
-	fd_to_data::iterator found = 
+	fd_to_data::iterator found =
 		fd_to_data_.find(
 			_fd);
 
 	if(found == fd_to_data_.end())
 	{
-		throw 
+		throw
 			std::runtime_error(
 				"Couldn't find client "+
 				fruitserver::lexical_cast<std::string>(
@@ -84,21 +84,21 @@ fruitserver::controller::client_receive_data(
 		std::back_inserter(
 			found->second));
 
-	ascii::string converted = 
+	ascii::string converted =
 		ascii::from_byte_sequence(
 			found->second);
 
-	ascii::string::size_type const newline_pos = 
+	ascii::string::size_type const newline_pos =
 		converted.find(
 			ascii::from_native_char(
 				'\n'));
 
 	if(newline_pos == ascii::string::npos)
 		return;
-		
+
 	if(static_cast<ascii::string::size_type>(converted.length()-1) > newline_pos)
 	{
-		fruitserver::logger(log_stream_) << 
+		fruitserver::logger(log_stream_) <<
 			"Got an invalid package from client " << _fd << "; there was data after the newline:\n\n\""+
 			ascii::to_native(
 				converted)+
@@ -110,13 +110,13 @@ fruitserver::controller::client_receive_data(
 	converted.erase(
 		--converted.end());
 
-	ascii::string output = 
+	ascii::string output =
 		command_processor_.process(
 			fruitserver::parse_command(
 				converted));
 
 	// Add size
-	output = 
+	output =
 		ascii::from_native(
 			fruitserver::format_output_size(
 				output.size()))+

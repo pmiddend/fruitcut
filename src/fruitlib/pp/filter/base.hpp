@@ -20,13 +20,13 @@ public:
 	explicit
 	base();
 
-	virtual 
+	virtual
 	~base();
 private:
 	friend class pp::system;
 
-	typedef 
-	std::vector<texture::counted_instance> 
+	typedef
+	std::vector<texture::counted_instance>
 	texture_queue;
 
 	texture_queue textures_;

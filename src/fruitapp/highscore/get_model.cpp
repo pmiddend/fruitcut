@@ -64,7 +64,7 @@ fruitapp::highscore::get_model::reset(
 	highscore::entry_set const &entries)
 {
 	for(
-		highscore::entry_set::size_type i = 
+		highscore::entry_set::size_type i =
 			static_cast<highscore::entry_set::size_type>(
 				current_entry_set_.size()-1);
 		i != static_cast<highscore::entry_set::size_type>(-1);
@@ -75,20 +75,20 @@ fruitapp::highscore::get_model::reset(
 				i));
 	}
 
-	current_entry_set_ = 
+	current_entry_set_ =
 		entries;
 
 	for(
-		highscore::entry_set::const_iterator i = 
+		highscore::entry_set::const_iterator i =
 			current_entry_set_.begin();
 		i != current_entry_set_.end();
 		++i)
 	{
-		typedef 
-		boost::date_time::c_local_adjustor<boost::posix_time::ptime> 
+		typedef
+		boost::date_time::c_local_adjustor<boost::posix_time::ptime>
 		local_adjuster;
 
-		gui::table::row_index::value_type index = 
+		gui::table::row_index::value_type index =
 			static_cast<gui::table::row_index::value_type>(
 				std::distance(
 					current_entry_set_.begin(),

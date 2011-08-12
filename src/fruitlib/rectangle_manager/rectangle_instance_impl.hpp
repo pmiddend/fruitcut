@@ -34,7 +34,7 @@ void
 fruitlib::rectangle_manager::rectangle_instance<T>::pos(
 	vector const &_pos)
 {
-	bounds_.pos(  
+	bounds_.pos(
 		_pos);
 }
 
@@ -43,7 +43,7 @@ void
 fruitlib::rectangle_manager::rectangle_instance<T>::target(
 	vector const &_target)
 {
-	target_ = 
+	target_ =
 		_target;
 }
 
@@ -52,7 +52,7 @@ typename
 fruitlib::rectangle_manager::rectangle_instance<T>::vector const &
 fruitlib::rectangle_manager::rectangle_instance<T>::target() const
 {
-	return 
+	return
 		target_;
 }
 
@@ -60,7 +60,7 @@ template<typename T>
 void
 fruitlib::rectangle_manager::rectangle_instance<T>::kill()
 {
-	killed_ = 
+	killed_ =
 		true;
 	manager_.kill(
 		*this);
@@ -79,7 +79,7 @@ void
 fruitlib::rectangle_manager::rectangle_instance<T>::status_fraction(
 	value_type const _status_fraction)
 {
-	status_fraction_ = 
+	status_fraction_ =
 		_status_fraction;
 }
 
@@ -87,7 +87,7 @@ template<typename T>
 bool
 fruitlib::rectangle_manager::rectangle_instance<T>::killed() const
 {
-	return 
+	return
 		killed_;
 }
 

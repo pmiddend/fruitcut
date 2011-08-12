@@ -47,7 +47,7 @@ public:
 	void
 	add_message(
 		fcppt::string const &);
-	
+
 	void
 	react(
 		fruitlib::scenic::events::update const &);
@@ -71,7 +71,7 @@ private:
 	fruitlib::font::scene_node font_node_;
 	fractional_dimension fractional_size_;
 	sge::timer::basic<sge::timer::clocks::standard> message_delete_timer_;
-	message_sequence messages_; 
+	message_sequence messages_;
 };
 }
 

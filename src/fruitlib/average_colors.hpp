@@ -6,7 +6,7 @@
 
 namespace fruitlib
 {
-sge::image::color::any::object const 
+sge::image::color::any::object const
 average_colors(
 	sge::image2d::view::const_object const &);
 }

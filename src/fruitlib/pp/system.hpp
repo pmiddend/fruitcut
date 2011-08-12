@@ -41,7 +41,7 @@ namespace pp
 	dependencies as the edges. When update is called, the graph is
 	sorted topologically. Then, in this topological order, all nodes are
 	visited and filter::base::dispatch is called on them. This function
-	analyzes the internal texture queue. 
+	analyzes the internal texture queue.
 
 	The size of this queue determines the arity of the filter. If it
 	contains no textures, dispatch casts to "nullary" and passes no
@@ -95,13 +95,13 @@ public:
 	filter_name_set const
 	filter_names() const;
 private:
-	typedef 
+	typedef
 	boost::adjacency_list
 	<
-		boost::vecS, 
-		boost::vecS, 
+		boost::vecS,
+		boost::vecS,
 		boost::bidirectionalS
-	> 
+	>
 	graph;
 
 	typedef
@@ -120,7 +120,7 @@ private:
 	boost::graph_traits<graph>::out_edge_iterator
 	out_edge_iterator;
 
-	typedef 
+	typedef
 	std::map
 	<
 		vertex_descriptor,

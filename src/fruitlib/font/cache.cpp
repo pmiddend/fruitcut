@@ -67,28 +67,28 @@ fruitlib::font::cache::cache(
 		current_font_raw != _fonts.members.end();
 		++current_font_raw)
 	{
-		fcppt::string const current_identifier = 
+		fcppt::string const current_identifier =
 			current_font_raw->name;
 
-		sge::parse::json::object const &current_font = 
+		sge::parse::json::object const &current_font =
 			sge::parse::json::get<sge::parse::json::object>(
 				current_font_raw->value);
 
-		fcppt::string const filename = 
+		fcppt::string const filename =
 			sge::parse::json::find_member_exn<sge::parse::json::string>(
 				current_font.members,
 				FCPPT_TEXT("filename"));
 
 		if(fcppt::filesystem::extension_without_dot(filename) == FCPPT_TEXT("ttf"))
 		{
-			sge::font::size_type font_size = 
+			sge::font::size_type font_size =
 				sge::parse::json::find_and_convert_member<sge::font::size_type>(
 					current_font,
 					sge::parse::json::path(
 						FCPPT_TEXT("size")));
-		
+
 			// (string,size) -> (metrics_it,drawer_it)
-			ttf_font_cache::iterator cached_value = 
+			ttf_font_cache::iterator cached_value =
 				ttf_fonts_.find(
 					std::make_pair(
 						filename,
@@ -105,7 +105,7 @@ fruitlib::font::cache::cache(
 					fcppt::make_unique_ptr<fruitlib::font::drawer::object>(
 						fruitlib::font::drawer::parameters(
 							_renderer)));
-				cached_value = 
+				cached_value =
 					ttf_fonts_.insert(
 						std::make_pair(
 							std::make_pair(
@@ -130,7 +130,7 @@ fruitlib::font::cache::cache(
 		else
 		{
 			// string -> (metrics_it,drawer_it)
-			bitmap_font_cache::const_iterator cached_value = 
+			bitmap_font_cache::const_iterator cached_value =
 				bitmap_fonts_.find(
 					filename);
 
@@ -145,7 +145,7 @@ fruitlib::font::cache::cache(
 					fcppt::make_unique_ptr<fruitlib::font::drawer::object>(
 						fruitlib::font::drawer::parameters(
 							_renderer)));
-				cached_value = 
+				cached_value =
 					bitmap_fonts_.insert(
 						std::make_pair(
 							filename,
@@ -175,7 +175,7 @@ sge::font::metrics_ptr const
 fruitlib::font::cache::metrics(
 	fcppt::string const &identifier)
 {
-	to_metrics::const_iterator i = 
+	to_metrics::const_iterator i =
 		to_metrics_.find(
 			identifier);
 	FCPPT_ASSERT_MESSAGE(
@@ -190,7 +190,7 @@ fruitlib::font::drawer::object &
 fruitlib::font::cache::drawer(
 	fcppt::string const &identifier)
 {
-	to_drawer::const_iterator i = 
+	to_drawer::const_iterator i =
 		to_drawer_.find(
 			identifier);
 	FCPPT_ASSERT_MESSAGE(

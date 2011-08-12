@@ -28,7 +28,7 @@ namespace boost { namespace geometry
 /*!
 \brief Unit of plane angle: Degrees
 \details Tag defining the unit of plane angle for spherical coordinate systems.
-    This tag specifies that coordinates are defined in degrees (-180 .. 180). 
+    This tag specifies that coordinates are defined in degrees (-180 .. 180).
     It has to be specified for some coordinate systems.
 \qbk{[include reference/core/degree_radian.qbk]}
 */
@@ -38,7 +38,7 @@ struct degree {};
 /*!
 \brief Unit of plane angle: Radians
 \details Tag defining the unit of plane angle for spherical coordinate systems.
-    This tag specifies that coordinates are defined in radians (-PI .. PI). 
+    This tag specifies that coordinates are defined in radians (-PI .. PI).
     It has to be specified for some coordinate systems.
 \qbk{[include reference/core/degree_radian.qbk]}
 */

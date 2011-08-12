@@ -10,21 +10,21 @@ fruitlib::math::view_plane_rect(
 	fcppt::math::box::basic<sge::renderer::scalar,2>
 	box_type;
 
-	sge::renderer::scalar const 
-		distance_to_origin = 
+	sge::renderer::scalar const
+		distance_to_origin =
 			math::view_plane_distance(
 				mvp,
 				perspective),
-		height = 
+		height =
 			static_cast<sge::renderer::scalar>(
-				2 * 
+				2 *
 				std::tan(
 					perspective.fov().get()/2) * distance_to_origin),
-		width = 
+		width =
 			static_cast<sge::renderer::scalar>(
 				height * perspective.aspect().get());
 
-	return 
+	return
 		box_type(
 			box_type::vector(
 				-width/2,

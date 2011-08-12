@@ -88,13 +88,13 @@ private:
 	fcppt::function::object<void(sge::parse::json::object const &)>
 	json_handler;
 
-	void 
+	void
 	handle_resolve(
 		boost::system::error_code const &,
 		boost::asio::ip::tcp::resolver::iterator,
 		json_handler const &);
 
-	void 
+	void
 	handle_connect(
 		boost::system::error_code const &,
 		boost::asio::ip::tcp::resolver::iterator,

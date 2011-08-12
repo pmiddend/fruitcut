@@ -9,11 +9,11 @@ fruitserver::highscore_to_json(
 {
 	ascii::string result;
 
-	result += 
+	result +=
 		ascii::from_native("{ \"entries\" : [");
 
 	for(
-		fruitserver::highscore_sequence::const_iterator it = 
+		fruitserver::highscore_sequence::const_iterator it =
 			scores.begin();
 		it != scores.end();
 		++it)
@@ -28,6 +28,6 @@ fruitserver::highscore_to_json(
 
 	result += ascii::from_native(" ] }");
 
-	return 	
+	return
 		result;
 }

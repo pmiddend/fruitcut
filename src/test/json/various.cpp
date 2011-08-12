@@ -13,7 +13,7 @@ namespace sgejson = sge::parse::json;
 BOOST_AUTO_TEST_CASE(
 	json_make_recursive)
 {
-	sgejson::object current_object = 
+	sgejson::object current_object =
 		fruitcut::test::json::object_from_string(
 			FCPPT_TEXT("{ \"string\" : \"foo\" }"));
 
@@ -81,7 +81,7 @@ BOOST_AUTO_TEST_CASE(
 	wrongparams.push_back(
 		FCPPT_TEXT("foo/bar=3"));
 
-	sgejson::object const current_object = 
+	sgejson::object const current_object =
 		fruitcut::test::json::object_from_string(
 			FCPPT_TEXT("{ \"foo\" : { \"bar\" : \"old\" } }"));
 

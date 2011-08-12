@@ -105,7 +105,7 @@ fcppt::signal::auto_connection
 fruitapp::fruit::spawner::spawn_callback(
 	spawn_callback_function const &callback)
 {
-	return 
+	return
 		spawn_signal_.connect(
 			callback);
 }
@@ -138,7 +138,7 @@ fruitapp::fruit::spawner::react(
 	FCPPT_ASSERT(
 		prototype_index < manager_.prototypes().size());
 
-	prototype const &chosen_prototype = 
+	prototype const &chosen_prototype =
 		manager_.prototypes()[prototype_index];
 
 	fruitlib::physics::scalar const x(
@@ -146,7 +146,7 @@ fruitapp::fruit::spawner::react(
 		0.5f *
 		x_rng_());
 
-	sge::renderer::scalar const bounding_box_radius = 
+	sge::renderer::scalar const bounding_box_radius =
 		fruitlib::math::box_radius(
 			chosen_prototype.bounding_box());
 
@@ -155,10 +155,10 @@ fruitapp::fruit::spawner::react(
 		zero_plane.pos().y() - bounding_box_radius,
 		-bounding_box_radius);
 
-	fruitlib::physics::scalar const magnitude = 
+	fruitlib::physics::scalar const magnitude =
 		linear_velocity_rng_();
 
-	float const min_phi = 
+	float const min_phi =
 		std::min( 2.0f * x, 1.0f ) * 0.25f * fcppt::math::pi<float>();
 	float const max_phi =
 		- std::min( 2.0f * (1.0f - x), 1.0f ) * 0.25f * fcppt::math::pi<float>();
@@ -166,8 +166,8 @@ fruitapp::fruit::spawner::react(
 		static_cast<fruitlib::physics::scalar>(
 			angle_rng_() *
 			(
-				max_phi - 
-				min_phi) + 
+				max_phi -
+				min_phi) +
 				min_phi +
 				fcppt::math::pi<float>() * 0.5f);
 
@@ -183,7 +183,7 @@ fruitapp::fruit::spawner::react(
 		angular_velocity_rng_(),
 		angular_velocity_rng_());
 
-	fruitlib::physics::scalar const mass = 
+	fruitlib::physics::scalar const mass =
 		chosen_prototype.mass();
 
 	manager_.spawn(

@@ -168,7 +168,7 @@ struct overlay
                     GeometryOut, Direction, ReverseOut
                 >(geometry1, geometry2, out);
         }
-        
+
         has_self_intersections(geometry1);
         has_self_intersections(geometry2);
 

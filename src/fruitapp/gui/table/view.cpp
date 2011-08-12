@@ -15,7 +15,7 @@ fruitapp::gui::table::view::view(
 	sge::charconv::system &_charconv_system,
 	CEGUI::Window &_impl,
 	table::model &_model)
-:	
+:
 	charconv_system_(
 		_charconv_system),
 	impl_(
@@ -38,11 +38,11 @@ fruitapp::gui::table::view::view(
 				std::tr1::placeholders::_1)))
 {
 	// Make a copy to prevent the begin/end error
-	column_sequence const columns = 
+	column_sequence const columns =
 		model_.columns();
 
 	for(
-		column_sequence::const_iterator i = 
+		column_sequence::const_iterator i =
 			columns.begin();
 		i != columns.end();
 		++i)
@@ -50,7 +50,7 @@ fruitapp::gui::table::view::view(
 			sge::cegui::to_cegui_string(
 				i->name(),
 				charconv_system_),
-			impl_.getColumnCount(),	
+			impl_.getColumnCount(),
 			CEGUI::UDim(
 				i->width(),
 				0));
@@ -73,8 +73,8 @@ fruitapp::gui::table::view::row_added(
 		FCPPT_TEXT(" columns in row_added, expected ")+
 		fcppt::lexical_cast<fcppt::string>(
 			impl_.getColumnCount()));
-	
-	CEGUI::uint const new_row_index = 
+
+	CEGUI::uint const new_row_index =
 		impl_.insertRow(
 			static_cast<CEGUI::uint>(
 				_index),
@@ -82,10 +82,10 @@ fruitapp::gui::table::view::row_added(
 				_index));
 
 	for(
-		table::row::size_type i = 
+		table::row::size_type i =
 			0;
 		i != _row.size();
-		++i)	
+		++i)
 	{
 		// I don't think the interface allows for non-automatic deletion
 		impl_.setItem(

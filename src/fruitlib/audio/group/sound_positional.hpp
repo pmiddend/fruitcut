@@ -35,79 +35,79 @@ public:
 		sge::audio::scalar gain,
 		sge::audio::scalar pitch);
 
-	void 
+	void
 	play(
 		sge::audio::sound::repeat::type);
 
 	sge::audio::sound::repeat::type
 	repeat() const;
 
-	void 
+	void
 	toggle_pause();
 
-	sge::audio::sound::play_status::type 
+	sge::audio::sound::play_status::type
 	status() const;
 
-	void 
+	void
 	gain(
 		sge::audio::scalar);
 
-	sge::audio::scalar 
+	sge::audio::scalar
 	gain() const;
 
-	void 
+	void
 	pitch(
 		sge::audio::scalar);
 
-	sge::audio::scalar 
+	sge::audio::scalar
 	pitch() const;
 
-	void 
+	void
 	stop();
 
 	void
 	update();
 
-	sge::audio::vector const 
+	sge::audio::vector const
 	position() const;
 
-	void 
+	void
 	position(
 		sge::audio::vector const &);
 
-	sge::audio::vector const 
+	sge::audio::vector const
 	linear_velocity() const;
 
-	void 
+	void
 	linear_velocity(
 		sge::audio::vector const &);
 
-	void 
+	void
 	rolloff(
 		sge::audio::scalar);
 
-	sge::audio::scalar 
+	sge::audio::scalar
 	rolloff() const;
 
-	void 
+	void
 	direction(
 		sge::audio::vector const &);
 
-	sge::audio::vector const 
+	sge::audio::vector const
 	direction() const;
 
-	void 
+	void
 	inner_cone_angle(
 		sge::audio::scalar);
 
-	sge::audio::scalar 
+	sge::audio::scalar
 	inner_cone_angle() const;
 
-	void 
+	void
 	outer_cone_angle(
 		sge::audio::scalar);
 
-	sge::audio::scalar 
+	sge::audio::scalar
 	outer_cone_angle() const;
 private:
 	sge::audio::sound::positional &impl_;

@@ -6,16 +6,16 @@
 
 int main()
 {
-	fcppt::optional<fcppt::chrono::seconds> const result = 
+	fcppt::optional<fcppt::chrono::seconds> const result =
 		fruitlib::time_format::string_to_duration<fcppt::chrono::seconds>(
 			std::wstring(L"1d"));
 
 	if (!result)
 		std::cout << "!result\n";
 	else
-		std::cout 
-			<< 
-				result->count() 
+		std::cout
+			<<
+				result->count()
 			<< "\n";
 }
 

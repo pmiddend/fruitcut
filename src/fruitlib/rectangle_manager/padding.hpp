@@ -26,19 +26,19 @@ public:
 	{
 	}
 
-	T 
+	T
 	left() const
 	{
 		return left_;
 	}
 
-	T 
+	T
 	top() const
 	{
 		return top_;
 	}
 
-	T 
+	T
 	middle() const
 	{
 		return middle_;

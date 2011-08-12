@@ -132,7 +132,7 @@ fruitapp::states::loading::react(
 		static_cast<sge::renderer::scalar>(
 			std::distance(
 				fruit_array_.begin(),
-				current_fruit_)) / 
+				current_fruit_)) /
 			static_cast<sge::renderer::scalar>(
 				fruit_array_.size()));
 }
@@ -141,7 +141,7 @@ void
 fruitapp::states::loading::react(
 	fruitlib::scenic::events::viewport_change const &)
 {
-	sge::font::dim const &viewport_dim = 
+	sge::font::dim const &viewport_dim =
 		fcppt::math::dim::structure_cast<sge::font::dim>(
 			sge::renderer::viewport_size(
 				context<machine>().systems().renderer()));

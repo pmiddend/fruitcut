@@ -43,7 +43,7 @@ public:
 	react(
 		fruitlib::scenic::events::viewport_change const &);
 private:
-	typedef 
+	typedef
 	boost::mpl::vector7
 	<
 		sge::sprite::with_texture,
@@ -53,7 +53,7 @@ private:
 		sge::sprite::with_rotation,
 		sge::sprite::with_color,
 		sge::sprite::intrusive::tag
-	> 
+	>
 	sprite_elements;
 
 	typedef
@@ -65,24 +65,24 @@ private:
 	>
 	sprite_type_choices;
 
-	typedef 
+	typedef
 	sge::sprite::choices
 	<
 		sprite_type_choices,
 		sprite_elements
-	> 
+	>
 	sprite_choices;
 
-	typedef 
-	sge::sprite::system<sprite_choices>::type 
+	typedef
+	sge::sprite::system<sprite_choices>::type
 	sprite_system;
 
-	typedef 
-	sge::sprite::object<sprite_choices> 
+	typedef
+	sge::sprite::object<sprite_choices>
 	sprite_object;
 
-	typedef 
-	sge::sprite::parameters<sprite_choices> 
+	typedef
+	sge::sprite::parameters<sprite_choices>
 	sprite_parameters;
 
 	sge::renderer::device &renderer_;

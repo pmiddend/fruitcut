@@ -61,7 +61,7 @@ fruitlib::pp::filter::add::apply(
 		shader_,
 		sge::shader::activate_everything());
 
-	texture::counted_instance const result = 
+	texture::counted_instance const result =
 		texture_manager_.query(
 			texture::descriptor(
 				dimension_,
@@ -75,14 +75,14 @@ fruitlib::pp::filter::add::apply(
 
 	sge::renderer::scoped_target const scoped_target(
 		renderer_,
-		*result->target()); 
+		*result->target());
 
 	sge::renderer::scoped_block const block(
 		renderer_);
 
 	filter_manager_.quad().render();
 
-	return 
+	return
 		result;
 }
 

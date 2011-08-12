@@ -26,16 +26,16 @@ namespace fruitlib
 {
 namespace audio
 {
-/// The sound_controller is very similar to the 
+/// The sound_controller is very similar to the
 /// music_controller. Sounds shouldn't be hard-coded, so we store a
 /// map
 ///
-/// sound_name -> filename 
-/// 
+/// sound_name -> filename
+///
 /// In a json file and convert it to a map
 ///
-/// sound_name -> sound_group 
-/// 
+/// sound_name -> sound_group
+///
 /// In this controller. We use sound buffers, so the sounds are
 /// non-streaming. This class also includes the sound pool, which
 /// solves the problem that a sound stops playing when the destructor is
@@ -46,7 +46,7 @@ namespace audio
 /// since those are defined per vehicle; also they're looping and
 /// should end when the vehicle dies, so putting them in the pool
 /// isn't really appropriate
-/// 
+///
 /// Also, we store "sound groups", which aggregate more than one sound
 /// so you can randomly play one of them.
 class sound_controller
@@ -60,7 +60,7 @@ public:
 	boost::mpl::vector1<scenic::events::update>
 	scene_reactions;
 
-	explicit 
+	explicit
 	sound_controller(
 		scenic::optional_parent const &,
 		fruitlib::random_generator &,

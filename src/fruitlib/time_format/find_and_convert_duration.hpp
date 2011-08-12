@@ -17,7 +17,7 @@ find_and_convert_duration(
 	sge::parse::json::object const &o,
 	sge::parse::json::path const &p)
 {
-	return 
+	return
 		fruitlib::time_format::string_to_duration_exn<Duration>(
 			sge::parse::json::find_and_convert_member<fcppt::string>(
 				o,

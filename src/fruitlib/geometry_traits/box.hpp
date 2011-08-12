@@ -8,11 +8,11 @@
 #include <boost/geometry/geometry.hpp>
 #include <cstddef>
 
-namespace boost 
-{ 
-namespace geometry 
-{ 
-namespace traits 
+namespace boost
+{
+namespace geometry
+{
+namespace traits
 {
 
 template<typename T,fcppt::math::size_type N>
@@ -30,25 +30,25 @@ struct point_type< fcppt::math::box::basic<T,N> >
 template<typename T,fcppt::math::size_type N, std::size_t Dimension>
 struct indexed_access<fcppt::math::box::basic<T,N>, boost::geometry::min_corner, Dimension>
 {
-	static inline T 
+	static inline T
 	get(
 		fcppt::math::box::basic<T,N> const &b)
 	{
 		return b.pos()[Dimension];
 	}
 
-	static inline void 
+	static inline void
 	set(
-		fcppt::math::box::basic<T,N> &b, 
+		fcppt::math::box::basic<T,N> &b,
 		T const& value)
 	{
-		typename fcppt::math::box::basic<T,N>::vector p = 
+		typename fcppt::math::box::basic<T,N>::vector p =
 			b.pos();
-		typename fcppt::math::box::basic<T,N>::dim d = 
+		typename fcppt::math::box::basic<T,N>::dim d =
 			b.size();
-		d[Dimension] = 
+		d[Dimension] =
 			(p[Dimension] + d[Dimension]) - value;
-		p[Dimension] = 
+		p[Dimension] =
 			value;
 		b.pos(
 			p);
@@ -60,21 +60,21 @@ struct indexed_access<fcppt::math::box::basic<T,N>, boost::geometry::min_corner,
 template<typename T,fcppt::math::size_type N, std::size_t Dimension>
 struct indexed_access<fcppt::math::box::basic<T,N>, boost::geometry::max_corner, Dimension>
 {
-	static inline T 
+	static inline T
 	get(
 		fcppt::math::box::basic<T,N> const &b)
 	{
 		return (b.pos() + b.size())[Dimension];
 	}
 
-	static inline void 
+	static inline void
 	set(
-		fcppt::math::box::basic<T,N> &b, 
+		fcppt::math::box::basic<T,N> &b,
 		T const& value)
 	{
-		typename fcppt::math::box::basic<T,N>::dim d = 
+		typename fcppt::math::box::basic<T,N>::dim d =
 			b.size();
-		d[Dimension] = 
+		d[Dimension] =
 			value - b.pos()[Dimension];
 		b.size(
 			d);

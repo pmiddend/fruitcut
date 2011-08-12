@@ -7,7 +7,7 @@
 namespace fruitlib
 {
 template<typename T>
-class counted_reference 
+class counted_reference
 {
 // NO SEMICOLON HERE!
 FCPPT_SAFE_BOOL(
@@ -25,11 +25,11 @@ public:
 	fcppt::function::object<void (T&)>
 	deleter;
 
-	explicit 
+	explicit
 	counted_reference();
 
-	explicit 
-	counted_reference( 
+	explicit
+	counted_reference(
 		T &,
 		deleter const & = deleter());
 
@@ -42,7 +42,7 @@ public:
 	operator=(
 		counted_reference const &);
 
-	pointer 
+	pointer
 	operator->() const;
 private:
 	typedef
@@ -111,7 +111,7 @@ counted_reference<T> &
 counted_reference<T>::operator=(
 	counted_reference const &other)
 {
-	if (this != &other) 
+	if (this != &other)
 	{
 		dispose();
 		ptr_ = other.ptr_;
@@ -124,7 +124,7 @@ counted_reference<T>::operator=(
 
 template<typename T>
 typename
-counted_reference<T>::pointer 
+counted_reference<T>::pointer
 counted_reference<T>::operator->() const
 {
 	return ptr_;

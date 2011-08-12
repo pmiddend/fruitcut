@@ -4,7 +4,7 @@
 fruitserver::ascii::char_ const
 fruitserver::separator()
 {
-	return 
+	return
 		ascii::from_native_char(
 			'"');
 }

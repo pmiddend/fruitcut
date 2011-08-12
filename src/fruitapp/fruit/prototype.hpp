@@ -34,7 +34,7 @@ public:
 	fruitlib::physics::rigid_body::mass::value_type
 	mass() const;
 
-	sge::renderer::texture::planar_ptr const 
+	sge::renderer::texture::planar_ptr const
 	texture() const;
 
 	sge::image::color::any::object const &

@@ -15,7 +15,7 @@ fcppt::random::inclusive_range<T> const
 parse_random_inclusive_range(
 	sge::parse::json::array const &a)
 {
-	return 
+	return
 		fcppt::random::make_inclusive_range(
 			sge::parse::json::convert_from<T>(
 				a.elements[0]),

@@ -18,7 +18,7 @@ class cut_mesh_result
 FCPPT_NONCOPYABLE(
 	cut_mesh_result);
 public:
-	explicit 
+	explicit
 	cut_mesh_result();
 
 	fruit::mesh const &

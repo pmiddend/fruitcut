@@ -30,7 +30,7 @@ public:
 		signal_type_(
 			_signal_type)
 	{
-		sigaction_.sa_sigaction = 
+		sigaction_.sa_sigaction =
 			&callback;
 		// sa_mask specifies which signals should be blocked during the
 		// handler execution
@@ -61,7 +61,7 @@ private:
 	struct sigaction sigaction_;
 	struct sigaction old_sigaction_;
 
-	static void 
+	static void
 	callback(
 		int /*signal*/,
 		siginfo_t */*info*/,
@@ -97,16 +97,16 @@ try
 }
 catch (fcppt::exception const &e)
 {
-	fcppt::io::cerr 
-		<< FCPPT_TEXT("fcppt::exception: ") 
-		<< e.string() 
+	fcppt::io::cerr
+		<< FCPPT_TEXT("fcppt::exception: ")
+		<< e.string()
 		<< FCPPT_TEXT("\n");
 	return EXIT_FAILURE;
 }
 catch (std::exception const &e)
 {
-	std::cerr 
-		<< "std::exception: " 
-		<< e.what() 
+	std::cerr
+		<< "std::exception: "
+		<< e.what()
 		<< "\n";
 }

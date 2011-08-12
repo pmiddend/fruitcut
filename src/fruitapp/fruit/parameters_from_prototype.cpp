@@ -24,7 +24,7 @@ fruitapp::fruit::parameters_from_prototype(
 	fruitlib::physics::vector3 const &_angular_velocity,
 	fruitapp::ingame_clock const &_clock)
 {
-	return 
+	return
 		fruit::object_parameters(
 			proto,
 			_world,

@@ -28,7 +28,7 @@ create_random_from_directory(
 	fruitlib::random_generator &_random_generator,
 	fcppt::filesystem::path const &p)
 {
-	return 
+	return
 		fruitlib::uniform_random<std::size_t>::type(
 			fcppt::random::make_last_exclusive_range(
 				static_cast<std::size_t>(
@@ -47,7 +47,7 @@ create_buffer_from_path(
 	sge::audio::player &player,
 	fcppt::filesystem::path const &file)
 {
-	return 
+	return
 		player.create_buffer(
 			*loader.load(
 				file));
@@ -103,7 +103,7 @@ fruitlib::audio::sound_controller::play(
 			target_tree.value().leaf_value()->create_nonpositional());
 	else
 	{
-		resource_tree_type &target_file = 
+		resource_tree_type &target_file =
 			*boost::next(
 				target_tree.begin(),
 				static_cast<std::iterator_traits<resource_tree_type::const_iterator>::difference_type>(
@@ -135,7 +135,7 @@ fruitlib::audio::sound_controller::play_positional(
 	}
 	else
 	{
-		resource_tree_type &target_file = 
+		resource_tree_type &target_file =
 			*boost::next(
 				target_tree.begin(),
 				static_cast<std::iterator_traits<resource_tree_type::const_iterator>::difference_type>(
@@ -153,7 +153,7 @@ fruitlib::audio::sound_controller::play_positional(
 sge::audio::scalar
 fruitlib::audio::sound_controller::gain() const
 {
-	return 
+	return
 		player_.gain();
 }
 
@@ -168,7 +168,7 @@ fruitlib::audio::sound_controller::gain(
 sge::audio::scalar
 fruitlib::audio::sound_controller::pitch() const
 {
-	return 
+	return
 		player_.pitch();
 }
 
