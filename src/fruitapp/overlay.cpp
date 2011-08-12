@@ -5,8 +5,6 @@
 #include <sge/renderer/state/list.hpp>
 #include <sge/renderer/state/depth_func.hpp>
 #include <sge/renderer/state/bool.hpp>
-#include <sge/renderer/state/color.hpp>
-#include <sge/renderer/state/float.hpp>
 #include <sge/renderer/state/scoped.hpp>
 #include <sge/renderer/state/trampoline.hpp>
 #include <sge/renderer/device_fwd.hpp>
@@ -47,11 +45,9 @@ fruitapp::overlay::react(
 	sge::renderer::state::scoped scoped_state(
 		renderer_,
 		sge::renderer::state::list
-			(sge::renderer::state::depth_func::less)
-			(sge::renderer::state::bool_::clear_depth_buffer = true)
-			(sge::renderer::state::bool_::clear_back_buffer = true)
-			(sge::renderer::state::color::back_buffer_clear_color = sge::image::colors::black())
-			(sge::renderer::state::float_::depth_buffer_clear_val = 1.0f));
+			(sge::renderer::state::depth_func::off)
+			(sge::renderer::state::bool_::clear_depth_buffer = false)
+			(sge::renderer::state::bool_::clear_back_buffer = false));
 
 	sge::renderer::scoped_block scoped_block(
 		renderer_);

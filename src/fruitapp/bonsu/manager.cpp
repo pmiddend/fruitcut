@@ -3,19 +3,28 @@
 #include <fruitapp/bonsu/instance_wrapper.hpp>
 #include <fruitapp/bonsu/rectangle/manager.hpp>
 #include <fruitapp/bonsu/rectangle/padding.hpp>
-#include <fruitlib/json/find_and_convert_member.hpp>
-#include <fruitlib/json/string_to_path.hpp>
+#include <sge/parse/json/find_and_convert_member.hpp>
+#include <sge/parse/json/string_to_path.hpp>
 #include "../../media_path.hpp"
 #include <sge/sprite/default_equal.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/onscreen_target.hpp>
+#include <sge/timer/parameters.hpp>
+#include <sge/timer/elapsed_and_reset.hpp>
 #include <fcppt/container/ptr/push_back_unique_ptr.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/math/box/structure_cast.hpp>
 #include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/move.hpp>
+#include <fcppt/unique_ptr.hpp>
+#include <fcppt/chrono/seconds.hpp>
 #include <fcppt/ref.hpp>
 #include <cstdlib>
 #include <utility>
+
+#include <iostream>
+#include <fcppt/math/vector/output.hpp>
+#include <fcppt/math/dim/output.hpp>
 
 fruitapp::bonsu::manager::manager(
 	fruitlib::scenic::optional_parent const &_parent,
@@ -33,30 +42,39 @@ fruitapp::bonsu::manager::manager(
 	sprite_system_(
 		_renderer),
 	rectangle_speed_(
-		fruitlib::json::find_and_convert_member<bonsu::scalar>(
+		sge::parse::json::find_and_convert_member<bonsu::scalar>(
 			_config_file,
-			fruitlib::json::string_to_path(
+			sge::parse::json::string_to_path(
 				FCPPT_TEXT("bonsu/manager/rectangle-speed")))),
 	rectangle_bounding_rect_height_(
-		fruitlib::json::find_and_convert_member<bonsu::scalar>(
+		sge::parse::json::find_and_convert_member<bonsu::scalar>(
 			_config_file,
-			fruitlib::json::string_to_path(
+			sge::parse::json::string_to_path(
 				FCPPT_TEXT("bonsu/manager/rectangle-height-fraction")))),
 	rectangle_padding_left_(
-		fruitlib::json::find_and_convert_member<bonsu::scalar>(
+		sge::parse::json::find_and_convert_member<bonsu::scalar>(
 			_config_file,
-			fruitlib::json::string_to_path(
+			sge::parse::json::string_to_path(
 				FCPPT_TEXT("bonsu/manager/rectangle-padding-left-fraction")))),
 	rectangle_padding_top_(
-		fruitlib::json::find_and_convert_member<bonsu::scalar>(
+		sge::parse::json::find_and_convert_member<bonsu::scalar>(
 			_config_file,
-			fruitlib::json::string_to_path(
+			sge::parse::json::string_to_path(
 				FCPPT_TEXT("bonsu/manager/rectangle-padding-top-fraction")))),
 	rectangle_padding_middle_(
-		fruitlib::json::find_and_convert_member<bonsu::scalar>(
+		sge::parse::json::find_and_convert_member<bonsu::scalar>(
 			_config_file,
-			fruitlib::json::string_to_path(
+			sge::parse::json::string_to_path(
 				FCPPT_TEXT("bonsu/manager/rectangle-padding-middle-fraction")))),
+	overlay_transparency_(
+		sge::parse::json::find_and_convert_member<bonsu::scalar>(
+			_config_file,
+			sge::parse::json::string_to_path(
+				FCPPT_TEXT("bonsu/manager/overlay-transparency")))),
+	frame_timer_(
+		sge::timer::parameters<sge::timer::clocks::standard>(
+			fcppt::chrono::seconds(
+				1))),
 	rectangle_manager_(),
 	bonsu_()
 {
@@ -72,8 +90,13 @@ void
 fruitapp::bonsu::manager::react(
 	fruitlib::scenic::events::update const &)
 {
+	if(rectangle_manager_)
+		rectangle_manager_->update(
+			sge::timer::elapsed_and_reset<rectangle::manager::duration>(
+				frame_timer_));
+
 	for(
-		bonsu_list::iterator it = 
+		bonsu_list::iterator it =
 			bonsu_.begin();
 		it != bonsu_.end();
 		++it)
@@ -92,7 +115,7 @@ void
 fruitapp::bonsu::manager::react(
 	fruitlib::scenic::events::viewport_change const &)
 {
-	rectangle::manager::rect const viewport = 
+	rectangle::manager::rect const viewport =
 		fcppt::math::box::structure_cast<rectangle::manager::rect>(
 			renderer_.onscreen_target().viewport().get());
 
@@ -100,7 +123,7 @@ fruitapp::bonsu::manager::react(
 	if(viewport.size().content() < static_cast<bonsu::scalar>(0.1f))
 		return;
 
-	rectangle_manager_.take(
+	fcppt::unique_ptr<rectangle::manager> new_rectangle_manager(
 		fcppt::make_unique_ptr<rectangle::manager>(
 			rectangle::manager::rect(
 				viewport.pos(),
@@ -112,14 +135,19 @@ fruitapp::bonsu::manager::react(
 				viewport.size().h() * rectangle_padding_top_,
 				viewport.size().h() * rectangle_padding_middle_),
 			rectangle_speed_));
-	
+
 	// Why would this be necessary?
 	for(
-		bonsu_list::iterator it = 
+		bonsu_list::iterator it =
 			bonsu_.begin();
 		it != bonsu_.end();
 		++it)
-		it->update();
+		it->reset_rectangle_manager(
+			*new_rectangle_manager);
+
+	rectangle_manager_.take(
+		fcppt::move(
+			new_rectangle_manager));
 }
 
 void
@@ -134,7 +162,12 @@ fruitapp::bonsu::manager::insert(
 			fcppt::ref(
 				sprite_system_),
 			fcppt::ref(
-				texture_manager_)));
+				texture_manager_),
+			overlay_transparency_));
+
+	if(rectangle_manager_)
+		bonsu_.back().reset_rectangle_manager(
+			*rectangle_manager_);
 }
 
 void
@@ -142,7 +175,7 @@ fruitapp::bonsu::manager::erase(
 	instance::base &b)
 {
 	for(
-		bonsu_list::iterator it = 
+		bonsu_list::iterator it =
 			bonsu_.begin();
 		it != bonsu_.end();
 		++it)

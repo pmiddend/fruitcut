@@ -58,9 +58,9 @@ fruitapp::game_logic::object::object(
 	fruitapp::ingame_clock const &_clock,
 	// to get round seconds and stuff
 	sge::parse::json::object const &_config_file,
-	// to get 
+	// to get
 	// - "fruit was cut"
-	// - "fruit was deleted" 
+	// - "fruit was deleted"
 	// - "fruit was added" (we could consult the spawner for that, but that's not The Right Thing)
 	fruit::manager &_fruit_manager,
 	fruitlib::physics::world &_physics_world,
@@ -75,9 +75,9 @@ fruitapp::game_logic::object::object(
 		_renderer),
 	bonsu_manager_(
 		fruitlib::scenic::parent(
-			*this,
+			_overlay,
 			fruitlib::scenic::depth(
-				0)),
+				depths::overlay::dont_care)),
 		_config_file,
 		_image_loader,
 		_renderer),
@@ -223,14 +223,14 @@ fruitapp::game_logic::object::object(
 bool
 fruitapp::game_logic::object::finished() const
 {
-	return 
+	return
 		round_timer_.expired();
 }
 
 fruitapp::highscore::score::value_type
 fruitapp::game_logic::object::score() const
 {
-	return 
+	return
 		score_;
 }
 
@@ -238,6 +238,14 @@ void
 fruitapp::game_logic::object::react(
 	fruitlib::scenic::events::update const &e)
 {
+	static bool activated = false;
+	if(!activated)
+	{
+		std::cout << "activating gravity bonsu\n";
+		gravity_bonsu_.activate();
+		activated = true;
+	}
+
 	if (penalty_timer_.active() && penalty_timer_.expired())
 	{
 		penalty_timer_.reset();
@@ -270,9 +278,9 @@ fruitapp::game_logic::object::react(
 					mizuiro::color::layout::hsva
 				>
 			>(
-			(mizuiro::color::init::hue %= 
+			(mizuiro::color::init::hue %=
 					0.34 *
-					(1.f - 
+					(1.f -
 						sge::timer::elapsed_fractional<float>(multiplier_timer_)))
 			(mizuiro::color::init::saturation %= 1.0)
 			(mizuiro::color::init::value %= 1.0)
@@ -286,7 +294,7 @@ fruitapp::game_logic::object::react(
 
 	if(sge::timer::reset_when_expired(score_increase_timer_))
 	{
-		iterating_score_ += 
+		iterating_score_ +=
 			(score_ - iterating_score_)/10;
 		score_font_node_.object().text(
 			fcppt::lexical_cast<sge::font::text::string>(
@@ -301,7 +309,7 @@ void
 fruitapp::game_logic::object::react(
 	fruitlib::scenic::events::viewport_change const &e)
 {
-	sge::font::dim const &viewport_dim = 
+	sge::font::dim const &viewport_dim =
 		fcppt::math::dim::structure_cast<sge::font::dim>(
 			renderer_.onscreen_target().viewport().get().size());
 
@@ -317,7 +325,7 @@ fruitapp::game_logic::object::react(
 				viewport_dim.w(),
 				static_cast<sge::font::unit>(
 					static_cast<sge::renderer::scalar>(
-						viewport_dim.h()) * 
+						viewport_dim.h()) *
 					static_cast<sge::renderer::scalar>(
 						0.9)))));
 
@@ -328,7 +336,7 @@ fruitapp::game_logic::object::react(
 				viewport_dim.w(),
 				static_cast<sge::font::unit>(
 					static_cast<sge::renderer::scalar>(
-						viewport_dim.h()) * 
+						viewport_dim.h()) *
 					static_cast<sge::renderer::scalar>(
 						0.2)))));
 
@@ -374,7 +382,7 @@ fruitapp::game_logic::object::fruit_cut(
 			static_cast<highscore::score::value_type>(
 				static_cast<fruit::area::value_type>(
 					multiplier_) *
-				context.area() * 
+				context.area() *
 				area_score_factor_));
 	if (!multiplier_timer_.expired())
 	{
@@ -401,6 +409,6 @@ void
 fruitapp::game_logic::object::increase_score(
 	highscore::score::value_type const &s)
 {
-	score_ += 
+	score_ +=
 		s;
 }

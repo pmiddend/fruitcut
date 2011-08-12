@@ -23,12 +23,15 @@
 fruitapp::bonsu::instance_wrapper::instance_wrapper(
 	bonsu::instance::base &_instance,
 	bonsu::sprite::system &_sprite_system,
-	bonsu::texture_manager &_texture_manager)
+	bonsu::texture_manager &_texture_manager,
+	bonsu::scalar const _overlay_transparency)
 :
 	instance_(
 		_instance),
 	texture_manager_(
 		_texture_manager),
+	overlay_transparency_(
+		_overlay_transparency),
 	main_sprite_(
 		sprite::parameters()
 			// pos, texture, texture_size omitted
@@ -62,8 +65,9 @@ fruitapp::bonsu::instance_wrapper::update()
 {
 	instance_.update();
 
-	bool const current_active_state = 
+	bool const current_active_state =
 		!instance_.dead();
+
 
 	if(!previous_active_state_ && current_active_state)
 	{
@@ -71,11 +75,15 @@ fruitapp::bonsu::instance_wrapper::update()
 		{
 			if(!rectangle_instance_)
 			{
+				sge::texture::part_ptr const tex =
+					texture_manager_.lookup(
+						instance_.texture());
 				rectangle_instance_.take(
 					fcppt::make_unique_ptr<bonsu::rectangle::instance>(
 						fcppt::ref(
 							*rectangle_manager_),
-						main_sprite_.size()));
+						fcppt::math::dim::structure_cast<sprite::object::dim>(
+							tex->size())));
 			}
 			else
 			{
@@ -105,7 +113,7 @@ fruitapp::bonsu::instance_wrapper::update()
 			synchronize();
 	}
 
-	previous_active_state_ = 
+	previous_active_state_ =
 		current_active_state;
 }
 
@@ -114,15 +122,15 @@ fruitapp::bonsu::instance_wrapper::instance() const
 {
 	return instance_;
 }
- 
+
 void
 fruitapp::bonsu::instance_wrapper::reset_rectangle_manager(
 	bonsu::rectangle::manager &_rectangle_manager)
 {
-	rectangle_manager_ = 
+	rectangle_manager_ =
 		&_rectangle_manager;
 
-	previous_active_state_ = 
+	previous_active_state_ =
 		false;
 
 	rectangle_instance_.reset();
@@ -135,31 +143,42 @@ fruitapp::bonsu::instance_wrapper::~instance_wrapper()
 void
 fruitapp::bonsu::instance_wrapper::synchronize()
 {
-	sprite::color const new_color(
-		(sge::image::color::init::red %= 1.0)
-		(sge::image::color::init::green %= 1.0)
-		(sge::image::color::init::blue %= 1.0)
-		(sge::image::color::init::alpha %= 1.0f - std::abs(rectangle_instance_->status_fraction())));
-	main_sprite_.color(
-		new_color);
+	bonsu::scalar const status_fraction =
+		1.0f - std::abs(rectangle_instance_->status_fraction());
 
-	sge::texture::part_ptr const tex = 
+	sge::texture::part_ptr const tex =
 		texture_manager_.lookup(
 			instance_.texture());
 
+	main_sprite_.color(
+		sprite::color(
+			(sge::image::color::init::red %= 1.0)
+			(sge::image::color::init::green %= 1.0)
+			(sge::image::color::init::blue %= 1.0)
+			(sge::image::color::init::alpha %= status_fraction)));
+
 	main_sprite_.texture(
 		tex);
+
+	main_sprite_.pos(
+		rectangle_instance_->bounds().pos());
+
 	main_sprite_.size(
 		fcppt::math::dim::structure_cast<sprite::object::dim>(
 			tex->size()));
+
 	overlay_sprite_.color(
-		new_color);
-	main_sprite_.pos(
-		rectangle_instance_->bounds().pos());
+		sprite::color(
+			(sge::image::color::init::red %= 0.5)
+			(sge::image::color::init::green %= 0.5)
+			(sge::image::color::init::blue %= 0.5)
+			(sge::image::color::init::alpha %= status_fraction * overlay_transparency_)));
+
 	overlay_sprite_.pos(
 		rectangle_instance_->bounds().pos());
+
 	overlay_sprite_.size(
 		sprite::object::dim(
-			overlay_sprite_.size().w(),
-			instance_.progress() * overlay_sprite_.size().h()));
+			main_sprite_.size().w(),
+			instance_.progress() * main_sprite_.size().h()));
 }

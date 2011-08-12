@@ -18,7 +18,7 @@ namespace rectangle_manager
 {
 /*
 	Abstract:
-	
+
 	The rectangle manager object tries to manage a "stack" of rectangles
 	inside a given rectangular area (inside a "bounding
 	box"). Rectangles come and go. If a rectangle is inserted, it slides

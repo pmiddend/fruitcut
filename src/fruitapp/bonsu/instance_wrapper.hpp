@@ -23,7 +23,8 @@ public:
 	instance_wrapper(
 		bonsu::instance::base &,
 		bonsu::sprite::system &,
-		bonsu::texture_manager &);
+		bonsu::texture_manager &,
+		bonsu::scalar overlay_transparency);
 
 	void
 	update();
@@ -39,6 +40,7 @@ public:
 private:
 	bonsu::instance::base &instance_;
 	bonsu::texture_manager &texture_manager_;
+	bonsu::sprite::object::unit const overlay_transparency_;
 	bonsu::sprite::object main_sprite_;
 	bonsu::sprite::object overlay_sprite_;
 	bonsu::rectangle::manager *rectangle_manager_;
