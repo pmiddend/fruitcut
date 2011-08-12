@@ -93,10 +93,12 @@ fruitapp::cursor_sound::react(
 		renderer_.onscreen_target().viewport().get().size().w());
 
 	if (distance > threshold)
+	{
 		sound_controller_.play(
 			fruitlib::resource_tree::path("swing"));
+		cooldown_timer_.reset();
+	}
 
 	last_pos_ = new_pos;
 
-	cooldown_timer_.reset();
 }
