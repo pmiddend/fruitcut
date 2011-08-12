@@ -3,6 +3,7 @@
 #include <fruitlib/font/object_parameters.hpp>
 #include <sge/parse/json/find_and_convert_member.hpp>
 #include <fruitlib/json/parse_rgba8_color.hpp>
+#include <fruitlib/resource_tree/path.hpp>
 #include <fruitlib/time_format/find_and_convert_duration.hpp>
 #include <fruitlib/time_format/duration_to_string.hpp>
 #include <fruitlib/time_format/milliseconds.hpp>
@@ -61,6 +62,7 @@ fruitapp::game_logic::object::object(
 	// - "fruit was cut"
 	// - "fruit was deleted" 
 	// - "fruit was added" (we could consult the spawner for that, but that's not The Right Thing)
+	fruitlib::audio::sound_controller &_sound_controller,
 	fruit::manager &_fruit_manager,
 	fruitlib::font::cache &_font_cache,
 	overlay &_overlay,
@@ -86,6 +88,8 @@ fruitapp::game_logic::object::object(
 				sge::parse::json::path(
 					FCPPT_TEXT("ingame"))
 					/ FCPPT_TEXT("round-time")))),
+	sound_controller_(
+		_sound_controller),
 	fruit_added_connection_(
 		_fruit_manager.spawn_callback(
 			std::tr1::bind(
@@ -270,8 +274,14 @@ fruitapp::game_logic::object::react(
 
 	if(sge::timer::reset_when_expired(score_increase_timer_))
 	{
-		iterating_score_ += 
-			(score_ - iterating_score_)/10;
+		highscore::score::value_type score_diff = score_ - iterating_score_;
+		if (score_diff > 0)
+		{
+			sound_controller_.play(
+				fruitlib::resource_tree::path("score_increased"));
+			iterating_score_ += 
+				(score_diff)/10 + 1;
+		}
 		score_font_node_.object().text(
 			fcppt::lexical_cast<sge::font::text::string>(
 				iterating_score_));
