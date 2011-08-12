@@ -17,22 +17,6 @@
 #include <fruitapp/ingame_clock.hpp>
 #include <fruitapp/ingame_timer.hpp>
 
-namespace
-{
-sge::input::cursor::position const
-transform_position(
-	sge::input::cursor::position const &p,
-	sge::renderer::pixel_rect const &viewport)
-{
-	return
-		sge::input::cursor::position(
-			static_cast<sge::input::cursor::position_unit>(
-				p.x() - viewport.pos().x()),
-			static_cast<sge::input::cursor::position_unit>(
-				viewport.size().h() - p.y() + viewport.pos().y()));
-}
-}
-
 fruitapp::cursor_sound::cursor_sound(
 	fruitlib::scenic::optional_parent const &_parent,
 	sge::input::cursor::object &_cursor,
@@ -81,9 +65,7 @@ fruitapp::cursor_sound::react(
 	typedef fcppt::math::vector::static_<float,2>::type vec2;
 
 	sge::input::cursor::position new_pos =
-		transform_position(
-			cursor_.position(),
-			renderer_.onscreen_target().viewport().get());
+			cursor_.position();
 
 	float distance = fcppt::math::vector::length(
 		fcppt::math::vector::structure_cast<vec2>(new_pos) -
