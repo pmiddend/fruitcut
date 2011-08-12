@@ -77,7 +77,7 @@ fruitapp::cursor_sound::react(
 	if (distance > threshold)
 	{
 		sound_controller_.play(
-			fruitlib::resource_tree::path("swing"));
+			fruitlib::resource_tree::path(FCPPT_TEXT("swing")));
 		cooldown_timer_.reset();
 	}
 
