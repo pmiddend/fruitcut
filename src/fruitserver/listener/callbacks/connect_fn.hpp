@@ -8,7 +8,7 @@ namespace listener
 namespace callbacks
 {
 typedef
-void 
+void
 connect_fn(
 	int);
 }

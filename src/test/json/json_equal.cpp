@@ -39,7 +39,7 @@ public:
 	operator()(
 		T const &t) const
 	{
-		return 
+		return
 			other_.type() == typeid(t) &&
 			fruitcut::test::json::json_equal(
 				boost::get<T>(
@@ -64,7 +64,7 @@ fruitcut::test::json::json_equal(
 	sge::parse::json::object const &a,
 	sge::parse::json::object const &b)
 {
-	return 
+	return
 		a.members.size() == b.members.size() &&
 		std::equal(
 			a.members.begin(),
@@ -79,8 +79,8 @@ fruitcut::test::json::json_equal(
 	sge::parse::json::array const &a,
 	sge::parse::json::array const &b)
 {
-	return 
-		a.elements.size() == b.elements.size() && 
+	return
+		a.elements.size() == b.elements.size() &&
 		std::equal(
 			a.elements.begin(),
 			a.elements.end(),
@@ -122,7 +122,7 @@ fruitcut::test::json::json_equal(
 		std::abs(
 			a - b);
 
-	return 
+	return
 		diff < static_cast<sge::parse::json::float_type>(0.001);
 }
 
@@ -131,7 +131,7 @@ fruitcut::test::json::json_equal(
 	sge::parse::json::value const &a,
 	sge::parse::json::value const &b)
 {
-	return 
+	return
 		a.which() == b.which() &&
 		boost::apply_visitor(
 			equality_visitor(

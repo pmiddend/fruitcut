@@ -59,7 +59,7 @@ void
 fruitlib::font::object::text(
 	sge::font::text::string const &_text)
 {
-	text_ = 
+	text_ =
 		_text;
 }
 
@@ -73,11 +73,11 @@ void
 fruitlib::font::object::bounding_box(
 	sge::font::rect const &_bounding_box)
 {
-	bounding_box_ = 
+	bounding_box_ =
 		_bounding_box;
 }
 
-sge::font::text::align_h::type 
+sge::font::text::align_h::type
 fruitlib::font::object::alignment_h() const
 {
 	return alignment_h_;
@@ -87,11 +87,11 @@ void
 fruitlib::font::object::alignment_h(
 	sge::font::text::align_h::type _alignment_h)
 {
-	alignment_h_ = 
+	alignment_h_ =
 		_alignment_h;
 }
 
-sge::font::text::align_v::type 
+sge::font::text::align_v::type
 fruitlib::font::object::alignment_v() const
 {
 	return alignment_v_;
@@ -101,7 +101,7 @@ void
 fruitlib::font::object::alignment_v(
 	sge::font::text::align_v::type const _alignment_v)
 {
-	alignment_v_ = 
+	alignment_v_ =
 		_alignment_v;
 }
 
@@ -115,7 +115,7 @@ void
 fruitlib::font::object::flags(
 	sge::font::text::flags_field const &_flags)
 {
-	flags_ = 
+	flags_ =
 		_flags;
 }
 

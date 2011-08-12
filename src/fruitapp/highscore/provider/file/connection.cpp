@@ -31,10 +31,10 @@ fruitapp::highscore::provider::file::connection::post_rank(
 	highscore::score const &_score)
 {
 	sge::parse::json::object result;
-	fcppt::string const converted_file = 
+	fcppt::string const converted_file =
 		fruitlib::utf8_file_to_fcppt_string(
 			path_);
-	fcppt::string::const_iterator current_position = 
+	fcppt::string::const_iterator current_position =
 		converted_file.begin();
 	if(!sge::parse::json::parse_range(current_position,converted_file.end(),result))
 	{
@@ -46,7 +46,7 @@ fruitapp::highscore::provider::file::connection::post_rank(
 		return;
 	}
 
-	highscore::entry_set entries = 
+	highscore::entry_set entries =
 		highscore::json_to_entry_set(
 			result);
 
@@ -59,7 +59,7 @@ fruitapp::highscore::provider::file::connection::post_rank(
 	entries.insert(
 		new_entry);
 
-	highscore::entry_set::const_iterator const place = 
+	highscore::entry_set::const_iterator const place =
 		entries.find(
 			new_entry);
 
@@ -105,7 +105,7 @@ fcppt::signal::auto_connection
 fruitapp::highscore::provider::file::connection::message_received(
 	callbacks::message_received const &f)
 {
-	return 
+	return
 		message_received_.connect(
 			f);
 }
@@ -114,7 +114,7 @@ fcppt::signal::auto_connection
 fruitapp::highscore::provider::file::connection::error_received(
 	callbacks::error_received const &f)
 {
-	return 
+	return
 		error_received_.connect(
 			f);
 }
@@ -123,7 +123,7 @@ fcppt::signal::auto_connection
 fruitapp::highscore::provider::file::connection::list_received(
 	callbacks::list_received const &f)
 {
-	return 
+	return
 		list_received_.connect(
 			f);
 }
@@ -132,7 +132,7 @@ fcppt::signal::auto_connection
 fruitapp::highscore::provider::file::connection::rank_received(
 	callbacks::rank_received const &f)
 {
-	return 
+	return
 		rank_received_.connect(
 			f);
 }

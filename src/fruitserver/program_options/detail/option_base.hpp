@@ -17,7 +17,7 @@ namespace detail
 {
 class option_base
 {
-public:	
+public:
 	explicit
 	option_base(
 		std::string const &,
@@ -31,7 +31,7 @@ public:
 	get()
 	{
 		if(holder_->type().get() != typeid(T))
-			throw 
+			throw
 				detail::bad_cast(
 					"Invalid type cast (expected "+
 					std::string(
@@ -40,12 +40,12 @@ public:
 					holder_->type().get().name()+
 					")");
 
-		return 
+		return
 			static_cast<option_holder<T> *>(
 				holder_.get())->get();
 	}
 
-	option_holder_base_ptr const 
+	option_holder_base_ptr const
 	holder() const;
 private:
 	std::string name_;

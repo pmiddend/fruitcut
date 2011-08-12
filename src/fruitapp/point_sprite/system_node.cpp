@@ -64,7 +64,7 @@ create_random_from_directory(
 	fruitlib::random_generator &_random_generator,
 	fcppt::filesystem::path const &p)
 {
-	return 
+	return
 		fruitlib::uniform_random<std::size_t>::type(
 			fcppt::random::make_last_exclusive_range(
 				static_cast<std::size_t>(
@@ -83,7 +83,7 @@ create_part_from_file(
 	sge::texture::manager &texture_manager,
 	fcppt::filesystem::path const &p)
 {
-	return 
+	return
 		sge::texture::add_image(
 			texture_manager,
 			*image_loader.load(
@@ -187,10 +187,10 @@ fruitapp::point_sprite::system_node::lookup_texture(
 			target_path);
 
 	if(target_tree.value().is_leaf())
-		return 
+		return
 			target_tree.value().leaf_value();
 
-	resource_tree_type &target_file = 
+	resource_tree_type &target_file =
 		*boost::next(
 			target_tree.begin(),
 			static_cast<std::iterator_traits<resource_tree_type::const_iterator>::difference_type>(
@@ -199,7 +199,7 @@ fruitapp::point_sprite::system_node::lookup_texture(
 	if(!target_file.value().is_leaf())
 		throw fruitapp::exception(FCPPT_TEXT("The argument to lookup_texture() must be either a file or a directory containing just files!\nThat was not the case for: ")+target_path.string());
 
-	return 
+	return
 		target_file.value().leaf_value();
 }
 
@@ -215,7 +215,7 @@ fruitapp::point_sprite::system_node::react(
 	{
 		i->update();
 		if(i->dead())
-			i = 
+			i =
 				children_.erase(
 					i);
 		else

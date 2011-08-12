@@ -11,14 +11,14 @@ namespace pp
 {
 namespace screen_vf
 {
-typedef 
+typedef
 sge::renderer::vf::part
 <
 	boost::mpl::vector1
 	<
 		position
 	>
-> 
+>
 part;
 }
 }

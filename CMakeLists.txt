@@ -40,12 +40,12 @@ INCLUDE_DIRECTORIES(SYSTEM ${BULLET_INCLUDE_DIRS})
 
 # sge begin
 FIND_PACKAGE(
-	SGE REQUIRED COMPONENTS 
+	SGE REQUIRED COMPONENTS
 	audio
 	camera
 	cegui
 	config
-	console 
+	console
 	fontbitmap
 	fonttext
 	image
@@ -54,9 +54,9 @@ FIND_PACKAGE(
 	renderer
 	line_drawer
 	modelmd3
-	parse 
+	parse
 	shader
-	sprite 
+	sprite
 	systems
 	texture
 	window

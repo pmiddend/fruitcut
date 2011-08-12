@@ -14,14 +14,14 @@ void
 fruitlib::pp::filter::inject_texture::texture(
 	sge::renderer::texture::planar_ptr const _texture)
 {
-	texture_ = 
+	texture_ =
 		_texture;
 }
 
 fruitlib::pp::texture::counted_instance const
 fruitlib::pp::filter::inject_texture::apply()
 {
-	return 
+	return
 		texture_manager_.query(
 			*texture_);
 }

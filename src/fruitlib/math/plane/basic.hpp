@@ -16,7 +16,7 @@ class basic
 {
 public:
 	typedef typename
-	fcppt::math::vector::static_<T,N>::type 
+	fcppt::math::vector::static_<T,N>::type
 	vector;
 
 	typedef
@@ -65,8 +65,8 @@ operator<<(
 	fcppt::io::ostream &s,
 	fruitlib::math::plane::basic<T,N> const &p)
 {
-	return 
-		s << s.widen('(') << p.normal() << s.widen(',') 
+	return
+		s << s.widen('(') << p.normal() << s.widen(',')
 			<< p.lambda() << s.widen(')');
 }
 

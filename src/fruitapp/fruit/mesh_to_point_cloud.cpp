@@ -12,13 +12,13 @@ fruitapp::fruit::mesh_to_point_cloud(
 			m.triangles.size() * 3));
 
 	for(
-		fruit::mesh::triangle_sequence::const_iterator t = 
+		fruit::mesh::triangle_sequence::const_iterator t =
 			m.triangles.begin();
 		t != m.triangles.end();
 		++t)
 	{
 		for(
-			triangle::vertex_array::const_iterator r = 
+			triangle::vertex_array::const_iterator r =
 				t->vertices.begin();
 			r != t->vertices.end();
 			++r)

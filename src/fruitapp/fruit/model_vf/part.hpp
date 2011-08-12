@@ -13,7 +13,7 @@ namespace fruit
 {
 namespace model_vf
 {
-typedef 
+typedef
 sge::renderer::vf::part
 <
 	boost::mpl::vector3
@@ -22,7 +22,7 @@ sge::renderer::vf::part
 		texcoord,
 		normal
 	>
-> 
+>
 part;
 }
 }

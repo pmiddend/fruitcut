@@ -9,11 +9,11 @@ fruitserver::ascii::to_native(
 	result.resize(
 		s.size());
 	for(
-		std::string::size_type i = 
-			0; 
-		i < s.size(); 
+		std::string::size_type i =
+			0;
+		i < s.size();
 		++i)
-		result[i] = 
+		result[i] =
 			ascii::to_native_char(
 				s[i]);
 	return result;

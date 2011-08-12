@@ -18,7 +18,7 @@ public:
 		highscore::score const &,
 		boost::posix_time::ptime);
 
-	bool 
+	bool
 	operator<(
 		highscore::entry const &right) const;
 

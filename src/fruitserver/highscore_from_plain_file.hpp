@@ -7,7 +7,7 @@
 
 namespace fruitserver
 {
-fruitserver::highscore_sequence const 
+fruitserver::highscore_sequence const
 highscore_from_plain_file(
 	fruitserver::path const &);
 }

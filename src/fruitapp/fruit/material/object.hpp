@@ -42,8 +42,8 @@ private:
 	material::diffuse_color::value_type diffuse_color_;
 	material::diffuse_coefficient::value_type diffuse_coefficient_;
 	material::specular_color::value_type specular_color_;
-	material::specular_coefficient::value_type specular_coefficient_; 
-	material::specular_shininess::value_type specular_shininess_; 
+	material::specular_coefficient::value_type specular_coefficient_;
+	material::specular_shininess::value_type specular_shininess_;
 };
 }
 }

@@ -167,10 +167,10 @@ fruitapp::machine_impl::machine_impl(
 				sge::viewport::fill_on_resize()))
 			(sge::systems::input(
 				sge::systems::input_helper_field(
-					sge::systems::input_helper::keyboard_collector) 
+					sge::systems::input_helper::keyboard_collector)
 					| sge::systems::input_helper::mouse_collector
 					| sge::systems::input_helper::cursor_demuxer,
-					sge::systems::cursor_option_field())) 
+					sge::systems::cursor_option_field()))
 			(sge::systems::audio_player_default())
 			(sge::systems::parameterless::charconv)
 			(sge::systems::audio_loader(
@@ -178,7 +178,7 @@ fruitapp::machine_impl::machine_impl(
 				fcppt::assign::make_container<sge::extension_set>
 					(FCPPT_TEXT("wav"))
 					(FCPPT_TEXT("ogg"))))
-			(sge::systems::parameterless::font) 	
+			(sge::systems::parameterless::font)
 			(sge::systems::image_loader(
 					sge::image::capabilities_field::null(),
 					fcppt::assign::make_container<sge::extension_set>
@@ -299,18 +299,18 @@ fruitapp::machine_impl::machine_impl(
 							config_file_,
 							sge::parse::json::path(FCPPT_TEXT("ingame"))
 								/ FCPPT_TEXT("camera")
-								/ FCPPT_TEXT("initial-position"))))), 
+								/ FCPPT_TEXT("initial-position"))))),
 	camera_node_(
 		fruitlib::scenic::parent(
 			root_node(),
 			fruitlib::scenic::depth(
-				depths::root::dont_care)),	
+				depths::root::dont_care)),
 		camera_,
 		standard_clock_callback()),
 	toggle_camera_connection_(
 		systems_.keyboard_collector().key_callback(
 			sge::input::keyboard::action(
-				sge::input::keyboard::key_code::f2, 
+				sge::input::keyboard::key_code::f2,
 				std::tr1::bind(
 					&machine_impl::toggle_camera,
 					this)))),
@@ -433,14 +433,14 @@ fruitapp::machine_impl::run_once()
 
 	systems_.window().dispatch();
 
-	standard_clock_delta_ = 
+	standard_clock_delta_ =
 		sge::timer::elapsed_and_reset<fruitlib::scenic::delta::duration>(
 			second_timer_);
 
-	ingame_clock_delta_ = 
+	ingame_clock_delta_ =
 		fruitapp::ingame_clock::duration(
 			static_cast<fruitapp::ingame_clock::duration::rep>(
-				ingame_clock_.factor() * 
+				ingame_clock_.factor() *
 				static_cast<fruitapp::ingame_clock::float_type>(
 					fcppt::chrono::duration_cast<fruitapp::ingame_clock::duration>(
 						standard_clock_delta_).count())));
@@ -454,7 +454,7 @@ fruitapp::machine_impl::run_once()
 fruitapp::ingame_clock const &
 fruitapp::machine_impl::ingame_clock() const
 {
-	return 
+	return
 		ingame_clock_;
 }
 
@@ -618,7 +618,7 @@ fruitapp::machine_impl::overlay_node() const
 fruitlib::scenic::delta::callback const
 fruitapp::machine_impl::ingame_clock_callback() const
 {
-	return 
+	return
 		phoenix_ref_broken_hack(
 			ingame_clock_delta_);
 }
@@ -626,19 +626,19 @@ fruitapp::machine_impl::ingame_clock_callback() const
 fruitlib::scenic::delta::callback const
 fruitapp::machine_impl::standard_clock_callback() const
 {
-	return 
+	return
 		phoenix_ref_broken_hack(
 			standard_clock_delta_);
 }
 
 fruitapp::point_sprite::system_node &
-fruitapp::machine_impl::point_sprites() 
+fruitapp::machine_impl::point_sprites()
 {
 	return point_sprites_;
 }
 
 fruitapp::point_sprite::system_node const &
-fruitapp::machine_impl::point_sprites() const 
+fruitapp::machine_impl::point_sprites() const
 {
 	return point_sprites_;
 }

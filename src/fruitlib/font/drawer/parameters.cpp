@@ -28,7 +28,7 @@ void
 fruitlib::font::drawer::parameters::color(
 	font::color const &_color)
 {
-	color_ = 
+	color_ =
 		_color;
 }
 
@@ -42,13 +42,13 @@ void
 fruitlib::font::drawer::parameters::transform_callback(
 	fruitlib::font::drawer::transform_callback const &_transform_callback)
 {
-	transform_callback_ = 
+	transform_callback_ =
 		_transform_callback;
 }
 
 fruitlib::font::drawer::transform_callback const &
 fruitlib::font::drawer::parameters::transform_callback() const
 {
-	return 
+	return
 		transform_callback_;
 }

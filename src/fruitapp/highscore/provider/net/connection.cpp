@@ -67,7 +67,7 @@ fruitapp::highscore::provider::net::connection::post_rank(
 {
 	socket_.close();
 
-	request_ = 
+	request_ =
 		fcppt::utf8::from_fcppt_string(
 			FCPPT_TEXT("P ")+
 			fruitapp::current_commit()+
@@ -114,7 +114,7 @@ fruitapp::highscore::provider::net::connection::retrieve_list()
 {
 	socket_.close();
 
-	request_ = 
+	request_ =
 		fcppt::utf8::from_fcppt_string(
 			FCPPT_TEXT("G ")+
 			fruitapp::current_commit()+
@@ -161,7 +161,7 @@ fcppt::signal::auto_connection
 fruitapp::highscore::provider::net::connection::message_received(
 	callbacks::message_received const &f)
 {
-	return 
+	return
 		message_received_.connect(
 			f);
 }
@@ -170,7 +170,7 @@ fcppt::signal::auto_connection
 fruitapp::highscore::provider::net::connection::error_received(
 	callbacks::error_received const &f)
 {
-	return 
+	return
 		error_received_.connect(
 			f);
 }
@@ -179,7 +179,7 @@ fcppt::signal::auto_connection
 fruitapp::highscore::provider::net::connection::list_received(
 	callbacks::list_received const &f)
 {
-	return 
+	return
 		list_received_.connect(
 			f);
 }
@@ -188,7 +188,7 @@ fcppt::signal::auto_connection
 fruitapp::highscore::provider::net::connection::rank_received(
 	callbacks::rank_received const &f)
 {
-	return 
+	return
 		rank_received_.connect(
 			f);
 }
@@ -197,7 +197,7 @@ fruitapp::highscore::provider::net::connection::~connection()
 {
 }
 
-void 
+void
 fruitapp::highscore::provider::net::connection::handle_resolve(
 	boost::system::error_code const &error,
 	boost::asio::ip::tcp::resolver::iterator it,
@@ -211,7 +211,7 @@ fruitapp::highscore::provider::net::connection::handle_resolve(
 		return;
 	}
 
-	boost::asio::ip::tcp::endpoint const endpoint = 
+	boost::asio::ip::tcp::endpoint const endpoint =
 		*it;
 
 	message_received_(
@@ -223,14 +223,14 @@ fruitapp::highscore::provider::net::connection::handle_resolve(
 	socket_.async_connect(
 		endpoint,
 		std::tr1::bind(
-			&connection::handle_connect, 
+			&connection::handle_connect,
 			this,
-			std::tr1::placeholders::_1, 
+			std::tr1::placeholders::_1,
 			++it,
 			continue_here));
 }
 
-void 
+void
 fruitapp::highscore::provider::net::connection::handle_connect(
 	boost::system::error_code const &error,
 	boost::asio::ip::tcp::resolver::iterator it,
@@ -242,12 +242,12 @@ fruitapp::highscore::provider::net::connection::handle_connect(
 			FCPPT_TEXT("Connected successfully, sending request..."));
 
 		boost::asio::async_write(
-			socket_, 
+			socket_,
 			boost::asio::buffer(
 				&request_[0],
 				request_.size()),
 			std::tr1::bind(
-				&connection::handle_write_request, 
+				&connection::handle_write_request,
 				this,
 				std::tr1::placeholders::_1,
 				continue_here));
@@ -259,14 +259,14 @@ fruitapp::highscore::provider::net::connection::handle_connect(
 
 		// The connection failed. Try the next endpoint in the list.
 		socket_.close();
-		boost::asio::ip::tcp::endpoint const endpoint = 
+		boost::asio::ip::tcp::endpoint const endpoint =
 			*it;
 		socket_.async_connect(
 			endpoint,
 			std::tr1::bind(
-				&connection::handle_connect, 
+				&connection::handle_connect,
 				this,
-				std::tr1::placeholders::_1, 
+				std::tr1::placeholders::_1,
 				++it,
 				continue_here));
 	}
@@ -298,12 +298,12 @@ fruitapp::highscore::provider::net::connection::handle_write_request(
 		8);
 
 	boost::asio::async_read(
-		socket_, 
+		socket_,
 		boost::asio::buffer(
 			&content_[0],
-			content_.size()), 
+			content_.size()),
 		std::tr1::bind(
-			&connection::handle_read_size, 
+			&connection::handle_read_size,
 			this,
 			std::tr1::placeholders::_1,
 			continue_here));
@@ -322,7 +322,7 @@ fruitapp::highscore::provider::net::connection::handle_read_size(
 		return;
 	}
 
-	fcppt::optional<std::string::size_type> const content_size = 
+	fcppt::optional<std::string::size_type> const content_size =
 		parse_content_size(
 			fcppt::utf8::to_fcppt_string(
 				content_));
@@ -347,12 +347,12 @@ fruitapp::highscore::provider::net::connection::handle_read_size(
 		*content_size);
 
 	boost::asio::async_read(
-		socket_, 
+		socket_,
 		boost::asio::buffer(
 			&content_[0],
-			content_.size()), 
+			content_.size()),
 		std::tr1::bind(
-			&connection::handle_read_content, 
+			&connection::handle_read_content,
 			this,
 			std::tr1::placeholders::_1,
 			continue_here));
@@ -377,18 +377,18 @@ fruitapp::highscore::provider::net::connection::handle_read_content(
 			content_.size())+
 		FCPPT_TEXT(" bytes, processing..."));
 
-	fcppt::string const content_converted = 
+	fcppt::string const content_converted =
 		fcppt::utf8::to_fcppt_string(
 			content_);
 
-	fcppt::string::const_iterator current = 
+	fcppt::string::const_iterator current =
 		content_converted.begin();
 
 	sge::parse::json::object result;
 	if(!sge::parse::json::parse_range(current,content_converted.end(),result))
 	{
-		fcppt::io::cerr 
-			<< FCPPT_TEXT("The application crashed, the content was ") 
+		fcppt::io::cerr
+			<< FCPPT_TEXT("The application crashed, the content was ")
 			<< content_converted
 			<< FCPPT_TEXT("\n");
 
@@ -398,7 +398,7 @@ fruitapp::highscore::provider::net::connection::handle_read_content(
 		return;
 	}
 
-	fcppt::string const * const json_error = 
+	fcppt::string const * const json_error =
 		sge::parse::json::find_member<fcppt::string>(
 			result.members,
 			FCPPT_TEXT("error"));
@@ -431,7 +431,7 @@ fruitapp::highscore::provider::net::connection::handle_rank_received(
 	rank_received_(
 		highscore::rank(
 			sge::parse::json::find_and_convert_member<highscore::rank::value_type>(
-				o,	
+				o,
 				sge::parse::json::path(
 					FCPPT_TEXT("rank")))));
 }

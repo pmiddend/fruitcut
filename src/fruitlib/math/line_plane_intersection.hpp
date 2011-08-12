@@ -31,9 +31,9 @@ line_plane_intersection(
 	if (fcppt::math::almost_zero(fcppt::math::vector::dot(p.normal(),l.direction())))
 		return fcppt::optional<typename line::basic<T,N>::vector>();
 
-	return 
+	return
 		fcppt::optional<typename line::basic<T,N>::vector>(
-			l.point() 
+			l.point()
 				+ (p.lambda() - fcppt::math::vector::dot(p.normal(),l.point()))
 				/ fcppt::math::vector::dot(p.normal(),l.direction())
 				* l.direction());

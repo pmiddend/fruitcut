@@ -32,7 +32,7 @@ create_random_from_directory(
 	fruitlib::random_generator &_random_generator,
 	fcppt::filesystem::path const &p)
 {
-	return 
+	return
 		fruitlib::uniform_random<std::size_t>::type(
 			fcppt::random::make_last_exclusive_range(
 				static_cast<std::size_t>(
@@ -110,7 +110,7 @@ fruitlib::audio::music_controller::play(
 	}
 	else
 	{
-		resource_tree_type &target_file = 
+		resource_tree_type &target_file =
 			*boost::next(
 				target_tree.begin(),
 				static_cast<std::iterator_traits<resource_tree_type::const_iterator>::difference_type>(
@@ -135,7 +135,7 @@ fruitlib::audio::music_controller::stop()
 sge::audio::scalar
 fruitlib::audio::music_controller::gain() const
 {
-	return 
+	return
 		player_.gain();
 }
 
@@ -152,7 +152,7 @@ fruitlib::audio::music_controller::react(
 	scenic::events::update const &)
 {
 	clock_.update();
-	
+
 	if(current_source_)
 		current_source_->update();
 

@@ -42,7 +42,7 @@ from_directory_tree(
 
 	if(!fcppt::filesystem::is_directory(root))
 	{
-		return 
+		return
 			fcppt::make_unique_ptr<tree_type>(
 				node_type(
 					fcppt::filesystem::stem(
@@ -72,7 +72,7 @@ from_directory_tree(
 				create_node));
 	}
 
-	return 
+	return
 		fcppt::move(
 			result);
 }

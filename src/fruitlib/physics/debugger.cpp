@@ -69,7 +69,7 @@ fruitlib::physics::debugger::render()
 		renderer_,
 		sge::renderer::matrix_mode::world,
 		sge::renderer::matrix4::identity());
-	
+
 	line_drawer_.render();
 }
 
@@ -85,7 +85,7 @@ fruitlib::physics::debugger::active(
 			btIDebugDraw::DBG_NoDebug);
 }
 
-bool 
+bool
 fruitlib::physics::debugger::active() const
 {
 	return debug_mode_ != btIDebugDraw::DBG_NoDebug;
@@ -158,7 +158,7 @@ fruitlib::physics::debugger::drawContactPoint(
 }
 
 // @override
-void	
+void
 fruitlib::physics::debugger::draw3dText(
 	btVector3 const&,
 	char const*)
@@ -170,14 +170,14 @@ void
 fruitlib::physics::debugger::reportErrorWarning(
 	char const* warningString)
 {
-	std::cerr 
+	std::cerr
 		<< "Debug drawer warning: "
 		<< warningString
 		<< "\n";
 }
 
 // @override
-void 
+void
 fruitlib::physics::debugger::setDebugMode(
 	int const _debug_mode)
 {
@@ -185,7 +185,7 @@ fruitlib::physics::debugger::setDebugMode(
 }
 
 // @override
-int 
+int
 fruitlib::physics::debugger::getDebugMode() const
 {
 	return debug_mode_;

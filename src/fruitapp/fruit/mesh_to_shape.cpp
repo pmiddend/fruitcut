@@ -21,24 +21,24 @@ fruitapp::fruit::mesh_to_shape(
 
 	// Hehehehe
 	for(
-		fruit::mesh::triangle_sequence::const_iterator t = 
+		fruit::mesh::triangle_sequence::const_iterator t =
 			m.triangles.begin();
 		t != m.triangles.end();
 		++t)
 		for(
-			fruit::triangle::vertex_array::const_iterator vec = 
+			fruit::triangle::vertex_array::const_iterator vec =
 				t->vertices.begin();
 			vec != t->vertices.end();
 			++vec)
 			for(
-				fruit::triangle::vector::const_iterator r = 
+				fruit::triangle::vector::const_iterator r =
 					vec->begin();
 				r != vec->end();
 				++r)
 				points.push_back(
 					*r);
 
-	return 
+	return
 		fcppt::make_shared_ptr<btConvexHullShape>(
 			points.data(),
 			// This is the number of _points_, not the number of scalars!

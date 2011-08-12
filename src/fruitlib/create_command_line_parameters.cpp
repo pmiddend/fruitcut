@@ -12,11 +12,11 @@ fruitlib::create_command_line_parameters(
 		static_cast<fruitlib::command_line_parameters::size_type>(
 			argc));
 	for(
-		fruitlib::command_line_parameters::size_type i = 
-			0; 
-		i < static_cast<fruitlib::command_line_parameters::size_type>(argc); 
+		fruitlib::command_line_parameters::size_type i =
+			0;
+		i < static_cast<fruitlib::command_line_parameters::size_type>(argc);
 		++i)
-		result[i] = 
+		result[i] =
 			fcppt::from_std_string(
 				argv[static_cast<std::size_t>(i)]);
 	return result;

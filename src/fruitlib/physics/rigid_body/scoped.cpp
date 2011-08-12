@@ -9,7 +9,7 @@ fruitlib::physics::rigid_body::scoped::scoped(
 	group::sequence const &_groups)
 :
 	world_(
-		_world),	
+		_world),
 	body_(
 		_body)
 {

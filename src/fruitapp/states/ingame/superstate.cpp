@@ -79,7 +79,7 @@ fruitapp::states::ingame::superstate::superstate(
 	physics_debugger_connection_(
 		context<machine>().systems().keyboard_collector().key_callback(
 			sge::input::keyboard::action(
-				sge::input::keyboard::key_code::f3, 
+				sge::input::keyboard::key_code::f3,
 				std::tr1::bind(
 					&superstate::toggle_physics_debugger,
 					this)))),

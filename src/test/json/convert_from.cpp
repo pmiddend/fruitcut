@@ -52,13 +52,13 @@ operator<<(
 			if(j != --i->end())
 				s << s.widen(',');
 		}
-		
+
 		s << s.widen(']');
 		if(i != --v.get().end())
 			s << s.widen(',');
 	}
-		
-	
+
+
 	s << s.widen(']');
 	return s;
 }
@@ -202,10 +202,10 @@ BOOST_AUTO_TEST_CASE(
 	matrix_type;
 
 	matrix_type const test_matrix(
-		1,2,3, 
+		1,2,3,
 		4,5,6,
 		7,8,9,
-		1,2,3); 
+		1,2,3);
 
 	// Wrong integer type, wrong dimensions (one dimensional)
 	sgejson::array wrong_integer_wrong_dimensions;
@@ -310,7 +310,7 @@ BOOST_AUTO_TEST_CASE(
 	fcppt::container::array<int,3>
 	array;
 
-	array const array_ = 
+	array const array_ =
 		{{ 10, 20, 30 }};
 
 	BOOST_CHECK(
@@ -322,7 +322,7 @@ BOOST_AUTO_TEST_CASE(
 	fcppt::container::array<int,4>
 	huge_array;
 
-	huge_array const huge_array_ = 
+	huge_array const huge_array_ =
 		{{ 10, 20, 30, 40 }};
 
 	BOOST_CHECK_THROW(
@@ -344,13 +344,13 @@ BOOST_AUTO_TEST_CASE(
 			30));
 	input_2d.elements.push_back(
 		subarray);
-	subarray.elements[0] = 
+	subarray.elements[0] =
 		static_cast<sgejson::int_type>(
 			1);
-	subarray.elements[1] = 
+	subarray.elements[1] =
 		static_cast<sgejson::int_type>(
 			2);
-	subarray.elements[2] = 
+	subarray.elements[2] =
 		static_cast<sgejson::int_type>(
 			3);
 	input_2d.elements.push_back(
@@ -392,7 +392,7 @@ BOOST_AUTO_TEST_CASE(
 	BOOST_CHECK(
 		sgejson::convert_from<fcppt::string>(
 			fcppt::string(
-				FCPPT_TEXT("foobar"))) == 
+				FCPPT_TEXT("foobar"))) ==
 		fcppt::string(
 			FCPPT_TEXT("foobar")));
 }

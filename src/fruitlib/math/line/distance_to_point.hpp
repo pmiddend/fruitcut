@@ -19,17 +19,17 @@ distance_to_point(
 	typename basic<T,N>::vector const &p,
 	basic<T,N> const &l)
 {
-	return 
+	return
 		fcppt::math::vector::length(
-			p - 
-			l.point() - 
+			p -
+			l.point() -
 			(
 				fcppt::math::vector::dot(
 					l.direction(),
-					p - l.point()) / 
+					p - l.point()) /
 				fcppt::math::vector::dot(
 					l.direction(),
-					l.direction())) 
+					l.direction()))
 			* l.direction());
 }
 }

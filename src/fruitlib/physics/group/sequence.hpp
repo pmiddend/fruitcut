@@ -14,7 +14,7 @@ namespace group
 typedef
 std::vector
 <
-	fcppt::reference_wrapper<group::object> 
+	fcppt::reference_wrapper<group::object>
 >
 sequence;
 }

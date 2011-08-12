@@ -82,7 +82,7 @@ fruitapp::splatter_generator::splatter_generator(
 				0),
 			static_cast<point_sprite::color_format::channel_type>(
 				std::numeric_limits<point_sprite::color_format::channel_type>::max()/2)),
-		random_generator_),	
+		random_generator_),
 	lifetime_millis_rng_(
 		fruitlib::json::parse_random_inclusive_range<fcppt::chrono::milliseconds::rep>(
 			sge::parse::json::find_and_convert_member<sge::parse::json::array>(
@@ -126,22 +126,22 @@ fruitapp::splatter_generator::fruit_was_cut(
 		random_generator_);
 
 	for(
-		unsigned 
-			i = 
+		unsigned
+			i =
 				0,
-			number_of_points = 
+			number_of_points =
 				static_cast<unsigned>(
 					cut_info.area() * splatter_count_to_area_factor_.value() * 200.0);
-		i < number_of_points; 
+		i < number_of_points;
 		++i)
 	{
-		sge::renderer::vector3 const position = 
+		sge::renderer::vector3 const position =
 			fruitlib::math::triangle::random_point(
 				cut_info.cross_section().triangles[
 					triangle_rng_()],
 				triangle_point_rng_);
 
-		point_sprite::color splatter_color = 
+		point_sprite::color splatter_color =
 			sge::image::color::any::convert<point_sprite::color::format>(
 				cut_info.old().prototype().splatter_color());
 
@@ -160,15 +160,15 @@ fruitapp::splatter_generator::fruit_was_cut(
 					point_sprite::splatter::parameters(
 						point_sprites_.system(),
 						point_sprite::splatter::position(
-							cut_info.old().position() + 
+							cut_info.old().position() +
 							fruitlib::math::multiply_matrix4_vector3(
 								cut_info.old().world_transform(),
 								position)),
 						point_sprite::splatter::linear_velocity(
-							distortion + ((cut_direction_rng_() 
-							? 
-								cut_info.cut_direction() 
-							: 
+							distortion + ((cut_direction_rng_()
+							?
+								cut_info.cut_direction()
+							:
 								(-cut_info.cut_direction())) * speed_rng_())),
 						point_sprite::splatter::acceleration(
 							acceleration_),

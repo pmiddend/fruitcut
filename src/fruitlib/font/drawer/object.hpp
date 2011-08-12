@@ -34,15 +34,15 @@ public:
 	explicit
 	object(
 		parameters const &);
-	
+
 	~object();
-	
+
 	void
 	begin_rendering(
 		sge::font::text::drawer::size_type buffer_chars,
 		sge::font::pos const &start,
 		sge::font::dim const &size);
-	
+
 	void
 	draw_char(
 		sge::font::text::char_type,
@@ -66,15 +66,15 @@ public:
 	font::drawer::transform_callback const &
 	transform_callback() const;
 private:
-	typedef 
+	typedef
 	std::map
 	<
 		sge::font::text::char_type,
 		sge::texture::const_part_ptr
-	> 
+	>
 	texture_map;
 
-	typedef 
+	typedef
 	sge::sprite::choices
 	<
 		sge::sprite::type_choices
@@ -89,19 +89,19 @@ private:
 			sge::sprite::with_dim,
 			sge::sprite::with_texture
 		>
-	> 
+	>
 	sprite_choices;
 
-	typedef 
-	sge::sprite::system<sprite_choices>::type 
+	typedef
+	sge::sprite::system<sprite_choices>::type
 	sprite_system;
 
-	typedef 
-	sge::sprite::object<sprite_choices> 
+	typedef
+	sge::sprite::object<sprite_choices>
 	sprite_object;
 
-	typedef 
-	std::vector<sprite_object> 
+	typedef
+	std::vector<sprite_object>
 	sprite_container;
 
 	sge::renderer::device &renderer_;

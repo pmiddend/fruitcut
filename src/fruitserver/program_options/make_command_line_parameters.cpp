@@ -10,6 +10,6 @@ fruitserver::program_options::make_command_line_parameters(
 	for(int i = 1; i < argc; ++i)
 		result.push_back(
 			argv[i]);
-	return 
+	return
 		result;
 }

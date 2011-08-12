@@ -15,13 +15,13 @@ fruitapp::gui::table::column::column(
 fcppt::string const &
 fruitapp::gui::table::column::name() const
 {
-	return 
+	return
 		name_;
 }
 
 fruitapp::gui::table::column::width_type
 fruitapp::gui::table::column::width() const
 {
-	return 
+	return
 		width_;
 }

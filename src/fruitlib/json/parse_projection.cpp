@@ -21,7 +21,7 @@ fruitlib::json::parse_projection(
 			sge::parse::json::path(FCPPT_TEXT("type"))) == FCPPT_TEXT("orthogonal"))
 		return sge::camera::projection::orthogonal();
 
-	return 
+	return
 		sge::camera::projection::perspective(
 			sge::renderer::projection::aspect(
 				aspect

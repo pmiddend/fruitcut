@@ -26,29 +26,29 @@ fruitlib::audio::group::player::player(
 sge::audio::listener &
 fruitlib::audio::group::player::listener()
 {
-	return 
+	return
 		impl_.listener();
 }
 
-sge::audio::scalar 
+sge::audio::scalar
 fruitlib::audio::group::player::speed_of_sound() const
 {
-	return 
+	return
 		impl_.speed_of_sound();
 }
 
-sge::audio::scalar 
+sge::audio::scalar
 fruitlib::audio::group::player::doppler_factor() const
 {
-	return 
+	return
 		impl_.doppler_factor();
 }
 
-void 
+void
 fruitlib::audio::group::player::speed_of_sound(
 	sge::audio::scalar const _speed_of_sound)
 {
-	return 
+	return
 		impl_.speed_of_sound(
 			_speed_of_sound);
 }
@@ -66,10 +66,10 @@ void
 fruitlib::audio::group::player::gain(
 	sge::audio::scalar const _gain)
 {
-	gain_ = 
+	gain_ =
 		_gain;
 	for(
-		buffer_sequence::iterator i = 
+		buffer_sequence::iterator i =
 			buffers_.begin();
 		i != buffers_.end();
 		++i)
@@ -77,7 +77,7 @@ fruitlib::audio::group::player::gain(
 			_gain);
 
 	for(
-		sound_sequence::iterator i = 
+		sound_sequence::iterator i =
 			sounds_.begin();
 		i != sounds_.end();
 		++i)
@@ -96,10 +96,10 @@ void
 fruitlib::audio::group::player::pitch(
 	sge::audio::scalar const _pitch)
 {
-	pitch_ = 
+	pitch_ =
 		_pitch;
 	for(
-		buffer_sequence::iterator i = 
+		buffer_sequence::iterator i =
 			buffers_.begin();
 		i != buffers_.end();
 		++i)
@@ -118,7 +118,7 @@ sge::audio::buffer_ptr const
 fruitlib::audio::group::player::create_buffer(
 	sge::audio::file &f)
 {
-	return 
+	return
 		fcppt::make_shared_ptr<group::buffer>(
 			fcppt::ref(
 				*this),
@@ -128,12 +128,12 @@ fruitlib::audio::group::player::create_buffer(
 			pitch_);
 }
 
-sge::audio::sound::positional_ptr const 
+sge::audio::sound::positional_ptr const
 fruitlib::audio::group::player::create_positional_stream(
 	sge::audio::file_ptr const f,
 	sge::audio::sound::positional_parameters const &pp)
 {
-	return 
+	return
 		fcppt::make_shared_ptr<group::sound_positional>(
 			fcppt::ref(
 				*this),
@@ -144,11 +144,11 @@ fruitlib::audio::group::player::create_positional_stream(
 			pitch_);
 }
 
-sge::audio::sound::base_ptr const 
+sge::audio::sound::base_ptr const
 fruitlib::audio::group::player::create_nonpositional_stream(
 	sge::audio::file_ptr const f)
 {
-	return 
+	return
 		fcppt::make_shared_ptr<group::sound_base>(
 			fcppt::ref(
 				*this),
@@ -161,7 +161,7 @@ fruitlib::audio::group::player::create_nonpositional_stream(
 sge::audio::player_capabilities_field const
 fruitlib::audio::group::player::capabilities() const
 {
-	return 
+	return
 		impl_.capabilities();
 }
 

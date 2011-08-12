@@ -19,13 +19,13 @@ public:
 	base_type;
 
 	formatter(Expr const &expr = Expr())
-	: 
+	:
 		base_type(
 			expr)
 	{}
 
-	typedef	
-	
+	typedef
+
 };
 }
 }

@@ -21,7 +21,7 @@ fruitlib::scoped_frame_limiter::scoped_frame_limiter(
 
 fruitlib::scoped_frame_limiter::~scoped_frame_limiter()
 {
-	clock_type::duration const diff = 
+	clock_type::duration const diff =
 		clock_type::now() - before_frame_;
 
 	if(diff > minimum_frame_length_)

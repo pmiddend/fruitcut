@@ -9,7 +9,7 @@ namespace time_format
 {
 class grammar
 :
-	public 
+	public
 		boost::proto::or_
 		<
 			boost::proto::plus<grammar,grammar>,

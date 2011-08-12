@@ -32,21 +32,21 @@ public:
 	T const &
 	get() const
 	{
-		return 
+		return
 			value_;
 	}
 
 	T &
 	get()
 	{
-		return 
+		return
 			value_;
 	}
 
 	detail::type_info const
 	type() const
 	{
-		return 
+		return
 			typeid(
 				T);
 	}
@@ -58,7 +58,7 @@ public:
 		std::stringstream ss;
 
 		if (!(ss << s && ss >> value_))
-			throw 
+			throw
 				detail::bad_cast(
 					("Couldn't parse \""+
 					s+

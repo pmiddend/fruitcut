@@ -27,17 +27,17 @@ public:
 	sge::renderer::dim2 const &
 	size() const;
 
-	sge::image::color::format::type 
+	sge::image::color::format::type
 	image_format() const;
 
 	depth_stencil_format::type
 	depth_stencil() const;
 
-	bool 
+	bool
 	operator<(
 		descriptor const &) const;
 private:
-	typedef 
+	typedef
 	boost::fusion::tuple
 	<
 		sge::renderer::dim2,

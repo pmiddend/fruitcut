@@ -8,8 +8,8 @@ namespace fruitapp
 {
 namespace point_sprite
 {
-typedef 
-sge::sprite::object<choices> 
+typedef
+sge::sprite::object<choices>
 object;
 }
 }

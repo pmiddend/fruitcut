@@ -83,7 +83,7 @@ typedef
 float
 float_type;
 
-typedef 
+typedef
 sge::sprite::choices
 <
 	sge::sprite::type_choices
@@ -98,19 +98,19 @@ sge::sprite::choices
 		sge::sprite::with_color,
 		sge::sprite::intrusive::tag
 	>
-> 
+>
 sprite_choices;
 
-typedef 
-sge::sprite::system<sprite_choices>::type 
+typedef
+sge::sprite::system<sprite_choices>::type
 sprite_system;
 
-typedef 
-sge::sprite::object<sprite_choices> 
+typedef
+sge::sprite::object<sprite_choices>
 sprite_object;
 
-typedef 
-sge::sprite::parameters<sprite_choices> 
+typedef
+sge::sprite::parameters<sprite_choices>
 sprite_parameters;
 
 typedef
@@ -129,7 +129,7 @@ sge::image::color::rgba8 const
 status_fraction_to_color(
 	float_type const f)
 {
-	return 
+	return
 		sge::image::color::rgba8(
 			(sge::image::color::init::red %= 1.0)
 			(sge::image::color::init::green %= 1.0)
@@ -165,7 +165,7 @@ public:
 			.elements())
 	{
 	}
-	
+
 	void
 	update()
 	{
@@ -259,11 +259,11 @@ public:
 				sge::timer::elapsed_fractional_and_reset<float_type>(
 					frame_timer_)));
 
-		float_type const epsilon = 
+		float_type const epsilon =
 			0.01f;
 
 		for(
-			rectangle_list::iterator it = 
+			rectangle_list::iterator it =
 				list_.begin();
 			it != list_.end();)
 		{
@@ -271,10 +271,10 @@ public:
 			if(std::abs(it->rectangle_instance().status_fraction() - 1.0f) < epsilon)
 			{
 				/*
-				std::cout 
+				std::cout
 					<< "Finally erasing a rectangle\n";
 				*/
-				it = 
+				it =
 					list_.erase(
 						it);
 			}
@@ -334,11 +334,11 @@ private:
 	action_kill()
 	{
 		/*
-		std::cout 
-			<< "Killing a rectangle, all dead is " 
-			<< all_dead() 
-			<< ", number of elements: " 
-			<< list_.size() 
+		std::cout
+			<< "Killing a rectangle, all dead is "
+			<< all_dead()
+			<< ", number of elements: "
+			<< list_.size()
 			<< "\n";
 		*/
 
@@ -347,7 +347,7 @@ private:
 		difference_type;
 
 		/*
-		std::cout << "First dead element: " << 
+		std::cout << "First dead element: " <<
 			std::distance(
 				list_.begin(),
 				this->first_dead_element()) << "\n";
@@ -362,7 +362,7 @@ private:
 					this->first_dead_element())),
 			kill_generator_);
 
-		difference_type const to_kill_index = 
+		difference_type const to_kill_index =
 			element_position_rng();
 
 	//	std::cout << "To kill index: " << to_kill_index << "\n";
@@ -381,7 +381,7 @@ private:
 		}
 		std::cout << "|\n";
 
-		rectangle_list::iterator to_kill = 
+		rectangle_list::iterator to_kill =
 			boost::next(
 				list_.begin(),
 				to_kill_index);
@@ -400,7 +400,7 @@ private:
 	}
 
 	rectangle_list::iterator const
-	first_dead_element() 
+	first_dead_element()
 	{
 		for(rectangle_list::iterator i = list_.begin(); i != list_.end(); ++i)
 			if(i->rectangle_instance().killed())
@@ -456,7 +456,7 @@ try
 
 	manager rect_manager(
 		sys.renderer());
-	
+
 	bool running = true;
 
 	fcppt::signal::scoped_connection const cb(
@@ -467,7 +467,7 @@ try
 					running))));
 
 	sys.renderer().state(
-		sge::renderer::state::list 
+		sge::renderer::state::list
 			(sge::renderer::state::bool_::clear_back_buffer = true)
 			(sge::renderer::state::color::back_buffer_clear_color =
 				sge::image::colors::black()));
@@ -490,7 +490,7 @@ try
 	fcppt::io::cerr
 		<< _error.string()
 		<< FCPPT_TEXT('\n');
-	
+
 	return EXIT_FAILURE;
 }
  catch(
@@ -499,6 +499,6 @@ try
 	std::cerr
 		<< _error.what()
 		<< '\n';
-	
+
 	return EXIT_FAILURE;
 }

@@ -66,7 +66,7 @@ public:
 		value_(
 			_value)
 	{
-	}	
+	}
 
 	fcppt::string const &
 	name() const
@@ -96,7 +96,7 @@ public:
 	bool
 	is_leaf() const
 	{
-		return 
+		return
 			fcppt::variant::apply_unary(
 				detail::is_leaf_visitor<leaf_type,node_type>(),
 				value_);
@@ -105,28 +105,28 @@ public:
 	leaf_type const &
 	leaf_value() const
 	{
-		return 
+		return
 			value_.template get<leaf_type>();
 	}
 
 	leaf_type &
 	leaf_value()
 	{
-		return 
+		return
 			value_.template get<leaf_type>();
 	}
 
 	node_type const &
 	node_value() const
 	{
-		return 
+		return
 			value_.template get<node_type>();
 	}
 
 	node_type &
 	node_value()
 	{
-		return 
+		return
 			value_.template get<node_type>();
 	}
 private:

@@ -2,7 +2,7 @@
 
 namespace
 {
-char const translation_matrix[] = 
+char const translation_matrix[] =
 	{
 		// control character stuff
 		0, // null
@@ -80,9 +80,9 @@ char const translation_matrix[] =
 std::string
 fruitserver::ascii::to_native_translation()
 {
-	return 
+	return
 		std::string(
 			&translation_matrix[0],
-			sizeof(	
+			sizeof(
 				translation_matrix));
 }

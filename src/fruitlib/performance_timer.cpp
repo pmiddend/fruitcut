@@ -18,10 +18,10 @@ fruitlib::performance_timer::performance_timer(
 
 fruitlib::performance_timer::~performance_timer()
 {
-	clock::duration const diff = 
+	clock::duration const diff =
 		clock::now() - beginning_;
 
-	fcppt::chrono::milliseconds::rep const ms = 
+	fcppt::chrono::milliseconds::rep const ms =
 		fcppt::chrono::duration_cast<fcppt::chrono::milliseconds>(
 			diff).count();
 
@@ -30,8 +30,8 @@ fruitlib::performance_timer::~performance_timer()
 		if(callback_)
 			callback_(
 				diff);
-		std::cout 
-			<< "Measured " 
+		std::cout
+			<< "Measured "
 			<< ms
 			<< " ms\n";
 	}

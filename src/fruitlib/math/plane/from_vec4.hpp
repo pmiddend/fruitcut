@@ -15,7 +15,7 @@ basic<T> const
 from_vec4(
 	typename fcppt::math::vector::static_<T,4>::type const &v)
 {
-	return 
+	return
 		basic<T>(
 			typename basic<T>::vector(
 				v[0],

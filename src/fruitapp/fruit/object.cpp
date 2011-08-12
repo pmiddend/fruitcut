@@ -88,7 +88,7 @@ fruitapp::fruit::object::prototype() const
 sge::renderer::matrix4 const
 fruitapp::fruit::object::world_transform() const
 {
-	return 
+	return
 		fcppt::math::matrix::structure_cast<sge::renderer::matrix4>(
 			body_.world_transform());
 }
@@ -96,14 +96,14 @@ fruitapp::fruit::object::world_transform() const
 fruitlib::physics::rigid_body::object const &
 fruitapp::fruit::object::body() const
 {
-	return 
+	return
 		body_;
 }
 
 sge::renderer::matrix4 const
 fruitapp::fruit::object::rotation() const
 {
-	return 
+	return
 		fcppt::math::matrix::structure_cast<sge::renderer::matrix4>(
 			body_.transformation());
 }
@@ -111,7 +111,7 @@ fruitapp::fruit::object::rotation() const
 sge::renderer::vector3 const
 fruitapp::fruit::object::position() const
 {
-	return 
+	return
 		fcppt::math::vector::structure_cast<sge::renderer::vector3>(
 			body_.position());
 }

@@ -20,12 +20,12 @@ public:
 	sge::renderer::vector3 const &
 	position() const;
 
-	void	
+	void
 	position(
 		sge::renderer::vector3 const &);
 
 	// NOT the transformation here but the translation included
-	sge::renderer::matrix4 const 
+	sge::renderer::matrix4 const
 	model_view() const;
 
 	void
@@ -35,7 +35,7 @@ public:
 	~directional_light_source();
 private:
 	sge::renderer::vector3 position_;
-	sge::renderer::matrix4 transformation_;	
+	sge::renderer::matrix4 transformation_;
 };
 }
 

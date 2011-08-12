@@ -29,7 +29,7 @@ fruitlib::pp::texture::instance::target()
 	return target_;
 }
 
-bool 
+bool
 fruitlib::pp::texture::instance::locked() const
 {
 	return locked_;

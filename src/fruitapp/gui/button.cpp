@@ -36,7 +36,7 @@ fcppt::signal::auto_connection
 fruitapp::gui::button::push_callback(
 	push_callback_function const &f)
 {
-	return 
+	return
 		push_signal_.connect(
 			f);
 }
@@ -49,7 +49,7 @@ fruitapp::gui::button::internal_push_callback(
 	sound_controller_.play(
 		fruitlib::resource_tree::path(
 			FCPPT_TEXT("button_clicked")));
-	return 
+	return
 		true;
 }
 
@@ -57,6 +57,6 @@ bool
 fruitapp::gui::button::internal_hover_callback(
 	CEGUI::EventArgs const &)
 {
-	return 
+	return
 		true;
 }

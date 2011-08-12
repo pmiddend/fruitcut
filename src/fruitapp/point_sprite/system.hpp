@@ -9,8 +9,8 @@ namespace fruitapp
 {
 namespace point_sprite
 {
-typedef 
-sge::sprite::system<choices>::type 
+typedef
+sge::sprite::system<choices>::type
 system;
 }
 }

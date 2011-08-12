@@ -50,14 +50,14 @@ public:
 	bounding_box(
 		sge::font::rect const &);
 
-	sge::font::text::align_h::type 
+	sge::font::text::align_h::type
 	alignment_h() const;
 
 	void
 	alignment_h(
 		sge::font::text::align_h::type);
 
-	sge::font::text::align_v::type 
+	sge::font::text::align_v::type
 	alignment_v() const;
 
 	void

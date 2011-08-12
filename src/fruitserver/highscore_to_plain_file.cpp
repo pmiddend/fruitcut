@@ -16,7 +16,7 @@ fruitserver::highscore_to_plain_file(
 		path.c_str());
 
 	if(!output_stream.is_open())
-		throw 
+		throw
 			std::runtime_error(
 				"Couldn't open file \""+
 				path+
@@ -25,7 +25,7 @@ fruitserver::highscore_to_plain_file(
 	ascii::string result;
 
 	for(
-		fruitserver::highscore_sequence::const_iterator it = 
+		fruitserver::highscore_sequence::const_iterator it =
 			h.begin();
 		it != h.end();
 		++it)
@@ -35,7 +35,7 @@ fruitserver::highscore_to_plain_file(
 			static_cast<ascii::string::size_type>(
 				1),
 			fruitserver::separator());
-		result += 
+		result +=
 			ascii::from_native(
 				fruitserver::lexical_cast<std::string>(
 					it->score()));
@@ -50,7 +50,7 @@ fruitserver::highscore_to_plain_file(
 			fruitserver::separator());
 	}
 
-	fruitserver::byte_sequence const bytes = 
+	fruitserver::byte_sequence const bytes =
 		ascii::to_byte_sequence(
 			result);
 

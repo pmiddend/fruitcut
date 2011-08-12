@@ -6,16 +6,16 @@
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/text.hpp>
 
-int 
+int
 main(
 	int,
 	char *argv[])
 {
-	fcppt::io::cout 
-		<< 
+	fcppt::io::cout
+		<<
 			sge::parse::json::output_tabbed(
 				sge::parse::json::parse_file_exn(
 					fcppt::from_std_string(
-						argv[1]))) 
+						argv[1])))
 		<< FCPPT_TEXT("\n");
 }

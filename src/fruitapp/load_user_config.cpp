@@ -12,12 +12,12 @@
 sge::parse::json::object const
 fruitapp::load_user_config()
 {
-	fcppt::filesystem::path const final_name = 
+	fcppt::filesystem::path const final_name =
 		sge::config::config_path(
 			fruitapp::name())/
 		FCPPT_TEXT("config.json");
 
-	return 
+	return
 		fcppt::filesystem::exists(
 			final_name)
 		?

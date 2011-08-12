@@ -7,7 +7,7 @@
 
 namespace
 {
-fruitapp::gui::progress_slider::value_type const increase_amount = 
+fruitapp::gui::progress_slider::value_type const increase_amount =
 	static_cast<fruitapp::gui::progress_slider::value_type>(
 		0.1);
 }
@@ -50,7 +50,7 @@ fcppt::signal::auto_connection
 fruitapp::gui::progress_slider::value_changed(
 	value_changed_function const &f)
 {
-	return 
+	return
 		value_changed_signal_.connect(
 			f);
 }

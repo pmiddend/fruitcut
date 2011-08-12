@@ -19,7 +19,7 @@ template<>
 struct vector_type<fruitapp::fruit::triangle>
 {
 	typedef
-	fruitapp::fruit::triangle::vector 
+	fruitapp::fruit::triangle::vector
 	type;
 };
 

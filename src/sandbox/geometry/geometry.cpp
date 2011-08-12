@@ -19,8 +19,8 @@ int main()
 	fcppt::math::vector::static_<float,2>::type
 	vector2;
 
-	typedef 
-	boost::geometry::model::multi_point<vector3> 
+	typedef
+	boost::geometry::model::multi_point<vector3>
 	point_cloud;
 
 	point_cloud points;
@@ -41,7 +41,7 @@ int main()
 	fcppt::math::box::basic<float,3>
 	box3;
 
-	box3 env = 
+	box3 env =
 		boost::geometry::return_envelope<box3>(
 			points);
 

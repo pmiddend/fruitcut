@@ -18,14 +18,14 @@ fruitlib::utf8_file_to_fcppt_string(
 		path);
 
 	if(!file_stream.is_open())
-		throw 
+		throw
 			fruitlib::exception(
 				FCPPT_TEXT("Couldn't open file \"")+
 				fcppt::filesystem::path_to_string(
 					path)+
 				FCPPT_TEXT("\n"));
 
-	return 
+	return
 		fcppt::utf8::to_fcppt_string(
 			fcppt::utf8::from_std_string(
 				std::string(

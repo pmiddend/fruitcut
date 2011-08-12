@@ -24,7 +24,7 @@ fruitlib::log::scoped::scoped(
 			_location.string()+
 			FCPPT_TEXT(" was not found"));
 
-	old_levels_ = 
+	old_levels_ =
 		object_->enabled_levels();
 
 	fcppt::log::activate_levels(
@@ -35,7 +35,7 @@ fruitlib::log::scoped::scoped(
 fruitlib::log::scoped::~scoped()
 {
 	for(
-		fcppt::log::enabled_level_array::const_iterator r = 
+		fcppt::log::enabled_level_array::const_iterator r =
 			old_levels_.begin();
 		r != old_levels_.end();
 		++r)

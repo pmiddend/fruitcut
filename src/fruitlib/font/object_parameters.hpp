@@ -45,10 +45,10 @@ public:
 	sge::font::rect const &
 	bounding_box() const;
 
-	sge::font::text::align_h::type 
+	sge::font::text::align_h::type
 	alignment_h() const;
 
-	sge::font::text::align_v::type 
+	sge::font::text::align_v::type
 	alignment_v() const;
 
 	sge::font::text::flags_field const &

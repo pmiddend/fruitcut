@@ -28,7 +28,7 @@ boost::enable_if_c
 structure_cast(
 	btVector3 const &s)
 {
-	return 
+	return
 		Container(
 			static_cast<typename Container::value_type>(
 				s[0]),
@@ -49,7 +49,7 @@ boost::enable_if_c
 structure_cast(
 	Container const &c)
 {
-	return 
+	return
 		btVector3(
 			static_cast<scalar>(c[0]),
 			static_cast<scalar>(c[1]),
@@ -70,7 +70,7 @@ boost::enable_if_c
 structure_cast(
 	btMatrix3x3 const &m)
 {
-	return 
+	return
 		Container(
 			m[0].getX(),m[0].getY(),m[0].getZ(),
 			m[1].getX(),m[1].getY(),m[1].getZ(),
@@ -87,7 +87,7 @@ boost::enable_if_c
 structure_cast(
 	Container const &m)
 {
-	return 
+	return
 		btMatrix3x3(
 			m[0][0],m[0][1],m[0][2],
 			m[1][0],m[1][1],m[1][2],

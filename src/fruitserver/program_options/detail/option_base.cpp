@@ -17,7 +17,7 @@ fruitserver::program_options::detail::option_base::name() const
 	return name_;
 }
 
-fruitserver::program_options::detail::option_holder_base_ptr const 
+fruitserver::program_options::detail::option_holder_base_ptr const
 fruitserver::program_options::detail::option_base::holder() const
 {
 	return holder_;

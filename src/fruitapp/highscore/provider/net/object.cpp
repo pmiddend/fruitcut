@@ -16,7 +16,7 @@ fruitapp::highscore::provider::net::object::object(
 fruitapp::highscore::provider::identifier::value_type const
 fruitapp::highscore::provider::net::object::identifier() const
 {
-	return 
+	return
 		host_;
 }
 

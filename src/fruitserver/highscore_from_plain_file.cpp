@@ -13,7 +13,7 @@ namespace
 std::istream &
 mygetline(
 	std::istream &in,
-	fruitserver::ascii::string &str, 
+	fruitserver::ascii::string &str,
 	fruitserver::ascii::char_ const &delim)
 {
 	typedef std::istream::ios_base ios_base;
@@ -22,52 +22,52 @@ mygetline(
 	typedef fruitserver::ascii::char_traits char_traits;
 
 	size_type extracted = 0;
-	size_type const n = 
+	size_type const n =
 		str.max_size();
-	ios_base::iostate err = 
+	ios_base::iostate err =
 		ios_base::goodbit;
-	std::istream::sentry 
+	std::istream::sentry
 		cerb(
-			in, 
+			in,
 			true);
 
 	if (cerb)
 	{
 		str.erase();
-		int_type const idelim = 
+		int_type const idelim =
 			char_traits::to_int_type(
 				delim);
-		int_type const eof = 
+		int_type const eof =
 			char_traits::eof();
 
-		int_type c = 
+		int_type c =
 			in.rdbuf()->sgetc();
 
 		while(
-			extracted < n && 
-			!char_traits::char_traits::eq_int_type(c, eof) && 
+			extracted < n &&
+			!char_traits::char_traits::eq_int_type(c, eof) &&
 			!char_traits::eq_int_type(c, idelim))
 		{
-			str += 
+			str +=
 				char_traits::to_char_type(
 					c);
 			++extracted;
-			c = 
+			c =
 				in.rdbuf()->snextc();
 		}
 
 		if(
 			char_traits::eq_int_type(
-				c, 
+				c,
 				eof))
-			err |= 
+			err |=
 				ios_base::eofbit;
 		else if(
 			char_traits::eq_int_type(
-				c, 
+				c,
 				idelim))
 		{
-			++extracted;		  
+			++extracted;
 			in.rdbuf()->sbumpc();
 		}
 		else
@@ -85,7 +85,7 @@ mygetline(
 }
 }
 
-fruitserver::highscore_sequence const 
+fruitserver::highscore_sequence const
 fruitserver::highscore_from_plain_file(
 	fruitserver::path const &s)
 {

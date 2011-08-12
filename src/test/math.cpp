@@ -99,7 +99,7 @@ template<>
 struct vector_type<triangle3>
 {
 	typedef
-	::triangle3::vector 
+	::triangle3::vector
 	type;
 };
 
@@ -148,12 +148,12 @@ namespace
 {
 fcppt::io::ostream &operator<<(fcppt::io::ostream &s,triangle3 const &p)
 {
-	return 
-		s 
-			<< s.widen('(') 
+	return
+		s
+			<< s.widen('(')
 			<< p.points[0] << s.widen(',')
 			<< p.points[1] << s.widen(',')
-			<< p.points[2] 
+			<< p.points[2]
 			<< s.widen(')');
 }
 
@@ -166,16 +166,16 @@ BOOST_AUTO_TEST_CASE(line_plane)
 {
 	scalar const epsilon = 0.00001;
 
-	vector3 const 
-		plane_direction = 
+	vector3 const
+		plane_direction =
 			fcppt::math::vector::normalize(
 				vector3(1,1,0)),
-		line_direction = 
+		line_direction =
 			plane_direction;
 
 	fcppt::io::cout << FCPPT_TEXT("Checking intersection of a plane and a line\n");
 
-	fcppt::optional<vector3> const intersection = 
+	fcppt::optional<vector3> const intersection =
 		fruitlib::math::line_plane_intersection<scalar,N>(
 			line3(
 				vector3(-4.5,1.5,0.0),
@@ -186,38 +186,38 @@ BOOST_AUTO_TEST_CASE(line_plane)
 
 	vector3 const expected_intersection = vector3(-3,3,0);
 
-	fcppt::io::cout 
-		<< FCPPT_TEXT("Expecting intersection at ") 
-		<< expected_intersection 
+	fcppt::io::cout
+		<< FCPPT_TEXT("Expecting intersection at ")
+		<< expected_intersection
 		<< FCPPT_TEXT("\n");
 
 	if (!intersection)
-		fcppt::io::cout 
+		fcppt::io::cout
 			<< FCPPT_TEXT("Got no intersection!\n");
 	else
-		fcppt::io::cout 
-			<< FCPPT_TEXT("Got an intersection at ") 
-			<< (*intersection) 
+		fcppt::io::cout
+			<< FCPPT_TEXT("Got an intersection at ")
+			<< (*intersection)
 			<< FCPPT_TEXT("\n");
 
 	BOOST_CHECK(
-		intersection 
+		intersection
 			&& fcppt::math::range_compare(*intersection,expected_intersection,epsilon));
 }
 
 BOOST_AUTO_TEST_CASE(line_plane_no_intersection)
 {
-	vector3 const 
-		plane_direction = 
+	vector3 const
+		plane_direction =
 			fcppt::math::vector::normalize(
 				vector3(1,1,0)),
-		line_direction = 
+		line_direction =
 			fcppt::math::vector::normalize(
 				vector3(-1,1,0));
 
 	fcppt::io::cout << FCPPT_TEXT("Checking intersection of a plane and a line which are parallel\n");
 
-	fcppt::optional<vector3> const intersection = 
+	fcppt::optional<vector3> const intersection =
 		fruitlib::math::line_plane_intersection<scalar,N>(
 			line3(
 				vector3(-4.5,1.5,0.0),
@@ -227,12 +227,12 @@ BOOST_AUTO_TEST_CASE(line_plane_no_intersection)
 				0));
 
 	if (!intersection)
-		fcppt::io::cout 
+		fcppt::io::cout
 			<< FCPPT_TEXT("Got no intersection!\n");
 	else
-		fcppt::io::cout 
-			<< FCPPT_TEXT("Got an intersection at ") 
-			<< (*intersection) 
+		fcppt::io::cout
+			<< FCPPT_TEXT("Got an intersection at ")
+			<< (*intersection)
 			<< FCPPT_TEXT("\n");
 
 	BOOST_CHECK(
@@ -241,10 +241,10 @@ BOOST_AUTO_TEST_CASE(line_plane_no_intersection)
 
 BOOST_AUTO_TEST_CASE(cut_triangle_test)
 {
-	scalar const epsilon = 
+	scalar const epsilon =
 		static_cast<scalar>(0.0001);
 
-	vector3 const plane_normal = 
+	vector3 const plane_normal =
 		vector3(0,1,0);
 
 	plane3 const p(
@@ -253,7 +253,7 @@ BOOST_AUTO_TEST_CASE(cut_triangle_test)
 			vector3(3.5,0,0),
 			plane_normal));
 
-	triangle3 const 
+	triangle3 const
 		middle_triangle
 		(
 			vector3(1.5,-1,0),
@@ -282,15 +282,15 @@ BOOST_AUTO_TEST_CASE(cut_triangle_test)
 
 		fcppt::io::cout << FCPPT_TEXT("Expected 0 border points and 1 triangle\n");
 
-		fcppt::io::cout 
-			<< FCPPT_TEXT("Got ") 
+		fcppt::io::cout
+			<< FCPPT_TEXT("Got ")
 			<< is.points().size()
 			<< FCPPT_TEXT(" border points and ")
 			<< is.triangles().size()
 			<< FCPPT_TEXT(" triangles\n");
 
 		BOOST_CHECK(
-			is.points().size() == 0 
+			is.points().size() == 0
 				&& is.triangles().size() == 1);
 
 		BOOST_CHECK(
@@ -314,37 +314,37 @@ BOOST_AUTO_TEST_CASE(cut_triangle_test)
 	{
 		fcppt::io::cout << FCPPT_TEXT("Cutting a triangle should be cut completely\n");
 
-		intersection_type const is = 
+		intersection_type const is =
 			fruitlib::math::cut_triangle_at_plane(
 				lower_triangle,
 				p);
 
 		fcppt::io::cout << FCPPT_TEXT("Expected 0 border points and 0 triangles\n");
 
-		fcppt::io::cout 
-			<< FCPPT_TEXT("Got ") 
+		fcppt::io::cout
+			<< FCPPT_TEXT("Got ")
 			<< is.points().size()
 			<< FCPPT_TEXT(" border points and ")
 			<< is.triangles().size()
 			<< FCPPT_TEXT(" triangles\n");
 
 		BOOST_CHECK(
-			is.points().size() == 0 
+			is.points().size() == 0
 				&& is.triangles().size() == 0);
 	}
 
 	{
 		fcppt::io::cout << FCPPT_TEXT("Cutting a triangle should be cut in half\n");
 
-		intersection_type const is = 
+		intersection_type const is =
 			fruitlib::math::cut_triangle_at_plane(
 				middle_triangle,
 				p);
 
 		fcppt::io::cout << FCPPT_TEXT("Expected 2 border points and 1 triangle\n");
 
-		fcppt::io::cout 
-			<< FCPPT_TEXT("Got ") 
+		fcppt::io::cout
+			<< FCPPT_TEXT("Got ")
 			<< is.points().size()
 			<< FCPPT_TEXT(" border points and ")
 			<< is.triangles().size()
@@ -354,8 +354,8 @@ BOOST_AUTO_TEST_CASE(cut_triangle_test)
 			is.points().size() == 2
 				&& is.triangles().size() == 1);
 
-		fcppt::io::cout 
-			<< FCPPT_TEXT("Border points are ") 
+		fcppt::io::cout
+			<< FCPPT_TEXT("Border points are ")
 			<< is.points()[0]
 			<< FCPPT_TEXT(", ")
 			<< is.points()[1]
@@ -367,17 +367,17 @@ BOOST_AUTO_TEST_CASE(cut_triangle_test)
 				vector3(5.27273,0,0),
 				vector3(4,3.5,0));
 
-		fcppt::io::cout 
+		fcppt::io::cout
 			<< FCPPT_TEXT("Expected the triangle to be: ")
 			<< expected_triangle
 			<< FCPPT_TEXT("\n");
 
-		fcppt::io::cout 
-			<< FCPPT_TEXT("Got a triangle: ") 
+		fcppt::io::cout
+			<< FCPPT_TEXT("Got a triangle: ")
 			<< is.triangles()[0]
 			<< FCPPT_TEXT("\n");
 
-		BOOST_CHECK( 
+		BOOST_CHECK(
 			fcppt::algorithm::shift_compare(
 				is.triangles()[0].points,
 				expected_triangle.points,
@@ -392,18 +392,18 @@ BOOST_AUTO_TEST_CASE(cut_triangle_test)
 		plane3 new_plane(
 			-p.normal(),
 			p.lambda());
-		
+
 		fcppt::io::cout << FCPPT_TEXT("Cutting the same triangle in the other half\n");
 
-		intersection_type const is = 
+		intersection_type const is =
 			fruitlib::math::cut_triangle_at_plane(
 				middle_triangle,
 				new_plane);
 
 		fcppt::io::cout << FCPPT_TEXT("Expected 2 border points and 2 triangles\n");
 
-		fcppt::io::cout 
-			<< FCPPT_TEXT("Got ") 
+		fcppt::io::cout
+			<< FCPPT_TEXT("Got ")
 			<< is.points().size()
 			<< FCPPT_TEXT(" border points and ")
 			<< is.triangles().size()
@@ -413,7 +413,7 @@ BOOST_AUTO_TEST_CASE(cut_triangle_test)
 			is.points().size() == 2
 				&& is.triangles().size() == 2);
 
-		fcppt::io::cout 
+		fcppt::io::cout
 			<< FCPPT_TEXT("The triangles are: \n")
 			<< is.triangles()[0]
 			<< FCPPT_TEXT("\n")
@@ -428,43 +428,43 @@ BOOST_AUTO_TEST_CASE(cut_triangle_test)
 
 BOOST_AUTO_TEST_CASE(orthonorm)
 {
-	scalar const epsilon = 
+	scalar const epsilon =
 		static_cast<scalar>(0.0001);
-	
+
 	typedef
 	std::vector<vector2>
-	container; 
+	container;
 
 	fcppt::io::cout << FCPPT_TEXT("Orthonormalizing two 2D vectors\n");
 
-	container const 
-		wiki_example = 
+	container const
+		wiki_example =
 			fcppt::assign::make_container<container>
 				(vector2(3,1))
 				(vector2(2,2)),
-		expected_result = 
+		expected_result =
 			fcppt::assign::make_container<container>
 				(vector2(3,1))
 				(vector2(-0.4,1.2));
 
-	container result = 
+	container result =
 		wiki_example;
 
 	fcppt::math::vector::orthogonalize(
 		result.begin(),
 		result.end());
 
-	fcppt::io::cout 
+	fcppt::io::cout
 		<< FCPPT_TEXT("Expecting ")
 		<< expected_result[0]
-		<< FCPPT_TEXT(" and ") 
+		<< FCPPT_TEXT(" and ")
 		<< expected_result[1]
 		<< FCPPT_TEXT("\n");
 
-	fcppt::io::cout 
+	fcppt::io::cout
 		<< FCPPT_TEXT("Got ")
 		<< result[0]
-		<< FCPPT_TEXT(" and ") 
+		<< FCPPT_TEXT(" and ")
 		<< result[1]
 		<< FCPPT_TEXT("\n");
 
@@ -472,7 +472,7 @@ BOOST_AUTO_TEST_CASE(orthonorm)
 		fcppt::math::range_compare(
 			result[0],
 			expected_result[0],
-			epsilon) && 
+			epsilon) &&
 		fcppt::math::range_compare(
 			result[1],
 			expected_result[1],
@@ -497,7 +497,7 @@ BOOST_AUTO_TEST_CASE(d_to_point)
 
 	scalar const epsilon = static_cast<scalar>(0.001);
 
-	fcppt::io::cout 
+	fcppt::io::cout
 		<< FCPPT_TEXT("Checking if a point is on a line (it should be)...\n");
 
 	BOOST_CHECK((
@@ -506,16 +506,16 @@ BOOST_AUTO_TEST_CASE(d_to_point)
 				4.5,2.5),
 			l) < epsilon));
 
-	fcppt::io::cout 
+	fcppt::io::cout
 		<< FCPPT_TEXT("Now checking if a point which is not on the line has the right distance...\n");
 
-	fcppt::io::cout 
-		<< FCPPT_TEXT("Distance should be 1.11803, is ") 
-		<< 
+	fcppt::io::cout
+		<< FCPPT_TEXT("Distance should be 1.11803, is ")
+		<<
 			fruitlib::math::line::distance_to_point<scalar,2>(
 				vector_type(
 					3,3),
-				l) 
+				l)
 		<< FCPPT_TEXT("\n");
 
 	BOOST_CHECK((
@@ -524,13 +524,13 @@ BOOST_AUTO_TEST_CASE(d_to_point)
 				3,3),
 			l) - static_cast<scalar>(1.11803) < epsilon));
 
-	fcppt::io::cout 
-		<< FCPPT_TEXT("Another test: this time, the distance should be 1.78885 and is ") 
-		<< 
+	fcppt::io::cout
+		<< FCPPT_TEXT("Another test: this time, the distance should be 1.78885 and is ")
+		<<
 			fruitlib::math::line::distance_to_point<scalar,2>(
 				vector_type(
 					0.5,-1.5),
-				l) 
+				l)
 		<< FCPPT_TEXT("...\n");
 
 	BOOST_CHECK((

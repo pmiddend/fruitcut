@@ -19,8 +19,8 @@ namespace fruitapp
 /**
 	A better way than this:
 
-	The shadow map class should be 
-	
+	The shadow map class should be
+
 	- a container for the shadow map texture
 	- a container for the mvp
 	- a container for all the scene graph nodes which should be rendered to the shadow map

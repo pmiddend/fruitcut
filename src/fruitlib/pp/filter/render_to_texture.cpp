@@ -37,7 +37,7 @@ fruitlib::pp::texture::counted_instance const
 fruitlib::pp::filter::render_to_texture::apply()
 {
 	//std::cerr << "rtt::apply\n";
-	texture::counted_instance const result = 
+	texture::counted_instance const result =
 		texture_manager_.query(
 			texture::descriptor(
 				texture_size_,

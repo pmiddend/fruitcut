@@ -534,8 +534,8 @@ struct get_turns_cs
                         *prev, *it, *next,
                         bp[0], bp[1], bp[2], bp[3],
                         turns);
-                // Future performance enhancement: 
-                // return if told by the interrupt policy 
+                // Future performance enhancement:
+                // return if told by the interrupt policy
             }
         }
     }

@@ -59,7 +59,7 @@ fruitlib::audio::group::sound_base::sound_base(
 		*this);
 }
 
-void 
+void
 fruitlib::audio::group::sound_base::play(
 	sge::audio::sound::repeat::type const _repeat)
 {
@@ -75,25 +75,25 @@ fruitlib::audio::group::sound_base::repeat() const
 		impl_->repeat();
 }
 
-void 
+void
 fruitlib::audio::group::sound_base::toggle_pause()
 {
 	return
 		impl_->toggle_pause();
 }
 
-sge::audio::sound::play_status::type 
+sge::audio::sound::play_status::type
 fruitlib::audio::group::sound_base::status() const
 {
 	return
 		impl_->status();
 }
 
-void 
+void
 fruitlib::audio::group::sound_base::gain(
 	sge::audio::scalar const _local_gain)
 {
-	local_gain_ = 
+	local_gain_ =
 		_local_gain;
 
 	return
@@ -101,18 +101,18 @@ fruitlib::audio::group::sound_base::gain(
 			global_gain_ * local_gain_);
 }
 
-sge::audio::scalar 
+sge::audio::scalar
 fruitlib::audio::group::sound_base::gain() const
 {
 	return
 		local_gain_;
 }
 
-void 
+void
 fruitlib::audio::group::sound_base::pitch(
 	sge::audio::scalar const _local_pitch)
 {
-	local_pitch_ = 
+	local_pitch_ =
 		_local_pitch;
 
 	return
@@ -120,14 +120,14 @@ fruitlib::audio::group::sound_base::pitch(
 			global_pitch_ * local_pitch_);
 }
 
-sge::audio::scalar 
+sge::audio::scalar
 fruitlib::audio::group::sound_base::pitch() const
 {
 	return
 		local_pitch_;
 }
 
-void 
+void
 fruitlib::audio::group::sound_base::stop()
 {
 	return
@@ -145,7 +145,7 @@ void
 fruitlib::audio::group::sound_base::global_gain(
 	sge::audio::scalar const _global_gain)
 {
-	global_gain_ = 
+	global_gain_ =
 		_global_gain;
 	gain(
 		gain());
@@ -155,7 +155,7 @@ void
 fruitlib::audio::group::sound_base::global_pitch(
 	sge::audio::scalar const _global_pitch)
 {
-	global_pitch_ = 
+	global_pitch_ =
 		_global_pitch;
 	pitch(
 		pitch());

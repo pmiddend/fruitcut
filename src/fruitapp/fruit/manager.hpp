@@ -124,7 +124,7 @@ private:
 	sge::renderer::vertex_declaration_ptr vertex_declaration_;
 	fruitlib::physics::world &physics_world_;
 	fruitlib::physics::group::object fruit_group_;
-	object_sequence fruits_; 
+	object_sequence fruits_;
 	fcppt::signal::object<callbacks::cut_fn> cut_signal_;
 	fcppt::signal::object<callbacks::remove_fn> remove_signal_;
 	fcppt::signal::object<callbacks::spawn_fn> spawn_signal_;

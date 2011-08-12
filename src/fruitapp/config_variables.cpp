@@ -28,7 +28,7 @@ fruitapp::config_variables::destructor_write_hack::~destructor_write_hack()
 	if(!file.is_open())
 	{
 		// Can't throw in a destructor! So just output this warning
-		fcppt::io::cerr 
+		fcppt::io::cerr
 			<< FCPPT_TEXT("Warning: couldn't save user configuration to \"")
 			<<
 				fcppt::filesystem::path_to_string(
@@ -39,7 +39,7 @@ fruitapp::config_variables::destructor_write_hack::~destructor_write_hack()
 		return;
 	}
 
-	file << 
+	file <<
 		sge::parse::json::output_tabbed(
 			user_config_file_);
 }

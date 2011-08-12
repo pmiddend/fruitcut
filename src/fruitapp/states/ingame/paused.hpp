@@ -49,7 +49,7 @@ namespace ingame
 	already have a blur shader which is used for the bloom
 	effect). However, the preprocessing needs input. Usually, the input
 	is a render callback which renders the scene into a texture, which
-	is then used as the main input of the pipeline. 
+	is then used as the main input of the pipeline.
 
 	Using a special filter, the "inject_texture" filter, we can use an
 	existing texture as the pipeline input. The first time we blur, we

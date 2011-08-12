@@ -18,12 +18,12 @@ plane::basic<T> const
 to_plane(
 	basic<T,3> const &t)
 {
-	typename basic<T,3>::vector normal = 
+	typename basic<T,3>::vector normal =
 		fcppt::math::vector::normalize(
 			fcppt::math::vector::cross(
 				t.points[1] - t.points[0],
 				t.points[2] - t.points[0]));
-	return 
+	return
 		plane::basic<T>(
 			normal,
 			fcppt::math::vector::dot(

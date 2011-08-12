@@ -15,7 +15,7 @@ namespace sgejson = sge::parse::json;
 BOOST_AUTO_TEST_CASE(
 	json_find_object)
 {
-	sge::parse::json::object const example_object = 
+	sge::parse::json::object const example_object =
 		fruitcut::test::json::object_from_string(
 			FCPPT_TEXT("{ \"foo\" : \"bar\", \"baz\" : { \"qux\" : false,\"quux\" : {} } }"));
 

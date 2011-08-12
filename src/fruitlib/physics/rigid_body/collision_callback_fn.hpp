@@ -10,7 +10,7 @@ namespace physics
 namespace rigid_body
 {
 typedef
-void 
+void
 collision_callback_fn(
 	rigid_body::collision_data const &);
 }

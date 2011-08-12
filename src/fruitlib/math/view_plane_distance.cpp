@@ -32,10 +32,10 @@ fruitlib::math::view_plane_distance(
 			m[2][1],
 			m[2][2],
 			m[2][3]),
-		plane_vec4 = 
+		plane_vec4 =
 			fourth_row + third_row;
 
-	plane_type const near_plane = 
+	plane_type const near_plane =
 		math::plane::normalize(
 			plane_type(
 				vector3(
@@ -44,6 +44,6 @@ fruitlib::math::view_plane_distance(
 					plane_vec4[2]),
 				plane_vec4[3]));
 
-	return 
+	return
 		near_plane.lambda() + p.near().get();
 }

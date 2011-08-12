@@ -21,7 +21,7 @@ TargetDuration const
 string_to_duration_exn(
 	std::basic_string<Char,Traits> const &input_string)
 {
-	fcppt::optional<TargetDuration> result = 
+	fcppt::optional<TargetDuration> result =
 		time_format::string_to_duration<TargetDuration>(
 			input_string);
 

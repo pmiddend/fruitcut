@@ -5,7 +5,7 @@
 sge::renderer::dim2 const
 fruitlib::pp::texture::use_screen_size()
 {
-	return 
+	return
 		sge::renderer::dim2(
 			std::numeric_limits<sge::renderer::dim2::value_type>::max(),
 			std::numeric_limits<sge::renderer::dim2::value_type>::max());

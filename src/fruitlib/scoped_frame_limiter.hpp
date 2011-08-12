@@ -21,7 +21,7 @@ public:
 	typedef
 	clock_type::rep
 	fps_type;
-	
+
 	explicit
 	scoped_frame_limiter(
 		fps_type);

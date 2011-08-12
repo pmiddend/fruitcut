@@ -19,7 +19,7 @@ holder_get(
 	detail::option_holder_base const &h)
 {
 	if(h.type().get() != typeid(T))
-		throw 
+		throw
 			detail::bad_cast(
 				"Invalid type cast (expected "+
 				std::string(
@@ -28,7 +28,7 @@ holder_get(
 				h.type().get().name()+
 				")");
 
-	return 
+	return
 		static_cast<detail::option_holder<T> const &>(h).get();
 }
 }

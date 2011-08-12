@@ -17,7 +17,7 @@ namespace tags
 SGE_RENDERER_VF_MAKE_UNSPECIFIED_TAG(texcoord)
 }
 
-typedef 
+typedef
 sge::renderer::vf::unspecified
 <
 	sge::renderer::vf::vector
@@ -26,7 +26,7 @@ sge::renderer::vf::unspecified
 		2
 	>,
 	tags::texcoord
-> 
+>
 texcoord;
 }
 }

@@ -166,7 +166,7 @@ public:
 
 	fruitlib::scenic::delta::callback const
 	ingame_clock_callback() const;
-	
+
 	fruitlib::scenic::delta::callback const
 	standard_clock_callback() const;
 
@@ -190,7 +190,7 @@ public:
 	quick_log();
 private:
 	/*
-		This part needs some explanation. What are we doing here? 
+		This part needs some explanation. What are we doing here?
 
 		The problem is that we've got two trees at the same time: The
 		statechart state tree and the scene graph (technically a graph,
@@ -227,7 +227,7 @@ private:
 	// Can't call it "event_base_ptr_type" since that's "reserved" by
 	// statechart
 	typedef
-	boost::intrusive_ptr<boost::statechart::event_base const> 
+	boost::intrusive_ptr<boost::statechart::event_base const>
 	my_event_base_ptr_type;
 
 	typedef
@@ -236,7 +236,7 @@ private:
 		my_event_base_ptr_type,
 		boost::detail::allocator::rebind_to
 		<
-			allocator, 
+			allocator,
 			my_event_base_ptr_type
 		>::type
 	>

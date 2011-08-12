@@ -5,11 +5,11 @@
 #include <boost/geometry/geometry.hpp>
 #include <cstddef>
 
-namespace boost 
-{ 
-namespace geometry 
-{ 
-namespace traits 
+namespace boost
+{
+namespace geometry
+{
+namespace traits
 {
 template<typename T,typename N,typename S>
 struct tag<fcppt::math::vector::basic<T,N,S> >
@@ -17,20 +17,20 @@ struct tag<fcppt::math::vector::basic<T,N,S> >
 	typedef point_tag type;
 };
 
-template<typename T,typename N,typename S> 
+template<typename T,typename N,typename S>
 struct coordinate_type<fcppt::math::vector::basic<T,N,S> >
-{ 
-	typedef T type; 
+{
+	typedef T type;
 };
 
-template<typename T,typename N,typename S> 
+template<typename T,typename N,typename S>
 struct coordinate_system<fcppt::math::vector::basic<T,N,S> >
-{ 
-	typedef boost::geometry::cs::cartesian type; 
+{
+	typedef boost::geometry::cs::cartesian type;
 };
 
-template<typename T,typename N,typename S> 
-struct dimension<fcppt::math::vector::basic<T,N,S> > 
+template<typename T,typename N,typename S>
+struct dimension<fcppt::math::vector::basic<T,N,S> >
 	: N
 {};
 
@@ -44,9 +44,9 @@ struct access<fcppt::math::vector::basic<T,N,S>,Dim>
 			return p[Dim];
 	}
 
-	static void 
+	static void
 	set(
-		fcppt::math::vector::basic<T,N,S> &p, 
+		fcppt::math::vector::basic<T,N,S> &p,
 		T const& value)
 	{
 			p[Dim] = value;
