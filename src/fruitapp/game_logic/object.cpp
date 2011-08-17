@@ -278,7 +278,7 @@ fruitapp::game_logic::object::react(
 		if (score_diff > 0)
 		{
 			sound_controller_.play(
-				fruitlib::resource_tree::path("score_increased"));
+				fruitlib::resource_tree::path(FCPPT_TEXT("score_increased")));
 			iterating_score_ +=
 				(score_diff)/10 + 1;
 		}
