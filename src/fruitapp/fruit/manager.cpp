@@ -42,7 +42,7 @@
 #include <fcppt/string.hpp>
 #include <fcppt/cref.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/assert.hpp>
+#include <fcppt/assert/error.hpp>
 #include <iostream>
 
 namespace
@@ -182,7 +182,7 @@ fruitapp::fruit::manager::cut(
 					clock_)));
 	}
 
-	FCPPT_ASSERT(
+	FCPPT_ASSERT_ERROR(
 		fruit_cache.size() == 2);
 
 	cut_signal_(

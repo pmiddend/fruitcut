@@ -4,7 +4,7 @@
 #include <fruitlib/exception.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/ref.hpp>
-#include <fcppt/assert.hpp>
+#include <fcppt/assert/error.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/algorithm/ptr_container_erase.hpp>
 #include <iostream>
@@ -181,7 +181,7 @@ void
 fruitlib::audio::group::player::remove_buffer(
 	group::buffer &b)
 {
-	FCPPT_ASSERT((
+	FCPPT_ASSERT_ERROR((
 		fcppt::algorithm::ptr_container_erase(
 			buffers_,
 			&b)));
@@ -199,7 +199,7 @@ void
 fruitlib::audio::group::player::remove_sound(
 	group::sound_base &b)
 {
-	FCPPT_ASSERT((
+	FCPPT_ASSERT_ERROR((
 		fcppt::algorithm::ptr_container_erase(
 			sounds_,
 			&b)));

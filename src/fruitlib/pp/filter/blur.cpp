@@ -16,7 +16,7 @@
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/math/dim/dim.hpp>
-#include <fcppt/assert.hpp>
+#include <fcppt/assert/pre.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/ref.hpp>
 #include <iostream>
@@ -63,7 +63,7 @@ fruitlib::pp::filter::blur::blur(
 						"tex",
 						sge::renderer::texture::planar_ptr()))))))
 {
-	FCPPT_ASSERT(
+	FCPPT_ASSERT_PRE(
 		iterations_);
 }
 

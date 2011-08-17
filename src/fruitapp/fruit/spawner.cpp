@@ -23,7 +23,6 @@
 #include <fcppt/math/pi.hpp>
 #include <fcppt/math/rad_to_deg.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/assert.hpp>
 #include <fcppt/chrono/duration.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <cmath>
@@ -135,7 +134,7 @@ fruitapp::fruit::spawner::react(
 	prototype_sequence::size_type const prototype_index =
 		prototype_rng_();
 
-	FCPPT_ASSERT(
+	FCPPT_ASSERT_ERROR(
 		prototype_index < manager_.prototypes().size());
 
 	prototype const &chosen_prototype =

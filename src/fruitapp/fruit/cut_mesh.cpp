@@ -23,6 +23,7 @@
 #include <fcppt/math/vector/structure_cast.hpp>
 #include <fcppt/math/vector/length.hpp>
 #include <fcppt/move.hpp>
+#include <fcppt/assert/error.hpp>
 #include <fcppt/math/range_compare.hpp>
 #include <fcppt/unique_ptr.hpp>
 #include <fcppt/optional.hpp>
@@ -279,7 +280,7 @@ fruitapp::fruit::cut_mesh(
 			vector_narrow<vector2>(
 				transformed));
 
-		FCPPT_ASSERT(
+		FCPPT_ASSERT_ERROR(
 			transformed[2] < epsilon);
 
 		/*
@@ -295,7 +296,7 @@ fruitapp::fruit::cut_mesh(
 					vector_narrow<vector3>(
 						(*cs) * vector4(reduced.back()[0],reduced.back()[1],0,1)) -
 					(*i)) << "\n";
-			FCPPT_ASSERT(false);
+			std::exit(1);
 		}
 		*/
 	}

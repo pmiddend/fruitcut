@@ -4,7 +4,7 @@
 #include <fruitlib/pp/filter/nullary.hpp>
 #include <fruitlib/pp/filter/unary.hpp>
 #include <fruitlib/pp/filter/binary.hpp>
-#include <fcppt/assert_message.hpp>
+#include <fcppt/assert/error_message.hpp>
 #include <fcppt/text.hpp>
 
 fruitlib::pp::filter::base::base()
@@ -41,7 +41,7 @@ fruitlib::pp::filter::base::dispatch()
 				textures_.front(),
 				textures_.back());
 	textures_.clear();
-	FCPPT_ASSERT_MESSAGE(
+	FCPPT_ASSERT_ERROR_MESSAGE(
 		result,
 		FCPPT_TEXT("Got an empty texture as a filter result"));
 	return result;

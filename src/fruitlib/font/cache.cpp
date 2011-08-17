@@ -16,8 +16,8 @@
 #include <sge/font/system.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/assert.hpp>
-#include <fcppt/assert_message.hpp>
+#include <fcppt/assert/pre_message.hpp>
+#include <fcppt/assert/error.hpp>
 #include <fcppt/filesystem/extension_without_dot.hpp>
 #include <fcppt/filesystem/path.hpp>
 #include <fcppt/container/ptr/push_back_unique_ptr.hpp>
@@ -167,7 +167,7 @@ fruitlib::font::cache::cache(
 		}
 	}
 
-	FCPPT_ASSERT(
+	FCPPT_ASSERT_ERROR(
 		to_metrics_.size() == to_drawer_.size());
 }
 
@@ -178,10 +178,12 @@ fruitlib::font::cache::metrics(
 	to_metrics::const_iterator i =
 		to_metrics_.find(
 			identifier);
-	FCPPT_ASSERT_MESSAGE(
+	FCPPT_ASSERT_PRE_MESSAGE(
 		i != to_metrics_.end(),
-		FCPPT_TEXT("Font called ")+identifier+FCPPT_TEXT(" not found!"));
-	FCPPT_ASSERT(
+		FCPPT_TEXT("Font called ")+
+		identifier+
+		FCPPT_TEXT(" not found!"));
+	FCPPT_ASSERT_ERROR(
 		*(i->second));
 	return *(i->second);
 }
@@ -193,9 +195,11 @@ fruitlib::font::cache::drawer(
 	to_drawer::const_iterator i =
 		to_drawer_.find(
 			identifier);
-	FCPPT_ASSERT_MESSAGE(
+	FCPPT_ASSERT_PRE_MESSAGE(
 		i != to_drawer_.end(),
-		FCPPT_TEXT("Font called ")+identifier+FCPPT_TEXT(" not found!"));
+		FCPPT_TEXT("Font called ")+
+		identifier+
+		FCPPT_TEXT(" not found!"));
 	return *(i->second);
 }
 

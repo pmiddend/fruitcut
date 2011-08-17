@@ -8,7 +8,7 @@
 #include <sge/model/md3/object.hpp>
 #include <fcppt/math/vector/structure_cast.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
-#include <fcppt/assert.hpp>
+#include <fcppt/assert/pre_message.hpp>
 #include <fcppt/string.hpp>
 #include <boost/next_prior.hpp>
 
@@ -18,8 +18,9 @@ fruitapp::fruit::model_to_mesh(
 {
 	mesh result;
 
-	FCPPT_ASSERT(
-		!model.part_names().empty());
+	FCPPT_ASSERT_PRE_MESSAGE(
+		!model.part_names().empty(),
+		FCPPT_TEXT("The model has no parts!"));
 
 	fcppt::string const part_name =
 		model.part_names().front();
@@ -28,17 +29,19 @@ fruitapp::fruit::model_to_mesh(
 		model.vertices(
 			part_name);
 
-	FCPPT_ASSERT(
+	FCPPT_ASSERT_PRE_MESSAGE(
 		model.texcoords(
-			part_name));
+			part_name),
+		FCPPT_TEXT("The model has no texture coordinates!"));
 
 	sge::model::md3::texcoord_sequence const texcoords =
 		*model.texcoords(
 			part_name);
 
-	FCPPT_ASSERT(
+	FCPPT_ASSERT_PRE_MESSAGE(
 		model.normals(
-			part_name));
+			part_name),
+		FCPPT_TEXT("The model has no normals!"));
 
 	sge::model::md3::normal_sequence const normals =
 		*model.normals(
@@ -48,11 +51,13 @@ fruitapp::fruit::model_to_mesh(
 		model.indices(
 			part_name);
 
-	FCPPT_ASSERT(
-		vertices.size() == texcoords.size() && vertices.size() == normals.size());
+	FCPPT_ASSERT_PRE_MESSAGE(
+		vertices.size() == texcoords.size() && vertices.size() == normals.size(),
+		FCPPT_TEXT("Not every vertex has a normal or texture coordinate, respectively!"));
 
-	FCPPT_ASSERT(
-		indices.size() % 3 == 0);
+	FCPPT_ASSERT_PRE_MESSAGE(
+		indices.size() % 3 == 0,
+		FCPPT_TEXT("The model doesn't consist solely of triangles"));
 
 	for(
 		sge::model::md3::index_sequence::const_iterator index = indices.begin();

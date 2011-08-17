@@ -3,7 +3,7 @@
 #include <sge/cegui/to_cegui_string.hpp>
 #include <sge/charconv/system_fwd.hpp>
 #include <fcppt/tr1/functional.hpp>
-#include <fcppt/assert_message.hpp>
+#include <fcppt/assert/pre_message.hpp>
 #include <fcppt/lexical_cast.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/string.hpp>
@@ -65,7 +65,7 @@ fruitapp::gui::table::view::row_added(
 	table::row_index::value_type const &_index,
 	table::row const &_row)
 {
-	FCPPT_ASSERT_MESSAGE(
+	FCPPT_ASSERT_PRE_MESSAGE(
 		static_cast<CEGUI::uint>(_row.size()) == impl_.getColumnCount(),
 		FCPPT_TEXT("Got ")+
 		fcppt::lexical_cast<fcppt::string>(
@@ -103,7 +103,7 @@ void
 fruitapp::gui::table::view::row_removed(
 	table::row_index::value_type const &_index)
 {
-	FCPPT_ASSERT_MESSAGE(
+	FCPPT_ASSERT_PRE_MESSAGE(
 		_index < impl_.getRowCount(),
 		FCPPT_TEXT("There are ")+
 		fcppt::lexical_cast<fcppt::string>(

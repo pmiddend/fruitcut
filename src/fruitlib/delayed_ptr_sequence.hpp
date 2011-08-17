@@ -5,7 +5,7 @@
 #include <fcppt/move.hpp>
 #include <fcppt/container/ptr/push_back_unique_ptr.hpp>
 #include <fcppt/algorithm/ptr_container_erase.hpp>
-#include <fcppt/assert.hpp>
+#include <fcppt/assert/error.hpp>
 #include <boost/ptr_container/clone_allocator.hpp>
 #include <memory>
 
@@ -153,7 +153,7 @@ public:
 			new_values_.end(),
 			new_values_);
 
-		FCPPT_ASSERT(
+		FCPPT_ASSERT_ERROR(
 			new_values_.empty());
 
 		for(const_iterator i = old_values_.begin(); i != old_values_.end(); ++i)

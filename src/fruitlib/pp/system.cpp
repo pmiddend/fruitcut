@@ -13,6 +13,8 @@
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/string.hpp>
+#include <fcppt/assert/pre_message.hpp>
+#include <fcppt/assert/pre.hpp>
 #include <boost/graph/topological_sort.hpp>
 #include <iostream>
 #include <iterator>
@@ -107,7 +109,7 @@ fruitlib::pp::system::add_filter(
 	fcppt::string const &name,
 	dependency_set const &deps)
 {
-	FCPPT_ASSERT_MESSAGE(
+	FCPPT_ASSERT_PRE_MESSAGE(
 		name_to_vertex_.find(name) == name_to_vertex_.end(),
 		FCPPT_TEXT("A filter named ")+
 		name+
@@ -135,7 +137,7 @@ fruitlib::pp::system::add_filter(
 		r != deps.end();
 		++r)
 	{
-		FCPPT_ASSERT_MESSAGE(
+		FCPPT_ASSERT_PRE_MESSAGE(
 			name_to_vertex_.find(*r) != name_to_vertex_.end(),
 			FCPPT_TEXT("Filter ")+
 			(*r)+
@@ -160,7 +162,7 @@ fruitlib::pp::system::toggle_filter(
 		return;
 	}
 
-	FCPPT_ASSERT(
+	FCPPT_ASSERT_PRE(
 		vertex_to_filter_.find(name_to_vertex_[name]) != vertex_to_filter_.end());
 
 	filter::wrapper &current_filter =

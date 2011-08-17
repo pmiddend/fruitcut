@@ -11,7 +11,9 @@
 #include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/math/vector/output.hpp>
 #include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/assert/pre_message.hpp>
 #include <fcppt/ref.hpp>
+#include <fcppt/text.hpp>
 #include <iostream>
 #include <ostream>
 
@@ -32,8 +34,9 @@ fruitlib::physics::debugger::debugger(
 		renderer_),
 	scoped_lock_()
 {
-	FCPPT_ASSERT(
-		!world_.handle().getDebugDrawer());
+	FCPPT_ASSERT_PRE_MESSAGE(
+		!world_.handle().getDebugDrawer(),
+		FCPPT_TEXT("You can't have two debug drawers for one world"));
 	world_.handle().setDebugDrawer(
 		this);
 }
