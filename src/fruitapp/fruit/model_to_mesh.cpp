@@ -5,11 +5,11 @@
 #include <sge/model/md3/normal_sequence.hpp>
 #include <sge/model/md3/index_sequence.hpp>
 #include <sge/model/md3/texcoord_sequence.hpp>
+#include <sge/model/md3/string.hpp>
 #include <sge/model/md3/object.hpp>
 #include <fcppt/math/vector/structure_cast.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/assert/pre_message.hpp>
-#include <fcppt/string.hpp>
 #include <boost/next_prior.hpp>
 
 fruitapp::fruit::mesh const
@@ -22,7 +22,7 @@ fruitapp::fruit::model_to_mesh(
 		!model.part_names().empty(),
 		FCPPT_TEXT("The model has no parts!"));
 
-	fcppt::string const part_name =
+	sge::model::md3::string const part_name =
 		model.part_names().front();
 
 	sge::model::md3::vertex_sequence const vertices =
