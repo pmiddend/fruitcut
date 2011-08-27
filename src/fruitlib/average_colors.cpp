@@ -197,7 +197,7 @@ view_visitor::operator()(
 	View const &v) const
 {
 	typedef typename
-	View::color_format
+	View::format::color_format
 	color_format;
 
 	typedef typename
