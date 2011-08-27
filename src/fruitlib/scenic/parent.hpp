@@ -3,6 +3,7 @@
 
 #include <fruitlib/scenic/base_fwd.hpp>
 #include <fruitlib/scenic/depth.hpp>
+#include <fcppt/nonassignable.hpp>
 
 namespace fruitlib
 {
@@ -10,6 +11,8 @@ namespace scenic
 {
 class parent
 {
+FCPPT_NONASSIGNABLE(
+	parent);
 public:
 	explicit
 	parent(
