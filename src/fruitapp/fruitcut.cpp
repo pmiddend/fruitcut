@@ -4,12 +4,12 @@
 #include <fcppt/exception.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/config.hpp>
-#include <fcppt/platform.hpp>
+#include <fcppt/config/platform.hpp>
 #include <iostream>
 
 #include <boost/filesystem/operations.hpp>
 
-#if defined(FCPPT_HAVE_BACKTRACE) && defined(FCPPT_POSIX_PLATFORM)
+#if defined(FCPPT_HAVE_BACKTRACE) && defined(FCPPT_CONFIG_POSIX_PLATFORM)
 #define FRUITCUT_HAVE_SIGNAL_STACK_PRINTER
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/backtrace/print_current_stack_frame.hpp>
