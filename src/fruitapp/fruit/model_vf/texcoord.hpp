@@ -14,7 +14,7 @@ namespace model_vf
 {
 namespace tags
 {
-SGE_RENDERER_VF_MAKE_UNSPECIFIED_TAG(texcoord)
+SGE_RENDERER_VF_MAKE_UNSPECIFIED_TAG(texcoord);
 }
 
 typedef

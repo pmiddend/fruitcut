@@ -76,7 +76,7 @@ namespace vf
 {
 namespace tags
 {
-SGE_RENDERER_VF_MAKE_UNSPECIFIED_TAG(position)
+SGE_RENDERER_VF_MAKE_UNSPECIFIED_TAG(position);
 }
 
 typedef
@@ -93,7 +93,7 @@ position;
 
 namespace tags
 {
-SGE_RENDERER_VF_MAKE_UNSPECIFIED_TAG(texcoord)
+SGE_RENDERER_VF_MAKE_UNSPECIFIED_TAG(texcoord);
 }
 
 typedef
