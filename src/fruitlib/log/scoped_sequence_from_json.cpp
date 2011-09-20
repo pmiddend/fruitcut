@@ -45,7 +45,7 @@ fruitlib::log::scoped_sequence_from_json(
 					std::tr1::ref(
 						context),
 					string_to_location(
-						sge::parse::json::get<fcppt::string>(
+						FCPPT_TEXT("sge/")+sge::parse::json::get<fcppt::string>(
 							current_pair.elements[0]),
 						FCPPT_TEXT('/')),
 					fcppt::log::level_from_string(
