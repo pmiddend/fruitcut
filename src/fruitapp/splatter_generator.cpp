@@ -131,7 +131,7 @@ fruitapp::splatter_generator::fruit_was_cut(
 				0,
 			number_of_points =
 				static_cast<unsigned>(
-					cut_info.area() * splatter_count_to_area_factor_.value() * 200.0);
+					cut_info.area() * splatter_count_to_area_factor_.value() * 200.0f);
 		i < number_of_points;
 		++i)
 	{

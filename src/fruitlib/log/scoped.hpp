@@ -5,7 +5,7 @@
 #include <fcppt/log/location.hpp>
 #include <fcppt/log/level.hpp>
 #include <fcppt/log/enabled_level_array.hpp>
-#include <fcppt/log/object_fwd.hpp>
+#include <fcppt/log/optional_object.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/container/array.hpp>
 
@@ -26,7 +26,7 @@ public:
 
 	~scoped();
 private:
-	fcppt::log::object *object_;
+	fcppt::log::optional_object object_;
 	fcppt::log::enabled_level_array old_levels_;
 };
 }
