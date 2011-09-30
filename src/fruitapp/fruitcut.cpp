@@ -97,7 +97,7 @@ try
 }
 catch (fcppt::exception const &e)
 {
-	fcppt::io::cerr
+	fcppt::io::cerr()
 		<< FCPPT_TEXT("fcppt::exception: ")
 		<< e.string()
 		<< FCPPT_TEXT("\n");

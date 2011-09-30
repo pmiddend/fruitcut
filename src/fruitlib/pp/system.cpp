@@ -158,7 +158,7 @@ fruitlib::pp::system::toggle_filter(
 {
 	if (name_to_vertex_.find(name) == name_to_vertex_.end())
 	{
-		fcppt::io::cerr << FCPPT_TEXT("Warning: filter \"") << name << FCPPT_TEXT(" doesn't exist!\n");
+		fcppt::io::cerr() << FCPPT_TEXT("Warning: filter \"") << name << FCPPT_TEXT(" doesn't exist!\n");
 		return;
 	}
 

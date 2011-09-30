@@ -387,7 +387,7 @@ fruitapp::highscore::provider::net::connection::handle_read_content(
 	sge::parse::json::object result;
 	if(!sge::parse::json::parse_range(current,content_converted.end(),result))
 	{
-		fcppt::io::cerr
+		fcppt::io::cerr()
 			<< FCPPT_TEXT("The application crashed, the content was ")
 			<< content_converted
 			<< FCPPT_TEXT("\n");

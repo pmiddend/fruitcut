@@ -11,7 +11,7 @@ main(
 	int,
 	char *argv[])
 {
-	fcppt::io::cout
+	fcppt::io::cout()
 		<<
 			sge::parse::json::output_tabbed(
 				sge::parse::json::parse_file_exn(
