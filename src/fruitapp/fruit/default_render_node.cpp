@@ -66,8 +66,6 @@ fruitapp::fruit::default_render_node::default_render_node(
 		sge::shader::object_parameters(
 			renderer_,
 			_vertex_declaration,
-			fruitcut::media_path()/FCPPT_TEXT("shaders")/FCPPT_TEXT("model")/FCPPT_TEXT("vertex.glsl"),
-			fruitcut::media_path()/FCPPT_TEXT("shaders")/FCPPT_TEXT("model")/FCPPT_TEXT("fragment.glsl"),
 			sge::shader::vf_to_string<model_vf::format>(),
 			fcppt::assign::make_container<sge::shader::variable_sequence>
 				(sge::shader::variable(
@@ -125,7 +123,13 @@ fruitapp::fruit::default_render_node::default_render_node(
 			fcppt::assign::make_container<sge::shader::sampler_sequence>
 				(sge::shader::sampler(
 					"texture",
-					sge::renderer::texture::planar_ptr()))))
+					sge::renderer::texture::planar_ptr())))
+				.name(
+					FCPPT_TEXT("default fruit render node"))
+				.vertex_shader(
+					fruitcut::media_path()/FCPPT_TEXT("shaders")/FCPPT_TEXT("model")/FCPPT_TEXT("vertex.glsl"))
+				.fragment_shader(
+					fruitcut::media_path()/FCPPT_TEXT("shaders")/FCPPT_TEXT("model")/FCPPT_TEXT("fragment.glsl")))
 {
 }
 

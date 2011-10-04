@@ -181,8 +181,6 @@ fruitapp::background::background(
 		sge::shader::object_parameters(
 			renderer_,
 			*vertex_declaration_,
-			fruitcut::media_path()/FCPPT_TEXT("shaders")/FCPPT_TEXT("background")/FCPPT_TEXT("vertex.glsl"),
-			fruitcut::media_path()/FCPPT_TEXT("shaders")/FCPPT_TEXT("background")/FCPPT_TEXT("fragment.glsl"),
 			sge::shader::vf_to_string<vf::format>(),
 			fcppt::assign::make_container<sge::shader::variable_sequence>
 				(sge::shader::variable(
@@ -203,7 +201,13 @@ fruitapp::background::background(
 					texture_))
 				(sge::shader::sampler(
 					"shadow_map",
-					_shadow_texture)))),
+					_shadow_texture)))
+				.name(
+					FCPPT_TEXT("background"))
+				.vertex_shader(
+					fruitcut::media_path()/FCPPT_TEXT("shaders")/FCPPT_TEXT("background")/FCPPT_TEXT("vertex.glsl"))
+				.fragment_shader(
+					fruitcut::media_path()/FCPPT_TEXT("shaders")/FCPPT_TEXT("background")/FCPPT_TEXT("fragment.glsl"))),
 	reps_(
 		sge::parse::json::find_and_convert_member<sge::renderer::scalar>(
 			_config,

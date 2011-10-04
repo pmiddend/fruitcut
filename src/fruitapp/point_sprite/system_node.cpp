@@ -137,8 +137,6 @@ fruitapp::point_sprite::system_node::system_node(
 		sge::shader::object_parameters(
 			renderer_,
 			system_.vertex_declaration(),
-			fruitcut::media_path()/FCPPT_TEXT("shaders")/FCPPT_TEXT("point_sprite")/FCPPT_TEXT("vertex.glsl"),
-			fruitcut::media_path()/FCPPT_TEXT("shaders")/FCPPT_TEXT("point_sprite")/FCPPT_TEXT("fragment.glsl"),
 			sge::shader::vertex_format_string(
 				""),
 			fcppt::assign::make_container<sge::shader::variable_sequence>
@@ -151,7 +149,13 @@ fruitapp::point_sprite::system_node::system_node(
 			fcppt::assign::make_container<sge::shader::sampler_sequence>
 				(sge::shader::sampler(
 					"tex",
-					sge::renderer::texture::planar_ptr()))))
+					sge::renderer::texture::planar_ptr())))
+				.name(
+					FCPPT_TEXT("point sprite"))
+				.vertex_shader(
+					fruitcut::media_path()/FCPPT_TEXT("shaders")/FCPPT_TEXT("point_sprite")/FCPPT_TEXT("vertex.glsl"))
+				.fragment_shader(
+					fruitcut::media_path()/FCPPT_TEXT("shaders")/FCPPT_TEXT("point_sprite")/FCPPT_TEXT("fragment.glsl")))
 {
 }
 
@@ -227,9 +231,11 @@ void
 fruitapp::point_sprite::system_node::react(
 	fruitlib::scenic::events::render const &)
 {
+	std::cerr << "Activating system node\n";
 	sge::shader::scoped scoped_shader(
 		shader_,
 		sge::shader::activate_bare());
+	std::cerr << "Done\n";
 
 	shader_.update_uniform(
 		"mvp",

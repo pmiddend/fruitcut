@@ -72,9 +72,13 @@ fruitlib::pp::filter::manager::create_shader(
 					sge::shader::object_parameters(
 						renderer_,
 						quad_.vertex_declaration(),
-						base_path_/name/FCPPT_TEXT("vertex.glsl"),
-						base_path_/name/FCPPT_TEXT("fragment.glsl"),
 						sge::shader::vf_to_string<screen_vf::format>(),
 						variables,
-						samplers)))).first;
+						samplers)
+						.name(
+							name)
+						.vertex_shader(
+							base_path_/name/FCPPT_TEXT("vertex.glsl"))
+						.fragment_shader(
+							base_path_/name/FCPPT_TEXT("fragment.glsl"))))).first;
 }
