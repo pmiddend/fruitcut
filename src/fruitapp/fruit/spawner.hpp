@@ -11,7 +11,7 @@
 #include <fruitapp/fruit/manager_fwd.hpp>
 #include <fruitapp/ingame_clock.hpp>
 #include <fruitapp/ingame_timer.hpp>
-#include <sge/camera/object_fwd.hpp>
+#include <sge/camera/first_person/object_fwd.hpp>
 #include <sge/parse/json/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/function/object.hpp>
@@ -49,7 +49,7 @@ public:
 		fruit::manager &,
 		fruitlib::random_generator &,
 		sge::parse::json::object const &config_file,
-		sge::camera::object const &,
+		sge::camera::first_person::object const &,
 		fruitapp::ingame_clock const &);
 
 	fcppt::signal::auto_connection
@@ -61,7 +61,7 @@ public:
 		fruitlib::scenic::events::update const &);
 private:
 	fruit::manager &manager_;
-	sge::camera::object const &camera_;
+	sge::camera::first_person::object const &camera_;
 	fruitlib::uniform_random<fruitapp::ingame_clock::float_type>::type seconds_rng_;
 	fruitlib::uniform_random<prototype_sequence::size_type>::type prototype_rng_;
 	// x for x coordinate. This is a scalar rather than

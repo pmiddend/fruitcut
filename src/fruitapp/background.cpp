@@ -58,7 +58,7 @@
 #include <sge/shader/scoped.hpp>
 #include <sge/shader/activate_everything.hpp>
 #include <sge/shader/variable.hpp>
-#include <sge/camera/object.hpp>
+#include <sge/camera/first_person/object.hpp>
 #include <sge/camera/projection/perspective.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
@@ -142,7 +142,7 @@ fruitapp::background::background(
 	sge::renderer::texture::planar_ptr const _shadow_texture,
 	sge::renderer::matrix4 const &_mvp,
 	sge::parse::json::object const &_config,
-	sge::camera::object const &_camera)
+	sge::camera::first_person::object const &_camera)
 :
 	node_base(
 		_parent),

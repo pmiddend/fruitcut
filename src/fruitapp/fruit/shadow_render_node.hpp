@@ -8,7 +8,7 @@
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/vertex_declaration_fwd.hpp>
 #include <sge/renderer/matrix4.hpp>
-#include <sge/camera/object_fwd.hpp>
+#include <sge/camera/first_person/object_fwd.hpp>
 #include <sge/shader/object.hpp>
 #include <fcppt/math/matrix/matrix.hpp>
 #include <fcppt/noncopyable.hpp>

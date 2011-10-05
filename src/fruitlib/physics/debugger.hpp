@@ -2,7 +2,7 @@
 #define FRUITLIB_PHYSICS_DEBUGGER_HPP_INCLUDED
 
 #include <fruitlib/physics/world_fwd.hpp>
-#include <sge/camera/object_fwd.hpp>
+#include <sge/camera/first_person/object_fwd.hpp>
 #include <sge/line_drawer/object.hpp>
 #include <sge/line_drawer/scoped_lock.hpp>
 #include <sge/renderer/device_ptr.hpp>
@@ -33,7 +33,7 @@ public:
 	debugger(
 		world &,
 		sge::renderer::device &,
-		sge::camera::object &);
+		sge::camera::first_person::object &);
 
 	void
 	update();
@@ -113,7 +113,7 @@ private:
 
 	world &world_;
 	sge::renderer::device &renderer_;
-	sge::camera::object &camera_;
+	sge::camera::first_person::object &camera_;
 	int debug_mode_;
 	sge::line_drawer::object line_drawer_;
 	fcppt::scoped_ptr<sge::line_drawer::scoped_lock> scoped_lock_;

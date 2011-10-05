@@ -12,7 +12,7 @@
 #include <fruitlib/resource_tree/path.hpp>
 #include <fruitlib/uniform_random.hpp>
 #include <sge/renderer/device_fwd.hpp>
-#include <sge/camera/object_fwd.hpp>
+#include <sge/camera/first_person/object_fwd.hpp>
 #include <sge/texture/part_ptr.hpp>
 #include <sge/texture/manager.hpp>
 #include <sge/image2d/multi_loader.hpp>
@@ -46,7 +46,7 @@ public:
 		fruitlib::random_generator &,
 		sge::renderer::device &,
 		sge::image2d::multi_loader &,
-		sge::camera::object const &);
+		sge::camera::first_person::object const &);
 
 	void
 	push_back(
@@ -92,7 +92,7 @@ private:
 	resource_tree_ptr;
 
 	sge::renderer::device &renderer_;
-	sge::camera::object const &camera_;
+	sge::camera::first_person::object const &camera_;
 	sge::texture::manager texture_manager_;
 	point_sprite::system system_;
 	child_sequence children_;

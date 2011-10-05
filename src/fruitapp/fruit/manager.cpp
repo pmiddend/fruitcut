@@ -16,7 +16,7 @@
 #include <fruitapp/fruit/object_parameters.hpp>
 #include <fruitapp/fruit/parameters_from_prototype.hpp>
 #include <fruitapp/fruit/plane.hpp>
-#include <sge/camera/object.hpp>
+#include <sge/camera/first_person/object.hpp>
 #include <sge/parse/json/array.hpp>
 #include <sge/parse/json/object.hpp>
 #include <sge/renderer/device.hpp>
@@ -71,7 +71,7 @@ fruitapp::fruit::manager::manager(
 	fruit::prototype_sequence const &_prototypes,
 	sge::renderer::device &_renderer,
 	fruitlib::physics::world &physics_world,
-	sge::camera::object &_camera,
+	sge::camera::first_person::object &_camera,
 	fruitapp::ingame_clock const &_clock)
 :
 	node_base(

@@ -22,7 +22,7 @@
 #include <fruitlib/audio/music_controller_fwd.hpp>
 #include <fruitlib/font/cache_fwd.hpp>
 #include <sge/parse/json/object_fwd.hpp>
-#include <sge/camera/object_fwd.hpp>
+#include <sge/camera/first_person/object_fwd.hpp>
 #include <sge/cegui/system_fwd.hpp>
 #include <sge/cegui/syringe_fwd.hpp>
 #include <sge/model/md3/loader_fwd.hpp>
@@ -99,10 +99,10 @@ public:
 	fruitapp::shadow_map const &
 	shadow_map() const;
 
-	sge::camera::object &
+	sge::camera::first_person::object &
 	camera();
 
-	sge::camera::object const &
+	sge::camera::first_person::object const &
 	camera() const;
 
 	fruitlib::font::cache &

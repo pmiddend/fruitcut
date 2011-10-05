@@ -4,7 +4,7 @@
 #include <fruitapp/fruit/model_vf/format.hpp>
 #include <fruitapp/fruit/manager.hpp>
 #include <fruitapp/directional_light_source.hpp>
-#include <sge/camera/object.hpp>
+#include <sge/camera/first_person/object.hpp>
 #include <sge/renderer/first_vertex.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/stage.hpp>
@@ -50,7 +50,7 @@ fruitapp::fruit::default_render_node::default_render_node(
 	sge::renderer::device &_renderer,
 	sge::renderer::vertex_declaration &_vertex_declaration,
 	fruit::manager const &_manager,
-	sge::camera::object &_camera,
+	sge::camera::first_person::object &_camera,
 	fruitapp::directional_light_source const &light,
 	sge::renderer::scalar const _ambient_intensity)
 :

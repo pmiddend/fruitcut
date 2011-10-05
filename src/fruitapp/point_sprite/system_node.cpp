@@ -5,7 +5,7 @@
 #include <fruitlib/resource_tree/from_directory_tree.hpp>
 #include <fruitlib/resource_tree/navigate_to_path.hpp>
 #include <fruitlib/resource_tree/path.hpp>
-#include <sge/camera/object.hpp>
+#include <sge/camera/first_person/object.hpp>
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/image2d/file.hpp>
 #include <sge/image2d/multi_loader.hpp>
@@ -98,7 +98,7 @@ fruitapp::point_sprite::system_node::system_node(
 	fruitlib::random_generator &_random_generator,
 	sge::renderer::device &_renderer,
 	sge::image2d::multi_loader &_image_loader,
-	sge::camera::object const &_camera)
+	sge::camera::first_person::object const &_camera)
 :
 	node_base(
 		_parent),

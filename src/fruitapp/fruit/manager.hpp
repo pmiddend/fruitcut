@@ -26,7 +26,7 @@
 #include <sge/renderer/vertex_declaration_ptr.hpp>
 #include <sge/renderer/vertex_declaration_fwd.hpp>
 #include <sge/shader/object.hpp>
-#include <sge/camera/object_fwd.hpp>
+#include <sge/camera/first_person/object_fwd.hpp>
 #include <fcppt/chrono/duration.hpp>
 #include <fcppt/math/matrix/matrix.hpp>
 #include <fcppt/signal/object.hpp>
@@ -61,7 +61,7 @@ public:
 		fruit::prototype_sequence const &,
 		sge::renderer::device &renderer,
 		fruitlib::physics::world &,
-		sge::camera::object &,
+		sge::camera::first_person::object &,
 		fruitapp::ingame_clock const &);
 
 	// cut_fruit gets a duration indicating how long the new fruits are
@@ -120,7 +120,7 @@ public:
 private:
 	prototype_sequence const &prototypes_;
 	sge::renderer::device &renderer_;
-	sge::camera::object &camera_;
+	sge::camera::first_person::object &camera_;
 	sge::renderer::vertex_declaration_ptr vertex_declaration_;
 	fruitlib::physics::world &physics_world_;
 	fruitlib::physics::group::object fruit_group_;
