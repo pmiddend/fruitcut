@@ -9,6 +9,7 @@
 #include <sge/parse/json/find_member.hpp>
 #include <fcppt/to_std_string.hpp>
 #include <fcppt/insert_to_fcppt_string.hpp>
+#include <fcppt/insert_to_std_string.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/utf8/from_fcppt_string.hpp>
@@ -89,7 +90,7 @@ fruitapp::highscore::provider::net::connection::post_rank(
 	boost::asio::ip::tcp::resolver::query query_(
 		fcppt::to_std_string(
 			host_),
-		fcppt::insert_to_fcppt_string(
+		fcppt::insert_to_std_string(
 			port_));
 
 	resolver_.async_resolve(
@@ -131,7 +132,7 @@ fruitapp::highscore::provider::net::connection::retrieve_list()
 	boost::asio::ip::tcp::resolver::query query_(
 		fcppt::to_std_string(
 			host_),
-		fcppt::insert_to_fcppt_string(
+		fcppt::insert_to_std_string(
 			port_));
 
 	resolver_.async_resolve(
