@@ -48,7 +48,7 @@
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/string.hpp>
-#include <fcppt/lexical_cast.hpp>
+#include <fcppt/insert_to_string.hpp>
 #include <fcppt/format.hpp>
 #include <boost/cstdint.hpp>
 #include <iostream>
@@ -283,7 +283,7 @@ fruitapp::game_logic::object::react(
 				(score_diff)/10 + 1;
 		}
 		score_font_node_.object().text(
-			fcppt::lexical_cast<sge::font::text::string>(
+			fcppt::insert_to_string<sge::font::text::string>(
 				iterating_score_));
 	}
 }
@@ -379,7 +379,7 @@ fruitapp::game_logic::object::fruit_cut(
 		multiplier_timer_.reset();
 		if (multiplier_ != 1)
 			multiplier_font_node_.object().text(
-					fcppt::lexical_cast<sge::font::text::string>(
+					fcppt::insert_to_string<sge::font::text::string>(
 						multiplier_) +
 					SGE_FONT_TEXT_LIT("x"));
 	}

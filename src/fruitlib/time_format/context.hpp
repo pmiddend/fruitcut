@@ -10,7 +10,7 @@
 #include <fcppt/chrono/duration.hpp>
 #include <fcppt/from_std_wstring.hpp>
 #include <fcppt/math/mod.hpp>
-#include <fcppt/lexical_cast.hpp>
+#include <fcppt/insert_to_string.hpp>
 #include <boost/type_traits/make_unsigned.hpp>
 #include <boost/proto/proto.hpp>
 #include <sstream>
@@ -90,7 +90,7 @@ public:
 		return oss.str();
 		/*
 		return
-			fcppt::lexical_cast<result_type>(
+			fcppt::insert_to_string<result_type>(
 				milliseconds_);
 		*/
 	}
@@ -101,7 +101,7 @@ public:
 		tags::seconds) const
 	{
 		return
-			fcppt::lexical_cast<result_type>(
+			fcppt::insert_to_string<result_type>(
 				seconds_);
 	}
 
@@ -111,7 +111,7 @@ public:
 		tags::minutes) const
 	{
 		return
-			fcppt::lexical_cast<result_type>(
+			fcppt::insert_to_string<result_type>(
 				minutes_);
 	}
 private:

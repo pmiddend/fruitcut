@@ -31,7 +31,7 @@
 #include <sge/image/colors.hpp>
 #include <sge/image/color/convert.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/lexical_cast.hpp>
+#include <fcppt/insert_to_string.hpp>
 #include <fcppt/math/matrix/basic_impl.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
@@ -119,12 +119,12 @@ fruitapp::states::loading::react(
 
 	font_node_.object().text(
 		SGE_FONT_TEXT_LIT("Loaded ")+
-		fcppt::lexical_cast<sge::font::text::string>(
+		fcppt::insert_to_string<sge::font::text::string>(
 			std::distance(
 				fruit_array_.begin(),
 				current_fruit_))+
 		SGE_FONT_TEXT_LIT(" of ")+
-		fcppt::lexical_cast<sge::font::text::string>(
+		fcppt::insert_to_string<sge::font::text::string>(
 			fruit_array_.size())+
 		SGE_FONT_TEXT_LIT(" fruits"));
 

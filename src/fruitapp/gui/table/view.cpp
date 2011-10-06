@@ -4,9 +4,8 @@
 #include <sge/charconv/system_fwd.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/assert/pre_message.hpp>
-#include <fcppt/lexical_cast.hpp>
+#include <fcppt/insert_to_fcppt_string.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/string.hpp>
 #include <elements/CEGUIMultiColumnList.h>
 #include <elements/CEGUIListboxTextItem.h>
 #include <iostream>
@@ -68,10 +67,10 @@ fruitapp::gui::table::view::row_added(
 	FCPPT_ASSERT_PRE_MESSAGE(
 		static_cast<CEGUI::uint>(_row.size()) == impl_.getColumnCount(),
 		FCPPT_TEXT("Got ")+
-		fcppt::lexical_cast<fcppt::string>(
+		fcppt::insert_to_fcppt_string(
 			_row.size())+
 		FCPPT_TEXT(" columns in row_added, expected ")+
-		fcppt::lexical_cast<fcppt::string>(
+		fcppt::insert_to_fcppt_string(
 			impl_.getColumnCount()));
 
 	CEGUI::uint const new_row_index =
@@ -106,10 +105,10 @@ fruitapp::gui::table::view::row_removed(
 	FCPPT_ASSERT_PRE_MESSAGE(
 		_index < impl_.getRowCount(),
 		FCPPT_TEXT("There are ")+
-		fcppt::lexical_cast<fcppt::string>(
+		fcppt::insert_to_fcppt_string(
 			impl_.getRowCount())+
 		FCPPT_TEXT(" rows in the table. Got removal index ")+
-		fcppt::lexical_cast<fcppt::string>(
+		fcppt::insert_to_fcppt_string(
 			_index));
 	impl_.removeRow(
 		static_cast<CEGUI::uint>(
