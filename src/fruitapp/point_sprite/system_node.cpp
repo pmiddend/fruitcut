@@ -230,11 +230,9 @@ void
 fruitapp::point_sprite::system_node::react(
 	fruitlib::scenic::events::render const &)
 {
-	std::cerr << "Activating system node\n";
 	sge::shader::scoped scoped_shader(
 		shader_,
 		sge::shader::activate_bare());
-	std::cerr << "Done\n";
 
 	shader_.update_uniform(
 		"mvp",
