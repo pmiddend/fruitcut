@@ -3,9 +3,13 @@
 
 #include <fruitlib/pp/screen_vf/quad.hpp>
 #include <sge/renderer/device_fwd.hpp>
-#include <sge/shader/shader.hpp>
+#include <sge/shader/scoped.hpp>
+#include <sge/shader/variable_sequence.hpp>
+#include <sge/shader/sampler_sequence.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <boost/unordered_map.hpp>
+#include <fcppt/filesystem/path.hpp>
+>>>>>>> master
 
 namespace fruitlib
 {

@@ -12,9 +12,12 @@
 #include <sge/renderer/vertex_buffer.hpp>
 #include <sge/renderer/vertex_count.hpp>
 #include <sge/renderer/vertex_declaration_ptr.hpp>
-#include <sge/renderer/vf/vf.hpp>
-#include <sge/shader/shader.hpp>
-#include <fcppt/math/vector/vector.hpp>
+#include <sge/renderer/vf/dynamic/make_format.hpp>
+#include <sge/renderer/vf/dynamic/part_index.hpp>
+#include <sge/renderer/vf/dynamic/part_index.hpp>
+#include <sge/renderer/vf/vertex.hpp>
+#include <sge/shader/object.hpp>
+#include <fcppt/math/vector/basic_impl.hpp>
 
 fruitlib::pp::screen_vf::quad::quad(
 	sge::renderer::device &_renderer)

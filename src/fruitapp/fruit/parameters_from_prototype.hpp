@@ -11,8 +11,6 @@
 #include <fruitlib/physics/group/object_fwd.hpp>
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/vertex_declaration_fwd.hpp>
-#include <fcppt/math/vector/vector.hpp>
-#include <fcppt/math/matrix/matrix.hpp>
 
 namespace fruitapp
 {

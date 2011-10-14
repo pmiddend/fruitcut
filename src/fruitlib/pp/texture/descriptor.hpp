@@ -5,7 +5,7 @@
 #include <sge/renderer/dim2.hpp>
 #include <sge/image/color/format.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
-#include <fcppt/container/bitfield/bitfield.hpp>
+#include <fcppt/container/bitfield/basic_impl.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <boost/fusion/tuple.hpp>
 

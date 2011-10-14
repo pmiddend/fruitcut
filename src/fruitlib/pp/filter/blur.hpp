@@ -9,7 +9,7 @@
 #include <sge/renderer/dim2.hpp>
 #include <sge/shader/object_fwd.hpp>
 #include <fcppt/container/array.hpp>
-#include <fcppt/math/dim/dim.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <boost/ptr_container/ptr_array.hpp>
 #include <cstddef>

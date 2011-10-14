@@ -1,5 +1,6 @@
 #include <fruitlib/json/parse_projection.hpp>
-#include <sge/camera/projection/projection.hpp>
+#include <sge/camera/projection/perspective.hpp>
+#include <sge/camera/projection/orthogonal.hpp>
 #include <sge/parse/json/find_and_convert_member.hpp>
 #include <sge/parse/json/path.hpp>
 #include <sge/parse/json/object_fwd.hpp>

@@ -2,7 +2,7 @@
 #define FRUITLIB_RESOURCE_TREE_OBJECT_HPP_INCLUDED
 
 #include <fcppt/container/tree/object.hpp>
-#include <fcppt/variant/variant.hpp>
+#include <fcppt/variant/object_impl.hpp>
 #include <fcppt/string.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <utility>

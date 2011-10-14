@@ -5,9 +5,7 @@
 #include <fruitlib/scenic/events/render.hpp>
 #include <sge/font/rect.hpp>
 #include <sge/font/pos.hpp>
-#include <fcppt/math/vector/vector.hpp>
-#include <fcppt/math/dim/dim.hpp>
-#include <fcppt/math/box/box.hpp>
+#include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/tr1/functional.hpp>
 
 namespace

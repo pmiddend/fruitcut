@@ -1,8 +1,10 @@
 #include <fruitlib/math/view_plane_distance.hpp>
 #include <fruitlib/math/plane/basic.hpp>
 #include <fruitlib/math/plane/normalize.hpp>
-#include <fcppt/math/vector/vector.hpp>
-#include <fcppt/math/matrix/matrix.hpp>
+#include <fcppt/math/vector/basic_impl.hpp>
+#include <fcppt/math/vector/arithmetic.hpp>
+#include <fcppt/math/vector/static.hpp>
+#include <fcppt/math/matrix/basic_impl.hpp>
 
 sge::renderer::scalar
 fruitlib::math::view_plane_distance(

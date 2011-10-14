@@ -26,6 +26,7 @@
 #include <sge/font/text/align_h.hpp>
 #include <sge/timer/clocks/standard.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
+#include <fcppt/math/dim/arithmetic.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/text.hpp>

@@ -4,8 +4,7 @@
 #include <sge/camera/projection/perspective.hpp>
 #include <sge/renderer/matrix4.hpp>
 #include <sge/renderer/scalar.hpp>
-#include <fcppt/math/matrix/matrix.hpp>
-#include <fcppt/math/box/box.hpp>
+#include <fcppt/math/box/basic_impl.hpp>
 
 namespace fruitlib
 {

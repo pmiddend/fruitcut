@@ -5,7 +5,7 @@
 #include <fruitlib/audio/group/sound_base_fwd.hpp>
 #include <sge/audio/player.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/container/bitfield/bitfield.hpp>
+#include <fcppt/container/bitfield/basic_impl.hpp>
 #include <boost/ptr_container/ptr_vector.hpp>
 
 namespace fruitlib

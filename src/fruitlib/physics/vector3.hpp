@@ -2,7 +2,7 @@
 #define FRUITLIB_PHYSICS_VECTOR3_HPP_INCLUDED
 
 #include <fruitlib/physics/scalar.hpp>
-#include <fcppt/math/vector/vector.hpp>
+#include <fcppt/math/vector/static.hpp>
 
 namespace fruitlib
 {

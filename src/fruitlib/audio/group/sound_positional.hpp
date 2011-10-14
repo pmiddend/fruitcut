@@ -4,7 +4,9 @@
 #include <fruitlib/audio/group/sound_base.hpp>
 #include <fruitlib/audio/group/buffer_fwd.hpp>
 #include <fruitlib/audio/group/player_fwd.hpp>
-#include <sge/audio/audio.hpp>
+#include <sge/audio/sound/positional.hpp>
+#include <sge/audio/sound/positional_parameters.hpp>
+#include <sge/audio/sound/positional_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
 
 namespace fruitlib

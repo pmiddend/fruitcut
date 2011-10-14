@@ -2,6 +2,7 @@
 #include <fruitlib/audio/group/player.hpp>
 #include <fruitlib/audio/group/sound_base.hpp>
 #include <fruitlib/audio/group/sound_positional.hpp>
+#include <sge/audio/sound/positional_parameters.hpp>
 #include <fcppt/ref.hpp>
 #include <fcppt/assert/error.hpp>
 #include <fcppt/make_shared_ptr.hpp>

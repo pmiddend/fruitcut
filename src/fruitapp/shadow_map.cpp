@@ -29,9 +29,8 @@
 #include <sge/image/colors.hpp>
 #include <sge/camera/projection/to_matrix.hpp>
 #include <sge/parse/json/object.hpp>
-#include <fcppt/math/dim/dim.hpp>
-#include <fcppt/math/matrix/matrix.hpp>
 #include <fcppt/chrono/duration_impl.hpp>
+#include <fcppt/math/matrix/arithmetic.hpp>
 #include <fcppt/optional.hpp>
 #include <fcppt/text.hpp>
 #include <iostream>

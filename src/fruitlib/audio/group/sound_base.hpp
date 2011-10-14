@@ -3,7 +3,8 @@
 
 #include <fruitlib/audio/group/buffer_fwd.hpp>
 #include <fruitlib/audio/group/player_fwd.hpp>
-#include <sge/audio/audio.hpp>
+#include <sge/audio/sound/base.hpp>
+#include <sge/audio/sound/base_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
 
 namespace fruitlib

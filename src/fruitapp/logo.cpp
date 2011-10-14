@@ -18,10 +18,10 @@
 #include <sge/parse/json/find_and_convert_member.hpp>
 #include <sge/sprite/center.hpp>
 #include <sge/sprite/default_parameters.hpp>
+#include <sge/sprite/parameters.hpp>
 #include <sge/sprite/default_equal.hpp>
+#include <sge/sprite/defaults/defaults.hpp>
 #include <mizuiro/color/operators.hpp>
-#include <fcppt/math/dim/dim.hpp>
-#include <fcppt/math/vector/vector.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>

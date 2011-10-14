@@ -16,6 +16,7 @@
 #include <fcppt/math/vector/normalize.hpp>
 #include <fcppt/math/vector/dot.hpp>
 #include <fcppt/math/vector/static.hpp>
+#include <fcppt/math/vector/output.hpp>
 #include <fcppt/algorithm/shift_compare.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/container/array.hpp>

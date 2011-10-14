@@ -9,7 +9,9 @@
 #include <fruitlib/pp/texture/instance.hpp>
 #include <sge/image/color/format.hpp>
 #include <sge/renderer/vector2.hpp>
-#include <sge/shader/shader.hpp>
+#include <sge/shader/scoped.hpp>
+#include <sge/shader/activate_everything.hpp>
+#include <sge/shader/object.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/string.hpp>
