@@ -9,7 +9,6 @@
 #include <fcppt/noncopyable.hpp>
 #include <boost/unordered_map.hpp>
 #include <fcppt/filesystem/path.hpp>
->>>>>>> master
 
 namespace fruitlib
 {
