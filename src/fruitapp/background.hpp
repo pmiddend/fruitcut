@@ -16,7 +16,6 @@
 #include <sge/camera/first_person/object_fwd.hpp>
 #include <sge/shader/object.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/math/matrix/matrix.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 

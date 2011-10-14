@@ -2,9 +2,9 @@
 #include <sge/image2d/view/const_object.hpp>
 #include <fcppt/variant/apply_unary.hpp>
 #include <fcppt/nonassignable.hpp>
-#include <fcppt/math/box/box.hpp>
-#include <fcppt/math/vector/vector.hpp>
-#include <fcppt/math/dim/dim.hpp>
+#include <fcppt/math/box/basic_impl.hpp>
+#include <fcppt/math/vector/basic_impl.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <boost/type_traits/integral_promotion.hpp>
 #include <mizuiro/color/homogenous_static.hpp>

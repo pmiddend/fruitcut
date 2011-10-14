@@ -8,7 +8,7 @@
 #include <sge/renderer/dim2.hpp>
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/shader/object_fwd.hpp>
-#include <fcppt/math/dim/dim.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/filesystem/path.hpp>
 

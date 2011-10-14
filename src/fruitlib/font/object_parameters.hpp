@@ -10,8 +10,8 @@
 #include <sge/font/text/align_h.hpp>
 #include <sge/font/text/align_v.hpp>
 #include <sge/font/text/flags_field.hpp>
-#include <fcppt/container/bitfield/bitfield.hpp>
-#include <fcppt/math/box/box.hpp>
+#include <fcppt/container/bitfield/basic_impl.hpp>
+#include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/nonassignable.hpp>
 
 namespace fruitlib

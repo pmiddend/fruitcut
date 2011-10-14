@@ -2,7 +2,6 @@
 #define FRUITAPP_POINT_SPRITE_VECTOR_HPP_INCLUDED
 
 #include <sge/renderer/vector3.hpp>
-#include <fcppt/math/vector/vector.hpp>
 
 namespace fruitapp
 {

@@ -2,7 +2,7 @@
 #define FRUITAPP_FRUIT_MATERIAL_SPECULAR_COLOR_HPP_INCLUDED
 
 #include <sge/renderer/vector4.hpp>
-#include <fcppt/math/vector/vector.hpp>
+#include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/strong_typedef.hpp>
 
 namespace fruitapp

@@ -4,7 +4,7 @@
 #include <fruitlib/math/triangle/scalar_type.hpp>
 #include <fruitlib/math/triangle/vector_type.hpp>
 #include <fruitlib/math/triangle/vertex_access.hpp>
-#include <fcppt/math/vector/vector.hpp>
+#include <fcppt/math/vector/basic_impl.hpp>
 #include <cmath>
 
 namespace fruitlib

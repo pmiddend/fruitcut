@@ -47,7 +47,6 @@
 #include <fcppt/random/make_last_exclusive_range.hpp>
 #include <fcppt/filesystem/directory_iterator.hpp>
 #include <fcppt/filesystem/path.hpp>
-#include <fcppt/math/dim/dim.hpp>
 #include <fcppt/move.hpp>
 #include <fcppt/ref.hpp>
 #include <fcppt/text.hpp>

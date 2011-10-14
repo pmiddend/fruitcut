@@ -6,8 +6,6 @@
 #include <fruitlib/physics/matrix4.hpp>
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/vertex_declaration_fwd.hpp>
-#include <fcppt/math/vector/vector.hpp>
-#include <fcppt/math/matrix/matrix.hpp>
 #include <fcppt/chrono/duration.hpp>
 
 fruitapp::fruit::object_parameters const

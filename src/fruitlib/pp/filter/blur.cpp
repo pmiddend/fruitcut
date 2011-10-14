@@ -11,7 +11,10 @@
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/planar_ptr.hpp>
 #include <sge/renderer/vector2.hpp>
-#include <sge/shader/shader.hpp>
+#include <sge/shader/object.hpp>
+#include <sge/shader/update_single_uniform.hpp>
+#include <sge/shader/scoped.hpp>
+#include <sge/shader/activate_everything.hpp>
 #include <fcppt/assign/make_array.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>

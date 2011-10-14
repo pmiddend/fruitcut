@@ -26,10 +26,6 @@
 #include <fruitlib/scenic/parent.hpp>
 #include <fruitlib/scenic/depth.hpp>
 #include <sge/parse/json/find_and_convert_member.hpp>
-#include <sge/font/pos.hpp>
-#include <sge/font/rect.hpp>
-#include <sge/font/text/text.hpp>
-#include <sge/font/unit.hpp>
 #include <sge/image/colors.hpp>
 #include <sge/input/cursor/position_unit.hpp>
 #include <sge/input/keyboard/action.hpp>
@@ -63,8 +59,6 @@
 #include <fcppt/ref.hpp>
 #include <boost/next_prior.hpp>
 #include <iostream>
-
-#include <sge/renderer/state/state.hpp>
 
 fruitapp::states::ingame::running::running(
 	my_context ctx)

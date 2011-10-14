@@ -2,7 +2,8 @@
 #define FRUITLIB_PLANE_FROM_VEC4_HPP_INCLUDED
 
 #include <fruitlib/math/plane/basic.hpp>
-#include <fcppt/math/vector/vector.hpp>
+#include <fcppt/math/vector/static.hpp>
+#include <fcppt/math/vector/basic_impl.hpp>
 
 namespace fruitlib
 {

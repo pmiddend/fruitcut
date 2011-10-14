@@ -7,7 +7,12 @@
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/dim2.hpp>
 #include <sge/renderer/scalar.hpp>
-#include <sge/renderer/state/state.hpp>
+#include <sge/renderer/state/list.hpp>
+#include <sge/renderer/state/trampoline.hpp>
+#include <sge/renderer/state/depth_func.hpp>
+#include <sge/renderer/state/bool.hpp>
+#include <sge/renderer/state/color.hpp>
+#include <sge/renderer/state/float.hpp>
 #include <sge/parse/json/object_fwd.hpp>
 #include <sge/image/colors.hpp>
 #include <fcppt/text.hpp>

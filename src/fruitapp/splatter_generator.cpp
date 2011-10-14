@@ -1,3 +1,4 @@
+#include <fcppt/math/vector/arithmetic.hpp>
 #include <fruitapp/splatter_generator.hpp>
 #include <fruitapp/fruit/mesh.hpp>
 #include <fruitapp/fruit/cut_context.hpp>
@@ -29,7 +30,6 @@
 #include <fcppt/chrono/duration_cast.hpp>
 #include <fcppt/chrono/milliseconds.hpp>
 #include <fcppt/random/make_inclusive_range.hpp>
-#include <fcppt/math/vector/vector.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <limits>

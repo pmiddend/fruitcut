@@ -28,7 +28,7 @@
 #include <sge/renderer/vf/dynamic/make_format.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/tr1/functional.hpp>
-#include <fcppt/math/matrix/matrix.hpp>
+#include <fcppt/math/matrix/basic_impl.hpp>
 #include <fcppt/math/vector/normalize.hpp>
 #include <fcppt/math/vector/structure_cast.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>

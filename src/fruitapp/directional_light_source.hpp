@@ -3,8 +3,8 @@
 
 #include <sge/renderer/vector3.hpp>
 #include <sge/renderer/matrix4.hpp>
-#include <fcppt/math/vector/vector.hpp>
-#include <fcppt/math/matrix/matrix.hpp>
+#include <fcppt/math/vector/basic_impl.hpp>
+#include <fcppt/math/matrix/basic_impl.hpp>
 
 namespace fruitapp
 {

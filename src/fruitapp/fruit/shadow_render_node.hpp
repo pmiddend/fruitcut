@@ -10,7 +10,7 @@
 #include <sge/renderer/matrix4.hpp>
 #include <sge/camera/first_person/object_fwd.hpp>
 #include <sge/shader/object.hpp>
-#include <fcppt/math/matrix/matrix.hpp>
+#include <fcppt/math/matrix/basic_impl.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 

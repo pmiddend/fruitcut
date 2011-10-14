@@ -88,10 +88,8 @@
 #include <fcppt/chrono/high_resolution_clock.hpp>
 #include <fcppt/chrono/time_point.hpp>
 #include <fcppt/chrono/milliseconds.hpp>
-#include <fcppt/container/bitfield/bitfield.hpp>
+#include <fcppt/container/bitfield/basic_impl.hpp>
 #include <fcppt/make_shared_ptr.hpp>
-#include <fcppt/math/dim/dim.hpp>
-#include <fcppt/math/vector/vector.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/nonassignable.hpp>

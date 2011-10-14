@@ -12,7 +12,9 @@
 #include <sge/renderer/vector2.hpp>
 #include <sge/renderer/vertex_buffer.hpp>
 #include <sge/renderer/scoped_vertex_declaration.hpp>
-#include <sge/shader/shader.hpp>
+#include <sge/shader/scoped.hpp>
+#include <sge/shader/activate_everything.hpp>
+#include <sge/shader/object.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <iostream>

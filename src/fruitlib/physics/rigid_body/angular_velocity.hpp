@@ -3,7 +3,7 @@
 
 #include <fruitlib/physics/vector3.hpp>
 #include <fcppt/strong_typedef.hpp>
-#include <fcppt/math/vector/vector.hpp>
+#include <fcppt/math/vector/basic_impl.hpp>
 
 namespace fruitlib
 {

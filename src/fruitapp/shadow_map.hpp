@@ -10,7 +10,7 @@
 #include <sge/renderer/texture/planar_ptr.hpp>
 #include <sge/renderer/matrix4.hpp>
 #include <sge/parse/json/object_fwd.hpp>
-#include <fcppt/math/matrix/matrix.hpp>
+#include <fcppt/math/matrix/basic_impl.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 

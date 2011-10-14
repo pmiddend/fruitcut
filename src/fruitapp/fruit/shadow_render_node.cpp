@@ -9,7 +9,10 @@
 #include <sge/renderer/nonindexed_primitive_type.hpp>
 #include <sge/renderer/scoped_vertex_buffer.hpp>
 #include <sge/renderer/size_type.hpp>
-#include <sge/renderer/state/state.hpp>
+#include <sge/renderer/state/scoped.hpp>
+#include <sge/renderer/state/list.hpp>
+#include <sge/renderer/state/trampoline.hpp>
+#include <sge/renderer/state/depth_func.hpp>
 #include <sge/renderer/vertex_buffer.hpp>
 #include <sge/renderer/vertex_count.hpp>
 #include <sge/renderer/vertex_declaration.hpp>

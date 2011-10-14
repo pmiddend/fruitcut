@@ -3,7 +3,9 @@
 #include <fruitlib/pp/texture/instance.hpp>
 #include <fruitlib/pp/texture/manager.hpp>
 #include <fruitlib/pp/texture/descriptor.hpp>
-#include <sge/shader/shader.hpp>
+#include <sge/shader/scoped.hpp>
+#include <sge/shader/object.hpp>
+#include <sge/shader/activate_everything.hpp>
 #include <sge/renderer/scoped_target.hpp>
 #include <sge/renderer/scoped_block.hpp>
 #include <sge/renderer/texture/planar_ptr.hpp>
