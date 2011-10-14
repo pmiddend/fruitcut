@@ -66,7 +66,7 @@ fruitlib::font::drawer::object::draw_char(
 	sge::font::const_image_view const &_data)
 {
 	sge::image2d::dim const d(
-		sge::image2d::view::dim(
+		sge::image2d::view::size(
 			_data));
 
 	typedef

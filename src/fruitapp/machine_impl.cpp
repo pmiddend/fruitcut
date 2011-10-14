@@ -24,11 +24,11 @@
 #include <fruitapp/load_user_config.hpp>
 #include "../media_path.hpp"
 #include <sge/audio/player.hpp>
-#include <sge/camera/parameters.hpp>
-#include <sge/camera/movement_speed.hpp>
-#include <sge/camera/rotation_speed.hpp>
+#include <sge/camera/first_person/parameters.hpp>
+#include <sge/camera/first_person/movement_speed.hpp>
+#include <sge/camera/first_person/rotation_speed.hpp>
 #include <sge/camera/identity_gizmo.hpp>
-#include <sge/camera/object.hpp>
+#include <sge/camera/first_person/object.hpp>
 #include <sge/model/md3/loader_fwd.hpp>
 #include <sge/cegui/cursor_visibility.hpp>
 #include <sge/cegui/load_context.hpp>
@@ -272,15 +272,15 @@ fruitapp::machine_impl::machine_impl(
 		systems_.renderer(),
 		sound_controller_),
 	camera_(
-		sge::camera::parameters(
-			sge::camera::movement_speed(
+		sge::camera::first_person::parameters(
+			sge::camera::first_person::movement_speed(
 				sge::parse::json::find_and_convert_member<sge::renderer::scalar>(
 					config_file_,
 					sge::parse::json::path(FCPPT_TEXT("ingame"))
 						/ FCPPT_TEXT("camera")
 						/ FCPPT_TEXT("movement-speed"))),
 			// mousespeed
-			sge::camera::rotation_speed(
+			sge::camera::first_person::rotation_speed(
 				sge::parse::json::find_and_convert_member<sge::renderer::scalar>(
 					config_file_,
 					sge::parse::json::path(FCPPT_TEXT("ingame"))
@@ -510,13 +510,13 @@ fruitapp::machine_impl::shadow_map() const
 	return shadow_map_;
 }
 
-sge::camera::object &
+sge::camera::first_person::object &
 fruitapp::machine_impl::camera()
 {
 	return camera_;
 }
 
-sge::camera::object const &
+sge::camera::first_person::object const &
 fruitapp::machine_impl::camera() const
 {
 	return camera_;

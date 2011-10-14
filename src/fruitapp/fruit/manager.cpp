@@ -16,7 +16,7 @@
 #include <fruitapp/fruit/object_parameters.hpp>
 #include <fruitapp/fruit/parameters_from_prototype.hpp>
 #include <fruitapp/fruit/plane.hpp>
-#include <sge/camera/object.hpp>
+#include <sge/camera/first_person/object.hpp>
 #include <sge/parse/json/array.hpp>
 #include <sge/parse/json/object.hpp>
 #include <sge/renderer/device.hpp>
@@ -40,7 +40,7 @@
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/cref.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/assert.hpp>
+#include <fcppt/assert/error.hpp>
 #include <iostream>
 
 namespace
@@ -69,7 +69,7 @@ fruitapp::fruit::manager::manager(
 	fruit::prototype_sequence const &_prototypes,
 	sge::renderer::device &_renderer,
 	fruitlib::physics::world &physics_world,
-	sge::camera::object &_camera,
+	sge::camera::first_person::object &_camera,
 	fruitapp::ingame_clock const &_clock)
 :
 	node_base(
@@ -180,7 +180,7 @@ fruitapp::fruit::manager::cut(
 					clock_)));
 	}
 
-	FCPPT_ASSERT(
+	FCPPT_ASSERT_ERROR(
 		fruit_cache.size() == 2);
 
 	cut_signal_(

@@ -5,7 +5,7 @@
 #include <fruitlib/resource_tree/from_directory_tree.hpp>
 #include <fruitlib/resource_tree/navigate_to_path.hpp>
 #include <fruitlib/resource_tree/path.hpp>
-#include <sge/camera/object.hpp>
+#include <sge/camera/first_person/object.hpp>
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/image2d/file.hpp>
 #include <sge/image2d/multi_loader.hpp>
@@ -97,7 +97,7 @@ fruitapp::point_sprite::system_node::system_node(
 	fruitlib::random_generator &_random_generator,
 	sge::renderer::device &_renderer,
 	sge::image2d::multi_loader &_image_loader,
-	sge::camera::object const &_camera)
+	sge::camera::first_person::object const &_camera)
 :
 	node_base(
 		_parent),
@@ -136,8 +136,6 @@ fruitapp::point_sprite::system_node::system_node(
 		sge::shader::object_parameters(
 			renderer_,
 			system_.vertex_declaration(),
-			fruitcut::media_path()/FCPPT_TEXT("shaders")/FCPPT_TEXT("point_sprite")/FCPPT_TEXT("vertex.glsl"),
-			fruitcut::media_path()/FCPPT_TEXT("shaders")/FCPPT_TEXT("point_sprite")/FCPPT_TEXT("fragment.glsl"),
 			sge::shader::vertex_format_string(
 				""),
 			fcppt::assign::make_container<sge::shader::variable_sequence>
@@ -150,7 +148,13 @@ fruitapp::point_sprite::system_node::system_node(
 			fcppt::assign::make_container<sge::shader::sampler_sequence>
 				(sge::shader::sampler(
 					"tex",
-					sge::renderer::texture::planar_ptr()))))
+					sge::renderer::texture::planar_ptr())))
+				.name(
+					FCPPT_TEXT("point sprite"))
+				.vertex_shader(
+					fruitcut::media_path()/FCPPT_TEXT("shaders")/FCPPT_TEXT("point_sprite")/FCPPT_TEXT("vertex.glsl"))
+				.fragment_shader(
+					fruitcut::media_path()/FCPPT_TEXT("shaders")/FCPPT_TEXT("point_sprite")/FCPPT_TEXT("fragment.glsl")))
 {
 }
 

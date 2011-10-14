@@ -9,7 +9,7 @@
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/scalar.hpp>
 #include <sge/renderer/vertex_declaration_fwd.hpp>
-#include <sge/camera/object_fwd.hpp>
+#include <sge/camera/first_person/object_fwd.hpp>
 #include <sge/shader/object.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <boost/mpl/vector/vector10.hpp>
@@ -35,7 +35,7 @@ public:
 		sge::renderer::device &,
 		sge::renderer::vertex_declaration &,
 		fruit::manager const &,
-		sge::camera::object &,
+		sge::camera::first_person::object &,
 		fruitapp::directional_light_source const &,
 		sge::renderer::scalar);
 
@@ -47,7 +47,7 @@ public:
 private:
 	sge::renderer::device &renderer_;
 	fruit::manager const &manager_;
-	sge::camera::object const &camera_;
+	sge::camera::first_person::object const &camera_;
 	sge::shader::object shader_;
 };
 }

@@ -7,7 +7,7 @@
 #include <fruitlib/math/view_plane_rect.hpp>
 #include <fruitlib/json/parse_random_inclusive_range.hpp>
 #include <sge/parse/json/find_and_convert_member.hpp>
-#include <sge/camera/object.hpp>
+#include <sge/camera/first_person/object.hpp>
 #include <sge/camera/projection/object.hpp>
 #include <sge/camera/projection/perspective.hpp>
 #include <sge/parse/json/array.hpp>
@@ -21,7 +21,6 @@
 #include <fcppt/math/vector/output.hpp>
 #include <fcppt/math/pi.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/assert.hpp>
 #include <fcppt/chrono/duration.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <cmath>
@@ -37,7 +36,7 @@ fruitapp::fruit::spawner::spawner(
 	fruit::manager &_manager,
 	fruitlib::random_generator &_random_generator,
 	sge::parse::json::object const &_config_file,
-	sge::camera::object const &_camera,
+	sge::camera::first_person::object const &_camera,
 	fruitapp::ingame_clock const &_clock)
 :
 	node_base(
@@ -133,7 +132,7 @@ fruitapp::fruit::spawner::react(
 	prototype_sequence::size_type const prototype_index =
 		prototype_rng_();
 
-	FCPPT_ASSERT(
+	FCPPT_ASSERT_ERROR(
 		prototype_index < manager_.prototypes().size());
 
 	prototype const &chosen_prototype =

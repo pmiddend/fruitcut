@@ -5,6 +5,7 @@
 #include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/math/box/rect.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
+#include <fcppt/nonassignable.hpp>
 
 namespace fruitlib
 {
@@ -17,6 +18,8 @@ namespace rectangle_manager
 template<typename T>
 class rectangle_instance
 {
+FCPPT_NONASSIGNABLE(
+	rectangle_instance);
 public:
 	typedef
 	T

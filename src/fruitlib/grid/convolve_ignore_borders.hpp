@@ -4,7 +4,7 @@
 #include <fcppt/container/grid/object.hpp>
 #include <fcppt/math/vector/static.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
-#include <fcppt/assert.hpp>
+#include <fcppt/assert/pre.hpp>
 
 namespace fruitlib
 {
@@ -46,13 +46,13 @@ convolve_ignore_borders(
 		g.size(),
 		static_cast<T>(0));
 
-	FCPPT_ASSERT(
+	FCPPT_ASSERT_PRE(
 		static_cast<size_type>(v.size()) % static_cast<size_type>(2));
 
-	FCPPT_ASSERT(
+	FCPPT_ASSERT_PRE(
 		g.size()[axis] >= static_cast<dim_value_type>(v.size()));
 
-	FCPPT_ASSERT(
+	FCPPT_ASSERT_PRE(
 		!v.empty());
 
 	dim_value_type const distance =

@@ -13,7 +13,7 @@
 #include <sge/image2d/multi_loader_fwd.hpp>
 #include <sge/parse/json/object_fwd.hpp>
 #include <sge/renderer/matrix4.hpp>
-#include <sge/camera/object_fwd.hpp>
+#include <sge/camera/first_person/object_fwd.hpp>
 #include <sge/shader/object.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/math/matrix/matrix.hpp>
@@ -40,7 +40,7 @@ public:
 		sge::renderer::texture::planar_ptr,
 		sge::renderer::matrix4 const &,
 		sge::parse::json::object const &,
-		sge::camera::object const &);
+		sge::camera::first_person::object const &);
 
 	~background();
 
@@ -53,7 +53,7 @@ public:
 		fruitlib::scenic::events::viewport_change const &);
 private:
 	sge::renderer::device &renderer_;
-	sge::camera::object const &camera_;
+	sge::camera::first_person::object const &camera_;
 	sge::renderer::texture::planar_ptr texture_;
 	sge::renderer::vertex_declaration_ptr vertex_declaration_;
 	sge::renderer::vertex_buffer_ptr vb_;

@@ -16,7 +16,7 @@
 #include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/ref.hpp>
-#include <fcppt/assert.hpp>
+#include <fcppt/assert/pre.hpp>
 #include <cmath>
 
 // NOTE: Do NOT call any functions of _instance here because it's not complete!
@@ -98,7 +98,7 @@ fruitapp::bonsu::instance_wrapper::update()
 	}
 	else if(previous_active_state_ && !current_active_state)
 	{
-		FCPPT_ASSERT(
+		FCPPT_ASSERT_PRE(
 			!rectangle_instance_ || !(rectangle_instance_->killed()));
 
 		if(rectangle_instance_)

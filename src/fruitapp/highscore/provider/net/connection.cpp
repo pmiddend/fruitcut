@@ -8,7 +8,8 @@
 #include <sge/parse/json/parse_range.hpp>
 #include <sge/parse/json/find_member.hpp>
 #include <fcppt/to_std_string.hpp>
-#include <fcppt/lexical_cast.hpp>
+#include <fcppt/insert_to_fcppt_string.hpp>
+#include <fcppt/insert_to_std_string.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/utf8/from_fcppt_string.hpp>
@@ -73,7 +74,7 @@ fruitapp::highscore::provider::net::connection::post_rank(
 			FCPPT_TEXT(" ")+
 			name.get()+
 			FCPPT_TEXT(" ")+
-			fcppt::lexical_cast<fcppt::string>(
+			fcppt::insert_to_fcppt_string(
 				score.get())+
 			FCPPT_TEXT("\n"));
 
@@ -81,14 +82,14 @@ fruitapp::highscore::provider::net::connection::post_rank(
 		FCPPT_TEXT("Initiating connection to ")+
 		host_+
 		FCPPT_TEXT(", port ")+
-		fcppt::lexical_cast<fcppt::string>(
+		fcppt::insert_to_fcppt_string(
 			port_)+
 		FCPPT_TEXT("..."));
 
 	boost::asio::ip::tcp::resolver::query query_(
 		fcppt::to_std_string(
 			host_),
-		fcppt::lexical_cast<std::string>(
+		fcppt::insert_to_std_string(
 			port_));
 
 	resolver_.async_resolve(
@@ -123,14 +124,14 @@ fruitapp::highscore::provider::net::connection::retrieve_list()
 		FCPPT_TEXT("Initiating connection to ")+
 		host_+
 		FCPPT_TEXT(", port ")+
-		fcppt::lexical_cast<fcppt::string>(
+		fcppt::insert_to_fcppt_string(
 			port_)+
 		FCPPT_TEXT("..."));
 
 	boost::asio::ip::tcp::resolver::query query_(
 		fcppt::to_std_string(
 			host_),
-		fcppt::lexical_cast<std::string>(
+		fcppt::insert_to_std_string(
 			port_));
 
 	resolver_.async_resolve(
@@ -215,7 +216,7 @@ fruitapp::highscore::provider::net::connection::handle_resolve(
 
 	message_received_(
 		FCPPT_TEXT("Resolved host, trying to connect via endpoint \"")+
-		fcppt::lexical_cast<fcppt::string>(
+		fcppt::insert_to_fcppt_string(
 			endpoint)+
 		FCPPT_TEXT("\"..."));
 
@@ -338,7 +339,7 @@ fruitapp::highscore::provider::net::connection::handle_read_size(
 
 	message_received_(
 		FCPPT_TEXT("The server sent a projected size of ")+
-		fcppt::lexical_cast<fcppt::string>(
+		fcppt::insert_to_fcppt_string(
 			*content_size)+
 		FCPPT_TEXT(" bytes, requesting those bytes..."));
 
@@ -372,7 +373,7 @@ fruitapp::highscore::provider::net::connection::handle_read_content(
 
 	message_received_(
 		FCPPT_TEXT("Received ")+
-		fcppt::lexical_cast<fcppt::string>(
+		fcppt::insert_to_fcppt_string(
 			content_.size())+
 		FCPPT_TEXT(" bytes, processing..."));
 
@@ -386,7 +387,7 @@ fruitapp::highscore::provider::net::connection::handle_read_content(
 	sge::parse::json::object result;
 	if(!sge::parse::json::parse_range(current,content_converted.end(),result))
 	{
-		fcppt::io::cerr
+		fcppt::io::cerr()
 			<< FCPPT_TEXT("The application crashed, the content was ")
 			<< content_converted
 			<< FCPPT_TEXT("\n");

@@ -24,7 +24,7 @@
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/math/dim/comparison.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
-#include <fcppt/assert_message.hpp>
+#include <fcppt/assert/unreachable_message.hpp>
 #include <fcppt/text.hpp>
 #include <boost/range/iterator_range.hpp>
 #include <iostream>
@@ -78,8 +78,7 @@ fruitlib::pp::texture::manager::query(
 		}
 	}
 
-	FCPPT_ASSERT_MESSAGE(
-		false,
+	FCPPT_ASSERT_UNREACHABLE_MESSAGE(
 		FCPPT_TEXT("Tried to lock a texture which isn't there!"));
 }
 

@@ -14,7 +14,7 @@
 #include <sge/timer/remaining_fractional.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/tr1/functional.hpp>
-#include <fcppt/assert.hpp>
+#include <fcppt/assert/error.hpp>
 #include <fcppt/filesystem/directory_iterator.hpp>
 #include <fcppt/filesystem/path.hpp>
 #include <fcppt/ref.hpp>
@@ -160,7 +160,7 @@ fruitlib::audio::music_controller::react(
 
 	if(crossfade_.expired())
 	{
-		FCPPT_ASSERT(
+		FCPPT_ASSERT_ERROR(
 			current_source_);
 		current_source_->stop();
 		current_source_ = new_source_;

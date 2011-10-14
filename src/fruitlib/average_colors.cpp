@@ -5,7 +5,8 @@
 #include <fcppt/math/box/box.hpp>
 #include <fcppt/math/vector/vector.hpp>
 #include <fcppt/math/dim/dim.hpp>
-#include <boost/type_traits/promote.hpp>
+#include <fcppt/from_std_string.hpp>
+#include <boost/type_traits/integral_promotion.hpp>
 #include <mizuiro/color/homogenous_static.hpp>
 #include <mizuiro/color/for_each_channel.hpp>
 #include <mizuiro/color/types/channel_value.hpp>
@@ -37,7 +38,7 @@ struct promote_homogenous_channels
 	typedef
 	mizuiro::color::homogenous_static
 	<
-		typename boost::promote<typename Input::channel_type>::type,
+		typename boost::integral_promotion<typename Input::channel_type>::type,
 		typename Input::layout
 	>
 	type;
@@ -121,10 +122,11 @@ public:
 	{
 		dest_.set(
 			c,
-			dest_.get(
-				c) +
-			source_.get(
-				c));
+			static_cast<typename DestColor::format::channel_type>(
+				dest_.get(
+					c) +
+				source_.get(
+					c)));
 	}
 private:
 	SourceColor const &source_;
@@ -196,7 +198,7 @@ view_visitor::operator()(
 	View const &v) const
 {
 	typedef typename
-	View::color_format
+	View::format::color_format
 	color_format;
 
 	typedef typename

@@ -3,7 +3,7 @@
 
 #include <fcppt/container/grid/size_type.hpp>
 #include <fcppt/container/grid/object.hpp>
-#include <fcppt/assert.hpp>
+#include <fcppt/assert/pre.hpp>
 #include <algorithm>
 
 namespace fruitlib
@@ -23,7 +23,7 @@ zip_with(
 	fcppt::container::grid::object<Source,N> const &h,
 	Functor const &f)
 {
-	FCPPT_ASSERT(
+	FCPPT_ASSERT_PRE(
 		g.size() == h.size());
 	fcppt::container::grid::object<Dest,N> result(
 		g.size());

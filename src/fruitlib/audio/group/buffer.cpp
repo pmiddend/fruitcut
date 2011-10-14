@@ -3,7 +3,7 @@
 #include <fruitlib/audio/group/sound_base.hpp>
 #include <fruitlib/audio/group/sound_positional.hpp>
 #include <fcppt/ref.hpp>
-#include <fcppt/assert.hpp>
+#include <fcppt/assert/error.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/algorithm/ptr_container_erase.hpp>
 #include <iostream>
@@ -103,7 +103,7 @@ void
 fruitlib::audio::group::buffer::remove_sound(
 	group::sound_base &b)
 {
-	FCPPT_ASSERT((
+	FCPPT_ASSERT_ERROR((
 		fcppt::algorithm::ptr_container_erase(
 			sounds_,
 			&b)));

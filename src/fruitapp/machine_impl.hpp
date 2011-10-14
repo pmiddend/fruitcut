@@ -24,7 +24,7 @@
 #include <fruitapp/fruit/prototype_sequence.hpp>
 #include <fruitapp/ingame_clock.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
-#include <sge/camera/object.hpp>
+#include <sge/camera/first_person/object.hpp>
 #include <sge/cegui/syringe.hpp>
 #include <sge/cegui/system.hpp>
 #include <sge/model/md3/loader_ptr.hpp>
@@ -100,10 +100,10 @@ public:
 	fruitapp::shadow_map const &
 	shadow_map() const;
 
-	sge::camera::object &
+	sge::camera::first_person::object &
 	camera();
 
-	sge::camera::object const &
+	sge::camera::first_person::object const &
 	camera() const;
 
 	fruitlib::font::cache &
@@ -200,7 +200,7 @@ private:
 	fruitlib::audio::music_controller music_controller_;
 	fcppt::signal::scoped_connection music_volume_change_connection_;
 	fruitapp::quick_log quick_log_;
-	sge::camera::object camera_;
+	sge::camera::first_person::object camera_;
 	fruitlib::scenic::adaptors::camera camera_node_;
 	fcppt::signal::scoped_connection toggle_camera_connection_;
 	fcppt::signal::scoped_connection viewport_change_connection_;

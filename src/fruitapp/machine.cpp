@@ -5,8 +5,8 @@
 #include <sge/cegui/syringe_fwd.hpp>
 #include <sge/model/md3/loader_fwd.hpp>
 #include <sge/parse/json/object_fwd.hpp>
-#include <sge/camera/object_fwd.hpp>
-#include <sge/cegui/system_fwd.hpp>
+#include <sge/camera/first_person/object_fwd.hpp>
+#include <sge/cegui/system.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/type_name.hpp>
 #include <fcppt/make_unique_ptr.hpp>
@@ -140,13 +140,13 @@ fruitapp::machine::shadow_map() const
 	return impl_->shadow_map();
 }
 
-sge::camera::object &
+sge::camera::first_person::object &
 fruitapp::machine::camera()
 {
 	return impl_->camera();
 }
 
-sge::camera::object const &
+sge::camera::first_person::object const &
 fruitapp::machine::camera() const
 {
 	return impl_->camera();

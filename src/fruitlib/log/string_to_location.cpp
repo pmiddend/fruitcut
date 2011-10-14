@@ -26,5 +26,5 @@ fruitlib::log::string_to_location(
 				input,
 				boost::phoenix::arg_names::arg1 == delimiter),
 			fcppt::log::location(),
-			boost::phoenix::arg_names::arg1 + boost::phoenix::arg_names::arg2);
+			boost::phoenix::arg_names::arg1 / boost::phoenix::arg_names::arg2);
 }

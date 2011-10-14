@@ -4,6 +4,8 @@
 #include <fruitlib/math/line/distance_to_point.hpp>
 #include <fruitlib/math/line/basic.hpp>
 #include <fcppt/optional.hpp>
+#include <fcppt/assert/pre.hpp>
+#include <fcppt/assert/error.hpp>
 #include <fcppt/math/matrix/basic_impl.hpp>
 #include <fcppt/math/matrix/static.hpp>
 #include <fcppt/math/vector/cross.hpp>
@@ -67,9 +69,8 @@ make_coordinate_system(
 	fcppt::math::matrix::static_<scalar,4,4>::type
 	matrix4;
 
-	FCPPT_ASSERT(
+	FCPPT_ASSERT_PRE(
 		!points.empty());
-
 
 	// First step: Find the first point that is not equal to points[0]
 	// (so we can form the first axis)
@@ -90,7 +91,7 @@ make_coordinate_system(
 		return fcppt::optional<matrix4>();
 
 	// Just to be sure.
-	FCPPT_ASSERT(
+	FCPPT_ASSERT_ERROR(
 		((*first_other_point) - (*points.begin())) != vector::null());
 
 	// Second step: Find the first point that is not colinear to the

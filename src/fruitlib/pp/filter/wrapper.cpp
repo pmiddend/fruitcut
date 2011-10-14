@@ -1,5 +1,5 @@
 #include <fruitlib/pp/filter/wrapper.hpp>
-#include <fcppt/assert.hpp>
+#include <fcppt/assert/error.hpp>
 #include <fcppt/string.hpp>
 
 fruitlib::pp::filter::wrapper::wrapper()
@@ -30,7 +30,7 @@ fruitlib::pp::filter::wrapper::wrapper(
 fruitlib::pp::filter::base &
 fruitlib::pp::filter::wrapper::filter() const
 {
-	FCPPT_ASSERT(
+	FCPPT_ASSERT_ERROR(
 		filter_);
 	return *filter_;
 }

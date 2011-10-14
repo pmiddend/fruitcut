@@ -10,7 +10,7 @@
 #include <fcppt/math/vector/output.hpp>
 #include <fcppt/math/vector/normalize.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/assert.hpp>
+#include <fcppt/assert/pre.hpp>
 #include <fcppt/chrono/duration.hpp>
 #include <boost/next_prior.hpp>
 
@@ -149,7 +149,7 @@ void
 fruitlib::rectangle_manager::object<T>::revive(
 	instance &_instance)
 {
-	FCPPT_ASSERT(
+	FCPPT_ASSERT_PRE(
 		_instance.killed());
 
 	fcppt::algorithm::ptr_container_erase(

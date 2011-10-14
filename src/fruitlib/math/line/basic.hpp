@@ -4,7 +4,7 @@
 #include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/math/vector/static.hpp>
 #include <fcppt/math/size_type.hpp>
-#include <fcppt/assert_message.hpp>
+#include <fcppt/assert/pre_message.hpp>
 
 namespace fruitlib
 {
@@ -30,7 +30,7 @@ public:
 		direction_(
 			_direction)
 	{
-		FCPPT_ASSERT_MESSAGE(
+		FCPPT_ASSERT_PRE_MESSAGE(
 			direction_ != vector::null(),
 			FCPPT_TEXT("Tried to create a line with zero direction vector"));
 	}

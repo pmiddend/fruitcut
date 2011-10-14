@@ -16,7 +16,7 @@
 #include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
 #include <fcppt/math/vector/dim.hpp>
-#include <fcppt/assert.hpp>
+#include <fcppt/assert/error.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/text.hpp>
 #include <boost/static_assert.hpp>
@@ -32,14 +32,14 @@ fruitlib::physics::rigid_body::user_data const
 void_ptr_to_body(
 	void *p)
 {
-	FCPPT_ASSERT(
+	FCPPT_ASSERT_ERROR(
 		p);
 
 	btCollisionObject *co =
 		static_cast<btCollisionObject *>(
 			p);
 
-	FCPPT_ASSERT(
+	FCPPT_ASSERT_ERROR(
 		co->getUserPointer());
 
 	return
@@ -197,7 +197,7 @@ fruitlib::physics::world::internal_tick_callback_static(
 	btDynamicsWorld *w,
 	btScalar const time_step)
 {
-	FCPPT_ASSERT(
+	FCPPT_ASSERT_ERROR(
 		w->getWorldUserInfo());
 
 	static_cast<physics::world *>(

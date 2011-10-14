@@ -12,9 +12,8 @@
 #include <CEGUIString.h>
 #include <CEGUIWindow.h>
 #include <CEGUIWindowManager.h>
-#include <fcppt/lexical_cast.hpp>
+#include <fcppt/insert_to_fcppt_string.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/string.hpp>
 #include <fcppt/tr1/functional.hpp>
 
 fruitapp::states::gameover::choose_name::choose_name(
@@ -41,7 +40,7 @@ fruitapp::states::gameover::choose_name::choose_name(
 {
 	context<machine>().gui_system().window_manager().getWindow("NameChooser/Score")->setText(
 		sge::cegui::to_cegui_string(
-		fcppt::lexical_cast<fcppt::string>(
+		fcppt::insert_to_fcppt_string(
 				context<machine>().last_game_score()),
 		context<machine>().systems().charconv_system()));
 }

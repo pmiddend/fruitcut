@@ -46,8 +46,6 @@ fruitapp::fruit::shadow_render_node::shadow_render_node(
 		sge::shader::object_parameters(
 			renderer_,
 			vertex_declaration_,
-			fruitcut::media_path()/FCPPT_TEXT("shaders")/FCPPT_TEXT("shadow_map")/FCPPT_TEXT("vertex.glsl"),
-			fruitcut::media_path()/FCPPT_TEXT("shaders")/FCPPT_TEXT("shadow_map")/FCPPT_TEXT("fragment.glsl"),
 			sge::shader::vf_to_string<fruit::model_vf::format>(),
 			fcppt::assign::make_container<sge::shader::variable_sequence>(
 				sge::shader::variable(
@@ -56,7 +54,13 @@ fruitapp::fruit::shadow_render_node::shadow_render_node(
 					sge::shader::matrix(
 						sge::renderer::matrix4(),
 						sge::shader::matrix_flags::projection))),
-			sge::shader::sampler_sequence())),
+			sge::shader::sampler_sequence())
+			.name(
+				FCPPT_TEXT("shadow fruit shader"))
+			.vertex_shader(
+				fruitcut::media_path()/FCPPT_TEXT("shaders")/FCPPT_TEXT("shadow_map")/FCPPT_TEXT("vertex.glsl"))
+			.fragment_shader(
+				fruitcut::media_path()/FCPPT_TEXT("shaders")/FCPPT_TEXT("shadow_map")/FCPPT_TEXT("fragment.glsl"))),
 	mvp_(
 		_mvp)
 {

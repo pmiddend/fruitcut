@@ -9,7 +9,7 @@
 #include <fcppt/chrono/milliseconds.hpp>
 #include <fcppt/chrono/duration.hpp>
 #include <fcppt/math/mod.hpp>
-#include <fcppt/lexical_cast.hpp>
+#include <fcppt/insert_to_string.hpp>
 #include <boost/type_traits/make_unsigned.hpp>
 #include <boost/proto/proto.hpp>
 #include <sstream>
@@ -87,11 +87,6 @@ public:
 		std::basic_ostringstream<typename String::value_type> oss;
 		oss << std::setfill(oss.widen('0')) << std::setw(2) << (milliseconds_/10);
 		return oss.str();
-		/*
-		return
-			fcppt::lexical_cast<result_type>(
-				milliseconds_);
-		*/
 	}
 
 	result_type
@@ -100,7 +95,7 @@ public:
 		tags::seconds) const
 	{
 		return
-			fcppt::lexical_cast<result_type>(
+			fcppt::insert_to_string<result_type>(
 				seconds_);
 	}
 
@@ -110,7 +105,7 @@ public:
 		tags::minutes) const
 	{
 		return
-			fcppt::lexical_cast<result_type>(
+			fcppt::insert_to_string<result_type>(
 				minutes_);
 	}
 private:

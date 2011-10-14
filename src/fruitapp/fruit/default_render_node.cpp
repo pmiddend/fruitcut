@@ -4,7 +4,7 @@
 #include <fruitapp/fruit/model_vf/format.hpp>
 #include <fruitapp/fruit/manager.hpp>
 #include <fruitapp/directional_light_source.hpp>
-#include <sge/camera/object.hpp>
+#include <sge/camera/first_person/object.hpp>
 #include <sge/renderer/first_vertex.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/stage.hpp>
@@ -50,7 +50,7 @@ fruitapp::fruit::default_render_node::default_render_node(
 	sge::renderer::device &_renderer,
 	sge::renderer::vertex_declaration &_vertex_declaration,
 	fruit::manager const &_manager,
-	sge::camera::object &_camera,
+	sge::camera::first_person::object &_camera,
 	fruitapp::directional_light_source const &light,
 	sge::renderer::scalar const _ambient_intensity)
 :
@@ -66,8 +66,6 @@ fruitapp::fruit::default_render_node::default_render_node(
 		sge::shader::object_parameters(
 			renderer_,
 			_vertex_declaration,
-			fruitcut::media_path()/FCPPT_TEXT("shaders")/FCPPT_TEXT("model")/FCPPT_TEXT("vertex.glsl"),
-			fruitcut::media_path()/FCPPT_TEXT("shaders")/FCPPT_TEXT("model")/FCPPT_TEXT("fragment.glsl"),
 			sge::shader::vf_to_string<model_vf::format>(),
 			fcppt::assign::make_container<sge::shader::variable_sequence>
 				(sge::shader::variable(
@@ -125,7 +123,13 @@ fruitapp::fruit::default_render_node::default_render_node(
 			fcppt::assign::make_container<sge::shader::sampler_sequence>
 				(sge::shader::sampler(
 					"texture",
-					sge::renderer::texture::planar_ptr()))))
+					sge::renderer::texture::planar_ptr())))
+				.name(
+					FCPPT_TEXT("default fruit render node"))
+				.vertex_shader(
+					fruitcut::media_path()/FCPPT_TEXT("shaders")/FCPPT_TEXT("model")/FCPPT_TEXT("vertex.glsl"))
+				.fragment_shader(
+					fruitcut::media_path()/FCPPT_TEXT("shaders")/FCPPT_TEXT("model")/FCPPT_TEXT("fragment.glsl")))
 {
 }
 

@@ -12,7 +12,7 @@
 #include <fcppt/text.hpp>
 #include <fcppt/move.hpp>
 #include <fcppt/cref.hpp>
-#include <fcppt/lexical_cast.hpp>
+#include <fcppt/insert_to_fcppt_string.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <iterator>
@@ -233,7 +233,7 @@ fruitapp::highscore::post_model::rank_received_internal(
 	new_row.push_back(
 		_rank
 		?
-			fcppt::lexical_cast<fcppt::string>(
+			fcppt::insert_to_fcppt_string(
 				*_rank)
 		:
 			fcppt::string(

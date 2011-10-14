@@ -1,10 +1,9 @@
 #include <fruitapp/highscore/get_model.hpp>
 #include <fruitapp/gui/table/column.hpp>
 #include <fcppt/assign/make_container.hpp>
-#include <fcppt/lexical_cast.hpp>
+#include <fcppt/insert_to_fcppt_string.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/string.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <boost/date_time/posix_time/posix_time.hpp>
 #include <boost/date_time/c_local_time_adjustor.hpp>
@@ -96,12 +95,12 @@ fruitapp::highscore::get_model::reset(
 
 		gui::table::row new_row;
 		new_row.push_back(
-			fcppt::lexical_cast<fcppt::string>(
+			fcppt::insert_to_fcppt_string(
 				index+1));
 		new_row.push_back(
 			i->name());
 		new_row.push_back(
-			fcppt::lexical_cast<fcppt::string>(
+			fcppt::insert_to_fcppt_string(
 				i->score()));
 		new_row.push_back(
 			fcppt::from_std_string(

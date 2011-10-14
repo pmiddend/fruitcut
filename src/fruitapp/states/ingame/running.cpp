@@ -39,7 +39,7 @@
 #include <sge/line_drawer/line_sequence.hpp>
 #include <sge/line_drawer/line.hpp>
 #include <sge/line_drawer/scoped_lock.hpp>
-#include <sge/camera/object.hpp>
+#include <sge/camera/first_person/object.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/vector2.hpp>
 #include <sge/renderer/vector3.hpp>
