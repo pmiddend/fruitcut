@@ -1,6 +1,6 @@
 #include <fruitapp/sword_trail.hpp>
+#include <fruitapp/media_path.hpp>
 #include <fruitlib/time_format/find_and_convert_duration.hpp>
-#include "../media_path.hpp"
 #include <sge/sprite/dont_sort.hpp>
 #include <sge/parse/json/find_and_convert_member.hpp>
 #include <sge/parse/json/path.hpp>
@@ -81,7 +81,7 @@ fruitapp::sword_trail::sword_trail(
 	texture_(
 		fcppt::make_shared_ptr<sge::texture::part_raw>(
 			sge::renderer::texture::create_planar_from_path(
-				fruitcut::media_path() / FCPPT_TEXT("textures") / FCPPT_TEXT("sword_particle.png"),
+				fruitapp::media_path() / FCPPT_TEXT("textures") / FCPPT_TEXT("sword_particle.png"),
 				_renderer,
 				_image_loader,
 				sge::renderer::texture::mipmap::off(),

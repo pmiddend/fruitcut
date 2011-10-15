@@ -1,4 +1,5 @@
 #include <fruitapp/states/menu/main.hpp>
+#include <fruitapp/media_path.hpp>
 #include <fruitapp/states/menu/settings.hpp>
 #include <fruitapp/states/menu/highscore.hpp>
 #include <fruitapp/states/ingame/running.hpp>
@@ -6,7 +7,6 @@
 #include <fruitapp/events/return_post_transition_functor.hpp>
 #include <fruitlib/scenic/parent.hpp>
 #include <fruitlib/scenic/depth.hpp>
-#include "../../../media_path.hpp"
 #include <fruitapp/depths/overlay.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/cegui/system.hpp>
@@ -29,7 +29,7 @@ fruitapp::states::menu::main::main(
 		context<machine>().config_file()),
 	layout_(
 		context<machine>().gui_system(),
-		fruitcut::media_path()
+		fruitapp::media_path()
 			/FCPPT_TEXT("gui")
 			/FCPPT_TEXT("layouts")
 			/FCPPT_TEXT("main_menu.layout"),

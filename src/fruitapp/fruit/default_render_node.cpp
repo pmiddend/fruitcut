@@ -1,5 +1,5 @@
 #include <fruitapp/fruit/default_render_node.hpp>
-#include "../../media_path.hpp"
+#include <fruitapp/media_path.hpp>
 #include <fruitlib/scenic/events/render.hpp>
 #include <fruitapp/fruit/model_vf/format.hpp>
 #include <fruitapp/fruit/manager.hpp>
@@ -127,9 +127,9 @@ fruitapp::fruit::default_render_node::default_render_node(
 				.name(
 					FCPPT_TEXT("default fruit render node"))
 				.vertex_shader(
-					fruitcut::media_path()/FCPPT_TEXT("shaders")/FCPPT_TEXT("model")/FCPPT_TEXT("vertex.glsl"))
+					fruitapp::media_path()/FCPPT_TEXT("shaders")/FCPPT_TEXT("model")/FCPPT_TEXT("vertex.glsl"))
 				.fragment_shader(
-					fruitcut::media_path()/FCPPT_TEXT("shaders")/FCPPT_TEXT("model")/FCPPT_TEXT("fragment.glsl")))
+					fruitapp::media_path()/FCPPT_TEXT("shaders")/FCPPT_TEXT("model")/FCPPT_TEXT("fragment.glsl")))
 {
 }
 

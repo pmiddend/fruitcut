@@ -4,7 +4,7 @@
 #include <fruitapp/events/define_transition_reaction.hpp>
 #include <fruitapp/depths/root.hpp>
 #include <fruitapp/events/return_post_transition_functor.hpp>
-#include "../../../media_path.hpp"
+#include <fruitapp/media_path.hpp>
 #include <fruitlib/scenic/parent.hpp>
 #include <fruitapp/highscore/providers_from_json.hpp>
 #include <fruitapp/highscore/name.hpp>
@@ -30,7 +30,7 @@ fruitapp::states::gameover::ranking::ranking(
 				depths::root::dont_care))),
 	layout_(
 		context<machine>().gui_system(),
-		fruitcut::media_path()
+		fruitapp::media_path()
 			/FCPPT_TEXT("gui")
 			/FCPPT_TEXT("layouts")
 			/FCPPT_TEXT("ranking.layout"),

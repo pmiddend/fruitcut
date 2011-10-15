@@ -2,7 +2,7 @@
 #include <fruitapp/states/gameover/ranking.hpp>
 #include <fruitapp/events/define_transition_reaction.hpp>
 #include <fruitapp/events/post_transition.hpp>
-#include "../../../media_path.hpp"
+#include <fruitapp/media_path.hpp>
 #include <fruitlib/resource_tree/path.hpp>
 #include <fruitlib/audio/sound_controller.hpp>
 #include <sge/cegui/to_cegui_string.hpp>
@@ -23,7 +23,7 @@ fruitapp::states::gameover::choose_name::choose_name(
 		ctx),
 	layout_(
 		context<machine>().gui_system(),
-		fruitcut::media_path()/FCPPT_TEXT("gui")/FCPPT_TEXT("layouts")/FCPPT_TEXT("name_chooser.layout"),
+		fruitapp::media_path()/FCPPT_TEXT("gui")/FCPPT_TEXT("layouts")/FCPPT_TEXT("name_chooser.layout"),
 		context<machine>().systems().charconv_system()),
 	gui_sheet_(
 		context<machine>().gui_system(),

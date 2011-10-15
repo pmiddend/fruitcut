@@ -1,7 +1,7 @@
 #include <fruitapp/bonsu/texture_manager.hpp>
 #include <fruitapp/bonsu/texture_identifier.hpp>
 #include <fruitapp/exception.hpp>
-#include "../../media_path.hpp"
+#include <fruitapp/media_path.hpp>
 #include <sge/image/color/format.hpp>
 #include <sge/image2d/multi_loader.hpp>
 #include <sge/texture/rect_fragmented.hpp>
@@ -37,7 +37,7 @@ fruitapp::bonsu::texture_manager::texture_manager(
 {
 	for(
 		fcppt::filesystem::directory_iterator current_file(
-			fruitcut::media_path()/FCPPT_TEXT("bonsu"));
+			fruitapp::media_path()/FCPPT_TEXT("bonsu"));
 		current_file != fcppt::filesystem::directory_iterator();
 		++current_file)
 	{

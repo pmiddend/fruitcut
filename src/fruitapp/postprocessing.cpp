@@ -1,5 +1,5 @@
-#include "../media_path.hpp"
 #include <fruitapp/postprocessing.hpp>
+#include <fruitapp/media_path.hpp>
 #include <fruitlib/pp/dependency_set.hpp>
 #include <fruitlib/pp/texture/depth_stencil_format.hpp>
 #include <fruitlib/pp/texture/use_screen_size.hpp>
@@ -32,7 +32,7 @@ fruitapp::postprocessing::postprocessing(
 		_renderer),
 	filter_manager_(
 		_renderer,
-		fruitcut::media_path()/FCPPT_TEXT("shaders")),
+		fruitapp::media_path()/FCPPT_TEXT("shaders")),
 	system_(
 		filter_manager_),
 	rtt_filter_(

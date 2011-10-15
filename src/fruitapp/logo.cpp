@@ -1,7 +1,7 @@
 #include <fruitapp/logo.hpp>
+#include <fruitapp/media_path.hpp>
 #include <fruitlib/scenic/events/render.hpp>
 #include <fruitlib/scenic/events/viewport_change.hpp>
-#include "../media_path.hpp"
 #include <sge/image2d/multi_loader_fwd.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/viewport_size.hpp>
@@ -43,7 +43,7 @@ fruitapp::logo::logo(
 			.texture(
 				fcppt::make_shared_ptr<sge::texture::part_raw>(
 					sge::renderer::texture::create_planar_from_path(
-						fruitcut::media_path()
+						fruitapp::media_path()
 							/ FCPPT_TEXT("textures")
 							/
 								sge::parse::json::find_and_convert_member<fcppt::string>(

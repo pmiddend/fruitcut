@@ -1,5 +1,6 @@
 #include <fruitapp/states/menu/highscore.hpp>
 #include <fruitapp/states/menu/main.hpp>
+#include <fruitapp/media_path.hpp>
 #include <fruitapp/events/define_transition_reaction.hpp>
 #include <fruitapp/highscore/providers_from_json.hpp>
 #include <fruitapp/highscore/provider/object_base.hpp>
@@ -8,7 +9,6 @@
 #include <fruitapp/depths/root.hpp>
 #include <fruitlib/scenic/parent.hpp>
 #include <fruitlib/scenic/depth.hpp>
-#include "../../../media_path.hpp"
 #include <sge/systems/instance.hpp>
 #include <sge/cegui/system.hpp>
 #include <sge/cegui/to_cegui_string.hpp>
@@ -33,7 +33,7 @@ fruitapp::states::menu::highscore::highscore(
 				depths::root::dont_care))),
 	layout_(
 		context<machine>().gui_system(),
-		fruitcut::media_path()
+		fruitapp::media_path()
 			/FCPPT_TEXT("gui")
 			/FCPPT_TEXT("layouts")
 			/FCPPT_TEXT("new_highscore.layout"),

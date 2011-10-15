@@ -1,5 +1,5 @@
-#include "../../media_path.hpp"
 #include <fruitapp/fruit/prototype_from_json.hpp>
+#include <fruitapp/media_path.hpp>
 #include <fruitapp/fruit/model_to_mesh.hpp>
 #include <fruitapp/fruit/material/from_json.hpp>
 #include <sge/parse/json/find_and_convert_member.hpp>
@@ -49,7 +49,7 @@ fruitapp::fruit::prototype_from_json(
 		fruit::prototype(
 			fruit::model_to_mesh(
 				*model_loader.load(
-					fruitcut::media_path()
+					fruitapp::media_path()
 						/ FCPPT_TEXT("models")
 						/ FCPPT_TEXT("fruits")
 						/
@@ -58,7 +58,7 @@ fruitapp::fruit::prototype_from_json(
 								sge::parse::json::path(
 									FCPPT_TEXT("model"))))),
 			sge::renderer::texture::create_planar_from_path(
-				fruitcut::media_path()
+				fruitapp::media_path()
 					/ FCPPT_TEXT("textures")
 					/ FCPPT_TEXT("fruits")
 					/

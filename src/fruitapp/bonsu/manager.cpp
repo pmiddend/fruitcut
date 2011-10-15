@@ -5,7 +5,6 @@
 #include <fruitapp/bonsu/rectangle/padding.hpp>
 #include <sge/parse/json/find_and_convert_member.hpp>
 #include <sge/parse/json/string_to_path.hpp>
-#include "../../media_path.hpp"
 #include <sge/sprite/default_equal.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/onscreen_target.hpp>

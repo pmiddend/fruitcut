@@ -1,6 +1,6 @@
 #include <fruitapp/point_sprite/system_node.hpp>
 #include <fruitapp/exception.hpp>
-#include "../../media_path.hpp"
+#include <fruitapp/media_path.hpp>
 #include <fruitlib/uniform_random.hpp>
 #include <fruitlib/resource_tree/from_directory_tree.hpp>
 #include <fruitlib/resource_tree/navigate_to_path.hpp>
@@ -151,9 +151,9 @@ fruitapp::point_sprite::system_node::system_node(
 				.name(
 					FCPPT_TEXT("point sprite"))
 				.vertex_shader(
-					fruitcut::media_path()/FCPPT_TEXT("shaders")/FCPPT_TEXT("point_sprite")/FCPPT_TEXT("vertex.glsl"))
+					fruitapp::media_path()/FCPPT_TEXT("shaders")/FCPPT_TEXT("point_sprite")/FCPPT_TEXT("vertex.glsl"))
 				.fragment_shader(
-					fruitcut::media_path()/FCPPT_TEXT("shaders")/FCPPT_TEXT("point_sprite")/FCPPT_TEXT("fragment.glsl")))
+					fruitapp::media_path()/FCPPT_TEXT("shaders")/FCPPT_TEXT("point_sprite")/FCPPT_TEXT("fragment.glsl")))
 {
 }
 

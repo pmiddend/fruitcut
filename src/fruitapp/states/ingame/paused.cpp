@@ -1,11 +1,11 @@
 #include <fruitapp/states/ingame/paused.hpp>
 #include <fruitapp/states/ingame/running.hpp>
 #include <fruitapp/states/menu/main.hpp>
+#include <fruitapp/media_path.hpp>
 #include <fruitlib/time_format/find_and_convert_duration.hpp>
 #include <fruitlib/scenic/parent.hpp>
 #include <fruitlib/pp/texture/use_screen_size.hpp>
 #include <fruitlib/pp/filter/blur.hpp>
-#include "../../../media_path.hpp"
 #include <fruitapp/postprocessing.hpp>
 #include <fruitapp/depths/root.hpp>
 #include <fruitapp/depths/overlay.hpp>
@@ -104,7 +104,7 @@ fruitapp::states::ingame::paused::paused(
 		context<machine>().systems().cursor_demuxer()),
 	layout_(
 		context<machine>().gui_system(),
-		fruitcut::media_path()
+		fruitapp::media_path()
 			/FCPPT_TEXT("gui")
 			/FCPPT_TEXT("layouts")
 			/FCPPT_TEXT("ingame_menu.layout"),

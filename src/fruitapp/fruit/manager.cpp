@@ -10,7 +10,6 @@
 #include <fruitlib/math/box_radius.hpp>
 #include <fruitlib/physics/vector3.hpp>
 #include <fruitlib/physics/rigid_body/mass.hpp>
-#include "../../media_path.hpp"
 #include <fruitapp/fruit/mesh.hpp>
 #include <fruitapp/fruit/model_vf/format.hpp>
 #include <fruitapp/fruit/object_parameters.hpp>

@@ -1,7 +1,7 @@
 #include <fruitapp/fruit/shadow_render_node.hpp>
 #include <fruitapp/fruit/manager.hpp>
 #include <fruitapp/fruit/model_vf/format.hpp>
-#include "../../media_path.hpp"
+#include <fruitapp/media_path.hpp>
 #include <fruitlib/scenic/events/render.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/first_vertex.hpp>
@@ -61,9 +61,9 @@ fruitapp::fruit::shadow_render_node::shadow_render_node(
 			.name(
 				FCPPT_TEXT("shadow fruit shader"))
 			.vertex_shader(
-				fruitcut::media_path()/FCPPT_TEXT("shaders")/FCPPT_TEXT("shadow_map")/FCPPT_TEXT("vertex.glsl"))
+				fruitapp::media_path()/FCPPT_TEXT("shaders")/FCPPT_TEXT("shadow_map")/FCPPT_TEXT("vertex.glsl"))
 			.fragment_shader(
-				fruitcut::media_path()/FCPPT_TEXT("shaders")/FCPPT_TEXT("shadow_map")/FCPPT_TEXT("fragment.glsl"))),
+				fruitapp::media_path()/FCPPT_TEXT("shaders")/FCPPT_TEXT("shadow_map")/FCPPT_TEXT("fragment.glsl"))),
 	mvp_(
 		_mvp)
 {
