@@ -205,6 +205,7 @@ SET(
 	src/fruitlib/math/cut_triangle_at_plane.hpp
 	src/fruitlib/math/line/basic.hpp
 	src/fruitlib/math/line/distance_to_point.hpp
+	src/fruitlib/math/line/point_intersection.hpp
 	src/fruitlib/math/line_plane_intersection.hpp
 	src/fruitlib/math/multiply_matrix4_vector3.hpp
 	src/fruitlib/math/plane/basic.hpp
@@ -381,24 +382,9 @@ SET(
 	src/fruitlib/scenic/parent_fwd.hpp
 	src/fruitlib/scoped_frame_limiter.cpp
 	src/fruitlib/scoped_frame_limiter.hpp
-	src/fruitlib/time_format/context.hpp
-	src/fruitlib/time_format/domain.hpp
-	src/fruitlib/time_format/duration_to_string.hpp
 	src/fruitlib/time_format/find_and_convert_duration.hpp
-	src/fruitlib/time_format/formatter.hpp
-	src/fruitlib/time_format/formatter_fwd.hpp
-	src/fruitlib/time_format/grammar.hpp
-	src/fruitlib/time_format/milliseconds.cpp
-	src/fruitlib/time_format/milliseconds.hpp
-	src/fruitlib/time_format/minutes.cpp
-	src/fruitlib/time_format/minutes.hpp
-	src/fruitlib/time_format/seconds.cpp
-	src/fruitlib/time_format/seconds.hpp
 	src/fruitlib/time_format/string_to_duration.hpp
 	src/fruitlib/time_format/string_to_duration_exn.hpp
-	src/fruitlib/time_format/tags/milliseconds.hpp
-	src/fruitlib/time_format/tags/minutes.hpp
-	src/fruitlib/time_format/tags/seconds.hpp
 	src/fruitlib/uniform_random.hpp
 	src/fruitlib/utf8_file_to_fcppt_string.cpp
 	src/fruitlib/utf8_file_to_fcppt_string.hpp

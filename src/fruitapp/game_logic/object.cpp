@@ -9,9 +9,6 @@
 #include <fruitlib/scenic/depth.hpp>
 #include <fruitlib/resource_tree/path.hpp>
 #include <fruitlib/time_format/find_and_convert_duration.hpp>
-#include <fruitlib/time_format/duration_to_string.hpp>
-#include <fruitlib/time_format/milliseconds.hpp>
-#include <fruitlib/time_format/seconds.hpp>
 #include <fruitapp/fruit/manager.hpp>
 #include <fruitapp/depths/overlay.hpp>
 #include <fruitapp/game_logic/object.hpp>
@@ -285,7 +282,7 @@ fruitapp::game_logic::object::react(
 				>
 			>(
 			(mizuiro::color::init::hue %=
-					0.34 *
+					0.34f *
 					(1.f -
 						sge::timer::elapsed_fractional<float>(multiplier_timer_)))
 			(mizuiro::color::init::saturation %= 1.0)
@@ -293,10 +290,9 @@ fruitapp::game_logic::object::react(
 			(mizuiro::color::init::alpha %= 1.0))));
 	}
 	timer_font_node_.object().text(
-		fruitlib::time_format::duration_to_string<sge::font::text::string>(
-			sge::timer::remaining<fruitapp::ingame_clock::duration>(
-				round_timer_),
-			fruitlib::time_format::seconds));
+		fcppt::insert_to_string<sge::font::text::string>(
+			sge::timer::remaining<fcppt::chrono::seconds>(
+				round_timer_)));
 
 	if(sge::timer::reset_when_expired(score_increase_timer_))
 	{
