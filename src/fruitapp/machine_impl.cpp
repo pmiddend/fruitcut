@@ -7,11 +7,11 @@
 #include <fruitlib/scoped_frame_limiter.hpp>
 #include <sge/parse/json/config/merge_trees.hpp>
 #include <sge/parse/json/config/merge_command_line_parameters.hpp>
+#include <sge/parse/json/config/create_command_line_parameters.hpp>
 #include <sge/parse/json/find_and_convert_member.hpp>
 #include <sge/parse/json/parse_string_exn.hpp>
 #include <fruitlib/scenic/events/viewport_change.hpp>
 #include <fruitlib/utf8_file_to_fcppt_string.hpp>
-#include <fruitlib/create_command_line_parameters.hpp>
 #include <fruitlib/log/scoped_sequence_from_json.hpp>
 #include <fruitlib/random_generator.hpp>
 #include <fruitlib/scenic/no_parent.hpp>
@@ -138,7 +138,7 @@ fruitapp::machine_impl::machine_impl(
 					fruitlib::utf8_file_to_fcppt_string(
 						fruitcut::media_path()/FCPPT_TEXT("config.json"))),
 				user_config_file_),
-			fruitlib::create_command_line_parameters(
+			sge::parse::json::config::create_command_line_parameters(
 				argc,
 				argv))),
 	config_variables_(

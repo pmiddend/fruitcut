@@ -141,10 +141,7 @@ SET(
 	src/fruitlib/audio/sound_controller_fwd.hpp
 	src/fruitlib/average_colors.cpp
 	src/fruitlib/average_colors.hpp
-	src/fruitlib/command_line_parameters.hpp
 	src/fruitlib/counted_reference.hpp
-	src/fruitlib/create_command_line_parameters.cpp
-	src/fruitlib/create_command_line_parameters.hpp
 	src/fruitlib/delayed_ptr_sequence.hpp
 	src/fruitlib/exception.cpp
 	src/fruitlib/exception.hpp
