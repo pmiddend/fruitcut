@@ -28,10 +28,10 @@ fruitlib::json::parse_rgba8_color(
 
 			return
 				sge::image::color::rgba8(
-					(sge::image::color::init::red %= colors[0])
-					(sge::image::color::init::green %= colors[1])
-					(sge::image::color::init::blue %= colors[2])
-					(sge::image::color::init::alpha %= colors[3]));
+					(sge::image::color::init::red() %= colors[0])
+					(sge::image::color::init::green() %= colors[1])
+					(sge::image::color::init::blue() %= colors[2])
+					(sge::image::color::init::alpha() %= colors[3]));
 		}
 		catch (sge::parse::json::invalid_get const &)
 		{

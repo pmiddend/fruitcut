@@ -135,14 +135,14 @@ fruitlib::physics::debugger::drawLine(
 				to),
 			sge::image::color::any::object(
 				sge::image::color::rgb8(
-					(sge::image::color::init::red %= from_color.getX())
-					(sge::image::color::init::green %= from_color.getY())
-					(sge::image::color::init::blue %= from_color.getZ()))),
+					(sge::image::color::init::red() %= from_color.getX())
+					(sge::image::color::init::green() %= from_color.getY())
+					(sge::image::color::init::blue() %= from_color.getZ()))),
 			sge::image::color::any::object(
 				sge::image::color::rgb8(
-					(sge::image::color::init::red %= to_color.getX())
-					(sge::image::color::init::green %= to_color.getY())
-					(sge::image::color::init::blue %= to_color.getZ())))));
+					(sge::image::color::init::red() %= to_color.getX())
+					(sge::image::color::init::green() %= to_color.getY())
+					(sge::image::color::init::blue() %= to_color.getZ())))));
 }
 
 // @override
