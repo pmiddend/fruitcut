@@ -281,13 +281,13 @@ fruitapp::game_logic::object::react(
 					mizuiro::color::layout::hsva
 				>
 			>(
-			(mizuiro::color::init::hue %=
+			(mizuiro::color::init::hue() %=
 					0.34f *
 					(1.f -
 						sge::timer::elapsed_fractional<float>(multiplier_timer_)))
-			(mizuiro::color::init::saturation %= 1.0)
-			(mizuiro::color::init::value %= 1.0)
-			(mizuiro::color::init::alpha %= 1.0))));
+			(mizuiro::color::init::saturation() %= 1.0)
+			(mizuiro::color::init::value() %= 1.0)
+			(mizuiro::color::init::alpha() %= 1.0))));
 	}
 	timer_font_node_.object().text(
 		fcppt::insert_to_string<sge::font::text::string>(
