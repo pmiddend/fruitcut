@@ -2,9 +2,10 @@
 #define FRUITLIB_RECTANGLE_MANAGER_RECTANGLE_INSTANCE_DECL_HPP_INCLUDED
 
 #include <fruitlib/rectangle_manager/object_fwd.hpp>
+#include <fcppt/nonassignable.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
-#include <fcppt/nonassignable.hpp>
+
 
 namespace fruitlib
 {

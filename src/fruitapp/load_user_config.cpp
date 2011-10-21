@@ -1,13 +1,14 @@
 #include <fruitapp/load_user_config.hpp>
 #include <fruitapp/name.hpp>
 #include <fruitlib/utf8_file_to_fcppt_string.hpp>
-#include <sge/parse/json/parse_string_exn.hpp>
 #include <sge/config/config_path.hpp>
-#include <sge/parse/json/object.hpp>
 #include <sge/parse/json/array.hpp>
+#include <sge/parse/json/object.hpp>
+#include <sge/parse/json/parse_string_exn.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/filesystem/exists.hpp>
 #include <fcppt/filesystem/path.hpp>
+
 
 sge::parse::json::object const
 fruitapp::load_user_config()

@@ -4,6 +4,7 @@
 #include <fruitlib/pp/filter/base.hpp>
 #include <fruitlib/pp/texture/counted_instance.hpp>
 
+
 namespace fruitlib
 {
 namespace pp

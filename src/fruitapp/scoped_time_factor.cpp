@@ -1,5 +1,6 @@
-#include <fruitapp/scoped_time_factor.hpp>
 #include <fruitapp/machine.hpp>
+#include <fruitapp/scoped_time_factor.hpp>
+
 
 fruitapp::scoped_time_factor::scoped_time_factor(
 	machine &_m,

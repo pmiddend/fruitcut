@@ -3,7 +3,10 @@
 
 #include <sge/audio/sound/base_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <vector>
+#include <fcppt/config/external_end.hpp>
+
 
 namespace fruitlib
 {

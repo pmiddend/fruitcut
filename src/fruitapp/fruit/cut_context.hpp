@@ -1,12 +1,13 @@
 #ifndef FRUITAPP_FRUIT_CUT_CONTEXT_HPP_INCLUDED
 #define FRUITAPP_FRUIT_CUT_CONTEXT_HPP_INCLUDED
 
-#include <fruitapp/fruit/object_fwd.hpp>
 #include <fruitapp/fruit/area.hpp>
 #include <fruitapp/fruit/mesh.hpp>
+#include <fruitapp/fruit/object_fwd.hpp>
 #include <fruitlib/physics/vector3.hpp>
-#include <fcppt/container/array.hpp>
 #include <fcppt/reference_wrapper.hpp>
+#include <fcppt/container/array.hpp>
+
 
 namespace fruitapp
 {

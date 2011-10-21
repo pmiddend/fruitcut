@@ -1,13 +1,16 @@
 #ifndef FRUITLIB_PP_TEXTURE_MANAGER_HPP_INCLUDED
 #define FRUITLIB_PP_TEXTURE_MANAGER_HPP_INCLUDED
 
+#include <fruitlib/pp/texture/counted_instance.hpp>
 #include <fruitlib/pp/texture/descriptor.hpp>
 #include <fruitlib/pp/texture/instance.hpp>
-#include <fruitlib/pp/texture/counted_instance.hpp>
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/texture/planar_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <boost/ptr_container/ptr_map.hpp>
+#include <fcppt/config/external_end.hpp>
+
 
 namespace fruitlib
 {

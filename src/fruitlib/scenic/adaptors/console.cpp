@@ -2,6 +2,7 @@
 #include <fruitlib/scenic/events/render.hpp>
 #include <sge/console/gfx.hpp>
 
+
 fruitlib::scenic::adaptors::console::console(
 	scenic::optional_parent const &_parent,
 	sge::console::gfx &_gfx)

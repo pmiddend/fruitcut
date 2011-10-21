@@ -1,15 +1,18 @@
 #ifndef FRUITLIB_JSON_PARSE_ANIMATION_HPP_INCLUDED
 #define FRUITLIB_JSON_PARSE_ANIMATION_HPP_INCLUDED
 
+#include <fruitlib/exception.hpp>
 #include <fruitlib/json/find_and_convert_member.hpp>
 #include <fruitlib/time_format/find_and_convert_duration.hpp>
-#include <fruitlib/exception.hpp>
 #include <sge/parse/json/array.hpp>
-#include <sge/parse/json/value.hpp>
-#include <sge/parse/json/invalid_get.hpp>
 #include <sge/parse/json/find_member_exn.hpp>
-#include <boost/variant/get.hpp>
+#include <sge/parse/json/invalid_get.hpp>
+#include <sge/parse/json/value.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/variant/get.hpp>
+#include <fcppt/config/external_end.hpp>
+
 
 namespace fruitlib
 {

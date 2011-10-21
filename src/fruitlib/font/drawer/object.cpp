@@ -1,24 +1,27 @@
 #include <fruitlib/font/drawer/object.hpp>
 #include <fruitlib/font/drawer/parameters.hpp>
-#include <sge/texture/fragmented_unique_ptr.hpp>
-#include <sge/texture/rect_fragmented.hpp>
-#include <sge/texture/const_part_ptr.hpp>
-#include <sge/renderer/texture/mipmap/off.hpp>
-#include <sge/renderer/caps.hpp>
-#include <sge/renderer/device.hpp>
 #include <sge/image2d/dim.hpp>
 #include <sge/image2d/view/size.hpp>
-#include <sge/sprite/parameters.hpp>
-#include <sge/sprite/default_sort.hpp>
+#include <sge/renderer/caps.hpp>
+#include <sge/renderer/device.hpp>
+#include <sge/renderer/texture/mipmap/off.hpp>
 #include <sge/sprite/default_equal.hpp>
-#include <fcppt/math/box/basic_impl.hpp>
-#include <fcppt/math/dim/structure_cast.hpp>
-#include <fcppt/math/dim/quad.hpp>
-#include <fcppt/math/vector/structure_cast.hpp>
+#include <sge/sprite/default_sort.hpp>
+#include <sge/sprite/parameters.hpp>
+#include <sge/texture/const_part_ptr.hpp>
+#include <sge/texture/fragmented_unique_ptr.hpp>
+#include <sge/texture/rect_fragmented.hpp>
 #include <fcppt/ref.hpp>
+#include <fcppt/math/box/basic_impl.hpp>
+#include <fcppt/math/dim/quad.hpp>
+#include <fcppt/math/dim/structure_cast.hpp>
+#include <fcppt/math/vector/structure_cast.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <boost/spirit/home/phoenix/object.hpp>
-#include <utility>
 #include <iostream>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
+
 
 fruitlib::font::drawer::object::object(
 	parameters const &params)

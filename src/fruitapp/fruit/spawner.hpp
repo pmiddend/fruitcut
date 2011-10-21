@@ -1,23 +1,26 @@
 #ifndef FRUITAPP_FRUIT_SPAWNER_HPP_INCLUDED
 #define FRUITAPP_FRUIT_SPAWNER_HPP_INCLUDED
 
+#include <fruitapp/ingame_clock.hpp>
+#include <fruitapp/ingame_timer.hpp>
+#include <fruitapp/fruit/manager_fwd.hpp>
 #include <fruitapp/fruit/prototype_sequence.hpp>
-#include <fruitlib/physics/scalar.hpp>
+#include <fruitlib/random_generator.hpp>
 #include <fruitlib/uniform_random.hpp>
+#include <fruitlib/physics/scalar.hpp>
 #include <fruitlib/scenic/node.hpp>
 #include <fruitlib/scenic/optional_parent.hpp>
 #include <fruitlib/scenic/events/update.hpp>
-#include <fruitlib/random_generator.hpp>
-#include <fruitapp/fruit/manager_fwd.hpp>
-#include <fruitapp/ingame_clock.hpp>
-#include <fruitapp/ingame_timer.hpp>
 #include <sge/camera/first_person/object_fwd.hpp>
 #include <sge/parse/json/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/function/object.hpp>
-#include <fcppt/signal/object.hpp>
 #include <fcppt/signal/auto_connection.hpp>
+#include <fcppt/signal/object.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
+#include <fcppt/config/external_end.hpp>
+
 
 namespace fruitapp
 {

@@ -1,5 +1,6 @@
 #include <fruitapp/highscore/entry.hpp>
 
+
 fruitapp::highscore::entry::entry(
 	highscore::name const &_name,
 	highscore::score const &_score,

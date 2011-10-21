@@ -1,21 +1,24 @@
-#include <fruitapp/highscore/post_model.hpp>
-#include <fruitapp/highscore/provider/object_base.hpp>
-#include <fruitapp/highscore/provider/connection_base.hpp>
 #include <fruitapp/gui/table/column.hpp>
 #include <fruitapp/gui/table/row.hpp>
 #include <fruitapp/gui/table/row_index.hpp>
-#include <fcppt/assign/make_container.hpp>
-#include <fcppt/signal/shared_connection.hpp>
-#include <fcppt/signal/auto_connection.hpp>
-#include <fcppt/string.hpp>
-#include <fcppt/container/ptr/push_back_unique_ptr.hpp>
-#include <fcppt/text.hpp>
-#include <fcppt/move.hpp>
+#include <fruitapp/highscore/post_model.hpp>
+#include <fruitapp/highscore/provider/connection_base.hpp>
+#include <fruitapp/highscore/provider/object_base.hpp>
 #include <fcppt/cref.hpp>
 #include <fcppt/insert_to_fcppt_string.hpp>
 #include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/move.hpp>
+#include <fcppt/string.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/assign/make_container.hpp>
+#include <fcppt/container/ptr/push_back_unique_ptr.hpp>
+#include <fcppt/signal/auto_connection.hpp>
+#include <fcppt/signal/shared_connection.hpp>
 #include <fcppt/tr1/functional.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <iterator>
+#include <fcppt/config/external_end.hpp>
+
 
 fruitapp::highscore::post_model::connection_wrapper::connection_wrapper(
 	provider::connection_base_ptr _connection,

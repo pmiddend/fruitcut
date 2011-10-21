@@ -1,5 +1,6 @@
 #include <fruitapp/fruit/cut_context.hpp>
 
+
 fruitapp::fruit::cut_context::cut_context(
 	fruit::object const &_old,
 	new_fruit_array const &_new,

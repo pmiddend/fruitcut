@@ -1,12 +1,13 @@
 #ifndef FRUITLIB_PERFORMANCE_TIMER_HPP_INCLUDED
 #define FRUITLIB_PERFORMANCE_TIMER_HPP_INCLUDED
 
-#include <fcppt/chrono/high_resolution_clock.hpp>
+#include <fcppt/noncopyable.hpp>
+#include <fcppt/optional.hpp>
 #include <fcppt/chrono/duration.hpp>
+#include <fcppt/chrono/high_resolution_clock.hpp>
 #include <fcppt/chrono/time_point.hpp>
 #include <fcppt/function/object.hpp>
-#include <fcppt/optional.hpp>
-#include <fcppt/noncopyable.hpp>
+
 
 namespace fruitlib
 {

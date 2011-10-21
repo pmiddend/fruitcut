@@ -1,7 +1,10 @@
+#include <fcppt/config/external_begin.hpp>
 #include <fruitserver/highscore_to_json.hpp>
 #include <fruitserver/lexical_cast.hpp>
 #include <fruitserver/ascii/from_native.hpp>
 #include <string>
+#include <fcppt/config/external_end.hpp>
+
 
 fruitserver::ascii::string const
 fruitserver::highscore_to_json(

@@ -1,14 +1,17 @@
 #include <fruitlib/pp/filter/render_to_texture.hpp>
-#include <fruitlib/pp/texture/manager.hpp>
 #include <fruitlib/pp/texture/descriptor.hpp>
 #include <fruitlib/pp/texture/instance.hpp>
-#include <sge/renderer/device.hpp>
+#include <fruitlib/pp/texture/manager.hpp>
 #include <sge/image/color/format.hpp>
-#include <sge/renderer/scoped_target.hpp>
+#include <sge/renderer/device.hpp>
 #include <sge/renderer/scoped_block.hpp>
+#include <sge/renderer/scoped_target.hpp>
 #include <sge/renderer/state/scoped.hpp>
 #include <fcppt/io/cout.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <iostream>
+#include <fcppt/config/external_end.hpp>
+
 
 fruitlib::pp::filter::render_to_texture::render_to_texture(
 	sge::renderer::device &_renderer,

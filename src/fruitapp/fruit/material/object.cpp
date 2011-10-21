@@ -1,5 +1,6 @@
 #include <fruitapp/fruit/material/object.hpp>
 
+
 fruitapp::fruit::material::object::object(
 	material::diffuse_color const &_diffuse_color,
 	material::diffuse_coefficient const &_diffuse_coefficient,

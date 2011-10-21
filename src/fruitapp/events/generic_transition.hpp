@@ -1,7 +1,10 @@
 #ifndef FRUITAPP_EVENTS_GENERIC_TRANSITION_HPP_INCLUDED
 #define FRUITAPP_EVENTS_GENERIC_TRANSITION_HPP_INCLUDED
 
+#include <fcppt/config/external_begin.hpp>
 #include <boost/statechart/event.hpp>
+#include <fcppt/config/external_end.hpp>
+
 
 namespace fruitapp
 {

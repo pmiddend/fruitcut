@@ -1,7 +1,10 @@
-#include <fruitlib/create_command_line_parameters.hpp>
 #include <fruitlib/command_line_parameters.hpp>
+#include <fruitlib/create_command_line_parameters.hpp>
 #include <fcppt/from_std_string.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <cstddef>
+#include <fcppt/config/external_end.hpp>
+
 
 fruitlib::command_line_parameters const
 fruitlib::create_command_line_parameters(

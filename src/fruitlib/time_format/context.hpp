@@ -2,19 +2,22 @@
 #define FRUITLIB_TIME_FORMAT_CONTEXT_HPP_INCLUDED
 
 #include <fruitlib/time_format/tags/milliseconds.hpp>
-#include <fruitlib/time_format/tags/seconds.hpp>
 #include <fruitlib/time_format/tags/minutes.hpp>
-#include <fcppt/chrono/duration_cast.hpp>
-#include <fcppt/chrono/seconds.hpp>
-#include <fcppt/chrono/milliseconds.hpp>
-#include <fcppt/chrono/duration.hpp>
+#include <fruitlib/time_format/tags/seconds.hpp>
 #include <fcppt/from_std_wstring.hpp>
-#include <fcppt/math/mod.hpp>
 #include <fcppt/insert_to_string.hpp>
-#include <boost/type_traits/make_unsigned.hpp>
+#include <fcppt/chrono/duration.hpp>
+#include <fcppt/chrono/duration_cast.hpp>
+#include <fcppt/chrono/milliseconds.hpp>
+#include <fcppt/chrono/seconds.hpp>
+#include <fcppt/math/mod.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <boost/proto/proto.hpp>
-#include <sstream>
+#include <boost/type_traits/make_unsigned.hpp>
 #include <iomanip>
+#include <sstream>
+#include <fcppt/config/external_end.hpp>
+
 
 namespace fruitlib
 {

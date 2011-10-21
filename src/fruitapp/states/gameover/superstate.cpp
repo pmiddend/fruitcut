@@ -1,6 +1,7 @@
-#include <fruitapp/states/gameover/superstate.hpp>
 #include <fruitapp/depths/overlay.hpp>
+#include <fruitapp/states/gameover/superstate.hpp>
 #include <sge/systems/instance.hpp>
+
 
 fruitapp::states::gameover::superstate::superstate(
 	my_context const ctx)

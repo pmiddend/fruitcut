@@ -1,26 +1,29 @@
 #ifndef FRUITLIB_AUDIO_SOUND_CONTROLLER_HPP_INCLUDED
 #define FRUITLIB_AUDIO_SOUND_CONTROLLER_HPP_INCLUDED
 
+#include <fruitlib/random_generator.hpp>
+#include <fruitlib/uniform_random.hpp>
+#include <fruitlib/audio/pool.hpp>
+#include <fruitlib/audio/group/player.hpp>
 #include <fruitlib/resource_tree/make_type.hpp>
 #include <fruitlib/resource_tree/path.hpp>
-#include <fruitlib/uniform_random.hpp>
-#include <fruitlib/random_generator.hpp>
-#include <fruitlib/scenic/optional_parent.hpp>
 #include <fruitlib/scenic/node.hpp>
+#include <fruitlib/scenic/optional_parent.hpp>
 #include <fruitlib/scenic/events/update.hpp>
-#include <fruitlib/audio/group/player.hpp>
-#include <fruitlib/audio/pool.hpp>
+#include <sge/audio/buffer_ptr.hpp>
 #include <sge/audio/multi_loader_fwd.hpp>
 #include <sge/audio/player_fwd.hpp>
-#include <sge/audio/sound/positional_parameters.hpp>
 #include <sge/audio/sound/base_ptr.hpp>
-#include <sge/audio/buffer_ptr.hpp>
-#include <fcppt/string.hpp>
+#include <sge/audio/sound/positional_parameters.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/string.hpp>
 #include <fcppt/unique_ptr.hpp>
 #include <fcppt/filesystem/path.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <cstddef>
+#include <fcppt/config/external_end.hpp>
+
 
 namespace fruitlib
 {

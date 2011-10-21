@@ -3,7 +3,10 @@
 
 #include <fruitlib/math/triangle/vector_type.hpp>
 #include <fcppt/math/size_type.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <vector>
+#include <fcppt/config/external_end.hpp>
+
 
 namespace fruitlib
 {

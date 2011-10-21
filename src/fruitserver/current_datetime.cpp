@@ -1,7 +1,10 @@
+#include <fcppt/config/external_begin.hpp>
 #include <fruitserver/current_datetime.hpp>
 #include <fruitserver/output_tm.hpp>
-#include <sstream>
 #include <ctime>
+#include <sstream>
+#include <fcppt/config/external_end.hpp>
+
 
 std::string const
 fruitserver::current_datetime()

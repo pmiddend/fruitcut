@@ -1,6 +1,7 @@
 #include <fruitlib/pp/texture/descriptor.hpp>
 #include <fcppt/math/dim/comparison.hpp>
 
+
 fruitlib::pp::texture::descriptor::descriptor(
 	sge::renderer::dim2 const &_size,
 	sge::image::color::format::type const _image_format,

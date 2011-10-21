@@ -4,6 +4,7 @@
 #include <fruitapp/point_sprite/color_format.hpp>
 #include <mizuiro/color/object.hpp>
 
+
 namespace fruitapp
 {
 namespace point_sprite

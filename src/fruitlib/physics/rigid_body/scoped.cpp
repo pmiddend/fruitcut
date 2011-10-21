@@ -1,7 +1,10 @@
-#include <fruitlib/physics/rigid_body/scoped.hpp>
 #include <fruitlib/physics/world.hpp>
-#include <BulletDynamics/Dynamics/btRigidBody.h>
+#include <fruitlib/physics/rigid_body/scoped.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <BulletDynamics/Dynamics/btDiscreteDynamicsWorld.h>
+#include <BulletDynamics/Dynamics/btRigidBody.h>
+#include <fcppt/config/external_end.hpp>
+
 
 fruitlib::physics::rigid_body::scoped::scoped(
 	world &_world,

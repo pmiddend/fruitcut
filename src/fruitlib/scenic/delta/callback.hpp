@@ -4,6 +4,7 @@
 #include <fruitlib/scenic/delta/duration.hpp>
 #include <fcppt/function/object.hpp>
 
+
 namespace fruitlib
 {
 namespace scenic

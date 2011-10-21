@@ -1,37 +1,38 @@
-#include <fruitapp/fruit/spawner.hpp>
 #include <fruitapp/fruit/manager.hpp>
-#include <fruitlib/physics/scalar.hpp>
-#include <fruitlib/physics/vector3.hpp>
-#include <fruitlib/physics/matrix4.hpp>
+#include <fruitapp/fruit/spawner.hpp>
+#include <fruitlib/json/parse_random_inclusive_range.hpp>
 #include <fruitlib/math/box_radius.hpp>
 #include <fruitlib/math/view_plane_rect.hpp>
-#include <fruitlib/json/parse_random_inclusive_range.hpp>
-#include <sge/parse/json/find_and_convert_member.hpp>
+#include <fruitlib/math/plane/basic.hpp>
+#include <fruitlib/math/plane/normalize.hpp>
+#include <fruitlib/physics/matrix4.hpp>
+#include <fruitlib/physics/scalar.hpp>
+#include <fruitlib/physics/vector3.hpp>
 #include <sge/camera/first_person/object.hpp>
 #include <sge/camera/projection/object.hpp>
 #include <sge/camera/projection/perspective.hpp>
 #include <sge/parse/json/array.hpp>
+#include <sge/parse/json/find_and_convert_member.hpp>
 #include <sge/parse/json/object.hpp>
 #include <sge/renderer/scalar.hpp>
-#include <fcppt/random/make_inclusive_range.hpp>
-#include <fcppt/random/make_last_exclusive_range.hpp>
+#include <sge/renderer/vector4.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/chrono/duration.hpp>
+#include <fcppt/math/pi.hpp>
+#include <fcppt/math/rad_to_deg.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/math/box/output.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/math/vector/length.hpp>
 #include <fcppt/math/vector/output.hpp>
-#include <fcppt/math/pi.hpp>
-#include <fcppt/math/rad_to_deg.hpp>
-#include <fcppt/text.hpp>
-#include <fcppt/chrono/duration.hpp>
+#include <fcppt/random/make_inclusive_range.hpp>
+#include <fcppt/random/make_last_exclusive_range.hpp>
 #include <fcppt/signal/auto_connection.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <cmath>
 #include <iostream>
+#include <fcppt/config/external_end.hpp>
 
-
-#include <sge/renderer/vector4.hpp>
-#include <fruitlib/math/plane/normalize.hpp>
-#include <fruitlib/math/plane/basic.hpp>
 
 fruitapp::fruit::spawner::spawner(
 	fruitlib::scenic::optional_parent const &_parent,

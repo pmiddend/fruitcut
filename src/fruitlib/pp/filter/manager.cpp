@@ -1,12 +1,13 @@
 #include <fruitlib/pp/filter/manager.hpp>
 #include <fruitlib/pp/screen_vf/format.hpp>
+#include <sge/shader/object.hpp>
 #include <sge/shader/object_parameters.hpp>
 #include <sge/shader/vf_to_string.hpp>
-#include <sge/shader/object.hpp>
 #include <fcppt/make_shared_ptr.hpp>
-#include <fcppt/filesystem/path.hpp>
 #include <fcppt/shared_ptr.hpp>
 #include <fcppt/string.hpp>
+#include <fcppt/filesystem/path.hpp>
+
 
 fruitlib::pp::filter::manager::manager(
 	sge::renderer::device &_renderer,

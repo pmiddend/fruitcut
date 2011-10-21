@@ -4,6 +4,7 @@
 #include <fruitapp/directional_light_source.hpp>
 #include <sge/parse/json/object_fwd.hpp>
 
+
 namespace fruitapp
 {
 directional_light_source const

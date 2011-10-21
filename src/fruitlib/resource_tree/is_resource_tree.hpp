@@ -3,7 +3,10 @@
 
 #include <fruitlib/resource_tree/node.hpp>
 #include <fcppt/container/tree/object.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/bool.hpp>
+#include <fcppt/config/external_end.hpp>
+
 
 namespace fruitlib
 {

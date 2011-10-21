@@ -2,9 +2,10 @@
 #define FRUITLIB_MATH_PLANE_NORMALIZE_HPP_INCLUDED
 
 #include <fruitlib/math/plane/basic.hpp>
-#include <fcppt/math/vector/normalize.hpp>
-#include <fcppt/math/vector/length.hpp>
 #include <fcppt/math/size_type.hpp>
+#include <fcppt/math/vector/length.hpp>
+#include <fcppt/math/vector/normalize.hpp>
+
 
 namespace fruitlib
 {

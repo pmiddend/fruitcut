@@ -1,5 +1,6 @@
 #include <fruitlib/physics/rigid_body/collision_data.hpp>
 
+
 fruitlib::physics::rigid_body::collision_data::collision_data(
 	rigid_body::user_data const &_body1,
 	rigid_body::user_data const &_body2)

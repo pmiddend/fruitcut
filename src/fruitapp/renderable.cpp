@@ -1,12 +1,13 @@
 #include <fruitapp/renderable.hpp>
-#include <fruitlib/scenic/parent.hpp>
 #include <fruitlib/scenic/depth.hpp>
-#include <sge/parse/json/path.hpp>
+#include <fruitlib/scenic/parent.hpp>
 #include <sge/parse/json/find_and_convert_member.hpp>
-#include <sge/systems/instance.hpp>
 #include <sge/parse/json/object_fwd.hpp>
-#include <fcppt/tr1/functional.hpp>
+#include <sge/parse/json/path.hpp>
+#include <sge/systems/instance.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/tr1/functional.hpp>
+
 
 fruitapp::renderable::renderable(
 	fruitlib::scenic::optional_parent const &_parent,

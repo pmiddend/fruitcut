@@ -4,11 +4,14 @@
 #include <fruitapp/postprocessing_fwd.hpp>
 #include <fruitlib/scenic/node.hpp>
 #include <fruitlib/scenic/optional_parent.hpp>
-#include <fruitlib/scenic/events/update.hpp>
 #include <fruitlib/scenic/events/base.hpp>
+#include <fruitlib/scenic/events/update.hpp>
 #include <sge/renderer/device_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
+#include <fcppt/config/external_end.hpp>
+
 
 namespace fruitapp
 {

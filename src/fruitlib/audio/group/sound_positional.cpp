@@ -1,6 +1,7 @@
-#include <fruitlib/audio/group/sound_positional.hpp>
 #include <fruitlib/audio/group/buffer.hpp>
+#include <fruitlib/audio/group/sound_positional.hpp>
 #include <sge/audio/buffer.hpp>
+
 
 fruitlib::audio::group::sound_positional::sound_positional(
 	group::buffer &_buffer,

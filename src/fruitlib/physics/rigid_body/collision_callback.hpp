@@ -4,6 +4,7 @@
 #include <fruitlib/physics/rigid_body/collision_callback_fn.hpp>
 #include <fcppt/function/object.hpp>
 
+
 namespace fruitlib
 {
 namespace physics

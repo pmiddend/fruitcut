@@ -3,6 +3,7 @@
 
 #include <fruitapp/fruit/object_fwd.hpp>
 
+
 namespace fruitapp
 {
 namespace fruit

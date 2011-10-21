@@ -1,4 +1,7 @@
+#include <fcppt/config/external_begin.hpp>
 #include <fruitserver/ascii/to_byte_sequence.hpp>
+#include <fcppt/config/external_end.hpp>
+
 
 fruitserver::byte_sequence const
 fruitserver::ascii::to_byte_sequence(

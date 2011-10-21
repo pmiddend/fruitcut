@@ -8,6 +8,7 @@
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 
+
 namespace CEGUI
 {
 class Window;

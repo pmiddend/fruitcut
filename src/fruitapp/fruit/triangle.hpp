@@ -1,10 +1,11 @@
 #ifndef FRUITAPP_FRUIT_TRIANGLE_HPP_INCLUDED
 #define FRUITAPP_FRUIT_TRIANGLE_HPP_INCLUDED
 
-#include <sge/renderer/vector3.hpp>
 #include <sge/renderer/vector2.hpp>
-#include <fcppt/math/vector/basic_impl.hpp>
+#include <sge/renderer/vector3.hpp>
 #include <fcppt/container/array.hpp>
+#include <fcppt/math/vector/basic_impl.hpp>
+
 
 namespace fruitapp
 {

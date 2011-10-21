@@ -2,6 +2,7 @@
 #include <sge/parse/json/find_and_convert_member.hpp>
 #include <sge/parse/json/object_fwd.hpp>
 
+
 fruitapp::fruit::material::object const
 fruitapp::fruit::material::from_json(
 	sge::parse::json::object const &o)

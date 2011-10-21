@@ -3,6 +3,7 @@
 
 #include <fruitapp/highscore/rank.hpp>
 
+
 namespace fruitapp
 {
 namespace highscore

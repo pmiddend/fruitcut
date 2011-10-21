@@ -5,6 +5,7 @@
 #include <sge/renderer/scalar.hpp>
 #include <sge/sprite/type_choices.hpp>
 
+
 namespace fruitapp
 {
 namespace point_sprite

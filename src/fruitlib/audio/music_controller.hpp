@@ -1,34 +1,37 @@
 #ifndef FRUITLIB_AUDIO_MUSIC_CONTROLLER_HPP_INCLUDED
 #define FRUITLIB_AUDIO_MUSIC_CONTROLLER_HPP_INCLUDED
 
-#include <fruitlib/uniform_random.hpp>
 #include <fruitlib/random_generator.hpp>
+#include <fruitlib/uniform_random.hpp>
+#include <fruitlib/audio/group/player.hpp>
 #include <fruitlib/resource_tree/make_type.hpp>
 #include <fruitlib/resource_tree/path.hpp>
 #include <fruitlib/scenic/node.hpp>
 #include <fruitlib/scenic/optional_parent.hpp>
-#include <fruitlib/scenic/events/update.hpp>
 #include <fruitlib/scenic/delta/callback.hpp>
+#include <fruitlib/scenic/delta/clock.hpp>
 #include <fruitlib/scenic/delta/duration.hpp>
 #include <fruitlib/scenic/delta/timer.hpp>
-#include <fruitlib/scenic/delta/clock.hpp>
-#include <fruitlib/audio/group/player.hpp>
+#include <fruitlib/scenic/events/update.hpp>
+#include <sge/audio/buffer_ptr.hpp>
+#include <sge/audio/file_ptr.hpp>
 #include <sge/audio/multi_loader_fwd.hpp>
 #include <sge/audio/player_fwd.hpp>
-#include <sge/audio/file_ptr.hpp>
-#include <sge/audio/buffer_ptr.hpp>
 #include <sge/audio/scalar.hpp>
 #include <sge/audio/sound/base_ptr.hpp>
 #include <sge/timer/basic.hpp>
 #include <sge/timer/clocks/delta.hpp>
 #include <sge/timer/clocks/standard.hpp>
-#include <fcppt/string.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/string.hpp>
 #include <fcppt/unique_ptr.hpp>
 #include <fcppt/filesystem/path.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <cstddef>
-#include <vector>
 #include <map>
+#include <vector>
+#include <fcppt/config/external_end.hpp>
+
 
 namespace fruitlib
 {

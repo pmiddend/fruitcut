@@ -4,6 +4,7 @@
 #include <fruitapp/highscore/callbacks/message_received_fn.hpp>
 #include <fcppt/function/object.hpp>
 
+
 namespace fruitapp
 {
 namespace highscore

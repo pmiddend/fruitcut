@@ -1,8 +1,11 @@
 #ifndef FRUITSERVER_PROGRAM_OPTIONS_DETAIL_OPTION_HOLDER_BASE_HPP_INCLUDED
 #define FRUITSERVER_PROGRAM_OPTIONS_DETAIL_OPTION_HOLDER_BASE_HPP_INCLUDED
 
+#include <fcppt/config/external_begin.hpp>
 #include <fruitserver/program_options/detail/type_info.hpp>
 #include <string>
+#include <fcppt/config/external_end.hpp>
+
 
 namespace fruitserver
 {

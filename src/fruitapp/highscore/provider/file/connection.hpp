@@ -3,19 +3,20 @@
 
 #include <fruitapp/highscore/name.hpp>
 #include <fruitapp/highscore/score.hpp>
-#include <fruitapp/highscore/provider/connection_base.hpp>
-#include <fruitapp/highscore/callbacks/message_received_fn.hpp>
-#include <fruitapp/highscore/callbacks/message_received.hpp>
-#include <fruitapp/highscore/callbacks/error_received_fn.hpp>
 #include <fruitapp/highscore/callbacks/error_received.hpp>
-#include <fruitapp/highscore/callbacks/list_received_fn.hpp>
+#include <fruitapp/highscore/callbacks/error_received_fn.hpp>
 #include <fruitapp/highscore/callbacks/list_received.hpp>
-#include <fruitapp/highscore/callbacks/rank_received_fn.hpp>
+#include <fruitapp/highscore/callbacks/list_received_fn.hpp>
+#include <fruitapp/highscore/callbacks/message_received.hpp>
+#include <fruitapp/highscore/callbacks/message_received_fn.hpp>
 #include <fruitapp/highscore/callbacks/rank_received.hpp>
-#include <fcppt/signal/object.hpp>
+#include <fruitapp/highscore/callbacks/rank_received_fn.hpp>
+#include <fruitapp/highscore/provider/connection_base.hpp>
+#include <fcppt/noncopyable.hpp>
 #include <fcppt/filesystem/path.hpp>
 #include <fcppt/signal/auto_connection.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/signal/object.hpp>
+
 
 namespace fruitapp
 {

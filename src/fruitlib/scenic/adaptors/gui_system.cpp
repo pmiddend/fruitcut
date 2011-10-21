@@ -1,12 +1,13 @@
 #include <fruitlib/scenic/adaptors/gui_system.hpp>
-#include <fruitlib/scenic/events/update.hpp>
 #include <fruitlib/scenic/events/render.hpp>
-#include <sge/cegui/system.hpp>
+#include <fruitlib/scenic/events/update.hpp>
 #include <sge/cegui/duration.hpp>
-#include <sge/timer/parameters.hpp>
+#include <sge/cegui/system.hpp>
 #include <sge/timer/elapsed_and_reset.hpp>
-#include <fcppt/chrono/seconds.hpp>
+#include <sge/timer/parameters.hpp>
 #include <fcppt/chrono/duration_cast.hpp>
+#include <fcppt/chrono/seconds.hpp>
+
 
 fruitlib::scenic::adaptors::gui_system::gui_system(
 	scenic::optional_parent const &_parent,

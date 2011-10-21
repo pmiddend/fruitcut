@@ -4,6 +4,7 @@
 #include <fruitapp/highscore/provider/connection_base_fwd.hpp>
 #include <fcppt/unique_ptr.hpp>
 
+
 namespace fruitapp
 {
 namespace highscore

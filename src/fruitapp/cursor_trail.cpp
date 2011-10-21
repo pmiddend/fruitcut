@@ -2,20 +2,23 @@
 #include <sge/input/cursor/object.hpp>
 #include <sge/input/cursor/position.hpp>
 #include <sge/input/cursor/position_unit.hpp>
+#include <sge/renderer/pixel_rect.hpp>
+#include <sge/renderer/target_base.hpp>
+#include <sge/renderer/vector2.hpp>
 #include <sge/timer/parameters.hpp>
 #include <sge/timer/reset_when_expired.hpp>
-#include <sge/renderer/pixel_rect.hpp>
-#include <sge/renderer/vector2.hpp>
-#include <sge/renderer/target_base.hpp>
-#include <fcppt/math/vector/basic_impl.hpp>
-#include <fcppt/math/vector/length.hpp>
-#include <fcppt/math/vector/structure_cast.hpp>
-#include <fcppt/math/dim/basic_impl.hpp>
-#include <fcppt/math/box/basic_impl.hpp>
-#include <fcppt/math/vector/output.hpp>
 #include <fcppt/chrono/duration.hpp>
 #include <fcppt/chrono/duration_arithmetic.hpp>
+#include <fcppt/math/box/basic_impl.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
+#include <fcppt/math/vector/basic_impl.hpp>
+#include <fcppt/math/vector/length.hpp>
+#include <fcppt/math/vector/output.hpp>
+#include <fcppt/math/vector/structure_cast.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <iostream>
+#include <fcppt/config/external_end.hpp>
+
 
 namespace
 {

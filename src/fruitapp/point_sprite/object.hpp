@@ -4,6 +4,7 @@
 #include <fruitapp/point_sprite/choices.hpp>
 #include <sge/sprite/object.hpp>
 
+
 namespace fruitapp
 {
 namespace point_sprite

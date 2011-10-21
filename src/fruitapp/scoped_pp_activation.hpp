@@ -4,6 +4,7 @@
 #include <fruitapp/postprocessing_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 
+
 namespace fruitapp
 {
 class scoped_pp_activation

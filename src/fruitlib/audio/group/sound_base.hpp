@@ -7,6 +7,7 @@
 #include <sge/audio/sound/base_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
 
+
 namespace fruitlib
 {
 namespace audio

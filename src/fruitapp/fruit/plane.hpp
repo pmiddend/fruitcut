@@ -4,6 +4,7 @@
 #include <fruitlib/math/plane/basic.hpp>
 #include <sge/renderer/scalar.hpp>
 
+
 namespace fruitapp
 {
 namespace fruit

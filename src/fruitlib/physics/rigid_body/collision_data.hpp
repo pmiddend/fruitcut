@@ -3,6 +3,7 @@
 
 #include <fruitlib/physics/rigid_body/user_data.hpp>
 
+
 namespace fruitlib
 {
 namespace physics

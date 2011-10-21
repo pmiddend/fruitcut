@@ -1,10 +1,11 @@
 #ifndef FRUITAPP_HIGHSCORE_PROVIDER_OBJECT_BASE_HPP_INCLUDED
 #define FRUITAPP_HIGHSCORE_PROVIDER_OBJECT_BASE_HPP_INCLUDED
 
-#include <fruitapp/highscore/provider/identifier.hpp>
 #include <fruitapp/highscore/provider/connection_base_ptr.hpp>
-#include <fcppt/signal/auto_connection.hpp>
+#include <fruitapp/highscore/provider/identifier.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/signal/auto_connection.hpp>
+
 
 namespace fruitapp
 {

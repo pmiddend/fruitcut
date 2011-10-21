@@ -4,6 +4,7 @@
 #include <fruitapp/highscore/entry_set.hpp>
 #include <sge/parse/json/object_fwd.hpp>
 
+
 namespace fruitapp
 {
 namespace highscore

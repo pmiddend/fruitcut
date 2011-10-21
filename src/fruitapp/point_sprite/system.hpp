@@ -5,6 +5,7 @@
 #include <sge/sprite/system.hpp>
 #include <sge/sprite/intrusive/system_impl.hpp>
 
+
 namespace fruitapp
 {
 namespace point_sprite

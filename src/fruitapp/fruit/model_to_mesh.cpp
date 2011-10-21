@@ -1,16 +1,19 @@
 #include <fruitapp/fruit/model_to_mesh.hpp>
 #include <fruitapp/fruit/triangle.hpp>
+#include <sge/model/md3/index_sequence.hpp>
+#include <sge/model/md3/normal_sequence.hpp>
+#include <sge/model/md3/object.hpp>
+#include <sge/model/md3/string.hpp>
+#include <sge/model/md3/texcoord_sequence.hpp>
 #include <sge/renderer/vector2.hpp>
 #include <sge/renderer/vector3.hpp>
-#include <sge/model/md3/normal_sequence.hpp>
-#include <sge/model/md3/index_sequence.hpp>
-#include <sge/model/md3/texcoord_sequence.hpp>
-#include <sge/model/md3/string.hpp>
-#include <sge/model/md3/object.hpp>
-#include <fcppt/math/vector/structure_cast.hpp>
-#include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/assert/pre_message.hpp>
+#include <fcppt/math/vector/basic_impl.hpp>
+#include <fcppt/math/vector/structure_cast.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <boost/next_prior.hpp>
+#include <fcppt/config/external_end.hpp>
+
 
 fruitapp::fruit::mesh const
 fruitapp::fruit::model_to_mesh(

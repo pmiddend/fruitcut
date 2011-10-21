@@ -3,22 +3,25 @@
 #include <fruitlib/pp/dependency_set.hpp>
 #include <fruitlib/pp/texture/depth_stencil_format.hpp>
 #include <fruitlib/pp/texture/use_screen_size.hpp>
+#include <sge/image/colors.hpp>
 #include <sge/parse/json/find_and_convert_member.hpp>
+#include <sge/parse/json/object_fwd.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/dim2.hpp>
 #include <sge/renderer/scalar.hpp>
-#include <sge/renderer/state/list.hpp>
-#include <sge/renderer/state/trampoline.hpp>
-#include <sge/renderer/state/depth_func.hpp>
 #include <sge/renderer/state/bool.hpp>
 #include <sge/renderer/state/color.hpp>
+#include <sge/renderer/state/depth_func.hpp>
 #include <sge/renderer/state/float.hpp>
-#include <sge/parse/json/object_fwd.hpp>
-#include <sge/image/colors.hpp>
+#include <sge/renderer/state/list.hpp>
+#include <sge/renderer/state/trampoline.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/function/object.hpp>
 #include <fcppt/assign/make_container.hpp>
+#include <fcppt/function/object.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <iostream>
+#include <fcppt/config/external_end.hpp>
+
 
 fruitapp::postprocessing::postprocessing(
 	fruitlib::scenic::optional_parent const &_parent,

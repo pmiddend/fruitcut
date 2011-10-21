@@ -1,5 +1,5 @@
-#include <fruitlib/pp/filter/ssaa.hpp>
 #include <fruitlib/pp/filter/manager.hpp>
+#include <fruitlib/pp/filter/ssaa.hpp>
 #include <fruitlib/pp/texture/instance.hpp>
 #include <fruitlib/pp/texture/manager.hpp>
 #include <sge/image/color/format.hpp>
@@ -7,17 +7,20 @@
 #include <sge/renderer/scoped_block.hpp>
 #include <sge/renderer/scoped_target.hpp>
 #include <sge/renderer/scoped_vertex_buffer.hpp>
-#include <sge/renderer/texture/planar.hpp>
-#include <sge/renderer/texture/planar_ptr.hpp>
+#include <sge/renderer/scoped_vertex_declaration.hpp>
 #include <sge/renderer/vector2.hpp>
 #include <sge/renderer/vertex_buffer.hpp>
-#include <sge/renderer/scoped_vertex_declaration.hpp>
-#include <sge/shader/scoped.hpp>
+#include <sge/renderer/texture/planar.hpp>
+#include <sge/renderer/texture/planar_ptr.hpp>
 #include <sge/shader/activate_everything.hpp>
 #include <sge/shader/object.hpp>
+#include <sge/shader/scoped.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <iostream>
+#include <fcppt/config/external_end.hpp>
+
 
 fruitlib::pp::filter::ssaa::ssaa(
 	sge::renderer::device &_renderer,

@@ -1,5 +1,6 @@
 #include <fruitlib/pp/texture/instance.hpp>
 
+
 fruitlib::pp::texture::instance::instance(
 	fruitlib::pp::texture::descriptor const &_descriptor,
 	sge::renderer::texture::planar_ptr const _texture,

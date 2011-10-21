@@ -4,6 +4,7 @@
 #include <fruitapp/fruit/model_vf/part.hpp>
 #include <sge/renderer/vf/view.hpp>
 
+
 namespace fruitapp
 {
 namespace fruit

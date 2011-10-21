@@ -4,6 +4,7 @@
 #include <fruitlib/physics/rigid_body/mass.hpp>
 #include <fcppt/optional.hpp>
 
+
 namespace fruitlib
 {
 namespace physics

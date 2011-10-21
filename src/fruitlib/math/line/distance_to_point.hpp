@@ -2,10 +2,11 @@
 #define FRUITLIB_MATH_LINE_DISTANCE_TO_POINT_HPP_INCLUDED
 
 #include <fruitlib/math/line/basic.hpp>
-#include <fcppt/math/vector/arithmetic.hpp>
-#include <fcppt/math/vector/length.hpp>
-#include <fcppt/math/vector/dot.hpp>
 #include <fcppt/math/size_type.hpp>
+#include <fcppt/math/vector/arithmetic.hpp>
+#include <fcppt/math/vector/dot.hpp>
+#include <fcppt/math/vector/length.hpp>
+
 
 namespace fruitlib
 {

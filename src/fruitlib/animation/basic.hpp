@@ -1,14 +1,17 @@
 #ifndef FRUITLIB_ANIMATION_BASIC_HPP_INCLUDED
 #define FRUITLIB_ANIMATION_BASIC_HPP_INCLUDED
 
-#include <fruitlib/animation/keyframe.hpp>
 #include <fruitlib/exception.hpp>
+#include <fruitlib/animation/keyframe.hpp>
 #include <sge/timer/basic.hpp>
-#include <sge/timer/parameters.hpp>
 #include <sge/timer/elapsed_fractional.hpp>
+#include <sge/timer/parameters.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <boost/next_prior.hpp>
 #include <vector>
+#include <fcppt/config/external_end.hpp>
+
 
 namespace fruitlib
 {

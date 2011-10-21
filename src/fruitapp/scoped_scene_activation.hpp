@@ -4,6 +4,7 @@
 #include <fruitapp/scene_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 
+
 namespace fruitapp
 {
 class scoped_scene_activation

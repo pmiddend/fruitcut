@@ -1,18 +1,19 @@
 #include <fruitapp/overlay.hpp>
 #include <fruitapp/postprocessing.hpp>
 #include <fruitlib/scenic/events/render.hpp>
-#include <sge/renderer/viewport_size.hpp>
-#include <sge/renderer/state/list.hpp>
-#include <sge/renderer/state/depth_func.hpp>
-#include <sge/renderer/state/bool.hpp>
-#include <sge/renderer/state/color.hpp>
-#include <sge/renderer/state/float.hpp>
-#include <sge/renderer/state/scoped.hpp>
-#include <sge/renderer/state/trampoline.hpp>
+#include <sge/image/colors.hpp>
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/scoped_block.hpp>
-#include <sge/image/colors.hpp>
+#include <sge/renderer/viewport_size.hpp>
+#include <sge/renderer/state/bool.hpp>
+#include <sge/renderer/state/color.hpp>
+#include <sge/renderer/state/depth_func.hpp>
+#include <sge/renderer/state/float.hpp>
+#include <sge/renderer/state/list.hpp>
+#include <sge/renderer/state/scoped.hpp>
+#include <sge/renderer/state/trampoline.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
+
 
 fruitapp::overlay::overlay(
 	fruitlib::scenic::optional_parent const &_parent,

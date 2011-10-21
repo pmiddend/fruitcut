@@ -6,6 +6,7 @@
 #include <sge/renderer/vertex_buffer_ptr.hpp>
 #include <sge/renderer/vertex_declaration_fwd.hpp>
 
+
 namespace fruitapp
 {
 namespace fruit

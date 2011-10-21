@@ -1,14 +1,17 @@
 #include <fruitapp/config_variables.hpp>
 #include <fruitapp/name.hpp>
-#include <sge/parse/json/path.hpp>
-#include <sge/parse/json/output_tabbed.hpp>
 #include <sge/config/config_path.hpp>
 #include <sge/parse/json/object_fwd.hpp>
+#include <sge/parse/json/output_tabbed.hpp>
+#include <sge/parse/json/path.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/io/ofstream.hpp>
-#include <fcppt/text.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <iostream>
+#include <fcppt/config/external_end.hpp>
+
 
 fruitapp::config_variables::destructor_write_hack::destructor_write_hack(
 	sge::parse::json::object &_user_config_file)

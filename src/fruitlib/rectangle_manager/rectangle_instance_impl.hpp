@@ -3,6 +3,7 @@
 
 #include <fruitlib/rectangle_manager/object_impl.hpp>
 
+
 template<typename T>
 fruitlib::rectangle_manager::rectangle_instance<T>::rectangle_instance(
 	manager_object &_manager,

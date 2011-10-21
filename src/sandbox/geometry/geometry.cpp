@@ -1,14 +1,17 @@
-#include <fruitlib/geometry_traits/vector.hpp>
 #include <fruitlib/geometry_traits/box.hpp>
+#include <fruitlib/geometry_traits/vector.hpp>
+#include <fcppt/math/box/basic_impl.hpp>
+#include <fcppt/math/box/output.hpp>
+#include <fcppt/math/vector/basic_impl.hpp>
+#include <fcppt/math/vector/static.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <boost/geometry/geometry.hpp>
 #include <boost/geometry/multi/multi.hpp>
 #include <boost/geometry/multi/geometries/multi_point.hpp>
-#include <fcppt/math/vector/basic_impl.hpp>
-#include <fcppt/math/vector/static.hpp>
-#include <fcppt/math/box/basic_impl.hpp>
-#include <fcppt/math/box/output.hpp>
-#include <vector>
 #include <iostream>
+#include <vector>
+#include <fcppt/config/external_end.hpp>
+
 
 int main()
 {

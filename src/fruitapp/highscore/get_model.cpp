@@ -1,13 +1,16 @@
-#include <fruitapp/highscore/get_model.hpp>
 #include <fruitapp/gui/table/column.hpp>
-#include <fcppt/assign/make_container.hpp>
-#include <fcppt/insert_to_fcppt_string.hpp>
+#include <fruitapp/highscore/get_model.hpp>
 #include <fcppt/from_std_string.hpp>
+#include <fcppt/insert_to_fcppt_string.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/assign/make_container.hpp>
 #include <fcppt/signal/auto_connection.hpp>
-#include <boost/date_time/posix_time/posix_time.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <boost/date_time/c_local_time_adjustor.hpp>
+#include <boost/date_time/posix_time/posix_time.hpp>
 #include <iterator>
+#include <fcppt/config/external_end.hpp>
+
 
 fruitapp::highscore::get_model::get_model()
 :

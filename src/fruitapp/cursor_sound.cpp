@@ -1,8 +1,8 @@
-#include <fcppt/chrono/milliseconds.hpp>
-#include <fcppt/math/box/basic_impl.hpp>
-#include <fcppt/math/vector/arithmetic.hpp>
-#include <fcppt/math/vector/length.hpp>
-#include <fcppt/math/vector/structure_cast.hpp>
+#include <fruitapp/cursor_sound.hpp>
+#include <fruitapp/ingame_clock.hpp>
+#include <fruitapp/ingame_timer.hpp>
+#include <fruitlib/audio/sound_controller.hpp>
+#include <fruitlib/scenic/events/update.hpp>
 #include <sge/input/cursor/object.hpp>
 #include <sge/input/cursor/position.hpp>
 #include <sge/input/cursor/position_unit.hpp>
@@ -11,11 +11,12 @@
 #include <sge/renderer/pixel_rect.hpp>
 #include <sge/timer/basic.hpp>
 #include <sge/timer/reset_when_expired.hpp>
-#include <fruitlib/audio/sound_controller.hpp>
-#include <fruitlib/scenic/events/update.hpp>
-#include <fruitapp/cursor_sound.hpp>
-#include <fruitapp/ingame_clock.hpp>
-#include <fruitapp/ingame_timer.hpp>
+#include <fcppt/chrono/milliseconds.hpp>
+#include <fcppt/math/box/basic_impl.hpp>
+#include <fcppt/math/vector/arithmetic.hpp>
+#include <fcppt/math/vector/length.hpp>
+#include <fcppt/math/vector/structure_cast.hpp>
+
 
 fruitapp::cursor_sound::cursor_sound(
 	fruitlib::scenic::optional_parent const &_parent,

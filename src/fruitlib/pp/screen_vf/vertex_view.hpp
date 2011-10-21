@@ -4,6 +4,7 @@
 #include <fruitlib/pp/screen_vf/part.hpp>
 #include <sge/renderer/vf/view.hpp>
 
+
 namespace fruitlib
 {
 namespace pp

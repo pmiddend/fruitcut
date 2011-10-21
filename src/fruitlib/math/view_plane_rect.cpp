@@ -1,5 +1,6 @@
-#include <fruitlib/math/view_plane_rect.hpp>
 #include <fruitlib/math/view_plane_distance.hpp>
+#include <fruitlib/math/view_plane_rect.hpp>
+
 
 fcppt::math::box::basic<sge::renderer::scalar,2> const
 fruitlib::math::view_plane_rect(

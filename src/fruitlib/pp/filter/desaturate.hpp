@@ -1,16 +1,17 @@
 #ifndef FRUITLIB_PP_FILTER_DESATURATE_HPP_INCLUDED
 #define FRUITLIB_PP_FILTER_DESATURATE_HPP_INCLUDED
 
-#include <fruitlib/pp/filter/unary.hpp>
 #include <fruitlib/pp/filter/manager_fwd.hpp>
+#include <fruitlib/pp/filter/unary.hpp>
 #include <fruitlib/pp/texture/manager_fwd.hpp>
 #include <sge/renderer/device_fwd.hpp>
-#include <sge/renderer/target_ptr.hpp>
-#include <sge/renderer/scalar.hpp>
 #include <sge/renderer/dim2.hpp>
+#include <sge/renderer/scalar.hpp>
+#include <sge/renderer/target_ptr.hpp>
 #include <sge/shader/object_fwd.hpp>
-#include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
+
 
 namespace fruitlib
 {

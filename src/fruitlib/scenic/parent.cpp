@@ -1,5 +1,6 @@
 #include <fruitlib/scenic/parent.hpp>
 
+
 fruitlib::scenic::parent::parent(
 	scenic::base &_object,
 	scenic::depth const &_depth)

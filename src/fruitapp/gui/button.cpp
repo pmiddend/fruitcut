@@ -1,10 +1,13 @@
 #include <fruitapp/gui/button.hpp>
 #include <fruitlib/audio/sound_controller.hpp>
 #include <fruitlib/resource_tree/path.hpp>
-#include <elements/CEGUIPushButton.h>
-#include <fcppt/tr1/functional.hpp>
-#include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/signal/auto_connection.hpp>
+#include <fcppt/tr1/functional.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <elements/CEGUIPushButton.h>
+#include <fcppt/config/external_end.hpp>
+
 
 fruitapp::gui::button::button(
 	fruitlib::audio::sound_controller &_sound_controller,

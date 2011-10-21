@@ -1,26 +1,29 @@
 #ifndef FRUITAPP_STATES_INGAME_RUNNING_HPP_INCLUDED
 #define FRUITAPP_STATES_INGAME_RUNNING_HPP_INCLUDED
 
-#include <fruitapp/states/ingame/superstate.hpp>
-#include <fruitapp/states/ingame/paused_fwd.hpp>
-#include <fruitapp/sword_trail.hpp>
 #include <fruitapp/cursor_sound.hpp>
 #include <fruitapp/cursor_trail.hpp>
-#include <fruitapp/states/gameover/superstate_fwd.hpp>
-#include <fruitapp/fruit/object_fwd.hpp>
-#include <fruitapp/events/declare_transition_type.hpp>
+#include <fruitapp/sword_trail.hpp>
 #include <fruitapp/events/declare_transition_reaction.hpp>
-#include <fruitlib/scenic/adaptors/line_drawer.hpp>
+#include <fruitapp/events/declare_transition_type.hpp>
+#include <fruitapp/fruit/object_fwd.hpp>
+#include <fruitapp/states/gameover/superstate_fwd.hpp>
+#include <fruitapp/states/ingame/paused_fwd.hpp>
+#include <fruitapp/states/ingame/superstate.hpp>
 #include <fruitlib/scenic/node.hpp>
+#include <fruitlib/scenic/adaptors/line_drawer.hpp>
 #include <fruitlib/scenic/events/update.hpp>
 #include <fruitlib/scenic/events/viewport_change.hpp>
+#include <sge/line_drawer/line_sequence.hpp>
 #include <sge/line_drawer/object.hpp>
 #include <sge/renderer/state/scoped.hpp>
-#include <sge/line_drawer/line_sequence.hpp>
-#include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <boost/statechart/state.hpp>
+#include <fcppt/signal/scoped_connection.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
+#include <boost/statechart/state.hpp>
+#include <fcppt/config/external_end.hpp>
+
 
 namespace fruitapp
 {

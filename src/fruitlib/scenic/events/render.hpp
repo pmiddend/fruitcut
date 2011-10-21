@@ -4,6 +4,7 @@
 #include <fruitlib/scenic/events/base.hpp>
 #include <fcppt/noncopyable.hpp>
 
+
 namespace fruitlib
 {
 namespace scenic

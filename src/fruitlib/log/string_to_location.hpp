@@ -1,9 +1,10 @@
 #ifndef FRUITLIB_LOG_STRING_TO_LOCATION_HPP_INCLUDED
 #define FRUITLIB_LOG_STRING_TO_LOCATION_HPP_INCLUDED
 
-#include <fcppt/log/location.hpp>
-#include <fcppt/string.hpp>
 #include <fcppt/char_type.hpp>
+#include <fcppt/string.hpp>
+#include <fcppt/log/location.hpp>
+
 
 namespace fruitlib
 {

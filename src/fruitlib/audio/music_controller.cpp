@@ -1,29 +1,31 @@
-#include <fruitlib/audio/music_controller.hpp>
 #include <fruitlib/exception.hpp>
+#include <fruitlib/audio/music_controller.hpp>
 #include <fruitlib/resource_tree/from_directory_tree.hpp>
 #include <fruitlib/resource_tree/navigate_to_path.hpp>
 #include <fruitlib/resource_tree/path.hpp>
-#include <sge/audio/sound/repeat.hpp>
-#include <sge/audio/sound/base.hpp>
+#include <sge/audio/buffer.hpp>
+#include <sge/audio/multi_loader.hpp>
 #include <sge/audio/player.hpp>
 #include <sge/audio/scalar.hpp>
-#include <sge/audio/multi_loader.hpp>
-#include <sge/audio/buffer.hpp>
-#include <sge/timer/parameters.hpp>
+#include <sge/audio/sound/base.hpp>
+#include <sge/audio/sound/repeat.hpp>
 #include <sge/timer/elapsed_fractional.hpp>
+#include <sge/timer/parameters.hpp>
 #include <sge/timer/remaining_fractional.hpp>
+#include <fcppt/ref.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/io/cout.hpp>
-#include <fcppt/tr1/functional.hpp>
 #include <fcppt/assert/error.hpp>
 #include <fcppt/filesystem/directory_iterator.hpp>
 #include <fcppt/filesystem/path.hpp>
-#include <fcppt/ref.hpp>
+#include <fcppt/io/cout.hpp>
 #include <fcppt/random/make_last_exclusive_range.hpp>
-#include <fcppt/filesystem/directory_iterator.hpp>
+#include <fcppt/tr1/functional.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <boost/next_prior.hpp>
-#include <iterator>
 #include <iostream>
+#include <iterator>
+#include <fcppt/config/external_end.hpp>
+
 
 namespace
 {

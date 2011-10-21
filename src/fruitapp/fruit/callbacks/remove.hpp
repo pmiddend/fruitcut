@@ -4,6 +4,7 @@
 #include <fruitapp/fruit/callbacks/remove_fn.hpp>
 #include <fcppt/function/object.hpp>
 
+
 namespace fruitapp
 {
 namespace fruit

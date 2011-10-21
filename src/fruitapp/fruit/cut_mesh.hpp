@@ -6,6 +6,7 @@
 #include <fruitapp/fruit/plane.hpp>
 #include <fcppt/unique_ptr.hpp>
 
+
 namespace fruitapp
 {
 namespace fruit

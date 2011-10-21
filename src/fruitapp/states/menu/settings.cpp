@@ -1,18 +1,21 @@
 #include "../../../media_path.hpp"
-#include <fruitapp/states/menu/settings.hpp>
-#include <fruitapp/states/menu/main.hpp>
 #include <fruitapp/config_variables.hpp>
 #include <fruitapp/events/define_transition_reaction.hpp>
-#include <fruitapp/events/return_post_transition_functor.hpp>
 #include <fruitapp/events/post_transition.hpp>
-#include <fruitlib/resource_tree/path.hpp>
+#include <fruitapp/events/return_post_transition_functor.hpp>
+#include <fruitapp/states/menu/main.hpp>
+#include <fruitapp/states/menu/settings.hpp>
 #include <fruitlib/audio/sound_controller.hpp>
-#include <sge/systems/instance.hpp>
+#include <fruitlib/resource_tree/path.hpp>
 #include <sge/audio/scalar.hpp>
 #include <sge/cegui/system.hpp>
+#include <sge/systems/instance.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/tr1/functional.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <CEGUIWindowManager.h>
+#include <fcppt/config/external_end.hpp>
+
 
 fruitapp::states::menu::settings::settings(
 	my_context ctx)

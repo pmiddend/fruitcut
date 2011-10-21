@@ -1,14 +1,17 @@
 #ifndef FRUITLIB_RECTANGLE_MANAGER_OBJECT_IMPL_HPP_INCLUDED
 #define FRUITLIB_RECTANGLE_MANAGER_OBJECT_IMPL_HPP_INCLUDED
 
-#include <fruitlib/rectangle_manager/object_decl.hpp>
 #include <fruitlib/exception.hpp>
-#include <fcppt/algorithm/ptr_container_erase.hpp>
-#include <fcppt/math/vector/length.hpp>
+#include <fruitlib/rectangle_manager/object_decl.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/algorithm/ptr_container_erase.hpp>
 #include <fcppt/chrono/duration.hpp>
+#include <fcppt/math/vector/length.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <boost/next_prior.hpp>
+#include <fcppt/config/external_end.hpp>
+
 
 template<typename T>
 fruitlib::rectangle_manager::object<T>::object(

@@ -3,7 +3,10 @@
 
 #include <fruitlib/time_format/formatter_fwd.hpp>
 #include <fruitlib/time_format/grammar.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <boost/proto/proto.hpp>
+#include <fcppt/config/external_end.hpp>
+
 
 namespace fruitlib
 {

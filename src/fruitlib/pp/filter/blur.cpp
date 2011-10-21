@@ -1,28 +1,31 @@
 #include <fruitlib/pp/filter/blur.hpp>
 #include <fruitlib/pp/filter/manager.hpp>
-#include <fruitlib/pp/texture/manager.hpp>
-#include <fruitlib/pp/texture/instance.hpp>
 #include <fruitlib/pp/texture/descriptor.hpp>
+#include <fruitlib/pp/texture/instance.hpp>
+#include <fruitlib/pp/texture/manager.hpp>
 #include <sge/image/color/format.hpp>
-#include <sge/renderer/glsl/scoped_program.hpp>
 #include <sge/renderer/resource_flags_none.hpp>
 #include <sge/renderer/scoped_block.hpp>
 #include <sge/renderer/scoped_target.hpp>
+#include <sge/renderer/vector2.hpp>
+#include <sge/renderer/glsl/scoped_program.hpp>
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/planar_ptr.hpp>
-#include <sge/renderer/vector2.hpp>
-#include <sge/shader/object.hpp>
-#include <sge/shader/update_single_uniform.hpp>
-#include <sge/shader/scoped.hpp>
 #include <sge/shader/activate_everything.hpp>
-#include <fcppt/assign/make_array.hpp>
-#include <fcppt/assign/make_container.hpp>
-#include <fcppt/math/dim/structure_cast.hpp>
-#include <fcppt/math/dim/dim.hpp>
-#include <fcppt/assert/pre.hpp>
+#include <sge/shader/object.hpp>
+#include <sge/shader/scoped.hpp>
+#include <sge/shader/update_single_uniform.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/ref.hpp>
+#include <fcppt/assert/pre.hpp>
+#include <fcppt/assign/make_array.hpp>
+#include <fcppt/assign/make_container.hpp>
+#include <fcppt/math/dim/dim.hpp>
+#include <fcppt/math/dim/structure_cast.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <iostream>
+#include <fcppt/config/external_end.hpp>
+
 
 fruitlib::pp::filter::blur::blur(
 	sge::renderer::device &_renderer,

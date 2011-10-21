@@ -1,13 +1,16 @@
 #ifndef FRUITLIB_MATH_BOX_RADIUS_HPP_INCLUDED
 #define FRUITLIB_MATH_BOX_RADIUS_HPP_INCLUDED
 
-#include <fcppt/math/vector/length.hpp>
 #include <fcppt/math/size_type.hpp>
-#include <fcppt/math/dim/structure_cast.hpp>
-#include <fcppt/math/dim/arithmetic.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
-#include <boost/utility/enable_if.hpp>
+#include <fcppt/math/dim/arithmetic.hpp>
+#include <fcppt/math/dim/structure_cast.hpp>
+#include <fcppt/math/vector/length.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <boost/type_traits/is_floating_point.hpp>
+#include <boost/utility/enable_if.hpp>
+#include <fcppt/config/external_end.hpp>
+
 
 namespace fruitlib
 {

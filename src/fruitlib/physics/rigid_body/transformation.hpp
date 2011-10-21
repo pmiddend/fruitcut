@@ -5,6 +5,7 @@
 #include <fcppt/strong_typedef.hpp>
 #include <fcppt/math/matrix/basic_impl.hpp>
 
+
 namespace fruitlib
 {
 namespace physics

@@ -1,6 +1,7 @@
 #include <fruitlib/pp/filter/wrapper.hpp>
-#include <fcppt/assert/error.hpp>
 #include <fcppt/string.hpp>
+#include <fcppt/assert/error.hpp>
+
 
 fruitlib::pp::filter::wrapper::wrapper()
 :

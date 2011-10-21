@@ -1,28 +1,30 @@
-#include <fruitapp/highscore/provider/net/connection.hpp>
 #include <fruitapp/current_commit.hpp>
 #include <fruitapp/highscore/json_to_entry_set.hpp>
-#include <sge/parse/json/find_and_convert_member.hpp>
-#include <sge/parse/json/path.hpp>
-#include <sge/parse/json/object.hpp>
+#include <fruitapp/highscore/provider/net/connection.hpp>
 #include <sge/parse/json/array.hpp>
-#include <sge/parse/json/parse_range.hpp>
+#include <sge/parse/json/find_and_convert_member.hpp>
 #include <sge/parse/json/find_member.hpp>
-#include <fcppt/to_std_string.hpp>
+#include <sge/parse/json/object.hpp>
+#include <sge/parse/json/parse_range.hpp>
+#include <sge/parse/json/path.hpp>
+#include <fcppt/from_std_string.hpp>
 #include <fcppt/insert_to_fcppt_string.hpp>
 #include <fcppt/insert_to_std_string.hpp>
+#include <fcppt/optional.hpp>
 #include <fcppt/string.hpp>
+#include <fcppt/to_std_string.hpp>
 #include <fcppt/io/cerr.hpp>
+#include <fcppt/io/istringstream.hpp>
+#include <fcppt/signal/auto_connection.hpp>
+#include <fcppt/tr1/functional.hpp>
 #include <fcppt/utf8/from_fcppt_string.hpp>
 #include <fcppt/utf8/from_std_string.hpp>
 #include <fcppt/utf8/to_fcppt_string.hpp>
-#include <fcppt/tr1/functional.hpp>
-#include <fcppt/from_std_string.hpp>
-#include <fcppt/io/istringstream.hpp>
-#include <fcppt/to_std_string.hpp>
-#include <fcppt/signal/auto_connection.hpp>
-#include <fcppt/optional.hpp>
-#include <string>
+#include <fcppt/config/external_begin.hpp>
 #include <iomanip>
+#include <string>
+#include <fcppt/config/external_end.hpp>
+
 
 namespace
 {

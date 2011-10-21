@@ -1,29 +1,32 @@
 #ifndef FRUITLIB_FONT_DRAWER_OBJECT_HPP_INCLUDED
 #define FRUITLIB_FONT_DRAWER_OBJECT_HPP_INCLUDED
 
-#include <fruitlib/font/drawer/transform_callback.hpp>
-#include <fruitlib/font/drawer/parameters_fwd.hpp>
 #include <fruitlib/font/color.hpp>
 #include <fruitlib/font/color_format.hpp>
+#include <fruitlib/font/drawer/parameters_fwd.hpp>
+#include <fruitlib/font/drawer/transform_callback.hpp>
 #include <sge/font/text/drawer.hpp>
-#include <sge/texture/const_part_ptr.hpp>
-#include <sge/texture/manager.hpp>
+#include <sge/image/color/rgba8_format.hpp>
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/sprite/choices.hpp>
+#include <sge/sprite/external_system_impl.hpp>
+#include <sge/sprite/object.hpp>
+#include <sge/sprite/system.hpp>
 #include <sge/sprite/type_choices.hpp>
 #include <sge/sprite/with_color.hpp>
 #include <sge/sprite/with_dim.hpp>
 #include <sge/sprite/with_texture.hpp>
-#include <sge/sprite/system.hpp>
-#include <sge/sprite/external_system_impl.hpp>
-#include <sge/sprite/object.hpp>
-#include <sge/image/color/rgba8_format.hpp>
-#include <fcppt/variant/object_impl.hpp>
+#include <sge/texture/const_part_ptr.hpp>
+#include <sge/texture/manager.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
+#include <fcppt/variant/object_impl.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <map>
 #include <vector>
+#include <fcppt/config/external_end.hpp>
+
 
 namespace fruitlib
 {

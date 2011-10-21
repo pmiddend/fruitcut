@@ -5,6 +5,7 @@
 #include <fruitlib/scenic/depth.hpp>
 #include <fcppt/nonassignable.hpp>
 
+
 namespace fruitlib
 {
 namespace scenic

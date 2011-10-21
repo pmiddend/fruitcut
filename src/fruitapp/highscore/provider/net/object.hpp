@@ -1,13 +1,14 @@
 #ifndef FRUITAPP_HIGHSCORE_PROVIDER_NET_OBJECT_HPP_INCLUDED
 #define FRUITAPP_HIGHSCORE_PROVIDER_NET_OBJECT_HPP_INCLUDED
 
-#include <fruitapp/highscore/provider/net/port.hpp>
-#include <fruitapp/highscore/provider/net/host.hpp>
-#include <fruitapp/highscore/provider/object_base.hpp>
-#include <fruitapp/highscore/provider/identifier.hpp>
 #include <fruitapp/highscore/provider/connection_base_ptr.hpp>
-#include <fcppt/string.hpp>
+#include <fruitapp/highscore/provider/identifier.hpp>
+#include <fruitapp/highscore/provider/object_base.hpp>
+#include <fruitapp/highscore/provider/net/host.hpp>
+#include <fruitapp/highscore/provider/net/port.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/string.hpp>
+
 
 namespace fruitapp
 {

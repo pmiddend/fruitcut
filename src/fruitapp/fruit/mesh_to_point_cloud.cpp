@@ -1,6 +1,7 @@
-#include <fruitapp/fruit/mesh_to_point_cloud.hpp>
 #include <fruitapp/fruit/mesh.hpp>
+#include <fruitapp/fruit/mesh_to_point_cloud.hpp>
 #include <fruitapp/fruit/triangle.hpp>
+
 
 fruitapp::fruit::point_cloud const
 fruitapp::fruit::mesh_to_point_cloud(

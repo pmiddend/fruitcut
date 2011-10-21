@@ -4,6 +4,7 @@
 #include <sge/font/text/draw.hpp>
 #include <sge/font/text/part.hpp>
 
+
 fruitlib::font::object::object(
 	font::object_parameters const &p)
 :

@@ -1,11 +1,14 @@
 #ifndef FRUITLIB_TIME_FORMAT_STRING_TO_DURATION_EXN_HPP_INCLUDED
 #define FRUITLIB_TIME_FORMAT_STRING_TO_DURATION_EXN_HPP_INCLUDED
 
-#include <fruitlib/time_format/string_to_duration.hpp>
 #include <fruitlib/exception.hpp>
+#include <fruitlib/time_format/string_to_duration.hpp>
 #include <fcppt/optional.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <string>
+#include <fcppt/config/external_end.hpp>
+
 
 namespace fruitlib
 {

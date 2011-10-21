@@ -1,5 +1,8 @@
-#include <fruitserver/program_options/make_command_line_parameters.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <fruitserver/program_options/command_line_parameters.hpp>
+#include <fruitserver/program_options/make_command_line_parameters.hpp>
+#include <fcppt/config/external_end.hpp>
+
 
 fruitserver::program_options::command_line_parameters const
 fruitserver::program_options::make_command_line_parameters(

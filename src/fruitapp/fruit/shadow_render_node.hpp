@@ -5,14 +5,17 @@
 #include <fruitlib/scenic/node.hpp>
 #include <fruitlib/scenic/optional_parent.hpp>
 #include <fruitlib/scenic/events/render.hpp>
-#include <sge/renderer/device_fwd.hpp>
-#include <sge/renderer/vertex_declaration_fwd.hpp>
-#include <sge/renderer/matrix4.hpp>
 #include <sge/camera/first_person/object_fwd.hpp>
+#include <sge/renderer/device_fwd.hpp>
+#include <sge/renderer/matrix4.hpp>
+#include <sge/renderer/vertex_declaration_fwd.hpp>
 #include <sge/shader/object.hpp>
-#include <fcppt/math/matrix/basic_impl.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/math/matrix/basic_impl.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
+#include <fcppt/config/external_end.hpp>
+
 
 namespace fruitapp
 {

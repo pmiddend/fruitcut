@@ -1,11 +1,14 @@
-#include <fruitserver/highscore_to_plain_file.hpp>
-#include <fruitserver/separator.hpp>
-#include <fruitserver/lexical_cast.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <fruitserver/byte_sequence.hpp>
+#include <fruitserver/highscore_to_plain_file.hpp>
+#include <fruitserver/lexical_cast.hpp>
+#include <fruitserver/separator.hpp>
 #include <fruitserver/ascii/from_native.hpp>
 #include <fruitserver/ascii/to_byte_sequence.hpp>
 #include <fstream>
 #include <stdexcept>
+#include <fcppt/config/external_end.hpp>
+
 
 void
 fruitserver::highscore_to_plain_file(

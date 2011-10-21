@@ -4,6 +4,7 @@
 #include <fruitlib/font/drawer/transform_callback_fn.hpp>
 #include <fcppt/function/object.hpp>
 
+
 namespace fruitlib
 {
 namespace font

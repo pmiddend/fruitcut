@@ -1,5 +1,6 @@
 #include <fruitlib/physics/rigid_body/parameters.hpp>
 
+
 fruitlib::physics::rigid_body::parameters::parameters(
 	rigid_body::position const &_position,
 	rigid_body::transformation const &_transformation,

@@ -1,38 +1,41 @@
-#include <fcppt/math/vector/arithmetic.hpp>
 #include <fruitapp/splatter_generator.hpp>
-#include <fruitapp/fruit/mesh.hpp>
 #include <fruitapp/fruit/cut_context.hpp>
-#include <fruitapp/fruit/triangle_traits.hpp>
+#include <fruitapp/fruit/mesh.hpp>
 #include <fruitapp/fruit/object.hpp>
 #include <fruitapp/fruit/prototype.hpp>
+#include <fruitapp/fruit/triangle_traits.hpp>
 #include <fruitapp/point_sprite/color.hpp>
 #include <fruitapp/point_sprite/system_node.hpp>
 #include <fruitapp/point_sprite/unique_base_ptr.hpp>
+#include <fruitapp/point_sprite/splatter/linear_velocity.hpp>
 #include <fruitapp/point_sprite/splatter/object.hpp>
 #include <fruitapp/point_sprite/splatter/parameters.hpp>
 #include <fruitapp/point_sprite/splatter/position.hpp>
-#include <fruitapp/point_sprite/splatter/linear_velocity.hpp>
 #include <fruitapp/point_sprite/splatter/size.hpp>
-#include <fruitlib/math/triangle/random_point.hpp>
-#include <fruitlib/math/multiply_matrix4_vector3.hpp>
 #include <fruitlib/uniform_random.hpp>
-#include <fruitlib/resource_tree/path.hpp>
 #include <fruitlib/json/parse_random_inclusive_range.hpp>
-#include <sge/parse/json/config/user_config_variable.hpp>
+#include <fruitlib/math/multiply_matrix4_vector3.hpp>
+#include <fruitlib/math/triangle/random_point.hpp>
+#include <fruitlib/resource_tree/path.hpp>
+#include <sge/image/color/any/convert.hpp>
+#include <sge/parse/json/array.hpp>
 #include <sge/parse/json/find_and_convert_member.hpp>
 #include <sge/parse/json/object.hpp>
-#include <sge/parse/json/array.hpp>
+#include <sge/parse/json/config/user_config_variable.hpp>
 #include <sge/renderer/scalar.hpp>
-#include <sge/image/color/any/convert.hpp>
 #include <sge/renderer/vector3.hpp>
 #include <mizuiro/color/channel/alpha.hpp>
-#include <fcppt/random/make_last_exclusive_range.hpp>
-#include <fcppt/chrono/duration_cast.hpp>
-#include <fcppt/chrono/milliseconds.hpp>
-#include <fcppt/random/make_inclusive_range.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/chrono/duration_cast.hpp>
+#include <fcppt/chrono/milliseconds.hpp>
+#include <fcppt/math/vector/arithmetic.hpp>
+#include <fcppt/random/make_inclusive_range.hpp>
+#include <fcppt/random/make_last_exclusive_range.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <limits>
+#include <fcppt/config/external_end.hpp>
+
 
 fruitapp::splatter_generator::splatter_generator(
 	sge::parse::json::object const &config_file,

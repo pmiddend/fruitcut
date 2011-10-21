@@ -2,6 +2,7 @@
 #include <sge/audio/sound/base.hpp>
 #include <sge/audio/sound/play_status.hpp>
 
+
 fruitlib::audio::pool::pool()
 :
 	sounds_()

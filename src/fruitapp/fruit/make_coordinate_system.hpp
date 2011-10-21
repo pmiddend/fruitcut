@@ -1,21 +1,24 @@
 #ifndef FRUITAPP_FRUIT_MAKE_COORDINATE_SYSTEM_HPP_INCLUDED
 #define FRUITAPP_FRUIT_MAKE_COORDINATE_SYSTEM_HPP_INCLUDED
 
-#include <fruitlib/math/line/distance_to_point.hpp>
 #include <fruitlib/math/line/basic.hpp>
+#include <fruitlib/math/line/distance_to_point.hpp>
 #include <fcppt/optional.hpp>
-#include <fcppt/assert/pre.hpp>
 #include <fcppt/assert/error.hpp>
+#include <fcppt/assert/pre.hpp>
+#include <fcppt/assign/make_array.hpp>
+#include <fcppt/container/array.hpp>
+#include <fcppt/math/range_compare.hpp>
 #include <fcppt/math/matrix/basic_impl.hpp>
 #include <fcppt/math/matrix/static.hpp>
+#include <fcppt/math/vector/comparison.hpp>
 #include <fcppt/math/vector/cross.hpp>
 #include <fcppt/math/vector/normalize.hpp>
 #include <fcppt/math/vector/orthogonalize.hpp>
-#include <fcppt/math/vector/comparison.hpp>
-#include <fcppt/math/range_compare.hpp>
-#include <fcppt/assign/make_array.hpp>
-#include <fcppt/container/array.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/identity.hpp>
+#include <fcppt/config/external_end.hpp>
+
 
 namespace fruitapp
 {

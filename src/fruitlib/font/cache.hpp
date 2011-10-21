@@ -1,19 +1,22 @@
 #ifndef FRUITLIB_FONT_CACHE_HPP_INCLUDED
 #define FRUITLIB_FONT_CACHE_HPP_INCLUDED
 
-#include <fruitlib/font/drawer/object_fwd.hpp>
 #include <fruitlib/font/identifier.hpp>
-#include <sge/font/system_fwd.hpp>
+#include <fruitlib/font/drawer/object_fwd.hpp>
 #include <sge/font/metrics_ptr.hpp>
-#include <sge/renderer/device_fwd.hpp>
+#include <sge/font/system_fwd.hpp>
 #include <sge/image2d/multi_loader_fwd.hpp>
 #include <sge/parse/json/object_fwd.hpp>
-#include <fcppt/string.hpp>
+#include <sge/renderer/device_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/string.hpp>
 #include <fcppt/filesystem/path.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <boost/ptr_container/ptr_list.hpp>
 #include <list>
 #include <map>
+#include <fcppt/config/external_end.hpp>
+
 
 namespace fruitlib
 {

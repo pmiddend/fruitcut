@@ -1,6 +1,7 @@
 #include <fruitapp/point_sprite/splatter/parameters.hpp>
 #include <sge/texture/part_ptr.hpp>
 
+
 fruitapp::point_sprite::splatter::parameters::parameters(
 	point_sprite::system &_system,
 	point_sprite::splatter::position const &_position,

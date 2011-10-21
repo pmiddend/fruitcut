@@ -1,11 +1,12 @@
 #ifndef FRUITAPP_FRUIT_MATERIAL_OBJECT_HPP_INCLUDED
 #define FRUITAPP_FRUIT_MATERIAL_OBJECT_HPP_INCLUDED
 
-#include <fruitapp/fruit/material/diffuse_color.hpp>
 #include <fruitapp/fruit/material/diffuse_coefficient.hpp>
-#include <fruitapp/fruit/material/specular_color.hpp>
+#include <fruitapp/fruit/material/diffuse_color.hpp>
 #include <fruitapp/fruit/material/specular_coefficient.hpp>
+#include <fruitapp/fruit/material/specular_color.hpp>
 #include <fruitapp/fruit/material/specular_shininess.hpp>
+
 
 namespace fruitapp
 {

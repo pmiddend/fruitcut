@@ -3,7 +3,10 @@
 
 #include <fruitlib/physics/group/object_fwd.hpp>
 #include <fcppt/reference_wrapper.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <vector>
+#include <fcppt/config/external_end.hpp>
+
 
 namespace fruitlib
 {

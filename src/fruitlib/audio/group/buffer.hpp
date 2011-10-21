@@ -5,11 +5,14 @@
 #include <fruitlib/audio/group/sound_base_fwd.hpp>
 #include <fruitlib/audio/group/sound_positional_fwd.hpp>
 #include <sge/audio/buffer.hpp>
-#include <sge/audio/scalar.hpp>
 #include <sge/audio/buffer_ptr.hpp>
 #include <sge/audio/file_fwd.hpp>
+#include <sge/audio/scalar.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <boost/ptr_container/ptr_vector.hpp>
+#include <fcppt/config/external_end.hpp>
+
 
 namespace fruitlib
 {

@@ -2,9 +2,10 @@
 #define FRUITLIB_PHYSICS_RIGID_BODY_SCOPED_HPP_INCLUDED
 
 #include <fruitlib/physics/world_fwd.hpp>
-#include <fruitlib/physics/rigid_body/object_fwd.hpp>
 #include <fruitlib/physics/group/sequence.hpp>
+#include <fruitlib/physics/rigid_body/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
+
 
 namespace fruitlib
 {

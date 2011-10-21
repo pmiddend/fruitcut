@@ -4,6 +4,7 @@
 #include <fruitapp/gui/table/row_removed_fn.hpp>
 #include <fcppt/function/object.hpp>
 
+
 namespace fruitapp
 {
 namespace gui

@@ -1,6 +1,7 @@
 #include <fruitapp/scene.hpp>
 #include <fruitlib/scenic/events/render.hpp>
 
+
 fruitapp::scene::scene(
 	fruitlib::scenic::optional_parent const &_parent)
 :

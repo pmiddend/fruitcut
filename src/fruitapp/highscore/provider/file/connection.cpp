@@ -1,17 +1,20 @@
-#include <fruitapp/highscore/provider/file/connection.hpp>
 #include <fruitapp/highscore/json_to_entry_set.hpp>
+#include <fruitapp/highscore/provider/file/connection.hpp>
 #include <fruitlib/utf8_file_to_fcppt_string.hpp>
-#include <sge/parse/json/object.hpp>
 #include <sge/parse/json/array.hpp>
-#include <sge/parse/json/parse_range.hpp>
+#include <sge/parse/json/object.hpp>
 #include <sge/parse/json/parse_file.hpp>
+#include <sge/parse/json/parse_range.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/filesystem/path.hpp>
+#include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/signal/auto_connection.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <boost/date_time/posix_time/posix_time.hpp>
 #include <iterator>
+#include <fcppt/config/external_end.hpp>
+
 
 fruitapp::highscore::provider::file::connection::connection(
 	fcppt::filesystem::path const &_path)

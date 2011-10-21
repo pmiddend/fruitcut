@@ -6,7 +6,10 @@
 #include <fruitlib/scenic/events/render.hpp>
 #include <sge/console/gfx_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
+#include <fcppt/config/external_end.hpp>
+
 
 namespace fruitlib
 {

@@ -3,6 +3,7 @@
 
 #include <fruitapp/highscore/entry_set.hpp>
 
+
 namespace fruitapp
 {
 namespace highscore

@@ -4,6 +4,7 @@
 #include <fruitlib/font/color_format.hpp>
 #include <mizuiro/color/object.hpp>
 
+
 namespace fruitlib
 {
 namespace font

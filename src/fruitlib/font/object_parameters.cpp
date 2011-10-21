@@ -1,5 +1,6 @@
 #include <fruitlib/font/object_parameters.hpp>
 
+
 fruitlib::font::object_parameters::object_parameters(
 	sge::font::metrics_ptr const _metrics,
 	font::drawer::object &_drawer,

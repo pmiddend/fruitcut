@@ -4,6 +4,7 @@
 #include <fruitlib/physics/scalar.hpp>
 #include <fcppt/math/matrix/static.hpp>
 
+
 namespace fruitlib
 {
 namespace physics

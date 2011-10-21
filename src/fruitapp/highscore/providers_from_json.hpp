@@ -1,8 +1,9 @@
 #ifndef FRUITAPP_HIGHSCORE_PROVIDERS_FROM_JSON_HPP_INCLUDED
 #define FRUITAPP_HIGHSCORE_PROVIDERS_FROM_JSON_HPP_INCLUDED
 
-#include <sge/parse/json/object_fwd.hpp>
 #include <fruitapp/highscore/provider_sequence.hpp>
+#include <sge/parse/json/object_fwd.hpp>
+
 
 namespace fruitapp
 {

@@ -3,6 +3,7 @@
 
 #include <fruitlib/scenic/delta/clock_impl.hpp>
 
+
 namespace fruitlib
 {
 namespace scenic

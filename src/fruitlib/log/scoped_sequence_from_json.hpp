@@ -2,8 +2,9 @@
 #define FRUITLIB_LOG_SCOPED_SEQUENCE_FROM_JSON_HPP_INCLUDED
 
 #include <fruitlib/log/scoped_sequence_ptr.hpp>
-#include <fcppt/log/context_fwd.hpp>
 #include <sge/parse/json/array_fwd.hpp>
+#include <fcppt/log/context_fwd.hpp>
+
 
 namespace fruitlib
 {

@@ -3,6 +3,7 @@
 
 #include <fruitapp/gui/table/row_index.hpp>
 
+
 namespace fruitapp
 {
 namespace gui

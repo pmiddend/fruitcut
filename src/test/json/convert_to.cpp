@@ -1,16 +1,19 @@
 #include "json_equal.hpp"
+#include <sge/parse/json/array.hpp>
 #include <sge/parse/json/convert_to.hpp>
-#include <sge/parse/json/value.hpp>
 #include <sge/parse/json/int_type.hpp>
 #include <sge/parse/json/null.hpp>
 #include <sge/parse/json/object.hpp>
-#include <sge/parse/json/array.hpp>
-#include <fcppt/text.hpp>
+#include <sge/parse/json/value.hpp>
 #include <fcppt/string.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/container/array.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <boost/test/unit_test.hpp>
 #include <typeinfo>
 #include <vector>
+#include <fcppt/config/external_end.hpp>
+
 
 namespace sgejson = sge::parse::json;
 

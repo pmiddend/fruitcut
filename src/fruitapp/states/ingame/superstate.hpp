@@ -1,27 +1,30 @@
 #ifndef FRUITAPP_STATES_INGAME_SUPERSTATE_HPP_INCLUDED
 #define FRUITAPP_STATES_INGAME_SUPERSTATE_HPP_INCLUDED
 
-#include <fruitapp/states/ingame/running_fwd.hpp>
-#include <fruitapp/splatter_generator.hpp>
-#include <fruitapp/game_logic/object.hpp>
 #include <fruitapp/machine.hpp>
+#include <fruitapp/splatter_generator.hpp>
+#include <fruitapp/fruit/cut_context_fwd.hpp>
+#include <fruitapp/fruit/default_render_node.hpp>
 #include <fruitapp/fruit/manager.hpp>
 #include <fruitapp/fruit/object_fwd.hpp>
-#include <fruitapp/fruit/spawner.hpp>
-#include <fruitapp/fruit/default_render_node.hpp>
 #include <fruitapp/fruit/shadow_render_node.hpp>
-#include <fruitapp/fruit/cut_context_fwd.hpp>
-#include <fruitlib/physics/world.hpp>
-#include <fruitlib/physics/nodes/world.hpp>
-#include <fruitlib/physics/nodes/debugger.hpp>
-#include <fruitlib/physics/group/object.hpp>
-#include <fruitlib/physics/rigid_body/scoped.hpp>
+#include <fruitapp/fruit/spawner.hpp>
+#include <fruitapp/game_logic/object.hpp>
+#include <fruitapp/states/ingame/running_fwd.hpp>
 #include <fruitlib/physics/debugger.hpp>
+#include <fruitlib/physics/world.hpp>
+#include <fruitlib/physics/group/object.hpp>
+#include <fruitlib/physics/nodes/debugger.hpp>
+#include <fruitlib/physics/nodes/world.hpp>
+#include <fruitlib/physics/rigid_body/scoped.hpp>
 #include <sge/renderer/device_ptr.hpp>
-#include <fcppt/signal/scoped_connection.hpp>
-#include <fcppt/scoped_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/scoped_ptr.hpp>
+#include <fcppt/signal/scoped_connection.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <boost/statechart/state.hpp>
+#include <fcppt/config/external_end.hpp>
+
 
 namespace fruitapp
 {

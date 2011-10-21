@@ -1,18 +1,21 @@
 #ifndef FRUITAPP_STATES_MENU_SETTINGS_HPP_INCLUDED
 #define FRUITAPP_STATES_MENU_SETTINGS_HPP_INCLUDED
 
-#include <fruitapp/states/menu/superstate.hpp>
-#include <fruitapp/states/menu/main_fwd.hpp>
-#include <fruitapp/events/declare_transition_type.hpp>
 #include <fruitapp/events/declare_transition_reaction.hpp>
+#include <fruitapp/events/declare_transition_type.hpp>
 #include <fruitapp/gui/button.hpp>
 #include <fruitapp/gui/progress_slider.hpp>
-#include <sge/cegui/toolbox/scoped_layout.hpp>
+#include <fruitapp/states/menu/main_fwd.hpp>
+#include <fruitapp/states/menu/superstate.hpp>
 #include <sge/cegui/toolbox/scoped_gui_sheet.hpp>
-#include <fcppt/signal/scoped_connection.hpp>
+#include <sge/cegui/toolbox/scoped_layout.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <boost/statechart/state.hpp>
+#include <fcppt/signal/scoped_connection.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
+#include <boost/statechart/state.hpp>
+#include <fcppt/config/external_end.hpp>
+
 
 namespace fruitapp
 {

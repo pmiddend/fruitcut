@@ -4,6 +4,7 @@
 #include <fruitlib/log/scoped_sequence.hpp>
 #include <fcppt/unique_ptr.hpp>
 
+
 namespace fruitlib
 {
 namespace log

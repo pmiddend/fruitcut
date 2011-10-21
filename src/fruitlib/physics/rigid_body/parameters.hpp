@@ -1,17 +1,18 @@
 #ifndef FRUITLIB_PHYSICS_RIGID_BODY_PARAMETERS_HPP_INCLUDED
 #define FRUITLIB_PHYSICS_RIGID_BODY_PARAMETERS_HPP_INCLUDED
 
-#include <fruitlib/physics/rigid_body/solidity.hpp>
-#include <fruitlib/physics/rigid_body/optional_mass.hpp>
-#include <fruitlib/physics/rigid_body/position.hpp>
-#include <fruitlib/physics/rigid_body/linear_velocity.hpp>
-#include <fruitlib/physics/rigid_body/transformation.hpp>
-#include <fruitlib/physics/rigid_body/angular_velocity.hpp>
-#include <fruitlib/physics/rigid_body/user_data.hpp>
-#include <fruitlib/physics/world_fwd.hpp>
-#include <fruitlib/physics/vector3.hpp>
 #include <fruitlib/physics/matrix4.hpp>
 #include <fruitlib/physics/shared_shape_ptr.hpp>
+#include <fruitlib/physics/vector3.hpp>
+#include <fruitlib/physics/world_fwd.hpp>
+#include <fruitlib/physics/rigid_body/angular_velocity.hpp>
+#include <fruitlib/physics/rigid_body/linear_velocity.hpp>
+#include <fruitlib/physics/rigid_body/optional_mass.hpp>
+#include <fruitlib/physics/rigid_body/position.hpp>
+#include <fruitlib/physics/rigid_body/solidity.hpp>
+#include <fruitlib/physics/rigid_body/transformation.hpp>
+#include <fruitlib/physics/rigid_body/user_data.hpp>
+
 
 namespace fruitlib
 {

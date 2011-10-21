@@ -4,7 +4,10 @@
 #include <fruitlib/scenic/events/base_fwd.hpp>
 #include <fcppt/nonassignable.hpp>
 #include <fcppt/mpl/for_each.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <typeinfo>
+#include <fcppt/config/external_end.hpp>
+
 
 namespace fruitlib
 {

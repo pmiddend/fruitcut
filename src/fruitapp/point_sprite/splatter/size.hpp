@@ -4,6 +4,7 @@
 #include <fruitapp/point_sprite/object.hpp>
 #include <fcppt/strong_typedef.hpp>
 
+
 namespace fruitapp
 {
 namespace point_sprite

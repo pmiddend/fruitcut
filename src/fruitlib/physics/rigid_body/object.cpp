@@ -1,23 +1,26 @@
+#include <fruitlib/physics/matrix3.hpp>
+#include <fruitlib/physics/matrix3_to_matrix4.hpp>
+#include <fruitlib/physics/matrix4.hpp>
+#include <fruitlib/physics/matrix4_to_matrix3.hpp>
+#include <fruitlib/physics/scalar.hpp>
+#include <fruitlib/physics/structure_cast.hpp>
+#include <fruitlib/physics/vector3.hpp>
 #include <fruitlib/physics/rigid_body/object.hpp>
 #include <fruitlib/physics/rigid_body/parameters.hpp>
-#include <fruitlib/physics/scalar.hpp>
-#include <fruitlib/physics/matrix4_to_matrix3.hpp>
-#include <fruitlib/physics/matrix3_to_matrix4.hpp>
-#include <fruitlib/physics/matrix3.hpp>
-#include <fruitlib/physics/matrix4.hpp>
-#include <fruitlib/physics/vector3.hpp>
-#include <fruitlib/physics/structure_cast.hpp>
-#include <BulletDynamics/Dynamics/btRigidBody.h>
-#include <LinearMath/btMotionState.h>
-#include <LinearMath/btVector3.h>
-#include <LinearMath/btTransform.h>
-#include <LinearMath/btDefaultMotionState.h>
-#include <BulletCollision/CollisionShapes/btCollisionShape.h>
-#include <fcppt/math/matrix/basic_impl.hpp>
-#include <fcppt/math/matrix/arithmetic.hpp>
-#include <fcppt/math/matrix/translation.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/optional.hpp>
+#include <fcppt/math/matrix/arithmetic.hpp>
+#include <fcppt/math/matrix/basic_impl.hpp>
+#include <fcppt/math/matrix/translation.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <LinearMath/btDefaultMotionState.h>
+#include <LinearMath/btMotionState.h>
+#include <LinearMath/btTransform.h>
+#include <LinearMath/btVector3.h>
+#include <BulletDynamics/Dynamics/btRigidBody.h>
+#include <BulletCollision/CollisionShapes/btCollisionShape.h>
+#include <fcppt/config/external_end.hpp>
+
 
 namespace
 {

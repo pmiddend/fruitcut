@@ -5,6 +5,7 @@
 #include <sge/image/color/convert.hpp>
 #include <sge/parse/json/value.hpp>
 
+
 namespace fruitlib
 {
 namespace json

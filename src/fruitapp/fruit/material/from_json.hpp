@@ -4,6 +4,7 @@
 #include <fruitapp/fruit/material/object.hpp>
 #include <sge/parse/json/object_fwd.hpp>
 
+
 namespace fruitapp
 {
 namespace fruit

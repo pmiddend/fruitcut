@@ -1,24 +1,27 @@
-#include <boost/test/unit_test.hpp>
+#include <sge/parse/json/array.hpp>
 #include <sge/parse/json/convert_from.hpp>
-#include <sge/parse/json/value.hpp>
+#include <sge/parse/json/exception.hpp>
 #include <sge/parse/json/float_type.hpp>
 #include <sge/parse/json/int_type.hpp>
-#include <sge/parse/json/array.hpp>
 #include <sge/parse/json/object.hpp>
-#include <sge/parse/json/exception.hpp>
+#include <sge/parse/json/value.hpp>
 #include <fcppt/string.hpp>
-#include <fcppt/math/matrix/static.hpp>
+#include <fcppt/strong_typedef.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/assign/make_container.hpp>
+#include <fcppt/container/array.hpp>
 #include <fcppt/math/matrix/basic_impl.hpp>
 #include <fcppt/math/matrix/comparison.hpp>
 #include <fcppt/math/matrix/output.hpp>
-#include <fcppt/math/vector/static.hpp>
+#include <fcppt/math/matrix/static.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/math/vector/comparison.hpp>
 #include <fcppt/math/vector/output.hpp>
-#include <fcppt/container/array.hpp>
-#include <fcppt/assign/make_container.hpp>
-#include <fcppt/text.hpp>
-#include <fcppt/strong_typedef.hpp>
+#include <fcppt/math/vector/static.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/test/unit_test.hpp>
+#include <fcppt/config/external_end.hpp>
+
 
 namespace sgejson = sge::parse::json;
 

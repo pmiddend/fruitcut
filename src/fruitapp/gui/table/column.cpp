@@ -1,6 +1,7 @@
 #include <fruitapp/gui/table/column.hpp>
 #include <fcppt/string.hpp>
 
+
 fruitapp::gui::table::column::column(
 	fcppt::string const &_name,
 	width_type const _width)

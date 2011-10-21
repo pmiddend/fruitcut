@@ -1,15 +1,18 @@
 #ifndef FRUITLIB_MATH_UNPROJECT_HPP_INCLUDED
 #define FRUITLIB_MATH_UNPROJECT_HPP_INCLUDED
 
-#include <fcppt/math/vector/basic_impl.hpp>
-#include <fcppt/math/matrix/basic_impl.hpp>
-#include <fcppt/math/matrix/vector.hpp>
-#include <fcppt/math/matrix/has_dim.hpp>
 #include <fcppt/math/size_type.hpp>
-#include <fcppt/math/vector/has_dim.hpp>
-#include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
+#include <fcppt/math/matrix/basic_impl.hpp>
+#include <fcppt/math/matrix/has_dim.hpp>
+#include <fcppt/math/matrix/vector.hpp>
+#include <fcppt/math/vector/basic_impl.hpp>
+#include <fcppt/math/vector/has_dim.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <boost/utility/enable_if.hpp>
+#include <fcppt/config/external_end.hpp>
+
 
 namespace fruitlib
 {

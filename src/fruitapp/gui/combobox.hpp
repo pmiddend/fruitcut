@@ -4,9 +4,12 @@
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/function/object.hpp>
 #include <fcppt/signal/shared_connection.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <CEGUIEvent.h>
-#include <vector>
 #include <string>
+#include <vector>
+#include <fcppt/config/external_end.hpp>
+
 
 namespace CEGUI
 {

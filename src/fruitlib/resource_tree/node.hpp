@@ -1,10 +1,13 @@
 #ifndef FRUITLIB_RESOURCE_TREE_NODE_HPP_INCLUDED
 #define FRUITLIB_RESOURCE_TREE_NODE_HPP_INCLUDED
 
-#include <fcppt/variant/object.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/variant/apply_unary.hpp>
+#include <fcppt/variant/object.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
+#include <fcppt/config/external_end.hpp>
+
 
 namespace fruitlib
 {

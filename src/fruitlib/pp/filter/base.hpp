@@ -1,10 +1,13 @@
 #ifndef FRUITLIB_PP_FILTER_BASE_HPP_INCLUDED
 #define FRUITLIB_PP_FILTER_BASE_HPP_INCLUDED
 
-#include <fruitlib/pp/texture/counted_instance.hpp>
 #include <fruitlib/pp/system_fwd.hpp>
+#include <fruitlib/pp/texture/counted_instance.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <vector>
+#include <fcppt/config/external_end.hpp>
+
 
 namespace fruitlib
 {

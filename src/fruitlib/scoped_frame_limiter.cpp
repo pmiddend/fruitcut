@@ -1,12 +1,13 @@
 #include <fruitlib/scoped_frame_limiter.hpp>
-#include <fcppt/chrono/milliseconds.hpp>
-#include <fcppt/chrono/duration_cast.hpp>
-#include <fcppt/chrono/time_point_arithmetic.hpp>
 #include <fcppt/chrono/duration_arithmetic.hpp>
+#include <fcppt/chrono/duration_cast.hpp>
 #include <fcppt/chrono/duration_comparison.hpp>
+#include <fcppt/chrono/milliseconds.hpp>
 #include <fcppt/chrono/seconds.hpp>
+#include <fcppt/chrono/time_point_arithmetic.hpp>
 #include <fcppt/time/sleep.hpp>
 #include <fcppt/time/sleep_duration.hpp>
+
 
 fruitlib::scoped_frame_limiter::scoped_frame_limiter(
 	fps_type const _desired_fps)

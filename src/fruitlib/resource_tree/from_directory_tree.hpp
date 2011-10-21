@@ -2,16 +2,17 @@
 #define FRUITLIB_RESOURCE_TREE_FROM_DIRECTORY_TREE_HPP_INCLUDED
 
 #include <fruitlib/resource_tree/make_type.hpp>
-#include <fcppt/filesystem/path.hpp>
-#include <fcppt/filesystem/exists.hpp>
-#include <fcppt/filesystem/is_directory.hpp>
-#include <fcppt/filesystem/directory_iterator.hpp>
-#include <fcppt/filesystem/stem.hpp>
-#include <fcppt/function/object.hpp>
+#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/move.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/unique_ptr.hpp>
-#include <fcppt/move.hpp>
-#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/filesystem/directory_iterator.hpp>
+#include <fcppt/filesystem/exists.hpp>
+#include <fcppt/filesystem/is_directory.hpp>
+#include <fcppt/filesystem/path.hpp>
+#include <fcppt/filesystem/stem.hpp>
+#include <fcppt/function/object.hpp>
+
 
 namespace fruitlib
 {

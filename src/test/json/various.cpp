@@ -1,12 +1,15 @@
-#include <test/json/json_equal.hpp>
-#include <test/json/object_from_string.hpp>
+#include "json_equal.hpp"
+#include "object_from_string.hpp"
+#include <sge/parse/json/exception.hpp>
 #include <sge/parse/json/make_recursive_objects.hpp>
 #include <sge/parse/json/object.hpp>
-#include <sge/parse/json/config/merge_command_line_parameters.hpp>
-#include <sge/parse/json/exception.hpp>
 #include <sge/parse/json/path.hpp>
+#include <sge/parse/json/config/merge_command_line_parameters.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <boost/test/unit_test.hpp>
+#include <fcppt/config/external_end.hpp>
+
 
 namespace sgejson = sge::parse::json;
 

@@ -1,31 +1,34 @@
 #ifndef FRUITAPP_STATES_INGAME_PAUSED_HPP_INCLUDED
 #define FRUITAPP_STATES_INGAME_PAUSED_HPP_INCLUDED
 
-#include <fruitapp/states/ingame/superstate.hpp>
-#include <fruitapp/states/ingame/running_fwd.hpp>
-#include <fruitapp/states/menu/main_fwd.hpp>
-#include <fruitapp/gui/button.hpp>
-#include <fruitapp/scoped_scene_activation.hpp>
 #include <fruitapp/scoped_pp_activation.hpp>
+#include <fruitapp/scoped_scene_activation.hpp>
 #include <fruitapp/scoped_time_factor.hpp>
-#include <fruitapp/events/declare_transition_type.hpp>
 #include <fruitapp/events/declare_transition_reaction.hpp>
+#include <fruitapp/events/declare_transition_type.hpp>
+#include <fruitapp/gui/button.hpp>
+#include <fruitapp/states/ingame/running_fwd.hpp>
+#include <fruitapp/states/ingame/superstate.hpp>
+#include <fruitapp/states/menu/main_fwd.hpp>
 #include <fruitlib/pp/system.hpp>
-#include <fruitlib/pp/filter/inject_texture.hpp>
 #include <fruitlib/pp/filter/blur.hpp>
-#include <fruitlib/scenic/adaptors/gui_system.hpp>
+#include <fruitlib/pp/filter/inject_texture.hpp>
 #include <fruitlib/scenic/node.hpp>
-#include <sge/renderer/texture/planar_ptr.hpp>
-#include <sge/cegui/toolbox/scoped_layout.hpp>
-#include <sge/cegui/default_keyboard.hpp>
+#include <fruitlib/scenic/adaptors/gui_system.hpp>
 #include <sge/cegui/default_cursor.hpp>
+#include <sge/cegui/default_keyboard.hpp>
 #include <sge/cegui/toolbox/scoped_gui_sheet.hpp>
+#include <sge/cegui/toolbox/scoped_layout.hpp>
+#include <sge/renderer/texture/planar_ptr.hpp>
 #include <sge/timer/basic.hpp>
 #include <sge/timer/clocks/standard.hpp>
-#include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <boost/statechart/state.hpp>
+#include <fcppt/signal/scoped_connection.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
+#include <boost/statechart/state.hpp>
+#include <fcppt/config/external_end.hpp>
+
 
 namespace fruitapp
 {

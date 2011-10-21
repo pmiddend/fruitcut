@@ -4,6 +4,7 @@
 #include <fruitlib/random_generator.hpp>
 #include <fcppt/random/uniform.hpp>
 
+
 // See random_generator for why this is here
 namespace fruitlib
 {

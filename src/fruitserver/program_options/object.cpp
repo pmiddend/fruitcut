@@ -1,9 +1,12 @@
+#include <fcppt/config/external_begin.hpp>
+#include <fruitserver/program_options/command_line_parameters.hpp>
+#include <fruitserver/program_options/help_was_needed.hpp>
 #include <fruitserver/program_options/object.hpp>
 #include <fruitserver/program_options/option_sequence.hpp>
-#include <fruitserver/program_options/help_was_needed.hpp>
-#include <fruitserver/program_options/command_line_parameters.hpp>
-#include <string>
 #include <stdexcept>
+#include <string>
+#include <fcppt/config/external_end.hpp>
+
 
 fruitserver::program_options::object::object(
 	program_options::option_sequence const &_options,

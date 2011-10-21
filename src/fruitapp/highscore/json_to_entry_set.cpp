@@ -1,14 +1,17 @@
 #include <fruitapp/highscore/json_to_entry_set.hpp>
-#include <sge/parse/json/find_and_convert_member.hpp>
-#include <sge/parse/json/convert_from.hpp>
-#include <sge/parse/json/path.hpp>
 #include <sge/parse/json/array.hpp>
+#include <sge/parse/json/convert_from.hpp>
+#include <sge/parse/json/find_and_convert_member.hpp>
 #include <sge/parse/json/object.hpp>
+#include <sge/parse/json/path.hpp>
+#include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/to_std_string.hpp>
-#include <fcppt/string.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <boost/date_time/posix_time/posix_time.hpp>
 #include <vector>
+#include <fcppt/config/external_end.hpp>
+
 
 fruitapp::highscore::entry_set const
 fruitapp::highscore::json_to_entry_set(

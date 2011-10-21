@@ -1,14 +1,17 @@
 #ifndef FRUITAPP_STATES_GAMEOVER_SUPERSTATE_HPP_INCLUDED
 #define FRUITAPP_STATES_GAMEOVER_SUPERSTATE_HPP_INCLUDED
 
-#include <fruitapp/states/gameover/choose_name_fwd.hpp>
 #include <fruitapp/machine.hpp>
+#include <fruitapp/states/gameover/choose_name_fwd.hpp>
 #include <fruitlib/scenic/adaptors/gui_system.hpp>
 #include <sge/cegui/default_cursor.hpp>
 #include <sge/cegui/default_keyboard.hpp>
-#include <CEGUIString.h>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <boost/statechart/state.hpp>
+#include <CEGUIString.h>
+#include <fcppt/config/external_end.hpp>
+
 
 namespace fruitapp
 {

@@ -5,6 +5,7 @@
 #include <fruitlib/font/scale.hpp>
 #include <fcppt/chrono/milliseconds.hpp>
 
+
 namespace fruitlib
 {
 namespace font

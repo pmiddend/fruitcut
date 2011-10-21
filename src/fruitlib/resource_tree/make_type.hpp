@@ -4,6 +4,7 @@
 #include <fruitlib/resource_tree/node.hpp>
 #include <fcppt/container/tree/object.hpp>
 
+
 namespace fruitlib
 {
 namespace resource_tree

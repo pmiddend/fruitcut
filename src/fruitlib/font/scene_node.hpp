@@ -2,14 +2,17 @@
 #define FRUITLIB_FONT_SCENE_NODE_HPP_INCLUDED
 
 #include <fruitlib/font/color.hpp>
+#include <fruitlib/font/object.hpp>
+#include <fruitlib/font/object_parameters_fwd.hpp>
 #include <fruitlib/font/scale.hpp>
+#include <fruitlib/scenic/node.hpp>
 #include <fruitlib/scenic/optional_parent.hpp>
 #include <fruitlib/scenic/events/render.hpp>
-#include <fruitlib/scenic/node.hpp>
-#include <fruitlib/font/object_parameters_fwd.hpp>
-#include <fruitlib/font/object.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
+#include <fcppt/config/external_end.hpp>
+
 
 namespace fruitlib
 {

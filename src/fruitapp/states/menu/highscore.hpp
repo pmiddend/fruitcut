@@ -1,28 +1,31 @@
 #ifndef FRUITAPP_STATES_MENU_HIGHSCORE_HPP_INCLUDED
 #define FRUITAPP_STATES_MENU_HIGHSCORE_HPP_INCLUDED
 
+#include <fruitapp/events/declare_transition_reaction.hpp>
+#include <fruitapp/events/declare_transition_type.hpp>
+#include <fruitapp/gui/button.hpp>
+#include <fruitapp/gui/combobox.hpp>
+#include <fruitapp/gui/table/view.hpp>
+#include <fruitapp/highscore/entry_set.hpp>
+#include <fruitapp/highscore/get_model.hpp>
+#include <fruitapp/highscore/provider_sequence.hpp>
+#include <fruitapp/highscore/provider/connection_base_ptr.hpp>
+#include <fruitapp/highscore/provider/object_base.hpp>
+#include <fruitapp/states/menu/settings_fwd.hpp>
 #include <fruitapp/states/menu/superstate.hpp>
 #include <fruitlib/scenic/node.hpp>
 #include <fruitlib/scenic/parent_fwd.hpp>
 #include <fruitlib/scenic/events/update.hpp>
-#include <fruitapp/highscore/provider_sequence.hpp>
-#include <fruitapp/highscore/provider/object_base.hpp>
-#include <fruitapp/highscore/provider/connection_base_ptr.hpp>
-#include <fruitapp/highscore/get_model.hpp>
-#include <fruitapp/highscore/entry_set.hpp>
-#include <fruitapp/states/menu/settings_fwd.hpp>
-#include <fruitapp/gui/button.hpp>
-#include <fruitapp/gui/table/view.hpp>
-#include <fruitapp/gui/combobox.hpp>
-#include <fruitapp/events/declare_transition_type.hpp>
-#include <fruitapp/events/declare_transition_reaction.hpp>
-#include <sge/cegui/toolbox/scoped_layout.hpp>
 #include <sge/cegui/toolbox/scoped_gui_sheet.hpp>
+#include <sge/cegui/toolbox/scoped_layout.hpp>
+#include <fcppt/string.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/signal/shared_connection.hpp>
-#include <fcppt/string.hpp>
-#include <boost/statechart/state.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
+#include <boost/statechart/state.hpp>
+#include <fcppt/config/external_end.hpp>
+
 
 namespace fruitapp
 {

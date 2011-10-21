@@ -4,6 +4,7 @@
 #include <fruitapp/fruit/mesh.hpp>
 #include <sge/model/md3/object_fwd.hpp>
 
+
 namespace fruitapp
 {
 namespace fruit

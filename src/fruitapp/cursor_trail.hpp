@@ -1,19 +1,22 @@
 #ifndef FRUITCUT_APP_CURSOR_TRAIL_HPP_INCLUDED
 #define FRUITCUT_APP_CURSOR_TRAIL_HPP_INCLUDED
 
-#include <fruitapp/ingame_timer.hpp>
 #include <fruitapp/ingame_clock.hpp>
+#include <fruitapp/ingame_timer.hpp>
 #include <fruitlib/scenic/node.hpp>
 #include <fruitlib/scenic/optional_parent.hpp>
 #include <fruitlib/scenic/events/update.hpp>
 #include <sge/input/cursor/object_fwd.hpp>
 #include <sge/input/cursor/position.hpp>
 #include <sge/renderer/target_base_fwd.hpp>
-#include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/math/vector/basic_impl.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <boost/circular_buffer.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <cstddef>
+#include <fcppt/config/external_end.hpp>
+
 
 namespace fruitapp
 {

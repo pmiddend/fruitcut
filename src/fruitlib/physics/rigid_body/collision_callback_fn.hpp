@@ -3,6 +3,7 @@
 
 #include <fruitlib/physics/rigid_body/collision_data.hpp>
 
+
 namespace fruitlib
 {
 namespace physics

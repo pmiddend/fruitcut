@@ -4,6 +4,7 @@
 #include <fruitlib/scenic/parent.hpp>
 #include <fcppt/optional.hpp>
 
+
 namespace fruitlib
 {
 namespace scenic

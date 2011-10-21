@@ -2,10 +2,11 @@
 #define FRUITAPP_FRUIT_PROTOTYPE_FROM_JSON_HPP_INCLUDED
 
 #include <fruitapp/fruit/prototype.hpp>
-#include <sge/parse/json/value.hpp>
-#include <sge/model/md3/loader_fwd.hpp>
 #include <sge/image2d/multi_loader_fwd.hpp>
+#include <sge/model/md3/loader_fwd.hpp>
+#include <sge/parse/json/value.hpp>
 #include <sge/renderer/device_fwd.hpp>
+
 
 namespace fruitapp
 {
