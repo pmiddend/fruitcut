@@ -1,7 +1,7 @@
-#include <fruitapp/fruit/shadow_render_node.hpp>
-#include <fruitapp/fruit/manager.hpp>
-#include <fruitapp/fruit/model_vf/format.hpp>
 #include "../../media_path.hpp"
+#include <fruitapp/fruit/manager.hpp>
+#include <fruitapp/fruit/shadow_render_node.hpp>
+#include <fruitapp/fruit/model_vf/format.hpp>
 #include <fruitlib/scenic/events/render.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/first_vertex.hpp>
@@ -9,26 +9,27 @@
 #include <sge/renderer/nonindexed_primitive_type.hpp>
 #include <sge/renderer/scoped_vertex_buffer.hpp>
 #include <sge/renderer/size_type.hpp>
-#include <sge/renderer/state/scoped.hpp>
-#include <sge/renderer/state/list.hpp>
-#include <sge/renderer/state/trampoline.hpp>
-#include <sge/renderer/state/depth_func.hpp>
 #include <sge/renderer/vertex_buffer.hpp>
 #include <sge/renderer/vertex_count.hpp>
 #include <sge/renderer/vertex_declaration.hpp>
-#include <sge/shader/object_parameters.hpp>
-#include <sge/shader/vf_to_string.hpp>
-#include <sge/shader/variable_sequence.hpp>
-#include <sge/shader/sampler_sequence.hpp>
-#include <sge/shader/matrix.hpp>
-#include <sge/shader/variable_type.hpp>
-#include <sge/shader/matrix_flags.hpp>
-#include <sge/shader/variable.hpp>
+#include <sge/renderer/state/depth_func.hpp>
+#include <sge/renderer/state/list.hpp>
+#include <sge/renderer/state/scoped.hpp>
+#include <sge/renderer/state/trampoline.hpp>
 #include <sge/shader/activate_everything.hpp>
+#include <sge/shader/matrix.hpp>
+#include <sge/shader/matrix_flags.hpp>
+#include <sge/shader/object_parameters.hpp>
+#include <sge/shader/sampler_sequence.hpp>
 #include <sge/shader/scoped.hpp>
+#include <sge/shader/variable.hpp>
+#include <sge/shader/variable_sequence.hpp>
+#include <sge/shader/variable_type.hpp>
+#include <sge/shader/vf_to_string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/math/matrix/matrix.hpp>
+
 
 fruitapp::fruit::shadow_render_node::shadow_render_node(
 	fruitlib::scenic::optional_parent const &_parent,

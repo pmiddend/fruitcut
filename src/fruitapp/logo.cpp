@@ -1,30 +1,31 @@
+#include "../media_path.hpp"
 #include <fruitapp/logo.hpp>
 #include <fruitlib/scenic/events/render.hpp>
 #include <fruitlib/scenic/events/viewport_change.hpp>
-#include "../media_path.hpp"
 #include <sge/image2d/multi_loader_fwd.hpp>
+#include <sge/parse/json/find_and_convert_member.hpp>
+#include <sge/parse/json/object.hpp>
 #include <sge/renderer/device.hpp>
-#include <sge/renderer/viewport_size.hpp>
-#include <sge/renderer/target_base.hpp>
-#include <sge/renderer/screen_size.hpp>
-#include <sge/renderer/resource_flags_none.hpp>
 #include <sge/renderer/resource_flags.hpp>
+#include <sge/renderer/resource_flags_none.hpp>
+#include <sge/renderer/screen_size.hpp>
+#include <sge/renderer/target_base.hpp>
+#include <sge/renderer/viewport_size.hpp>
+#include <sge/renderer/texture/address_mode.hpp>
+#include <sge/renderer/texture/address_mode2.hpp>
 #include <sge/renderer/texture/create_planar_from_path.hpp>
 #include <sge/renderer/texture/mipmap/off.hpp>
-#include <sge/renderer/texture/address_mode2.hpp>
-#include <sge/renderer/texture/address_mode.hpp>
-#include <sge/texture/part_raw.hpp>
-#include <sge/parse/json/object.hpp>
-#include <sge/parse/json/find_and_convert_member.hpp>
 #include <sge/sprite/center.hpp>
+#include <sge/sprite/default_equal.hpp>
 #include <sge/sprite/default_parameters.hpp>
 #include <sge/sprite/parameters.hpp>
-#include <sge/sprite/default_equal.hpp>
 #include <sge/sprite/defaults/defaults.hpp>
+#include <sge/texture/part_raw.hpp>
 #include <mizuiro/color/operators.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
+
 
 fruitapp::logo::logo(
 	fruitlib::scenic::optional_parent const &_parent,

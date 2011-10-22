@@ -1,25 +1,28 @@
+#include "../../../media_path.hpp"
+#include <fruitapp/depths/root.hpp>
+#include <fruitapp/events/define_transition_reaction.hpp>
+#include <fruitapp/events/return_post_transition_functor.hpp>
+#include <fruitapp/highscore/providers_from_json.hpp>
+#include <fruitapp/highscore/provider/connection_base.hpp>
+#include <fruitapp/highscore/provider/object_base.hpp>
 #include <fruitapp/states/menu/highscore.hpp>
 #include <fruitapp/states/menu/main.hpp>
-#include <fruitapp/events/define_transition_reaction.hpp>
-#include <fruitapp/highscore/providers_from_json.hpp>
-#include <fruitapp/highscore/provider/object_base.hpp>
-#include <fruitapp/highscore/provider/connection_base.hpp>
-#include <fruitapp/events/return_post_transition_functor.hpp>
-#include <fruitapp/depths/root.hpp>
-#include <fruitlib/scenic/parent.hpp>
 #include <fruitlib/scenic/depth.hpp>
-#include "../../../media_path.hpp"
-#include <sge/systems/instance.hpp>
+#include <fruitlib/scenic/parent.hpp>
 #include <sge/cegui/system.hpp>
 #include <sge/cegui/to_cegui_string.hpp>
-#include <fcppt/text.hpp>
-#include <fcppt/string.hpp>
+#include <sge/systems/instance.hpp>
 #include <fcppt/ref.hpp>
+#include <fcppt/string.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/to_std_string.hpp>
 #include <fcppt/tr1/functional.hpp>
-#include <CEGUIWindowManager.h>
+#include <fcppt/config/external_begin.hpp>
 #include <elements/CEGUICombobox.h>
+#include <CEGUIWindowManager.h>
 #include <iostream>
+#include <fcppt/config/external_end.hpp>
+
 
 fruitapp::states::menu::highscore::highscore(
 	my_context ctx)

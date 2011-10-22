@@ -1,18 +1,21 @@
-#include <fruitapp/states/menu/main.hpp>
-#include <fruitapp/states/menu/settings.hpp>
-#include <fruitapp/states/menu/highscore.hpp>
-#include <fruitapp/states/ingame/running.hpp>
-#include <fruitapp/events/define_transition_reaction.hpp>
-#include <fruitapp/events/return_post_transition_functor.hpp>
-#include <fruitlib/scenic/parent.hpp>
-#include <fruitlib/scenic/depth.hpp>
 #include "../../../media_path.hpp"
 #include <fruitapp/depths/overlay.hpp>
-#include <sge/systems/instance.hpp>
+#include <fruitapp/events/define_transition_reaction.hpp>
+#include <fruitapp/events/return_post_transition_functor.hpp>
+#include <fruitapp/states/ingame/running.hpp>
+#include <fruitapp/states/menu/highscore.hpp>
+#include <fruitapp/states/menu/main.hpp>
+#include <fruitapp/states/menu/settings.hpp>
+#include <fruitlib/scenic/depth.hpp>
+#include <fruitlib/scenic/parent.hpp>
 #include <sge/cegui/system.hpp>
+#include <sge/systems/instance.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/tr1/functional.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <CEGUIWindowManager.h>
+#include <fcppt/config/external_end.hpp>
+
 
 fruitapp::states::menu::main::main(
 	my_context ctx)

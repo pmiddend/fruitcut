@@ -1,46 +1,45 @@
 #include <fruitapp/fruit/cut_mesh.hpp>
 #include <fruitapp/fruit/cut_mesh_result.hpp>
 #include <fruitapp/fruit/make_coordinate_system.hpp>
+#include <fruitapp/fruit/triangle.hpp>
+#include <fruitapp/fruit/triangle_traits.hpp>
 #include <fruitlib/geometry_traits/box.hpp>
 #include <fruitlib/geometry_traits/vector.hpp>
 #include <fruitlib/math/cut_triangle_at_plane.hpp>
-#include <fruitlib/math/triangle/area.hpp>
 #include <fruitlib/math/triangle_plane_intersection.hpp>
-#include <fruitapp/fruit/triangle.hpp>
-#include <fruitapp/fruit/triangle_traits.hpp>
+#include <fruitlib/math/triangle/area.hpp>
 #include <sge/renderer/matrix4.hpp>
 #include <sge/renderer/scalar.hpp>
 #include <sge/renderer/vector2.hpp>
 #include <sge/renderer/vector3.hpp>
 #include <sge/renderer/vector4.hpp>
-#include <fcppt/assign/make_array.hpp>
 #include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/move.hpp>
+#include <fcppt/optional.hpp>
+#include <fcppt/unique_ptr.hpp>
+#include <fcppt/assert/error.hpp>
+#include <fcppt/assign/make_array.hpp>
+#include <fcppt/math/range_compare.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
-#include <fcppt/math/matrix/inverse.hpp>
 #include <fcppt/math/matrix/arithmetic.hpp>
+#include <fcppt/math/matrix/inverse.hpp>
 #include <fcppt/math/matrix/vector.hpp>
-#include <fcppt/math/vector/structure_cast.hpp>
 #include <fcppt/math/vector/length.hpp>
-#include <fcppt/move.hpp>
-#include <fcppt/assert/error.hpp>
-#include <fcppt/math/range_compare.hpp>
-#include <fcppt/unique_ptr.hpp>
-#include <fcppt/optional.hpp>
-#include <boost/geometry/geometry.hpp>
-#include <boost/geometry/multi/algorithms/detail/for_each_range.hpp>
-#include <boost/geometry/multi/multi.hpp>
-#include <boost/geometry/multi/geometries/multi_point.hpp>
+#include <fcppt/math/vector/structure_cast.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <boost/next_prior.hpp>
+#include <boost/geometry/geometry.hpp>
+#include <boost/geometry/multi/multi.hpp>
+#include <boost/geometry/multi/algorithms/detail/for_each_range.hpp>
+#include <boost/geometry/multi/geometries/multi_point.hpp>
 #include <boost/range/algorithm/copy.hpp>
-// Belongs to the find_if below
-//#include <boost/spirit/home/phoenix/bind.hpp>
-//#include <boost/spirit/home/phoenix/core.hpp>
-//#include <boost/range/algorithm/find_if.hpp>
 #include <algorithm>
 #include <iostream>
 #include <iterator>
 #include <vector>
+#include <fcppt/config/external_end.hpp>
+
 
 namespace
 {

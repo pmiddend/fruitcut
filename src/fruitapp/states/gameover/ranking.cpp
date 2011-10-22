@@ -1,22 +1,25 @@
-#include <fruitapp/states/gameover/ranking.hpp>
-#include <fruitapp/states/menu/main.hpp>
-#include <fruitapp/states/menu/highscore.hpp>
-#include <fruitapp/events/define_transition_reaction.hpp>
-#include <fruitapp/depths/root.hpp>
-#include <fruitapp/events/return_post_transition_functor.hpp>
 #include "../../../media_path.hpp"
-#include <fruitlib/scenic/parent.hpp>
-#include <fruitapp/highscore/providers_from_json.hpp>
+#include <fruitapp/depths/root.hpp>
+#include <fruitapp/events/define_transition_reaction.hpp>
+#include <fruitapp/events/return_post_transition_functor.hpp>
 #include <fruitapp/highscore/name.hpp>
+#include <fruitapp/highscore/providers_from_json.hpp>
 #include <fruitapp/highscore/score.hpp>
-#include <sge/systems/instance.hpp>
-#include <sge/cegui/system.hpp>
+#include <fruitapp/states/gameover/ranking.hpp>
+#include <fruitapp/states/menu/highscore.hpp>
+#include <fruitapp/states/menu/main.hpp>
+#include <fruitlib/scenic/parent.hpp>
 #include <sge/cegui/from_cegui_string.hpp>
+#include <sge/cegui/system.hpp>
 #include <sge/cegui/to_cegui_string.hpp>
-#include <CEGUIWindowManager.h>
-#include <fcppt/text.hpp>
+#include <sge/systems/instance.hpp>
 #include <fcppt/string.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/tr1/functional.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <CEGUIWindowManager.h>
+#include <fcppt/config/external_end.hpp>
+
 
 fruitapp::states::gameover::ranking::ranking(
 	my_context ctx)

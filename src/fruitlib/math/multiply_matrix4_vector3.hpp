@@ -1,14 +1,14 @@
 #ifndef FRUITLIB_MATH_MULTIPLY_MATRIX4_VECTOR3_HPP_INCLUDED
 #define FRUITLIB_MATH_MULTIPLY_MATRIX4_VECTOR3_HPP_INCLUDED
 
-#include <fcppt/math/vector/static.hpp>
-#include <fcppt/math/vector/basic_impl.hpp>
-#include <fcppt/math/vector/narrow_cast.hpp>
-#include <fcppt/math/vector/construct.hpp>
 #include <fcppt/math/matrix/basic_impl.hpp>
 #include <fcppt/math/matrix/static.hpp>
-// arithmetic doesn't contain vector arithmetic
 #include <fcppt/math/matrix/vector.hpp>
+#include <fcppt/math/vector/basic_impl.hpp>
+#include <fcppt/math/vector/construct.hpp>
+#include <fcppt/math/vector/narrow_cast.hpp>
+#include <fcppt/math/vector/static.hpp>
+
 
 namespace fruitlib
 {
