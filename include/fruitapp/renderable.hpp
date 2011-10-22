@@ -1,13 +1,14 @@
 #ifndef FRUITAPP_RENDERABLE_HPP_INCLUDED
 #define FRUITAPP_RENDERABLE_HPP_INCLUDED
 
-#include <fruitapp/scene.hpp>
 #include <fruitapp/overlay.hpp>
 #include <fruitapp/postprocessing.hpp>
+#include <fruitapp/scene.hpp>
 #include <fruitlib/scenic/node.hpp>
 #include <fruitlib/scenic/optional_parent.hpp>
-#include <sge/systems/instance_fwd.hpp>
 #include <sge/parse/json/object_fwd.hpp>
+#include <sge/systems/instance_fwd.hpp>
+
 
 namespace fruitapp
 {

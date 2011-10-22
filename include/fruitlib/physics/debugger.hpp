@@ -8,11 +8,14 @@
 #include <sge/renderer/device_ptr.hpp>
 #include <sge/renderer/vector3.hpp>
 #include <sge/renderer/vertex_buffer_ptr.hpp>
+#include <fcppt/noncopyable.hpp>
+#include <fcppt/scoped_ptr.hpp>
+#include <fcppt/math/vector/basic_impl.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <LinearMath/btIDebugDraw.h>
 #include <LinearMath/btVector3.h>
-#include <fcppt/math/vector/basic_impl.hpp>
-#include <fcppt/scoped_ptr.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/config/external_end.hpp>
+
 
 namespace fruitlib
 {

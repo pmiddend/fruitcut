@@ -1,25 +1,28 @@
+#include <fruitapp/exception.hpp>
+#include <fruitapp/name.hpp>
 #include <fruitapp/highscore/providers_from_json.hpp>
 #include <fruitapp/highscore/provider/file/object.hpp>
 #include <fruitapp/highscore/provider/net/object.hpp>
-#include <fruitapp/name.hpp>
-#include <fruitapp/exception.hpp>
-#include <sge/parse/json/find_and_convert_member.hpp>
-#include <sge/parse/json/convert_from.hpp>
-#include <sge/parse/json/array.hpp>
-#include <sge/parse/json/object.hpp>
-#include <sge/parse/json/element_vector.hpp>
 #include <sge/config/cache_path.hpp>
+#include <sge/parse/json/array.hpp>
+#include <sge/parse/json/convert_from.hpp>
+#include <sge/parse/json/element_vector.hpp>
+#include <sge/parse/json/find_and_convert_member.hpp>
+#include <sge/parse/json/object.hpp>
+#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/string.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/container/ptr/push_back_unique_ptr.hpp>
+#include <fcppt/filesystem/path_to_string.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <boost/algorithm/string/replace.hpp>
 #include <boost/config/warning_disable.hpp>
-#include <boost/spirit/include/qi.hpp>
 #include <boost/spirit/include/phoenix_core.hpp>
 #include <boost/spirit/include/phoenix_operator.hpp>
-#include <fcppt/filesystem/path_to_string.hpp>
-#include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/container/ptr/push_back_unique_ptr.hpp>
-#include <fcppt/text.hpp>
-#include <fcppt/string.hpp>
+#include <boost/spirit/include/qi.hpp>
 #include <iostream>
+#include <fcppt/config/external_end.hpp>
+
 
 void
 fruitapp::highscore::providers_from_json(

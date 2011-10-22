@@ -1,4 +1,7 @@
+#include <fcppt/config/external_begin.hpp>
 #include <fruitserver/ascii/to_native_translation.hpp>
+#include <fcppt/config/external_end.hpp>
+
 
 namespace
 {

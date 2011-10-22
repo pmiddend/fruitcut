@@ -1,18 +1,21 @@
-#include <fruitapp/fruit/prototype.hpp>
 #include <fruitapp/fruit/mesh_to_point_cloud.hpp>
-#include <fruitlib/geometry_traits/box.hpp>
+#include <fruitapp/fruit/prototype.hpp>
 #include <fruitlib/average_colors.hpp>
-#include <sge/image2d/view/sub.hpp>
-#include <sge/image2d/rect.hpp>
-#include <sge/image2d/dim.hpp>
+#include <fruitlib/geometry_traits/box.hpp>
 #include <sge/image/colors.hpp>
+#include <sge/image/color/any/object_fwd.hpp>
+#include <sge/image2d/dim.hpp>
+#include <sge/image2d/rect.hpp>
+#include <sge/image2d/view/sub.hpp>
 #include <sge/image2d/view/to_const.hpp>
-#include <sge/renderer/texture/scoped_planar_lock.hpp>
+#include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/planar_ptr.hpp>
-#include <sge/renderer/lock_mode.hpp>
-#include <sge/image/color/any/object_fwd.hpp>
+#include <sge/renderer/texture/scoped_planar_lock.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <boost/geometry/geometry.hpp>
+#include <fcppt/config/external_end.hpp>
+
 
 fruitapp::fruit::prototype::prototype(
 	fruitapp::fruit::mesh const &_mesh,

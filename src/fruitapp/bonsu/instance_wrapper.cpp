@@ -1,23 +1,26 @@
 #include <fruitapp/bonsu/instance_wrapper.hpp>
-#include <fruitapp/bonsu/instance/base.hpp>
 #include <fruitapp/bonsu/texture_manager.hpp>
-#include <fruitapp/bonsu/sprite/parameters.hpp>
+#include <fruitapp/bonsu/instance/base.hpp>
 #include <fruitapp/bonsu/rectangle/instance.hpp>
-#include <fruitapp/bonsu/sprite/color_format.hpp>
 #include <fruitapp/bonsu/sprite/color.hpp>
+#include <fruitapp/bonsu/sprite/color_format.hpp>
+#include <fruitapp/bonsu/sprite/parameters.hpp>
 #include <sge/image/colors.hpp>
-#include <sge/image/color/any/convert.hpp>
-#include <sge/texture/part_ptr.hpp>
-#include <sge/texture/part.hpp>
 #include <sge/image/color/init.hpp>
+#include <sge/image/color/any/convert.hpp>
+#include <sge/texture/part.hpp>
+#include <sge/texture/part_ptr.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/math/dim/basic_impl.hpp>
-#include <fcppt/math/dim/structure_cast.hpp>
-#include <fcppt/math/box/basic_impl.hpp>
-#include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/ref.hpp>
 #include <fcppt/assert/pre.hpp>
+#include <fcppt/math/box/basic_impl.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
+#include <fcppt/math/dim/structure_cast.hpp>
+#include <fcppt/math/vector/basic_impl.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <cmath>
+#include <fcppt/config/external_end.hpp>
+
 
 // NOTE: Do NOT call any functions of _instance here because it's not complete!
 fruitapp::bonsu::instance_wrapper::instance_wrapper(
@@ -152,10 +155,10 @@ fruitapp::bonsu::instance_wrapper::synchronize()
 
 	main_sprite_.color(
 		sprite::color(
-			(sge::image::color::init::red %= 1.0)
-			(sge::image::color::init::green %= 1.0)
-			(sge::image::color::init::blue %= 1.0)
-			(sge::image::color::init::alpha %= status_fraction)));
+			(sge::image::color::init::red() %= 1.0)
+			(sge::image::color::init::green() %= 1.0)
+			(sge::image::color::init::blue() %= 1.0)
+			(sge::image::color::init::alpha() %= status_fraction)));
 
 	main_sprite_.texture(
 		tex);
@@ -169,10 +172,10 @@ fruitapp::bonsu::instance_wrapper::synchronize()
 
 	overlay_sprite_.color(
 		sprite::color(
-			(sge::image::color::init::red %= 0.5)
-			(sge::image::color::init::green %= 0.5)
-			(sge::image::color::init::blue %= 0.5)
-			(sge::image::color::init::alpha %= status_fraction * overlay_transparency_)));
+			(sge::image::color::init::red() %= 0.5)
+			(sge::image::color::init::green() %= 0.5)
+			(sge::image::color::init::blue() %= 0.5)
+			(sge::image::color::init::alpha() %= status_fraction * overlay_transparency_)));
 
 	overlay_sprite_.pos(
 		rectangle_instance_->bounds().pos());

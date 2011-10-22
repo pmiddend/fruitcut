@@ -1,8 +1,9 @@
 #ifndef FRUITAPP_HIGHSCORE_PROVIDER_IDENTIFIER_HPP_INCLUDED
 #define FRUITAPP_HIGHSCORE_PROVIDER_IDENTIFIER_HPP_INCLUDED
 
-#include <fcppt/strong_typedef.hpp>
 #include <fcppt/string.hpp>
+#include <fcppt/strong_typedef.hpp>
+
 
 namespace fruitapp
 {

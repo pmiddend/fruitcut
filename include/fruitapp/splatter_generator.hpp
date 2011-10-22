@@ -1,21 +1,22 @@
 #ifndef FRUITAPP_SPLATTER_GENERATOR_HPP_INCLUDED
 #define FRUITAPP_SPLATTER_GENERATOR_HPP_INCLUDED
 
-#include <fruitapp/fruit/cut_context_fwd.hpp>
-#include <fruitapp/fruit/area.hpp>
 #include <fruitapp/ingame_clock.hpp>
-#include <fruitlib/uniform_random.hpp>
-#include <fruitlib/random_generator.hpp>
+#include <fruitapp/fruit/area.hpp>
+#include <fruitapp/fruit/cut_context_fwd.hpp>
 #include <fruitapp/point_sprite/color_format.hpp>
-#include <fruitapp/point_sprite/splatter/size.hpp>
-#include <fruitapp/point_sprite/splatter/linear_velocity.hpp>
-#include <fruitapp/point_sprite/splatter/acceleration.hpp>
 #include <fruitapp/point_sprite/system_node_fwd.hpp>
-#include <sge/parse/json/config/user_config_variable.hpp>
+#include <fruitapp/point_sprite/splatter/acceleration.hpp>
+#include <fruitapp/point_sprite/splatter/linear_velocity.hpp>
+#include <fruitapp/point_sprite/splatter/size.hpp>
+#include <fruitlib/random_generator.hpp>
+#include <fruitlib/uniform_random.hpp>
 #include <sge/parse/json/object_fwd.hpp>
+#include <sge/parse/json/config/user_config_variable.hpp>
 #include <sge/renderer/scalar.hpp>
-#include <fcppt/chrono/milliseconds.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/chrono/milliseconds.hpp>
+
 
 namespace fruitapp
 {

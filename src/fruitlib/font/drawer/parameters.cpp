@@ -1,9 +1,12 @@
-#include <fruitlib/font/drawer/parameters.hpp>
 #include <fruitlib/font/color_format.hpp>
+#include <fruitlib/font/drawer/parameters.hpp>
 #include <sge/image/colors.hpp>
-#include <sge/image/color/any/object.hpp>
 #include <sge/image/color/any/convert.hpp>
+#include <sge/image/color/any/object.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <boost/spirit/home/phoenix/core.hpp>
+#include <fcppt/config/external_end.hpp>
+
 
 fruitlib::font::drawer::parameters::parameters(
 	sge::renderer::device &_renderer)

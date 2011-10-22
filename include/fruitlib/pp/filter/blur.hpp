@@ -1,18 +1,21 @@
 #ifndef FRUITLIB_PP_FILTER_BLUR_HPP_INCLUDED
 #define FRUITLIB_PP_FILTER_BLUR_HPP_INCLUDED
 
-#include <fruitlib/pp/filter/unary.hpp>
 #include <fruitlib/pp/filter/manager_fwd.hpp>
-#include <fruitlib/pp/texture/manager_fwd.hpp>
+#include <fruitlib/pp/filter/unary.hpp>
 #include <fruitlib/pp/texture/counted_instance.hpp>
+#include <fruitlib/pp/texture/manager_fwd.hpp>
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/dim2.hpp>
 #include <sge/shader/object_fwd.hpp>
+#include <fcppt/noncopyable.hpp>
 #include <fcppt/container/array.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <boost/ptr_container/ptr_array.hpp>
 #include <cstddef>
+#include <fcppt/config/external_end.hpp>
+
 
 namespace fruitlib
 {

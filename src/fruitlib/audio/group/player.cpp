@@ -1,13 +1,16 @@
-#include <fruitlib/audio/group/player.hpp>
-#include <fruitlib/audio/group/buffer.hpp>
-#include <fruitlib/audio/group/sound_positional.hpp>
 #include <fruitlib/exception.hpp>
-#include <fcppt/text.hpp>
-#include <fcppt/ref.hpp>
-#include <fcppt/assert/error.hpp>
+#include <fruitlib/audio/group/buffer.hpp>
+#include <fruitlib/audio/group/player.hpp>
+#include <fruitlib/audio/group/sound_positional.hpp>
 #include <fcppt/make_shared_ptr.hpp>
+#include <fcppt/ref.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/algorithm/ptr_container_erase.hpp>
+#include <fcppt/assert/error.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <iostream>
+#include <fcppt/config/external_end.hpp>
+
 
 fruitlib::audio::group::player::player(
 	sge::audio::player &_impl,

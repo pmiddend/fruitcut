@@ -1,8 +1,9 @@
 #ifndef FRUITLIB_JSON_PARSE_RGBA8_COLOR_HPP_INCLUDED
 #define FRUITLIB_JSON_PARSE_RGBA8_COLOR_HPP_INCLUDED
 
-#include <sge/parse/json/value.hpp>
 #include <sge/image/color/rgba8.hpp>
+#include <sge/parse/json/value.hpp>
+
 
 namespace fruitlib
 {

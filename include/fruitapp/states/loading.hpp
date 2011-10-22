@@ -1,19 +1,22 @@
 #ifndef FRUITAPP_STATES_LOADING_HPP_INCLUDED
 #define FRUITAPP_STATES_LOADING_HPP_INCLUDED
 
-#include <fruitapp/states/menu/superstate_fwd.hpp>
 #include <fruitapp/machine.hpp>
-#include <fruitapp/events/declare_transition_type.hpp>
 #include <fruitapp/events/declare_transition_reaction.hpp>
+#include <fruitapp/events/declare_transition_type.hpp>
+#include <fruitapp/states/menu/superstate_fwd.hpp>
+#include <fruitlib/font/scene_node.hpp>
 #include <fruitlib/scenic/node.hpp>
 #include <fruitlib/scenic/events/update.hpp>
 #include <fruitlib/scenic/events/viewport_change.hpp>
-#include <fruitlib/font/scene_node.hpp>
 #include <sge/parse/json/element_vector.hpp>
-#include <boost/mpl/vector/vector10.hpp>
-#include <boost/statechart/state.hpp>
-#include <boost/statechart/custom_reaction.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/mpl/vector/vector10.hpp>
+#include <boost/statechart/custom_reaction.hpp>
+#include <boost/statechart/state.hpp>
+#include <fcppt/config/external_end.hpp>
+
 
 namespace fruitapp
 {

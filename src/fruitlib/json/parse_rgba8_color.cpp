@@ -1,14 +1,17 @@
-#include <fruitlib/json/parse_rgba8_color.hpp>
 #include <fruitlib/exception.hpp>
+#include <fruitlib/json/parse_rgba8_color.hpp>
+#include <sge/image/color/init.hpp>
+#include <sge/parse/json/array.hpp>
 #include <sge/parse/json/convert_from.hpp>
 #include <sge/parse/json/float_type.hpp>
-#include <sge/parse/json/array.hpp>
+#include <sge/parse/json/get.hpp>
 #include <sge/parse/json/object.hpp>
 #include <sge/parse/json/value.hpp>
-#include <sge/parse/json/get.hpp>
-#include <sge/image/color/init.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <vector>
+#include <fcppt/config/external_end.hpp>
+
 
 sge::image::color::rgba8 const
 fruitlib::json::parse_rgba8_color(

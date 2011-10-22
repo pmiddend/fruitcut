@@ -1,6 +1,9 @@
 #include <fruitlib/physics/null_collision_filter.hpp>
 #include <fruitlib/physics/world.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <BulletDynamics/Dynamics/btDiscreteDynamicsWorld.h>
+#include <fcppt/config/external_end.hpp>
+
 
 fruitlib::physics::null_collision_filter::null_collision_filter(
 	world &_world)

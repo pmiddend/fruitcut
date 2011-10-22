@@ -1,12 +1,13 @@
 #include <fruitapp/bonsu/instance/gravity.hpp>
+#include <fruitlib/physics/vector3.hpp>
+#include <fruitlib/physics/world.hpp>
 #include <fruitlib/time_format/find_and_convert_duration.hpp>
 #include <sge/parse/json/find_and_convert_member.hpp>
 #include <sge/parse/json/path.hpp>
-#include <sge/timer/parameters.hpp>
 #include <sge/timer/elapsed_fractional.hpp>
-#include <fruitlib/physics/vector3.hpp>
-#include <fruitlib/physics/world.hpp>
+#include <sge/timer/parameters.hpp>
 #include <fcppt/text.hpp>
+
 
 fruitapp::bonsu::instance::gravity::gravity(
 	bonsu::manager &_bonsu_manager,

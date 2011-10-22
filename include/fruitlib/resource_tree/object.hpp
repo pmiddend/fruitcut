@@ -1,12 +1,15 @@
 #ifndef FRUITLIB_RESOURCE_TREE_OBJECT_HPP_INCLUDED
 #define FRUITLIB_RESOURCE_TREE_OBJECT_HPP_INCLUDED
 
+#include <fcppt/noncopyable.hpp>
+#include <fcppt/string.hpp>
 #include <fcppt/container/tree/object.hpp>
 #include <fcppt/variant/object_impl.hpp>
-#include <fcppt/string.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <utility>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/config/external_end.hpp>
+
 
 namespace fruitlib
 {

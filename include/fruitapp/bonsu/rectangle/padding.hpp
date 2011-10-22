@@ -1,8 +1,9 @@
 #ifndef FRUITAPP_BONSU_RECTANGLE_PADDING_HPP_INCLUDED
 #define FRUITAPP_BONSU_RECTANGLE_PADDING_HPP_INCLUDED
 
-#include <fruitlib/rectangle_manager/padding.hpp>
 #include <fruitapp/bonsu/scalar.hpp>
+#include <fruitlib/rectangle_manager/padding.hpp>
+
 
 namespace fruitapp
 {

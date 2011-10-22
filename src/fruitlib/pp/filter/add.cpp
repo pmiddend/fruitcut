@@ -1,22 +1,25 @@
 #include <fruitlib/pp/filter/add.hpp>
 #include <fruitlib/pp/filter/manager.hpp>
+#include <fruitlib/pp/texture/descriptor.hpp>
 #include <fruitlib/pp/texture/instance.hpp>
 #include <fruitlib/pp/texture/manager.hpp>
-#include <fruitlib/pp/texture/descriptor.hpp>
-#include <sge/shader/scoped.hpp>
-#include <sge/shader/object.hpp>
-#include <sge/shader/activate_everything.hpp>
-#include <sge/renderer/scoped_target.hpp>
-#include <sge/renderer/scoped_block.hpp>
-#include <sge/renderer/texture/planar_ptr.hpp>
-#include <sge/renderer/texture/planar.hpp>
-#include <sge/renderer/texture/filter/linear.hpp>
-#include <sge/renderer/vector2.hpp>
 #include <sge/image/color/format.hpp>
+#include <sge/renderer/scoped_block.hpp>
+#include <sge/renderer/scoped_target.hpp>
+#include <sge/renderer/vector2.hpp>
+#include <sge/renderer/texture/planar.hpp>
+#include <sge/renderer/texture/planar_ptr.hpp>
+#include <sge/renderer/texture/filter/linear.hpp>
+#include <sge/shader/activate_everything.hpp>
+#include <sge/shader/object.hpp>
+#include <sge/shader/scoped.hpp>
 #include <fcppt/assign/make_container.hpp>
-#include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/math/dim/output.hpp>
+#include <fcppt/math/dim/structure_cast.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <iostream>
+#include <fcppt/config/external_end.hpp>
+
 
 fruitlib::pp::filter::add::add(
 	sge::renderer::device &_renderer,

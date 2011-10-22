@@ -1,4 +1,7 @@
+#include <fcppt/config/external_begin.hpp>
 #include <fruitserver/ascii/is_digit.hpp>
+#include <fcppt/config/external_end.hpp>
+
 
 bool
 fruitserver::ascii::is_digit(

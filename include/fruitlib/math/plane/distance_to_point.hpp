@@ -2,9 +2,10 @@
 #define FRUITLIB_MATH_PLANE_DISTANCE_TO_POINT_HPP_INCLUDED
 
 #include <fruitlib/math/plane/basic.hpp>
+#include <fruitlib/math/plane/normalize.hpp>
 #include <fcppt/math/size_type.hpp>
 #include <fcppt/math/vector/dot.hpp>
-#include <fruitlib/math/plane/normalize.hpp>
+
 
 namespace fruitlib
 {

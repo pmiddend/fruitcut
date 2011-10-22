@@ -1,6 +1,7 @@
 #include <fruitlib/exception.hpp>
-#include <fcppt/string.hpp>
 #include <fcppt/exception.hpp>
+#include <fcppt/string.hpp>
+
 
 fruitlib::exception::exception(
 	fcppt::string const &_string)

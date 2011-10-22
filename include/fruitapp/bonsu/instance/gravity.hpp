@@ -1,15 +1,16 @@
 #ifndef FRUITAPP_BONSU_INSTANCE_GRAVITY_HPP_INCLUDED
 #define FRUITAPP_BONSU_INSTANCE_GRAVITY_HPP_INCLUDED
 
-#include <fruitapp/bonsu/instance/base.hpp>
-#include <fruitapp/bonsu/manager_fwd.hpp>
-#include <fruitapp/ingame_timer.hpp>
 #include <fruitapp/ingame_clock.hpp>
-#include <fruitlib/physics/world_fwd.hpp>
+#include <fruitapp/ingame_timer.hpp>
+#include <fruitapp/bonsu/manager_fwd.hpp>
+#include <fruitapp/bonsu/instance/base.hpp>
 #include <fruitlib/physics/vector3.hpp>
+#include <fruitlib/physics/world_fwd.hpp>
 #include <sge/parse/json/object_fwd.hpp>
-#include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/math/vector/basic_impl.hpp>
+
 
 namespace fruitapp
 {

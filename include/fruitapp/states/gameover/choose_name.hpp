@@ -1,17 +1,20 @@
 #ifndef FRUITAPP_STATES_GAMEOVER_CHOOSE_NAME_HPP_INCLUDED
 #define FRUITAPP_STATES_GAMEOVER_CHOOSE_NAME_HPP_INCLUDED
 
-#include <fruitapp/states/gameover/superstate.hpp>
-#include <fruitapp/states/gameover/ranking_fwd.hpp>
-#include <fruitapp/events/declare_transition_type.hpp>
 #include <fruitapp/events/declare_transition_reaction.hpp>
+#include <fruitapp/events/declare_transition_type.hpp>
 #include <fruitapp/gui/button.hpp>
-#include <sge/cegui/toolbox/scoped_layout.hpp>
+#include <fruitapp/states/gameover/ranking_fwd.hpp>
+#include <fruitapp/states/gameover/superstate.hpp>
 #include <sge/cegui/toolbox/scoped_gui_sheet.hpp>
-#include <fcppt/signal/scoped_connection.hpp>
+#include <sge/cegui/toolbox/scoped_layout.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <boost/statechart/state.hpp>
+#include <fcppt/signal/scoped_connection.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
+#include <boost/statechart/state.hpp>
+#include <fcppt/config/external_end.hpp>
+
 
 namespace fruitapp
 {

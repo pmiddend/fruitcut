@@ -2,19 +2,20 @@
 #define FRUITLIB_PHYSICS_WORLD_HPP_INCLUDED
 
 #include <fruitlib/physics/box.hpp>
-#include <fruitlib/physics/vector3.hpp>
-#include <fruitlib/physics/scalar.hpp>
 #include <fruitlib/physics/duration.hpp>
-#include <fruitlib/physics/group/object_fwd.hpp>
+#include <fruitlib/physics/scalar.hpp>
+#include <fruitlib/physics/vector3.hpp>
 #include <fruitlib/physics/group/id.hpp>
+#include <fruitlib/physics/group/object_fwd.hpp>
 #include <fruitlib/physics/group/sequence.hpp>
 #include <fruitlib/physics/rigid_body/collision_callback.hpp>
-#include <fruitlib/physics/rigid_body/object_fwd.hpp>
 #include <fruitlib/physics/rigid_body/collision_callback_fn.hpp>
-#include <fcppt/signal/object.hpp>
-#include <fcppt/signal/auto_connection.hpp>
+#include <fruitlib/physics/rigid_body/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/scoped_ptr.hpp>
+#include <fcppt/signal/auto_connection.hpp>
+#include <fcppt/signal/object.hpp>
+
 
 class btCollisionConfiguration;
 class btDispatcher;

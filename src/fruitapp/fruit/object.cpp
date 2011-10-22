@@ -1,25 +1,28 @@
-#include <fruitapp/fruit/object.hpp>
-#include <fruitapp/fruit/mesh_to_vertex_buffer.hpp>
-#include <fruitapp/fruit/mesh_to_point_cloud.hpp>
-#include <fruitapp/fruit/object_parameters.hpp>
-#include <fruitapp/fruit/mesh_to_shape.hpp>
 #include <fruitapp/fruit/box3.hpp>
+#include <fruitapp/fruit/mesh_to_point_cloud.hpp>
+#include <fruitapp/fruit/mesh_to_shape.hpp>
+#include <fruitapp/fruit/mesh_to_vertex_buffer.hpp>
+#include <fruitapp/fruit/object.hpp>
+#include <fruitapp/fruit/object_parameters.hpp>
 #include <fruitapp/fruit/prototype.hpp>
 #include <fruitlib/geometry_traits/box.hpp>
 #include <fruitlib/geometry_traits/vector.hpp>
-#include <fruitlib/physics/rigid_body/parameters.hpp>
-#include <fruitlib/physics/group/sequence.hpp>
 #include <fruitlib/physics/world_fwd.hpp>
-#include <sge/timer/parameters.hpp>
+#include <fruitlib/physics/group/sequence.hpp>
+#include <fruitlib/physics/rigid_body/parameters.hpp>
 #include <sge/renderer/matrix4.hpp>
-#include <sge/renderer/vertex_buffer_fwd.hpp>
 #include <sge/renderer/vector3.hpp>
+#include <sge/renderer/vertex_buffer_fwd.hpp>
 #include <sge/renderer/texture/planar_ptr.hpp>
+#include <sge/timer/parameters.hpp>
+#include <fcppt/ref.hpp>
+#include <fcppt/assign/make_container.hpp>
 #include <fcppt/math/matrix/structure_cast.hpp>
 #include <fcppt/math/vector/structure_cast.hpp>
-#include <fcppt/assign/make_container.hpp>
-#include <fcppt/ref.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <boost/geometry/geometry.hpp>
+#include <fcppt/config/external_end.hpp>
+
 
 fruitapp::fruit::object::object(
 	object_parameters const &p)

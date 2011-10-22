@@ -1,11 +1,14 @@
 #ifndef FRUITAPP_BONSU_INSTANCE_BASE_HPP_INCLUDED
 #define FRUITAPP_BONSU_INSTANCE_BASE_HPP_INCLUDED
 
-#include <fruitapp/bonsu/texture_identifier.hpp>
-#include <fruitapp/bonsu/progress_fraction.hpp>
 #include <fruitapp/bonsu/manager_fwd.hpp>
+#include <fruitapp/bonsu/progress_fraction.hpp>
+#include <fruitapp/bonsu/texture_identifier.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <boost/intrusive/list.hpp>
+#include <fcppt/config/external_end.hpp>
+
 
 namespace fruitapp
 {

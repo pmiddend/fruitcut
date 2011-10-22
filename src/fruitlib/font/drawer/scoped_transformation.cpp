@@ -1,5 +1,6 @@
-#include <fruitlib/font/drawer/scoped_transformation.hpp>
 #include <fruitlib/font/drawer/object.hpp>
+#include <fruitlib/font/drawer/scoped_transformation.hpp>
+
 
 fruitlib::font::drawer::scoped_transformation::scoped_transformation(
 	object &_drawer,

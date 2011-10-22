@@ -1,26 +1,29 @@
+#include <fruitlib/pp/system.hpp>
 #include <fruitlib/pp/filter/base.hpp>
-#include <fruitlib/pp/filter/manager.hpp>
 #include <fruitlib/pp/filter/binary.hpp>
+#include <fruitlib/pp/filter/manager.hpp>
 #include <fruitlib/pp/filter/nullary.hpp>
 #include <fruitlib/pp/filter/unary.hpp>
 #include <fruitlib/pp/screen_vf/format.hpp>
-#include <fruitlib/pp/system.hpp>
 #include <fruitlib/pp/texture/counted_instance.hpp>
 #include <fruitlib/pp/texture/instance.hpp>
 #include <sge/image/color/format.hpp>
 #include <sge/renderer/vector2.hpp>
-#include <sge/shader/scoped.hpp>
 #include <sge/shader/activate_everything.hpp>
 #include <sge/shader/object.hpp>
+#include <sge/shader/scoped.hpp>
+#include <fcppt/string.hpp>
+#include <fcppt/assert/pre.hpp>
+#include <fcppt/assert/pre_message.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/io/cerr.hpp>
-#include <fcppt/string.hpp>
-#include <fcppt/assert/pre_message.hpp>
-#include <fcppt/assert/pre.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <boost/graph/topological_sort.hpp>
 #include <iostream>
 #include <iterator>
 #include <list>
+#include <fcppt/config/external_end.hpp>
+
 
 fruitlib::pp::system::system(
 	filter::manager &_filter_manager)

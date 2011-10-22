@@ -4,10 +4,13 @@
 #include <fruitlib/math/triangle/basic.hpp>
 #include <fcppt/math/range_compare.hpp>
 #include <fcppt/math/size_type.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <boost/range/numeric.hpp>
 #include <boost/spirit/home/phoenix/bind.hpp>
 #include <boost/spirit/home/phoenix/core/argument.hpp>
 #include <algorithm>
+#include <fcppt/config/external_end.hpp>
+
 
 namespace fruitlib
 {

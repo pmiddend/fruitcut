@@ -3,10 +3,11 @@
 
 #include <fruitlib/math/line/basic.hpp>
 #include <fruitlib/math/line/point_intersection.hpp>
-#include <fcppt/math/vector/arithmetic.hpp>
-#include <fcppt/math/vector/length.hpp>
-#include <fcppt/math/vector/dot.hpp>
 #include <fcppt/math/size_type.hpp>
+#include <fcppt/math/vector/arithmetic.hpp>
+#include <fcppt/math/vector/dot.hpp>
+#include <fcppt/math/vector/length.hpp>
+
 
 namespace fruitlib
 {

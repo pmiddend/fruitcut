@@ -1,10 +1,11 @@
 #ifndef FRUITLIB_GRID_CONVOLVE_IGNORE_BORDERS_HPP_INCLUDED
 #define FRUITLIB_GRID_CONVOLVE_IGNORE_BORDERS_HPP_INCLUDED
 
-#include <fcppt/container/grid/object.hpp>
-#include <fcppt/math/vector/static.hpp>
-#include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/assert/pre.hpp>
+#include <fcppt/container/grid/object.hpp>
+#include <fcppt/math/vector/basic_impl.hpp>
+#include <fcppt/math/vector/static.hpp>
+
 
 namespace fruitlib
 {

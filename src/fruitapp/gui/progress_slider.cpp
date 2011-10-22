@@ -1,9 +1,12 @@
 #include <fruitapp/gui/progress_slider.hpp>
-#include <CEGUIWindowManager.h>
-#include <elements/CEGUIProgressBar.h>
-#include <fcppt/tr1/functional.hpp>
 #include <fcppt/signal/auto_connection.hpp>
+#include <fcppt/tr1/functional.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <elements/CEGUIProgressBar.h>
+#include <CEGUIWindowManager.h>
 #include <algorithm>
+#include <fcppt/config/external_end.hpp>
+
 
 namespace
 {

@@ -1,27 +1,29 @@
+#include <fruitlib/exception.hpp>
+#include <fruitlib/physics/structure_cast.hpp>
 #include <fruitlib/physics/world.hpp>
 #include <fruitlib/physics/group/object.hpp>
-#include <fruitlib/physics/structure_cast.hpp>
 #include <fruitlib/physics/rigid_body/collision_data.hpp>
 #include <fruitlib/physics/rigid_body/object.hpp>
-#include <fruitlib/exception.hpp>
-#include <BulletCollision/CollisionDispatch/btDefaultCollisionConfiguration.h>
-#include <BulletCollision/CollisionDispatch/btCollisionDispatcher.h>
-//#include <BulletCollision/BroadphaseCollision/btAxisSweep3.h>
-#include <BulletCollision/BroadphaseCollision/btDbvtBroadphase.h>
-#include <BulletCollision/CollisionDispatch/btCollisionDispatcher.h>
-#include <BulletDynamics/ConstraintSolver/btSequentialImpulseConstraintSolver.h>
-#include <BulletDynamics/Dynamics/btDiscreteDynamicsWorld.h>
+#include <fcppt/text.hpp>
+#include <fcppt/assert/error.hpp>
 #include <fcppt/chrono/duration_impl.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
-#include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
+#include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/math/vector/dim.hpp>
-#include <fcppt/assert/error.hpp>
 #include <fcppt/signal/auto_connection.hpp>
-#include <fcppt/text.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <boost/static_assert.hpp>
+#include <BulletDynamics/ConstraintSolver/btSequentialImpulseConstraintSolver.h>
+#include <BulletDynamics/Dynamics/btDiscreteDynamicsWorld.h>
+#include <BulletCollision/BroadphaseCollision/btAxisSweep3.h>
+#include <BulletCollision/BroadphaseCollision/btDbvtBroadphase.h>
+#include <BulletCollision/CollisionDispatch/btCollisionDispatcher.h>
+#include <BulletCollision/CollisionDispatch/btDefaultCollisionConfiguration.h>
 #include <iostream>
 #include <limits>
+#include <fcppt/config/external_end.hpp>
+
 
 BOOST_STATIC_ASSERT((
 	boost::is_same<btScalar,float>::value));

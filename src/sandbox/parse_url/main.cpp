@@ -1,10 +1,13 @@
+#include <fcppt/config/external_begin.hpp>
+#include <boost/variant.hpp>
 #include <boost/config/warning_disable.hpp>
-#include <boost/spirit/include/qi.hpp>
 #include <boost/spirit/include/phoenix_core.hpp>
 #include <boost/spirit/include/phoenix_operator.hpp>
-#include <boost/variant.hpp>
+#include <boost/spirit/include/qi.hpp>
 #include <iostream>
 #include <string>
+#include <fcppt/config/external_end.hpp>
+
 
 int main()
 {

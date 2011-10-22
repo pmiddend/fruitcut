@@ -6,9 +6,12 @@
 #include <fruitlib/scenic/adaptors/gui_system.hpp>
 #include <sge/cegui/default_cursor.hpp>
 #include <sge/cegui/default_keyboard.hpp>
-#include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/signal/scoped_connection.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <boost/statechart/state.hpp>
+#include <fcppt/config/external_end.hpp>
+
 
 namespace fruitapp
 {

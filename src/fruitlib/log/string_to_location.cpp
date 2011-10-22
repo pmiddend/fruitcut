@@ -2,11 +2,14 @@
 #include <fcppt/char_type.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/log/location.hpp>
-#include <boost/spirit/home/phoenix/core.hpp>
-#include <boost/spirit/home/phoenix/operator.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <boost/algorithm/string/split.hpp>
 #include <boost/range/numeric.hpp>
+#include <boost/spirit/home/phoenix/core.hpp>
+#include <boost/spirit/home/phoenix/operator.hpp>
 #include <vector>
+#include <fcppt/config/external_end.hpp>
+
 
 fcppt::log::location const
 fruitlib::log::string_to_location(

@@ -1,21 +1,24 @@
 #include <fruitlib/physics/debugger.hpp>
-#include <fruitlib/physics/world.hpp>
 #include <fruitlib/physics/structure_cast.hpp>
+#include <fruitlib/physics/world.hpp>
+#include <sge/camera/first_person/object.hpp>
+#include <sge/image/color/init.hpp>
+#include <sge/image/color/rgb8.hpp>
 #include <sge/line_drawer/line.hpp>
 #include <sge/line_drawer/scoped_lock.hpp>
-#include <BulletDynamics/Dynamics/btDiscreteDynamicsWorld.h>
 #include <sge/renderer/scoped_transform.hpp>
-#include <sge/image/color/rgb8.hpp>
-#include <sge/image/color/init.hpp>
-#include <sge/camera/first_person/object.hpp>
-#include <fcppt/math/vector/basic_impl.hpp>
-#include <fcppt/math/vector/output.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/assert/pre_message.hpp>
 #include <fcppt/ref.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/assert/pre_message.hpp>
+#include <fcppt/math/vector/basic_impl.hpp>
+#include <fcppt/math/vector/output.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <BulletDynamics/Dynamics/btDiscreteDynamicsWorld.h>
 #include <iostream>
 #include <ostream>
+#include <fcppt/config/external_end.hpp>
+
 
 fruitlib::physics::debugger::debugger(
 	world &_world,

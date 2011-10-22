@@ -3,10 +3,11 @@
 
 #include <fruitlib/math/line/basic.hpp>
 #include <fruitlib/math/plane/basic.hpp>
-#include <fcppt/math/size_type.hpp>
-#include <fcppt/math/almost_zero.hpp>
-#include <fcppt/math/vector/dot.hpp>
 #include <fcppt/optional.hpp>
+#include <fcppt/math/almost_zero.hpp>
+#include <fcppt/math/size_type.hpp>
+#include <fcppt/math/vector/dot.hpp>
+
 
 namespace fruitlib
 {

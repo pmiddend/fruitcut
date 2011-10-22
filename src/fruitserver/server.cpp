@@ -1,19 +1,22 @@
-#include <fruitserver/program_options/object.hpp>
-#include <fruitserver/program_options/option_sequence.hpp>
-#include <fruitserver/program_options/option.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <tr1/memory>
+#include <fruitserver/command_processor.hpp>
+#include <fruitserver/controller.hpp>
+#include <fruitserver/listener/posix_select.hpp>
 #include <fruitserver/program_options/help_was_needed.hpp>
 #include <fruitserver/program_options/make_command_line_parameters.hpp>
-#include <fruitserver/listener/posix_select.hpp>
-#include <fruitserver/controller.hpp>
-#include <fruitserver/command_processor.hpp>
-#include <string>
-#include <tr1/memory>
+#include <fruitserver/program_options/object.hpp>
+#include <fruitserver/program_options/option.hpp>
+#include <fruitserver/program_options/option_sequence.hpp>
+#include <cstdlib>
+#include <exception>
 #include <fstream>
 #include <iostream>
 #include <ostream>
 #include <stdexcept>
-#include <exception>
-#include <cstdlib>
+#include <string>
+#include <fcppt/config/external_end.hpp>
+
 
 int
 main(

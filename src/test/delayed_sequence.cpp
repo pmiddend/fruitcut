@@ -1,7 +1,10 @@
 #include <fruitlib/delayed_ptr_sequence.hpp>
-#include <boost/test/unit_test.hpp>
-#include <boost/ptr_container/ptr_vector.hpp>
 #include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/ptr_container/ptr_vector.hpp>
+#include <boost/test/unit_test.hpp>
+#include <fcppt/config/external_end.hpp>
+
 
 BOOST_AUTO_TEST_CASE(ptr_sequence)
 {

@@ -1,33 +1,36 @@
-#include <fruitlib/math/line_plane_intersection.hpp>
 #include <fruitlib/math/cut_triangle_at_plane.hpp>
+#include <fruitlib/math/line_plane_intersection.hpp>
 #include <fruitlib/math/line/basic.hpp>
 #include <fruitlib/math/line/distance_to_point.hpp>
+#include <fruitlib/math/triangle/create_from_interpolation.hpp>
+#include <fruitlib/math/triangle/scalar_type.hpp>
+#include <fruitlib/math/triangle/size_type.hpp>
 #include <fruitlib/math/triangle/vector_type.hpp>
 #include <fruitlib/math/triangle/vertex_access.hpp>
-#include <fruitlib/math/triangle/scalar_type.hpp>
-#include <fruitlib/math/triangle/create_from_interpolation.hpp>
-#include <fruitlib/math/triangle/size_type.hpp>
-#include <fcppt/io/cout.hpp>
-#include <fcppt/text.hpp>
 #include <fcppt/optional.hpp>
-#include <fcppt/math/range_compare.hpp>
-#include <fcppt/math/size_type.hpp>
-#include <fcppt/math/vector/orthogonalize.hpp>
-#include <fcppt/math/vector/normalize.hpp>
-#include <fcppt/math/vector/dot.hpp>
-#include <fcppt/math/vector/static.hpp>
-#include <fcppt/math/vector/output.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/algorithm/shift_compare.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/container/array.hpp>
-#include <fcppt/tr1/functional.hpp>
+#include <fcppt/io/cout.hpp>
 #include <fcppt/io/ostream.hpp>
-#include <boost/test/unit_test.hpp>
+#include <fcppt/math/range_compare.hpp>
+#include <fcppt/math/size_type.hpp>
+#include <fcppt/math/vector/dot.hpp>
+#include <fcppt/math/vector/normalize.hpp>
+#include <fcppt/math/vector/orthogonalize.hpp>
+#include <fcppt/math/vector/output.hpp>
+#include <fcppt/math/vector/static.hpp>
+#include <fcppt/tr1/functional.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <boost/range/numeric.hpp>
-#include <boost/spirit/home/phoenix/function/function.hpp>
-#include <boost/spirit/home/phoenix/core/argument.hpp>
 #include <boost/spirit/home/phoenix/bind.hpp>
+#include <boost/spirit/home/phoenix/core/argument.hpp>
+#include <boost/spirit/home/phoenix/function/function.hpp>
+#include <boost/test/unit_test.hpp>
 #include <algorithm>
+#include <fcppt/config/external_end.hpp>
+
 
 namespace
 {

@@ -3,11 +3,12 @@
 
 #include <fruitapp/highscore/name.hpp>
 #include <fruitapp/highscore/score.hpp>
-#include <fruitapp/highscore/callbacks/message_received.hpp>
 #include <fruitapp/highscore/callbacks/error_received.hpp>
 #include <fruitapp/highscore/callbacks/list_received.hpp>
+#include <fruitapp/highscore/callbacks/message_received.hpp>
 #include <fruitapp/highscore/callbacks/rank_received.hpp>
 #include <fcppt/signal/auto_connection.hpp>
+
 
 namespace fruitapp
 {

@@ -1,19 +1,20 @@
+#include <fruitlib/exception.hpp>
+#include <fruitlib/log/scoped.hpp>
 #include <fruitlib/log/scoped_sequence_from_json.hpp>
 #include <fruitlib/log/string_to_location.hpp>
-#include <fruitlib/log/scoped.hpp>
-#include <fruitlib/exception.hpp>
 #include <sge/parse/json/array.hpp>
-#include <sge/parse/json/object.hpp>
 #include <sge/parse/json/element_vector.hpp>
 #include <sge/parse/json/get.hpp>
-#include <fcppt/log/level_from_string.hpp>
-#include <fcppt/log/context.hpp>
-#include <fcppt/string.hpp>
-#include <fcppt/move.hpp>
-#include <fcppt/text.hpp>
+#include <sge/parse/json/object.hpp>
 #include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/move.hpp>
+#include <fcppt/string.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/container/ptr/push_back_unique_ptr.hpp>
+#include <fcppt/log/context.hpp>
+#include <fcppt/log/level_from_string.hpp>
 #include <fcppt/tr1/functional.hpp>
+
 
 fruitlib::log::scoped_sequence_ptr
 fruitlib::log::scoped_sequence_from_json(

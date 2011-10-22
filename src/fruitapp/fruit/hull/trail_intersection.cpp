@@ -1,10 +1,13 @@
-#include <fruitapp/fruit/hull/trail_intersection.hpp>
 #include <fruitapp/fruit/hull/intersection_pair.hpp>
+#include <fruitapp/fruit/hull/trail_intersection.hpp>
+#include <fcppt/math/vector/arithmetic.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/math/vector/structure_cast.hpp>
-#include <fcppt/math/vector/arithmetic.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <boost/geometry/geometry.hpp>
 #include <iostream>
+#include <fcppt/config/external_end.hpp>
+
 
 fruitapp::fruit::hull::intersection_pair const
 fruitapp::fruit::hull::trail_intersection(

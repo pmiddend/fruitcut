@@ -2,12 +2,15 @@
 #define FRUITAPP_GUI_BUTTON_HPP_INCLUDED
 
 #include <fruitlib/audio/sound_controller_fwd.hpp>
-#include <fcppt/signal/object.hpp>
-#include <fcppt/signal/auto_connection.hpp>
-#include <fcppt/function/object.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <CEGUIWindow.h>
+#include <fcppt/function/object.hpp>
+#include <fcppt/signal/auto_connection.hpp>
+#include <fcppt/signal/object.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <CEGUIEvent.h>
+#include <CEGUIWindow.h>
+#include <fcppt/config/external_end.hpp>
+
 
 namespace fruitapp
 {

@@ -2,7 +2,10 @@
 #define FRUITLIB_MATH_TRIANGLE_PLANE_INTERSECTION_HPP_INCLUDED
 
 #include <fruitlib/math/triangle/vector_type.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <vector>
+#include <fcppt/config/external_end.hpp>
+
 
 namespace fruitlib
 {

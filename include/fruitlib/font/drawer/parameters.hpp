@@ -1,11 +1,12 @@
 #ifndef FRUITLIB_FONT_DRAWER_PARAMETERS_HPP_INCLUDED
 #define FRUITLIB_FONT_DRAWER_PARAMETERS_HPP_INCLUDED
 
-#include <fruitlib/font/drawer/transform_callback.hpp>
 #include <fruitlib/font/color.hpp>
+#include <fruitlib/font/drawer/transform_callback.hpp>
 #include <sge/renderer/device_fwd.hpp>
-#include <fcppt/variant/object.hpp>
 #include <fcppt/nonassignable.hpp>
+#include <fcppt/variant/object.hpp>
+
 
 namespace fruitlib
 {

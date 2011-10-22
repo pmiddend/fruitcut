@@ -1,26 +1,27 @@
-#include <fruitapp/fruit/prototype_from_json.hpp>
 #include <fruitapp/media_path.hpp>
 #include <fruitapp/fruit/model_to_mesh.hpp>
+#include <fruitapp/fruit/prototype_from_json.hpp>
 #include <fruitapp/fruit/material/from_json.hpp>
-#include <sge/parse/json/find_and_convert_member.hpp>
-#include <sge/parse/json/value.hpp>
-#include <sge/parse/json/object.hpp>
-#include <sge/parse/json/array.hpp>
-#include <sge/parse/json/get.hpp>
-#include <sge/model/md3/loader.hpp>
-#include <sge/renderer/device.hpp>
 #include <sge/image2d/multi_loader_fwd.hpp>
+#include <sge/model/md3/loader.hpp>
+#include <sge/parse/json/array.hpp>
+#include <sge/parse/json/find_and_convert_member.hpp>
+#include <sge/parse/json/get.hpp>
+#include <sge/parse/json/object.hpp>
+#include <sge/parse/json/value.hpp>
+#include <sge/renderer/device.hpp>
+#include <sge/renderer/resource_flags.hpp>
+#include <sge/renderer/resource_flags_none.hpp>
+#include <sge/renderer/texture/address_mode.hpp>
+#include <sge/renderer/texture/address_mode2.hpp>
 #include <sge/renderer/texture/create_planar_from_path.hpp>
 #include <sge/renderer/texture/mipmap/all_levels.hpp>
 #include <sge/renderer/texture/mipmap/auto_generate.hpp>
-#include <sge/renderer/texture/address_mode2.hpp>
-#include <sge/renderer/texture/address_mode.hpp>
-#include <sge/renderer/resource_flags.hpp>
-#include <sge/renderer/resource_flags_none.hpp>
-#include <fcppt/text.hpp>
 #include <fcppt/string.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/algorithm/map.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
+
 
 namespace
 {

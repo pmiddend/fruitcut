@@ -1,5 +1,6 @@
-#include <fruitapp/bonsu/instance/base.hpp>
 #include <fruitapp/bonsu/manager.hpp>
+#include <fruitapp/bonsu/instance/base.hpp>
+
 
 fruitapp::bonsu::instance::base::~base()
 {

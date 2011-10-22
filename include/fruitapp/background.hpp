@@ -5,18 +5,21 @@
 #include <fruitlib/scenic/optional_parent.hpp>
 #include <fruitlib/scenic/events/render.hpp>
 #include <fruitlib/scenic/events/viewport_change.hpp>
+#include <sge/camera/first_person/object_fwd.hpp>
+#include <sge/image2d/multi_loader_fwd.hpp>
+#include <sge/parse/json/object_fwd.hpp>
 #include <sge/renderer/device_fwd.hpp>
+#include <sge/renderer/matrix4.hpp>
 #include <sge/renderer/scalar.hpp>
 #include <sge/renderer/vertex_buffer_ptr.hpp>
 #include <sge/renderer/vertex_declaration_ptr.hpp>
 #include <sge/renderer/texture/planar_ptr.hpp>
-#include <sge/image2d/multi_loader_fwd.hpp>
-#include <sge/parse/json/object_fwd.hpp>
-#include <sge/renderer/matrix4.hpp>
-#include <sge/camera/first_person/object_fwd.hpp>
 #include <sge/shader/object.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
+#include <fcppt/config/external_end.hpp>
+
 
 namespace fruitapp
 {

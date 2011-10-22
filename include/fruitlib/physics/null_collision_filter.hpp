@@ -2,8 +2,11 @@
 #define FRUITLIB_PHYSICS_NULL_COLLISION_FILTER_HPP_INCLUDED
 
 #include <fruitlib/physics/world_fwd.hpp>
-#include <BulletCollision/BroadphaseCollision/btOverlappingPairCache.h>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <BulletCollision/BroadphaseCollision/btOverlappingPairCache.h>
+#include <fcppt/config/external_end.hpp>
+
 
 namespace fruitlib
 {

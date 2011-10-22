@@ -3,14 +3,17 @@
 
 #include <fruitlib/scenic/base.hpp>
 #include <fruitlib/scenic/optional_parent.hpp>
-#include <fruitlib/scenic/detail/reaction_chooser.hpp>
 #include <fruitlib/scenic/detail/has_scene_reactions.hpp>
+#include <fruitlib/scenic/detail/reaction_chooser.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/mpl/for_each.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <boost/intrusive/list.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <typeinfo>
+#include <fcppt/config/external_end.hpp>
+
 
 namespace fruitlib
 {

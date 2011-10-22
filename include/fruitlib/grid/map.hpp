@@ -1,9 +1,12 @@
 #ifndef FRUITLIB_GRID_MAP_HPP_INCLUDED
 #define FRUITLIB_GRID_MAP_HPP_INCLUDED
 
-#include <fcppt/container/grid/size_type.hpp>
 #include <fcppt/container/grid/object.hpp>
+#include <fcppt/container/grid/size_type.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <algorithm>
+#include <fcppt/config/external_end.hpp>
+
 
 namespace fruitlib
 {

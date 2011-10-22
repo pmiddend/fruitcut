@@ -1,5 +1,8 @@
 #include <fruitlib/scenic/base.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <iostream>
+#include <fcppt/config/external_end.hpp>
+
 
 fruitlib::scenic::base::child_sequence const &
 fruitlib::scenic::base::children() const

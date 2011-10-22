@@ -1,19 +1,22 @@
+#include <fcppt/config/external_begin.hpp>
 #include <fruitserver/command_processor.hpp>
-#include <fruitserver/logger.hpp>
-#include <fruitserver/separator.hpp>
-#include <fruitserver/highscore_from_plain_file.hpp>
 #include <fruitserver/generate_datetime.hpp>
+#include <fruitserver/highscore_from_plain_file.hpp>
 #include <fruitserver/highscore_to_json.hpp>
 #include <fruitserver/highscore_to_plain_file.hpp>
 #include <fruitserver/lexical_cast.hpp>
+#include <fruitserver/logger.hpp>
+#include <fruitserver/separator.hpp>
 #include <fruitserver/ascii/from_native.hpp>
 #include <fruitserver/ascii/from_native_char.hpp>
-#include <fruitserver/ascii/to_native.hpp>
-#include <fruitserver/ascii/is_letter.hpp>
 #include <fruitserver/ascii/is_digit.hpp>
-#include <string>
+#include <fruitserver/ascii/is_letter.hpp>
+#include <fruitserver/ascii/to_native.hpp>
 #include <algorithm>
 #include <stdexcept>
+#include <string>
+#include <fcppt/config/external_end.hpp>
+
 
 namespace
 {

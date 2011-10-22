@@ -1,36 +1,39 @@
 #ifndef FRUITAPP_FRUIT_MANAGER_HPP_INCLUDED
 #define FRUITAPP_FRUIT_MANAGER_HPP_INCLUDED
 
+#include <fruitapp/ingame_clock.hpp>
+#include <fruitapp/fruit/object_fwd.hpp>
+#include <fruitapp/fruit/object_sequence.hpp>
+#include <fruitapp/fruit/plane.hpp>
+#include <fruitapp/fruit/prototype.hpp>
+#include <fruitapp/fruit/prototype_sequence.hpp>
 #include <fruitapp/fruit/callbacks/cut.hpp>
 #include <fruitapp/fruit/callbacks/cut_fn.hpp>
 #include <fruitapp/fruit/callbacks/remove.hpp>
 #include <fruitapp/fruit/callbacks/remove_fn.hpp>
 #include <fruitapp/fruit/callbacks/spawn.hpp>
 #include <fruitapp/fruit/callbacks/spawn_fn.hpp>
-#include <fruitapp/fruit/prototype.hpp>
-#include <fruitapp/fruit/prototype_sequence.hpp>
-#include <fruitapp/fruit/object_sequence.hpp>
-#include <fruitapp/fruit/object_fwd.hpp>
-#include <fruitapp/fruit/plane.hpp>
-#include <fruitapp/ingame_clock.hpp>
-#include <fruitlib/scenic/node.hpp>
-#include <fruitlib/scenic/optional_parent.hpp>
-#include <fruitlib/scenic/events/update.hpp>
-#include <fruitlib/scenic/events/render.hpp>
 #include <fruitlib/physics/world_fwd.hpp>
 #include <fruitlib/physics/group/object.hpp>
+#include <fruitlib/scenic/node.hpp>
+#include <fruitlib/scenic/optional_parent.hpp>
+#include <fruitlib/scenic/events/render.hpp>
+#include <fruitlib/scenic/events/update.hpp>
+#include <sge/camera/first_person/object_fwd.hpp>
 #include <sge/image2d/multi_loader_fwd.hpp>
 #include <sge/parse/json/array_fwd.hpp>
 #include <sge/renderer/device_fwd.hpp>
-#include <sge/renderer/vertex_declaration_ptr.hpp>
 #include <sge/renderer/vertex_declaration_fwd.hpp>
+#include <sge/renderer/vertex_declaration_ptr.hpp>
 #include <sge/shader/object.hpp>
-#include <sge/camera/first_person/object_fwd.hpp>
-#include <fcppt/chrono/duration.hpp>
-#include <fcppt/signal/object.hpp>
-#include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/chrono/duration.hpp>
+#include <fcppt/signal/auto_connection.hpp>
+#include <fcppt/signal/object.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
+#include <fcppt/config/external_end.hpp>
+
 
 namespace fruitapp
 {

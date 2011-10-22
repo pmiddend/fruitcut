@@ -5,11 +5,12 @@
 #include <fruitlib/pp/filter/manager_fwd.hpp>
 #include <fruitlib/pp/texture/counted_instance.hpp>
 #include <fruitlib/pp/texture/manager_fwd.hpp>
-#include <sge/renderer/dim2.hpp>
 #include <sge/renderer/device_fwd.hpp>
+#include <sge/renderer/dim2.hpp>
 #include <sge/shader/object_fwd.hpp>
-#include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
+
 
 namespace fruitlib
 {

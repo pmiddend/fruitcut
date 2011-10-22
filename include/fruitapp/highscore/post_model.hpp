@@ -1,30 +1,33 @@
 #ifndef FRUITAPP_HIGHSCORE_POST_MODEL_HPP_INCLUDED
 #define FRUITAPP_HIGHSCORE_POST_MODEL_HPP_INCLUDED
 
-#include <fruitapp/highscore/callbacks/message_received.hpp>
-#include <fruitapp/highscore/callbacks/message_received_fn.hpp>
-#include <fruitapp/highscore/callbacks/error_received.hpp>
-#include <fruitapp/highscore/callbacks/error_received_fn.hpp>
-#include <fruitapp/highscore/callbacks/rank_received.hpp>
-#include <fruitapp/highscore/name.hpp>
-#include <fruitapp/highscore/rank.hpp>
-#include <fruitapp/highscore/provider_sequence.hpp>
-#include <fruitapp/highscore/provider/connection_base_fwd.hpp>
-#include <fruitapp/highscore/provider/connection_base_ptr.hpp>
-#include <fruitapp/highscore/provider/object_base_fwd.hpp>
-#include <fruitapp/highscore/score.hpp>
+#include <fruitapp/gui/table/column_sequence.hpp>
 #include <fruitapp/gui/table/model.hpp>
 #include <fruitapp/gui/table/row_added.hpp>
 #include <fruitapp/gui/table/row_added_fn.hpp>
+#include <fruitapp/gui/table/row_index.hpp>
 #include <fruitapp/gui/table/row_removed.hpp>
 #include <fruitapp/gui/table/row_removed_fn.hpp>
-#include <fruitapp/gui/table/column_sequence.hpp>
-#include <fruitapp/gui/table/row_index.hpp>
-#include <boost/ptr_container/ptr_vector.hpp>
-#include <fcppt/signal/auto_connection.hpp>
-#include <fcppt/signal/shared_connection.hpp>
-#include <fcppt/signal/object.hpp>
+#include <fruitapp/highscore/name.hpp>
+#include <fruitapp/highscore/provider_sequence.hpp>
+#include <fruitapp/highscore/rank.hpp>
+#include <fruitapp/highscore/score.hpp>
+#include <fruitapp/highscore/callbacks/error_received.hpp>
+#include <fruitapp/highscore/callbacks/error_received_fn.hpp>
+#include <fruitapp/highscore/callbacks/message_received.hpp>
+#include <fruitapp/highscore/callbacks/message_received_fn.hpp>
+#include <fruitapp/highscore/callbacks/rank_received.hpp>
+#include <fruitapp/highscore/provider/connection_base_fwd.hpp>
+#include <fruitapp/highscore/provider/connection_base_ptr.hpp>
+#include <fruitapp/highscore/provider/object_base_fwd.hpp>
 #include <fcppt/string.hpp>
+#include <fcppt/signal/auto_connection.hpp>
+#include <fcppt/signal/object.hpp>
+#include <fcppt/signal/shared_connection.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/ptr_container/ptr_vector.hpp>
+#include <fcppt/config/external_end.hpp>
+
 
 namespace fruitapp
 {

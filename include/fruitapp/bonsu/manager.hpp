@@ -1,25 +1,28 @@
 #ifndef FRUITAPP_BONSU_MANAGER_HPP_INCLUDED
 #define FRUITAPP_BONSU_MANAGER_HPP_INCLUDED
 
-#include <fruitapp/bonsu/instance/base.hpp>
-#include <fruitapp/bonsu/texture_manager.hpp>
-#include <fruitapp/bonsu/sprite/system.hpp>
 #include <fruitapp/bonsu/instance_wrapper_fwd.hpp>
+#include <fruitapp/bonsu/texture_manager.hpp>
+#include <fruitapp/bonsu/instance/base.hpp>
 #include <fruitapp/bonsu/rectangle/manager.hpp>
+#include <fruitapp/bonsu/sprite/system.hpp>
 #include <fruitlib/scenic/node.hpp>
 #include <fruitlib/scenic/optional_parent.hpp>
+#include <fruitlib/scenic/events/render.hpp>
 #include <fruitlib/scenic/events/update.hpp>
 #include <fruitlib/scenic/events/viewport_change.hpp>
-#include <fruitlib/scenic/events/render.hpp>
-#include <sge/renderer/device_fwd.hpp>
-#include <sge/parse/json/object_fwd.hpp>
 #include <sge/image2d/multi_loader_fwd.hpp>
-#include <sge/timer/clocks/standard.hpp>
+#include <sge/parse/json/object_fwd.hpp>
+#include <sge/renderer/device_fwd.hpp>
 #include <sge/timer/basic.hpp>
+#include <sge/timer/clocks/standard.hpp>
 #include <fcppt/scoped_ptr.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <boost/ptr_container/ptr_list.hpp>
 #include <vector>
+#include <fcppt/config/external_end.hpp>
+
 
 namespace fruitapp
 {

@@ -1,28 +1,31 @@
 #ifndef FRUITAPP_POINT_SPRITE_SYSTEM_NODE_HPP_INCLUDED
 #define FRUITAPP_POINT_SPRITE_SYSTEM_NODE_HPP_INCLUDED
 
-#include <fruitapp/point_sprite/system.hpp>
 #include <fruitapp/point_sprite/base.hpp>
+#include <fruitapp/point_sprite/system.hpp>
 #include <fruitapp/point_sprite/unique_base_ptr.hpp>
-#include <fruitlib/scenic/node.hpp>
-#include <fruitlib/scenic/optional_parent.hpp>
-#include <fruitlib/scenic/events/update.hpp>
-#include <fruitlib/scenic/events/render.hpp>
+#include <fruitlib/uniform_random.hpp>
 #include <fruitlib/resource_tree/make_type.hpp>
 #include <fruitlib/resource_tree/path.hpp>
-#include <fruitlib/uniform_random.hpp>
-#include <sge/renderer/device_fwd.hpp>
+#include <fruitlib/scenic/node.hpp>
+#include <fruitlib/scenic/optional_parent.hpp>
+#include <fruitlib/scenic/events/render.hpp>
+#include <fruitlib/scenic/events/update.hpp>
 #include <sge/camera/first_person/object_fwd.hpp>
-#include <sge/texture/part_ptr.hpp>
-#include <sge/texture/manager.hpp>
 #include <sge/image2d/multi_loader.hpp>
+#include <sge/renderer/device_fwd.hpp>
 #include <sge/shader/object.hpp>
+#include <sge/texture/manager.hpp>
+#include <sge/texture/part_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/unique_ptr.hpp>
 #include <fcppt/filesystem/path.hpp>
-#include <boost/ptr_container/ptr_list.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
+#include <boost/ptr_container/ptr_list.hpp>
 #include <cstddef>
+#include <fcppt/config/external_end.hpp>
+
 
 namespace fruitapp
 {

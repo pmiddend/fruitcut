@@ -1,9 +1,10 @@
+#include <fruitapp/point_sprite/parameters.hpp>
 #include <fruitapp/point_sprite/splatter/object.hpp>
 #include <fruitapp/point_sprite/splatter/parameters.hpp>
-#include <fruitapp/point_sprite/parameters.hpp>
-#include <sge/timer/parameters.hpp>
 #include <sge/timer/elapsed_fractional_and_reset.hpp>
+#include <sge/timer/parameters.hpp>
 #include <fcppt/chrono/seconds.hpp>
+
 
 fruitapp::point_sprite::splatter::object::object(
 	parameters const &p)

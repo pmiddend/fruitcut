@@ -1,16 +1,19 @@
 #ifndef FRUITLIB_GRID_SOBEL_IGNORE_BORDERS_HPP_INCLUDED
 #define FRUITLIB_GRID_SOBEL_IGNORE_BORDERS_HPP_INCLUDED
 
-#include <fruitlib/grid/zip_with.hpp>
 #include <fruitlib/grid/convolve_ignore_borders.hpp>
+#include <fruitlib/grid/zip_with.hpp>
 #include <fcppt/container/grid/object.hpp>
-#include <fcppt/math/vector/static.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
-#include <boost/spirit/home/phoenix/core/argument.hpp>
+#include <fcppt/math/vector/static.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <boost/spirit/home/phoenix/bind.hpp>
+#include <boost/spirit/home/phoenix/core/argument.hpp>
 #include <boost/spirit/home/phoenix/object/static_cast.hpp>
 #include <boost/spirit/home/phoenix/operator/arithmetic.hpp>
 #include <cmath>
+#include <fcppt/config/external_end.hpp>
+
 
 namespace fruitlib
 {

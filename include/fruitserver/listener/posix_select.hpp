@@ -1,15 +1,18 @@
 #ifndef FRUITSERVER_LISTENER_POSIX_SELECT_HPP_INCLUDED
 #define FRUITSERVER_LISTENER_POSIX_SELECT_HPP_INCLUDED
 
-#include <fruitserver/listener/base.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <sys/select.h>
 #include <fruitserver/byte_sequence.hpp>
-#include <fruitserver/listener/callbacks/receive_data.hpp>
+#include <fruitserver/listener/base.hpp>
 #include <fruitserver/listener/callbacks/connect.hpp>
 #include <fruitserver/listener/callbacks/disconnect.hpp>
-#include <string>
-#include <map>
+#include <fruitserver/listener/callbacks/receive_data.hpp>
 #include <iosfwd>
-#include <sys/select.h>
+#include <map>
+#include <string>
+#include <fcppt/config/external_end.hpp>
+
 
 namespace fruitserver
 {

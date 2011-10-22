@@ -1,16 +1,17 @@
 #ifndef FRUITAPP_FRUIT_PARAMETERS_FROM_PROTOTYPE_HPP_INCLUDED
 #define FRUITAPP_FRUIT_PARAMETERS_FROM_PROTOTYPE_HPP_INCLUDED
 
+#include <fruitapp/ingame_clock.hpp>
 #include <fruitapp/fruit/object_parameters.hpp>
 #include <fruitapp/fruit/prototype_fwd.hpp>
-#include <fruitapp/ingame_clock.hpp>
-#include <fruitlib/physics/world_fwd.hpp>
+#include <fruitlib/physics/matrix4.hpp>
 #include <fruitlib/physics/scalar.hpp>
 #include <fruitlib/physics/vector3.hpp>
-#include <fruitlib/physics/matrix4.hpp>
+#include <fruitlib/physics/world_fwd.hpp>
 #include <fruitlib/physics/group/object_fwd.hpp>
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/vertex_declaration_fwd.hpp>
+
 
 namespace fruitapp
 {

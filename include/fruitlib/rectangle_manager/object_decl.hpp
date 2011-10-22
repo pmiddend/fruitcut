@@ -4,13 +4,16 @@
 #include <fruitlib/rectangle_manager/object_fwd.hpp>
 #include <fruitlib/rectangle_manager/padding.hpp>
 #include <fruitlib/rectangle_manager/rectangle_instance_fwd.hpp>
+#include <fcppt/noncopyable.hpp>
+#include <fcppt/chrono/duration_fwd.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/math/box/rect.hpp>
-#include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
-#include <fcppt/chrono/duration_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/math/vector/basic_impl.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <boost/ptr_container/ptr_list.hpp>
+#include <fcppt/config/external_end.hpp>
+
 
 namespace fruitlib
 {

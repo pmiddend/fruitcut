@@ -1,8 +1,11 @@
 #include <fruitapp/gui/combobox.hpp>
 #include <fcppt/tr1/functional.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <elements/CEGUICombobox.h>
 #include <elements/CEGUIListboxTextItem.h>
 #include <iostream>
+#include <fcppt/config/external_end.hpp>
+
 
 fruitapp::gui::combobox::combobox(
 	CEGUI::Window &_impl)

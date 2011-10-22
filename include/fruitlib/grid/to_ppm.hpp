@@ -3,11 +3,14 @@
 
 #include <fcppt/container/grid/object.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <boost/type_traits/is_unsigned.hpp>
-#include <boost/utility/enable_if.hpp>
 #include <boost/type_traits/promote.hpp>
-#include <ostream>
+#include <boost/utility/enable_if.hpp>
 #include <limits>
+#include <ostream>
+#include <fcppt/config/external_end.hpp>
+
 
 namespace fruitlib
 {

@@ -1,35 +1,38 @@
 #ifndef FRUITAPP_MACHINE_HPP_INCLUDED
 #define FRUITAPP_MACHINE_HPP_INCLUDED
 
-#include <fruitapp/machine_impl_fwd.hpp>
-#include <fruitapp/config_variables_fwd.hpp>
-#include <fruitapp/quick_log_fwd.hpp>
-#include <fruitapp/states/loading_fwd.hpp>
-#include <fruitapp/postprocessing_fwd.hpp>
 #include <fruitapp/background_fwd.hpp>
-#include <fruitapp/shadow_map_fwd.hpp>
-#include <fruitapp/highscore/score.hpp>
-#include <fruitapp/scene_fwd.hpp>
-#include <fruitapp/fruit/prototype_sequence.hpp>
-#include <fruitapp/overlay.hpp>
-#include <fruitapp/point_sprite/system_node_fwd.hpp>
+#include <fruitapp/config_variables_fwd.hpp>
 #include <fruitapp/directional_light_source_fwd.hpp>
 #include <fruitapp/ingame_clock.hpp>
+#include <fruitapp/machine_impl_fwd.hpp>
+#include <fruitapp/overlay.hpp>
+#include <fruitapp/postprocessing_fwd.hpp>
+#include <fruitapp/quick_log_fwd.hpp>
+#include <fruitapp/scene_fwd.hpp>
+#include <fruitapp/shadow_map_fwd.hpp>
+#include <fruitapp/fruit/prototype_sequence.hpp>
+#include <fruitapp/highscore/score.hpp>
+#include <fruitapp/point_sprite/system_node_fwd.hpp>
+#include <fruitapp/states/loading_fwd.hpp>
 #include <fruitlib/random_generator.hpp>
-#include <fruitlib/scenic/delta/callback.hpp>
-#include <fruitlib/scenic/base_fwd.hpp>
-#include <fruitlib/audio/sound_controller_fwd.hpp>
 #include <fruitlib/audio/music_controller_fwd.hpp>
+#include <fruitlib/audio/sound_controller_fwd.hpp>
 #include <fruitlib/font/cache_fwd.hpp>
-#include <sge/parse/json/object_fwd.hpp>
+#include <fruitlib/scenic/base_fwd.hpp>
+#include <fruitlib/scenic/delta/callback.hpp>
 #include <sge/camera/first_person/object_fwd.hpp>
-#include <sge/cegui/system_fwd.hpp>
 #include <sge/cegui/syringe_fwd.hpp>
+#include <sge/cegui/system_fwd.hpp>
 #include <sge/model/md3/loader_fwd.hpp>
+#include <sge/parse/json/object_fwd.hpp>
 #include <sge/systems/instance_fwd.hpp>
-#include <boost/statechart/state_machine.hpp>
-#include <boost/statechart/event_base.hpp>
 #include <fcppt/scoped_ptr.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/statechart/event_base.hpp>
+#include <boost/statechart/state_machine.hpp>
+#include <fcppt/config/external_end.hpp>
+
 
 namespace fruitapp
 {

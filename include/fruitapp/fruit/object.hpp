@@ -1,23 +1,24 @@
 #ifndef FRUITAPP_FRUIT_OBJECT_HPP_INCLUDED
 #define FRUITAPP_FRUIT_OBJECT_HPP_INCLUDED
 
+#include <fruitapp/ingame_timer.hpp>
 #include <fruitapp/fruit/box3.hpp>
 #include <fruitapp/fruit/mesh.hpp>
-#include <fruitapp/fruit/prototype_fwd.hpp>
 #include <fruitapp/fruit/object_parameters_fwd.hpp>
-#include <fruitapp/ingame_timer.hpp>
+#include <fruitapp/fruit/prototype_fwd.hpp>
 #include <fruitlib/physics/rigid_body/object.hpp>
 #include <fruitlib/physics/rigid_body/scoped.hpp>
+#include <sge/renderer/matrix4.hpp>
+#include <sge/renderer/vector3.hpp>
 #include <sge/renderer/vertex_buffer_fwd.hpp>
 #include <sge/renderer/vertex_buffer_ptr.hpp>
 #include <sge/renderer/texture/planar_ptr.hpp>
-#include <sge/renderer/matrix4.hpp>
-#include <sge/renderer/vector3.hpp>
+#include <fcppt/noncopyable.hpp>
+#include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/math/matrix/basic_impl.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
-#include <fcppt/math/box/basic_impl.hpp>
-#include <fcppt/noncopyable.hpp>
 #include <fcppt/variant/object.hpp>
+
 
 namespace fruitapp
 {

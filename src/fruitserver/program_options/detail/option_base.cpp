@@ -1,4 +1,7 @@
+#include <fcppt/config/external_begin.hpp>
 #include <fruitserver/program_options/detail/option_base.hpp>
+#include <fcppt/config/external_end.hpp>
+
 
 fruitserver::program_options::detail::option_base::option_base(
 	std::string const &_name,

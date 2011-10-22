@@ -1,15 +1,18 @@
 #ifndef FRUITLIB_PHYSICS_NODES_WORLD_HPP_INCLUDED
 #define FRUITLIB_PHYSICS_NODES_WORLD_HPP_INCLUDED
 
+#include <fruitlib/physics/world_fwd.hpp>
 #include <fruitlib/scenic/node.hpp>
 #include <fruitlib/scenic/optional_parent.hpp>
-#include <fruitlib/scenic/events/update.hpp>
 #include <fruitlib/scenic/delta/callback.hpp>
-#include <fruitlib/scenic/delta/timer.hpp>
 #include <fruitlib/scenic/delta/clock.hpp>
-#include <fruitlib/physics/world_fwd.hpp>
+#include <fruitlib/scenic/delta/timer.hpp>
+#include <fruitlib/scenic/events/update.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
+#include <fcppt/config/external_end.hpp>
+
 
 namespace fruitlib
 {

@@ -1,20 +1,23 @@
 #ifndef FRUITLIB_PP_SYSTEM_HPP_INCLUDED
 #define FRUITLIB_PP_SYSTEM_HPP_INCLUDED
 
-#include <fruitlib/pp/filter/base_fwd.hpp>
-#include <fruitlib/pp/filter/wrapper.hpp>
-#include <fruitlib/pp/filter/manager_fwd.hpp>
 #include <fruitlib/pp/dependency_set.hpp>
-#include <sge/renderer/texture/planar_ptr.hpp>
+#include <fruitlib/pp/filter/base_fwd.hpp>
+#include <fruitlib/pp/filter/manager_fwd.hpp>
+#include <fruitlib/pp/filter/wrapper.hpp>
 #include <sge/renderer/target_ptr.hpp>
+#include <sge/renderer/texture/planar_ptr.hpp>
 #include <sge/shader/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/string.hpp>
-#include <boost/graph/adjacency_list.hpp>
-#include <boost/graph/graph_traits.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <boost/unordered_map.hpp>
 #include <boost/unordered_set.hpp>
+#include <boost/graph/adjacency_list.hpp>
+#include <boost/graph/graph_traits.hpp>
 #include <map>
+#include <fcppt/config/external_end.hpp>
+
 
 namespace fruitlib
 {

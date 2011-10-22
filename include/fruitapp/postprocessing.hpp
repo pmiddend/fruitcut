@@ -2,24 +2,27 @@
 #define FRUITAPP_POSTPROCESSING_HPP_INCLUDED
 
 #include <fruitlib/pp/system.hpp>
-#include <fruitlib/pp/texture/manager.hpp>
+#include <fruitlib/pp/filter/add.hpp>
+#include <fruitlib/pp/filter/blur.hpp>
+#include <fruitlib/pp/filter/desaturate.hpp>
+#include <fruitlib/pp/filter/highlight.hpp>
+#include <fruitlib/pp/filter/manager.hpp>
 #include <fruitlib/pp/filter/render_to_texture.hpp>
+#include <fruitlib/pp/filter/ssaa.hpp>
+#include <fruitlib/pp/texture/manager.hpp>
+#include <fruitlib/scenic/node.hpp>
+#include <fruitlib/scenic/optional_parent.hpp>
 #include <fruitlib/scenic/events/update.hpp>
 #include <fruitlib/scenic/events/viewport_change.hpp>
-#include <fruitlib/scenic/optional_parent.hpp>
-#include <fruitlib/scenic/node.hpp>
-#include <fruitlib/pp/filter/manager.hpp>
-#include <fruitlib/pp/filter/ssaa.hpp>
-#include <fruitlib/pp/filter/highlight.hpp>
-#include <fruitlib/pp/filter/blur.hpp>
-#include <fruitlib/pp/filter/add.hpp>
-#include <fruitlib/pp/filter/desaturate.hpp>
+#include <sge/parse/json/object_fwd.hpp>
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/texture/planar_ptr.hpp>
-#include <sge/parse/json/object_fwd.hpp>
-#include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/function/object.hpp>
+#include <fcppt/signal/scoped_connection.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
+#include <fcppt/config/external_end.hpp>
+
 
 namespace fruitapp
 {

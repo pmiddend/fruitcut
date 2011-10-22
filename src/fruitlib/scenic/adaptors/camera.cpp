@@ -2,9 +2,10 @@
 #include <fruitlib/scenic/events/update.hpp>
 #include <sge/camera/duration.hpp>
 #include <sge/camera/first_person/object.hpp>
-#include <sge/timer/parameters.hpp>
 #include <sge/timer/elapsed_and_reset.hpp>
+#include <sge/timer/parameters.hpp>
 #include <fcppt/chrono/seconds.hpp>
+
 
 fruitlib::scenic::adaptors::camera::camera(
 	scenic::optional_parent const &_parent,

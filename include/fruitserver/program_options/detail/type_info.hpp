@@ -1,7 +1,10 @@
 #ifndef FRUITSERVER_PROGRAM_OPTIONS_DETAIL_TYPE_INFO_HPP_INCLUDED
 #define FRUITSERVER_PROGRAM_OPTIONS_DETAIL_TYPE_INFO_HPP_INCLUDED
 
+#include <fcppt/config/external_begin.hpp>
 #include <typeinfo>
+#include <fcppt/config/external_end.hpp>
+
 
 namespace fruitserver
 {

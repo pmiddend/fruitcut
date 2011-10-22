@@ -1,11 +1,12 @@
-#include <fruitlib/audio/sound_controller.hpp>
-#include <fruitlib/scenic/events/update.hpp>
-#include <fruitlib/scenic/node.hpp>
-#include <fruitlib/scenic/optional_parent.hpp>
 #include <fruitapp/ingame_clock.hpp>
 #include <fruitapp/ingame_timer.hpp>
+#include <fruitlib/audio/sound_controller.hpp>
+#include <fruitlib/scenic/node.hpp>
+#include <fruitlib/scenic/optional_parent.hpp>
+#include <fruitlib/scenic/events/update.hpp>
 #include <sge/input/cursor/object.hpp>
 #include <sge/renderer/device.hpp>
+
 
 namespace fruitapp
 {

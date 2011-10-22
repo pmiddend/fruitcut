@@ -1,22 +1,25 @@
 #ifndef FRUITLIB_MATH_CUT_TRIANGLE_AT_PLANE_HPP_INCLUDED
 #define FRUITLIB_MATH_CUT_TRIANGLE_AT_PLANE_HPP_INCLUDED
 
-#include <fruitlib/math/plane/distance_to_point.hpp>
 #include <fruitlib/math/line_plane_intersection.hpp>
 #include <fruitlib/math/triangle_plane_intersection.hpp>
+#include <fruitlib/math/plane/distance_to_point.hpp>
 #include <fruitlib/math/triangle/create_from_interpolation.hpp>
-#include <fruitlib/math/triangle/vector_type.hpp>
 #include <fruitlib/math/triangle/interpolation_pair.hpp>
-#include <fruitlib/math/triangle/vertex_access.hpp>
 #include <fruitlib/math/triangle/scalar_type.hpp>
+#include <fruitlib/math/triangle/vector_type.hpp>
+#include <fruitlib/math/triangle/vertex_access.hpp>
+#include <fcppt/container/array.hpp>
 #include <fcppt/math/vector/length.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/spirit/home/phoenix/bind.hpp>
+#include <boost/spirit/home/phoenix/core/argument.hpp>
 #include <boost/spirit/home/phoenix/operator/comparison.hpp>
 #include <boost/spirit/home/phoenix/operator/if_else.hpp>
-#include <boost/spirit/home/phoenix/core/argument.hpp>
-#include <boost/spirit/home/phoenix/bind.hpp>
-#include <fcppt/container/array.hpp>
-#include <vector>
 #include <algorithm>
+#include <vector>
+#include <fcppt/config/external_end.hpp>
+
 
 namespace fruitlib
 {

@@ -1,11 +1,14 @@
 #ifndef FRUITSERVER_CONTROLLER_HPP_INCLUDED
 #define FRUITSERVER_CONTROLLER_HPP_INCLUDED
 
-#include <fruitserver/listener/base_fwd.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <fruitserver/byte_sequence.hpp>
 #include <fruitserver/command_processor_fwd.hpp>
-#include <map>
+#include <fruitserver/listener/base_fwd.hpp>
 #include <iosfwd>
+#include <map>
+#include <fcppt/config/external_end.hpp>
+
 
 namespace fruitserver
 {

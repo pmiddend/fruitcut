@@ -1,13 +1,16 @@
 #ifndef FRUITLIB_DELAYED_PTR_SEQUENCE_HPP_INCLUDED
 #define FRUITLIB_DELAYED_PTR_SEQUENCE_HPP_INCLUDED
 
-#include <fcppt/unique_ptr.hpp>
 #include <fcppt/move.hpp>
-#include <fcppt/container/ptr/push_back_unique_ptr.hpp>
+#include <fcppt/unique_ptr.hpp>
 #include <fcppt/algorithm/ptr_container_erase.hpp>
 #include <fcppt/assert/error.hpp>
+#include <fcppt/container/ptr/push_back_unique_ptr.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <boost/ptr_container/clone_allocator.hpp>
 #include <memory>
+#include <fcppt/config/external_end.hpp>
+
 
 namespace fruitlib
 {

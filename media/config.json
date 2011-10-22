@@ -1,5 +1,5 @@
 {
-	"highscore-providers" : 
+	"highscore-providers" :
 	[
 		{
 			"url" : "file:///$CACHE_PATH/highscore.json"
@@ -8,7 +8,7 @@
 			"url" : "fruitcut://highscore.fruitcut.com:1337"
 		}
 	],
-	"quick-log" : 
+	"quick-log" :
 	{
 		"screen-percentage" : [0.2,0.1],
 		"font-color" : [1.0,1.0,1.0,1.0],
@@ -16,10 +16,10 @@
 	},
 	"effects-volume" : 1.0,
 	"ambient-intensity" : 0.3,
-	"main-light-source" : 
+	"main-light-source" :
 	{
 		"position" : [-21.6634,2.97591,-16.768],
-		"transformation" : 
+		"transformation" :
 			[
 				[0.731688,0.0,-0.681639,0.0],
 				[0.0816005,0.992809,0.0875919,0.0],
@@ -27,10 +27,10 @@
 				[0.0,0.0,0.0,1.0]
 			]
 	},
-	"shadow-map" : 
+	"shadow-map" :
 	{
 		"size" : [1024,1024],
-		"projection" : 
+		"projection" :
 		{
 			"type" : "perspective",
 			"aspect" : 1.0,
@@ -39,28 +39,28 @@
 			"far" : 100.0
 		}
 	},
-	"fonts" : 
+	"fonts" :
 	{
-		"score" : 
+		"score" :
 		{
 			"filename" : "tweaked.json"
 		},
-		"loading" : 
+		"loading" :
 		{
 			"filename" : "tweaked.json"
 		},
-		"timer" : 
+		"timer" :
 		{
 			"filename" : "tweaked.json"
 		},
-		"quick-log" : 
+		"quick-log" :
 		{
 			"filename" : "default.ttf",
 			"size" : 24
 		}
 	},
 	"background-repeat" : 1.5,
-	"mouse" : 
+	"mouse" :
 	{
 		"trail-update-rate" : "50ms",
 		"trail-samples" : 5
@@ -70,18 +70,18 @@
 		"window-size" : [640,480],
 		"desired-fps" : 60
 	},
-	"pp" : 
+	"pp" :
 	{
 		"bloom-size" : [512,512],
 		"highlight-threshold" : 0.7,
 		"bloom-iterations" : 2
 	},
-	"music" : 
-	{  
+	"music" :
+	{
 		"volume" : 1.0,
 		"crossfade-time" : "3s"
 	},
-	"textures" : 
+	"textures" :
 	{
 		"background" : "wood.png",
 		"logo" : "logo.png"
@@ -94,18 +94,6 @@
 		"line-limit" : 1000
 	},
 	"audio-volume" : 1.0,
-	"menu" : 
-	{
-		"total-duration" : "4s",
-		"background-repeat" : 3.0,
-		"desaturation-time" : "2s500ms",
-		"logo-animation" : 
-			[
-				{ "time" : 3.0,"color" : [1.0,1.0,1.0,1.0] },
-				{ "time" : 1.0,"color" : [1.0,1.0,1.0,1.0] },
-				{ "time" : 0.0,"color" : [1.0,1.0,1.0,0.0] }
-			]
-	},
 	"loading" :
 	{
 		"font-color" : [1.0,1.0,1.0,1.0]
@@ -117,9 +105,9 @@
 	},
 	"ingame" :
 	{
-		"camera" : 
+		"camera" :
 		{
-			"projection" : 
+			"projection" :
 			{
 				"type" : "perspective",
 				"fov" : 60.0,
@@ -139,13 +127,18 @@
 		"timer-font-color" : [0.7,0.7,0.9,1.0],
 		"draw-mouse-trail" : false,
 		"draw-bbs" : false
+		"hud" :
+		{
+			"score-rect-height-percent" : "0.1",
+			"score-rect-width-percent" : "0.3"
+		}
 	},
-	"fruits" : 
+	"fruits" :
 	[
 		{
 			"model" : "coconut.md3",
 			"texture" : "coconut.png",
-			"material" : 
+			"material" :
 			{
 				"diffuse-color" : [1.0,1.0,1.0,1.0],
 				"diffuse-coefficient" : 0.8,
@@ -158,7 +151,7 @@
 		{
 			"model" : "melon.md3",
 			"texture" : "melon.png",
-			"material" : 
+			"material" :
 			{
 				"diffuse-color" : [1.0,1.0,1.0,1.0],
 				"diffuse-coefficient" : 0.8,
@@ -171,7 +164,7 @@
 		{
 			"model" : "kiwi.md3",
 			"texture" : "kiwi.png",
-			"material" : 
+			"material" :
 			{
 				"diffuse-color" : [1.0,1.0,1.0,1.0],
 				"diffuse-coefficient" : 0.8,
@@ -184,7 +177,7 @@
 		{
 			"model" : "orange.md3",
 			"texture" : "orange.png",
-			"material" : 
+			"material" :
 			{
 				"diffuse-color" : [1.0,1.0,1.0,1.0],
 				"diffuse-coefficient" : 0.8,
@@ -197,7 +190,7 @@
 		{
 			"model" : "pineapple.md3",
 			"texture" : "pineapple.png",
-			"material" : 
+			"material" :
 			{
 				"diffuse-color" : [1.0,1.0,1.0,1.0],
 				"diffuse-coefficient" : 0.8,
@@ -210,7 +203,7 @@
 		{
 			"model" : "papaya.md3",
 			"texture" : "papaya.png",
-			"material" : 
+			"material" :
 			{
 				"diffuse-color" : [1.0,1.0,1.0,1.0],
 				"diffuse-coefficient" : 0.8,
@@ -223,7 +216,7 @@
 		{
 			"model" : "steak.md3",
 			"texture" : "steak.png",
-			"material" : 
+			"material" :
 			{
 				"diffuse-color" : [1.0,1.0,1.0,1.0],
 				"diffuse-coefficient" : 0.8,
@@ -234,22 +227,22 @@
 			"tags" : ["meat"]
 		}
 	],
-	"physics" : 
+	"physics" :
 	{
 		"default-gravity" : [0.0,-10.0,0.0]
 	},
-	"bonsu" : 
+	"bonsu" :
 	{
-		"manager" : 
+		"manager" :
 		{
 			"rectangle-speed" : 1000.0,
 			"rectangle-height-fraction" : 0.8,
 			"rectangle-padding-left-fraction" : 0.01,
-			"rectangle-padding-top-fraction" : 0.01,
+			"rectangle-padding-top-fraction" : 0.1,
 			"rectangle-padding-middle-fraction" : 0.01,
 			"overlay-transparency" : 0.5
 		},
-		"gravity" : 
+		"gravity" :
 		{
 			"default-gravity" : [0.0,-10.0,0.0],
 			"decreased-gravity" : [0.0,-5.0,0.0],
@@ -262,7 +255,7 @@
 		"linear-velocity-range" : [16.0,22.0],
 		"angular-velocity-range" : [0.0,3.0]
 	},
-	"loggers" : 
+	"loggers" :
 	{
 		"sge" : []
 	},

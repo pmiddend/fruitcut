@@ -1,14 +1,15 @@
 #ifndef FRUITAPP_BONSU_INSTANCE_WRAPPER_HPP_INCLUDED
 #define FRUITAPP_BONSU_INSTANCE_WRAPPER_HPP_INCLUDED
 
+#include <fruitapp/bonsu/texture_manager_fwd.hpp>
 #include <fruitapp/bonsu/instance/base_fwd.hpp>
 #include <fruitapp/bonsu/rectangle/instance.hpp>
-#include <fruitapp/bonsu/sprite/system.hpp>
-#include <fruitapp/bonsu/sprite/object.hpp>
 #include <fruitapp/bonsu/rectangle/manager.hpp>
-#include <fruitapp/bonsu/texture_manager_fwd.hpp>
+#include <fruitapp/bonsu/sprite/object.hpp>
+#include <fruitapp/bonsu/sprite/system.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/scoped_ptr.hpp>
+
 
 namespace fruitapp
 {

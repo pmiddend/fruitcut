@@ -2,8 +2,9 @@
 #define FRUITLIB_PP_TEXTURE_INSTANCE_HPP_INCLUDED
 
 #include <fruitlib/pp/texture/descriptor.hpp>
-#include <sge/renderer/texture/planar_ptr.hpp>
 #include <sge/renderer/target_ptr.hpp>
+#include <sge/renderer/texture/planar_ptr.hpp>
+
 
 namespace fruitlib
 {

@@ -1,24 +1,26 @@
 #ifndef FRUITAPP_STATES_GAMEOVER_RANKING_HPP_INCLUDED
 #define FRUITAPP_STATES_GAMEOVER_RANKING_HPP_INCLUDED
 
-#include <fruitapp/states/gameover/superstate.hpp>
-#include <fruitapp/states/menu/main_fwd.hpp>
-#include <fruitapp/states/menu/highscore_fwd.hpp>
-#include <fruitapp/events/declare_transition_type.hpp>
 #include <fruitapp/events/declare_transition_reaction.hpp>
+#include <fruitapp/events/declare_transition_type.hpp>
 #include <fruitapp/gui/button.hpp>
 #include <fruitapp/gui/table/view.hpp>
+#include <fruitapp/highscore/post_model.hpp>
+#include <fruitapp/highscore/provider_sequence.hpp>
+#include <fruitapp/states/gameover/superstate.hpp>
+#include <fruitapp/states/menu/highscore_fwd.hpp>
+#include <fruitapp/states/menu/main_fwd.hpp>
 #include <fruitlib/scenic/node.hpp>
 #include <fruitlib/scenic/events/update.hpp>
-#include <fruitapp/highscore/provider_sequence.hpp>
-#include <fruitapp/highscore/post_model.hpp>
-#include <fruitapp/gui/table/view.hpp>
-#include <sge/cegui/toolbox/scoped_layout.hpp>
 #include <sge/cegui/toolbox/scoped_gui_sheet.hpp>
-#include <fcppt/signal/scoped_connection.hpp>
+#include <sge/cegui/toolbox/scoped_layout.hpp>
 #include <fcppt/string.hpp>
-#include <boost/statechart/state.hpp>
+#include <fcppt/signal/scoped_connection.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
+#include <boost/statechart/state.hpp>
+#include <fcppt/config/external_end.hpp>
+
 
 namespace fruitapp
 {

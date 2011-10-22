@@ -1,7 +1,10 @@
-#include <fruitlib/audio/group/sound_base.hpp>
-#include <fruitlib/audio/group/player.hpp>
 #include <fruitlib/audio/group/buffer.hpp>
+#include <fruitlib/audio/group/player.hpp>
+#include <fruitlib/audio/group/sound_base.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <iostream>
+#include <fcppt/config/external_end.hpp>
+
 
 fruitlib::audio::group::sound_base::sound_base(
 	group::buffer &_buffer,

@@ -2,10 +2,11 @@
 #define FRUITLIB_SCOPED_FRAME_LIMITER_HPP_INCLUDED
 
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/chrono/high_resolution_clock.hpp>
-#include <fcppt/chrono/time_point_impl.hpp>
 #include <fcppt/chrono/duration_impl.hpp>
+#include <fcppt/chrono/high_resolution_clock.hpp>
 #include <fcppt/chrono/milliseconds.hpp>
+#include <fcppt/chrono/time_point_impl.hpp>
+
 
 namespace fruitlib
 {

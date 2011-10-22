@@ -1,16 +1,19 @@
+#include <fruitapp/exception.hpp>
 #include <fruitapp/machine.hpp>
 #include <fruitapp/machine_impl.hpp>
-#include <fruitapp/exception.hpp>
-#include <sge/systems/instance.hpp>
+#include <sge/camera/first_person/object_fwd.hpp>
 #include <sge/cegui/syringe_fwd.hpp>
+#include <sge/cegui/system.hpp>
 #include <sge/model/md3/loader_fwd.hpp>
 #include <sge/parse/json/object_fwd.hpp>
-#include <sge/camera/first_person/object_fwd.hpp>
-#include <sge/cegui/system.hpp>
+#include <sge/systems/instance.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/type_name.hpp>
-#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <typeinfo>
+#include <fcppt/config/external_end.hpp>
+
 
 fruitapp::machine::machine(
 	int argc,

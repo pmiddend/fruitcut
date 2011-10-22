@@ -1,25 +1,28 @@
 #ifndef FRUITAPP_QUICK_LOG_HPP_INCLUDED
 #define FRUITAPP_QUICK_LOG_HPP_INCLUDED
 
+#include <fruitlib/audio/sound_controller_fwd.hpp>
+#include <fruitlib/font/cache_fwd.hpp>
+#include <fruitlib/font/scene_node.hpp>
 #include <fruitlib/scenic/node.hpp>
 #include <fruitlib/scenic/optional_parent.hpp>
 #include <fruitlib/scenic/events/update.hpp>
 #include <fruitlib/scenic/events/viewport_change.hpp>
-#include <fruitlib/font/cache_fwd.hpp>
-#include <fruitlib/font/scene_node.hpp>
-#include <fruitlib/audio/sound_controller_fwd.hpp>
-#include <sge/renderer/scalar.hpp>
+#include <sge/font/text/string.hpp>
 #include <sge/parse/json/object_fwd.hpp>
 #include <sge/renderer/device_fwd.hpp>
+#include <sge/renderer/scalar.hpp>
 #include <sge/timer/basic.hpp>
 #include <sge/timer/clocks/standard.hpp>
-#include <sge/font/text/string.hpp>
-#include <fcppt/math/dim/static.hpp>
-#include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/string.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
+#include <fcppt/math/dim/static.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <deque>
+#include <fcppt/config/external_end.hpp>
+
 
 namespace fruitapp
 {

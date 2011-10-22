@@ -1,14 +1,17 @@
-#include <fruitapp/gui/table/view.hpp>
 #include <fruitapp/gui/table/model.hpp>
+#include <fruitapp/gui/table/view.hpp>
 #include <sge/cegui/to_cegui_string.hpp>
 #include <sge/charconv/system_fwd.hpp>
-#include <fcppt/tr1/functional.hpp>
-#include <fcppt/assert/pre_message.hpp>
 #include <fcppt/insert_to_fcppt_string.hpp>
 #include <fcppt/text.hpp>
-#include <elements/CEGUIMultiColumnList.h>
+#include <fcppt/assert/pre_message.hpp>
+#include <fcppt/tr1/functional.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <elements/CEGUIListboxTextItem.h>
+#include <elements/CEGUIMultiColumnList.h>
 #include <iostream>
+#include <fcppt/config/external_end.hpp>
+
 
 fruitapp::gui::table::view::view(
 	sge::charconv::system &_charconv_system,

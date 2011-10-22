@@ -2,11 +2,12 @@
 #define FRUITAPP_SCREEN_SHOOTER_HPP_INCLUDED
 
 #include <fruitapp/quick_log_fwd.hpp>
+#include <sge/image2d/multi_loader_fwd.hpp>
 #include <sge/input/keyboard/device_fwd.hpp>
 #include <sge/renderer/device_fwd.hpp>
-#include <sge/image2d/multi_loader_fwd.hpp>
-#include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/signal/scoped_connection.hpp>
+
 
 namespace fruitapp
 {

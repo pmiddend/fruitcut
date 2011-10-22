@@ -1,9 +1,10 @@
 #ifndef FRUITLIB_PHYSICS_GROUP_OBJECT_HPP_INCLUDED
 #define FRUITLIB_PHYSICS_GROUP_OBJECT_HPP_INCLUDED
 
-#include <fruitlib/physics/group/id.hpp>
 #include <fruitlib/physics/world_fwd.hpp>
+#include <fruitlib/physics/group/id.hpp>
 #include <fcppt/noncopyable.hpp>
+
 
 namespace fruitlib
 {

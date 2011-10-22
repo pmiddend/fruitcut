@@ -1,23 +1,26 @@
-#include <fruitapp/screen_shooter.hpp>
 #include <fruitapp/name.hpp>
 #include <fruitapp/quick_log.hpp>
-#include <sge/renderer/device_fwd.hpp>
+#include <fruitapp/screen_shooter.hpp>
+#include <sge/config/cache_path.hpp>
 #include <sge/image2d/multi_loader_fwd.hpp>
+#include <sge/input/keyboard/action.hpp>
 #include <sge/input/keyboard/device.hpp>
 #include <sge/input/keyboard/key_code.hpp>
-#include <sge/input/keyboard/action.hpp>
+#include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/screenshot.hpp>
-#include <sge/config/cache_path.hpp>
-#include <fcppt/tr1/functional.hpp>
 #include <fcppt/from_std_string.hpp>
+#include <fcppt/ref.hpp>
+#include <fcppt/string.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/filesystem/create_directory_exn.hpp>
 #include <fcppt/filesystem/exists.hpp>
 #include <fcppt/filesystem/path.hpp>
-#include <fcppt/text.hpp>
-#include <fcppt/string.hpp>
-#include <fcppt/ref.hpp>
-#include <boost/date_time/posix_time/posix_time.hpp>
+#include <fcppt/tr1/functional.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <boost/date_time/c_local_time_adjustor.hpp>
+#include <boost/date_time/posix_time/posix_time.hpp>
+#include <fcppt/config/external_end.hpp>
+
 
 fruitapp::screen_shooter::screen_shooter(
 	sge::input::keyboard::device &_keyboard,

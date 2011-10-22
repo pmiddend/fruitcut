@@ -1,5 +1,8 @@
+#include <fcppt/config/external_begin.hpp>
 #include <fruitserver/ascii/to_native.hpp>
 #include <fruitserver/ascii/to_native_char.hpp>
+#include <fcppt/config/external_end.hpp>
+
 
 std::string const
 fruitserver::ascii::to_native(

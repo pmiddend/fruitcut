@@ -1,19 +1,20 @@
 #include <fruitlib/scenic/adaptors/line_drawer.hpp>
 #include <fruitlib/scenic/events/render.hpp>
 #include <sge/line_drawer/object.hpp>
-#include <sge/renderer/scoped_transform.hpp>
 #include <sge/renderer/device.hpp>
-#include <sge/renderer/viewport.hpp>
-#include <sge/renderer/onscreen_target.hpp>
 #include <sge/renderer/matrix_mode.hpp>
-#include <sge/renderer/projection/orthogonal.hpp>
-#include <sge/renderer/projection/near.hpp>
-#include <sge/renderer/projection/far.hpp>
-#include <sge/renderer/projection/rect.hpp>
-#include <sge/renderer/scalar.hpp>
+#include <sge/renderer/onscreen_target.hpp>
 #include <sge/renderer/pixel_rect.hpp>
-#include <fcppt/math/matrix/basic_impl.hpp>
+#include <sge/renderer/scalar.hpp>
+#include <sge/renderer/scoped_transform.hpp>
+#include <sge/renderer/viewport.hpp>
+#include <sge/renderer/projection/far.hpp>
+#include <sge/renderer/projection/near.hpp>
+#include <sge/renderer/projection/orthogonal.hpp>
+#include <sge/renderer/projection/rect.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
+#include <fcppt/math/matrix/basic_impl.hpp>
+
 
 namespace
 {

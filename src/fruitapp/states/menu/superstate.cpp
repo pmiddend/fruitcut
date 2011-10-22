@@ -1,16 +1,17 @@
-#include <fruitapp/states/menu/superstate.hpp>
+#include <fruitapp/depths/overlay.hpp>
 #include <fruitapp/states/menu/main.hpp>
+#include <fruitapp/states/menu/superstate.hpp>
 #include <fruitlib/audio/music_controller.hpp>
 #include <fruitlib/resource_tree/path.hpp>
-#include <fruitlib/scenic/parent.hpp>
 #include <fruitlib/scenic/depth.hpp>
-#include <fruitapp/depths/overlay.hpp>
-#include <sge/systems/instance.hpp>
+#include <fruitlib/scenic/parent.hpp>
 #include <sge/input/keyboard/action.hpp>
-#include <sge/input/keyboard/key_code.hpp>
 #include <sge/input/keyboard/device.hpp>
+#include <sge/input/keyboard/key_code.hpp>
+#include <sge/systems/instance.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/tr1/functional.hpp>
+
 
 fruitapp::states::menu::superstate::superstate(
 	my_context const ctx)

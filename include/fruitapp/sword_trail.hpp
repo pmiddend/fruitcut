@@ -1,15 +1,16 @@
 #ifndef FRUITAPP_SWORD_TRAIL_HPP_INCLUDED
 #define FRUITAPP_SWORD_TRAIL_HPP_INCLUDED
 
-#include <fruitlib/scenic/node.hpp>
-#include <fruitlib/scenic/optional_parent.hpp>
-#include <fruitlib/scenic/events/update.hpp>
-#include <fruitlib/scenic/events/render.hpp>
 #include <fruitapp/ingame_clock.hpp>
 #include <fruitapp/ingame_timer.hpp>
-#include <sge/image2d/multi_loader_fwd.hpp>
+#include <fruitlib/scenic/node.hpp>
+#include <fruitlib/scenic/optional_parent.hpp>
+#include <fruitlib/scenic/events/render.hpp>
+#include <fruitlib/scenic/events/update.hpp>
 #include <sge/image/color/rgba8_format.hpp>
+#include <sge/image2d/multi_loader_fwd.hpp>
 #include <sge/input/cursor/object_fwd.hpp>
+#include <sge/parse/json/object.hpp>
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/target_base_fwd.hpp>
 #include <sge/sprite/choices.hpp>
@@ -22,12 +23,14 @@
 #include <sge/sprite/with_rotation.hpp>
 #include <sge/sprite/with_texture.hpp>
 #include <sge/texture/part_ptr.hpp>
-#include <sge/parse/json/object.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/shared_ptr.hpp>
 #include <fcppt/chrono/duration_impl.hpp>
-#include <boost/mpl/vector/vector10.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <boost/circular_buffer.hpp>
+#include <boost/mpl/vector/vector10.hpp>
+#include <fcppt/config/external_end.hpp>
+
 
 namespace fruitapp
 {

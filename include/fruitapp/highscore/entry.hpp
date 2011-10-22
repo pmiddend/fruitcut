@@ -3,7 +3,10 @@
 
 #include <fruitapp/highscore/name.hpp>
 #include <fruitapp/highscore/score.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <boost/date_time/posix_time/posix_time.hpp>
+#include <fcppt/config/external_end.hpp>
+
 
 namespace fruitapp
 {

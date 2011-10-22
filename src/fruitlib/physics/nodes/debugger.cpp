@@ -1,5 +1,6 @@
-#include <fruitlib/physics/nodes/debugger.hpp>
 #include <fruitlib/physics/debugger.hpp>
+#include <fruitlib/physics/nodes/debugger.hpp>
+
 
 fruitlib::physics::nodes::debugger::debugger(
 	fruitlib::scenic::optional_parent const &_parent,

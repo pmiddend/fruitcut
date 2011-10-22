@@ -1,8 +1,9 @@
 #ifndef FRUITLIB_PHYSICS_MATRIX4_TO_MATRIX3_HPP_INCLUDED
 #define FRUITLIB_PHYSICS_MATRIX4_TO_MATRIX3_HPP_INCLUDED
 
-#include <fcppt/math/matrix/static.hpp>
 #include <fcppt/math/matrix/basic_impl.hpp>
+#include <fcppt/math/matrix/static.hpp>
+
 
 namespace fruitlib
 {

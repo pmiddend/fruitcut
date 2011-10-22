@@ -1,15 +1,16 @@
 #ifndef FRUITLIB_GRID_FROM_IMAGE_HPP_INCLUDED
 #define FRUITLIB_GRID_FROM_IMAGE_HPP_INCLUDED
 
-#include <sge/image2d/file_ptr.hpp>
+#include <sge/image/raw_pointer.hpp>
+#include <sge/image/color/format.hpp>
 #include <sge/image2d/file.hpp>
+#include <sge/image2d/file_ptr.hpp>
 #include <sge/image2d/algorithm/copy_and_convert.hpp>
 #include <sge/image2d/view/make.hpp>
 #include <sge/image2d/view/optional_pitch.hpp>
-#include <sge/image/color/format.hpp>
-#include <sge/image/raw_pointer.hpp>
 #include <fcppt/container/grid/object.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
+
 
 namespace fruitlib
 {

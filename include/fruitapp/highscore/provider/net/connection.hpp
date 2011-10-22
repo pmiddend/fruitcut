@@ -1,27 +1,30 @@
 #ifndef FRUITAPP_HIGHSCORE_PROVIDER_NET_CONNECTION_HPP_INCLUDED
 #define FRUITAPP_HIGHSCORE_PROVIDER_NET_CONNECTION_HPP_INCLUDED
 
-#include <fruitapp/highscore/provider/net/port.hpp>
 #include <fruitapp/highscore/name.hpp>
 #include <fruitapp/highscore/score.hpp>
-#include <fruitapp/highscore/provider/net/host.hpp>
-#include <fruitapp/highscore/provider/connection_base.hpp>
-#include <fruitapp/highscore/callbacks/message_received_fn.hpp>
-#include <fruitapp/highscore/callbacks/message_received.hpp>
-#include <fruitapp/highscore/callbacks/error_received_fn.hpp>
 #include <fruitapp/highscore/callbacks/error_received.hpp>
-#include <fruitapp/highscore/callbacks/list_received_fn.hpp>
+#include <fruitapp/highscore/callbacks/error_received_fn.hpp>
 #include <fruitapp/highscore/callbacks/list_received.hpp>
-#include <fruitapp/highscore/callbacks/rank_received_fn.hpp>
+#include <fruitapp/highscore/callbacks/list_received_fn.hpp>
+#include <fruitapp/highscore/callbacks/message_received.hpp>
+#include <fruitapp/highscore/callbacks/message_received_fn.hpp>
 #include <fruitapp/highscore/callbacks/rank_received.hpp>
+#include <fruitapp/highscore/callbacks/rank_received_fn.hpp>
+#include <fruitapp/highscore/provider/connection_base.hpp>
+#include <fruitapp/highscore/provider/net/host.hpp>
+#include <fruitapp/highscore/provider/net/port.hpp>
 #include <sge/parse/json/object_fwd.hpp>
-#include <fcppt/signal/object.hpp>
+#include <fcppt/noncopyable.hpp>
 #include <fcppt/function/object.hpp>
 #include <fcppt/signal/auto_connection.hpp>
+#include <fcppt/signal/object.hpp>
 #include <fcppt/utf8/string.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <boost/asio.hpp>
 #include <string>
+#include <fcppt/config/external_end.hpp>
+
 
 namespace fruitapp
 {

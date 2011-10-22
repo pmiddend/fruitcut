@@ -1,31 +1,34 @@
 #ifndef FRUITAPP_GAME_LOGIC_OBJECT_HPP_INCLUDED
 #define FRUITAPP_GAME_LOGIC_OBJECT_HPP_INCLUDED
 
+#include <fruitapp/ingame_clock.hpp>
+#include <fruitapp/ingame_timer.hpp>
 #include <fruitapp/overlay.hpp>
 #include <fruitapp/bonsu/manager.hpp>
 #include <fruitapp/bonsu/instance/gravity.hpp>
-#include <fruitapp/ingame_clock.hpp>
-#include <fruitapp/ingame_timer.hpp>
+#include <fruitapp/fruit/area.hpp>
+#include <fruitapp/fruit/cut_context_fwd.hpp>
 #include <fruitapp/fruit/manager_fwd.hpp>
 #include <fruitapp/fruit/object_fwd.hpp>
-#include <fruitapp/fruit/cut_context_fwd.hpp>
-#include <fruitapp/fruit/area.hpp>
+#include <fruitapp/highscore/score.hpp>
+#include <fruitlib/audio/sound_controller.hpp>
 #include <fruitlib/font/cache_fwd.hpp>
 #include <fruitlib/font/scene_node.hpp>
 #include <fruitlib/physics/world_fwd.hpp>
-#include <fruitlib/audio/sound_controller.hpp>
 #include <fruitlib/scenic/node.hpp>
 #include <fruitlib/scenic/parent_fwd.hpp>
 #include <fruitlib/scenic/events/update.hpp>
 #include <fruitlib/scenic/events/viewport_change.hpp>
-#include <fruitapp/highscore/score.hpp>
-#include <sge/parse/json/object_fwd.hpp>
-#include <sge/renderer/scalar.hpp>
-#include <sge/renderer/device_fwd.hpp>
 #include <sge/image2d/multi_loader_fwd.hpp>
-#include <fcppt/signal/scoped_connection.hpp>
+#include <sge/parse/json/object_fwd.hpp>
+#include <sge/renderer/device_fwd.hpp>
+#include <sge/renderer/scalar.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/signal/scoped_connection.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
+#include <fcppt/config/external_end.hpp>
+
 
 namespace fruitapp
 {

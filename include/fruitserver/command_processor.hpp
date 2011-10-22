@@ -1,10 +1,13 @@
 #ifndef FRUITSERVER_COMMAND_PROCESSOR_HPP_INCLUDED
 #define FRUITSERVER_COMMAND_PROCESSOR_HPP_INCLUDED
 
+#include <fcppt/config/external_begin.hpp>
 #include <fruitserver/command.hpp>
 #include <fruitserver/ascii/string.hpp>
 #include <iosfwd>
 #include <map>
+#include <fcppt/config/external_end.hpp>
+
 
 namespace fruitserver
 {

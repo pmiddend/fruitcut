@@ -1,14 +1,17 @@
-#include <fruitlib/utf8_file_to_fcppt_string.hpp>
 #include <fruitlib/exception.hpp>
-#include <fcppt/text.hpp>
-#include <fcppt/filesystem/path_to_string.hpp>
-#include <fcppt/filesystem/path.hpp>
-#include <fcppt/io/cifstream.hpp>
+#include <fruitlib/utf8_file_to_fcppt_string.hpp>
 #include <fcppt/string.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/filesystem/path.hpp>
+#include <fcppt/filesystem/path_to_string.hpp>
+#include <fcppt/io/cifstream.hpp>
 #include <fcppt/utf8/from_std_string.hpp>
 #include <fcppt/utf8/to_fcppt_string.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <iterator>
 #include <string>
+#include <fcppt/config/external_end.hpp>
+
 
 fcppt::string const
 fruitlib::utf8_file_to_fcppt_string(

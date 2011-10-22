@@ -1,10 +1,11 @@
 #ifndef FRUITAPP_DIRECTIONAL_LIGHT_SOURCE_HPP_INCLUDED
 #define FRUITAPP_DIRECTIONAL_LIGHT_SOURCE_HPP_INCLUDED
 
-#include <sge/renderer/vector3.hpp>
 #include <sge/renderer/matrix4.hpp>
-#include <fcppt/math/vector/basic_impl.hpp>
+#include <sge/renderer/vector3.hpp>
 #include <fcppt/math/matrix/basic_impl.hpp>
+#include <fcppt/math/vector/basic_impl.hpp>
+
 
 namespace fruitapp
 {

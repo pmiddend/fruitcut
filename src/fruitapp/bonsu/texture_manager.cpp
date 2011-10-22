@@ -1,23 +1,26 @@
-#include <fruitapp/bonsu/texture_manager.hpp>
-#include <fruitapp/bonsu/texture_identifier.hpp>
 #include <fruitapp/exception.hpp>
 #include <fruitapp/media_path.hpp>
+#include <fruitapp/bonsu/texture_identifier.hpp>
+#include <fruitapp/bonsu/texture_manager.hpp>
 #include <sge/image/color/format.hpp>
 #include <sge/image2d/multi_loader.hpp>
-#include <sge/texture/rect_fragmented.hpp>
+#include <sge/renderer/dim2.hpp>
+#include <sge/renderer/texture/mipmap/off.hpp>
 #include <sge/texture/add_image.hpp>
 #include <sge/texture/fragmented_unique_ptr.hpp>
-#include <sge/renderer/texture/mipmap/off.hpp>
-#include <sge/renderer/dim2.hpp>
-#include <fcppt/filesystem/directory_iterator.hpp>
-#include <fcppt/filesystem/stem.hpp>
-#include <fcppt/filesystem/is_directory.hpp>
+#include <sge/texture/rect_fragmented.hpp>
 #include <fcppt/ref.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/filesystem/directory_iterator.hpp>
+#include <fcppt/filesystem/is_directory.hpp>
+#include <fcppt/filesystem/stem.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
-#include <boost/spirit/home/phoenix/object/new.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <boost/spirit/home/phoenix/object/construct.hpp>
+#include <boost/spirit/home/phoenix/object/new.hpp>
 #include <utility>
+#include <fcppt/config/external_end.hpp>
+
 
 fruitapp::bonsu::texture_manager::texture_manager(
 	sge::renderer::device &_renderer,

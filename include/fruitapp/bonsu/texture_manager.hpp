@@ -2,11 +2,14 @@
 #define FRUITAPP_BONSU_TEXTURE_MANAGER_HPP_INCLUDED
 
 #include <fruitapp/bonsu/texture_identifier.hpp>
-#include <sge/texture/part_ptr.hpp>
-#include <sge/texture/manager.hpp>
 #include <sge/image2d/multi_loader_fwd.hpp>
 #include <sge/renderer/device_fwd.hpp>
+#include <sge/texture/manager.hpp>
+#include <sge/texture/part_ptr.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <boost/unordered_map.hpp>
+#include <fcppt/config/external_end.hpp>
+
 
 namespace fruitapp
 {

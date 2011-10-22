@@ -1,20 +1,23 @@
-#include <fruitserver/controller.hpp>
-#include <fruitserver/listener/base.hpp>
-#include <fruitserver/command_processor.hpp>
-#include <fruitserver/parse_command.hpp>
-#include <fruitserver/logger.hpp>
-#include <fruitserver/lexical_cast.hpp>
-#include <fruitserver/format_output_size.hpp>
-#include <fruitserver/ascii/string.hpp>
-#include <fruitserver/ascii/from_native_char.hpp>
-#include <fruitserver/ascii/to_native.hpp>
-#include <fruitserver/ascii/from_native.hpp>
-#include <fruitserver/ascii/to_byte_sequence.hpp>
-#include <fruitserver/ascii/from_byte_sequence.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <tr1/functional>
-#include <stdexcept>
-#include <iterator>
+#include <fruitserver/command_processor.hpp>
+#include <fruitserver/controller.hpp>
+#include <fruitserver/format_output_size.hpp>
+#include <fruitserver/lexical_cast.hpp>
+#include <fruitserver/logger.hpp>
+#include <fruitserver/parse_command.hpp>
+#include <fruitserver/ascii/from_byte_sequence.hpp>
+#include <fruitserver/ascii/from_native.hpp>
+#include <fruitserver/ascii/from_native_char.hpp>
+#include <fruitserver/ascii/string.hpp>
+#include <fruitserver/ascii/to_byte_sequence.hpp>
+#include <fruitserver/ascii/to_native.hpp>
+#include <fruitserver/listener/base.hpp>
 #include <algorithm>
+#include <iterator>
+#include <stdexcept>
+#include <fcppt/config/external_end.hpp>
+
 
 fruitserver::controller::controller(
 	fruitserver::listener::base &_listener,

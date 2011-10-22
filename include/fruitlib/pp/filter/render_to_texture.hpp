@@ -3,14 +3,15 @@
 
 #include <fruitlib/pp/filter/nullary.hpp>
 #include <fruitlib/pp/texture/counted_instance.hpp>
-#include <fruitlib/pp/texture/manager_fwd.hpp>
 #include <fruitlib/pp/texture/depth_stencil_format.hpp>
+#include <fruitlib/pp/texture/manager_fwd.hpp>
 #include <sge/renderer/device_fwd.hpp>
-#include <sge/renderer/target_ptr.hpp>
 #include <sge/renderer/dim2.hpp>
+#include <sge/renderer/target_ptr.hpp>
 #include <sge/renderer/state/list.hpp>
-#include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/function/object.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
+
 
 namespace fruitlib
 {

@@ -1,20 +1,23 @@
-#include <fruitapp/states/gameover/choose_name.hpp>
-#include <fruitapp/states/gameover/ranking.hpp>
+#include <fruitapp/media_path.hpp>
 #include <fruitapp/events/define_transition_reaction.hpp>
 #include <fruitapp/events/post_transition.hpp>
-#include <fruitapp/media_path.hpp>
-#include <fruitlib/resource_tree/path.hpp>
+#include <fruitapp/states/gameover/choose_name.hpp>
+#include <fruitapp/states/gameover/ranking.hpp>
 #include <fruitlib/audio/sound_controller.hpp>
-#include <sge/cegui/to_cegui_string.hpp>
+#include <fruitlib/resource_tree/path.hpp>
 #include <sge/cegui/system.hpp>
+#include <sge/cegui/to_cegui_string.hpp>
 #include <sge/systems/instance.hpp>
+#include <fcppt/insert_to_fcppt_string.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/tr1/functional.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <CEGUIEvent.h>
 #include <CEGUIString.h>
 #include <CEGUIWindow.h>
 #include <CEGUIWindowManager.h>
-#include <fcppt/insert_to_fcppt_string.hpp>
-#include <fcppt/text.hpp>
-#include <fcppt/tr1/functional.hpp>
+#include <fcppt/config/external_end.hpp>
+
 
 fruitapp::states::gameover::choose_name::choose_name(
 	my_context ctx)

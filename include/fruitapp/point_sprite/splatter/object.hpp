@@ -1,16 +1,17 @@
 #ifndef FRUITAPP_POINT_SPRITE_SPLATTER_OBJECT_HPP_INCLUDED
 #define FRUITAPP_POINT_SPRITE_SPLATTER_OBJECT_HPP_INCLUDED
 
-#include <fruitapp/point_sprite/splatter/parameters_fwd.hpp>
-#include <fruitapp/point_sprite/splatter/linear_velocity.hpp>
-#include <fruitapp/point_sprite/splatter/acceleration.hpp>
-#include <fruitapp/point_sprite/vector.hpp>
-#include <fruitapp/point_sprite/object.hpp>
-#include <fruitapp/point_sprite/base.hpp>
-#include <fruitapp/point_sprite/system.hpp>
-#include <fruitapp/point_sprite/color.hpp>
 #include <fruitapp/ingame_timer.hpp>
+#include <fruitapp/point_sprite/base.hpp>
+#include <fruitapp/point_sprite/color.hpp>
+#include <fruitapp/point_sprite/object.hpp>
+#include <fruitapp/point_sprite/system.hpp>
+#include <fruitapp/point_sprite/vector.hpp>
+#include <fruitapp/point_sprite/splatter/acceleration.hpp>
+#include <fruitapp/point_sprite/splatter/linear_velocity.hpp>
+#include <fruitapp/point_sprite/splatter/parameters_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
+
 
 namespace fruitapp
 {

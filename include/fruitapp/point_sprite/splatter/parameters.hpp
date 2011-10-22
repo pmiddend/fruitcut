@@ -1,16 +1,17 @@
 #ifndef FRUITAPP_POINT_SPRITE_SPLATTER_PARAMETERS_HPP_INCLUDED
 #define FRUITAPP_POINT_SPRITE_SPLATTER_PARAMETERS_HPP_INCLUDED
 
-#include <fruitapp/point_sprite/system.hpp>
-#include <fruitapp/point_sprite/color.hpp>
-#include <fruitapp/point_sprite/splatter/position.hpp>
-#include <fruitapp/point_sprite/splatter/linear_velocity.hpp>
-#include <fruitapp/point_sprite/splatter/acceleration.hpp>
-#include <fruitapp/point_sprite/splatter/size.hpp>
 #include <fruitapp/ingame_clock.hpp>
+#include <fruitapp/point_sprite/color.hpp>
+#include <fruitapp/point_sprite/system.hpp>
+#include <fruitapp/point_sprite/splatter/acceleration.hpp>
+#include <fruitapp/point_sprite/splatter/linear_velocity.hpp>
+#include <fruitapp/point_sprite/splatter/position.hpp>
+#include <fruitapp/point_sprite/splatter/size.hpp>
 #include <sge/texture/part_ptr.hpp>
-#include <fcppt/chrono/duration.hpp>
 #include <fcppt/nonassignable.hpp>
+#include <fcppt/chrono/duration.hpp>
+
 
 namespace fruitapp
 {

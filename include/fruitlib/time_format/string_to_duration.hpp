@@ -1,25 +1,28 @@
 #ifndef FRUITLIB_TIME_FORMAT_STRING_TO_DURATION_HPP_INCLUDED
 #define FRUITLIB_TIME_FORMAT_STRING_TO_DURATION_HPP_INCLUDED
 
+#include <fcppt/optional.hpp>
+#include <fcppt/chrono/days.hpp>
 #include <fcppt/chrono/duration.hpp>
 #include <fcppt/chrono/duration_cast.hpp>
-#include <fcppt/chrono/days.hpp>
 #include <fcppt/chrono/hours.hpp>
-#include <fcppt/chrono/minutes.hpp>
-#include <fcppt/chrono/seconds.hpp>
-#include <fcppt/chrono/milliseconds.hpp>
 #include <fcppt/chrono/microseconds.hpp>
+#include <fcppt/chrono/milliseconds.hpp>
+#include <fcppt/chrono/minutes.hpp>
 #include <fcppt/chrono/nanoseconds.hpp>
-#include <fcppt/optional.hpp>
-#include <boost/spirit/include/qi.hpp>
+#include <fcppt/chrono/seconds.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <boost/optional.hpp>
 #include <boost/fusion/container/vector/vector10.hpp>
 #include <boost/fusion/include/at.hpp>
-#include <boost/fusion/include/zip_view.hpp>
 #include <boost/fusion/include/at_c.hpp>
-#include <boost/type_traits/remove_reference.hpp>
+#include <boost/fusion/include/zip_view.hpp>
+#include <boost/spirit/include/qi.hpp>
 #include <boost/type_traits/remove_cv.hpp>
+#include <boost/type_traits/remove_reference.hpp>
 #include <string>
+#include <fcppt/config/external_end.hpp>
+
 
 namespace fruitlib
 {

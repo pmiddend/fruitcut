@@ -1,8 +1,11 @@
 #ifndef FRUITSERVER_PROGRAM_OPTIONS_DETAIL_OPTION_HOLDER_BASE_PTR_HPP_INCLUDED
 #define FRUITSERVER_PROGRAM_OPTIONS_DETAIL_OPTION_HOLDER_BASE_PTR_HPP_INCLUDED
 
-#include <fruitserver/program_options/detail/option_holder_base_fwd.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <tr1/memory>
+#include <fruitserver/program_options/detail/option_holder_base_fwd.hpp>
+#include <fcppt/config/external_end.hpp>
+
 
 namespace fruitserver
 {

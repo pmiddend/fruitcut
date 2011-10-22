@@ -3,8 +3,9 @@
 
 #include <fruitlib/scenic/delta/callback.hpp>
 #include <fruitlib/scenic/delta/clock_impl.hpp>
-#include <fcppt/chrono/time_point.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/chrono/time_point.hpp>
+
 
 namespace fruitlib
 {

@@ -1,7 +1,10 @@
 #include <fruitlib/resource_tree/path.hpp>
-#include <fcppt/text.hpp>
 #include <fcppt/string.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <boost/next_prior.hpp>
+#include <fcppt/config/external_end.hpp>
+
 
 fruitlib::resource_tree::path::path(
 	fcppt::string const &s)

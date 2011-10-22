@@ -1,12 +1,15 @@
+#include <fcppt/config/external_begin.hpp>
 #include <fruitserver/highscore_from_plain_file.hpp>
-#include <fruitserver/separator.hpp>
-#include <fruitserver/ascii/string.hpp>
-#include <fruitserver/ascii/char_traits.hpp>
-#include <fruitserver/ascii/to_native.hpp>
 #include <fruitserver/lexical_cast.hpp>
-#include <string>
-#include <stdexcept>
+#include <fruitserver/separator.hpp>
+#include <fruitserver/ascii/char_traits.hpp>
+#include <fruitserver/ascii/string.hpp>
+#include <fruitserver/ascii/to_native.hpp>
 #include <fstream>
+#include <stdexcept>
+#include <string>
+#include <fcppt/config/external_end.hpp>
+
 
 namespace
 {

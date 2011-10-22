@@ -1,6 +1,6 @@
+#include <fruitlib/pp/screen_vf/format.hpp>
 #include <fruitlib/pp/screen_vf/quad.hpp>
 #include <fruitlib/pp/screen_vf/vertex_view.hpp>
-#include <fruitlib/pp/screen_vf/format.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/first_vertex.hpp>
 #include <sge/renderer/lock_mode.hpp>
@@ -12,12 +12,12 @@
 #include <sge/renderer/vertex_buffer.hpp>
 #include <sge/renderer/vertex_count.hpp>
 #include <sge/renderer/vertex_declaration_ptr.hpp>
+#include <sge/renderer/vf/vertex.hpp>
 #include <sge/renderer/vf/dynamic/make_format.hpp>
 #include <sge/renderer/vf/dynamic/part_index.hpp>
-#include <sge/renderer/vf/dynamic/part_index.hpp>
-#include <sge/renderer/vf/vertex.hpp>
 #include <sge/shader/object.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
+
 
 fruitlib::pp::screen_vf::quad::quad(
 	sge::renderer::device &_renderer)

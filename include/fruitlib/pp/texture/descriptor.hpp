@@ -2,12 +2,15 @@
 #define FRUITLIB_PP_TEXTURE_DESCRIPTOR_HPP_INCLUDED
 
 #include <fruitlib/pp/texture/depth_stencil_format.hpp>
-#include <sge/renderer/dim2.hpp>
 #include <sge/image/color/format.hpp>
+#include <sge/renderer/dim2.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <boost/fusion/tuple.hpp>
+#include <fcppt/config/external_end.hpp>
+
 
 namespace fruitlib
 {

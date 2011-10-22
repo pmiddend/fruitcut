@@ -1,20 +1,23 @@
 #include <fruitlib/average_colors.hpp>
 #include <sge/image2d/view/const_object.hpp>
-#include <fcppt/variant/apply_unary.hpp>
-#include <fcppt/nonassignable.hpp>
-#include <fcppt/math/box/basic_impl.hpp>
-#include <fcppt/math/vector/basic_impl.hpp>
-#include <fcppt/math/dim/basic_impl.hpp>
-#include <fcppt/from_std_string.hpp>
-#include <boost/type_traits/integral_promotion.hpp>
-#include <mizuiro/color/homogenous_static.hpp>
 #include <mizuiro/color/for_each_channel.hpp>
-#include <mizuiro/color/types/channel_value.hpp>
+#include <mizuiro/color/homogenous_static.hpp>
 #include <mizuiro/color/object.hpp>
 #include <mizuiro/color/output.hpp>
+#include <mizuiro/color/types/channel_value.hpp>
+#include <fcppt/from_std_string.hpp>
+#include <fcppt/nonassignable.hpp>
+#include <fcppt/math/box/basic_impl.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
+#include <fcppt/math/vector/basic_impl.hpp>
+#include <fcppt/variant/apply_unary.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/type_traits/integral_promotion.hpp>
 #include <cstddef>
 #include <iostream>
 #include <ostream>
+#include <fcppt/config/external_end.hpp>
+
 
 namespace
 {

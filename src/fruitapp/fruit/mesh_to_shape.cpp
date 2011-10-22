@@ -1,10 +1,13 @@
-#include <fruitapp/fruit/mesh_to_shape.hpp>
 #include <fruitapp/fruit/mesh.hpp>
+#include <fruitapp/fruit/mesh_to_shape.hpp>
 #include <fruitlib/physics/shared_shape_ptr.hpp>
-#include <fcppt/container/raw_vector.hpp>
 #include <fcppt/make_shared_ptr.hpp>
+#include <fcppt/container/raw_vector.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <BulletCollision/CollisionShapes/btConvexHullShape.h>
 #include <iostream>
+#include <fcppt/config/external_end.hpp>
+
 
 fruitlib::physics::shared_shape_ptr const
 fruitapp::fruit::mesh_to_shape(

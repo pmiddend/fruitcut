@@ -1,11 +1,12 @@
 #ifndef FRUITLIB_MATH_LINE_BASIC_HPP_INCLUDED
 #define FRUITLIB_MATH_LINE_BASIC_HPP_INCLUDED
 
-#include <fcppt/math/vector/basic_impl.hpp>
-#include <fcppt/math/vector/static.hpp>
-#include <fcppt/math/vector/comparison.hpp>
-#include <fcppt/math/size_type.hpp>
 #include <fcppt/assert/pre_message.hpp>
+#include <fcppt/math/size_type.hpp>
+#include <fcppt/math/vector/basic_impl.hpp>
+#include <fcppt/math/vector/comparison.hpp>
+#include <fcppt/math/vector/static.hpp>
+
 
 namespace fruitlib
 {

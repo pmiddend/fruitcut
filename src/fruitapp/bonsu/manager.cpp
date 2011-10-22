@@ -1,29 +1,31 @@
+#include <fruitapp/bonsu/instance_wrapper.hpp>
 #include <fruitapp/bonsu/manager.hpp>
 #include <fruitapp/bonsu/scalar.hpp>
-#include <fruitapp/bonsu/instance_wrapper.hpp>
 #include <fruitapp/bonsu/rectangle/manager.hpp>
 #include <fruitapp/bonsu/rectangle/padding.hpp>
 #include <sge/parse/json/find_and_convert_member.hpp>
 #include <sge/parse/json/string_to_path.hpp>
-#include <sge/sprite/default_equal.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/onscreen_target.hpp>
-#include <sge/timer/parameters.hpp>
+#include <sge/sprite/default_equal.hpp>
 #include <sge/timer/elapsed_and_reset.hpp>
+#include <sge/timer/parameters.hpp>
+#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/move.hpp>
+#include <fcppt/ref.hpp>
+#include <fcppt/unique_ptr.hpp>
+#include <fcppt/chrono/seconds.hpp>
 #include <fcppt/container/ptr/push_back_unique_ptr.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/math/box/structure_cast.hpp>
-#include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/move.hpp>
-#include <fcppt/unique_ptr.hpp>
-#include <fcppt/chrono/seconds.hpp>
-#include <fcppt/ref.hpp>
-#include <cstdlib>
-#include <utility>
-
-#include <iostream>
-#include <fcppt/math/vector/output.hpp>
 #include <fcppt/math/dim/output.hpp>
+#include <fcppt/math/vector/output.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <cstdlib>
+#include <iostream>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
+
 
 fruitapp::bonsu::manager::manager(
 	fruitlib::scenic::optional_parent const &_parent,

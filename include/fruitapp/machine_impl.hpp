@@ -1,39 +1,40 @@
 #ifndef FRUITAPP_MACHINE_IMPL_HPP_INCLUDED
 #define FRUITAPP_MACHINE_IMPL_HPP_INCLUDED
 
-#include <fruitapp/highscore/score.hpp>
 #include <fruitapp/background.hpp>
-#include <fruitapp/directional_light_source.hpp>
 #include <fruitapp/config_variables.hpp>
+#include <fruitapp/directional_light_source.hpp>
+#include <fruitapp/ingame_clock.hpp>
 #include <fruitapp/quick_log.hpp>
+#include <fruitapp/renderable.hpp>
+#include <fruitapp/screen_shooter.hpp>
+#include <fruitapp/shadow_map.hpp>
+#include <fruitapp/fruit/prototype_sequence.hpp>
+#include <fruitapp/highscore/score.hpp>
+#include <fruitapp/point_sprite/system_node.hpp>
+#include <fruitlib/random_generator.hpp>
 #include <fruitlib/audio/music_controller.hpp>
 #include <fruitlib/audio/sound_controller.hpp>
 #include <fruitlib/font/cache.hpp>
 #include <fruitlib/log/scoped_sequence_ptr.hpp>
-#include <fruitlib/random_generator.hpp>
+#include <fruitlib/scenic/node.hpp>
 #include <fruitlib/scenic/adaptors/camera.hpp>
-#include <fruitlib/scenic/events/update.hpp>
-#include <fruitlib/scenic/events/render.hpp>
 #include <fruitlib/scenic/delta/callback.hpp>
 #include <fruitlib/scenic/delta/duration.hpp>
-#include <fruitlib/scenic/node.hpp>
-#include <fruitapp/screen_shooter.hpp>
-#include <fruitapp/point_sprite/system_node.hpp>
-#include <fruitapp/renderable.hpp>
-#include <fruitapp/shadow_map.hpp>
-#include <fruitapp/fruit/prototype_sequence.hpp>
-#include <fruitapp/ingame_clock.hpp>
-#include <fcppt/signal/scoped_connection.hpp>
+#include <fruitlib/scenic/events/render.hpp>
+#include <fruitlib/scenic/events/update.hpp>
 #include <sge/camera/first_person/object.hpp>
 #include <sge/cegui/syringe.hpp>
 #include <sge/cegui/system.hpp>
-#include <sge/model/md3/loader_ptr.hpp>
-#include <sge/model/md3/loader_fwd.hpp>
 #include <sge/font/metrics_ptr.hpp>
+#include <sge/model/md3/loader_fwd.hpp>
+#include <sge/model/md3/loader_ptr.hpp>
 #include <sge/parse/json/object.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/timer/basic.hpp>
 #include <sge/timer/clocks/standard.hpp>
+#include <fcppt/signal/scoped_connection.hpp>
+
 
 namespace fruitapp
 {
