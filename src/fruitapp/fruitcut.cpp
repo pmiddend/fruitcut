@@ -5,16 +5,18 @@
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/config.hpp>
 #include <fcppt/config/platform.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <iostream>
-
-#include <boost/filesystem/operations.hpp>
+#include <fcppt/config/external_end.hpp>
 
 #if defined(FCPPT_HAVE_BACKTRACE) && defined(FCPPT_CONFIG_POSIX_PLATFORM)
 #define FRUITCUT_HAVE_SIGNAL_STACK_PRINTER
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/backtrace/print_current_stack_frame.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <signal.h>
 #include <cstdlib>
+#include <fcppt/config/external_end.hpp>
 
 namespace
 {
@@ -80,7 +82,6 @@ int main(
 	char *argv[])
 try
 {
-	boost::filesystem3::directory_iterator it,it2(it);
 #if defined(FRUITCUT_HAVE_SIGNAL_STACK_PRINTER)
 	signal_stack_printer stack_printer(
 		SIGSEGV);
