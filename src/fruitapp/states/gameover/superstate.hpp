@@ -38,7 +38,7 @@ public:
 	CEGUI::String const &
 	name() const;
 
-	~superstate();
+	virtual ~superstate();
 private:
 	fruitlib::scenic::adaptors::gui_system gui_node_;
 	sge::cegui::default_keyboard gui_keyboard_;

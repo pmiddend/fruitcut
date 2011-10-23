@@ -3,6 +3,7 @@
 
 #include <fruitlib/pp/filter/base.hpp>
 #include <fruitlib/pp/texture/counted_instance.hpp>
+#include <fcppt/noncopyable.hpp>
 
 
 namespace fruitlib
@@ -15,7 +16,15 @@ class binary
 :
 	public base
 {
+FCPPT_NONCOPYABLE(
+	binary);
 public:
+	explicit
+	binary();
+
+	virtual
+	~binary();
+
 	virtual texture::counted_instance const
 	apply(
 		texture::counted_instance,

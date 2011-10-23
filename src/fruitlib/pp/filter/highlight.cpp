@@ -90,3 +90,7 @@ fruitlib::pp::filter::highlight::apply(
 
 	return result;
 }
+
+fruitlib::pp::filter::highlight::~highlight()
+{
+}

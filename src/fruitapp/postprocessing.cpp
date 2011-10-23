@@ -192,3 +192,7 @@ fruitapp::postprocessing::react(
 {
 	texture_manager_.clear_screen_textures();
 }
+
+fruitapp::postprocessing::~postprocessing()
+{
+}

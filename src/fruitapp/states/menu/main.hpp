@@ -58,7 +58,7 @@ public:
 	FRUITAPP_EVENTS_DECLARE_TRANSITION_REACTION(
 		menu::highscore);
 
-	~main();
+	virtual ~main();
 private:
 	fruitapp::logo logo_;
 	sge::cegui::toolbox::scoped_layout layout_;

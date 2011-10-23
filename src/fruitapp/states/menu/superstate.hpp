@@ -31,7 +31,7 @@ public:
 	superstate(
 		my_context);
 
-	~superstate();
+	virtual ~superstate();
 private:
 	fruitlib::scenic::adaptors::gui_system gui_node_;
 	sge::cegui::default_keyboard gui_keyboard_;

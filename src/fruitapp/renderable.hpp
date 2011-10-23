@@ -8,6 +8,7 @@
 #include <fruitlib/scenic/optional_parent.hpp>
 #include <sge/parse/json/object_fwd.hpp>
 #include <sge/systems/instance_fwd.hpp>
+#include <fcppt/noncopyable.hpp>
 
 
 namespace fruitapp
@@ -40,6 +41,8 @@ class renderable
 :
 	public fruitlib::scenic::node<renderable>
 {
+FCPPT_NONCOPYABLE(
+	renderable);
 public:
 	explicit
 	renderable(

@@ -72,7 +72,7 @@ public:
 	fruitapp::game_logic::object const &
 	game_logic() const;
 
-	~superstate();
+	virtual ~superstate();
 private:
 	fruitlib::physics::world physics_world_;
 	fruitlib::physics::nodes::world physics_world_node_;

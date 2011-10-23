@@ -17,6 +17,7 @@
 #include <sge/parse/json/object_fwd.hpp>
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/texture/planar_ptr.hpp>
+#include <fcppt/noncopyable.hpp>
 #include <fcppt/function/object.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -30,6 +31,8 @@ class postprocessing
 :
 	public fruitlib::scenic::node<postprocessing>
 {
+FCPPT_NONCOPYABLE(
+	postprocessing);
 public:
 	typedef
 	boost::mpl::vector2<fruitlib::scenic::events::update,fruitlib::scenic::events::viewport_change>
@@ -71,6 +74,8 @@ public:
 	void
 	react(
 		fruitlib::scenic::events::viewport_change const &);
+
+	~postprocessing();
 private:
 	fruitlib::pp::texture::manager texture_manager_;
 	fruitlib::pp::filter::manager filter_manager_;

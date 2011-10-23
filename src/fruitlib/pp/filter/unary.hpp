@@ -1,6 +1,7 @@
 #ifndef FRUITLIB_PP_FILTER_UNARY_HPP_INCLUDED
 #define FRUITLIB_PP_FILTER_UNARY_HPP_INCLUDED
 
+#include <fcppt/noncopyable.hpp>
 #include <fruitlib/pp/filter/base.hpp>
 #include <fruitlib/pp/texture/counted_instance.hpp>
 
@@ -15,7 +16,15 @@ class unary
 :
 	public base
 {
+FCPPT_NONCOPYABLE(
+		unary);
 public:
+	explicit
+	unary();
+	
+	virtual
+	~unary();
+
 	virtual texture::counted_instance const
 	apply(
 		texture::counted_instance) = 0;

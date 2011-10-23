@@ -27,6 +27,7 @@
 #include <sge/model/md3/loader_fwd.hpp>
 #include <sge/parse/json/object_fwd.hpp>
 #include <sge/systems/instance_fwd.hpp>
+#include <fcppt/noncopyable.hpp>
 #include <fcppt/scoped_ptr.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -41,6 +42,8 @@ class machine
 :
 	public boost::statechart::state_machine<machine,states::loading>
 {
+FCPPT_NONCOPYABLE(
+	machine);
 public:
 	typedef
 	boost::statechart::state_machine<machine,states::loading>

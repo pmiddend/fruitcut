@@ -46,7 +46,7 @@ public:
 	FRUITAPP_EVENTS_DECLARE_TRANSITION_REACTION(
 		menu::main);
 
-	~settings();
+	virtual ~settings();
 private:
 	sge::cegui::toolbox::scoped_layout layout_;
 	sge::cegui::toolbox::scoped_gui_sheet gui_sheet_;

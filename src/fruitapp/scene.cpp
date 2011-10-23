@@ -41,3 +41,7 @@ fruitapp::scene::render_children()
 		node_base::forward_to_children(
 			fruitlib::scenic::events::render());
 }
+
+fruitapp::scene::~scene()
+{
+}

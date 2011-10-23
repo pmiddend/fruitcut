@@ -76,8 +76,11 @@ INCLUDE_DIRECTORIES(SYSTEM ${CEGUI_INCLUDE_DIRS})
 # get rid of a pretty useless warning
 IF(CMAKE_COMPILER_IS_GNUCXX OR FCPPT_UTILS_COMPILER_IS_CLANGPP)
 	ADD_DEFINITIONS(-Wno-old-style-cast)
+ELSEIF(MSVC)
+	# Disable "this" used in initializer list warning
+	ADD_DEFINITIONS("/wd4355")
 ENDIF()
-
+	
 SET(
 	INSTALL_MEDIA_DIR
 	${INSTALL_DATA_DIR}/media
@@ -283,6 +286,7 @@ SET(
 	src/fruitlib/pp/filter/base.cpp
 	src/fruitlib/pp/filter/base.hpp
 	src/fruitlib/pp/filter/base_fwd.hpp
+	src/fruitlib/pp/filter/binary.cpp
 	src/fruitlib/pp/filter/binary.hpp
 	src/fruitlib/pp/filter/blur.cpp
 	src/fruitlib/pp/filter/blur.hpp
@@ -295,11 +299,13 @@ SET(
 	src/fruitlib/pp/filter/manager.cpp
 	src/fruitlib/pp/filter/manager.hpp
 	src/fruitlib/pp/filter/manager_fwd.hpp
+	src/fruitlib/pp/filter/nullary.cpp
 	src/fruitlib/pp/filter/nullary.hpp
 	src/fruitlib/pp/filter/render_to_texture.cpp
 	src/fruitlib/pp/filter/render_to_texture.hpp
 	src/fruitlib/pp/filter/ssaa.cpp
 	src/fruitlib/pp/filter/ssaa.hpp
+	src/fruitlib/pp/filter/unary.cpp
 	src/fruitlib/pp/filter/unary.hpp
 	src/fruitlib/pp/filter/wrapper.cpp
 	src/fruitlib/pp/filter/wrapper.hpp

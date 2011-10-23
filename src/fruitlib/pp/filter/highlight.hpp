@@ -9,6 +9,7 @@
 #include <sge/renderer/dim2.hpp>
 #include <sge/renderer/scalar.hpp>
 #include <sge/shader/object_fwd.hpp>
+#include <fcppt/noncopyable.hpp>
 #include <fcppt/filesystem/path.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 
@@ -23,6 +24,8 @@ class highlight
 :
 	public unary
 {
+FCPPT_NONCOPYABLE(
+	highlight);
 public:
 	explicit
 	highlight(
@@ -35,6 +38,8 @@ public:
 	texture::counted_instance const
 	apply(
 		texture::counted_instance);
+
+	~highlight();
 private:
 	sge::renderer::device &renderer_;
 	filter::manager &filter_manager_;

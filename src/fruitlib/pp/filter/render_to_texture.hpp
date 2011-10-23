@@ -9,6 +9,7 @@
 #include <sge/renderer/dim2.hpp>
 #include <sge/renderer/target_ptr.hpp>
 #include <sge/renderer/state/list.hpp>
+#include <fcppt/noncopyable.hpp>
 #include <fcppt/function/object.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 
@@ -23,6 +24,8 @@ class render_to_texture
 :
 	public nullary
 {
+FCPPT_NONCOPYABLE(
+	render_to_texture);
 public:
 	typedef
 	fcppt::function::object<void ()>

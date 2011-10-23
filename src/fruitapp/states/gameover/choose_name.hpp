@@ -45,7 +45,7 @@ public:
 	FRUITAPP_EVENTS_DECLARE_TRANSITION_REACTION(
 		gameover::ranking);
 
-	~choose_name();
+	virtual ~choose_name();
 private:
 	sge::cegui::toolbox::scoped_layout layout_;
 	sge::cegui::toolbox::scoped_gui_sheet gui_sheet_;
