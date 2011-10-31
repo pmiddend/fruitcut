@@ -32,7 +32,7 @@ fruitlib::pp::screen_vf::quad::quad(
 			*declaration_,
 			sge::renderer::vf::dynamic::part_index(
 				0u),
-			6,
+			sge::renderer::vertex_count(6),
 			sge::renderer::resource_flags::none))
 {
 	sge::renderer::scoped_vertex_lock const vblock(

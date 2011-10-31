@@ -31,8 +31,9 @@ fruitapp::fruit::mesh_to_vertex_buffer(
 			vertex_decl,
 			sge::renderer::vf::dynamic::part_index(
 				0u),
-			static_cast<sge::renderer::size_type>(
-				m.triangles.size() * 3),
+			sge::renderer::vertex_count(
+				static_cast<sge::renderer::size_type>(
+					m.triangles.size() * 3)),
 			sge::renderer::resource_flags::none);
 
 	sge::renderer::scoped_vertex_lock const vblock(

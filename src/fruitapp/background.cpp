@@ -178,7 +178,7 @@ fruitapp::background::background(
 			*vertex_declaration_,
 			sge::renderer::vf::dynamic::part_index(
 				0u),
-			6,
+			sge::renderer::vertex_count(6),
 			sge::renderer::resource_flags::none)),
 	shader_(
 		sge::shader::object_parameters(
