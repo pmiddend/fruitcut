@@ -33,12 +33,6 @@ public:
 	sge::audio::listener &
 	listener();
 
-	sge::audio::scalar
-	speed_of_sound() const;
-
-	sge::audio::scalar
-	doppler_factor() const;
-
 	void
 	speed_of_sound(
 		sge::audio::scalar);
@@ -72,7 +66,8 @@ public:
 
 	sge::audio::sound::base_ptr const
 	create_nonpositional_stream(
-		sge::audio::file_ptr);
+		sge::audio::file_ptr,
+		sge::audio::sound::nonpositional_parameters const &);
 
 	sge::audio::player_capabilities_field const
 	capabilities() const;

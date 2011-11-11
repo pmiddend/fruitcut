@@ -61,10 +61,11 @@ fruitapp::states::ingame::superstate::superstate(
 				FCPPT_TEXT("physics"))
 				/ FCPPT_TEXT("default-gravity"))),
 	physics_world_node_(
-		fruitlib::scenic::parent(
-			context<fruitapp::machine>().root_node(),
-			fruitlib::scenic::depth(
-				depths::root::dont_care)),
+		fruitlib::scenic::optional_parent(
+			fruitlib::scenic::parent(
+				context<fruitapp::machine>().root_node(),
+				fruitlib::scenic::depth(
+					depths::root::dont_care))),
 		context<fruitapp::machine>().ingame_clock_callback(),
 		physics_world_),
 	physics_debugger_(
@@ -72,10 +73,11 @@ fruitapp::states::ingame::superstate::superstate(
 		context<machine>().systems().renderer(),
 		context<machine>().camera()),
 	physics_debugger_node_(
-		fruitlib::scenic::parent(
-			context<fruitapp::machine>().overlay_node(),
-			fruitlib::scenic::depth(
-				depths::overlay::dont_care)),
+		fruitlib::scenic::optional_parent(
+			fruitlib::scenic::parent(
+				context<fruitapp::machine>().overlay_node(),
+				fruitlib::scenic::depth(
+					depths::overlay::dont_care))),
 		physics_debugger_),
 	physics_debugger_connection_(
 		context<machine>().systems().keyboard_collector().key_callback(
@@ -85,20 +87,22 @@ fruitapp::states::ingame::superstate::superstate(
 					&superstate::toggle_physics_debugger,
 					this)))),
 	fruit_manager_(
-		fruitlib::scenic::parent(
-			context<fruitapp::machine>().root_node(),
-			fruitlib::scenic::depth(
-				depths::root::dont_care)),
+		fruitlib::scenic::optional_parent(
+			fruitlib::scenic::parent(
+				context<fruitapp::machine>().root_node(),
+				fruitlib::scenic::depth(
+					depths::root::dont_care))),
 		context<machine>().fruit_prototypes(),
 		context<machine>().systems().renderer(),
 		physics_world_,
 		context<machine>().camera(),
 		context<fruitapp::machine>().ingame_clock()),
 	fruit_default_render_node_(
-		fruitlib::scenic::parent(
-			context<fruitapp::machine>().scene_node(),
-			fruitlib::scenic::depth(
-				depths::scene::fruits)),
+		fruitlib::scenic::optional_parent(
+			fruitlib::scenic::parent(
+				context<fruitapp::machine>().scene_node(),
+				fruitlib::scenic::depth(
+					depths::scene::fruits))),
 		context<machine>().systems().renderer(),
 		fruit_manager_.vertex_declaration(),
 		fruit_manager_,
@@ -109,29 +113,32 @@ fruitapp::states::ingame::superstate::superstate(
 			sge::parse::json::path(
 				FCPPT_TEXT("ambient-intensity")))),
 	fruit_shadow_render_node_(
-		fruitlib::scenic::parent(
-			context<fruitapp::machine>().shadow_map(),
-			fruitlib::scenic::depth(
-				0)),
+		fruitlib::scenic::optional_parent(
+			fruitlib::scenic::parent(
+				context<fruitapp::machine>().shadow_map(),
+				fruitlib::scenic::depth(
+					0))),
 		context<machine>().systems().renderer(),
 		fruit_manager_.vertex_declaration(),
 		fruit_manager_,
 		context<machine>().shadow_map().mvp()),
 	fruit_spawner_(
-		fruitlib::scenic::parent(
-			context<fruitapp::machine>().root_node(),
-			fruitlib::scenic::depth(
-				depths::root::dont_care)),
+		fruitlib::scenic::optional_parent(
+			fruitlib::scenic::parent(
+				context<fruitapp::machine>().root_node(),
+				fruitlib::scenic::depth(
+					depths::root::dont_care))),
 		fruit_manager_,
 		context<machine>().random_generator(),
 		context<machine>().config_file(),
 		context<machine>().camera(),
 		context<machine>().ingame_clock()),
 	game_logic_(
-		fruitlib::scenic::parent(
-			context<fruitapp::machine>().root_node(),
-			fruitlib::scenic::depth(
-				depths::root::dont_care)),
+		fruitlib::scenic::optional_parent(
+			fruitlib::scenic::parent(
+				context<fruitapp::machine>().root_node(),
+				fruitlib::scenic::depth(
+					depths::root::dont_care))),
 		context<machine>().ingame_clock(),
 		context<machine>().config_file(),
 		context<machine>().sound_controller(),

@@ -190,14 +190,15 @@ string_to_duration(
 	// "(optional<duration>,chrono::duration)". These pairs we iterate
 	// over and accumulate the total duration
 	return
-		boost::fusion::fold(
-			zipped_view(
-				sequence_pair(
-					parse_result,
-					duration_types())),
-			target_duration(
-				0),
-			fold_functor_type());
+		optional_duration(
+			boost::fusion::fold(
+				zipped_view(
+					sequence_pair(
+						parse_result,
+						duration_types())),
+				target_duration(
+					0),
+				fold_functor_type()));
 }
 }
 }

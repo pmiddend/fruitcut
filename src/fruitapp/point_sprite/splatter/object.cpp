@@ -24,7 +24,7 @@ fruitapp::point_sprite::splatter::object::object(
 			.order(
 				0)
 			.system(
-				&(p.system()))
+				p.system())
 			.color(
 				p.color())
 			.elements()),

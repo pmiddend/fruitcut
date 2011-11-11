@@ -187,10 +187,11 @@ fruitapp::machine_impl::machine_impl(
 	md3_loader_(
 		sge::model::md3::create()),
 	renderable_(
-		fruitlib::scenic::parent(
-			root_node(),
-			fruitlib::scenic::depth(
-				depths::root::scene)),
+		fruitlib::scenic::optional_parent(
+			fruitlib::scenic::parent(
+				root_node(),
+				fruitlib::scenic::depth(
+					depths::root::scene))),
 		systems_,
 		config_file_),
 	activated_loggers_(
@@ -218,10 +219,11 @@ fruitapp::machine_impl::machine_impl(
 	ingame_clock_delta_(),
 	standard_clock_delta_(),
 	sound_controller_(
-		fruitlib::scenic::parent(
-			root_node(),
-			fruitlib::scenic::depth(
-				depths::root::dont_care)),
+		fruitlib::scenic::optional_parent(
+			fruitlib::scenic::parent(
+				root_node(),
+				fruitlib::scenic::depth(
+					depths::root::dont_care))),
 		random_generator_,
 		fruitcut::media_path()/FCPPT_TEXT("sounds"),
 		systems_.audio_loader(),
@@ -239,10 +241,11 @@ fruitapp::machine_impl::machine_impl(
 				&sound_controller_,
 				std::tr1::placeholders::_1))),
 	music_controller_(
-		fruitlib::scenic::parent(
-			root_node(),
-			fruitlib::scenic::depth(
-				depths::root::dont_care)),
+		fruitlib::scenic::optional_parent(
+			fruitlib::scenic::parent(
+				root_node(),
+				fruitlib::scenic::depth(
+					depths::root::dont_care))),
 		standard_clock_callback(),
 		random_generator_,
 		systems_.audio_loader(),
@@ -266,10 +269,11 @@ fruitapp::machine_impl::machine_impl(
 				&music_controller_,
 				std::tr1::placeholders::_1))),
 	quick_log_(
-		fruitlib::scenic::parent(
-			overlay_node(),
-			fruitlib::scenic::depth(
-				depths::overlay::dont_care)),
+		fruitlib::scenic::optional_parent(
+			fruitlib::scenic::parent(
+				overlay_node(),
+				fruitlib::scenic::depth(
+					depths::overlay::dont_care))),
 		config_file_,
 		font_cache_,
 		systems_.renderer(),
@@ -302,10 +306,11 @@ fruitapp::machine_impl::machine_impl(
 								/ FCPPT_TEXT("camera")
 								/ FCPPT_TEXT("initial-position"))))),
 	camera_node_(
-		fruitlib::scenic::parent(
-			root_node(),
-			fruitlib::scenic::depth(
-				depths::root::dont_care)),
+		fruitlib::scenic::optional_parent(
+			fruitlib::scenic::parent(
+				root_node(),
+				fruitlib::scenic::depth(
+					depths::root::dont_care))),
 		camera_,
 		standard_clock_callback()),
 	toggle_camera_connection_(
@@ -327,18 +332,20 @@ fruitapp::machine_impl::machine_impl(
 				sge::parse::json::path(
 					FCPPT_TEXT("main-light-source"))))),
 	shadow_map_(
-		fruitlib::scenic::parent(
-			root_node(),
-			fruitlib::scenic::depth(
-				depths::root::shadow_map)),
+		fruitlib::scenic::optional_parent(
+			fruitlib::scenic::parent(
+				root_node(),
+				fruitlib::scenic::depth(
+					depths::root::shadow_map))),
 		config_file_,
 		systems_.renderer(),
 		main_light_source_.model_view()),
 	background_(
-		fruitlib::scenic::parent(
-			scene_node(),
-			fruitlib::scenic::depth(
-				depths::scene::background)),
+		fruitlib::scenic::optional_parent(
+			fruitlib::scenic::parent(
+				scene_node(),
+				fruitlib::scenic::depth(
+					depths::scene::background))),
 		systems_.renderer(),
 		systems_.image_loader(),
 		shadow_map_.texture(),
@@ -366,10 +373,11 @@ fruitapp::machine_impl::machine_impl(
 		// Something invalid so you get the error (if there is one)
 		31337),
 	point_sprites_(
-		fruitlib::scenic::parent(
-			scene_node(),
-			fruitlib::scenic::depth(
-				depths::scene::splatter)),
+		fruitlib::scenic::optional_parent(
+			fruitlib::scenic::parent(
+				scene_node(),
+				fruitlib::scenic::depth(
+					depths::scene::splatter))),
 		fruitcut::media_path()/FCPPT_TEXT("point_sprites"),
 		random_generator_,
 		systems_.renderer(),
@@ -697,9 +705,10 @@ fruitapp::machine_impl::viewport_change()
 				sge::parse::json::path(FCPPT_TEXT("ingame"))
 					/ FCPPT_TEXT("camera")
 					/ FCPPT_TEXT("projection")),
-			sge::renderer::aspect(
-				sge::renderer::viewport_size(
-					systems_.renderer()))));
+			fcppt::optional<sge::renderer::scalar>(
+				sge::renderer::aspect(
+					sge::renderer::viewport_size(
+						systems_.renderer())))));
 
 	node_base::forward_to_children(
 		fruitlib::scenic::events::viewport_change());

@@ -9,10 +9,11 @@ fruitapp::states::gameover::superstate::superstate(
 	my_base(
 		ctx),
 	gui_node_(
-		fruitlib::scenic::parent(
-			context<machine>().overlay_node(),
-			fruitlib::scenic::depth(
-				depths::overlay::dont_care)),
+		fruitlib::scenic::optional_parent(
+			fruitlib::scenic::parent(
+				context<machine>().overlay_node(),
+				fruitlib::scenic::depth(
+					depths::overlay::dont_care))),
 		context<machine>().gui_system(),
 		context<fruitapp::machine>().standard_clock_callback()),
 	gui_keyboard_(

@@ -133,10 +133,13 @@ fruitapp::sword_trail::react(
 	sprite_object::unit const epsilon =
 		0.0001f;
 
+	if(!cursor_.position())
+		return;
+
 	sprite_object::vector const new_vector =
 		fcppt::math::vector::structure_cast<sprite_object::vector>(
 			transform_position(
-				cursor_.position(),
+				*cursor_.position(),
 				target_.viewport().get()));
 
 	if(!positions_.empty() && fcppt::math::vector::length(new_vector - positions_.back()) < epsilon)

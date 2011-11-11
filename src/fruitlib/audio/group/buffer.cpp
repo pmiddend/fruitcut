@@ -5,6 +5,7 @@
 #include <sge/audio/sound/positional_parameters.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/ref.hpp>
+#include <fcppt/cref.hpp>
 #include <fcppt/algorithm/ptr_container_erase.hpp>
 #include <fcppt/assert/error.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -47,12 +48,15 @@ fruitlib::audio::group::buffer::create_positional(
 }
 
 sge::audio::sound::base_ptr const
-fruitlib::audio::group::buffer::create_nonpositional()
+fruitlib::audio::group::buffer::create_nonpositional(
+	sge::audio::sound::nonpositional_parameters const &p)
 {
 	return
 		fcppt::make_shared_ptr<group::sound_base>(
 			fcppt::ref(
 				*this),
+			fcppt::cref(
+				p),
 			global_gain_,
 			global_pitch_);
 }

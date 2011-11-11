@@ -160,7 +160,7 @@ public:
 			.size(
 				_size)
 			.system(
-				&_sprite_system)
+				_sprite_system)
 			.color(
 				status_fraction_to_color(
 					rect_instance_.status_fraction()))

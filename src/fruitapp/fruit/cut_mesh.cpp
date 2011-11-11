@@ -235,10 +235,10 @@ fruitapp::fruit::cut_mesh(
 			fcppt::move(
 				result);
 
-	fcppt::optional<matrix4> const cs =
+	fcppt::optional<matrix4> const cs(
 		make_coordinate_system(
 			border,
-			epsilon);
+			epsilon));
 
 	if(!cs)
 		return

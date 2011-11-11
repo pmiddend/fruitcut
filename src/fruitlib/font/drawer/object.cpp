@@ -2,7 +2,7 @@
 #include <fruitlib/font/drawer/parameters.hpp>
 #include <sge/image2d/dim.hpp>
 #include <sge/image2d/view/size.hpp>
-#include <sge/renderer/caps.hpp>
+#include <sge/renderer/caps/object.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/texture/mipmap/off.hpp>
 #include <sge/sprite/default_equal.hpp>
@@ -36,7 +36,7 @@ fruitlib::font::drawer::object::object(
 				fcppt::ref(
 					renderer_),
 				// Is this safe? Could be a non-alpha format
-				renderer_.caps().preferred_texture_format(),
+				renderer_.caps().preferred_texture_format().get(),
 				sge::renderer::texture::mipmap::off(),
 				fcppt::math::dim::quad<sge::renderer::dim2>(
 					256)))),

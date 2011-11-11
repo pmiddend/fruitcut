@@ -48,8 +48,9 @@ fruitapp::fruit::object::object(
 			fruit::mesh_to_shape(
 				mesh_),
 			fruitlib::physics::rigid_body::solidity::solid,
-			fruitlib::physics::rigid_body::mass(
-				p.mass()),
+			fruitlib::physics::rigid_body::optional_mass(
+				fruitlib::physics::rigid_body::mass(
+					p.mass())),
 			fruitlib::physics::rigid_body::user_data())),
 	body_scope_(
 		p.physics_world(),

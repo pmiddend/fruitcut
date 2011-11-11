@@ -56,7 +56,8 @@ fruitapp::fruit::hull::trail_intersection(
 		return intersection_pair();
 
 	return
-		intersection_pair::value_type(
-			result[0],
-			result[1]);
+		fruitapp::fruit::hull::intersection_pair(
+			intersection_pair::value_type(
+				result[0],
+				result[1]));
 }

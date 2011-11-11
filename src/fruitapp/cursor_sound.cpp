@@ -54,7 +54,7 @@ fruitapp::cursor_sound::react(
 	fruitlib::scenic::events::update const &)
 {
 	if(
-			!cooldown_timer_.expired())
+		!cooldown_timer_.expired())
 		return;
 
 	if(
@@ -65,8 +65,11 @@ fruitapp::cursor_sound::react(
 
 	typedef fcppt::math::vector::static_<float,2>::type vec2;
 
+	if(!cursor_.position())
+		return;
+
 	sge::input::cursor::position new_pos =
-			cursor_.position();
+			*cursor_.position();
 
 	float distance = fcppt::math::vector::length(
 		fcppt::math::vector::structure_cast<vec2>(new_pos) -

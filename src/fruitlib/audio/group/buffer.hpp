@@ -39,7 +39,8 @@ public:
 		sge::audio::sound::positional_parameters const &);
 
 	sge::audio::sound::base_ptr const
-	create_nonpositional();
+	create_nonpositional(
+		sge::audio::sound::nonpositional_parameters const &);
 
 	void
 	global_gain(

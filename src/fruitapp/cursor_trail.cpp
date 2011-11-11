@@ -95,6 +95,6 @@ fruitapp::cursor_trail::react(
 
 	positions_.push_back(
 		transform_position(
-			cursor_.position(),
+			*cursor_.position(),
 			target_.viewport().get()));
 }

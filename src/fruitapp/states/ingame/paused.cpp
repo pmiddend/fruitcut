@@ -39,10 +39,11 @@ fruitapp::states::ingame::paused::paused(
 	my_base(
 		ctx),
 	node_base(
-		fruitlib::scenic::parent(
-			context<machine>().overlay_node(),
-			fruitlib::scenic::depth(
-				depths::overlay::paused))),
+		fruitlib::scenic::optional_parent(
+			fruitlib::scenic::parent(
+				context<machine>().overlay_node(),
+				fruitlib::scenic::depth(
+					depths::overlay::paused)))),
 	time_factor_(
 		context<machine>(),
 		0.0f),
@@ -93,10 +94,11 @@ fruitapp::states::ingame::paused::paused(
 					&context<machine>(),
 					events::generic_transition<ingame::running>())))),
 	gui_node_(
-		fruitlib::scenic::parent(
-			context<machine>().overlay_node(),
-			fruitlib::scenic::depth(
-				depths::overlay::dont_care)),
+		fruitlib::scenic::optional_parent(
+			fruitlib::scenic::parent(
+				context<machine>().overlay_node(),
+				fruitlib::scenic::depth(
+					depths::overlay::dont_care))),
 		context<machine>().gui_system(),
 		context<fruitapp::machine>().standard_clock_callback()),
 	gui_keyboard_(

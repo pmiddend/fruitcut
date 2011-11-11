@@ -68,33 +68,37 @@ fruitapp::states::ingame::running::running(
 	my_base(
 		ctx),
 	node_base(
-		fruitlib::scenic::parent(
-			context<fruitapp::machine>().root_node(),
-			fruitlib::scenic::depth(
-				depths::root::dont_care))),
+		fruitlib::scenic::optional_parent(
+			fruitlib::scenic::parent(
+				context<fruitapp::machine>().root_node(),
+				fruitlib::scenic::depth(
+					depths::root::dont_care)))),
 	line_drawer_(
 		context<machine>().systems().renderer()),
 	line_drawer_node_(
-		fruitlib::scenic::parent(
-			context<machine>().overlay_node(),
-			fruitlib::scenic::depth(
-				depths::overlay::dont_care)),
+		fruitlib::scenic::optional_parent(
+			fruitlib::scenic::parent(
+				context<machine>().overlay_node(),
+				fruitlib::scenic::depth(
+					depths::overlay::dont_care))),
 		line_drawer_,
 		&context<machine>().systems().renderer()),
 	cursor_sound_(
-		fruitlib::scenic::parent(
-			context<fruitapp::machine>().root_node(),
-			fruitlib::scenic::depth(
-				depths::root::dont_care)),
+		fruitlib::scenic::optional_parent(
+			fruitlib::scenic::parent(
+				context<fruitapp::machine>().root_node(),
+				fruitlib::scenic::depth(
+					depths::root::dont_care))),
 		context<fruitapp::machine>().systems().cursor_demuxer(),
 		context<fruitapp::machine>().ingame_clock(),
 		context<machine>().systems().renderer(),
 		context<machine>().sound_controller()),
 	cursor_trail_(
-		fruitlib::scenic::parent(
-			context<fruitapp::machine>().root_node(),
-			fruitlib::scenic::depth(
-				depths::root::dont_care)),
+		fruitlib::scenic::optional_parent(
+			fruitlib::scenic::parent(
+				context<fruitapp::machine>().root_node(),
+				fruitlib::scenic::depth(
+					depths::root::dont_care))),
 		context<fruitapp::machine>().systems().cursor_demuxer(),
 		context<fruitapp::machine>().ingame_clock(),
 		fruitlib::time_format::find_and_convert_duration<ingame_clock::duration>(
@@ -130,10 +134,11 @@ fruitapp::states::ingame::running::running(
 				FRUITAPP_EVENTS_RETURN_POST_TRANSITION_FUNCTOR(
 					ingame::paused)))),
 	sword_trail_(
-		fruitlib::scenic::parent(
-			context<fruitapp::machine>().scene_node(),
-			fruitlib::scenic::depth(
-				depths::scene::sword_trail)),
+		fruitlib::scenic::optional_parent(
+			fruitlib::scenic::parent(
+				context<fruitapp::machine>().scene_node(),
+				fruitlib::scenic::depth(
+					depths::scene::sword_trail))),
 		context<fruitapp::machine>().systems().renderer(),
 		context<fruitapp::machine>().systems().renderer().onscreen_target(),
 		context<fruitapp::machine>().systems().image_loader(),

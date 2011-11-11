@@ -23,10 +23,11 @@ fruitapp::states::menu::main::main(
 	my_base(
 		ctx),
 	logo_(
-		fruitlib::scenic::parent(
-			context<fruitapp::machine>().overlay_node(),
-			fruitlib::scenic::depth(
-				depths::overlay::dont_care)),
+		fruitlib::scenic::optional_parent(
+			fruitlib::scenic::parent(
+				context<fruitapp::machine>().overlay_node(),
+				fruitlib::scenic::depth(
+					depths::overlay::dont_care))),
 		context<machine>().systems().renderer(),
 		context<machine>().systems().image_loader(),
 		context<machine>().config_file()),

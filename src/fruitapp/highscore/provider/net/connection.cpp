@@ -37,7 +37,9 @@ parse_content_size(
 	std::string::size_type result;
 	if (!(ss >> std::hex >> std::setfill(FCPPT_TEXT('0')) >> std::setw(8) >> result))
 		return fcppt::optional<std::string::size_type>();
-	return result;
+	return
+		fcppt::optional<std::string::size_type>(
+			result);
 }
 }
 

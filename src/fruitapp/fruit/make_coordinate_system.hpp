@@ -72,6 +72,10 @@ make_coordinate_system(
 	fcppt::math::matrix::static_<scalar,4,4>::type
 	matrix4;
 
+	typedef
+	fcppt::optional<matrix4>
+	optional_matrix4;
+
 	FCPPT_ASSERT_PRE(
 		!points.empty());
 
@@ -91,7 +95,7 @@ make_coordinate_system(
 
 	// All the points are equal?
 	if (first_other_point == points.end())
-		return fcppt::optional<matrix4>();
+		return optional_matrix4();
 
 	// Just to be sure.
 	FCPPT_ASSERT_ERROR(
@@ -114,7 +118,7 @@ make_coordinate_system(
 
 	// All the points lie on one line
 	if(second_other_point == points.end())
-		return fcppt::optional<matrix4>();
+		return optional_matrix4();
 
 	typedef
 	fcppt::container::array<vector,2>
@@ -145,11 +149,12 @@ make_coordinate_system(
 			directions[1]);
 
 	return
-		matrix4(
-			directions[0][0],directions[1][0],crossed[0],(*points.begin())[0],
-			directions[0][1],directions[1][1],crossed[1],(*points.begin())[1],
-			directions[0][2],directions[1][2],crossed[2],(*points.begin())[2],
-			0,0,0,1);
+		optional_matrix4(
+			matrix4(
+				directions[0][0],directions[1][0],crossed[0],(*points.begin())[0],
+				directions[0][1],directions[1][1],crossed[1],(*points.begin())[1],
+				directions[0][2],directions[1][2],crossed[2],(*points.begin())[2],
+				0,0,0,1));
 }
 }
 }

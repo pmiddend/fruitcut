@@ -72,7 +72,8 @@ fruitapp::game_logic::object::object(
 	sge::renderer::device &_renderer)
 :
 	node_base(
-		_parent),
+		fruitlib::scenic::optional_parent(
+			_parent)),
 	area_score_factor_(
 		sge::parse::json::find_and_convert_member<fruit::area::value_type>(
 			_config_file,
@@ -112,10 +113,11 @@ fruitapp::game_logic::object::object(
 				this,
 				std::tr1::placeholders::_1))),
 	score_font_node_(
-		fruitlib::scenic::parent(
-			_overlay,
-			fruitlib::scenic::depth(
-				depths::overlay::dont_care)),
+		fruitlib::scenic::optional_parent(
+			fruitlib::scenic::parent(
+				_overlay,
+				fruitlib::scenic::depth(
+					depths::overlay::dont_care))),
 		fruitlib::font::object_parameters(
 			_font_cache.metrics(
 				FCPPT_TEXT("score")),
@@ -136,10 +138,11 @@ fruitapp::game_logic::object::object(
 		fruitlib::font::scale(
 			1)),
 	timer_font_node_(
-		fruitlib::scenic::parent(
-			_overlay,
-			fruitlib::scenic::depth(
-				depths::overlay::dont_care)),
+		fruitlib::scenic::optional_parent(
+			fruitlib::scenic::parent(
+				_overlay,
+				fruitlib::scenic::depth(
+					depths::overlay::dont_care))),
 		fruitlib::font::object_parameters(
 			_font_cache.metrics(
 				FCPPT_TEXT("score")),
@@ -160,10 +163,11 @@ fruitapp::game_logic::object::object(
 		fruitlib::font::scale(
 			1)),
 	multiplier_font_node_(
-		fruitlib::scenic::parent(
-			_overlay,
-			fruitlib::scenic::depth(
-				depths::overlay::dont_care)),
+		fruitlib::scenic::optional_parent(
+			fruitlib::scenic::parent(
+				_overlay,
+				fruitlib::scenic::depth(
+					depths::overlay::dont_care))),
 		fruitlib::font::object_parameters(
 			_font_cache.metrics(
 				FCPPT_TEXT("score")),
@@ -263,8 +267,8 @@ fruitapp::game_logic::object::react(
 			>(
 			(mizuiro::color::init::hue() %=
 					0.34 *
-					(1.f -
-						sge::timer::elapsed_fractional<float>(multiplier_timer_)))
+					(1. -
+						sge::timer::elapsed_fractional<double>(multiplier_timer_)))
 			(mizuiro::color::init::saturation() %= 1.0)
 			(mizuiro::color::init::value() %= 1.0)
 			(mizuiro::color::init::alpha() %= 1.0))));
