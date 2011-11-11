@@ -52,10 +52,11 @@ fruitapp::quick_log::quick_log(
 	sound_controller_(
 		_sound_controller),
 	font_node_(
-		fruitlib::scenic::parent(
-			*this,
-			fruitlib::scenic::depth(
-				0)),
+		fruitlib::scenic::optional_parent(
+			fruitlib::scenic::parent(
+				*this,
+				fruitlib::scenic::depth(
+					0))),
 		fruitlib::font::object_parameters(
 			_font_cache.metrics(
 				FCPPT_TEXT("quick-log")),

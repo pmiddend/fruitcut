@@ -41,7 +41,7 @@ fruitapp::bonsu::instance_wrapper::instance_wrapper(
 			.order(
 				0)
 			.system(
-				&_sprite_system)
+				_sprite_system)
 			.any_color(
 				sge::image::colors::transparent())
 			.elements()),
@@ -51,7 +51,7 @@ fruitapp::bonsu::instance_wrapper::instance_wrapper(
 			.order(
 				1)
 			.system(
-				&_sprite_system)
+				_sprite_system)
 			.any_color(
 				sge::image::colors::transparent())
 			.elements()),

@@ -12,7 +12,7 @@
 #include <sge/renderer/scalar.hpp>
 #include <sge/renderer/scoped_vertex_buffer.hpp>
 #include <sge/renderer/size_type.hpp>
-#include <sge/renderer/stage.hpp>
+#include <sge/renderer/texture/stage.hpp>
 #include <sge/renderer/vector4.hpp>
 #include <sge/renderer/vertex_buffer.hpp>
 #include <sge/renderer/vertex_count.hpp>
@@ -147,13 +147,14 @@ fruitapp::fruit::default_render_node::react(
 
 	sge::renderer::texture::filter::scoped scoped_filter(
 		renderer_,
-		sge::renderer::stage(
+		sge::renderer::texture::stage(
 			0),
 		sge::renderer::texture::filter::trilinear());
 
 	sge::shader::scoped scoped_shader(
 		shader_,
-		sge::shader::activation_method::vertex_declaration);
+		sge::shader::activation_method_field(
+			sge::shader::activation_method::vertex_declaration));
 
 	shader_.update_uniform(
 		"world",
@@ -170,7 +171,7 @@ fruitapp::fruit::default_render_node::react(
 		sge::renderer::texture::scoped scoped_tex(
 			renderer_,
 			*i->prototype().texture(),
-			sge::renderer::stage(
+			sge::renderer::texture::stage(
 				0));
 
 		shader_.update_uniform(

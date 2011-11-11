@@ -18,6 +18,7 @@
 #include <sge/renderer/vf/vertex.hpp>
 #include <sge/renderer/vf/view.hpp>
 #include <sge/renderer/vf/dynamic/part_index.hpp>
+#include <fcppt/container/bitfield/basic_impl.hpp>
 
 
 sge::renderer::vertex_buffer_ptr const
@@ -31,9 +32,11 @@ fruitapp::fruit::mesh_to_vertex_buffer(
 			vertex_decl,
 			sge::renderer::vf::dynamic::part_index(
 				0u),
-			static_cast<sge::renderer::size_type>(
-				m.triangles.size() * 3),
-			sge::renderer::resource_flags::none);
+			sge::renderer::vertex_count(
+				static_cast<sge::renderer::size_type>(
+					m.triangles.size() * 3)),
+			sge::renderer::resource_flags_field(
+				sge::renderer::resource_flags::none));
 
 	sge::renderer::scoped_vertex_lock const vblock(
 		*vb,

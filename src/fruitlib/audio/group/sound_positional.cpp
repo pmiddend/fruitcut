@@ -49,13 +49,6 @@ fruitlib::audio::group::sound_positional::play(
 			_repeat);
 }
 
-sge::audio::sound::repeat::type
-fruitlib::audio::group::sound_positional::repeat() const
-{
-	return
-		sound_base::repeat();
-}
-
 void
 fruitlib::audio::group::sound_positional::toggle_pause()
 {
@@ -79,13 +72,6 @@ fruitlib::audio::group::sound_positional::gain(
 			_gain);
 }
 
-sge::audio::scalar
-fruitlib::audio::group::sound_positional::gain() const
-{
-	return
-		sound_base::gain();
-}
-
 void
 fruitlib::audio::group::sound_positional::pitch(
 	sge::audio::scalar const _pitch)
@@ -93,13 +79,6 @@ fruitlib::audio::group::sound_positional::pitch(
 	return
 		sound_base::pitch(
 			_pitch);
-}
-
-sge::audio::scalar
-fruitlib::audio::group::sound_positional::pitch() const
-{
-	return
-		sound_base::pitch();
 }
 
 void
@@ -116,13 +95,6 @@ fruitlib::audio::group::sound_positional::update()
 		sound_base::update();
 }
 
-sge::audio::vector const
-fruitlib::audio::group::sound_positional::position() const
-{
-	return
-		impl_.position();
-}
-
 void
 fruitlib::audio::group::sound_positional::position(
 	sge::audio::vector const &_position)
@@ -130,13 +102,6 @@ fruitlib::audio::group::sound_positional::position(
 	return
 		impl_.position(
 			_position);
-}
-
-sge::audio::vector const
-fruitlib::audio::group::sound_positional::linear_velocity() const
-{
-	return
-		impl_.linear_velocity();
 }
 
 void
@@ -149,35 +114,39 @@ fruitlib::audio::group::sound_positional::linear_velocity(
 }
 
 void
-fruitlib::audio::group::sound_positional::rolloff(
+fruitlib::audio::group::sound_positional::rolloff_factor(
 	sge::audio::scalar const _rolloff)
 {
 	return
-		impl_.rolloff(
+		impl_.rolloff_factor(
 			_rolloff);
 }
 
-sge::audio::scalar
-fruitlib::audio::group::sound_positional::rolloff() const
+void
+fruitlib::audio::group::sound_positional::reference_distance(
+	sge::audio::scalar const _reference_distance)
 {
 	return
-		impl_.rolloff();
+		impl_.reference_distance(
+			_reference_distance);
+}
+
+void
+fruitlib::audio::group::sound_positional::max_distance(
+	sge::audio::scalar const _max_distance)
+{
+	return
+		impl_.max_distance(
+			_max_distance);
 }
 
 void
 fruitlib::audio::group::sound_positional::direction(
-	sge::audio::vector const &_direction)
+	sge::audio::sound::optional_direction const &_direction)
 {
 	return
 		impl_.direction(
 			_direction);
-}
-
-sge::audio::vector const
-fruitlib::audio::group::sound_positional::direction() const
-{
-	return
-		impl_.direction();
 }
 
 void
@@ -189,13 +158,6 @@ fruitlib::audio::group::sound_positional::inner_cone_angle(
 			_inner_cone_angle);
 }
 
-sge::audio::scalar
-fruitlib::audio::group::sound_positional::inner_cone_angle() const
-{
-	return
-		impl_.inner_cone_angle();
-}
-
 void
 fruitlib::audio::group::sound_positional::outer_cone_angle(
 	sge::audio::scalar const _outer_cone_angle)
@@ -205,9 +167,11 @@ fruitlib::audio::group::sound_positional::outer_cone_angle(
 			_outer_cone_angle);
 }
 
-sge::audio::scalar
-fruitlib::audio::group::sound_positional::outer_cone_angle() const
+void
+fruitlib::audio::group::sound_positional::outer_cone_gain(
+	sge::audio::scalar const _outer_cone_gain)
 {
 	return
-		impl_.outer_cone_angle();
+		impl_.outer_cone_gain(
+			_outer_cone_gain);
 }

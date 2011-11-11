@@ -42,9 +42,6 @@ public:
 	play(
 		sge::audio::sound::repeat::type);
 
-	sge::audio::sound::repeat::type
-	repeat() const;
-
 	void
 	toggle_pause();
 
@@ -55,15 +52,9 @@ public:
 	gain(
 		sge::audio::scalar);
 
-	sge::audio::scalar
-	gain() const;
-
 	void
 	pitch(
 		sge::audio::scalar);
-
-	sge::audio::scalar
-	pitch() const;
 
 	void
 	stop();
@@ -71,47 +62,41 @@ public:
 	void
 	update();
 
-	sge::audio::vector const
-	position() const;
-
 	void
 	position(
 		sge::audio::vector const &);
-
-	sge::audio::vector const
-	linear_velocity() const;
 
 	void
 	linear_velocity(
 		sge::audio::vector const &);
 
 	void
-	rolloff(
+	rolloff_factor(
 		sge::audio::scalar);
 
-	sge::audio::scalar
-	rolloff() const;
+	void
+	reference_distance(
+		sge::audio::scalar);
+
+	void
+	max_distance(
+		sge::audio::scalar);
 
 	void
 	direction(
-		sge::audio::vector const &);
-
-	sge::audio::vector const
-	direction() const;
+		sge::audio::sound::optional_direction const &);
 
 	void
 	inner_cone_angle(
 		sge::audio::scalar);
 
-	sge::audio::scalar
-	inner_cone_angle() const;
-
 	void
 	outer_cone_angle(
 		sge::audio::scalar);
 
-	sge::audio::scalar
-	outer_cone_angle() const;
+	void
+	outer_cone_gain(
+		sge::audio::scalar);
 private:
 	sge::audio::sound::positional &impl_;
 };

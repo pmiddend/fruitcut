@@ -33,20 +33,6 @@ fruitlib::audio::group::player::listener()
 		impl_.listener();
 }
 
-sge::audio::scalar
-fruitlib::audio::group::player::speed_of_sound() const
-{
-	return
-		impl_.speed_of_sound();
-}
-
-sge::audio::scalar
-fruitlib::audio::group::player::doppler_factor() const
-{
-	return
-		impl_.doppler_factor();
-}
-
 void
 fruitlib::audio::group::player::speed_of_sound(
 	sge::audio::scalar const _speed_of_sound)
@@ -149,14 +135,16 @@ fruitlib::audio::group::player::create_positional_stream(
 
 sge::audio::sound::base_ptr const
 fruitlib::audio::group::player::create_nonpositional_stream(
-	sge::audio::file_ptr const f)
+	sge::audio::file_ptr const f,
+	sge::audio::sound::nonpositional_parameters const &p)
 {
 	return
 		fcppt::make_shared_ptr<group::sound_base>(
 			fcppt::ref(
 				*this),
 			impl_.create_nonpositional_stream(
-				f),
+				f,
+				p),
 			gain_,
 			pitch_);
 }

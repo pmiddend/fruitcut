@@ -48,10 +48,11 @@ fruitapp::states::loading::loading(
 	my_base(
 		ctx),
 	node_base(
-		fruitlib::scenic::parent(
-			context<fruitapp::machine>().root_node(),
-			fruitlib::scenic::depth(
-				depths::root::dont_care))),
+		fruitlib::scenic::optional_parent(
+			fruitlib::scenic::parent(
+				context<fruitapp::machine>().root_node(),
+				fruitlib::scenic::depth(
+					depths::root::dont_care)))),
 	fruit_array_(
 		sge::parse::json::find_and_convert_member<sge::parse::json::array>(
 			context<machine>().config_file(),
@@ -60,10 +61,11 @@ fruitapp::states::loading::loading(
 	current_fruit_(
 		fruit_array_.begin()),
 	font_node_(
-		fruitlib::scenic::parent(
-			context<fruitapp::machine>().overlay_node(),
-			fruitlib::scenic::depth(
-				depths::overlay::dont_care)),
+		fruitlib::scenic::optional_parent(
+			fruitlib::scenic::parent(
+				context<fruitapp::machine>().overlay_node(),
+				fruitlib::scenic::depth(
+					depths::overlay::dont_care))),
 		fruitlib::font::object_parameters(
 			context<machine>().font_cache().metrics(
 				FCPPT_TEXT("score")),

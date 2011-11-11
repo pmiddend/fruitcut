@@ -9,6 +9,7 @@
 #include <sge/audio/scalar.hpp>
 #include <sge/audio/sound/base.hpp>
 #include <sge/audio/sound/repeat.hpp>
+#include <sge/audio/sound/nonpositional_parameters.hpp>
 #include <sge/timer/elapsed_fractional.hpp>
 #include <sge/timer/parameters.hpp>
 #include <sge/timer/remaining_fractional.hpp>
@@ -87,7 +88,8 @@ fruitlib::audio::music_controller::music_controller(
 			*_audio_loader.load(
 				_base_path/FCPPT_TEXT("silence.wav")))),
 	silence_source_(
-		silence_buffer_->create_nonpositional()),
+		silence_buffer_->create_nonpositional(
+			sge::audio::sound::nonpositional_parameters())),
 	current_source_(
 		silence_source_),
 	new_source_()
@@ -107,7 +109,8 @@ fruitlib::audio::music_controller::play(
 	{
 		do_play(
 			player_.create_nonpositional_stream(
-				target_tree.value().leaf_value()));
+				target_tree.value().leaf_value(),
+				sge::audio::sound::nonpositional_parameters()));
 	}
 	else
 	{
@@ -122,7 +125,8 @@ fruitlib::audio::music_controller::play(
 
 		do_play(
 			player_.create_nonpositional_stream(
-				target_file.value().leaf_value()));
+				target_file.value().leaf_value(),
+				sge::audio::sound::nonpositional_parameters()));
 	}
 }
 

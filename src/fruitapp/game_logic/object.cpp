@@ -78,10 +78,11 @@ fruitapp::game_logic::object::object(
 	renderer_(
 		_renderer),
 	bonsu_manager_(
-		fruitlib::scenic::parent(
-			_overlay,
-			fruitlib::scenic::depth(
-				depths::overlay::dont_care)),
+		fruitlib::scenic::optional_parent(
+			fruitlib::scenic::parent(
+				_overlay,
+				fruitlib::scenic::depth(
+					depths::overlay::dont_care))),
 		_config_file,
 		_image_loader,
 		_renderer),
@@ -124,10 +125,11 @@ fruitapp::game_logic::object::object(
 				this,
 				std::tr1::placeholders::_1))),
 	score_font_node_(
-		fruitlib::scenic::parent(
-			_overlay,
-			fruitlib::scenic::depth(
-				depths::overlay::dont_care)),
+		fruitlib::scenic::optional_parent(
+			fruitlib::scenic::parent(
+				_overlay,
+				fruitlib::scenic::depth(
+					depths::overlay::dont_care))),
 		fruitlib::font::object_parameters(
 			_font_cache.metrics(
 				FCPPT_TEXT("score")),
@@ -148,10 +150,11 @@ fruitapp::game_logic::object::object(
 		fruitlib::font::scale(
 			1)),
 	timer_font_node_(
-		fruitlib::scenic::parent(
-			_overlay,
-			fruitlib::scenic::depth(
-				depths::overlay::dont_care)),
+		fruitlib::scenic::optional_parent(
+			fruitlib::scenic::parent(
+				_overlay,
+				fruitlib::scenic::depth(
+					depths::overlay::dont_care))),
 		fruitlib::font::object_parameters(
 			_font_cache.metrics(
 				FCPPT_TEXT("score")),
@@ -172,10 +175,11 @@ fruitapp::game_logic::object::object(
 		fruitlib::font::scale(
 			1)),
 	multiplier_font_node_(
-		fruitlib::scenic::parent(
-			_overlay,
-			fruitlib::scenic::depth(
-				depths::overlay::dont_care)),
+		fruitlib::scenic::optional_parent(
+			fruitlib::scenic::parent(
+				_overlay,
+				fruitlib::scenic::depth(
+					depths::overlay::dont_care))),
 		fruitlib::font::object_parameters(
 			_font_cache.metrics(
 				FCPPT_TEXT("score")),

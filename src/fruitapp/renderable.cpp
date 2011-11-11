@@ -17,15 +17,17 @@ fruitapp::renderable::renderable(
 	node_base(
 		_parent),
 	scene_(
-		fruitlib::scenic::parent(
-			*this,
-			fruitlib::scenic::depth(
-				0))),
+		fruitlib::scenic::optional_parent(
+			fruitlib::scenic::parent(
+				*this,
+				fruitlib::scenic::depth(
+					0)))),
 	postprocessing_(
-		fruitlib::scenic::parent(
-			*this,
-			fruitlib::scenic::depth(
-				1)),
+		fruitlib::scenic::optional_parent(
+			fruitlib::scenic::parent(
+				*this,
+				fruitlib::scenic::depth(
+					1))),
 		_systems.renderer(),
 		std::tr1::bind(
 			&scene::render_children,
@@ -35,10 +37,11 @@ fruitapp::renderable::renderable(
 			sge::parse::json::path(
 				FCPPT_TEXT("pp")))),
 	overlay_(
-		fruitlib::scenic::parent(
-			*this,
-			fruitlib::scenic::depth(
-				2)),
+		fruitlib::scenic::optional_parent(
+			fruitlib::scenic::parent(
+				*this,
+				fruitlib::scenic::depth(
+					2))),
 		_systems.renderer(),
 		postprocessing_)
 {

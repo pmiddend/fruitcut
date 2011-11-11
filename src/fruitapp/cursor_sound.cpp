@@ -62,11 +62,14 @@ fruitapp::cursor_sound::react(
 			update_timer_))
 		return;
 
+	if(
+		!cursor_.position())
+		return;
 
 	typedef fcppt::math::vector::static_<float,2>::type vec2;
 
 	sge::input::cursor::position new_pos =
-			cursor_.position();
+			*cursor_.position();
 
 	float distance = fcppt::math::vector::length(
 		fcppt::math::vector::structure_cast<vec2>(new_pos) -

@@ -10,6 +10,7 @@
 #include <sge/audio/player.hpp>
 #include <sge/audio/sound/positional.hpp>
 #include <sge/audio/sound/repeat.hpp>
+#include <sge/audio/sound/nonpositional_parameters.hpp>
 #include <fcppt/ref.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/filesystem/directory_iterator.hpp>
@@ -102,7 +103,8 @@ fruitlib::audio::sound_controller::play(
 
 	if(target_tree.value().is_leaf())
 		do_play(
-			target_tree.value().leaf_value()->create_nonpositional());
+			target_tree.value().leaf_value()->create_nonpositional(
+				sge::audio::sound::nonpositional_parameters()));
 	else
 	{
 		resource_tree_type &target_file =
@@ -115,7 +117,8 @@ fruitlib::audio::sound_controller::play(
 			throw fruitlib::exception(FCPPT_TEXT("The argument to play() must be either a file or a directory containing just files!\nThat was not the case for: ")+target_path.string());
 
 		do_play(
-			target_file.value().leaf_value()->create_nonpositional());
+			target_file.value().leaf_value()->create_nonpositional(
+				sge::audio::sound::nonpositional_parameters()));
 	}
 }
 

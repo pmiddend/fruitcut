@@ -5,7 +5,9 @@
 #include <fruitlib/audio/group/player_fwd.hpp>
 #include <sge/audio/sound/base.hpp>
 #include <sge/audio/sound/base_ptr.hpp>
+#include <sge/audio/sound/nonpositional_parameters_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
+
 
 namespace fruitlib
 {
@@ -23,6 +25,7 @@ public:
 	explicit
 	sound_base(
 		group::buffer &,
+		sge::audio::sound::nonpositional_parameters const &,
 		sge::audio::scalar global_gain,
 		sge::audio::scalar global_pitch);
 
@@ -37,9 +40,6 @@ public:
 	play(
 		sge::audio::sound::repeat::type);
 
-	sge::audio::sound::repeat::type
-	repeat() const;
-
 	void
 	toggle_pause();
 
@@ -50,15 +50,9 @@ public:
 	gain(
 		sge::audio::scalar);
 
-	sge::audio::scalar
-	gain() const;
-
 	void
 	pitch(
 		sge::audio::scalar);
-
-	sge::audio::scalar
-	pitch() const;
 
 	void
 	stop();

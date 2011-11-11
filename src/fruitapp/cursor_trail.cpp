@@ -91,8 +91,12 @@ fruitapp::cursor_trail::react(
 			update_timer_))
 		return;
 
+	if(
+		!cursor_.position())
+		return;
+
 	positions_.push_back(
 		transform_position(
-			cursor_.position(),
+			*cursor_.position(),
 			target_.viewport().get()));
 }

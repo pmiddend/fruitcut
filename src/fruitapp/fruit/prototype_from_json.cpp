@@ -73,7 +73,8 @@ fruitapp::fruit::prototype_from_json(
 					sge::renderer::texture::mipmap::auto_generate::yes),
 				sge::renderer::texture::address_mode2(
 					sge::renderer::texture::address_mode::clamp),
-				sge::renderer::resource_flags::readable),
+				sge::renderer::resource_flags_field(
+					sge::renderer::resource_flags::readable)),
 			material::from_json(
 				sge::parse::json::find_and_convert_member<sge::parse::json::object>(
 					o,

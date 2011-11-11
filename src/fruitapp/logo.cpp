@@ -60,7 +60,7 @@ fruitapp::logo::logo(
 						sge::renderer::resource_flags::none)))
 			.texture_size()
 			.system(
-				&sprite_system_)
+				sprite_system_)
 			.elements())
 {
 	react(

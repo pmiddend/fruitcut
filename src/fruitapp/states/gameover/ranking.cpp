@@ -27,10 +27,11 @@ fruitapp::states::gameover::ranking::ranking(
 	my_base(
 		ctx),
 	node_base(
-		fruitlib::scenic::parent(
-			context<fruitapp::machine>().root_node(),
-			fruitlib::scenic::depth(
-				depths::root::dont_care))),
+		fruitlib::scenic::optional_parent(
+			fruitlib::scenic::parent(
+				context<fruitapp::machine>().root_node(),
+				fruitlib::scenic::depth(
+					depths::root::dont_care)))),
 	layout_(
 		context<machine>().gui_system(),
 		fruitapp::media_path()
