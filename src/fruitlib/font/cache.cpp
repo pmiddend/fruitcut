@@ -9,7 +9,7 @@
 #include <sge/parse/json/find_and_convert_member.hpp>
 #include <sge/parse/json/find_member_exn.hpp>
 #include <sge/parse/json/get.hpp>
-#include <sge/parse/json/member_vector.hpp>
+#include <sge/parse/json/member_map.hpp>
 #include <sge/parse/json/object.hpp>
 #include <sge/parse/json/path.hpp>
 #include <sge/parse/json/string.hpp>
@@ -65,17 +65,17 @@ fruitlib::font::cache::cache(
 	ttf_font_cache ttf_fonts_;
 
 	for(
-		sge::parse::json::member_vector::const_iterator current_font_raw =
+		sge::parse::json::member_map::const_iterator current_font_raw =
 			_fonts.members.begin();
 		current_font_raw != _fonts.members.end();
 		++current_font_raw)
 	{
 		fcppt::string const current_identifier =
-			current_font_raw->name;
+			current_font_raw->first;
 
 		sge::parse::json::object const &current_font =
 			sge::parse::json::get<sge::parse::json::object>(
-				current_font_raw->value);
+				current_font_raw->second);
 
 		fcppt::string const filename =
 			sge::parse::json::find_member_exn<sge::parse::json::string>(

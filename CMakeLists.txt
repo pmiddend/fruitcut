@@ -194,8 +194,6 @@ SET(
 	src/fruitlib/json/parse_random_inclusive_range.hpp
 	src/fruitlib/json/parse_rgba8_color.cpp
 	src/fruitlib/json/parse_rgba8_color.hpp
-	src/fruitlib/json/parse_string_exn.cpp
-	src/fruitlib/json/parse_string_exn.hpp
 	src/fruitlib/log/scoped.cpp
 	src/fruitlib/log/scoped.hpp
 	src/fruitlib/log/scoped_sequence.hpp

@@ -403,7 +403,11 @@ fruitapp::highscore::provider::net::connection::handle_read_content(
 		return;
 	}
 
-	fcppt::string const * const json_error =
+	typedef fcppt::optional<
+		fcppt::string const &
+	> const_optional_string_ref;
+
+	const_optional_string_ref const json_error =
 		sge::parse::json::find_member<fcppt::string>(
 			result.members,
 			FCPPT_TEXT("error"));
