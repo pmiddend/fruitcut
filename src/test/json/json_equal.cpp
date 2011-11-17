@@ -8,9 +8,10 @@
 #include <sge/parse/json/value.hpp>
 #include <fcppt/nonassignable.hpp>
 #include <fcppt/string.hpp>
+#include <fcppt/variant/apply_unary.hpp>
+#include <fcppt/variant/get.hpp>
+#include <fcppt/variant/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/variant/apply_visitor.hpp>
-#include <boost/variant/get.hpp>
 #include <algorithm>
 #include <cmath>
 #include <typeinfo>
@@ -45,7 +46,7 @@ public:
 		return
 			other_.type() == typeid(t) &&
 			fruitcut::test::json::json_equal(
-				boost::get<T>(
+				fcppt::variant::get<T>(
 					other_),
 				t);
 	}
@@ -135,8 +136,8 @@ fruitcut::test::json::json_equal(
 	sge::parse::json::value const &b)
 {
 	return
-		a.which() == b.which() &&
-		boost::apply_visitor(
+		a.type_index() == b.type_index() &&
+		fcppt::variant::apply_unary(
 			equality_visitor(
 				b),
 			a);
@@ -147,5 +148,5 @@ fruitcut::test::json::json_equal(
 	sge::parse::json::member const &a,
 	sge::parse::json::member const &b)
 {
-	return a.name == b.name && json_equal(a.value,b.value);
+	return a.first == b.first && json_equal(a.second,b.second);
 }

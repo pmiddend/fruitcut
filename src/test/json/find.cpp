@@ -1,5 +1,6 @@
 #include "json_equal.hpp"
 #include "object_from_string.hpp"
+#include <sge/parse/json/const_optional_object_ref.hpp>
 #include <sge/parse/json/exception.hpp>
 #include <sge/parse/json/find_object.hpp>
 #include <sge/parse/json/find_object_exn.hpp>
@@ -37,13 +38,12 @@ BOOST_AUTO_TEST_CASE(
 		sge::parse::json::exception);
 
 	// baz, however, is
-	BOOST_CHECK_NE(
+	BOOST_CHECK_EQUAL(
 		(sgejson::find_object(
 			example_object,
 			sgejson::path(
-				FCPPT_TEXT("baz")))),
-		static_cast<sgejson::object*>(
-			0));
+				FCPPT_TEXT("baz"))).has_value()),
+		true);
 
 	// baz, however, is
 	BOOST_CHECK((
@@ -55,14 +55,14 @@ BOOST_AUTO_TEST_CASE(
 			fruitcut::test::json::object_from_string(
 				FCPPT_TEXT("{ \"qux\" : false,\"quux\" : {} }")))));
 
-	BOOST_CHECK_NE(
+	BOOST_CHECK_EQUAL(
 		(sgejson::find_object(
 			example_object,
 			sgejson::path(
 				FCPPT_TEXT("baz"))
-				/ FCPPT_TEXT("quux"))),
-		static_cast<sgejson::object*>(
-			0));
+				/ FCPPT_TEXT("quux")).has_value()),
+		true);
+
 	BOOST_CHECK((
 		fruitcut::test::json::json_equal(
 			sgejson::find_object_exn(
@@ -78,9 +78,8 @@ BOOST_AUTO_TEST_CASE(
 			example_object,
 			sgejson::path(
 				FCPPT_TEXT("baz"))
-				/ FCPPT_TEXT("humbug"))),
-		static_cast<sgejson::object*>(
-			0));
+				/ FCPPT_TEXT("humbug")).has_value()),
+		false);
 
 	BOOST_CHECK_THROW(
 		(sgejson::find_object_exn(

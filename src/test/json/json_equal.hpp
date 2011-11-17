@@ -4,7 +4,7 @@
 #include <sge/parse/json/array_fwd.hpp>
 #include <sge/parse/json/float_type.hpp>
 #include <sge/parse/json/int_type.hpp>
-#include <sge/parse/json/member_fwd.hpp>
+#include <sge/parse/json/member.hpp>
 #include <sge/parse/json/null.hpp>
 #include <sge/parse/json/object_fwd.hpp>
 #include <sge/parse/json/value.hpp>

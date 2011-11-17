@@ -134,12 +134,14 @@ BOOST_AUTO_TEST_CASE(
 					1.0f))),
 		sgejson::exception);
 
+#if 0
 	BOOST_CHECK_THROW(
 		sgejson::convert_from<void*>(
 			sgejson::value(
 				static_cast<sgejson::float_type>(
 					1.0f))),
 		sgejson::exception);
+#endif
 }
 
 BOOST_AUTO_TEST_CASE(
