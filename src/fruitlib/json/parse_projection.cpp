@@ -1,4 +1,5 @@
 #include <fruitlib/json/parse_projection.hpp>
+#include <fruitlib/exception.hpp>
 #include <sge/camera/projection/orthogonal.hpp>
 #include <sge/camera/projection/perspective.hpp>
 #include <sge/parse/json/find_and_convert_member.hpp>
@@ -21,7 +22,7 @@ fruitlib::json::parse_projection(
 		sge::parse::json::find_and_convert_member<fcppt::string>(
 			o,
 			sge::parse::json::path(FCPPT_TEXT("type"))) == FCPPT_TEXT("orthogonal"))
-		return sge::camera::projection::orthogonal();
+		throw fruitlib::exception(FCPPT_TEXT("orthogonal projections aren't supported, yet"));
 
 	return
 		sge::camera::projection::perspective(
