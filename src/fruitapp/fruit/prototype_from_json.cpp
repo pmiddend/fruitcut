@@ -2,7 +2,7 @@
 #include <fruitapp/fruit/model_to_mesh.hpp>
 #include <fruitapp/fruit/prototype_from_json.hpp>
 #include <fruitapp/fruit/material/from_json.hpp>
-#include <sge/image2d/multi_loader_fwd.hpp>
+#include <sge/image2d/system_fwd.hpp>
 #include <sge/model/md3/loader.hpp>
 #include <sge/parse/json/array.hpp>
 #include <sge/parse/json/find_and_convert_member.hpp>
@@ -39,7 +39,7 @@ fruitapp::fruit::prototype const
 fruitapp::fruit::prototype_from_json(
 	sge::parse::json::value const &v,
 	sge::model::md3::loader &model_loader,
-	sge::image2d::multi_loader &image_loader,
+	sge::image2d::system &image_loader,
 	sge::renderer::device &renderer)
 {
 	sge::parse::json::object const &o =

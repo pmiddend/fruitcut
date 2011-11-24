@@ -8,7 +8,7 @@
 #include <fruitlib/scenic/events/render.hpp>
 #include <fruitlib/scenic/events/update.hpp>
 #include <sge/image/color/rgba8_format.hpp>
-#include <sge/image2d/multi_loader_fwd.hpp>
+#include <sge/image2d/system_fwd.hpp>
 #include <sge/input/cursor/object_fwd.hpp>
 #include <sge/parse/json/object.hpp>
 #include <sge/renderer/device_fwd.hpp>
@@ -50,7 +50,7 @@ public:
 		fruitlib::scenic::optional_parent const &,
 		sge::renderer::device &,
 		sge::renderer::target_base &,
-		sge::image2d::multi_loader &,
+		sge::image2d::system &,
 		sge::input::cursor::object &,
 		fruitapp::ingame_clock const &,
 		sge::parse::json::object const &);

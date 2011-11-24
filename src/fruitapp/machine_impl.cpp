@@ -19,7 +19,6 @@
 #include <fruitlib/scenic/events/update.hpp>
 #include <fruitlib/scenic/events/viewport_change.hpp>
 #include <fruitlib/time_format/find_and_convert_duration.hpp>
-#include <sge/extension_set.hpp>
 #include <sge/audio/loader_capabilities_field.hpp>
 #include <sge/audio/player.hpp>
 #include <sge/audio/scalar.hpp>
@@ -40,6 +39,8 @@
 #include <sge/input/keyboard/device.hpp>
 #include <sge/input/keyboard/key_code.hpp>
 #include <sge/log/global_context.hpp>
+#include <sge/media/extension.hpp>
+#include <sge/media/extension_set.hpp>
 #include <sge/model/md3/create.hpp>
 #include <sge/model/md3/loader.hpp>
 #include <sge/model/md3/loader_fwd.hpp>
@@ -63,7 +64,7 @@
 #include <sge/systems/audio_loader.hpp>
 #include <sge/systems/audio_player_default.hpp>
 #include <sge/systems/cursor_option_field.hpp>
-#include <sge/systems/image_loader.hpp>
+#include <sge/systems/image2d.hpp>
 #include <sge/systems/input.hpp>
 #include <sge/systems/input_helper.hpp>
 #include <sge/systems/input_helper_field.hpp>
@@ -176,14 +177,14 @@ fruitapp::machine_impl::machine_impl(
 			(sge::systems::parameterless::charconv)
 			(sge::systems::audio_loader(
 				sge::audio::loader_capabilities_field::null(),
-				fcppt::assign::make_container<sge::extension_set>
-					(FCPPT_TEXT("wav"))
-					(FCPPT_TEXT("ogg"))))
+				fcppt::assign::make_container<sge::media::extension_set>
+					(sge::media::extension(FCPPT_TEXT("wav")))
+					(sge::media::extension(FCPPT_TEXT("ogg")))))
 			(sge::systems::parameterless::font)
-			(sge::systems::image_loader(
+			(sge::systems::image2d(
 					sge::image::capabilities_field::null(),
-					fcppt::assign::make_container<sge::extension_set>
-						(FCPPT_TEXT("png"))))),
+					fcppt::assign::make_container<sge::media::extension_set>
+						(sge::media::extension(FCPPT_TEXT("png")))))),
 	md3_loader_(
 		sge::model::md3::create()),
 	renderable_(
@@ -205,7 +206,7 @@ fruitapp::machine_impl::machine_impl(
 	font_cache_(
 		systems_.font_system(),
 		systems_.renderer(),
-		systems_.image_loader(),
+		systems_.image_system(),
 		fruitcut::media_path(),
 		sge::parse::json::find_and_convert_member<sge::parse::json::object>(
 			config_file_,
@@ -347,7 +348,7 @@ fruitapp::machine_impl::machine_impl(
 				fruitlib::scenic::depth(
 					depths::scene::background))),
 		systems_.renderer(),
-		systems_.image_loader(),
+		systems_.image_system(),
 		shadow_map_.texture(),
 		shadow_map_.mvp(),
 		config_file_,
@@ -363,7 +364,7 @@ fruitapp::machine_impl::machine_impl(
 			.font_directory(
 				fruitcut::media_path()/FCPPT_TEXT("fonts")),
 		systems_.renderer(),
-		systems_.image_loader(),
+		systems_.image_system(),
 		systems_.charconv_system(),
 		systems_.viewport_manager(),
 		sge::cegui::cursor_visibility::invisible),
@@ -381,12 +382,12 @@ fruitapp::machine_impl::machine_impl(
 		fruitcut::media_path()/FCPPT_TEXT("point_sprites"),
 		random_generator_,
 		systems_.renderer(),
-		systems_.image_loader(),
+		systems_.image_system(),
 		camera_),
 	screen_shooter_(
 		systems_.keyboard_collector(),
 		systems_.renderer(),
-		systems_.image_loader(),
+		systems_.image_system(),
 		quick_log_),
 	fruit_prototypes_()
 {

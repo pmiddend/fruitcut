@@ -2,7 +2,7 @@
 #include <fruitapp/quick_log.hpp>
 #include <fruitapp/screen_shooter.hpp>
 #include <sge/config/cache_path.hpp>
-#include <sge/image2d/multi_loader_fwd.hpp>
+#include <sge/image2d/system_fwd.hpp>
 #include <sge/input/keyboard/action.hpp>
 #include <sge/input/keyboard/device.hpp>
 #include <sge/input/keyboard/key_code.hpp>
@@ -27,7 +27,7 @@
 fruitapp::screen_shooter::screen_shooter(
 	sge::input::keyboard::device &_keyboard,
 	sge::renderer::device &_renderer,
-	sge::image2d::multi_loader &_image_loader,
+	sge::image2d::system &_image_loader,
 	fruitapp::quick_log &_log)
 :
 	renderer_(

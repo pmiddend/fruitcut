@@ -4,7 +4,7 @@
 #include <fruitlib/resource_tree/navigate_to_path.hpp>
 #include <fruitlib/resource_tree/path.hpp>
 #include <sge/audio/buffer.hpp>
-#include <sge/audio/multi_loader.hpp>
+#include <sge/audio/loader.hpp>
 #include <sge/audio/player.hpp>
 #include <sge/audio/scalar.hpp>
 #include <sge/audio/sound/base.hpp>
@@ -53,7 +53,7 @@ fruitlib::audio::music_controller::music_controller(
 	scenic::optional_parent const &_group,
 	scenic::delta::callback const &_time_callback,
 	fruitlib::random_generator &_random_generator,
-	sge::audio::multi_loader &_audio_loader,
+	sge::audio::loader &_audio_loader,
 	sge::audio::player &_player,
 	scenic::delta::duration const &_crossfade,
 	fcppt::filesystem::path const &_base_path,
@@ -70,7 +70,7 @@ fruitlib::audio::music_controller::music_controller(
 		fruitlib::resource_tree::from_directory_tree<resource_tree_type>(
 			_base_path,
 			std::tr1::bind(
-				&sge::audio::multi_loader::load,
+				&sge::audio::loader::load,
 				&_audio_loader,
 				std::tr1::placeholders::_1),
 			std::tr1::bind(

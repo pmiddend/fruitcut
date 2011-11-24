@@ -5,7 +5,7 @@
 #include <fruitlib/scenic/events/viewport_change.hpp>
 #include <sge/camera/first_person/object.hpp>
 #include <sge/camera/projection/perspective.hpp>
-#include <sge/image2d/multi_loader_fwd.hpp>
+#include <sge/image2d/system_fwd.hpp>
 #include <sge/parse/json/find_and_convert_member.hpp>
 #include <sge/parse/json/object_fwd.hpp>
 #include <sge/renderer/device.hpp>
@@ -141,7 +141,7 @@ vertex_view;
 fruitapp::background::background(
 	fruitlib::scenic::optional_parent const &_parent,
 	sge::renderer::device &_renderer,
-	sge::image2d::multi_loader &_image_loader,
+	sge::image2d::system &_image_loader,
 	sge::renderer::texture::planar_ptr const _shadow_texture,
 	sge::renderer::matrix4 const &_mvp,
 	sge::parse::json::object const &_config,

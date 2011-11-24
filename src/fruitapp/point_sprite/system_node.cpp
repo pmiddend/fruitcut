@@ -8,7 +8,7 @@
 #include <sge/camera/first_person/object.hpp>
 #include <sge/image/color/format.hpp>
 #include <sge/image2d/file.hpp>
-#include <sge/image2d/multi_loader.hpp>
+#include <sge/image2d/system.hpp>
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/dim2.hpp>
 #include <sge/renderer/matrix4.hpp>
@@ -81,7 +81,7 @@ create_random_from_directory(
 
 sge::texture::part_ptr const
 create_part_from_file(
-	sge::image2d::multi_loader &image_loader,
+	sge::image2d::system &image_loader,
 	sge::texture::manager &texture_manager,
 	fcppt::filesystem::path const &p)
 {
@@ -99,7 +99,7 @@ fruitapp::point_sprite::system_node::system_node(
 	fcppt::filesystem::path const &_base_path,
 	fruitlib::random_generator &_random_generator,
 	sge::renderer::device &_renderer,
-	sge::image2d::multi_loader &_image_loader,
+	sge::image2d::system &_image_loader,
 	sge::camera::first_person::object const &_camera)
 :
 	node_base(

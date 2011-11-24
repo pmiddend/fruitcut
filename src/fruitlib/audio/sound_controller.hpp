@@ -11,7 +11,7 @@
 #include <fruitlib/scenic/optional_parent.hpp>
 #include <fruitlib/scenic/events/update.hpp>
 #include <sge/audio/buffer_ptr.hpp>
-#include <sge/audio/multi_loader_fwd.hpp>
+#include <sge/audio/loader_fwd.hpp>
 #include <sge/audio/player_fwd.hpp>
 #include <sge/audio/sound/base_ptr.hpp>
 #include <sge/audio/sound/positional_parameters.hpp>
@@ -68,7 +68,7 @@ public:
 		scenic::optional_parent const &,
 		fruitlib::random_generator &,
 		fcppt::filesystem::path const &,
-		sge::audio::multi_loader &,
+		sge::audio::loader &,
 		sge::audio::player &,
 		sge::audio::scalar initial_gain);
 

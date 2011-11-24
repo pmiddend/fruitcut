@@ -6,7 +6,7 @@
 #include <fruitlib/resource_tree/path.hpp>
 #include <sge/audio/buffer.hpp>
 #include <sge/audio/buffer_ptr.hpp>
-#include <sge/audio/multi_loader.hpp>
+#include <sge/audio/loader.hpp>
 #include <sge/audio/player.hpp>
 #include <sge/audio/sound/positional.hpp>
 #include <sge/audio/sound/repeat.hpp>
@@ -47,7 +47,7 @@ create_random_from_directory(
 
 sge::audio::buffer_ptr const
 create_buffer_from_path(
-	sge::audio::multi_loader &loader,
+	sge::audio::loader &loader,
 	sge::audio::player &player,
 	fcppt::filesystem::path const &file)
 {
@@ -62,7 +62,7 @@ fruitlib::audio::sound_controller::sound_controller(
 	scenic::optional_parent const &_parent,
 	fruitlib::random_generator &_random_generator,
 	fcppt::filesystem::path const &_base_path,
-	sge::audio::multi_loader &_loader,
+	sge::audio::loader &_loader,
 	sge::audio::player &_player,
 	sge::audio::scalar const _initial_gain)
 :

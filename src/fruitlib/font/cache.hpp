@@ -5,7 +5,7 @@
 #include <fruitlib/font/drawer/object_fwd.hpp>
 #include <sge/font/metrics_ptr.hpp>
 #include <sge/font/system_fwd.hpp>
-#include <sge/image2d/multi_loader_fwd.hpp>
+#include <sge/image2d/system_fwd.hpp>
 #include <sge/parse/json/object_fwd.hpp>
 #include <sge/renderer/device_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -31,7 +31,7 @@ public:
 	cache(
 		sge::font::system &,
 		sge::renderer::device &,
-		sge::image2d::multi_loader &,
+		sge::image2d::system &,
 		fcppt::filesystem::path const &base_path,
 		sge::parse::json::object const &);
 

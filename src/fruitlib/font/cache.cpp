@@ -5,7 +5,7 @@
 #include <sge/font/system.hpp>
 #include <sge/font/system_ptr.hpp>
 #include <sge/font/bitmap/create.hpp>
-#include <sge/image2d/multi_loader.hpp>
+#include <sge/image2d/system.hpp>
 #include <sge/parse/json/find_and_convert_member.hpp>
 #include <sge/parse/json/find_member_exn.hpp>
 #include <sge/parse/json/get.hpp>
@@ -34,7 +34,7 @@
 fruitlib::font::cache::cache(
 	sge::font::system &_font_system,
 	sge::renderer::device &_renderer,
-	sge::image2d::multi_loader &_image_loader,
+	sge::image2d::system &_image_loader,
 	fcppt::filesystem::path const &_base_path,
 	sge::parse::json::object const &_fonts)
 :

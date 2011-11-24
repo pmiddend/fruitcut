@@ -6,7 +6,7 @@
 #include <fruitlib/scenic/events/render.hpp>
 #include <fruitlib/scenic/events/viewport_change.hpp>
 #include <sge/image/color/rgba8_format.hpp>
-#include <sge/image2d/multi_loader_fwd.hpp>
+#include <sge/image2d/system_fwd.hpp>
 #include <sge/parse/json/object_fwd.hpp>
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/sprite/choices.hpp>
@@ -45,7 +45,7 @@ public:
 	logo(
 		fruitlib::scenic::optional_parent const &,
 		sge::renderer::device &,
-		sge::image2d::multi_loader &,
+		sge::image2d::system &,
 		sge::parse::json::object const &);
 
 	~logo();

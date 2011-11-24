@@ -15,7 +15,7 @@
 #include <fruitlib/scenic/events/update.hpp>
 #include <sge/audio/buffer_ptr.hpp>
 #include <sge/audio/file_ptr.hpp>
-#include <sge/audio/multi_loader_fwd.hpp>
+#include <sge/audio/loader_fwd.hpp>
 #include <sge/audio/player_fwd.hpp>
 #include <sge/audio/scalar.hpp>
 #include <sge/audio/sound/base_ptr.hpp>
@@ -53,7 +53,7 @@ public:
 		scenic::optional_parent const &,
 		scenic::delta::callback const &,
 		fruitlib::random_generator &,
-		sge::audio::multi_loader &,
+		sge::audio::loader &,
 		sge::audio::player &,
 		scenic::delta::duration const &,
 		fcppt::filesystem::path const &,

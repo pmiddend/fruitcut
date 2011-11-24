@@ -141,7 +141,7 @@ fruitapp::states::ingame::running::running(
 					depths::scene::sword_trail))),
 		context<fruitapp::machine>().systems().renderer(),
 		context<fruitapp::machine>().systems().renderer().onscreen_target(),
-		context<fruitapp::machine>().systems().image_loader(),
+		context<fruitapp::machine>().systems().image_system(),
 		context<fruitapp::machine>().systems().cursor_demuxer(),
 		context<fruitapp::machine>().ingame_clock(),
 		context<fruitapp::machine>().config_file())

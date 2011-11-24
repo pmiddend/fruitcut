@@ -119,7 +119,7 @@ fruitapp::states::loading::react(
 		fruit::prototype_from_json(
 			*current_fruit_++,
 			context<machine>().md3_loader(),
-			context<machine>().systems().image_loader(),
+			context<machine>().systems().image_system(),
 			context<machine>().systems().renderer()));
 
 	font_node_.object().text(

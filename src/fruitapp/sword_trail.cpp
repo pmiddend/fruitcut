@@ -1,7 +1,7 @@
 #include "../media_path.hpp"
 #include <fruitapp/sword_trail.hpp>
 #include <fruitlib/time_format/find_and_convert_duration.hpp>
-#include <sge/image2d/multi_loader.hpp>
+#include <sge/image2d/system_fwd.hpp>
 #include <sge/input/cursor/object.hpp>
 #include <sge/input/cursor/position.hpp>
 #include <sge/input/cursor/position_unit.hpp>
@@ -60,7 +60,7 @@ fruitapp::sword_trail::sword_trail(
 	fruitlib::scenic::optional_parent const &_parent,
 	sge::renderer::device &_renderer,
 	sge::renderer::target_base &_target,
-	sge::image2d::multi_loader &_image_loader,
+	sge::image2d::system &_image_loader,
 	sge::input::cursor::object &_cursor,
 	fruitapp::ingame_clock const &_clock,
 	sge::parse::json::object const &_config_file)

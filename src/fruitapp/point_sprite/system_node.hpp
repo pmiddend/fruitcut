@@ -12,7 +12,7 @@
 #include <fruitlib/scenic/events/render.hpp>
 #include <fruitlib/scenic/events/update.hpp>
 #include <sge/camera/first_person/object_fwd.hpp>
-#include <sge/image2d/multi_loader.hpp>
+#include <sge/image2d/system_fwd.hpp>
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/shader/object.hpp>
 #include <sge/texture/manager.hpp>
@@ -48,7 +48,7 @@ public:
 		fcppt::filesystem::path const &,
 		fruitlib::random_generator &,
 		sge::renderer::device &,
-		sge::image2d::multi_loader &,
+		sge::image2d::system &,
 		sge::camera::first_person::object const &);
 
 	void

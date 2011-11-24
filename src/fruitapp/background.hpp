@@ -6,7 +6,7 @@
 #include <fruitlib/scenic/events/render.hpp>
 #include <fruitlib/scenic/events/viewport_change.hpp>
 #include <sge/camera/first_person/object_fwd.hpp>
-#include <sge/image2d/multi_loader_fwd.hpp>
+#include <sge/image2d/system_fwd.hpp>
 #include <sge/parse/json/object_fwd.hpp>
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/matrix4.hpp>
@@ -39,7 +39,7 @@ public:
 	background(
 		fruitlib::scenic::optional_parent const &,
 		sge::renderer::device &,
-		sge::image2d::multi_loader &,
+		sge::image2d::system &,
 		sge::renderer::texture::planar_ptr,
 		sge::renderer::matrix4 const &,
 		sge::parse::json::object const &,
