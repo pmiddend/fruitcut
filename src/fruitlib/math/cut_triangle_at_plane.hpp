@@ -15,6 +15,8 @@
 #include <fcppt/math/vector/length.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/spirit/home/phoenix/bind.hpp>
+#include <boost/static_assert.hpp>
+#include <boost/type_traits/is_same.hpp>
 #include <boost/spirit/home/phoenix/core/argument.hpp>
 #include <boost/spirit/home/phoenix/operator/comparison.hpp>
 #include <boost/spirit/home/phoenix/operator/if_else.hpp>
@@ -30,12 +32,14 @@ namespace math
 template
 <
 	typename Triangle,
-	typename Plane
+	typename Plane,
+	typename EpsilonType
 >
 triangle_plane_intersection<Triangle> const
 cut_triangle_at_plane(
 	Triangle const &t,
-	Plane const &p)
+	Plane const &p,
+	EpsilonType const epsilon)
 {
 	typedef
 	Triangle
@@ -48,6 +52,9 @@ cut_triangle_at_plane(
 	typedef typename
 	triangle::scalar_type<triangle_type>::type
 	scalar;
+
+	BOOST_STATIC_ASSERT((
+		boost::is_same<EpsilonType,scalar>::value));
 
 	typedef
 	triangle_plane_intersection<triangle_type>
@@ -139,13 +146,15 @@ cut_triangle_at_plane(
 				line::basic<scalar,N>(
 					points[vprev],
 					points[v] - points[vprev]),
-				p),
+				p,
+				epsilon),
 		s_2 =
 			*line_plane_intersection<scalar,N>(
 				line::basic<scalar,N>(
 					points[vnext],
 					points[v] - points[vnext]),
-				p);
+				p,
+				epsilon);
 
 	typedef
 	triangle::interpolation_pair<triangle_type>

@@ -186,7 +186,8 @@ BOOST_AUTO_TEST_CASE(line_plane)
 				line_direction),
 			plane3(
 				plane_direction,
-				0));
+				0),
+			epsilon);
 
 	vector3 const expected_intersection = vector3(-3,3,0);
 
@@ -211,6 +212,9 @@ BOOST_AUTO_TEST_CASE(line_plane)
 
 BOOST_AUTO_TEST_CASE(line_plane_no_intersection)
 {
+	scalar const epsilon =
+		static_cast<scalar>(0.0001);
+
 	vector3 const
 		plane_direction =
 			fcppt::math::vector::normalize(
@@ -228,7 +232,8 @@ BOOST_AUTO_TEST_CASE(line_plane_no_intersection)
 				line_direction),
 			plane3(
 				plane_direction,
-				0));
+				0),
+			epsilon);
 
 	if (!intersection)
 		fcppt::io::cout()
@@ -282,7 +287,8 @@ BOOST_AUTO_TEST_CASE(cut_triangle_test)
 		intersection_type const is =
 			fruitlib::math::cut_triangle_at_plane(
 				upper_triangle,
-				p);
+				p,
+				epsilon);
 
 		fcppt::io::cout() << FCPPT_TEXT("Expected 0 border points and 1 triangle\n");
 
@@ -307,7 +313,6 @@ BOOST_AUTO_TEST_CASE(cut_triangle_test)
 					&fcppt::math::range_compare
 					<
 						vector3,
-						vector3,
 						scalar
 					>,
 					boost::phoenix::arg_names::arg1,
@@ -321,7 +326,8 @@ BOOST_AUTO_TEST_CASE(cut_triangle_test)
 		intersection_type const is =
 			fruitlib::math::cut_triangle_at_plane(
 				lower_triangle,
-				p);
+				p,
+				epsilon);
 
 		fcppt::io::cout() << FCPPT_TEXT("Expected 0 border points and 0 triangles\n");
 
@@ -343,7 +349,8 @@ BOOST_AUTO_TEST_CASE(cut_triangle_test)
 		intersection_type const is =
 			fruitlib::math::cut_triangle_at_plane(
 				middle_triangle,
-				p);
+				p,
+				epsilon);
 
 		fcppt::io::cout() << FCPPT_TEXT("Expected 2 border points and 1 triangle\n");
 
@@ -386,7 +393,7 @@ BOOST_AUTO_TEST_CASE(cut_triangle_test)
 				is.triangles()[0].points,
 				expected_triangle.points,
 				std::tr1::bind(
-					&fcppt::math::range_compare<vector3,vector3,scalar>,
+					&fcppt::math::range_compare<vector3,scalar>,
 					std::tr1::placeholders::_1,
 					std::tr1::placeholders::_2,
 					epsilon)) );
@@ -402,7 +409,8 @@ BOOST_AUTO_TEST_CASE(cut_triangle_test)
 		intersection_type const is =
 			fruitlib::math::cut_triangle_at_plane(
 				middle_triangle,
-				new_plane);
+				new_plane,
+				epsilon);
 
 		fcppt::io::cout() << FCPPT_TEXT("Expected 2 border points and 2 triangles\n");
 

@@ -4,10 +4,9 @@
 #include <fruitlib/math/line/basic.hpp>
 #include <fruitlib/math/plane/basic.hpp>
 #include <fcppt/optional.hpp>
-#include <fcppt/math/almost_zero.hpp>
 #include <fcppt/math/size_type.hpp>
 #include <fcppt/math/vector/dot.hpp>
-
+#include <cmath>
 
 namespace fruitlib
 {
@@ -25,11 +24,12 @@ template<typename T,fcppt::math::size_type N>
 fcppt::optional<typename line::basic<T,N>::vector> const
 line_plane_intersection(
 	line::basic<T,N> const &l,
-	plane::basic<T,N> const &p)
+	plane::basic<T,N> const &p,
+	T const epsilon)
 {
 	// Normal of the plane and direction of the line are perpendicular:
 	// no intersection
-	if (fcppt::math::almost_zero(fcppt::math::vector::dot(p.normal(),l.direction())))
+	if (std::abs(fcppt::math::vector::dot(p.normal(),l.direction())) < epsilon)
 		return fcppt::optional<typename line::basic<T,N>::vector>();
 
 	return
