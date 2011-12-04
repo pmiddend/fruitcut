@@ -13,7 +13,6 @@
 #include <sge/texture/rect_fragmented.hpp>
 #include <fcppt/ref.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
-#include <fcppt/math/dim/quad.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/math/vector/structure_cast.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -38,7 +37,8 @@ fruitlib::font::drawer::object::object(
 				// Is this safe? Could be a non-alpha format
 				renderer_.caps().preferred_texture_format().get(),
 				sge::renderer::texture::mipmap::off(),
-				fcppt::math::dim::quad<sge::renderer::dim2>(
+				sge::renderer::dim2(
+					256,
 					256)))),
 	sprite_system_(
 		renderer_),

@@ -47,7 +47,3 @@ ENDFUNCTION()
 
 ADD_FRUITCUT_TEST(math)
 ADD_FRUITCUT_TEST(delayed_sequence)
-ADD_FRUITCUT_TEST(json/convert_from json/object_from_string.cpp json/json_equal.cpp)
-ADD_FRUITCUT_TEST(json/convert_to json/object_from_string.cpp json/json_equal.cpp)
-ADD_FRUITCUT_TEST(json/find json/object_from_string.cpp json/json_equal.cpp)
-ADD_FRUITCUT_TEST(json/various json/object_from_string.cpp json/json_equal.cpp)

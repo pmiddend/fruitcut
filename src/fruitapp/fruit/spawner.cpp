@@ -9,7 +9,7 @@
 #include <fruitlib/physics/scalar.hpp>
 #include <fruitlib/physics/vector3.hpp>
 #include <sge/camera/first_person/object.hpp>
-#include <sge/camera/projection/object.hpp>
+#include <sge/camera/projection/invalid.hpp>
 #include <sge/camera/projection/perspective.hpp>
 #include <sge/parse/json/array.hpp>
 #include <sge/parse/json/find_and_convert_member.hpp>
@@ -114,7 +114,7 @@ void
 fruitapp::fruit::spawner::react(
 	fruitlib::scenic::events::update const &)
 {
-	if(camera_.projection_object().empty())
+	if(fcppt::variant::holds_type<sge::camera::projection::invalid>(camera_.projection_object()))
 		return;
 
 	if(!timer_.active() || !timer_.expired())
