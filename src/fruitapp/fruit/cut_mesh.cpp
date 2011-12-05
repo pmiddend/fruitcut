@@ -127,11 +127,15 @@ fruitapp::fruit::cut_mesh(
 		fruitlib::math::triangle_plane_intersection<triangle>
 		intersection;
 
+		scalar const inner_epsilon =
+			static_cast<scalar>(
+				0.00001);
+
 		intersection const single_result =
 			fruitlib::math::cut_triangle_at_plane(
 				*input_triangle,
 				input_plane,
-				epsilon);
+				inner_epsilon);
 
 		for(
 			intersection::point_sequence::const_iterator current_is_point =

@@ -9,6 +9,7 @@
 #include <fruitlib/math/triangle/scalar_type.hpp>
 #include <fruitlib/math/triangle/vector_type.hpp>
 #include <fruitlib/math/triangle/vertex_access.hpp>
+#include <fcppt/math/range_compare.hpp>
 #include <fcppt/container/array.hpp>
 #include <fcppt/io/cout.hpp>
 #include <fcppt/math/size_type.hpp>
@@ -137,24 +138,32 @@ cut_triangle_at_plane(
 	// line::basic constructor will fail. But then again, when that
 	// happens, we know that our triangle is extremely small, so we
 	// might as well cull it.
-	if(points[v] == points[vprev] || points[v] == points[vnext])
+	if(fcppt::math::range_compare(points[v],points[vprev],epsilon) || fcppt::math::range_compare(points[v],points[vnext],epsilon))
 		return result;
 
-	vector const
+	typedef
+	fcppt::optional<vector>
+	optional_vector;
+
+	optional_vector const
 		s_1 =
-			*line_plane_intersection<scalar,N>(
+			line_plane_intersection<scalar,N>(
 				line::basic<scalar,N>(
 					points[vprev],
 					points[v] - points[vprev]),
 				p,
 				epsilon),
 		s_2 =
-			*line_plane_intersection<scalar,N>(
+			line_plane_intersection<scalar,N>(
 				line::basic<scalar,N>(
 					points[vnext],
 					points[v] - points[vnext]),
 				p,
 				epsilon);
+
+	// I have no clue when this is supposed to happen, but if it does, reject it!
+	if(!s_1 || !s_2)
+		return result;
 
 	typedef
 	triangle::interpolation_pair<triangle_type>
@@ -180,21 +189,21 @@ cut_triangle_at_plane(
 			v,
 			vprev,
 			fcppt::math::vector::length(
-				s_1-points[vprev])/
+				(*s_1)-points[vprev])/
 			fcppt::math::vector::length(
 				points[vprev]-points[v])),
 		s_2_pair(
 			v,
 			vnext,
 			fcppt::math::vector::length(
-				s_2-points[vnext])/
+				(*s_2)-points[vnext])/
 			fcppt::math::vector::length(
 				points[vnext]-points[v]));
 
 	result.push_back(
-		s_1);
+		*s_1);
 	result.push_back(
-		s_2);
+		*s_2);
 
 	if (culled_vertices == static_cast<size_type>(2))
 	{
