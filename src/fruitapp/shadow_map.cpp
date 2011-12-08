@@ -81,8 +81,10 @@ fruitapp::shadow_map::shadow_map(
 {
 	// Do an initial clear of the texture to prevent race conditions
 	// (the shadow map might be rendered before its first update)
-	react(
-		fruitlib::scenic::events::update());
+	fruitlib::scenic::events::update event;
+
+	this->react(
+		event);
 }
 
 sge::renderer::texture::planar_ptr const
@@ -122,6 +124,8 @@ fruitapp::shadow_map::react(
 	sge::renderer::scoped_block block(
 		renderer_);
 
+	fruitlib::scenic::events::render event;
+
 	node_base::forward_to_children(
-		fruitlib::scenic::events::render());
+		event);
 }

@@ -92,8 +92,12 @@ fruitapp::states::loading::loading(
 
 	// We already hae a viewport? Ok, then go
 	if(sge::renderer::viewport_size(context<machine>().systems().renderer()).content())
-		react(
-			fruitlib::scenic::events::viewport_change());
+	{
+		fruitlib::scenic::events::viewport_change event;
+
+		this->react(
+			event);
+	}
 }
 
 FRUITAPP_EVENTS_DEFINE_TRANSITION_REACTION(

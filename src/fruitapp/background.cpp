@@ -219,8 +219,10 @@ fruitapp::background::background(
 			sge::parse::json::path(
 				FCPPT_TEXT("background-repeat"))))
 {
-	react(
-		fruitlib::scenic::events::viewport_change());
+	fruitlib::scenic::events::viewport_change event;
+
+	this->react(
+		event);
 }
 
 

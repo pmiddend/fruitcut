@@ -59,6 +59,8 @@ fruitapp::overlay::react(
 
 	postprocessing_.render_result();
 
+	fruitlib::scenic::events::render event;
+
 	node_base::forward_to_children(
-		fruitlib::scenic::events::render());
+		event);
 }

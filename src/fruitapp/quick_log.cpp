@@ -92,8 +92,10 @@ fruitapp::quick_log::quick_log(
 			false)),
 	messages_()
 {
-	react(
-		fruitlib::scenic::events::viewport_change());
+	fruitlib::scenic::events::viewport_change event;
+
+	this->react(
+		event);
 }
 
 void

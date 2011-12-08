@@ -63,8 +63,10 @@ fruitapp::logo::logo(
 				sprite_system_)
 			.elements())
 {
-	react(
-		fruitlib::scenic::events::viewport_change());
+	fruitlib::scenic::events::viewport_change event;
+
+	this->react(
+		event);
 }
 
 fruitapp::logo::~logo()

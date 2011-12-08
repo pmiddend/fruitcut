@@ -457,8 +457,10 @@ fruitapp::machine_impl::run_once()
 
 	ingame_clock_.update();
 
+	fruitlib::scenic::events::update event;
+
 	node_base::forward_to_children(
-		fruitlib::scenic::events::update());
+		event);
 }
 
 fruitapp::ingame_clock const &
@@ -711,7 +713,9 @@ fruitapp::machine_impl::viewport_change()
 					sge::renderer::viewport_size(
 						systems_.renderer())))));
 
+	fruitlib::scenic::events::viewport_change event;
+
 	node_base::forward_to_children(
-		fruitlib::scenic::events::viewport_change());
+		event);
 }
 

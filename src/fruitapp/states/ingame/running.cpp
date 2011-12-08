@@ -148,8 +148,11 @@ fruitapp::states::ingame::running::running(
 {
 	context<machine>().postprocessing().active(
 		true);
-	react(
-		fruitlib::scenic::events::viewport_change());
+
+	fruitlib::scenic::events::viewport_change event;
+
+	this->react(
+		event);
 }
 
 FRUITAPP_EVENTS_DEFINE_TRANSITION_REACTION(

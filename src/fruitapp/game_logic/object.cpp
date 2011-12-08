@@ -211,8 +211,10 @@ fruitapp::game_logic::object::object(
 	renderer_(
 		_renderer)
 {
-	react(
-		fruitlib::scenic::events::viewport_change());
+	fruitlib::scenic::events::viewport_change event;
+
+	this->react(
+		event);
 }
 
 bool

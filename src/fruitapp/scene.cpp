@@ -38,8 +38,12 @@ void
 fruitapp::scene::render_children()
 {
 	if(active_)
+	{
+		fruitlib::scenic::events::render event;
+
 		node_base::forward_to_children(
-			fruitlib::scenic::events::render());
+			event);
+	}
 }
 
 fruitapp::scene::~scene()
