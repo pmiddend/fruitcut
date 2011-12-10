@@ -1,3 +1,4 @@
+#define FUSION_MAX_VECTOR_SIZE 20
 #include "../media_path.hpp"
 #include <fruitapp/logo.hpp>
 #include <fruitlib/scenic/events/render.hpp>
@@ -60,8 +61,7 @@ fruitapp::logo::logo(
 						sge::renderer::resource_flags::none)))
 			.texture_size()
 			.system(
-				sprite_system_)
-			.elements())
+				sprite_system_))
 {
 	fruitlib::scenic::events::viewport_change event;
 

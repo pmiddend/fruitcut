@@ -106,8 +106,7 @@ fruitlib::font::drawer::object::draw_char(
 				fcppt::math::dim::structure_cast<sprite_object::dim>(
 					transformation.size()))
 			.color(
-				color_)
-			.elements()));
+				color_)));
 }
 
 void

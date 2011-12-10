@@ -176,7 +176,7 @@ fruitapp::sword_trail::react(
 					texture_)
 				.rotation(
 					angle)
-				.elements()));
+				));
 
 	timers_.push_back(
 		fcppt::make_shared_ptr<fruitapp::ingame_timer>(

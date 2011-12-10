@@ -163,8 +163,7 @@ public:
 				_sprite_system)
 			.color(
 				status_fraction_to_color(
-					rect_instance_.status_fraction()))
-			.elements())
+					rect_instance_.status_fraction())))
 	{
 	}
 
