@@ -63,14 +63,15 @@
 #include <sge/sprite/parameters.hpp>
 #include <sge/systems/audio_loader.hpp>
 #include <sge/systems/audio_player_default.hpp>
+#include <sge/systems/charconv.hpp>
 #include <sge/systems/cursor_option_field.hpp>
+#include <sge/systems/font.hpp>
 #include <sge/systems/image2d.hpp>
 #include <sge/systems/input.hpp>
 #include <sge/systems/input_helper.hpp>
 #include <sge/systems/input_helper_field.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
-#include <sge/systems/parameterless.hpp>
 #include <sge/systems/renderer.hpp>
 #include <sge/systems/window.hpp>
 #include <sge/texture/part_raw.hpp>
@@ -80,8 +81,9 @@
 #include <sge/viewport/fill_on_resize.hpp>
 #include <sge/viewport/manager.hpp>
 #include <sge/window/dim.hpp>
-#include <sge/window/instance.hpp>
-#include <sge/window/simple_parameters.hpp>
+#include <sge/window/parameters.hpp>
+#include <sge/window/system.hpp>
+#include <sge/window/title.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/nonassignable.hpp>
 #include <fcppt/string.hpp>
@@ -153,8 +155,9 @@ fruitapp::machine_impl::machine_impl(
 	systems_(
 		sge::systems::list()
 			(sge::systems::window(
-				sge::window::simple_parameters(
-					fruitapp::name(),
+				sge::window::parameters(
+					sge::window::title(
+						fruitapp::name()),
 					sge::parse::json::find_and_convert_member<sge::window::dim>(
 						config_file_,
 						sge::parse::json::path(
@@ -174,13 +177,13 @@ fruitapp::machine_impl::machine_impl(
 					| sge::systems::input_helper::cursor_demuxer,
 					sge::systems::cursor_option_field()))
 			(sge::systems::audio_player_default())
-			(sge::systems::parameterless::charconv)
+			(sge::systems::charconv())
 			(sge::systems::audio_loader(
 				sge::audio::loader_capabilities_field::null(),
 				fcppt::assign::make_container<sge::media::extension_set>
 					(sge::media::extension(FCPPT_TEXT("wav")))
 					(sge::media::extension(FCPPT_TEXT("ogg")))))
-			(sge::systems::parameterless::font)
+			(sge::systems::font())
 			(sge::systems::image2d(
 					sge::image::capabilities_field::null(),
 					fcppt::assign::make_container<sge::media::extension_set>
@@ -441,7 +444,7 @@ fruitapp::machine_impl::run_once()
 		static_cast<fruitlib::scoped_frame_limiter::fps_type>(
 			desired_fps_));
 
-	systems_.window().dispatch();
+	systems_.window_system().poll();
 
 	standard_clock_delta_ =
 		sge::timer::elapsed_and_reset<fruitlib::scenic::delta::duration>(

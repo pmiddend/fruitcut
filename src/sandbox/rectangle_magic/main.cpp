@@ -36,7 +36,6 @@
 #include <sge/systems/input_helper_field.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
-#include <sge/systems/parameterless.hpp>
 #include <sge/systems/renderer.hpp>
 #include <sge/systems/running_to_false.hpp>
 #include <sge/systems/window.hpp>
@@ -47,8 +46,9 @@
 #include <sge/timer/clocks/standard.hpp>
 #include <sge/viewport/center_on_resize.hpp>
 #include <sge/window/dim.hpp>
-#include <sge/window/instance.hpp>
-#include <sge/window/simple_parameters.hpp>
+#include <sge/window/parameters.hpp>
+#include <sge/window/system.hpp>
+#include <sge/window/title.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/move.hpp>
@@ -439,8 +439,9 @@ try
 	sge::systems::instance sys(
 		sge::systems::list()
 		(sge::systems::window(
-				sge::window::simple_parameters(
-					FCPPT_TEXT("fruitcut rectangle manager test"),
+				sge::window::parameters(
+					sge::window::title(
+						FCPPT_TEXT("fruitcut rectangle manager test")),
 					window_dim)))
 		(sge::systems::renderer(
 				sge::renderer::parameters(
@@ -476,7 +477,7 @@ try
 	while(
 		running)
 	{
-		sys.window().dispatch();
+		sys.window_system().poll();
 
 		sge::renderer::scoped_block const block(
 			sys.renderer());

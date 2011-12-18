@@ -87,7 +87,7 @@ ELSEIF(MSVC)
 	# Disable "this" used in initializer list warning
 	ADD_DEFINITIONS("/wd4355")
 ENDIF()
-	
+
 SET(
 	INSTALL_MEDIA_DIR
 	${INSTALL_DATA_DIR}/media
