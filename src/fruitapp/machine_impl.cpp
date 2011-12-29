@@ -41,6 +41,7 @@
 #include <sge/log/global_context.hpp>
 #include <sge/media/extension.hpp>
 #include <sge/media/extension_set.hpp>
+#include <sge/media/optional_extension_set.hpp>
 #include <sge/model/md3/create.hpp>
 #include <sge/model/md3/loader.hpp>
 #include <sge/model/md3/loader_fwd.hpp>
@@ -180,14 +181,16 @@ fruitapp::machine_impl::machine_impl(
 			(sge::systems::charconv())
 			(sge::systems::audio_loader(
 				sge::audio::loader_capabilities_field::null(),
-				fcppt::assign::make_container<sge::media::extension_set>
-					(sge::media::extension(FCPPT_TEXT("wav")))
-					(sge::media::extension(FCPPT_TEXT("ogg")))))
+				sge::media::optional_extension_set(
+					fcppt::assign::make_container<sge::media::extension_set>
+						(sge::media::extension(FCPPT_TEXT("wav")))
+						(sge::media::extension(FCPPT_TEXT("ogg"))))))
 			(sge::systems::font())
 			(sge::systems::image2d(
-					sge::image::capabilities_field::null(),
+				sge::image::capabilities_field::null(),
+				sge::media::optional_extension_set(
 					fcppt::assign::make_container<sge::media::extension_set>
-						(sge::media::extension(FCPPT_TEXT("png")))))),
+						(sge::media::extension(FCPPT_TEXT("png"))))))),
 	md3_loader_(
 		sge::model::md3::create()),
 	renderable_(
