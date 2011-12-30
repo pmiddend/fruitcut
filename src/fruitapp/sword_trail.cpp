@@ -13,8 +13,6 @@
 #include <sge/renderer/resource_flags.hpp>
 #include <sge/renderer/resource_flags_none.hpp>
 #include <sge/renderer/target_base.hpp>
-#include <sge/renderer/texture/address_mode.hpp>
-#include <sge/renderer/texture/address_mode2.hpp>
 #include <sge/renderer/texture/create_planar_from_path.hpp>
 #include <sge/renderer/texture/mipmap/off.hpp>
 #include <sge/sprite/default_equal.hpp>
@@ -88,8 +86,6 @@ fruitapp::sword_trail::sword_trail(
 				_renderer,
 				_image_loader,
 				sge::renderer::texture::mipmap::off(),
-				sge::renderer::texture::address_mode2(
-					sge::renderer::texture::address_mode::repeat),
 				sge::renderer::resource_flags::none))),
 	sprite_system_(
 		_renderer),

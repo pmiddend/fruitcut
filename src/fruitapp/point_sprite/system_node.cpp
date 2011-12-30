@@ -18,8 +18,6 @@
 #include <sge/renderer/state/list.hpp>
 #include <sge/renderer/state/scoped.hpp>
 #include <sge/renderer/state/trampoline.hpp>
-#include <sge/renderer/texture/address_mode.hpp>
-#include <sge/renderer/texture/address_mode2.hpp>
 #include <sge/renderer/texture/planar_ptr.hpp>
 #include <sge/renderer/texture/mipmap/off.hpp>
 #include <sge/shader/activate_bare.hpp>
@@ -114,9 +112,7 @@ fruitapp::point_sprite::system_node::system_node(
 				fcppt::ref(
 					_renderer),
 				sge::image::color::format::rgba8,
-				sge::renderer::texture::mipmap::off(),
-				sge::renderer::texture::address_mode2(
-					sge::renderer::texture::address_mode::clamp)))),
+				sge::renderer::texture::mipmap::off()))),
 	system_(
 		renderer_),
 	children_(),

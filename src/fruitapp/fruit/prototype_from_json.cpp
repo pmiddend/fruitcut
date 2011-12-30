@@ -12,8 +12,6 @@
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/resource_flags.hpp>
 #include <sge/renderer/resource_flags_none.hpp>
-#include <sge/renderer/texture/address_mode.hpp>
-#include <sge/renderer/texture/address_mode2.hpp>
 #include <sge/renderer/texture/create_planar_from_path.hpp>
 #include <sge/renderer/texture/mipmap/all_levels.hpp>
 #include <sge/renderer/texture/mipmap/auto_generate.hpp>
@@ -71,8 +69,6 @@ fruitapp::fruit::prototype_from_json(
 				image_loader,
 				sge::renderer::texture::mipmap::all_levels(
 					sge::renderer::texture::mipmap::auto_generate::yes),
-				sge::renderer::texture::address_mode2(
-					sge::renderer::texture::address_mode::clamp),
 				sge::renderer::resource_flags_field(
 					sge::renderer::resource_flags::readable)),
 			material::from_json(

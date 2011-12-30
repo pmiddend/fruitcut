@@ -22,8 +22,6 @@
 #include <sge/renderer/state/list.hpp>
 #include <sge/renderer/state/scoped.hpp>
 #include <sge/renderer/state/trampoline.hpp>
-#include <sge/renderer/texture/address_mode.hpp>
-#include <sge/renderer/texture/address_mode2.hpp>
 #include <sge/renderer/texture/capabilities.hpp>
 #include <sge/renderer/texture/capabilities_field.hpp>
 #include <sge/renderer/texture/planar_parameters.hpp>
@@ -59,8 +57,6 @@ fruitapp::shadow_map::shadow_map(
 						/ FCPPT_TEXT("size")),
 				sge::image::color::format::rgb32f,
 				sge::renderer::texture::mipmap::off(),
-				sge::renderer::texture::address_mode2(
-					sge::renderer::texture::address_mode::clamp),
 				sge::renderer::resource_flags::none,
 				sge::renderer::texture::capabilities_field(
 					sge::renderer::texture::capabilities::render_target)))),

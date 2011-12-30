@@ -11,8 +11,6 @@
 #include <sge/renderer/target.hpp>
 #include <sge/renderer/target_from_texture.hpp>
 #include <sge/renderer/viewport.hpp>
-#include <sge/renderer/texture/address_mode.hpp>
-#include <sge/renderer/texture/address_mode2.hpp>
 #include <sge/renderer/texture/capabilities.hpp>
 #include <sge/renderer/texture/capabilities_field.hpp>
 #include <sge/renderer/texture/planar.hpp>
@@ -150,8 +148,6 @@ fruitlib::pp::texture::manager::query_internal(
 				d.size(),
 				d.image_format(),
 				sge::renderer::texture::mipmap::off(),
-				sge::renderer::texture::address_mode2(
-					sge::renderer::texture::address_mode::clamp),
 				sge::renderer::resource_flags::none,
 				sge::renderer::texture::capabilities_field(
 					sge::renderer::texture::capabilities::render_target)));
