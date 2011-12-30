@@ -53,21 +53,23 @@ FIND_PACKAGE(
 	cegui
 	config
 	console
+	core
 	fontbitmap
 	fonttext
 	image
 	image2d
 	input
-	renderer
 	line_drawer
+	log
 	modelmd3
 	parse
+	renderer
 	shader
 	sprite
 	systems
 	texture
-	window
-	viewport)
+	viewport
+	window)
 
 INCLUDE_DIRECTORIES(${SGE_INCLUDE_DIRS})
 ADD_DEFINITIONS(${SGE_DEFINITIONS})
