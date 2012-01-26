@@ -3,7 +3,7 @@
 
 
 fruitapp::point_sprite::splatter::parameters::parameters(
-	point_sprite::system &_system,
+	point_sprite::connection &_connection,
 	point_sprite::splatter::position const &_position,
 	point_sprite::splatter::linear_velocity const &_linear_velocity,
 	point_sprite::splatter::acceleration const &_acceleration,
@@ -13,8 +13,8 @@ fruitapp::point_sprite::splatter::parameters::parameters(
 	fruitapp::ingame_clock::duration const &_life_time,
 	fruitapp::ingame_clock const &_clock)
 :
-	system_(
-		_system),
+	connection_(
+		_connection),
 	position_(
 		_position.get()),
 	linear_velocity_(
@@ -34,10 +34,10 @@ fruitapp::point_sprite::splatter::parameters::parameters(
 {
 }
 
-fruitapp::point_sprite::system &
-fruitapp::point_sprite::splatter::parameters::system() const
+fruitapp::point_sprite::connection &
+fruitapp::point_sprite::splatter::parameters::connection() const
 {
-	return system_;
+	return connection_;
 }
 
 fruitapp::point_sprite::splatter::position::value_type const &

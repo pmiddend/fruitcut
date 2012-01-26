@@ -2,6 +2,8 @@
 #define FRUITAPP_POINT_SPRITE_SYSTEM_NODE_HPP_INCLUDED
 
 #include <fruitapp/point_sprite/base.hpp>
+#include <fruitapp/point_sprite/collection.hpp>
+#include <fruitapp/point_sprite/connection.hpp>
 #include <fruitapp/point_sprite/system.hpp>
 #include <fruitapp/point_sprite/unique_base_ptr.hpp>
 #include <fruitlib/uniform_random.hpp>
@@ -15,6 +17,8 @@
 #include <sge/image2d/system_fwd.hpp>
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/shader/object.hpp>
+#include <sge/sprite/system_decl.hpp>
+#include <sge/sprite/intrusive/collection_decl.hpp>
 #include <sge/texture/manager.hpp>
 #include <sge/texture/part_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -55,11 +59,8 @@ public:
 	push_back(
 		unique_base_ptr);
 
-	point_sprite::system &
-	system();
-
-	point_sprite::system const &
-	system() const;
+	point_sprite::connection &
+	connection();
 
 	sge::texture::part_ptr const
 	lookup_texture(
@@ -98,6 +99,7 @@ private:
 	sge::camera::first_person::object const &camera_;
 	sge::texture::manager texture_manager_;
 	point_sprite::system system_;
+	point_sprite::collection collection_;
 	child_sequence children_;
 	resource_tree_ptr textures_;
 	sge::shader::object shader_;

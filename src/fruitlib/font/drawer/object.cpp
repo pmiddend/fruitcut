@@ -5,9 +5,13 @@
 #include <sge/renderer/caps/object.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/texture/mipmap/off.hpp>
-#include <sge/sprite/default_equal.hpp>
-#include <sge/sprite/default_sort.hpp>
+#include <sge/sprite/buffers_option.hpp>
 #include <sge/sprite/parameters.hpp>
+#include <sge/sprite/object_impl.hpp>
+#include <sge/sprite/system_impl.hpp>
+#include <sge/sprite/compare/default.hpp>
+#include <sge/sprite/geometry/make_random_access_range.hpp>
+#include <sge/sprite/render/all.hpp>
 #include <sge/texture/const_part_ptr.hpp>
 #include <sge/texture/fragmented_unique_ptr.hpp>
 #include <sge/texture/rect_fragmented.hpp>
@@ -41,7 +45,8 @@ fruitlib::font::drawer::object::object(
 					256,
 					256)))),
 	sprite_system_(
-		renderer_),
+		renderer_,
+		sge::sprite::buffers_option::dynamic),
 	sprites_(),
 	transform_callback_(
 		params.transform_callback())
@@ -112,11 +117,12 @@ fruitlib::font::drawer::object::draw_char(
 void
 fruitlib::font::drawer::object::end_rendering()
 {
-	sprite_system_.render(
-		sprites_.begin(),
-		sprites_.end(),
-		sge::sprite::default_sort(),
-		sge::sprite::default_equal());
+	sge::sprite::render::all(
+		sge::sprite::geometry::make_random_access_range(
+			sprites_.begin(),
+			sprites_.end()),
+		sprite_system_.buffers(),
+		sge::sprite::compare::default_());
 }
 
 void

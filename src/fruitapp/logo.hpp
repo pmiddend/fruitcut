@@ -5,23 +5,20 @@
 #include <fruitlib/scenic/optional_parent.hpp>
 #include <fruitlib/scenic/events/render.hpp>
 #include <fruitlib/scenic/events/viewport_change.hpp>
-#include <sge/image/color/rgba8_format.hpp>
 #include <sge/image2d/system_fwd.hpp>
 #include <sge/parse/json/object_fwd.hpp>
 #include <sge/renderer/device_fwd.hpp>
-#include <sge/sprite/choices.hpp>
-#include <sge/sprite/object.hpp>
+#include <sge/sprite/object_decl.hpp>
 #include <sge/sprite/parameters_fwd.hpp>
-#include <sge/sprite/system.hpp>
-#include <sge/sprite/type_choices.hpp>
-#include <sge/sprite/with_color.hpp>
-#include <sge/sprite/with_dim.hpp>
-#include <sge/sprite/with_repetition.hpp>
-#include <sge/sprite/with_rotation.hpp>
-#include <sge/sprite/with_texture.hpp>
-#include <sge/sprite/with_visibility.hpp>
-#include <sge/sprite/intrusive/system_impl.hpp>
-#include <sge/sprite/intrusive/tag.hpp>
+#include <sge/sprite/system_decl.hpp>
+#include <sge/sprite/config/choices.hpp>
+#include <sge/sprite/config/float_type.hpp>
+#include <sge/sprite/config/normal_size.hpp>
+#include <sge/sprite/config/texture_coordinates.hpp>
+#include <sge/sprite/config/texture_level_count.hpp>
+#include <sge/sprite/config/type_choices.hpp>
+#include <sge/sprite/config/unit_type.hpp>
+#include <sge/sprite/config/with_texture.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
@@ -59,37 +56,44 @@ public:
 		fruitlib::scenic::events::viewport_change const &);
 private:
 	typedef
-	boost::mpl::vector7
+	boost::mpl::vector1
 	<
-		sge::sprite::with_texture,
-		sge::sprite::with_repetition,
-		sge::sprite::with_visibility,
-		sge::sprite::with_dim,
-		sge::sprite::with_rotation,
-		sge::sprite::with_color,
-		sge::sprite::intrusive::tag
+		sge::sprite::config::with_texture
+		<
+			sge::sprite::config::texture_level_count
+			<
+				1u
+			>,
+			sge::sprite::config::texture_coordinates::normal
+		>
 	>
 	sprite_elements;
 
 	typedef
-	sge::sprite::type_choices
+	sge::sprite::config::type_choices
 	<
-		int,
-		float,
-		sge::image::color::rgba8_format
+		sge::sprite::config::unit_type
+		<
+			int
+		>,
+		sge::sprite::config::float_type
+		<
+			float
+		>
 	>
 	sprite_type_choices;
 
 	typedef
-	sge::sprite::choices
+	sge::sprite::config::choices
 	<
 		sprite_type_choices,
+		sge::sprite::config::normal_size,
 		sprite_elements
 	>
 	sprite_choices;
 
 	typedef
-	sge::sprite::system<sprite_choices>::type
+	sge::sprite::system<sprite_choices>
 	sprite_system;
 
 	typedef

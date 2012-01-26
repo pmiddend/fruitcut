@@ -2,8 +2,8 @@
 #define FRUITAPP_POINT_SPRITE_SPLATTER_PARAMETERS_HPP_INCLUDED
 
 #include <fruitapp/ingame_clock.hpp>
+#include <fruitapp/point_sprite/connection.hpp>
 #include <fruitapp/point_sprite/color.hpp>
-#include <fruitapp/point_sprite/system.hpp>
 #include <fruitapp/point_sprite/splatter/acceleration.hpp>
 #include <fruitapp/point_sprite/splatter/linear_velocity.hpp>
 #include <fruitapp/point_sprite/splatter/position.hpp>
@@ -26,7 +26,7 @@ FCPPT_NONASSIGNABLE(
 public:
 	explicit
 	parameters(
-		point_sprite::system &,
+		point_sprite::connection &,
 		point_sprite::splatter::position const &,
 		point_sprite::splatter::linear_velocity const &,
 		point_sprite::splatter::acceleration const &,
@@ -36,8 +36,8 @@ public:
 		fruitapp::ingame_clock::duration const &,
 		fruitapp::ingame_clock const &);
 
-	point_sprite::system &
-	system() const;
+	point_sprite::connection &
+	connection() const;
 
 	point_sprite::splatter::position::value_type const &
 	position() const;
@@ -65,7 +65,7 @@ public:
 
 	~parameters();
 private:
-	fruitapp::point_sprite::system &system_;
+	fruitapp::point_sprite::connection &connection_;
 	fruitapp::point_sprite::splatter::position::value_type const position_;
 	fruitapp::point_sprite::splatter::linear_velocity::value_type const linear_velocity_;
 	fruitapp::point_sprite::splatter::acceleration::value_type const acceleration_;

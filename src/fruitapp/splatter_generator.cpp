@@ -161,7 +161,7 @@ fruitapp::splatter_generator::fruit_was_cut(
 			point_sprite::unique_base_ptr(
 				fcppt::make_unique_ptr<point_sprite::splatter::object>(
 					point_sprite::splatter::parameters(
-						point_sprites_.system(),
+						point_sprites_.connection(),
 						point_sprite::splatter::position(
 							cut_info.old().position() +
 							fruitlib::math::multiply_matrix4_vector3(

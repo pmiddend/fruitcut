@@ -1,9 +1,11 @@
 #include <fruitapp/point_sprite/parameters.hpp>
 #include <fruitapp/point_sprite/splatter/object.hpp>
 #include <fruitapp/point_sprite/splatter/parameters.hpp>
+#include <sge/sprite/intrusive/connection.hpp>
 #include <sge/timer/elapsed_fractional_and_reset.hpp>
 #include <sge/timer/parameters.hpp>
 #include <fcppt/chrono/seconds.hpp>
+#include <fcppt/math/vector/arithmetic.hpp>
 
 
 fruitapp::point_sprite::splatter::object::object(
@@ -21,10 +23,8 @@ fruitapp::point_sprite::splatter::object::object(
 				p.size())
 			.texture(
 				p.texture())
-			.order(
-				0)
-			.system(
-				p.system())
+			.connection(
+				p.connection())
 			.color(
 				p.color())
 			.elements()),

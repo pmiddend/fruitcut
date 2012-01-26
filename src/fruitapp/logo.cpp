@@ -1,4 +1,3 @@
-#define FUSION_MAX_VECTOR_SIZE 20
 #include "../media_path.hpp"
 #include <fruitapp/logo.hpp>
 #include <fruitlib/scenic/events/render.hpp>
@@ -14,11 +13,14 @@
 #include <sge/renderer/viewport_size.hpp>
 #include <sge/renderer/texture/create_planar_from_path.hpp>
 #include <sge/renderer/texture/mipmap/off.hpp>
+#include <sge/sprite/buffers_option.hpp>
 #include <sge/sprite/center.hpp>
-#include <sge/sprite/default_equal.hpp>
 #include <sge/sprite/default_parameters.hpp>
+#include <sge/sprite/object_impl.hpp>
 #include <sge/sprite/parameters.hpp>
+#include <sge/sprite/system_impl.hpp>
 #include <sge/sprite/defaults/defaults.hpp>
+#include <sge/sprite/render/one.hpp>
 #include <sge/texture/part_raw.hpp>
 #include <mizuiro/color/operators.hpp>
 #include <fcppt/make_shared_ptr.hpp>
@@ -37,7 +39,8 @@ fruitapp::logo::logo(
 	renderer_(
 		_renderer),
 	sprite_system_(
-		_renderer),
+		_renderer,
+		sge::sprite::buffers_option::dynamic),
 	sprite_object_(
 		sge::sprite::default_parameters<sprite_choices>()
 			.texture(
@@ -55,9 +58,7 @@ fruitapp::logo::logo(
 						_image_loader,
 						sge::renderer::texture::mipmap::off(),
 						sge::renderer::resource_flags::none)))
-			.texture_size()
-			.system(
-				sprite_system_))
+			.texture_size())
 {
 	fruitlib::scenic::events::viewport_change event;
 
@@ -73,8 +74,9 @@ void
 fruitapp::logo::react(
 	fruitlib::scenic::events::render const &)
 {
-	sprite_system_.render_all(
-		sge::sprite::default_equal());
+	sge::sprite::render::one(
+		sprite_object_,
+		sprite_system_.buffers());
 }
 
 void

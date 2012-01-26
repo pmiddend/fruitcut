@@ -13,15 +13,19 @@
 #include <sge/parse/json/object.hpp>
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/target_base_fwd.hpp>
-#include <sge/sprite/choices.hpp>
-#include <sge/sprite/external_system_impl.hpp>
-#include <sge/sprite/object.hpp>
-#include <sge/sprite/parameters.hpp>
-#include <sge/sprite/system.hpp>
-#include <sge/sprite/type_choices.hpp>
-#include <sge/sprite/with_dim.hpp>
-#include <sge/sprite/with_rotation.hpp>
-#include <sge/sprite/with_texture.hpp>
+#include <sge/sprite/object_decl.hpp>
+#include <sge/sprite/parameters_fwd.hpp>
+#include <sge/sprite/system_decl.hpp>
+#include <sge/sprite/config/choices.hpp>
+#include <sge/sprite/config/custom_center.hpp>
+#include <sge/sprite/config/float_type.hpp>
+#include <sge/sprite/config/normal_size.hpp>
+#include <sge/sprite/config/texture_coordinates.hpp>
+#include <sge/sprite/config/texture_level_count.hpp>
+#include <sge/sprite/config/type_choices.hpp>
+#include <sge/sprite/config/unit_type.hpp>
+#include <sge/sprite/config/with_rotation.hpp>
+#include <sge/sprite/config/with_texture.hpp>
 #include <sge/texture/part_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/shared_ptr.hpp>
@@ -71,27 +75,43 @@ private:
 	float_type;
 
 	typedef
-	sge::sprite::choices
+	sge::sprite::config::choices
 	<
-		sge::sprite::type_choices
+		sge::sprite::config::type_choices
 		<
-			// position type
-			float_type,
-			// rotation/etc type
-			float_type,
-			sge::image::color::rgba8_format
+			sge::sprite::config::unit_type
+			<
+				float_type
+			>,
+			sge::sprite::config::float_type
+			<
+				float_type
+			>
 		>,
-		boost::mpl::vector3
+		sge::sprite::config::normal_size,
+		boost::mpl::vector2
 		<
-			sge::sprite::with_dim,
-			sge::sprite::with_texture,
-			sge::sprite::with_rotation
+			sge::sprite::config::with_texture
+			<
+				sge::sprite::config::texture_level_count
+				<
+					1u
+				>,
+				sge::sprite::config::texture_coordinates::normal
+			>,
+			sge::sprite::config::with_rotation
+			<
+				sge::sprite::config::custom_center
+				<
+					false
+				>
+			>
 		>
 	>
 	sprite_choices;
 
 	typedef
-	sge::sprite::system<sprite_choices>::type
+	sge::sprite::system<sprite_choices>
 	sprite_system;
 
 	typedef

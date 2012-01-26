@@ -612,11 +612,14 @@ SET(
 	src/fruitapp/point_sprite/base.cpp
 	src/fruitapp/point_sprite/base.hpp
 	src/fruitapp/point_sprite/choices.hpp
+	src/fruitapp/point_sprite/collection.hpp
 	src/fruitapp/point_sprite/color.hpp
 	src/fruitapp/point_sprite/color_format.hpp
+	src/fruitapp/point_sprite/connection.hpp
 	src/fruitapp/point_sprite/elements.hpp
 	src/fruitapp/point_sprite/object.hpp
 	src/fruitapp/point_sprite/parameters.hpp
+	src/fruitapp/point_sprite/size_attribute.hpp
 	src/fruitapp/point_sprite/splatter/acceleration.hpp
 	src/fruitapp/point_sprite/splatter/linear_velocity.hpp
 	src/fruitapp/point_sprite/splatter/object.cpp

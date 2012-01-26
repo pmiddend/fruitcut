@@ -2,8 +2,7 @@
 #define FRUITAPP_POINT_SPRITE_SYSTEM_HPP_INCLUDED
 
 #include <fruitapp/point_sprite/choices.hpp>
-#include <sge/sprite/system.hpp>
-#include <sge/sprite/intrusive/system_impl.hpp>
+#include <sge/sprite/system_fwd.hpp>
 
 
 namespace fruitapp
@@ -11,7 +10,7 @@ namespace fruitapp
 namespace point_sprite
 {
 typedef
-sge::sprite::system<choices>::type
+sge::sprite::system<choices>
 system;
 }
 }
