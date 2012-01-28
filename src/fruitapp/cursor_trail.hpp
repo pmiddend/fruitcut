@@ -12,9 +12,9 @@
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/circular_buffer.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <cstddef>
+#include <deque>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -32,7 +32,7 @@ public:
 	scene_reactions;
 
 	typedef
-	boost::circular_buffer<sge::input::cursor::position>
+	std::deque<sge::input::cursor::position>
 	position_buffer;
 
 	typedef
@@ -70,6 +70,7 @@ private:
 	position_buffer positions_;
 	fruitapp::ingame_timer update_timer_;
 	sge::renderer::target_base &target_;
+	size_type sample_count_;
 
 };
 }

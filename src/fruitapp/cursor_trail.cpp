@@ -7,6 +7,7 @@
 #include <sge/renderer/vector2.hpp>
 #include <sge/timer/parameters.hpp>
 #include <sge/timer/reset_when_expired.hpp>
+#include <fcppt/assert/pre.hpp>
 #include <fcppt/chrono/duration.hpp>
 #include <fcppt/chrono/duration_arithmetic.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
@@ -48,14 +49,15 @@ fruitapp::cursor_trail::cursor_trail(
 		_parent),
 	cursor_(
 		_cursor),
-	positions_(
-		_sample_count),
+	positions_(),
 	update_timer_(
 		fruitapp::ingame_timer::parameters(
 			_clock,
 			_update_frequency)),
 	target_(
-		_target)
+		_target),
+	sample_count_(
+		_sample_count)
 {
 }
 
@@ -76,7 +78,7 @@ fruitapp::cursor_trail::total_expiry_duration() const
 {
 	return
 		static_cast<fruitapp::ingame_clock::duration::rep>(
-			positions_.capacity()) *
+			sample_count_) *
 		update_timer_.interval<fruitapp::ingame_clock::duration>();
 }
 
@@ -93,8 +95,15 @@ fruitapp::cursor_trail::react(
 			update_timer_))
 		return;
 
+	if(
+		!cursor_.position())
+		return;
+
 	positions_.push_back(
 		transform_position(
 			*cursor_.position(),
 			target_.viewport().get()));
+
+	if(positions_.size() > sample_count_)
+		positions_.pop_front();
 }
