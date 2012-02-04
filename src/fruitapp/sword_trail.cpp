@@ -15,18 +15,20 @@
 #include <sge/renderer/target_base.hpp>
 #include <sge/renderer/texture/create_planar_from_path.hpp>
 #include <sge/renderer/texture/mipmap/off.hpp>
-#include <sge/sprite/buffers_option.hpp>
 #include <sge/sprite/object_impl.hpp>
 #include <sge/sprite/parameters.hpp>
-#include <sge/sprite/system_impl.hpp>
+#include <sge/sprite/buffers/option.hpp>
+#include <sge/sprite/buffers/single_impl.hpp>
+#include <sge/sprite/buffers/with_declaration_impl.hpp>
 #include <sge/sprite/compare/default.hpp>
 #include <sge/sprite/geometry/make_random_access_range.hpp>
-#include <sge/sprite/render/geometry_options.hpp>
+#include <sge/sprite/process/geometry_options.hpp>
+#include <sge/sprite/process/options.hpp>
+#include <sge/sprite/process/with_options.hpp>
 #include <sge/sprite/render/matrix_options.hpp>
 #include <sge/sprite/render/options.hpp>
 #include <sge/sprite/render/state_options.hpp>
 #include <sge/sprite/render/vertex_options.hpp>
-#include <sge/sprite/render/with_options.hpp>
 #include <sge/texture/part_raw.hpp>
 #include <sge/timer/elapsed_fractional.hpp>
 #include <sge/timer/parameters.hpp>
@@ -96,9 +98,9 @@ fruitapp::sword_trail::sword_trail(
 				_image_loader,
 				sge::renderer::texture::mipmap::off(),
 				sge::renderer::resource_flags::none))),
-	sprite_system_(
+	sprite_buffers_(
 		_renderer,
-		sge::sprite::buffers_option::dynamic),
+		sge::sprite::buffers::option::dynamic),
 	positions_(
 		sge::parse::json::find_and_convert_member<position_buffer::size_type>(
 			_config_file,
@@ -195,19 +197,21 @@ void
 fruitapp::sword_trail::react(
 	fruitlib::scenic::events::render const &)
 {
-	sge::sprite::render::with_options
+	sge::sprite::process::with_options
 	<
-		sge::sprite::render::options
+		sge::sprite::process::options
 		<
-			sge::sprite::render::geometry_options::fill,
-			sge::sprite::render::matrix_options::set,
-			sge::sprite::render::state_options::set,
-			sge::sprite::render::vertex_options::declaration_and_buffer
+			sge::sprite::process::geometry_options::fill,
+			sge::sprite::render::options
+			<
+				sge::sprite::render::matrix_options::set,
+				sge::sprite::render::state_options::set,
+				sge::sprite::render::vertex_options::declaration_and_buffer
+			>
 		>
 	>(
 		sge::sprite::geometry::make_random_access_range(
-			sprites_.begin(),
-			sprites_.end()),
-		sprite_system_.buffers(),
+			sprites_),
+		sprite_buffers_.buffers(),
 		sge::sprite::compare::default_());
 }

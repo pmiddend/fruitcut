@@ -31,11 +31,12 @@
 #include <sge/shader/variable_sequence.hpp>
 #include <sge/shader/variable_type.hpp>
 #include <sge/shader/vertex_format_string.hpp>
-#include <sge/sprite/buffers_option.hpp>
-#include <sge/sprite/system_impl.hpp>
+#include <sge/sprite/buffers/option.hpp>
+#include <sge/sprite/buffers/single_impl.hpp>
+#include <sge/sprite/buffers/with_declaration_impl.hpp>
 #include <sge/sprite/compare/default.hpp>
 #include <sge/sprite/intrusive/collection_impl.hpp>
-#include <sge/sprite/render/all.hpp>
+#include <sge/sprite/process/all.hpp>
 #include <sge/texture/add_image.hpp>
 #include <sge/texture/fragmented_unique_ptr.hpp>
 #include <sge/texture/manager_fwd.hpp>
@@ -117,9 +118,9 @@ fruitapp::point_sprite::system_node::system_node(
 					_renderer),
 				sge::image::color::format::rgba8,
 				sge::renderer::texture::mipmap::off()))),
-	system_(
+	buffers_(
 		renderer_,
-		sge::sprite::buffers_option::dynamic),
+		sge::sprite::buffers::option::dynamic),
 	collection_(),
 	children_(),
 	textures_(
@@ -140,7 +141,7 @@ fruitapp::point_sprite::system_node::system_node(
 	shader_(
 		sge::shader::object_parameters(
 			renderer_,
-			system_.buffers().vertex_declaration(),
+			buffers_.vertex_declaration(),
 			sge::shader::vertex_format_string(
 				""),
 			fcppt::assign::make_container<sge::shader::variable_sequence>
@@ -244,8 +245,8 @@ fruitapp::point_sprite::system_node::react(
 		sge::renderer::state::list
 			(sge::renderer::state::depth_func::off));
 
-	sge::sprite::render::all(
+	sge::sprite::process::all(
 		collection_.range(),
-		system_.buffers(),
+		buffers_.buffers(),
 		sge::sprite::compare::default_());
 }

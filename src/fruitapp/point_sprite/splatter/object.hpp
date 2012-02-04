@@ -3,10 +3,7 @@
 
 #include <fruitapp/ingame_timer.hpp>
 #include <fruitapp/point_sprite/base.hpp>
-#include <fruitapp/point_sprite/color.hpp>
 #include <fruitapp/point_sprite/object.hpp>
-#include <fruitapp/point_sprite/system.hpp>
-#include <fruitapp/point_sprite/vector.hpp>
 #include <fruitapp/point_sprite/splatter/acceleration.hpp>
 #include <fruitapp/point_sprite/splatter/linear_velocity.hpp>
 #include <fruitapp/point_sprite/splatter/parameters_fwd.hpp>

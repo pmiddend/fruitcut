@@ -15,7 +15,8 @@
 #include <sge/renderer/target_base_fwd.hpp>
 #include <sge/sprite/object_decl.hpp>
 #include <sge/sprite/parameters_fwd.hpp>
-#include <sge/sprite/system_decl.hpp>
+#include <sge/sprite/buffers/single_decl.hpp>
+#include <sge/sprite/buffers/with_declaration_decl.hpp>
 #include <sge/sprite/config/choices.hpp>
 #include <sge/sprite/config/custom_center.hpp>
 #include <sge/sprite/config/float_type.hpp>
@@ -111,8 +112,14 @@ private:
 	sprite_choices;
 
 	typedef
-	sge::sprite::system<sprite_choices>
-	sprite_system;
+	sge::sprite::buffers::with_declaration
+	<
+		sge::sprite::buffers::single
+		<
+			sprite_choices
+		>
+	>
+	sprite_buffers;
 
 	typedef
 	sge::sprite::object<sprite_choices>
@@ -143,7 +150,7 @@ private:
 	fruitapp::ingame_clock::duration const element_lifetime_;
 	sprite_object::unit const max_width_;
 	sge::texture::part_ptr texture_;
-	sprite_system sprite_system_;
+	sprite_buffers sprite_buffers_;
 	position_buffer positions_;
 	sprite_buffer sprites_;
 	timer_buffer timers_;

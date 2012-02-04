@@ -19,10 +19,11 @@
 #include <sge/renderer/state/bool.hpp>
 #include <sge/renderer/state/color.hpp>
 #include <sge/renderer/state/list.hpp>
-#include <sge/sprite/buffers_option.hpp>
 #include <sge/sprite/object_impl.hpp>
 #include <sge/sprite/parameters_impl.hpp>
-#include <sge/sprite/system_impl.hpp>
+#include <sge/sprite/buffers/option.hpp>
+#include <sge/sprite/buffers/single_impl.hpp>
+#include <sge/sprite/buffers/with_declaration_impl.hpp>
 #include <sge/sprite/compare/default.hpp>
 #include <sge/sprite/config/choices.hpp>
 #include <sge/sprite/config/float_type.hpp>
@@ -32,7 +33,7 @@
 #include <sge/sprite/config/unit_type.hpp>
 #include <sge/sprite/config/with_color.hpp>
 #include <sge/sprite/intrusive/collection.hpp>
-#include <sge/sprite/render/all.hpp>
+#include <sge/sprite/process/all.hpp>
 #include <sge/systems/cursor_option_field.hpp>
 #include <sge/systems/input.hpp>
 #include <sge/systems/input_helper.hpp>
@@ -115,8 +116,14 @@ sge::sprite::config::choices
 sprite_choices;
 
 typedef
-sge::sprite::system<sprite_choices>
-sprite_system;
+sge::sprite::buffers::with_declaration
+<
+	sge::sprite::buffers::single
+	<
+		sprite_choices
+	>
+>
+sprite_buffers;
 
 typedef
 sge::sprite::intrusive::collection<sprite_choices>
@@ -221,9 +228,9 @@ public:
 			sge::timer::parameters<sge::timer::clocks::standard>(
 				fcppt::chrono::seconds(
 					1))),
-		sprite_system_(
+		sprite_buffers_(
 			_renderer,
-			sge::sprite::buffers_option::dynamic),
+			sge::sprite::buffers::option::dynamic),
 		sprite_collection_(),
 		rectangle_manager_(
 			rectangle_manager_type::rect(
@@ -312,9 +319,9 @@ public:
 	void
 	render()
 	{
-		sge::sprite::render::all(
+		sge::sprite::process::all(
 			sprite_collection_.range(),
-			sprite_system_.buffers(),
+			sprite_buffers_.buffers(),
 			sge::sprite::compare::default_());
 	}
 private:
@@ -323,7 +330,7 @@ private:
 	rectangle_list;
 
 	sge::timer::basic<sge::timer::clocks::standard> frame_timer_;
-	sprite_system sprite_system_;
+	sprite_buffers sprite_buffers_;
 	sprite_collection sprite_collection_;
 	rectangle_manager_type rectangle_manager_;
 	rectangle_list list_;

@@ -2,9 +2,9 @@
 #define FRUITAPP_POINT_SPRITE_SYSTEM_NODE_HPP_INCLUDED
 
 #include <fruitapp/point_sprite/base.hpp>
+#include <fruitapp/point_sprite/buffers.hpp>
 #include <fruitapp/point_sprite/collection.hpp>
 #include <fruitapp/point_sprite/connection.hpp>
-#include <fruitapp/point_sprite/system.hpp>
 #include <fruitapp/point_sprite/unique_base_ptr.hpp>
 #include <fruitlib/uniform_random.hpp>
 #include <fruitlib/resource_tree/make_type.hpp>
@@ -17,7 +17,8 @@
 #include <sge/image2d/system_fwd.hpp>
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/shader/object.hpp>
-#include <sge/sprite/system_decl.hpp>
+#include <sge/sprite/buffers/single_decl.hpp>
+#include <sge/sprite/buffers/with_declaration_decl.hpp>
 #include <sge/sprite/intrusive/collection_decl.hpp>
 #include <sge/texture/manager.hpp>
 #include <sge/texture/part_ptr.hpp>
@@ -98,7 +99,7 @@ private:
 	sge::renderer::device &renderer_;
 	sge::camera::first_person::object const &camera_;
 	sge::texture::manager texture_manager_;
-	point_sprite::system system_;
+	point_sprite::buffers buffers_;
 	point_sprite::collection collection_;
 	child_sequence children_;
 	resource_tree_ptr textures_;

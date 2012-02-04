@@ -611,6 +611,7 @@ SET(
 	src/fruitapp/overlay.hpp
 	src/fruitapp/point_sprite/base.cpp
 	src/fruitapp/point_sprite/base.hpp
+	src/fruitapp/point_sprite/buffers.hpp
 	src/fruitapp/point_sprite/choices.hpp
 	src/fruitapp/point_sprite/collection.hpp
 	src/fruitapp/point_sprite/color.hpp
@@ -629,7 +630,6 @@ SET(
 	src/fruitapp/point_sprite/splatter/parameters_fwd.hpp
 	src/fruitapp/point_sprite/splatter/position.hpp
 	src/fruitapp/point_sprite/splatter/size.hpp
-	src/fruitapp/point_sprite/system.hpp
 	src/fruitapp/point_sprite/system_node.cpp
 	src/fruitapp/point_sprite/system_node.hpp
 	src/fruitapp/point_sprite/system_node_fwd.hpp

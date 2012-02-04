@@ -9,7 +9,8 @@
 #include <sge/image/color/rgba8_format.hpp>
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/sprite/object_decl.hpp>
-#include <sge/sprite/system_decl.hpp>
+#include <sge/sprite/buffers/single_decl.hpp>
+#include <sge/sprite/buffers/with_declaration_decl.hpp>
 #include <sge/sprite/config/choices.hpp>
 #include <sge/sprite/config/float_type.hpp>
 #include <sge/sprite/config/normal_size.hpp>
@@ -119,8 +120,14 @@ private:
 	> sprite_choices;
 
 	typedef
-	sge::sprite::system<sprite_choices>
-	sprite_system;
+	sge::sprite::buffers::with_declaration
+	<
+		sge::sprite::buffers::single
+		<
+			sprite_choices
+		>
+	>
+	sprite_buffers;
 
 	typedef
 	sge::sprite::object<sprite_choices>
@@ -134,7 +141,7 @@ private:
 	font::color color_;
 	sge::texture::manager texture_manager_;
 	texture_map textures_;
-	sprite_system sprite_system_;
+	sprite_buffers sprite_buffers_;
 	sprite_container sprites_;
 	sge::font::rect bounding_rect_;
 	font::drawer::transform_callback transform_callback_;
