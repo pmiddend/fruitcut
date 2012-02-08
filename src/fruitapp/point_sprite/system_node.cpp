@@ -141,7 +141,7 @@ fruitapp::point_sprite::system_node::system_node(
 	shader_(
 		sge::shader::object_parameters(
 			renderer_,
-			buffers_.vertex_declaration(),
+			buffers_.parameters().vertex_declaration(),
 			sge::shader::vertex_format_string(
 				""),
 			fcppt::assign::make_container<sge::shader::variable_sequence>
@@ -247,6 +247,6 @@ fruitapp::point_sprite::system_node::react(
 
 	sge::sprite::process::all(
 		collection_.range(),
-		buffers_.buffers(),
+		buffers_,
 		sge::sprite::compare::default_());
 }

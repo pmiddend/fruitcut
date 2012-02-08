@@ -65,7 +65,7 @@ private:
 			<
 				1u
 			>,
-			sge::sprite::config::texture_coordinates::normal
+			sge::sprite::config::texture_coordinates::automatic
 		>
 	>
 	sprite_elements;

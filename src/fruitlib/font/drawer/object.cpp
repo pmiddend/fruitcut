@@ -120,9 +120,8 @@ fruitlib::font::drawer::object::end_rendering()
 {
 	sge::sprite::process::all(
 		sge::sprite::geometry::make_random_access_range(
-			sprites_.begin(),
-			sprites_.end()),
-		sprite_buffers_.buffers(),
+			sprites_),
+		sprite_buffers_,
 		sge::sprite::compare::default_());
 }
 

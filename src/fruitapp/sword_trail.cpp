@@ -212,6 +212,6 @@ fruitapp::sword_trail::react(
 	>(
 		sge::sprite::geometry::make_random_access_range(
 			sprites_),
-		sprite_buffers_.buffers(),
+		sprite_buffers_,
 		sge::sprite::compare::default_());
 }

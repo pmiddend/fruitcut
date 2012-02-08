@@ -77,7 +77,7 @@ fruitapp::logo::react(
 {
 	sge::sprite::process::one(
 		sprite_object_,
-		sprite_buffers_.buffers());
+		sprite_buffers_);
 }
 
 void

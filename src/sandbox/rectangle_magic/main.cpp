@@ -321,7 +321,7 @@ public:
 	{
 		sge::sprite::process::all(
 			sprite_collection_.range(),
-			sprite_buffers_.buffers(),
+			sprite_buffers_,
 			sge::sprite::compare::default_());
 	}
 private:
