@@ -201,7 +201,7 @@ fruitapp::sword_trail::react(
 	<
 		sge::sprite::process::options
 		<
-			sge::sprite::process::geometry_options::fill,
+			sge::sprite::process::geometry_options::update,
 			sge::sprite::render::options
 			<
 				sge::sprite::render::matrix_options::set,
