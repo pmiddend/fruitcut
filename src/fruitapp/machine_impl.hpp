@@ -65,8 +65,14 @@ public:
 	fruitapp::config_variables const &
 	config_variables() const;
 
-	void
+	bool
 	run_once();
+
+	void
+	quit();
+
+	int
+	exit_code() const;
 
 	fruitapp::postprocessing &
 	postprocessing();

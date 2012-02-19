@@ -23,8 +23,7 @@ fruitapp::machine::machine(
 		fcppt::make_unique_ptr<fruitapp::machine_impl>(
 			argc,
 			argv)),
-	queued_events_(),
-	running_()
+	queued_events_()
 {
 }
 
@@ -64,15 +63,11 @@ fruitapp::machine::postprocessing()
 	return impl_->postprocessing();
 }
 
-void
+int
 fruitapp::machine::run()
 {
-	running_ = true;
-
-	while(running_)
+	while(impl_->run_once())
 	{
-		impl_->run_once();
-
 		for(
 			queued_event_list::const_iterator current_event = queued_events_.begin();
 			current_event != queued_events_.end();
@@ -81,6 +76,8 @@ fruitapp::machine::run()
 				**current_event);
 		queued_events_.clear();
 	}
+
+	return impl_->exit_code();
 }
 
 fruitapp::ingame_clock const &
@@ -214,7 +211,7 @@ fruitapp::machine::last_game_score(
 void
 fruitapp::machine::quit()
 {
-	running_ = false;
+	impl_->quit();
 }
 
 fruitapp::scene &

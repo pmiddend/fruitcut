@@ -36,13 +36,15 @@ TARGET_LINK_LIBRARIES(
 	${Fcppt_LIBRARIES}
 	${Boost_LIBRARIES})
 
-ADD_EXECUTABLE(
+awl_utils_add_portable_executable(
 	fruitcut_example_rectangle_magic
+	rectangle_main
 	rectangle_magic/main.cpp)
 
 TARGET_LINK_LIBRARIES(
 	fruitcut_example_rectangle_magic
 	fruitlib
 	${Fcppt_LIBRARIES}
+	${Awl_LIBRARIES}
 	${Boost_LIBRARIES}
 	${SGE_LIBRARIES})

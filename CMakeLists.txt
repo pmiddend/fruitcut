@@ -3,6 +3,7 @@ CMAKE_MINIMUM_REQUIRED(VERSION 2.6)
 PROJECT(fruitcut)
 
 INCLUDE(FcpptCMakeUtils)
+INCLUDE(AwlMainGenerator)
 
 FIND_PACKAGE(
 	Boost 1.45.0 REQUIRED COMPONENTS
@@ -527,7 +528,6 @@ SET(
 	src/fruitapp/fruit/tag_set.hpp
 	src/fruitapp/fruit/triangle.hpp
 	src/fruitapp/fruit/triangle_traits.hpp
-	src/fruitapp/fruitcut.cpp
 	src/fruitapp/game_logic/object.cpp
 	src/fruitapp/game_logic/object.hpp
 	src/fruitapp/gui/button.cpp
@@ -605,6 +605,8 @@ SET(
 	src/fruitapp/machine_impl.cpp
 	src/fruitapp/machine_impl.hpp
 	src/fruitapp/machine_impl_fwd.hpp
+	src/fruitapp/main.cpp
+	src/fruitapp/main.hpp
 	src/fruitapp/name.cpp
 	src/fruitapp/name.hpp
 	src/fruitapp/overlay.cpp
@@ -716,8 +718,9 @@ TARGET_LINK_LIBRARIES(
 # library end
 
 # app begin
-ADD_EXECUTABLE(
+awl_utils_add_portable_executable(
 	fruitcut
+	"fruitapp::main"
 	${APP_FILES} src/media_path.cpp)
 
 TARGET_LINK_LIBRARIES(
@@ -725,6 +728,7 @@ TARGET_LINK_LIBRARIES(
 	fruitlib
 	${Fcppt_core_LIBRARIES}
 	${Fcppt_filesystem_LIBRARIES}
+	${Awl_LIBRARIES}
 	${SGE_LIBRARIES}
 	${CEGUI_LIBRARIES}
 	${BULLET_LIBRARIES}

@@ -440,14 +440,15 @@ fruitapp::machine_impl::postprocessing()
 	return renderable_.postprocessing();
 }
 
-void
+bool
 fruitapp::machine_impl::run_once()
 {
+	if(!systems_.window_system().poll())
+		return false;
+
 	fruitlib::scoped_frame_limiter sfl(
 		static_cast<fruitlib::scoped_frame_limiter::fps_type>(
 			desired_fps_));
-
-	systems_.window_system().poll();
 
 	standard_clock_delta_ =
 		sge::timer::elapsed_and_reset<fruitlib::scenic::delta::duration>(
@@ -467,6 +468,21 @@ fruitapp::machine_impl::run_once()
 
 	node_base::forward_to_children(
 		event);
+
+	return true;
+}
+
+void
+fruitapp::machine_impl::quit()
+{
+	systems_.window_system().quit();
+}
+
+int
+fruitapp::machine_impl::exit_code() const
+{
+	return
+		systems_.window_system().exit_code();
 }
 
 fruitapp::ingame_clock const &

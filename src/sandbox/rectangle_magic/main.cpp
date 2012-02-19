@@ -5,9 +5,6 @@
 #include <sge/image/color/init.hpp>
 #include <sge/image/color/rgba8.hpp>
 #include <sge/image/color/rgba8_format.hpp>
-#include <sge/input/keyboard/action.hpp>
-#include <sge/input/keyboard/device.hpp>
-#include <sge/input/keyboard/key_code.hpp>
 #include <sge/renderer/depth_stencil_buffer.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/display_mode.hpp>
@@ -40,8 +37,8 @@
 #include <sge/systems/input_helper_field.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
+#include <sge/systems/quit_on_escape.hpp>
 #include <sge/systems/renderer.hpp>
-#include <sge/systems/running_to_false.hpp>
 #include <sge/systems/window.hpp>
 #include <sge/timer/basic.hpp>
 #include <sge/timer/elapsed_fractional_and_reset.hpp>
@@ -53,6 +50,7 @@
 #include <sge/window/parameters.hpp>
 #include <sge/window/system.hpp>
 #include <sge/window/title.hpp>
+#include <awl/main/function_context_fwd.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/move.hpp>
@@ -456,7 +454,13 @@ private:
 };
 }
 
-int main()
+int
+rectangle_main(
+	awl::main::function_context const &);
+
+int
+rectangle_main(
+	awl::main::function_context const &)
 try
 {
 	sge::window::dim const window_dim(
@@ -486,25 +490,18 @@ try
 	manager rect_manager(
 		sys.renderer());
 
-	bool running = true;
-
-	fcppt::signal::scoped_connection const cb(
-		sys.keyboard_collector().key_callback(
-			sge::input::keyboard::action(
-				sge::input::keyboard::key_code::escape,
-				sge::systems::running_to_false(
-					running))));
-
-	sys.renderer().state(
-		sge::renderer::state::list
-			(sge::renderer::state::bool_::clear_back_buffer = true)
-			(sge::renderer::state::color::back_buffer_clear_color =
-				sge::image::colors::black()));
+	fcppt::signal::scoped_connection const escape_connection(
+		sge::systems::quit_on_escape(
+			sys));
 
 	while(
-		running)
+		sys.window_system().poll())
 	{
-		sys.window_system().poll();
+		sys.renderer().state(
+			sge::renderer::state::list
+				(sge::renderer::state::bool_::clear_back_buffer = true)
+				(sge::renderer::state::color::back_buffer_clear_color =
+					sge::image::colors::black()));
 
 		sge::renderer::scoped_block const block(
 			sys.renderer());
@@ -512,8 +509,11 @@ try
 		rect_manager.update();
 		rect_manager.render();
 	}
+
+	return
+		sys.window_system().exit_code();
 }
- catch(
+catch(
 	fcppt::exception const &_error)
 {
 	fcppt::io::cerr()
@@ -522,7 +522,7 @@ try
 
 	return EXIT_FAILURE;
 }
- catch(
+catch(
 	std::exception const &_error)
 {
 	std::cerr

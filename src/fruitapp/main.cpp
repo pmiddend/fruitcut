@@ -1,5 +1,7 @@
 #include <fruitapp/machine.hpp>
+#include <fruitapp/main.hpp>
 #include <fruitapp/states/loading.hpp>
+#include <awl/main/function_context.hpp>
 #include <fcppt/scoped_state_machine.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/io/cerr.hpp>
@@ -77,9 +79,9 @@ private:
 }
 #endif
 
-int main(
-	int argc,
-	char *argv[])
+int
+fruitapp::main(
+	awl::main::function_context const &_main_function_context)
 try
 {
 #if defined(FRUITCUT_HAVE_SIGNAL_STACK_PRINTER)
@@ -87,14 +89,15 @@ try
 		SIGSEGV);
 #endif
 
-	fruitapp::machine m(
-		argc,
-		argv);
+	fruitapp::machine machine(
+		_main_function_context.argc(),
+		_main_function_context.argv());
 
-	fcppt::scoped_state_machine<fruitapp::machine> sm(
-		m);
+	fcppt::scoped_state_machine<fruitapp::machine> scoped_state_machine(
+		machine);
 
-	m.run();
+	return
+		machine.run();
 }
 catch (fcppt::exception const &e)
 {
@@ -110,4 +113,5 @@ catch (std::exception const &e)
 		<< "std::exception: "
 		<< e.what()
 		<< "\n";
+	return EXIT_FAILURE;
 }

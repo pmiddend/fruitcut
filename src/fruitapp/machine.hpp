@@ -69,7 +69,7 @@ public:
 	fruitapp::config_variables const &
 	config_variables() const;
 
-	void
+	int
 	run();
 
 	fruitapp::postprocessing &
@@ -250,7 +250,6 @@ private:
 
 	fcppt::scoped_ptr<fruitapp::machine_impl> impl_;
 	queued_event_list queued_events_;
-	bool running_;
 };
 }
 
