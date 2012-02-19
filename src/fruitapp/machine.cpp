@@ -7,6 +7,7 @@
 #include <sge/model/md3/loader_fwd.hpp>
 #include <sge/parse/json/object_fwd.hpp>
 #include <sge/systems/instance.hpp>
+#include <awl/main/exit_code.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/type_name.hpp>
@@ -63,7 +64,7 @@ fruitapp::machine::postprocessing()
 	return impl_->postprocessing();
 }
 
-int
+awl::main::exit_code const
 fruitapp::machine::run()
 {
 	while(impl_->run_once())
@@ -209,9 +210,11 @@ fruitapp::machine::last_game_score(
 }
 
 void
-fruitapp::machine::quit()
+fruitapp::machine::quit(
+	awl::main::exit_code const _exit_code)
 {
-	impl_->quit();
+	impl_->quit(
+		_exit_code);
 }
 
 fruitapp::scene &

@@ -12,6 +12,7 @@
 #include <sge/cegui/system.hpp>
 #include <sge/cegui/to_cegui_string.hpp>
 #include <sge/systems/instance.hpp>
+#include <awl/main/exit_success.hpp>
 #include <fcppt/ref.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
@@ -61,7 +62,8 @@ fruitapp::states::menu::highscore::highscore(
 		quit_button_.push_callback(
 			std::tr1::bind(
 				&fruitapp::machine::quit,
-				&context<fruitapp::machine>()))),
+				&context<fruitapp::machine>(),
+				awl::main::exit_success()))),
 	providers_(),
 	source_box_(
 		*context<machine>().gui_system().window_manager().getWindow(

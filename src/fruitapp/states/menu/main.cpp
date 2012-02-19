@@ -10,6 +10,7 @@
 #include <fruitlib/scenic/parent.hpp>
 #include <sge/cegui/system.hpp>
 #include <sge/systems/instance.hpp>
+#include <awl/main/exit_success.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -69,7 +70,8 @@ fruitapp::states::menu::main::main(
 		quit_button_.push_callback(
 			std::tr1::bind(
 				&fruitapp::machine::quit,
-				&context<fruitapp::machine>()))),
+				&context<fruitapp::machine>(),
+				awl::main::exit_success()))),
 	start_button_connection_(
 		start_button_.push_callback(
 			FRUITAPP_EVENTS_RETURN_POST_TRANSITION_FUNCTOR(

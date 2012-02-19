@@ -33,6 +33,7 @@
 #include <sge/systems/instance.hpp>
 #include <sge/timer/basic.hpp>
 #include <sge/timer/clocks/standard.hpp>
+#include <awl/main/exit_code.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 
 
@@ -69,9 +70,10 @@ public:
 	run_once();
 
 	void
-	quit();
+	quit(
+		awl::main::exit_code);
 
-	int
+	awl::main::exit_code const
 	exit_code() const;
 
 	fruitapp::postprocessing &

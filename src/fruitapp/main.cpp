@@ -1,6 +1,8 @@
 #include <fruitapp/machine.hpp>
 #include <fruitapp/main.hpp>
 #include <fruitapp/states/loading.hpp>
+#include <awl/main/exit_code.hpp>
+#include <awl/main/exit_failure.hpp>
 #include <awl/main/function_context.hpp>
 #include <fcppt/scoped_state_machine.hpp>
 #include <fcppt/exception.hpp>
@@ -79,7 +81,7 @@ private:
 }
 #endif
 
-int
+awl::main::exit_code const
 fruitapp::main(
 	awl::main::function_context const &_main_function_context)
 try
@@ -105,7 +107,7 @@ catch (fcppt::exception const &e)
 		<< FCPPT_TEXT("fcppt::exception: ")
 		<< e.string()
 		<< FCPPT_TEXT("\n");
-	return EXIT_FAILURE;
+	return awl::main::exit_failure();
 }
 catch (std::exception const &e)
 {
@@ -113,5 +115,5 @@ catch (std::exception const &e)
 		<< "std::exception: "
 		<< e.what()
 		<< "\n";
-	return EXIT_FAILURE;
+	return awl::main::exit_failure();
 }

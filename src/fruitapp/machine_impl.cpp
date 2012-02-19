@@ -85,6 +85,7 @@
 #include <sge/window/parameters.hpp>
 #include <sge/window/system.hpp>
 #include <sge/window/title.hpp>
+#include <awl/main/exit_code.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/nonassignable.hpp>
 #include <fcppt/string.hpp>
@@ -473,12 +474,14 @@ fruitapp::machine_impl::run_once()
 }
 
 void
-fruitapp::machine_impl::quit()
+fruitapp::machine_impl::quit(
+	awl::main::exit_code const _exit_code)
 {
-	systems_.window_system().quit();
+	systems_.window_system().quit(
+		_exit_code);
 }
 
-int
+awl::main::exit_code const
 fruitapp::machine_impl::exit_code() const
 {
 	return

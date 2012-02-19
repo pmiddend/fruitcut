@@ -9,6 +9,7 @@
 #include <sge/input/keyboard/device.hpp>
 #include <sge/input/keyboard/key_code.hpp>
 #include <sge/systems/instance.hpp>
+#include <awl/main/exit_success.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/tr1/functional.hpp>
 
@@ -38,7 +39,8 @@ fruitapp::states::menu::superstate::superstate(
 				sge::input::keyboard::key_code::escape,
 				std::tr1::bind(
 					&fruitapp::machine::quit,
-					&context<fruitapp::machine>()))))
+					&context<fruitapp::machine>(),
+					awl::main::exit_success()))))
 {
 	context<machine>().music_controller().play(
 		fruitlib::resource_tree::path(

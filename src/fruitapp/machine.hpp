@@ -27,6 +27,7 @@
 #include <sge/model/md3/loader_fwd.hpp>
 #include <sge/parse/json/object_fwd.hpp>
 #include <sge/systems/instance_fwd.hpp>
+#include <awl/main/exit_code.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/scoped_ptr.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
@@ -69,7 +70,7 @@ public:
 	fruitapp::config_variables const &
 	config_variables() const;
 
-	int
+	awl::main::exit_code const
 	run();
 
 	fruitapp::postprocessing &
@@ -140,7 +141,8 @@ public:
 		highscore::score::value_type const &);
 
 	void
-	quit();
+	quit(
+		awl::main::exit_code);
 
 	fruitapp::scene &
 	scene_node();

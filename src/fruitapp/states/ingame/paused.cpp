@@ -23,6 +23,7 @@
 #include <sge/timer/parameters.hpp>
 #include <sge/timer/reset_when_expired.hpp>
 #include <sge/timer/clocks/standard.hpp>
+#include <awl/main/exit_success.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
@@ -141,7 +142,8 @@ fruitapp::states::ingame::paused::paused(
 		quit_button_.push_callback(
 			std::tr1::bind(
 				&fruitapp::machine::quit,
-				&context<fruitapp::machine>())))
+				&context<fruitapp::machine>(),
+				awl::main::exit_success())))
 {
 	system_.add_filter(
 		inject_texture_,

@@ -13,6 +13,7 @@
 #include <sge/cegui/system.hpp>
 #include <sge/cegui/to_cegui_string.hpp>
 #include <sge/systems/instance.hpp>
+#include <awl/main/exit_success.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/tr1/functional.hpp>
@@ -66,7 +67,8 @@ fruitapp::states::gameover::ranking::ranking(
 		quit_button_.push_callback(
 			std::tr1::bind(
 				&fruitapp::machine::quit,
-				&context<fruitapp::machine>()))),
+				&context<fruitapp::machine>(),
+				awl::main::exit_success()))),
 	providers_(),
 	post_model_(
 		providers_),
