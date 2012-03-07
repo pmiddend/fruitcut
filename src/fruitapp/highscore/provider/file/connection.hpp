@@ -12,6 +12,7 @@
 #include <fruitapp/highscore/callbacks/rank_received.hpp>
 #include <fruitapp/highscore/callbacks/rank_received_fn.hpp>
 #include <fruitapp/highscore/provider/connection_base.hpp>
+#include <sge/charconv/system_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/filesystem/path.hpp>
 #include <fcppt/signal/auto_connection.hpp>
@@ -33,8 +34,8 @@ class connection
 FCPPT_NONCOPYABLE(
 	connection);
 public:
-	explicit
 	connection(
+		sge::charconv::system &,
 		fcppt::filesystem::path const &);
 
 	void
@@ -67,6 +68,7 @@ public:
 	~connection();
 private:
 	fcppt::filesystem::path const path_;
+	sge::charconv::system &charconv_system_;
 	fcppt::signal::object<callbacks::message_received_fn> message_received_;
 	fcppt::signal::object<callbacks::error_received_fn> error_received_;
 	fcppt::signal::object<callbacks::list_received_fn> list_received_;

@@ -4,6 +4,7 @@
 #include <fruitapp/highscore/provider/connection_base_ptr.hpp>
 #include <fruitapp/highscore/provider/identifier.hpp>
 #include <fruitapp/highscore/provider/object_base.hpp>
+#include <sge/charconv/system_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/filesystem/path.hpp>
 
@@ -23,8 +24,8 @@ class object
 FCPPT_NONCOPYABLE(
 	object);
 public:
-	explicit
 	object(
+		sge::charconv::system &,
 		fcppt::filesystem::path const &);
 
 	provider::identifier::value_type const
@@ -36,6 +37,7 @@ public:
 	~object();
 private:
 	fcppt::filesystem::path const path_;
+	sge::charconv::system &charconv_system_;
 };
 }
 }

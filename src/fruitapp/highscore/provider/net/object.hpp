@@ -6,6 +6,7 @@
 #include <fruitapp/highscore/provider/object_base.hpp>
 #include <fruitapp/highscore/provider/net/host.hpp>
 #include <fruitapp/highscore/provider/net/port.hpp>
+#include <sge/charconv/system_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/string.hpp>
 
@@ -25,8 +26,8 @@ class object
 FCPPT_NONCOPYABLE(
 	object);
 public:
-	explicit
 	object(
+		sge::charconv::system &,
 		net::host const &,
 		net::port const &);
 
@@ -38,8 +39,9 @@ public:
 
 	~object();
 private:
-	net::host::value_type host_;
-	net::port::value_type port_;
+	sge::charconv::system &charconv_system_;
+	net::host::value_type const host_;
+	net::port::value_type const port_;
 };
 }
 }

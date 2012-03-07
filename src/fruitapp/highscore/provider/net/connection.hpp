@@ -14,12 +14,13 @@
 #include <fruitapp/highscore/provider/connection_base.hpp>
 #include <fruitapp/highscore/provider/net/host.hpp>
 #include <fruitapp/highscore/provider/net/port.hpp>
+#include <sge/charconv/system_fwd.hpp>
+#include <sge/charconv/utf8_string.hpp>
 #include <sge/parse/json/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/function/object.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/object.hpp>
-#include <fcppt/utf8/string.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/asio.hpp>
 #include <string>
@@ -41,8 +42,8 @@ class connection
 FCPPT_NONCOPYABLE(
 	connection);
 public:
-	explicit
 	connection(
+		sge::charconv::system &,
 		net::host::value_type const &,
 		net::port::value_type const &);
 
@@ -75,8 +76,9 @@ public:
 
 	~connection();
 private:
-	net::host::value_type host_;
-	net::port::value_type port_;
+	sge::charconv::system &charconv_system_;
+	net::host::value_type const host_;
+	net::port::value_type const port_;
 	fcppt::signal::object<callbacks::message_received_fn> message_received_;
 	fcppt::signal::object<callbacks::error_received_fn> error_received_;
 	fcppt::signal::object<callbacks::list_received_fn> list_received_;
@@ -84,8 +86,8 @@ private:
 	boost::asio::io_service io_service_;
 	boost::asio::ip::tcp::resolver resolver_;
 	boost::asio::ip::tcp::socket socket_;
-	fcppt::utf8::string request_;
-	fcppt::utf8::string content_;
+	sge::charconv::utf8_string request_;
+	sge::charconv::utf8_string content_;
 
 	typedef
 	fcppt::function::object<void(sge::parse::json::object const &)>

@@ -1,6 +1,7 @@
 #include <fruitapp/highscore/json_to_entry_set.hpp>
 #include <fruitapp/highscore/provider/file/connection.hpp>
 #include <fruitlib/utf8_file_to_fcppt_string.hpp>
+#include <sge/charconv/system_fwd.hpp>
 #include <sge/parse/json/array.hpp>
 #include <sge/parse/json/object.hpp>
 #include <sge/parse/json/parse_file.hpp>
@@ -17,10 +18,13 @@
 
 
 fruitapp::highscore::provider::file::connection::connection(
+	sge::charconv::system &_charconv_system,
 	fcppt::filesystem::path const &_path)
 :
 	path_(
 		_path),
+	charconv_system_(
+		_charconv_system),
 	message_received_(),
 	error_received_(),
 	list_received_(),
@@ -36,6 +40,7 @@ fruitapp::highscore::provider::file::connection::post_rank(
 	sge::parse::json::object result;
 	fcppt::string const converted_file =
 		fruitlib::utf8_file_to_fcppt_string(
+			charconv_system_,
 			path_);
 	fcppt::string::const_iterator current_position =
 		converted_file.begin();

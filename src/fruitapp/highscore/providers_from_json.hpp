@@ -2,6 +2,7 @@
 #define FRUITAPP_HIGHSCORE_PROVIDERS_FROM_JSON_HPP_INCLUDED
 
 #include <fruitapp/highscore/provider_sequence.hpp>
+#include <sge/charconv/system_fwd.hpp>
 #include <sge/parse/json/object_fwd.hpp>
 
 
@@ -11,6 +12,7 @@ namespace highscore
 {
 void
 providers_from_json(
+	sge::charconv::system &,
 	sge::parse::json::object const &config_file,
 	highscore::provider_sequence &);
 }
