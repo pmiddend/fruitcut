@@ -80,6 +80,7 @@ fruitapp::states::menu::highscore::highscore(
 		table_model_)
 {
 	fruitapp::highscore::providers_from_json(
+		context<fruitapp::machine>().systems().charconv_system(),
 		context<fruitapp::machine>().config_file(),
 		providers_);
 

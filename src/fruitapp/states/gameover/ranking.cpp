@@ -91,6 +91,7 @@ fruitapp::states::gameover::ranking::ranking(
 				std::tr1::placeholders::_1)))
 {
 	fruitapp::highscore::providers_from_json(
+		context<fruitapp::machine>().systems().charconv_system(),
 		context<fruitapp::machine>().config_file(),
 		providers_);
 

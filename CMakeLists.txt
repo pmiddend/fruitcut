@@ -52,6 +52,7 @@ FIND_PACKAGE(
 	audio
 	camera
 	cegui
+	charconv
 	config
 	console
 	core

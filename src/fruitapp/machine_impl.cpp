@@ -31,6 +31,8 @@
 #include <sge/cegui/load_context.hpp>
 #include <sge/cegui/syringe.hpp>
 #include <sge/cegui/system.hpp>
+#include <sge/charconv/create_system.hpp>
+#include <sge/charconv/system.hpp>
 #include <sge/font/size_type.hpp>
 #include <sge/font/system.hpp>
 #include <sge/font/text/lit.hpp>
@@ -139,13 +141,17 @@ fruitapp::machine_impl::machine_impl(
 	random_generator_(
 		static_cast<fruitlib::random_generator::result_type>(
 			fcppt::chrono::high_resolution_clock::now().time_since_epoch().count())),
+	charconv_system_(
+		sge::charconv::create_system()),
 	user_config_file_(
-		fruitapp::load_user_config()),
+		fruitapp::load_user_config(
+			*charconv_system_)),
 	config_file_(
 		sge::parse::json::config::merge_command_line_parameters(
 			sge::parse::json::config::merge_trees(
 				sge::parse::json::parse_string_exn(
 					fruitlib::utf8_file_to_fcppt_string(
+						*charconv_system_,
 						fruitcut::media_path()/FCPPT_TEXT("config.json"))),
 				user_config_file_),
 			fruitlib::create_command_line_parameters(
@@ -179,7 +185,8 @@ fruitapp::machine_impl::machine_impl(
 					| sge::systems::input_helper::cursor_demuxer,
 					sge::systems::cursor_option_field()))
 			(sge::systems::audio_player_default())
-			(sge::systems::charconv())
+			(sge::systems::charconv(
+				*charconv_system_))
 			(sge::systems::audio_loader(
 				sge::audio::loader_capabilities_field::null(),
 				sge::media::optional_extension_set(
