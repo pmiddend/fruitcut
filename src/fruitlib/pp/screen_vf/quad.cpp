@@ -32,7 +32,7 @@ fruitlib::pp::screen_vf::quad::quad(
 			*declaration_,
 			sge::renderer::vf::dynamic::part_index(
 				0u),
-			sge::renderer::vertex_count(6),
+			sge::renderer::vertex_count(6u),
 			sge::renderer::resource_flags::none))
 {
 	sge::renderer::scoped_vertex_lock const vblock(
@@ -85,7 +85,7 @@ fruitlib::pp::screen_vf::quad::render()
 
 	renderer_.render_nonindexed(
 		sge::renderer::first_vertex(
-			0),
+			0u),
 		sge::renderer::vertex_count(
 			buffer_->size()),
 		sge::renderer::nonindexed_primitive_type::triangle);

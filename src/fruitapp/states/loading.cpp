@@ -84,7 +84,7 @@ fruitapp::states::loading::loading(
 						FCPPT_TEXT("loading"))
 						/ FCPPT_TEXT("font-color")))),
 		fruitlib::font::scale(
-			1))
+			1.f))
 {
 	context<machine>().postprocessing().desaturate_filter().factor(
 		static_cast<sge::renderer::scalar>(

@@ -76,7 +76,7 @@ fruitapp::quick_log::quick_log(
 					sge::parse::json::path(
 						FCPPT_TEXT("quick-log")) / FCPPT_TEXT("font-color")))),
 		fruitlib::font::scale(
-			1)),
+			1.f)),
 	fractional_size_(
 		sge::parse::json::find_and_convert_member<fractional_dimension>(
 			_config_file,

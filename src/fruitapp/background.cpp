@@ -176,7 +176,7 @@ fruitapp::background::background(
 			*vertex_declaration_,
 			sge::renderer::vf::dynamic::part_index(
 				0u),
-			sge::renderer::vertex_count(6),
+			sge::renderer::vertex_count(6u),
 			sge::renderer::resource_flags::none)),
 	shader_(
 		sge::shader::object_parameters(
@@ -257,9 +257,9 @@ fruitapp::background::react(
 			(sge::renderer::state::draw_mode::fill));
 
 	renderer_.render_nonindexed(
-		sge::renderer::first_vertex(0),
+		sge::renderer::first_vertex(0u),
 		sge::renderer::vertex_count(
-			6),
+			6u),
 		sge::renderer::nonindexed_primitive_type::triangle);
 }
 

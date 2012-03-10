@@ -68,9 +68,9 @@ fruitlib::scenic::adaptors::line_drawer::react(
 				::projection_rect_from_viewport(
 					renderer_->onscreen_target().viewport().get()),
 				sge::renderer::projection::near(
-					0),
+					0.f),
 				sge::renderer::projection::far(
-					10)));
+					10.f)));
 
 		sge::renderer::scoped_transform world_scope(
 			*renderer_,

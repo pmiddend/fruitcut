@@ -136,7 +136,7 @@ fruitapp::game_logic::object::object(
 						FCPPT_TEXT("ingame"))
 							/FCPPT_TEXT("score-font-color")))),
 		fruitlib::font::scale(
-			1)),
+			1.f)),
 	timer_font_node_(
 		fruitlib::scenic::optional_parent(
 			fruitlib::scenic::parent(
@@ -161,7 +161,7 @@ fruitapp::game_logic::object::object(
 						FCPPT_TEXT("ingame"))
 						/ FCPPT_TEXT("timer-font-color")))),
 		fruitlib::font::scale(
-			1)),
+			1.f)),
 	multiplier_font_node_(
 		fruitlib::scenic::optional_parent(
 			fruitlib::scenic::parent(
@@ -181,7 +181,7 @@ fruitapp::game_logic::object::object(
 		sge::image::color::any::convert<fruitlib::font::color_format>(
 			sge::image::colors::white()),
 		fruitlib::font::scale(
-			1)),
+			1.f)),
 	score_increase_timer_(
 		fruitapp::ingame_timer::parameters(
 			_clock,

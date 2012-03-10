@@ -148,7 +148,7 @@ fruitapp::fruit::default_render_node::react(
 	sge::renderer::texture::filter::scoped scoped_filter(
 		renderer_,
 		sge::renderer::texture::stage(
-			0),
+			0u),
 		sge::renderer::texture::filter::trilinear());
 
 	sge::shader::scoped scoped_shader(
@@ -172,7 +172,7 @@ fruitapp::fruit::default_render_node::react(
 			renderer_,
 			*i->prototype().texture(),
 			sge::renderer::texture::stage(
-				0));
+				0u));
 
 		shader_.update_uniform(
 			"mvp",
