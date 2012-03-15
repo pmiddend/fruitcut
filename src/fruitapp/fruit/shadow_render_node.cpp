@@ -28,7 +28,8 @@
 #include <sge/shader/vf_to_string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assign/make_container.hpp>
-#include <fcppt/math/matrix/matrix.hpp>
+#include <fcppt/math/matrix/arithmetic.hpp>
+#include <fcppt/math/matrix/basic_impl.hpp>
 
 
 fruitapp::fruit::shadow_render_node::shadow_render_node(

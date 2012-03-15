@@ -20,7 +20,7 @@
 #include <fcppt/assert/pre.hpp>
 #include <fcppt/assign/make_array.hpp>
 #include <fcppt/assign/make_container.hpp>
-#include <fcppt/math/dim/dim.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <iostream>
