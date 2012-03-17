@@ -1,11 +1,13 @@
 #ifndef FRUITCUT_MEDIA_PATH_HPP_INCLUDED
 #define FRUITCUT_MEDIA_PATH_HPP_INCLUDED
 
-#include <fcppt/filesystem/path.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/filesystem/path.hpp>
+#include <fcppt/config/external_end.hpp>
 
 namespace fruitcut
 {
-fcppt::filesystem::path const
+boost::filesystem::path const
 media_path();
 }
 

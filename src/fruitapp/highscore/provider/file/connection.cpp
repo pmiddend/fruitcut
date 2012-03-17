@@ -8,18 +8,18 @@
 #include <sge/parse/json/parse_range.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/filesystem/path.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/date_time/posix_time/posix_time.hpp>
+#include <boost/filesystem/path.hpp>
 #include <iterator>
 #include <fcppt/config/external_end.hpp>
 
 
 fruitapp::highscore::provider::file::connection::connection(
 	sge::charconv::system &_charconv_system,
-	fcppt::filesystem::path const &_path)
+	boost::filesystem::path const &_path)
 :
 	path_(
 		_path),

@@ -3,14 +3,16 @@
 
 #include <sge/charconv/system_fwd.hpp>
 #include <fcppt/string.hpp>
-#include <fcppt/filesystem/path.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/filesystem/path.hpp>
+#include <fcppt/config/external_end.hpp>
 
 namespace fruitlib
 {
 fcppt::string const
 utf8_file_to_fcppt_string(
 	sge::charconv::system &,
-	fcppt::filesystem::path const &);
+	boost::filesystem::path const &);
 }
 
 #endif

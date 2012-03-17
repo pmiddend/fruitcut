@@ -16,13 +16,13 @@
 #include <fcppt/ref.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/error.hpp>
-#include <fcppt/filesystem/directory_iterator.hpp>
-#include <fcppt/filesystem/path.hpp>
 #include <fcppt/io/cout.hpp>
 #include <fcppt/random/make_last_exclusive_range.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/next_prior.hpp>
+#include <boost/filesystem/operations.hpp>
+#include <boost/filesystem/path.hpp>
 #include <iostream>
 #include <iterator>
 #include <fcppt/config/external_end.hpp>
@@ -33,7 +33,7 @@ namespace
 fruitlib::uniform_random<std::size_t>::type
 create_random_from_directory(
 	fruitlib::random_generator &_random_generator,
-	fcppt::filesystem::path const &p)
+	boost::filesystem::path const &p)
 {
 	return
 		fruitlib::uniform_random<std::size_t>::type(
@@ -42,9 +42,9 @@ create_random_from_directory(
 					0),
 				static_cast<std::size_t>(
 					std::distance(
-						fcppt::filesystem::directory_iterator(
+						boost::filesystem::directory_iterator(
 							p),
-						fcppt::filesystem::directory_iterator()))),
+						boost::filesystem::directory_iterator()))),
 				_random_generator);
 }
 }
@@ -56,7 +56,7 @@ fruitlib::audio::music_controller::music_controller(
 	sge::audio::loader &_audio_loader,
 	sge::audio::player &_player,
 	scenic::delta::duration const &_crossfade,
-	fcppt::filesystem::path const &_base_path,
+	boost::filesystem::path const &_base_path,
 	sge::audio::scalar const _initial_gain)
 :
 	node_base(

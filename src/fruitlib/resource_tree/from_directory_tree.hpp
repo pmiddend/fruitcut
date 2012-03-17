@@ -6,12 +6,12 @@
 #include <fcppt/move.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/unique_ptr.hpp>
-#include <fcppt/filesystem/directory_iterator.hpp>
-#include <fcppt/filesystem/exists.hpp>
-#include <fcppt/filesystem/is_directory.hpp>
-#include <fcppt/filesystem/path.hpp>
 #include <fcppt/filesystem/stem.hpp>
 #include <fcppt/function/object.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/filesystem/operations.hpp>
+#include <boost/filesystem/path.hpp>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace fruitlib
@@ -21,16 +21,16 @@ namespace resource_tree
 template<typename Tree>
 fcppt::unique_ptr<Tree>
 from_directory_tree(
-	fcppt::filesystem::path const &root,
+	boost::filesystem::path const &root,
 	fcppt::function::object
 	<
 		typename Tree::value_type::leaf_type (
-			fcppt::filesystem::path const &)
+			boost::filesystem::path const &)
 	> const &create_leaf,
 	fcppt::function::object
 	<
 		typename Tree::value_type::node_type (
-			fcppt::filesystem::path const &)
+			boost::filesystem::path const &)
 	> const &create_node)
 {
 	typedef
@@ -41,7 +41,7 @@ from_directory_tree(
 	tree_type::value_type
 	node_type;
 
-	if(!fcppt::filesystem::is_directory(root))
+	if(!boost::filesystem::is_directory(root))
 	{
 		return
 			fcppt::make_unique_ptr<tree_type>(
@@ -61,9 +61,9 @@ from_directory_tree(
 					root))));
 
 	for(
-		fcppt::filesystem::directory_iterator current_file(
+		boost::filesystem::directory_iterator current_file(
 			root);
-		current_file != fcppt::filesystem::directory_iterator();
+		current_file != boost::filesystem::directory_iterator();
 		++current_file)
 	{
 		result->push_back(

@@ -50,11 +50,11 @@
 #include <fcppt/algorithm/map.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/container/ptr/push_back_unique_ptr.hpp>
-#include <fcppt/filesystem/directory_iterator.hpp>
-#include <fcppt/filesystem/path.hpp>
 #include <fcppt/random/make_last_exclusive_range.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/next_prior.hpp>
+#include <boost/filesystem/operations.hpp>
+#include <boost/filesystem/path.hpp>
 #include <boost/spirit/home/phoenix/object.hpp>
 #include <cstddef>
 #include <iostream>
@@ -67,7 +67,7 @@ namespace
 fruitlib::uniform_random<std::size_t>::type const
 create_random_from_directory(
 	fruitlib::random_generator &_random_generator,
-	fcppt::filesystem::path const &p)
+	boost::filesystem::path const &p)
 {
 	return
 		fruitlib::uniform_random<std::size_t>::type(
@@ -76,9 +76,9 @@ create_random_from_directory(
 					0),
 				static_cast<std::size_t>(
 					std::distance(
-						fcppt::filesystem::directory_iterator(
+						boost::filesystem::directory_iterator(
 							p),
-						fcppt::filesystem::directory_iterator()))),
+						boost::filesystem::directory_iterator()))),
 				_random_generator);
 }
 
@@ -86,7 +86,7 @@ sge::texture::part_ptr const
 create_part_from_file(
 	sge::image2d::system &image_loader,
 	sge::texture::manager &texture_manager,
-	fcppt::filesystem::path const &p)
+	boost::filesystem::path const &p)
 {
 	return
 		sge::texture::add_image(
@@ -99,7 +99,7 @@ create_part_from_file(
 
 fruitapp::point_sprite::system_node::system_node(
 	fruitlib::scenic::optional_parent const &_parent,
-	fcppt::filesystem::path const &_base_path,
+	boost::filesystem::path const &_base_path,
 	fruitlib::random_generator &_random_generator,
 	sge::renderer::device &_renderer,
 	sge::image2d::system &_image_loader,

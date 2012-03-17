@@ -4,13 +4,15 @@
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/ref.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/filesystem/path.hpp>
 #include <fcppt/filesystem/stem.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/filesystem/path.hpp>
+#include <fcppt/config/external_end.hpp>
 
 
 fruitapp::highscore::provider::file::object::object(
 	sge::charconv::system &_charconv_system,
-	fcppt::filesystem::path const &_path)
+	boost::filesystem::path const &_path)
 :
 	path_(
 		_path),

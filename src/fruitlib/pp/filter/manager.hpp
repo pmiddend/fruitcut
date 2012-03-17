@@ -7,8 +7,10 @@
 #include <sge/shader/scoped.hpp>
 #include <sge/shader/variable_sequence.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/filesystem/path.hpp>
 #include <fcppt/tr1/unordered_map.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/filesystem/path.hpp>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace fruitlib
@@ -25,7 +27,7 @@ public:
 	explicit
 	manager(
 		sge::renderer::device &,
-		fcppt::filesystem::path const &);
+		boost::filesystem::path const &);
 
 	sge::shader::object &
 	lookup_shader(
@@ -54,7 +56,7 @@ private:
 	name_to_shader;
 
 	sge::renderer::device &renderer_;
-	fcppt::filesystem::path const base_path_;
+	boost::filesystem::path const base_path_;
 	screen_vf::quad quad_;
 	name_to_shader name_to_shader_;
 

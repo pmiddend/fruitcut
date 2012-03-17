@@ -7,21 +7,23 @@
 #include <sge/parse/json/object.hpp>
 #include <sge/parse/json/parse_string_exn.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/filesystem/exists.hpp>
-#include <fcppt/filesystem/path.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/filesystem/operations.hpp>
+#include <boost/filesystem/path.hpp>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::parse::json::object const
 fruitapp::load_user_config(
 	sge::charconv::system &charconv_system)
 {
-	fcppt::filesystem::path const final_name =
+	boost::filesystem::path const final_name =
 		sge::config::config_path(
 			fruitapp::name())/
 		FCPPT_TEXT("config.json");
 
 	return
-		fcppt::filesystem::exists(
+		boost::filesystem::exists(
 			final_name)
 		?
 			sge::parse::json::parse_string_exn(

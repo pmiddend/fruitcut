@@ -24,8 +24,8 @@
 #include <sge/texture/part_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/unique_ptr.hpp>
-#include <fcppt/filesystem/path.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <boost/filesystem/path.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <boost/ptr_container/ptr_list.hpp>
 #include <cstddef>
@@ -50,7 +50,7 @@ public:
 	explicit
 	system_node(
 		fruitlib::scenic::optional_parent const &,
-		fcppt::filesystem::path const &,
+		boost::filesystem::path const &,
 		fruitlib::random_generator &,
 		sge::renderer::device &,
 		sge::image2d::system &,

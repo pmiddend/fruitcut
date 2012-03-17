@@ -6,12 +6,14 @@
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/shared_ptr.hpp>
 #include <fcppt/string.hpp>
-#include <fcppt/filesystem/path.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/filesystem/path.hpp>
+#include <fcppt/config/external_end.hpp>
 
 
 fruitlib::pp::filter::manager::manager(
 	sge::renderer::device &_renderer,
-	fcppt::filesystem::path const &_base_path)
+	boost::filesystem::path const &_base_path)
 :
 	renderer_(
 		_renderer),

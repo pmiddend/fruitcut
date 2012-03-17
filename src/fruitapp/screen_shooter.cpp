@@ -13,14 +13,14 @@
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/filesystem/create_directory_exn.hpp>
-#include <fcppt/filesystem/exists.hpp>
-#include <fcppt/filesystem/path.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/io/cout.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/date_time/c_local_time_adjustor.hpp>
 #include <boost/date_time/posix_time/posix_time.hpp>
+#include <boost/filesystem/operations.hpp>
+#include <boost/filesystem/path.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -59,16 +59,16 @@ fruitapp::screen_shooter::callback(
 				boost::posix_time::to_iso_string(
 					boost::posix_time::second_clock::universal_time())));
 
-	fcppt::filesystem::path const target_dir =
+	boost::filesystem::path const target_dir =
 		sge::config::cache_path(
 			fruitapp::name())
 			/ FCPPT_TEXT("screenshots");
 
-	if(!fcppt::filesystem::exists(target_dir))
+	if(!boost::filesystem::exists(target_dir))
 		fcppt::filesystem::create_directory_exn(
 			target_dir);
 
-	fcppt::filesystem::path const dest_path =
+	boost::filesystem::path const dest_path =
 		target_dir/(time_string+FCPPT_TEXT(".png"));
 
 	sge::renderer::screenshot(

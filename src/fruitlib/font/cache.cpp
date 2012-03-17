@@ -21,10 +21,10 @@
 #include <fcppt/assert/pre_message.hpp>
 #include <fcppt/container/ptr/push_back_unique_ptr.hpp>
 #include <fcppt/filesystem/extension_without_dot.hpp>
-#include <fcppt/filesystem/path.hpp>
 #include <fcppt/tr1/type_traits.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/next_prior.hpp>
+#include <boost/filesystem/path.hpp>
 #include <iostream>
 #include <map>
 #include <utility>
@@ -35,7 +35,7 @@ fruitlib::font::cache::cache(
 	sge::font::system &_font_system,
 	sge::renderer::device &_renderer,
 	sge::image2d::system &_image_loader,
-	fcppt::filesystem::path const &_base_path,
+	boost::filesystem::path const &_base_path,
 	sge::parse::json::object const &_fonts)
 :
 	metrics_(),

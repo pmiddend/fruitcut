@@ -25,8 +25,8 @@
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/unique_ptr.hpp>
-#include <fcppt/filesystem/path.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <boost/filesystem/path.hpp>
 #include <cstddef>
 #include <map>
 #include <vector>
@@ -56,7 +56,7 @@ public:
 		sge::audio::loader &,
 		sge::audio::player &,
 		scenic::delta::duration const &,
-		fcppt::filesystem::path const &,
+		boost::filesystem::path const &,
 		sge::audio::scalar volume);
 
 	void

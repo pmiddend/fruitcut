@@ -10,8 +10,8 @@
 #include <sge/renderer/device_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/string.hpp>
-#include <fcppt/filesystem/path.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <boost/filesystem/path.hpp>
 #include <boost/ptr_container/ptr_list.hpp>
 #include <list>
 #include <map>
@@ -32,7 +32,7 @@ public:
 		sge::font::system &,
 		sge::renderer::device &,
 		sge::image2d::system &,
-		fcppt::filesystem::path const &base_path,
+		boost::filesystem::path const &base_path,
 		sge::parse::json::object const &);
 
 	sge::font::metrics_ptr const
@@ -75,7 +75,7 @@ private:
 	drawer_sequence drawers_;
 	to_metrics to_metrics_;
 	to_drawer to_drawer_;
-	fcppt::filesystem::path const base_path_;
+	boost::filesystem::path const base_path_;
 };
 }
 }

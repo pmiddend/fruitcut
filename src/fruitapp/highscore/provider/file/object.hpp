@@ -6,7 +6,9 @@
 #include <fruitapp/highscore/provider/object_base.hpp>
 #include <sge/charconv/system_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/filesystem/path.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/filesystem/path.hpp>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace fruitapp
@@ -26,7 +28,7 @@ FCPPT_NONCOPYABLE(
 public:
 	object(
 		sge::charconv::system &,
-		fcppt::filesystem::path const &);
+		boost::filesystem::path const &);
 
 	provider::identifier::value_type const
 	identifier() const;
@@ -36,7 +38,7 @@ public:
 
 	~object();
 private:
-	fcppt::filesystem::path const path_;
+	boost::filesystem::path const path_;
 	sge::charconv::system &charconv_system_;
 };
 }

@@ -18,8 +18,8 @@
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/unique_ptr.hpp>
-#include <fcppt/filesystem/path.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <boost/filesystem/path.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <cstddef>
 #include <fcppt/config/external_end.hpp>
@@ -67,7 +67,7 @@ public:
 	sound_controller(
 		scenic::optional_parent const &,
 		fruitlib::random_generator &,
-		fcppt::filesystem::path const &,
+		boost::filesystem::path const &,
 		sge::audio::loader &,
 		sge::audio::player &,
 		sge::audio::scalar initial_gain);

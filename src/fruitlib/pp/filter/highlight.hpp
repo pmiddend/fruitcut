@@ -10,7 +10,6 @@
 #include <sge/renderer/scalar.hpp>
 #include <sge/shader/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/filesystem/path.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 
 

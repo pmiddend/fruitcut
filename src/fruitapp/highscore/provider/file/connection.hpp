@@ -14,9 +14,11 @@
 #include <fruitapp/highscore/provider/connection_base.hpp>
 #include <sge/charconv/system_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/filesystem/path.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/object.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/filesystem/path.hpp>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace fruitapp
@@ -36,7 +38,7 @@ FCPPT_NONCOPYABLE(
 public:
 	connection(
 		sge::charconv::system &,
-		fcppt::filesystem::path const &);
+		boost::filesystem::path const &);
 
 	void
 	post_rank(
@@ -67,7 +69,7 @@ public:
 
 	~connection();
 private:
-	fcppt::filesystem::path const path_;
+	boost::filesystem::path const path_;
 	sge::charconv::system &charconv_system_;
 	fcppt::signal::object<callbacks::message_received_fn> message_received_;
 	fcppt::signal::object<callbacks::error_received_fn> error_received_;
