@@ -4,7 +4,7 @@
 #include <fruitlib/grid/convolve_ignore_borders.hpp>
 #include <fruitlib/grid/zip_with.hpp>
 #include <fcppt/container/grid/object.hpp>
-#include <fcppt/math/vector/basic_impl.hpp>
+#include <fcppt/math/vector/object_impl.hpp>
 #include <fcppt/math/vector/static.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/spirit/home/phoenix/bind.hpp>

@@ -5,7 +5,7 @@
 #include <fruitlib/scenic/events/render.hpp>
 #include <sge/font/pos.hpp>
 #include <sge/font/rect.hpp>
-#include <fcppt/math/box/basic_impl.hpp>
+#include <fcppt/math/box/object_impl.hpp>
 #include <fcppt/math/dim/arithmetic.hpp>
 #include <fcppt/tr1/functional.hpp>
 

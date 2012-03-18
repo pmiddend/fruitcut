@@ -1,8 +1,8 @@
 #include <fruitlib/geometry_traits/box.hpp>
 #include <fruitlib/geometry_traits/vector.hpp>
-#include <fcppt/math/box/basic_impl.hpp>
+#include <fcppt/math/box/object_impl.hpp>
 #include <fcppt/math/box/output.hpp>
-#include <fcppt/math/vector/basic_impl.hpp>
+#include <fcppt/math/vector/object_impl.hpp>
 #include <fcppt/math/vector/static.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/geometry/geometry.hpp>
@@ -42,7 +42,7 @@ int main()
 			0,0,0));
 
 	typedef
-	fcppt::math::box::basic<float,3>
+	fcppt::math::box::object<float,3>
 	box3;
 
 	box3 env =

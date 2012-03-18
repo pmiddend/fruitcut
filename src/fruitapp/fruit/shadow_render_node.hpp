@@ -11,7 +11,7 @@
 #include <sge/renderer/vertex_declaration_fwd.hpp>
 #include <sge/shader/object.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/math/matrix/basic_impl.hpp>
+#include <fcppt/math/matrix/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <fcppt/config/external_end.hpp>

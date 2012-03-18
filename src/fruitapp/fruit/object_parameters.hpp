@@ -14,8 +14,8 @@
 #include <sge/renderer/texture/planar_ptr.hpp>
 #include <fcppt/nonassignable.hpp>
 #include <fcppt/chrono/duration.hpp>
-#include <fcppt/math/matrix/basic_impl.hpp>
-#include <fcppt/math/vector/basic_impl.hpp>
+#include <fcppt/math/matrix/object_impl.hpp>
+#include <fcppt/math/vector/object_impl.hpp>
 #include <fcppt/variant/object.hpp>
 
 

@@ -2,9 +2,9 @@
 #define FRUITLIB_GEOMETRY_TRAITS_BOX_HPP_INCLUDED
 
 #include <fcppt/math/size_type.hpp>
-#include <fcppt/math/box/basic_impl.hpp>
-#include <fcppt/math/dim/basic_impl.hpp>
-#include <fcppt/math/vector/basic_impl.hpp>
+#include <fcppt/math/box/object_impl.hpp>
+#include <fcppt/math/dim/object_impl.hpp>
+#include <fcppt/math/vector/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/geometry/geometry.hpp>
 #include <cstddef>
@@ -19,35 +19,35 @@ namespace traits
 {
 
 template<typename T,fcppt::math::size_type N>
-struct tag<fcppt::math::box::basic<T,N> >
+struct tag<fcppt::math::box::object<T,N> >
 {
 	typedef box_tag type;
 };
 
 template<typename T,fcppt::math::size_type N>
-struct point_type< fcppt::math::box::basic<T,N> >
+struct point_type< fcppt::math::box::object<T,N> >
 {
-    typedef typename fcppt::math::box::basic<T,N>::vector type;
+    typedef typename fcppt::math::box::object<T,N>::vector type;
 };
 
 template<typename T,fcppt::math::size_type N, std::size_t Dimension>
-struct indexed_access<fcppt::math::box::basic<T,N>, boost::geometry::min_corner, Dimension>
+struct indexed_access<fcppt::math::box::object<T,N>, boost::geometry::min_corner, Dimension>
 {
 	static inline T
 	get(
-		fcppt::math::box::basic<T,N> const &b)
+		fcppt::math::box::object<T,N> const &b)
 	{
 		return b.pos()[Dimension];
 	}
 
 	static inline void
 	set(
-		fcppt::math::box::basic<T,N> &b,
+		fcppt::math::box::object<T,N> &b,
 		T const& value)
 	{
-		typename fcppt::math::box::basic<T,N>::vector p =
+		typename fcppt::math::box::object<T,N>::vector p =
 			b.pos();
-		typename fcppt::math::box::basic<T,N>::dim d =
+		typename fcppt::math::box::object<T,N>::dim d =
 			b.size();
 		d[Dimension] =
 			(p[Dimension] + d[Dimension]) - value;
@@ -61,21 +61,21 @@ struct indexed_access<fcppt::math::box::basic<T,N>, boost::geometry::min_corner,
 };
 
 template<typename T,fcppt::math::size_type N, std::size_t Dimension>
-struct indexed_access<fcppt::math::box::basic<T,N>, boost::geometry::max_corner, Dimension>
+struct indexed_access<fcppt::math::box::object<T,N>, boost::geometry::max_corner, Dimension>
 {
 	static inline T
 	get(
-		fcppt::math::box::basic<T,N> const &b)
+		fcppt::math::box::object<T,N> const &b)
 	{
 		return (b.pos() + b.size())[Dimension];
 	}
 
 	static inline void
 	set(
-		fcppt::math::box::basic<T,N> &b,
+		fcppt::math::box::object<T,N> &b,
 		T const& value)
 	{
-		typename fcppt::math::box::basic<T,N>::dim d =
+		typename fcppt::math::box::object<T,N>::dim d =
 			b.size();
 		d[Dimension] =
 			value - b.pos()[Dimension];

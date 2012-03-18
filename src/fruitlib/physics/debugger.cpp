@@ -11,7 +11,7 @@
 #include <fcppt/ref.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/pre_message.hpp>
-#include <fcppt/math/vector/basic_impl.hpp>
+#include <fcppt/math/vector/object_impl.hpp>
 #include <fcppt/math/vector/output.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <BulletDynamics/Dynamics/btDiscreteDynamicsWorld.h>

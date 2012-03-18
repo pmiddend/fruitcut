@@ -19,8 +19,8 @@
 #include <sge/renderer/texture/mipmap/off.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/unreachable_message.hpp>
-#include <fcppt/math/box/basic_impl.hpp>
-#include <fcppt/math/dim/basic_impl.hpp>
+#include <fcppt/math/box/object_impl.hpp>
+#include <fcppt/math/dim/object_impl.hpp>
 #include <fcppt/math/dim/comparison.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/tr1/functional.hpp>

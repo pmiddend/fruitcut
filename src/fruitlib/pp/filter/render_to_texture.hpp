@@ -11,7 +11,7 @@
 #include <sge/renderer/state/list.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/function/object.hpp>
-#include <fcppt/math/dim/basic_impl.hpp>
+#include <fcppt/math/dim/object_impl.hpp>
 
 
 namespace fruitlib

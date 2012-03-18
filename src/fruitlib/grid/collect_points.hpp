@@ -3,7 +3,7 @@
 
 #include <fcppt/container/grid/object.hpp>
 #include <fcppt/container/grid/size_type.hpp>
-#include <fcppt/math/dim/basic_impl.hpp>
+#include <fcppt/math/dim/object_impl.hpp>
 #include <fcppt/tr1/type_traits.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/static_assert.hpp>

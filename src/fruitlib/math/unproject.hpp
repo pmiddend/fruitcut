@@ -2,12 +2,12 @@
 #define FRUITLIB_MATH_UNPROJECT_HPP_INCLUDED
 
 #include <fcppt/math/size_type.hpp>
-#include <fcppt/math/box/basic_impl.hpp>
-#include <fcppt/math/dim/basic_impl.hpp>
-#include <fcppt/math/matrix/basic_impl.hpp>
+#include <fcppt/math/box/object_impl.hpp>
+#include <fcppt/math/dim/object_impl.hpp>
+#include <fcppt/math/matrix/object_impl.hpp>
 #include <fcppt/math/matrix/has_dim.hpp>
 #include <fcppt/math/matrix/vector.hpp>
-#include <fcppt/math/vector/basic_impl.hpp>
+#include <fcppt/math/vector/object_impl.hpp>
 #include <fcppt/math/vector/has_dim.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/utility/enable_if.hpp>
@@ -37,14 +37,14 @@ boost::enable_if_c
 <
 	// I deliberately prefixed all the matrix stuff with matrix:: to
 	// prevent confusion.
-	fcppt::math::vector::has_dim<fcppt::math::vector::basic<T,N,S1>,static_cast<fcppt::math::size_type>(3)>::value &&
-	fcppt::math::matrix::has_dim<fcppt::math::matrix::basic<T,M1,M2,S2>,static_cast<fcppt::math::size_type>(4),static_cast<fcppt::math::size_type>(4)>::value,
-	fcppt::math::vector::basic<T,N,S1>
+	fcppt::math::vector::has_dim<fcppt::math::vector::object<T,N,S1>,static_cast<fcppt::math::size_type>(3)>::value &&
+	fcppt::math::matrix::has_dim<fcppt::math::matrix::object<T,M1,M2,S2>,static_cast<fcppt::math::size_type>(4),static_cast<fcppt::math::size_type>(4)>::value,
+	fcppt::math::vector::object<T,N,S1>
 >::type
 unproject(
-	fcppt::math::vector::basic<T,N,S1> const &window_coordinates,
-	fcppt::math::matrix::basic<T,M1,M2,S2> const &inverse_mvp,
-	fcppt::math::box::basic<T,static_cast<fcppt::math::size_type>(2)> const &viewport)
+	fcppt::math::vector::object<T,N,S1> const &window_coordinates,
+	fcppt::math::matrix::object<T,M1,M2,S2> const &inverse_mvp,
+	fcppt::math::box::object<T,static_cast<fcppt::math::size_type>(2)> const &viewport)
 {
 	typedef typename
 	fcppt::math::vector::static_
@@ -73,7 +73,7 @@ unproject(
 	result[3] = static_cast<T>(1)/result[3];
 
 	return
-		fcppt::math::vector::basic<T,N,S1>(
+		fcppt::math::vector::object<T,N,S1>(
 			static_cast<T>(result[3] * result[0]),
 			static_cast<T>(result[3] * result[1]),
 			static_cast<T>(result[3] * result[2]));

@@ -2,7 +2,7 @@
 #define FRUITLIB_MATH_BOX_RADIUS_HPP_INCLUDED
 
 #include <fcppt/math/size_type.hpp>
-#include <fcppt/math/box/basic_impl.hpp>
+#include <fcppt/math/box/object_impl.hpp>
 #include <fcppt/math/dim/arithmetic.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/math/vector/length.hpp>
@@ -24,11 +24,11 @@ boost::enable_if_c
 	T
 >::type
 box_radius(
-	fcppt::math::box::basic<T,N> const &b)
+	fcppt::math::box::object<T,N> const &b)
 {
 	return
 		fcppt::math::vector::length(
-			fcppt::math::dim::structure_cast<typename fcppt::math::box::basic<T,N>::vector>(
+			fcppt::math::dim::structure_cast<typename fcppt::math::box::object<T,N>::vector>(
 				b.size()/static_cast<T>(2)));
 }
 }

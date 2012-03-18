@@ -5,7 +5,7 @@
 #include <fruitlib/audio/group/sound_base_fwd.hpp>
 #include <sge/audio/player.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/container/bitfield/basic_impl.hpp>
+#include <fcppt/container/bitfield/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/ptr_container/ptr_vector.hpp>
 #include <fcppt/config/external_end.hpp>

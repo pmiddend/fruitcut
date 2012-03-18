@@ -2,7 +2,7 @@
 #define FRUITLIB_FONT_DRAWER_TRANSFORM_CALLBACK_FN_HPP_INCLUDED
 
 #include <sge/font/rect.hpp>
-#include <fcppt/math/box/basic_impl.hpp>
+#include <fcppt/math/box/object_impl.hpp>
 
 namespace fruitlib
 {

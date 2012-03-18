@@ -2,7 +2,7 @@
 #define FRUITLIB_PP_TEXTURE_USE_SCREEN_SIZE_HPP_INCLUDED
 
 #include <sge/renderer/dim2.hpp>
-#include <fcppt/math/dim/basic_impl.hpp>
+#include <fcppt/math/dim/object_impl.hpp>
 
 namespace fruitlib
 {

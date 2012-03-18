@@ -62,9 +62,9 @@
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assign/make_container.hpp>
-#include <fcppt/math/box/basic_impl.hpp>
-#include <fcppt/math/matrix/basic_impl.hpp>
-#include <fcppt/math/vector/basic_impl.hpp>
+#include <fcppt/math/box/object_impl.hpp>
+#include <fcppt/math/matrix/object_impl.hpp>
+#include <fcppt/math/vector/object_impl.hpp>
 #include <fcppt/variant/holds_type.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -272,7 +272,7 @@ fruitapp::background::react(
 		return;
 
 	typedef
-	fcppt::math::box::basic<sge::renderer::scalar,2>
+	fcppt::math::box::object<sge::renderer::scalar,2>
 	scalar_rect;
 
 	// zero plane because it's the visible plane located at z = 0

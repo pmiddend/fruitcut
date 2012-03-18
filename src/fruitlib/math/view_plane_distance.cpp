@@ -1,9 +1,9 @@
 #include <fruitlib/math/view_plane_distance.hpp>
 #include <fruitlib/math/plane/basic.hpp>
 #include <fruitlib/math/plane/normalize.hpp>
-#include <fcppt/math/matrix/basic_impl.hpp>
+#include <fcppt/math/matrix/object_impl.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
-#include <fcppt/math/vector/basic_impl.hpp>
+#include <fcppt/math/vector/object_impl.hpp>
 #include <fcppt/math/vector/static.hpp>
 
 

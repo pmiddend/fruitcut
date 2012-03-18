@@ -3,7 +3,7 @@
 
 #include <fruitlib/physics/matrix4.hpp>
 #include <fcppt/strong_typedef.hpp>
-#include <fcppt/math/matrix/basic_impl.hpp>
+#include <fcppt/math/matrix/object_impl.hpp>
 
 
 namespace fruitlib

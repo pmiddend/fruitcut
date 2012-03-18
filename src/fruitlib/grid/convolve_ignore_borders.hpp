@@ -3,7 +3,7 @@
 
 #include <fcppt/assert/pre.hpp>
 #include <fcppt/container/grid/object.hpp>
-#include <fcppt/math/vector/basic_impl.hpp>
+#include <fcppt/math/vector/object_impl.hpp>
 #include <fcppt/math/vector/static.hpp>
 
 

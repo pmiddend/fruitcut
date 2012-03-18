@@ -3,7 +3,7 @@
 
 #include <fruitlib/geometry_traits/vector.hpp>
 #include <sge/renderer/vector2.hpp>
-#include <fcppt/math/vector/basic_impl.hpp>
+#include <fcppt/math/vector/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/geometry/geometry.hpp>
 #include <boost/geometry/geometries/linestring.hpp>

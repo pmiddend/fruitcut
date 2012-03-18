@@ -63,7 +63,7 @@
 #include <fcppt/chrono/duration.hpp>
 #include <fcppt/chrono/high_resolution_clock.hpp>
 #include <fcppt/chrono/seconds.hpp>
-#include <fcppt/container/bitfield/basic_impl.hpp>
+#include <fcppt/container/bitfield/object_impl.hpp>
 #include <fcppt/container/ptr/insert_unique_ptr.hpp>
 #include <fcppt/container/ptr/push_front_unique_ptr.hpp>
 #include <fcppt/io/cerr.hpp>

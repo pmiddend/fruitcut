@@ -4,13 +4,13 @@
 #include <sge/camera/projection/perspective.hpp>
 #include <sge/renderer/matrix4.hpp>
 #include <sge/renderer/scalar.hpp>
-#include <fcppt/math/box/basic_impl.hpp>
+#include <fcppt/math/box/object_impl.hpp>
 
 namespace fruitlib
 {
 namespace math
 {
-fcppt::math::box::basic<sge::renderer::scalar,2> const
+fcppt::math::box::object<sge::renderer::scalar,2> const
 view_plane_rect(
 	sge::renderer::matrix4 const &,
 	sge::camera::projection::perspective const &);

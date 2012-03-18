@@ -2,13 +2,13 @@
 #include <fruitlib/math/view_plane_rect.hpp>
 #include <cmath>
 
-fcppt::math::box::basic<sge::renderer::scalar,2> const
+fcppt::math::box::object<sge::renderer::scalar,2> const
 fruitlib::math::view_plane_rect(
 	sge::renderer::matrix4 const &mvp,
 	sge::camera::projection::perspective const &perspective)
 {
 	typedef
-	fcppt::math::box::basic<sge::renderer::scalar,2>
+	fcppt::math::box::object<sge::renderer::scalar,2>
 	box_type;
 
 	sge::renderer::scalar const

@@ -99,7 +99,7 @@
 #include <fcppt/chrono/milliseconds.hpp>
 #include <fcppt/chrono/seconds.hpp>
 #include <fcppt/chrono/time_point.hpp>
-#include <fcppt/container/bitfield/basic_impl.hpp>
+#include <fcppt/container/bitfield/object_impl.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/spirit/home/phoenix/core.hpp>

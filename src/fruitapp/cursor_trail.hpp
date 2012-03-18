@@ -10,7 +10,7 @@
 #include <sge/input/cursor/position.hpp>
 #include <sge/renderer/target_base_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/math/vector/basic_impl.hpp>
+#include <fcppt/math/vector/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <cstddef>

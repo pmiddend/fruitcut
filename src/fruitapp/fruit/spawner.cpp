@@ -20,9 +20,9 @@
 #include <fcppt/chrono/duration.hpp>
 #include <fcppt/math/pi.hpp>
 #include <fcppt/math/rad_to_deg.hpp>
-#include <fcppt/math/box/basic_impl.hpp>
+#include <fcppt/math/box/object_impl.hpp>
 #include <fcppt/math/box/output.hpp>
-#include <fcppt/math/vector/basic_impl.hpp>
+#include <fcppt/math/vector/object_impl.hpp>
 #include <fcppt/math/vector/length.hpp>
 #include <fcppt/math/vector/output.hpp>
 #include <fcppt/random/make_inclusive_range.hpp>
@@ -123,7 +123,7 @@ fruitapp::fruit::spawner::react(
 	reset_timer();
 
 	typedef
-	fcppt::math::box::basic<sge::renderer::scalar,2>
+	fcppt::math::box::object<sge::renderer::scalar,2>
 	scalar_rect;
 
 	// zero plane because it's the visible plane located at z = 0

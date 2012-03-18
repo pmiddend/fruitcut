@@ -15,7 +15,7 @@
 #include <sge/shader/scoped.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assign/make_container.hpp>
-#include <fcppt/math/dim/basic_impl.hpp>
+#include <fcppt/math/dim/object_impl.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <iostream>

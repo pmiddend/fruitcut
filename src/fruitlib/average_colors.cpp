@@ -7,9 +7,9 @@
 #include <mizuiro/color/types/channel_value.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/nonassignable.hpp>
-#include <fcppt/math/box/basic_impl.hpp>
-#include <fcppt/math/dim/basic_impl.hpp>
-#include <fcppt/math/vector/basic_impl.hpp>
+#include <fcppt/math/box/object_impl.hpp>
+#include <fcppt/math/dim/object_impl.hpp>
+#include <fcppt/math/vector/object_impl.hpp>
 #include <fcppt/variant/apply_unary.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/type_traits/integral_promotion.hpp>

@@ -11,8 +11,8 @@
 #include <sge/font/text/flags_field.hpp>
 #include <sge/font/text/string.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/container/bitfield/basic_impl.hpp>
-#include <fcppt/math/box/basic_impl.hpp>
+#include <fcppt/container/bitfield/object_impl.hpp>
+#include <fcppt/math/box/object_impl.hpp>
 
 
 namespace fruitlib

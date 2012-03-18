@@ -8,7 +8,7 @@
 #include <fruitlib/physics/rigid_body/mass.hpp>
 #include <sge/image/color/any/object.hpp>
 #include <sge/renderer/texture/planar_ptr.hpp>
-#include <fcppt/math/box/basic_impl.hpp>
+#include <fcppt/math/box/object_impl.hpp>
 #include <fcppt/variant/object.hpp>
 
 

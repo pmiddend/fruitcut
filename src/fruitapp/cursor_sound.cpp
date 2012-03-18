@@ -12,7 +12,7 @@
 #include <sge/timer/basic.hpp>
 #include <sge/timer/reset_when_expired.hpp>
 #include <fcppt/chrono/milliseconds.hpp>
-#include <fcppt/math/box/basic_impl.hpp>
+#include <fcppt/math/box/object_impl.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
 #include <fcppt/math/vector/length.hpp>
 #include <fcppt/math/vector/structure_cast.hpp>

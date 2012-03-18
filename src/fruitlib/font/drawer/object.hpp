@@ -23,7 +23,7 @@
 #include <sge/texture/const_part_ptr.hpp>
 #include <sge/texture/manager.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/math/box/basic_impl.hpp>
+#include <fcppt/math/box/object_impl.hpp>
 #include <fcppt/variant/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>

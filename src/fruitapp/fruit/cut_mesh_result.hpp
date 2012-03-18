@@ -6,8 +6,8 @@
 #include <fruitapp/fruit/mesh.hpp>
 #include <sge/renderer/vector3.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/math/box/basic_impl.hpp>
-#include <fcppt/math/vector/basic_impl.hpp>
+#include <fcppt/math/box/object_impl.hpp>
+#include <fcppt/math/vector/object_impl.hpp>
 
 
 namespace fruitapp

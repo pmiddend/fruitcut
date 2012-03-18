@@ -16,7 +16,7 @@
 #include <sge/renderer/vf/dynamic/make_format.hpp>
 #include <sge/renderer/vf/dynamic/part_index.hpp>
 #include <sge/shader/object.hpp>
-#include <fcppt/math/vector/basic_impl.hpp>
+#include <fcppt/math/vector/object_impl.hpp>
 
 
 fruitlib::pp::screen_vf::quad::quad(

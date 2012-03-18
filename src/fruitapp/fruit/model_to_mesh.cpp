@@ -8,7 +8,7 @@
 #include <sge/renderer/vector2.hpp>
 #include <sge/renderer/vector3.hpp>
 #include <fcppt/assert/pre_message.hpp>
-#include <fcppt/math/vector/basic_impl.hpp>
+#include <fcppt/math/vector/object_impl.hpp>
 #include <fcppt/math/vector/structure_cast.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/next_prior.hpp>

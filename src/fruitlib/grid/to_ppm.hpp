@@ -2,7 +2,7 @@
 #define FRUITLIB_GRID_TO_PPM_HPP_INCLUDED
 
 #include <fcppt/container/grid/object.hpp>
-#include <fcppt/math/dim/basic_impl.hpp>
+#include <fcppt/math/dim/object_impl.hpp>
 #include <fcppt/tr1/type_traits.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/type_traits/promote.hpp>

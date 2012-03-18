@@ -3,7 +3,7 @@
 
 #include <sge/renderer/vector4.hpp>
 #include <fcppt/strong_typedef.hpp>
-#include <fcppt/math/vector/basic_impl.hpp>
+#include <fcppt/math/vector/object_impl.hpp>
 
 
 namespace fruitapp

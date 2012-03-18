@@ -3,8 +3,8 @@
 #include <sge/parse/json/object_fwd.hpp>
 #include <sge/renderer/matrix4.hpp>
 #include <sge/renderer/vector3.hpp>
-#include <fcppt/math/matrix/basic_impl.hpp>
-#include <fcppt/math/vector/basic_impl.hpp>
+#include <fcppt/math/matrix/object_impl.hpp>
+#include <fcppt/math/vector/object_impl.hpp>
 
 
 fruitapp::directional_light_source const

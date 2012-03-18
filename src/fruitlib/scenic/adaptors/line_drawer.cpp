@@ -12,8 +12,8 @@
 #include <sge/renderer/projection/near.hpp>
 #include <sge/renderer/projection/orthogonal.hpp>
 #include <sge/renderer/projection/rect.hpp>
-#include <fcppt/math/box/basic_impl.hpp>
-#include <fcppt/math/matrix/basic_impl.hpp>
+#include <fcppt/math/box/object_impl.hpp>
+#include <fcppt/math/matrix/object_impl.hpp>
 
 
 namespace

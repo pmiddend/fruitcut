@@ -35,9 +35,9 @@
 #include <sge/timer/reset_when_expired.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/math/dim/basic_impl.hpp>
+#include <fcppt/math/dim/object_impl.hpp>
 #include <fcppt/math/vector/atan2.hpp>
-#include <fcppt/math/vector/basic_impl.hpp>
+#include <fcppt/math/vector/object_impl.hpp>
 #include <fcppt/math/vector/length.hpp>
 #include <fcppt/math/vector/structure_cast.hpp>
 #include <fcppt/tr1/functional.hpp>

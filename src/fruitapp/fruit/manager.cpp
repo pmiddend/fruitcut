@@ -36,8 +36,8 @@
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/container/array.hpp>
 #include <fcppt/container/ptr/push_back_unique_ptr.hpp>
-#include <fcppt/math/matrix/basic_impl.hpp>
-#include <fcppt/math/vector/basic_impl.hpp>
+#include <fcppt/math/matrix/object_impl.hpp>
+#include <fcppt/math/vector/object_impl.hpp>
 #include <fcppt/math/vector/length.hpp>
 #include <fcppt/math/vector/normalize.hpp>
 #include <fcppt/math/vector/structure_cast.hpp>

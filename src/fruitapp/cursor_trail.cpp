@@ -10,9 +10,9 @@
 #include <fcppt/assert/pre.hpp>
 #include <fcppt/chrono/duration.hpp>
 #include <fcppt/chrono/duration_arithmetic.hpp>
-#include <fcppt/math/box/basic_impl.hpp>
-#include <fcppt/math/dim/basic_impl.hpp>
-#include <fcppt/math/vector/basic_impl.hpp>
+#include <fcppt/math/box/object_impl.hpp>
+#include <fcppt/math/dim/object_impl.hpp>
+#include <fcppt/math/vector/object_impl.hpp>
 #include <fcppt/math/vector/length.hpp>
 #include <fcppt/math/vector/output.hpp>
 #include <fcppt/math/vector/structure_cast.hpp>

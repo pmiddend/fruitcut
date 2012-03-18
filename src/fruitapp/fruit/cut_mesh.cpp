@@ -20,8 +20,8 @@
 #include <fcppt/assert/error.hpp>
 #include <fcppt/assign/make_array.hpp>
 #include <fcppt/math/range_compare.hpp>
-#include <fcppt/math/box/basic_impl.hpp>
-#include <fcppt/math/dim/basic_impl.hpp>
+#include <fcppt/math/box/object_impl.hpp>
+#include <fcppt/math/dim/object_impl.hpp>
 #include <fcppt/math/matrix/arithmetic.hpp>
 #include <fcppt/math/matrix/inverse.hpp>
 #include <fcppt/math/matrix/vector.hpp>
@@ -96,11 +96,11 @@ fruitapp::fruit::cut_mesh(
 	matrix4;
 
 	typedef
-	fcppt::math::box::basic<scalar,2>
+	fcppt::math::box::object<scalar,2>
 	box2;
 
 	typedef
-	fcppt::math::box::basic<scalar,3>
+	fcppt::math::box::object<scalar,3>
 	box3;
 
 	fcppt::unique_ptr<fruit::cut_mesh_result> result =

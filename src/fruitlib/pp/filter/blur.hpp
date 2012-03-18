@@ -10,7 +10,7 @@
 #include <sge/shader/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/container/array.hpp>
-#include <fcppt/math/dim/basic_impl.hpp>
+#include <fcppt/math/dim/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/ptr_container/ptr_array.hpp>
 #include <cstddef>
