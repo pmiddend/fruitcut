@@ -9,7 +9,7 @@
 #include <fruitapp/point_sprite/splatter/acceleration.hpp>
 #include <fruitapp/point_sprite/splatter/linear_velocity.hpp>
 #include <fruitapp/point_sprite/splatter/size.hpp>
-#include <fruitlib/random_generator.hpp>
+#include <fruitlib/random_generator_fwd.hpp>
 #include <fruitlib/uniform_random.hpp>
 #include <sge/parse/json/object_fwd.hpp>
 #include <sge/parse/json/config/user_config_variable.hpp>

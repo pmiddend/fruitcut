@@ -5,7 +5,7 @@
 #include <fruitapp/ingame_timer.hpp>
 #include <fruitapp/fruit/manager_fwd.hpp>
 #include <fruitapp/fruit/prototype_sequence.hpp>
-#include <fruitlib/random_generator.hpp>
+#include <fruitlib/random_generator_fwd.hpp>
 #include <fruitlib/uniform_random.hpp>
 #include <fruitlib/physics/scalar.hpp>
 #include <fruitlib/scenic/node.hpp>

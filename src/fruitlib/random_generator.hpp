@@ -1,13 +1,7 @@
 #ifndef FRUITLIB_RANDOM_GENERATOR_HPP_INCLUDED
 #define FRUITLIB_RANDOM_GENERATOR_HPP_INCLUDED
 
-#include <fcppt/random/default_generator.hpp>
-
-namespace fruitlib
-{
-typedef
-fcppt::random::default_generator
-random_generator;
-}
+#include <fruitlib/random_generator_fwd.hpp>
+#include <fcppt/random/generator/minstd_rand_impl.hpp>
 
 #endif

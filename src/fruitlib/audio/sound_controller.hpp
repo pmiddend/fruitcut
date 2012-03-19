@@ -1,7 +1,7 @@
 #ifndef FRUITLIB_AUDIO_SOUND_CONTROLLER_HPP_INCLUDED
 #define FRUITLIB_AUDIO_SOUND_CONTROLLER_HPP_INCLUDED
 
-#include <fruitlib/random_generator.hpp>
+#include <fruitlib/random_generator_fwd.hpp>
 #include <fruitlib/uniform_random.hpp>
 #include <fruitlib/audio/pool.hpp>
 #include <fruitlib/audio/group/player.hpp>

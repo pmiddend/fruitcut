@@ -340,6 +340,7 @@ SET(
 	src/fruitlib/pp/texture/use_screen_size.cpp
 	src/fruitlib/pp/texture/use_screen_size.hpp
 	src/fruitlib/random_generator.hpp
+	src/fruitlib/random_generator_fwd.hpp
 	src/fruitlib/rectangle_manager/duration.hpp
 	src/fruitlib/rectangle_manager/object.hpp
 	src/fruitlib/rectangle_manager/object_decl.hpp
@@ -414,7 +415,8 @@ SET(
 	src/fruitlib/time_format/tags/milliseconds.hpp
 	src/fruitlib/time_format/tags/minutes.hpp
 	src/fruitlib/time_format/tags/seconds.hpp
-	src/fruitlib/uniform_random.hpp
+	src/fruitlib/uniform_int_random.hpp
+	src/fruitlib/uniform_real_random.hpp
 	src/fruitlib/utf8_file_to_fcppt_string.cpp
 	src/fruitlib/utf8_file_to_fcppt_string.hpp
 )

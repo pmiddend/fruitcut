@@ -15,7 +15,7 @@
 #include <fruitapp/highscore/score.hpp>
 #include <fruitapp/point_sprite/system_node_fwd.hpp>
 #include <fruitapp/states/loading_fwd.hpp>
-#include <fruitlib/random_generator.hpp>
+#include <fruitlib/random_generator_fwd.hpp>
 #include <fruitlib/audio/music_controller_fwd.hpp>
 #include <fruitlib/audio/sound_controller_fwd.hpp>
 #include <fruitlib/font/cache_fwd.hpp>
