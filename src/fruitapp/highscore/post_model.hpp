@@ -80,7 +80,7 @@ private:
 	public:
 		explicit
 		connection_wrapper(
-			provider::connection_base_ptr,
+			provider::connection_base_ptr &,
 			fcppt::signal::shared_connection,
 			fcppt::signal::shared_connection,
 			fcppt::signal::shared_connection);

@@ -54,7 +54,7 @@ create_random_from_directory(
 						std::distance(
 							boost::filesystem::directory_iterator(
 								p),
-							boost::filesystem::directory_iterator())))));
+							boost::filesystem::directory_iterator())-1))));
 }
 }
 

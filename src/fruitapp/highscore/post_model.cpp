@@ -1,3 +1,4 @@
+#include <fcppt/ref.hpp>
 #include <fruitapp/gui/table/column.hpp>
 #include <fruitapp/gui/table/row.hpp>
 #include <fruitapp/gui/table/row_index.hpp>
@@ -11,6 +12,7 @@
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assign/make_container.hpp>
+#include <fcppt/assert/pre.hpp>
 #include <fcppt/container/ptr/push_back_unique_ptr.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/shared_connection.hpp>
@@ -21,7 +23,7 @@
 
 
 fruitapp::highscore::post_model::connection_wrapper::connection_wrapper(
-	provider::connection_base_ptr _connection,
+	provider::connection_base_ptr &_connection,
 	fcppt::signal::shared_connection const _message_received,
 	fcppt::signal::shared_connection const _error_received,
 	fcppt::signal::shared_connection const _rank_received)
@@ -102,6 +104,9 @@ fruitapp::highscore::post_model::post(
 		provider::connection_base_ptr new_connection(
 			i->create_connection());
 
+		FCPPT_ASSERT_PRE(
+			new_connection);
+
 		gui::table::row new_row;
 		new_row.push_back(
 			i->identifier());
@@ -121,7 +126,7 @@ fruitapp::highscore::post_model::post(
 		fcppt::container::ptr::push_back_unique_ptr(
 			connections_,
 			fcppt::make_unique_ptr<connection_wrapper>(
-				fcppt::move(
+				fcppt::ref(
 					new_connection),
 				fcppt::signal::shared_connection(
 					new_connection->message_received(

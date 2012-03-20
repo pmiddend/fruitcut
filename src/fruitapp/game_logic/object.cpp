@@ -35,6 +35,7 @@
 #include <sge/timer/elapsed_fractional.hpp>
 #include <sge/timer/parameters.hpp>
 #include <sge/timer/remaining.hpp>
+#include <sge/timer/remaining_fractional.hpp>
 #include <sge/timer/reset_when_expired.hpp>
 #include <mizuiro/color/convert.hpp>
 #include <mizuiro/color/homogenous_static.hpp>
@@ -212,6 +213,9 @@ fruitapp::game_logic::object::object(
 		_renderer)
 {
 	fruitlib::scenic::events::viewport_change event;
+
+	std::cout << "Hello!\n";
+	std::cout << "Remaining: " << sge::timer::remaining<fcppt::chrono::seconds>(round_timer_).count() << "\n";
 
 	this->react(
 		event);
