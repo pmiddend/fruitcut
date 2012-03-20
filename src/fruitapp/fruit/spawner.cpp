@@ -1,6 +1,5 @@
 #include <fruitapp/fruit/manager.hpp>
 #include <fruitapp/fruit/spawner.hpp>
-#include <fruitlib/json/parse_random_inclusive_range.hpp>
 #include <fruitlib/math/box_radius.hpp>
 #include <fruitlib/math/view_plane_rect.hpp>
 #include <fruitlib/math/plane/basic.hpp>
@@ -12,6 +11,7 @@
 #include <sge/camera/projection/invalid.hpp>
 #include <sge/camera/projection/perspective.hpp>
 #include <sge/parse/json/array.hpp>
+#include <sge/parse/json/convert_from.hpp>
 #include <sge/parse/json/find_and_convert_member.hpp>
 #include <sge/parse/json/object.hpp>
 #include <sge/renderer/scalar.hpp>
@@ -25,8 +25,6 @@
 #include <fcppt/math/vector/object_impl.hpp>
 #include <fcppt/math/vector/length.hpp>
 #include <fcppt/math/vector/output.hpp>
-#include <fcppt/random/make_inclusive_range.hpp>
-#include <fcppt/random/make_last_exclusive_range.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <cmath>
@@ -49,47 +47,77 @@ fruitapp::fruit::spawner::spawner(
 	camera_(
 		_camera),
 	seconds_rng_(
-		fruitlib::json::parse_random_inclusive_range<fruitapp::ingame_clock::float_type>(
- 			sge::parse::json::find_and_convert_member<sge::parse::json::array>(
-				_config_file,
-				sge::parse::json::path(
-					FCPPT_TEXT("fruit-spawner"))
-					/ FCPPT_TEXT("spawn-range-seconds"))),
-		_random_generator),
+		_random_generator,
+		uniform_float_variate::distribution(
+			uniform_float_variate::distribution::min(
+				sge::parse::json::convert_from<uniform_float_variate::distribution::float_type>(
+					sge::parse::json::find_and_convert_member<sge::parse::json::array>(
+						_config_file,
+						sge::parse::json::path(
+							FCPPT_TEXT("fruit-spawner"))
+							/ FCPPT_TEXT("spawn-range-seconds")).elements[0])),
+			uniform_float_variate::distribution::sup(
+				sge::parse::json::convert_from<uniform_float_variate::distribution::float_type>(
+					sge::parse::json::find_and_convert_member<sge::parse::json::array>(
+						_config_file,
+						sge::parse::json::path(
+							FCPPT_TEXT("fruit-spawner"))
+							/ FCPPT_TEXT("spawn-range-seconds")).elements[1])))),
 	prototype_rng_(
-		fcppt::random::make_last_exclusive_range(
-			static_cast<prototype_sequence::size_type>(
-				0),
-			manager_.prototypes().size()),
-		_random_generator),
+		_random_generator,
+		uniform_prototype_size_variate::distribution(
+			uniform_prototype_size_variate::distribution::min(
+				0u),
+			uniform_prototype_size_variate::distribution::max(
+				manager_.prototypes().size()-1))),
 	x_rng_(
-		fcppt::random::make_inclusive_range(
- 			static_cast<fruitlib::physics::scalar>(
-				0),
-			static_cast<fruitlib::physics::scalar>(
-				1)),
-		_random_generator),
+		_random_generator,
+		uniform_physics_variate::distribution(
+			uniform_physics_variate::distribution::min(
+				0.0f),
+			uniform_physics_variate::distribution::sup(
+				1.0f))),
 	linear_velocity_rng_(
-		fruitlib::json::parse_random_inclusive_range<fruitlib::physics::scalar>(
- 			sge::parse::json::find_and_convert_member<sge::parse::json::array>(
-				_config_file,
-				sge::parse::json::path(
-					FCPPT_TEXT("fruit-spawner"))
-					/ FCPPT_TEXT("linear-velocity-range"))),
-		_random_generator),
+		_random_generator,
+		uniform_physics_variate::distribution(
+			uniform_physics_variate::distribution::min(
+				sge::parse::json::convert_from<uniform_physics_variate::distribution::float_type>(
+					sge::parse::json::find_and_convert_member<sge::parse::json::array>(
+						_config_file,
+						sge::parse::json::path(
+							FCPPT_TEXT("fruit-spawner"))
+							/ FCPPT_TEXT("linear-velocity-range")).elements[0])),
+			uniform_physics_variate::distribution::sup(
+				sge::parse::json::convert_from<uniform_physics_variate::distribution::float_type>(
+					sge::parse::json::find_and_convert_member<sge::parse::json::array>(
+						_config_file,
+						sge::parse::json::path(
+							FCPPT_TEXT("fruit-spawner"))
+							/ FCPPT_TEXT("linear-velocity-range")).elements[1])))),
 	angular_velocity_rng_(
-		fruitlib::json::parse_random_inclusive_range<fruitlib::physics::scalar>(
- 			sge::parse::json::find_and_convert_member<sge::parse::json::array>(
-				_config_file,
-				sge::parse::json::path(
-					FCPPT_TEXT("fruit-spawner"))
-					/ FCPPT_TEXT("angular-velocity-range"))),
-		_random_generator),
+		_random_generator,
+		uniform_physics_variate::distribution(
+			uniform_physics_variate::distribution::min(
+				sge::parse::json::convert_from<uniform_physics_variate::distribution::float_type>(
+					sge::parse::json::find_and_convert_member<sge::parse::json::array>(
+						_config_file,
+						sge::parse::json::path(
+							FCPPT_TEXT("fruit-spawner"))
+							/ FCPPT_TEXT("angular-velocity-range")).elements[0])),
+			uniform_physics_variate::distribution::sup(
+				sge::parse::json::convert_from<uniform_physics_variate::distribution::float_type>(
+					sge::parse::json::find_and_convert_member<sge::parse::json::array>(
+						_config_file,
+						sge::parse::json::path(
+							FCPPT_TEXT("fruit-spawner"))
+							/ FCPPT_TEXT("angular-velocity-range")).elements[1])))),
 	angle_rng_(
-		fcppt::random::make_inclusive_range(
-				0.0f,
-				1.0f),
-		_random_generator),
+		_random_generator,
+		uniform_physics_variate::distribution(
+			uniform_physics_variate::distribution::min(
+				0.0f),
+			uniform_physics_variate::distribution::sup(
+				1.0f))),
 	timer_(
 		fruitapp::ingame_timer::parameters(
 			_clock,

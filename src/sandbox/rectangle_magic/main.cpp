@@ -1,3 +1,8 @@
+#include <fcppt/random/variate.hpp>
+#include <fcppt/random/generator/seed_from_chrono.hpp>
+#include <fcppt/random/distribution/uniform_int.hpp>
+#include <fcppt/random/distribution/uniform_real.hpp>
+#include <fcppt/random/generator/seed_from_chrono.hpp>
 #include <fruitlib/rectangle_manager/object.hpp>
 #include <fruitlib/rectangle_manager/padding.hpp>
 #include <fruitlib/rectangle_manager/rectangle_instance.hpp>
@@ -67,10 +72,9 @@
 #include <fcppt/container/ptr/insert_unique_ptr.hpp>
 #include <fcppt/container/ptr/push_front_unique_ptr.hpp>
 #include <fcppt/io/cerr.hpp>
-#include <fcppt/random/default_generator.hpp>
-#include <fcppt/random/make_inclusive_range.hpp>
-#include <fcppt/random/make_last_exclusive_range.hpp>
-#include <fcppt/random/uniform.hpp>
+#include <fcppt/random/generator/minstd_rand.hpp>
+#include <fcppt/random/distribution/uniform_int.hpp>
+#include <fcppt/random/distribution/uniform_real.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/next_prior.hpp>
@@ -243,31 +247,42 @@ public:
 				10.0f),
 			10.0f),
 		list_(),
+		number_generator_(
+			fcppt::random::generator::seed_from_chrono<random_generator_type::seed>()),
 		update_rng_(
-			fcppt::random::make_inclusive_range(
-				float_type(
-					0.1f),
-				float_type(
-					0.5f))),
+			number_generator_,
+			uniform_float_distribution(
+				uniform_float_distribution::min(
+					float_type(
+						0.1f)),
+				uniform_float_distribution::sup(
+					float_type(
+						0.5f)))),
 		action_rng_(
-			fcppt::random::make_inclusive_range(
-				0,
-				1)),
-		kill_generator_(
-			static_cast<fcppt::random::default_generator::result_type>(
-				fcppt::chrono::high_resolution_clock::now().time_since_epoch().count())),
+			number_generator_,
+			uniform_int_distribution(
+				uniform_int_distribution::min(
+					0),
+				uniform_int_distribution::max(
+					1))),
 		create_size_w_rng_(
-			fcppt::random::make_inclusive_range(
-				float_type(
-					50.f),
-				float_type(
-					500.f))),
+			number_generator_,
+			uniform_float_distribution(
+				uniform_float_distribution::min(
+					float_type(
+						50.0f)),
+				uniform_float_distribution::sup(
+					float_type(
+						500.0f)))),
 		create_size_h_rng_(
-			fcppt::random::make_inclusive_range(
-				float_type(
-					10.f),
-				float_type(
-					100.f))),
+			number_generator_,
+			uniform_float_distribution(
+				uniform_float_distribution::min(
+					float_type(
+						10.0f)),
+				uniform_float_distribution::sup(
+					float_type(
+						100.0f)))),
 		update_timer_(
 			sge::timer::parameters<sge::timer::clocks::standard>(
 				fcppt::chrono::duration<float_type>(
@@ -334,11 +349,39 @@ private:
 	rectangle_manager_type rectangle_manager_;
 	rectangle_list list_;
 
-	fcppt::random::uniform<float_type> update_rng_;
-	fcppt::random::uniform<int> action_rng_;
-	fcppt::random::default_generator kill_generator_;
-	fcppt::random::uniform<float_type> create_size_w_rng_;
-	fcppt::random::uniform<float_type> create_size_h_rng_;
+	typedef
+	fcppt::random::generator::minstd_rand
+	random_generator_type;
+
+	typedef
+	fcppt::random::distribution::uniform_real<float_type>
+	uniform_float_distribution;
+
+	typedef
+	fcppt::random::distribution::uniform_int<int>
+	uniform_int_distribution;
+
+	typedef
+	fcppt::random::variate
+	<
+		random_generator_type,
+		uniform_float_distribution
+	>
+	uniform_float_variate;
+
+	typedef
+	fcppt::random::variate
+	<
+		random_generator_type,
+		uniform_int_distribution
+	>
+	uniform_int_variate;
+
+	random_generator_type number_generator_;
+	uniform_float_variate update_rng_;
+	uniform_int_variate action_rng_;
+	uniform_float_variate create_size_w_rng_;
+	uniform_float_variate create_size_h_rng_;
 	sge::timer::basic<sge::timer::clocks::standard> update_timer_;
 
 	void
@@ -373,6 +416,18 @@ private:
 		std::iterator_traits<rectangle_list::iterator>::difference_type
 		difference_type;
 
+		typedef
+		fcppt::random::distribution::uniform_int<difference_type>
+		uniform_difference_type_distribution;
+
+		typedef
+		fcppt::random::variate
+		<
+			random_generator_type,
+			uniform_difference_type_distribution
+		>
+		uniform_difference_type_variate;
+
 		/*
 		std::cout << "First dead element: " <<
 			std::distance(
@@ -380,14 +435,15 @@ private:
 				this->first_dead_element()) << "\n";
 		*/
 
-		fcppt::random::uniform<difference_type,fcppt::random::default_generator &> element_position_rng(
-			fcppt::random::make_last_exclusive_range(
-				static_cast<difference_type>(
+		uniform_difference_type_variate element_position_rng(
+			number_generator_,
+			uniform_difference_type_distribution(
+				uniform_difference_type_distribution::min(
 					0),
-				std::distance(
-					list_.begin(),
-					this->first_dead_element())),
-			kill_generator_);
+				uniform_difference_type_distribution::max(
+					std::distance(
+						list_.begin(),
+						this->first_dead_element())-1)));
 
 		difference_type const to_kill_index =
 			element_position_rng();

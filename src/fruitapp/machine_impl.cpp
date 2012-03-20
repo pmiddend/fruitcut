@@ -1,3 +1,4 @@
+#include <fcppt/random/generator/seed_from_chrono.hpp>
 #include "../media_path.hpp"
 #include <fruitapp/light_source_from_json.hpp>
 #include <fruitapp/load_user_config.hpp>
@@ -139,8 +140,7 @@ fruitapp::machine_impl::machine_impl(
 	node_base(
 		fruitlib::scenic::no_parent()),
 	random_generator_(
-		static_cast<fruitlib::random_generator::result_type>(
-			fcppt::chrono::high_resolution_clock::now().time_since_epoch().count())),
+		fcppt::random::generator::seed_from_chrono<fruitlib::random_generator::seed>()),
 	charconv_system_(
 		sge::charconv::create_system()),
 	user_config_file_(

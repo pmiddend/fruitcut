@@ -6,7 +6,8 @@
 #include <fruitapp/fruit/manager_fwd.hpp>
 #include <fruitapp/fruit/prototype_sequence.hpp>
 #include <fruitlib/random_generator_fwd.hpp>
-#include <fruitlib/uniform_random.hpp>
+#include <fruitlib/uniform_int_random.hpp>
+#include <fruitlib/uniform_real_random.hpp>
 #include <fruitlib/physics/scalar.hpp>
 #include <fruitlib/scenic/node.hpp>
 #include <fruitlib/scenic/optional_parent.hpp>
@@ -63,17 +64,29 @@ public:
 	react(
 		fruitlib::scenic::events::update const &);
 private:
+	typedef
+	fruitlib::uniform_real_random<fruitapp::ingame_clock::float_type>::type
+	uniform_float_variate;
+
+	typedef
+	fruitlib::uniform_real_random<fruitlib::physics::scalar>::type
+	uniform_physics_variate;
+
+	typedef
+	fruitlib::uniform_int_random<prototype_sequence::size_type>::type
+	uniform_prototype_size_variate;
+
 	fruit::manager &manager_;
 	sge::camera::first_person::object const &camera_;
-	fruitlib::uniform_random<fruitapp::ingame_clock::float_type>::type seconds_rng_;
-	fruitlib::uniform_random<prototype_sequence::size_type>::type prototype_rng_;
+	uniform_float_variate seconds_rng_;
+	uniform_prototype_size_variate prototype_rng_;
 	// x for x coordinate. This is a scalar rather than
 	// renderer::pixel_unit because the viewport might change and I
 	// don't want to reinitialize the rng then. A value in [0,1] suffices
-	fruitlib::uniform_random<fruitlib::physics::scalar>::type x_rng_;
-	fruitlib::uniform_random<fruitlib::physics::scalar>::type linear_velocity_rng_;
-	fruitlib::uniform_random<fruitlib::physics::scalar>::type angular_velocity_rng_;
-	fruitlib::uniform_random<fruitlib::physics::scalar>::type angle_rng_;
+	uniform_physics_variate x_rng_;
+	uniform_physics_variate linear_velocity_rng_;
+	uniform_physics_variate angular_velocity_rng_;
+	uniform_physics_variate angle_rng_;
 	fruitapp::ingame_timer timer_;
 	fcppt::signal::object<spawn_callback_fn> spawn_signal_;
 

@@ -2,7 +2,7 @@
 #define FRUITLIB_AUDIO_MUSIC_CONTROLLER_HPP_INCLUDED
 
 #include <fruitlib/random_generator_fwd.hpp>
-#include <fruitlib/uniform_random.hpp>
+#include <fruitlib/uniform_int_random.hpp>
 #include <fruitlib/audio/group/player.hpp>
 #include <fruitlib/resource_tree/make_type.hpp>
 #include <fruitlib/resource_tree/path.hpp>
@@ -24,6 +24,7 @@
 #include <sge/timer/clocks/standard.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/string.hpp>
+#include <fcppt/shared_ptr.hpp>
 #include <fcppt/unique_ptr.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
@@ -83,10 +84,11 @@ private:
 	resource_tree::make_type
 	<
 		sge::audio::file_ptr,
-		fruitlib::uniform_random
+		// shared_ptr because of horrible unique_ptr semantics
+		fcppt::shared_ptr
 		<
-			std::size_t
-		>::type
+			fruitlib::uniform_int_random<std::size_t>::type
+		>
 	>::type
 	resource_tree_type;
 

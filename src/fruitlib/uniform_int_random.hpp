@@ -15,7 +15,7 @@ struct uniform_int_random
 	typedef
 	fcppt::random::variate<
 		fruitlib::random_generator,
-		fcppt::random::uniform_int<
+		fcppt::random::distribution::uniform_int<
 			T
 		>
 	>

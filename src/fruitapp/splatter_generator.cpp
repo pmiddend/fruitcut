@@ -12,8 +12,8 @@
 #include <fruitapp/point_sprite/splatter/parameters.hpp>
 #include <fruitapp/point_sprite/splatter/position.hpp>
 #include <fruitapp/point_sprite/splatter/size.hpp>
-#include <fruitlib/uniform_random.hpp>
-#include <fruitlib/json/parse_random_inclusive_range.hpp>
+#include <fruitlib/json/parse_random_float_distribution.hpp>
+#include <fruitlib/json/parse_random_int_distribution.hpp>
 #include <fruitlib/math/multiply_matrix4_vector3.hpp>
 #include <fruitlib/math/triangle/random_point.hpp>
 #include <fruitlib/resource_tree/path.hpp>
@@ -30,8 +30,6 @@
 #include <fcppt/chrono/duration_cast.hpp>
 #include <fcppt/chrono/milliseconds.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
-#include <fcppt/random/make_inclusive_range.hpp>
-#include <fcppt/random/make_last_exclusive_range.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <limits>
 #include <fcppt/config/external_end.hpp>
@@ -54,45 +52,49 @@ fruitapp::splatter_generator::splatter_generator(
 	clock_(
 		_clock),
 	cut_direction_rng_(
-		fcppt::random::make_inclusive_range(
-			0u,
-			1u),
-		random_generator_),
+		random_generator_,
+		cut_direction_rng::distribution(
+			cut_direction_rng::distribution::min(
+				0u),
+			cut_direction_rng::distribution::max(
+				1u))),
 	speed_rng_(
-		fruitlib::json::parse_random_inclusive_range<sge::renderer::scalar>(
+		random_generator_,
+		fruitlib::json::parse_random_float_distribution<sge::renderer::scalar>(
 			sge::parse::json::find_and_convert_member<sge::parse::json::array>(
 				config_file,
 				sge::parse::json::path(FCPPT_TEXT("splatter-generator"))
-					/ FCPPT_TEXT("speed-range"))),
-		random_generator_),
+					/ FCPPT_TEXT("speed-range")))),
 	distortion_rng_(
-		fruitlib::json::parse_random_inclusive_range<sge::renderer::scalar>(
+		random_generator_,
+		fruitlib::json::parse_random_float_distribution<sge::renderer::scalar>(
 			sge::parse::json::find_and_convert_member<sge::parse::json::array>(
 				config_file,
 				sge::parse::json::path(FCPPT_TEXT("splatter-generator"))
-					/ FCPPT_TEXT("speed-distortion-range"))),
-		random_generator_),
+					/ FCPPT_TEXT("speed-distortion-range")))),
 	size_rng_(
-		fruitlib::json::parse_random_inclusive_range<sge::renderer::scalar>(
+		random_generator_,
+		fruitlib::json::parse_random_float_distribution<sge::renderer::scalar>(
 			sge::parse::json::find_and_convert_member<sge::parse::json::array>(
 				config_file,
 				sge::parse::json::path(FCPPT_TEXT("splatter-generator"))
-					/ FCPPT_TEXT("size-range"))),
-		random_generator_),
+					/ FCPPT_TEXT("size-range")))),
 	alpha_rng_(
-		fcppt::random::make_inclusive_range(
-			static_cast<point_sprite::color_format::channel_type>(
-				0),
-			static_cast<point_sprite::color_format::channel_type>(
-				std::numeric_limits<point_sprite::color_format::channel_type>::max()/2)),
-		random_generator_),
+		random_generator_,
+		alpha_rng::distribution(
+			alpha_rng::distribution::min(
+				static_cast<point_sprite::color_format::channel_type>(
+					0u)),
+			alpha_rng::distribution::max(
+				static_cast<point_sprite::color_format::channel_type>(
+					std::numeric_limits<point_sprite::color_format::channel_type>::max()/2)))),
 	lifetime_millis_rng_(
-		fruitlib::json::parse_random_inclusive_range<fcppt::chrono::milliseconds::rep>(
+		random_generator_,
+		fruitlib::json::parse_random_int_distribution<fcppt::chrono::milliseconds::rep>(
 			sge::parse::json::find_and_convert_member<sge::parse::json::array>(
 				config_file,
 				sge::parse::json::path(FCPPT_TEXT("splatter-generator"))
-					/ FCPPT_TEXT("lifetime-millis-range"))),
-		random_generator_),
+					/ FCPPT_TEXT("lifetime-millis-range")))),
 	splatter_count_to_area_factor_(
 		_splatter_count_to_area_factor)
 {
@@ -106,27 +108,28 @@ fruitapp::splatter_generator::fruit_was_cut(
 		return;
 
 	typedef
-	fruitlib::uniform_random<fruit::mesh::triangle_sequence::size_type>::type
+	fruitlib::uniform_int_random<fruit::mesh::triangle_sequence::size_type>::type
 	triangle_rng;
 
 	triangle_rng triangle_rng_(
-		fcppt::random::make_last_exclusive_range(
-			static_cast<fruit::mesh::triangle_sequence::size_type>(
-				0),
-			cut_info.cross_section().triangles.size()),
-		random_generator_);
+		random_generator_,
+		triangle_rng::distribution(
+			triangle_rng::distribution::min(
+				0u),
+			triangle_rng::distribution::max(
+				cut_info.cross_section().triangles.size()-1)));
 
 	typedef
-	fruitlib::uniform_random<sge::renderer::scalar>::type
+	fruitlib::uniform_real_random<sge::renderer::scalar>::type
 	triangle_point_rng;
 
 	triangle_point_rng triangle_point_rng_(
-		fcppt::random::make_inclusive_range(
-			static_cast<sge::renderer::scalar>(
-				0),
-			static_cast<sge::renderer::scalar>(
-				1)),
-		random_generator_);
+		random_generator_,
+		triangle_point_rng::distribution(
+			triangle_point_rng::distribution::min(
+				0.0f),
+			triangle_point_rng::distribution::sup(
+				1.0f)));
 
 	for(
 		unsigned

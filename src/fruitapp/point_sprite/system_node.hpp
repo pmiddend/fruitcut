@@ -6,7 +6,7 @@
 #include <fruitapp/point_sprite/collection.hpp>
 #include <fruitapp/point_sprite/connection.hpp>
 #include <fruitapp/point_sprite/unique_base_ptr.hpp>
-#include <fruitlib/uniform_random.hpp>
+#include <fruitlib/uniform_int_random.hpp>
 #include <fruitlib/resource_tree/make_type.hpp>
 #include <fruitlib/resource_tree/path.hpp>
 #include <fruitlib/scenic/node.hpp>
@@ -24,6 +24,7 @@
 #include <sge/texture/part_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/unique_ptr.hpp>
+#include <fcppt/shared_ptr.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
 #include <boost/mpl/vector/vector10.hpp>
@@ -85,10 +86,11 @@ private:
 	fruitlib::resource_tree::make_type
 	<
 		sge::texture::part_ptr,
-		fruitlib::uniform_random
+		// shared_ptr because of horrible unique_ptr semantics
+		fcppt::shared_ptr
 		<
-			std::size_t
-		>::type
+			fruitlib::uniform_int_random<std::size_t>::type
+		>
 	>::type
 	resource_tree_type;
 

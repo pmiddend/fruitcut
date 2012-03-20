@@ -17,7 +17,6 @@
 #include <fcppt/text.hpp>
 #include <fcppt/assert/error.hpp>
 #include <fcppt/io/cout.hpp>
-#include <fcppt/random/make_last_exclusive_range.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/next_prior.hpp>
@@ -30,22 +29,32 @@
 
 namespace
 {
-fruitlib::uniform_random<std::size_t>::type
+fcppt::shared_ptr
+<
+	fruitlib::uniform_int_random<std::size_t>::type
+>
 create_random_from_directory(
 	fruitlib::random_generator &_random_generator,
 	boost::filesystem::path const &p)
 {
+	typedef
+	fruitlib::uniform_int_random<std::size_t>::type
+	random_variate;
+
 	return
-		fruitlib::uniform_random<std::size_t>::type(
-			fcppt::random::make_last_exclusive_range(
-				static_cast<std::size_t>(
-					0),
-				static_cast<std::size_t>(
-					std::distance(
-						boost::filesystem::directory_iterator(
-							p),
-						boost::filesystem::directory_iterator()))),
-				_random_generator);
+		fcppt::make_shared_ptr<random_variate>(
+			fcppt::ref(
+				_random_generator),
+			random_variate::distribution(
+				random_variate::distribution::min(
+					static_cast<std::size_t>(
+						0)),
+				random_variate::distribution::max(
+					static_cast<std::size_t>(
+						std::distance(
+							boost::filesystem::directory_iterator(
+								p),
+							boost::filesystem::directory_iterator())))));
 }
 }
 
@@ -119,10 +128,13 @@ fruitlib::audio::music_controller::play(
 			*boost::next(
 				target_tree.begin(),
 				static_cast<std::iterator_traits<resource_tree_type::const_iterator>::difference_type>(
-					target_tree.value().node_value()()));
+					(*target_tree.value().node_value())()));
 
 		if(!target_file.value().is_leaf())
-			throw fruitlib::exception(FCPPT_TEXT("The argument to play() must be either a file or a directory containing just files!\nThat was not the case for: ")+target_path.string());
+			throw
+				fruitlib::exception(
+					FCPPT_TEXT("The argument to play() must be either a file or a directory containing just files!\nThat was not the case for: ")+
+					target_path.string());
 
 		do_play(
 			player_.create_nonpositional_stream(

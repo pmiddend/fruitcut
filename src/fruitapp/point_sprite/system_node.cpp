@@ -1,7 +1,6 @@
 #include "../../media_path.hpp"
 #include <fruitapp/exception.hpp>
 #include <fruitapp/point_sprite/system_node.hpp>
-#include <fruitlib/uniform_random.hpp>
 #include <fruitlib/resource_tree/from_directory_tree.hpp>
 #include <fruitlib/resource_tree/navigate_to_path.hpp>
 #include <fruitlib/resource_tree/path.hpp>
@@ -50,7 +49,6 @@
 #include <fcppt/algorithm/map.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/container/ptr/push_back_unique_ptr.hpp>
-#include <fcppt/random/make_last_exclusive_range.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/next_prior.hpp>
 #include <boost/filesystem/operations.hpp>
@@ -64,22 +62,32 @@
 
 namespace
 {
-fruitlib::uniform_random<std::size_t>::type const
+fcppt::shared_ptr
+<
+	fruitlib::uniform_int_random<std::size_t>::type
+>
 create_random_from_directory(
 	fruitlib::random_generator &_random_generator,
 	boost::filesystem::path const &p)
 {
+	typedef
+	fruitlib::uniform_int_random<std::size_t>::type
+	random_variate;
+
 	return
-		fruitlib::uniform_random<std::size_t>::type(
-			fcppt::random::make_last_exclusive_range(
-				static_cast<std::size_t>(
-					0),
-				static_cast<std::size_t>(
-					std::distance(
-						boost::filesystem::directory_iterator(
-							p),
-						boost::filesystem::directory_iterator()))),
-				_random_generator);
+		fcppt::make_shared_ptr<random_variate>(
+			fcppt::ref(
+				_random_generator),
+			random_variate::distribution(
+				random_variate::distribution::min(
+					static_cast<std::size_t>(
+						0)),
+				random_variate::distribution::max(
+					static_cast<std::size_t>(
+						std::distance(
+							boost::filesystem::directory_iterator(
+								p),
+							boost::filesystem::directory_iterator())-1))));
 }
 
 sge::texture::part_ptr const
@@ -197,7 +205,7 @@ fruitapp::point_sprite::system_node::lookup_texture(
 		*boost::next(
 			target_tree.begin(),
 			static_cast<std::iterator_traits<resource_tree_type::const_iterator>::difference_type>(
-				target_tree.value().node_value()()));
+				(*target_tree.value().node_value())()));
 
 	if(!target_file.value().is_leaf())
 		throw fruitapp::exception(FCPPT_TEXT("The argument to lookup_texture() must be either a file or a directory containing just files!\nThat was not the case for: ")+target_path.string());

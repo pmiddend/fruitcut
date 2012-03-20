@@ -10,7 +10,8 @@
 #include <fruitapp/point_sprite/splatter/linear_velocity.hpp>
 #include <fruitapp/point_sprite/splatter/size.hpp>
 #include <fruitlib/random_generator_fwd.hpp>
-#include <fruitlib/uniform_random.hpp>
+#include <fruitlib/uniform_int_random.hpp>
+#include <fruitlib/uniform_real_random.hpp>
 #include <sge/parse/json/object_fwd.hpp>
 #include <sge/parse/json/config/user_config_variable.hpp>
 #include <sge/renderer/scalar.hpp>
@@ -41,27 +42,27 @@ public:
 	~splatter_generator();
 private:
 	typedef
-	fruitlib::uniform_random<unsigned>::type
+	fruitlib::uniform_int_random<unsigned>::type
 	cut_direction_rng;
 
 	typedef
-	fruitlib::uniform_random<point_sprite::splatter::linear_velocity::value_type::value_type>::type
+	fruitlib::uniform_real_random<point_sprite::splatter::linear_velocity::value_type::value_type>::type
 	speed_rng;
 
 	typedef
-	fruitlib::uniform_random<point_sprite::splatter::linear_velocity::value_type::value_type>::type
+	fruitlib::uniform_real_random<point_sprite::splatter::linear_velocity::value_type::value_type>::type
 	distortion_rng;
 
 	typedef
-	fruitlib::uniform_random<point_sprite::splatter::size::value_type>::type
+	fruitlib::uniform_real_random<point_sprite::splatter::size::value_type>::type
 	size_rng;
 
 	typedef
-	fruitlib::uniform_random<point_sprite::color_format::channel_type>::type
+	fruitlib::uniform_int_random<point_sprite::color_format::channel_type>::type
 	alpha_rng;
 
 	typedef
-	fruitlib::uniform_random<fcppt::chrono::milliseconds::rep>::type
+	fruitlib::uniform_int_random<fcppt::chrono::milliseconds::rep>::type
 	lifetime_millis_rng;
 
 	point_sprite::system_node &point_sprites_;
