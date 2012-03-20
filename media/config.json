@@ -130,7 +130,7 @@
 			"mouse-speed" : 300.0,
 			"initial-position" : [0.0,0.0,-15.0]
 		},
-		"round-time" : "60s",
+		"round-time" : "10s",
 		"score-increase-timer" : "20ms",
 		"multiplier-timer" : "1s",
 		"penalty-timer" : "3s",

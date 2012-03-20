@@ -21,7 +21,7 @@ FCPPT_NONCOPYABLE(
 public:
 	explicit
 	unary();
-	
+
 	virtual
 	~unary();
 
