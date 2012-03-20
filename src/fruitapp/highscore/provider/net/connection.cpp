@@ -164,7 +164,7 @@ fruitapp::highscore::provider::net::connection::retrieve_list()
 void
 fruitapp::highscore::provider::net::connection::update()
 {
-	io_service_.run_one();
+	io_service_.poll();
 }
 
 fcppt::signal::auto_connection
