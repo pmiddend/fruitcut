@@ -1,6 +1,6 @@
-#include "../media_path.hpp"
 #include <fruitapp/background.hpp>
 #include <fruitlib/math/view_plane_rect.hpp>
+#include <fruitlib/media_path.hpp>
 #include <fruitlib/scenic/events/render.hpp>
 #include <fruitlib/scenic/events/viewport_change.hpp>
 #include <sge/camera/first_person/object.hpp>
@@ -155,7 +155,7 @@ fruitapp::background::background(
 		_camera),
 	texture_(
 		sge::renderer::texture::create_planar_from_path(
-			fruitcut::media_path()
+			fruitlib::media_path()
 				/
 					FCPPT_TEXT("textures")
 				/
@@ -206,9 +206,9 @@ fruitapp::background::background(
 				.name(
 					FCPPT_TEXT("background"))
 				.vertex_shader(
-					fruitcut::media_path()/FCPPT_TEXT("shaders")/FCPPT_TEXT("background")/FCPPT_TEXT("vertex.glsl"))
+					fruitlib::media_path()/FCPPT_TEXT("shaders")/FCPPT_TEXT("background")/FCPPT_TEXT("vertex.glsl"))
 				.fragment_shader(
-					fruitcut::media_path()/FCPPT_TEXT("shaders")/FCPPT_TEXT("background")/FCPPT_TEXT("fragment.glsl"))),
+					fruitlib::media_path()/FCPPT_TEXT("shaders")/FCPPT_TEXT("background")/FCPPT_TEXT("fragment.glsl"))),
 	reps_(
 		sge::parse::json::find_and_convert_member<sge::renderer::scalar>(
 			_config,

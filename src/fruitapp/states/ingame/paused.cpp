@@ -1,4 +1,4 @@
-#include "../../../media_path.hpp"
+#include <fruitlib/media_path.hpp>
 #include <fruitapp/postprocessing.hpp>
 #include <fruitapp/scene.hpp>
 #include <fruitapp/depths/overlay.hpp>
@@ -110,7 +110,7 @@ fruitapp::states::ingame::paused::paused(
 		context<machine>().systems().cursor_demuxer()),
 	layout_(
 		context<machine>().gui_system(),
-		fruitcut::media_path()
+		fruitlib::media_path()
 			/FCPPT_TEXT("gui")
 			/FCPPT_TEXT("layouts")
 			/FCPPT_TEXT("ingame_menu.layout"),

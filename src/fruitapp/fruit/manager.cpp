@@ -1,4 +1,4 @@
-#include "../../media_path.hpp"
+#include <fruitlib/media_path.hpp>
 #include <fruitapp/exception.hpp>
 #include <fruitapp/fruit/box3.hpp>
 #include <fruitapp/fruit/cut_mesh.hpp>

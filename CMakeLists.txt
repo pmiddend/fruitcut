@@ -117,7 +117,7 @@ INSTALL(
 
 OPTION(ENABLE_TEST "Build the tests" ON)
 
-INCLUDE_DIRECTORIES(${CMAKE_SOURCE_DIR}/src)
+INCLUDE_DIRECTORIES(${CMAKE_SOURCE_DIR}/include)
 
 IF(ENABLE_TEST)
 	ENABLE_TESTING()
@@ -126,300 +126,82 @@ ENDIF()
 
 ADD_SUBDIRECTORY(src/sandbox)
 
-
 SET(
 	FRUITLIB_FILES
-	src/fruitlib/animation/basic.hpp
-	src/fruitlib/animation/interpolate/linear.hpp
-	src/fruitlib/animation/interpolate/trigonometric.hpp
-	src/fruitlib/animation/keyframe.hpp
 	src/fruitlib/audio/group/buffer.cpp
-	src/fruitlib/audio/group/buffer.hpp
-	src/fruitlib/audio/group/buffer_fwd.hpp
 	src/fruitlib/audio/group/player.cpp
-	src/fruitlib/audio/group/player.hpp
-	src/fruitlib/audio/group/player_fwd.hpp
 	src/fruitlib/audio/group/sound_base.cpp
-	src/fruitlib/audio/group/sound_base.hpp
-	src/fruitlib/audio/group/sound_base_fwd.hpp
 	src/fruitlib/audio/group/sound_positional.cpp
-	src/fruitlib/audio/group/sound_positional.hpp
-	src/fruitlib/audio/group/sound_positional_fwd.hpp
 	src/fruitlib/audio/music_controller.cpp
-	src/fruitlib/audio/music_controller.hpp
-	src/fruitlib/audio/music_controller_fwd.hpp
 	src/fruitlib/audio/pool.cpp
-	src/fruitlib/audio/pool.hpp
 	src/fruitlib/audio/sound_controller.cpp
-	src/fruitlib/audio/sound_controller.hpp
-	src/fruitlib/audio/sound_controller_fwd.hpp
 	src/fruitlib/average_colors.cpp
-	src/fruitlib/average_colors.hpp
-	src/fruitlib/command_line_parameters.hpp
-	src/fruitlib/counted_reference.hpp
 	src/fruitlib/create_command_line_parameters.cpp
-	src/fruitlib/create_command_line_parameters.hpp
-	src/fruitlib/delayed_ptr_sequence.hpp
 	src/fruitlib/exception.cpp
-	src/fruitlib/exception.hpp
 	src/fruitlib/font/cache.cpp
-	src/fruitlib/font/cache.hpp
-	src/fruitlib/font/cache_fwd.hpp
-	src/fruitlib/font/color.hpp
-	src/fruitlib/font/color_format.hpp
 	src/fruitlib/font/drawer/object.cpp
-	src/fruitlib/font/drawer/object.hpp
-	src/fruitlib/font/drawer/object_fwd.hpp
 	src/fruitlib/font/drawer/parameters.cpp
-	src/fruitlib/font/drawer/parameters.hpp
-	src/fruitlib/font/drawer/parameters_fwd.hpp
 	src/fruitlib/font/drawer/scoped_color.cpp
-	src/fruitlib/font/drawer/scoped_color.hpp
 	src/fruitlib/font/drawer/scoped_transformation.cpp
-	src/fruitlib/font/drawer/scoped_transformation.hpp
-	src/fruitlib/font/drawer/transform_callback.hpp
-	src/fruitlib/font/drawer/transform_callback_fn.hpp
-	src/fruitlib/font/identifier.hpp
 	src/fruitlib/font/object.cpp
-	src/fruitlib/font/object.hpp
 	src/fruitlib/font/object_parameters.cpp
-	src/fruitlib/font/object_parameters.hpp
-	src/fruitlib/font/object_parameters_fwd.hpp
-	src/fruitlib/font/scale.hpp
-	src/fruitlib/font/scale_animation.hpp
 	src/fruitlib/font/scene_node.cpp
-	src/fruitlib/font/scene_node.hpp
-	src/fruitlib/geometry_traits/box.hpp
-	src/fruitlib/geometry_traits/vector.hpp
-	src/fruitlib/grid/collect_points.hpp
-	src/fruitlib/grid/convolve_ignore_borders.hpp
-	src/fruitlib/grid/from_image.hpp
-	src/fruitlib/grid/map.hpp
-	src/fruitlib/grid/sobel_ignore_borders.hpp
-	src/fruitlib/grid/to_ppm.hpp
-	src/fruitlib/grid/zip_with.hpp
-	src/fruitlib/json/parse_animation.hpp
-	src/fruitlib/json/parse_color.hpp
 	src/fruitlib/json/parse_projection.cpp
-	src/fruitlib/json/parse_projection.hpp
-	src/fruitlib/json/parse_random_float_distribution.hpp
-	src/fruitlib/json/parse_random_int_distribution.hpp
 	src/fruitlib/json/parse_rgba8_color.cpp
-	src/fruitlib/json/parse_rgba8_color.hpp
 	src/fruitlib/log/scoped.cpp
-	src/fruitlib/log/scoped.hpp
-	src/fruitlib/log/scoped_sequence.hpp
 	src/fruitlib/log/scoped_sequence_from_json.cpp
-	src/fruitlib/log/scoped_sequence_from_json.hpp
-	src/fruitlib/log/scoped_sequence_ptr.hpp
 	src/fruitlib/log/string_to_location.cpp
-	src/fruitlib/log/string_to_location.hpp
-	src/fruitlib/math/box_radius.hpp
-	src/fruitlib/math/cut_triangle_at_plane.hpp
-	src/fruitlib/math/line/basic.hpp
-	src/fruitlib/math/line/distance_to_point.hpp
-	src/fruitlib/math/line_plane_intersection.hpp
-	src/fruitlib/math/multiply_matrix4_vector3.hpp
-	src/fruitlib/math/plane/basic.hpp
-	src/fruitlib/math/plane/distance_to_point.hpp
-	src/fruitlib/math/plane/from_vec4.hpp
-	src/fruitlib/math/plane/normalize.hpp
-	src/fruitlib/math/triangle/area.hpp
-	src/fruitlib/math/triangle/basic.hpp
-	src/fruitlib/math/triangle/create_from_interpolation.hpp
-	src/fruitlib/math/triangle/interpolation_pair.hpp
-	src/fruitlib/math/triangle/random_point.hpp
-	src/fruitlib/math/triangle/scalar_type.hpp
-	src/fruitlib/math/triangle/size_type.hpp
-	src/fruitlib/math/triangle/to_plane.hpp
-	src/fruitlib/math/triangle/vector_type.hpp
-	src/fruitlib/math/triangle/vertex_access.hpp
-	src/fruitlib/math/triangle/weak_compare.hpp
-	src/fruitlib/math/triangle_plane_intersection.hpp
-	src/fruitlib/math/unproject.hpp
 	src/fruitlib/math/view_plane_distance.cpp
-	src/fruitlib/math/view_plane_distance.hpp
 	src/fruitlib/math/view_plane_rect.cpp
-	src/fruitlib/math/view_plane_rect.hpp
+	src/fruitlib/media_path.cpp
 	src/fruitlib/performance_timer.cpp
-	src/fruitlib/performance_timer.hpp
-	src/fruitlib/physics/box.hpp
 	src/fruitlib/physics/debugger.cpp
-	src/fruitlib/physics/debugger.hpp
-	src/fruitlib/physics/debugger_fwd.hpp
-	src/fruitlib/physics/duration.hpp
-	src/fruitlib/physics/group/id.hpp
 	src/fruitlib/physics/group/object.cpp
-	src/fruitlib/physics/group/object.hpp
-	src/fruitlib/physics/group/object_fwd.hpp
-	src/fruitlib/physics/group/sequence.hpp
-	src/fruitlib/physics/matrix3.hpp
-	src/fruitlib/physics/matrix3_to_matrix4.hpp
-	src/fruitlib/physics/matrix4.hpp
-	src/fruitlib/physics/matrix4_to_matrix3.hpp
 	src/fruitlib/physics/nodes/debugger.cpp
-	src/fruitlib/physics/nodes/debugger.hpp
 	src/fruitlib/physics/nodes/world.cpp
-	src/fruitlib/physics/nodes/world.hpp
 	src/fruitlib/physics/null_collision_filter.cpp
-	src/fruitlib/physics/null_collision_filter.hpp
-	src/fruitlib/physics/rigid_body/angular_velocity.hpp
-	src/fruitlib/physics/rigid_body/collision_callback.hpp
-	src/fruitlib/physics/rigid_body/collision_callback_fn.hpp
 	src/fruitlib/physics/rigid_body/collision_data.cpp
-	src/fruitlib/physics/rigid_body/collision_data.hpp
-	src/fruitlib/physics/rigid_body/linear_velocity.hpp
-	src/fruitlib/physics/rigid_body/mass.hpp
 	src/fruitlib/physics/rigid_body/object.cpp
-	src/fruitlib/physics/rigid_body/object.hpp
-	src/fruitlib/physics/rigid_body/object_fwd.hpp
-	src/fruitlib/physics/rigid_body/optional_mass.hpp
 	src/fruitlib/physics/rigid_body/parameters.cpp
-	src/fruitlib/physics/rigid_body/parameters.hpp
-	src/fruitlib/physics/rigid_body/parameters_fwd.hpp
-	src/fruitlib/physics/rigid_body/position.hpp
 	src/fruitlib/physics/rigid_body/scoped.cpp
-	src/fruitlib/physics/rigid_body/scoped.hpp
-	src/fruitlib/physics/rigid_body/solidity.hpp
-	src/fruitlib/physics/rigid_body/transformation.hpp
-	src/fruitlib/physics/rigid_body/user_data.hpp
-	src/fruitlib/physics/scalar.hpp
-	src/fruitlib/physics/shared_shape_ptr.hpp
-	src/fruitlib/physics/structure_cast.hpp
-	src/fruitlib/physics/vector3.hpp
 	src/fruitlib/physics/world.cpp
-	src/fruitlib/physics/world.hpp
-	src/fruitlib/physics/world_fwd.hpp
-	src/fruitlib/pp/dependency_set.hpp
 	src/fruitlib/pp/filter/add.cpp
-	src/fruitlib/pp/filter/add.hpp
 	src/fruitlib/pp/filter/base.cpp
-	src/fruitlib/pp/filter/base.hpp
-	src/fruitlib/pp/filter/base_fwd.hpp
 	src/fruitlib/pp/filter/binary.cpp
-	src/fruitlib/pp/filter/binary.hpp
 	src/fruitlib/pp/filter/blur.cpp
-	src/fruitlib/pp/filter/blur.hpp
 	src/fruitlib/pp/filter/desaturate.cpp
-	src/fruitlib/pp/filter/desaturate.hpp
 	src/fruitlib/pp/filter/highlight.cpp
-	src/fruitlib/pp/filter/highlight.hpp
 	src/fruitlib/pp/filter/inject_texture.cpp
-	src/fruitlib/pp/filter/inject_texture.hpp
 	src/fruitlib/pp/filter/manager.cpp
-	src/fruitlib/pp/filter/manager.hpp
-	src/fruitlib/pp/filter/manager_fwd.hpp
 	src/fruitlib/pp/filter/nullary.cpp
-	src/fruitlib/pp/filter/nullary.hpp
 	src/fruitlib/pp/filter/render_to_texture.cpp
-	src/fruitlib/pp/filter/render_to_texture.hpp
 	src/fruitlib/pp/filter/ssaa.cpp
-	src/fruitlib/pp/filter/ssaa.hpp
 	src/fruitlib/pp/filter/unary.cpp
-	src/fruitlib/pp/filter/unary.hpp
 	src/fruitlib/pp/filter/wrapper.cpp
-	src/fruitlib/pp/filter/wrapper.hpp
-	src/fruitlib/pp/screen_vf/format.hpp
-	src/fruitlib/pp/screen_vf/part.hpp
-	src/fruitlib/pp/screen_vf/position.hpp
 	src/fruitlib/pp/screen_vf/quad.cpp
-	src/fruitlib/pp/screen_vf/quad.hpp
-	src/fruitlib/pp/screen_vf/vertex_view.hpp
 	src/fruitlib/pp/system.cpp
-	src/fruitlib/pp/system.hpp
-	src/fruitlib/pp/system_fwd.hpp
-	src/fruitlib/pp/texture/counted_instance.hpp
-	src/fruitlib/pp/texture/depth_stencil_format.hpp
 	src/fruitlib/pp/texture/descriptor.cpp
-	src/fruitlib/pp/texture/descriptor.hpp
 	src/fruitlib/pp/texture/instance.cpp
-	src/fruitlib/pp/texture/instance.hpp
-	src/fruitlib/pp/texture/instance_fwd.hpp
 	src/fruitlib/pp/texture/manager.cpp
-	src/fruitlib/pp/texture/manager.hpp
-	src/fruitlib/pp/texture/manager_fwd.hpp
 	src/fruitlib/pp/texture/use_screen_size.cpp
-	src/fruitlib/pp/texture/use_screen_size.hpp
-	src/fruitlib/random_generator.hpp
-	src/fruitlib/random_generator_fwd.hpp
-	src/fruitlib/rectangle_manager/duration.hpp
-	src/fruitlib/rectangle_manager/object.hpp
-	src/fruitlib/rectangle_manager/object_decl.hpp
-	src/fruitlib/rectangle_manager/object_fwd.hpp
-	src/fruitlib/rectangle_manager/object_impl.hpp
-	src/fruitlib/rectangle_manager/padding.hpp
-	src/fruitlib/rectangle_manager/rectangle_instance.hpp
-	src/fruitlib/rectangle_manager/rectangle_instance_decl.hpp
-	src/fruitlib/rectangle_manager/rectangle_instance_fwd.hpp
-	src/fruitlib/rectangle_manager/rectangle_instance_impl.hpp
-	src/fruitlib/resource_tree/from_directory_tree.hpp
-	src/fruitlib/resource_tree/is_resource_tree.hpp
-	src/fruitlib/resource_tree/make_type.hpp
-	src/fruitlib/resource_tree/navigate_to_path.hpp
-	src/fruitlib/resource_tree/node.hpp
-	src/fruitlib/resource_tree/object.hpp
 	src/fruitlib/resource_tree/path.cpp
-	src/fruitlib/resource_tree/path.hpp
 	src/fruitlib/scenic/adaptors/camera.cpp
-	src/fruitlib/scenic/adaptors/camera.hpp
 	src/fruitlib/scenic/adaptors/console.cpp
-	src/fruitlib/scenic/adaptors/console.hpp
 	src/fruitlib/scenic/adaptors/gui_system.cpp
-	src/fruitlib/scenic/adaptors/gui_system.hpp
 	src/fruitlib/scenic/adaptors/line_drawer.cpp
-	src/fruitlib/scenic/adaptors/line_drawer.hpp
 	src/fruitlib/scenic/base.cpp
-	src/fruitlib/scenic/base.hpp
-	src/fruitlib/scenic/base_fwd.hpp
-	src/fruitlib/scenic/delta/callback.hpp
 	src/fruitlib/scenic/delta/clock.cpp
-	src/fruitlib/scenic/delta/clock.hpp
-	src/fruitlib/scenic/delta/clock_impl.hpp
-	src/fruitlib/scenic/delta/duration.hpp
-	src/fruitlib/scenic/delta/timer.hpp
-	src/fruitlib/scenic/depth.hpp
-	src/fruitlib/scenic/detail/has_scene_reactions.hpp
-	src/fruitlib/scenic/detail/reaction_chooser.hpp
 	src/fruitlib/scenic/events/base.cpp
-	src/fruitlib/scenic/events/base.hpp
-	src/fruitlib/scenic/events/base_fwd.hpp
 	src/fruitlib/scenic/events/render.cpp
-	src/fruitlib/scenic/events/render.hpp
 	src/fruitlib/scenic/events/update.cpp
-	src/fruitlib/scenic/events/update.hpp
 	src/fruitlib/scenic/events/viewport_change.cpp
-	src/fruitlib/scenic/events/viewport_change.hpp
 	src/fruitlib/scenic/no_parent.cpp
-	src/fruitlib/scenic/no_parent.hpp
-	src/fruitlib/scenic/node.hpp
-	src/fruitlib/scenic/optional_parent.hpp
 	src/fruitlib/scenic/parent.cpp
-	src/fruitlib/scenic/parent.hpp
-	src/fruitlib/scenic/parent_fwd.hpp
 	src/fruitlib/scoped_frame_limiter.cpp
-	src/fruitlib/scoped_frame_limiter.hpp
-	src/fruitlib/time_format/context.hpp
-	src/fruitlib/time_format/domain.hpp
-	src/fruitlib/time_format/duration_to_string.hpp
-	src/fruitlib/time_format/find_and_convert_duration.hpp
-	src/fruitlib/time_format/formatter.hpp
-	src/fruitlib/time_format/formatter_fwd.hpp
-	src/fruitlib/time_format/grammar.hpp
 	src/fruitlib/time_format/milliseconds.cpp
-	src/fruitlib/time_format/milliseconds.hpp
 	src/fruitlib/time_format/minutes.cpp
-	src/fruitlib/time_format/minutes.hpp
 	src/fruitlib/time_format/seconds.cpp
-	src/fruitlib/time_format/seconds.hpp
-	src/fruitlib/time_format/string_to_duration.hpp
-	src/fruitlib/time_format/string_to_duration_exn.hpp
-	src/fruitlib/time_format/tags/milliseconds.hpp
-	src/fruitlib/time_format/tags/minutes.hpp
-	src/fruitlib/time_format/tags/seconds.hpp
-	src/fruitlib/uniform_int_random.hpp
-	src/fruitlib/uniform_real_random.hpp
 	src/fruitlib/utf8_file_to_fcppt_string.cpp
-	src/fruitlib/utf8_file_to_fcppt_string.hpp
 )
 
 FCPPT_UTILS_ADD_SOURCE_GROUPS("${FRUITLIB_FILES}")
@@ -427,282 +209,84 @@ FCPPT_UTILS_ADD_SOURCE_GROUPS("${FRUITLIB_FILES}")
 SET(
 	APP_FILES
 	src/fruitapp/background.cpp
-	src/fruitapp/background.hpp
-	src/fruitapp/background_fwd.hpp
 	src/fruitapp/config_variables.cpp
-	src/fruitapp/config_variables.hpp
-	src/fruitapp/config_variables_fwd.hpp
 	src/fruitapp/current_commit.cpp
-	src/fruitapp/current_commit.hpp
 	src/fruitapp/cursor_sound.cpp
-	src/fruitapp/cursor_sound.hpp
 	src/fruitapp/cursor_trail.cpp
-	src/fruitapp/cursor_trail.hpp
-	src/fruitapp/cut_context_fwd.hpp
-	src/fruitapp/depths/overlay.hpp
-	src/fruitapp/depths/root.hpp
-	src/fruitapp/depths/scene.hpp
 	src/fruitapp/directional_light_source.cpp
-	src/fruitapp/directional_light_source.hpp
-	src/fruitapp/directional_light_source_fwd.hpp
-	src/fruitapp/events/declare_transition_reaction.hpp
-	src/fruitapp/events/declare_transition_type.hpp
-	src/fruitapp/events/define_transition_reaction.hpp
-	src/fruitapp/events/generic_transition.hpp
-	src/fruitapp/events/post_transition.hpp
-	src/fruitapp/events/return_post_transition_functor.hpp
 	src/fruitapp/exception.cpp
-	src/fruitapp/exception.hpp
-	src/fruitapp/fruit/area.hpp
-	src/fruitapp/fruit/box3.hpp
-	src/fruitapp/fruit/callbacks/cut.hpp
-	src/fruitapp/fruit/callbacks/cut_fn.hpp
-	src/fruitapp/fruit/callbacks/remove.hpp
-	src/fruitapp/fruit/callbacks/remove_fn.hpp
-	src/fruitapp/fruit/callbacks/spawn.hpp
-	src/fruitapp/fruit/callbacks/spawn_fn.hpp
 	src/fruitapp/fruit/cut_context.cpp
-	src/fruitapp/fruit/cut_context.hpp
-	src/fruitapp/fruit/cut_context_fwd.hpp
 	src/fruitapp/fruit/cut_mesh.cpp
-	src/fruitapp/fruit/cut_mesh.hpp
 	src/fruitapp/fruit/cut_mesh_result.cpp
-	src/fruitapp/fruit/cut_mesh_result.hpp
-	src/fruitapp/fruit/cut_mesh_result_fwd.hpp
 	src/fruitapp/fruit/default_render_node.cpp
-	src/fruitapp/fruit/default_render_node.hpp
-	src/fruitapp/fruit/hull/intersection_pair.hpp
 	src/fruitapp/fruit/hull/projected.cpp
-	src/fruitapp/fruit/hull/projected.hpp
-	src/fruitapp/fruit/hull/ring.hpp
 	src/fruitapp/fruit/hull/trail_intersection.cpp
-	src/fruitapp/fruit/hull/trail_intersection.hpp
-	src/fruitapp/fruit/make_coordinate_system.hpp
 	src/fruitapp/fruit/manager.cpp
-	src/fruitapp/fruit/manager.hpp
-	src/fruitapp/fruit/manager_fwd.hpp
-	src/fruitapp/fruit/material/diffuse_coefficient.hpp
-	src/fruitapp/fruit/material/diffuse_color.hpp
 	src/fruitapp/fruit/material/from_json.cpp
-	src/fruitapp/fruit/material/from_json.hpp
 	src/fruitapp/fruit/material/object.cpp
-	src/fruitapp/fruit/material/object.hpp
-	src/fruitapp/fruit/material/specular_coefficient.hpp
-	src/fruitapp/fruit/material/specular_color.hpp
-	src/fruitapp/fruit/material/specular_shininess.hpp
-	src/fruitapp/fruit/mesh.hpp
-	src/fruitapp/fruit/mesh_fwd.hpp
 	src/fruitapp/fruit/mesh_to_point_cloud.cpp
-	src/fruitapp/fruit/mesh_to_point_cloud.hpp
 	src/fruitapp/fruit/mesh_to_shape.cpp
-	src/fruitapp/fruit/mesh_to_shape.hpp
 	src/fruitapp/fruit/mesh_to_vertex_buffer.cpp
-	src/fruitapp/fruit/mesh_to_vertex_buffer.hpp
 	src/fruitapp/fruit/model_to_mesh.cpp
-	src/fruitapp/fruit/model_to_mesh.hpp
-	src/fruitapp/fruit/model_vf/format.hpp
-	src/fruitapp/fruit/model_vf/normal.hpp
-	src/fruitapp/fruit/model_vf/part.hpp
-	src/fruitapp/fruit/model_vf/position.hpp
-	src/fruitapp/fruit/model_vf/texcoord.hpp
-	src/fruitapp/fruit/model_vf/vertex_view.hpp
 	src/fruitapp/fruit/object.cpp
-	src/fruitapp/fruit/object.hpp
-	src/fruitapp/fruit/object_fwd.hpp
 	src/fruitapp/fruit/object_parameters.cpp
-	src/fruitapp/fruit/object_parameters.hpp
-	src/fruitapp/fruit/object_parameters_fwd.hpp
-	src/fruitapp/fruit/object_sequence.hpp
 	src/fruitapp/fruit/parameters_from_prototype.cpp
-	src/fruitapp/fruit/parameters_from_prototype.hpp
-	src/fruitapp/fruit/plane.hpp
-	src/fruitapp/fruit/point_cloud.hpp
 	src/fruitapp/fruit/prototype.cpp
-	src/fruitapp/fruit/prototype.hpp
 	src/fruitapp/fruit/prototype_from_json.cpp
-	src/fruitapp/fruit/prototype_from_json.hpp
-	src/fruitapp/fruit/prototype_fwd.hpp
-	src/fruitapp/fruit/prototype_sequence.hpp
 	src/fruitapp/fruit/shadow_render_node.cpp
-	src/fruitapp/fruit/shadow_render_node.hpp
-	src/fruitapp/fruit/spawn_callback_fn.hpp
 	src/fruitapp/fruit/spawner.cpp
-	src/fruitapp/fruit/spawner.hpp
-	src/fruitapp/fruit/tag.hpp
-	src/fruitapp/fruit/tag_set.hpp
-	src/fruitapp/fruit/triangle.hpp
-	src/fruitapp/fruit/triangle_traits.hpp
 	src/fruitapp/game_logic/object.cpp
-	src/fruitapp/game_logic/object.hpp
 	src/fruitapp/gui/button.cpp
-	src/fruitapp/gui/button.hpp
 	src/fruitapp/gui/combobox.cpp
-	src/fruitapp/gui/combobox.hpp
 	src/fruitapp/gui/progress_slider.cpp
-	src/fruitapp/gui/progress_slider.hpp
 	src/fruitapp/gui/table/column.cpp
-	src/fruitapp/gui/table/column.hpp
-	src/fruitapp/gui/table/column_sequence.hpp
 	src/fruitapp/gui/table/model.cpp
-	src/fruitapp/gui/table/model.hpp
-	src/fruitapp/gui/table/model_fwd.hpp
-	src/fruitapp/gui/table/row.hpp
-	src/fruitapp/gui/table/row_added.hpp
-	src/fruitapp/gui/table/row_added_fn.hpp
-	src/fruitapp/gui/table/row_index.hpp
-	src/fruitapp/gui/table/row_removed.hpp
-	src/fruitapp/gui/table/row_removed_fn.hpp
 	src/fruitapp/gui/table/view.cpp
-	src/fruitapp/gui/table/view.hpp
-	src/fruitapp/highscore/callbacks/error_received.hpp
-	src/fruitapp/highscore/callbacks/error_received_fn.hpp
-	src/fruitapp/highscore/callbacks/list_received.hpp
-	src/fruitapp/highscore/callbacks/list_received_fn.hpp
-	src/fruitapp/highscore/callbacks/message_received.hpp
-	src/fruitapp/highscore/callbacks/message_received_fn.hpp
-	src/fruitapp/highscore/callbacks/rank_received.hpp
-	src/fruitapp/highscore/callbacks/rank_received_fn.hpp
 	src/fruitapp/highscore/entry.cpp
-	src/fruitapp/highscore/entry.hpp
-	src/fruitapp/highscore/entry_set.hpp
 	src/fruitapp/highscore/get_model.cpp
-	src/fruitapp/highscore/get_model.hpp
 	src/fruitapp/highscore/json_to_entry_set.cpp
-	src/fruitapp/highscore/json_to_entry_set.hpp
-	src/fruitapp/highscore/name.hpp
 	src/fruitapp/highscore/post_model.cpp
-	src/fruitapp/highscore/post_model.hpp
 	src/fruitapp/highscore/provider/connection_base.cpp
-	src/fruitapp/highscore/provider/connection_base.hpp
-	src/fruitapp/highscore/provider/connection_base_fwd.hpp
-	src/fruitapp/highscore/provider/connection_base_ptr.hpp
 	src/fruitapp/highscore/provider/file/connection.cpp
-	src/fruitapp/highscore/provider/file/connection.hpp
 	src/fruitapp/highscore/provider/file/object.cpp
-	src/fruitapp/highscore/provider/file/object.hpp
-	src/fruitapp/highscore/provider/identifier.hpp
 	src/fruitapp/highscore/provider/net/connection.cpp
-	src/fruitapp/highscore/provider/net/connection.hpp
-	src/fruitapp/highscore/provider/net/host.hpp
 	src/fruitapp/highscore/provider/net/object.cpp
-	src/fruitapp/highscore/provider/net/object.hpp
-	src/fruitapp/highscore/provider/net/port.hpp
 	src/fruitapp/highscore/provider/object_base.cpp
-	src/fruitapp/highscore/provider/object_base.hpp
-	src/fruitapp/highscore/provider/object_base_fwd.hpp
-	src/fruitapp/highscore/provider_sequence.hpp
 	src/fruitapp/highscore/providers_from_json.cpp
-	src/fruitapp/highscore/providers_from_json.hpp
-	src/fruitapp/highscore/rank.hpp
-	src/fruitapp/highscore/score.hpp
-	src/fruitapp/ingame_clock.hpp
-	src/fruitapp/ingame_timer.hpp
 	src/fruitapp/light_source_from_json.cpp
-	src/fruitapp/light_source_from_json.hpp
 	src/fruitapp/load_user_config.cpp
-	src/fruitapp/load_user_config.hpp
 	src/fruitapp/logo.cpp
-	src/fruitapp/logo.hpp
 	src/fruitapp/machine.cpp
-	src/fruitapp/machine.hpp
-	src/fruitapp/machine_fwd.hpp
 	src/fruitapp/machine_impl.cpp
-	src/fruitapp/machine_impl.hpp
-	src/fruitapp/machine_impl_fwd.hpp
 	src/fruitapp/main.cpp
-	src/fruitapp/main.hpp
 	src/fruitapp/name.cpp
-	src/fruitapp/name.hpp
 	src/fruitapp/overlay.cpp
-	src/fruitapp/overlay.hpp
 	src/fruitapp/point_sprite/base.cpp
-	src/fruitapp/point_sprite/base.hpp
-	src/fruitapp/point_sprite/buffers.hpp
-	src/fruitapp/point_sprite/choices.hpp
-	src/fruitapp/point_sprite/collection.hpp
-	src/fruitapp/point_sprite/color.hpp
-	src/fruitapp/point_sprite/color_format.hpp
-	src/fruitapp/point_sprite/connection.hpp
-	src/fruitapp/point_sprite/elements.hpp
-	src/fruitapp/point_sprite/object.hpp
-	src/fruitapp/point_sprite/parameters.hpp
-	src/fruitapp/point_sprite/size_attribute.hpp
-	src/fruitapp/point_sprite/splatter/acceleration.hpp
-	src/fruitapp/point_sprite/splatter/linear_velocity.hpp
 	src/fruitapp/point_sprite/splatter/object.cpp
-	src/fruitapp/point_sprite/splatter/object.hpp
 	src/fruitapp/point_sprite/splatter/parameters.cpp
-	src/fruitapp/point_sprite/splatter/parameters.hpp
-	src/fruitapp/point_sprite/splatter/parameters_fwd.hpp
-	src/fruitapp/point_sprite/splatter/position.hpp
-	src/fruitapp/point_sprite/splatter/size.hpp
 	src/fruitapp/point_sprite/system_node.cpp
-	src/fruitapp/point_sprite/system_node.hpp
-	src/fruitapp/point_sprite/system_node_fwd.hpp
-	src/fruitapp/point_sprite/type_choices.hpp
-	src/fruitapp/point_sprite/unique_base_ptr.hpp
-	src/fruitapp/point_sprite/vector.hpp
 	src/fruitapp/postprocessing.cpp
-	src/fruitapp/postprocessing.hpp
-	src/fruitapp/postprocessing_fwd.hpp
 	src/fruitapp/quick_log.cpp
-	src/fruitapp/quick_log.hpp
-	src/fruitapp/quick_log_fwd.hpp
 	src/fruitapp/renderable.cpp
-	src/fruitapp/renderable.hpp
-	src/fruitapp/renderer_dim2.hpp
-	src/fruitapp/renderer_rect.hpp
 	src/fruitapp/scene.cpp
-	src/fruitapp/scene.hpp
-	src/fruitapp/scene_fwd.hpp
 	src/fruitapp/scoped_pp_activation.cpp
-	src/fruitapp/scoped_pp_activation.hpp
 	src/fruitapp/scoped_scene_activation.cpp
-	src/fruitapp/scoped_scene_activation.hpp
 	src/fruitapp/scoped_time_factor.cpp
-	src/fruitapp/scoped_time_factor.hpp
 	src/fruitapp/screen_shooter.cpp
-	src/fruitapp/screen_shooter.hpp
 	src/fruitapp/shadow_map.cpp
-	src/fruitapp/shadow_map.hpp
-	src/fruitapp/shadow_map_fwd.hpp
 	src/fruitapp/splatter_generator.cpp
-	src/fruitapp/splatter_generator.hpp
 	src/fruitapp/states/gameover/choose_name.cpp
-	src/fruitapp/states/gameover/choose_name.hpp
-	src/fruitapp/states/gameover/choose_name_fwd.hpp
 	src/fruitapp/states/gameover/ranking.cpp
-	src/fruitapp/states/gameover/ranking.hpp
-	src/fruitapp/states/gameover/ranking_fwd.hpp
 	src/fruitapp/states/gameover/superstate.cpp
-	src/fruitapp/states/gameover/superstate.hpp
-	src/fruitapp/states/gameover/superstate_fwd.hpp
 	src/fruitapp/states/ingame/paused.cpp
-	src/fruitapp/states/ingame/paused.hpp
-	src/fruitapp/states/ingame/paused_fwd.hpp
 	src/fruitapp/states/ingame/running.cpp
-	src/fruitapp/states/ingame/running.hpp
-	src/fruitapp/states/ingame/running_fwd.hpp
 	src/fruitapp/states/ingame/superstate.cpp
-	src/fruitapp/states/ingame/superstate.hpp
-	src/fruitapp/states/ingame/superstate_fwd.hpp
 	src/fruitapp/states/loading.cpp
-	src/fruitapp/states/loading.hpp
-	src/fruitapp/states/loading_fwd.hpp
 	src/fruitapp/states/menu/highscore.cpp
-	src/fruitapp/states/menu/highscore.hpp
-	src/fruitapp/states/menu/highscore_fwd.hpp
 	src/fruitapp/states/menu/main.cpp
-	src/fruitapp/states/menu/main.hpp
-	src/fruitapp/states/menu/main_fwd.hpp
 	src/fruitapp/states/menu/settings.cpp
-	src/fruitapp/states/menu/settings.hpp
-	src/fruitapp/states/menu/settings_fwd.hpp
 	src/fruitapp/states/menu/superstate.cpp
-	src/fruitapp/states/menu/superstate.hpp
-	src/fruitapp/states/menu/superstate_fwd.hpp
 	src/fruitapp/sword_trail.cpp
-	src/fruitapp/sword_trail.hpp
 )
 
 FCPPT_UTILS_ADD_SOURCE_GROUPS("${APP_FILES}")
@@ -725,7 +309,7 @@ TARGET_LINK_LIBRARIES(
 awl_utils_add_portable_executable(
 	fruitcut
 	"fruitapp::main"
-	${APP_FILES} src/media_path.cpp)
+	${APP_FILES})
 
 TARGET_LINK_LIBRARIES(
 	fruitcut
@@ -752,94 +336,38 @@ OPTION(ENABLE_SERVER "Build the server (beware: it's POSIX only!)" OFF)
 # this has to be defined here so update_cmake recognizes it
 SET(
 	SERVER_FILES
-	src/fruitserver/ascii/char.hpp
-	src/fruitserver/ascii/char_traits.hpp
 	src/fruitserver/ascii/from_ascii_char.cpp
 	src/fruitserver/ascii/from_byte_sequence.cpp
-	src/fruitserver/ascii/from_byte_sequence.hpp
 	src/fruitserver/ascii/from_native.cpp
-	src/fruitserver/ascii/from_native.hpp
-	src/fruitserver/ascii/from_native_char.hpp
 	src/fruitserver/ascii/is_digit.cpp
-	src/fruitserver/ascii/is_digit.hpp
 	src/fruitserver/ascii/is_letter.cpp
-	src/fruitserver/ascii/is_letter.hpp
-	src/fruitserver/ascii/string.hpp
 	src/fruitserver/ascii/to_byte_sequence.cpp
-	src/fruitserver/ascii/to_byte_sequence.hpp
 	src/fruitserver/ascii/to_native.cpp
-	src/fruitserver/ascii/to_native.hpp
 	src/fruitserver/ascii/to_native_char.cpp
-	src/fruitserver/ascii/to_native_char.hpp
 	src/fruitserver/ascii/to_native_translation.cpp
-	src/fruitserver/ascii/to_native_translation.hpp
-	src/fruitserver/byte_sequence.hpp
-	src/fruitserver/command.hpp
 	src/fruitserver/command_processor.cpp
-	src/fruitserver/command_processor.hpp
-	src/fruitserver/command_processor_fwd.hpp
 	src/fruitserver/controller.cpp
-	src/fruitserver/controller.hpp
 	src/fruitserver/current_datetime.cpp
-	src/fruitserver/current_datetime.hpp
-	src/fruitserver/format_output_size.hpp
 	src/fruitserver/generate_datetime.cpp
-	src/fruitserver/generate_datetime.hpp
 	src/fruitserver/highscore_entry.cpp
-	src/fruitserver/highscore_entry.hpp
 	src/fruitserver/highscore_from_plain_file.cpp
-	src/fruitserver/highscore_from_plain_file.hpp
-	src/fruitserver/highscore_sequence.hpp
 	src/fruitserver/highscore_to_json.cpp
-	src/fruitserver/highscore_to_json.hpp
 	src/fruitserver/highscore_to_plain_file.cpp
-	src/fruitserver/highscore_to_plain_file.hpp
-	src/fruitserver/lexical_cast.hpp
 	src/fruitserver/listener/base.cpp
-	src/fruitserver/listener/base.hpp
-	src/fruitserver/listener/base_fwd.hpp
-	src/fruitserver/listener/callbacks/connect.hpp
-	src/fruitserver/listener/callbacks/connect_fn.hpp
-	src/fruitserver/listener/callbacks/disconnect.hpp
-	src/fruitserver/listener/callbacks/disconnect_fn.hpp
-	src/fruitserver/listener/callbacks/receive_data.hpp
-	src/fruitserver/listener/callbacks/receive_data_fn.hpp
 	src/fruitserver/listener/posix_select.cpp
-	src/fruitserver/listener/posix_select.hpp
-	src/fruitserver/logger.hpp
 	src/fruitserver/output_tm.cpp
-	src/fruitserver/output_tm.hpp
 	src/fruitserver/parse_command.cpp
-	src/fruitserver/parse_command.hpp
-	src/fruitserver/path.hpp
-	src/fruitserver/program_options/command_line_parameters.hpp
 	src/fruitserver/program_options/detail/bad_cast.cpp
-	src/fruitserver/program_options/detail/bad_cast.hpp
-	src/fruitserver/program_options/detail/holder_get.hpp
 	src/fruitserver/program_options/detail/option_base.cpp
-	src/fruitserver/program_options/detail/option_base.hpp
-	src/fruitserver/program_options/detail/option_holder.hpp
 	src/fruitserver/program_options/detail/option_holder_base.cpp
-	src/fruitserver/program_options/detail/option_holder_base.hpp
-	src/fruitserver/program_options/detail/option_holder_base_fwd.hpp
-	src/fruitserver/program_options/detail/option_holder_base_ptr.hpp
 	src/fruitserver/program_options/detail/type_info.cpp
-	src/fruitserver/program_options/detail/type_info.hpp
 	src/fruitserver/program_options/help_was_needed.cpp
-	src/fruitserver/program_options/help_was_needed.hpp
 	src/fruitserver/program_options/make_command_line_parameters.cpp
-	src/fruitserver/program_options/make_command_line_parameters.hpp
 	src/fruitserver/program_options/object.cpp
-	src/fruitserver/program_options/object.hpp
-	src/fruitserver/program_options/option.hpp
 	src/fruitserver/program_options/option_sequence.cpp
-	src/fruitserver/program_options/option_sequence.hpp
-	src/fruitserver/score.hpp
 	src/fruitserver/separator.cpp
-	src/fruitserver/separator.hpp
 	src/fruitserver/server.cpp
 	src/fruitserver/std_error_string.cpp
-	src/fruitserver/std_error_string.hpp
 )
 
 IF(ENABLE_SERVER)

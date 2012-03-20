@@ -1,5 +1,5 @@
 #include <fcppt/random/generator/seed_from_chrono.hpp>
-#include "../media_path.hpp"
+#include <fruitlib/media_path.hpp>
 #include <fruitapp/light_source_from_json.hpp>
 #include <fruitapp/load_user_config.hpp>
 #include <fruitapp/machine_impl.hpp>
@@ -152,7 +152,7 @@ fruitapp::machine_impl::machine_impl(
 				sge::parse::json::parse_string_exn(
 					fruitlib::utf8_file_to_fcppt_string(
 						*charconv_system_,
-						fruitcut::media_path()/FCPPT_TEXT("config.json"))),
+						fruitlib::media_path()/FCPPT_TEXT("config.json"))),
 				user_config_file_),
 			fruitlib::create_command_line_parameters(
 				argc,
@@ -221,7 +221,7 @@ fruitapp::machine_impl::machine_impl(
 		systems_.font_system(),
 		systems_.renderer(),
 		systems_.image_system(),
-		fruitcut::media_path(),
+		fruitlib::media_path(),
 		sge::parse::json::find_and_convert_member<sge::parse::json::object>(
 			config_file_,
 			sge::parse::json::path(
@@ -240,7 +240,7 @@ fruitapp::machine_impl::machine_impl(
 				fruitlib::scenic::depth(
 					depths::root::dont_care))),
 		random_generator_,
-		fruitcut::media_path()/FCPPT_TEXT("sounds"),
+		fruitlib::media_path()/FCPPT_TEXT("sounds"),
 		systems_.audio_loader(),
 		systems_.audio_player(),
 		sge::audio::scalar(
@@ -270,7 +270,7 @@ fruitapp::machine_impl::machine_impl(
 			sge::parse::json::path(
 				FCPPT_TEXT("music"))
 				/ FCPPT_TEXT("crossfade-time")),
-		fruitcut::media_path()/FCPPT_TEXT("music"),
+		fruitlib::media_path()/FCPPT_TEXT("music"),
 		sge::parse::json::find_and_convert_member<sge::audio::scalar>(
 			config_file(),
 			sge::parse::json::path(
@@ -374,9 +374,9 @@ fruitapp::machine_impl::machine_impl(
 				/ FCPPT_TEXT("desired-fps"))),
 	gui_system_(
 		sge::cegui::load_context(
-			fruitcut::media_path()/FCPPT_TEXT("gui")/FCPPT_TEXT("fruitcut.scheme"))
+			fruitlib::media_path()/FCPPT_TEXT("gui")/FCPPT_TEXT("fruitcut.scheme"))
 			.font_directory(
-				fruitcut::media_path()/FCPPT_TEXT("fonts")),
+				fruitlib::media_path()/FCPPT_TEXT("fonts")),
 		systems_.renderer(),
 		systems_.image_system(),
 		systems_.charconv_system(),
@@ -393,7 +393,7 @@ fruitapp::machine_impl::machine_impl(
 				scene_node(),
 				fruitlib::scenic::depth(
 					depths::scene::splatter))),
-		fruitcut::media_path()/FCPPT_TEXT("point_sprites"),
+		fruitlib::media_path()/FCPPT_TEXT("point_sprites"),
 		random_generator_,
 		systems_.renderer(),
 		systems_.image_system(),

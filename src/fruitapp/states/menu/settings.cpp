@@ -1,4 +1,4 @@
-#include "../../../media_path.hpp"
+#include <fruitlib/media_path.hpp>
 #include <fruitapp/config_variables.hpp>
 #include <fruitapp/events/define_transition_reaction.hpp>
 #include <fruitapp/events/post_transition.hpp>
@@ -24,7 +24,7 @@ fruitapp::states::menu::settings::settings(
 		ctx),
 	layout_(
 		context<machine>().gui_system(),
-		fruitcut::media_path()
+		fruitlib::media_path()
 			/FCPPT_TEXT("gui")
 			/FCPPT_TEXT("layouts")
 			/FCPPT_TEXT("settings_menu.layout"),

@@ -1,4 +1,4 @@
-#include "../media_path.hpp"
+#include <fruitlib/media_path.hpp>
 #include <fruitapp/logo.hpp>
 #include <fruitlib/scenic/events/render.hpp>
 #include <fruitlib/scenic/events/viewport_change.hpp>
@@ -47,7 +47,7 @@ fruitapp::logo::logo(
 			.texture(
 				fcppt::make_shared_ptr<sge::texture::part_raw>(
 					sge::renderer::texture::create_planar_from_path(
-						fruitcut::media_path()
+						fruitlib::media_path()
 							/ FCPPT_TEXT("textures")
 							/
 								sge::parse::json::find_and_convert_member<fcppt::string>(
