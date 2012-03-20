@@ -202,7 +202,8 @@ SET(
 	src/fruitlib/json/parse_color.hpp
 	src/fruitlib/json/parse_projection.cpp
 	src/fruitlib/json/parse_projection.hpp
-	src/fruitlib/json/parse_random_inclusive_range.hpp
+	src/fruitlib/json/parse_random_float_distribution.hpp
+	src/fruitlib/json/parse_random_int_distribution.hpp
 	src/fruitlib/json/parse_rgba8_color.cpp
 	src/fruitlib/json/parse_rgba8_color.hpp
 	src/fruitlib/log/scoped.cpp

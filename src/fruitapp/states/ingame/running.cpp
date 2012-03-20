@@ -194,6 +194,7 @@ fruitapp::states::ingame::running::react(
 
 	if(context<superstate>().game_logic().finished())
 	{
+		std::cout << "We're done.\n";
 		context<machine>().last_game_score(
 			context<superstate>().game_logic().score());
 		FRUITAPP_EVENTS_POST_TRANSITION(

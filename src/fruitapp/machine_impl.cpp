@@ -183,7 +183,7 @@ fruitapp::machine_impl::machine_impl(
 					sge::systems::input_helper::keyboard_collector)
 					| sge::systems::input_helper::mouse_collector
 					| sge::systems::input_helper::cursor_demuxer,
-					sge::systems::cursor_option_field()))
+					sge::systems::cursor_option_field::null()))
 			(sge::systems::audio_player_default())
 			(sge::systems::charconv(
 				*charconv_system_))
