@@ -1,4 +1,3 @@
-#include <fcppt/config/external_begin.hpp>
 #include <sys/select.h>
 #include <sys/socket.h>
 #include <sys/types.h>
@@ -15,7 +14,6 @@
 #include <ostream>
 #include <stdexcept>
 #include <unistd.h>
-#include <fcppt/config/external_end.hpp>
 
 
 fruitserver::listener::posix_select::posix_select(

@@ -16,9 +16,9 @@
 #include <sge/audio/sound/base_ptr.hpp>
 #include <sge/audio/sound/positional_parameters.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/shared_ptr.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/unique_ptr.hpp>
-#include <fcppt/shared_ptr.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
 #include <boost/mpl/vector/vector10.hpp>

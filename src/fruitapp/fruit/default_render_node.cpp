@@ -12,7 +12,6 @@
 #include <sge/renderer/scalar.hpp>
 #include <sge/renderer/scoped_vertex_buffer.hpp>
 #include <sge/renderer/size_type.hpp>
-#include <sge/renderer/texture/stage.hpp>
 #include <sge/renderer/vector4.hpp>
 #include <sge/renderer/vertex_buffer.hpp>
 #include <sge/renderer/vertex_count.hpp>
@@ -24,6 +23,7 @@
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/planar_ptr.hpp>
 #include <sge/renderer/texture/scoped.hpp>
+#include <sge/renderer/texture/stage.hpp>
 #include <sge/renderer/texture/filter/scoped.hpp>
 #include <sge/renderer/texture/filter/trilinear.hpp>
 #include <sge/shader/activation_method.hpp>

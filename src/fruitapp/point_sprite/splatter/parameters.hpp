@@ -2,8 +2,8 @@
 #define FRUITAPP_POINT_SPRITE_SPLATTER_PARAMETERS_HPP_INCLUDED
 
 #include <fruitapp/ingame_clock.hpp>
-#include <fruitapp/point_sprite/connection.hpp>
 #include <fruitapp/point_sprite/color.hpp>
+#include <fruitapp/point_sprite/connection.hpp>
 #include <fruitapp/point_sprite/splatter/acceleration.hpp>
 #include <fruitapp/point_sprite/splatter/linear_velocity.hpp>
 #include <fruitapp/point_sprite/splatter/position.hpp>

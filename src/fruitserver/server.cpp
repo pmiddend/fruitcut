@@ -1,4 +1,3 @@
-#include <fcppt/config/external_begin.hpp>
 #include <tr1/memory>
 #include <fruitserver/command_processor.hpp>
 #include <fruitserver/controller.hpp>
@@ -15,7 +14,6 @@
 #include <ostream>
 #include <stdexcept>
 #include <string>
-#include <fcppt/config/external_end.hpp>
 
 
 int

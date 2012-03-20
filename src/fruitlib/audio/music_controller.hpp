@@ -23,8 +23,8 @@
 #include <sge/timer/clocks/delta.hpp>
 #include <sge/timer/clocks/standard.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/string.hpp>
 #include <fcppt/shared_ptr.hpp>
+#include <fcppt/string.hpp>
 #include <fcppt/unique_ptr.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>

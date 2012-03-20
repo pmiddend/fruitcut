@@ -2,8 +2,8 @@
 #include <fruitapp/name.hpp>
 #include <sge/config/config_path.hpp>
 #include <sge/parse/json/object_fwd.hpp>
-#include <sge/parse/json/output/tabbed_to_string.hpp>
 #include <sge/parse/json/path.hpp>
+#include <sge/parse/json/output/tabbed_to_string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/io/cerr.hpp>

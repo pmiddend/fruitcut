@@ -1,4 +1,3 @@
-#include <fcppt/config/external_begin.hpp>
 #include <tr1/functional>
 #include <fruitserver/command_processor.hpp>
 #include <fruitserver/controller.hpp>
@@ -16,7 +15,6 @@
 #include <algorithm>
 #include <iterator>
 #include <stdexcept>
-#include <fcppt/config/external_end.hpp>
 
 
 fruitserver::controller::controller(

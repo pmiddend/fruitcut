@@ -1,9 +1,7 @@
-#include <fcppt/config/external_begin.hpp>
 #include <fruitserver/generate_datetime.hpp>
 #include <ctime>
 #include <iomanip>
 #include <sstream>
-#include <fcppt/config/external_end.hpp>
 
 
 std::string const

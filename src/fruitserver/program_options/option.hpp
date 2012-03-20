@@ -1,12 +1,10 @@
 #ifndef FRUITSERVER_PROGRAM_OPTIONS_OPTION_HPP_INCLUDED
 #define FRUITSERVER_PROGRAM_OPTIONS_OPTION_HPP_INCLUDED
 
-#include <fcppt/config/external_begin.hpp>
 #include <fruitserver/program_options/detail/option_base.hpp>
 #include <fruitserver/program_options/detail/option_holder.hpp>
 #include <fruitserver/program_options/detail/option_holder_base_ptr.hpp>
 #include <string>
-#include <fcppt/config/external_end.hpp>
 
 
 namespace fruitserver

@@ -1,7 +1,6 @@
 #ifndef FRUITSERVER_LISTENER_POSIX_SELECT_HPP_INCLUDED
 #define FRUITSERVER_LISTENER_POSIX_SELECT_HPP_INCLUDED
 
-#include <fcppt/config/external_begin.hpp>
 #include <sys/select.h>
 #include <fruitserver/byte_sequence.hpp>
 #include <fruitserver/listener/base.hpp>
@@ -11,7 +10,6 @@
 #include <iosfwd>
 #include <map>
 #include <string>
-#include <fcppt/config/external_end.hpp>
 
 
 namespace fruitserver

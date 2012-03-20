@@ -2,10 +2,10 @@
 #define FRUITLIB_RESOURCE_TREE_FROM_DIRECTORY_TREE_HPP_INCLUDED
 
 #include <fruitlib/resource_tree/make_type.hpp>
+#include <fcppt/cref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/move.hpp>
 #include <fcppt/string.hpp>
-#include <fcppt/cref.hpp>
 #include <fcppt/unique_ptr.hpp>
 #include <fcppt/filesystem/stem.hpp>
 #include <fcppt/function/object.hpp>

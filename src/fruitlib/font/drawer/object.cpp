@@ -2,8 +2,8 @@
 #include <fruitlib/font/drawer/parameters.hpp>
 #include <sge/image2d/dim.hpp>
 #include <sge/image2d/view/size.hpp>
-#include <sge/renderer/caps/object.hpp>
 #include <sge/renderer/device.hpp>
+#include <sge/renderer/caps/object.hpp>
 #include <sge/renderer/texture/mipmap/off.hpp>
 #include <sge/sprite/object_impl.hpp>
 #include <sge/sprite/parameters_impl.hpp>

@@ -3,9 +3,9 @@
 #include <fruitlib/audio/group/sound_base.hpp>
 #include <fruitlib/audio/group/sound_positional.hpp>
 #include <sge/audio/sound/positional_parameters.hpp>
+#include <fcppt/cref.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/ref.hpp>
-#include <fcppt/cref.hpp>
 #include <fcppt/algorithm/ptr_container_erase.hpp>
 #include <fcppt/assert/error.hpp>
 #include <fcppt/config/external_begin.hpp>

@@ -4,8 +4,8 @@
 #include <fruitlib/scenic/events/render.hpp>
 #include <fruitlib/scenic/events/viewport_change.hpp>
 #include <sge/camera/first_person/object.hpp>
-#include <sge/camera/projection/perspective.hpp>
 #include <sge/camera/projection/invalid.hpp>
+#include <sge/camera/projection/perspective.hpp>
 #include <sge/image2d/system_fwd.hpp>
 #include <sge/parse/json/find_and_convert_member.hpp>
 #include <sge/parse/json/object_fwd.hpp>
@@ -65,8 +65,8 @@
 #include <fcppt/math/box/object_impl.hpp>
 #include <fcppt/math/matrix/object_impl.hpp>
 #include <fcppt/math/vector/object_impl.hpp>
-#include <fcppt/variant/holds_type.hpp>
 #include <fcppt/tr1/functional.hpp>
+#include <fcppt/variant/holds_type.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <iostream>

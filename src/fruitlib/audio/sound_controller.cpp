@@ -7,9 +7,9 @@
 #include <sge/audio/buffer_ptr.hpp>
 #include <sge/audio/loader.hpp>
 #include <sge/audio/player.hpp>
+#include <sge/audio/sound/nonpositional_parameters.hpp>
 #include <sge/audio/sound/positional.hpp>
 #include <sge/audio/sound/repeat.hpp>
-#include <sge/audio/sound/nonpositional_parameters.hpp>
 #include <fcppt/ref.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>

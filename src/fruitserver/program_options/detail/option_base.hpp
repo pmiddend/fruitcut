@@ -1,7 +1,6 @@
 #ifndef FRUITSERVER_PROGRAM_OPTIONS_DETAIL_OPTION_BASE_HPP_INCLUDED
 #define FRUITSERVER_PROGRAM_OPTIONS_DETAIL_OPTION_BASE_HPP_INCLUDED
 
-#include <fcppt/config/external_begin.hpp>
 #include <fruitserver/program_options/detail/bad_cast.hpp>
 #include <fruitserver/program_options/detail/option_holder.hpp>
 #include <fruitserver/program_options/detail/option_holder_base.hpp>
@@ -9,7 +8,6 @@
 #include <stdexcept>
 #include <string>
 #include <typeinfo>
-#include <fcppt/config/external_end.hpp>
 
 
 namespace fruitserver

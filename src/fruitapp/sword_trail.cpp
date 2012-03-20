@@ -37,8 +37,8 @@
 #include <fcppt/text.hpp>
 #include <fcppt/math/dim/object_impl.hpp>
 #include <fcppt/math/vector/atan2.hpp>
-#include <fcppt/math/vector/object_impl.hpp>
 #include <fcppt/math/vector/length.hpp>
+#include <fcppt/math/vector/object_impl.hpp>
 #include <fcppt/math/vector/structure_cast.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/config/external_begin.hpp>

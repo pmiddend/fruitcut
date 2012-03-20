@@ -8,8 +8,8 @@
 #include <sge/audio/player.hpp>
 #include <sge/audio/scalar.hpp>
 #include <sge/audio/sound/base.hpp>
-#include <sge/audio/sound/repeat.hpp>
 #include <sge/audio/sound/nonpositional_parameters.hpp>
+#include <sge/audio/sound/repeat.hpp>
 #include <sge/timer/elapsed_fractional.hpp>
 #include <sge/timer/parameters.hpp>
 #include <sge/timer/remaining_fractional.hpp>

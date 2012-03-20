@@ -1,4 +1,3 @@
-#include <fcppt/ref.hpp>
 #include <fruitapp/gui/table/column.hpp>
 #include <fruitapp/gui/table/row.hpp>
 #include <fruitapp/gui/table/row_index.hpp>
@@ -9,10 +8,11 @@
 #include <fcppt/insert_to_fcppt_string.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/move.hpp>
+#include <fcppt/ref.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/assign/make_container.hpp>
 #include <fcppt/assert/pre.hpp>
+#include <fcppt/assign/make_container.hpp>
 #include <fcppt/container/ptr/push_back_unique_ptr.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/shared_connection.hpp>

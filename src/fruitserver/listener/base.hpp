@@ -1,13 +1,11 @@
 #ifndef FRUITSERVER_LISTENER_BASE_HPP_INCLUDED
 #define FRUITSERVER_LISTENER_BASE_HPP_INCLUDED
 
-#include <fcppt/config/external_begin.hpp>
 #include <fruitserver/byte_sequence.hpp>
 #include <fruitserver/listener/callbacks/connect.hpp>
 #include <fruitserver/listener/callbacks/disconnect.hpp>
 #include <fruitserver/listener/callbacks/receive_data.hpp>
 #include <string>
-#include <fcppt/config/external_end.hpp>
 
 
 namespace fruitserver

@@ -1,10 +1,8 @@
-#include <fcppt/config/external_begin.hpp>
 #include <fruitserver/output_tm.hpp>
 #include <ctime>
 #include <iterator>
 #include <locale>
 #include <ostream>
-#include <fcppt/config/external_end.hpp>
 
 
 std::ostream &

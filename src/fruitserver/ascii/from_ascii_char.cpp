@@ -1,9 +1,7 @@
-#include <fcppt/config/external_begin.hpp>
 #include <fruitserver/ascii/from_native_char.hpp>
 #include <fruitserver/ascii/to_native_translation.hpp>
 #include <stdexcept>
 #include <string>
-#include <fcppt/config/external_end.hpp>
 
 
 fruitserver::ascii::char_ const

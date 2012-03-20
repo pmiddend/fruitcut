@@ -1,6 +1,4 @@
-#include <fcppt/config/external_begin.hpp>
 #include <fruitserver/program_options/help_was_needed.hpp>
-#include <fcppt/config/external_end.hpp>
 
 
 fruitserver::program_options::help_was_needed::help_was_needed(

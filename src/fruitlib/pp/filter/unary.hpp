@@ -1,9 +1,9 @@
 #ifndef FRUITLIB_PP_FILTER_UNARY_HPP_INCLUDED
 #define FRUITLIB_PP_FILTER_UNARY_HPP_INCLUDED
 
-#include <fcppt/noncopyable.hpp>
 #include <fruitlib/pp/filter/base.hpp>
 #include <fruitlib/pp/texture/counted_instance.hpp>
+#include <fcppt/noncopyable.hpp>
 
 
 namespace fruitlib

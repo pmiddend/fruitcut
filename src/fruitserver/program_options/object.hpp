@@ -1,7 +1,6 @@
 #ifndef FRUITSERVER_PROGRAM_OPTIONS_OBJECT_HPP_INCLUDED
 #define FRUITSERVER_PROGRAM_OPTIONS_OBJECT_HPP_INCLUDED
 
-#include <fcppt/config/external_begin.hpp>
 #include <tr1/unordered_map>
 #include <fruitserver/program_options/command_line_parameters.hpp>
 #include <fruitserver/program_options/option_sequence.hpp>
@@ -11,7 +10,6 @@
 #include <ostream>
 #include <stdexcept>
 #include <string>
-#include <fcppt/config/external_end.hpp>
 
 
 namespace fruitserver

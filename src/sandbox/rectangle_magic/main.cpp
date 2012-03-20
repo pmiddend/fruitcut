@@ -1,8 +1,3 @@
-#include <fcppt/random/variate.hpp>
-#include <fcppt/random/generator/seed_from_chrono.hpp>
-#include <fcppt/random/distribution/uniform_int.hpp>
-#include <fcppt/random/distribution/uniform_real.hpp>
-#include <fcppt/random/generator/seed_from_chrono.hpp>
 #include <fruitlib/rectangle_manager/object.hpp>
 #include <fruitlib/rectangle_manager/padding.hpp>
 #include <fruitlib/rectangle_manager/rectangle_instance.hpp>
@@ -72,9 +67,11 @@
 #include <fcppt/container/ptr/insert_unique_ptr.hpp>
 #include <fcppt/container/ptr/push_front_unique_ptr.hpp>
 #include <fcppt/io/cerr.hpp>
-#include <fcppt/random/generator/minstd_rand.hpp>
+#include <fcppt/random/variate.hpp>
 #include <fcppt/random/distribution/uniform_int.hpp>
 #include <fcppt/random/distribution/uniform_real.hpp>
+#include <fcppt/random/generator/minstd_rand.hpp>
+#include <fcppt/random/generator/seed_from_chrono.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/next_prior.hpp>

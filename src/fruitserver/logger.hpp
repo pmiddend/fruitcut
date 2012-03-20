@@ -1,11 +1,9 @@
 #ifndef FRUITSERVER_LOGGER_HPP_INCLUDED
 #define FRUITSERVER_LOGGER_HPP_INCLUDED
 
-#include <fcppt/config/external_begin.hpp>
 #include <fruitserver/current_datetime.hpp>
 #include <ostream>
 #include <sstream>
-#include <fcppt/config/external_end.hpp>
 
 
 namespace fruitserver

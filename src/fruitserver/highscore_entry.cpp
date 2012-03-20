@@ -1,7 +1,5 @@
-#include <fcppt/config/external_begin.hpp>
 #include <fruitserver/highscore_entry.hpp>
 #include <string>
-#include <fcppt/config/external_end.hpp>
 
 
 fruitserver::highscore_entry::highscore_entry()

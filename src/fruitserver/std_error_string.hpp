@@ -1,9 +1,7 @@
 #ifndef FRUITSERVER_STD_ERROR_STRING_HPP_INCLUDED
 #define FRUITSERVER_STD_ERROR_STRING_HPP_INCLUDED
 
-#include <fcppt/config/external_begin.hpp>
 #include <string>
-#include <fcppt/config/external_end.hpp>
 
 
 namespace fruitserver

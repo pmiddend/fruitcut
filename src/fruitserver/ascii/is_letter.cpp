@@ -1,6 +1,4 @@
-#include <fcppt/config/external_begin.hpp>
 #include <fruitserver/ascii/is_letter.hpp>
-#include <fcppt/config/external_end.hpp>
 
 
 bool

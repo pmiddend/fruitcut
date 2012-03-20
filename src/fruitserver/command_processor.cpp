@@ -1,4 +1,3 @@
-#include <fcppt/config/external_begin.hpp>
 #include <fruitserver/command_processor.hpp>
 #include <fruitserver/generate_datetime.hpp>
 #include <fruitserver/highscore_from_plain_file.hpp>
@@ -15,7 +14,6 @@
 #include <algorithm>
 #include <stdexcept>
 #include <string>
-#include <fcppt/config/external_end.hpp>
 
 
 namespace

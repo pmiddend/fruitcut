@@ -1,4 +1,3 @@
-#include <fcppt/config/external_begin.hpp>
 #include <fruitserver/highscore_from_plain_file.hpp>
 #include <fruitserver/lexical_cast.hpp>
 #include <fruitserver/separator.hpp>
@@ -8,7 +7,6 @@
 #include <fstream>
 #include <stdexcept>
 #include <string>
-#include <fcppt/config/external_end.hpp>
 
 
 namespace

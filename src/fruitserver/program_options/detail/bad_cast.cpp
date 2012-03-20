@@ -1,6 +1,4 @@
-#include <fcppt/config/external_begin.hpp>
 #include <fruitserver/program_options/detail/bad_cast.hpp>
-#include <fcppt/config/external_end.hpp>
 
 
 fruitserver::program_options::detail::bad_cast::bad_cast(

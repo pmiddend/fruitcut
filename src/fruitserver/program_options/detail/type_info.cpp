@@ -1,6 +1,4 @@
-#include <fcppt/config/external_begin.hpp>
 #include <fruitserver/program_options/detail/type_info.hpp>
-#include <fcppt/config/external_end.hpp>
 
 
 fruitserver::program_options::detail::type_info::type_info(

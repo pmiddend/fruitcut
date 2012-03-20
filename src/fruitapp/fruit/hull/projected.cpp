@@ -12,8 +12,8 @@
 #include <sge/renderer/vector4.hpp>
 #include <sge/renderer/viewport.hpp>
 #include <fcppt/container/array.hpp>
-#include <fcppt/math/box/object_impl.hpp>
 #include <fcppt/math/box/corner_points.hpp>
+#include <fcppt/math/box/object_impl.hpp>
 #include <fcppt/math/box/output.hpp>
 #include <fcppt/math/dim/output.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
@@ -21,9 +21,9 @@
 #include <fcppt/math/matrix/output.hpp>
 #include <fcppt/math/matrix/vector.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
-#include <fcppt/math/vector/object_impl.hpp>
 #include <fcppt/math/vector/construct.hpp>
 #include <fcppt/math/vector/narrow_cast.hpp>
+#include <fcppt/math/vector/object_impl.hpp>
 #include <fcppt/math/vector/output.hpp>
 #include <fcppt/math/vector/structure_cast.hpp>
 #include <fcppt/config/external_begin.hpp>
