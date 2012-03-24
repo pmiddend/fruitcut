@@ -5,12 +5,12 @@
 #include <fruitlib/rectangle_manager/padding.hpp>
 #include <fruitlib/rectangle_manager/rectangle_instance_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/chrono/duration_fwd.hpp>
 #include <fcppt/math/box/object_impl.hpp>
 #include <fcppt/math/box/rect.hpp>
 #include <fcppt/math/dim/object_impl.hpp>
 #include <fcppt/math/vector/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <boost/chrono/duration.hpp>
 #include <boost/ptr_container/ptr_list.hpp>
 #include <fcppt/config/external_end.hpp>
 
@@ -50,7 +50,7 @@ public:
 	instance;
 
 	typedef
-	fcppt::chrono::duration<value_type>
+	boost::chrono::duration<value_type>
 	duration;
 
 	explicit

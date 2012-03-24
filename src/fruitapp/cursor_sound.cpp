@@ -11,11 +11,13 @@
 #include <sge/renderer/pixel_rect.hpp>
 #include <sge/timer/basic.hpp>
 #include <sge/timer/reset_when_expired.hpp>
-#include <fcppt/chrono/milliseconds.hpp>
 #include <fcppt/math/box/object_impl.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
 #include <fcppt/math/vector/length.hpp>
 #include <fcppt/math/vector/structure_cast.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/chrono/duration.hpp>
+#include <fcppt/config/external_end.hpp>
 
 
 fruitapp::cursor_sound::cursor_sound(
@@ -32,11 +34,11 @@ fruitapp::cursor_sound::cursor_sound(
 	update_timer_(
 		fruitapp::ingame_timer::parameters(
 			_clock,
-			fcppt::chrono::milliseconds(40))),
+			boost::chrono::milliseconds(40))),
 	cooldown_timer_(
 		fruitapp::ingame_timer::parameters(
 			_clock,
-			fcppt::chrono::milliseconds(500))),
+			boost::chrono::milliseconds(500))),
 	renderer_(
 		_renderer),
 	sound_controller_(

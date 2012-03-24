@@ -94,15 +94,10 @@
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assign/make_container.hpp>
-#include <fcppt/chrono/duration_cast.hpp>
-#include <fcppt/chrono/duration_impl.hpp>
-#include <fcppt/chrono/high_resolution_clock.hpp>
-#include <fcppt/chrono/milliseconds.hpp>
-#include <fcppt/chrono/seconds.hpp>
-#include <fcppt/chrono/time_point.hpp>
 #include <fcppt/container/bitfield/object_impl.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <boost/chrono/duration.hpp>
 #include <boost/spirit/home/phoenix/core.hpp>
 #include <fcppt/config/external_end.hpp>
 
@@ -228,7 +223,7 @@ fruitapp::machine_impl::machine_impl(
 				FCPPT_TEXT("fonts")))),
 	second_timer_(
 		sge::timer::parameters<sge::timer::clocks::standard>(
-			fcppt::chrono::seconds(
+			boost::chrono::seconds(
 				1))),
 	ingame_clock_(),
 	ingame_clock_delta_(),
@@ -467,7 +462,7 @@ fruitapp::machine_impl::run_once()
 			static_cast<fruitapp::ingame_clock::duration::rep>(
 				ingame_clock_.factor() *
 				static_cast<fruitapp::ingame_clock::float_type>(
-					fcppt::chrono::duration_cast<fruitapp::ingame_clock::duration>(
+					boost::chrono::duration_cast<fruitapp::ingame_clock::duration>(
 						standard_clock_delta_).count())));
 
 	ingame_clock_.update();

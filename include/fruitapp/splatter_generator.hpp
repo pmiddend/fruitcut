@@ -16,7 +16,9 @@
 #include <sge/parse/json/config/user_config_variable.hpp>
 #include <sge/renderer/scalar.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/chrono/milliseconds.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/chrono/duration.hpp>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace fruitapp
@@ -62,7 +64,7 @@ private:
 	alpha_rng;
 
 	typedef
-	fruitlib::uniform_int_random<fcppt::chrono::milliseconds::rep>::type
+	fruitlib::uniform_int_random<boost::chrono::milliseconds::rep>::type
 	lifetime_millis_rng;
 
 	point_sprite::system_node &point_sprites_;

@@ -27,10 +27,9 @@
 #include <mizuiro/color/channel/alpha.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/chrono/duration_cast.hpp>
-#include <fcppt/chrono/milliseconds.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <boost/chrono/duration.hpp>
 #include <limits>
 #include <fcppt/config/external_end.hpp>
 
@@ -90,7 +89,7 @@ fruitapp::splatter_generator::splatter_generator(
 					std::numeric_limits<point_sprite::color_format::channel_type>::max()/2)))),
 	lifetime_millis_rng_(
 		random_generator_,
-		fruitlib::json::parse_random_int_distribution<fcppt::chrono::milliseconds::rep>(
+		fruitlib::json::parse_random_int_distribution<boost::chrono::milliseconds::rep>(
 			sge::parse::json::find_and_convert_member<sge::parse::json::array>(
 				config_file,
 				sge::parse::json::path(FCPPT_TEXT("splatter-generator"))
@@ -184,8 +183,8 @@ fruitapp::splatter_generator::fruit_was_cut(
 						point_sprites_.lookup_texture(
 							fruitlib::resource_tree::path(
 								FCPPT_TEXT("spray"))),
-						fcppt::chrono::duration_cast<fruitapp::ingame_clock::duration>(
-							fcppt::chrono::milliseconds(
+						boost::chrono::duration_cast<fruitapp::ingame_clock::duration>(
+							boost::chrono::milliseconds(
 								lifetime_millis_rng_())),
 						clock_))));
 	}

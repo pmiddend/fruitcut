@@ -6,7 +6,6 @@
 #include <fruitlib/physics/world_fwd.hpp>
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/vertex_declaration_fwd.hpp>
-#include <fcppt/chrono/duration.hpp>
 
 
 fruitapp::fruit::object_parameters const

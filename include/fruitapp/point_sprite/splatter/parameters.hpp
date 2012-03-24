@@ -10,7 +10,6 @@
 #include <fruitapp/point_sprite/splatter/size.hpp>
 #include <sge/texture/part_ptr.hpp>
 #include <fcppt/nonassignable.hpp>
-#include <fcppt/chrono/duration.hpp>
 
 
 namespace fruitapp

@@ -3,10 +3,10 @@
 
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/optional.hpp>
-#include <fcppt/chrono/duration.hpp>
-#include <fcppt/chrono/high_resolution_clock.hpp>
-#include <fcppt/chrono/time_point.hpp>
 #include <fcppt/function/object.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/chrono/system_clocks.hpp>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace fruitlib
@@ -17,7 +17,7 @@ FCPPT_NONCOPYABLE(
 	performance_timer);
 public:
 	typedef
-	fcppt::chrono::high_resolution_clock
+	boost::chrono::high_resolution_clock
 	clock;
 
 	typedef

@@ -3,7 +3,9 @@
 #include <sge/timer/elapsed.hpp>
 #include <sge/timer/elapsed_and_reset.hpp>
 #include <sge/timer/parameters.hpp>
-#include <fcppt/chrono/seconds.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/chrono/duration.hpp>
+#include <fcppt/config/external_end.hpp>
 
 
 fruitlib::physics::nodes::world::world(
@@ -18,7 +20,7 @@ fruitlib::physics::nodes::world::world(
 	timer_(
 		scenic::delta::timer::parameters(
 			clock_,
-			fcppt::chrono::seconds(1))),
+			boost::chrono::seconds(1))),
 	world_(
 		_world)
 {

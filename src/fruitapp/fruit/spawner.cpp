@@ -17,7 +17,6 @@
 #include <sge/renderer/scalar.hpp>
 #include <sge/renderer/vector4.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/chrono/duration.hpp>
 #include <fcppt/math/pi.hpp>
 #include <fcppt/math/rad_to_deg.hpp>
 #include <fcppt/math/box/object_impl.hpp>
@@ -27,8 +26,8 @@
 #include <fcppt/math/vector/output.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <boost/chrono/duration.hpp>
 #include <cmath>
-#include <iostream>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -231,6 +230,6 @@ fruitapp::fruit::spawner::reset_timer()
 		timer_.active(
 			true);
 	timer_.interval(
-		fcppt::chrono::duration<fruitapp::ingame_clock::float_type>(
+		boost::chrono::duration<fruitapp::ingame_clock::float_type>(
 			seconds_rng_()));
 }

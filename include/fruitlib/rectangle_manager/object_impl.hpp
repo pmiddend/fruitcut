@@ -6,7 +6,6 @@
 #include <fcppt/exception.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/algorithm/ptr_container_erase.hpp>
-#include <fcppt/chrono/duration.hpp>
 #include <fcppt/math/vector/length.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/next_prior.hpp>

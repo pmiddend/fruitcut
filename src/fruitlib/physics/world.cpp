@@ -6,7 +6,6 @@
 #include <fruitlib/physics/rigid_body/object.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/error.hpp>
-#include <fcppt/chrono/duration_impl.hpp>
 #include <fcppt/math/box/object_impl.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
 #include <fcppt/math/vector/dim.hpp>

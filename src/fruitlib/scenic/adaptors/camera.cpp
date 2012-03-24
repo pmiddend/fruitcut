@@ -4,7 +4,9 @@
 #include <sge/camera/first_person/object.hpp>
 #include <sge/timer/elapsed_and_reset.hpp>
 #include <sge/timer/parameters.hpp>
-#include <fcppt/chrono/seconds.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/chrono/duration.hpp>
+#include <fcppt/config/external_end.hpp>
 
 
 fruitlib::scenic::adaptors::camera::camera(
@@ -19,7 +21,7 @@ fruitlib::scenic::adaptors::camera::camera(
 	timer_(
 		scenic::delta::timer::parameters(
 			clock_,
-			fcppt::chrono::seconds(1))),
+			boost::chrono::seconds(1))),
 	camera_(
 		_camera)
 {

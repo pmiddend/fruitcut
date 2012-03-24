@@ -5,8 +5,9 @@
 #include <sge/cegui/system.hpp>
 #include <sge/timer/elapsed_and_reset.hpp>
 #include <sge/timer/parameters.hpp>
-#include <fcppt/chrono/duration_cast.hpp>
-#include <fcppt/chrono/seconds.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/chrono/duration.hpp>
+#include <fcppt/config/external_end.hpp>
 
 
 fruitlib::scenic::adaptors::gui_system::gui_system(
@@ -21,7 +22,7 @@ fruitlib::scenic::adaptors::gui_system::gui_system(
 	timer_(
 		scenic::delta::timer::parameters(
 			clock_,
-			fcppt::chrono::seconds(1))),
+			boost::chrono::seconds(1))),
 	system_(
 		_system)
 {

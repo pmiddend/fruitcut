@@ -60,9 +60,6 @@
 #include <fcppt/ref.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr.hpp>
-#include <fcppt/chrono/duration.hpp>
-#include <fcppt/chrono/high_resolution_clock.hpp>
-#include <fcppt/chrono/seconds.hpp>
 #include <fcppt/container/bitfield/object_impl.hpp>
 #include <fcppt/container/ptr/insert_unique_ptr.hpp>
 #include <fcppt/container/ptr/push_front_unique_ptr.hpp>
@@ -75,6 +72,7 @@
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/next_prior.hpp>
+#include <boost/chrono/duration.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <cmath>
 #include <exception>
@@ -226,7 +224,7 @@ public:
 	:
 		frame_timer_(
 			sge::timer::parameters<sge::timer::clocks::standard>(
-				fcppt::chrono::seconds(
+				boost::chrono::seconds(
 					1))),
 		sprite_buffers_(
 			_renderer,
@@ -282,7 +280,7 @@ public:
 						100.0f)))),
 		update_timer_(
 			sge::timer::parameters<sge::timer::clocks::standard>(
-				fcppt::chrono::duration<float_type>(
+				boost::chrono::duration<float_type>(
 					update_rng_())))
 	{
 	}

@@ -6,9 +6,10 @@ INCLUDE(FcpptCMakeUtils)
 INCLUDE(AwlMainGenerator)
 
 FIND_PACKAGE(
-	Boost 1.45.0 REQUIRED COMPONENTS
-	system
-	date_time)
+	Boost 1.47.0 REQUIRED COMPONENTS
+	chrono
+	date_time
+	system)
 
 IF(
 	MSVC AND ${Boost_VERSION} STREQUAL "104800"

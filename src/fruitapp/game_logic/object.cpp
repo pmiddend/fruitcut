@@ -53,6 +53,7 @@
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/cstdint.hpp>
+#include <boost/chrono/duration.hpp>
 #include <iostream>
 #include <fcppt/config/external_end.hpp>
 
@@ -215,7 +216,7 @@ fruitapp::game_logic::object::object(
 	fruitlib::scenic::events::viewport_change event;
 
 	std::cout << "Hello!\n";
-	std::cout << "Remaining: " << sge::timer::remaining<fcppt::chrono::seconds>(round_timer_).count() << "\n";
+	std::cout << "Remaining: " << sge::timer::remaining<boost::chrono::seconds>(round_timer_).count() << "\n";
 
 	this->react(
 		event);

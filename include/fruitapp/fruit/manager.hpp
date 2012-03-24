@@ -26,7 +26,6 @@
 #include <sge/renderer/vertex_declaration_ptr.hpp>
 #include <sge/shader/object.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/chrono/duration.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/object.hpp>
 #include <fcppt/config/external_begin.hpp>

@@ -1,7 +1,6 @@
 #include <fruitlib/performance_timer.hpp>
-#include <fcppt/chrono/duration_cast.hpp>
-#include <fcppt/chrono/milliseconds.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <boost/chrono/duration.hpp>
 #include <iostream>
 #include <fcppt/config/external_end.hpp>
 
@@ -24,8 +23,8 @@ fruitlib::performance_timer::~performance_timer()
 	clock::duration const diff =
 		clock::now() - beginning_;
 
-	fcppt::chrono::milliseconds::rep const ms =
-		fcppt::chrono::duration_cast<fcppt::chrono::milliseconds>(
+	boost::chrono::milliseconds::rep const ms =
+		boost::chrono::duration_cast<boost::chrono::milliseconds>(
 			diff).count();
 
 	if(!threshold_ || diff > (*threshold_))

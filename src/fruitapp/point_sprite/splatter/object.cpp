@@ -4,8 +4,10 @@
 #include <sge/sprite/intrusive/connection.hpp>
 #include <sge/timer/elapsed_fractional_and_reset.hpp>
 #include <sge/timer/parameters.hpp>
-#include <fcppt/chrono/seconds.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/chrono/duration.hpp>
+#include <fcppt/config/external_end.hpp>
 
 
 fruitapp::point_sprite::splatter::object::object(
@@ -39,7 +41,7 @@ fruitapp::point_sprite::splatter::object::object(
 	second_timer_(
 		fruitapp::ingame_timer::parameters(
 			p.clock(),
-			fcppt::chrono::seconds(
+			boost::chrono::seconds(
 				1)))
 {
 

@@ -2,17 +2,9 @@
 #define FRUITLIB_TIME_FORMAT_STRING_TO_DURATION_HPP_INCLUDED
 
 #include <fcppt/optional.hpp>
-#include <fcppt/chrono/days.hpp>
-#include <fcppt/chrono/duration.hpp>
-#include <fcppt/chrono/duration_cast.hpp>
-#include <fcppt/chrono/hours.hpp>
-#include <fcppt/chrono/microseconds.hpp>
-#include <fcppt/chrono/milliseconds.hpp>
-#include <fcppt/chrono/minutes.hpp>
-#include <fcppt/chrono/nanoseconds.hpp>
-#include <fcppt/chrono/seconds.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/optional.hpp>
+#include <boost/chrono/duration.hpp>
 #include <boost/fusion/container/vector/vector10.hpp>
 #include <boost/fusion/include/at.hpp>
 #include <boost/fusion/include/at_c.hpp>
@@ -79,7 +71,7 @@ struct duration_fold_functor
 			rep
 			?
 				accumulated_duration +
-				fcppt::chrono::duration_cast<result_type>(
+				boost::chrono::duration_cast<result_type>(
 					source_duration(
 						*rep))
 			:
@@ -116,9 +108,8 @@ string_to_duration(
 
 	// We store an optional for each duration we encounter
 	typedef
-	boost::fusion::vector7
+	boost::fusion::vector6
 	<
-		boost::optional<long>,
 		boost::optional<long>,
 		boost::optional<long>,
 		boost::optional<long>,
@@ -144,7 +135,6 @@ string_to_duration(
 		input_string.end(),
 		// The grammar. Note the rule 'm' >> !'s'. This is neccessary
 		// because spirit matches "greedy"
-		-(boost::spirit::qi::long_ >> boost::spirit::qi::lit('d')) >>
 		-(boost::spirit::qi::long_ >> boost::spirit::qi::lit('h')) >>
 		-(boost::spirit::qi::long_ >> boost::spirit::qi::lit('m') >> !boost::spirit::qi::lit('s')) >>
 		-(boost::spirit::qi::long_ >> boost::spirit::qi::lit('s')) >>
@@ -157,15 +147,14 @@ string_to_duration(
 		return optional_duration();
 
 	typedef
-	boost::fusion::vector7
+	boost::fusion::vector6
 	<
-		fcppt::chrono::days,
-		fcppt::chrono::hours,
-		fcppt::chrono::minutes,
-		fcppt::chrono::seconds,
-		fcppt::chrono::milliseconds,
-		fcppt::chrono::microseconds,
-		fcppt::chrono::nanoseconds
+		boost::chrono::hours,
+		boost::chrono::minutes,
+		boost::chrono::seconds,
+		boost::chrono::milliseconds,
+		boost::chrono::microseconds,
+		boost::chrono::nanoseconds
 	>
 	duration_types;
 

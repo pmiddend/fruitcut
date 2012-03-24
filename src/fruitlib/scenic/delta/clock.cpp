@@ -1,8 +1,4 @@
 #include <fruitlib/scenic/delta/clock.hpp>
-#include <fcppt/chrono/time_point_arithmetic.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <iostream>
-#include <fcppt/config/external_end.hpp>
 
 
 fruitlib::scenic::delta::clock::clock(

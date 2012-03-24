@@ -29,12 +29,8 @@
 #include <sge/renderer/texture/mipmap/off.hpp>
 #include <fcppt/optional.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/chrono/duration_impl.hpp>
 #include <fcppt/math/deg_to_rad.hpp>
 #include <fcppt/math/matrix/arithmetic.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <iostream>
-#include <fcppt/config/external_end.hpp>
 
 
 fruitapp::shadow_map::shadow_map(

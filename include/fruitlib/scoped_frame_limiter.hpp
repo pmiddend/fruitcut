@@ -2,10 +2,9 @@
 #define FRUITLIB_SCOPED_FRAME_LIMITER_HPP_INCLUDED
 
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/chrono/duration_impl.hpp>
-#include <fcppt/chrono/high_resolution_clock.hpp>
-#include <fcppt/chrono/milliseconds.hpp>
-#include <fcppt/chrono/time_point_impl.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/chrono/system_clocks.hpp>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace fruitlib
@@ -16,7 +15,7 @@ FCPPT_NONCOPYABLE(
 	scoped_frame_limiter);
 public:
 	typedef
-	fcppt::chrono::high_resolution_clock
+	boost::chrono::high_resolution_clock
 	clock_type;
 
 	typedef

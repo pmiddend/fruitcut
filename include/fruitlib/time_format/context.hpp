@@ -6,12 +6,9 @@
 #include <fruitlib/time_format/tags/seconds.hpp>
 #include <fcppt/from_std_wstring.hpp>
 #include <fcppt/insert_to_string.hpp>
-#include <fcppt/chrono/duration.hpp>
-#include <fcppt/chrono/duration_cast.hpp>
-#include <fcppt/chrono/milliseconds.hpp>
-#include <fcppt/chrono/seconds.hpp>
 #include <fcppt/math/mod.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <boost/chrono/duration.hpp>
 #include <boost/proto/proto.hpp>
 #include <boost/type_traits/make_unsigned.hpp>
 #include <iomanip>
@@ -30,7 +27,7 @@ class context
 {
 private:
 	typedef
-	fcppt::chrono::milliseconds::rep
+	boost::chrono::milliseconds::rep
 	rep;
 public:
 	typedef
@@ -57,8 +54,8 @@ public:
 		boost::make_unsigned<rep>::type
 		urep;
 
-		fcppt::chrono::milliseconds const d =
-			fcppt::chrono::duration_cast<fcppt::chrono::milliseconds>(
+		boost::chrono::milliseconds const d =
+			boost::chrono::duration_cast<boost::chrono::milliseconds>(
 				_impl);
 
 		minutes_ =
