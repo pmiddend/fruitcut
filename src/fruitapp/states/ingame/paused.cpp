@@ -1,4 +1,3 @@
-#include <fruitlib/media_path.hpp>
 #include <fruitapp/postprocessing.hpp>
 #include <fruitapp/scene.hpp>
 #include <fruitapp/depths/overlay.hpp>
@@ -9,6 +8,7 @@
 #include <fruitapp/states/ingame/paused.hpp>
 #include <fruitapp/states/ingame/running.hpp>
 #include <fruitapp/states/menu/main.hpp>
+#include <fruitlib/media_path.hpp>
 #include <fruitlib/pp/filter/blur.hpp>
 #include <fruitlib/pp/texture/use_screen_size.hpp>
 #include <fruitlib/scenic/parent.hpp>

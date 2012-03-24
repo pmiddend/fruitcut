@@ -53,7 +53,7 @@ try
 
 	std::tr1::shared_ptr<fruitserver::listener::posix_select> listener_(
 		new fruitserver::listener::posix_select(
-			my_options.get<short>(
+			my_options.get<uint16_t>(
 				"port"),
 			my_options.get<int>(
 				"listen-queue-size"),

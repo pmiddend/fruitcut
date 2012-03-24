@@ -1,8 +1,8 @@
-#include <fruitlib/media_path.hpp>
 #include <fruitapp/directional_light_source.hpp>
 #include <fruitapp/fruit/default_render_node.hpp>
 #include <fruitapp/fruit/manager.hpp>
 #include <fruitapp/fruit/model_vf/format.hpp>
+#include <fruitlib/media_path.hpp>
 #include <fruitlib/scenic/events/render.hpp>
 #include <sge/camera/first_person/object.hpp>
 #include <sge/renderer/device.hpp>

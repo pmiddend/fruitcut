@@ -1,4 +1,3 @@
-#include <fruitlib/media_path.hpp>
 #include <fruitapp/depths/root.hpp>
 #include <fruitapp/events/define_transition_reaction.hpp>
 #include <fruitapp/events/return_post_transition_functor.hpp>
@@ -8,6 +7,7 @@
 #include <fruitapp/states/gameover/ranking.hpp>
 #include <fruitapp/states/menu/highscore.hpp>
 #include <fruitapp/states/menu/main.hpp>
+#include <fruitlib/media_path.hpp>
 #include <fruitlib/scenic/parent.hpp>
 #include <sge/cegui/from_cegui_string.hpp>
 #include <sge/cegui/system.hpp>

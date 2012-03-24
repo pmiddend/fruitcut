@@ -1,5 +1,5 @@
-#include <fruitlib/media_path.hpp>
 #include <fruitapp/postprocessing.hpp>
+#include <fruitlib/media_path.hpp>
 #include <fruitlib/pp/dependency_set.hpp>
 #include <fruitlib/pp/texture/depth_stencil_format.hpp>
 #include <fruitlib/pp/texture/use_screen_size.hpp>

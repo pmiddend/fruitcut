@@ -1,5 +1,5 @@
-#include <fruitlib/media_path.hpp>
 #include <fruitapp/sword_trail.hpp>
+#include <fruitlib/media_path.hpp>
 #include <fruitlib/time_format/find_and_convert_duration.hpp>
 #include <sge/image2d/system_fwd.hpp>
 #include <sge/input/cursor/object.hpp>
@@ -51,7 +51,7 @@ namespace
 sge::input::cursor::position const
 transform_position(
 	sge::input::cursor::position const &p,
-	sge::renderer::pixel_rect const &viewport)
+	sge::renderer::pixel_rect const &)
 {
 	return p;
 /*

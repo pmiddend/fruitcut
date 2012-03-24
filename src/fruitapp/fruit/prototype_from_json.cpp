@@ -1,7 +1,7 @@
-#include <fruitlib/media_path.hpp>
 #include <fruitapp/fruit/model_to_mesh.hpp>
 #include <fruitapp/fruit/prototype_from_json.hpp>
 #include <fruitapp/fruit/material/from_json.hpp>
+#include <fruitlib/media_path.hpp>
 #include <sge/image2d/system_fwd.hpp>
 #include <sge/model/md3/loader.hpp>
 #include <sge/parse/json/array.hpp>

@@ -1,5 +1,5 @@
-#include <fruitlib/media_path.hpp>
 #include <fruitapp/logo.hpp>
+#include <fruitlib/media_path.hpp>
 #include <fruitlib/scenic/events/render.hpp>
 #include <fruitlib/scenic/events/viewport_change.hpp>
 #include <sge/image2d/system_fwd.hpp>

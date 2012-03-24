@@ -215,9 +215,6 @@ fruitapp::game_logic::object::object(
 {
 	fruitlib::scenic::events::viewport_change event;
 
-	std::cout << "Hello!\n";
-	std::cout << "Remaining: " << sge::timer::remaining<boost::chrono::seconds>(round_timer_).count() << "\n";
-
 	this->react(
 		event);
 }

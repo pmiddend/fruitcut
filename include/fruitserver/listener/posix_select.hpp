@@ -8,6 +8,7 @@
 #include <fruitserver/listener/callbacks/disconnect.hpp>
 #include <fruitserver/listener/callbacks/receive_data.hpp>
 #include <iosfwd>
+#include <stdint.h>
 #include <map>
 #include <string>
 
@@ -23,7 +24,7 @@ class posix_select
 public:
 	explicit
 	posix_select(
-		short port,
+		uint16_t port,
 		int listen_queue_size,
 		std::ostream &);
 

@@ -17,7 +17,7 @@
 
 
 fruitserver::listener::posix_select::posix_select(
-	short const port,
+	uint16_t const port,
 	int const listen_queue_size,
 	std::ostream &_log_stream)
 :

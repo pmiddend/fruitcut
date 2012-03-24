@@ -1,6 +1,6 @@
 #include <fruitapp/background.hpp>
-#include <fruitlib/math/view_plane_rect.hpp>
 #include <fruitlib/media_path.hpp>
+#include <fruitlib/math/view_plane_rect.hpp>
 #include <fruitlib/scenic/events/render.hpp>
 #include <fruitlib/scenic/events/viewport_change.hpp>
 #include <sge/camera/first_person/object.hpp>

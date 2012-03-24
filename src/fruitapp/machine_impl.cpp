@@ -1,5 +1,3 @@
-#include <fcppt/random/generator/seed_from_chrono.hpp>
-#include <fruitlib/media_path.hpp>
 #include <fruitapp/light_source_from_json.hpp>
 #include <fruitapp/load_user_config.hpp>
 #include <fruitapp/machine_impl.hpp>
@@ -8,9 +6,10 @@
 #include <fruitapp/depths/root.hpp>
 #include <fruitapp/depths/scene.hpp>
 #include <fruitlib/create_command_line_parameters.hpp>
+#include <fruitlib/media_path.hpp>
 #include <fruitlib/random_generator.hpp>
 #include <fruitlib/scoped_frame_limiter.hpp>
-#include <fruitlib/utf8_file_to_fcppt_string.hpp>
+#include <fruitlib/utf8_file_to_fcppt_string_exn.hpp>
 #include <fruitlib/json/parse_projection.hpp>
 #include <fruitlib/log/scoped_sequence_from_json.hpp>
 #include <fruitlib/scenic/depth.hpp>
@@ -95,6 +94,7 @@
 #include <fcppt/text.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/container/bitfield/object_impl.hpp>
+#include <fcppt/random/generator/seed_from_chrono.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/chrono/duration.hpp>
@@ -145,7 +145,7 @@ fruitapp::machine_impl::machine_impl(
 		sge::parse::json::config::merge_command_line_parameters(
 			sge::parse::json::config::merge_trees(
 				sge::parse::json::parse_string_exn(
-					fruitlib::utf8_file_to_fcppt_string(
+					fruitlib::utf8_file_to_fcppt_string_exn(
 						*charconv_system_,
 						fruitlib::media_path()/FCPPT_TEXT("config.json"))),
 				user_config_file_),

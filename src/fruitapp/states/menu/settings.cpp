@@ -1,10 +1,10 @@
-#include <fruitlib/media_path.hpp>
 #include <fruitapp/config_variables.hpp>
 #include <fruitapp/events/define_transition_reaction.hpp>
 #include <fruitapp/events/post_transition.hpp>
 #include <fruitapp/events/return_post_transition_functor.hpp>
 #include <fruitapp/states/menu/main.hpp>
 #include <fruitapp/states/menu/settings.hpp>
+#include <fruitlib/media_path.hpp>
 #include <fruitlib/audio/sound_controller.hpp>
 #include <fruitlib/resource_tree/path.hpp>
 #include <sge/audio/scalar.hpp>

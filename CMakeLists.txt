@@ -139,6 +139,7 @@ SET(
 	src/fruitlib/average_colors.cpp
 	src/fruitlib/create_command_line_parameters.cpp
 	src/fruitlib/exception.cpp
+	src/fruitlib/fcppt_string_to_utf8_file.cpp
 	src/fruitlib/font/cache.cpp
 	src/fruitlib/font/drawer/object.cpp
 	src/fruitlib/font/drawer/parameters.cpp
@@ -203,6 +204,7 @@ SET(
 	src/fruitlib/time_format/minutes.cpp
 	src/fruitlib/time_format/seconds.cpp
 	src/fruitlib/utf8_file_to_fcppt_string.cpp
+	src/fruitlib/utf8_file_to_fcppt_string_exn.cpp
 )
 
 FCPPT_UTILS_ADD_SOURCE_GROUPS("${FRUITLIB_FILES}")
@@ -244,6 +246,7 @@ SET(
 	src/fruitapp/gui/table/model.cpp
 	src/fruitapp/gui/table/view.cpp
 	src/fruitapp/highscore/entry.cpp
+	src/fruitapp/highscore/entry_set_to_json.cpp
 	src/fruitapp/highscore/get_model.cpp
 	src/fruitapp/highscore/json_to_entry_set.cpp
 	src/fruitapp/highscore/post_model.cpp

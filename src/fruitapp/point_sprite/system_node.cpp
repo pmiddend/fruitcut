@@ -1,6 +1,6 @@
 #include <fruitapp/exception.hpp>
-#include <fruitlib/media_path.hpp>
 #include <fruitapp/point_sprite/system_node.hpp>
+#include <fruitlib/media_path.hpp>
 #include <fruitlib/resource_tree/from_directory_tree.hpp>
 #include <fruitlib/resource_tree/navigate_to_path.hpp>
 #include <fruitlib/resource_tree/path.hpp>
