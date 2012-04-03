@@ -7,7 +7,8 @@ fruitapp::fruit::cut_mesh_result::cut_mesh_result()
 	mesh_(),
 	cross_section_(),
 	bounding_box_(),
-	area_(),
+	area_(
+		0.f),
 	barycenter_()
 {
 }
