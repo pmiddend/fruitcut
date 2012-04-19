@@ -157,6 +157,8 @@ SET(
 	src/fruitlib/math/view_plane_rect.cpp
 	src/fruitlib/media_path.cpp
 	src/fruitlib/performance_timer.cpp
+	src/fruitlib/perspective_projection_information.cpp
+	src/fruitlib/perspective_projection_information_to_matrix.cpp
 	src/fruitlib/physics/debugger.cpp
 	src/fruitlib/physics/group/object.cpp
 	src/fruitlib/physics/nodes/debugger.cpp
@@ -270,6 +272,8 @@ SET(
 	src/fruitapp/point_sprite/splatter/parameters.cpp
 	src/fruitapp/point_sprite/system_node.cpp
 	src/fruitapp/postprocessing.cpp
+	src/fruitapp/projection_manager/object.cpp
+	src/fruitapp/projection_manager/projection_change.cpp
 	src/fruitapp/quick_log.cpp
 	src/fruitapp/renderable.cpp
 	src/fruitapp/scene.cpp

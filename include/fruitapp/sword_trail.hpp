@@ -13,6 +13,7 @@
 #include <sge/parse/json/object.hpp>
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/target_base_fwd.hpp>
+#include <sge/renderer/texture/planar_shared_ptr.hpp>
 #include <sge/sprite/object_decl.hpp>
 #include <sge/sprite/parameters_fwd.hpp>
 #include <sge/sprite/buffers/single_decl.hpp>
@@ -27,7 +28,7 @@
 #include <sge/sprite/config/unit_type.hpp>
 #include <sge/sprite/config/with_rotation.hpp>
 #include <sge/sprite/config/with_texture.hpp>
-#include <sge/texture/part_ptr.hpp>
+#include <sge/texture/part_shared_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/shared_ptr.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -97,7 +98,8 @@ private:
 				<
 					1u
 				>,
-				sge::sprite::config::texture_coordinates::automatic
+				sge::sprite::config::texture_coordinates::automatic,
+				sge::sprite::config::texture_ownership::shared
 			>,
 			sge::sprite::config::with_rotation
 			<
@@ -148,7 +150,8 @@ private:
 	fruitapp::ingame_clock const &clock_;
 	fruitapp::ingame_clock::duration const element_lifetime_;
 	sprite_object::unit const max_width_;
-	sge::texture::part_ptr texture_;
+	sge::renderer::texture::planar_shared_ptr texture_;
+	sge::texture::part_shared_ptr texture_part_;
 	sprite_buffers sprite_buffers_;
 	position_buffer positions_;
 	sprite_buffer sprites_;

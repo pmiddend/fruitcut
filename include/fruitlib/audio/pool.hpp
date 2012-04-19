@@ -1,10 +1,10 @@
 #ifndef FRUITLIB_AUDIO_POOL_HPP_INCLUDED
 #define FRUITLIB_AUDIO_POOL_HPP_INCLUDED
 
-#include <sge/audio/sound/base_ptr.hpp>
+#include <sge/audio/sound/base_unique_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <vector>
+#include <boost/ptr_container/ptr_vector.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -25,12 +25,12 @@ public:
 
 	void
 	insert(
-		sge::audio::sound::base_ptr);
+		sge::audio::sound::base_unique_ptr);
 
 	~pool();
 private:
 	typedef
-	std::vector<sge::audio::sound::base_ptr>
+	boost::ptr_vector<sge::audio::sound::base>
 	sound_sequence;
 
 	sound_sequence sounds_;

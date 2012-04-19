@@ -2,7 +2,7 @@
 #include <fruitlib/audio/group/buffer.hpp>
 #include <fruitlib/audio/group/player.hpp>
 #include <fruitlib/audio/group/sound_positional.hpp>
-#include <fcppt/make_shared_ptr.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/ref.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/algorithm/ptr_container_erase.hpp>
@@ -103,50 +103,53 @@ fruitlib::audio::group::player::pitch() const
 		pitch_;
 }
 
-sge::audio::buffer_ptr const
+sge::audio::buffer_unique_ptr
 fruitlib::audio::group::player::create_buffer(
 	sge::audio::file &f)
 {
 	return
-		fcppt::make_shared_ptr<group::buffer>(
-			fcppt::ref(
-				*this),
-			fcppt::ref(
-				f),
-			gain_,
-			pitch_);
+		sge::audio::buffer_unique_ptr(
+			fcppt::make_unique_ptr<group::buffer>(
+				fcppt::ref(
+					*this),
+				fcppt::ref(
+					f),
+				gain_,
+				pitch_));
 }
 
-sge::audio::sound::positional_ptr const
+sge::audio::sound::positional_unique_ptr
 fruitlib::audio::group::player::create_positional_stream(
-	sge::audio::file_ptr const f,
+	sge::audio::file &f,
 	sge::audio::sound::positional_parameters const &pp)
 {
 	return
-		fcppt::make_shared_ptr<group::sound_positional>(
-			fcppt::ref(
-				*this),
-			impl_.create_positional_stream(
-				f,
-				pp),
-			gain_,
-			pitch_);
+		sge::audio::sound::positional_unique_ptr(
+			fcppt::make_unique_ptr<group::sound_positional>(
+				fcppt::ref(
+					*this),
+				impl_.create_positional_stream(
+					f,
+					pp),
+				gain_,
+				pitch_));
 }
 
-sge::audio::sound::base_ptr const
+sge::audio::sound::base_unique_ptr
 fruitlib::audio::group::player::create_nonpositional_stream(
-	sge::audio::file_ptr const f,
+	sge::audio::file &f,
 	sge::audio::sound::nonpositional_parameters const &p)
 {
 	return
-		fcppt::make_shared_ptr<group::sound_base>(
-			fcppt::ref(
-				*this),
-			impl_.create_nonpositional_stream(
-				f,
-				p),
-			gain_,
-			pitch_);
+		sge::audio::sound::base_unique_ptr(
+			fcppt::make_unique_ptr<group::sound_base>(
+				fcppt::ref(
+					*this),
+				impl_.create_nonpositional_stream(
+					f,
+					p),
+				gain_,
+				pitch_));
 }
 
 sge::audio::player_capabilities_field const

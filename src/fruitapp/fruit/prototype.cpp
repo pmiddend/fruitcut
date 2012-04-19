@@ -10,7 +10,6 @@
 #include <sge/image2d/view/to_const.hpp>
 #include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/texture/planar.hpp>
-#include <sge/renderer/texture/planar_ptr.hpp>
 #include <sge/renderer/texture/scoped_planar_lock.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/geometry/geometry.hpp>
@@ -19,7 +18,7 @@
 
 fruitapp::fruit::prototype::prototype(
 	fruitapp::fruit::mesh const &_mesh,
-	sge::renderer::texture::planar_ptr const _texture,
+	sge::renderer::texture::planar_shared_ptr const _texture,
 	material::object const &_material,
 	fruit::tag_set const &_tags)
 :
@@ -72,7 +71,7 @@ fruitapp::fruit::prototype::mass() const
 	return mass_;
 }
 
-sge::renderer::texture::planar_ptr const
+sge::renderer::texture::planar_shared_ptr const
 fruitapp::fruit::prototype::texture() const
 {
 	return texture_;

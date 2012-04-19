@@ -23,8 +23,10 @@
 #include <sge/sprite/defaults/defaults.hpp>
 #include <sge/sprite/process/one.hpp>
 #include <sge/texture/part_raw.hpp>
+#include <sge/texture/part_shared_ptr.hpp>
 #include <mizuiro/color/operators.hpp>
 #include <fcppt/make_shared_ptr.hpp>
+#include <fcppt/ref.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 
@@ -42,23 +44,26 @@ fruitapp::logo::logo(
 	sprite_buffers_(
 		_renderer,
 		sge::sprite::buffers::option::dynamic),
+	texture_(
+		sge::renderer::texture::create_planar_from_path(
+			fruitlib::media_path()
+				/ FCPPT_TEXT("textures")
+				/
+					sge::parse::json::find_and_convert_member<fcppt::string>(
+						_config_file,
+						sge::parse::json::path(
+							FCPPT_TEXT("textures"))
+							/ FCPPT_TEXT("logo")),
+			renderer_,
+			_image_loader,
+			sge::renderer::texture::mipmap::off(),
+			sge::renderer::resource_flags::none)),
 	sprite_object_(
 		sge::sprite::default_parameters<sprite_choices>()
 			.texture(
 				fcppt::make_shared_ptr<sge::texture::part_raw>(
-					sge::renderer::texture::create_planar_from_path(
-						fruitlib::media_path()
-							/ FCPPT_TEXT("textures")
-							/
-								sge::parse::json::find_and_convert_member<fcppt::string>(
-									_config_file,
-									sge::parse::json::path(
-										FCPPT_TEXT("textures"))
-										/ FCPPT_TEXT("logo")),
-						renderer_,
-						_image_loader,
-						sge::renderer::texture::mipmap::off(),
-						sge::renderer::resource_flags::none)))
+					fcppt::ref(
+						*texture_)))
 			.texture_size())
 {
 	fruitlib::scenic::events::viewport_change event;

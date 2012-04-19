@@ -1,33 +1,39 @@
 #include <fruitlib/pp/texture/instance.hpp>
+#include <sge/renderer/target.hpp>
+#include <sge/renderer/texture/planar.hpp>
+#include <fcppt/move.hpp>
 
 
 fruitlib::pp::texture::instance::instance(
 	fruitlib::pp::texture::descriptor const &_descriptor,
-	sge::renderer::texture::planar_ptr const _texture,
-	sge::renderer::target_ptr const _target,
+	sge::renderer::texture::planar_unique_ptr _texture,
+	sge::renderer::target_unique_ptr _target,
 	bool const _locked)
 :
 	descriptor_(
 		_descriptor),
 	texture_(
-		_texture),
+		fcppt::move(
+			_texture)),
 	target_(
-		_target),
+		fcppt::move(
+			_target)),
 	locked_(
 		_locked)
 {
 }
 
-sge::renderer::texture::planar_ptr const
+sge::renderer::texture::planar_shared_ptr
 fruitlib::pp::texture::instance::texture()
 {
-	return texture_;
+	return
+		texture_;
 }
 
-sge::renderer::target_ptr const
+sge::renderer::target &
 fruitlib::pp::texture::instance::target()
 {
-	return target_;
+	return *target_;
 }
 
 bool

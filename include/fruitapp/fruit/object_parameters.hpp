@@ -11,7 +11,6 @@
 #include <fruitlib/physics/group/object_fwd.hpp>
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/vertex_declaration_fwd.hpp>
-#include <sge/renderer/texture/planar_ptr.hpp>
 #include <fcppt/nonassignable.hpp>
 #include <fcppt/math/matrix/object_impl.hpp>
 #include <fcppt/math/vector/object_impl.hpp>

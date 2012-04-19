@@ -16,9 +16,11 @@
 #include <fruitlib/scenic/events/viewport_change.hpp>
 #include <sge/parse/json/object_fwd.hpp>
 #include <sge/renderer/device_fwd.hpp>
-#include <sge/renderer/texture/planar_ptr.hpp>
+#include <sge/renderer/texture/planar_shared_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/function/object.hpp>
+#include <fcppt/preprocessor/pure.hpp>
+#include <fcppt/preprocessor/warn_unused_result.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
@@ -48,20 +50,30 @@ public:
 	void
 	render_result();
 
-	sge::renderer::texture::planar_ptr const
-	result_texture();
+	sge::renderer::texture::planar_shared_ptr const
+	result_texture()
+	FCPPT_PP_WARN_UNUSED_RESULT
+	FCPPT_PP_PURE;
 
 	fruitlib::pp::filter::desaturate &
-	desaturate_filter();
+	desaturate_filter()
+	FCPPT_PP_WARN_UNUSED_RESULT
+	FCPPT_PP_PURE;
 
 	fruitlib::pp::texture::manager &
-	texture_manager();
+	texture_manager()
+	FCPPT_PP_WARN_UNUSED_RESULT
+	FCPPT_PP_PURE;
 
 	fruitlib::pp::filter::manager &
-	filter_manager();
+	filter_manager()
+	FCPPT_PP_WARN_UNUSED_RESULT
+	FCPPT_PP_PURE;
 
 	bool
-	active();
+	active()
+	FCPPT_PP_WARN_UNUSED_RESULT
+	FCPPT_PP_PURE;
 
 	void
 	active(

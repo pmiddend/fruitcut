@@ -10,15 +10,13 @@
 #include <fruitlib/scenic/node.hpp>
 #include <fruitlib/scenic/optional_parent.hpp>
 #include <fruitlib/scenic/events/update.hpp>
-#include <sge/audio/buffer_ptr.hpp>
+#include <sge/audio/buffer_shared_ptr.hpp>
 #include <sge/audio/loader_fwd.hpp>
 #include <sge/audio/player_fwd.hpp>
-#include <sge/audio/sound/base_ptr.hpp>
+#include <sge/audio/sound/base_unique_ptr.hpp>
 #include <sge/audio/sound/positional_parameters.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/shared_ptr.hpp>
 #include <fcppt/string.hpp>
-#include <fcppt/unique_ptr.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
 #include <boost/mpl/vector/vector10.hpp>
@@ -107,7 +105,7 @@ private:
 	typedef
 	resource_tree::make_type
 	<
-		sge::audio::buffer_ptr,
+		sge::audio::buffer_shared_ptr,
 		// shared_ptr because of horrible unique_ptr semantics
 		fcppt::shared_ptr
 		<
@@ -126,7 +124,7 @@ private:
 
 	void
 	do_play(
-		sge::audio::sound::base_ptr);
+		sge::audio::sound::base_unique_ptr);
 };
 }
 }

@@ -7,7 +7,6 @@
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/dim2.hpp>
 #include <sge/renderer/scalar.hpp>
-#include <sge/renderer/target_ptr.hpp>
 #include <sge/shader/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/math/dim/object_impl.hpp>

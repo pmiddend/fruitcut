@@ -1,7 +1,9 @@
 #include <fruitlib/physics/debugger.hpp>
 #include <fruitlib/physics/structure_cast.hpp>
 #include <fruitlib/physics/world.hpp>
-#include <sge/camera/first_person/object.hpp>
+#include <sge/camera/base.hpp>
+#include <sge/camera/coordinate_system/object.hpp>
+#include <sge/camera/matrix_conversion/world_projection.hpp>
 #include <sge/image/color/init.hpp>
 #include <sge/image/color/rgb8.hpp>
 #include <sge/line_drawer/line.hpp>
@@ -21,9 +23,9 @@
 
 
 fruitlib::physics::debugger::debugger(
-	world &_world,
+	physics::world &_world,
 	sge::renderer::device &_renderer,
-	sge::camera::first_person::object &_camera)
+	sge::camera::base const &_camera)
 :
 	world_(
 		_world),
@@ -69,7 +71,9 @@ fruitlib::physics::debugger::render()
 	sge::renderer::scoped_transform projection_scope(
 		renderer_,
 		sge::renderer::matrix_mode::projection,
-		camera_.mvp());
+		sge::camera::matrix_conversion::world_projection(
+			camera_.coordinate_system(),
+			camera_.projection_matrix()));
 
 	sge::renderer::scoped_transform world_scope(
 		renderer_,

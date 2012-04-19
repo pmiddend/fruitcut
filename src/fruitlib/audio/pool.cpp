@@ -1,6 +1,8 @@
 #include <fruitlib/audio/pool.hpp>
 #include <sge/audio/sound/base.hpp>
 #include <sge/audio/sound/play_status.hpp>
+#include <fcppt/move.hpp>
+#include <fcppt/container/ptr/push_back_unique_ptr.hpp>
 
 
 fruitlib::audio::pool::pool()
@@ -17,8 +19,8 @@ fruitlib::audio::pool::update()
 			sounds_.begin();
 		i != sounds_.end();)
 	{
-		(*i)->update();
-		if((*i)->status() == sge::audio::sound::play_status::stopped)
+		i->update();
+		if(i->status() == sge::audio::sound::play_status::stopped)
 			i =
 				sounds_.erase(
 					i);
@@ -29,10 +31,12 @@ fruitlib::audio::pool::update()
 
 void
 fruitlib::audio::pool::insert(
-	sge::audio::sound::base_ptr const _new)
+	sge::audio::sound::base_unique_ptr _new)
 {
-	sounds_.push_back(
-		_new);
+	fcppt::container::ptr::push_back_unique_ptr(
+		sounds_,
+		fcppt::move(
+			_new));
 }
 
 fruitlib::audio::pool::~pool()

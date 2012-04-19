@@ -1,5 +1,6 @@
 #include <fruitapp/fruit/manager.hpp>
 #include <fruitapp/fruit/spawner.hpp>
+#include <fruitapp/projection_manager/projection_change.hpp>
 #include <fruitlib/math/box_radius.hpp>
 #include <fruitlib/math/view_plane_rect.hpp>
 #include <fruitlib/math/plane/basic.hpp>
@@ -7,9 +8,9 @@
 #include <fruitlib/physics/matrix4.hpp>
 #include <fruitlib/physics/scalar.hpp>
 #include <fruitlib/physics/vector3.hpp>
-#include <sge/camera/first_person/object.hpp>
-#include <sge/camera/projection/invalid.hpp>
-#include <sge/camera/projection/perspective.hpp>
+#include <sge/camera/base.hpp>
+#include <sge/camera/coordinate_system/object.hpp>
+#include <sge/camera/matrix_conversion/world_projection.hpp>
 #include <sge/parse/json/array.hpp>
 #include <sge/parse/json/convert_from.hpp>
 #include <sge/parse/json/find_and_convert_member.hpp>
@@ -36,7 +37,7 @@ fruitapp::fruit::spawner::spawner(
 	fruit::manager &_manager,
 	fruitlib::random_generator &_random_generator,
 	sge::parse::json::object const &_config_file,
-	sge::camera::first_person::object const &_camera,
+	sge::camera::base const &_camera,
 	fruitapp::ingame_clock const &_clock)
 :
 	node_base(
@@ -123,7 +124,8 @@ fruitapp::fruit::spawner::spawner(
 			fruitapp::ingame_clock::duration())
 			.active(
 				false)),
-	spawn_signal_()
+	spawn_signal_(),
+	perspective_projection_information_()
 {
 	reset_timer();
 }
@@ -141,7 +143,7 @@ void
 fruitapp::fruit::spawner::react(
 	fruitlib::scenic::events::update const &)
 {
-	if(fcppt::variant::holds_type<sge::camera::projection::invalid>(camera_.projection_object()))
+	if(!perspective_projection_information_)
 		return;
 
 	if(!timer_.active() || !timer_.expired())
@@ -156,8 +158,10 @@ fruitapp::fruit::spawner::react(
 	// zero plane because it's the visible plane located at z = 0
 	scalar_rect const zero_plane(
 		fruitlib::math::view_plane_rect(
-			camera_.mvp(),
-			camera_.projection_object().get<sge::camera::projection::perspective>()));
+			sge::camera::matrix_conversion::world_projection(
+				camera_.coordinate_system(),
+				camera_.projection_matrix()),
+			*perspective_projection_information_));
 
 	prototype_sequence::size_type const prototype_index =
 		prototype_rng_();
@@ -221,6 +225,14 @@ fruitapp::fruit::spawner::react(
 		angular_velocity);
 
 	spawn_signal_();
+}
+
+void
+fruitapp::fruit::spawner::react(
+	fruitapp::projection_manager::projection_change const &_projection_change)
+{
+	perspective_projection_information_ =
+		_projection_change.perspective_projection_information();
 }
 
 void

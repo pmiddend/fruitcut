@@ -16,7 +16,9 @@
 #include <fruitlib/math/plane/normalize.hpp>
 #include <fruitlib/physics/vector3.hpp>
 #include <fruitlib/physics/rigid_body/mass.hpp>
-#include <sge/camera/first_person/object.hpp>
+#include <sge/camera/base.hpp>
+#include <sge/camera/coordinate_system/object.hpp>
+#include <sge/camera/matrix_conversion/world_projection.hpp>
 #include <sge/parse/json/array.hpp>
 #include <sge/parse/json/object.hpp>
 #include <sge/renderer/device.hpp>
@@ -24,7 +26,7 @@
 #include <sge/renderer/scalar.hpp>
 #include <sge/renderer/vector3.hpp>
 #include <sge/renderer/vector4.hpp>
-#include <sge/renderer/vertex_declaration_fwd.hpp>
+#include <sge/renderer/vertex_declaration.hpp>
 #include <sge/renderer/vf/dynamic/make_format.hpp>
 #include <fcppt/cref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
@@ -74,7 +76,7 @@ fruitapp::fruit::manager::manager(
 	fruit::prototype_sequence const &_prototypes,
 	sge::renderer::device &_renderer,
 	fruitlib::physics::world &physics_world,
-	sge::camera::first_person::object &_camera,
+	sge::camera::base const &_camera,
 	fruitapp::ingame_clock const &_clock)
 :
 	node_base(
@@ -317,7 +319,9 @@ fruitapp::fruit::manager::delete_distant_fruits()
 	plane_type;
 
 	sge::renderer::matrix4 const mvp =
-		camera_.mvp();
+		sge::camera::matrix_conversion::world_projection(
+			camera_.coordinate_system(),
+			camera_.projection_matrix());
 
 	sge::renderer::vector4 const
 		fourth_row(

@@ -2,12 +2,10 @@
 #define FRUITLIB_PHYSICS_DEBUGGER_HPP_INCLUDED
 
 #include <fruitlib/physics/world_fwd.hpp>
-#include <sge/camera/first_person/object_fwd.hpp>
+#include <sge/camera/base_fwd.hpp>
 #include <sge/line_drawer/object.hpp>
 #include <sge/line_drawer/scoped_lock.hpp>
-#include <sge/renderer/device_ptr.hpp>
 #include <sge/renderer/vector3.hpp>
-#include <sge/renderer/vertex_buffer_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/scoped_ptr.hpp>
 #include <fcppt/math/vector/object_impl.hpp>
@@ -34,9 +32,9 @@ FCPPT_NONCOPYABLE(
 public:
 	explicit
 	debugger(
-		world &,
+		physics::world &,
 		sge::renderer::device &,
-		sge::camera::first_person::object &);
+		sge::camera::base const &);
 
 	void
 	update();
@@ -116,7 +114,7 @@ private:
 
 	world &world_;
 	sge::renderer::device &renderer_;
-	sge::camera::first_person::object &camera_;
+	sge::camera::base const &camera_;
 	int debug_mode_;
 	sge::line_drawer::object line_drawer_;
 	fcppt::scoped_ptr<sge::line_drawer::scoped_lock> scoped_lock_;

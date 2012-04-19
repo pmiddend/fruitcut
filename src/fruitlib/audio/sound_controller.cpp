@@ -4,12 +4,14 @@
 #include <fruitlib/resource_tree/navigate_to_path.hpp>
 #include <fruitlib/resource_tree/path.hpp>
 #include <sge/audio/buffer.hpp>
-#include <sge/audio/buffer_ptr.hpp>
+#include <sge/audio/buffer_shared_ptr.hpp>
+#include <sge/audio/file.hpp>
 #include <sge/audio/loader.hpp>
 #include <sge/audio/player.hpp>
 #include <sge/audio/sound/nonpositional_parameters.hpp>
 #include <sge/audio/sound/positional.hpp>
 #include <sge/audio/sound/repeat.hpp>
+#include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/ref.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
@@ -53,16 +55,17 @@ create_random_from_directory(
 							boost::filesystem::directory_iterator()))-1)));
 }
 
-sge::audio::buffer_ptr const
+sge::audio::buffer_shared_ptr const
 create_buffer_from_path(
 	sge::audio::loader &loader,
 	sge::audio::player &player,
 	boost::filesystem::path const &file)
 {
 	return
-		player.create_buffer(
-			*loader.load(
-				file));
+		sge::audio::buffer_shared_ptr(
+			player.create_buffer(
+				*loader.load(
+					file)));
 }
 }
 
@@ -146,8 +149,9 @@ fruitlib::audio::sound_controller::play_positional(
 	if(target_tree.value().is_leaf())
 	{
 		do_play(
-			target_tree.value().leaf_value()->create_positional(
-				pp));
+			sge::audio::sound::base_unique_ptr(
+				target_tree.value().leaf_value()->create_positional(
+					pp)));
 	}
 	else
 	{
@@ -161,8 +165,9 @@ fruitlib::audio::sound_controller::play_positional(
 			throw fruitlib::exception(FCPPT_TEXT("The argument to play() must be either a file or a directory containing just files!\nThat was not the case for: ")+target_path.string());
 
 		do_play(
-			target_file.value().leaf_value()->create_positional(
-				pp));
+			sge::audio::sound::base_unique_ptr(
+				target_file.value().leaf_value()->create_positional(
+					pp)));
 	}
 }
 
@@ -208,11 +213,12 @@ fruitlib::audio::sound_controller::~sound_controller() {}
 
 void
 fruitlib::audio::sound_controller::do_play(
-	sge::audio::sound::base_ptr const b)
+	sge::audio::sound::base_unique_ptr b)
 {
 	b->play(
 		sge::audio::sound::repeat::once);
 
 	pool_.insert(
-		b);
+		fcppt::move(
+			b));
 }

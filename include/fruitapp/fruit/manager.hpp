@@ -19,11 +19,10 @@
 #include <fruitlib/scenic/optional_parent.hpp>
 #include <fruitlib/scenic/events/render.hpp>
 #include <fruitlib/scenic/events/update.hpp>
-#include <sge/camera/first_person/object_fwd.hpp>
+#include <sge/camera/base_fwd.hpp>
 #include <sge/parse/json/array_fwd.hpp>
 #include <sge/renderer/device_fwd.hpp>
-#include <sge/renderer/vertex_declaration_fwd.hpp>
-#include <sge/renderer/vertex_declaration_ptr.hpp>
+#include <sge/renderer/vertex_declaration_scoped_ptr.hpp>
 #include <sge/shader/object.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/signal/auto_connection.hpp>
@@ -60,7 +59,7 @@ public:
 		fruit::prototype_sequence const &,
 		sge::renderer::device &renderer,
 		fruitlib::physics::world &,
-		sge::camera::first_person::object &,
+		sge::camera::base const &,
 		fruitapp::ingame_clock const &);
 
 	// cut_fruit gets a duration indicating how long the new fruits are
@@ -119,8 +118,8 @@ public:
 private:
 	prototype_sequence const &prototypes_;
 	sge::renderer::device &renderer_;
-	sge::camera::first_person::object &camera_;
-	sge::renderer::vertex_declaration_ptr vertex_declaration_;
+	sge::camera::base const &camera_;
+	sge::renderer::vertex_declaration_scoped_ptr vertex_declaration_;
 	fruitlib::physics::world &physics_world_;
 	fruitlib::physics::group::object fruit_group_;
 	object_sequence fruits_;

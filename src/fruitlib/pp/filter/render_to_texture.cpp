@@ -53,7 +53,7 @@ fruitlib::pp::filter::render_to_texture::apply()
 
 	sge::renderer::scoped_target scoped_target(
 		renderer_,
-		*result->target());
+		result->target());
 
 	sge::renderer::scoped_block scoped_block(
 		renderer_);

@@ -4,7 +4,8 @@
 #include <fruitlib/audio/group/buffer_fwd.hpp>
 #include <fruitlib/audio/group/player_fwd.hpp>
 #include <sge/audio/sound/base.hpp>
-#include <sge/audio/sound/base_ptr.hpp>
+#include <sge/audio/sound/base_scoped_ptr.hpp>
+#include <sge/audio/sound/base_unique_ptr.hpp>
 #include <sge/audio/sound/nonpositional_parameters_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 
@@ -32,7 +33,7 @@ public:
 	explicit
 	sound_base(
 		group::player &,
-		sge::audio::sound::base_ptr,
+		sge::audio::sound::base_unique_ptr,
 		sge::audio::scalar global_gain,
 		sge::audio::scalar global_pitch);
 
@@ -73,13 +74,13 @@ protected:
 	explicit
 	sound_base(
 		group::buffer &,
-		sge::audio::sound::base_ptr,
+		sge::audio::sound::base_unique_ptr,
 		sge::audio::scalar gain,
 		sge::audio::scalar pitch);
 protected:
 	group::player *player_;
 	group::buffer *buffer_;
-	sge::audio::sound::base_ptr impl_;
+	sge::audio::sound::base_scoped_ptr impl_;
 	sge::audio::scalar global_gain_;
 	sge::audio::scalar local_gain_;
 	sge::audio::scalar global_pitch_;

@@ -25,7 +25,9 @@
 #include <fruitlib/scenic/depth.hpp>
 #include <fruitlib/scenic/parent.hpp>
 #include <fruitlib/time_format/find_and_convert_duration.hpp>
+#include <sge/camera/coordinate_system/object.hpp>
 #include <sge/camera/first_person/object.hpp>
+#include <sge/camera/matrix_conversion/world_projection.hpp>
 #include <sge/image/colors.hpp>
 #include <sge/input/cursor/position_unit.hpp>
 #include <sge/input/keyboard/action.hpp>
@@ -222,7 +224,9 @@ fruitapp::states::ingame::running::draw_fruit_bbs(
 			fruit::hull::projected(
 				*i,
 				context<machine>().systems().renderer().onscreen_target(),
-				context<machine>().camera().mvp());
+				sge::camera::matrix_conversion::world_projection(
+					context<machine>().camera().coordinate_system(),
+					context<machine>().camera().projection_matrix()));
 
 		for(
 			fruit::hull::ring::const_iterator hull_point = hull.begin();
@@ -293,7 +297,9 @@ fruitapp::states::ingame::running::process_fruit(
 			fruit::hull::projected(
 				current_fruit,
 				context<machine>().systems().renderer().onscreen_target(),
-				context<machine>().camera().mvp()),
+				sge::camera::matrix_conversion::world_projection(
+					context<machine>().camera().coordinate_system(),
+					context<machine>().camera().projection_matrix())),
 			cursor_trail_.positions());
 
 	if (!intersection)
@@ -301,7 +307,9 @@ fruitapp::states::ingame::running::process_fruit(
 
 	sge::renderer::matrix4 const inverse_mvp =
 		fcppt::math::matrix::inverse(
-			context<machine>().camera().mvp());
+			sge::camera::matrix_conversion::world_projection(
+				context<machine>().camera().coordinate_system(),
+				context<machine>().camera().projection_matrix()));
 
 	sge::renderer::vector3 const
 		// Convert the points to 3D and to renderer::scalar

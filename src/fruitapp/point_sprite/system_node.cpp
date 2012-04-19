@@ -4,7 +4,9 @@
 #include <fruitlib/resource_tree/from_directory_tree.hpp>
 #include <fruitlib/resource_tree/navigate_to_path.hpp>
 #include <fruitlib/resource_tree/path.hpp>
-#include <sge/camera/first_person/object.hpp>
+#include <sge/camera/base.hpp>
+#include <sge/camera/coordinate_system/object.hpp>
+#include <sge/camera/matrix_conversion/world_projection.hpp>
 #include <sge/image/color/format.hpp>
 #include <sge/image2d/file.hpp>
 #include <sge/image2d/system.hpp>
@@ -17,7 +19,7 @@
 #include <sge/renderer/state/list.hpp>
 #include <sge/renderer/state/scoped.hpp>
 #include <sge/renderer/state/trampoline.hpp>
-#include <sge/renderer/texture/planar_ptr.hpp>
+#include <sge/renderer/texture/planar_shared_ptr.hpp>
 #include <sge/renderer/texture/mipmap/off.hpp>
 #include <sge/shader/activate_bare.hpp>
 #include <sge/shader/matrix.hpp>
@@ -40,7 +42,6 @@
 #include <sge/texture/fragmented_unique_ptr.hpp>
 #include <sge/texture/manager_fwd.hpp>
 #include <sge/texture/no_fragmented.hpp>
-#include <sge/texture/part_ptr.hpp>
 #include <sge/texture/part_raw.hpp>
 #include <sge/texture/rect_fragmented.hpp>
 #include <fcppt/move.hpp>
@@ -90,17 +91,18 @@ create_random_from_directory(
 							boost::filesystem::directory_iterator())-1))));
 }
 
-sge::texture::part_ptr const
+sge::texture::part_shared_ptr const
 create_part_from_file(
 	sge::image2d::system &image_loader,
 	sge::texture::manager &texture_manager,
 	boost::filesystem::path const &p)
 {
 	return
-		sge::texture::add_image(
-			texture_manager,
-			*image_loader.load(
-				p));
+		sge::texture::part_shared_ptr(
+			sge::texture::add_image(
+				texture_manager,
+				*image_loader.load(
+					p)));
 }
 }
 
@@ -111,7 +113,7 @@ fruitapp::point_sprite::system_node::system_node(
 	fruitlib::random_generator &_random_generator,
 	sge::renderer::device &_renderer,
 	sge::image2d::system &_image_loader,
-	sge::camera::first_person::object const &_camera)
+	sge::camera::base const &_camera)
 :
 	node_base(
 		_parent),
@@ -162,7 +164,7 @@ fruitapp::point_sprite::system_node::system_node(
 			fcppt::assign::make_container<sge::shader::sampler_sequence>
 				(sge::shader::sampler(
 					"tex",
-					sge::renderer::texture::planar_ptr())))
+					sge::renderer::texture::planar_shared_ptr())))
 				.name(
 					FCPPT_TEXT("point sprite"))
 				.vertex_shader(
@@ -188,7 +190,7 @@ fruitapp::point_sprite::system_node::connection()
 	return collection_.connection();
 }
 
-sge::texture::part_ptr const
+sge::texture::part_shared_ptr const
 fruitapp::point_sprite::system_node::lookup_texture(
 	fruitlib::resource_tree::path const &target_path)
 {
@@ -245,7 +247,9 @@ fruitapp::point_sprite::system_node::react(
 	shader_.update_uniform(
 		"mvp",
 		sge::shader::matrix(
-			camera_.mvp(),
+			sge::camera::matrix_conversion::world_projection(
+				camera_.coordinate_system(),
+				camera_.projection_matrix()),
 			sge::shader::matrix_flags::projection));
 
 	sge::renderer::state::scoped scoped_state(

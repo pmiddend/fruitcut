@@ -1,9 +1,9 @@
 #include <fruitlib/font/cache.hpp>
 #include <fruitlib/font/drawer/object.hpp>
 #include <fruitlib/font/drawer/parameters.hpp>
+#include <sge/font/metrics.hpp>
 #include <sge/font/size_type.hpp>
 #include <sge/font/system.hpp>
-#include <sge/font/system_ptr.hpp>
 #include <sge/font/bitmap/create.hpp>
 #include <sge/image2d/system.hpp>
 #include <sge/parse/json/find_and_convert_member.hpp>
@@ -13,7 +13,6 @@
 #include <sge/parse/json/object.hpp>
 #include <sge/parse/json/path.hpp>
 #include <sge/parse/json/string.hpp>
-#include <sge/renderer/device_ptr.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
@@ -99,15 +98,18 @@ fruitlib::font::cache::cache(
 
 			if (cached_value == ttf_fonts_.end())
 			{
-				metrics_.push_back(
+				fcppt::container::ptr::push_back_unique_ptr(
+					metrics_,
 					_font_system.create_font(
 						base_path_/FCPPT_TEXT("fonts")/filename,
 						font_size));
+
 				fcppt::container::ptr::push_back_unique_ptr(
 					drawers_,
 					fcppt::make_unique_ptr<fruitlib::font::drawer::object>(
 						fruitlib::font::drawer::parameters(
 							_renderer)));
+
 				cached_value =
 					ttf_fonts_.insert(
 						std::make_pair(
@@ -139,10 +141,12 @@ fruitlib::font::cache::cache(
 
 			if (cached_value == bitmap_fonts_.end())
 			{
-				metrics_.push_back(
+				fcppt::container::ptr::push_back_unique_ptr(
+					metrics_,
 					sge::font::bitmap::create(
 						base_path_/FCPPT_TEXT("fonts")/filename,
 						_image_loader));
+
 				fcppt::container::ptr::push_back_unique_ptr(
 					drawers_,
 					fcppt::make_unique_ptr<fruitlib::font::drawer::object>(
@@ -174,7 +178,7 @@ fruitlib::font::cache::cache(
 		to_metrics_.size() == to_drawer_.size());
 }
 
-sge::font::metrics_ptr const
+sge::font::metrics &
 fruitlib::font::cache::metrics(
 	fcppt::string const &identifier)
 {
@@ -186,9 +190,8 @@ fruitlib::font::cache::metrics(
 		FCPPT_TEXT("Font called ")+
 		identifier+
 		FCPPT_TEXT(" not found!"));
-	FCPPT_ASSERT_ERROR(
-		*(i->second));
-	return *(i->second);
+	return
+		*(i->second);
 }
 
 fruitlib::font::drawer::object &

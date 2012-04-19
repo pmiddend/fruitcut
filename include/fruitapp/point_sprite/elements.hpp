@@ -31,7 +31,8 @@ boost::mpl::vector4
 		<
 			false
 		>,
-		sge::sprite::config::no_texture_point_size
+		sge::sprite::config::no_texture_point_size,
+		sge::sprite::config::texture_ownership::shared
 	>,
 	sge::sprite::config::with_color
 	<

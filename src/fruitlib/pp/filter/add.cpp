@@ -8,7 +8,7 @@
 #include <sge/renderer/scoped_target.hpp>
 #include <sge/renderer/vector2.hpp>
 #include <sge/renderer/texture/planar.hpp>
-#include <sge/renderer/texture/planar_ptr.hpp>
+#include <sge/renderer/texture/planar_shared_ptr.hpp>
 #include <sge/renderer/texture/filter/linear.hpp>
 #include <sge/shader/activate_everything.hpp>
 #include <sge/shader/object.hpp>
@@ -42,8 +42,8 @@ fruitlib::pp::filter::add::add(
 					sge::shader::variable_type::uniform,
 					sge::renderer::vector2())),
 			fcppt::assign::make_container<sge::shader::sampler_sequence>
-				(sge::shader::sampler("tex1",sge::renderer::texture::planar_ptr()))
-				(sge::shader::sampler("tex2",sge::renderer::texture::planar_ptr())))),
+				(sge::shader::sampler("tex1",sge::renderer::texture::planar_shared_ptr()))
+				(sge::shader::sampler("tex2",sge::renderer::texture::planar_shared_ptr())))),
 	texture_manager_(
 		_texture_manager)
 {
@@ -80,7 +80,7 @@ fruitlib::pp::filter::add::apply(
 
 	sge::renderer::scoped_target const scoped_target(
 		renderer_,
-		*result->target());
+		result->target());
 
 	sge::renderer::scoped_block const block(
 		renderer_);

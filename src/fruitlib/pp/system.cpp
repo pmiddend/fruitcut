@@ -9,6 +9,7 @@
 #include <fruitlib/pp/texture/instance.hpp>
 #include <sge/image/color/format.hpp>
 #include <sge/renderer/vector2.hpp>
+#include <sge/renderer/texture/planar_shared_ptr.hpp>
 #include <sge/shader/activate_everything.hpp>
 #include <sge/shader/object.hpp>
 #include <sge/shader/scoped.hpp>
@@ -37,7 +38,7 @@ fruitlib::pp::system::system(
 			fcppt::assign::make_container<sge::shader::sampler_sequence>(
 				sge::shader::sampler(
 					"tex",
-					sge::renderer::texture::planar_ptr()))))
+					sge::renderer::texture::planar_shared_ptr()))))
 {
 }
 
@@ -68,7 +69,8 @@ fruitlib::pp::system::update()
 		texture::counted_instance const result =
 			vertex_to_filter_[*current_vertex].filter().dispatch();
 
-		result_texture_ = result->texture();
+		result_texture_ =
+			result->texture();
 		for(
 			std::pair<out_edge_iterator,out_edge_iterator> out_edge_pair =
 				boost::out_edges(
@@ -88,10 +90,11 @@ fruitlib::pp::system::update()
 	*/
 }
 
-sge::renderer::texture::planar_ptr const
+sge::renderer::texture::planar_shared_ptr const
 fruitlib::pp::system::result_texture()
 {
-	return result_texture_;
+	return
+		result_texture_;
 }
 
 void

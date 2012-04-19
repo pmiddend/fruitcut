@@ -8,6 +8,7 @@
 #include <sge/image2d/system_fwd.hpp>
 #include <sge/parse/json/object_fwd.hpp>
 #include <sge/renderer/device_fwd.hpp>
+#include <sge/renderer/texture/planar_scoped_ptr.hpp>
 #include <sge/sprite/object_decl.hpp>
 #include <sge/sprite/parameters_fwd.hpp>
 #include <sge/sprite/buffers/single_decl.hpp>
@@ -65,7 +66,8 @@ private:
 			<
 				1u
 			>,
-			sge::sprite::config::texture_coordinates::automatic
+			sge::sprite::config::texture_coordinates::automatic,
+			sge::sprite::config::texture_ownership::shared
 		>
 	>
 	sprite_elements;
@@ -113,6 +115,7 @@ private:
 
 	sge::renderer::device &renderer_;
 	sprite_buffers sprite_buffers_;
+	sge::renderer::texture::planar_scoped_ptr texture_;
 	sprite_object sprite_object_;
 };
 }

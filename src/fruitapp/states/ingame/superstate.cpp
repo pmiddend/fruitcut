@@ -18,6 +18,7 @@
 #include <fruitlib/scenic/parent.hpp>
 #include <fruitlib/scenic/events/render.hpp>
 #include <fruitlib/scenic/events/viewport_change.hpp>
+#include <sge/camera/first_person/object.hpp>
 #include <sge/image/colors.hpp>
 #include <sge/image/color/convert.hpp>
 #include <sge/image/color/rgba8.hpp>

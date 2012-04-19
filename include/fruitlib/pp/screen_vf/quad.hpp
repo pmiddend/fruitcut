@@ -2,9 +2,8 @@
 #define FRUITLIB_PP_SCREEN_VF_QUAD_HPP_INCLUDED
 
 #include <sge/renderer/device_fwd.hpp>
-#include <sge/renderer/vertex_buffer_ptr.hpp>
-#include <sge/renderer/vertex_declaration_fwd.hpp>
-#include <sge/renderer/vertex_declaration_ptr.hpp>
+#include <sge/renderer/vertex_buffer_scoped_ptr.hpp>
+#include <sge/renderer/vertex_declaration_scoped_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
 
 
@@ -38,8 +37,8 @@ public:
 	~quad();
 private:
 	sge::renderer::device &renderer_;
-	sge::renderer::vertex_declaration_ptr declaration_;
-	sge::renderer::vertex_buffer_ptr buffer_;
+	sge::renderer::vertex_declaration_scoped_ptr declaration_;
+	sge::renderer::vertex_buffer_scoped_ptr buffer_;
 };
 }
 }

@@ -4,7 +4,7 @@
 #include <fruitlib/font/identifier.hpp>
 #include <fruitlib/font/object_parameters_fwd.hpp>
 #include <fruitlib/font/drawer/object_fwd.hpp>
-#include <sge/font/metrics_ptr.hpp>
+#include <sge/font/metrics_fwd.hpp>
 #include <sge/font/rect.hpp>
 #include <sge/font/text/align_h.hpp>
 #include <sge/font/text/align_v.hpp>
@@ -74,7 +74,7 @@ public:
 
 	~object();
 private:
-	sge::font::metrics_ptr const metrics_;
+	sge::font::metrics &metrics_;
 	font::drawer::object &drawer_;
 	sge::font::text::string text_;
 	sge::font::rect bounding_box_;

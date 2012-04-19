@@ -11,8 +11,9 @@ fruitlib::audio::group::sound_positional::sound_positional(
 :
 	group::sound_base(
 		_buffer,
-		_buffer.impl_->create_positional(
-			_pp),
+		sge::audio::sound::base_unique_ptr(
+			_buffer.impl_->create_positional(
+				_pp)),
 		_global_gain,
 		_global_pitch),
 	sge::audio::sound::positional(),
@@ -24,13 +25,15 @@ fruitlib::audio::group::sound_positional::sound_positional(
 
 fruitlib::audio::group::sound_positional::sound_positional(
 	group::player &_player,
-	sge::audio::sound::positional_ptr const _impl,
+	sge::audio::sound::positional_unique_ptr _impl,
 	sge::audio::scalar const _global_gain,
 	sge::audio::scalar const _global_pitch)
 :
 	group::sound_base(
 		_player,
-		_impl,
+		sge::audio::sound::base_unique_ptr(
+			fcppt::move(
+				_impl)),
 		_global_gain,
 		_global_pitch),
 	sge::audio::sound::positional(),

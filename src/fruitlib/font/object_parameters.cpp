@@ -2,7 +2,7 @@
 
 
 fruitlib::font::object_parameters::object_parameters(
-	sge::font::metrics_ptr const _metrics,
+	sge::font::metrics &_metrics,
 	font::drawer::object &_drawer,
 	sge::font::text::string const &_text,
 	sge::font::rect const &_bounding_box,
@@ -27,7 +27,7 @@ fruitlib::font::object_parameters::object_parameters(
 {
 }
 
-sge::font::metrics_ptr const
+sge::font::metrics &
 fruitlib::font::object_parameters::metrics() const
 {
 	return metrics_;

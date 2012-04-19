@@ -37,7 +37,7 @@ fruitlib::audio::group::sound_base::sound_base(
 
 fruitlib::audio::group::sound_base::sound_base(
 	group::player &_player,
-	sge::audio::sound::base_ptr const _impl,
+	sge::audio::sound::base_unique_ptr _impl,
 	sge::audio::scalar const _global_gain,
 	sge::audio::scalar const _global_pitch)
 :
@@ -46,7 +46,8 @@ fruitlib::audio::group::sound_base::sound_base(
 	buffer_(
 		0),
 	impl_(
-		_impl),
+		fcppt::move(
+			_impl)),
 	global_gain_(
 		_global_gain),
 	local_gain_(
@@ -157,7 +158,7 @@ fruitlib::audio::group::sound_base::~sound_base()
 
 fruitlib::audio::group::sound_base::sound_base(
 	group::buffer &_buffer,
-	sge::audio::sound::base_ptr const _impl,
+	sge::audio::sound::base_unique_ptr _impl,
 	sge::audio::scalar const _global_gain,
 	sge::audio::scalar const _global_pitch)
 :
@@ -165,7 +166,8 @@ fruitlib::audio::group::sound_base::sound_base(
 	buffer_(
 		&_buffer),
 	impl_(
-		_impl),
+		fcppt::move(
+			_impl)),
 	global_gain_(
 		_global_gain),
 	local_gain_(

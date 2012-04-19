@@ -3,9 +3,9 @@
 #include <fruitlib/math/view_plane_rect.hpp>
 #include <fruitlib/scenic/events/render.hpp>
 #include <fruitlib/scenic/events/viewport_change.hpp>
-#include <sge/camera/first_person/object.hpp>
-#include <sge/camera/projection/invalid.hpp>
-#include <sge/camera/projection/perspective.hpp>
+#include <sge/camera/base.hpp>
+#include <sge/camera/coordinate_system/object.hpp>
+#include <sge/camera/matrix_conversion/world_projection.hpp>
 #include <sge/image2d/system_fwd.hpp>
 #include <sge/parse/json/find_and_convert_member.hpp>
 #include <sge/parse/json/object_fwd.hpp>
@@ -24,7 +24,9 @@
 #include <sge/renderer/scoped_vertex_declaration.hpp>
 #include <sge/renderer/scoped_vertex_lock.hpp>
 #include <sge/renderer/target_base.hpp>
+#include <sge/renderer/vertex_buffer.hpp>
 #include <sge/renderer/vertex_count.hpp>
+#include <sge/renderer/vertex_declaration.hpp>
 #include <sge/renderer/viewport.hpp>
 #include <sge/renderer/viewport_size.hpp>
 #include <sge/renderer/state/bool.hpp>
@@ -36,7 +38,7 @@
 #include <sge/renderer/state/stencil_func.hpp>
 #include <sge/renderer/state/trampoline.hpp>
 #include <sge/renderer/texture/create_planar_from_path.hpp>
-#include <sge/renderer/texture/planar_ptr.hpp>
+#include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/mipmap/off.hpp>
 #include <sge/renderer/vf/format.hpp>
 #include <sge/renderer/vf/iterator.hpp>
@@ -142,10 +144,10 @@ fruitapp::background::background(
 	fruitlib::scenic::optional_parent const &_parent,
 	sge::renderer::device &_renderer,
 	sge::image2d::system &_image_loader,
-	sge::renderer::texture::planar_ptr const _shadow_texture,
-	sge::renderer::matrix4 const &_mvp,
+	fruitapp::shadow_mvp const &_shadow_mvp,
+	fruitapp::shadow_map_texture const &_shadow_map_texture,
 	sge::parse::json::object const &_config,
-	sge::camera::first_person::object const &_camera)
+	sge::camera::base const &_camera)
 :
 	node_base(
 		_parent),
@@ -194,7 +196,7 @@ fruitapp::background::background(
 					"shadow_mvp",
 					sge::shader::variable_type::uniform,
 					sge::shader::matrix(
-						_mvp,
+						_shadow_mvp.get(),
 						sge::shader::matrix_flags::projection))),
 			fcppt::assign::make_container<sge::shader::sampler_sequence>
 				(sge::shader::sampler(
@@ -202,7 +204,7 @@ fruitapp::background::background(
 					texture_))
 				(sge::shader::sampler(
 					"shadow_map",
-					_shadow_texture)))
+					_shadow_map_texture.get())))
 				.name(
 					FCPPT_TEXT("background"))
 				.vertex_shader(
@@ -215,12 +217,7 @@ fruitapp::background::background(
 			sge::parse::json::path(
 				FCPPT_TEXT("background-repeat"))))
 {
-	fruitlib::scenic::events::viewport_change event;
-
-	this->react(
-		event);
 }
-
 
 fruitapp::background::~background()
 {
@@ -238,13 +235,12 @@ fruitapp::background::react(
 		renderer_,
 		*vb_);
 
-	sge::renderer::pixel_rect const viewport_rect =
-		renderer_.onscreen_target().viewport().get();
-
 	shader_.update_uniform(
 		"mvp",
 		sge::shader::matrix(
-			camera_.mvp(),
+			sge::camera::matrix_conversion::world_projection(
+				camera_.coordinate_system(),
+				camera_.projection_matrix()),
 			sge::shader::matrix_flags::projection));
 
 	sge::renderer::state::scoped scoped_state(
@@ -265,12 +261,8 @@ fruitapp::background::react(
 
 void
 fruitapp::background::react(
-	fruitlib::scenic::events::viewport_change const &)
+	fruitapp::projection_manager::projection_change const &_projection_change)
 {
-	// Don't have a viewport yet?
-	if(fcppt::variant::holds_type<sge::camera::projection::invalid>(camera_.projection_object()))
-		return;
-
 	typedef
 	fcppt::math::box::object<sge::renderer::scalar,2>
 	scalar_rect;
@@ -278,8 +270,10 @@ fruitapp::background::react(
 	// zero plane because it's the visible plane located at z = 0
 	scalar_rect const zero_plane(
 		fruitlib::math::view_plane_rect(
-			camera_.mvp(),
-			camera_.projection_object().get<sge::camera::projection::perspective>()));
+			sge::camera::matrix_conversion::world_projection(
+				camera_.coordinate_system(),
+				camera_.projection_matrix()),
+			_projection_change.perspective_projection_information()));
 
 	sge::renderer::scoped_vertex_lock const vblock(
 		*vb_,

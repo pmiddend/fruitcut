@@ -1,7 +1,5 @@
 #include <fruitlib/exception.hpp>
 #include <fruitlib/json/parse_projection.hpp>
-#include <sge/camera/projection/orthogonal.hpp>
-#include <sge/camera/projection/perspective.hpp>
 #include <sge/parse/json/find_and_convert_member.hpp>
 #include <sge/parse/json/object_fwd.hpp>
 #include <sge/parse/json/path.hpp>
@@ -13,27 +11,13 @@
 #include <fcppt/variant/object.hpp>
 
 
-sge::camera::projection::object const
+fruitlib::perspective_projection_information const
 fruitlib::json::parse_projection(
 	sge::parse::json::object const &o,
 	fcppt::optional<sge::renderer::scalar> const &aspect)
 {
-	if(
-		sge::parse::json::find_and_convert_member<fcppt::string>(
-			o,
-			sge::parse::json::path(FCPPT_TEXT("type"))) == FCPPT_TEXT("orthogonal"))
-		throw fruitlib::exception(FCPPT_TEXT("orthogonal projections aren't supported, yet"));
-
 	return
-		sge::camera::projection::perspective(
-			sge::renderer::projection::aspect(
-				aspect
-				?
-					*aspect
-				:
-					sge::parse::json::find_and_convert_member<sge::renderer::scalar>(
-						o,
-						sge::parse::json::path(FCPPT_TEXT("aspect")))),
+		fruitlib::perspective_projection_information(
 			sge::renderer::projection::fov(
 				fcppt::math::deg_to_rad(
 					sge::parse::json::find_and_convert_member<sge::renderer::scalar>(
@@ -46,5 +30,13 @@ fruitlib::json::parse_projection(
 			sge::renderer::projection::far(
 				sge::parse::json::find_and_convert_member<sge::renderer::scalar>(
 					o,
-					sge::parse::json::path(FCPPT_TEXT("far")))));
+					sge::parse::json::path(FCPPT_TEXT("far")))),
+			sge::renderer::projection::aspect(
+				aspect
+				?
+					*aspect
+				:
+					sge::parse::json::find_and_convert_member<sge::renderer::scalar>(
+						o,
+						sge::parse::json::path(FCPPT_TEXT("aspect")))));
 }

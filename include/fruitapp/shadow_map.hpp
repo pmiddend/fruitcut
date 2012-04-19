@@ -1,17 +1,20 @@
 #ifndef FRUITAPP_SHADOW_MAP_HPP_INCLUDED
 #define FRUITAPP_SHADOW_MAP_HPP_INCLUDED
 
+#include <fruitapp/shadow_map_texture.hpp>
+#include <fruitapp/shadow_mvp.hpp>
 #include <fruitlib/scenic/node.hpp>
 #include <fruitlib/scenic/optional_parent.hpp>
 #include <fruitlib/scenic/events/update.hpp>
 #include <sge/parse/json/object_fwd.hpp>
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/matrix4.hpp>
-#include <sge/renderer/target_ptr.hpp>
-#include <sge/renderer/texture/planar_fwd.hpp>
-#include <sge/renderer/texture/planar_ptr.hpp>
+#include <sge/renderer/target_scoped_ptr.hpp>
+#include <sge/renderer/texture/planar_shared_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/math/matrix/object_impl.hpp>
+#include <fcppt/preprocessor/pure.hpp>
+#include <fcppt/preprocessor/warn_unused_result.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -49,11 +52,15 @@ public:
 		sge::renderer::device &,
 		sge::renderer::matrix4 const &);
 
-	sge::renderer::texture::planar_ptr const
-	texture();
+	fruitapp::shadow_map_texture const
+	texture()
+	FCPPT_PP_WARN_UNUSED_RESULT
+	FCPPT_PP_PURE;
 
-	sge::renderer::matrix4 const &
-	mvp() const;
+	fruitapp::shadow_mvp const
+	mvp() const
+	FCPPT_PP_WARN_UNUSED_RESULT
+	FCPPT_PP_PURE;
 
 	~shadow_map();
 
@@ -62,8 +69,8 @@ public:
 		fruitlib::scenic::events::update const &);
 private:
 	sge::renderer::device &renderer_;
-	sge::renderer::texture::planar_ptr texture_;
-	sge::renderer::target_ptr target_;
+	sge::renderer::texture::planar_shared_ptr texture_;
+	sge::renderer::target_scoped_ptr target_;
 	sge::renderer::matrix4 mvp_;
 };
 }

@@ -8,7 +8,7 @@
 fcppt::math::box::object<sge::renderer::scalar,2> const
 fruitlib::math::view_plane_rect(
 	sge::renderer::matrix4 const &mvp,
-	sge::camera::projection::perspective const &perspective)
+	fruitlib::perspective_projection_information const &_perspective)
 {
 	typedef
 	fcppt::math::box::object<sge::renderer::scalar,2>
@@ -18,15 +18,15 @@ fruitlib::math::view_plane_rect(
 		distance_to_origin =
 			math::view_plane_distance(
 				mvp,
-				perspective),
+				_perspective),
 		height =
 			static_cast<sge::renderer::scalar>(
 				2 *
 				std::tan(
-					perspective.fov().get()/2) * distance_to_origin),
+					_perspective.fov().get()/2) * distance_to_origin),
 		width =
 			static_cast<sge::renderer::scalar>(
-				height * perspective.aspect().get());
+				height * _perspective.aspect().get());
 
 	return
 		box_type(

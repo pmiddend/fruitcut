@@ -55,18 +55,18 @@ public:
 	sge::audio::scalar
 	pitch() const;
 
-	sge::audio::buffer_ptr const
+	sge::audio::buffer_unique_ptr
 	create_buffer(
 		sge::audio::file &);
 
-	sge::audio::sound::positional_ptr const
+	sge::audio::sound::positional_unique_ptr
 	create_positional_stream(
-		sge::audio::file_ptr,
+		sge::audio::file &,
 		sge::audio::sound::positional_parameters const &);
 
-	sge::audio::sound::base_ptr const
+	sge::audio::sound::base_unique_ptr
 	create_nonpositional_stream(
-		sge::audio::file_ptr,
+		sge::audio::file &,
 		sge::audio::sound::nonpositional_parameters const &);
 
 	sge::audio::player_capabilities_field const

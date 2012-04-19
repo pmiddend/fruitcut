@@ -17,7 +17,6 @@
 #include <fruitlib/physics/nodes/debugger.hpp>
 #include <fruitlib/physics/nodes/world.hpp>
 #include <fruitlib/physics/rigid_body/scoped.hpp>
-#include <sge/renderer/device_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/scoped_ptr.hpp>
 #include <fcppt/signal/scoped_connection.hpp>

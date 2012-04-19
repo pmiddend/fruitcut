@@ -1,0 +1,10 @@
+#ifndef FRUITLIB_PERSPECTIVE_PROJECTION_INFORMATION_FWD_HPP_INCLUDED
+#define FRUITLIB_PERSPECTIVE_PROJECTION_INFORMATION_FWD_HPP_INCLUDED
+
+namespace fruitlib
+{
+class perspective_projection_information;
+}
+
+#endif
+

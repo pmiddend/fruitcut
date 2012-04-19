@@ -19,7 +19,7 @@
 #include <sge/cegui/default_keyboard.hpp>
 #include <sge/cegui/toolbox/scoped_gui_sheet.hpp>
 #include <sge/cegui/toolbox/scoped_layout.hpp>
-#include <sge/renderer/texture/planar_ptr.hpp>
+#include <sge/renderer/texture/planar_shared_ptr.hpp>
 #include <sge/timer/basic.hpp>
 #include <sge/timer/clocks/standard.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -119,7 +119,7 @@ private:
 	fruitlib::pp::system system_;
 	fruitlib::pp::filter::inject_texture inject_texture_;
 	fruitlib::pp::filter::blur blur_;
-	sge::renderer::texture::planar_ptr current_texture_;
+	sge::renderer::texture::planar_shared_ptr current_texture_;
 	fruitlib::pp::filter::blur::size_type blur_iterations_;
 	fruitlib::pp::filter::blur::size_type const max_blur_iterations_;
 	sge::timer::basic<sge::timer::clocks::standard> blur_timer_;

@@ -8,8 +8,10 @@
 #include <fruitapp/point_sprite/splatter/linear_velocity.hpp>
 #include <fruitapp/point_sprite/splatter/position.hpp>
 #include <fruitapp/point_sprite/splatter/size.hpp>
-#include <sge/texture/part_ptr.hpp>
+#include <sge/texture/part_shared_ptr.hpp>
 #include <fcppt/nonassignable.hpp>
+#include <fcppt/preprocessor/pure.hpp>
+#include <fcppt/preprocessor/warn_unused_result.hpp>
 
 
 namespace fruitapp
@@ -31,36 +33,54 @@ public:
 		point_sprite::splatter::acceleration const &,
 		point_sprite::splatter::size const &,
 		point_sprite::color const &,
-		sge::texture::part_ptr,
+		sge::texture::part_shared_ptr,
 		fruitapp::ingame_clock::duration const &,
 		fruitapp::ingame_clock const &);
 
 	point_sprite::connection &
-	connection() const;
+	connection() const
+	FCPPT_PP_WARN_UNUSED_RESULT
+	FCPPT_PP_PURE;
 
 	point_sprite::splatter::position::value_type const &
-	position() const;
+	position() const
+	FCPPT_PP_WARN_UNUSED_RESULT
+	FCPPT_PP_PURE;
 
 	point_sprite::splatter::linear_velocity::value_type const &
-	linear_velocity() const;
+	linear_velocity() const
+	FCPPT_PP_WARN_UNUSED_RESULT
+	FCPPT_PP_PURE;
 
 	point_sprite::splatter::acceleration::value_type const &
-	acceleration() const;
+	acceleration() const
+	FCPPT_PP_WARN_UNUSED_RESULT
+	FCPPT_PP_PURE;
 
 	point_sprite::splatter::size::value_type const &
-	size() const;
+	size() const
+	FCPPT_PP_WARN_UNUSED_RESULT
+	FCPPT_PP_PURE;
 
 	point_sprite::color const &
-	color() const;
+	color() const
+	FCPPT_PP_WARN_UNUSED_RESULT
+	FCPPT_PP_PURE;
 
-	sge::texture::part_ptr const
-	texture() const;
+	sge::texture::part_shared_ptr const
+	texture() const
+	FCPPT_PP_WARN_UNUSED_RESULT
+	FCPPT_PP_PURE;
 
 	fruitapp::ingame_clock::duration const &
-	life_time() const;
+	life_time() const
+	FCPPT_PP_WARN_UNUSED_RESULT
+	FCPPT_PP_PURE;
 
 	fruitapp::ingame_clock const &
-	clock() const;
+	clock() const
+	FCPPT_PP_WARN_UNUSED_RESULT
+	FCPPT_PP_PURE;
 
 	~parameters();
 private:
@@ -70,7 +90,7 @@ private:
 	fruitapp::point_sprite::splatter::acceleration::value_type const acceleration_;
 	fruitapp::point_sprite::splatter::size::value_type const size_;
 	fruitapp::point_sprite::color const color_;
-	sge::texture::part_ptr const texture_;
+	sge::texture::part_shared_ptr const texture_;
 	fruitapp::ingame_clock::duration const life_time_;
 	fruitapp::ingame_clock const &clock_;
 };

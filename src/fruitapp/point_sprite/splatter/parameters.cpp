@@ -1,5 +1,5 @@
 #include <fruitapp/point_sprite/splatter/parameters.hpp>
-#include <sge/texture/part_ptr.hpp>
+#include <sge/texture/part_shared_ptr.hpp>
 
 
 fruitapp::point_sprite::splatter::parameters::parameters(
@@ -9,7 +9,7 @@ fruitapp::point_sprite::splatter::parameters::parameters(
 	point_sprite::splatter::acceleration const &_acceleration,
 	point_sprite::splatter::size const &_size,
 	point_sprite::color const &_color,
-	sge::texture::part_ptr const _texture,
+	sge::texture::part_shared_ptr const _texture,
 	fruitapp::ingame_clock::duration const &_life_time,
 	fruitapp::ingame_clock const &_clock)
 :
@@ -70,7 +70,7 @@ fruitapp::point_sprite::splatter::parameters::color() const
 	return color_;
 }
 
-sge::texture::part_ptr const
+sge::texture::part_shared_ptr const
 fruitapp::point_sprite::splatter::parameters::texture() const
 {
 	return texture_;

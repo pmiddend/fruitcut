@@ -1,6 +1,7 @@
 #ifndef FRUITAPP_FRUIT_SHADOW_RENDER_NODE_HPP_INCLUDED
 #define FRUITAPP_FRUIT_SHADOW_RENDER_NODE_HPP_INCLUDED
 
+#include <fruitapp/shadow_mvp.hpp>
 #include <fruitapp/fruit/manager_fwd.hpp>
 #include <fruitlib/scenic/node.hpp>
 #include <fruitlib/scenic/optional_parent.hpp>
@@ -38,7 +39,7 @@ public:
 		sge::renderer::device &,
 		sge::renderer::vertex_declaration &,
 		fruit::manager const &,
-		sge::renderer::matrix4 const &);
+		fruitapp::shadow_mvp const &);
 
 	~shadow_render_node();
 
@@ -50,7 +51,7 @@ private:
 	sge::renderer::vertex_declaration &vertex_declaration_;
 	fruit::manager const &manager_;
 	sge::shader::object shader_;
-	sge::renderer::matrix4 mvp_;
+	fruitapp::shadow_mvp mvp_;
 };
 }
 }

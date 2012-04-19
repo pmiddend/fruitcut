@@ -13,19 +13,17 @@
 #include <fruitlib/scenic/delta/duration.hpp>
 #include <fruitlib/scenic/delta/timer.hpp>
 #include <fruitlib/scenic/events/update.hpp>
-#include <sge/audio/buffer_ptr.hpp>
-#include <sge/audio/file_ptr.hpp>
+#include <sge/audio/buffer_scoped_ptr.hpp>
+#include <sge/audio/file_shared_ptr.hpp>
 #include <sge/audio/loader_fwd.hpp>
 #include <sge/audio/player_fwd.hpp>
 #include <sge/audio/scalar.hpp>
-#include <sge/audio/sound/base_ptr.hpp>
+#include <sge/audio/sound/base_shared_ptr.hpp>
 #include <sge/timer/basic.hpp>
 #include <sge/timer/clocks/delta.hpp>
 #include <sge/timer/clocks/standard.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/shared_ptr.hpp>
 #include <fcppt/string.hpp>
-#include <fcppt/unique_ptr.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
 #include <cstddef>
@@ -83,7 +81,7 @@ private:
 	typedef
 	resource_tree::make_type
 	<
-		sge::audio::file_ptr,
+		sge::audio::file_shared_ptr,
 		// shared_ptr because of horrible unique_ptr semantics
 		fcppt::shared_ptr
 		<
@@ -100,20 +98,16 @@ private:
 	resource_tree_ptr sounds_;
 	scenic::delta::clock clock_;
 	scenic::delta::timer crossfade_;
-	sge::audio::buffer_ptr silence_buffer_;
-	sge::audio::sound::base_ptr silence_source_;
+	sge::audio::buffer_scoped_ptr silence_buffer_;
+	sge::audio::sound::base_shared_ptr silence_source_;
 
-	sge::audio::sound::base_ptr
+	sge::audio::sound::base_shared_ptr
 		current_source_,
 		new_source_;
 
 	void
 	do_play(
-		sge::audio::sound::base_ptr);
-
-	sge::audio::file_ptr const
-	choose_random(
-		resource_tree_type const &);
+		sge::audio::sound::base_shared_ptr);
 };
 }
 }

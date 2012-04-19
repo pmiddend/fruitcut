@@ -7,7 +7,6 @@
 #include <fruitlib/pp/texture/manager_fwd.hpp>
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/dim2.hpp>
-#include <sge/renderer/target_ptr.hpp>
 #include <sge/renderer/state/list.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/function/object.hpp>

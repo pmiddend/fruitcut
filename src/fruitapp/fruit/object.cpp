@@ -12,8 +12,7 @@
 #include <fruitlib/physics/rigid_body/parameters.hpp>
 #include <sge/renderer/matrix4.hpp>
 #include <sge/renderer/vector3.hpp>
-#include <sge/renderer/vertex_buffer_fwd.hpp>
-#include <sge/renderer/texture/planar_ptr.hpp>
+#include <sge/renderer/vertex_buffer.hpp>
 #include <sge/timer/parameters.hpp>
 #include <fcppt/ref.hpp>
 #include <fcppt/assign/make_container.hpp>

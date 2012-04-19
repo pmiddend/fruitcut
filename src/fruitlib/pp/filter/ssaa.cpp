@@ -11,7 +11,7 @@
 #include <sge/renderer/vector2.hpp>
 #include <sge/renderer/vertex_buffer.hpp>
 #include <sge/renderer/texture/planar.hpp>
-#include <sge/renderer/texture/planar_ptr.hpp>
+#include <sge/renderer/texture/planar_shared_ptr.hpp>
 #include <sge/shader/activate_everything.hpp>
 #include <sge/shader/object.hpp>
 #include <sge/shader/scoped.hpp>
@@ -47,7 +47,7 @@ fruitlib::pp::filter::ssaa::ssaa(
 			fcppt::assign::make_container<sge::shader::sampler_sequence>(
 				sge::shader::sampler(
 					"tex",
-					sge::renderer::texture::planar_ptr()))))
+					sge::renderer::texture::planar_shared_ptr()))))
 {
 }
 
@@ -77,7 +77,7 @@ fruitlib::pp::filter::ssaa::apply(
 
 	sge::renderer::scoped_target const scoped_target(
 		renderer_,
-		*result->target());
+		result->target());
 
 	sge::renderer::scoped_block const block(
 		renderer_);

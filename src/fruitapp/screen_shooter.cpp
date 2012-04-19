@@ -15,6 +15,7 @@
 #include <fcppt/filesystem/create_directory_exn.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/io/cout.hpp>
+#include <fcppt/signal/connection.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/date_time/c_local_time_adjustor.hpp>

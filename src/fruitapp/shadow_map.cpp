@@ -1,7 +1,7 @@
 #include <fruitapp/shadow_map.hpp>
+#include <fruitlib/perspective_projection_information_to_matrix.hpp>
 #include <fruitlib/json/parse_projection.hpp>
 #include <fruitlib/scenic/events/render.hpp>
-#include <sge/camera/projection/to_matrix.hpp>
 #include <sge/image/colors.hpp>
 #include <sge/image/color/format.hpp>
 #include <sge/parse/json/find_and_convert_member.hpp>
@@ -14,7 +14,9 @@
 #include <sge/renderer/scalar.hpp>
 #include <sge/renderer/scoped_block.hpp>
 #include <sge/renderer/scoped_target.hpp>
+#include <sge/renderer/target.hpp>
 #include <sge/renderer/target_from_texture.hpp>
+#include <sge/renderer/projection/perspective_af.hpp>
 #include <sge/renderer/state/bool.hpp>
 #include <sge/renderer/state/color.hpp>
 #include <sge/renderer/state/depth_func.hpp>
@@ -24,8 +26,8 @@
 #include <sge/renderer/state/trampoline.hpp>
 #include <sge/renderer/texture/capabilities.hpp>
 #include <sge/renderer/texture/capabilities_field.hpp>
+#include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/planar_parameters.hpp>
-#include <sge/renderer/texture/planar_ptr.hpp>
 #include <sge/renderer/texture/mipmap/off.hpp>
 #include <fcppt/optional.hpp>
 #include <fcppt/text.hpp>
@@ -61,7 +63,7 @@ fruitapp::shadow_map::shadow_map(
 			renderer_,
 			*texture_)),
 	mvp_(
-		sge::camera::projection::to_matrix(
+		fruitlib::perspective_projection_information_to_matrix(
 			fruitlib::json::parse_projection(
 				sge::parse::json::find_and_convert_member<sge::parse::json::object>(
 					_config,
@@ -79,16 +81,20 @@ fruitapp::shadow_map::shadow_map(
 		event);
 }
 
-sge::renderer::texture::planar_ptr const
+fruitapp::shadow_map_texture const
 fruitapp::shadow_map::texture()
 {
-	return texture_;
+	return
+		fruitapp::shadow_map_texture(
+			texture_);
 }
 
-sge::renderer::matrix4 const &
+fruitapp::shadow_mvp const
 fruitapp::shadow_map::mvp() const
 {
-	return mvp_;
+	return
+		fruitapp::shadow_mvp(
+			mvp_);
 }
 
 fruitapp::shadow_map::~shadow_map()

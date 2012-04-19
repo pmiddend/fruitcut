@@ -3,7 +3,7 @@
 
 #include <fruitapp/fruit/mesh_fwd.hpp>
 #include <sge/renderer/device_fwd.hpp>
-#include <sge/renderer/vertex_buffer_ptr.hpp>
+#include <sge/renderer/vertex_buffer_unique_ptr.hpp>
 #include <sge/renderer/vertex_declaration_fwd.hpp>
 
 
@@ -11,7 +11,7 @@ namespace fruitapp
 {
 namespace fruit
 {
-sge::renderer::vertex_buffer_ptr const
+sge::renderer::vertex_buffer_unique_ptr
 mesh_to_vertex_buffer(
 	sge::renderer::device &,
 	sge::renderer::vertex_declaration &,

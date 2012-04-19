@@ -117,17 +117,15 @@
 	},
 	"ingame" :
 	{
-		"camera" : 
+		"camera" :
 		{
-			"projection" : 
+			"projection" :
 			{
-				"type" : "perspective",
 				"fov" : 60.0,
 				"near" : 0.1,
 				"far" : 100.0
 			},
 			"movement-speed" : 10.0,
-			"mouse-speed" : 300.0,
 			"initial-position" : [0.0,0.0,-15.0]
 		},
 		"round-time" : "10s",

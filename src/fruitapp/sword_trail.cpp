@@ -34,6 +34,7 @@
 #include <sge/timer/parameters.hpp>
 #include <sge/timer/reset_when_expired.hpp>
 #include <fcppt/make_shared_ptr.hpp>
+#include <fcppt/ref.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/math/dim/object_impl.hpp>
 #include <fcppt/math/vector/atan2.hpp>
@@ -91,13 +92,16 @@ fruitapp::sword_trail::sword_trail(
 			_config_file,
 			sge::parse::json::path(FCPPT_TEXT("sword-mouse-trail")) / FCPPT_TEXT("sword-width"))),
 	texture_(
+		sge::renderer::texture::create_planar_from_path(
+			fruitlib::media_path() / FCPPT_TEXT("textures") / FCPPT_TEXT("sword_particle.png"),
+			_renderer,
+			_image_loader,
+			sge::renderer::texture::mipmap::off(),
+			sge::renderer::resource_flags::none)),
+	texture_part_(
 		fcppt::make_shared_ptr<sge::texture::part_raw>(
-			sge::renderer::texture::create_planar_from_path(
-				fruitlib::media_path() / FCPPT_TEXT("textures") / FCPPT_TEXT("sword_particle.png"),
-				_renderer,
-				_image_loader,
-				sge::renderer::texture::mipmap::off(),
-				sge::renderer::resource_flags::none))),
+			fcppt::ref(
+				*texture_))),
 	sprite_buffers_(
 		_renderer,
 		sge::sprite::buffers::option::dynamic),
@@ -181,7 +185,7 @@ fruitapp::sword_trail::react(
 							diff),
 						max_width_))
 				.texture(
-					texture_)
+					texture_part_)
 				.rotation(
 					angle)
 				));

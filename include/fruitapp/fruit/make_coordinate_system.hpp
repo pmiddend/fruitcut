@@ -13,6 +13,7 @@
 #include <fcppt/math/matrix/static.hpp>
 #include <fcppt/math/vector/comparison.hpp>
 #include <fcppt/math/vector/cross.hpp>
+#include <fcppt/math/vector/length.hpp>
 #include <fcppt/math/vector/normalize.hpp>
 #include <fcppt/math/vector/orthogonalize.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -99,7 +100,8 @@ make_coordinate_system(
 
 	// Just to be sure.
 	FCPPT_ASSERT_ERROR(
-		((*first_other_point) - (*points.begin())) != vector::null());
+		fcppt::math::vector::length(
+			((*first_other_point) - (*points.begin()))) > epsilon);
 
 	// Second step: Find the first point that is not colinear to the
 	// first two points (to form the second axis).

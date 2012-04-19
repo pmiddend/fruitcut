@@ -4,7 +4,7 @@
 #include <fruitlib/font/identifier.hpp>
 #include <fruitlib/font/object_parameters_fwd.hpp>
 #include <fruitlib/font/drawer/object_fwd.hpp>
-#include <sge/font/metrics_ptr.hpp>
+#include <sge/font/metrics_fwd.hpp>
 #include <sge/font/rect.hpp>
 #include <sge/font/text/align_h.hpp>
 #include <sge/font/text/align_v.hpp>
@@ -26,7 +26,7 @@ FCPPT_NONASSIGNABLE(
 public:
 	explicit
 	object_parameters(
-		sge::font::metrics_ptr,
+		sge::font::metrics &,
 		font::drawer::object &,
 		sge::font::text::string const &,
 		sge::font::rect const &,
@@ -34,7 +34,7 @@ public:
 		sge::font::text::align_v::type,
 		sge::font::text::flags_field const &);
 
-	sge::font::metrics_ptr const
+	sge::font::metrics &
 	metrics() const;
 
 	font::drawer::object &
@@ -55,7 +55,7 @@ public:
 	sge::font::text::flags_field const &
 	flags() const;
 private:
-	sge::font::metrics_ptr metrics_;
+	sge::font::metrics &metrics_;
 	font::drawer::object &drawer_;
 	sge::font::text::string text_;
 	sge::font::rect bounding_box_;

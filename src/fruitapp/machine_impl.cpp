@@ -22,11 +22,8 @@
 #include <sge/audio/loader_capabilities_field.hpp>
 #include <sge/audio/player.hpp>
 #include <sge/audio/scalar.hpp>
-#include <sge/camera/identity_gizmo.hpp>
-#include <sge/camera/first_person/movement_speed.hpp>
 #include <sge/camera/first_person/object.hpp>
 #include <sge/camera/first_person/parameters.hpp>
-#include <sge/camera/first_person/rotation_speed.hpp>
 #include <sge/cegui/cursor_visibility.hpp>
 #include <sge/cegui/load_context.hpp>
 #include <sge/cegui/syringe.hpp>
@@ -290,31 +287,38 @@ fruitapp::machine_impl::machine_impl(
 		sound_controller_),
 	camera_(
 		sge::camera::first_person::parameters(
+			systems_.keyboard_collector(),
+			systems_.mouse_collector(),
+			sge::camera::first_person::is_active(
+				true),
 			sge::camera::first_person::movement_speed(
 				sge::parse::json::find_and_convert_member<sge::renderer::scalar>(
 					config_file_,
 					sge::parse::json::path(FCPPT_TEXT("ingame"))
 						/ FCPPT_TEXT("camera")
 						/ FCPPT_TEXT("movement-speed"))),
-			// mousespeed
-			sge::camera::first_person::rotation_speed(
-				sge::parse::json::find_and_convert_member<sge::renderer::scalar>(
-					config_file_,
-					sge::parse::json::path(FCPPT_TEXT("ingame"))
-						/ FCPPT_TEXT("camera")
-						/ FCPPT_TEXT("mouse-speed"))),
-			systems_.keyboard_collector(),
-			systems_.mouse_collector())
-			.active(
-				false)
-			.gizmo(
-				sge::camera::identity_gizmo()
-					.position(
-						sge::parse::json::find_and_convert_member<sge::renderer::vector3>(
-							config_file_,
-							sge::parse::json::path(FCPPT_TEXT("ingame"))
-								/ FCPPT_TEXT("camera")
-								/ FCPPT_TEXT("initial-position"))))),
+			sge::camera::coordinate_system::object(
+				sge::camera::coordinate_system::right(
+					sge::renderer::vector3(
+						1.0f,
+						0.0f,
+						0.0f)),
+				sge::camera::coordinate_system::up(
+					sge::renderer::vector3(
+						0.0f,
+						1.0f,
+						0.0f)),
+				sge::camera::coordinate_system::forward(
+					sge::renderer::vector3(
+						0.0f,
+						0.0f,
+						1.0f)),
+				sge::camera::coordinate_system::position(
+					sge::parse::json::find_and_convert_member<sge::renderer::vector3>(
+						config_file_,
+						sge::parse::json::path(FCPPT_TEXT("ingame"))
+							/ FCPPT_TEXT("camera")
+							/ FCPPT_TEXT("initial-position")))))),
 	camera_node_(
 		fruitlib::scenic::optional_parent(
 			fruitlib::scenic::parent(
@@ -323,6 +327,16 @@ fruitapp::machine_impl::machine_impl(
 					depths::root::dont_care))),
 		camera_,
 		standard_clock_callback()),
+	projection_manager_(
+		sge::parse::json::find_and_convert_member<sge::parse::json::object>(
+			config_file_,
+			sge::parse::json::path(FCPPT_TEXT("ingame"))
+				/ FCPPT_TEXT("camera")
+				/ FCPPT_TEXT("projection")),
+		this->root_node(),
+		systems_.viewport_manager(),
+		systems_.renderer(),
+		camera_),
 	toggle_camera_connection_(
 		systems_.keyboard_collector().key_callback(
 			sge::input::keyboard::action(
@@ -358,8 +372,8 @@ fruitapp::machine_impl::machine_impl(
 					depths::scene::background))),
 		systems_.renderer(),
 		systems_.image_system(),
-		shadow_map_.texture(),
 		shadow_map_.mvp(),
+		shadow_map_.texture(),
 		config_file_,
 		camera_),
 	desired_fps_(
@@ -721,25 +735,12 @@ fruitapp::machine_impl::~machine_impl()
 void
 fruitapp::machine_impl::toggle_camera()
 {
-	camera_.active(
-		!camera_.active());
+	camera_.toggle_is_active();
 }
 
 void
 fruitapp::machine_impl::viewport_change()
 {
-	camera_.projection_object(
-		fruitlib::json::parse_projection(
-			sge::parse::json::find_and_convert_member<sge::parse::json::object>(
-				config_file_,
-				sge::parse::json::path(FCPPT_TEXT("ingame"))
-					/ FCPPT_TEXT("camera")
-					/ FCPPT_TEXT("projection")),
-			fcppt::optional<sge::renderer::scalar>(
-				sge::renderer::aspect(
-					sge::renderer::viewport_size(
-						systems_.renderer())))));
-
 	fruitlib::scenic::events::viewport_change event;
 
 	node_base::forward_to_children(

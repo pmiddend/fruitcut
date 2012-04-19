@@ -6,7 +6,7 @@
 #include <fruitlib/scenic/node.hpp>
 #include <fruitlib/scenic/parent_fwd.hpp>
 #include <fruitlib/scenic/events/render.hpp>
-#include <sge/camera/first_person/object_fwd.hpp>
+#include <sge/camera/base_fwd.hpp>
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/scalar.hpp>
 #include <sge/renderer/vertex_declaration_fwd.hpp>
@@ -38,7 +38,7 @@ public:
 		sge::renderer::device &,
 		sge::renderer::vertex_declaration &,
 		fruit::manager const &,
-		sge::camera::first_person::object &,
+		sge::camera::base const &,
 		fruitapp::directional_light_source const &,
 		sge::renderer::scalar);
 
@@ -50,7 +50,7 @@ public:
 private:
 	sge::renderer::device &renderer_;
 	fruit::manager const &manager_;
-	sge::camera::first_person::object const &camera_;
+	sge::camera::base const &camera_;
 	sge::shader::object shader_;
 };
 }

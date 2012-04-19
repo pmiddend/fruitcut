@@ -1,7 +1,7 @@
 #ifndef FRUITLIB_MATH_VIEW_PLANE_RECT_HPP_INCLUDED
 #define FRUITLIB_MATH_VIEW_PLANE_RECT_HPP_INCLUDED
 
-#include <sge/camera/projection/perspective.hpp>
+#include <fruitlib/perspective_projection_information.hpp>
 #include <sge/renderer/matrix4.hpp>
 #include <sge/renderer/scalar.hpp>
 #include <fcppt/math/box/object_impl.hpp>
@@ -13,7 +13,7 @@ namespace math
 fcppt::math::box::object<sge::renderer::scalar,2> const
 view_plane_rect(
 	sge::renderer::matrix4 const &,
-	sge::camera::projection::perspective const &);
+	fruitlib::perspective_projection_information const &);
 }
 }
 

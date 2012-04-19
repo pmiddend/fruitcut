@@ -4,7 +4,10 @@
 #include <fruitapp/fruit/model_vf/format.hpp>
 #include <fruitlib/media_path.hpp>
 #include <fruitlib/scenic/events/render.hpp>
-#include <sge/camera/first_person/object.hpp>
+#include <sge/camera/base.hpp>
+#include <sge/camera/coordinate_system/object.hpp>
+#include <sge/camera/matrix_conversion/world.hpp>
+#include <sge/camera/matrix_conversion/world_projection.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/first_vertex.hpp>
 #include <sge/renderer/matrix4.hpp>
@@ -21,7 +24,7 @@
 #include <sge/renderer/state/scoped.hpp>
 #include <sge/renderer/state/trampoline.hpp>
 #include <sge/renderer/texture/planar.hpp>
-#include <sge/renderer/texture/planar_ptr.hpp>
+#include <sge/renderer/texture/planar_shared_ptr.hpp>
 #include <sge/renderer/texture/scoped.hpp>
 #include <sge/renderer/texture/stage.hpp>
 #include <sge/renderer/texture/filter/scoped.hpp>
@@ -49,7 +52,7 @@ fruitapp::fruit::default_render_node::default_render_node(
 	sge::renderer::device &_renderer,
 	sge::renderer::vertex_declaration &_vertex_declaration,
 	fruit::manager const &_manager,
-	sge::camera::first_person::object &_camera,
+	sge::camera::base const &_camera,
 	fruitapp::directional_light_source const &light,
 	sge::renderer::scalar const _ambient_intensity)
 :
@@ -122,7 +125,7 @@ fruitapp::fruit::default_render_node::default_render_node(
 			fcppt::assign::make_container<sge::shader::sampler_sequence>
 				(sge::shader::sampler(
 					"texture",
-					sge::renderer::texture::planar_ptr())))
+					sge::renderer::texture::planar_shared_ptr())))
 				.name(
 					FCPPT_TEXT("default fruit render node"))
 				.vertex_shader(
@@ -159,10 +162,15 @@ fruitapp::fruit::default_render_node::react(
 	shader_.update_uniform(
 		"world",
 		sge::shader::matrix(
-			camera_.world(),
+			sge::camera::matrix_conversion::world(
+				camera_.coordinate_system()),
 			sge::shader::matrix_flags::none));
 
-	for(object_sequence::const_iterator i = manager_.fruits().begin(); i != manager_.fruits().end(); ++i)
+	for(
+		object_sequence::const_iterator i =
+			manager_.fruits().begin();
+		i != manager_.fruits().end();
+		++i)
 	{
 		sge::renderer::scoped_vertex_buffer scoped_vb(
 			renderer_,
@@ -177,13 +185,21 @@ fruitapp::fruit::default_render_node::react(
 		shader_.update_uniform(
 			"mvp",
 			sge::shader::matrix(
-				camera_.mvp() * i->world_transform(),
+				sge::camera::matrix_conversion::world_projection(
+					camera_.coordinate_system(),
+					camera_.projection_matrix()) *
+				i->world_transform(),
 				sge::shader::matrix_flags::projection));
+
+		sge::renderer::matrix4 const world_transformation_matrix(
+			sge::camera::matrix_conversion::world(
+				camera_.coordinate_system()) *
+			i->world_transform());
 
 		shader_.update_uniform(
 			"mv",
 			sge::shader::matrix(
-				camera_.world() * i->world_transform(),
+				world_transformation_matrix,
 				sge::shader::matrix_flags::projection));
 
 		shader_.update_uniform(
@@ -191,7 +207,7 @@ fruitapp::fruit::default_render_node::react(
 			sge::shader::matrix(
 				fcppt::math::matrix::transpose(
 					fcppt::math::matrix::inverse(
-						camera_.world() * i->world_transform())),
+						world_transformation_matrix)),
 				sge::shader::matrix_flags::projection));
 
 		// Material shit

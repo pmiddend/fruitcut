@@ -32,9 +32,6 @@ public:
 		direction_(
 			_direction)
 	{
-		FCPPT_ASSERT_PRE_MESSAGE(
-			direction_ != vector::null(),
-			FCPPT_TEXT("Tried to create a line with zero direction vector"));
 	}
 
 	vector const &

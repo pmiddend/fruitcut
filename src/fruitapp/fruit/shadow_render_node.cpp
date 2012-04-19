@@ -37,7 +37,7 @@ fruitapp::fruit::shadow_render_node::shadow_render_node(
 	sge::renderer::device &_renderer,
 	sge::renderer::vertex_declaration &_vertex_declaration,
 	fruit::manager const &_manager,
-	sge::renderer::matrix4 const &_mvp)
+	fruitapp::shadow_mvp const &_mvp)
 :
 	node_base(
 		_parent),
@@ -97,7 +97,7 @@ fruitapp::fruit::shadow_render_node::react(
 		shader_.update_uniform(
 			"mvp",
 			sge::shader::matrix(
-				mvp_ * i->world_transform(),
+				mvp_.get() * i->world_transform(),
 				sge::shader::matrix_flags::projection));
 
 		renderer_.render_nonindexed(

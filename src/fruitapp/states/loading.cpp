@@ -32,6 +32,7 @@
 #include <sge/systems/instance.hpp>
 #include <fcppt/insert_to_string.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/container/ptr/push_back_unique_ptr.hpp>
 #include <fcppt/math/box/object_impl.hpp>
 #include <fcppt/math/dim/object_impl.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
@@ -119,7 +120,8 @@ fruitapp::states::loading::react(
 		return;
 	}
 
-	context<machine>().fruit_prototypes().push_back(
+	fcppt::container::ptr::push_back_unique_ptr(
+		context<machine>().fruit_prototypes(),
 		fruit::prototype_from_json(
 			*current_fruit_++,
 			context<machine>().md3_loader(),

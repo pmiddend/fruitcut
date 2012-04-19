@@ -29,7 +29,7 @@ void
 fruitlib::font::object::render()
 {
 	sge::font::text::draw(
-		*metrics_,
+		metrics_,
 		drawer_,
 		text_,
 		bounding_box_,
@@ -41,7 +41,7 @@ fruitlib::font::object::render()
 sge::font::metrics &
 fruitlib::font::object::metrics() const
 {
-	return *metrics_;
+	return metrics_;
 }
 
 fruitlib::font::drawer::object &

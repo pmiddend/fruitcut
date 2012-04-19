@@ -10,7 +10,7 @@
 #include <sge/renderer/vector2.hpp>
 #include <sge/renderer/glsl/scoped_program.hpp>
 #include <sge/renderer/texture/planar.hpp>
-#include <sge/renderer/texture/planar_ptr.hpp>
+#include <sge/renderer/texture/planar_shared_ptr.hpp>
 #include <sge/shader/activate_everything.hpp>
 #include <sge/shader/object.hpp>
 #include <sge/shader/scoped.hpp>
@@ -56,7 +56,7 @@ fruitlib::pp::filter::blur::blur(
 				fcppt::assign::make_container<sge::shader::sampler_sequence>(
 					sge::shader::sampler(
 						"tex",
-						sge::renderer::texture::planar_ptr())))))
+						sge::renderer::texture::planar_shared_ptr())))))
 			(&(filter_manager_.lookup_shader(
 				FCPPT_TEXT("blur_horizontal"),
 				fcppt::assign::make_container<sge::shader::variable_sequence>(
@@ -67,7 +67,7 @@ fruitlib::pp::filter::blur::blur(
 				fcppt::assign::make_container<sge::shader::sampler_sequence>(
 					sge::shader::sampler(
 						"tex",
-						sge::renderer::texture::planar_ptr()))))))
+						sge::renderer::texture::planar_shared_ptr()))))))
 {
 	FCPPT_ASSERT_PRE(
 		iterations_);
@@ -101,6 +101,7 @@ fruitlib::pp::filter::blur::apply(
 	shaders_[0]->update_texture(
 		"tex",
 		input->texture());
+
 	shaders_[1]->update_texture(
 		"tex",
 		instances[0]->texture());
@@ -109,12 +110,12 @@ fruitlib::pp::filter::blur::apply(
 		*shaders_[0],
 		"texture_size",
 		fcppt::math::dim::structure_cast<sge::renderer::vector2>(
-				instances[0]->texture()->size()));
+			instances[0]->texture()->size()));
 	sge::shader::update_single_uniform(
 		*shaders_[1],
 		"texture_size",
 		fcppt::math::dim::structure_cast<sge::renderer::vector2>(
-				instances[1]->texture()->size()));
+			instances[1]->texture()->size()));
 
 	render(
 		instances,
@@ -156,7 +157,7 @@ fruitlib::pp::filter::blur::render(
 
 	sge::renderer::scoped_target const target_(
 		renderer_,
-		*textures[i]->target());
+		textures[i]->target());
 
 	sge::renderer::scoped_block const block_(
 		renderer_);

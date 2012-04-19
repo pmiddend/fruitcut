@@ -7,7 +7,7 @@
 #include <fruitlib/scenic/delta/clock.hpp>
 #include <fruitlib/scenic/delta/timer.hpp>
 #include <fruitlib/scenic/events/update.hpp>
-#include <sge/camera/first_person/object_fwd.hpp>
+#include <sge/camera/is_dynamic_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
@@ -34,7 +34,7 @@ public:
 	explicit
 	camera(
 		scenic::optional_parent const &parent,
-		sge::camera::first_person::object &,
+		sge::camera::is_dynamic &,
 		scenic::delta::callback const &);
 
 	~camera();
@@ -45,7 +45,7 @@ public:
 private:
 	scenic::delta::clock clock_;
 	scenic::delta::timer timer_;
-	sge::camera::first_person::object &camera_;
+	sge::camera::is_dynamic &camera_;
 };
 }
 }

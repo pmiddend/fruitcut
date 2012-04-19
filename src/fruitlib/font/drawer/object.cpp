@@ -13,7 +13,6 @@
 #include <sge/sprite/compare/default.hpp>
 #include <sge/sprite/geometry/make_random_access_range.hpp>
 #include <sge/sprite/process/all.hpp>
-#include <sge/texture/const_part_ptr.hpp>
 #include <sge/texture/fragmented_unique_ptr.hpp>
 #include <sge/texture/rect_fragmented.hpp>
 #include <fcppt/ref.hpp>
@@ -107,7 +106,7 @@ fruitlib::font::drawer::object::draw_char(
 						_char,
 						_data)
 				:
-					sge::texture::const_part_ptr())
+					sge::texture::const_part_shared_ptr())
 			.size(
 				fcppt::math::dim::structure_cast<sprite_object::dim>(
 					transformation.size()))
@@ -153,7 +152,7 @@ fruitlib::font::drawer::object::transform_callback() const
 	return transform_callback_;
 }
 
-sge::texture::const_part_ptr const
+sge::texture::const_part_shared_ptr const
 fruitlib::font::drawer::object::cached_texture(
 	sge::font::text::char_type const _ch,
 	sge::font::const_image_view const &_data)
@@ -170,6 +169,7 @@ fruitlib::font::drawer::object::cached_texture(
 			textures_.insert(
 				std::make_pair(
 					_ch,
-					texture_manager_.add(
-						_data))).first->second;
+					sge::texture::const_part_shared_ptr(
+						texture_manager_.add(
+							_data)))).first->second;
 }

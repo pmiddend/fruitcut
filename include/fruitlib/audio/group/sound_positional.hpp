@@ -6,7 +6,7 @@
 #include <fruitlib/audio/group/sound_base.hpp>
 #include <sge/audio/sound/positional.hpp>
 #include <sge/audio/sound/positional_parameters.hpp>
-#include <sge/audio/sound/positional_ptr.hpp>
+#include <sge/audio/sound/positional_unique_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
 
 
@@ -34,7 +34,7 @@ public:
 	explicit
 	sound_positional(
 		group::player &,
-		sge::audio::sound::positional_ptr,
+		sge::audio::sound::positional_unique_ptr,
 		sge::audio::scalar gain,
 		sge::audio::scalar pitch);
 

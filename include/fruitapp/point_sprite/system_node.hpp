@@ -13,7 +13,7 @@
 #include <fruitlib/scenic/optional_parent.hpp>
 #include <fruitlib/scenic/events/render.hpp>
 #include <fruitlib/scenic/events/update.hpp>
-#include <sge/camera/first_person/object_fwd.hpp>
+#include <sge/camera/base_fwd.hpp>
 #include <sge/image2d/system_fwd.hpp>
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/shader/object.hpp>
@@ -21,10 +21,12 @@
 #include <sge/sprite/buffers/with_declaration_decl.hpp>
 #include <sge/sprite/intrusive/collection_decl.hpp>
 #include <sge/texture/manager.hpp>
-#include <sge/texture/part_ptr.hpp>
+#include <sge/texture/part_shared_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/shared_ptr.hpp>
 #include <fcppt/unique_ptr.hpp>
+#include <fcppt/preprocessor/pure.hpp>
+#include <fcppt/preprocessor/warn_unused_result.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
 #include <boost/mpl/vector/vector10.hpp>
@@ -55,18 +57,21 @@ public:
 		fruitlib::random_generator &,
 		sge::renderer::device &,
 		sge::image2d::system &,
-		sge::camera::first_person::object const &);
+		sge::camera::base const &);
 
 	void
 	push_back(
 		unique_base_ptr);
 
 	point_sprite::connection &
-	connection();
+	connection()
+	FCPPT_PP_WARN_UNUSED_RESULT;
 
-	sge::texture::part_ptr const
+	sge::texture::part_shared_ptr const
 	lookup_texture(
-		fruitlib::resource_tree::path const &);
+		fruitlib::resource_tree::path const &)
+	FCPPT_PP_WARN_UNUSED_RESULT
+	FCPPT_PP_PURE;
 
 	~system_node();
 
@@ -85,7 +90,7 @@ private:
 	typedef
 	fruitlib::resource_tree::make_type
 	<
-		sge::texture::part_ptr,
+		sge::texture::part_shared_ptr,
 		// shared_ptr because of horrible unique_ptr semantics
 		fcppt::shared_ptr
 		<
@@ -99,7 +104,7 @@ private:
 	resource_tree_ptr;
 
 	sge::renderer::device &renderer_;
-	sge::camera::first_person::object const &camera_;
+	sge::camera::base const &camera_;
 	sge::texture::manager texture_manager_;
 	point_sprite::buffers buffers_;
 	point_sprite::collection collection_;

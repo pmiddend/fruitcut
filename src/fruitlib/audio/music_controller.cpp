@@ -4,6 +4,7 @@
 #include <fruitlib/resource_tree/navigate_to_path.hpp>
 #include <fruitlib/resource_tree/path.hpp>
 #include <sge/audio/buffer.hpp>
+#include <sge/audio/file.hpp>
 #include <sge/audio/loader.hpp>
 #include <sge/audio/player.hpp>
 #include <sge/audio/scalar.hpp>
@@ -13,6 +14,7 @@
 #include <sge/timer/elapsed_fractional.hpp>
 #include <sge/timer/parameters.hpp>
 #include <sge/timer/remaining_fractional.hpp>
+#include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/ref.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/error.hpp>
@@ -56,6 +58,17 @@ create_random_from_directory(
 								p),
 							boost::filesystem::directory_iterator())-1))));
 }
+
+sge::audio::file_shared_ptr
+load_shared(
+	sge::audio::loader &_audio_loader,
+	boost::filesystem::path const &_path)
+{
+	return
+		sge::audio::file_shared_ptr(
+			_audio_loader.load(
+				_path));
+}
 }
 
 fruitlib::audio::music_controller::music_controller(
@@ -79,8 +92,9 @@ fruitlib::audio::music_controller::music_controller(
 		fruitlib::resource_tree::from_directory_tree<resource_tree_type>(
 			_base_path,
 			std::tr1::bind(
-				&sge::audio::loader::load,
-				&_audio_loader,
+				&load_shared,
+				fcppt::ref(
+					_audio_loader),
 				std::tr1::placeholders::_1),
 			std::tr1::bind(
 				&create_random_from_directory,
@@ -118,9 +132,10 @@ fruitlib::audio::music_controller::play(
 	if(target_tree.value().is_leaf())
 	{
 		do_play(
-			player_.create_nonpositional_stream(
-				target_tree.value().leaf_value(),
-				sge::audio::sound::nonpositional_parameters()));
+			sge::audio::sound::base_shared_ptr(
+				player_.create_nonpositional_stream(
+					*target_tree.value().leaf_value(),
+					sge::audio::sound::nonpositional_parameters())));
 	}
 	else
 	{
@@ -137,9 +152,10 @@ fruitlib::audio::music_controller::play(
 					target_path.string());
 
 		do_play(
-			player_.create_nonpositional_stream(
-				target_file.value().leaf_value(),
-				sge::audio::sound::nonpositional_parameters()));
+			sge::audio::sound::base_shared_ptr(
+				player_.create_nonpositional_stream(
+					*target_file.value().leaf_value(),
+					sge::audio::sound::nonpositional_parameters())));
 	}
 }
 
@@ -203,12 +219,13 @@ fruitlib::audio::music_controller::~music_controller() {}
 
 void
 fruitlib::audio::music_controller::do_play(
-	sge::audio::sound::base_ptr const b)
+	sge::audio::sound::base_shared_ptr b)
 {
 	b->gain(
 		static_cast<sge::audio::scalar>(0));
 	b->play(
 		sge::audio::sound::repeat::once);
+
 	crossfade_.reset();
 
 	new_source_ = b;

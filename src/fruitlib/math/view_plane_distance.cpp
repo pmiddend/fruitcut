@@ -10,7 +10,7 @@
 sge::renderer::scalar
 fruitlib::math::view_plane_distance(
 	sge::renderer::matrix4 const &m,
-	sge::camera::projection::perspective const &p)
+	fruitlib::perspective_projection_information const &p)
 {
 	typedef
 	math::plane::basic<sge::renderer::scalar,3>

@@ -18,6 +18,7 @@
 #include <fcppt/text.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/function/object.hpp>
+#include <fcppt/signal/connection.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <iostream>
 #include <fcppt/config/external_end.hpp>
@@ -138,7 +139,7 @@ fruitapp::postprocessing::render_result()
 		system_.render_result();
 }
 
-sge::renderer::texture::planar_ptr const
+sge::renderer::texture::planar_shared_ptr const
 fruitapp::postprocessing::result_texture()
 {
 	return

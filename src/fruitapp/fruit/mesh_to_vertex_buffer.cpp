@@ -12,21 +12,23 @@
 #include <sge/renderer/resource_flags_none.hpp>
 #include <sge/renderer/scoped_vertex_lock.hpp>
 #include <sge/renderer/size_type.hpp>
-#include <sge/renderer/vertex_buffer_ptr.hpp>
+#include <sge/renderer/vertex_buffer.hpp>
+#include <sge/renderer/vertex_buffer_unique_ptr.hpp>
 #include <sge/renderer/vertex_declaration_fwd.hpp>
 #include <sge/renderer/vf/iterator.hpp>
 #include <sge/renderer/vf/vertex.hpp>
 #include <sge/renderer/vf/view.hpp>
 #include <sge/renderer/vf/dynamic/part_index.hpp>
+#include <fcppt/move.hpp>
 
 
-sge::renderer::vertex_buffer_ptr const
+sge::renderer::vertex_buffer_unique_ptr
 fruitapp::fruit::mesh_to_vertex_buffer(
 	sge::renderer::device &renderer,
 	sge::renderer::vertex_declaration &vertex_decl,
 	mesh const &m)
 {
-	sge::renderer::vertex_buffer_ptr const vb =
+	sge::renderer::vertex_buffer_unique_ptr vb(
 		renderer.create_vertex_buffer(
 			vertex_decl,
 			sge::renderer::vf::dynamic::part_index(
@@ -34,7 +36,7 @@ fruitapp::fruit::mesh_to_vertex_buffer(
 			sge::renderer::vertex_count(
 				static_cast<sge::renderer::size_type>(
 					m.triangles.size() * 3)),
-			sge::renderer::resource_flags::none);
+			sge::renderer::resource_flags::none));
 
 	sge::renderer::scoped_vertex_lock const vblock(
 		*vb,
@@ -72,5 +74,7 @@ fruitapp::fruit::mesh_to_vertex_buffer(
 			t->texcoords[2]);
 	}
 
-	return vb;
+	return
+		fcppt::move(
+			vb);
 }

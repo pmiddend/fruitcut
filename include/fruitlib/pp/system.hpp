@@ -5,10 +5,10 @@
 #include <fruitlib/pp/filter/base_fwd.hpp>
 #include <fruitlib/pp/filter/manager_fwd.hpp>
 #include <fruitlib/pp/filter/wrapper.hpp>
-#include <sge/renderer/target_ptr.hpp>
-#include <sge/renderer/texture/planar_ptr.hpp>
+#include <sge/renderer/texture/planar_shared_ptr.hpp>
 #include <sge/shader/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/optional.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/tr1/unordered_map.hpp>
 #include <fcppt/tr1/unordered_set.hpp>
@@ -79,7 +79,7 @@ public:
 	update();
 
 	// _ptr on purpose!
-	sge::renderer::texture::planar_ptr const
+	sge::renderer::texture::planar_shared_ptr const
 	result_texture();
 
 	void
@@ -144,7 +144,7 @@ private:
 	vertex_to_filter vertex_to_filter_;
 	name_to_vertex name_to_vertex_;
 	sge::shader::object &shader_;
-	sge::renderer::texture::planar_ptr result_texture_;
+	sge::renderer::texture::planar_shared_ptr result_texture_;
 };
 }
 }

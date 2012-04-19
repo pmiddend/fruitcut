@@ -3,7 +3,7 @@
 
 #include <fruitlib/font/identifier.hpp>
 #include <fruitlib/font/drawer/object_fwd.hpp>
-#include <sge/font/metrics_ptr.hpp>
+#include <sge/font/metrics_fwd.hpp>
 #include <sge/font/system_fwd.hpp>
 #include <sge/image2d/system_fwd.hpp>
 #include <sge/parse/json/object_fwd.hpp>
@@ -13,7 +13,6 @@
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
 #include <boost/ptr_container/ptr_list.hpp>
-#include <list>
 #include <map>
 #include <fcppt/config/external_end.hpp>
 
@@ -35,7 +34,7 @@ public:
 		boost::filesystem::path const &base_path,
 		sge::parse::json::object const &);
 
-	sge::font::metrics_ptr const
+	sge::font::metrics &
 	metrics(
 		identifier const &);
 
@@ -48,7 +47,7 @@ private:
 	// We push elements and use iterators to the elements, so a list is
 	// mandatory here!
 	typedef
-	std::list<sge::font::metrics_ptr>
+	boost::ptr_list<sge::font::metrics>
 	metrics_sequence;
 
 	typedef

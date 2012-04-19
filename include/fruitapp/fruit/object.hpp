@@ -10,9 +10,7 @@
 #include <fruitlib/physics/rigid_body/scoped.hpp>
 #include <sge/renderer/matrix4.hpp>
 #include <sge/renderer/vector3.hpp>
-#include <sge/renderer/vertex_buffer_fwd.hpp>
-#include <sge/renderer/vertex_buffer_ptr.hpp>
-#include <sge/renderer/texture/planar_ptr.hpp>
+#include <sge/renderer/vertex_buffer_scoped_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/math/box/object_impl.hpp>
 #include <fcppt/math/matrix/object_impl.hpp>
@@ -71,7 +69,7 @@ private:
 	box3 bounding_box_;
 	fruitlib::physics::rigid_body::object body_;
 	fruitlib::physics::rigid_body::scoped body_scope_;
-	sge::renderer::vertex_buffer_ptr vb_;
+	sge::renderer::vertex_buffer_scoped_ptr vb_;
 	fruitapp::ingame_timer lock_timer_;
 };
 }

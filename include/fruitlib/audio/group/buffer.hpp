@@ -5,7 +5,7 @@
 #include <fruitlib/audio/group/sound_base_fwd.hpp>
 #include <fruitlib/audio/group/sound_positional_fwd.hpp>
 #include <sge/audio/buffer.hpp>
-#include <sge/audio/buffer_ptr.hpp>
+#include <sge/audio/buffer_scoped_ptr.hpp>
 #include <sge/audio/file_fwd.hpp>
 #include <sge/audio/scalar.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -34,11 +34,11 @@ public:
 		sge::audio::scalar gain,
 		sge::audio::scalar pitch);
 
-	sge::audio::sound::positional_ptr const
+	sge::audio::sound::positional_unique_ptr
 	create_positional(
 		sge::audio::sound::positional_parameters const &);
 
-	sge::audio::sound::base_ptr const
+	sge::audio::sound::base_unique_ptr
 	create_nonpositional(
 		sge::audio::sound::nonpositional_parameters const &);
 
@@ -60,7 +60,7 @@ private:
 	sound_sequence;
 
 	group::player &player_;
-	sge::audio::buffer_ptr impl_;
+	sge::audio::buffer_scoped_ptr impl_;
 	sge::audio::scalar global_gain_,global_pitch_;
 	sound_sequence sounds_;
 
