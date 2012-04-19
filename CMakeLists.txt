@@ -273,7 +273,6 @@ SET(
 	src/fruitapp/point_sprite/system_node.cpp
 	src/fruitapp/postprocessing.cpp
 	src/fruitapp/projection_manager/object.cpp
-	src/fruitapp/projection_manager/projection_change.cpp
 	src/fruitapp/quick_log.cpp
 	src/fruitapp/renderable.cpp
 	src/fruitapp/scene.cpp

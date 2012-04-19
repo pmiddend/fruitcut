@@ -1,4 +1,5 @@
 #include <fruitapp/background.hpp>
+#include <fruitapp/projection_manager/object.hpp>
 #include <fruitlib/media_path.hpp>
 #include <fruitlib/math/view_plane_rect.hpp>
 #include <fruitlib/scenic/events/render.hpp>
@@ -147,7 +148,8 @@ fruitapp::background::background(
 	fruitapp::shadow_mvp const &_shadow_mvp,
 	fruitapp::shadow_map_texture const &_shadow_map_texture,
 	sge::parse::json::object const &_config,
-	sge::camera::base const &_camera)
+	sge::camera::base const &_camera,
+	fruitapp::projection_manager::object &_projection_manager)
 :
 	node_base(
 		_parent),
@@ -215,8 +217,17 @@ fruitapp::background::background(
 		sge::parse::json::find_and_convert_member<sge::renderer::scalar>(
 			_config,
 			sge::parse::json::path(
-				FCPPT_TEXT("background-repeat"))))
+				FCPPT_TEXT("background-repeat")))),
+	projection_change_connection_(
+		_projection_manager.projection_change_callback(
+			std::tr1::bind(
+				&background::projection_change,
+				this,
+				std::tr1::placeholders::_1)))
 {
+	if(_projection_manager.perspective_projection_information())
+		this->projection_change(
+			*_projection_manager.perspective_projection_information());
 }
 
 fruitapp::background::~background()
@@ -260,8 +271,8 @@ fruitapp::background::react(
 }
 
 void
-fruitapp::background::react(
-	fruitapp::projection_manager::projection_change const &_projection_change)
+fruitapp::background::projection_change(
+	fruitlib::perspective_projection_information const &_perspective_projection_information)
 {
 	typedef
 	fcppt::math::box::object<sge::renderer::scalar,2>
@@ -273,7 +284,7 @@ fruitapp::background::react(
 			sge::camera::matrix_conversion::world_projection(
 				camera_.coordinate_system(),
 				camera_.projection_matrix()),
-			_projection_change.perspective_projection_information()));
+			_perspective_projection_information));
 
 	sge::renderer::scoped_vertex_lock const vblock(
 		*vb_,

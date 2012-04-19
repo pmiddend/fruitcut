@@ -3,8 +3,9 @@
 
 #include <fruitlib/perspective_projection_information_fwd.hpp>
 #include <sge/renderer/matrix4.hpp>
-#include <fcppt/preprocessor/warn_unused_result.hpp>
 #include <fcppt/preprocessor/const.hpp>
+#include <fcppt/preprocessor/warn_unused_result.hpp>
+
 
 namespace fruitlib
 {

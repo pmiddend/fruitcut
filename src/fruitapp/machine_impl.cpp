@@ -91,6 +91,7 @@
 #include <fcppt/text.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/container/bitfield/object_impl.hpp>
+#include <fcppt/math/vector/arithmetic.hpp>
 #include <fcppt/random/generator/seed_from_chrono.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -290,7 +291,7 @@ fruitapp::machine_impl::machine_impl(
 			systems_.keyboard_collector(),
 			systems_.mouse_collector(),
 			sge::camera::first_person::is_active(
-				true),
+				false),
 			sge::camera::first_person::movement_speed(
 				sge::parse::json::find_and_convert_member<sge::renderer::scalar>(
 					config_file_,
@@ -314,7 +315,7 @@ fruitapp::machine_impl::machine_impl(
 						0.0f,
 						1.0f)),
 				sge::camera::coordinate_system::position(
-					sge::parse::json::find_and_convert_member<sge::renderer::vector3>(
+					-sge::parse::json::find_and_convert_member<sge::renderer::vector3>(
 						config_file_,
 						sge::parse::json::path(FCPPT_TEXT("ingame"))
 							/ FCPPT_TEXT("camera")
@@ -333,7 +334,6 @@ fruitapp::machine_impl::machine_impl(
 			sge::parse::json::path(FCPPT_TEXT("ingame"))
 				/ FCPPT_TEXT("camera")
 				/ FCPPT_TEXT("projection")),
-		this->root_node(),
 		systems_.viewport_manager(),
 		systems_.renderer(),
 		camera_),
@@ -375,7 +375,8 @@ fruitapp::machine_impl::machine_impl(
 		shadow_map_.mvp(),
 		shadow_map_.texture(),
 		config_file_,
-		camera_),
+		camera_,
+		this->projection_manager()),
 	desired_fps_(
 		sge::parse::json::find_and_convert_member<unsigned>(
 			config_file(),
@@ -726,6 +727,12 @@ fruitapp::quick_log &
 fruitapp::machine_impl::quick_log()
 {
 	return quick_log_;
+}
+
+fruitapp::projection_manager::object &
+fruitapp::machine_impl::projection_manager()
+{
+	return projection_manager_;
 }
 
 fruitapp::machine_impl::~machine_impl()

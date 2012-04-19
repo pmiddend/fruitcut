@@ -133,7 +133,8 @@ fruitapp::states::ingame::superstate::superstate(
 		context<machine>().random_generator(),
 		context<machine>().config_file(),
 		context<machine>().camera(),
-		context<machine>().ingame_clock()),
+		context<machine>().ingame_clock(),
+		context<machine>().projection_manager()),
 	game_logic_(
 		fruitlib::scenic::optional_parent(
 			fruitlib::scenic::parent(

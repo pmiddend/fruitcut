@@ -5,8 +5,9 @@
 #include <fruitapp/ingame_timer.hpp>
 #include <fruitapp/fruit/manager_fwd.hpp>
 #include <fruitapp/fruit/prototype_sequence.hpp>
-#include <fruitapp/projection_manager/projection_change.hpp>
+#include <fruitapp/projection_manager/object_fwd.hpp>
 #include <fruitlib/perspective_projection_information.hpp>
+#include <fruitlib/optional_perspective_projection_information.hpp>
 #include <fruitlib/random_generator_fwd.hpp>
 #include <fruitlib/uniform_int_random.hpp>
 #include <fruitlib/uniform_real_random.hpp>
@@ -21,6 +22,7 @@
 #include <fcppt/function/object.hpp>
 #include <fcppt/preprocessor/warn_unused_result.hpp>
 #include <fcppt/signal/auto_connection.hpp>
+#include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/signal/object.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
@@ -39,10 +41,9 @@ FCPPT_NONCOPYABLE(
 	spawner);
 public:
 	typedef
-	boost::mpl::vector2
+	boost::mpl::vector1
 	<
-		fruitlib::scenic::events::update,
-		fruitapp::projection_manager::projection_change
+		fruitlib::scenic::events::update
 	>
 	scene_reactions;
 
@@ -62,7 +63,8 @@ public:
 		fruitlib::random_generator &,
 		sge::parse::json::object const &config_file,
 		sge::camera::base const &,
-		fruitapp::ingame_clock const &);
+		fruitapp::ingame_clock const &,
+		fruitapp::projection_manager::object &);
 
 	fcppt::signal::auto_connection
 	spawn_callback(
@@ -71,10 +73,6 @@ public:
 	void
 	react(
 		fruitlib::scenic::events::update const &);
-
-	void
-	react(
-		fruitapp::projection_manager::projection_change const &);
 private:
 	typedef
 	fruitlib::uniform_real_random<fruitapp::ingame_clock::float_type>::type
@@ -101,10 +99,15 @@ private:
 	uniform_physics_variate angle_rng_;
 	fruitapp::ingame_timer timer_;
 	fcppt::signal::object<spawn_callback_fn> spawn_signal_;
-	fcppt::optional<fruitlib::perspective_projection_information> perspective_projection_information_;
+	fcppt::signal::scoped_connection projection_change_connection_;
+	fruitlib::optional_perspective_projection_information perspective_projection_information_;
 
 	void
 	reset_timer();
+
+	void
+	projection_change(
+		fruitlib::perspective_projection_information const &);
 };
 }
 }

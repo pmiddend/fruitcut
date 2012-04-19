@@ -3,11 +3,11 @@
 
 #include <fruitapp/shadow_map_texture.hpp>
 #include <fruitapp/shadow_mvp.hpp>
-#include <fruitapp/projection_manager/projection_change.hpp>
+#include <fruitapp/projection_manager/object_fwd.hpp>
+#include <fruitlib/perspective_projection_information_fwd.hpp>
 #include <fruitlib/scenic/node.hpp>
 #include <fruitlib/scenic/optional_parent.hpp>
 #include <fruitlib/scenic/events/render.hpp>
-#include <fruitlib/scenic/events/viewport_change.hpp>
 #include <sge/camera/base_fwd.hpp>
 #include <sge/image2d/system_fwd.hpp>
 #include <sge/parse/json/object_fwd.hpp>
@@ -35,10 +35,9 @@ FCPPT_NONCOPYABLE(
 	background);
 public:
 	typedef
-	boost::mpl::vector2
+	boost::mpl::vector1
 	<
-		fruitlib::scenic::events::render,
-		fruitapp::projection_manager::projection_change
+		fruitlib::scenic::events::render
 	>
 	scene_reactions;
 
@@ -50,17 +49,14 @@ public:
 		fruitapp::shadow_mvp const &,
 		fruitapp::shadow_map_texture const &,
 		sge::parse::json::object const &,
-		sge::camera::base const &);
+		sge::camera::base const &,
+		fruitapp::projection_manager::object &);
 
 	~background();
 
 	void
 	react(
 		fruitlib::scenic::events::render const &);
-
-	void
-	react(
-		fruitapp::projection_manager::projection_change const &);
 private:
 	sge::renderer::device &renderer_;
 	sge::camera::base const &camera_;
@@ -69,6 +65,11 @@ private:
 	sge::renderer::vertex_buffer_scoped_ptr vb_;
 	sge::shader::object shader_;
 	sge::renderer::scalar const reps_;
+	fcppt::signal::scoped_connection projection_change_connection_;
+
+	void
+	projection_change(
+		fruitlib::perspective_projection_information const &);
 
 };
 }

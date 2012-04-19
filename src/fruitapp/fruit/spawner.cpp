@@ -1,6 +1,6 @@
 #include <fruitapp/fruit/manager.hpp>
 #include <fruitapp/fruit/spawner.hpp>
-#include <fruitapp/projection_manager/projection_change.hpp>
+#include <fruitapp/projection_manager/object.hpp>
 #include <fruitlib/math/box_radius.hpp>
 #include <fruitlib/math/view_plane_rect.hpp>
 #include <fruitlib/math/plane/basic.hpp>
@@ -38,7 +38,8 @@ fruitapp::fruit::spawner::spawner(
 	fruitlib::random_generator &_random_generator,
 	sge::parse::json::object const &_config_file,
 	sge::camera::base const &_camera,
-	fruitapp::ingame_clock const &_clock)
+	fruitapp::ingame_clock const &_clock,
+	fruitapp::projection_manager::object &_projection_manager)
 :
 	node_base(
 		_parent),
@@ -125,9 +126,19 @@ fruitapp::fruit::spawner::spawner(
 			.active(
 				false)),
 	spawn_signal_(),
+	projection_change_connection_(
+		_projection_manager.projection_change_callback(
+			std::tr1::bind(
+				&spawner::projection_change,
+				this,
+				std::tr1::placeholders::_1))),
 	perspective_projection_information_()
 {
 	reset_timer();
+
+	if(_projection_manager.perspective_projection_information())
+		this->projection_change(
+			*_projection_manager.perspective_projection_information());
 }
 
 fcppt::signal::auto_connection
@@ -228,14 +239,6 @@ fruitapp::fruit::spawner::react(
 }
 
 void
-fruitapp::fruit::spawner::react(
-	fruitapp::projection_manager::projection_change const &_projection_change)
-{
-	perspective_projection_information_ =
-		_projection_change.perspective_projection_information();
-}
-
-void
 fruitapp::fruit::spawner::reset_timer()
 {
 	if(!timer_.active())
@@ -244,4 +247,13 @@ fruitapp::fruit::spawner::reset_timer()
 	timer_.interval(
 		boost::chrono::duration<fruitapp::ingame_clock::float_type>(
 			seconds_rng_()));
+}
+
+void
+fruitapp::fruit::spawner::projection_change(
+	fruitlib::perspective_projection_information const &_perspective_projection_information)
+{
+	perspective_projection_information_ =
+		fruitlib::optional_perspective_projection_information(
+			_perspective_projection_information);
 }

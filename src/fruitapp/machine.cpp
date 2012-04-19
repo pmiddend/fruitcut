@@ -326,3 +326,9 @@ fruitapp::machine::quick_log()
 {
 	return impl_->quick_log();
 }
+
+fruitapp::projection_manager::object &
+fruitapp::machine::projection_manager()
+{
+	return impl_->projection_manager();
+}

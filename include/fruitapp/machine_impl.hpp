@@ -275,6 +275,11 @@ public:
 	FCPPT_PP_PURE
 	FCPPT_PP_WARN_UNUSED_RESULT;
 
+	fruitapp::projection_manager::object &
+	projection_manager()
+	FCPPT_PP_PURE
+	FCPPT_PP_WARN_UNUSED_RESULT;
+
 	~machine_impl();
 private:
 	fruitlib::random_generator random_generator_;

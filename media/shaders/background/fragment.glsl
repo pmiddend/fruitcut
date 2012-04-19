@@ -6,7 +6,7 @@ in vec2 texcoord_interp;
 in vec4 shadow_coord_interp;
 out vec4 frag_color;
 
-float 
+float
 chebyshevUpperBound(
 	vec4 coord)
 {
@@ -38,16 +38,16 @@ chebyshevUpperBound(
 void
 main()
 {
-	vec4 real_shadow_coord = 
+	vec4 real_shadow_coord =
 		shadow_coord_interp / shadow_coord_interp.w * 0.5 + 0.5;
 
-	float shadow = 
+	float shadow =
 		chebyshevUpperBound(
 			real_shadow_coord);
 
-	frag_color = 
-		vec4(	
-			max(0.5,(1.0 - shadow)) * 
+	frag_color =
+		vec4(
+			//max(0.5,(1.0 - shadow)) *
 			texture(
 				tex,
 				texcoord_interp).xyz,

@@ -14,6 +14,7 @@
 #include <fruitapp/fruit/prototype_sequence.hpp>
 #include <fruitapp/highscore/score.hpp>
 #include <fruitapp/point_sprite/system_node_fwd.hpp>
+#include <fruitapp/projection_manager/object_fwd.hpp>
 #include <fruitapp/states/loading_fwd.hpp>
 #include <fruitlib/random_generator_fwd.hpp>
 #include <fruitlib/audio/music_controller_fwd.hpp>
@@ -273,6 +274,11 @@ public:
 
 	fruitapp::quick_log &
 	quick_log()
+	FCPPT_PP_WARN_UNUSED_RESULT
+	FCPPT_PP_PURE;
+
+	fruitapp::projection_manager::object &
+	projection_manager()
 	FCPPT_PP_WARN_UNUSED_RESULT
 	FCPPT_PP_PURE;
 private:
