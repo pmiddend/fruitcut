@@ -51,6 +51,7 @@
 #include <sge/parse/json/config/merge_command_line_parameters.hpp>
 #include <sge/parse/json/config/merge_trees.hpp>
 #include <sge/renderer/aspect.hpp>
+#include <sge/renderer/bit_depth.hpp>
 #include <sge/renderer/depth_stencil_buffer.hpp>
 #include <sge/renderer/no_multi_sampling.hpp>
 #include <sge/renderer/parameters.hpp>
@@ -58,8 +59,8 @@
 #include <sge/renderer/scalar.hpp>
 #include <sge/renderer/vector3.hpp>
 #include <sge/renderer/viewport_size.hpp>
-#include <sge/renderer/visual_depth.hpp>
 #include <sge/renderer/vsync.hpp>
+#include <sge/renderer/windowed.hpp>
 #include <sge/sprite/parameters.hpp>
 #include <sge/systems/audio_loader.hpp>
 #include <sge/systems/audio_player_default.hpp>
@@ -166,7 +167,8 @@ fruitapp::machine_impl::machine_impl(
 							/ FCPPT_TEXT("window-size")))))
 			(sge::systems::renderer(
 				sge::renderer::parameters(
-					sge::renderer::visual_depth::depth32,
+					sge::renderer::windowed(
+						sge::renderer::bit_depth::depth32),
 					sge::renderer::depth_stencil_buffer::d24,
 					sge::renderer::vsync::on,
 					sge::renderer::no_multi_sampling),
