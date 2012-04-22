@@ -205,6 +205,5 @@ void
 fruitapp::postprocessing::viewport_change(
 	sge::renderer::viewport const &)
 {
-	std::cout << "In viewport change\n";
 	texture_manager_.clear_screen_textures();
 }

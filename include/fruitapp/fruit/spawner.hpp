@@ -99,8 +99,8 @@ private:
 	uniform_physics_variate angle_rng_;
 	fruitapp::ingame_timer timer_;
 	fcppt::signal::object<spawn_callback_fn> spawn_signal_;
-	fcppt::signal::scoped_connection projection_change_connection_;
 	fruitlib::optional_perspective_projection_information perspective_projection_information_;
+	fcppt::signal::scoped_connection projection_change_connection_;
 
 	void
 	reset_timer();

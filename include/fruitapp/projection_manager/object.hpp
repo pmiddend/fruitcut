@@ -2,13 +2,15 @@
 #define FRUITAPP_PROJECTION_MANAGER_OBJECT_HPP_INCLUDED
 
 #include <fruitapp/machine_fwd.hpp>
+#include <fruitapp/viewport/manager_fwd.hpp>
 #include <fruitapp/projection_manager/projection_change_callback.hpp>
+#include <fruitapp/projection_manager/trigger_early.hpp>
 #include <fruitapp/projection_manager/projection_change_callback_fn.hpp>
 #include <fruitlib/optional_perspective_projection_information.hpp>
 #include <sge/camera/has_mutable_projection_fwd.hpp>
 #include <sge/parse/json/object_fwd.hpp>
 #include <sge/renderer/aspect.hpp>
-#include <sge/renderer/device_fwd.hpp>
+#include <sge/renderer/viewport.hpp>
 #include <sge/renderer/projection/aspect.hpp>
 #include <sge/renderer/projection/far.hpp>
 #include <sge/renderer/projection/fov.hpp>
@@ -35,8 +37,7 @@ public:
 	explicit
 	object(
 		sge::parse::json::object const &,
-		sge::viewport::manager &,
-		sge::renderer::device &,
+		fruitapp::viewport::manager &,
 		sge::camera::has_mutable_projection &);
 
 	fruitlib::optional_perspective_projection_information const
@@ -45,7 +46,8 @@ public:
 
 	fcppt::signal::auto_connection
 	projection_change_callback(
-		projection_manager::projection_change_callback const &)
+		projection_manager::projection_change_callback const &,
+		projection_manager::trigger_early const &)
 	FCPPT_PP_WARN_UNUSED_RESULT;
 
 	~object();
@@ -55,16 +57,16 @@ private:
 	optional_aspect;
 
 	fcppt::signal::object<projection_manager::projection_change_callback_fn> projection_change_signal_;
-	sge::renderer::device &renderer_;
 	sge::camera::has_mutable_projection &camera_;
-	fcppt::signal::scoped_connection viewport_connection_;
 	sge::renderer::projection::near const near_;
 	sge::renderer::projection::far const far_;
 	sge::renderer::projection::fov const fov_;
 	optional_aspect aspect_;
+	fcppt::signal::scoped_connection viewport_connection_;
 
 	void
-	viewport_callback();
+	viewport_callback(
+		sge::renderer::viewport const &);
 };
 }
 }

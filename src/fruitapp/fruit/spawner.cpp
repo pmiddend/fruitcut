@@ -126,19 +126,17 @@ fruitapp::fruit::spawner::spawner(
 			.active(
 				false)),
 	spawn_signal_(),
+	perspective_projection_information_(),
 	projection_change_connection_(
 		_projection_manager.projection_change_callback(
 			std::tr1::bind(
 				&spawner::projection_change,
 				this,
-				std::tr1::placeholders::_1))),
-	perspective_projection_information_()
+				std::tr1::placeholders::_1),
+		fruitapp::projection_manager::trigger_early(
+			true)))
 {
 	reset_timer();
-
-	if(_projection_manager.perspective_projection_information())
-		this->projection_change(
-			*_projection_manager.perspective_projection_information());
 }
 
 fcppt::signal::auto_connection

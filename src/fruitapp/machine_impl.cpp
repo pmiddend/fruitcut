@@ -339,8 +339,7 @@ fruitapp::machine_impl::machine_impl(
 			sge::parse::json::path(FCPPT_TEXT("ingame"))
 				/ FCPPT_TEXT("camera")
 				/ FCPPT_TEXT("projection")),
-		systems_.viewport_manager(),
-		systems_.renderer(),
+		viewport_manager_,
 		camera_),
 	toggle_camera_connection_(
 		systems_.keyboard_collector().key_callback(

@@ -222,11 +222,10 @@ fruitapp::background::background(
 			std::tr1::bind(
 				&background::projection_change,
 				this,
-				std::tr1::placeholders::_1)))
+				std::tr1::placeholders::_1),
+			fruitapp::projection_manager::trigger_early(
+				true)))
 {
-	if(_projection_manager.perspective_projection_information())
-		this->projection_change(
-			*_projection_manager.perspective_projection_information());
 }
 
 fruitapp::background::~background()
