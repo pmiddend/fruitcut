@@ -2,6 +2,7 @@
 #include <fruitapp/fruit/cut_context.hpp>
 #include <fruitapp/fruit/manager.hpp>
 #include <fruitapp/game_logic/object.hpp>
+#include <fruitapp/viewport/manager.hpp>
 #include <fruitlib/font/cache.hpp>
 #include <fruitlib/font/object_parameters.hpp>
 #include <fruitlib/json/parse_rgba8_color.hpp>
@@ -71,7 +72,7 @@ fruitapp::game_logic::object::object(
 	fruit::manager &_fruit_manager,
 	fruitlib::font::cache &_font_cache,
 	overlay &_overlay,
-	sge::renderer::device &_renderer)
+	fruitapp::viewport::manager &_viewport_manager)
 :
 	node_base(
 		fruitlib::scenic::optional_parent(
@@ -210,13 +211,15 @@ fruitapp::game_logic::object::object(
 					/ FCPPT_TEXT("penalty-timer")))),
 	multiplier_(1),
 	multi_count_(0),
-	renderer_(
-		_renderer)
+	viewport_change_connection_(
+		_viewport_manager.change_callback(
+			std::tr1::bind(
+				&game_logic::object::viewport_change,
+				this,
+				std::tr1::placeholders::_1),
+			fruitapp::viewport::trigger_early(
+				true)))
 {
-	fruitlib::scenic::events::viewport_change event;
-
-	this->react(
-		event);
 }
 
 bool
@@ -300,12 +303,12 @@ fruitapp::game_logic::object::react(
 }
 
 void
-fruitapp::game_logic::object::react(
-	fruitlib::scenic::events::viewport_change const &)
+fruitapp::game_logic::object::viewport_change(
+	sge::renderer::viewport const &_viewport)
 {
 	sge::font::dim const &viewport_dim =
 		fcppt::math::dim::structure_cast<sge::font::dim>(
-			renderer_.onscreen_target().viewport().get().size());
+			_viewport.get().size());
 
 	score_font_node_.object().bounding_box(
 		sge::font::rect(

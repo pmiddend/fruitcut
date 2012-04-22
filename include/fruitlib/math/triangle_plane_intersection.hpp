@@ -31,6 +31,13 @@ public:
 	>
 	point_sequence;
 
+	triangle_plane_intersection()
+	:
+		triangles_(),
+		points_()
+	{
+	}
+
 	void
 	push_back(
 		triangle_type const &t)

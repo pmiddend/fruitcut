@@ -44,10 +44,12 @@ fruitlib::font::drawer::object::object(
 				sge::renderer::dim2(
 					256,
 					256)))),
+	textures_(),
 	sprite_buffers_(
 		renderer_,
 		sge::sprite::buffers::option::dynamic),
 	sprites_(),
+	bounding_rect_(),
 	transform_callback_(
 		params.transform_callback())
 {}

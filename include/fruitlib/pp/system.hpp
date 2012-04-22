@@ -10,6 +10,7 @@
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/optional.hpp>
 #include <fcppt/string.hpp>
+#include <fcppt/preprocessor/pure.hpp>
 #include <fcppt/tr1/unordered_map.hpp>
 #include <fcppt/tr1/unordered_set.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -80,7 +81,8 @@ public:
 
 	// _ptr on purpose!
 	sge::renderer::texture::planar_shared_ptr const
-	result_texture();
+	result_texture()
+	FCPPT_PP_PURE;
 
 	void
 	render_result();
@@ -96,7 +98,8 @@ public:
 		fcppt::string const &name);
 
 	filter_name_set const
-	filter_names() const;
+	filter_names() const
+	FCPPT_PP_PURE;
 private:
 	typedef
 	boost::adjacency_list

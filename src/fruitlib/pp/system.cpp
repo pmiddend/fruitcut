@@ -31,6 +31,9 @@ fruitlib::pp::system::system(
 :
 	filter_manager_(
 		_filter_manager),
+	graph_(),
+	vertex_to_filter_(),
+	name_to_vertex_(),
 	shader_(
 		_filter_manager.lookup_shader(
 			FCPPT_TEXT("pp_to_screen"),
@@ -38,7 +41,8 @@ fruitlib::pp::system::system(
 			fcppt::assign::make_container<sge::shader::sampler_sequence>(
 				sge::shader::sampler(
 					"tex",
-					sge::renderer::texture::planar_shared_ptr()))))
+					sge::renderer::texture::planar_shared_ptr())))),
+	result_texture_()
 {
 }
 

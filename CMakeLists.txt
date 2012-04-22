@@ -198,7 +198,6 @@ SET(
 	src/fruitlib/scenic/events/base.cpp
 	src/fruitlib/scenic/events/render.cpp
 	src/fruitlib/scenic/events/update.cpp
-	src/fruitlib/scenic/events/viewport_change.cpp
 	src/fruitlib/scenic/no_parent.cpp
 	src/fruitlib/scenic/parent.cpp
 	src/fruitlib/scoped_frame_limiter.cpp
@@ -294,6 +293,7 @@ SET(
 	src/fruitapp/states/menu/settings.cpp
 	src/fruitapp/states/menu/superstate.cpp
 	src/fruitapp/sword_trail.cpp
+	src/fruitapp/viewport/manager.cpp
 )
 
 FCPPT_UTILS_ADD_SOURCE_GROUPS("${APP_FILES}")

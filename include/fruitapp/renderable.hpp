@@ -4,6 +4,7 @@
 #include <fruitapp/overlay.hpp>
 #include <fruitapp/postprocessing.hpp>
 #include <fruitapp/scene.hpp>
+#include <fruitapp/viewport/manager_fwd.hpp>
 #include <fruitlib/scenic/node.hpp>
 #include <fruitlib/scenic/optional_parent.hpp>
 #include <sge/parse/json/object_fwd.hpp>
@@ -48,7 +49,8 @@ public:
 	renderable(
 		fruitlib::scenic::optional_parent const &,
 		sge::systems::instance const &,
-		sge::parse::json::object const &);
+		sge::parse::json::object const &,
+		fruitapp::viewport::manager &);
 
 	fruitapp::scene &
 	scene();

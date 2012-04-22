@@ -327,6 +327,12 @@ fruitapp::machine::quick_log()
 	return impl_->quick_log();
 }
 
+fruitapp::viewport::manager &
+fruitapp::machine::viewport_manager()
+{
+	return impl_->viewport_manager();
+}
+
 fruitapp::projection_manager::object &
 fruitapp::machine::projection_manager()
 {

@@ -19,6 +19,8 @@ fruitlib::audio::group::player::player(
 :
 	impl_(
 		_impl),
+	buffers_(),
+	sounds_(),
 	gain_(
 		_gain),
 	pitch_(

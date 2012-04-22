@@ -54,6 +54,14 @@ public:
 	fcppt::unique_ptr<T>
 	unique_value_ptr;
 
+	delayed_ptr_sequence()
+	:
+		implementation_(),
+		new_values_(),
+		old_values_()
+	{
+	}
+
 	size_type
 	size() const
 	{

@@ -13,6 +13,7 @@
 #include <fruitapp/highscore/score.hpp>
 #include <fruitapp/point_sprite/system_node.hpp>
 #include <fruitapp/projection_manager/object.hpp>
+#include <fruitapp/viewport/manager.hpp>
 #include <fruitlib/random_generator.hpp>
 #include <fruitlib/audio/music_controller.hpp>
 #include <fruitlib/audio/sound_controller.hpp>
@@ -35,7 +36,7 @@
 #include <sge/timer/basic.hpp>
 #include <sge/timer/clocks/standard.hpp>
 #include <awl/main/exit_code.hpp>
-#include <fcppt/preprocessor/pure.hpp>
+#include <fcppt/preprocessor/const.hpp>
 #include <fcppt/preprocessor/warn_unused_result.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 
@@ -56,28 +57,23 @@ public:
 
 	sge::parse::json::object const &
 	config_file() const
-	FCPPT_PP_PURE
-	FCPPT_PP_WARN_UNUSED_RESULT;
+	FCPPT_PP_CONST;
 
 	sge::systems::instance const &
 	systems() const
-	FCPPT_PP_PURE
-	FCPPT_PP_WARN_UNUSED_RESULT;
+	FCPPT_PP_CONST;
 
 	sge::model::md3::loader &
 	md3_loader()
-	FCPPT_PP_PURE
-	FCPPT_PP_WARN_UNUSED_RESULT;
+	FCPPT_PP_CONST;
 
 	fruitapp::config_variables &
 	config_variables()
-	FCPPT_PP_PURE
-	FCPPT_PP_WARN_UNUSED_RESULT;
+	FCPPT_PP_CONST;
 
 	fruitapp::config_variables const &
 	config_variables() const
-	FCPPT_PP_PURE
-	FCPPT_PP_WARN_UNUSED_RESULT;
+	FCPPT_PP_CONST;
 
 	bool
 	run_once()
@@ -89,113 +85,91 @@ public:
 
 	awl::main::exit_code const
 	exit_code() const
-	FCPPT_PP_PURE
-	FCPPT_PP_WARN_UNUSED_RESULT;
+	FCPPT_PP_CONST;
 
 	fruitapp::postprocessing &
 	postprocessing()
-	FCPPT_PP_PURE
-	FCPPT_PP_WARN_UNUSED_RESULT;
+	FCPPT_PP_CONST;
 
 	fruitapp::ingame_clock const &
 	ingame_clock() const
-	FCPPT_PP_PURE
-	FCPPT_PP_WARN_UNUSED_RESULT;
+	FCPPT_PP_CONST;
 
 	fruitlib::audio::sound_controller &
 	sound_controller()
-	FCPPT_PP_PURE
-	FCPPT_PP_WARN_UNUSED_RESULT;
+	FCPPT_PP_CONST;
 
 	fruitlib::audio::sound_controller const &
 	sound_controller() const
-	FCPPT_PP_PURE
-	FCPPT_PP_WARN_UNUSED_RESULT;
+	FCPPT_PP_CONST;
 
 	fruitlib::audio::music_controller &
 	music_controller()
-	FCPPT_PP_PURE
-	FCPPT_PP_WARN_UNUSED_RESULT;
+	FCPPT_PP_CONST;
 
 	fruitlib::audio::music_controller const &
 	music_controller() const
-	FCPPT_PP_PURE
-	FCPPT_PP_WARN_UNUSED_RESULT;
+	FCPPT_PP_CONST;
 
 	fruitapp::background &
 	background()
-	FCPPT_PP_PURE
-	FCPPT_PP_WARN_UNUSED_RESULT;
+	FCPPT_PP_CONST;
 
 	fruitapp::background const &
 	background() const
-	FCPPT_PP_PURE
-	FCPPT_PP_WARN_UNUSED_RESULT;
+	FCPPT_PP_CONST;
 
 	fruitapp::directional_light_source const &
 	main_light_source()
-	FCPPT_PP_PURE
-	FCPPT_PP_WARN_UNUSED_RESULT;
+	FCPPT_PP_CONST;
 
 	fruitapp::shadow_map &
 	shadow_map()
-	FCPPT_PP_PURE
-	FCPPT_PP_WARN_UNUSED_RESULT;
+	FCPPT_PP_CONST;
 
 	fruitapp::shadow_map const &
 	shadow_map() const
-	FCPPT_PP_PURE
-	FCPPT_PP_WARN_UNUSED_RESULT;
+	FCPPT_PP_CONST;
 
 	sge::camera::first_person::object &
 	camera()
-	FCPPT_PP_PURE
-	FCPPT_PP_WARN_UNUSED_RESULT;
+	FCPPT_PP_CONST;
 
 	sge::camera::first_person::object const &
 	camera() const
-	FCPPT_PP_PURE
-	FCPPT_PP_WARN_UNUSED_RESULT;
+	FCPPT_PP_CONST;
 
 	fruitlib::font::cache &
 	font_cache()
-	FCPPT_PP_PURE
-	FCPPT_PP_WARN_UNUSED_RESULT;
+	FCPPT_PP_CONST;
 
 	fruitlib::font::cache const &
 	font_cache() const
-	FCPPT_PP_PURE
-	FCPPT_PP_WARN_UNUSED_RESULT;
+	FCPPT_PP_CONST;
 
 	sge::cegui::system &
 	gui_system()
-	FCPPT_PP_PURE
-	FCPPT_PP_WARN_UNUSED_RESULT;
+	FCPPT_PP_CONST;
 
 	sge::cegui::system const &
 	gui_system() const
-	FCPPT_PP_PURE
-	FCPPT_PP_WARN_UNUSED_RESULT;
+	FCPPT_PP_CONST;
 
 	sge::cegui::syringe &
 	gui_syringe()
-	FCPPT_PP_PURE
-	FCPPT_PP_WARN_UNUSED_RESULT;
+	FCPPT_PP_CONST;
 
 	sge::cegui::syringe const &
 	gui_syringe() const
-	FCPPT_PP_PURE
-	FCPPT_PP_WARN_UNUSED_RESULT;
+	FCPPT_PP_CONST;
 
 	fruitlib::random_generator &
 	random_generator()
-	FCPPT_PP_PURE
-	FCPPT_PP_WARN_UNUSED_RESULT;
+	FCPPT_PP_CONST;
 
 	highscore::score::value_type
 	last_game_score() const
-	FCPPT_PP_PURE
-	FCPPT_PP_WARN_UNUSED_RESULT;
+	FCPPT_PP_CONST;
 
 	void
 	last_game_score(
@@ -203,58 +177,47 @@ public:
 
 	fruitlib::scenic::base &
 	root_node()
-	FCPPT_PP_PURE
-	FCPPT_PP_WARN_UNUSED_RESULT;
+	FCPPT_PP_CONST;
 
 	fruitlib::scenic::base const &
 	root_node() const
-	FCPPT_PP_PURE
-	FCPPT_PP_WARN_UNUSED_RESULT;
+	FCPPT_PP_CONST;
 
 	scene &
 	scene_node()
-	FCPPT_PP_PURE
-	FCPPT_PP_WARN_UNUSED_RESULT;
+	FCPPT_PP_CONST;
 
 	scene const &
 	scene_node() const
-	FCPPT_PP_PURE
-	FCPPT_PP_WARN_UNUSED_RESULT;
+	FCPPT_PP_CONST;
 
 	overlay &
 	overlay_node()
-	FCPPT_PP_PURE
-	FCPPT_PP_WARN_UNUSED_RESULT;
+	FCPPT_PP_CONST;
 
 	overlay const &
 	overlay_node() const
-	FCPPT_PP_PURE
-	FCPPT_PP_WARN_UNUSED_RESULT;
+	FCPPT_PP_CONST;
 
 	fruitlib::scenic::delta::callback const
 	ingame_clock_callback() const
-	FCPPT_PP_PURE
-	FCPPT_PP_WARN_UNUSED_RESULT;
+	FCPPT_PP_CONST;
 
 	fruitlib::scenic::delta::callback const
 	standard_clock_callback() const
-	FCPPT_PP_PURE
-	FCPPT_PP_WARN_UNUSED_RESULT;
+	FCPPT_PP_CONST;
 
 	point_sprite::system_node &
 	point_sprites()
-	FCPPT_PP_PURE
-	FCPPT_PP_WARN_UNUSED_RESULT;
+	FCPPT_PP_CONST;
 
 	point_sprite::system_node const &
 	point_sprites() const
-	FCPPT_PP_PURE
-	FCPPT_PP_WARN_UNUSED_RESULT;
+	FCPPT_PP_CONST;
 
 	fruitapp::ingame_clock::float_type
 	time_factor() const
-	FCPPT_PP_PURE
-	FCPPT_PP_WARN_UNUSED_RESULT;
+	FCPPT_PP_CONST;
 
 	void
 	time_factor(
@@ -262,23 +225,23 @@ public:
 
 	fruit::prototype_sequence const &
 	fruit_prototypes() const
-	FCPPT_PP_PURE
-	FCPPT_PP_WARN_UNUSED_RESULT;
+	FCPPT_PP_CONST;
 
 	fruit::prototype_sequence &
 	fruit_prototypes()
-	FCPPT_PP_PURE
-	FCPPT_PP_WARN_UNUSED_RESULT;
+	FCPPT_PP_CONST;
 
 	fruitapp::quick_log &
 	quick_log()
-	FCPPT_PP_PURE
-	FCPPT_PP_WARN_UNUSED_RESULT;
+	FCPPT_PP_CONST;
+
+	fruitapp::viewport::manager &
+	viewport_manager()
+	FCPPT_PP_CONST;
 
 	fruitapp::projection_manager::object &
 	projection_manager()
-	FCPPT_PP_PURE
-	FCPPT_PP_WARN_UNUSED_RESULT;
+	FCPPT_PP_CONST;
 
 	~machine_impl();
 private:
@@ -289,6 +252,7 @@ private:
 	fruitapp::config_variables config_variables_;
 	sge::systems::instance const systems_;
 	sge::model::md3::loader_scoped_ptr md3_loader_;
+	fruitapp::viewport::manager viewport_manager_;
 	fruitapp::renderable renderable_;
 	fruitlib::log::scoped_sequence_ptr activated_loggers_;
 	fruitlib::font::cache font_cache_;
@@ -305,7 +269,6 @@ private:
 	fruitlib::scenic::adaptors::camera camera_node_;
 	fruitapp::projection_manager::object projection_manager_;
 	fcppt::signal::scoped_connection toggle_camera_connection_;
-	fcppt::signal::scoped_connection viewport_change_connection_;
 	fruitapp::directional_light_source main_light_source_;
 	fruitapp::shadow_map shadow_map_;
 	fruitapp::background background_;
@@ -319,9 +282,6 @@ private:
 
 	void
 	toggle_camera();
-
-	void
-	viewport_change();
 
 	void
 	manage_rendering();

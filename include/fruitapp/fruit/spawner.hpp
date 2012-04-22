@@ -6,8 +6,8 @@
 #include <fruitapp/fruit/manager_fwd.hpp>
 #include <fruitapp/fruit/prototype_sequence.hpp>
 #include <fruitapp/projection_manager/object_fwd.hpp>
-#include <fruitlib/perspective_projection_information.hpp>
 #include <fruitlib/optional_perspective_projection_information.hpp>
+#include <fruitlib/perspective_projection_information.hpp>
 #include <fruitlib/random_generator_fwd.hpp>
 #include <fruitlib/uniform_int_random.hpp>
 #include <fruitlib/uniform_real_random.hpp>
@@ -22,8 +22,8 @@
 #include <fcppt/function/object.hpp>
 #include <fcppt/preprocessor/warn_unused_result.hpp>
 #include <fcppt/signal/auto_connection.hpp>
-#include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/signal/object.hpp>
+#include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <fcppt/config/external_end.hpp>

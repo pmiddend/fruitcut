@@ -8,9 +8,10 @@
 #include <fruitlib/font/scene_node.hpp>
 #include <fruitlib/scenic/node.hpp>
 #include <fruitlib/scenic/events/update.hpp>
-#include <fruitlib/scenic/events/viewport_change.hpp>
 #include <sge/parse/json/element_vector.hpp>
+#include <sge/renderer/viewport.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <boost/statechart/custom_reaction.hpp>
@@ -40,7 +41,7 @@ public:
 	reactions;
 
 	typedef
-	boost::mpl::vector2<fruitlib::scenic::events::update,fruitlib::scenic::events::viewport_change>
+	boost::mpl::vector1<fruitlib::scenic::events::update>
 	scene_reactions;
 
 	explicit
@@ -55,14 +56,15 @@ public:
 	void
 	react(
 		fruitlib::scenic::events::update const &);
-
-	void
-	react(
-		fruitlib::scenic::events::viewport_change const &);
 private:
 	sge::parse::json::element_vector const fruit_array_;
 	sge::parse::json::element_vector::const_iterator current_fruit_;
 	fruitlib::font::scene_node font_node_;
+	fcppt::signal::scoped_connection viewport_change_connection_;
+
+	void
+	viewport_change(
+		sge::renderer::viewport const &);
 };
 }
 }

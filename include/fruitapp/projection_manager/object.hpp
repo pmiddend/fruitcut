@@ -41,8 +41,7 @@ public:
 
 	fruitlib::optional_perspective_projection_information const
 	perspective_projection_information() const
-	FCPPT_PP_PURE
-	FCPPT_PP_WARN_UNUSED_RESULT;
+	FCPPT_PP_PURE;
 
 	fcppt::signal::auto_connection
 	projection_change_callback(

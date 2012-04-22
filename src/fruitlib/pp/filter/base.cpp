@@ -9,6 +9,8 @@
 
 
 fruitlib::pp::filter::base::base()
+:
+	textures_()
 {
 }
 

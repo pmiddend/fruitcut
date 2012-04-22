@@ -15,13 +15,16 @@ fruitlib::resource_tree::path::path(
 	values_[0] = s;
 }
 
-fruitlib::resource_tree::path &
+fruitlib::resource_tree::path const
 fruitlib::resource_tree::path::operator/(
-	fcppt::string const &s)
+	fcppt::string const &s) const
 {
-	values_.push_back(
+	resource_tree::path copy(
+		*this);
+	copy.values_.push_back(
 		s);
-	return *this;
+	return
+		copy;
 }
 
 fruitlib::resource_tree::path::value_sequence const &

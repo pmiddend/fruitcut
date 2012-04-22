@@ -67,7 +67,8 @@ counted_reference<T>::counted_reference()
 		0),
 	count_(
 		new size_type(
-			1))
+			1)),
+	deleter_()
 {
 }
 

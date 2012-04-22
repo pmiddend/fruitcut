@@ -2,6 +2,8 @@
 #define FRUITLIB_RESOURCE_TREE_PATH_HPP_INCLUDED
 
 #include <fcppt/string.hpp>
+#include <fcppt/preprocessor/const.hpp>
+#include <fcppt/preprocessor/pure.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <vector>
 #include <fcppt/config/external_end.hpp>
@@ -22,15 +24,17 @@ public:
 	path(
 		fcppt::string const &);
 
-	path &
+	path const
 	operator/(
-		fcppt::string const &);
+		fcppt::string const &) const;
 
 	value_sequence const &
-	values() const;
+	values() const
+	FCPPT_PP_CONST;
 
 	fcppt::string const
-	string() const;
+	string() const
+	FCPPT_PP_PURE;
 private:
 	value_sequence values_;
 };

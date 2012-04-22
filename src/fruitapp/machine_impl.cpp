@@ -17,7 +17,6 @@
 #include <fruitlib/scenic/parent.hpp>
 #include <fruitlib/scenic/events/render.hpp>
 #include <fruitlib/scenic/events/update.hpp>
-#include <fruitlib/scenic/events/viewport_change.hpp>
 #include <fruitlib/time_format/find_and_convert_duration.hpp>
 #include <sge/audio/loader_capabilities_field.hpp>
 #include <sge/audio/player.hpp>
@@ -196,6 +195,9 @@ fruitapp::machine_impl::machine_impl(
 						(sge::media::extension(FCPPT_TEXT("png"))))))),
 	md3_loader_(
 		sge::model::md3::create()),
+	viewport_manager_(
+		systems_.viewport_manager(),
+		systems_.renderer()),
 	renderable_(
 		fruitlib::scenic::optional_parent(
 			fruitlib::scenic::parent(
@@ -203,7 +205,8 @@ fruitapp::machine_impl::machine_impl(
 				fruitlib::scenic::depth(
 					depths::root::scene))),
 		systems_,
-		config_file_),
+		config_file_,
+		viewport_manager_),
 	activated_loggers_(
 		fruitlib::log::scoped_sequence_from_json(
 			sge::log::global_context(),
@@ -286,7 +289,7 @@ fruitapp::machine_impl::machine_impl(
 					depths::overlay::dont_care))),
 		config_file_,
 		font_cache_,
-		systems_.renderer(),
+		viewport_manager_,
 		sound_controller_),
 	camera_(
 		sge::camera::first_person::parameters(
@@ -346,11 +349,6 @@ fruitapp::machine_impl::machine_impl(
 				std::tr1::bind(
 					&machine_impl::toggle_camera,
 					this)))),
-	viewport_change_connection_(
-		systems_.viewport_manager().manage_callback(
-			std::tr1::bind(
-				&machine_impl::viewport_change,
-				this))),
 	main_light_source_(
 		fruitapp::light_source_from_json(
 			sge::parse::json::find_and_convert_member<sge::parse::json::object>(
@@ -731,6 +729,12 @@ fruitapp::machine_impl::quick_log()
 	return quick_log_;
 }
 
+fruitapp::viewport::manager &
+fruitapp::machine_impl::viewport_manager()
+{
+	return viewport_manager_;
+}
+
 fruitapp::projection_manager::object &
 fruitapp::machine_impl::projection_manager()
 {
@@ -745,14 +749,5 @@ void
 fruitapp::machine_impl::toggle_camera()
 {
 	camera_.toggle_is_active();
-}
-
-void
-fruitapp::machine_impl::viewport_change()
-{
-	fruitlib::scenic::events::viewport_change event;
-
-	node_base::forward_to_children(
-		event);
 }
 

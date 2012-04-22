@@ -7,6 +7,9 @@
 #include <fcppt/from_std_wstring.hpp>
 #include <fcppt/insert_to_string.hpp>
 #include <fcppt/math/mod.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/chrono/duration.hpp>
 #include <boost/proto/proto.hpp>
@@ -20,6 +23,9 @@ namespace fruitlib
 {
 namespace time_format
 {
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
+
 template<typename Duration,typename String>
 class context
 :
@@ -117,6 +123,8 @@ public:
 private:
 	rep minutes_,seconds_,milliseconds_;
 };
+
+FCPPT_PP_POP_WARNING
 }
 }
 

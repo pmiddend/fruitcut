@@ -5,6 +5,9 @@
 #include <fruitlib/scenic/optional_parent.hpp>
 #include <fruitlib/scenic/events/base_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/intrusive/list.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -14,6 +17,9 @@ namespace fruitlib
 {
 namespace scenic
 {
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
+
 class base
 :
 	public
@@ -63,6 +69,9 @@ private:
 	add_child(
 		scenic::base &);
 };
+
+FCPPT_PP_POP_WARNING
+
 }
 }
 

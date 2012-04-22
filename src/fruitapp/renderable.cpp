@@ -12,7 +12,8 @@
 fruitapp::renderable::renderable(
 	fruitlib::scenic::optional_parent const &_parent,
 	sge::systems::instance const &_systems,
-	sge::parse::json::object const &_config_file)
+	sge::parse::json::object const &_config_file,
+	fruitapp::viewport::manager &_viewport_manager)
 :
 	node_base(
 		_parent),
@@ -35,7 +36,8 @@ fruitapp::renderable::renderable(
 		sge::parse::json::find_and_convert_member<sge::parse::json::object>(
 			_config_file,
 			sge::parse::json::path(
-				FCPPT_TEXT("pp")))),
+				FCPPT_TEXT("pp"))),
+		_viewport_manager),
 	overlay_(
 		fruitlib::scenic::optional_parent(
 			fruitlib::scenic::parent(

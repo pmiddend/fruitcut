@@ -21,6 +21,9 @@
 #include <fcppt/math/vector/orthogonalize.hpp>
 #include <fcppt/math/vector/output.hpp>
 #include <fcppt/math/vector/static.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/range/numeric.hpp>
@@ -85,6 +88,8 @@ public:
 		vector const &a,
 		vector const &b,
 		vector const &c)
+	:
+		points()
 	{
 		points[0] = a;
 		points[1] = b;
@@ -165,6 +170,9 @@ typedef
 fruitlib::math::triangle_plane_intersection<triangle3>
 intersection_type;
 }
+
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
 
 BOOST_AUTO_TEST_CASE(line_plane)
 {
@@ -551,3 +559,5 @@ BOOST_AUTO_TEST_CASE(d_to_point)
 				0.5,-1.5),
 			l) - static_cast<scalar>(1.78885) < epsilon));
 }
+
+FCPPT_PP_POP_WARNING

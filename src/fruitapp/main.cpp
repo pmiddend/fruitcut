@@ -34,7 +34,9 @@ public:
 		int const _signal_type)
 	:
 		signal_type_(
-			_signal_type)
+			_signal_type),
+		sigaction_(),
+		old_sigaction_()
 	{
 		sigaction_.sa_sigaction =
 			&callback;

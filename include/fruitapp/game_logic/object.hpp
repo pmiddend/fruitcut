@@ -9,16 +9,17 @@
 #include <fruitapp/fruit/manager_fwd.hpp>
 #include <fruitapp/fruit/object_fwd.hpp>
 #include <fruitapp/highscore/score.hpp>
+#include <fruitapp/viewport/manager_fwd.hpp>
 #include <fruitlib/audio/sound_controller.hpp>
 #include <fruitlib/font/cache_fwd.hpp>
 #include <fruitlib/font/scene_node.hpp>
 #include <fruitlib/scenic/node.hpp>
 #include <fruitlib/scenic/parent_fwd.hpp>
 #include <fruitlib/scenic/events/update.hpp>
-#include <fruitlib/scenic/events/viewport_change.hpp>
 #include <sge/parse/json/object_fwd.hpp>
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/scalar.hpp>
+#include <sge/renderer/viewport.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -38,7 +39,7 @@ FCPPT_NONCOPYABLE(
 	object);
 public:
 	typedef
-	boost::mpl::vector2<fruitlib::scenic::events::update,fruitlib::scenic::events::viewport_change>
+	boost::mpl::vector1<fruitlib::scenic::events::update>
 	scene_reactions;
 
 	explicit
@@ -55,7 +56,7 @@ public:
 		fruit::manager &,
 		fruitlib::font::cache &,
 		overlay &,
-		sge::renderer::device &);
+		fruitapp::viewport::manager &);
 
 	bool
 	finished() const;
@@ -66,10 +67,6 @@ public:
 	void
 	react(
 		fruitlib::scenic::events::update const &);
-
-	void
-	react(
-		fruitlib::scenic::events::viewport_change const &);
 private:
 	fruit::area::value_type const area_score_factor_;
 	highscore::score::value_type score_,iterating_score_;
@@ -86,7 +83,7 @@ private:
 	fruitapp::ingame_timer penalty_timer_;
 	int multiplier_;
 	unsigned multi_count_;
-	sge::renderer::device &renderer_;
+	fcppt::signal::scoped_connection viewport_change_connection_;
 
 	void
 	fruit_added(
@@ -103,6 +100,10 @@ private:
 	void
 	increase_score(
 		highscore::score::value_type const &);
+
+	void
+	viewport_change(
+		sge::renderer::viewport const &);
 };
 }
 }

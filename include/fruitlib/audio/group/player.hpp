@@ -6,6 +6,9 @@
 #include <sge/audio/player.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/container/bitfield/object_impl.hpp>
+#include <fcppt/preprocessor/const.hpp>
+#include <fcppt/preprocessor/pure.hpp>
+#include <fcppt/preprocessor/warn_unused_result.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/ptr_container/ptr_vector.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -31,7 +34,8 @@ public:
 		sge::audio::scalar pitch);
 
 	sge::audio::listener &
-	listener();
+	listener()
+	FCPPT_PP_CONST;
 
 	void
 	speed_of_sound(
@@ -46,31 +50,37 @@ public:
 		sge::audio::scalar);
 
 	sge::audio::scalar
-	gain() const;
+	gain() const
+	FCPPT_PP_PURE;
 
 	void
 	pitch(
 		sge::audio::scalar);
 
 	sge::audio::scalar
-	pitch() const;
+	pitch() const
+	FCPPT_PP_PURE;
 
 	sge::audio::buffer_unique_ptr
 	create_buffer(
-		sge::audio::file &);
+		sge::audio::file &)
+	FCPPT_PP_WARN_UNUSED_RESULT;
 
 	sge::audio::sound::positional_unique_ptr
 	create_positional_stream(
 		sge::audio::file &,
-		sge::audio::sound::positional_parameters const &);
+		sge::audio::sound::positional_parameters const &)
+	FCPPT_PP_WARN_UNUSED_RESULT;
 
 	sge::audio::sound::base_unique_ptr
 	create_nonpositional_stream(
 		sge::audio::file &,
-		sge::audio::sound::nonpositional_parameters const &);
+		sge::audio::sound::nonpositional_parameters const &)
+	FCPPT_PP_WARN_UNUSED_RESULT;
 
 	sge::audio::player_capabilities_field const
-	capabilities() const;
+	capabilities() const
+	FCPPT_PP_PURE;
 
 	~player();
 private:

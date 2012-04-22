@@ -4,6 +4,7 @@
 #include <fruitlib/scenic/delta/callback.hpp>
 #include <fruitlib/scenic/delta/clock_impl.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/preprocessor/const.hpp>
 
 
 namespace fruitlib
@@ -45,8 +46,9 @@ public:
 	void
 	update();
 
-	time_point
-	now() const;
+	time_point const &
+	now() const
+	FCPPT_PP_CONST;
 private:
 	delta::callback const callback_;
 	time_point now_;

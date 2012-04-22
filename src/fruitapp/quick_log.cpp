@@ -1,4 +1,5 @@
 #include <fruitapp/quick_log.hpp>
+#include <fruitapp/viewport/manager.hpp>
 #include <fruitlib/audio/sound_controller.hpp>
 #include <fruitlib/font/cache.hpp>
 #include <fruitlib/font/color_format.hpp>
@@ -21,7 +22,6 @@
 #include <sge/parse/json/path.hpp>
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/screen_size.hpp>
-#include <sge/renderer/viewport_size.hpp>
 #include <sge/timer/parameters.hpp>
 #include <sge/timer/reset_when_expired.hpp>
 #include <sge/timer/clocks/standard.hpp>
@@ -43,13 +43,11 @@ fruitapp::quick_log::quick_log(
 	fruitlib::scenic::optional_parent const &_parent,
 	sge::parse::json::object const &_config_file,
 	fruitlib::font::cache &_font_cache,
-	sge::renderer::device const &_renderer,
+	fruitapp::viewport::manager &_viewport_manager,
 	fruitlib::audio::sound_controller &_sound_controller)
 :
 	node_base(
 		_parent),
-	renderer_(
-		_renderer),
 	sound_controller_(
 		_sound_controller),
 	font_node_(
@@ -90,12 +88,16 @@ fruitapp::quick_log::quick_log(
 					FCPPT_TEXT("quick-log")) / FCPPT_TEXT("message-deletion-time"))).
 		active(
 			false)),
-	messages_()
+	messages_(),
+	viewport_change_connection_(
+		_viewport_manager.change_callback(
+			std::tr1::bind(
+				&quick_log::viewport_change,
+				this,
+				std::tr1::placeholders::_1),
+			fruitapp::viewport::trigger_early(
+				true)))
 {
-	fruitlib::scenic::events::viewport_change event;
-
-	this->react(
-		event);
 }
 
 void
@@ -140,16 +142,11 @@ fruitapp::quick_log::react(
 }
 
 void
-fruitapp::quick_log::react(
-	fruitlib::scenic::events::viewport_change const &)
+fruitapp::quick_log::viewport_change(
+	sge::renderer::viewport const &_viewport)
 {
-	sge::renderer::screen_size const viewport_size =
-		sge::renderer::viewport_size(
-			renderer_);
-
-	// No viewport yet? Quit!
-	if(!viewport_size.content())
-		return;
+	sge::renderer::pixel_rect::dim const viewport_size(
+		_viewport.get().size());
 
 	font_node_.object().bounding_box(
 		sge::font::rect(

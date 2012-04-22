@@ -1,4 +1,5 @@
 #include <fruitapp/postprocessing.hpp>
+#include <fruitapp/viewport/manager.hpp>
 #include <fruitlib/media_path.hpp>
 #include <fruitlib/pp/dependency_set.hpp>
 #include <fruitlib/pp/texture/depth_stencil_format.hpp>
@@ -28,7 +29,8 @@ fruitapp::postprocessing::postprocessing(
 	fruitlib::scenic::optional_parent const &_parent,
 	sge::renderer::device &_renderer,
 	fcppt::function::object<void ()> const &render_callback,
-	sge::parse::json::object const &config)
+	sge::parse::json::object const &config,
+	fruitapp::viewport::manager &_viewport_manager)
 :
 	node_base(
 		_parent),
@@ -93,7 +95,15 @@ fruitapp::postprocessing::postprocessing(
 		static_cast<sge::renderer::scalar>(
 			0.0)),
 	active_(
-		true)
+		true),
+	viewport_change_connection_(
+		_viewport_manager.change_callback(
+			std::tr1::bind(
+				&postprocessing::viewport_change,
+				this,
+				std::tr1::placeholders::_1),
+			fruitapp::viewport::trigger_early(
+				true)))
 {
 	system_.add_filter(
 		rtt_filter_,
@@ -187,13 +197,14 @@ fruitapp::postprocessing::react(
 		system_.update();
 }
 
-void
-fruitapp::postprocessing::react(
-	fruitlib::scenic::events::viewport_change const &)
-{
-	texture_manager_.clear_screen_textures();
-}
-
 fruitapp::postprocessing::~postprocessing()
 {
+}
+
+void
+fruitapp::postprocessing::viewport_change(
+	sge::renderer::viewport const &)
+{
+	std::cout << "In viewport change\n";
+	texture_manager_.clear_screen_textures();
 }

@@ -17,7 +17,6 @@
 #include <fruitlib/resource_tree/path.hpp>
 #include <fruitlib/scenic/parent.hpp>
 #include <fruitlib/scenic/events/render.hpp>
-#include <fruitlib/scenic/events/viewport_change.hpp>
 #include <sge/camera/first_person/object.hpp>
 #include <sge/image/colors.hpp>
 #include <sge/image/color/convert.hpp>
@@ -141,13 +140,13 @@ fruitapp::states::ingame::superstate::superstate(
 				context<fruitapp::machine>().root_node(),
 				fruitlib::scenic::depth(
 					depths::root::dont_care))),
-		context<machine>().ingame_clock(),
-		context<machine>().config_file(),
-		context<machine>().sound_controller(),
+		context<fruitapp::machine>().ingame_clock(),
+		context<fruitapp::machine>().config_file(),
+		context<fruitapp::machine>().sound_controller(),
 		fruit_manager_,
-		context<machine>().font_cache(),
-		context<machine>().overlay_node(),
-		context<machine>().systems().renderer()),
+		context<fruitapp::machine>().font_cache(),
+		context<fruitapp::machine>().overlay_node(),
+		context<fruitapp::machine>().viewport_manager()),
 	cut_connection_(
 		fruit_manager_.cut_callback(
 			std::tr1::bind(

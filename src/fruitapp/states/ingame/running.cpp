@@ -18,6 +18,7 @@
 #include <fruitapp/states/gameover/superstate.hpp>
 #include <fruitapp/states/ingame/paused.hpp>
 #include <fruitapp/states/ingame/running.hpp>
+#include <fruitapp/viewport/manager.hpp>
 #include <fruitlib/audio/sound_controller.hpp>
 #include <fruitlib/math/multiply_matrix4_vector3.hpp>
 #include <fruitlib/math/unproject.hpp>
@@ -57,6 +58,7 @@
 #include <fcppt/math/vector/cross.hpp>
 #include <fcppt/math/vector/dot.hpp>
 #include <fcppt/math/vector/object_impl.hpp>
+#include <fcppt/tr1/functional.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/next_prior.hpp>
@@ -146,15 +148,18 @@ fruitapp::states::ingame::running::running(
 		context<fruitapp::machine>().systems().image_system(),
 		context<fruitapp::machine>().systems().cursor_demuxer(),
 		context<fruitapp::machine>().ingame_clock(),
-		context<fruitapp::machine>().config_file())
+		context<fruitapp::machine>().config_file()),
+	viewport_change_connection_(
+		context<fruitapp::machine>().viewport_manager().change_callback(
+			std::tr1::bind(
+				&running::viewport_change,
+				this,
+				std::tr1::placeholders::_1),
+			fruitapp::viewport::trigger_early(
+				true)))
 {
 	context<machine>().postprocessing().active(
 		true);
-
-	fruitlib::scenic::events::viewport_change event;
-
-	this->react(
-		event);
 }
 
 FRUITAPP_EVENTS_DEFINE_TRANSITION_REACTION(
@@ -201,13 +206,6 @@ fruitapp::states::ingame::running::react(
 		FRUITAPP_EVENTS_POST_TRANSITION(
 			gameover::superstate);
 	}
-}
-
-void
-fruitapp::states::ingame::running::react(
-	fruitlib::scenic::events::viewport_change const &)
-{
-	cursor_trail_.clear();
 }
 
 void
@@ -392,4 +390,11 @@ fruitapp::states::ingame::running::process_fruit(
 		cursor_trail_.total_expiry_duration());
 
 	//cursor_trail_.clear();
+}
+
+void
+fruitapp::states::ingame::running::viewport_change(
+	sge::renderer::viewport const &)
+{
+	cursor_trail_.clear();
 }

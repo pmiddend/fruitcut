@@ -6,6 +6,7 @@
 #include <fruitapp/fruit/prototype_from_json.hpp>
 #include <fruitapp/states/loading.hpp>
 #include <fruitapp/states/menu/main.hpp>
+#include <fruitapp/viewport/manager.hpp>
 #include <fruitlib/font/cache.hpp>
 #include <fruitlib/font/color_format.hpp>
 #include <fruitlib/font/object_parameters.hpp>
@@ -28,7 +29,6 @@
 #include <sge/parse/json/find_and_convert_member.hpp>
 #include <sge/parse/json/value.hpp>
 #include <sge/renderer/scalar.hpp>
-#include <sge/renderer/viewport_size.hpp>
 #include <sge/systems/instance.hpp>
 #include <fcppt/insert_to_string.hpp>
 #include <fcppt/text.hpp>
@@ -38,6 +38,7 @@
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/math/matrix/object_impl.hpp>
 #include <fcppt/math/vector/object_impl.hpp>
+#include <fcppt/tr1/functional.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <iterator>
 #include <fcppt/config/external_end.hpp>
@@ -85,20 +86,19 @@ fruitapp::states::loading::loading(
 						FCPPT_TEXT("loading"))
 						/ FCPPT_TEXT("font-color")))),
 		fruitlib::font::scale(
-			1.f))
+			1.f)),
+	viewport_change_connection_(
+		context<fruitapp::machine>().viewport_manager().change_callback(
+			std::tr1::bind(
+				&loading::viewport_change,
+				this,
+				std::tr1::placeholders::_1),
+			fruitapp::viewport::trigger_early(
+				true)))
 {
 	context<machine>().postprocessing().desaturate_filter().factor(
 		static_cast<sge::renderer::scalar>(
 			0));
-
-	// We already hae a viewport? Ok, then go
-	if(sge::renderer::viewport_size(context<machine>().systems().renderer()).content())
-	{
-		fruitlib::scenic::events::viewport_change event;
-
-		this->react(
-			event);
-	}
 }
 
 FRUITAPP_EVENTS_DEFINE_TRANSITION_REACTION(
@@ -149,13 +149,12 @@ fruitapp::states::loading::react(
 }
 
 void
-fruitapp::states::loading::react(
-	fruitlib::scenic::events::viewport_change const &)
+fruitapp::states::loading::viewport_change(
+	sge::renderer::viewport const &_viewport)
 {
 	sge::font::dim const &viewport_dim =
 		fcppt::math::dim::structure_cast<sge::font::dim>(
-			sge::renderer::viewport_size(
-				context<machine>().systems().renderer()));
+				_viewport.get().size());
 
 	font_node_.object().bounding_box(
 		sge::font::rect(

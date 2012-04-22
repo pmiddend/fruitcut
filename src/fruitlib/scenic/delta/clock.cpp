@@ -5,7 +5,8 @@ fruitlib::scenic::delta::clock::clock(
 	delta::callback const &_callback)
 :
 	callback_(
-		_callback)
+		_callback),
+	now_()
 {
 }
 
@@ -20,7 +21,7 @@ fruitlib::scenic::delta::clock::update()
 		callback_();
 }
 
-fruitlib::scenic::delta::clock::time_point
+fruitlib::scenic::delta::clock::time_point const &
 fruitlib::scenic::delta::clock::now() const
 {
 	return now_;

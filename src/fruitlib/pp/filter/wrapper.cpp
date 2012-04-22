@@ -49,7 +49,7 @@ fruitlib::pp::filter::wrapper::active(
 	active_ = _active;
 }
 
-fcppt::string const
+fcppt::string const &
 fruitlib::pp::filter::wrapper::name() const
 {
 	return name_;

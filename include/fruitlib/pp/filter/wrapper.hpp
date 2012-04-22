@@ -3,6 +3,7 @@
 
 #include <fruitlib/pp/filter/base_fwd.hpp>
 #include <fcppt/string.hpp>
+#include <fcppt/preprocessor/const.hpp>
 
 
 namespace fruitlib
@@ -17,7 +18,6 @@ public:
 	explicit
 	wrapper();
 
-	explicit
 	wrapper(
 		base &,
 		fcppt::string const &name,
@@ -33,8 +33,9 @@ public:
 	active(
 		bool);
 
-	fcppt::string const
-	name() const;
+	fcppt::string const &
+	name() const
+	FCPPT_PP_CONST;
 private:
 	base *filter_;
 	fcppt::string name_;

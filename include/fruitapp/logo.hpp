@@ -1,13 +1,14 @@
 #ifndef FRUITAPP_LOGO_HPP_INCLUDED
 #define FRUITAPP_LOGO_HPP_INCLUDED
 
+#include <fruitapp/viewport/manager_fwd.hpp>
 #include <fruitlib/scenic/node.hpp>
 #include <fruitlib/scenic/optional_parent.hpp>
 #include <fruitlib/scenic/events/render.hpp>
-#include <fruitlib/scenic/events/viewport_change.hpp>
 #include <sge/image2d/system_fwd.hpp>
 #include <sge/parse/json/object_fwd.hpp>
 #include <sge/renderer/device_fwd.hpp>
+#include <sge/renderer/viewport.hpp>
 #include <sge/renderer/texture/planar_scoped_ptr.hpp>
 #include <sge/sprite/object_decl.hpp>
 #include <sge/sprite/parameters_fwd.hpp>
@@ -22,6 +23,7 @@
 #include <sge/sprite/config/unit_type.hpp>
 #include <sge/sprite/config/with_texture.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -37,7 +39,7 @@ FCPPT_NONCOPYABLE(
 	logo);
 public:
 	typedef
-	boost::mpl::vector2<fruitlib::scenic::events::render,fruitlib::scenic::events::viewport_change>
+	boost::mpl::vector1<fruitlib::scenic::events::render>
 	scene_reactions;
 
 	explicit
@@ -45,17 +47,14 @@ public:
 		fruitlib::scenic::optional_parent const &,
 		sge::renderer::device &,
 		sge::image2d::system &,
-		sge::parse::json::object const &);
+		sge::parse::json::object const &,
+		fruitapp::viewport::manager &);
 
 	~logo();
 
 	void
 	react(
 		fruitlib::scenic::events::render const &);
-
-	void
-	react(
-		fruitlib::scenic::events::viewport_change const &);
 private:
 	typedef
 	boost::mpl::vector1
@@ -113,10 +112,14 @@ private:
 	sge::sprite::parameters<sprite_choices>
 	sprite_parameters;
 
-	sge::renderer::device &renderer_;
 	sprite_buffers sprite_buffers_;
 	sge::renderer::texture::planar_scoped_ptr texture_;
 	sprite_object sprite_object_;
+	fcppt::signal::scoped_connection viewport_change_connection_;
+
+	void
+	viewport_change(
+		sge::renderer::viewport const &);
 };
 }
 
