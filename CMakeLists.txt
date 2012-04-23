@@ -228,13 +228,13 @@ SET(
 	src/fruitapp/fruit/manager.cpp
 	src/fruitapp/fruit/material/from_json.cpp
 	src/fruitapp/fruit/material/object.cpp
+	src/fruitapp/fruit/mesh.cpp
 	src/fruitapp/fruit/mesh_to_point_cloud.cpp
 	src/fruitapp/fruit/mesh_to_shape.cpp
 	src/fruitapp/fruit/mesh_to_vertex_buffer.cpp
 	src/fruitapp/fruit/model_to_mesh.cpp
 	src/fruitapp/fruit/object.cpp
-	src/fruitapp/fruit/object_parameters.cpp
-	src/fruitapp/fruit/parameters_from_prototype.cpp
+	src/fruitapp/fruit/object_from_prototype.cpp
 	src/fruitapp/fruit/prototype.cpp
 	src/fruitapp/fruit/prototype_from_json.cpp
 	src/fruitapp/fruit/shadow_render_node.cpp

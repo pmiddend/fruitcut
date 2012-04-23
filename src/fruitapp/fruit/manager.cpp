@@ -1,10 +1,12 @@
+#include <fruitapp/fruit/object_from_prototype.hpp>
+#include <fcppt/ref.hpp>
+#include <fcppt/cref.hpp>
+#include <fruitapp/fruit/cut_context_unique_ptr.hpp>
 #include <fruitapp/exception.hpp>
 #include <fruitapp/fruit/box3.hpp>
 #include <fruitapp/fruit/cut_mesh.hpp>
 #include <fruitapp/fruit/manager.hpp>
 #include <fruitapp/fruit/mesh.hpp>
-#include <fruitapp/fruit/object_parameters.hpp>
-#include <fruitapp/fruit/parameters_from_prototype.hpp>
 #include <fruitapp/fruit/plane.hpp>
 #include <fruitapp/fruit/prototype_from_json.hpp>
 #include <fruitapp/fruit/model_vf/format.hpp>
@@ -97,6 +99,7 @@ fruitapp::fruit::manager::manager(
 	fruits_(),
 	cut_signal_(),
 	remove_signal_(),
+	spawn_signal_(),
 	clock_(
 		_clock)
 {
@@ -131,7 +134,9 @@ fruitapp::fruit::manager::cut(
 	// it's just one, we leave it as is (still costs a bit of performance)
 	object_sequence::implementation_sequence fruit_cache;
 	fruit::area::value_type cumulated_area = 0;
-	fruit::mesh cross_section;
+	fruit::mesh_unique_ptr cross_section(
+		fcppt::make_unique_ptr<fruit::mesh>(
+			fruit::mesh::triangle_sequence()));
 
 	for(
 		plane_array::const_iterator p =
@@ -149,60 +154,73 @@ fruitapp::fruit::manager::cut(
 
 		// Note the return here. If this condition is true, we only split
 		// to one fruit, so we didn't split at all!
-		if (cut_result->mesh().triangles.empty())
+		if (cut_result->mesh().triangles().empty())
 			return;
 
-		// Potentially dangerous if cross_section is used by something else. But currently this is the fastest solution.
-		if (cross_section.triangles.empty())
-			cut_result->cross_section().triangles.swap(
-				cross_section.triangles);
+		// Potentially dangerous if cross_section is used by something
+		// else. But currently this is the fastest solution.
+		if (cross_section->triangles().empty())
+			cut_result->cross_section().triangles().swap(
+				cross_section->triangles());
 
 		fcppt::container::ptr::push_back_unique_ptr(
 			fruit_cache,
 			fcppt::make_unique_ptr<fruit::object>(
-				fruit::object_parameters(
-					current_fruit.prototype(),
-					physics_world_,
-					renderer_,
-					*vertex_declaration_,
-					cut_result->mesh(),
-					fruit_group_,
-					static_cast<fruitlib::physics::rigid_body::mass::value_type>(
-						cut_result->bounding_box().size().content()),
-					current_fruit.position() +
-						fruitlib::math::multiply_matrix4_vector3(
-							current_fruit.body().transformation(),
-							fcppt::math::vector::structure_cast<fruitlib::physics::vector3>(
-								cut_result->barycenter())),
-					current_fruit.body().transformation(),
-					calculate_new_linear_velocity(
-						current_fruit.body().linear_velocity(),
-						fruitlib::math::multiply_matrix4_vector3(
-							current_fruit.body().transformation(),
-							fcppt::math::vector::structure_cast<fruitlib::physics::vector3>(
-								fcppt::math::vector::normalize(
-									p->normal())))),
-					current_fruit.body().angular_velocity(),
-					lock_duration,
+				fcppt::cref(
+					current_fruit.prototype()),
+				fcppt::ref(
+					physics_world_),
+				fcppt::ref(
+					renderer_),
+				fcppt::ref(
+					*vertex_declaration_),
+				cut_result->release_mesh(),
+				fcppt::ref(
+					fruit_group_),
+				static_cast<fruitlib::physics::rigid_body::mass::value_type>(
+					cut_result->bounding_box().size().content()),
+				current_fruit.position() +
+					fruitlib::math::multiply_matrix4_vector3(
+						current_fruit.body().transformation(),
+						fcppt::math::vector::structure_cast<fruitlib::physics::vector3>(
+							cut_result->barycenter())),
+				current_fruit.body().transformation(),
+				calculate_new_linear_velocity(
+					current_fruit.body().linear_velocity(),
+					fruitlib::math::multiply_matrix4_vector3(
+						current_fruit.body().transformation(),
+						fcppt::math::vector::structure_cast<fruitlib::physics::vector3>(
+							fcppt::math::vector::normalize(
+								p->normal())))),
+				current_fruit.body().angular_velocity(),
+				lock_duration,
+				fcppt::cref(
 					clock_)));
 	}
 
 	FCPPT_ASSERT_ERROR(
 		fruit_cache.size() == 2);
 
-	cut_signal_(
-		fruit::cut_context(
-			current_fruit,
+	fruit::cut_context_unique_ptr cut_context(
+		fcppt::make_unique_ptr<fruit::cut_context>(
+			fcppt::cref(
+				current_fruit),
 			fcppt::assign::make_array<fruit::object const *>
 				(&(*fruit_cache.begin()))
 				(&(*(--fruit_cache.end()))),
 			fruit::area(
 				cumulated_area),
 			cut_direction,
-			cross_section));
+			fcppt::move(
+				cross_section)));
+
+	cut_signal_(
+		fcppt::cref(
+			*cut_context));
 
 	fruits_.transfer_from(
 		fruit_cache);
+
 	fruits_.erase(
 		current_fruit);
 }
@@ -216,21 +234,20 @@ fruitapp::fruit::manager::spawn(
 	fruitlib::physics::vector3 const &angular_velocity)
 {
 	fruits_.push_back(
-		fcppt::make_unique_ptr<object>(
-			fruit::parameters_from_prototype(
-				proto,
-				physics_world_,
-				fruit_group_,
-				renderer_,
-				*vertex_declaration_,
-				mass,
-				position,
-				// I don't see any sense in specifying that here
-				fruitlib::physics::matrix4::identity(),
-				linear_velocity,
-				angular_velocity,
-				fcppt::cref(
-					clock_))));
+		fruit::object_from_prototype(
+			proto,
+			physics_world_,
+			fruit_group_,
+			renderer_,
+			*vertex_declaration_,
+			mass,
+			position,
+			// I don't see any sense in specifying that here
+			fruitlib::physics::matrix4::identity(),
+			linear_velocity,
+			angular_velocity,
+			fcppt::cref(
+				clock_)));
 
 	spawn_signal_(
 		*fruits_.cend());

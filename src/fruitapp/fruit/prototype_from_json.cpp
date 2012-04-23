@@ -1,3 +1,4 @@
+#include <fruitapp/fruit/mesh.hpp>
 #include <fruitapp/fruit/model_to_mesh.hpp>
 #include <fruitapp/fruit/prototype.hpp>
 #include <fruitapp/fruit/prototype_from_json.hpp>
@@ -51,17 +52,16 @@ fruitapp::fruit::prototype_from_json(
 
 	return
 		fcppt::make_unique_ptr<fruit::prototype>(
-			fcppt::cref(
-				fruit::model_to_mesh(
-					*model_loader.load(
-						fruitlib::media_path()
-							/ FCPPT_TEXT("models")
-							/ FCPPT_TEXT("fruits")
-							/
-								sge::parse::json::find_and_convert_member<fcppt::string>(
-									o,
-									sge::parse::json::path(
-										FCPPT_TEXT("model")))))),
+			fruit::model_to_mesh(
+				*model_loader.load(
+					fruitlib::media_path()
+						/ FCPPT_TEXT("models")
+						/ FCPPT_TEXT("fruits")
+						/
+							sge::parse::json::find_and_convert_member<fcppt::string>(
+								o,
+								sge::parse::json::path(
+									FCPPT_TEXT("model"))))),
 			sge::renderer::texture::planar_shared_ptr(
 				sge::renderer::texture::create_planar_from_path(
 					fruitlib::media_path()

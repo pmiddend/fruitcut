@@ -103,7 +103,7 @@ void
 fruitapp::splatter_generator::fruit_was_cut(
 	fruit::cut_context const &cut_info)
 {
-	if(cut_info.cross_section().triangles.empty())
+	if(cut_info.cross_section().triangles().empty())
 		return;
 
 	typedef
@@ -116,7 +116,7 @@ fruitapp::splatter_generator::fruit_was_cut(
 			triangle_rng::distribution::min(
 				0u),
 			triangle_rng::distribution::max(
-				cut_info.cross_section().triangles.size()-1)));
+				cut_info.cross_section().triangles().size()-1)));
 
 	typedef
 	fruitlib::uniform_real_random<sge::renderer::scalar>::type
@@ -142,7 +142,7 @@ fruitapp::splatter_generator::fruit_was_cut(
 	{
 		sge::renderer::vector3 const position =
 			fruitlib::math::triangle::random_point(
-				cut_info.cross_section().triangles[
+				cut_info.cross_section().triangles()[
 					triangle_rng_()],
 				triangle_point_rng_);
 

@@ -1,13 +1,13 @@
-#include <sge/renderer/aspect_from_viewport.hpp>
-#include <fcppt/move.hpp>
-#include <fruitapp/viewport/manager.hpp>
 #include <fruitapp/projection_manager/object.hpp>
+#include <fruitapp/viewport/manager.hpp>
 #include <fruitlib/perspective_projection_information.hpp>
 #include <fruitlib/scenic/base.hpp>
 #include <sge/camera/has_mutable_projection.hpp>
 #include <sge/parse/json/find_and_convert_member.hpp>
+#include <sge/renderer/aspect_from_viewport.hpp>
 #include <sge/renderer/projection/perspective_af.hpp>
 #include <sge/viewport/manager.hpp>
+#include <fcppt/move.hpp>
 #include <fcppt/math/deg_to_rad.hpp>
 #include <fcppt/signal/connection.hpp>
 #include <fcppt/tr1/functional.hpp>

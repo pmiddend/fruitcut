@@ -20,13 +20,13 @@ fruitapp::fruit::mesh_to_shape(
 	scalar_vector points;
 	points.reserve(
 		static_cast<scalar_vector::size_type>(
-			m.triangles.size() * 3 * 3));
+			m.triangles().size() * 3 * 3));
 
 	// Hehehehe
 	for(
 		fruit::mesh::triangle_sequence::const_iterator t =
-			m.triangles.begin();
-		t != m.triangles.end();
+			m.triangles().begin();
+		t != m.triangles().end();
 		++t)
 		for(
 			fruit::triangle::vertex_array::const_iterator vec =

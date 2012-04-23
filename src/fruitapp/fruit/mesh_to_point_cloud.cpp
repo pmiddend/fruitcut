@@ -10,12 +10,12 @@ fruitapp::fruit::mesh_to_point_cloud(
 	point_cloud output;
 	output.reserve(
 		static_cast<point_cloud::size_type>(
-			m.triangles.size() * 3));
+			m.triangles().size() * 3));
 
 	for(
 		fruit::mesh::triangle_sequence::const_iterator t =
-			m.triangles.begin();
-		t != m.triangles.end();
+			m.triangles().begin();
+		t != m.triangles().end();
 		++t)
 	{
 		for(

@@ -75,6 +75,7 @@ fruitlib::pp::system::update()
 
 		result_texture_ =
 			result->texture();
+
 		for(
 			std::pair<out_edge_iterator,out_edge_iterator> out_edge_pair =
 				boost::out_edges(
@@ -87,11 +88,6 @@ fruitlib::pp::system::update()
 				result);
 		}
 	}
-
-	/*
-	result_texture_ =
-		vertex_to_filter_[sorted.back()].filter().textures_.front()->texture();
-	*/
 }
 
 sge::renderer::texture::planar_shared_ptr const

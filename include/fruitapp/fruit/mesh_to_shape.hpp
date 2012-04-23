@@ -3,6 +3,7 @@
 
 #include <fruitapp/fruit/mesh_fwd.hpp>
 #include <fruitlib/physics/shared_shape_ptr.hpp>
+#include <fcppt/preprocessor/const.hpp>
 
 
 namespace fruitapp
@@ -11,7 +12,8 @@ namespace fruit
 {
 fruitlib::physics::shared_shape_ptr const
 mesh_to_shape(
-	mesh const &);
+	mesh const &)
+FCPPT_PP_CONST;
 }
 }
 

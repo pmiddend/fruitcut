@@ -35,7 +35,7 @@ fruitapp::fruit::mesh_to_vertex_buffer(
 				0u),
 			sge::renderer::vertex_count(
 				static_cast<sge::renderer::size_type>(
-					m.triangles.size() * 3)),
+					m.triangles().size() * 3)),
 			sge::renderer::resource_flags::none));
 
 	sge::renderer::scoped_vertex_lock const vblock(
@@ -50,8 +50,8 @@ fruitapp::fruit::mesh_to_vertex_buffer(
 
 	for(
 		fruit::mesh::triangle_sequence::const_iterator t =
-			m.triangles.begin();
-		t != m.triangles.end();
+			m.triangles().begin();
+		t != m.triangles().end();
 		++t)
 	{
 		(vb_it)->set<model_vf::position>(

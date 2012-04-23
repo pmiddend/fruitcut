@@ -1,11 +1,18 @@
+#include <fcppt/move.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fruitapp/fruit/cut_mesh_result.hpp>
+#include <fruitapp/fruit/mesh.hpp>
 #include <sge/renderer/vector3.hpp>
 
 
 fruitapp::fruit::cut_mesh_result::cut_mesh_result()
 :
-	mesh_(),
-	cross_section_(),
+	mesh_(
+		fcppt::make_unique_ptr<fruit::mesh>(
+			fruit::mesh::triangle_sequence())),
+	cross_section_(
+		fcppt::make_unique_ptr<fruit::mesh>(
+			fruit::mesh::triangle_sequence())),
 	bounding_box_(),
 	area_(
 		0.f),
@@ -16,25 +23,35 @@ fruitapp::fruit::cut_mesh_result::cut_mesh_result()
 fruitapp::fruit::mesh const &
 fruitapp::fruit::cut_mesh_result::mesh() const
 {
-	return mesh_;
+	return
+		*mesh_;
 }
 
 fruitapp::fruit::mesh &
 fruitapp::fruit::cut_mesh_result::mesh()
 {
-	return mesh_;
+	return
+		*mesh_;
+}
+
+fruitapp::fruit::mesh_unique_ptr
+fruitapp::fruit::cut_mesh_result::release_mesh()
+{
+	return
+		fcppt::move(
+			mesh_);
 }
 
 fruitapp::fruit::mesh &
 fruitapp::fruit::cut_mesh_result::cross_section()
 {
-	return cross_section_;
+	return *cross_section_;
 }
 
 fruitapp::fruit::mesh const &
 fruitapp::fruit::cut_mesh_result::cross_section() const
 {
-	return cross_section_;
+	return *cross_section_;
 }
 
 fruitapp::fruit::box3 const &

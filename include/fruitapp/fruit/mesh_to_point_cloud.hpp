@@ -3,7 +3,7 @@
 
 #include <fruitapp/fruit/mesh_fwd.hpp>
 #include <fruitapp/fruit/point_cloud.hpp>
-
+#include <fcppt/preprocessor/const.hpp>
 
 namespace fruitapp
 {
@@ -11,7 +11,8 @@ namespace fruit
 {
 point_cloud const
 mesh_to_point_cloud(
-	mesh const &);
+	mesh const &)
+FCPPT_PP_CONST;
 }
 }
 

@@ -1,3 +1,4 @@
+#include <fcppt/move.hpp>
 #include <fruitapp/fruit/model_to_mesh.hpp>
 #include <fruitapp/fruit/triangle.hpp>
 #include <sge/model/md3/index_sequence.hpp>
@@ -13,13 +14,16 @@
 #include <fcppt/config/external_begin.hpp>
 #include <boost/next_prior.hpp>
 #include <fcppt/config/external_end.hpp>
+#include <fcppt/make_unique_ptr.hpp>
+#include <fruitapp/fruit/mesh.hpp>
 
-
-fruitapp::fruit::mesh const
+fruitapp::fruit::mesh_unique_ptr
 fruitapp::fruit::model_to_mesh(
 	sge::model::md3::object const &model)
 {
-	mesh result;
+	fruitapp::fruit::mesh_unique_ptr result(
+		fcppt::make_unique_ptr<fruitapp::fruit::mesh>(
+			fruitapp::fruit::mesh::triangle_sequence()));
 
 	FCPPT_ASSERT_PRE_MESSAGE(
 		!model.part_names().empty(),
@@ -98,12 +102,15 @@ fruitapp::fruit::model_to_mesh(
 					current_coord.x()/* / 2*/,
 					current_coord.y());
 		}
-		result.triangles.push_back(
+
+		result->triangles().push_back(
 			triangle(
 				vt,
 				tc,
 				ns));
 	}
 
-	return result;
+	return
+		fcppt::move(
+			result);
 }

@@ -5,7 +5,6 @@
 #include <fcppt/string.hpp>
 #include <fcppt/preprocessor/const.hpp>
 
-
 namespace fruitlib
 {
 namespace pp
@@ -15,16 +14,23 @@ namespace filter
 class wrapper
 {
 public:
-	explicit
 	wrapper();
+
+	wrapper(
+		wrapper const &);
 
 	wrapper(
 		base &,
 		fcppt::string const &name,
 		bool active = true);
 
+	wrapper &
+	operator=(
+		wrapper const &);
+
 	base &
-	filter() const;
+	filter() const
+	FCPPT_PP_CONST;
 
 	bool
 	active() const;

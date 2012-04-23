@@ -1,9 +1,9 @@
+#include <fcppt/move.hpp>
 #include <fruitapp/fruit/box3.hpp>
 #include <fruitapp/fruit/mesh_to_point_cloud.hpp>
 #include <fruitapp/fruit/mesh_to_shape.hpp>
 #include <fruitapp/fruit/mesh_to_vertex_buffer.hpp>
 #include <fruitapp/fruit/object.hpp>
-#include <fruitapp/fruit/object_parameters.hpp>
 #include <fruitapp/fruit/prototype.hpp>
 #include <fruitlib/geometry_traits/box.hpp>
 #include <fruitlib/geometry_traits/vector.hpp>
@@ -24,49 +24,62 @@
 
 
 fruitapp::fruit::object::object(
-	object_parameters const &p)
+	fruit::prototype const &_prototype,
+	fruitlib::physics::world &_physics_world,
+	sge::renderer::device &_renderer,
+	sge::renderer::vertex_declaration &_vertex_declaration,
+	fruitapp::fruit::mesh_unique_ptr _mesh,
+	fruitlib::physics::group::object &_fruit_group,
+	fruitlib::physics::scalar const _mass,
+	fruitlib::physics::vector3 const &_position,
+	fruitlib::physics::matrix4 const &_transformation,
+	fruitlib::physics::vector3 const &_linear_velocity,
+	fruitlib::physics::vector3 const &_angular_velocity,
+	fruitapp::ingame_clock::duration const &_lock_duration,
+	fruitapp::ingame_clock const &_clock)
 :
 	prototype_(
-		p.prototype()),
+		_prototype),
 	mesh_(
-		p.mesh()),
+		fcppt::move(
+			_mesh)),
 	bounding_box_(
 		boost::geometry::return_envelope<box3>(
 			fruit::mesh_to_point_cloud(
-				mesh_))),
+				*mesh_))),
 	body_(
 		fruitlib::physics::rigid_body::parameters(
 			fruitlib::physics::rigid_body::position(
-				p.position()),
+				_position),
 			fruitlib::physics::rigid_body::transformation(
-				p.transformation()),
+				_transformation),
 			fruitlib::physics::rigid_body::linear_velocity(
-				p.linear_velocity()),
+				_linear_velocity),
 			fruitlib::physics::rigid_body::angular_velocity(
-				p.angular_velocity()),
+				_angular_velocity),
 			fruit::mesh_to_shape(
-				mesh_),
+				*mesh_),
 			fruitlib::physics::rigid_body::solidity::solid,
 			fruitlib::physics::rigid_body::optional_mass(
 				fruitlib::physics::rigid_body::mass(
-					p.mass())),
+					_mass)),
 			fruitlib::physics::rigid_body::user_data())),
 	body_scope_(
-		p.physics_world(),
+		_physics_world,
 		body_,
 		fcppt::assign::make_container<fruitlib::physics::group::sequence>(
 			fcppt::ref(
-				p.fruit_group()))),
+				_fruit_group))),
 	vb_(
 		fruit::mesh_to_vertex_buffer(
-			p.renderer(),
-			p.vertex_declaration(),
-			mesh_)),
+			_renderer,
+			_vertex_declaration,
+			*mesh_)),
 	// A fruit originating from another fruit is banned for a specific duration
 	lock_timer_(
 		fruitapp::ingame_timer::parameters(
-			p.clock(),
-			p.lock_duration()))
+			_clock,
+			_lock_duration))
 {
 }
 
@@ -128,7 +141,7 @@ fruitapp::fruit::object::bounding_box() const
 fruitapp::fruit::mesh const &
 fruitapp::fruit::object::mesh() const
 {
-	return mesh_;
+	return *mesh_;
 }
 
 bool

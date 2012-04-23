@@ -4,9 +4,14 @@
 #include <fruitapp/fruit/area.hpp>
 #include <fruitapp/fruit/mesh.hpp>
 #include <fruitapp/fruit/object_fwd.hpp>
+#include <fruitapp/fruit/mesh_unique_ptr.hpp>
+#include <fruitapp/fruit/mesh_scoped_ptr.hpp>
 #include <fruitlib/physics/vector3.hpp>
+#include <fcppt/noncopyable.hpp>
 #include <fcppt/reference_wrapper.hpp>
 #include <fcppt/container/array.hpp>
+#include <fcppt/preprocessor/const.hpp>
+#include <fcppt/preprocessor/pure.hpp>
 
 
 namespace fruitapp
@@ -20,6 +25,8 @@ namespace fruit
  */
 class cut_context
 {
+FCPPT_NONCOPYABLE(
+	cut_context);
 public:
 	typedef
 	fruit::object const *
@@ -35,28 +42,35 @@ public:
 		new_fruit_array const &,
 		fruit::area const &,
 		fruitlib::physics::vector3 const &cut_direction,
-		fruit::mesh const &);
+		fruit::mesh_unique_ptr);
 
 	fruit::object const &
-	old() const;
+	old() const
+	FCPPT_PP_CONST;
 
 	new_fruit_array const &
-	new_fruits() const;
+	new_fruits() const
+	FCPPT_PP_CONST;
 
 	fruit::area::value_type
-	area() const;
+	area() const
+	FCPPT_PP_PURE;
 
 	fruitlib::physics::vector3 const &
-	cut_direction() const;
+	cut_direction() const
+	FCPPT_PP_CONST;
 
 	fruit::mesh const &
-	cross_section() const;
+	cross_section() const
+	FCPPT_PP_CONST;
+
+	~cut_context();
 private:
-	fruit_ptr old_;
+	fruit::object const &old_;
 	new_fruit_array new_;
 	fruit::area::value_type area_;
 	fruitlib::physics::vector3 cut_direction_;
-	fruit::mesh cross_section_;
+	fruit::mesh_scoped_ptr cross_section_;
 };
 }
 }

@@ -2,10 +2,10 @@
 #define FRUITAPP_PROJECTION_MANAGER_OBJECT_HPP_INCLUDED
 
 #include <fruitapp/machine_fwd.hpp>
-#include <fruitapp/viewport/manager_fwd.hpp>
 #include <fruitapp/projection_manager/projection_change_callback.hpp>
-#include <fruitapp/projection_manager/trigger_early.hpp>
 #include <fruitapp/projection_manager/projection_change_callback_fn.hpp>
+#include <fruitapp/projection_manager/trigger_early.hpp>
+#include <fruitapp/viewport/manager_fwd.hpp>
 #include <fruitlib/optional_perspective_projection_information.hpp>
 #include <sge/camera/has_mutable_projection_fwd.hpp>
 #include <sge/parse/json/object_fwd.hpp>
