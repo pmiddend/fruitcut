@@ -1,9 +1,10 @@
+#include <fruitapp/fruit/object.hpp>
+#include <fruitapp/fruit/object_from_prototype.hpp>
 #include <fruitapp/fruit/prototype.hpp>
 #include <fcppt/cref.hpp>
-#include <fcppt/ref.hpp>
-#include <fruitapp/fruit/object.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fruitapp/fruit/object_from_prototype.hpp>
+#include <fcppt/ref.hpp>
+
 
 fruitapp::fruit::object_unique_ptr
 fruitapp::fruit::object_from_prototype(

@@ -2,8 +2,8 @@
 #define FRUITAPP_FRUIT_PROTOTYPE_HPP_INCLUDED
 
 #include <fruitapp/fruit/box3.hpp>
-#include <fruitapp/fruit/mesh_unique_ptr.hpp>
 #include <fruitapp/fruit/mesh_scoped_ptr.hpp>
+#include <fruitapp/fruit/mesh_unique_ptr.hpp>
 #include <fruitapp/fruit/tag_set.hpp>
 #include <fruitapp/fruit/material/object.hpp>
 #include <fruitlib/physics/rigid_body/mass.hpp>

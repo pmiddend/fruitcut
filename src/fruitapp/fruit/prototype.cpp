@@ -1,5 +1,4 @@
 #include <fruitapp/fruit/mesh.hpp>
-#include <fcppt/move.hpp>
 #include <fruitapp/fruit/mesh_to_point_cloud.hpp>
 #include <fruitapp/fruit/prototype.hpp>
 #include <fruitlib/average_colors.hpp>
@@ -13,6 +12,7 @@
 #include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/scoped_planar_lock.hpp>
+#include <fcppt/move.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/geometry/geometry.hpp>
 #include <fcppt/config/external_end.hpp>

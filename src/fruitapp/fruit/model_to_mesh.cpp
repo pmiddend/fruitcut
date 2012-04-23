@@ -1,4 +1,4 @@
-#include <fcppt/move.hpp>
+#include <fruitapp/fruit/mesh.hpp>
 #include <fruitapp/fruit/model_to_mesh.hpp>
 #include <fruitapp/fruit/triangle.hpp>
 #include <sge/model/md3/index_sequence.hpp>
@@ -8,14 +8,15 @@
 #include <sge/model/md3/texcoord_sequence.hpp>
 #include <sge/renderer/vector2.hpp>
 #include <sge/renderer/vector3.hpp>
+#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/move.hpp>
 #include <fcppt/assert/pre_message.hpp>
 #include <fcppt/math/vector/object_impl.hpp>
 #include <fcppt/math/vector/structure_cast.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/next_prior.hpp>
 #include <fcppt/config/external_end.hpp>
-#include <fcppt/make_unique_ptr.hpp>
-#include <fruitapp/fruit/mesh.hpp>
+
 
 fruitapp::fruit::mesh_unique_ptr
 fruitapp::fruit::model_to_mesh(

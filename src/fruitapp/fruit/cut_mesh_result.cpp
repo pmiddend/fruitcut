@@ -1,8 +1,8 @@
-#include <fcppt/move.hpp>
-#include <fcppt/make_unique_ptr.hpp>
 #include <fruitapp/fruit/cut_mesh_result.hpp>
 #include <fruitapp/fruit/mesh.hpp>
 #include <sge/renderer/vector3.hpp>
+#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/move.hpp>
 
 
 fruitapp::fruit::cut_mesh_result::cut_mesh_result()

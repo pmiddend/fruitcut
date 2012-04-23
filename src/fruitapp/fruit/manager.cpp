@@ -1,12 +1,10 @@
-#include <fruitapp/fruit/object_from_prototype.hpp>
-#include <fcppt/ref.hpp>
-#include <fcppt/cref.hpp>
-#include <fruitapp/fruit/cut_context_unique_ptr.hpp>
 #include <fruitapp/exception.hpp>
 #include <fruitapp/fruit/box3.hpp>
+#include <fruitapp/fruit/cut_context_unique_ptr.hpp>
 #include <fruitapp/fruit/cut_mesh.hpp>
 #include <fruitapp/fruit/manager.hpp>
 #include <fruitapp/fruit/mesh.hpp>
+#include <fruitapp/fruit/object_from_prototype.hpp>
 #include <fruitapp/fruit/plane.hpp>
 #include <fruitapp/fruit/prototype_from_json.hpp>
 #include <fruitapp/fruit/model_vf/format.hpp>
@@ -32,6 +30,7 @@
 #include <sge/renderer/vf/dynamic/make_format.hpp>
 #include <fcppt/cref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/ref.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr.hpp>

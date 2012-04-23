@@ -1,34 +1,32 @@
 #ifndef FRUITAPP_FRUIT_OBJECT_HPP_INCLUDED
 #define FRUITAPP_FRUIT_OBJECT_HPP_INCLUDED
 
+#include <fruitapp/ingame_clock.hpp>
 #include <fruitapp/ingame_timer.hpp>
 #include <fruitapp/fruit/box3.hpp>
+#include <fruitapp/fruit/mesh.hpp>
 #include <fruitapp/fruit/mesh_scoped_ptr.hpp>
 #include <fruitapp/fruit/mesh_unique_ptr.hpp>
 #include <fruitapp/fruit/prototype_fwd.hpp>
-#include <fruitlib/physics/rigid_body/object.hpp>
-#include <fruitlib/physics/rigid_body/scoped.hpp>
-#include <sge/renderer/matrix4.hpp>
-#include <sge/renderer/vector3.hpp>
-#include <sge/renderer/vertex_buffer_scoped_ptr.hpp>
-#include <fcppt/noncopyable.hpp>
-#include <fcppt/math/box/object_impl.hpp>
-#include <fcppt/math/matrix/object_impl.hpp>
-#include <fcppt/math/vector/object_impl.hpp>
-#include <fcppt/variant/object.hpp>
-#include <fruitapp/ingame_clock.hpp>
-#include <fruitapp/fruit/mesh.hpp>
 #include <fruitapp/fruit/prototype_fwd.hpp>
 #include <fruitlib/physics/matrix4.hpp>
 #include <fruitlib/physics/scalar.hpp>
 #include <fruitlib/physics/vector3.hpp>
 #include <fruitlib/physics/world_fwd.hpp>
 #include <fruitlib/physics/group/object_fwd.hpp>
+#include <fruitlib/physics/rigid_body/object.hpp>
+#include <fruitlib/physics/rigid_body/scoped.hpp>
 #include <sge/renderer/device_fwd.hpp>
+#include <sge/renderer/matrix4.hpp>
+#include <sge/renderer/vector3.hpp>
+#include <sge/renderer/vertex_buffer_scoped_ptr.hpp>
 #include <sge/renderer/vertex_declaration_fwd.hpp>
 #include <fcppt/nonassignable.hpp>
+#include <fcppt/noncopyable.hpp>
+#include <fcppt/math/box/object_impl.hpp>
 #include <fcppt/math/matrix/object_impl.hpp>
 #include <fcppt/math/vector/object_impl.hpp>
+#include <fcppt/variant/object.hpp>
 #include <fcppt/variant/object.hpp>
 
 

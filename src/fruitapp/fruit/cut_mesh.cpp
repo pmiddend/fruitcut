@@ -1,7 +1,7 @@
 #include <fruitapp/fruit/cut_mesh.hpp>
-#include <fruitapp/fruit/mesh.hpp>
 #include <fruitapp/fruit/cut_mesh_result.hpp>
 #include <fruitapp/fruit/make_coordinate_system.hpp>
+#include <fruitapp/fruit/mesh.hpp>
 #include <fruitapp/fruit/triangle.hpp>
 #include <fruitapp/fruit/triangle_traits.hpp>
 #include <fruitlib/geometry_traits/box.hpp>

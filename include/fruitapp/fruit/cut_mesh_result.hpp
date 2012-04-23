@@ -6,10 +6,10 @@
 #include <fruitapp/fruit/mesh_unique_ptr.hpp>
 #include <sge/renderer/vector3.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/preprocessor/const.hpp>
-#include <fcppt/preprocessor/warn_unused_result.hpp>
 #include <fcppt/math/box/object_impl.hpp>
 #include <fcppt/math/vector/object_impl.hpp>
+#include <fcppt/preprocessor/const.hpp>
+#include <fcppt/preprocessor/warn_unused_result.hpp>
 
 
 namespace fruitapp

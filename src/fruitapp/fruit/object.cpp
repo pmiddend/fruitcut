@@ -1,4 +1,3 @@
-#include <fcppt/move.hpp>
 #include <fruitapp/fruit/box3.hpp>
 #include <fruitapp/fruit/mesh_to_point_cloud.hpp>
 #include <fruitapp/fruit/mesh_to_shape.hpp>
@@ -14,6 +13,7 @@
 #include <sge/renderer/vector3.hpp>
 #include <sge/renderer/vertex_buffer.hpp>
 #include <sge/timer/parameters.hpp>
+#include <fcppt/move.hpp>
 #include <fcppt/ref.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/math/matrix/structure_cast.hpp>

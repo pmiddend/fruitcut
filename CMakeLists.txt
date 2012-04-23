@@ -201,6 +201,7 @@ SET(
 	src/fruitlib/scenic/no_parent.cpp
 	src/fruitlib/scenic/parent.cpp
 	src/fruitlib/scoped_frame_limiter.cpp
+	src/fruitlib/signal_stack_printer/object.cpp
 	src/fruitlib/time_format/milliseconds.cpp
 	src/fruitlib/time_format/minutes.cpp
 	src/fruitlib/time_format/seconds.cpp

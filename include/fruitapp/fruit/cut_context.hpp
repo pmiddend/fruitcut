@@ -3,9 +3,9 @@
 
 #include <fruitapp/fruit/area.hpp>
 #include <fruitapp/fruit/mesh.hpp>
-#include <fruitapp/fruit/object_fwd.hpp>
-#include <fruitapp/fruit/mesh_unique_ptr.hpp>
 #include <fruitapp/fruit/mesh_scoped_ptr.hpp>
+#include <fruitapp/fruit/mesh_unique_ptr.hpp>
+#include <fruitapp/fruit/object_fwd.hpp>
 #include <fruitlib/physics/vector3.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/reference_wrapper.hpp>
