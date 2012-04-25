@@ -47,7 +47,7 @@ main()
 
 	frag_color =
 		vec4(
-			//max(0.5,(1.0 - shadow)) *
+			max(0.5,(1.0 - shadow)) *
 			texture(
 				tex,
 				texcoord_interp).xyz,
