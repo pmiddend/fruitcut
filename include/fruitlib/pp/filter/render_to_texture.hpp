@@ -6,8 +6,8 @@
 #include <fruitlib/pp/texture/depth_stencil_format.hpp>
 #include <fruitlib/pp/texture/manager_fwd.hpp>
 #include <sge/renderer/device_fwd.hpp>
+#include <sge/renderer/clear/parameters.hpp>
 #include <sge/renderer/dim2.hpp>
-#include <sge/renderer/state/list.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/function/object.hpp>
 #include <fcppt/math/dim/object_impl.hpp>
@@ -33,7 +33,7 @@ public:
 	explicit
 	render_to_texture(
 		sge::renderer::device &,
-		sge::renderer::state::list const &,
+		sge::renderer::clear::parameters const &,
 		texture::manager &,
 		sge::renderer::dim2 const &,
 		callback const &,
@@ -45,7 +45,7 @@ public:
 	~render_to_texture();
 private:
 	sge::renderer::device &renderer_;
-	sge::renderer::state::list const state_list_;
+	sge::renderer::clear::parameters clear_parameters_;
 	texture::manager &texture_manager_;
 	sge::renderer::dim2 const texture_size_;
 	callback const callback_;

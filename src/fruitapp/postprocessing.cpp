@@ -43,12 +43,13 @@ fruitapp::postprocessing::postprocessing(
 		filter_manager_),
 	rtt_filter_(
 		_renderer,
-		sge::renderer::state::list
-			(sge::renderer::state::depth_func::less)
-			(sge::renderer::state::bool_::clear_depth_buffer = true)
-			(sge::renderer::state::bool_::clear_back_buffer = true)
-			(sge::renderer::state::color::back_buffer_clear_color = sge::image::colors::black())
-			(sge::renderer::state::float_::depth_buffer_clear_val = 1.0f),
+		sge::renderer::clear::parameters()
+			.back_buffer(
+				sge::renderer::clear::back_buffer_value(
+					sge::image::colors::black()))
+			.depth_buffer(
+				sge::renderer::clear::depth_buffer_value(
+					1.0f)),
 		texture_manager_,
 		fruitlib::pp::texture::use_screen_size(),
 		render_callback,

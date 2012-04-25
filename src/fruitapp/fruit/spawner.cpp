@@ -64,13 +64,9 @@ fruitapp::fruit::spawner::spawner(
 						sge::parse::json::path(
 							FCPPT_TEXT("fruit-spawner"))
 							/ FCPPT_TEXT("spawn-range-seconds")).elements[1])))),
-	prototype_rng_(
+	random_prototype_(
 		_random_generator,
-		uniform_prototype_size_variate::distribution(
-			uniform_prototype_size_variate::distribution::min(
-				0u),
-			uniform_prototype_size_variate::distribution::max(
-				manager_.prototypes().size()-1))),
+		manager_.prototypes()),
 	x_rng_(
 		_random_generator,
 		uniform_physics_variate::distribution(
@@ -172,14 +168,9 @@ fruitapp::fruit::spawner::react(
 				camera_.projection_matrix()),
 			*perspective_projection_information_));
 
-	prototype_sequence::size_type const prototype_index =
-		prototype_rng_();
-
-	FCPPT_ASSERT_ERROR(
-		prototype_index < manager_.prototypes().size());
 
 	prototype const &chosen_prototype =
-		manager_.prototypes()[prototype_index];
+		random_prototype_.value();
 
 	fruitlib::physics::scalar const x(
 		0.25f +

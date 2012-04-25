@@ -1,3 +1,5 @@
+#include <sge/renderer/clear/parameters.hpp>
+#include <sge/renderer/onscreen_target.hpp>
 #include <fruitlib/rectangle_manager/object.hpp>
 #include <fruitlib/rectangle_manager/padding.hpp>
 #include <fruitlib/rectangle_manager/rectangle_instance.hpp>
@@ -552,11 +554,13 @@ try
 	while(
 		sys.window_system().poll())
 	{
-		sys.renderer().state(
-			sge::renderer::state::list
-				(sge::renderer::state::bool_::clear_back_buffer = true)
-				(sge::renderer::state::color::back_buffer_clear_color =
-					sge::image::colors::black()));
+		sys.renderer().onscreen_target().clear(
+			sge::renderer::clear::parameters()
+				.back_buffer(
+					sge::image::colors::black())
+				.depth_buffer(
+					sge::renderer::clear::depth_buffer_value(
+						1.0f)));
 
 		sge::renderer::scoped_block const block(
 			sys.renderer());

@@ -9,7 +9,7 @@
 #include <fruitlib/optional_perspective_projection_information.hpp>
 #include <fruitlib/perspective_projection_information.hpp>
 #include <fruitlib/random_generator_fwd.hpp>
-#include <fruitlib/uniform_int_random.hpp>
+#include <fruitlib/uniform_random_range_element.hpp>
 #include <fruitlib/uniform_real_random.hpp>
 #include <fruitlib/physics/scalar.hpp>
 #include <fruitlib/scenic/node.hpp>
@@ -82,14 +82,10 @@ private:
 	fruitlib::uniform_real_random<fruitlib::physics::scalar>::type
 	uniform_physics_variate;
 
-	typedef
-	fruitlib::uniform_int_random<prototype_sequence::size_type>::type
-	uniform_prototype_size_variate;
-
 	fruit::manager &manager_;
 	sge::camera::base const &camera_;
 	uniform_float_variate seconds_rng_;
-	uniform_prototype_size_variate prototype_rng_;
+	fruitlib::uniform_random_range_element<prototype_sequence const,fruitlib::random_generator> random_prototype_;
 	// x for x coordinate. This is a scalar rather than
 	// renderer::pixel_unit because the viewport might change and I
 	// don't want to reinitialize the rng then. A value in [0,1] suffices

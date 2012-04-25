@@ -1,3 +1,4 @@
+#include <fruitlib/uniform_random_range_element.hpp>
 #include <fruitapp/splatter_generator.hpp>
 #include <fruitapp/fruit/cut_context.hpp>
 #include <fruitapp/fruit/mesh.hpp>
@@ -107,27 +108,27 @@ fruitapp::splatter_generator::fruit_was_cut(
 		return;
 
 	typedef
-	fruitlib::uniform_int_random<fruit::mesh::triangle_sequence::size_type>::type
-	triangle_rng;
+	fruitlib::uniform_random_range_element
+	<
+		fruitapp::fruit::mesh::triangle_sequence const,
+		fruitlib::random_generator
+	>
+	triangle_rng_type;
 
-	triangle_rng triangle_rng_(
+	triangle_rng_type triangle_rng(
 		random_generator_,
-		triangle_rng::distribution(
-			triangle_rng::distribution::min(
-				0u),
-			triangle_rng::distribution::max(
-				cut_info.cross_section().triangles().size()-1)));
+		cut_info.cross_section().triangles());
 
 	typedef
 	fruitlib::uniform_real_random<sge::renderer::scalar>::type
-	triangle_point_rng;
+	triangle_point_rng_type;
 
-	triangle_point_rng triangle_point_rng_(
+	triangle_point_rng_type triangle_point_rng(
 		random_generator_,
-		triangle_point_rng::distribution(
-			triangle_point_rng::distribution::min(
+		triangle_point_rng_type::distribution(
+			triangle_point_rng_type::distribution::min(
 				0.0f),
-			triangle_point_rng::distribution::sup(
+			triangle_point_rng_type::distribution::sup(
 				1.0f)));
 
 	for(
@@ -142,9 +143,8 @@ fruitapp::splatter_generator::fruit_was_cut(
 	{
 		sge::renderer::vector3 const position =
 			fruitlib::math::triangle::random_point(
-				cut_info.cross_section().triangles()[
-					triangle_rng_()],
-				triangle_point_rng_);
+				triangle_rng.value(),
+				triangle_point_rng);
 
 		point_sprite::color splatter_color =
 			sge::image::color::any::convert<point_sprite::color::format>(
