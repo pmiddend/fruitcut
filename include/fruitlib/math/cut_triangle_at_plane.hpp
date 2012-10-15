@@ -15,7 +15,7 @@
 #include <fcppt/math/size_type.hpp>
 #include <fcppt/math/vector/length.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <fcppt/static_assert_statement.hpp>
+#include <fcppt/static_assert_expression.hpp>
 #include <boost/spirit/home/phoenix/bind.hpp>
 #include <boost/spirit/home/phoenix/core/argument.hpp>
 #include <boost/spirit/home/phoenix/operator/comparison.hpp>
@@ -54,7 +54,7 @@ cut_triangle_at_plane(
 	triangle::scalar_type<triangle_type>::type
 	scalar;
 
-	FCPPT_STATIC_ASSERT_STATEMENT((
+	FCPPT_STATIC_ASSERT_EXPRESSION((
 		boost::is_same<EpsilonType,scalar>::value));
 
 	typedef

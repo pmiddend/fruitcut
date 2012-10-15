@@ -43,10 +43,6 @@ fruitapp::fruit::hull::trail_intersection(
 
 	result_points result;
 
-	typedef
-	boost::geometry::model::segment<linestring_type::value_type>
-	segment_type;
-
 	boost::geometry::intersection(
 		hull,
 		cursor_lines,

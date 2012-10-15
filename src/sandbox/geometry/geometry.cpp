@@ -20,10 +20,6 @@ int main()
 	vector3;
 
 	typedef
-	fcppt::math::vector::static_<float,2>::type
-	vector2;
-
-	typedef
 	boost::geometry::model::multi_point<vector3>
 	point_cloud;
 
