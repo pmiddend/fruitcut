@@ -614,7 +614,6 @@ SET(
 	include/fruitapp/machine_impl_fwd.hpp
 	include/fruitapp/main.hpp
 	include/fruitapp/name.hpp
-	include/fruitapp/optional_viewport.hpp
 	include/fruitapp/overlay.hpp
 	include/fruitapp/point_sprite/base.hpp
 	include/fruitapp/point_sprite/buffers.hpp
