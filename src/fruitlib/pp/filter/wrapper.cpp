@@ -28,7 +28,7 @@ fruitlib::pp::filter::wrapper::wrapper(
 }
 
 fruitlib::pp::filter::wrapper::wrapper(
-	base &_filter,
+	fruitlib::pp::filter::base &_filter,
 	fcppt::string const &_name,
 	bool const _active)
 :

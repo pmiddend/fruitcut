@@ -1,4 +1,10 @@
 #include <fruitlib/physics/debugger.hpp>
+#include <sge/renderer/device/ffp.hpp>
+#include <sge/renderer/context/ffp.hpp>
+#include <sge/renderer/state/ffp/transform/object_scoped_ptr.hpp>
+#include <sge/renderer/state/ffp/transform/object.hpp>
+#include <sge/renderer/state/ffp/transform/scoped.hpp>
+#include <sge/renderer/state/ffp/transform/parameters.hpp>
 #include <fruitlib/physics/structure_cast.hpp>
 #include <fruitlib/physics/world.hpp>
 #include <sge/camera/base.hpp>
@@ -8,7 +14,6 @@
 #include <sge/image/color/rgb8.hpp>
 #include <sge/line_drawer/line.hpp>
 #include <sge/line_drawer/scoped_lock.hpp>
-#include <sge/renderer/scoped_transform.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/ref.hpp>
 #include <fcppt/text.hpp>
@@ -23,8 +28,8 @@
 
 
 fruitlib::physics::debugger::debugger(
-	physics::world &_world,
-	sge::renderer::device &_renderer,
+	fruitlib::physics::world &_world,
+	sge::renderer::device::ffp &_renderer,
 	sge::camera::base const &_camera)
 :
 	world_(
@@ -63,24 +68,36 @@ fruitlib::physics::debugger::update()
 }
 
 void
-fruitlib::physics::debugger::render()
+fruitlib::physics::debugger::render(
+	sge::renderer::context::ffp &_context)
 {
 	if (debug_mode_ == btIDebugDraw::DBG_NoDebug)
 		return;
 
-	sge::renderer::scoped_transform projection_scope(
-		renderer_,
-		sge::renderer::matrix_mode::projection,
-		sge::camera::matrix_conversion::world_projection(
-			camera_.coordinate_system(),
-			camera_.projection_matrix()));
+	sge::renderer::state::ffp::transform::object_scoped_ptr const world_state(
+		renderer_.create_transform_state(
+			sge::renderer::state::ffp::transform::parameters(
+				sge::camera::matrix_conversion::world_projection(
+					camera_.coordinate_system(),
+					camera_.projection_matrix()))));
 
-	sge::renderer::scoped_transform world_scope(
-		renderer_,
-		sge::renderer::matrix_mode::world,
-		sge::renderer::matrix4::identity());
+	sge::renderer::state::ffp::transform::scoped const world_transform(
+		_context,
+		sge::renderer::state::ffp::transform::mode::world,
+		*world_state);
 
-	line_drawer_.render();
+	sge::renderer::state::ffp::transform::object_scoped_ptr const projection_state(
+		renderer_.create_transform_state(
+			sge::renderer::state::ffp::transform::parameters(
+				sge::renderer::matrix4::identity())));
+
+	sge::renderer::state::ffp::transform::scoped const projection_transform(
+		_context,
+		sge::renderer::state::ffp::transform::mode::projection,
+		*projection_state);
+
+	line_drawer_.render(
+		_context);
 }
 
 void

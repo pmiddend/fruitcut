@@ -21,9 +21,9 @@ sge::renderer::vf::part
 <
 	boost::mpl::vector3
 	<
-		position,
-		texcoord,
-		normal
+		fruitapp::fruit::model_vf::position,
+		fruitapp::fruit::model_vf::texcoord,
+		fruitapp::fruit::model_vf::normal
 	>
 >
 part;

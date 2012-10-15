@@ -7,8 +7,8 @@
 #include <fruitapp/viewport/manager_fwd.hpp>
 #include <fruitlib/scenic/node.hpp>
 #include <fruitlib/scenic/optional_parent.hpp>
+#include <sge/shader/context_fwd.hpp>
 #include <sge/parse/json/object_fwd.hpp>
-#include <sge/systems/instance_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 
 
@@ -45,10 +45,9 @@ class renderable
 FCPPT_NONCOPYABLE(
 	renderable);
 public:
-	explicit
 	renderable(
 		fruitlib::scenic::optional_parent const &,
-		sge::systems::instance const &,
+		sge::shader::context &,
 		sge::parse::json::object const &,
 		fruitapp::viewport::manager &);
 

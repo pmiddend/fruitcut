@@ -1,5 +1,7 @@
 #include <fruitapp/background.hpp>
 #include <fruitapp/projection_manager/object.hpp>
+#include <sge/shader/context.hpp>
+#include <fcppt/container/bitfield/object_impl.hpp>
 #include <fruitlib/media_path.hpp>
 #include <fruitlib/math/view_plane_rect.hpp>
 #include <fruitlib/scenic/events/render.hpp>
@@ -9,58 +11,35 @@
 #include <sge/image2d/system_fwd.hpp>
 #include <sge/parse/json/find_and_convert_member.hpp>
 #include <sge/parse/json/object_fwd.hpp>
-#include <sge/renderer/device.hpp>
+#include <sge/renderer/device/core.hpp>
+#include <sge/renderer/context/ffp.hpp>
 #include <sge/renderer/first_vertex.hpp>
 #include <sge/renderer/lock_mode.hpp>
-#include <sge/renderer/matrix4.hpp>
-#include <sge/renderer/matrix_mode.hpp>
-#include <sge/renderer/nonindexed_primitive_type.hpp>
-#include <sge/renderer/onscreen_target.hpp>
+#include <sge/renderer/device/ffp.hpp>
 #include <sge/renderer/pixel_rect.hpp>
 #include <sge/renderer/resource_flags.hpp>
-#include <sge/renderer/resource_flags_none.hpp>
 #include <sge/renderer/scalar.hpp>
 #include <sge/renderer/scoped_vertex_buffer.hpp>
 #include <sge/renderer/scoped_vertex_declaration.hpp>
 #include <sge/renderer/scoped_vertex_lock.hpp>
-#include <sge/renderer/target_base.hpp>
 #include <sge/renderer/vertex_buffer.hpp>
-#include <sge/renderer/vertex_count.hpp>
 #include <sge/renderer/vertex_declaration.hpp>
-#include <sge/renderer/viewport.hpp>
-#include <sge/renderer/viewport_size.hpp>
-#include <sge/renderer/state/bool.hpp>
-#include <sge/renderer/state/cull_mode.hpp>
-#include <sge/renderer/state/depth_func.hpp>
-#include <sge/renderer/state/draw_mode.hpp>
-#include <sge/renderer/state/list.hpp>
-#include <sge/renderer/state/scoped.hpp>
-#include <sge/renderer/state/stencil_func.hpp>
-#include <sge/renderer/state/trampoline.hpp>
+#include <sge/renderer/state/core/depth_stencil/object.hpp>
+#include <sge/renderer/state/core/depth_stencil/parameters.hpp>
+#include <sge/renderer/state/core/depth_stencil/scoped.hpp>
 #include <sge/renderer/texture/create_planar_from_path.hpp>
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/mipmap/off.hpp>
 #include <sge/renderer/vf/format.hpp>
+#include <sge/renderer/vf/pos.hpp>
+#include <sge/renderer/vf/texpos.hpp>
 #include <sge/renderer/vf/iterator.hpp>
-#include <sge/renderer/vf/make_unspecified_tag.hpp>
 #include <sge/renderer/vf/part.hpp>
-#include <sge/renderer/vf/unspecified.hpp>
-#include <sge/renderer/vf/vector.hpp>
 #include <sge/renderer/vf/vertex.hpp>
 #include <sge/renderer/vf/view.hpp>
 #include <sge/renderer/vf/dynamic/make_format.hpp>
 #include <sge/renderer/vf/dynamic/part_index.hpp>
-#include <sge/shader/activate_everything.hpp>
-#include <sge/shader/matrix.hpp>
-#include <sge/shader/matrix_flags.hpp>
-#include <sge/shader/object_parameters.hpp>
-#include <sge/shader/sampler.hpp>
-#include <sge/shader/sampler_sequence.hpp>
-#include <sge/shader/scoped.hpp>
-#include <sge/shader/variable.hpp>
-#include <sge/shader/variable_sequence.hpp>
-#include <sge/shader/variable_type.hpp>
-#include <sge/shader/vf_to_string.hpp>
+#include <sge/shader/scoped_pair.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assign/make_container.hpp>
@@ -79,37 +58,20 @@ namespace
 {
 namespace vf
 {
-namespace tags
-{
-SGE_RENDERER_VF_MAKE_UNSPECIFIED_TAG(position);
-}
-
 typedef
-sge::renderer::vf::unspecified
+sge::renderer::vf::pos
 <
-	sge::renderer::vf::vector
-	<
-		sge::renderer::scalar,
-		2
-	>,
-	tags::position
+	sge::renderer::scalar,
+	2
 >
 position;
 
-namespace tags
-{
-SGE_RENDERER_VF_MAKE_UNSPECIFIED_TAG(texcoord);
-}
-
 typedef
-sge::renderer::vf::unspecified
+sge::renderer::vf::texpos
 <
-	sge::renderer::vf::vector
-	<
-		sge::renderer::scalar,
-		2
-	>,
-	tags::texcoord
+	sge::renderer::scalar,
+	2,
+	sge::renderer::vf::index<0u>
 >
 texcoord;
 
@@ -142,8 +104,8 @@ vertex_view;
 
 fruitapp::background::background(
 	fruitlib::scenic::optional_parent const &_parent,
-	sge::renderer::device &_renderer,
 	sge::image2d::system &_image_loader,
+	sge::shader::context &_shader_context,
 	fruitapp::shadow_mvp const &_shadow_mvp,
 	fruitapp::shadow_map_texture const &_shadow_map_texture,
 	sge::parse::json::object const &_config,
@@ -152,8 +114,6 @@ fruitapp::background::background(
 :
 	node_base(
 		_parent),
-	renderer_(
-		_renderer),
 	camera_(
 		_camera),
 	texture_(
@@ -167,51 +127,69 @@ fruitapp::background::background(
 						sge::parse::json::path(
 							FCPPT_TEXT("textures"))/
 							FCPPT_TEXT("background")),
-			renderer_,
+			_shader_context.renderer(),
 			_image_loader,
 			sge::renderer::texture::mipmap::off(),
-			sge::renderer::resource_flags::none)),
+			sge::renderer::resource_flags_field::null())),
 	vertex_declaration_(
-		renderer_.create_vertex_declaration(
+		_shader_context.renderer().create_vertex_declaration(
 			sge::renderer::vf::dynamic::make_format<vf::format>())),
 	vb_(
-		renderer_.create_vertex_buffer(
+		_shader_context.renderer().create_vertex_buffer(
 			*vertex_declaration_,
 			sge::renderer::vf::dynamic::part_index(
 				0u),
-			sge::renderer::vertex_count(6u),
-			sge::renderer::resource_flags::none)),
+			sge::renderer::vertex_count(
+				6u),
+			sge::renderer::resource_flags_field::null())),
 	shader_(
-		sge::shader::object_parameters(
-			renderer_,
-			*vertex_declaration_,
-			sge::shader::vf_to_string<vf::format>(),
-			fcppt::assign::make_container<sge::shader::variable_sequence>
-				(sge::shader::variable(
-					"mvp",
-					sge::shader::variable_type::uniform,
-					sge::shader::matrix(
-						sge::renderer::matrix4(),
-						sge::shader::matrix_flags::projection)))
-				(sge::shader::variable(
-					"shadow_mvp",
-					sge::shader::variable_type::uniform,
-					sge::shader::matrix(
-						_shadow_mvp.get(),
-						sge::shader::matrix_flags::projection))),
-			fcppt::assign::make_container<sge::shader::sampler_sequence>
-				(sge::shader::sampler(
-					"tex",
-					texture_))
-				(sge::shader::sampler(
-					"shadow_map",
-					_shadow_map_texture.get())))
-				.name(
-					FCPPT_TEXT("background"))
-				.vertex_shader(
-					fruitlib::media_path()/FCPPT_TEXT("shaders")/FCPPT_TEXT("background")/FCPPT_TEXT("vertex.glsl"))
-				.fragment_shader(
-					fruitlib::media_path()/FCPPT_TEXT("shaders")/FCPPT_TEXT("background")/FCPPT_TEXT("fragment.glsl"))),
+		_shader_context,
+		*vertex_declaration_,
+		sge::shader::vertex_program_path(
+			fruitlib::media_path()/FCPPT_TEXT("shaders")/FCPPT_TEXT("background.cg")),
+		sge::shader::pixel_program_path(
+			fruitlib::media_path()/FCPPT_TEXT("shaders")/FCPPT_TEXT("background.cg")),
+		sge::shader::optional_cflags()),
+	mvp_parameter_(
+		shader_.vertex_program(),
+		sge::shader::parameter::name(
+			"mvp"),
+		_shader_context.renderer(),
+		sge::shader::parameter::is_projection_matrix(
+			true),
+		sge::renderer::matrix4()),
+	shadow_mvp_parameter_(
+		shader_.vertex_program(),
+		sge::shader::parameter::name(
+			"shadow_mvp"),
+		_shader_context.renderer(),
+		sge::shader::parameter::is_projection_matrix(
+			true),
+		_shadow_mvp.get()),
+	texture_parameter_(
+		shader_.pixel_program(),
+		sge::shader::parameter::name(
+			"tex"),
+		shader_,
+		_shader_context.renderer(),
+		sge::shader::parameter::planar_texture::optional_value(
+			*texture_)),
+	shadow_map_parameter_(
+		shader_.pixel_program(),
+		sge::shader::parameter::name(
+			"shadow_map"),
+		shader_,
+		_shader_context.renderer(),
+		sge::shader::parameter::planar_texture::optional_value(
+			*_shadow_map_texture.get())),
+	depth_stencil_state_(
+		_shader_context.renderer().create_depth_stencil_state(
+			sge::renderer::state::core::depth_stencil::parameters(
+				sge::renderer::state::core::depth_stencil::depth::enabled(
+					sge::renderer::state::core::depth_stencil::depth::func::less,
+					sge::renderer::state::core::depth_stencil::depth::write_enable(
+						true)),
+				sge::renderer::state::core::depth_stencil::stencil::off()))),
 	reps_(
 		sge::parse::json::find_and_convert_member<sge::renderer::scalar>(
 			_config,
@@ -234,38 +212,31 @@ fruitapp::background::~background()
 
 void
 fruitapp::background::react(
-	fruitlib::scenic::events::render const &)
+	fruitlib::scenic::events::render const &_render_event)
 {
-	sge::shader::scoped scoped_shader(
-		shader_,
-		sge::shader::activate_everything());
+	sge::shader::scoped_pair scoped_shader(
+		_render_event.context(),
+		shader_);
 
 	sge::renderer::scoped_vertex_buffer scoped_vb(
-		renderer_,
+		_render_event.context(),
 		*vb_);
 
-	shader_.update_uniform(
-		"mvp",
-		sge::shader::matrix(
-			sge::camera::matrix_conversion::world_projection(
-				camera_.coordinate_system(),
-				camera_.projection_matrix()),
-			sge::shader::matrix_flags::projection));
+	mvp_parameter_.set(
+		sge::camera::matrix_conversion::world_projection(
+			camera_.coordinate_system(),
+			camera_.projection_matrix()));
 
-	sge::renderer::state::scoped scoped_state(
-		renderer_,
-		sge::renderer::state::list
-			(sge::renderer::state::bool_::enable_alpha_blending = false)
-			(sge::renderer::state::cull_mode::off)
-			(sge::renderer::state::depth_func::less)
-			(sge::renderer::state::stencil_func::off)
-			(sge::renderer::state::draw_mode::fill));
+	sge::renderer::state::core::depth_stencil::scoped scoped_depth_stencil(
+		_render_event.context(),
+		*depth_stencil_state_);
 
-	renderer_.render_nonindexed(
-		sge::renderer::first_vertex(0u),
+	_render_event.context().render_nonindexed(
+		sge::renderer::first_vertex(
+			0u),
 		sge::renderer::vertex_count(
 			6u),
-		sge::renderer::nonindexed_primitive_type::triangle);
+		sge::renderer::primitive_type::triangle_list);
 }
 
 void

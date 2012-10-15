@@ -8,10 +8,11 @@
 #include <fruitlib/scenic/node.hpp>
 #include <fruitlib/scenic/optional_parent.hpp>
 #include <fruitlib/scenic/events/update.hpp>
-#include <sge/font/text/string.hpp>
+#include <sge/font/string.hpp>
 #include <sge/parse/json/object_fwd.hpp>
 #include <sge/renderer/scalar.hpp>
-#include <sge/renderer/viewport.hpp>
+#include <sge/renderer/device/ffp_fwd.hpp>
+#include <sge/renderer/target/viewport.hpp>
 #include <sge/timer/basic.hpp>
 #include <sge/timer/clocks/standard.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -38,9 +39,9 @@ public:
 	boost::mpl::vector1<fruitlib::scenic::events::update>
 	scene_reactions;
 
-	explicit
 	quick_log(
 		fruitlib::scenic::optional_parent const &,
+		sge::renderer::device::ffp &,
 		sge::parse::json::object const &,
 		fruitlib::font::cache &,
 		fruitapp::viewport::manager &,
@@ -63,7 +64,7 @@ private:
 	// There's no _real_ reason for this being a deque, it's just cool
 	// to use it.
 	typedef
-	std::deque<sge::font::text::string>
+	std::deque<sge::font::string>
 	message_sequence;
 
 	fruitlib::audio::sound_controller &sound_controller_;
@@ -75,7 +76,7 @@ private:
 
 	void
 	viewport_change(
-		sge::renderer::viewport const &);
+		sge::renderer::target::viewport const &);
 };
 }
 

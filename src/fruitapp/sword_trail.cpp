@@ -1,18 +1,19 @@
 #include <fruitapp/sword_trail.hpp>
+#include <sge/texture/part_raw_ptr.hpp>
 #include <fruitlib/media_path.hpp>
 #include <fruitlib/time_format/find_and_convert_duration.hpp>
 #include <sge/image2d/system_fwd.hpp>
 #include <sge/input/cursor/object.hpp>
 #include <sge/input/cursor/position.hpp>
+#include <sge/renderer/context/ffp.hpp>
 #include <sge/input/cursor/position_unit.hpp>
 #include <sge/parse/json/find_and_convert_member.hpp>
+#include <sge/renderer/device/ffp.hpp>
 #include <sge/parse/json/object_fwd.hpp>
 #include <sge/parse/json/path.hpp>
-#include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/pixel_rect.hpp>
 #include <sge/renderer/resource_flags.hpp>
-#include <sge/renderer/resource_flags_none.hpp>
-#include <sge/renderer/target_base.hpp>
+#include <sge/renderer/target/base.hpp>
 #include <sge/renderer/texture/create_planar_from_path.hpp>
 #include <sge/renderer/texture/mipmap/off.hpp>
 #include <sge/sprite/object_impl.hpp>
@@ -22,20 +23,12 @@
 #include <sge/sprite/buffers/with_declaration_impl.hpp>
 #include <sge/sprite/compare/default.hpp>
 #include <sge/sprite/geometry/make_random_access_range.hpp>
-#include <sge/sprite/process/geometry_options.hpp>
-#include <sge/sprite/process/options.hpp>
-#include <sge/sprite/process/with_options.hpp>
-#include <sge/sprite/render/matrix_options.hpp>
-#include <sge/sprite/render/options.hpp>
-#include <sge/sprite/render/state_options.hpp>
-#include <sge/sprite/render/vertex_options.hpp>
-#include <sge/texture/part_raw.hpp>
+#include <sge/sprite/process/all.hpp>
 #include <sge/timer/elapsed_fractional.hpp>
 #include <sge/timer/parameters.hpp>
 #include <sge/timer/reset_when_expired.hpp>
-#include <fcppt/make_shared_ptr.hpp>
-#include <fcppt/ref.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/math/dim/object_impl.hpp>
 #include <fcppt/math/vector/atan2.hpp>
 #include <fcppt/math/vector/length.hpp>
@@ -68,8 +61,8 @@ transform_position(
 
 fruitapp::sword_trail::sword_trail(
 	fruitlib::scenic::optional_parent const &_parent,
-	sge::renderer::device &_renderer,
-	sge::renderer::target_base &_target,
+	sge::renderer::device::ffp &_renderer,
+	sge::renderer::target::base &_target,
 	sge::image2d::system &_image_loader,
 	sge::input::cursor::object &_cursor,
 	fruitapp::ingame_clock const &_clock,
@@ -92,19 +85,19 @@ fruitapp::sword_trail::sword_trail(
 			_config_file,
 			sge::parse::json::path(FCPPT_TEXT("sword-mouse-trail")) / FCPPT_TEXT("sword-width"))),
 	texture_(
-		sge::renderer::texture::create_planar_from_path(
-			fruitlib::media_path() / FCPPT_TEXT("textures") / FCPPT_TEXT("sword_particle.png"),
-			_renderer,
-			_image_loader,
-			sge::renderer::texture::mipmap::off(),
-			sge::renderer::resource_flags::none)),
-	texture_part_(
-		fcppt::make_shared_ptr<sge::texture::part_raw>(
-			fcppt::ref(
-				*texture_))),
+		fcppt::make_unique_ptr<sge::texture::part_raw_ptr>(
+			sge::renderer::texture::create_planar_from_path(
+				fruitlib::media_path() / FCPPT_TEXT("textures") / FCPPT_TEXT("sword_particle.png"),
+				_renderer,
+				_image_loader,
+				sge::renderer::texture::mipmap::off(),
+				sge::renderer::resource_flags_field::null()))),
 	sprite_buffers_(
 		_renderer,
 		sge::sprite::buffers::option::dynamic),
+	sprite_states_(
+		_renderer,
+		sprite_state_parameters()),
 	positions_(
 		sge::parse::json::find_and_convert_member<position_buffer::size_type>(
 			_config_file,
@@ -185,7 +178,8 @@ fruitapp::sword_trail::react(
 							diff),
 						max_width_))
 				.texture(
-					texture_part_)
+					sprite_object::texture_type(
+						*texture_))
 				.rotation(
 					angle)
 				));
@@ -199,23 +193,13 @@ fruitapp::sword_trail::react(
 
 void
 fruitapp::sword_trail::react(
-	fruitlib::scenic::events::render const &)
+	fruitlib::scenic::events::render const &_render_event)
 {
-	sge::sprite::process::with_options
-	<
-		sge::sprite::process::options
-		<
-			sge::sprite::process::geometry_options::update,
-			sge::sprite::render::options
-			<
-				sge::sprite::render::matrix_options::set,
-				sge::sprite::render::state_options::set,
-				sge::sprite::render::vertex_options::declaration_and_buffer
-			>
-		>
-	>(
+	sge::sprite::process::all(
+		_render_event.context(),
 		sge::sprite::geometry::make_random_access_range(
 			sprites_),
 		sprite_buffers_,
-		sge::sprite::compare::default_());
+		sge::sprite::compare::default_(),
+		sprite_states_);
 }

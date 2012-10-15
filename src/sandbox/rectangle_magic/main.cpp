@@ -1,5 +1,3 @@
-#include <sge/renderer/clear/parameters.hpp>
-#include <sge/renderer/onscreen_target.hpp>
 #include <fruitlib/rectangle_manager/object.hpp>
 #include <fruitlib/rectangle_manager/padding.hpp>
 #include <fruitlib/rectangle_manager/rectangle_instance.hpp>
@@ -12,10 +10,12 @@
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/display_mode.hpp>
 #include <sge/renderer/no_multi_sampling.hpp>
+#include <sge/renderer/onscreen_target.hpp>
 #include <sge/renderer/parameters.hpp>
 #include <sge/renderer/scoped_block.hpp>
 #include <sge/renderer/vsync.hpp>
 #include <sge/renderer/windowed.hpp>
+#include <sge/renderer/clear/parameters.hpp>
 #include <sge/renderer/state/bool.hpp>
 #include <sge/renderer/state/color.hpp>
 #include <sge/renderer/state/list.hpp>

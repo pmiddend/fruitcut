@@ -21,9 +21,8 @@
 #include <fruitlib/scenic/events/update.hpp>
 #include <sge/camera/base_fwd.hpp>
 #include <sge/parse/json/array_fwd.hpp>
-#include <sge/renderer/device_fwd.hpp>
+#include <sge/renderer/device/core_fwd.hpp>
 #include <sge/renderer/vertex_declaration_scoped_ptr.hpp>
-#include <sge/shader/object.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/object.hpp>
@@ -53,11 +52,10 @@ public:
 	boost::mpl::vector1<fruitlib::scenic::events::update>
 	scene_reactions;
 
-	explicit
 	manager(
 		fruitlib::scenic::optional_parent const &,
-		fruit::prototype_sequence const &,
-		sge::renderer::device &renderer,
+		fruitapp::fruit::prototype_sequence const &,
+		sge::renderer::device::core &renderer,
 		fruitlib::physics::world &,
 		sge::camera::base const &,
 		fruitapp::ingame_clock const &);
@@ -67,23 +65,23 @@ public:
 	// thin fruit slices)
 	void
 	cut(
-		object const &,
-		plane const &,
+		fruitapp::fruit::object const &,
+		fruitapp::fruit::plane const &,
 		fruitlib::physics::vector3 const &,
 		fruitapp::ingame_clock::duration const &);
 
 	void
 	spawn(
-		prototype const &proto,
+		fruitapp::fruit::prototype const &proto,
 		fruitlib::physics::scalar const mass,
 		fruitlib::physics::vector3 const &position,
 		fruitlib::physics::vector3 const &linear_velocity,
 		fruitlib::physics::vector3 const &angular_velocity);
 
-	object_sequence const &
+	fruitapp::fruit::object_sequence const &
 	fruits() const;
 
-	prototype_sequence const &
+	fruitapp::fruit::prototype_sequence const &
 	prototypes() const;
 
 	fcppt::signal::auto_connection
@@ -116,16 +114,16 @@ public:
 	react(
 		fruitlib::scenic::events::update const &);
 private:
-	prototype_sequence const &prototypes_;
-	sge::renderer::device &renderer_;
+	fruitapp::fruit::prototype_sequence const &prototypes_;
+	sge::renderer::device::core &renderer_;
 	sge::camera::base const &camera_;
 	sge::renderer::vertex_declaration_scoped_ptr vertex_declaration_;
 	fruitlib::physics::world &physics_world_;
 	fruitlib::physics::group::object fruit_group_;
-	object_sequence fruits_;
-	fcppt::signal::object<callbacks::cut_fn> cut_signal_;
-	fcppt::signal::object<callbacks::remove_fn> remove_signal_;
-	fcppt::signal::object<callbacks::spawn_fn> spawn_signal_;
+	fruitapp::fruit::object_sequence fruits_;
+	fcppt::signal::object<fruitapp::fruit::callbacks::cut_fn> cut_signal_;
+	fcppt::signal::object<fruitapp::fruit::callbacks::remove_fn> remove_signal_;
+	fcppt::signal::object<fruitapp::fruit::callbacks::spawn_fn> spawn_signal_;
 	fruitapp::ingame_clock const &clock_;
 
 	void

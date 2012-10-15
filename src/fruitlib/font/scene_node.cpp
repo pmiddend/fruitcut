@@ -1,15 +1,7 @@
 #include <fruitlib/font/scene_node.hpp>
-#include <fruitlib/font/drawer/object.hpp>
-#include <fruitlib/font/drawer/scoped_color.hpp>
-#include <fruitlib/font/drawer/scoped_transformation.hpp>
 #include <fruitlib/scenic/events/render.hpp>
-#include <sge/font/pos.hpp>
-#include <sge/font/rect.hpp>
-#include <fcppt/math/box/object_impl.hpp>
-#include <fcppt/math/dim/arithmetic.hpp>
-#include <fcppt/tr1/functional.hpp>
 
-
+#if 0
 namespace
 {
 sge::font::rect const
@@ -50,68 +42,38 @@ scale_transformation(
 						character_rect.size().h()) * s)));
 }
 }
+#endif
 
 fruitlib::font::scene_node::scene_node(
 	fruitlib::scenic::optional_parent const &_parent,
-	object_parameters const &_params,
-	font::color const &_color,
-	font::scale const &_scale)
+	fruitlib::font::object_parameters const &_params)
 :
 	node_base(
 		_parent),
 	object_(
-		_params),
-	color_(
-		_color),
-	scale_(
-		_scale.get())
+		_params)
 {
-}
-
-fruitlib::font::color const
-fruitlib::font::scene_node::color() const
-{
-	return color_;
-}
-
-void
-fruitlib::font::scene_node::color(
-	fruitlib::font::color const &_color)
-{
-	color_ =
-		_color;
-}
-
-fruitlib::font::scale::value_type
-fruitlib::font::scene_node::scale() const
-{
-	return scale_;
-}
-
-void
-fruitlib::font::scene_node::scale(
-	fruitlib::font::scale::value_type const _scale)
-{
-	scale_ =
-		_scale;
 }
 
 fruitlib::font::object &
 fruitlib::font::scene_node::object()
 {
-	return object_;
+	return
+		object_;
 }
 
 fruitlib::font::object const &
 fruitlib::font::scene_node::object() const
 {
-	return object_;
+	return
+		object_;
 }
 
 void
 fruitlib::font::scene_node::react(
-	fruitlib::scenic::events::render const &)
+	fruitlib::scenic::events::render const &_render_event)
 {
+#if 0
 	drawer::scoped_color scoped_color(
 		object_.drawer(),
 		color_);
@@ -123,7 +85,9 @@ fruitlib::font::scene_node::react(
 			std::tr1::placeholders::_1,
 			std::tr1::placeholders::_2,
 			scale_));
+#endif
 
-	object_.render();
+	object_.render(
+		_render_event.context());
 }
 

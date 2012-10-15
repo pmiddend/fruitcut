@@ -7,12 +7,16 @@
 #include <fruitlib/scenic/optional_parent.hpp>
 #include <fruitlib/scenic/events/render.hpp>
 #include <fruitlib/scenic/events/update.hpp>
+#include <sge/texture/const_part_scoped_ptr.hpp>
 #include <sge/image/color/rgba8_format.hpp>
+#include <sge/sprite/state/all_choices.hpp>
+#include <sge/sprite/state/object.hpp>
+#include <sge/sprite/state/parameters.hpp>
 #include <sge/image2d/system_fwd.hpp>
 #include <sge/input/cursor/object_fwd.hpp>
 #include <sge/parse/json/object.hpp>
-#include <sge/renderer/device_fwd.hpp>
-#include <sge/renderer/target_base_fwd.hpp>
+#include <sge/renderer/device/ffp_fwd.hpp>
+#include <sge/renderer/target/base_fwd.hpp>
 #include <sge/renderer/texture/planar_shared_ptr.hpp>
 #include <sge/sprite/object_decl.hpp>
 #include <sge/sprite/parameters_fwd.hpp>
@@ -47,14 +51,17 @@ FCPPT_NONCOPYABLE(
 	sword_trail);
 public:
 	typedef
-	boost::mpl::vector2<fruitlib::scenic::events::update,fruitlib::scenic::events::render>
+	boost::mpl::vector2
+	<
+		fruitlib::scenic::events::update,
+		fruitlib::scenic::events::render
+	>
 	scene_reactions;
 
-	explicit
 	sword_trail(
 		fruitlib::scenic::optional_parent const &,
-		sge::renderer::device &,
-		sge::renderer::target_base &,
+		sge::renderer::device::ffp &,
+		sge::renderer::target::base &,
 		sge::image2d::system &,
 		sge::input::cursor::object &,
 		fruitapp::ingame_clock const &,
@@ -99,7 +106,7 @@ private:
 					1u
 				>,
 				sge::sprite::config::texture_coordinates::automatic,
-				sge::sprite::config::texture_ownership::shared
+				sge::sprite::config::texture_ownership::reference
 			>,
 			sge::sprite::config::with_rotation
 			<
@@ -139,6 +146,18 @@ private:
 	position_buffer;
 
 	typedef
+	sge::sprite::state::all_choices
+	sprite_state_choices;
+
+	typedef
+	sge::sprite::state::object<sprite_state_choices>
+	sprite_state_object;
+
+	typedef
+	sge::sprite::state::parameters<sprite_state_choices>
+	sprite_state_parameters;
+
+	typedef
 	boost::circular_buffer
 	<
 		fcppt::shared_ptr<fruitapp::ingame_timer>
@@ -146,13 +165,13 @@ private:
 	timer_buffer;
 
 	sge::input::cursor::object &cursor_;
-	sge::renderer::target_base &target_;
+	sge::renderer::target::base &target_;
 	fruitapp::ingame_clock const &clock_;
 	fruitapp::ingame_clock::duration const element_lifetime_;
 	sprite_object::unit const max_width_;
-	sge::renderer::texture::planar_shared_ptr texture_;
-	sge::texture::part_shared_ptr texture_part_;
+	sge::texture::const_part_scoped_ptr const texture_;
 	sprite_buffers sprite_buffers_;
+	sprite_state_object sprite_states_;
 	position_buffer positions_;
 	sprite_buffer sprites_;
 	timer_buffer timers_;

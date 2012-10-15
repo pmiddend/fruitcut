@@ -7,15 +7,10 @@
 #include <sge/image/colors.hpp>
 #include <sge/parse/json/find_and_convert_member.hpp>
 #include <sge/parse/json/object_fwd.hpp>
-#include <sge/renderer/device.hpp>
+#include <sge/renderer/device/core.hpp>
+#include <sge/shader/context.hpp>
 #include <sge/renderer/dim2.hpp>
 #include <sge/renderer/scalar.hpp>
-#include <sge/renderer/state/bool.hpp>
-#include <sge/renderer/state/color.hpp>
-#include <sge/renderer/state/depth_func.hpp>
-#include <sge/renderer/state/float.hpp>
-#include <sge/renderer/state/list.hpp>
-#include <sge/renderer/state/trampoline.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/function/object.hpp>
@@ -27,22 +22,26 @@
 
 fruitapp::postprocessing::postprocessing(
 	fruitlib::scenic::optional_parent const &_parent,
-	sge::renderer::device &_renderer,
-	fcppt::function::object<void ()> const &render_callback,
+	sge::shader::context &_shader_context,
+	render_callback const &render_callback,
 	sge::parse::json::object const &config,
 	fruitapp::viewport::manager &_viewport_manager)
 :
 	node_base(
 		_parent),
 	texture_manager_(
-		_renderer),
+		_shader_context.renderer()),
 	filter_manager_(
-		_renderer,
-		fruitlib::media_path()/FCPPT_TEXT("shaders")),
+		_shader_context,
+		fruitlib::pp::filter::base_path(
+			fruitlib::media_path()/FCPPT_TEXT("shaders"))),
 	system_(
 		filter_manager_),
 	rtt_filter_(
-		_renderer,
+		filter_manager_,
+		texture_manager_,
+		fruitlib::pp::filter::texture_size(
+			fruitlib::pp::texture::use_screen_size()),
 		sge::renderer::clear::parameters()
 			.back_buffer(
 				sge::renderer::clear::back_buffer_value(
@@ -50,51 +49,51 @@ fruitapp::postprocessing::postprocessing(
 			.depth_buffer(
 				sge::renderer::clear::depth_buffer_value(
 					1.0f)),
-		texture_manager_,
-		fruitlib::pp::texture::use_screen_size(),
 		render_callback,
 		fruitlib::pp::texture::depth_stencil_format::d32),
 	ssaa_filter_(
-		_renderer,
 		filter_manager_,
 		texture_manager_,
-		fruitlib::pp::texture::use_screen_size()),
+		fruitlib::pp::filter::texture_size(
+			fruitlib::pp::texture::use_screen_size())),
 	highlight_filter_(
-		_renderer,
 		filter_manager_,
 		texture_manager_,
-		sge::parse::json::find_and_convert_member<sge::renderer::dim2>(
-			config,
-			sge::parse::json::path(
-				FCPPT_TEXT("bloom-size"))),
-		sge::parse::json::find_and_convert_member<sge::renderer::scalar>(
-			config,
-			sge::parse::json::path(
-				FCPPT_TEXT("highlight-threshold")))),
+		fruitlib::pp::filter::texture_size(
+			sge::parse::json::find_and_convert_member<sge::renderer::dim2>(
+				config,
+				sge::parse::json::path(
+					FCPPT_TEXT("bloom-size")))),
+		fruitlib::pp::filter::highlight::threshold_factor(
+			sge::parse::json::find_and_convert_member<sge::renderer::scalar>(
+				config,
+				sge::parse::json::path(
+					FCPPT_TEXT("highlight-threshold"))))),
 	blur_filter_(
-		_renderer,
 		filter_manager_,
 		texture_manager_,
-		sge::parse::json::find_and_convert_member<sge::renderer::dim2>(
-			config,
-			sge::parse::json::path(
-			FCPPT_TEXT("bloom-size"))),
-		sge::parse::json::find_and_convert_member<fruitlib::pp::filter::blur::size_type>(
-			config,
-			sge::parse::json::path(
-				FCPPT_TEXT("bloom-iterations")))),
+		fruitlib::pp::filter::texture_size(
+			sge::parse::json::find_and_convert_member<sge::renderer::dim2>(
+				config,
+				sge::parse::json::path(
+					FCPPT_TEXT("bloom-size")))),
+		fruitlib::pp::filter::iterations(
+			sge::parse::json::find_and_convert_member<fruitlib::pp::filter::iterations::value_type>(
+				config,
+				sge::parse::json::path(
+					FCPPT_TEXT("bloom-iterations"))))),
 	add_filter_(
-		_renderer,
 		filter_manager_,
 		texture_manager_,
-		fruitlib::pp::texture::use_screen_size()),
+		fruitlib::pp::filter::texture_size(
+			fruitlib::pp::texture::use_screen_size())),
 	desaturate_filter_(
-		_renderer,
 		filter_manager_,
 		texture_manager_,
-		fruitlib::pp::texture::use_screen_size(),
-		static_cast<sge::renderer::scalar>(
-			0.0)),
+		fruitlib::pp::filter::texture_size(
+			fruitlib::pp::texture::use_screen_size()),
+		fruitlib::pp::filter::desaturate::scaling_factor(
+			0.0f)),
 	active_(
 		true),
 	viewport_change_connection_(
@@ -144,13 +143,15 @@ fruitapp::postprocessing::postprocessing(
 }
 
 void
-fruitapp::postprocessing::render_result()
+fruitapp::postprocessing::render_result(
+	sge::renderer::context::core &_context)
 {
 	if (active_)
-		system_.render_result();
+		system_.render_result(
+			_context);
 }
 
-sge::renderer::texture::planar_shared_ptr const
+sge::renderer::texture::planar_shared_ptr
 fruitapp::postprocessing::result_texture()
 {
 	return
@@ -204,7 +205,7 @@ fruitapp::postprocessing::~postprocessing()
 
 void
 fruitapp::postprocessing::viewport_change(
-	sge::renderer::viewport const &)
+	sge::renderer::target::viewport const &)
 {
 	texture_manager_.clear_screen_textures();
 }

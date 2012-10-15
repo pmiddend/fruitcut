@@ -2,26 +2,17 @@
 #include <fruitapp/viewport/manager.hpp>
 #include <fruitlib/audio/sound_controller.hpp>
 #include <fruitlib/font/cache.hpp>
-#include <fruitlib/font/color_format.hpp>
 #include <fruitlib/font/object.hpp>
 #include <fruitlib/font/object_parameters.hpp>
 #include <fruitlib/font/scale.hpp>
 #include <fruitlib/json/parse_rgba8_color.hpp>
 #include <fruitlib/resource_tree/path.hpp>
 #include <fruitlib/time_format/find_and_convert_duration.hpp>
-#include <sge/font/rect.hpp>
-#include <sge/font/text/align_h.hpp>
-#include <sge/font/text/align_v.hpp>
-#include <sge/font/text/flags.hpp>
-#include <sge/font/text/flags_none.hpp>
-#include <sge/font/text/from_fcppt_string.hpp>
-#include <sge/font/text/lit.hpp>
-#include <sge/font/text/string.hpp>
 #include <sge/image/color/convert.hpp>
 #include <sge/parse/json/find_and_convert_member.hpp>
 #include <sge/parse/json/path.hpp>
-#include <sge/renderer/device_fwd.hpp>
-#include <sge/renderer/screen_size.hpp>
+#include <sge/font/from_fcppt_string.hpp>
+#include <sge/font/lit.hpp>
 #include <sge/timer/parameters.hpp>
 #include <sge/timer/reset_when_expired.hpp>
 #include <sge/timer/clocks/standard.hpp>
@@ -41,6 +32,7 @@
 
 fruitapp::quick_log::quick_log(
 	fruitlib::scenic::optional_parent const &_parent,
+	sge::renderer::device::ffp &_renderer,
 	sge::parse::json::object const &_config_file,
 	fruitlib::font::cache &_font_cache,
 	fruitapp::viewport::manager &_viewport_manager,
@@ -57,24 +49,23 @@ fruitapp::quick_log::quick_log(
 				fruitlib::scenic::depth(
 					0))),
 		fruitlib::font::object_parameters(
-			_font_cache.metrics(
+			_renderer,
+			_font_cache.get(
 				FCPPT_TEXT("quick-log")),
-			_font_cache.drawer(
-				FCPPT_TEXT("quick-log")),
-			sge::font::text::string(),
+			sge::font::string(),
 			// Can't define a box yet, we might have no viewport
 			sge::font::rect::null(),
-			sge::font::text::align_h::left,
-			sge::font::text::align_v::top,
-			sge::font::text::flags::none),
-		sge::image::color::convert<fruitlib::font::color_format>(
-			fruitlib::json::parse_rgba8_color(
-				sge::parse::json::find_and_convert_member<sge::parse::json::value>(
-					_config_file,
-					sge::parse::json::path(
-						FCPPT_TEXT("quick-log")) / FCPPT_TEXT("font-color")))),
-		fruitlib::font::scale(
-			1.f)),
+			sge::font::align_h::left,
+			fruitlib::font::align_v::top,
+			sge::font::flags_field::null(),
+			sge::image::color::any::object(
+				fruitlib::json::parse_rgba8_color(
+					sge::parse::json::find_and_convert_member<sge::parse::json::value>(
+						_config_file,
+						sge::parse::json::path(
+							FCPPT_TEXT("quick-log")) / FCPPT_TEXT("font-color")))),
+			fruitlib::font::scale(
+				1.f))),
 	fractional_size_(
 		sge::parse::json::find_and_convert_member<fractional_dimension>(
 			_config_file,
@@ -105,7 +96,7 @@ fruitapp::quick_log::add_message(
 	fcppt::string const &new_message)
 {
 	messages_.push_front(
-		sge::font::text::from_fcppt_string(
+		sge::font::from_fcppt_string(
 			new_message));
 
 	if(!message_delete_timer_.active())
@@ -133,9 +124,9 @@ fruitapp::quick_log::react(
 		boost::algorithm::join(
 			messages_,
 			// It's a template function, better use the "real" container
-			// type, so sge::font::text::string()
-			sge::font::text::string(
-				SGE_FONT_TEXT_LIT("\n"))));
+			// type, so sge::font::string()
+			sge::font::string(
+				SGE_FONT_LIT("\n"))));
 
 	node_base::forward_to_children(
 		e);
@@ -143,7 +134,7 @@ fruitapp::quick_log::react(
 
 void
 fruitapp::quick_log::viewport_change(
-	sge::renderer::viewport const &_viewport)
+	sge::renderer::target::viewport const &_viewport)
 {
 	sge::renderer::pixel_rect::dim const viewport_size(
 		_viewport.get().size());

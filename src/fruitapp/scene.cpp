@@ -1,4 +1,5 @@
 #include <fruitapp/scene.hpp>
+#include <sge/renderer/context/ffp.hpp>
 #include <fruitlib/scenic/events/render.hpp>
 
 
@@ -35,11 +36,14 @@ fruitapp::scene::react(
 }
 
 void
-fruitapp::scene::render_children()
+fruitapp::scene::render_children(
+	sge::renderer::context::core &_context)
 {
 	if(active_)
 	{
-		fruitlib::scenic::events::render event;
+		fruitlib::scenic::events::render event(
+			dynamic_cast<sge::renderer::context::ffp &>(
+				_context));
 
 		node_base::forward_to_children(
 			event);

@@ -1,23 +1,19 @@
 #include <fruitapp/viewport/manager.hpp>
-#include <sge/renderer/active_target.hpp>
-#include <sge/renderer/target_base.hpp>
 #include <sge/viewport/manager.hpp>
 #include <fcppt/move.hpp>
 #include <fcppt/tr1/functional.hpp>
 
 
 fruitapp::viewport::manager::manager(
-	sge::viewport::manager &_viewport_manager,
-	sge::renderer::device &_renderer)
+	sge::viewport::manager &_viewport_manager)
 :
-	renderer_(
-		_renderer),
 	change_signal_(),
 	viewport_connection_(
 		_viewport_manager.manage_callback(
 			std::tr1::bind(
 				&manager::internal_change_callback,
-				this))),
+				this,
+				std::tr1::placeholders::_1))),
 	current_viewport_()
 {
 }
@@ -52,12 +48,11 @@ fruitapp::viewport::manager::~manager()
 }
 
 void
-fruitapp::viewport::manager::internal_change_callback()
+fruitapp::viewport::manager::internal_change_callback(
+	sge::renderer::target::viewport const &_viewport)
 {
 	current_viewport_ =
-		viewport::optional(
-			sge::renderer::active_target(
-				renderer_).viewport());
+		_viewport;
 
 	change_signal_(
 		*current_viewport_);

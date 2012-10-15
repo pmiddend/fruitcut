@@ -21,7 +21,7 @@
 #include <sge/camera/matrix_conversion/world_projection.hpp>
 #include <sge/parse/json/array.hpp>
 #include <sge/parse/json/object.hpp>
-#include <sge/renderer/device.hpp>
+#include <sge/renderer/device/core.hpp>
 #include <sge/renderer/matrix4.hpp>
 #include <sge/renderer/scalar.hpp>
 #include <sge/renderer/vector3.hpp>
@@ -74,8 +74,8 @@ calculate_new_linear_velocity(
 
 fruitapp::fruit::manager::manager(
 	fruitlib::scenic::optional_parent const &_parent,
-	fruit::prototype_sequence const &_prototypes,
-	sge::renderer::device &_renderer,
+	fruitapp::fruit::prototype_sequence const &_prototypes,
+	sge::renderer::device::core &_renderer,
 	fruitlib::physics::world &physics_world,
 	sge::camera::base const &_camera,
 	fruitapp::ingame_clock const &_clock)
@@ -90,7 +90,7 @@ fruitapp::fruit::manager::manager(
 		_camera),
 	vertex_declaration_(
 		renderer_.create_vertex_declaration(
-			sge::renderer::vf::dynamic::make_format<model_vf::format>())),
+			sge::renderer::vf::dynamic::make_format<fruitapp::fruit::model_vf::format>())),
 	physics_world_(
 		physics_world),
 	fruit_group_(
@@ -103,14 +103,16 @@ fruitapp::fruit::manager::manager(
 		_clock)
 {
 	if(prototypes_.empty())
-		throw fruitapp::exception(FCPPT_TEXT("You didn't specify any fruits"));
+		throw
+			fruitapp::exception(
+				FCPPT_TEXT("You didn't specify any fruits"));
 }
 
 
 void
 fruitapp::fruit::manager::cut(
-	fruit::object const &current_fruit,
-	plane const &original_plane,
+	fruitapp::fruit::object const &current_fruit,
+	fruitapp::fruit::plane const &original_plane,
 	fruitlib::physics::vector3 const &cut_direction,
 	fruitapp::ingame_clock::duration const &lock_duration)
 {
@@ -118,7 +120,7 @@ fruitapp::fruit::manager::cut(
 		return;
 
 	typedef
-	fcppt::container::array<plane,2>
+	fcppt::container::array<fruitapp::fruit::plane,2>
 	plane_array;
 
 	plane_array planes =
@@ -131,11 +133,11 @@ fruitapp::fruit::manager::cut(
 
 	// We have to check if we split the fruit into one or two parts. If
 	// it's just one, we leave it as is (still costs a bit of performance)
-	object_sequence::implementation_sequence fruit_cache;
-	fruit::area::value_type cumulated_area = 0;
-	fruit::mesh_unique_ptr cross_section(
+	fruitapp::fruit::object_sequence::implementation_sequence fruit_cache;
+	fruitapp::fruit::area::value_type cumulated_area = 0;
+	fruitapp::fruit::mesh_unique_ptr cross_section(
 		fcppt::make_unique_ptr<fruit::mesh>(
-			fruit::mesh::triangle_sequence()));
+			fruitapp::fruit::mesh::triangle_sequence()));
 
 	for(
 		plane_array::const_iterator p =

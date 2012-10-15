@@ -1,7 +1,6 @@
 #ifndef FRUITLIB_FONT_SCENE_NODE_HPP_INCLUDED
 #define FRUITLIB_FONT_SCENE_NODE_HPP_INCLUDED
 
-#include <fruitlib/font/color.hpp>
 #include <fruitlib/font/object.hpp>
 #include <fruitlib/font/object_parameters_fwd.hpp>
 #include <fruitlib/font/scale.hpp>
@@ -29,41 +28,21 @@ public:
 	boost::mpl::vector1<fruitlib::scenic::events::render>
 	scene_reactions;
 
-	explicit
 	scene_node(
 		fruitlib::scenic::optional_parent const &,
-		object_parameters const &,
-		font::color const &,
-		font::scale const &);
+		fruitlib::font::object_parameters const &);
 
-	font::color const
-	color() const;
-
-	void
-	color(
-		font::color const &);
-
-	font::scale::value_type
-	scale() const;
-
-	void
-	scale(
-		font::scale::value_type);
-
-	font::object &
+	fruitlib::font::object &
 	object();
 
-	font::object const &
+	fruitlib::font::object const &
 	object() const;
 
 	void
 	react(
 		fruitlib::scenic::events::render const &);
 private:
-	font::object object_;
-	font::color color_;
-	font::scale::value_type scale_;
-
+	fruitlib::font::object object_;
 };
 }
 }

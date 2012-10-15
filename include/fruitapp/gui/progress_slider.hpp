@@ -15,7 +15,7 @@
 
 namespace CEGUI
 {
-class WindowManager;
+class Window;
 class ProgressBar;
 }
 
@@ -44,7 +44,7 @@ public:
 	explicit
 	progress_slider(
 		fruitlib::audio::sound_controller &,
-		CEGUI::WindowManager &,
+		CEGUI::Window &,
 		std::string const &prefix,
 		value_type);
 

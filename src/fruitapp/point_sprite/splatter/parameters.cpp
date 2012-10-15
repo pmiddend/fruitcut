@@ -1,3 +1,4 @@
+#if 0
 #include <fruitapp/point_sprite/splatter/parameters.hpp>
 #include <sge/texture/part_shared_ptr.hpp>
 
@@ -91,3 +92,4 @@ fruitapp::point_sprite::splatter::parameters::clock() const
 fruitapp::point_sprite::splatter::parameters::~parameters()
 {
 }
+#endif

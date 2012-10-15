@@ -1,20 +1,18 @@
-#include <sge/renderer/onscreen_target.hpp>
-#include <sge/renderer/device.hpp>
 #include <fruitapp/overlay.hpp>
-#include <sge/renderer/clear/parameters.hpp>
-#include <sge/renderer/onscreen_target.hpp>
+#include <sge/renderer/context/scoped_ffp.hpp>
 #include <fruitapp/postprocessing.hpp>
 #include <fruitlib/scenic/events/render.hpp>
 #include <sge/image/colors.hpp>
-#include <sge/renderer/device_fwd.hpp>
-#include <sge/renderer/scoped_block.hpp>
-#include <sge/renderer/viewport_size.hpp>
+#include <sge/renderer/device/ffp.hpp>
+#include <sge/renderer/context/ffp.hpp>
+#include <sge/renderer/target/onscreen.hpp>
+#include <sge/renderer/clear/parameters.hpp>
 #include <fcppt/math/dim/object_impl.hpp>
 
 
 fruitapp::overlay::overlay(
 	fruitlib::scenic::optional_parent const &_parent,
-	sge::renderer::device &_renderer,
+	sge::renderer::device::ffp &_renderer,
 	fruitapp::postprocessing &_postprocessing)
 :
 	node_base(
@@ -39,7 +37,7 @@ fruitapp::overlay::react(
 		e);
 
 	// Do we even have a viewport?
-	if (!sge::renderer::viewport_size(renderer_).content())
+	if(!renderer_.onscreen_target().viewport().get().content())
 		return;
 
 	renderer_.onscreen_target().clear(
@@ -50,12 +48,15 @@ fruitapp::overlay::react(
 				sge::renderer::clear::depth_buffer_value(
 					1.0f)));
 
-	sge::renderer::scoped_block scoped_block(
-		renderer_);
+	sge::renderer::context::scoped_ffp scoped_context(
+		renderer_,
+		renderer_.onscreen_target());
 
-	postprocessing_.render_result();
+	postprocessing_.render_result(
+		scoped_context.get());
 
-	fruitlib::scenic::events::render event;
+	fruitlib::scenic::events::render event(
+		scoped_context.get());
 
 	node_base::forward_to_children(
 		event);

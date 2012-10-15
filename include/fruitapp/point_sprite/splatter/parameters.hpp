@@ -20,6 +20,7 @@ namespace point_sprite
 {
 namespace splatter
 {
+#if 0
 class parameters
 {
 FCPPT_NONASSIGNABLE(
@@ -94,6 +95,9 @@ private:
 	fruitapp::ingame_clock::duration const life_time_;
 	fruitapp::ingame_clock const &clock_;
 };
+#else
+class parameters {};
+#endif
 }
 }
 }

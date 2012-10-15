@@ -2,8 +2,7 @@
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <elements/CEGUIProgressBar.h>
-#include <CEGUIWindowManager.h>
+#include <CEGUI/widgets/ProgressBar.h>
 #include <algorithm>
 #include <fcppt/config/external_end.hpp>
 
@@ -17,22 +16,22 @@ fruitapp::gui::progress_slider::value_type const increase_amount =
 
 fruitapp::gui::progress_slider::progress_slider(
 	fruitlib::audio::sound_controller &_sound_controller,
-	CEGUI::WindowManager &_window_manager,
+	CEGUI::Window &_parent_window,
 	std::string const &prefix,
 	value_type const initial_value)
 :
 	value_changed_signal_(),
 	progress_window_(
 		dynamic_cast<CEGUI::ProgressBar &>(
-			*_window_manager.getWindow(
+			*_parent_window.getChild(
 				prefix+"Progress"))),
 	increase_(
 		_sound_controller,
-		*_window_manager.getWindow(
+		*_parent_window.getChild(
 			prefix+"Increase")),
 	decrease_(
 		_sound_controller,
-		*_window_manager.getWindow(
+		*_parent_window.getChild(
 			prefix+"Decrease")),
 	increase_connection_(
 		increase_.push_callback(

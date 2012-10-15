@@ -4,8 +4,8 @@
 #include <fruitlib/uniform_random_range_element_decl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/next_prior.hpp>
-#include <boost/range/size.hpp>
 #include <boost/range/begin.hpp>
+#include <boost/range/size.hpp>
 #include <fcppt/config/external_end.hpp>
 
 

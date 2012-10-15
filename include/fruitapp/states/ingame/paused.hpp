@@ -120,8 +120,8 @@ private:
 	fruitlib::pp::filter::inject_texture inject_texture_;
 	fruitlib::pp::filter::blur blur_;
 	sge::renderer::texture::planar_shared_ptr current_texture_;
-	fruitlib::pp::filter::blur::size_type blur_iterations_;
-	fruitlib::pp::filter::blur::size_type const max_blur_iterations_;
+	fruitlib::pp::filter::iterations blur_iterations_;
+	fruitlib::pp::filter::iterations const max_blur_iterations_;
 	sge::timer::basic<sge::timer::clocks::standard> blur_timer_;
 	fcppt::signal::scoped_connection transit_to_running_connection_;
 	fruitlib::scenic::adaptors::gui_system gui_node_;

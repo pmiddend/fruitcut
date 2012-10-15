@@ -1,5 +1,3 @@
-#include <sge/renderer/clear/parameters.hpp>
-#include <sge/renderer/target.hpp>
 #include <fruitapp/shadow_map.hpp>
 #include <fruitlib/perspective_projection_information_to_matrix.hpp>
 #include <fruitlib/json/parse_projection.hpp>
@@ -8,25 +6,23 @@
 #include <sge/image/color/format.hpp>
 #include <sge/parse/json/find_and_convert_member.hpp>
 #include <sge/parse/json/object.hpp>
-#include <sge/renderer/device.hpp>
+#include <sge/renderer/context/ffp.hpp>
+#include <sge/renderer/device/ffp.hpp>
 #include <sge/renderer/dim2.hpp>
 #include <sge/renderer/matrix4.hpp>
 #include <sge/renderer/resource_flags.hpp>
-#include <sge/renderer/resource_flags_none.hpp>
 #include <sge/renderer/scalar.hpp>
-#include <sge/renderer/scoped_block.hpp>
-#include <sge/renderer/scoped_target.hpp>
-#include <sge/renderer/target.hpp>
-#include <sge/renderer/target_from_texture.hpp>
+#include <sge/renderer/context/scoped_ffp.hpp>
+#include <sge/renderer/target/offscreen.hpp>
+#include <sge/renderer/target/from_texture.hpp>
+#include <sge/renderer/clear/parameters.hpp>
 #include <sge/renderer/projection/perspective_af.hpp>
-#include <sge/renderer/state/bool.hpp>
-#include <sge/renderer/state/color.hpp>
-#include <sge/renderer/state/depth_func.hpp>
-#include <sge/renderer/state/float.hpp>
-#include <sge/renderer/state/list.hpp>
-#include <sge/renderer/state/scoped.hpp>
-#include <sge/renderer/state/trampoline.hpp>
 #include <sge/renderer/texture/capabilities.hpp>
+#include <sge/renderer/state/core/depth_stencil/depth/enabled.hpp>
+#include <sge/renderer/state/core/depth_stencil/object.hpp>
+#include <sge/renderer/state/core/depth_stencil/scoped.hpp>
+#include <sge/renderer/state/core/depth_stencil/parameters.hpp>
+#include <sge/renderer/state/core/depth_stencil/stencil/off.hpp>
 #include <sge/renderer/texture/capabilities_field.hpp>
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/planar_parameters.hpp>
@@ -35,18 +31,27 @@
 #include <fcppt/text.hpp>
 #include <fcppt/math/deg_to_rad.hpp>
 #include <fcppt/math/matrix/arithmetic.hpp>
+#include <fcppt/container/bitfield/object_impl.hpp>
 
 
 fruitapp::shadow_map::shadow_map(
 	fruitlib::scenic::optional_parent const &_parent,
 	sge::parse::json::object const &_config,
-	sge::renderer::device &_renderer,
+	sge::renderer::device::ffp &_renderer,
 	sge::renderer::matrix4 const &_modelview)
 :
 	node_base(
 		_parent),
 	renderer_(
 		_renderer),
+	depth_stencil_state_(
+		_renderer.create_depth_stencil_state(
+			sge::renderer::state::core::depth_stencil::parameters(
+				sge::renderer::state::core::depth_stencil::depth::enabled(
+					sge::renderer::state::core::depth_stencil::depth::func::less,
+					sge::renderer::state::core::depth_stencil::depth::write_enable(
+						true)),
+				sge::renderer::state::core::depth_stencil::stencil::off()))),
 	texture_(
 		renderer_.create_planar_texture(
 			sge::renderer::texture::planar_parameters(
@@ -57,11 +62,11 @@ fruitapp::shadow_map::shadow_map(
 						/ FCPPT_TEXT("size")),
 				sge::image::color::format::rgb32f,
 				sge::renderer::texture::mipmap::off(),
-				sge::renderer::resource_flags::none,
+				sge::renderer::resource_flags_field::null(),
 				sge::renderer::texture::capabilities_field(
 					sge::renderer::texture::capabilities::render_target)))),
 	target_(
-		sge::renderer::target_from_texture(
+		sge::renderer::target::from_texture(
 			renderer_,
 			*texture_)),
 	mvp_(
@@ -108,11 +113,6 @@ void
 fruitapp::shadow_map::react(
 	fruitlib::scenic::events::update const &)
 {
-	sge::renderer::state::scoped scoped_state(
-		renderer_,
-		sge::renderer::state::list
-			(sge::renderer::state::depth_func::less));
-
 	target_->clear(
 		sge::renderer::clear::parameters()
 			.back_buffer(
@@ -122,14 +122,16 @@ fruitapp::shadow_map::react(
 				sge::renderer::clear::depth_buffer_value(
 					1.0f)));
 
-	sge::renderer::scoped_target target(
+	sge::renderer::context::scoped_ffp scoped_context(
 		renderer_,
 		*target_);
 
-	sge::renderer::scoped_block block(
-		renderer_);
+	sge::renderer::state::core::depth_stencil::scoped scoped_depth_stencil(
+		scoped_context.get(),
+		*depth_stencil_state_);
 
-	fruitlib::scenic::events::render event;
+	fruitlib::scenic::events::render event(
+		scoped_context.get());
 
 	node_base::forward_to_children(
 		event);

@@ -5,19 +5,19 @@
 #include <sge/image2d/system_fwd.hpp>
 #include <sge/model/md3/loader_fwd.hpp>
 #include <sge/parse/json/value.hpp>
-#include <sge/renderer/device_fwd.hpp>
+#include <sge/renderer/device/core_fwd.hpp>
 
 
 namespace fruitapp
 {
 namespace fruit
 {
-fruit::prototype_unique_ptr
+fruitapp::fruit::prototype_unique_ptr
 prototype_from_json(
 	sge::parse::json::value const &,
 	sge::model::md3::loader &,
 	sge::image2d::system &,
-	sge::renderer::device &);
+	sge::renderer::device::core &);
 }
 }
 

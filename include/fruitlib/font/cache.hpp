@@ -1,13 +1,12 @@
 #ifndef FRUITLIB_FONT_CACHE_HPP_INCLUDED
 #define FRUITLIB_FONT_CACHE_HPP_INCLUDED
 
+#include <fruitlib/font/base_path.hpp>
 #include <fruitlib/font/identifier.hpp>
-#include <fruitlib/font/drawer/object_fwd.hpp>
-#include <sge/font/metrics_fwd.hpp>
+#include <sge/font/object_fwd.hpp>
 #include <sge/font/system_fwd.hpp>
 #include <sge/image2d/system_fwd.hpp>
 #include <sge/parse/json/object_fwd.hpp>
-#include <sge/renderer/device_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -26,55 +25,34 @@ class cache
 FCPPT_NONCOPYABLE(
 	cache);
 public:
-	explicit
 	cache(
 		sge::font::system &,
-		sge::renderer::device &,
 		sge::image2d::system &,
-		boost::filesystem::path const &base_path,
-		sge::parse::json::object const &);
+		sge::parse::json::object const &,
+		fruitlib::font::base_path const &);
 
-	sge::font::metrics &
-	metrics(
-		identifier const &);
-
-	drawer::object &
-	drawer(
-		identifier const &);
+	sge::font::object &
+	get(
+		fruitlib::font::identifier const &);
 
 	~cache();
 private:
 	// We push elements and use iterators to the elements, so a list is
 	// mandatory here!
 	typedef
-	boost::ptr_list<sge::font::metrics>
-	metrics_sequence;
-
-	typedef
-	boost::ptr_list<drawer::object>
-	drawer_sequence;
+	boost::ptr_list<sge::font::object>
+	object_sequence;
 
 	typedef
 	std::map
 	<
-		fcppt::string,
-		metrics_sequence::iterator
+		fruitlib::font::identifier,
+		object_sequence::iterator
 	>
-	to_metrics;
+	to_object;
 
-	typedef
-	std::map
-	<
-		fcppt::string,
-		drawer_sequence::iterator
-	>
-	to_drawer;
-
-	metrics_sequence metrics_;
-	drawer_sequence drawers_;
-	to_metrics to_metrics_;
-	to_drawer to_drawer_;
-	boost::filesystem::path const base_path_;
+	object_sequence objects_;
+	to_object to_object_;
 };
 }
 }

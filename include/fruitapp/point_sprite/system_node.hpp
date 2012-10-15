@@ -1,6 +1,7 @@
 #ifndef FRUITAPP_POINT_SPRITE_SYSTEM_NODE_HPP_INCLUDED
 #define FRUITAPP_POINT_SPRITE_SYSTEM_NODE_HPP_INCLUDED
 
+#if 0
 #include <fruitapp/point_sprite/base.hpp>
 #include <fruitapp/point_sprite/buffers.hpp>
 #include <fruitapp/point_sprite/collection.hpp>
@@ -33,12 +34,14 @@
 #include <boost/ptr_container/ptr_list.hpp>
 #include <cstddef>
 #include <fcppt/config/external_end.hpp>
+#endif
 
 
 namespace fruitapp
 {
 namespace point_sprite
 {
+#if 0
 class system_node
 :
 	public fruitlib::scenic::node<system_node>
@@ -50,20 +53,19 @@ public:
 	boost::mpl::vector2<fruitlib::scenic::events::render,fruitlib::scenic::events::update>
 	scene_reactions;
 
-	explicit
 	system_node(
 		fruitlib::scenic::optional_parent const &,
 		boost::filesystem::path const &,
 		fruitlib::random_generator &,
-		sge::renderer::device &,
+		sge::renderer::device::core &,
 		sge::image2d::system &,
 		sge::camera::base const &);
 
 	void
 	push_back(
-		unique_base_ptr);
+		fruitapp::point_sprite::unique_base_ptr);
 
-	point_sprite::connection &
+	fruitapp::point_sprite::connection &
 	connection()
 	FCPPT_PP_WARN_UNUSED_RESULT;
 
@@ -113,6 +115,9 @@ private:
 	sge::shader::object shader_;
 
 };
+#else
+class system_node {};
+#endif
 }
 }
 

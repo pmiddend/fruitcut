@@ -9,15 +9,18 @@
 #include <fruitlib/scenic/optional_parent.hpp>
 #include <fruitlib/scenic/events/render.hpp>
 #include <sge/camera/base_fwd.hpp>
+#include <sge/shader/context_fwd.hpp>
+#include <sge/shader/pair.hpp>
+#include <sge/shader/parameter/matrix.hpp>
+#include <sge/shader/parameter/planar_texture.hpp>
 #include <sge/image2d/system_fwd.hpp>
+#include <sge/renderer/state/core/depth_stencil/object_scoped_ptr.hpp>
 #include <sge/parse/json/object_fwd.hpp>
-#include <sge/renderer/device_fwd.hpp>
-#include <sge/renderer/matrix4.hpp>
+#include <sge/renderer/device/core_fwd.hpp>
 #include <sge/renderer/scalar.hpp>
 #include <sge/renderer/vertex_buffer_scoped_ptr.hpp>
 #include <sge/renderer/vertex_declaration_scoped_ptr.hpp>
 #include <sge/renderer/texture/planar_shared_ptr.hpp>
-#include <sge/shader/object.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -41,11 +44,10 @@ public:
 	>
 	scene_reactions;
 
-	explicit
 	background(
 		fruitlib::scenic::optional_parent const &,
-		sge::renderer::device &,
 		sge::image2d::system &,
+		sge::shader::context &,
 		fruitapp::shadow_mvp const &,
 		fruitapp::shadow_map_texture const &,
 		sge::parse::json::object const &,
@@ -58,12 +60,16 @@ public:
 	react(
 		fruitlib::scenic::events::render const &);
 private:
-	sge::renderer::device &renderer_;
 	sge::camera::base const &camera_;
-	sge::renderer::texture::planar_shared_ptr texture_;
-	sge::renderer::vertex_declaration_scoped_ptr vertex_declaration_;
-	sge::renderer::vertex_buffer_scoped_ptr vb_;
-	sge::shader::object shader_;
+	sge::renderer::texture::planar_shared_ptr const texture_;
+	sge::renderer::vertex_declaration_scoped_ptr const vertex_declaration_;
+	sge::renderer::vertex_buffer_scoped_ptr const vb_;
+	sge::shader::pair shader_;
+	sge::shader::parameter::matrix<sge::renderer::scalar,4,4> mvp_parameter_;
+	sge::shader::parameter::matrix<sge::renderer::scalar,4,4> shadow_mvp_parameter_;
+	sge::shader::parameter::planar_texture texture_parameter_;
+	sge::shader::parameter::planar_texture shadow_map_parameter_;
+	sge::renderer::state::core::depth_stencil::object_scoped_ptr const depth_stencil_state_;
 	sge::renderer::scalar const reps_;
 	fcppt::signal::scoped_connection projection_change_connection_;
 

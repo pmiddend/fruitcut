@@ -13,12 +13,12 @@
 #include <fcppt/math/matrix/object_impl.hpp>
 #include <fcppt/math/matrix/translation.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <BulletCollision/CollisionShapes/btCollisionShape.h>
+#include <BulletDynamics/Dynamics/btRigidBody.h>
 #include <LinearMath/btDefaultMotionState.h>
 #include <LinearMath/btMotionState.h>
 #include <LinearMath/btTransform.h>
 #include <LinearMath/btVector3.h>
-#include <BulletDynamics/Dynamics/btRigidBody.h>
-#include <BulletCollision/CollisionShapes/btCollisionShape.h>
 #include <fcppt/config/external_end.hpp>
 
 

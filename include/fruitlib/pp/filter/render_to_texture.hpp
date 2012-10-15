@@ -1,13 +1,15 @@
 #ifndef FRUITLIB_PP_FILTER_RENDER_TO_TEXTURE_HPP_INCLUDED
 #define FRUITLIB_PP_FILTER_RENDER_TO_TEXTURE_HPP_INCLUDED
 
+#include <fruitlib/pp/filter/manager_fwd.hpp>
 #include <fruitlib/pp/filter/nullary.hpp>
+#include <fruitlib/pp/filter/texture_size.hpp>
 #include <fruitlib/pp/texture/counted_instance.hpp>
 #include <fruitlib/pp/texture/depth_stencil_format.hpp>
 #include <fruitlib/pp/texture/manager_fwd.hpp>
-#include <sge/renderer/device_fwd.hpp>
-#include <sge/renderer/clear/parameters.hpp>
 #include <sge/renderer/dim2.hpp>
+#include <sge/renderer/clear/parameters.hpp>
+#include <sge/renderer/context/core_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/function/object.hpp>
 #include <fcppt/math/dim/object_impl.hpp>
@@ -27,29 +29,28 @@ FCPPT_NONCOPYABLE(
 	render_to_texture);
 public:
 	typedef
-	fcppt::function::object<void ()>
+	fcppt::function::object<void (sge::renderer::context::core &)>
 	callback;
 
-	explicit
 	render_to_texture(
-		sge::renderer::device &,
+		fruitlib::pp::filter::manager &,
+		fruitlib::pp::texture::manager &,
+		fruitlib::pp::filter::texture_size const &,
 		sge::renderer::clear::parameters const &,
-		texture::manager &,
-		sge::renderer::dim2 const &,
 		callback const &,
-		texture::depth_stencil_format::type);
+		fruitlib::pp::texture::depth_stencil_format::type);
 
-	texture::counted_instance const
+	fruitlib::pp::texture::counted_instance const
 	apply();
 
 	~render_to_texture();
 private:
-	sge::renderer::device &renderer_;
-	sge::renderer::clear::parameters clear_parameters_;
+	fruitlib::pp::filter::manager &filter_manager_;
 	texture::manager &texture_manager_;
-	sge::renderer::dim2 const texture_size_;
+	fruitlib::pp::filter::texture_size const texture_size_;
+	sge::renderer::clear::parameters const clear_parameters_;
 	callback const callback_;
-	texture::depth_stencil_format::type depth_stencil_;
+	fruitlib::pp::texture::depth_stencil_format::type const depth_stencil_;
 };
 }
 }

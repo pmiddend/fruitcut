@@ -9,7 +9,7 @@
 #include <fruitlib/scenic/node.hpp>
 #include <fruitlib/scenic/events/update.hpp>
 #include <sge/parse/json/element_vector.hpp>
-#include <sge/renderer/viewport.hpp>
+#include <sge/renderer/target/viewport.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -64,7 +64,7 @@ private:
 
 	void
 	viewport_change(
-		sge::renderer::viewport const &);
+		sge::renderer::target::viewport const &);
 };
 }
 }

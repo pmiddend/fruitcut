@@ -20,7 +20,7 @@ public:
 		wrapper const &);
 
 	wrapper(
-		base &,
+		fruitlib::pp::filter::base &,
 		fcppt::string const &name,
 		bool active = true);
 
@@ -28,7 +28,7 @@ public:
 	operator=(
 		wrapper const &);
 
-	base &
+	fruitlib::pp::filter::base &
 	filter() const
 	FCPPT_PP_CONST;
 
@@ -43,7 +43,7 @@ public:
 	name() const
 	FCPPT_PP_CONST;
 private:
-	base *filter_;
+	fruitlib::pp::filter::base *filter_;
 	fcppt::string name_;
 	bool active_;
 };

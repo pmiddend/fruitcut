@@ -3,8 +3,8 @@
 #include <fcppt/container/ptr/push_back_unique_ptr.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <elements/CEGUICombobox.h>
-#include <elements/CEGUIListboxTextItem.h>
+#include <CEGUI/widgets/Combobox.h>
+#include <CEGUI/widgets/ListboxTextItem.h>
 #include <iostream>
 #include <fcppt/config/external_end.hpp>
 

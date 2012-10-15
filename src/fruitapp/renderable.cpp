@@ -3,6 +3,8 @@
 #include <fruitlib/scenic/parent.hpp>
 #include <sge/parse/json/find_and_convert_member.hpp>
 #include <sge/parse/json/object_fwd.hpp>
+#include <sge/renderer/device/ffp.hpp>
+#include <sge/shader/context.hpp>
 #include <sge/parse/json/path.hpp>
 #include <sge/systems/instance.hpp>
 #include <fcppt/text.hpp>
@@ -11,7 +13,7 @@
 
 fruitapp::renderable::renderable(
 	fruitlib::scenic::optional_parent const &_parent,
-	sge::systems::instance const &_systems,
+	sge::shader::context &_shader_context,
 	sge::parse::json::object const &_config_file,
 	fruitapp::viewport::manager &_viewport_manager)
 :
@@ -29,10 +31,11 @@ fruitapp::renderable::renderable(
 				*this,
 				fruitlib::scenic::depth(
 					1))),
-		_systems.renderer(),
+		_shader_context,
 		std::tr1::bind(
-			&scene::render_children,
-			&scene_),
+			&fruitapp::scene::render_children,
+			&scene_,
+			std::tr1::placeholders::_1),
 		sge::parse::json::find_and_convert_member<sge::parse::json::object>(
 			_config_file,
 			sge::parse::json::path(
@@ -44,7 +47,8 @@ fruitapp::renderable::renderable(
 				*this,
 				fruitlib::scenic::depth(
 					2))),
-		_systems.renderer(),
+		dynamic_cast<sge::renderer::device::ffp &>(
+			_shader_context.renderer()),
 		postprocessing_)
 {
 }

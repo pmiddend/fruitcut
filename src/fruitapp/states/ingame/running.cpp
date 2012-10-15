@@ -39,13 +39,13 @@
 #include <sge/line_drawer/render_to_screen.hpp>
 #include <sge/line_drawer/scoped_lock.hpp>
 #include <sge/parse/json/find_and_convert_member.hpp>
-#include <sge/renderer/device.hpp>
+#include <sge/renderer/device/ffp.hpp>
 #include <sge/renderer/matrix4.hpp>
-#include <sge/renderer/onscreen_target.hpp>
+#include <sge/renderer/target/onscreen.hpp>
 #include <sge/renderer/scalar.hpp>
 #include <sge/renderer/vector2.hpp>
 #include <sge/renderer/vector3.hpp>
-#include <sge/renderer/viewport.hpp>
+#include <sge/renderer/target/viewport.hpp>
 #include <sge/systems/instance.hpp>
 #include <fcppt/ref.hpp>
 #include <fcppt/text.hpp>
@@ -78,15 +78,16 @@ fruitapp::states::ingame::running::running(
 				fruitlib::scenic::depth(
 					depths::root::dont_care)))),
 	line_drawer_(
-		context<machine>().systems().renderer()),
+		context<fruitapp::machine>().systems().renderer_core()),
 	line_drawer_node_(
 		fruitlib::scenic::optional_parent(
 			fruitlib::scenic::parent(
-				context<machine>().overlay_node(),
+				context<fruitapp::machine>().overlay_node(),
 				fruitlib::scenic::depth(
 					depths::overlay::dont_care))),
 		line_drawer_,
-		&context<machine>().systems().renderer()),
+		fruitlib::scenic::adaptors::line_drawer::optional_renderer(
+			context<fruitapp::machine>().systems().renderer_ffp())),
 	cursor_sound_(
 		fruitlib::scenic::optional_parent(
 			fruitlib::scenic::parent(
@@ -95,8 +96,8 @@ fruitapp::states::ingame::running::running(
 					depths::root::dont_care))),
 		context<fruitapp::machine>().systems().cursor_demuxer(),
 		context<fruitapp::machine>().ingame_clock(),
-		context<machine>().systems().renderer(),
-		context<machine>().sound_controller()),
+		context<fruitapp::machine>().viewport_manager(),
+		context<fruitapp::machine>().sound_controller()),
 	cursor_trail_(
 		fruitlib::scenic::optional_parent(
 			fruitlib::scenic::parent(
@@ -106,33 +107,33 @@ fruitapp::states::ingame::running::running(
 		context<fruitapp::machine>().systems().cursor_demuxer(),
 		context<fruitapp::machine>().ingame_clock(),
 		fruitlib::time_format::find_and_convert_duration<ingame_clock::duration>(
-			context<machine>().config_file(),
+			context<fruitapp::machine>().config_file(),
 			sge::parse::json::path(FCPPT_TEXT("mouse"))
 					/ FCPPT_TEXT("trail-update-rate")),
 		sge::parse::json::find_and_convert_member<fruitapp::cursor_trail::size_type>(
-				context<machine>().config_file(),
+				context<fruitapp::machine>().config_file(),
 				sge::parse::json::path(FCPPT_TEXT("mouse"))
 					/ FCPPT_TEXT("trail-samples")),
-		context<machine>().systems().renderer().onscreen_target()),
+		context<fruitapp::machine>().systems().renderer_core().onscreen_target()),
 	fruit_spawned_connection_(
 		context<superstate>().fruit_spawner().spawn_callback(
 			std::tr1::bind(
 				&fruitlib::audio::sound_controller::play,
-				&context<machine>().sound_controller(),
+				&context<fruitapp::machine>().sound_controller(),
 				fruitlib::resource_tree::path(
 					FCPPT_TEXT("fruit_was_spawned"))))),
 	draw_mouse_trail_(
 		sge::parse::json::find_and_convert_member<bool>(
-			context<machine>().config_file(),
+			context<fruitapp::machine>().config_file(),
 			sge::parse::json::path(FCPPT_TEXT("ingame"))
 				/ FCPPT_TEXT("draw-mouse-trail"))),
 	draw_bbs_(
 		sge::parse::json::find_and_convert_member<bool>(
-			context<machine>().config_file(),
+			context<fruitapp::machine>().config_file(),
 			sge::parse::json::path(FCPPT_TEXT("ingame"))
 				/ FCPPT_TEXT("draw-bbs"))),
 	transit_to_paused_connection_(
-		context<machine>().systems().keyboard_collector().key_callback(
+		context<fruitapp::machine>().systems().keyboard_collector().key_callback(
 			sge::input::keyboard::action(
 				sge::input::keyboard::key_code::escape,
 				FRUITAPP_EVENTS_RETURN_POST_TRANSITION_FUNCTOR(
@@ -143,8 +144,8 @@ fruitapp::states::ingame::running::running(
 				context<fruitapp::machine>().scene_node(),
 				fruitlib::scenic::depth(
 					depths::scene::sword_trail))),
-		context<fruitapp::machine>().systems().renderer(),
-		context<fruitapp::machine>().systems().renderer().onscreen_target(),
+		context<fruitapp::machine>().systems().renderer_ffp(),
+		context<fruitapp::machine>().systems().renderer_core().onscreen_target(),
 		context<fruitapp::machine>().systems().image_system(),
 		context<fruitapp::machine>().systems().cursor_demuxer(),
 		context<fruitapp::machine>().ingame_clock(),
@@ -158,7 +159,7 @@ fruitapp::states::ingame::running::running(
 			fruitapp::viewport::trigger_early(
 				true)))
 {
-	context<machine>().postprocessing().active(
+	context<fruitapp::machine>().postprocessing().active(
 		true);
 }
 
@@ -201,7 +202,7 @@ fruitapp::states::ingame::running::react(
 
 	if(context<superstate>().game_logic().finished())
 	{
-		context<machine>().last_game_score(
+		context<fruitapp::machine>().last_game_score(
 			context<superstate>().game_logic().score());
 		FRUITAPP_EVENTS_POST_TRANSITION(
 			gameover::superstate);
@@ -213,21 +214,21 @@ fruitapp::states::ingame::running::draw_fruit_bbs(
 	sge::line_drawer::line_sequence &lines)
 {
 	for(
-		fruit::object_sequence::const_iterator i =
-			context<superstate>().fruit_manager().fruits().begin();
-		i != context<superstate>().fruit_manager().fruits().end();
+		fruitapp::fruit::object_sequence::const_iterator i =
+			context<fruitapp::states::ingame::superstate>().fruit_manager().fruits().begin();
+		i != context<fruitapp::states::ingame::superstate>().fruit_manager().fruits().end();
 		++i)
 	{
-		fruit::hull::ring const hull =
-			fruit::hull::projected(
+		fruitapp::fruit::hull::ring const hull =
+			fruitapp::fruit::hull::projected(
 				*i,
-				context<machine>().systems().renderer().onscreen_target(),
+				context<fruitapp::machine>().systems().renderer_core().onscreen_target(),
 				sge::camera::matrix_conversion::world_projection(
-					context<machine>().camera().coordinate_system(),
-					context<machine>().camera().projection_matrix()));
+					context<fruitapp::machine>().camera().coordinate_system(),
+					context<fruitapp::machine>().camera().projection_matrix()));
 
 		for(
-			fruit::hull::ring::const_iterator hull_point = hull.begin();
+			fruitapp::fruit::hull::ring::const_iterator hull_point = hull.begin();
 			hull_point != boost::prior(hull.end());
 			++hull_point)
 		{
@@ -288,16 +289,19 @@ fruitapp::states::ingame::running::draw_mouse_trail(
 
 void
 fruitapp::states::ingame::running::process_fruit(
-	fruit::object const &current_fruit)
+	fruitapp::fruit::object const &current_fruit)
 {
-	fruit::hull::intersection_pair const intersection =
-		fruit::hull::trail_intersection(
-			fruit::hull::projected(
+	sge::renderer::target::base &target(
+		context<fruitapp::machine>().systems().renderer_core().onscreen_target());
+
+	fruitapp::fruit::hull::intersection_pair const intersection =
+		fruitapp::fruit::hull::trail_intersection(
+			fruitapp::fruit::hull::projected(
 				current_fruit,
-				context<machine>().systems().renderer().onscreen_target(),
+				target,
 				sge::camera::matrix_conversion::world_projection(
-					context<machine>().camera().coordinate_system(),
-					context<machine>().camera().projection_matrix())),
+					context<fruitapp::machine>().camera().coordinate_system(),
+					context<fruitapp::machine>().camera().projection_matrix())),
 			cursor_trail_.positions());
 
 	if (!intersection)
@@ -306,8 +310,8 @@ fruitapp::states::ingame::running::process_fruit(
 	sge::renderer::matrix4 const inverse_mvp =
 		fcppt::math::matrix::inverse(
 			sge::camera::matrix_conversion::world_projection(
-				context<machine>().camera().coordinate_system(),
-				context<machine>().camera().projection_matrix()));
+				context<fruitapp::machine>().camera().coordinate_system(),
+				context<fruitapp::machine>().camera().projection_matrix()));
 
 	sge::renderer::vector3 const
 		// Convert the points to 3D and to renderer::scalar
@@ -335,7 +339,7 @@ fruitapp::states::ingame::running::process_fruit(
 				fruitapp::renderer_rect(
 					sge::renderer::vector2::null(),
 					fcppt::math::dim::structure_cast<fruitapp::renderer_dim2>(
-						context<machine>().systems().renderer().onscreen_target().viewport().get().size()))),
+						target.viewport().get().size()))),
 		point2_unprojected =
 			fruitlib::math::unproject(
 				point2,
@@ -345,7 +349,7 @@ fruitapp::states::ingame::running::process_fruit(
 				fruitapp::renderer_rect(
 					sge::renderer::vector2::null(),
 					fcppt::math::dim::structure_cast<fruitapp::renderer_dim2>(
-						context<machine>().systems().renderer().onscreen_target().viewport().get().size()))),
+						target.viewport().get().size()))),
 		point3_unprojected =
 			fruitlib::math::unproject(
 				sge::renderer::vector3(
@@ -357,7 +361,7 @@ fruitapp::states::ingame::running::process_fruit(
 				fruitapp::renderer_rect(
 					sge::renderer::vector2::null(),
 					fcppt::math::dim::structure_cast<fruitapp::renderer_dim2>(
-						context<machine>().systems().renderer().onscreen_target().viewport().get().size()))),
+						target.viewport().get().size()))),
 		first_plane_vector =
 			point2_unprojected - point1_unprojected,
 		second_plane_vector =
@@ -394,7 +398,7 @@ fruitapp::states::ingame::running::process_fruit(
 
 void
 fruitapp::states::ingame::running::viewport_change(
-	sge::renderer::viewport const &)
+	sge::renderer::target::viewport const &)
 {
 	cursor_trail_.clear();
 }

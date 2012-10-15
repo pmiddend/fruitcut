@@ -27,7 +27,7 @@
 #include <sge/parse/json/array.hpp>
 #include <sge/parse/json/find_and_convert_member.hpp>
 #include <sge/parse/json/object.hpp>
-#include <sge/renderer/device.hpp>
+#include <sge/renderer/device/ffp.hpp>
 #include <sge/renderer/scalar.hpp>
 #include <sge/systems/instance.hpp>
 #include <fcppt/make_shared_ptr.hpp>
@@ -41,8 +41,8 @@
 #include <fcppt/math/vector/structure_cast.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/statechart/event_base.hpp>
 #include <BulletCollision/CollisionShapes/btStaticPlaneShape.h>
+#include <boost/statechart/event_base.hpp>
 #include <iostream>
 #include <fcppt/config/external_end.hpp>
 
@@ -70,7 +70,7 @@ fruitapp::states::ingame::superstate::superstate(
 		physics_world_),
 	physics_debugger_(
 		physics_world_,
-		context<machine>().systems().renderer(),
+		context<machine>().systems().renderer_ffp(),
 		context<machine>().camera()),
 	physics_debugger_node_(
 		fruitlib::scenic::optional_parent(
@@ -93,7 +93,7 @@ fruitapp::states::ingame::superstate::superstate(
 				fruitlib::scenic::depth(
 					depths::root::dont_care))),
 		context<machine>().fruit_prototypes(),
-		context<machine>().systems().renderer(),
+		context<machine>().systems().renderer_ffp(),
 		physics_world_,
 		context<machine>().camera(),
 		context<fruitapp::machine>().ingame_clock()),
@@ -103,22 +103,23 @@ fruitapp::states::ingame::superstate::superstate(
 				context<fruitapp::machine>().scene_node(),
 				fruitlib::scenic::depth(
 					depths::scene::fruits))),
-		context<machine>().systems().renderer(),
+		context<machine>().shader_context(),
 		fruit_manager_.vertex_declaration(),
 		fruit_manager_,
 		context<machine>().camera(),
 		context<machine>().main_light_source(),
-		sge::parse::json::find_and_convert_member<sge::renderer::scalar>(
-			context<machine>().config_file(),
-			sge::parse::json::path(
-				FCPPT_TEXT("ambient-intensity")))),
+		fruitapp::ambient_intensity(
+			sge::parse::json::find_and_convert_member<sge::renderer::scalar>(
+				context<machine>().config_file(),
+				sge::parse::json::path(
+					FCPPT_TEXT("ambient-intensity"))))),
 	fruit_shadow_render_node_(
 		fruitlib::scenic::optional_parent(
 			fruitlib::scenic::parent(
 				context<fruitapp::machine>().shadow_map(),
 				fruitlib::scenic::depth(
 					0))),
-		context<machine>().systems().renderer(),
+		context<machine>().shader_context(),
 		fruit_manager_.vertex_declaration(),
 		fruit_manager_,
 		context<machine>().shadow_map().mvp()),
@@ -140,6 +141,7 @@ fruitapp::states::ingame::superstate::superstate(
 				context<fruitapp::machine>().root_node(),
 				fruitlib::scenic::depth(
 					depths::root::dont_care))),
+		context<fruitapp::machine>().systems().renderer_ffp(),
 		context<fruitapp::machine>().ingame_clock(),
 		context<fruitapp::machine>().config_file(),
 		context<fruitapp::machine>().sound_controller(),
@@ -154,6 +156,7 @@ fruitapp::states::ingame::superstate::superstate(
 				this,
 				std::tr1::placeholders::_1))),
 	splatter_generator_(
+		/*
 		context<machine>().config_file(),
 		context<machine>().config_variables().splatter_count_to_area_factor(),
 		context<machine>().point_sprites(),
@@ -161,7 +164,7 @@ fruitapp::states::ingame::superstate::superstate(
 		point_sprite::splatter::acceleration(
 			fcppt::math::vector::structure_cast<point_sprite::splatter::acceleration::value_type>(
 				physics_world_.gravity())),
-		context<machine>().ingame_clock()),
+				context<machine>().ingame_clock()*/),
 	background_group_(
 		physics_world_),
 	background_physics_(
@@ -279,6 +282,8 @@ fruitapp::states::ingame::superstate::fruit_was_cut(
 		fruitlib::resource_tree::path(
 			FCPPT_TEXT("fruit_was_cut")));
 
+	/*
 	splatter_generator_.fruit_was_cut(
 		ccontext);
+	*/
 }

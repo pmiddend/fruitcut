@@ -9,7 +9,7 @@
 #include <fruitlib/physics/vector3.hpp>
 #include <fruitlib/physics/world_fwd.hpp>
 #include <fruitlib/physics/group/object_fwd.hpp>
-#include <sge/renderer/device_fwd.hpp>
+#include <sge/renderer/device/core_fwd.hpp>
 #include <sge/renderer/vertex_declaration_fwd.hpp>
 
 
@@ -17,12 +17,12 @@ namespace fruitapp
 {
 namespace fruit
 {
-fruit::object_unique_ptr
+fruitapp::fruit::object_unique_ptr
 object_from_prototype(
-	fruit::prototype const &proto,
+	fruitapp::fruit::prototype const &proto,
 	fruitlib::physics::world &_world,
 	fruitlib::physics::group::object &_fruit_group,
-	sge::renderer::device &_renderer,
+	sge::renderer::device::core &_renderer,
 	sge::renderer::vertex_declaration &_vertex_declaration,
 	fruitlib::physics::scalar const _mass,
 	fruitlib::physics::vector3 const &_position,

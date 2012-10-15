@@ -6,6 +6,7 @@
 #include <fruitlib/scenic/events/update.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <sge/renderer/context/core_fwd.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <fcppt/config/external_end.hpp>
 
@@ -39,7 +40,8 @@ public:
 		fruitlib::scenic::events::update const &);
 
 	void
-	render_children();
+	render_children(
+		sge::renderer::context::core &);
 
 	~scene();
 private:

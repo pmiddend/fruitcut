@@ -17,7 +17,7 @@ namespace model_vf
 typedef
 sge::renderer::vf::format
 <
-	boost::mpl::vector1<part>
+	boost::mpl::vector1<fruitapp::fruit::model_vf::part>
 >
 format;
 }

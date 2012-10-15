@@ -34,10 +34,16 @@ fruitapp::machine::config_file() const
 	return impl_->config_file();
 }
 
-sge::systems::instance const &
+fruitapp::systems const &
 fruitapp::machine::systems() const
 {
 	return impl_->systems();
+}
+
+sge::shader::context &
+fruitapp::machine::shader_context() const
+{
+	return impl_->shader_context();
 }
 
 sge::model::md3::loader &

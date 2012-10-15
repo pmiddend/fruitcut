@@ -12,7 +12,7 @@ namespace fruit
 namespace model_vf
 {
 typedef
-sge::renderer::vf::view<part>
+sge::renderer::vf::view<fruitapp::fruit::model_vf::part>
 vertex_view;
 }
 }

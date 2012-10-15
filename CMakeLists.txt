@@ -1,51 +1,75 @@
-CMAKE_MINIMUM_REQUIRED(VERSION 2.6)
+cmake_minimum_required(VERSION 2.6)
 
-PROJECT(fruitcut)
+project(
+  fruitcut)
 
-INCLUDE(FcpptCMakeUtils)
-INCLUDE(AwlMainGenerator)
+include(
+  FcpptCMakeUtils)
 
-FIND_PACKAGE(
-	Boost 1.47.0 REQUIRED COMPONENTS
+include(
+  FindFcpptThreads)
+
+include(
+  AwlMainGenerator)
+
+find_package(
+	Boost 1.49.0 REQUIRED COMPONENTS
 	chrono
 	date_time
+	thread
 	system)
 
-IF(
-	MSVC AND ${Boost_VERSION} STREQUAL "104800"
-)
-	ADD_DEFINITIONS(
-		-D BOOST_FUSION_DONT_USE_PREPROCESSED_FILES
-	)
-ENDIF()
+include_directories(
+  ${Boost_INCLUDE_DIR})
+link_directories(
+  ${Boost_LIBRARY_DIRS})
 
-INCLUDE_DIRECTORIES(${Boost_INCLUDE_DIR})
-LINK_DIRECTORIES(${Boost_LIBRARY_DIRS})
+add_definitions(
+        -D BOOST_ASIO_SEPARATE_COMPILATION)
 # boost end
 
 # fcppt begin
-FIND_PACKAGE(Fcppt REQUIRED)
-INCLUDE_DIRECTORIES(${Fcppt_INCLUDE_DIRS})
-ADD_DEFINITIONS(${Fcppt_DEFINITIONS})
+find_package(
+  Fcppt REQUIRED)
+include_directories(
+  ${Fcppt_INCLUDE_DIRS})
+ADD_DEFINITIONS(
+  ${Fcppt_DEFINITIONS})
 # fcppt end
 
 # awl begin
-FIND_PACKAGE(Awl REQUIRED)
-INCLUDE_DIRECTORIES(${Awl_INCLUDE_DIR})
-ADD_DEFINITIONS(${Awl_DEFINITIONS})
+find_package(
+  Awl REQUIRED)
+include_directories(
+  ${Awl_INCLUDE_DIR})
+add_definitions(
+  ${Awl_DEFINITIONS})
 # awl end
 
 # mizuiro begin
-FIND_PACKAGE(Mizuiro REQUIRED)
-INCLUDE_DIRECTORIES(${Mizuiro_INCLUDE_DIR})
-ADD_DEFINITIONS(${Mizuiro_DEFINITIONS})
+find_package(
+  Mizuiro REQUIRED)
+include_directories(
+  ${Mizuiro_INCLUDE_DIR})
+add_definitions(
+  ${Mizuiro_DEFINITIONS})
 # mizuiro end
 
 # bullet begin
-FIND_PACKAGE(Bullet REQUIRED)
-INCLUDE_DIRECTORIES(SYSTEM ${BULLET_INCLUDE_DIRS})
+find_package(
+  Bullet REQUIRED)
+include_directories(
+  ${BULLET_INCLUDE_DIRS})
 # bullet end
 
+# cg begin
+find_package(
+	Cg REQUIRED)
+include_directories(
+	${Cg_INCLUDE_DIR})
+add_definitions(
+	${Cg_DEFINITIONS})
+# cg end
 
 # sge begin
 FIND_PACKAGE(
@@ -54,11 +78,13 @@ FIND_PACKAGE(
 	camera
 	cegui
 	charconv
+	cg
 	config
 	console
 	core
+	fontdraw
 	fontbitmap
-	fonttext
+	font
 	image
 	image2d
 	input
@@ -74,60 +100,68 @@ FIND_PACKAGE(
 	viewport
 	window)
 
-INCLUDE_DIRECTORIES(${SGE_INCLUDE_DIRS})
-ADD_DEFINITIONS(${SGE_DEFINITIONS})
+include_directories(${SGE_INCLUDE_DIRS})
+add_definitions(${SGE_DEFINITIONS})
 # sge end
 
 # cegui begin
-FIND_PACKAGE(
+find_package(
 	CEGUI REQUIRED)
 
-INCLUDE_DIRECTORIES(SYSTEM ${CEGUI_INCLUDE_DIRS})
+link_directories(
+	"${CEGUI_LIBRARY_DIRS}")
+
+include_directories(
+  ${CEGUI_INCLUDE_DIRS})
 # cegui end
 
 # get rid of a pretty useless warning
-IF(CMAKE_COMPILER_IS_GNUCXX OR FCPPT_UTILS_COMPILER_IS_CLANGPP)
-	ADD_DEFINITIONS(-Wno-old-style-cast)
-ELSEIF(MSVC)
+if(CMAKE_COMPILER_IS_GNUCXX OR FCPPT_UTILS_COMPILER_IS_CLANGPP)
+	add_definitions(-Wno-old-style-cast)
+elseif(MSVC)
 	# Disable "this" used in initializer list warning
-	ADD_DEFINITIONS("/wd4355")
-ENDIF()
+	add_definitions("/wd4355")
+endif()
 
-SET(
+set(
 	INSTALL_MEDIA_DIR
 	${INSTALL_DATA_DIR}/media
 )
 
-INCLUDE(
+include(
 	SGECustomPath
 )
 
-SGE_CONFIG_ADD_CUSTOM_PATH(
+sge_config_add_custom_path(
 	fruitcut
 	media
 	${CMAKE_SOURCE_DIR}/media
 	${INSTALL_MEDIA_DIR}
 )
 
-INSTALL(
+install(
 	DIRECTORY
 	${CMAKE_SOURCE_DIR}/media/
 	DESTINATION
 	${INSTALL_MEDIA_DIR}
 )
 
-OPTION(ENABLE_TEST "Build the tests" ON)
+option(
+  ENABLE_TEST "Build the tests" ON)
 
-INCLUDE_DIRECTORIES(${CMAKE_SOURCE_DIR}/include)
+include_directories(
+	${CMAKE_SOURCE_DIR}/include)
 
-IF(ENABLE_TEST)
-	ENABLE_TESTING()
-	ADD_SUBDIRECTORY(src/test)
-ENDIF()
+if(ENABLE_TEST)
+	enable_testing()
+	add_subdirectory(
+		src/test)
+endif()
 
-ADD_SUBDIRECTORY(src/sandbox)
+add_subdirectory(
+	src/sandbox)
 
-SET(
+set(
 	FRUITLIB_FILES
 	src/fruitlib/audio/group/buffer.cpp
 	src/fruitlib/audio/group/player.cpp
@@ -141,10 +175,6 @@ SET(
 	src/fruitlib/exception.cpp
 	src/fruitlib/fcppt_string_to_utf8_file.cpp
 	src/fruitlib/font/cache.cpp
-	src/fruitlib/font/drawer/object.cpp
-	src/fruitlib/font/drawer/parameters.cpp
-	src/fruitlib/font/drawer/scoped_color.cpp
-	src/fruitlib/font/drawer/scoped_transformation.cpp
 	src/fruitlib/font/object.cpp
 	src/fruitlib/font/object_parameters.cpp
 	src/fruitlib/font/scene_node.cpp
@@ -209,10 +239,12 @@ SET(
 	src/fruitlib/utf8_file_to_fcppt_string_exn.cpp
 )
 
-FCPPT_UTILS_ADD_SOURCE_GROUPS("${FRUITLIB_FILES}")
+fcppt_utils_add_source_groups(
+  "${FRUITLIB_FILES}")
 
 SET(
 	APP_FILES
+	src/fruitapp/asio_implementation.cpp
 	src/fruitapp/background.cpp
 	src/fruitapp/config_variables.cpp
 	src/fruitapp/current_commit.cpp
@@ -297,18 +329,20 @@ SET(
 	src/fruitapp/viewport/manager.cpp
 )
 
-FCPPT_UTILS_ADD_SOURCE_GROUPS("${APP_FILES}")
+fcppt_utils_add_source_groups(
+  "${APP_FILES}")
 
 # library begin
-ADD_LIBRARY(
+add_library(
 	fruitlib STATIC ${FRUITLIB_FILES})
 
-TARGET_LINK_LIBRARIES(
+target_link_libraries(
 	fruitlib
 	${Fcppt_core_LIBRARIES}
 	${Fcppt_filesystem_LIBRARIES}
 	${CEGUI_LIBRARIES}
 	${SGE_LIBRARIES}
+	${Cg_LIBRARIES}
 	${BULLET_LIBRARIES}
 	${Boost_LIBRARIES})
 # library end
@@ -319,18 +353,23 @@ awl_utils_add_portable_executable(
 	"fruitapp::main"
 	${APP_FILES})
 
-TARGET_LINK_LIBRARIES(
+target_link_libraries(
 	fruitcut
 	fruitlib
+
+	${SGE_LIBRARIES}
+	${Cg_LIBRARIES}
+
+	${FcpptThreads_LIBRARIES}
+
 	${Fcppt_core_LIBRARIES}
 	${Fcppt_filesystem_LIBRARIES}
 	${Awl_LIBRARIES}
-	${SGE_LIBRARIES}
 	${CEGUI_LIBRARIES}
 	${BULLET_LIBRARIES}
 	${Boost_LIBRARIES})
 
-INSTALL(
+install(
 	TARGETS
 	fruitcut
 	DESTINATION
@@ -339,10 +378,10 @@ INSTALL(
 # app end
 
 # server begin
-OPTION(ENABLE_SERVER "Build the server (beware: it's POSIX only!)" OFF)
+option(ENABLE_SERVER "Build the server (beware: it's POSIX only!)" OFF)
 
 # this has to be defined here so update_cmake recognizes it
-SET(
+set(
 	SERVER_FILES
 	src/fruitserver/ascii/from_ascii_char.cpp
 	src/fruitserver/ascii/from_byte_sequence.cpp
@@ -378,19 +417,19 @@ SET(
 	src/fruitserver/std_error_string.cpp
 )
 
-IF(ENABLE_SERVER)
+if(ENABLE_SERVER)
 
-	FCPPT_UTILS_ADD_SOURCE_GROUPS("${SERVER_FILES}")
+	fcppt_utils_add_source_groups("${SERVER_FILES}")
 
-	ADD_EXECUTABLE(
+	add_executable(
 		fruitcut_server
 		${SERVER_FILES})
 
-	INSTALL(
+	install(
 		TARGETS
 		fruitcut_server
 		DESTINATION
 		${INSTALL_BINARY_DIR}
 	)
-ENDIF()
+endif()
 # server end

@@ -4,12 +4,13 @@
 #include <fruitlib/scenic/base.hpp>
 #include <sge/camera/has_mutable_projection.hpp>
 #include <sge/parse/json/find_and_convert_member.hpp>
-#include <sge/renderer/aspect_from_viewport.hpp>
+#include <sge/renderer/aspect.hpp>
 #include <sge/renderer/projection/perspective_af.hpp>
 #include <sge/viewport/manager.hpp>
 #include <fcppt/move.hpp>
 #include <fcppt/math/deg_to_rad.hpp>
 #include <fcppt/signal/connection.hpp>
+#include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/tr1/functional.hpp>
 
 
@@ -89,13 +90,14 @@ fruitapp::projection_manager::object::~object()
 
 void
 fruitapp::projection_manager::object::viewport_callback(
-	sge::renderer::viewport const &_viewport)
+	sge::renderer::target::viewport const &_viewport)
 {
 	aspect_ =
 		optional_aspect(
 			sge::renderer::projection::aspect(
-				sge::renderer::aspect_from_viewport(
-					_viewport)));
+				sge::renderer::aspect(
+					fcppt::math::dim::structure_cast<sge::renderer::screen_size>(
+						_viewport.get().size()))));
 
 	camera_.update_projection_matrix(
 		sge::camera::projection_matrix(

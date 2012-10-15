@@ -7,8 +7,8 @@
 #include <fruitlib/scenic/optional_parent.hpp>
 #include <fruitlib/scenic/events/update.hpp>
 #include <sge/input/cursor/object_fwd.hpp>
+#include <sge/renderer/target/base_fwd.hpp>
 #include <sge/input/cursor/position.hpp>
-#include <sge/renderer/target_base_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/math/vector/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -39,14 +39,13 @@ public:
 	position_buffer::size_type
 	size_type;
 
-	explicit
 	cursor_trail(
 		fruitlib::scenic::optional_parent const &,
 		sge::input::cursor::object &,
 		fruitapp::ingame_clock const &,
 		fruitapp::ingame_clock::duration const &update_duration,
 		size_type sample_count,
-		sge::renderer::target_base &);
+		sge::renderer::target::base &);
 
 	position_buffer const &
 	positions() const;
@@ -67,9 +66,9 @@ public:
 		fruitlib::scenic::events::update const &);
 private:
 	sge::input::cursor::object &cursor_;
+	sge::renderer::target::base &target_;
 	position_buffer positions_;
 	fruitapp::ingame_timer update_timer_;
-	sge::renderer::target_base &target_;
 	size_type sample_count_;
 
 };

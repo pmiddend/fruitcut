@@ -5,7 +5,7 @@
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <elements/CEGUIPushButton.h>
+#include <CEGUI/widgets/PushButton.h>
 #include <fcppt/config/external_end.hpp>
 
 

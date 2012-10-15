@@ -21,7 +21,7 @@ fruitlib::pp::filter::base::~base()
 // for an explanation see system.hpp
 void
 fruitlib::pp::filter::base::enqueue(
-	texture::counted_instance const &tex)
+	fruitlib::pp::texture::counted_instance const &tex)
 {
 	textures_.push_back(
 		tex);
@@ -30,17 +30,17 @@ fruitlib::pp::filter::base::enqueue(
 fruitlib::pp::texture::counted_instance const
 fruitlib::pp::filter::base::dispatch()
 {
-	texture::counted_instance result;
+	fruitlib::pp::texture::counted_instance result;
 	if (textures_.empty())
 		result =
-			dynamic_cast<nullary &>(*this).apply();
+			dynamic_cast<fruitlib::pp::filter::nullary &>(*this).apply();
 	else if (textures_.size() == 1)
 		result =
-			dynamic_cast<unary &>(*this).apply(
+			dynamic_cast<fruitlib::pp::filter::unary &>(*this).apply(
 				textures_.front());
 	else if (textures_.size() == 2)
 		result =
-			dynamic_cast<binary &>(*this).apply(
+			dynamic_cast<fruitlib::pp::filter::binary &>(*this).apply(
 				textures_.front(),
 				textures_.back());
 	textures_.clear();

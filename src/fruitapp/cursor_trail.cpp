@@ -1,9 +1,9 @@
 #include <fruitapp/cursor_trail.hpp>
 #include <sge/input/cursor/object.hpp>
+#include <sge/renderer/target/base.hpp>
 #include <sge/input/cursor/position.hpp>
 #include <sge/input/cursor/position_unit.hpp>
 #include <sge/renderer/pixel_rect.hpp>
-#include <sge/renderer/target_base.hpp>
 #include <sge/renderer/vector2.hpp>
 #include <sge/timer/parameters.hpp>
 #include <sge/timer/reset_when_expired.hpp>
@@ -38,19 +38,19 @@ fruitapp::cursor_trail::cursor_trail(
 	fruitapp::ingame_clock const &_clock,
 	fruitapp::ingame_clock::duration const &_update_frequency,
 	size_type const _sample_count,
-	sge::renderer::target_base &_target)
+	sge::renderer::target::base &_target)
 :
 	node_base(
 		_parent),
 	cursor_(
 		_cursor),
+	target_(
+		_target),
 	positions_(),
 	update_timer_(
 		fruitapp::ingame_timer::parameters(
 			_clock,
 			_update_frequency)),
-	target_(
-		_target),
 	sample_count_(
 		_sample_count)
 {

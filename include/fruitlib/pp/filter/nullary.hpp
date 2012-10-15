@@ -14,19 +14,18 @@ namespace filter
 {
 class nullary
 :
-	public base
+	public fruitlib::pp::filter::base
 {
 FCPPT_NONCOPYABLE(
 	nullary);
 public:
-	explicit
-	nullary();
-
 	virtual
 	~nullary();
 
-	virtual texture::counted_instance const
+	virtual fruitlib::pp::texture::counted_instance const
 	apply() = 0;
+protected:
+	nullary();
 };
 }
 }

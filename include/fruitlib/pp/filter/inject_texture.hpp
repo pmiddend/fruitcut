@@ -23,18 +23,18 @@ FCPPT_NONCOPYABLE(
 public:
 	explicit
 	inject_texture(
-		texture::manager &);
+		fruitlib::pp::texture::manager &);
 
 	void
 	texture(
 		sge::renderer::texture::planar_shared_ptr);
 
-	texture::counted_instance const
+	fruitlib::pp::texture::counted_instance const
 	apply();
 
 	~inject_texture();
 private:
-	texture::manager &texture_manager_;
+	fruitlib::pp::texture::manager &texture_manager_;
 	sge::renderer::texture::planar_shared_ptr texture_;
 };
 }

@@ -7,9 +7,9 @@
 #include <fruitlib/scenic/events/render.hpp>
 #include <sge/image2d/system_fwd.hpp>
 #include <sge/parse/json/object_fwd.hpp>
-#include <sge/renderer/device_fwd.hpp>
-#include <sge/renderer/viewport.hpp>
-#include <sge/renderer/texture/planar_scoped_ptr.hpp>
+#include <sge/renderer/device/ffp_fwd.hpp>
+#include <sge/renderer/target/viewport.hpp>
+#include <sge/texture/const_part_scoped_ptr.hpp>
 #include <sge/sprite/object_decl.hpp>
 #include <sge/sprite/parameters_fwd.hpp>
 #include <sge/sprite/buffers/single_decl.hpp>
@@ -17,6 +17,9 @@
 #include <sge/sprite/config/choices.hpp>
 #include <sge/sprite/config/float_type.hpp>
 #include <sge/sprite/config/normal_size.hpp>
+#include <sge/sprite/state/all_choices.hpp>
+#include <sge/sprite/state/object.hpp>
+#include <sge/sprite/state/parameters.hpp>
 #include <sge/sprite/config/texture_coordinates.hpp>
 #include <sge/sprite/config/texture_level_count.hpp>
 #include <sge/sprite/config/type_choices.hpp>
@@ -42,10 +45,9 @@ public:
 	boost::mpl::vector1<fruitlib::scenic::events::render>
 	scene_reactions;
 
-	explicit
 	logo(
 		fruitlib::scenic::optional_parent const &,
-		sge::renderer::device &,
+		sge::renderer::device::ffp &,
 		sge::image2d::system &,
 		sge::parse::json::object const &,
 		fruitapp::viewport::manager &);
@@ -66,7 +68,7 @@ private:
 				1u
 			>,
 			sge::sprite::config::texture_coordinates::automatic,
-			sge::sprite::config::texture_ownership::shared
+			sge::sprite::config::texture_ownership::reference
 		>
 	>
 	sprite_elements;
@@ -112,14 +114,27 @@ private:
 	sge::sprite::parameters<sprite_choices>
 	sprite_parameters;
 
+	typedef
+	sge::sprite::state::all_choices
+	sprite_state_choices;
+
+	typedef
+	sge::sprite::state::object<sprite_state_choices>
+	sprite_state_object;
+
+	typedef
+	sge::sprite::state::parameters<sprite_state_choices>
+	sprite_state_parameters;
+
+	sprite_state_object sprite_states_;
 	sprite_buffers sprite_buffers_;
-	sge::renderer::texture::planar_scoped_ptr texture_;
+	sge::texture::const_part_scoped_ptr const texture_;
 	sprite_object sprite_object_;
 	fcppt::signal::scoped_connection viewport_change_connection_;
 
 	void
 	viewport_change(
-		sge::renderer::viewport const &);
+		sge::renderer::target::viewport const &);
 };
 }
 

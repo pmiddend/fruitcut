@@ -8,21 +8,11 @@
 #include <fruitapp/states/menu/main.hpp>
 #include <fruitapp/viewport/manager.hpp>
 #include <fruitlib/font/cache.hpp>
-#include <fruitlib/font/color_format.hpp>
 #include <fruitlib/font/object_parameters.hpp>
 #include <fruitlib/font/scale.hpp>
 #include <fruitlib/json/parse_rgba8_color.hpp>
 #include <fruitlib/scenic/depth.hpp>
 #include <fruitlib/scenic/parent.hpp>
-#include <sge/font/dim.hpp>
-#include <sge/font/pos.hpp>
-#include <sge/font/rect.hpp>
-#include <sge/font/text/align_h.hpp>
-#include <sge/font/text/align_v.hpp>
-#include <sge/font/text/flags.hpp>
-#include <sge/font/text/flags_none.hpp>
-#include <sge/font/text/lit.hpp>
-#include <sge/font/text/string.hpp>
 #include <sge/image/colors.hpp>
 #include <sge/image/color/convert.hpp>
 #include <sge/parse/json/array.hpp>
@@ -30,6 +20,7 @@
 #include <sge/parse/json/value.hpp>
 #include <sge/renderer/scalar.hpp>
 #include <sge/systems/instance.hpp>
+#include <sge/font/lit.hpp>
 #include <fcppt/insert_to_string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/container/ptr/push_back_unique_ptr.hpp>
@@ -57,7 +48,7 @@ fruitapp::states::loading::loading(
 					depths::root::dont_care)))),
 	fruit_array_(
 		sge::parse::json::find_and_convert_member<sge::parse::json::array>(
-			context<machine>().config_file(),
+			context<fruitapp::machine>().config_file(),
 			sge::parse::json::path(
 				FCPPT_TEXT("fruits"))).elements),
 	current_fruit_(
@@ -69,24 +60,23 @@ fruitapp::states::loading::loading(
 				fruitlib::scenic::depth(
 					depths::overlay::dont_care))),
 		fruitlib::font::object_parameters(
-			context<machine>().font_cache().metrics(
+			context<fruitapp::machine>().systems().renderer_ffp(),
+			context<fruitapp::machine>().font_cache().get(
 				FCPPT_TEXT("score")),
-			context<machine>().font_cache().drawer(
-				FCPPT_TEXT("score")),
-			SGE_FONT_TEXT_LIT("0"),
+			SGE_FONT_LIT("0"),
 			sge::font::rect::null(),
-			sge::font::text::align_h::center,
-			sge::font::text::align_v::top,
-			sge::font::text::flags::none),
-		sge::image::color::convert<fruitlib::font::color_format>(
-			fruitlib::json::parse_rgba8_color(
-				sge::parse::json::find_and_convert_member<sge::parse::json::value>(
-					context<machine>().config_file(),
-					sge::parse::json::path(
-						FCPPT_TEXT("loading"))
-						/ FCPPT_TEXT("font-color")))),
-		fruitlib::font::scale(
-			1.f)),
+			sge::font::align_h::center,
+			fruitlib::font::align_v::top,
+			sge::font::flags_field::null(),
+			sge::image::color::any::object(
+				fruitlib::json::parse_rgba8_color(
+					sge::parse::json::find_and_convert_member<sge::parse::json::value>(
+						context<fruitapp::machine>().config_file(),
+						sge::parse::json::path(
+							FCPPT_TEXT("loading"))
+							/ FCPPT_TEXT("font-color")))),
+			fruitlib::font::scale(
+				1.f))),
 	viewport_change_connection_(
 		context<fruitapp::machine>().viewport_manager().change_callback(
 			std::tr1::bind(
@@ -96,9 +86,10 @@ fruitapp::states::loading::loading(
 			fruitapp::viewport::trigger_early(
 				true)))
 {
-	context<machine>().postprocessing().desaturate_filter().factor(
-		static_cast<sge::renderer::scalar>(
-			0));
+	context<fruitapp::machine>().postprocessing().desaturate_filter().scaling(
+		fruitlib::pp::filter::desaturate::scaling_factor(
+			static_cast<sge::renderer::scalar>(
+				0)));
 }
 
 FRUITAPP_EVENTS_DEFINE_TRANSITION_REACTION(
@@ -121,44 +112,45 @@ fruitapp::states::loading::react(
 	}
 
 	fcppt::container::ptr::push_back_unique_ptr(
-		context<machine>().fruit_prototypes(),
-		fruit::prototype_from_json(
+		context<fruitapp::machine>().fruit_prototypes(),
+		fruitapp::fruit::prototype_from_json(
 			*current_fruit_++,
-			context<machine>().md3_loader(),
-			context<machine>().systems().image_system(),
-			context<machine>().systems().renderer()));
+			context<fruitapp::machine>().md3_loader(),
+			context<fruitapp::machine>().systems().image_system(),
+			context<fruitapp::machine>().systems().renderer_core()));
 
 	font_node_.object().text(
-		SGE_FONT_TEXT_LIT("Loaded ")+
-		fcppt::insert_to_string<sge::font::text::string>(
+		SGE_FONT_LIT("Loaded ")+
+		fcppt::insert_to_string<sge::font::string>(
 			std::distance(
 				fruit_array_.begin(),
 				current_fruit_))+
-		SGE_FONT_TEXT_LIT(" of ")+
-		fcppt::insert_to_string<sge::font::text::string>(
+		SGE_FONT_LIT(" of ")+
+		fcppt::insert_to_string<sge::font::string>(
 			fruit_array_.size())+
-		SGE_FONT_TEXT_LIT(" fruits"));
+		SGE_FONT_LIT(" fruits"));
 
-	context<machine>().postprocessing().desaturate_filter().factor(
-		static_cast<sge::renderer::scalar>(
-			std::distance(
-				fruit_array_.begin(),
-				current_fruit_)) /
+	context<fruitapp::machine>().postprocessing().desaturate_filter().scaling(
+		fruitlib::pp::filter::desaturate::scaling_factor(
 			static_cast<sge::renderer::scalar>(
-				fruit_array_.size()));
+				std::distance(
+					fruit_array_.begin(),
+					current_fruit_)) /
+				static_cast<sge::renderer::scalar>(
+					fruit_array_.size())));
 }
 
 void
 fruitapp::states::loading::viewport_change(
-	sge::renderer::viewport const &_viewport)
+	sge::renderer::target::viewport const &_viewport)
 {
-	sge::font::dim const &viewport_dim =
-		fcppt::math::dim::structure_cast<sge::font::dim>(
+	sge::font::rect::dim const &viewport_dim =
+		fcppt::math::dim::structure_cast<sge::font::rect::dim>(
 				_viewport.get().size());
 
 	font_node_.object().bounding_box(
 		sge::font::rect(
-			sge::font::pos::null(),
+			sge::font::rect::vector::null(),
 			viewport_dim));
 }
 

@@ -25,7 +25,7 @@ namespace gameover
 class choose_name
 :
 	// The second argument has to be a complete type
-	public boost::statechart::state<choose_name,gameover::superstate>
+	public boost::statechart::state<choose_name,fruitapp::states::gameover::superstate>
 {
 FCPPT_NONCOPYABLE(
 	choose_name);
@@ -34,7 +34,7 @@ public:
 	boost::mpl::vector1
 	<
 		FRUITAPP_EVENTS_DECLARE_TRANSITION_TYPE(
-			gameover::ranking)
+			fruitapp::states::gameover::ranking)
 	>
 	reactions;
 
@@ -49,7 +49,7 @@ public:
 private:
 	sge::cegui::toolbox::scoped_layout layout_;
 	sge::cegui::toolbox::scoped_gui_sheet gui_sheet_;
-	gui::button continue_button_;
+	fruitapp::gui::button continue_button_;
 	fcppt::signal::scoped_connection continue_button_connection_;
 
 	void

@@ -18,7 +18,6 @@
 #include <fcppt/text.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <CEGUIWindowManager.h>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -38,22 +37,22 @@ fruitapp::states::gameover::ranking::ranking(
 		fruitlib::media_path()
 			/FCPPT_TEXT("gui")
 			/FCPPT_TEXT("layouts")
-			/FCPPT_TEXT("ranking.layout"),
-		context<machine>().systems().charconv_system()),
+			/FCPPT_TEXT("ranking.layout")),
 	gui_sheet_(
 		context<machine>().gui_system(),
-		*context<machine>().gui_system().window_manager().getWindow("Ranking")),
+		*layout_.window().getChild(
+			"Ranking")),
 	main_menu_button_(
 		context<machine>().sound_controller(),
-		*context<machine>().gui_system().window_manager().getWindow(
+		*layout_.window().getChild(
 			"Ranking/MainMenu")),
 	highscore_button_(
 		context<machine>().sound_controller(),
-		*context<machine>().gui_system().window_manager().getWindow(
+		*layout_.window().getChild(
 			"Ranking/Highscores")),
 	quit_button_(
 		context<machine>().sound_controller(),
-		*context<machine>().gui_system().window_manager().getWindow(
+		*layout_.window().getChild(
 			"Ranking/Quit")),
 	main_menu_button_connection_(
 		main_menu_button_.push_callback(
@@ -74,7 +73,7 @@ fruitapp::states::gameover::ranking::ranking(
 		providers_),
 	table_view_(
 		context<fruitapp::machine>().systems().charconv_system(),
-		*context<machine>().gui_system().window_manager().getWindow(
+		*layout_.window().getChild(
 			"Ranking/List"),
 		post_model_),
 	message_received_connection_(
@@ -128,7 +127,7 @@ fruitapp::states::gameover::ranking::message_received(
 	fcppt::string const &s)
 {
 	CEGUI::Window &w =
-		*context<fruitapp::machine>().gui_system().window_manager().getWindow(
+		*layout_.window().getChild(
 			"Ranking/MessageLog");
 
 	w.setText(
@@ -143,7 +142,7 @@ fruitapp::states::gameover::ranking::error_received(
 	fcppt::string const &s)
 {
 	CEGUI::Window &w =
-		*context<fruitapp::machine>().gui_system().window_manager().getWindow(
+		*layout_.window().getChild(
 			"Ranking/MessageLog");
 
 	w.setText(

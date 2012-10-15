@@ -9,7 +9,7 @@
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/statechart/state.hpp>
-#include <CEGUIString.h>
+#include <CEGUI/String.h>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -22,7 +22,7 @@ namespace gameover
 class superstate
 :
 	// The second argument has to be a complete type
-	public boost::statechart::state<superstate,machine,choose_name>
+	public boost::statechart::state<superstate,fruitapp::machine,fruitapp::states::gameover::choose_name>
 {
 FCPPT_NONCOPYABLE(
 	superstate);

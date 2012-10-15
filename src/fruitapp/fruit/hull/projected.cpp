@@ -5,11 +5,10 @@
 #include <fruitlib/geometry_traits/vector.hpp>
 #include <sge/renderer/matrix4.hpp>
 #include <sge/renderer/scalar.hpp>
-#include <sge/renderer/target_base.hpp>
+#include <sge/renderer/target/base.hpp>
 #include <sge/renderer/vector2.hpp>
 #include <sge/renderer/vector3.hpp>
 #include <sge/renderer/vector4.hpp>
-#include <sge/renderer/viewport.hpp>
 #include <fcppt/container/array.hpp>
 #include <fcppt/math/box/corner_points.hpp>
 #include <fcppt/math/box/object_impl.hpp>
@@ -37,18 +36,21 @@
 
 fruitapp::fruit::hull::ring const
 fruitapp::fruit::hull::projected(
-	object const &f,
-	sge::renderer::target_base &target,
+	fruitapp::fruit::object const &f,
+	sge::renderer::target::base &target,
 	sge::renderer::matrix4 const &mvp)
 {
 	typedef
-	boost::geometry::model::multi_point<ring::value_type>
+	boost::geometry::model::multi_point
+	<
+		fruitapp::fruit::hull::ring::value_type
+	>
 	hull_point_cloud;
 
 	hull_point_cloud point_cloud;
 
 	typedef
-	fcppt::container::array<box3::vector,8>
+	fcppt::container::array<fruitapp::fruit::box3::vector,8>
 	corner_point_array;
 
 	corner_point_array const corner_points =

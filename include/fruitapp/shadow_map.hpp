@@ -6,10 +6,11 @@
 #include <fruitlib/scenic/node.hpp>
 #include <fruitlib/scenic/optional_parent.hpp>
 #include <fruitlib/scenic/events/update.hpp>
+#include <sge/renderer/state/core/depth_stencil/object_scoped_ptr.hpp>
 #include <sge/parse/json/object_fwd.hpp>
-#include <sge/renderer/device_fwd.hpp>
+#include <sge/renderer/device/ffp_fwd.hpp>
 #include <sge/renderer/matrix4.hpp>
-#include <sge/renderer/target_scoped_ptr.hpp>
+#include <sge/renderer/target/offscreen_scoped_ptr.hpp>
 #include <sge/renderer/texture/planar_shared_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/math/matrix/object_impl.hpp>
@@ -45,11 +46,10 @@ public:
 	boost::mpl::vector1<fruitlib::scenic::events::update>
 	scene_reactions;
 
-	explicit
 	shadow_map(
 		fruitlib::scenic::optional_parent const &,
 		sge::parse::json::object const &,
-		sge::renderer::device &,
+		sge::renderer::device::ffp &,
 		sge::renderer::matrix4 const &);
 
 	fruitapp::shadow_map_texture const
@@ -68,9 +68,10 @@ public:
 	react(
 		fruitlib::scenic::events::update const &);
 private:
-	sge::renderer::device &renderer_;
-	sge::renderer::texture::planar_shared_ptr texture_;
-	sge::renderer::target_scoped_ptr target_;
+	sge::renderer::device::ffp &renderer_;
+	sge::renderer::state::core::depth_stencil::object_scoped_ptr const depth_stencil_state_;
+	sge::renderer::texture::planar_shared_ptr const texture_;
+	sge::renderer::target::offscreen_scoped_ptr const target_;
 	sge::renderer::matrix4 mvp_;
 };
 }

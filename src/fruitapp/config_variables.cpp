@@ -4,6 +4,7 @@
 #include <sge/parse/json/object_fwd.hpp>
 #include <sge/parse/json/path.hpp>
 #include <sge/parse/json/output/tabbed_to_string.hpp>
+#include <sge/parse/json/start.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/io/cerr.hpp>
@@ -44,7 +45,8 @@ fruitapp::config_variables::destructor_write_hack::~destructor_write_hack()
 
 	file <<
 		sge::parse::json::output::tabbed_to_string(
-			user_config_file_);
+			sge::parse::json::start(
+				user_config_file_));
 }
 
 fruitapp::config_variables::config_variables(

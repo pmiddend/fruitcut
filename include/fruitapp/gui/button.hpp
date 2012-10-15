@@ -7,8 +7,8 @@
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/object.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <CEGUIEvent.h>
-#include <CEGUIWindow.h>
+#include <CEGUI/Event.h>
+#include <CEGUI/Window.h>
 #include <fcppt/config/external_end.hpp>
 
 

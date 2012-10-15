@@ -5,11 +5,12 @@
 #include <fruitlib/scenic/optional_parent.hpp>
 #include <fruitlib/scenic/events/render.hpp>
 #include <sge/line_drawer/object_fwd.hpp>
-#include <sge/renderer/device_fwd.hpp>
+#include <sge/renderer/device/ffp_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <fcppt/config/external_end.hpp>
+#include <fcppt/optional.hpp>
 
 
 namespace fruitlib
@@ -20,29 +21,33 @@ namespace adaptors
 {
 class line_drawer
 :
-	public scenic::node<line_drawer>
+	public fruitlib::scenic::node<line_drawer>
 {
 FCPPT_NONCOPYABLE(
 	line_drawer);
 public:
 	typedef
-	boost::mpl::vector1<events::render>
+	boost::mpl::vector1<fruitlib::scenic::events::render>
 	scene_reactions;
+
+	typedef
+	fcppt::optional<sge::renderer::device::ffp &>
+	optional_renderer;
 
 	explicit
 	line_drawer(
-		scenic::optional_parent const &,
+		fruitlib::scenic::optional_parent const &,
 		sge::line_drawer::object &,
-		sge::renderer::device *);
+		optional_renderer const &);
 
 	~line_drawer();
 
 	void
 	react(
-		events::render const &);
+		fruitlib::scenic::events::render const &);
 private:
 	sge::line_drawer::object &object_;
-	sge::renderer::device *renderer_;
+	optional_renderer const renderer_;
 };
 }
 }

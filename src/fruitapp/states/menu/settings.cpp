@@ -12,9 +12,6 @@
 #include <sge/systems/instance.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/tr1/functional.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <CEGUIWindowManager.h>
-#include <fcppt/config/external_end.hpp>
 
 
 fruitapp::states::menu::settings::settings(
@@ -27,14 +24,13 @@ fruitapp::states::menu::settings::settings(
 		fruitlib::media_path()
 			/FCPPT_TEXT("gui")
 			/FCPPT_TEXT("layouts")
-			/FCPPT_TEXT("settings_menu.layout"),
-		context<machine>().systems().charconv_system()),
+			/FCPPT_TEXT("settings_menu.layout")),
 	gui_sheet_(
 		context<machine>().gui_system(),
-		*context<fruitapp::machine>().gui_system().window_manager().getWindow("SettingsMenu")),
+		*layout_.window().getChild("SettingsMenu")),
 	main_menu_button_(
 		context<machine>().sound_controller(),
-		*context<fruitapp::machine>().gui_system().window_manager().getWindow(
+		*layout_.window().getChild(
 			"SettingsMenu/Return")),
 	main_menu_button_connection_(
 		main_menu_button_.push_callback(
@@ -42,7 +38,7 @@ fruitapp::states::menu::settings::settings(
 				menu::main))),
 	music_volume_slider_(
 		context<fruitapp::machine>().sound_controller(),
-		context<fruitapp::machine>().gui_system().window_manager(),
+		layout_.window(),
 		"SettingsMenu/MusicVolume",
 		context<machine>().config_variables().music_volume().value()),
 	music_volume_connection_(
@@ -53,7 +49,7 @@ fruitapp::states::menu::settings::settings(
 				std::tr1::placeholders::_1))),
 	effects_volume_slider_(
 		context<fruitapp::machine>().sound_controller(),
-		context<fruitapp::machine>().gui_system().window_manager(),
+		layout_.window(),
 		"SettingsMenu/EffectsVolume",
 		context<machine>().config_variables().effects_volume().value()),
 	effects_volume_connection_(
@@ -64,7 +60,7 @@ fruitapp::states::menu::settings::settings(
 				std::tr1::placeholders::_1))),
 	splatter_slider_(
 		context<fruitapp::machine>().sound_controller(),
-		context<fruitapp::machine>().gui_system().window_manager(),
+		layout_.window(),
 		"SettingsMenu/ParticleDensity",
 		context<machine>().config_variables().splatter_count_to_area_factor().value()),
 	splatter_connection_(

@@ -1,3 +1,4 @@
+#if 0
 #include <fruitapp/exception.hpp>
 #include <fruitapp/point_sprite/system_node.hpp>
 #include <fruitlib/media_path.hpp>
@@ -262,3 +263,4 @@ fruitapp::point_sprite::system_node::react(
 		buffers_,
 		sge::sprite::compare::default_());
 }
+#endif

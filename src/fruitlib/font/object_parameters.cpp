@@ -2,18 +2,20 @@
 
 
 fruitlib::font::object_parameters::object_parameters(
-	sge::font::metrics &_metrics,
-	font::drawer::object &_drawer,
-	sge::font::text::string const &_text,
+	sge::renderer::device::ffp &_renderer,
+	sge::font::object &_font_object,
+	sge::font::string const &_text,
 	sge::font::rect const &_bounding_box,
-	sge::font::text::align_h::type const _alignment_h,
-	sge::font::text::align_v::type const _alignment_v,
-	sge::font::text::flags_field const &_flags)
+	sge::font::align_h::type const _alignment_h,
+	fruitlib::font::align_v::type const _alignment_v,
+	sge::font::flags_field const &_flags,
+	sge::image::color::any::object const &_color,
+	fruitlib::font::scale const &_scale)
 :
-	metrics_(
-		_metrics),
-	drawer_(
-		_drawer),
+	renderer_(
+		_renderer),
+	font_object_(
+		_font_object),
 	text_(
 		_text),
 	bounding_box_(
@@ -23,48 +25,73 @@ fruitlib::font::object_parameters::object_parameters(
 	alignment_v_(
 		_alignment_v),
 	flags_(
-		_flags)
+		_flags),
+	color_(
+		_color),
+	scale_(
+		_scale)
 {
 }
 
-sge::font::metrics &
-fruitlib::font::object_parameters::metrics() const
+sge::renderer::device::ffp &
+fruitlib::font::object_parameters::renderer() const
 {
-	return metrics_;
+	return
+		renderer_;
 }
 
-fruitlib::font::drawer::object &
-fruitlib::font::object_parameters::drawer() const
+sge::font::object &
+fruitlib::font::object_parameters::font_object() const
 {
-	return drawer_;
+	return
+		font_object_;
 }
 
-sge::font::text::string const &
+sge::font::string const &
 fruitlib::font::object_parameters::text() const
 {
-	return text_;
+	return
+		text_;
 }
 
 sge::font::rect const &
 fruitlib::font::object_parameters::bounding_box() const
 {
-	return bounding_box_;
+	return
+		bounding_box_;
 }
 
-sge::font::text::align_h::type
+sge::font::align_h::type
 fruitlib::font::object_parameters::alignment_h() const
 {
-	return alignment_h_;
+	return
+		alignment_h_;
 }
 
-sge::font::text::align_v::type
+fruitlib::font::align_v::type
 fruitlib::font::object_parameters::alignment_v() const
 {
-	return alignment_v_;
+	return
+		alignment_v_;
 }
 
-sge::font::text::flags_field const &
+sge::font::flags_field const &
 fruitlib::font::object_parameters::flags() const
 {
-	return flags_;
+	return
+		flags_;
+}
+
+sge::image::color::any::object const &
+fruitlib::font::object_parameters::color() const
+{
+	return
+		color_;
+}
+
+fruitlib::font::scale const &
+fruitlib::font::object_parameters::scale() const
+{
+	return
+		scale_;
 }

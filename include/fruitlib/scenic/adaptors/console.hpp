@@ -19,25 +19,24 @@ namespace adaptors
 {
 class console
 :
-	public scenic::node<console>
+	public fruitlib::scenic::node<console>
 {
 FCPPT_NONCOPYABLE(
 	console);
 public:
 	typedef
-	boost::mpl::vector1<events::render>
+	boost::mpl::vector1<fruitlib::scenic::events::render>
 	scene_reactions;
 
-	explicit
 	console(
-		scenic::optional_parent const &parent,
+		fruitlib::scenic::optional_parent const &parent,
 		sge::console::gfx &);
 
 	~console();
 
 	void
 	react(
-		events::render const &);
+		fruitlib::scenic::events::render const &);
 private:
 	sge::console::gfx &gfx_;
 };

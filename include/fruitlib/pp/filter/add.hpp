@@ -2,14 +2,15 @@
 #define FRUITLIB_PP_FILTER_ADD_HPP_INCLUDED
 
 #include <fruitlib/pp/filter/binary.hpp>
+#include <fruitlib/pp/filter/ivec2_parameter.hpp>
 #include <fruitlib/pp/filter/manager_fwd.hpp>
+#include <fruitlib/pp/filter/texture_size.hpp>
 #include <fruitlib/pp/texture/counted_instance.hpp>
 #include <fruitlib/pp/texture/manager_fwd.hpp>
-#include <sge/renderer/device_fwd.hpp>
-#include <sge/renderer/dim2.hpp>
-#include <sge/shader/object_fwd.hpp>
+#include <sge/shader/pair.hpp>
+#include <sge/shader/parameter/planar_texture.hpp>
+#include <sge/shader/parameter/vector.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/math/dim/object_impl.hpp>
 
 
 namespace fruitlib
@@ -20,30 +21,30 @@ namespace filter
 {
 class add
 :
-	public binary
+	public fruitlib::pp::filter::binary
 {
 FCPPT_NONCOPYABLE(
 	add);
 public:
-	explicit
 	add(
-		sge::renderer::device &,
-		filter::manager &,
-		texture::manager &,
-		sge::renderer::dim2 const &);
+		fruitlib::pp::filter::manager &,
+		fruitlib::pp::texture::manager &,
+		fruitlib::pp::filter::texture_size const &);
 
-	texture::counted_instance const
+	fruitlib::pp::texture::counted_instance const
 	apply(
-		texture::counted_instance,
-		texture::counted_instance);
+		fruitlib::pp::texture::counted_instance,
+		fruitlib::pp::texture::counted_instance);
 
 	~add();
 private:
-	sge::renderer::device &renderer_;
-	filter::manager &filter_manager_;
-	sge::renderer::dim2 dimension_;
-	sge::shader::object &shader_;
-	texture::manager &texture_manager_;
+	fruitlib::pp::filter::manager &filter_manager_;
+	fruitlib::pp::texture::manager &texture_manager_;
+	fruitlib::pp::filter::texture_size const dimension_;
+	sge::shader::pair shader_;
+	fruitlib::pp::filter::ivec2_parameter texture_size_;
+	sge::shader::parameter::planar_texture texture1_;
+	sge::shader::parameter::planar_texture texture2_;
 };
 }
 }

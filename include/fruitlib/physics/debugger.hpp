@@ -6,6 +6,8 @@
 #include <sge/line_drawer/object.hpp>
 #include <sge/line_drawer/scoped_lock.hpp>
 #include <sge/renderer/vector3.hpp>
+#include <sge/renderer/device/ffp_fwd.hpp>
+#include <sge/renderer/context/ffp_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/scoped_ptr.hpp>
 #include <fcppt/math/vector/object_impl.hpp>
@@ -30,17 +32,17 @@ class debugger
 FCPPT_NONCOPYABLE(
 	debugger);
 public:
-	explicit
 	debugger(
-		physics::world &,
-		sge::renderer::device &,
+		fruitlib::physics::world &,
+		sge::renderer::device::ffp &,
 		sge::camera::base const &);
 
 	void
 	update();
 
 	void
-	render();
+	render(
+		sge::renderer::context::ffp &);
 
 	void
 	active(
@@ -112,8 +114,8 @@ private:
 		btScalar alpha) {}
 	*/
 
-	world &world_;
-	sge::renderer::device &renderer_;
+	fruitlib::physics::world &world_;
+	sge::renderer::device::ffp &renderer_;
 	sge::camera::base const &camera_;
 	int debug_mode_;
 	sge::line_drawer::object line_drawer_;

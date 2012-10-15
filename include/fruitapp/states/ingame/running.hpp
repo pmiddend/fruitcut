@@ -15,8 +15,7 @@
 #include <fruitlib/scenic/events/update.hpp>
 #include <sge/line_drawer/line_sequence.hpp>
 #include <sge/line_drawer/object.hpp>
-#include <sge/renderer/viewport.hpp>
-#include <sge/renderer/state/scoped.hpp>
+#include <sge/renderer/target/viewport.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -34,7 +33,7 @@ namespace ingame
 class running
 :
 	// The second argument has to be a complete type
-	public boost::statechart::state<running,superstate>,
+	public boost::statechart::state<running,fruitapp::states::ingame::superstate>,
 	public fruitlib::scenic::node<running>
 {
 FCPPT_NONCOPYABLE(
@@ -44,9 +43,9 @@ public:
 	boost::mpl::vector2
 	<
 		FRUITAPP_EVENTS_DECLARE_TRANSITION_TYPE(
-			ingame::paused),
+			fruitapp::states::ingame::paused),
 		FRUITAPP_EVENTS_DECLARE_TRANSITION_TYPE(
-			gameover::superstate)
+			fruitapp::states::gameover::superstate)
 	>
 	reactions;
 
@@ -94,11 +93,11 @@ private:
 
 	void
 	process_fruit(
-		fruit::object const &);
+		fruitapp::fruit::object const &);
 
 	void
 	viewport_change(
-		sge::renderer::viewport const &);
+		sge::renderer::target::viewport const &);
 };
 }
 }

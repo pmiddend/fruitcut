@@ -24,7 +24,7 @@ fruitapp::load_user_config(
 		optional_json_string
 		?
 			sge::parse::json::parse_string_exn(
-				*optional_json_string)
+				*optional_json_string).object()
 		:
 			sge::parse::json::object();
 }

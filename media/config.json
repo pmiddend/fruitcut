@@ -43,19 +43,19 @@
 	{
 		"score" : 
 		{
-			"filename" : "tweaked.json"
+			"name" : "tweaked.json"
 		},
 		"loading" : 
 		{
-			"filename" : "tweaked.json"
+			"name" : "tweaked.json"
 		},
 		"timer" : 
 		{
-			"filename" : "tweaked.json"
+			"name" : "tweaked.json"
 		},
 		"quick-log" : 
 		{
-			"filename" : "default.ttf",
+			"name" : "ttf:sans",
 			"size" : 24
 		}
 	},

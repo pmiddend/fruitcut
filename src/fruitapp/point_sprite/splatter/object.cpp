@@ -1,3 +1,4 @@
+#if 0
 #include <fruitapp/point_sprite/parameters.hpp>
 #include <fruitapp/point_sprite/splatter/object.hpp>
 #include <fruitapp/point_sprite/splatter/parameters.hpp>
@@ -76,3 +77,4 @@ fruitapp::point_sprite::splatter::object::dead() const
 {
 	return life_timer_.expired();
 }
+#endif

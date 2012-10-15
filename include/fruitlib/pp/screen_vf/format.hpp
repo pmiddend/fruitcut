@@ -19,7 +19,7 @@ sge::renderer::vf::format
 <
 	boost::mpl::vector1
 	<
-		part
+		fruitlib::pp::screen_vf::part
 	>
 >
 format;

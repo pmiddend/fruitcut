@@ -20,7 +20,7 @@ namespace nodes
 {
 class debugger
 :
-	public scenic::node<debugger>
+	public fruitlib::scenic::node<debugger>
 {
 FCPPT_NONCOPYABLE(
 	debugger);
@@ -36,7 +36,7 @@ public:
 	explicit
 	debugger(
 		fruitlib::scenic::optional_parent const &,
-		physics::debugger &);
+		fruitlib::physics::debugger &);
 
 	~debugger();
 
@@ -48,7 +48,7 @@ public:
 	react(
 		fruitlib::scenic::events::update const &);
 private:
-	physics::debugger &debugger_;
+	fruitlib::physics::debugger &debugger_;
 };
 }
 }

@@ -19,8 +19,7 @@
 #include <fcppt/to_std_string.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <elements/CEGUICombobox.h>
-#include <CEGUIWindowManager.h>
+#include <CEGUI/widgets/Combobox.h>
 #include <iostream>
 #include <fcppt/config/external_end.hpp>
 
@@ -41,18 +40,17 @@ fruitapp::states::menu::highscore::highscore(
 		fruitlib::media_path()
 			/FCPPT_TEXT("gui")
 			/FCPPT_TEXT("layouts")
-			/FCPPT_TEXT("new_highscore.layout"),
-		context<machine>().systems().charconv_system()),
+			/FCPPT_TEXT("new_highscore.layout")),
 	gui_sheet_(
 		context<machine>().gui_system(),
-		*context<machine>().gui_system().window_manager().getWindow("Highscores")),
+		*layout_.window().getChild("Highscores")),
 	main_menu_button_(
 		context<machine>().sound_controller(),
-		*context<machine>().gui_system().window_manager().getWindow(
+		*layout_.window().getChild(
 			"Highscores/MainMenu")),
 	quit_button_(
 		context<machine>().sound_controller(),
-		*context<machine>().gui_system().window_manager().getWindow(
+		*layout_.window().getChild(
 			"Highscores/Quit")),
 	main_menu_button_connection_(
 		main_menu_button_.push_callback(
@@ -66,7 +64,7 @@ fruitapp::states::menu::highscore::highscore(
 				awl::main::exit_success()))),
 	providers_(),
 	source_box_(
-		*context<machine>().gui_system().window_manager().getWindow(
+		*layout_.window().getChild(
 			"Highscores/Source")),
 	connection_(),
 	message_connection_(),
@@ -75,7 +73,7 @@ fruitapp::states::menu::highscore::highscore(
 	table_model_(),
 	table_view_(
 		context<fruitapp::machine>().systems().charconv_system(),
-		*context<machine>().gui_system().window_manager().getWindow(
+		*layout_.window().getChild(
 			"Highscores/List"),
 		table_model_)
 {
@@ -122,7 +120,7 @@ fruitapp::states::menu::highscore::switch_provider(
 	connection_ =
 		new_provider.create_connection();
 
-	context<fruitapp::machine>().gui_system().window_manager().getWindow(
+	layout_.window().getChild(
 		"Highscores/MessageLog")->setText(
 		"");
 
@@ -163,7 +161,7 @@ fruitapp::states::menu::highscore::text_received(
 	fcppt::string const &s)
 {
 	CEGUI::Window &w =
-		*context<fruitapp::machine>().gui_system().window_manager().getWindow(
+		*layout_.window().getChild(
 			"Highscores/MessageLog");
 
 	w.setText(

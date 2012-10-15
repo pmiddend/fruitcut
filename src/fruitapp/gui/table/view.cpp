@@ -7,8 +7,8 @@
 #include <fcppt/assert/pre_message.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <elements/CEGUIListboxTextItem.h>
-#include <elements/CEGUIMultiColumnList.h>
+#include <CEGUI/widgets/ListboxTextItem.h>
+#include <CEGUI/widgets/MultiColumnList.h>
 #include <iostream>
 #include <fcppt/config/external_end.hpp>
 

@@ -4,15 +4,12 @@
 #include <fruitlib/pp/texture/instance.hpp>
 #include <fruitlib/pp/texture/manager.hpp>
 #include <sge/image/color/format.hpp>
-#include <sge/renderer/scoped_block.hpp>
-#include <sge/renderer/scoped_target.hpp>
 #include <sge/renderer/vector2.hpp>
+#include <sge/renderer/context/scoped_core.hpp>
+#include <sge/renderer/target/offscreen.hpp>
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/planar_shared_ptr.hpp>
-#include <sge/renderer/texture/filter/linear.hpp>
-#include <sge/shader/activate_everything.hpp>
-#include <sge/shader/object.hpp>
-#include <sge/shader/scoped.hpp>
+#include <sge/shader/scoped_pair.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/math/dim/output.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
@@ -22,70 +19,81 @@
 
 
 fruitlib::pp::filter::add::add(
-	sge::renderer::device &_renderer,
-	filter::manager &_filter_manager,
-	texture::manager &_texture_manager,
-	sge::renderer::dim2 const &_dimension)
+	fruitlib::pp::filter::manager &_filter_manager,
+	fruitlib::pp::texture::manager &_texture_manager,
+	fruitlib::pp::filter::texture_size const &_dimension)
 :
-	renderer_(
-		_renderer),
 	filter_manager_(
 		_filter_manager),
+	texture_manager_(
+		_texture_manager),
 	dimension_(
 		_dimension),
 	shader_(
-		filter_manager_.lookup_shader(
-			FCPPT_TEXT("add"),
-			fcppt::assign::make_container<sge::shader::variable_sequence>(
-				sge::shader::variable(
-					"texture_size",
-					sge::shader::variable_type::uniform,
-					sge::renderer::vector2())),
-			fcppt::assign::make_container<sge::shader::sampler_sequence>
-				(sge::shader::sampler("tex1",sge::renderer::texture::planar_shared_ptr()))
-				(sge::shader::sampler("tex2",sge::renderer::texture::planar_shared_ptr())))),
-	texture_manager_(
-		_texture_manager)
+		_filter_manager.shader_context(),
+		_filter_manager.quad().vertex_declaration(),
+		sge::shader::vertex_program_path(
+			_filter_manager.base_path().get() / FCPPT_TEXT("add.cg")),
+		sge::shader::pixel_program_path(
+			_filter_manager.base_path().get() / FCPPT_TEXT("add.cg")),
+		_filter_manager.shader_cflags()),
+	texture_size_(
+		shader_.pixel_program(),
+		sge::shader::parameter::name(
+			"texture_size"),
+		fcppt::math::dim::structure_cast<fruitlib::pp::filter::ivec2_parameter::vector_type>(
+			dimension_.get())),
+	texture1_(
+		shader_.pixel_program(),
+		sge::shader::parameter::name(
+			"tex1"),
+		shader_,
+		filter_manager_.renderer(),
+		sge::shader::parameter::planar_texture::optional_value()),
+	texture2_(
+		shader_.pixel_program(),
+		sge::shader::parameter::name(
+			"tex2"),
+		shader_,
+		filter_manager_.renderer(),
+		sge::shader::parameter::planar_texture::optional_value())
 {
 }
 
 fruitlib::pp::texture::counted_instance const
 fruitlib::pp::filter::add::apply(
-	texture::counted_instance const input1,
-	texture::counted_instance const input2)
+	fruitlib::pp::texture::counted_instance const input1,
+	fruitlib::pp::texture::counted_instance const input2)
 {
-	shader_.update_texture(
-		"tex1",
-		input1->texture());
+	texture1_.set(
+		sge::shader::parameter::planar_texture::optional_value(
+			*(input1->texture())));
 
-	shader_.update_texture(
-		"tex2",
-		input2->texture());
+	texture2_.set(
+		sge::shader::parameter::planar_texture::optional_value(
+			*(input2->texture())));
 
-	sge::shader::scoped scoped_shader(
-		shader_,
-		sge::shader::activate_everything());
-
-	texture::counted_instance const result =
+	fruitlib::pp::texture::counted_instance const result =
 		texture_manager_.query(
-			texture::descriptor(
-				dimension_,
+			fruitlib::pp::texture::descriptor(
+				dimension_.get(),
 				sge::image::color::format::rgb8,
-				texture::depth_stencil_format::off));
+				fruitlib::pp::texture::depth_stencil_format::off));
 
-	shader_.update_uniform(
-		"texture_size",
-		fcppt::math::dim::structure_cast<sge::renderer::vector2>(
+	texture_size_.set(
+		fcppt::math::dim::structure_cast<fruitlib::pp::filter::ivec2_parameter::vector_type>(
 			result->texture()->size()));
 
-	sge::renderer::scoped_target const scoped_target(
-		renderer_,
+	sge::renderer::context::scoped_core scoped_context(
+		filter_manager_.renderer(),
 		result->target());
 
-	sge::renderer::scoped_block const block(
-		renderer_);
+	sge::shader::scoped_pair scoped_shader(
+		scoped_context.get(),
+		shader_);
 
-	filter_manager_.quad().render();
+	filter_manager_.quad().render(
+		scoped_context.get());
 
 	return
 		result;

@@ -15,11 +15,12 @@
 #include <fruitlib/scenic/optional_parent.hpp>
 #include <fruitlib/scenic/events/update.hpp>
 #include <sge/parse/json/object_fwd.hpp>
-#include <sge/renderer/device_fwd.hpp>
-#include <sge/renderer/viewport.hpp>
+#include <sge/shader/context_fwd.hpp>
 #include <sge/renderer/texture/planar_shared_ptr.hpp>
+#include <sge/renderer/context/core_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/function/object.hpp>
+#include <sge/renderer/target/viewport.hpp>
 #include <fcppt/preprocessor/const.hpp>
 #include <fcppt/preprocessor/pure.hpp>
 #include <fcppt/preprocessor/warn_unused_result.hpp>
@@ -42,18 +43,22 @@ public:
 	boost::mpl::vector1<fruitlib::scenic::events::update>
 	scene_reactions;
 
-	explicit
+	typedef
+	fcppt::function::object<void (sge::renderer::context::core &)>
+	render_callback;
+
 	postprocessing(
 		fruitlib::scenic::optional_parent const &,
-		sge::renderer::device &,
-		fcppt::function::object<void ()> const &render_func,
+		sge::shader::context &,
+		render_callback const &render_func,
 		sge::parse::json::object const &,
 		fruitapp::viewport::manager &);
 
 	void
-	render_result();
+	render_result(
+		sge::renderer::context::core &);
 
-	sge::renderer::texture::planar_shared_ptr const
+	sge::renderer::texture::planar_shared_ptr
 	result_texture()
 	FCPPT_PP_PURE;
 
@@ -97,7 +102,7 @@ private:
 
 	void
 	viewport_change(
-		sge::renderer::viewport const &);
+		sge::renderer::target::viewport const &);
 };
 }
 

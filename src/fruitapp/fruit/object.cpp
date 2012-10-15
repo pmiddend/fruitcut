@@ -24,9 +24,9 @@
 
 
 fruitapp::fruit::object::object(
-	fruit::prototype const &_prototype,
+	fruitapp::fruit::prototype const &_prototype,
 	fruitlib::physics::world &_physics_world,
-	sge::renderer::device &_renderer,
+	sge::renderer::device::core &_renderer,
 	sge::renderer::vertex_declaration &_vertex_declaration,
 	fruitapp::fruit::mesh_unique_ptr _mesh,
 	fruitlib::physics::group::object &_fruit_group,
@@ -44,8 +44,8 @@ fruitapp::fruit::object::object(
 		fcppt::move(
 			_mesh)),
 	bounding_box_(
-		boost::geometry::return_envelope<box3>(
-			fruit::mesh_to_point_cloud(
+		boost::geometry::return_envelope<fruitapp::fruit::box3>(
+			fruitapp::fruit::mesh_to_point_cloud(
 				*mesh_))),
 	body_(
 		fruitlib::physics::rigid_body::parameters(
@@ -57,7 +57,7 @@ fruitapp::fruit::object::object(
 				_linear_velocity),
 			fruitlib::physics::rigid_body::angular_velocity(
 				_angular_velocity),
-			fruit::mesh_to_shape(
+			fruitapp::fruit::mesh_to_shape(
 				*mesh_),
 			fruitlib::physics::rigid_body::solidity::solid,
 			fruitlib::physics::rigid_body::optional_mass(
@@ -71,7 +71,7 @@ fruitapp::fruit::object::object(
 			fcppt::ref(
 				_fruit_group))),
 	vb_(
-		fruit::mesh_to_vertex_buffer(
+		fruitapp::fruit::mesh_to_vertex_buffer(
 			_renderer,
 			_vertex_declaration,
 			*mesh_)),

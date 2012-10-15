@@ -5,15 +5,16 @@
 #include <fruitlib/pp/filter/base_fwd.hpp>
 #include <fruitlib/pp/filter/manager_fwd.hpp>
 #include <fruitlib/pp/filter/wrapper.hpp>
+#include <sge/renderer/context/core_fwd.hpp>
 #include <sge/renderer/texture/planar_shared_ptr.hpp>
-#include <sge/shader/object_fwd.hpp>
+#include <sge/shader/pair.hpp>
+#include <sge/shader/parameter/planar_texture.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/optional.hpp>
 #include <fcppt/string.hpp>
-#include <fcppt/preprocessor/pure.hpp>
-#include <fcppt/tr1/unordered_map.hpp>
-#include <fcppt/tr1/unordered_set.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <boost/unordered_map.hpp>
+#include <boost/unordered_set.hpp>
 #include <boost/graph/adjacency_list.hpp>
 #include <boost/graph/graph_traits.hpp>
 #include <map>
@@ -69,37 +70,36 @@ FCPPT_NONCOPYABLE(
 	system);
 public:
 	typedef
-	std::tr1::unordered_set<fcppt::string>
+	boost::unordered_set<fcppt::string>
 	filter_name_set;
 
 	explicit
 	system(
-		filter::manager &);
+		fruitlib::pp::filter::manager &);
 
 	void
 	update();
 
 	// _ptr on purpose!
 	sge::renderer::texture::planar_shared_ptr const
-	result_texture()
-	FCPPT_PP_PURE;
+	result_texture();
 
 	void
-	render_result();
+	render_result(
+		sge::renderer::context::core &);
 
 	void
 	add_filter(
-		filter::base &,
+		fruitlib::pp::filter::base &,
 		fcppt::string const &name,
-		dependency_set const &);
+		fruitlib::pp::dependency_set const &);
 
 	void
 	toggle_filter(
 		fcppt::string const &name);
 
 	filter_name_set const
-	filter_names() const
-	FCPPT_PP_PURE;
+	filter_names() const;
 private:
 	typedef
 	boost::adjacency_list
@@ -130,12 +130,12 @@ private:
 	std::map
 	<
 		vertex_descriptor,
-		filter::wrapper
+		fruitlib::pp::filter::wrapper
 	>
 	vertex_to_filter;
 
 	typedef
-	std::tr1::unordered_map
+	boost::unordered_map
 	<
 		fcppt::string,
 		vertex_descriptor
@@ -146,7 +146,8 @@ private:
 	graph graph_;
 	vertex_to_filter vertex_to_filter_;
 	name_to_vertex name_to_vertex_;
-	sge::shader::object &shader_;
+	sge::shader::pair shader_;
+	sge::shader::parameter::planar_texture texture_parameter_;
 	sge::renderer::texture::planar_shared_ptr result_texture_;
 };
 }

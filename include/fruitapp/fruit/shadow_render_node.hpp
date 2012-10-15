@@ -6,11 +6,14 @@
 #include <fruitlib/scenic/node.hpp>
 #include <fruitlib/scenic/optional_parent.hpp>
 #include <fruitlib/scenic/events/render.hpp>
+#include <sge/shader/pair.hpp>
+#include <sge/shader/parameter/matrix.hpp>
+#include <sge/shader/context_fwd.hpp>
 #include <sge/camera/first_person/object_fwd.hpp>
-#include <sge/renderer/device_fwd.hpp>
+#include <sge/renderer/state/core/depth_stencil/object_scoped_ptr.hpp>
 #include <sge/renderer/matrix4.hpp>
 #include <sge/renderer/vertex_declaration_fwd.hpp>
-#include <sge/shader/object.hpp>
+#include <sge/shader/pair.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/math/matrix/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -33,12 +36,11 @@ public:
 	boost::mpl::vector1<fruitlib::scenic::events::render>
 	scene_reactions;
 
-	explicit
 	shadow_render_node(
 		fruitlib::scenic::optional_parent const &,
-		sge::renderer::device &,
+		sge::shader::context &,
 		sge::renderer::vertex_declaration &,
-		fruit::manager const &,
+		fruitapp::fruit::manager const &,
 		fruitapp::shadow_mvp const &);
 
 	~shadow_render_node();
@@ -47,11 +49,12 @@ public:
 	react(
 		fruitlib::scenic::events::render const &);
 private:
-	sge::renderer::device &renderer_;
 	sge::renderer::vertex_declaration &vertex_declaration_;
-	fruit::manager const &manager_;
-	sge::shader::object shader_;
+	fruitapp::fruit::manager const &manager_;
+	sge::shader::pair shader_;
+	sge::shader::parameter::matrix<sge::renderer::scalar,4,4> mvp_parameter_;
 	fruitapp::shadow_mvp mvp_;
+	sge::renderer::state::core::depth_stencil::object_scoped_ptr const depth_stencil_state_;
 };
 }
 }

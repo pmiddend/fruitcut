@@ -26,9 +26,10 @@
 #include <sge/camera/first_person/object_fwd.hpp>
 #include <sge/cegui/syringe_fwd.hpp>
 #include <sge/cegui/system_fwd.hpp>
+#include <sge/shader/context_fwd.hpp>
 #include <sge/model/md3/loader_fwd.hpp>
 #include <sge/parse/json/object_fwd.hpp>
-#include <sge/systems/instance_fwd.hpp>
+#include <fruitapp/systems.hpp>
 #include <awl/main/exit_code.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/scoped_ptr.hpp>
@@ -54,7 +55,6 @@ public:
 	boost::statechart::state_machine<machine,states::loading>
 	base;
 
-	explicit
 	machine(
 		int argc,
 		char *argv[]);
@@ -63,9 +63,12 @@ public:
 	config_file() const
 	FCPPT_PP_CONST;
 
-	sge::systems::instance const &
+	fruitapp::systems const &
 	systems() const
 	FCPPT_PP_CONST;
+
+	sge::shader::context &
+	shader_context() const;
 
 	sge::model::md3::loader &
 	md3_loader()

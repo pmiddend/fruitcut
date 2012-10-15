@@ -11,7 +11,7 @@ fruitapp::fruit::object_from_prototype(
 	fruit::prototype const &_prototype,
 	fruitlib::physics::world &_physics_world,
 	fruitlib::physics::group::object &_fruit_group,
-	sge::renderer::device &_renderer,
+	sge::renderer::device::core &_renderer,
 	sge::renderer::vertex_declaration &_vertex_declaration,
 	fruitlib::physics::scalar const _mass,
 	fruitlib::physics::vector3 const &_position,
@@ -21,7 +21,7 @@ fruitapp::fruit::object_from_prototype(
 	fruitapp::ingame_clock const &_clock)
 {
 	return
-		fcppt::make_unique_ptr<fruit::object>(
+		fcppt::make_unique_ptr<fruitapp::fruit::object>(
 			fcppt::cref(
 				_prototype),
 			fcppt::ref(
@@ -30,7 +30,7 @@ fruitapp::fruit::object_from_prototype(
 				_renderer),
 			fcppt::ref(
 				_vertex_declaration),
-			fcppt::make_unique_ptr<fruit::mesh>(
+			fcppt::make_unique_ptr<fruitapp::fruit::mesh>(
 				fcppt::cref(
 					_prototype.mesh().triangles())),
 			fcppt::ref(

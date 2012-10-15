@@ -4,7 +4,7 @@
 #include <fruitlib/pp/texture/counted_instance.hpp>
 #include <fruitlib/pp/texture/descriptor.hpp>
 #include <fruitlib/pp/texture/instance.hpp>
-#include <sge/renderer/device_fwd.hpp>
+#include <sge/renderer/device/core_fwd.hpp>
 #include <sge/renderer/texture/planar_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -25,7 +25,7 @@ FCPPT_NONCOPYABLE(
 public:
 	explicit
 	manager(
-		sge::renderer::device &);
+		sge::renderer::device::core &);
 
 	// The texture descriptor may contain a dim thats equal to
 	// "use_screen_size()". If that is the case, the texture is
@@ -37,7 +37,7 @@ public:
 	//
 	// Alternatively, we could delete textures that aren't used for
 	// "some time".
-	counted_instance const
+	fruitlib::pp::texture::counted_instance const
 	query(
 		descriptor const &);
 
@@ -46,7 +46,7 @@ public:
 	// losing the first result. You just hold a reference to the
 	// original and fire up the second filter chain which will then not
 	// use the locked texture.
-	counted_instance const
+	fruitlib::pp::texture::counted_instance const
 	query(
 		sge::renderer::texture::planar &);
 
@@ -58,17 +58,17 @@ private:
 	typedef
 	boost::ptr_multimap
 	<
-		descriptor,
-		instance
+		fruitlib::pp::texture::descriptor,
+		fruitlib::pp::texture::instance
 	>
 	texture_map;
 
-	sge::renderer::device &renderer_;
+	sge::renderer::device::core &renderer_;
 	texture_map textures_;
 
-	counted_instance const
+	fruitlib::pp::texture::counted_instance const
 	query_internal(
-		descriptor const &);
+		fruitlib::pp::texture::descriptor const &);
 };
 }
 }

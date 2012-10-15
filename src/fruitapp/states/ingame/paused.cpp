@@ -1,4 +1,5 @@
 #include <fruitapp/postprocessing.hpp>
+#include <sge/renderer/context/ffp.hpp>
 #include <fruitapp/scene.hpp>
 #include <fruitapp/depths/overlay.hpp>
 #include <fruitapp/depths/root.hpp>
@@ -18,7 +19,7 @@
 #include <sge/input/keyboard/device.hpp>
 #include <sge/input/keyboard/key_code.hpp>
 #include <sge/parse/json/find_and_convert_member.hpp>
-#include <sge/renderer/device.hpp>
+#include <sge/renderer/device/ffp.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/timer/parameters.hpp>
 #include <sge/timer/reset_when_expired.hpp>
@@ -29,7 +30,7 @@
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <CEGUIWindowManager.h>
+#include <CEGUI/WindowManager.h>
 #include <iostream>
 #include <fcppt/config/external_end.hpp>
 
@@ -42,47 +43,46 @@ fruitapp::states::ingame::paused::paused(
 	node_base(
 		fruitlib::scenic::optional_parent(
 			fruitlib::scenic::parent(
-				context<machine>().overlay_node(),
+				context<fruitapp::machine>().overlay_node(),
 				fruitlib::scenic::depth(
 					depths::overlay::paused)))),
 	time_factor_(
-		context<machine>(),
+		context<fruitapp::machine>(),
 		0.0f),
 	scene_deactivation_(
-		context<machine>().scene_node(),
+		context<fruitapp::machine>().scene_node(),
 		false),
 	pp_deactivation_(
-		context<machine>().postprocessing(),
+		context<fruitapp::machine>().postprocessing(),
 		false),
 	system_(
-		context<machine>().postprocessing().filter_manager()),
+		context<fruitapp::machine>().postprocessing().filter_manager()),
 	inject_texture_(
-		context<machine>().postprocessing().texture_manager()),
+		context<fruitapp::machine>().postprocessing().texture_manager()),
 	blur_(
-		context<machine>().systems().renderer(),
-		context<machine>().postprocessing().filter_manager(),
-		context<machine>().postprocessing().texture_manager(),
-		fruitlib::pp::texture::use_screen_size(),
-		static_cast<fruitlib::pp::filter::blur::size_type>(
-			1)),
+		context<fruitapp::machine>().postprocessing().filter_manager(),
+		context<fruitapp::machine>().postprocessing().texture_manager(),
+		fruitlib::pp::filter::texture_size(
+			fruitlib::pp::texture::use_screen_size()),
+		fruitlib::pp::filter::iterations(
+			1u)),
 	current_texture_(
-		context<machine>().postprocessing().result_texture()),
+		context<fruitapp::machine>().postprocessing().result_texture()),
 	blur_iterations_(
-		static_cast<fruitlib::pp::filter::blur::size_type>(
-			0)),
+		0u),
 	max_blur_iterations_(
-		sge::parse::json::find_and_convert_member<fruitlib::pp::filter::blur::size_type>(
-			context<machine>().config_file(),
+		sge::parse::json::find_and_convert_member<fruitlib::pp::filter::iterations::value_type>(
+			context<fruitapp::machine>().config_file(),
 			sge::parse::json::path(FCPPT_TEXT("paused"))
 				/ FCPPT_TEXT("max-blur-iterations"))),
 	blur_timer_(
 		sge::timer::parameters<sge::timer::clocks::standard>(
 			fruitlib::time_format::find_and_convert_duration<sge::timer::clocks::standard::duration>(
-				context<machine>().config_file(),
+				context<fruitapp::machine>().config_file(),
 				sge::parse::json::path(FCPPT_TEXT("paused"))
 					/ FCPPT_TEXT("blur-frequency-time")))),
 	transit_to_running_connection_(
-		context<machine>().systems().keyboard_collector().key_callback(
+		context<fruitapp::machine>().systems().keyboard_collector().key_callback(
 			sge::input::keyboard::action(
 				sge::input::keyboard::key_code::escape,
 				std::tr1::bind(
@@ -91,44 +91,43 @@ fruitapp::states::ingame::paused::paused(
 					// toggle_pause event, which is not the desired behaviour
 					// (post_event posts to the queue, process_event immediately
 					// processes it)
-					&machine::post_event,
-					&context<machine>(),
+					&fruitapp::machine::post_event,
+					&context<fruitapp::machine>(),
 					events::generic_transition<ingame::running>())))),
 	gui_node_(
 		fruitlib::scenic::optional_parent(
 			fruitlib::scenic::parent(
-				context<machine>().overlay_node(),
+				context<fruitapp::machine>().overlay_node(),
 				fruitlib::scenic::depth(
 					depths::overlay::dont_care))),
-		context<machine>().gui_system(),
+		context<fruitapp::machine>().gui_system(),
 		context<fruitapp::machine>().standard_clock_callback()),
 	gui_keyboard_(
-		context<machine>().gui_syringe(),
-		context<machine>().systems().keyboard_collector()),
+		context<fruitapp::machine>().gui_syringe(),
+		context<fruitapp::machine>().systems().keyboard_collector()),
 	gui_cursor_(
-		context<machine>().gui_syringe(),
-		context<machine>().systems().cursor_demuxer()),
+		context<fruitapp::machine>().gui_syringe(),
+		context<fruitapp::machine>().systems().cursor_demuxer()),
 	layout_(
-		context<machine>().gui_system(),
+		context<fruitapp::machine>().gui_system(),
 		fruitlib::media_path()
 			/FCPPT_TEXT("gui")
 			/FCPPT_TEXT("layouts")
-			/FCPPT_TEXT("ingame_menu.layout"),
-		context<machine>().systems().charconv_system()),
+			/FCPPT_TEXT("ingame_menu.layout")),
 	gui_sheet_(
-		context<machine>().gui_system(),
-		*context<machine>().gui_system().window_manager().getWindow("MainMenu")),
+		context<fruitapp::machine>().gui_system(),
+		*layout_.window().getChild("MainMenu")),
 	continue_button_(
-		context<machine>().sound_controller(),
-		*context<machine>().gui_system().window_manager().getWindow(
+		context<fruitapp::machine>().sound_controller(),
+		*layout_.window().getChild(
 			"IngameMenu/Continue")),
 	main_menu_button_(
-		context<machine>().sound_controller(),
-		*context<machine>().gui_system().window_manager().getWindow(
+		context<fruitapp::machine>().sound_controller(),
+		*layout_.window().getChild(
 			"IngameMenu/MainMenu")),
 	quit_button_(
 		context<machine>().sound_controller(),
-		*context<machine>().gui_system().window_manager().getWindow(
+		*layout_.window().getChild(
 			"IngameMenu/Quit")),
 	continue_connection_(
 		continue_button_.push_callback(
@@ -171,16 +170,17 @@ fruitapp::states::ingame::paused::~paused()
 
 void
 fruitapp::states::ingame::paused::react(
-	fruitlib::scenic::events::render const &)
+	fruitlib::scenic::events::render const &_render_event)
 {
-	system_.render_result();
+	system_.render_result(
+		_render_event.context());
 }
 
 void
 fruitapp::states::ingame::paused::react(
 	fruitlib::scenic::events::update const &)
 {
-	if(!blur_iterations_ || (blur_iterations_ < max_blur_iterations_ && sge::timer::reset_when_expired(blur_timer_)))
+	if(!blur_iterations_.get() || (blur_iterations_ < max_blur_iterations_ && sge::timer::reset_when_expired(blur_timer_)))
 	{
 		inject_texture_.texture(
 			current_texture_);

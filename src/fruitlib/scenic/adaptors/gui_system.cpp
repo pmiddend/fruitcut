@@ -44,7 +44,8 @@ fruitlib::scenic::adaptors::gui_system::react(
 
 void
 fruitlib::scenic::adaptors::gui_system::react(
-	events::render const &)
+	fruitlib::scenic::events::render const &_render_event)
 {
-	system_.render();
+	system_.render(
+		_render_event.context());
 }

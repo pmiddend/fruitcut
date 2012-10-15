@@ -6,12 +6,13 @@
 #include <sge/input/keyboard/action.hpp>
 #include <sge/input/keyboard/device.hpp>
 #include <sge/input/keyboard/key_code.hpp>
-#include <sge/renderer/device_fwd.hpp>
+#include <sge/renderer/device/core_fwd.hpp>
 #include <sge/renderer/screenshot.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/ref.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/filesystem/create_directory_exn.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/io/cout.hpp>
@@ -27,7 +28,7 @@
 
 fruitapp::screen_shooter::screen_shooter(
 	sge::input::keyboard::device &_keyboard,
-	sge::renderer::device &_renderer,
+	sge::renderer::device::core &_renderer,
 	sge::image2d::system &_image_loader,
 	fruitapp::quick_log &_log)
 :

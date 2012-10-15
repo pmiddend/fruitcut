@@ -1,10 +1,11 @@
 #include <fruitlib/physics/debugger.hpp>
 #include <fruitlib/physics/nodes/debugger.hpp>
+#include <fruitlib/scenic/events/render.hpp>
 
 
 fruitlib::physics::nodes::debugger::debugger(
 	fruitlib::scenic::optional_parent const &_parent,
-	physics::debugger &_debugger)
+	fruitlib::physics::debugger &_debugger)
 :
 	node_base(
 		_parent),
@@ -26,7 +27,8 @@ fruitlib::physics::nodes::debugger::react(
 
 void
 fruitlib::physics::nodes::debugger::react(
-	fruitlib::scenic::events::render const &)
+	fruitlib::scenic::events::render const &_render_event)
 {
-	debugger_.render();
+	debugger_.render(
+		_render_event.context());
 }

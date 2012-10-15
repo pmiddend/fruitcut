@@ -14,7 +14,7 @@ namespace screen_vf
 typedef
 sge::renderer::vf::view
 <
-	part
+	fruitlib::pp::screen_vf::part
 >
 vertex_view;
 }

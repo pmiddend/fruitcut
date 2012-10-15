@@ -4,17 +4,14 @@
 #include <fruitlib/pp/texture/instance.hpp>
 #include <fruitlib/pp/texture/manager.hpp>
 #include <sge/image/color/format.hpp>
-#include <sge/renderer/device.hpp>
-#include <sge/renderer/scoped_block.hpp>
-#include <sge/renderer/scoped_target.hpp>
 #include <sge/renderer/vector2.hpp>
+#include <sge/renderer/context/scoped_core.hpp>
+#include <sge/renderer/target/offscreen.hpp>
 #include <sge/renderer/texture/planar.hpp>
-#include <sge/renderer/texture/planar_shared_ptr.hpp>
-#include <sge/shader/activate_everything.hpp>
-#include <sge/shader/object.hpp>
-#include <sge/shader/scoped.hpp>
+#include <sge/shader/scoped_pair.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assign/make_container.hpp>
+#include <fcppt/math/dim/object_impl.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <iostream>
@@ -22,14 +19,11 @@
 
 
 fruitlib::pp::filter::highlight::highlight(
-	sge::renderer::device &_renderer,
-	filter::manager &_filter_manager,
-	texture::manager &_texture_manager,
-	sge::renderer::dim2 const &_texture_size,
-	sge::renderer::scalar const _threshold)
+	fruitlib::pp::filter::manager &_filter_manager,
+	fruitlib::pp::texture::manager &_texture_manager,
+	fruitlib::pp::filter::texture_size const &_texture_size,
+	threshold_factor const &_threshold)
 :
-	renderer_(
-		_renderer),
 	filter_manager_(
 		_filter_manager),
 	texture_manager_(
@@ -37,56 +31,71 @@ fruitlib::pp::filter::highlight::highlight(
 	texture_size_(
 		_texture_size),
 	shader_(
-		filter_manager_.lookup_shader(
-			FCPPT_TEXT("highlight"),
-			fcppt::assign::make_container<sge::shader::variable_sequence>
-				(sge::shader::variable(
-					"texture_size",
-					sge::shader::variable_type::uniform,
-					sge::renderer::vector2()))
-				(sge::shader::variable(
-					"threshold",
-					sge::shader::variable_type::constant,
-					_threshold)),
-			fcppt::assign::make_container<sge::shader::sampler_sequence>(
-				sge::shader::sampler(
-					"tex",
-					sge::renderer::texture::planar_shared_ptr()))))
+		_filter_manager.shader_context(),
+		_filter_manager.quad().vertex_declaration(),
+		sge::shader::vertex_program_path(
+			_filter_manager.base_path().get() / FCPPT_TEXT("highlight.cg")),
+		sge::shader::pixel_program_path(
+			_filter_manager.base_path().get() / FCPPT_TEXT("highlight.cg")),
+		_filter_manager.shader_cflags()),
+	texture_size_parameter_(
+		shader_.pixel_program(),
+		sge::shader::parameter::name(
+			"texture_size"),
+		fcppt::math::dim::structure_cast<fruitlib::pp::filter::ivec2_parameter::vector_type>(
+			texture_size_.get())),
+	threshold_(
+		shader_.pixel_program(),
+		sge::shader::parameter::name(
+			"threshold"),
+		_threshold.get()),
+	texture_(
+		shader_.pixel_program(),
+		sge::shader::parameter::name(
+			"tex"),
+		shader_,
+		filter_manager_.renderer(),
+		sge::shader::parameter::planar_texture::optional_value())
 {
+}
+
+void
+fruitlib::pp::filter::highlight::threshold(
+	threshold_factor const &_factor)
+{
+	threshold_.set(
+		_factor.get());
 }
 
 fruitlib::pp::texture::counted_instance const
 fruitlib::pp::filter::highlight::apply(
-	texture::counted_instance const input)
+	fruitlib::pp::texture::counted_instance const input)
 {
-	shader_.update_texture(
-		"tex",
-		input->texture());
+	texture_.set(
+		sge::shader::parameter::planar_texture::optional_value(
+			*(input->texture())));
 
-	texture::counted_instance const result =
+	fruitlib::pp::texture::counted_instance const result =
 		texture_manager_.query(
-			texture::descriptor(
-				texture_size_,
+			fruitlib::pp::texture::descriptor(
+				texture_size_.get(),
 				sge::image::color::format::rgb8,
 				texture::depth_stencil_format::off));
 
-	sge::shader::scoped scoped_shader(
-		shader_,
-		sge::shader::activate_everything());
-
-	shader_.update_uniform(
-		"texture_size",
-		fcppt::math::dim::structure_cast<sge::renderer::vector2>(
+	texture_size_parameter_.set(
+		fcppt::math::dim::structure_cast<fruitlib::pp::filter::ivec2_parameter::vector_type>(
 			result->texture()->size()));
 
-	sge::renderer::scoped_target const scoped_target(
-		renderer_,
+	sge::renderer::context::scoped_core scoped_context(
+		filter_manager_.renderer(),
 		result->target());
 
-	sge::renderer::scoped_block const block(
-		renderer_);
+	sge::shader::scoped_pair scoped_shader(
+		scoped_context.get(),
+		shader_);
 
-	filter_manager_.quad().render();
+	filter_manager_.quad().render(
+		scoped_context.get());
 
 	return result;
 }

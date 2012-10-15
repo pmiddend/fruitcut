@@ -17,9 +17,9 @@
 #include <fruitlib/scenic/parent_fwd.hpp>
 #include <fruitlib/scenic/events/update.hpp>
 #include <sge/parse/json/object_fwd.hpp>
-#include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/scalar.hpp>
-#include <sge/renderer/viewport.hpp>
+#include <sge/renderer/device/ffp_fwd.hpp>
+#include <sge/renderer/target/viewport.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -42,9 +42,9 @@ public:
 	boost::mpl::vector1<fruitlib::scenic::events::update>
 	scene_reactions;
 
-	explicit
 	object(
 		fruitlib::scenic::optional_parent const &,
+		sge::renderer::device::ffp &,
 		fruitapp::ingame_clock const &,
 		// to get round seconds and stuff
 		sge::parse::json::object const &,
@@ -53,23 +53,23 @@ public:
 		// - "fruit was deleted"
 		// - "fruit was added" (we could consult the spawner for that, but that's not The Right Thing)
 		fruitlib::audio::sound_controller &,
-		fruit::manager &,
+		fruitapp::fruit::manager &,
 		fruitlib::font::cache &,
-		overlay &,
+		fruitapp::overlay &,
 		fruitapp::viewport::manager &);
 
 	bool
 	finished() const;
 
-	highscore::score::value_type
+	fruitapp::highscore::score::value_type
 	score() const;
 
 	void
 	react(
 		fruitlib::scenic::events::update const &);
 private:
-	fruit::area::value_type const area_score_factor_;
-	highscore::score::value_type score_,iterating_score_;
+	fruitapp::fruit::area::value_type const area_score_factor_;
+	fruitapp::highscore::score::value_type score_,iterating_score_;
 	fruitapp::ingame_timer round_timer_;
 	fruitlib::audio::sound_controller &sound_controller_;
 	fcppt::signal::scoped_connection fruit_added_connection_;
@@ -87,23 +87,23 @@ private:
 
 	void
 	fruit_added(
-		fruit::object const &);
+		fruitapp::fruit::object const &);
 
 	void
 	fruit_removed(
-		fruit::object const &);
+		fruitapp::fruit::object const &);
 
 	void
 	fruit_cut(
-		fruit::cut_context const &);
+		fruitapp::fruit::cut_context const &);
 
 	void
 	increase_score(
-		highscore::score::value_type const &);
+		fruitapp::highscore::score::value_type const &);
 
 	void
 	viewport_change(
-		sge::renderer::viewport const &);
+		sge::renderer::target::viewport const &);
 };
 }
 }

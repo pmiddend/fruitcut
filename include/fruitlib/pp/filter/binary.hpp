@@ -14,21 +14,20 @@ namespace filter
 {
 class binary
 :
-	public base
+	public fruitlib::pp::filter::base
 {
 FCPPT_NONCOPYABLE(
 	binary);
 public:
-	explicit
-	binary();
-
 	virtual
 	~binary();
 
-	virtual texture::counted_instance const
+	virtual fruitlib::pp::texture::counted_instance const
 	apply(
-		texture::counted_instance,
-		texture::counted_instance) = 0;
+		fruitlib::pp::texture::counted_instance,
+		fruitlib::pp::texture::counted_instance) = 0;
+protected:
+	binary();
 };
 }
 }

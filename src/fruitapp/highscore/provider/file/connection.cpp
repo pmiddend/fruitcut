@@ -67,7 +67,7 @@ fruitapp::highscore::provider::file::connection::post_rank(
 		fcppt::string::const_iterator current_position =
 			converted_file->begin();
 
-		sge::parse::json::object result;
+		sge::parse::json::start result;
 
 		// If the file exists, it has to be valid. It won't be
 		// overridden because it's invalid (we might want to inspect
@@ -84,7 +84,7 @@ fruitapp::highscore::provider::file::connection::post_rank(
 
 		entries =
 			highscore::json_to_entry_set(
-				result);
+				result.object());
 	}
 
 	highscore::entry const new_entry(
@@ -103,8 +103,9 @@ fruitapp::highscore::provider::file::connection::post_rank(
 	if(
 		!fruitlib::fcppt_string_to_utf8_file(
 			sge::parse::json::output::tabbed_to_string(
-				highscore::entry_set_to_json(
-					entries)),
+				sge::parse::json::start(
+					highscore::entry_set_to_json(
+						entries))),
 			path_,
 			charconv_system_))
 	{
@@ -127,7 +128,7 @@ fruitapp::highscore::provider::file::connection::post_rank(
 void
 fruitapp::highscore::provider::file::connection::retrieve_list()
 {
-	sge::parse::json::object result;
+	sge::parse::json::start result;
 	if(!sge::parse::json::parse_file(path_,result))
 	{
 		if(!boost::filesystem::exists(path_))
@@ -147,7 +148,7 @@ fruitapp::highscore::provider::file::connection::retrieve_list()
 
 	list_received_(
 		highscore::json_to_entry_set(
-			result));
+			result.object()));
 
 	message_received_(
 		FCPPT_TEXT("Parsed file \"")+

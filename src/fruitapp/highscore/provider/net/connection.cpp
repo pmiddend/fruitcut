@@ -397,7 +397,7 @@ fruitapp::highscore::provider::net::connection::handle_read_content(
 	fcppt::string::const_iterator current =
 		content_converted.begin();
 
-	sge::parse::json::object result;
+	sge::parse::json::start result;
 	if(!sge::parse::json::parse_range(current,content_converted.end(),result))
 	{
 		fcppt::io::cerr()
@@ -417,7 +417,7 @@ fruitapp::highscore::provider::net::connection::handle_read_content(
 
 	const_optional_string_ref const json_error(
 		sge::parse::json::find_member<fcppt::string>(
-			result.members,
+			result.object().members,
 			FCPPT_TEXT("error")));
 
 	if(json_error)
@@ -429,7 +429,7 @@ fruitapp::highscore::provider::net::connection::handle_read_content(
 	}
 
 	continue_here(
-		result);
+		result.object());
 }
 
 void

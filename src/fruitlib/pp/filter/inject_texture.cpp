@@ -3,7 +3,7 @@
 
 
 fruitlib::pp::filter::inject_texture::inject_texture(
-	texture::manager &_texture_manager)
+	fruitlib::pp::texture::manager &_texture_manager)
 :
 	texture_manager_(
 		_texture_manager),

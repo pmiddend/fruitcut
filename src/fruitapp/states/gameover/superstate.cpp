@@ -11,17 +11,17 @@ fruitapp::states::gameover::superstate::superstate(
 	gui_node_(
 		fruitlib::scenic::optional_parent(
 			fruitlib::scenic::parent(
-				context<machine>().overlay_node(),
+				context<fruitapp::machine>().overlay_node(),
 				fruitlib::scenic::depth(
 					depths::overlay::dont_care))),
-		context<machine>().gui_system(),
+		context<fruitapp::machine>().gui_system(),
 		context<fruitapp::machine>().standard_clock_callback()),
 	gui_keyboard_(
-		context<machine>().gui_syringe(),
-		context<machine>().systems().keyboard_collector()),
+		context<fruitapp::machine>().gui_syringe(),
+		context<fruitapp::machine>().systems().keyboard_collector()),
 	gui_cursor_(
-		context<machine>().gui_syringe(),
-		context<machine>().systems().cursor_demuxer()),
+		context<fruitapp::machine>().gui_syringe(),
+		context<fruitapp::machine>().systems().cursor_demuxer()),
 	name_(
 		"You shouldn't see this")
 {

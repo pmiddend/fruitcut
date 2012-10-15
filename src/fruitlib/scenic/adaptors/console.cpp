@@ -4,7 +4,7 @@
 
 
 fruitlib::scenic::adaptors::console::console(
-	scenic::optional_parent const &_parent,
+	fruitlib::scenic::optional_parent const &_parent,
 	sge::console::gfx &_gfx)
 :
 	node_base(
@@ -20,8 +20,9 @@ fruitlib::scenic::adaptors::console::~console()
 
 void
 fruitlib::scenic::adaptors::console::react(
-	events::render const &)
+	fruitlib::scenic::events::render const &_render_event)
 {
 	if(gfx_.active())
-		gfx_.render();
+		gfx_.render(
+			_render_event.context());
 }

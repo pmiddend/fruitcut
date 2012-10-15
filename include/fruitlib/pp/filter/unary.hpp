@@ -14,20 +14,19 @@ namespace filter
 {
 class unary
 :
-	public base
+	public fruitlib::pp::filter::base
 {
 FCPPT_NONCOPYABLE(
 		unary);
 public:
-	explicit
-	unary();
-
 	virtual
 	~unary();
 
-	virtual texture::counted_instance const
+	virtual fruitlib::pp::texture::counted_instance const
 	apply(
-		texture::counted_instance) = 0;
+		fruitlib::pp::texture::counted_instance) = 0;
+protected:
+	unary();
 };
 }
 }

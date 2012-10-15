@@ -1,9 +1,10 @@
 #ifndef FRUITLIB_PP_SCREEN_VF_QUAD_HPP_INCLUDED
 #define FRUITLIB_PP_SCREEN_VF_QUAD_HPP_INCLUDED
 
-#include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/vertex_buffer_scoped_ptr.hpp>
 #include <sge/renderer/vertex_declaration_scoped_ptr.hpp>
+#include <sge/renderer/context/core_fwd.hpp>
+#include <sge/renderer/device/core_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 
 
@@ -20,13 +21,13 @@ FCPPT_NONCOPYABLE(
 public:
 	explicit
 	quad(
-		sge::renderer::device &);
+		sge::renderer::device::core &);
 
-	explicit
 	quad();
 
 	void
-	render();
+	render(
+		sge::renderer::context::core &);
 
 	sge::renderer::vertex_declaration &
 	vertex_declaration();
@@ -36,9 +37,9 @@ public:
 
 	~quad();
 private:
-	sge::renderer::device &renderer_;
-	sge::renderer::vertex_declaration_scoped_ptr declaration_;
-	sge::renderer::vertex_buffer_scoped_ptr buffer_;
+	sge::renderer::device::core &renderer_;
+	sge::renderer::vertex_declaration_scoped_ptr const declaration_;
+	sge::renderer::vertex_buffer_scoped_ptr const buffer_;
 };
 }
 }

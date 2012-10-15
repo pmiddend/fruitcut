@@ -1,8 +1,6 @@
 #include <fruitlib/font/cache.hpp>
-#include <fruitlib/font/drawer/object.hpp>
-#include <fruitlib/font/drawer/parameters.hpp>
-#include <sge/font/metrics.hpp>
-#include <sge/font/size_type.hpp>
+#include <sge/font/object.hpp>
+#include <sge/font/parameters.hpp>
 #include <sge/font/system.hpp>
 #include <sge/font/bitmap/create.hpp>
 #include <sge/image2d/system.hpp>
@@ -16,10 +14,8 @@
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/assert/error.hpp>
 #include <fcppt/assert/pre_message.hpp>
 #include <fcppt/container/ptr/push_back_unique_ptr.hpp>
-#include <fcppt/filesystem/extension_without_dot.hpp>
 #include <fcppt/tr1/type_traits.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/next_prior.hpp>
@@ -32,36 +28,18 @@
 
 fruitlib::font::cache::cache(
 	sge::font::system &_font_system,
-	sge::renderer::device &_renderer,
 	sge::image2d::system &_image_loader,
-	boost::filesystem::path const &_base_path,
-	sge::parse::json::object const &_fonts)
+	sge::parse::json::object const &_fonts,
+	fruitlib::font::base_path const &_base_path)
 :
-	metrics_(),
-	drawers_(),
-	to_metrics_(),
-	to_drawer_(),
-	base_path_(
-		_base_path)
+	objects_(),
+	to_object_()
 {
 	typedef
-	std::map
-	<
-		fcppt::string,
-		std::pair<metrics_sequence::iterator,drawer_sequence::iterator>
-	>
-	bitmap_font_cache;
+	std::map<fcppt::string,object_sequence::iterator>
+	bitmap_font_name_to_object;
 
-	typedef
-	std::map
-	<
-		std::pair<fcppt::string,sge::font::size_type>,
-		std::pair<metrics_sequence::iterator,drawer_sequence::iterator>
-	>
-	ttf_font_cache;
-
-	bitmap_font_cache bitmap_fonts_;
-	ttf_font_cache ttf_fonts_;
+	bitmap_font_name_to_object bitmap_font_name_to_object_;
 
 	for(
 		sge::parse::json::member_map::const_iterator current_font_raw =
@@ -69,144 +47,92 @@ fruitlib::font::cache::cache(
 		current_font_raw != _fonts.members.end();
 		++current_font_raw)
 	{
-		fcppt::string const current_identifier =
-			current_font_raw->first;
+		fruitlib::font::identifier const current_identifier(
+			current_font_raw->first);
 
 		sge::parse::json::object const &current_font =
 			sge::parse::json::get<sge::parse::json::object>(
 				current_font_raw->second);
 
-		fcppt::string const filename =
+		fcppt::string const name =
 			sge::parse::json::find_member_exn<sge::parse::json::string>(
 				current_font.members,
-				FCPPT_TEXT("filename"));
+				FCPPT_TEXT("name"));
 
-		if(fcppt::filesystem::extension_without_dot(filename) == FCPPT_TEXT("ttf"))
+		if(name.substr(0,4) == FCPPT_TEXT("ttf:"))
 		{
-			sge::font::size_type font_size =
-				sge::parse::json::find_and_convert_member<sge::font::size_type>(
+			fcppt::string const real_name(
+				name.substr(
+					4));
+
+			sge::font::ttf_size const font_size(
+				sge::parse::json::find_and_convert_member<sge::font::ttf_size>(
 					current_font,
 					sge::parse::json::path(
-						FCPPT_TEXT("size")));
+						FCPPT_TEXT("size"))));
 
-			// (string,size) -> (metrics_it,drawer_it)
-			ttf_font_cache::iterator cached_value =
-				ttf_fonts_.find(
-					std::make_pair(
-						filename,
-						font_size));
+			fcppt::container::ptr::push_back_unique_ptr(
+				objects_,
+				_font_system.create_font(
+					sge::font::parameters()
+						.family(
+							real_name)
+						.ttf_size(
+							font_size)));
 
-			if (cached_value == ttf_fonts_.end())
-			{
-				fcppt::container::ptr::push_back_unique_ptr(
-					metrics_,
-					_font_system.create_font(
-						base_path_/FCPPT_TEXT("fonts")/filename,
-						font_size));
-
-				fcppt::container::ptr::push_back_unique_ptr(
-					drawers_,
-					fcppt::make_unique_ptr<fruitlib::font::drawer::object>(
-						fruitlib::font::drawer::parameters(
-							_renderer)));
-
-				cached_value =
-					ttf_fonts_.insert(
-						std::make_pair(
-							std::make_pair(
-								filename,
-								font_size),
-							std::make_pair(
-								boost::prior(
-									metrics_.end()),
-								boost::prior(
-									drawers_.end())))).first;
-			}
-
-			to_metrics_.insert(
+			to_object_.insert(
 				std::make_pair(
 					current_identifier,
-					cached_value->second.first));
-			to_drawer_.insert(
-				std::make_pair(
-					current_identifier,
-					cached_value->second.second));
+					boost::prior(
+						objects_.end())));
 		}
 		else
 		{
-			// string -> (metrics_it,drawer_it)
-			bitmap_font_cache::const_iterator cached_value =
-				bitmap_fonts_.find(
-					filename);
+			// string -> (objects_it,drawer_it)
+			bitmap_font_name_to_object::const_iterator cached_value =
+				bitmap_font_name_to_object_.find(
+					name);
 
-			if (cached_value == bitmap_fonts_.end())
+			if(cached_value == bitmap_font_name_to_object_.end())
 			{
 				fcppt::container::ptr::push_back_unique_ptr(
-					metrics_,
+					objects_,
 					sge::font::bitmap::create(
-						base_path_/FCPPT_TEXT("fonts")/filename,
+						_base_path.get() / FCPPT_TEXT("fonts") / name,
 						_image_loader));
 
-				fcppt::container::ptr::push_back_unique_ptr(
-					drawers_,
-					fcppt::make_unique_ptr<fruitlib::font::drawer::object>(
-						fruitlib::font::drawer::parameters(
-							_renderer)));
 				cached_value =
-					bitmap_fonts_.insert(
+					bitmap_font_name_to_object_.insert(
 						std::make_pair(
-							filename,
-							std::make_pair(
-								boost::prior(
-									metrics_.end()),
-								boost::prior(
-									drawers_.end())))).first;
+							name,
+							boost::prior(
+								objects_.end()))).first;
 			}
 
-			to_metrics_.insert(
+			to_object_.insert(
 				std::make_pair(
 					current_identifier,
-					cached_value->second.first));
-			to_drawer_.insert(
-				std::make_pair(
-					current_identifier,
-					cached_value->second.second));
+					cached_value->second));
 		}
 	}
-
-	FCPPT_ASSERT_ERROR(
-		to_metrics_.size() == to_drawer_.size());
 }
 
-sge::font::metrics &
-fruitlib::font::cache::metrics(
-	fcppt::string const &identifier)
+sge::font::object &
+fruitlib::font::cache::get(
+	fruitlib::font::identifier const &_identifier)
 {
-	to_metrics::const_iterator i =
-		to_metrics_.find(
-			identifier);
+	to_object::const_iterator i =
+		to_object_.find(
+			_identifier);
+
 	FCPPT_ASSERT_PRE_MESSAGE(
-		i != to_metrics_.end(),
+		i != to_object_.end(),
 		FCPPT_TEXT("Font called ")+
-		identifier+
+		_identifier+
 		FCPPT_TEXT(" not found!"));
+
 	return
 		*(i->second);
-}
-
-fruitlib::font::drawer::object &
-fruitlib::font::cache::drawer(
-	fcppt::string const &identifier)
-{
-	to_drawer::const_iterator i =
-		to_drawer_.find(
-			identifier);
-	FCPPT_ASSERT_PRE_MESSAGE(
-		i != to_drawer_.end(),
-		FCPPT_TEXT("Font called ")+
-		identifier+
-		FCPPT_TEXT(" not found!"));
-	return *(i->second);
 }
 
 fruitlib::font::cache::~cache()

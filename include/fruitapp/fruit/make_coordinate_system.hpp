@@ -62,10 +62,6 @@ make_coordinate_system(
 	scalar;
 
 	typedef typename
-	Container::size_type
-	size_type;
-
-	typedef typename
 	Container::const_iterator
 	const_iterator;
 

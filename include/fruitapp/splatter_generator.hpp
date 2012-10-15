@@ -1,6 +1,7 @@
 #ifndef FRUITAPP_SPLATTER_GENERATOR_HPP_INCLUDED
 #define FRUITAPP_SPLATTER_GENERATOR_HPP_INCLUDED
 
+#if 0
 #include <fruitapp/ingame_clock.hpp>
 #include <fruitapp/fruit/area.hpp>
 #include <fruitapp/fruit/cut_context_fwd.hpp>
@@ -19,16 +20,17 @@
 #include <fcppt/config/external_begin.hpp>
 #include <boost/chrono/duration.hpp>
 #include <fcppt/config/external_end.hpp>
+#endif
 
 
 namespace fruitapp
 {
+#if 0
 class splatter_generator
 {
 FCPPT_NONCOPYABLE(
 	splatter_generator);
 public:
-	explicit
 	splatter_generator(
 		sge::parse::json::object const &,
 		sge::parse::json::config::user_config_variable<fruit::area::value_type> &_splatter_count_to_area_factor,
@@ -79,6 +81,9 @@ private:
 	lifetime_millis_rng lifetime_millis_rng_;
 	sge::parse::json::config::user_config_variable<fruit::area::value_type> &splatter_count_to_area_factor_;
 };
+#else
+class splatter_generator {};
+#endif
 }
 
 #endif

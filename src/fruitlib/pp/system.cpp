@@ -10,9 +10,7 @@
 #include <sge/image/color/format.hpp>
 #include <sge/renderer/vector2.hpp>
 #include <sge/renderer/texture/planar_shared_ptr.hpp>
-#include <sge/shader/activate_everything.hpp>
-#include <sge/shader/object.hpp>
-#include <sge/shader/scoped.hpp>
+#include <sge/shader/scoped_pair.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/assert/pre.hpp>
 #include <fcppt/assert/pre_message.hpp>
@@ -27,7 +25,7 @@
 
 
 fruitlib::pp::system::system(
-	filter::manager &_filter_manager)
+	fruitlib::pp::filter::manager &_filter_manager)
 :
 	filter_manager_(
 		_filter_manager),
@@ -35,13 +33,20 @@ fruitlib::pp::system::system(
 	vertex_to_filter_(),
 	name_to_vertex_(),
 	shader_(
-		_filter_manager.lookup_shader(
-			FCPPT_TEXT("pp_to_screen"),
-			sge::shader::variable_sequence(),
-			fcppt::assign::make_container<sge::shader::sampler_sequence>(
-				sge::shader::sampler(
-					"tex",
-					sge::renderer::texture::planar_shared_ptr())))),
+		_filter_manager.shader_context(),
+		_filter_manager.quad().vertex_declaration(),
+		sge::shader::vertex_program_path(
+			_filter_manager.base_path().get() / FCPPT_TEXT("pp_to_screen.cg")),
+		sge::shader::pixel_program_path(
+			_filter_manager.base_path().get() / FCPPT_TEXT("pp_to_screen.cg")),
+		_filter_manager.shader_cflags()),
+	texture_parameter_(
+		shader_.pixel_program(),
+		sge::shader::parameter::name(
+			"tex"),
+		shader_,
+		filter_manager_.renderer(),
+		sge::shader::parameter::planar_texture::optional_value()),
 	result_texture_()
 {
 }
@@ -98,17 +103,19 @@ fruitlib::pp::system::result_texture()
 }
 
 void
-fruitlib::pp::system::render_result()
+fruitlib::pp::system::render_result(
+	sge::renderer::context::core &_context)
 {
-	shader_.update_texture(
-		"tex",
-		result_texture_);
+	texture_parameter_.set(
+		sge::shader::parameter::planar_texture::optional_value(
+			*result_texture_));
 
-	sge::shader::scoped scoped_shader(
-		shader_,
-		sge::shader::activate_everything());
+	sge::shader::scoped_pair scoped_shader(
+		_context,
+		shader_);
 
-	filter_manager_.quad().render();
+	filter_manager_.quad().render(
+		_context);
 }
 
 void

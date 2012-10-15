@@ -4,38 +4,33 @@
 #include <fruitlib/pp/texture/instance.hpp>
 #include <fruitlib/pp/texture/manager.hpp>
 #include <sge/image/color/format.hpp>
-#include <sge/renderer/resource_flags_none.hpp>
-#include <sge/renderer/scoped_block.hpp>
-#include <sge/renderer/scoped_target.hpp>
 #include <sge/renderer/vector2.hpp>
-#include <sge/renderer/glsl/scoped_program.hpp>
+#include <sge/renderer/context/core.hpp>
+#include <sge/renderer/context/scoped_core.hpp>
+#include <sge/renderer/target/offscreen.hpp>
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/planar_shared_ptr.hpp>
-#include <sge/shader/activate_everything.hpp>
-#include <sge/shader/object.hpp>
-#include <sge/shader/scoped.hpp>
-#include <sge/shader/update_single_uniform.hpp>
+#include <sge/shader/scoped_pair.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/ref.hpp>
 #include <fcppt/assert/pre.hpp>
 #include <fcppt/assign/make_array.hpp>
 #include <fcppt/assign/make_container.hpp>
+#include <fcppt/container/ptr/replace_unique_ptr.hpp>
 #include <fcppt/math/dim/object_impl.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
+#include <fcppt/math/vector/structure_cast.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <iostream>
 #include <fcppt/config/external_end.hpp>
 
 
 fruitlib::pp::filter::blur::blur(
-	sge::renderer::device &_renderer,
-	filter::manager &_filter_manager,
-	texture::manager &_texture_manager,
-	sge::renderer::dim2 const &_texture_size,
-	size_type const _iterations)
+	fruitlib::pp::filter::manager &_filter_manager,
+	fruitlib::pp::texture::manager &_texture_manager,
+	fruitlib::pp::filter::texture_size const &_texture_size,
+	fruitlib::pp::filter::iterations const &_iterations)
 :
-	renderer_(
-		_renderer),
 	filter_manager_(
 		_filter_manager),
 	texture_manager_(
@@ -44,38 +39,69 @@ fruitlib::pp::filter::blur::blur(
 		_texture_size),
 	iterations_(
 		_iterations),
-	shaders_(
-		fcppt::assign::make_array<sge::shader::object*>
-			(&(filter_manager_.lookup_shader(
-				FCPPT_TEXT("blur_vertical"),
-				fcppt::assign::make_container<sge::shader::variable_sequence>(
-					sge::shader::variable(
-						"texture_size",
-						sge::shader::variable_type::uniform,
-						sge::renderer::vector2())),
-				fcppt::assign::make_container<sge::shader::sampler_sequence>(
-					sge::shader::sampler(
-						"tex",
-						sge::renderer::texture::planar_shared_ptr())))))
-			(&(filter_manager_.lookup_shader(
-				FCPPT_TEXT("blur_horizontal"),
-				fcppt::assign::make_container<sge::shader::variable_sequence>(
-					sge::shader::variable(
-						"texture_size",
-						sge::shader::variable_type::uniform,
-						sge::renderer::vector2())),
-				fcppt::assign::make_container<sge::shader::sampler_sequence>(
-					sge::shader::sampler(
-						"tex",
-						sge::renderer::texture::planar_shared_ptr()))))))
+	shaders_(),
+	planar_textures_(),
+	texture_sizes_()
 {
 	FCPPT_ASSERT_PRE(
-		iterations_);
+		iterations_.get());
+
+	fcppt::container::array<boost::filesystem::path,2> filenames =
+		{{
+				boost::filesystem::path(
+					FCPPT_TEXT("blur_horizontal.cg")),
+				boost::filesystem::path(
+					FCPPT_TEXT("blur_vertical.cg")),
+		}};
+
+	for(
+		std::size_t i = 0;
+		i < 2;
+		++i)
+	{
+		fcppt::container::ptr::replace_unique_ptr(
+			shaders_,
+			i,
+			fcppt::make_unique_ptr<sge::shader::pair>(
+				fcppt::ref(
+					_filter_manager.shader_context()),
+				fcppt::ref(
+					_filter_manager.quad().vertex_declaration()),
+				sge::shader::vertex_program_path(
+					_filter_manager.base_path().get() / filenames[i]),
+				sge::shader::pixel_program_path(
+					_filter_manager.base_path().get() / filenames[i]),
+				_filter_manager.shader_cflags()));
+
+		fcppt::container::ptr::replace_unique_ptr(
+			planar_textures_,
+			i,
+			fcppt::make_unique_ptr<sge::shader::parameter::planar_texture>(
+				fcppt::ref(
+					shaders_[i].pixel_program()),
+				sge::shader::parameter::name(
+					"tex"),
+				fcppt::ref(
+					shaders_[i]),
+				fcppt::ref(
+					_filter_manager.renderer()),
+				sge::shader::parameter::planar_texture::optional_value()));
+
+		fcppt::container::ptr::replace_unique_ptr(
+			texture_sizes_,
+			i,
+			fcppt::make_unique_ptr<fruitlib::pp::filter::ivec2_parameter>(
+				fcppt::ref(
+					shaders_[i].pixel_program()),
+				sge::shader::parameter::name(
+					"texture_size"),
+				fruitlib::pp::filter::ivec2_parameter::vector_type::null()));
+	}
 }
 
 fruitlib::pp::texture::counted_instance const
 fruitlib::pp::filter::blur::apply(
-	texture::counted_instance const input)
+	fruitlib::pp::texture::counted_instance const input)
 {
 	// Step 1: Set input texture of shader 0 to "input"
 	// Step 2: Render using shader 0 to texture 1 and blur
@@ -85,61 +111,67 @@ fruitlib::pp::filter::blur::apply(
 	// forgetting "input"
 
 	instance_array instances =
-		{{
-			texture_manager_.query(
-				texture::descriptor(
-					texture_size_,
-					sge::image::color::format::rgb8,
-					texture::depth_stencil_format::off)),
-			texture_manager_.query(
-				texture::descriptor(
-					texture_size_,
-					sge::image::color::format::rgb8,
-					texture::depth_stencil_format::off))
-		}};
+	{{
+		texture_manager_.query(
+			fruitlib::pp::texture::descriptor(
+				texture_size_.get(),
+				sge::image::color::format::rgb8,
+				fruitlib::pp::texture::depth_stencil_format::off)),
+		texture_manager_.query(
+			fruitlib::pp::texture::descriptor(
+				texture_size_.get(),
+				sge::image::color::format::rgb8,
+				fruitlib::pp::texture::depth_stencil_format::off))
+	}};
 
-	shaders_[0]->update_texture(
-		"tex",
-		input->texture());
+	planar_textures_[0u].set(
+		sge::shader::parameter::planar_texture::optional_value(
+			*input->texture()));
 
-	shaders_[1]->update_texture(
-		"tex",
-		instances[0]->texture());
+	planar_textures_[1u].set(
+		sge::shader::parameter::planar_texture::optional_value(
+			*(instances[0]->texture())));
 
-	sge::shader::update_single_uniform(
-		*shaders_[0],
-		"texture_size",
-		fcppt::math::dim::structure_cast<sge::renderer::vector2>(
-			instances[0]->texture()->size()));
-	sge::shader::update_single_uniform(
-		*shaders_[1],
-		"texture_size",
-		fcppt::math::dim::structure_cast<sge::renderer::vector2>(
-			instances[1]->texture()->size()));
+	texture_sizes_[0u].set(
+		fcppt::math::dim::structure_cast<fruitlib::pp::filter::ivec2_parameter::vector_type>(
+			instances[0u]->texture()->size()));
 
-	render(
+	texture_sizes_[1u].set(
+		fcppt::math::dim::structure_cast<fruitlib::pp::filter::ivec2_parameter::vector_type>(
+			instances[1u]->texture()->size()));
+
+	this->render(
 		instances,
-		0);
+		instance_index(
+			0u));
 
-	shaders_[0]->update_texture(
-		"tex",
-		instances[1]->texture());
+	planar_textures_[0u].set(
+		sge::shader::parameter::planar_texture::optional_value(
+			*(instances[1]->texture())));
 
-	render(
+	this->render(
 		instances,
-		1);
+		instance_index(
+			1u));
 
-	for(size_type i = 0; i < static_cast<size_type>(iterations_-1); ++i)
+	for(
+		fruitlib::pp::filter::iterations i(
+			0u);
+		i < fruitlib::pp::filter::iterations(iterations_.get()-1);
+		++i)
 	{
-		render(
+		this->render(
 			instances,
-			0);
-		render(
+			instance_index(
+				0u));
+		this->render(
 			instances,
-			1);
+			instance_index(
+				1u));
 	}
 
-	return instances[1];
+	return
+		instances[1u];
 }
 
 fruitlib::pp::filter::blur::~blur()
@@ -148,19 +180,17 @@ fruitlib::pp::filter::blur::~blur()
 
 void
 fruitlib::pp::filter::blur::render(
-	instance_array &textures,
-	size_type const i)
+	instance_array &_textures,
+	instance_index const &_instance)
 {
-	sge::shader::scoped scoped_shader(
-		*shaders_[i],
-		sge::shader::activate_everything());
+	sge::renderer::context::scoped_core scoped_context(
+		filter_manager_.renderer(),
+		_textures[_instance.get()]->target());
 
-	sge::renderer::scoped_target const target_(
-		renderer_,
-		textures[i]->target());
+	sge::shader::scoped_pair scoped_shader(
+		scoped_context.get(),
+		shaders_[_instance.get()]);
 
-	sge::renderer::scoped_block const block_(
-		renderer_);
-
-	filter_manager_.quad().render();
+	filter_manager_.quad().render(
+		scoped_context.get());
 }

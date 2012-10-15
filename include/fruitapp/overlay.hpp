@@ -6,7 +6,7 @@
 #include <fruitlib/scenic/optional_parent.hpp>
 #include <fruitlib/scenic/events/base.hpp>
 #include <fruitlib/scenic/events/update.hpp>
-#include <sge/renderer/device_fwd.hpp>
+#include <sge/renderer/device/ffp_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
@@ -26,10 +26,9 @@ public:
 	boost::mpl::vector1<fruitlib::scenic::events::update>
 	scene_reactions;
 
-	explicit
 	overlay(
 		fruitlib::scenic::optional_parent const &,
-		sge::renderer::device &,
+		sge::renderer::device::ffp &,
 		fruitapp::postprocessing &);
 
 	~overlay();
@@ -38,7 +37,7 @@ public:
 	react(
 		fruitlib::scenic::events::update const &);
 private:
-	sge::renderer::device &renderer_;
+	sge::renderer::device::ffp &renderer_;
 	fruitapp::postprocessing &postprocessing_;
 };
 }

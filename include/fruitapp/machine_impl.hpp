@@ -10,8 +10,10 @@
 #include <fruitapp/screen_shooter.hpp>
 #include <fruitapp/shadow_map.hpp>
 #include <fruitapp/fruit/prototype_sequence.hpp>
+#include <sge/systems/instance.hpp>
 #include <fruitapp/highscore/score.hpp>
 #include <fruitapp/point_sprite/system_node.hpp>
+#include <sge/shader/context.hpp>
 #include <fruitapp/projection_manager/object.hpp>
 #include <fruitapp/viewport/manager.hpp>
 #include <fruitlib/random_generator.hpp>
@@ -24,6 +26,7 @@
 #include <fruitlib/scenic/delta/callback.hpp>
 #include <fruitlib/scenic/delta/duration.hpp>
 #include <fruitlib/scenic/events/render.hpp>
+#include <fruitapp/systems.hpp>
 #include <fruitlib/scenic/events/update.hpp>
 #include <sge/camera/first_person/object.hpp>
 #include <sge/cegui/syringe.hpp>
@@ -32,7 +35,6 @@
 #include <sge/model/md3/loader_fwd.hpp>
 #include <sge/model/md3/loader_scoped_ptr.hpp>
 #include <sge/parse/json/object.hpp>
-#include <sge/systems/instance.hpp>
 #include <sge/timer/basic.hpp>
 #include <sge/timer/clocks/standard.hpp>
 #include <awl/main/exit_code.hpp>
@@ -59,9 +61,12 @@ public:
 	config_file() const
 	FCPPT_PP_CONST;
 
-	sge::systems::instance const &
+	fruitapp::systems const &
 	systems() const
 	FCPPT_PP_CONST;
+
+	sge::shader::context &
+	shader_context();
 
 	sge::model::md3::loader &
 	md3_loader()
@@ -250,7 +255,8 @@ private:
 	sge::parse::json::object user_config_file_;
 	sge::parse::json::object const config_file_;
 	fruitapp::config_variables config_variables_;
-	sge::systems::instance const systems_;
+	fruitapp::systems const systems_;
+	sge::shader::context shader_context_;
 	sge::model::md3::loader_scoped_ptr md3_loader_;
 	fruitapp::viewport::manager viewport_manager_;
 	fruitapp::renderable renderable_;

@@ -5,13 +5,22 @@
 #include <fruitlib/media_path.hpp>
 #include <fruitlib/scenic/events/render.hpp>
 #include <sge/camera/base.hpp>
+#include <sge/shader/context.hpp>
+#include <sge/shader/scoped_pair.hpp>
 #include <sge/camera/coordinate_system/object.hpp>
+#include <sge/renderer/device/ffp.hpp>
+#include <sge/renderer/context/ffp.hpp>
+#include <sge/renderer/state/core/depth_stencil/depth/enabled.hpp>
+#include <sge/renderer/state/core/depth_stencil/object.hpp>
+#include <sge/renderer/state/core/depth_stencil/scoped.hpp>
+#include <sge/renderer/state/core/depth_stencil/parameters.hpp>
+#include <sge/renderer/state/core/depth_stencil/stencil/off.hpp>
 #include <sge/camera/matrix_conversion/world.hpp>
 #include <sge/camera/matrix_conversion/world_projection.hpp>
-#include <sge/renderer/device.hpp>
+#include <sge/renderer/device/core.hpp>
 #include <sge/renderer/first_vertex.hpp>
 #include <sge/renderer/matrix4.hpp>
-#include <sge/renderer/nonindexed_primitive_type.hpp>
+#include <sge/renderer/primitive_type.hpp>
 #include <sge/renderer/scalar.hpp>
 #include <sge/renderer/scoped_vertex_buffer.hpp>
 #include <sge/renderer/size_type.hpp>
@@ -19,27 +28,10 @@
 #include <sge/renderer/vertex_buffer.hpp>
 #include <sge/renderer/vertex_count.hpp>
 #include <sge/renderer/vertex_declaration.hpp>
-#include <sge/renderer/state/depth_func.hpp>
-#include <sge/renderer/state/list.hpp>
-#include <sge/renderer/state/scoped.hpp>
-#include <sge/renderer/state/trampoline.hpp>
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/planar_shared_ptr.hpp>
 #include <sge/renderer/texture/scoped.hpp>
 #include <sge/renderer/texture/stage.hpp>
-#include <sge/renderer/texture/filter/scoped.hpp>
-#include <sge/renderer/texture/filter/trilinear.hpp>
-#include <sge/shader/activation_method.hpp>
-#include <sge/shader/matrix.hpp>
-#include <sge/shader/matrix_flags.hpp>
-#include <sge/shader/object_parameters.hpp>
-#include <sge/shader/sampler.hpp>
-#include <sge/shader/sampler_sequence.hpp>
-#include <sge/shader/scoped.hpp>
-#include <sge/shader/variable.hpp>
-#include <sge/shader/variable_sequence.hpp>
-#include <sge/shader/variable_type.hpp>
-#include <sge/shader/vf_to_string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/math/matrix/arithmetic.hpp>
@@ -49,89 +41,109 @@
 
 fruitapp::fruit::default_render_node::default_render_node(
 	fruitlib::scenic::optional_parent const &_parent,
-	sge::renderer::device &_renderer,
+	sge::shader::context &_shader_context,
 	sge::renderer::vertex_declaration &_vertex_declaration,
 	fruit::manager const &_manager,
 	sge::camera::base const &_camera,
 	fruitapp::directional_light_source const &light,
-	sge::renderer::scalar const _ambient_intensity)
+	fruitapp::ambient_intensity const &_ambient_intensity)
 :
 	node_base(
 		_parent),
-	renderer_(
-		_renderer),
 	manager_(
 		_manager),
 	camera_(
 		_camera),
 	shader_(
-		sge::shader::object_parameters(
-			renderer_,
-			_vertex_declaration,
-			sge::shader::vf_to_string<model_vf::format>(),
-			fcppt::assign::make_container<sge::shader::variable_sequence>
-				(sge::shader::variable(
-					"mvp",
-					sge::shader::variable_type::uniform,
-					sge::shader::matrix(
-						sge::renderer::matrix4(),
-						sge::shader::matrix_flags::projection)))
-				(sge::shader::variable(
-					"mv",
-					sge::shader::variable_type::uniform,
-					sge::shader::matrix(
-						sge::renderer::matrix4(),
-						sge::shader::matrix_flags::none)))
-				(sge::shader::variable(
-					"normal_matrix",
-					sge::shader::variable_type::uniform,
-					sge::shader::matrix(
-						sge::renderer::matrix4(),
-						sge::shader::matrix_flags::none)))
-				(sge::shader::variable(
-					"world",
-					sge::shader::variable_type::uniform,
-					sge::shader::matrix(
-						sge::renderer::matrix4(),
-						sge::shader::matrix_flags::none)))
-				(sge::shader::variable(
-					"light_position",
-					sge::shader::variable_type::constant,
-					light.position()))
-				(sge::shader::variable(
-					"ambient_intensity",
-					sge::shader::variable_type::constant,
-					_ambient_intensity))
-				(sge::shader::variable(
-					"diffuse_color",
-					sge::shader::variable_type::uniform,
-					sge::renderer::vector4()))
-				(sge::shader::variable(
-					"specular_color",
-					sge::shader::variable_type::uniform,
-					sge::renderer::vector4()))
-				(sge::shader::variable(
-					"diffuse_coefficient",
-					sge::shader::variable_type::uniform,
-					sge::renderer::scalar()))
-				(sge::shader::variable(
-					"specular_coefficient",
-					sge::shader::variable_type::uniform,
-					sge::renderer::scalar()))
-				(sge::shader::variable(
-					"specular_shininess",
-					sge::shader::variable_type::uniform,
-					sge::renderer::scalar())),
-			fcppt::assign::make_container<sge::shader::sampler_sequence>
-				(sge::shader::sampler(
-					"texture",
-					sge::renderer::texture::planar_shared_ptr())))
-				.name(
-					FCPPT_TEXT("default fruit render node"))
-				.vertex_shader(
-					fruitlib::media_path()/FCPPT_TEXT("shaders")/FCPPT_TEXT("model")/FCPPT_TEXT("vertex.glsl"))
-				.fragment_shader(
-					fruitlib::media_path()/FCPPT_TEXT("shaders")/FCPPT_TEXT("model")/FCPPT_TEXT("fragment.glsl")))
+		_shader_context,
+		_vertex_declaration,
+		sge::shader::vertex_program_path(
+			fruitlib::media_path()/FCPPT_TEXT("shaders")/FCPPT_TEXT("model.cg")),
+		sge::shader::pixel_program_path(
+			fruitlib::media_path()/FCPPT_TEXT("shaders")/FCPPT_TEXT("model.cg")),
+		sge::shader::optional_cflags()),
+	mvp_parameter_(
+		shader_.vertex_program(),
+		sge::shader::parameter::name(
+			"mvp"),
+		_shader_context.renderer(),
+		sge::shader::parameter::is_projection_matrix(
+			true),
+		sge::renderer::matrix4()),
+	mv_parameter_(
+		shader_.vertex_program(),
+		sge::shader::parameter::name(
+			"mv"),
+		_shader_context.renderer(),
+		sge::shader::parameter::is_projection_matrix(
+			false),
+		sge::renderer::matrix4()),
+	mv_it_parameter_(
+		shader_.vertex_program(),
+		sge::shader::parameter::name(
+			"mv_it"),
+		_shader_context.renderer(),
+		sge::shader::parameter::is_projection_matrix(
+			false),
+		sge::renderer::matrix4()),
+	world_parameter_(
+		shader_.vertex_program(),
+		sge::shader::parameter::name(
+			"world"),
+		_shader_context.renderer(),
+		sge::shader::parameter::is_projection_matrix(
+			false),
+		sge::renderer::matrix4()),
+	light_position_parameter_(
+		shader_.pixel_program(),
+		sge::shader::parameter::name(
+			"light_position"),
+		light.position()),
+	ambient_intensity_parameter_(
+		shader_.pixel_program(),
+		sge::shader::parameter::name(
+			"ambient_intensity"),
+		_ambient_intensity.get()),
+	diffuse_color_parameter_(
+		shader_.pixel_program(),
+		sge::shader::parameter::name(
+			"diffuse_color"),
+		sge::renderer::vector4()),
+	specular_color_parameter_(
+		shader_.pixel_program(),
+		sge::shader::parameter::name(
+			"specular_color"),
+		sge::renderer::vector4()),
+	diffuse_coefficient_parameter_(
+		shader_.pixel_program(),
+		sge::shader::parameter::name(
+			"diffuse_coefficient"),
+		sge::renderer::scalar()),
+	specular_coefficient_parameter_(
+		shader_.pixel_program(),
+		sge::shader::parameter::name(
+			"specular_coefficient"),
+		sge::renderer::scalar()),
+	specular_shininess_parameter_(
+		shader_.pixel_program(),
+		sge::shader::parameter::name(
+			"specular_shininess"),
+		sge::renderer::scalar()),
+	texture_parameter_(
+		shader_.pixel_program(),
+		sge::shader::parameter::name(
+			"tex"),
+		shader_,
+		_shader_context.renderer(),
+		sge::shader::parameter::planar_texture::optional_value()),
+	depth_stencil_state_(
+		_shader_context.renderer().create_depth_stencil_state(
+			sge::renderer::state::core::depth_stencil::parameters(
+				sge::renderer::state::core::depth_stencil::depth::enabled(
+					sge::renderer::state::core::depth_stencil::depth::func::less,
+					sge::renderer::state::core::depth_stencil::depth::write_enable(
+						true)),
+				sge::renderer::state::core::depth_stencil::stencil::off())))
 {
 }
 
@@ -141,30 +153,19 @@ fruitapp::fruit::default_render_node::~default_render_node()
 
 void
 fruitapp::fruit::default_render_node::react(
-	fruitlib::scenic::events::render const &)
+	fruitlib::scenic::events::render const &_render_event)
 {
-	sge::renderer::state::scoped scoped_state(
-		renderer_,
-		sge::renderer::state::list
-			(sge::renderer::state::depth_func::less));
+	sge::renderer::state::core::depth_stencil::scoped scoped_depth_stencil(
+		_render_event.context(),
+		*depth_stencil_state_);
 
-	sge::renderer::texture::filter::scoped scoped_filter(
-		renderer_,
-		sge::renderer::texture::stage(
-			0u),
-		sge::renderer::texture::filter::trilinear());
+	sge::shader::scoped_pair scoped_shader(
+		_render_event.context(),
+		shader_);
 
-	sge::shader::scoped scoped_shader(
-		shader_,
-		sge::shader::activation_method_field(
-			sge::shader::activation_method::vertex_declaration));
-
-	shader_.update_uniform(
-		"world",
-		sge::shader::matrix(
-			sge::camera::matrix_conversion::world(
-				camera_.coordinate_system()),
-			sge::shader::matrix_flags::none));
+	world_parameter_.set(
+		sge::camera::matrix_conversion::world(
+			camera_.coordinate_system()));
 
 	for(
 		object_sequence::const_iterator i =
@@ -173,70 +174,54 @@ fruitapp::fruit::default_render_node::react(
 		++i)
 	{
 		sge::renderer::scoped_vertex_buffer scoped_vb(
-			renderer_,
+			_render_event.context(),
 			i->vb());
 
-		sge::renderer::texture::scoped scoped_tex(
-			renderer_,
-			*i->prototype().texture(),
-			sge::renderer::texture::stage(
-				0u));
+		texture_parameter_.set(
+			sge::shader::parameter::planar_texture::optional_value(
+				*i->prototype().texture()));
 
-		shader_.update_uniform(
-			"mvp",
-			sge::shader::matrix(
-				sge::camera::matrix_conversion::world_projection(
+		mvp_parameter_.set(
+			sge::camera::matrix_conversion::world_projection(
 					camera_.coordinate_system(),
 					camera_.projection_matrix()) *
-				i->world_transform(),
-				sge::shader::matrix_flags::projection));
+			i->world_transform());
 
 		sge::renderer::matrix4 const world_transformation_matrix(
 			sge::camera::matrix_conversion::world(
 				camera_.coordinate_system()) *
 			i->world_transform());
 
-		shader_.update_uniform(
-			"mv",
-			sge::shader::matrix(
-				world_transformation_matrix,
-				sge::shader::matrix_flags::projection));
+		mv_parameter_.set(
+			world_transformation_matrix);
 
-		shader_.update_uniform(
-			"normal_matrix",
-			sge::shader::matrix(
-				fcppt::math::matrix::transpose(
-					fcppt::math::matrix::inverse(
-						world_transformation_matrix)),
-				sge::shader::matrix_flags::projection));
+		mv_it_parameter_.set(
+			fcppt::math::matrix::transpose(
+				fcppt::math::matrix::inverse(
+					world_transformation_matrix)));
 
 		// Material shit
-		shader_.update_uniform(
-			"diffuse_color",
+		diffuse_color_parameter_.set(
 			i->prototype().material().diffuse_color());
 
-		shader_.update_uniform(
-			"specular_color",
+		specular_color_parameter_.set(
 			i->prototype().material().specular_color());
 
-		shader_.update_uniform(
-			"diffuse_coefficient",
+		diffuse_coefficient_parameter_.set(
 			i->prototype().material().diffuse_coefficient());
 
-		shader_.update_uniform(
-			"specular_coefficient",
+		specular_coefficient_parameter_.set(
 			i->prototype().material().specular_coefficient());
 
-		shader_.update_uniform(
-			"specular_shininess",
+		specular_shininess_parameter_.set(
 			i->prototype().material().specular_shininess());
 
-		renderer_.render_nonindexed(
+		_render_event.context().render_nonindexed(
 			sge::renderer::first_vertex(
 				static_cast<sge::renderer::size_type>(
 					0)),
 			sge::renderer::vertex_count(
 				i->vb().size()),
-			sge::renderer::nonindexed_primitive_type::triangle);
+			sge::renderer::primitive_type::triangle_list);
 	}
 }

@@ -12,13 +12,13 @@
 #include <fcppt/math/vector/object_impl.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/static_assert.hpp>
-#include <BulletDynamics/ConstraintSolver/btSequentialImpulseConstraintSolver.h>
-#include <BulletDynamics/Dynamics/btDiscreteDynamicsWorld.h>
 #include <BulletCollision/BroadphaseCollision/btAxisSweep3.h>
 #include <BulletCollision/BroadphaseCollision/btDbvtBroadphase.h>
 #include <BulletCollision/CollisionDispatch/btCollisionDispatcher.h>
 #include <BulletCollision/CollisionDispatch/btDefaultCollisionConfiguration.h>
+#include <BulletDynamics/ConstraintSolver/btSequentialImpulseConstraintSolver.h>
+#include <BulletDynamics/Dynamics/btDiscreteDynamicsWorld.h>
+#include <boost/static_assert.hpp>
 #include <iostream>
 #include <limits>
 #include <fcppt/config/external_end.hpp>
@@ -130,15 +130,19 @@ fruitlib::physics::world::add_body(
 	rigid_body::object &_body,
 	group::sequence const &_groups)
 {
-	group::id
-		group = static_cast<group::id>(
+	fruitlib::physics::group::id
+		group = static_cast<fruitlib::physics::group::id>(
 			0),
 		mask = group;
 
 	for(group::sequence::const_iterator r = _groups.begin(); r != _groups.end(); ++r)
 	{
-		group |= r->get().category_;
-		mask |= r->get().collides_;
+		group =
+			static_cast<fruitlib::physics::group::id>(
+				group | r->get().category_);
+		mask =
+			static_cast<fruitlib::physics::group::id>(
+				mask | r->get().collides_);
 	}
 
 	world_->addRigidBody(

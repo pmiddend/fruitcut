@@ -1,6 +1,7 @@
 #ifndef FRUITAPP_POINT_SPRITE_SPLATTER_OBJECT_HPP_INCLUDED
 #define FRUITAPP_POINT_SPRITE_SPLATTER_OBJECT_HPP_INCLUDED
 
+#if 0
 #include <fruitapp/ingame_timer.hpp>
 #include <fruitapp/point_sprite/base.hpp>
 #include <fruitapp/point_sprite/object.hpp>
@@ -8,6 +9,7 @@
 #include <fruitapp/point_sprite/splatter/linear_velocity.hpp>
 #include <fruitapp/point_sprite/splatter/parameters_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
+#endif
 
 
 namespace fruitapp
@@ -16,6 +18,7 @@ namespace point_sprite
 {
 namespace splatter
 {
+#if 0
 class object
 :
 	public point_sprite::base
@@ -41,6 +44,9 @@ private:
 	fruitapp::ingame_timer life_timer_;
 	fruitapp::ingame_timer second_timer_;
 };
+#else
+class splatter {};
+#endif
 }
 }
 }

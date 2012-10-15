@@ -19,7 +19,7 @@ sge::renderer::vf::part
 <
 	boost::mpl::vector1
 	<
-		position
+		fruitlib::pp::screen_vf::position
 	>
 >
 part;

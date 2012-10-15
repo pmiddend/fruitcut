@@ -16,7 +16,7 @@
 #include <fruitlib/physics/group/object_fwd.hpp>
 #include <fruitlib/physics/rigid_body/object.hpp>
 #include <fruitlib/physics/rigid_body/scoped.hpp>
-#include <sge/renderer/device_fwd.hpp>
+#include <sge/renderer/device/core_fwd.hpp>
 #include <sge/renderer/matrix4.hpp>
 #include <sge/renderer/vector3.hpp>
 #include <sge/renderer/vertex_buffer_scoped_ptr.hpp>
@@ -44,7 +44,7 @@ public:
 	object(
 		fruit::prototype const &,
 		fruitlib::physics::world &_world,
-		sge::renderer::device &_renderer,
+		sge::renderer::device::core &_renderer,
 		sge::renderer::vertex_declaration &_vertex_declaration,
 		fruitapp::fruit::mesh_unique_ptr _mesh,
 		fruitlib::physics::group::object &_fruit_group,

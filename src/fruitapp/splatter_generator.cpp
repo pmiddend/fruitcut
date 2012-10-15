@@ -1,4 +1,4 @@
-#include <fruitlib/uniform_random_range_element.hpp>
+#if 0
 #include <fruitapp/splatter_generator.hpp>
 #include <fruitapp/fruit/cut_context.hpp>
 #include <fruitapp/fruit/mesh.hpp>
@@ -13,6 +13,7 @@
 #include <fruitapp/point_sprite/splatter/parameters.hpp>
 #include <fruitapp/point_sprite/splatter/position.hpp>
 #include <fruitapp/point_sprite/splatter/size.hpp>
+#include <fruitlib/uniform_random_range_element.hpp>
 #include <fruitlib/json/parse_random_float_distribution.hpp>
 #include <fruitlib/json/parse_random_int_distribution.hpp>
 #include <fruitlib/math/multiply_matrix4_vector3.hpp>
@@ -193,3 +194,4 @@ fruitapp::splatter_generator::fruit_was_cut(
 fruitapp::splatter_generator::~splatter_generator()
 {
 }
+#endif
