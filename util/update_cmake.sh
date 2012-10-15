@@ -21,13 +21,16 @@ update_cmake_file \
 	CMakeLists.txt \
 	FRUITLIB_FILES \
 	src/fruitlib \
+	include/fruitlib
 
 update_cmake_file \
 	CMakeLists.txt \
 	APP_FILES \
 	src/fruitapp \
+	include/fruitapp
 
 update_cmake_file \
 	CMakeLists.txt \
 	SERVER_FILES \
 	src/fruitserver \
+	include/fruitserver
