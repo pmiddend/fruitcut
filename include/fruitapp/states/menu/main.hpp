@@ -4,13 +4,11 @@
 #include <fruitapp/logo.hpp>
 #include <fruitapp/events/declare_transition_reaction.hpp>
 #include <fruitapp/events/declare_transition_type.hpp>
-#include <fruitapp/gui/button.hpp>
+#include <fruitapp/gui/dialogs/main_menu_unique_ptr.hpp>
 #include <fruitapp/states/ingame/superstate_fwd.hpp>
 #include <fruitapp/states/menu/highscore_fwd.hpp>
 #include <fruitapp/states/menu/settings_fwd.hpp>
 #include <fruitapp/states/menu/superstate.hpp>
-#include <sge/cegui/toolbox/scoped_gui_sheet.hpp>
-#include <sge/cegui/toolbox/scoped_layout.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -61,12 +59,7 @@ public:
 	virtual ~main();
 private:
 	fruitapp::logo logo_;
-	sge::cegui::toolbox::scoped_layout layout_;
-	sge::cegui::toolbox::scoped_gui_sheet gui_sheet_;
-	gui::button settings_button_;
-	gui::button highscore_button_;
-	gui::button quit_button_;
-	gui::button start_button_;
+	fruitapp::gui::dialogs::main_menu_unique_ptr main_menu_;
 	fcppt::signal::scoped_connection settings_button_connection_;
 	fcppt::signal::scoped_connection highscore_button_connection_;
 	fcppt::signal::scoped_connection quit_button_connection_;

@@ -39,12 +39,12 @@
 #include <sge/line_drawer/render_to_screen.hpp>
 #include <sge/line_drawer/scoped_lock.hpp>
 #include <sge/parse/json/find_and_convert_member.hpp>
-#include <sge/renderer/device/ffp.hpp>
 #include <sge/renderer/matrix4.hpp>
-#include <sge/renderer/target/onscreen.hpp>
 #include <sge/renderer/scalar.hpp>
 #include <sge/renderer/vector2.hpp>
 #include <sge/renderer/vector3.hpp>
+#include <sge/renderer/device/ffp.hpp>
+#include <sge/renderer/target/onscreen.hpp>
 #include <sge/renderer/target/viewport.hpp>
 #include <sge/systems/instance.hpp>
 #include <fcppt/ref.hpp>

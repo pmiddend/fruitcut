@@ -5,10 +5,10 @@
 #include <sge/image2d/system_fwd.hpp>
 #include <sge/parse/json/find_and_convert_member.hpp>
 #include <sge/parse/json/object.hpp>
-#include <sge/renderer/device/ffp.hpp>
-#include <sge/renderer/context/ffp.hpp>
 #include <sge/renderer/resource_flags.hpp>
 #include <sge/renderer/screen_size.hpp>
+#include <sge/renderer/context/ffp.hpp>
+#include <sge/renderer/device/ffp.hpp>
 #include <sge/renderer/target/base.hpp>
 #include <sge/renderer/texture/create_planar_from_path.hpp>
 #include <sge/renderer/texture/mipmap/off.hpp>
@@ -27,8 +27,8 @@
 #include <fcppt/ref.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/tr1/functional.hpp>
 #include <fcppt/container/bitfield/object_impl.hpp>
+#include <fcppt/tr1/functional.hpp>
 
 
 fruitapp::logo::logo(

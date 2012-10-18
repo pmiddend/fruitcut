@@ -3,9 +3,9 @@
 #include <fruitlib/scenic/parent.hpp>
 #include <sge/parse/json/find_and_convert_member.hpp>
 #include <sge/parse/json/object_fwd.hpp>
+#include <sge/parse/json/path.hpp>
 #include <sge/renderer/device/ffp.hpp>
 #include <sge/shader/context.hpp>
-#include <sge/parse/json/path.hpp>
 #include <sge/systems/instance.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/tr1/functional.hpp>

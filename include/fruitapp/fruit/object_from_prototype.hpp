@@ -9,8 +9,8 @@
 #include <fruitlib/physics/vector3.hpp>
 #include <fruitlib/physics/world_fwd.hpp>
 #include <fruitlib/physics/group/object_fwd.hpp>
-#include <sge/renderer/device/core_fwd.hpp>
 #include <sge/renderer/vertex_declaration_fwd.hpp>
+#include <sge/renderer/device/core_fwd.hpp>
 
 
 namespace fruitapp

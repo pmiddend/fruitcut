@@ -27,8 +27,8 @@
 #include <sge/parse/json/array.hpp>
 #include <sge/parse/json/find_and_convert_member.hpp>
 #include <sge/parse/json/object.hpp>
-#include <sge/renderer/device/ffp.hpp>
 #include <sge/renderer/scalar.hpp>
+#include <sge/renderer/device/ffp.hpp>
 #include <sge/systems/instance.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/make_unique_ptr.hpp>

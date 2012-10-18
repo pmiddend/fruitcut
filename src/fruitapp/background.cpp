@@ -1,7 +1,5 @@
 #include <fruitapp/background.hpp>
 #include <fruitapp/projection_manager/object.hpp>
-#include <sge/shader/context.hpp>
-#include <fcppt/container/bitfield/object_impl.hpp>
 #include <fruitlib/media_path.hpp>
 #include <fruitlib/math/view_plane_rect.hpp>
 #include <fruitlib/scenic/events/render.hpp>
@@ -11,11 +9,8 @@
 #include <sge/image2d/system_fwd.hpp>
 #include <sge/parse/json/find_and_convert_member.hpp>
 #include <sge/parse/json/object_fwd.hpp>
-#include <sge/renderer/device/core.hpp>
-#include <sge/renderer/context/ffp.hpp>
 #include <sge/renderer/first_vertex.hpp>
 #include <sge/renderer/lock_mode.hpp>
-#include <sge/renderer/device/ffp.hpp>
 #include <sge/renderer/pixel_rect.hpp>
 #include <sge/renderer/resource_flags.hpp>
 #include <sge/renderer/scalar.hpp>
@@ -24,6 +19,9 @@
 #include <sge/renderer/scoped_vertex_lock.hpp>
 #include <sge/renderer/vertex_buffer.hpp>
 #include <sge/renderer/vertex_declaration.hpp>
+#include <sge/renderer/context/ffp.hpp>
+#include <sge/renderer/device/core.hpp>
+#include <sge/renderer/device/ffp.hpp>
 #include <sge/renderer/state/core/depth_stencil/object.hpp>
 #include <sge/renderer/state/core/depth_stencil/parameters.hpp>
 #include <sge/renderer/state/core/depth_stencil/scoped.hpp>
@@ -31,18 +29,20 @@
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/mipmap/off.hpp>
 #include <sge/renderer/vf/format.hpp>
-#include <sge/renderer/vf/pos.hpp>
-#include <sge/renderer/vf/texpos.hpp>
 #include <sge/renderer/vf/iterator.hpp>
 #include <sge/renderer/vf/part.hpp>
+#include <sge/renderer/vf/pos.hpp>
+#include <sge/renderer/vf/texpos.hpp>
 #include <sge/renderer/vf/vertex.hpp>
 #include <sge/renderer/vf/view.hpp>
 #include <sge/renderer/vf/dynamic/make_format.hpp>
 #include <sge/renderer/vf/dynamic/part_index.hpp>
+#include <sge/shader/context.hpp>
 #include <sge/shader/scoped_pair.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assign/make_container.hpp>
+#include <fcppt/container/bitfield/object_impl.hpp>
 #include <fcppt/math/box/object_impl.hpp>
 #include <fcppt/math/matrix/object_impl.hpp>
 #include <fcppt/math/vector/object_impl.hpp>
@@ -169,7 +169,7 @@ fruitapp::background::background(
 	texture_parameter_(
 		shader_.pixel_program(),
 		sge::shader::parameter::name(
-			"tex"),
+			"input_texture"),
 		shader_,
 		_shader_context.renderer(),
 		sge::shader::parameter::planar_texture::optional_value(
@@ -177,7 +177,7 @@ fruitapp::background::background(
 	shadow_map_parameter_(
 		shader_.pixel_program(),
 		sge::shader::parameter::name(
-			"shadow_map"),
+			"shadow_texture"),
 		shader_,
 		_shader_context.renderer(),
 		sge::shader::parameter::planar_texture::optional_value(

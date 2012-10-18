@@ -171,28 +171,11 @@ fruitapp::machine::font_cache() const
 	return impl_->font_cache();
 }
 
-sge::cegui::system &
+fruitapp::gui::system &
 fruitapp::machine::gui_system()
 {
-	return impl_->gui_system();
-}
-
-sge::cegui::system const &
-fruitapp::machine::gui_system() const
-{
-	return impl_->gui_system();
-}
-
-sge::cegui::syringe &
-fruitapp::machine::gui_syringe()
-{
-	return impl_->gui_syringe();
-}
-
-sge::cegui::syringe const &
-fruitapp::machine::gui_syringe() const
-{
-	return impl_->gui_syringe();
+	return
+		impl_->gui_system();
 }
 
 fruitlib::random_generator &

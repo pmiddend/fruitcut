@@ -1,5 +1,7 @@
 #include <fruitapp/events/define_transition_reaction.hpp>
 #include <fruitapp/events/post_transition.hpp>
+#include <fruitapp/gui/system.hpp>
+#include <fruitapp/gui/dialogs/name_chooser.hpp>
 #include <fruitapp/states/gameover/choose_name.hpp>
 #include <fruitapp/states/gameover/ranking.hpp>
 #include <fruitlib/media_path.hpp>
@@ -11,12 +13,6 @@
 #include <fcppt/insert_to_fcppt_string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/tr1/functional.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <CEGUI/Event.h>
-#include <CEGUI/String.h>
-#include <CEGUI/Window.h>
-#include <CEGUI/WindowManager.h>
-#include <fcppt/config/external_end.hpp>
 
 
 fruitapp::states::gameover::choose_name::choose_name(
@@ -24,28 +20,16 @@ fruitapp::states::gameover::choose_name::choose_name(
 :
 	my_base(
 		ctx),
-	layout_(
-		context<fruitapp::machine>().gui_system(),
-		fruitlib::media_path()/FCPPT_TEXT("gui")/FCPPT_TEXT("layouts")/FCPPT_TEXT("name_chooser.layout")),
-	gui_sheet_(
-		context<fruitapp::machine>().gui_system(),
-		layout_.window()),
-	continue_button_(
-		context<fruitapp::machine>().sound_controller(),
-		*layout_.window().getChild(
-			"NameChooser/Continue")),
+	name_chooser_(
+		context<fruitapp::machine>().gui_system().create_name_chooser(
+			fruitapp::highscore::score(
+				context<fruitapp::machine>().last_game_score()))),
 	continue_button_connection_(
-		continue_button_.push_callback(
+		name_chooser_->register_continue_callback(
 			std::tr1::bind(
 				&choose_name::continue_button_pushed,
 				this)))
 {
-	layout_.window().getChild(
-		"NameChooser/Score")->setText(
-		sge::cegui::to_cegui_string(
-		fcppt::insert_to_fcppt_string(
-				context<fruitapp::machine>().last_game_score()),
-		context<fruitapp::machine>().systems().charconv_system()));
 }
 
 FRUITAPP_EVENTS_DEFINE_TRANSITION_REACTION(
@@ -59,11 +43,7 @@ fruitapp::states::gameover::choose_name::~choose_name()
 void
 fruitapp::states::gameover::choose_name::continue_button_pushed()
 {
-	CEGUI::String const name =
-		layout_.window().getChild(
-			"NameChooser/Name")->getText();
-
-	if(name.empty())
+	if(name_chooser_->name().empty())
 	{
 		context<fruitapp::machine>().sound_controller().play(
 			fruitlib::resource_tree::path(
@@ -72,7 +52,8 @@ fruitapp::states::gameover::choose_name::continue_button_pushed()
 	else
 	{
 		context<fruitapp::states::gameover::superstate>().name(
-			name);
+			name_chooser_->name());
+
 		FRUITAPP_EVENTS_POST_TRANSITION(
 			gameover::ranking);
 	}

@@ -1,10 +1,10 @@
 #include <fruitapp/cursor_trail.hpp>
 #include <sge/input/cursor/object.hpp>
-#include <sge/renderer/target/base.hpp>
 #include <sge/input/cursor/position.hpp>
 #include <sge/input/cursor/position_unit.hpp>
 #include <sge/renderer/pixel_rect.hpp>
 #include <sge/renderer/vector2.hpp>
+#include <sge/renderer/target/base.hpp>
 #include <sge/timer/parameters.hpp>
 #include <sge/timer/reset_when_expired.hpp>
 #include <fcppt/assert/pre.hpp>

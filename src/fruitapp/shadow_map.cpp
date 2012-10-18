@@ -6,32 +6,32 @@
 #include <sge/image/color/format.hpp>
 #include <sge/parse/json/find_and_convert_member.hpp>
 #include <sge/parse/json/object.hpp>
-#include <sge/renderer/context/ffp.hpp>
-#include <sge/renderer/device/ffp.hpp>
 #include <sge/renderer/dim2.hpp>
 #include <sge/renderer/matrix4.hpp>
 #include <sge/renderer/resource_flags.hpp>
 #include <sge/renderer/scalar.hpp>
-#include <sge/renderer/context/scoped_ffp.hpp>
-#include <sge/renderer/target/offscreen.hpp>
-#include <sge/renderer/target/from_texture.hpp>
 #include <sge/renderer/clear/parameters.hpp>
+#include <sge/renderer/context/ffp.hpp>
+#include <sge/renderer/context/scoped_ffp.hpp>
+#include <sge/renderer/device/ffp.hpp>
 #include <sge/renderer/projection/perspective_af.hpp>
-#include <sge/renderer/texture/capabilities.hpp>
-#include <sge/renderer/state/core/depth_stencil/depth/enabled.hpp>
 #include <sge/renderer/state/core/depth_stencil/object.hpp>
-#include <sge/renderer/state/core/depth_stencil/scoped.hpp>
 #include <sge/renderer/state/core/depth_stencil/parameters.hpp>
+#include <sge/renderer/state/core/depth_stencil/scoped.hpp>
+#include <sge/renderer/state/core/depth_stencil/depth/enabled.hpp>
 #include <sge/renderer/state/core/depth_stencil/stencil/off.hpp>
+#include <sge/renderer/target/from_texture.hpp>
+#include <sge/renderer/target/offscreen.hpp>
+#include <sge/renderer/texture/capabilities.hpp>
 #include <sge/renderer/texture/capabilities_field.hpp>
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/planar_parameters.hpp>
 #include <sge/renderer/texture/mipmap/off.hpp>
 #include <fcppt/optional.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/container/bitfield/object_impl.hpp>
 #include <fcppt/math/deg_to_rad.hpp>
 #include <fcppt/math/matrix/arithmetic.hpp>
-#include <fcppt/container/bitfield/object_impl.hpp>
 
 
 fruitapp::shadow_map::shadow_map(

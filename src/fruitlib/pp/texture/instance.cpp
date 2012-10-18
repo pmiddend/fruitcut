@@ -1,8 +1,8 @@
 #include <fruitlib/pp/texture/instance.hpp>
+#include <sge/renderer/depth_stencil_surface.hpp>
 #include <sge/renderer/target/offscreen.hpp>
 #include <sge/renderer/texture/depth_stencil.hpp>
 #include <sge/renderer/texture/planar.hpp>
-#include <sge/renderer/depth_stencil_surface.hpp>
 #include <fcppt/move.hpp>
 
 

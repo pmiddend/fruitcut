@@ -15,12 +15,12 @@
 #include <fruitlib/scenic/optional_parent.hpp>
 #include <fruitlib/scenic/events/update.hpp>
 #include <sge/parse/json/object_fwd.hpp>
-#include <sge/shader/context_fwd.hpp>
-#include <sge/renderer/texture/planar_shared_ptr.hpp>
 #include <sge/renderer/context/core_fwd.hpp>
+#include <sge/renderer/target/viewport.hpp>
+#include <sge/renderer/texture/planar_shared_ptr.hpp>
+#include <sge/shader/context_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/function/object.hpp>
-#include <sge/renderer/target/viewport.hpp>
 #include <fcppt/preprocessor/const.hpp>
 #include <fcppt/preprocessor/pure.hpp>
 #include <fcppt/preprocessor/warn_unused_result.hpp>
@@ -92,7 +92,7 @@ private:
 	fruitlib::pp::filter::manager filter_manager_;
 	fruitlib::pp::system system_;
 	fruitlib::pp::filter::render_to_texture rtt_filter_;
-	fruitlib::pp::filter::ssaa ssaa_filter_;
+//	fruitlib::pp::filter::ssaa ssaa_filter_;
 	fruitlib::pp::filter::highlight highlight_filter_;
 	fruitlib::pp::filter::blur blur_filter_;
 	fruitlib::pp::filter::add add_filter_;

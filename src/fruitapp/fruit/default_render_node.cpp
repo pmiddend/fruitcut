@@ -5,19 +5,9 @@
 #include <fruitlib/media_path.hpp>
 #include <fruitlib/scenic/events/render.hpp>
 #include <sge/camera/base.hpp>
-#include <sge/shader/context.hpp>
-#include <sge/shader/scoped_pair.hpp>
 #include <sge/camera/coordinate_system/object.hpp>
-#include <sge/renderer/device/ffp.hpp>
-#include <sge/renderer/context/ffp.hpp>
-#include <sge/renderer/state/core/depth_stencil/depth/enabled.hpp>
-#include <sge/renderer/state/core/depth_stencil/object.hpp>
-#include <sge/renderer/state/core/depth_stencil/scoped.hpp>
-#include <sge/renderer/state/core/depth_stencil/parameters.hpp>
-#include <sge/renderer/state/core/depth_stencil/stencil/off.hpp>
 #include <sge/camera/matrix_conversion/world.hpp>
 #include <sge/camera/matrix_conversion/world_projection.hpp>
-#include <sge/renderer/device/core.hpp>
 #include <sge/renderer/first_vertex.hpp>
 #include <sge/renderer/matrix4.hpp>
 #include <sge/renderer/primitive_type.hpp>
@@ -28,10 +18,20 @@
 #include <sge/renderer/vertex_buffer.hpp>
 #include <sge/renderer/vertex_count.hpp>
 #include <sge/renderer/vertex_declaration.hpp>
+#include <sge/renderer/context/ffp.hpp>
+#include <sge/renderer/device/core.hpp>
+#include <sge/renderer/device/ffp.hpp>
+#include <sge/renderer/state/core/depth_stencil/object.hpp>
+#include <sge/renderer/state/core/depth_stencil/parameters.hpp>
+#include <sge/renderer/state/core/depth_stencil/scoped.hpp>
+#include <sge/renderer/state/core/depth_stencil/depth/enabled.hpp>
+#include <sge/renderer/state/core/depth_stencil/stencil/off.hpp>
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/planar_shared_ptr.hpp>
 #include <sge/renderer/texture/scoped.hpp>
 #include <sge/renderer/texture/stage.hpp>
+#include <sge/shader/context.hpp>
+#include <sge/shader/scoped_pair.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/math/matrix/arithmetic.hpp>
@@ -69,14 +69,6 @@ fruitapp::fruit::default_render_node::default_render_node(
 		_shader_context.renderer(),
 		sge::shader::parameter::is_projection_matrix(
 			true),
-		sge::renderer::matrix4()),
-	mv_parameter_(
-		shader_.vertex_program(),
-		sge::shader::parameter::name(
-			"mv"),
-		_shader_context.renderer(),
-		sge::shader::parameter::is_projection_matrix(
-			false),
 		sge::renderer::matrix4()),
 	mv_it_parameter_(
 		shader_.vertex_program(),
@@ -132,7 +124,7 @@ fruitapp::fruit::default_render_node::default_render_node(
 	texture_parameter_(
 		shader_.pixel_program(),
 		sge::shader::parameter::name(
-			"tex"),
+			"input_texture"),
 		shader_,
 		_shader_context.renderer(),
 		sge::shader::parameter::planar_texture::optional_value()),
@@ -183,17 +175,14 @@ fruitapp::fruit::default_render_node::react(
 
 		mvp_parameter_.set(
 			sge::camera::matrix_conversion::world_projection(
-					camera_.coordinate_system(),
-					camera_.projection_matrix()) *
+				camera_.coordinate_system(),
+				camera_.projection_matrix()) *
 			i->world_transform());
 
 		sge::renderer::matrix4 const world_transformation_matrix(
 			sge::camera::matrix_conversion::world(
 				camera_.coordinate_system()) *
 			i->world_transform());
-
-		mv_parameter_.set(
-			world_transformation_matrix);
 
 		mv_it_parameter_.set(
 			fcppt::math::matrix::transpose(

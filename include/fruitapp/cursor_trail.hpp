@@ -7,8 +7,8 @@
 #include <fruitlib/scenic/optional_parent.hpp>
 #include <fruitlib/scenic/events/update.hpp>
 #include <sge/input/cursor/object_fwd.hpp>
-#include <sge/renderer/target/base_fwd.hpp>
 #include <sge/input/cursor/position.hpp>
+#include <sge/renderer/target/base_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/math/vector/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>

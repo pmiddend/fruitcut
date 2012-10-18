@@ -11,7 +11,9 @@
 #include <fruitapp/quick_log_fwd.hpp>
 #include <fruitapp/scene_fwd.hpp>
 #include <fruitapp/shadow_map_fwd.hpp>
+#include <fruitapp/systems.hpp>
 #include <fruitapp/fruit/prototype_sequence.hpp>
+#include <fruitapp/gui/system_fwd.hpp>
 #include <fruitapp/highscore/score.hpp>
 #include <fruitapp/point_sprite/system_node_fwd.hpp>
 #include <fruitapp/projection_manager/object_fwd.hpp>
@@ -24,12 +26,9 @@
 #include <fruitlib/scenic/base_fwd.hpp>
 #include <fruitlib/scenic/delta/callback.hpp>
 #include <sge/camera/first_person/object_fwd.hpp>
-#include <sge/cegui/syringe_fwd.hpp>
-#include <sge/cegui/system_fwd.hpp>
-#include <sge/shader/context_fwd.hpp>
 #include <sge/model/md3/loader_fwd.hpp>
 #include <sge/parse/json/object_fwd.hpp>
-#include <fruitapp/systems.hpp>
+#include <sge/shader/context_fwd.hpp>
 #include <awl/main/exit_code.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/scoped_ptr.hpp>
@@ -146,21 +145,9 @@ public:
 	font_cache() const
 	FCPPT_PP_CONST;
 
-	sge::cegui::system &
-	gui_system()
-	FCPPT_PP_CONST;
+	fruitapp::gui::system &
+	gui_system();
 
-	sge::cegui::system const &
-	gui_system() const
-	FCPPT_PP_CONST;
-
-	sge::cegui::syringe &
-	gui_syringe()
-	FCPPT_PP_CONST;
-
-	sge::cegui::syringe const &
-	gui_syringe() const
-	FCPPT_PP_CONST;
 
 	fruitlib::random_generator &
 	random_generator()

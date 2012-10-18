@@ -1,6 +1,8 @@
 #include <fruitapp/depths/overlay.hpp>
 #include <fruitapp/events/define_transition_reaction.hpp>
 #include <fruitapp/events/return_post_transition_functor.hpp>
+#include <fruitapp/gui/system.hpp>
+#include <fruitapp/gui/dialogs/main_menu.hpp>
 #include <fruitapp/states/ingame/running.hpp>
 #include <fruitapp/states/menu/highscore.hpp>
 #include <fruitapp/states/menu/main.hpp>
@@ -30,47 +32,24 @@ fruitapp::states::menu::main::main(
 		context<machine>().systems().image_system(),
 		context<machine>().config_file(),
 		context<machine>().viewport_manager()),
-	layout_(
-		context<machine>().gui_system(),
-		fruitlib::media_path()
-			/FCPPT_TEXT("gui")
-			/FCPPT_TEXT("layouts")
-		/FCPPT_TEXT("main_menu.layout")),
-	gui_sheet_(
-		context<machine>().gui_system(),
-		*layout_.window().getChild("MainMenu")),
-	settings_button_(
-		context<machine>().sound_controller(),
-		*layout_.window().getChild(
-			"MainMenu/Settings")),
-	highscore_button_(
-		context<machine>().sound_controller(),
-		*layout_.window().getChild(
-			"MainMenu/Highscores")),
-	quit_button_(
-		context<machine>().sound_controller(),
-		*layout_.window().getChild(
-			"MainMenu/Quit")),
-	start_button_(
-		context<machine>().sound_controller(),
-		*layout_.window().getChild(
-			"MainMenu/StartGame")),
+	main_menu_(
+		context<fruitapp::machine>().gui_system().create_main_menu()),
 	settings_button_connection_(
-		settings_button_.push_callback(
+		main_menu_->register_settings_callback(
 			FRUITAPP_EVENTS_RETURN_POST_TRANSITION_FUNCTOR(
 				menu::settings))),
 	highscore_button_connection_(
-		highscore_button_.push_callback(
+		main_menu_->register_highscore_callback(
 			FRUITAPP_EVENTS_RETURN_POST_TRANSITION_FUNCTOR(
 				menu::highscore))),
 	quit_button_connection_(
-		quit_button_.push_callback(
+		main_menu_->register_quit_callback(
 			std::tr1::bind(
 				&fruitapp::machine::quit,
 				&context<fruitapp::machine>(),
 				awl::main::exit_success()))),
 	start_button_connection_(
-		start_button_.push_callback(
+		main_menu_->register_start_callback(
 			FRUITAPP_EVENTS_RETURN_POST_TRANSITION_FUNCTOR(
 				ingame::superstate)))
 {

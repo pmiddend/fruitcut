@@ -4,12 +4,10 @@
 #include <fruitapp/machine.hpp>
 #include <fruitapp/states/gameover/choose_name_fwd.hpp>
 #include <fruitlib/scenic/adaptors/gui_system.hpp>
-#include <sge/cegui/default_cursor.hpp>
-#include <sge/cegui/default_keyboard.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/string.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/statechart/state.hpp>
-#include <CEGUI/String.h>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -33,17 +31,14 @@ public:
 
 	void
 	name(
-		CEGUI::String const &);
+		fcppt::string const &);
 
-	CEGUI::String const &
+	fcppt::string const &
 	name() const;
 
 	virtual ~superstate();
 private:
-	fruitlib::scenic::adaptors::gui_system gui_node_;
-	sge::cegui::default_keyboard gui_keyboard_;
-	sge::cegui::default_cursor gui_cursor_;
-	CEGUI::String name_;
+	fcppt::string name_;
 };
 }
 }

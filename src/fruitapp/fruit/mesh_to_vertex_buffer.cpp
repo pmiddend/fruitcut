@@ -6,7 +6,6 @@
 #include <fruitapp/fruit/model_vf/position.hpp>
 #include <fruitapp/fruit/model_vf/texcoord.hpp>
 #include <fruitapp/fruit/model_vf/vertex_view.hpp>
-#include <sge/renderer/device/core.hpp>
 #include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/resource_flags.hpp>
 #include <sge/renderer/scoped_vertex_lock.hpp>
@@ -14,12 +13,13 @@
 #include <sge/renderer/vertex_buffer.hpp>
 #include <sge/renderer/vertex_buffer_unique_ptr.hpp>
 #include <sge/renderer/vertex_declaration_fwd.hpp>
+#include <sge/renderer/device/core.hpp>
 #include <sge/renderer/vf/iterator.hpp>
 #include <sge/renderer/vf/vertex.hpp>
 #include <sge/renderer/vf/view.hpp>
 #include <sge/renderer/vf/dynamic/part_index.hpp>
-#include <fcppt/container/bitfield/object_impl.hpp>
 #include <fcppt/move.hpp>
+#include <fcppt/container/bitfield/object_impl.hpp>
 
 
 sge::renderer::vertex_buffer_unique_ptr

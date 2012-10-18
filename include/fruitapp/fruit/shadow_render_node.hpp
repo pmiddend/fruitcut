@@ -6,14 +6,13 @@
 #include <fruitlib/scenic/node.hpp>
 #include <fruitlib/scenic/optional_parent.hpp>
 #include <fruitlib/scenic/events/render.hpp>
-#include <sge/shader/pair.hpp>
-#include <sge/shader/parameter/matrix.hpp>
-#include <sge/shader/context_fwd.hpp>
 #include <sge/camera/first_person/object_fwd.hpp>
-#include <sge/renderer/state/core/depth_stencil/object_scoped_ptr.hpp>
 #include <sge/renderer/matrix4.hpp>
 #include <sge/renderer/vertex_declaration_fwd.hpp>
+#include <sge/renderer/state/core/depth_stencil/object_scoped_ptr.hpp>
+#include <sge/shader/context_fwd.hpp>
 #include <sge/shader/pair.hpp>
+#include <sge/shader/parameter/matrix.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/math/matrix/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>

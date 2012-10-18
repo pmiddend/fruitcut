@@ -21,12 +21,12 @@
 #include <sge/camera/matrix_conversion/world_projection.hpp>
 #include <sge/parse/json/array.hpp>
 #include <sge/parse/json/object.hpp>
-#include <sge/renderer/device/core.hpp>
 #include <sge/renderer/matrix4.hpp>
 #include <sge/renderer/scalar.hpp>
 #include <sge/renderer/vector3.hpp>
 #include <sge/renderer/vector4.hpp>
 #include <sge/renderer/vertex_declaration.hpp>
+#include <sge/renderer/device/core.hpp>
 #include <sge/renderer/vf/dynamic/make_format.hpp>
 #include <fcppt/cref.hpp>
 #include <fcppt/make_unique_ptr.hpp>

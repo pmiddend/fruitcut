@@ -2,8 +2,9 @@
 #define FRUITAPP_FRUIT_MODEL_VF_TEXCOORD_HPP_INCLUDED
 
 #include <sge/renderer/scalar.hpp>
-#include <sge/renderer/vf/texpos.hpp>
 #include <sge/renderer/vf/index.hpp>
+#include <sge/renderer/vf/texpos.hpp>
+
 
 namespace fruitapp
 {

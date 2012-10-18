@@ -2,7 +2,6 @@
 #define FRUITLIB_PP_FILTER_ADD_HPP_INCLUDED
 
 #include <fruitlib/pp/filter/binary.hpp>
-#include <fruitlib/pp/filter/ivec2_parameter.hpp>
 #include <fruitlib/pp/filter/manager_fwd.hpp>
 #include <fruitlib/pp/filter/texture_size.hpp>
 #include <fruitlib/pp/texture/counted_instance.hpp>
@@ -42,7 +41,6 @@ private:
 	fruitlib::pp::texture::manager &texture_manager_;
 	fruitlib::pp::filter::texture_size const dimension_;
 	sge::shader::pair shader_;
-	fruitlib::pp::filter::ivec2_parameter texture_size_;
 	sge::shader::parameter::planar_texture texture1_;
 	sge::shader::parameter::planar_texture texture2_;
 };

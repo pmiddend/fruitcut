@@ -12,7 +12,6 @@
 #include <fcppt/text.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/math/dim/object_impl.hpp>
-#include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <iostream>
 #include <fcppt/config/external_end.hpp>
@@ -38,12 +37,6 @@ fruitlib::pp::filter::desaturate::desaturate(
 		sge::shader::pixel_program_path(
 			_filter_manager.base_path().get() / FCPPT_TEXT("desaturate.cg")),
 		_filter_manager.shader_cflags()),
-	texture_size_parameter_(
-		shader_.pixel_program(),
-		sge::shader::parameter::name(
-			"texture_size"),
-		fcppt::math::dim::structure_cast<fruitlib::pp::filter::ivec2_parameter::vector_type>(
-			texture_size_.get())),
 	scaling_(
 		shader_.pixel_program(),
 		sge::shader::parameter::name(
@@ -52,7 +45,7 @@ fruitlib::pp::filter::desaturate::desaturate(
 	texture_(
 		shader_.pixel_program(),
 		sge::shader::parameter::name(
-			"tex"),
+			"input_texture"),
 		shader_,
 		filter_manager_.renderer(),
 		sge::shader::parameter::planar_texture::optional_value())
@@ -81,10 +74,6 @@ fruitlib::pp::filter::desaturate::apply(
 				texture_size_.get(),
 				sge::image::color::format::rgb8,
 				texture::depth_stencil_format::off));
-
-	texture_size_parameter_.set(
-		fcppt::math::dim::structure_cast<fruitlib::pp::filter::ivec2_parameter::vector_type>(
-			result->texture()->size()));
 
 	sge::renderer::context::scoped_core scoped_context(
 		filter_manager_.renderer(),

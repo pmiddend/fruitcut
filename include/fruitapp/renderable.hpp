@@ -7,8 +7,8 @@
 #include <fruitapp/viewport/manager_fwd.hpp>
 #include <fruitlib/scenic/node.hpp>
 #include <fruitlib/scenic/optional_parent.hpp>
-#include <sge/shader/context_fwd.hpp>
 #include <sge/parse/json/object_fwd.hpp>
+#include <sge/shader/context_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 
 

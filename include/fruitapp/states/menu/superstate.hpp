@@ -3,9 +3,6 @@
 
 #include <fruitapp/machine.hpp>
 #include <fruitapp/states/menu/main_fwd.hpp>
-#include <fruitlib/scenic/adaptors/gui_system.hpp>
-#include <sge/cegui/default_cursor.hpp>
-#include <sge/cegui/default_keyboard.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -33,9 +30,6 @@ public:
 
 	virtual ~superstate();
 private:
-	fruitlib::scenic::adaptors::gui_system gui_node_;
-	sge::cegui::default_keyboard gui_keyboard_;
-	sge::cegui::default_cursor gui_cursor_;
 	fcppt::signal::scoped_connection escape_connection_;
 };
 }

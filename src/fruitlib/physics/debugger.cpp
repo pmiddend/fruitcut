@@ -1,10 +1,4 @@
 #include <fruitlib/physics/debugger.hpp>
-#include <sge/renderer/device/ffp.hpp>
-#include <sge/renderer/context/ffp.hpp>
-#include <sge/renderer/state/ffp/transform/object_scoped_ptr.hpp>
-#include <sge/renderer/state/ffp/transform/object.hpp>
-#include <sge/renderer/state/ffp/transform/scoped.hpp>
-#include <sge/renderer/state/ffp/transform/parameters.hpp>
 #include <fruitlib/physics/structure_cast.hpp>
 #include <fruitlib/physics/world.hpp>
 #include <sge/camera/base.hpp>
@@ -14,6 +8,12 @@
 #include <sge/image/color/rgb8.hpp>
 #include <sge/line_drawer/line.hpp>
 #include <sge/line_drawer/scoped_lock.hpp>
+#include <sge/renderer/context/ffp.hpp>
+#include <sge/renderer/device/ffp.hpp>
+#include <sge/renderer/state/ffp/transform/object.hpp>
+#include <sge/renderer/state/ffp/transform/object_scoped_ptr.hpp>
+#include <sge/renderer/state/ffp/transform/parameters.hpp>
+#include <sge/renderer/state/ffp/transform/scoped.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/ref.hpp>
 #include <fcppt/text.hpp>

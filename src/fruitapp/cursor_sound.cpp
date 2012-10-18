@@ -1,7 +1,7 @@
 #include <fruitapp/cursor_sound.hpp>
-#include <fruitapp/viewport/manager.hpp>
 #include <fruitapp/ingame_clock.hpp>
 #include <fruitapp/ingame_timer.hpp>
+#include <fruitapp/viewport/manager.hpp>
 #include <fruitlib/audio/sound_controller.hpp>
 #include <fruitlib/scenic/events/update.hpp>
 #include <sge/input/cursor/object.hpp>

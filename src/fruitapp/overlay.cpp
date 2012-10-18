@@ -1,12 +1,12 @@
 #include <fruitapp/overlay.hpp>
-#include <sge/renderer/context/scoped_ffp.hpp>
 #include <fruitapp/postprocessing.hpp>
 #include <fruitlib/scenic/events/render.hpp>
 #include <sge/image/colors.hpp>
-#include <sge/renderer/device/ffp.hpp>
-#include <sge/renderer/context/ffp.hpp>
-#include <sge/renderer/target/onscreen.hpp>
 #include <sge/renderer/clear/parameters.hpp>
+#include <sge/renderer/context/ffp.hpp>
+#include <sge/renderer/context/scoped_ffp.hpp>
+#include <sge/renderer/device/ffp.hpp>
+#include <sge/renderer/target/onscreen.hpp>
 #include <fcppt/math/dim/object_impl.hpp>
 
 

@@ -9,7 +9,6 @@
 #include <sge/parse/json/object_fwd.hpp>
 #include <sge/renderer/device/ffp_fwd.hpp>
 #include <sge/renderer/target/viewport.hpp>
-#include <sge/texture/const_part_scoped_ptr.hpp>
 #include <sge/sprite/object_decl.hpp>
 #include <sge/sprite/parameters_fwd.hpp>
 #include <sge/sprite/buffers/single_decl.hpp>
@@ -17,14 +16,15 @@
 #include <sge/sprite/config/choices.hpp>
 #include <sge/sprite/config/float_type.hpp>
 #include <sge/sprite/config/normal_size.hpp>
-#include <sge/sprite/state/all_choices.hpp>
-#include <sge/sprite/state/object.hpp>
-#include <sge/sprite/state/parameters.hpp>
 #include <sge/sprite/config/texture_coordinates.hpp>
 #include <sge/sprite/config/texture_level_count.hpp>
 #include <sge/sprite/config/type_choices.hpp>
 #include <sge/sprite/config/unit_type.hpp>
 #include <sge/sprite/config/with_texture.hpp>
+#include <sge/sprite/state/all_choices.hpp>
+#include <sge/sprite/state/object.hpp>
+#include <sge/sprite/state/parameters.hpp>
+#include <sge/texture/const_part_scoped_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/config/external_begin.hpp>

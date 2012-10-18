@@ -7,11 +7,7 @@
 #include <fruitlib/scenic/optional_parent.hpp>
 #include <fruitlib/scenic/events/render.hpp>
 #include <fruitlib/scenic/events/update.hpp>
-#include <sge/texture/const_part_scoped_ptr.hpp>
 #include <sge/image/color/rgba8_format.hpp>
-#include <sge/sprite/state/all_choices.hpp>
-#include <sge/sprite/state/object.hpp>
-#include <sge/sprite/state/parameters.hpp>
 #include <sge/image2d/system_fwd.hpp>
 #include <sge/input/cursor/object_fwd.hpp>
 #include <sge/parse/json/object.hpp>
@@ -32,6 +28,10 @@
 #include <sge/sprite/config/unit_type.hpp>
 #include <sge/sprite/config/with_rotation.hpp>
 #include <sge/sprite/config/with_texture.hpp>
+#include <sge/sprite/state/all_choices.hpp>
+#include <sge/sprite/state/object.hpp>
+#include <sge/sprite/state/parameters.hpp>
+#include <sge/texture/const_part_scoped_ptr.hpp>
 #include <sge/texture/part_shared_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/shared_ptr.hpp>

@@ -43,7 +43,7 @@ fruitlib::pp::system::system(
 	texture_parameter_(
 		shader_.pixel_program(),
 		sge::shader::parameter::name(
-			"tex"),
+			"input_texture"),
 		shader_,
 		filter_manager_.renderer(),
 		sge::shader::parameter::planar_texture::optional_value()),

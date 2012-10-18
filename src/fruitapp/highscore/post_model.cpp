@@ -1,6 +1,6 @@
-#include <fruitapp/gui/table/column.hpp>
-#include <fruitapp/gui/table/row.hpp>
-#include <fruitapp/gui/table/row_index.hpp>
+#include <fruitapp/gui/ce/table/column.hpp>
+#include <fruitapp/gui/ce/table/row.hpp>
+#include <fruitapp/gui/ce/table/row_index.hpp>
 #include <fruitapp/highscore/post_model.hpp>
 #include <fruitapp/highscore/provider/connection_base.hpp>
 #include <fruitapp/highscore/provider/object_base.hpp>
@@ -23,7 +23,7 @@
 
 
 fruitapp::highscore::post_model::connection_wrapper::connection_wrapper(
-	provider::connection_base_ptr &_connection,
+	fruitapp::highscore::provider::connection_base_ptr &_connection,
 	fcppt::signal::shared_connection const _message_received,
 	fcppt::signal::shared_connection const _error_received,
 	fcppt::signal::shared_connection const _rank_received)
@@ -52,7 +52,7 @@ fruitapp::highscore::post_model::connection_wrapper::~connection_wrapper()
 }
 
 fruitapp::highscore::post_model::post_model(
-	highscore::provider_sequence &_providers)
+	fruitapp::highscore::provider_sequence &_providers)
 :
 	providers_(
 		_providers),
@@ -66,7 +66,7 @@ fruitapp::highscore::post_model::post_model(
 
 fcppt::signal::auto_connection
 fruitapp::highscore::post_model::message_received(
-	callbacks::message_received const &f)
+	fruitapp::highscore::callbacks::message_received const &f)
 {
 	return
 		message_received_.connect(
@@ -75,7 +75,7 @@ fruitapp::highscore::post_model::message_received(
 
 fcppt::signal::auto_connection
 fruitapp::highscore::post_model::error_received(
-	callbacks::error_received const &f)
+	fruitapp::highscore::callbacks::error_received const &f)
 {
 	return
 		error_received_.connect(
@@ -84,13 +84,13 @@ fruitapp::highscore::post_model::error_received(
 
 void
 fruitapp::highscore::post_model::post(
-	highscore::name const &_name,
-	highscore::score const &_score)
+	fruitapp::highscore::name const &_name,
+	fruitapp::highscore::score const &_score)
 {
 	for(
-		gui::table::row_index::value_type i =
-			static_cast<gui::table::row_index::value_type>(connections_.size()-1);
-		i != static_cast<gui::table::row_index::value_type>(-1);
+		fruitapp::gui::ce::table::row_index::value_type i =
+			static_cast<fruitapp::gui::ce::table::row_index::value_type>(connections_.size()-1);
+		i != static_cast<fruitapp::gui::ce::table::row_index::value_type>(-1);
 		--i)
 		row_removed_(
 			i);
@@ -107,14 +107,14 @@ fruitapp::highscore::post_model::post(
 		FCPPT_ASSERT_PRE(
 			new_connection);
 
-		gui::table::row new_row;
+		fruitapp::gui::ce::table::row new_row;
 		new_row.push_back(
 			i->identifier());
 		new_row.push_back(
 			FCPPT_TEXT(""));
 
-		gui::table::row_index::value_type const new_row_index =
-			static_cast<gui::table::row_index::value_type>(
+		fruitapp::gui::ce::table::row_index::value_type const new_row_index =
+			static_cast<fruitapp::gui::ce::table::row_index::value_type>(
 				std::distance(
 					providers_.begin(),
 					i));
@@ -171,24 +171,24 @@ fruitapp::highscore::post_model::update()
 		i->connection().update();
 }
 
-fruitapp::gui::table::column_sequence const
+fruitapp::gui::ce::table::column_sequence const
 fruitapp::highscore::post_model::columns() const
 {
 	return
-		fcppt::assign::make_container<gui::table::column_sequence>
-			(gui::table::column(
+		fcppt::assign::make_container<fruitapp::gui::ce::table::column_sequence>
+			(fruitapp::gui::ce::table::column(
 				FCPPT_TEXT("Provider"),
-				static_cast<gui::table::column::width_type>(
+				static_cast<fruitapp::gui::ce::table::column::width_type>(
 					0.9)))
-			(gui::table::column(
+			(fruitapp::gui::ce::table::column(
 				FCPPT_TEXT("Rank"),
-				static_cast<gui::table::column::width_type>(
+				static_cast<fruitapp::gui::ce::table::column::width_type>(
 					0.1)));
 }
 
 fcppt::signal::auto_connection
 fruitapp::highscore::post_model::row_added(
-	gui::table::row_added const &f)
+	fruitapp::gui::ce::table::row_added const &f)
 {
 	return
 		row_added_.connect(
@@ -197,7 +197,7 @@ fruitapp::highscore::post_model::row_added(
 
 fcppt::signal::auto_connection
 fruitapp::highscore::post_model::row_removed(
-	gui::table::row_removed const &f)
+	fruitapp::gui::ce::table::row_removed const &f)
 {
 	return
 		row_removed_.connect(
@@ -229,13 +229,13 @@ fruitapp::highscore::post_model::error_received_internal(
 void
 fruitapp::highscore::post_model::rank_received_internal(
 	provider::object_base const &_provider,
-	gui::table::row_index::value_type const _row_index,
+	fruitapp::gui::ce::table::row_index::value_type const _row_index,
 	highscore::rank const &_rank)
 {
 	row_removed_(
 		_row_index);
 
-	gui::table::row new_row;
+	fruitapp::gui::ce::table::row new_row;
 	new_row.push_back(
 		_provider.identifier());
 	new_row.push_back(
@@ -247,8 +247,8 @@ fruitapp::highscore::post_model::rank_received_internal(
 			fcppt::string(
 				FCPPT_TEXT("-")));
 
-	gui::table::row_index::value_type const new_row_index =
-		static_cast<gui::table::row_index::value_type>(
+	fruitapp::gui::ce::table::row_index::value_type const new_row_index =
+		static_cast<fruitapp::gui::ce::table::row_index::value_type>(
 			connections_.size());
 
 	row_added_(

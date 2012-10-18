@@ -12,8 +12,8 @@
 #include <sge/parse/json/get.hpp>
 #include <sge/parse/json/object.hpp>
 #include <sge/parse/json/value.hpp>
-#include <sge/renderer/device/core.hpp>
 #include <sge/renderer/resource_flags.hpp>
+#include <sge/renderer/device/core.hpp>
 #include <sge/renderer/texture/create_planar_from_path.hpp>
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/mipmap/all_levels.hpp>

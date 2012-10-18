@@ -6,7 +6,7 @@
 #include <fruitapp/scoped_time_factor.hpp>
 #include <fruitapp/events/declare_transition_reaction.hpp>
 #include <fruitapp/events/declare_transition_type.hpp>
-#include <fruitapp/gui/button.hpp>
+#include <fruitapp/gui/dialogs/ingame_menu_unique_ptr.hpp>
 #include <fruitapp/states/ingame/running_fwd.hpp>
 #include <fruitapp/states/ingame/superstate.hpp>
 #include <fruitapp/states/menu/main_fwd.hpp>
@@ -14,11 +14,6 @@
 #include <fruitlib/pp/filter/blur.hpp>
 #include <fruitlib/pp/filter/inject_texture.hpp>
 #include <fruitlib/scenic/node.hpp>
-#include <fruitlib/scenic/adaptors/gui_system.hpp>
-#include <sge/cegui/default_cursor.hpp>
-#include <sge/cegui/default_keyboard.hpp>
-#include <sge/cegui/toolbox/scoped_gui_sheet.hpp>
-#include <sge/cegui/toolbox/scoped_layout.hpp>
 #include <sge/renderer/texture/planar_shared_ptr.hpp>
 #include <sge/timer/basic.hpp>
 #include <sge/timer/clocks/standard.hpp>
@@ -124,14 +119,7 @@ private:
 	fruitlib::pp::filter::iterations const max_blur_iterations_;
 	sge::timer::basic<sge::timer::clocks::standard> blur_timer_;
 	fcppt::signal::scoped_connection transit_to_running_connection_;
-	fruitlib::scenic::adaptors::gui_system gui_node_;
-	sge::cegui::default_keyboard gui_keyboard_;
-	sge::cegui::default_cursor gui_cursor_;
-	sge::cegui::toolbox::scoped_layout layout_;
-	sge::cegui::toolbox::scoped_gui_sheet gui_sheet_;
-	gui::button continue_button_;
-	gui::button main_menu_button_;
-	gui::button quit_button_;
+	fruitapp::gui::dialogs::ingame_menu_unique_ptr ingame_menu_;
 	fcppt::signal::scoped_connection continue_connection_;
 	fcppt::signal::scoped_connection main_menu_connection_;
 	fcppt::signal::scoped_connection quit_connection_;

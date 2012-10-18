@@ -8,11 +8,11 @@
 #include <fruitlib/json/parse_rgba8_color.hpp>
 #include <fruitlib/resource_tree/path.hpp>
 #include <fruitlib/time_format/find_and_convert_duration.hpp>
+#include <sge/font/from_fcppt_string.hpp>
+#include <sge/font/lit.hpp>
 #include <sge/image/color/convert.hpp>
 #include <sge/parse/json/find_and_convert_member.hpp>
 #include <sge/parse/json/path.hpp>
-#include <sge/font/from_fcppt_string.hpp>
-#include <sge/font/lit.hpp>
 #include <sge/timer/parameters.hpp>
 #include <sge/timer/reset_when_expired.hpp>
 #include <sge/timer/clocks/standard.hpp>

@@ -7,10 +7,10 @@
 #include <sge/image/colors.hpp>
 #include <sge/parse/json/find_and_convert_member.hpp>
 #include <sge/parse/json/object_fwd.hpp>
-#include <sge/renderer/device/core.hpp>
-#include <sge/shader/context.hpp>
 #include <sge/renderer/dim2.hpp>
 #include <sge/renderer/scalar.hpp>
+#include <sge/renderer/device/core.hpp>
+#include <sge/shader/context.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/function/object.hpp>
@@ -34,7 +34,7 @@ fruitapp::postprocessing::postprocessing(
 	filter_manager_(
 		_shader_context,
 		fruitlib::pp::filter::base_path(
-			fruitlib::media_path()/FCPPT_TEXT("shaders"))),
+			fruitlib::media_path() / FCPPT_TEXT("shaders") / FCPPT_TEXT("postprocessing"))),
 	system_(
 		filter_manager_),
 	rtt_filter_(
@@ -51,11 +51,13 @@ fruitapp::postprocessing::postprocessing(
 					1.0f)),
 		render_callback,
 		fruitlib::pp::texture::depth_stencil_format::d32),
+/*
 	ssaa_filter_(
 		filter_manager_,
 		texture_manager_,
 		fruitlib::pp::filter::texture_size(
 			fruitlib::pp::texture::use_screen_size())),
+*/
 	highlight_filter_(
 		filter_manager_,
 		texture_manager_,
@@ -110,17 +112,20 @@ fruitapp::postprocessing::postprocessing(
 		FCPPT_TEXT("source"),
 		fruitlib::pp::dependency_set());
 
+	/*
 	system_.add_filter(
 		ssaa_filter_,
 		FCPPT_TEXT("ssaa"),
 		fcppt::assign::make_container<fruitlib::pp::dependency_set>
 			(FCPPT_TEXT("source")));
+	*/
 
 	system_.add_filter(
 		highlight_filter_,
 		FCPPT_TEXT("highlight"),
 		fcppt::assign::make_container<fruitlib::pp::dependency_set>
-			(FCPPT_TEXT("ssaa")));
+//			(FCPPT_TEXT("ssaa")));
+			(FCPPT_TEXT("source")));
 
 	system_.add_filter(
 		blur_filter_,
@@ -133,7 +138,8 @@ fruitapp::postprocessing::postprocessing(
 		FCPPT_TEXT("add"),
 		fcppt::assign::make_container<fruitlib::pp::dependency_set>
 			(FCPPT_TEXT("blur"))
-			(FCPPT_TEXT("ssaa")));
+//			(FCPPT_TEXT("ssaa")));
+			(FCPPT_TEXT("source")));
 
 	system_.add_filter(
 		desaturate_filter_,

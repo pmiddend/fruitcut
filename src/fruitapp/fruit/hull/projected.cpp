@@ -5,10 +5,10 @@
 #include <fruitlib/geometry_traits/vector.hpp>
 #include <sge/renderer/matrix4.hpp>
 #include <sge/renderer/scalar.hpp>
-#include <sge/renderer/target/base.hpp>
 #include <sge/renderer/vector2.hpp>
 #include <sge/renderer/vector3.hpp>
 #include <sge/renderer/vector4.hpp>
+#include <sge/renderer/target/base.hpp>
 #include <fcppt/container/array.hpp>
 #include <fcppt/math/box/corner_points.hpp>
 #include <fcppt/math/box/object_impl.hpp>

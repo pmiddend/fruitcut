@@ -18,8 +18,6 @@
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/container/ptr/replace_unique_ptr.hpp>
 #include <fcppt/math/dim/object_impl.hpp>
-#include <fcppt/math/dim/structure_cast.hpp>
-#include <fcppt/math/vector/structure_cast.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <iostream>
 #include <fcppt/config/external_end.hpp>
@@ -40,8 +38,7 @@ fruitlib::pp::filter::blur::blur(
 	iterations_(
 		_iterations),
 	shaders_(),
-	planar_textures_(),
-	texture_sizes_()
+	planar_textures_()
 {
 	FCPPT_ASSERT_PRE(
 		iterations_.get());
@@ -49,9 +46,9 @@ fruitlib::pp::filter::blur::blur(
 	fcppt::container::array<boost::filesystem::path,2> filenames =
 		{{
 				boost::filesystem::path(
-					FCPPT_TEXT("blur_horizontal.cg")),
+					FCPPT_TEXT("blur_h.cg")),
 				boost::filesystem::path(
-					FCPPT_TEXT("blur_vertical.cg")),
+					FCPPT_TEXT("blur_v.cg")),
 		}};
 
 	for(
@@ -80,22 +77,12 @@ fruitlib::pp::filter::blur::blur(
 				fcppt::ref(
 					shaders_[i].pixel_program()),
 				sge::shader::parameter::name(
-					"tex"),
+					"input_texture"),
 				fcppt::ref(
 					shaders_[i]),
 				fcppt::ref(
 					_filter_manager.renderer()),
 				sge::shader::parameter::planar_texture::optional_value()));
-
-		fcppt::container::ptr::replace_unique_ptr(
-			texture_sizes_,
-			i,
-			fcppt::make_unique_ptr<fruitlib::pp::filter::ivec2_parameter>(
-				fcppt::ref(
-					shaders_[i].pixel_program()),
-				sge::shader::parameter::name(
-					"texture_size"),
-				fruitlib::pp::filter::ivec2_parameter::vector_type::null()));
 	}
 }
 
@@ -131,14 +118,6 @@ fruitlib::pp::filter::blur::apply(
 	planar_textures_[1u].set(
 		sge::shader::parameter::planar_texture::optional_value(
 			*(instances[0]->texture())));
-
-	texture_sizes_[0u].set(
-		fcppt::math::dim::structure_cast<fruitlib::pp::filter::ivec2_parameter::vector_type>(
-			instances[0u]->texture()->size()));
-
-	texture_sizes_[1u].set(
-		fcppt::math::dim::structure_cast<fruitlib::pp::filter::ivec2_parameter::vector_type>(
-			instances[1u]->texture()->size()));
 
 	this->render(
 		instances,

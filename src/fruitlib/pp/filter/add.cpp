@@ -12,7 +12,6 @@
 #include <sge/shader/scoped_pair.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/math/dim/output.hpp>
-#include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <iostream>
 #include <fcppt/config/external_end.hpp>
@@ -37,23 +36,17 @@ fruitlib::pp::filter::add::add(
 		sge::shader::pixel_program_path(
 			_filter_manager.base_path().get() / FCPPT_TEXT("add.cg")),
 		_filter_manager.shader_cflags()),
-	texture_size_(
-		shader_.pixel_program(),
-		sge::shader::parameter::name(
-			"texture_size"),
-		fcppt::math::dim::structure_cast<fruitlib::pp::filter::ivec2_parameter::vector_type>(
-			dimension_.get())),
 	texture1_(
 		shader_.pixel_program(),
 		sge::shader::parameter::name(
-			"tex1"),
+			"input_texture1"),
 		shader_,
 		filter_manager_.renderer(),
 		sge::shader::parameter::planar_texture::optional_value()),
 	texture2_(
 		shader_.pixel_program(),
 		sge::shader::parameter::name(
-			"tex2"),
+			"input_texture2"),
 		shader_,
 		filter_manager_.renderer(),
 		sge::shader::parameter::planar_texture::optional_value())
@@ -79,10 +72,6 @@ fruitlib::pp::filter::add::apply(
 				dimension_.get(),
 				sge::image::color::format::rgb8,
 				fruitlib::pp::texture::depth_stencil_format::off));
-
-	texture_size_.set(
-		fcppt::math::dim::structure_cast<fruitlib::pp::filter::ivec2_parameter::vector_type>(
-			result->texture()->size()));
 
 	sge::renderer::context::scoped_core scoped_context(
 		filter_manager_.renderer(),

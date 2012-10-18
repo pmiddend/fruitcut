@@ -16,11 +16,11 @@
 #include <fruitlib/physics/group/object_fwd.hpp>
 #include <fruitlib/physics/rigid_body/object.hpp>
 #include <fruitlib/physics/rigid_body/scoped.hpp>
-#include <sge/renderer/device/core_fwd.hpp>
 #include <sge/renderer/matrix4.hpp>
 #include <sge/renderer/vector3.hpp>
 #include <sge/renderer/vertex_buffer_scoped_ptr.hpp>
 #include <sge/renderer/vertex_declaration_fwd.hpp>
+#include <sge/renderer/device/core_fwd.hpp>
 #include <fcppt/nonassignable.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/math/box/object_impl.hpp>

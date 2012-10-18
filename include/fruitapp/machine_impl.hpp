@@ -9,11 +9,11 @@
 #include <fruitapp/renderable.hpp>
 #include <fruitapp/screen_shooter.hpp>
 #include <fruitapp/shadow_map.hpp>
+#include <fruitapp/systems.hpp>
 #include <fruitapp/fruit/prototype_sequence.hpp>
-#include <sge/systems/instance.hpp>
+#include <fruitapp/gui/system_unique_ptr.hpp>
 #include <fruitapp/highscore/score.hpp>
 #include <fruitapp/point_sprite/system_node.hpp>
-#include <sge/shader/context.hpp>
 #include <fruitapp/projection_manager/object.hpp>
 #include <fruitapp/viewport/manager.hpp>
 #include <fruitlib/random_generator.hpp>
@@ -26,15 +26,14 @@
 #include <fruitlib/scenic/delta/callback.hpp>
 #include <fruitlib/scenic/delta/duration.hpp>
 #include <fruitlib/scenic/events/render.hpp>
-#include <fruitapp/systems.hpp>
 #include <fruitlib/scenic/events/update.hpp>
 #include <sge/camera/first_person/object.hpp>
-#include <sge/cegui/syringe.hpp>
-#include <sge/cegui/system.hpp>
 #include <sge/charconv/system_scoped_ptr.hpp>
 #include <sge/model/md3/loader_fwd.hpp>
 #include <sge/model/md3/loader_scoped_ptr.hpp>
 #include <sge/parse/json/object.hpp>
+#include <sge/shader/context.hpp>
+#include <sge/systems/instance.hpp>
 #include <sge/timer/basic.hpp>
 #include <sge/timer/clocks/standard.hpp>
 #include <awl/main/exit_code.hpp>
@@ -52,7 +51,6 @@ class machine_impl
 FCPPT_NONCOPYABLE(
 	machine_impl);
 public:
-	explicit
 	machine_impl(
 		int argc,
 		char *argv[]);
@@ -152,21 +150,8 @@ public:
 	font_cache() const
 	FCPPT_PP_CONST;
 
-	sge::cegui::system &
-	gui_system()
-	FCPPT_PP_CONST;
-
-	sge::cegui::system const &
-	gui_system() const
-	FCPPT_PP_CONST;
-
-	sge::cegui::syringe &
-	gui_syringe()
-	FCPPT_PP_CONST;
-
-	sge::cegui::syringe const &
-	gui_syringe() const
-	FCPPT_PP_CONST;
+	fruitapp::gui::system &
+	gui_system();
 
 	fruitlib::random_generator &
 	random_generator()
@@ -279,8 +264,7 @@ private:
 	fruitapp::shadow_map shadow_map_;
 	fruitapp::background background_;
 	unsigned desired_fps_;
-	sge::cegui::system gui_system_;
-	sge::cegui::syringe gui_syringe_;
+	fruitapp::gui::system_unique_ptr const gui_system_;
 	highscore::score::value_type last_game_score_;
 	point_sprite::system_node point_sprites_;
 	fruitapp::screen_shooter screen_shooter_;

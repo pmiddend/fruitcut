@@ -558,20 +558,58 @@ SET(
 	include/fruitapp/fruit/triangle.hpp
 	include/fruitapp/fruit/triangle_traits.hpp
 	include/fruitapp/game_logic/object.hpp
-	include/fruitapp/gui/button.hpp
-	include/fruitapp/gui/combobox.hpp
-	include/fruitapp/gui/progress_slider.hpp
-	include/fruitapp/gui/table/column.hpp
-	include/fruitapp/gui/table/column_sequence.hpp
-	include/fruitapp/gui/table/model.hpp
-	include/fruitapp/gui/table/model_fwd.hpp
-	include/fruitapp/gui/table/row.hpp
-	include/fruitapp/gui/table/row_added.hpp
-	include/fruitapp/gui/table/row_added_fn.hpp
-	include/fruitapp/gui/table/row_index.hpp
-	include/fruitapp/gui/table/row_removed.hpp
-	include/fruitapp/gui/table/row_removed_fn.hpp
-	include/fruitapp/gui/table/view.hpp
+	include/fruitapp/gui/ce/button.hpp
+	include/fruitapp/gui/ce/combobox.hpp
+	include/fruitapp/gui/ce/dialogs/highscore.hpp
+	include/fruitapp/gui/ce/dialogs/ingame_menu.hpp
+	include/fruitapp/gui/ce/dialogs/main_menu.hpp
+	include/fruitapp/gui/ce/dialogs/name_chooser.hpp
+	include/fruitapp/gui/ce/dialogs/ranking.hpp
+	include/fruitapp/gui/ce/dialogs/settings.hpp
+	include/fruitapp/gui/ce/progress_slider.hpp
+	include/fruitapp/gui/ce/system.hpp
+	include/fruitapp/gui/ce/system_fwd.hpp
+	include/fruitapp/gui/ce/table/column.hpp
+	include/fruitapp/gui/ce/table/column_sequence.hpp
+	include/fruitapp/gui/ce/table/model.hpp
+	include/fruitapp/gui/ce/table/model_fwd.hpp
+	include/fruitapp/gui/ce/table/row.hpp
+	include/fruitapp/gui/ce/table/row_added.hpp
+	include/fruitapp/gui/ce/table/row_added_fn.hpp
+	include/fruitapp/gui/ce/table/row_index.hpp
+	include/fruitapp/gui/ce/table/row_removed.hpp
+	include/fruitapp/gui/ce/table/row_removed_fn.hpp
+	include/fruitapp/gui/ce/table/view.hpp
+	include/fruitapp/gui/create_system.hpp
+	include/fruitapp/gui/dialogs/highscore.hpp
+	include/fruitapp/gui/dialogs/highscore_fwd.hpp
+	include/fruitapp/gui/dialogs/highscore_unique_ptr.hpp
+	include/fruitapp/gui/dialogs/ingame_menu.hpp
+	include/fruitapp/gui/dialogs/ingame_menu_fwd.hpp
+	include/fruitapp/gui/dialogs/ingame_menu_unique_ptr.hpp
+	include/fruitapp/gui/dialogs/main_menu.hpp
+	include/fruitapp/gui/dialogs/main_menu_fwd.hpp
+	include/fruitapp/gui/dialogs/main_menu_unique_ptr.hpp
+	include/fruitapp/gui/dialogs/name_chooser.hpp
+	include/fruitapp/gui/dialogs/name_chooser_fwd.hpp
+	include/fruitapp/gui/dialogs/name_chooser_unique_ptr.hpp
+	include/fruitapp/gui/dialogs/ranking.hpp
+	include/fruitapp/gui/dialogs/ranking_fwd.hpp
+	include/fruitapp/gui/dialogs/ranking_unique_ptr.hpp
+	include/fruitapp/gui/dialogs/settings.hpp
+	include/fruitapp/gui/dialogs/settings_fwd.hpp
+	include/fruitapp/gui/dialogs/settings_unique_ptr.hpp
+	include/fruitapp/gui/dummy/dialogs/ingame_menu.hpp
+	include/fruitapp/gui/dummy/dialogs/main_menu.hpp
+	include/fruitapp/gui/dummy/dialogs/name_chooser.hpp
+	include/fruitapp/gui/dummy/dialogs/ranking.hpp
+	include/fruitapp/gui/dummy/system.hpp
+	include/fruitapp/gui/initial_effects_volume.hpp
+	include/fruitapp/gui/initial_music_volume.hpp
+	include/fruitapp/gui/sound_volume.hpp
+	include/fruitapp/gui/system.hpp
+	include/fruitapp/gui/system_fwd.hpp
+	include/fruitapp/gui/system_unique_ptr.hpp
 	include/fruitapp/highscore/callbacks/error_received.hpp
 	include/fruitapp/highscore/callbacks/error_received_fn.hpp
 	include/fruitapp/highscore/callbacks/list_received.hpp
@@ -720,12 +758,32 @@ SET(
 	src/fruitapp/fruit/shadow_render_node.cpp
 	src/fruitapp/fruit/spawner.cpp
 	src/fruitapp/game_logic/object.cpp
-	src/fruitapp/gui/button.cpp
-	src/fruitapp/gui/combobox.cpp
-	src/fruitapp/gui/progress_slider.cpp
-	src/fruitapp/gui/table/column.cpp
-	src/fruitapp/gui/table/model.cpp
-	src/fruitapp/gui/table/view.cpp
+	src/fruitapp/gui/ce/button.cpp
+	src/fruitapp/gui/ce/combobox.cpp
+	src/fruitapp/gui/ce/dialogs/highscore.cpp
+	src/fruitapp/gui/ce/dialogs/ingame_menu.cpp
+	src/fruitapp/gui/ce/dialogs/main_menu.cpp
+	src/fruitapp/gui/ce/dialogs/name_chooser.cpp
+	src/fruitapp/gui/ce/dialogs/ranking.cpp
+	src/fruitapp/gui/ce/dialogs/settings.cpp
+	src/fruitapp/gui/ce/progress_slider.cpp
+	src/fruitapp/gui/ce/system.cpp
+	src/fruitapp/gui/ce/table/column.cpp
+	src/fruitapp/gui/ce/table/model.cpp
+	src/fruitapp/gui/ce/table/view.cpp
+	src/fruitapp/gui/create_system.cpp
+	src/fruitapp/gui/dialogs/highscore.cpp
+	src/fruitapp/gui/dialogs/ingame_menu.cpp
+	src/fruitapp/gui/dialogs/main_menu.cpp
+	src/fruitapp/gui/dialogs/name_chooser.cpp
+	src/fruitapp/gui/dialogs/ranking.cpp
+	src/fruitapp/gui/dialogs/settings.cpp
+	src/fruitapp/gui/dummy/dialogs/ingame_menu.cpp
+	src/fruitapp/gui/dummy/dialogs/main_menu.cpp
+	src/fruitapp/gui/dummy/dialogs/name_chooser.cpp
+	src/fruitapp/gui/dummy/dialogs/ranking.cpp
+	src/fruitapp/gui/dummy/system.cpp
+	src/fruitapp/gui/system.cpp
 	src/fruitapp/highscore/entry.cpp
 	src/fruitapp/highscore/entry_set_to_json.cpp
 	src/fruitapp/highscore/get_model.cpp

@@ -1,10 +1,12 @@
 #include <fruitapp/light_source_from_json.hpp>
+#include <fruitapp/gui/system.hpp>
 #include <fruitapp/load_user_config.hpp>
 #include <fruitapp/machine_impl.hpp>
 #include <fruitapp/name.hpp>
 #include <fruitapp/depths/overlay.hpp>
 #include <fruitapp/depths/root.hpp>
 #include <fruitapp/depths/scene.hpp>
+#include <fruitapp/gui/create_system.hpp>
 #include <fruitlib/create_command_line_parameters.hpp>
 #include <fruitlib/media_path.hpp>
 #include <fruitlib/random_generator.hpp>
@@ -23,10 +25,6 @@
 #include <sge/audio/scalar.hpp>
 #include <sge/camera/first_person/object.hpp>
 #include <sge/camera/first_person/parameters.hpp>
-#include <sge/cegui/cursor_visibility.hpp>
-#include <sge/cegui/load_context.hpp>
-#include <sge/cegui/syringe.hpp>
-#include <sge/cegui/system.hpp>
 #include <sge/charconv/create_system.hpp>
 #include <sge/charconv/system.hpp>
 #include <sge/font/system.hpp>
@@ -47,11 +45,10 @@
 #include <sge/parse/json/parse_string_exn.hpp>
 #include <sge/parse/json/config/merge_command_line_parameters.hpp>
 #include <sge/parse/json/config/merge_trees.hpp>
-#include <sge/sprite/parameters.hpp>
-#include <sge/systems/audio_loader.hpp>
-#include <sge/systems/make_list.hpp>
 #include <sge/renderer/parameters/object.hpp>
 #include <sge/renderer/pixel_format/object.hpp>
+#include <sge/sprite/parameters.hpp>
+#include <sge/systems/audio_loader.hpp>
 #include <sge/systems/audio_player_default.hpp>
 #include <sge/systems/charconv.hpp>
 #include <sge/systems/cursor_option_field.hpp>
@@ -60,6 +57,7 @@
 #include <sge/systems/input.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
+#include <sge/systems/make_list.hpp>
 #include <sge/systems/renderer.hpp>
 #include <sge/systems/window.hpp>
 #include <sge/timer/elapsed_and_reset.hpp>
@@ -370,17 +368,19 @@ fruitapp::machine_impl::machine_impl(
 			sge::parse::json::path(FCPPT_TEXT("graphics"))
 				/ FCPPT_TEXT("desired-fps"))),
 	gui_system_(
-		sge::cegui::load_context(
-			fruitlib::media_path()/FCPPT_TEXT("gui")/FCPPT_TEXT("fruitcut.scheme"))
-			.font_directory(
-				fruitlib::media_path()/FCPPT_TEXT("fonts")),
-		systems_.renderer_ffp(),
-		systems_.image_system(),
-		systems_.charconv_system(),
-		systems_.viewport_manager(),
-		sge::cegui::cursor_visibility::invisible),
-	gui_syringe_(
-		gui_system_),
+		fruitapp::gui::create_system(
+			fruitlib::scenic::parent(
+				this->overlay_node(),
+				fruitlib::scenic::depth(
+					depths::overlay::dont_care)),
+			systems_.renderer_ffp(),
+			systems_.image_system(),
+			systems_.viewport_manager(),
+			systems_.charconv_system(),
+			this->standard_clock_callback(),
+			systems_.keyboard_collector(),
+			systems_.cursor_demuxer(),
+			this->sound_controller())),
 	last_game_score_(
 		// Something invalid so you get the error (if there is one)
 		31337),
@@ -585,28 +585,11 @@ fruitapp::machine_impl::font_cache() const
 	return font_cache_;
 }
 
-sge::cegui::system &
+fruitapp::gui::system &
 fruitapp::machine_impl::gui_system()
 {
-	return gui_system_;
-}
-
-sge::cegui::system const &
-fruitapp::machine_impl::gui_system() const
-{
-	return gui_system_;
-}
-
-sge::cegui::syringe &
-fruitapp::machine_impl::gui_syringe()
-{
-	return gui_syringe_;
-}
-
-sge::cegui::syringe const &
-fruitapp::machine_impl::gui_syringe() const
-{
-	return gui_syringe_;
+	return
+		*gui_system_;
 }
 
 fruitlib::random_generator &

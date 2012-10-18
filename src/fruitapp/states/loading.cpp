@@ -13,6 +13,7 @@
 #include <fruitlib/json/parse_rgba8_color.hpp>
 #include <fruitlib/scenic/depth.hpp>
 #include <fruitlib/scenic/parent.hpp>
+#include <sge/font/lit.hpp>
 #include <sge/image/colors.hpp>
 #include <sge/image/color/convert.hpp>
 #include <sge/parse/json/array.hpp>
@@ -20,7 +21,6 @@
 #include <sge/parse/json/value.hpp>
 #include <sge/renderer/scalar.hpp>
 #include <sge/systems/instance.hpp>
-#include <sge/font/lit.hpp>
 #include <fcppt/insert_to_string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/container/ptr/push_back_unique_ptr.hpp>

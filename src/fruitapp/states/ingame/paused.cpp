@@ -1,11 +1,12 @@
 #include <fruitapp/postprocessing.hpp>
-#include <sge/renderer/context/ffp.hpp>
 #include <fruitapp/scene.hpp>
 #include <fruitapp/depths/overlay.hpp>
 #include <fruitapp/depths/root.hpp>
 #include <fruitapp/events/define_transition_reaction.hpp>
 #include <fruitapp/events/generic_transition.hpp>
 #include <fruitapp/events/return_post_transition_functor.hpp>
+#include <fruitapp/gui/system.hpp>
+#include <fruitapp/gui/dialogs/ingame_menu.hpp>
 #include <fruitapp/states/ingame/paused.hpp>
 #include <fruitapp/states/ingame/running.hpp>
 #include <fruitapp/states/menu/main.hpp>
@@ -14,11 +15,11 @@
 #include <fruitlib/pp/texture/use_screen_size.hpp>
 #include <fruitlib/scenic/parent.hpp>
 #include <fruitlib/time_format/find_and_convert_duration.hpp>
-#include <sge/cegui/system.hpp>
 #include <sge/input/keyboard/action.hpp>
 #include <sge/input/keyboard/device.hpp>
 #include <sge/input/keyboard/key_code.hpp>
 #include <sge/parse/json/find_and_convert_member.hpp>
+#include <sge/renderer/context/ffp.hpp>
 #include <sge/renderer/device/ffp.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/timer/parameters.hpp>
@@ -29,10 +30,6 @@
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/tr1/functional.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <CEGUI/WindowManager.h>
-#include <iostream>
-#include <fcppt/config/external_end.hpp>
 
 
 fruitapp::states::ingame::paused::paused(
@@ -94,51 +91,18 @@ fruitapp::states::ingame::paused::paused(
 					&fruitapp::machine::post_event,
 					&context<fruitapp::machine>(),
 					events::generic_transition<ingame::running>())))),
-	gui_node_(
-		fruitlib::scenic::optional_parent(
-			fruitlib::scenic::parent(
-				context<fruitapp::machine>().overlay_node(),
-				fruitlib::scenic::depth(
-					depths::overlay::dont_care))),
-		context<fruitapp::machine>().gui_system(),
-		context<fruitapp::machine>().standard_clock_callback()),
-	gui_keyboard_(
-		context<fruitapp::machine>().gui_syringe(),
-		context<fruitapp::machine>().systems().keyboard_collector()),
-	gui_cursor_(
-		context<fruitapp::machine>().gui_syringe(),
-		context<fruitapp::machine>().systems().cursor_demuxer()),
-	layout_(
-		context<fruitapp::machine>().gui_system(),
-		fruitlib::media_path()
-			/FCPPT_TEXT("gui")
-			/FCPPT_TEXT("layouts")
-			/FCPPT_TEXT("ingame_menu.layout")),
-	gui_sheet_(
-		context<fruitapp::machine>().gui_system(),
-		*layout_.window().getChild("MainMenu")),
-	continue_button_(
-		context<fruitapp::machine>().sound_controller(),
-		*layout_.window().getChild(
-			"IngameMenu/Continue")),
-	main_menu_button_(
-		context<fruitapp::machine>().sound_controller(),
-		*layout_.window().getChild(
-			"IngameMenu/MainMenu")),
-	quit_button_(
-		context<machine>().sound_controller(),
-		*layout_.window().getChild(
-			"IngameMenu/Quit")),
+	ingame_menu_(
+		context<fruitapp::machine>().gui_system().create_ingame_menu()),
 	continue_connection_(
-		continue_button_.push_callback(
+		ingame_menu_->register_game_callback(
 			FRUITAPP_EVENTS_RETURN_POST_TRANSITION_FUNCTOR(
 				ingame::running))),
 	main_menu_connection_(
-		main_menu_button_.push_callback(
+		ingame_menu_->register_main_menu_callback(
 			FRUITAPP_EVENTS_RETURN_POST_TRANSITION_FUNCTOR(
 				menu::main))),
 	quit_connection_(
-		quit_button_.push_callback(
+		ingame_menu_->register_quit_callback(
 			std::tr1::bind(
 				&fruitapp::machine::quit,
 				&context<fruitapp::machine>(),

@@ -1,0 +1,93 @@
+struct vertex_outputs
+{
+	float4 position : POSITION;
+	float2 texture_coordinates : TEXCOORD0;
+	float3 world_position : TEXCOORD1;
+	float3 light_position : TEXCOORD2;
+	float3 normal : TEXCOORD3;
+	float2 shadow_texture_coordinates : TEXCOORD4;
+};
+
+vertex_outputs
+vertex_main(
+	uniform float4x4 mvp,
+	uniform float4x4 world,
+	uniform float4x4 mv_it,
+	uniform float3 light_position,
+	in float3 position : POSITION,
+	in float2 texture_coordinates : TEXCOORD0,
+	in float3 normal : NORMAL)
+{
+	vertex_outputs outs;
+	outs.position = mul(mvp,float4(position.xyz,1.0));
+	outs.world_position = mul(world,float4(position.xyz,1.0)).xyz;
+	outs.light_position = mul(world,float4(light_position,1.0)).xyz;
+	outs.texture_coordinates = texture_coordinates;
+	outs.normal = normalize(mul(mv_it,float4(normal,1.0)).xyz);
+	return
+		outs;
+}
+
+float4
+pixel_main(
+	vertex_outputs vertex_data,
+	uniform float ambient_intensity,
+	uniform float4 diffuse_color,
+	uniform float4 specular_color,
+	uniform float diffuse_coefficient,
+	uniform float specular_coefficient,
+	uniform float specular_shininess,
+	uniform sampler2D input_texture,
+	uniform sampler2D shadow_texture)
+	: COLOR
+{
+	float3
+		light_to_point =
+			normalize(
+				 vertex_data.light_position - vertex_data.world_position),
+		to_eye =
+			normalize(
+				-vertex_data.world_position),
+		reflected =
+			normalize(
+				-reflect(
+					light_to_point,
+					vertex_data.normal));
+
+	// Diffuse
+	//const float diffuse = 0.50;
+
+	// Both for specular
+	//const float shininess = 40.0;
+	//const float specular = 0.5;
+
+	const float4 ambient_color = float4(1.0,1.0,1.0,1.0);
+
+	float4 total_component =
+		ambient_intensity * ambient_color +
+		saturate(
+			diffuse_coefficient *
+			max(
+				dot(
+					vertex_data.normal,
+					light_to_point),
+				0.0)) *
+		diffuse_color +
+		// Specular
+		saturate(
+			specular_coefficient *
+			pow(
+				max(
+					dot(
+						reflected,
+						to_eye),
+					0.0),
+				specular_shininess))
+		* specular_color;
+
+	return
+		total_component *
+		tex2D(
+			input_texture,
+			vertex_data.texture_coordinates);
+}

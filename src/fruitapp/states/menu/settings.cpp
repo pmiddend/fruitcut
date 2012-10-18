@@ -2,13 +2,14 @@
 #include <fruitapp/events/define_transition_reaction.hpp>
 #include <fruitapp/events/post_transition.hpp>
 #include <fruitapp/events/return_post_transition_functor.hpp>
+#include <fruitapp/gui/system.hpp>
+#include <fruitapp/gui/dialogs/settings.hpp>
 #include <fruitapp/states/menu/main.hpp>
 #include <fruitapp/states/menu/settings.hpp>
 #include <fruitlib/media_path.hpp>
 #include <fruitlib/audio/sound_controller.hpp>
 #include <fruitlib/resource_tree/path.hpp>
 #include <sge/audio/scalar.hpp>
-#include <sge/cegui/system.hpp>
 #include <sge/systems/instance.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/tr1/functional.hpp>
@@ -19,54 +20,30 @@ fruitapp::states::menu::settings::settings(
 :
 	my_base(
 		ctx),
-	layout_(
-		context<machine>().gui_system(),
-		fruitlib::media_path()
-			/FCPPT_TEXT("gui")
-			/FCPPT_TEXT("layouts")
-			/FCPPT_TEXT("settings_menu.layout")),
-	gui_sheet_(
-		context<machine>().gui_system(),
-		*layout_.window().getChild("SettingsMenu")),
-	main_menu_button_(
-		context<machine>().sound_controller(),
-		*layout_.window().getChild(
-			"SettingsMenu/Return")),
+	settings_(
+		context<fruitapp::machine>().gui_system().create_settings(
+			fruitapp::gui::initial_effects_volume(
+				fruitapp::gui::sound_volume(
+					static_cast<fruitapp::gui::sound_volume::value_type>(
+						context<fruitapp::machine>().config_variables().effects_volume().value() * 100.0f))),
+			fruitapp::gui::initial_music_volume(
+				fruitapp::gui::sound_volume(
+					static_cast<fruitapp::gui::sound_volume::value_type>(
+					context<fruitapp::machine>().config_variables().music_volume().value() * 100.0f))))),
 	main_menu_button_connection_(
-		main_menu_button_.push_callback(
+		settings_->register_back_callback(
 			FRUITAPP_EVENTS_RETURN_POST_TRANSITION_FUNCTOR(
 				menu::main))),
-	music_volume_slider_(
-		context<fruitapp::machine>().sound_controller(),
-		layout_.window(),
-		"SettingsMenu/MusicVolume",
-		context<machine>().config_variables().music_volume().value()),
 	music_volume_connection_(
-		music_volume_slider_.value_changed(
+		settings_->register_music_volume_change_callback(
 			std::tr1::bind(
 				&settings::music_volume_callback,
 				this,
 				std::tr1::placeholders::_1))),
-	effects_volume_slider_(
-		context<fruitapp::machine>().sound_controller(),
-		layout_.window(),
-		"SettingsMenu/EffectsVolume",
-		context<machine>().config_variables().effects_volume().value()),
 	effects_volume_connection_(
-		effects_volume_slider_.value_changed(
+		settings_->register_effects_volume_change_callback(
 			std::tr1::bind(
 				&settings::effects_volume_callback,
-				this,
-				std::tr1::placeholders::_1))),
-	splatter_slider_(
-		context<fruitapp::machine>().sound_controller(),
-		layout_.window(),
-		"SettingsMenu/ParticleDensity",
-		context<machine>().config_variables().splatter_count_to_area_factor().value()),
-	splatter_connection_(
-		splatter_slider_.value_changed(
-			std::tr1::bind(
-				&settings::particle_callback,
 				this,
 				std::tr1::placeholders::_1)))
 {
@@ -82,27 +59,18 @@ fruitapp::states::menu::settings::~settings()
 
 void
 fruitapp::states::menu::settings::music_volume_callback(
-	gui::progress_slider::value_type const v)
+	fruitapp::gui::sound_volume const &v)
 {
 	context<machine>().config_variables().music_volume().value(
 		static_cast<sge::audio::scalar>(
-			v));
+			v.get()) / 100.0f);
 }
 
 void
 fruitapp::states::menu::settings::effects_volume_callback(
-	gui::progress_slider::value_type const v)
+	fruitapp::gui::sound_volume const &v)
 {
 	context<machine>().config_variables().effects_volume().value(
 		static_cast<sge::audio::scalar>(
-			v));
-}
-
-void
-fruitapp::states::menu::settings::particle_callback(
-	gui::progress_slider::value_type const v)
-{
-	context<machine>().config_variables().splatter_count_to_area_factor().value(
-		static_cast<fruit::area::value_type>(
-			v));
+			v.get()) / 100.0f);
 }

@@ -6,10 +6,10 @@
 #include <fruitlib/scenic/node.hpp>
 #include <fruitlib/scenic/optional_parent.hpp>
 #include <fruitlib/scenic/events/update.hpp>
-#include <sge/renderer/state/core/depth_stencil/object_scoped_ptr.hpp>
 #include <sge/parse/json/object_fwd.hpp>
-#include <sge/renderer/device/ffp_fwd.hpp>
 #include <sge/renderer/matrix4.hpp>
+#include <sge/renderer/device/ffp_fwd.hpp>
+#include <sge/renderer/state/core/depth_stencil/object_scoped_ptr.hpp>
 #include <sge/renderer/target/offscreen_scoped_ptr.hpp>
 #include <sge/renderer/texture/planar_shared_ptr.hpp>
 #include <fcppt/noncopyable.hpp>

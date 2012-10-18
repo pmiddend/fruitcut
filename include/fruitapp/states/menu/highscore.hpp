@@ -3,11 +3,8 @@
 
 #include <fruitapp/events/declare_transition_reaction.hpp>
 #include <fruitapp/events/declare_transition_type.hpp>
-#include <fruitapp/gui/button.hpp>
-#include <fruitapp/gui/combobox.hpp>
-#include <fruitapp/gui/table/view.hpp>
+#include <fruitapp/gui/dialogs/highscore_unique_ptr.hpp>
 #include <fruitapp/highscore/entry_set.hpp>
-#include <fruitapp/highscore/get_model.hpp>
 #include <fruitapp/highscore/provider_sequence.hpp>
 #include <fruitapp/highscore/provider/connection_base_ptr.hpp>
 #include <fruitapp/highscore/provider/object_base.hpp>
@@ -67,20 +64,14 @@ public:
 	react(
 		fruitlib::scenic::events::update const &);
 private:
-	sge::cegui::toolbox::scoped_layout layout_;
-	sge::cegui::toolbox::scoped_gui_sheet gui_sheet_;
-	gui::button main_menu_button_;
-	gui::button quit_button_;
+	fruitapp::highscore::provider_sequence providers_;
+	fruitapp::gui::dialogs::highscore_unique_ptr highscore_;
 	fcppt::signal::scoped_connection main_menu_button_connection_;
 	fcppt::signal::scoped_connection quit_button_connection_;
-	fruitapp::highscore::provider_sequence providers_;
-	gui::combobox source_box_;
 	fruitapp::highscore::provider::connection_base_ptr connection_;
 	fcppt::signal::shared_connection message_connection_;
 	fcppt::signal::shared_connection error_connection_;
 	fcppt::signal::shared_connection list_connection_;
-	fruitapp::highscore::get_model table_model_;
-	gui::table::view table_view_;
 
 	void
 	switch_provider(

@@ -1,6 +1,6 @@
 #include <fruitapp/scene.hpp>
-#include <sge/renderer/context/ffp.hpp>
 #include <fruitlib/scenic/events/render.hpp>
+#include <sge/renderer/context/ffp.hpp>
 
 
 fruitapp::scene::scene(

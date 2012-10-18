@@ -1,7 +1,6 @@
 #ifndef FRUITLIB_PP_FILTER_HIGHLIGHT_HPP_INCLUDED
 #define FRUITLIB_PP_FILTER_HIGHLIGHT_HPP_INCLUDED
 
-#include <fruitlib/pp/filter/ivec2_parameter.hpp>
 #include <fruitlib/pp/filter/manager_fwd.hpp>
 #include <fruitlib/pp/filter/texture_size.hpp>
 #include <fruitlib/pp/filter/unary.hpp>
@@ -51,7 +50,6 @@ private:
 	texture::manager &texture_manager_;
 	fruitlib::pp::filter::texture_size const texture_size_;
 	sge::shader::pair shader_;
-	fruitlib::pp::filter::ivec2_parameter texture_size_parameter_;
 	sge::shader::parameter::scalar<threshold_factor::value_type> threshold_;
 	sge::shader::parameter::planar_texture texture_;
 };

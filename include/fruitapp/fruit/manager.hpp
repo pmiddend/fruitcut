@@ -21,8 +21,8 @@
 #include <fruitlib/scenic/events/update.hpp>
 #include <sge/camera/base_fwd.hpp>
 #include <sge/parse/json/array_fwd.hpp>
-#include <sge/renderer/device/core_fwd.hpp>
 #include <sge/renderer/vertex_declaration_scoped_ptr.hpp>
+#include <sge/renderer/device/core_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/object.hpp>

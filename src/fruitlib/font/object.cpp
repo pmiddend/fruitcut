@@ -6,6 +6,10 @@
 #include <sge/image/color/any/object.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/ref.hpp>
+#include <fcppt/math/box/output.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <iostream>
+#include <fcppt/config/external_end.hpp>
 
 
 fruitlib::font::object::object(
@@ -38,15 +42,16 @@ void
 fruitlib::font::object::render(
 	sge::renderer::context::ffp &_context)
 {
-	text_object_->draw(
-		_context);
+	if(text_object_)
+		text_object_->draw(
+			_context);
 }
 
 sge::font::object &
 fruitlib::font::object::font_object() const
 {
 	return
-	font_object_;
+		font_object_;
 }
 
 sge::font::string const &
@@ -148,8 +153,9 @@ fruitlib::font::object::color(
 	color_ =
 		_color;
 
-	text_object_->color(
-		_color);
+	if(text_object_)
+		text_object_->color(
+			_color);
 }
 
 fruitlib::font::scale const &
@@ -174,6 +180,9 @@ fruitlib::font::object::~object()
 void
 fruitlib::font::object::rebuild_text_object()
 {
+	if(!bounding_box_.content())
+		return;
+
 	text_object_.take(
 		fcppt::make_unique_ptr<sge::font::draw::static_text>(
 			fcppt::ref(

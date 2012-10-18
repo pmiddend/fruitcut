@@ -3,11 +3,9 @@
 
 #include <fruitapp/events/declare_transition_reaction.hpp>
 #include <fruitapp/events/declare_transition_type.hpp>
-#include <fruitapp/gui/button.hpp>
+#include <fruitapp/gui/dialogs/name_chooser_unique_ptr.hpp>
 #include <fruitapp/states/gameover/ranking_fwd.hpp>
 #include <fruitapp/states/gameover/superstate.hpp>
-#include <sge/cegui/toolbox/scoped_gui_sheet.hpp>
-#include <sge/cegui/toolbox/scoped_layout.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -47,9 +45,7 @@ public:
 
 	virtual ~choose_name();
 private:
-	sge::cegui::toolbox::scoped_layout layout_;
-	sge::cegui::toolbox::scoped_gui_sheet gui_sheet_;
-	fruitapp::gui::button continue_button_;
+	fruitapp::gui::dialogs::name_chooser_unique_ptr name_chooser_;
 	fcppt::signal::scoped_connection continue_button_connection_;
 
 	void

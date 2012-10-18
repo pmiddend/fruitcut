@@ -1,4 +1,4 @@
-#include <fruitapp/gui/table/column.hpp>
+#include <fruitapp/gui/ce/table/column.hpp>
 #include <fruitapp/highscore/get_model.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/insert_to_fcppt_string.hpp>
@@ -20,32 +20,32 @@ fruitapp::highscore::get_model::get_model()
 {
 }
 
-fruitapp::gui::table::column_sequence const
+fruitapp::gui::ce::table::column_sequence const
 fruitapp::highscore::get_model::columns() const
 {
 	return
-		fcppt::assign::make_container<gui::table::column_sequence>
-			(gui::table::column(
+		fcppt::assign::make_container<fruitapp::gui::ce::table::column_sequence>
+			(fruitapp::gui::ce::table::column(
 				FCPPT_TEXT("Nr."),
-				static_cast<gui::table::column::width_type>(
+				static_cast<fruitapp::gui::ce::table::column::width_type>(
 					0.1)))
-			(gui::table::column(
+			(fruitapp::gui::ce::table::column(
 				FCPPT_TEXT("Name"),
-				static_cast<gui::table::column::width_type>(
+				static_cast<fruitapp::gui::ce::table::column::width_type>(
 					0.5)))
-			(gui::table::column(
+			(fruitapp::gui::ce::table::column(
 				FCPPT_TEXT("Score"),
-				static_cast<gui::table::column::width_type>(
+				static_cast<fruitapp::gui::ce::table::column::width_type>(
 					0.2)))
-			(gui::table::column(
+			(fruitapp::gui::ce::table::column(
 				FCPPT_TEXT("Date"),
-				static_cast<gui::table::column::width_type>(
+				static_cast<fruitapp::gui::ce::table::column::width_type>(
 					0.2)));
 }
 
 fcppt::signal::auto_connection
 fruitapp::highscore::get_model::row_added(
-	gui::table::row_added const &f)
+	fruitapp::gui::ce::table::row_added const &f)
 {
 	return
 		row_added_.connect(
@@ -54,7 +54,7 @@ fruitapp::highscore::get_model::row_added(
 
 fcppt::signal::auto_connection
 fruitapp::highscore::get_model::row_removed(
-	gui::table::row_removed const &f)
+	fruitapp::gui::ce::table::row_removed const &f)
 {
 	return
 		row_removed_.connect(
@@ -73,7 +73,7 @@ fruitapp::highscore::get_model::reset(
 		--i)
 	{
 		row_removed_(
-			static_cast<gui::table::row_index::value_type>(
+			static_cast<fruitapp::gui::ce::table::row_index::value_type>(
 				i));
 	}
 
@@ -90,13 +90,13 @@ fruitapp::highscore::get_model::reset(
 		boost::date_time::c_local_adjustor<boost::posix_time::ptime>
 		local_adjuster;
 
-		gui::table::row_index::value_type index =
-			static_cast<gui::table::row_index::value_type>(
+		fruitapp::gui::ce::table::row_index::value_type index =
+			static_cast<fruitapp::gui::ce::table::row_index::value_type>(
 				std::distance(
 					current_entry_set_.begin(),
 					i));
 
-		gui::table::row new_row;
+		fruitapp::gui::ce::table::row new_row;
 		new_row.push_back(
 			fcppt::insert_to_fcppt_string(
 				index+1));

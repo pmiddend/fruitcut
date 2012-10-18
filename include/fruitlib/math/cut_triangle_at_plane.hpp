@@ -9,13 +9,13 @@
 #include <fruitlib/math/triangle/scalar_type.hpp>
 #include <fruitlib/math/triangle/vector_type.hpp>
 #include <fruitlib/math/triangle/vertex_access.hpp>
+#include <fcppt/static_assert_expression.hpp>
 #include <fcppt/container/array.hpp>
 #include <fcppt/io/cout.hpp>
 #include <fcppt/math/range_compare.hpp>
 #include <fcppt/math/size_type.hpp>
 #include <fcppt/math/vector/length.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <fcppt/static_assert_expression.hpp>
 #include <boost/spirit/home/phoenix/bind.hpp>
 #include <boost/spirit/home/phoenix/core/argument.hpp>
 #include <boost/spirit/home/phoenix/operator/comparison.hpp>

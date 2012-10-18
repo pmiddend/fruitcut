@@ -9,8 +9,8 @@
 #include <sge/viewport/manager.hpp>
 #include <fcppt/move.hpp>
 #include <fcppt/math/deg_to_rad.hpp>
-#include <fcppt/signal/connection.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
+#include <fcppt/signal/connection.hpp>
 #include <fcppt/tr1/functional.hpp>
 
 
