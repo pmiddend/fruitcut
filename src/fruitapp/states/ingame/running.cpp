@@ -193,17 +193,17 @@ fruitapp::states::ingame::running::react(
 	}
 
 	for(
-		fruit::object_sequence::const_iterator i =
-			context<superstate>().fruit_manager().fruits().begin();
-		i != context<superstate>().fruit_manager().fruits().end();
+		fruitapp::fruit::object_sequence::const_iterator i =
+			context<fruitapp::states::ingame::superstate>().fruit_manager().fruits().begin();
+		i != context<fruitapp::states::ingame::superstate>().fruit_manager().fruits().end();
 		++i)
-		process_fruit(
+		this->process_fruit(
 			*i);
 
-	if(context<superstate>().game_logic().finished())
+	if(context<fruitapp::states::ingame::superstate>().game_logic().finished())
 	{
 		context<fruitapp::machine>().last_game_score(
-			context<superstate>().game_logic().score());
+			context<fruitapp::states::ingame::superstate>().game_logic().score());
 		FRUITAPP_EVENTS_POST_TRANSITION(
 			gameover::superstate);
 	}

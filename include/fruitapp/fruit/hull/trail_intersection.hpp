@@ -16,9 +16,9 @@ namespace hull
 {
 // Returns either no or two intersection points (three or more
 // wouldn't do any good)
-intersection_pair const
+fruitapp::fruit::hull::intersection_pair const
 trail_intersection(
-	ring const &,
+	fruitapp::fruit::hull::ring const &,
 	fruitapp::cursor_trail::position_buffer const &);
 }
 }
