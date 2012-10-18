@@ -29,9 +29,6 @@ public:
 	render(
 		sge::renderer::context::core &);
 
-	sge::renderer::vertex_declaration &
-	vertex_declaration();
-
 	sge::renderer::vertex_declaration const &
 	vertex_declaration() const;
 

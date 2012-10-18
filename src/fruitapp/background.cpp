@@ -214,13 +214,17 @@ void
 fruitapp::background::react(
 	fruitlib::scenic::events::render const &_render_event)
 {
-	sge::shader::scoped_pair scoped_shader(
+	sge::renderer::scoped_vertex_declaration scoped_vertex_declaration(
 		_render_event.context(),
-		shader_);
+		*vertex_declaration_);
 
 	sge::renderer::scoped_vertex_buffer scoped_vb(
 		_render_event.context(),
 		*vb_);
+
+	sge::shader::scoped_pair scoped_shader(
+		_render_event.context(),
+		shader_);
 
 	mvp_parameter_.set(
 		sge::camera::matrix_conversion::world_projection(

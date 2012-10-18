@@ -68,8 +68,7 @@ fruitlib::font::object::text(
 	text_ =
 		_text;
 
-	text_object_->string(
-		text_);
+	this->rebuild_text_object();
 }
 
 sge::font::rect const &
@@ -180,8 +179,11 @@ fruitlib::font::object::~object()
 void
 fruitlib::font::object::rebuild_text_object()
 {
-	if(!bounding_box_.content())
+	if(!bounding_box_.content() || text_.empty())
+	{
+		text_object_.reset();
 		return;
+	}
 
 	text_object_.take(
 		fcppt::make_unique_ptr<sge::font::draw::static_text>(

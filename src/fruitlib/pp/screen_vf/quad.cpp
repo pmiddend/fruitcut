@@ -4,6 +4,7 @@
 #include <sge/renderer/first_vertex.hpp>
 #include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/scoped_vertex_buffer.hpp>
+#include <sge/renderer/scoped_vertex_declaration.hpp>
 #include <sge/renderer/scoped_vertex_lock.hpp>
 #include <sge/renderer/size_type.hpp>
 #include <sge/renderer/vertex_buffer.hpp>
@@ -80,6 +81,10 @@ void
 fruitlib::pp::screen_vf::quad::render(
 	sge::renderer::context::core &_context)
 {
+	sge::renderer::scoped_vertex_declaration const scoped_vd_(
+		_context,
+		*declaration_);
+
 	sge::renderer::scoped_vertex_buffer const scoped_vb_(
 		_context,
 		*buffer_);
@@ -90,13 +95,6 @@ fruitlib::pp::screen_vf::quad::render(
 		sge::renderer::vertex_count(
 			buffer_->size()),
 		sge::renderer::primitive_type::triangle_list);
-}
-
-sge::renderer::vertex_declaration &
-fruitlib::pp::screen_vf::quad::vertex_declaration()
-{
-	return
-		*declaration_;
 }
 
 sge::renderer::vertex_declaration const &
