@@ -305,12 +305,6 @@ fruitapp::fruit::manager::fruit_group() const
 	return fruit_group_;
 }
 
-sge::renderer::vertex_declaration &
-fruitapp::fruit::manager::vertex_declaration()
-{
-	return *vertex_declaration_;
-}
-
 sge::renderer::vertex_declaration const &
 fruitapp::fruit::manager::vertex_declaration() const
 {

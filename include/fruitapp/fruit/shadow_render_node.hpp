@@ -8,7 +8,6 @@
 #include <fruitlib/scenic/events/render.hpp>
 #include <sge/camera/first_person/object_fwd.hpp>
 #include <sge/renderer/matrix4.hpp>
-#include <sge/renderer/vertex_declaration_fwd.hpp>
 #include <sge/renderer/state/core/depth_stencil/object_scoped_ptr.hpp>
 #include <sge/shader/context_fwd.hpp>
 #include <sge/shader/pair.hpp>
@@ -38,7 +37,6 @@ public:
 	shadow_render_node(
 		fruitlib::scenic::optional_parent const &,
 		sge::shader::context &,
-		sge::renderer::vertex_declaration &,
 		fruitapp::fruit::manager const &,
 		fruitapp::shadow_mvp const &);
 
@@ -48,7 +46,6 @@ public:
 	react(
 		fruitlib::scenic::events::render const &);
 private:
-	sge::renderer::vertex_declaration &vertex_declaration_;
 	fruitapp::fruit::manager const &manager_;
 	sge::shader::pair shader_;
 	sge::shader::parameter::matrix<sge::renderer::scalar,4,4> mvp_parameter_;

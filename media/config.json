@@ -67,7 +67,7 @@
 	},
 	"graphics" :
 	{
-		"window-size" : [640,480],
+		"window-size" : [1024,768],
 		"desired-fps" : 60
 	},
 	"pp" : 

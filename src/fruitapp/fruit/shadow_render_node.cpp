@@ -9,6 +9,7 @@
 #include <sge/renderer/size_type.hpp>
 #include <sge/renderer/vertex_buffer.hpp>
 #include <sge/renderer/vertex_count.hpp>
+#include <sge/renderer/scoped_vertex_declaration.hpp>
 #include <sge/renderer/vertex_declaration.hpp>
 #include <sge/renderer/context/ffp.hpp>
 #include <sge/renderer/device/core.hpp>
@@ -28,19 +29,16 @@
 fruitapp::fruit::shadow_render_node::shadow_render_node(
 	fruitlib::scenic::optional_parent const &_parent,
 	sge::shader::context &_shader_context,
-	sge::renderer::vertex_declaration &_vertex_declaration,
 	fruitapp::fruit::manager const &_manager,
 	fruitapp::shadow_mvp const &_mvp)
 :
 	node_base(
 		_parent),
-	vertex_declaration_(
-		_vertex_declaration),
 	manager_(
 		_manager),
 	shader_(
 		_shader_context,
-		_vertex_declaration,
+		_manager.vertex_declaration(),
 		sge::shader::vertex_program_path(
 			fruitlib::media_path()/FCPPT_TEXT("shaders")/FCPPT_TEXT("model_shadow.cg")),
 		sge::shader::pixel_program_path(
@@ -78,6 +76,10 @@ fruitapp::fruit::shadow_render_node::react(
 	sge::renderer::state::core::depth_stencil::scoped scoped_depth_stencil(
 		_render_event.context(),
 		*depth_stencil_state_);
+
+	sge::renderer::scoped_vertex_declaration scoped_vd(
+		_render_event.context(),
+		manager_.vertex_declaration());
 
 	sge::shader::scoped_pair scoped_shader(
 		_render_event.context(),

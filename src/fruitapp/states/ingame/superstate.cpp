@@ -104,7 +104,6 @@ fruitapp::states::ingame::superstate::superstate(
 				fruitlib::scenic::depth(
 					depths::scene::fruits))),
 		context<machine>().shader_context(),
-		fruit_manager_.vertex_declaration(),
 		fruit_manager_,
 		context<machine>().camera(),
 		context<machine>().main_light_source(),
@@ -120,7 +119,6 @@ fruitapp::states::ingame::superstate::superstate(
 				fruitlib::scenic::depth(
 					0))),
 		context<machine>().shader_context(),
-		fruit_manager_.vertex_declaration(),
 		fruit_manager_,
 		context<machine>().shadow_map().mvp()),
 	fruit_spawner_(

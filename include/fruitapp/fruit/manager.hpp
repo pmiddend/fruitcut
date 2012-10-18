@@ -102,9 +102,6 @@ public:
 	fruitlib::physics::group::object const &
 	fruit_group() const;
 
-	sge::renderer::vertex_declaration &
-	vertex_declaration();
-
 	sge::renderer::vertex_declaration const &
 	vertex_declaration() const;
 

@@ -146,7 +146,7 @@ fruitapp::machine_impl::machine_impl(
 						sge::renderer::pixel_format::color::depth32,
 						sge::renderer::pixel_format::depth_stencil::d24,
 						sge::renderer::pixel_format::optional_multi_samples(),
-						sge::renderer::pixel_format::srgb::no),
+						sge::renderer::pixel_format::srgb::yes),
 					sge::renderer::parameters::vsync::on,
 					sge::renderer::display_mode::optional_object()),
 				sge::viewport::fill_on_resize()))

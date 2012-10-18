@@ -13,6 +13,7 @@
 #include <sge/renderer/primitive_type.hpp>
 #include <sge/renderer/scalar.hpp>
 #include <sge/renderer/scoped_vertex_buffer.hpp>
+#include <sge/renderer/scoped_vertex_declaration.hpp>
 #include <sge/renderer/size_type.hpp>
 #include <sge/renderer/vector4.hpp>
 #include <sge/renderer/vertex_buffer.hpp>
@@ -42,7 +43,6 @@
 fruitapp::fruit::default_render_node::default_render_node(
 	fruitlib::scenic::optional_parent const &_parent,
 	sge::shader::context &_shader_context,
-	sge::renderer::vertex_declaration &_vertex_declaration,
 	fruit::manager const &_manager,
 	sge::camera::base const &_camera,
 	fruitapp::directional_light_source const &light,
@@ -56,7 +56,7 @@ fruitapp::fruit::default_render_node::default_render_node(
 		_camera),
 	shader_(
 		_shader_context,
-		_vertex_declaration,
+		_manager.vertex_declaration(),
 		sge::shader::vertex_program_path(
 			fruitlib::media_path()/FCPPT_TEXT("shaders")/FCPPT_TEXT("model.cg")),
 		sge::shader::pixel_program_path(
@@ -87,7 +87,7 @@ fruitapp::fruit::default_render_node::default_render_node(
 			false),
 		sge::renderer::matrix4()),
 	light_position_parameter_(
-		shader_.pixel_program(),
+		shader_.vertex_program(),
 		sge::shader::parameter::name(
 			"light_position"),
 		light.position()),
@@ -158,6 +158,10 @@ fruitapp::fruit::default_render_node::react(
 	world_parameter_.set(
 		sge::camera::matrix_conversion::world(
 			camera_.coordinate_system()));
+
+	sge::renderer::scoped_vertex_declaration scoped_vd(
+		_render_event.context(),
+		manager_.vertex_declaration());
 
 	for(
 		object_sequence::const_iterator i =

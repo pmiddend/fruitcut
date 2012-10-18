@@ -9,7 +9,6 @@
 #include <fruitlib/scenic/events/render.hpp>
 #include <sge/camera/base_fwd.hpp>
 #include <sge/renderer/scalar.hpp>
-#include <sge/renderer/vertex_declaration_fwd.hpp>
 #include <sge/renderer/state/core/depth_stencil/object_scoped_ptr.hpp>
 #include <sge/shader/pair.hpp>
 #include <sge/shader/parameter/matrix.hpp>
@@ -40,7 +39,6 @@ public:
 	default_render_node(
 		fruitlib::scenic::optional_parent const &,
 		sge::shader::context &_shader_context,
-		sge::renderer::vertex_declaration &,
 		fruitapp::fruit::manager const &,
 		sge::camera::base const &,
 		fruitapp::directional_light_source const &,
