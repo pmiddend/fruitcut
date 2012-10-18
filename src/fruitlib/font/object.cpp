@@ -201,10 +201,24 @@ fruitlib::font::object::rebuild_text_object()
 			bounding_box_.pos(),
 			color_));
 
-	text_object_->pos(
-		sge::font::vector(
-			text_object_->pos().x(),
-			bounding_box_.pos().y() +
-			bounding_box_.size().w()/2 -
-			text_object_->rect().size().h()/2));
+	switch(alignment_v_)
+	{
+	case fruitlib::font::align_v::top:
+		break;
+	case fruitlib::font::align_v::middle:
+		text_object_->pos(
+			sge::font::vector(
+				text_object_->pos().x(),
+				bounding_box_.pos().y() +
+				bounding_box_.size().w()/2 -
+				text_object_->rect().size().h()/2));
+		break;
+	case fruitlib::font::align_v::bottom:
+		text_object_->pos(
+			sge::font::vector(
+				text_object_->pos().x(),
+				bounding_box_.size().w() -
+				text_object_->rect().size().h()));
+		break;
+	}
 }
