@@ -210,7 +210,7 @@ fruitlib::font::object::rebuild_text_object()
 			sge::font::vector(
 				text_object_->pos().x(),
 				bounding_box_.pos().y() +
-				bounding_box_.size().w()/2 -
+				bounding_box_.size().h()/2 -
 				text_object_->rect().size().h()/2));
 		break;
 	case fruitlib::font::align_v::bottom:
