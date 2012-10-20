@@ -663,7 +663,6 @@ SET(
 	include/fruitapp/point_sprite/elements.hpp
 	include/fruitapp/point_sprite/object.hpp
 	include/fruitapp/point_sprite/parameters.hpp
-	include/fruitapp/point_sprite/size_attribute.hpp
 	include/fruitapp/point_sprite/splatter/acceleration.hpp
 	include/fruitapp/point_sprite/splatter/linear_velocity.hpp
 	include/fruitapp/point_sprite/splatter/object.hpp
@@ -671,6 +670,9 @@ SET(
 	include/fruitapp/point_sprite/splatter/parameters_fwd.hpp
 	include/fruitapp/point_sprite/splatter/position.hpp
 	include/fruitapp/point_sprite/splatter/size.hpp
+	include/fruitapp/point_sprite/state_choices.hpp
+	include/fruitapp/point_sprite/state_object.hpp
+	include/fruitapp/point_sprite/state_parameters.hpp
 	include/fruitapp/point_sprite/system_node.hpp
 	include/fruitapp/point_sprite/system_node_fwd.hpp
 	include/fruitapp/point_sprite/type_choices.hpp

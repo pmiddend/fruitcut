@@ -3,10 +3,9 @@
 
 #include <fruitapp/point_sprite/base.hpp>
 #include <fruitapp/point_sprite/buffers.hpp>
-#include <fruitapp/point_sprite/state_object.hpp>
 #include <fruitapp/point_sprite/collection.hpp>
 #include <fruitapp/point_sprite/connection.hpp>
-#include <sge/renderer/target/base_fwd.hpp>
+#include <fruitapp/point_sprite/state_object.hpp>
 #include <fruitapp/point_sprite/unique_base_ptr.hpp>
 #include <fruitlib/uniform_int_random.hpp>
 #include <fruitlib/resource_tree/make_type.hpp>
@@ -18,13 +17,13 @@
 #include <sge/camera/base_fwd.hpp>
 #include <sge/image2d/system_fwd.hpp>
 #include <sge/renderer/device/ffp_fwd.hpp>
+#include <sge/renderer/target/base_fwd.hpp>
 #include <sge/sprite/buffers/single_decl.hpp>
-#include <sge/renderer/device/ffp_fwd.hpp>
 #include <sge/sprite/buffers/with_declaration_decl.hpp>
 #include <sge/sprite/intrusive/collection_decl.hpp>
+#include <sge/texture/const_optional_part_ref.hpp>
 #include <sge/texture/manager.hpp>
 #include <sge/texture/part_shared_ptr.hpp>
-#include <sge/texture/const_optional_part_ref.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/shared_ptr.hpp>
 #include <fcppt/unique_ptr.hpp>

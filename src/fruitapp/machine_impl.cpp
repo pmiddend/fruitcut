@@ -1,5 +1,4 @@
 #include <fruitapp/light_source_from_json.hpp>
-#include <fruitapp/gui/system.hpp>
 #include <fruitapp/load_user_config.hpp>
 #include <fruitapp/machine_impl.hpp>
 #include <fruitapp/name.hpp>
@@ -7,6 +6,7 @@
 #include <fruitapp/depths/root.hpp>
 #include <fruitapp/depths/scene.hpp>
 #include <fruitapp/gui/create_system.hpp>
+#include <fruitapp/gui/system.hpp>
 #include <fruitlib/create_command_line_parameters.hpp>
 #include <fruitlib/media_path.hpp>
 #include <fruitlib/random_generator.hpp>

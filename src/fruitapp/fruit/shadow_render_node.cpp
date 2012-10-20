@@ -6,10 +6,10 @@
 #include <sge/renderer/first_vertex.hpp>
 #include <sge/renderer/matrix4.hpp>
 #include <sge/renderer/scoped_vertex_buffer.hpp>
+#include <sge/renderer/scoped_vertex_declaration.hpp>
 #include <sge/renderer/size_type.hpp>
 #include <sge/renderer/vertex_buffer.hpp>
 #include <sge/renderer/vertex_count.hpp>
-#include <sge/renderer/scoped_vertex_declaration.hpp>
 #include <sge/renderer/vertex_declaration.hpp>
 #include <sge/renderer/context/ffp.hpp>
 #include <sge/renderer/device/core.hpp>

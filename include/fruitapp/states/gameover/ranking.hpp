@@ -4,10 +4,10 @@
 #include <fruitapp/events/declare_transition_reaction.hpp>
 #include <fruitapp/events/declare_transition_type.hpp>
 #include <fruitapp/gui/dialogs/ranking_unique_ptr.hpp>
+#include <fruitapp/highscore/provider_sequence.hpp>
 #include <fruitapp/states/gameover/superstate.hpp>
 #include <fruitapp/states/menu/highscore_fwd.hpp>
 #include <fruitapp/states/menu/main_fwd.hpp>
-#include <fruitapp/highscore/provider_sequence.hpp>
 #include <fruitlib/scenic/node.hpp>
 #include <fruitlib/scenic/events/update.hpp>
 #include <fcppt/string.hpp>

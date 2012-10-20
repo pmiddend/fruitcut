@@ -1,8 +1,8 @@
 #include <fruitapp/gui/dummy/dialogs/name_chooser.hpp>
 #include <sge/input/keyboard/device.hpp>
 #include <sge/input/keyboard/key_event.hpp>
-#include <fcppt/tr1/functional.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/tr1/functional.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <iostream>
 #include <fcppt/config/external_end.hpp>

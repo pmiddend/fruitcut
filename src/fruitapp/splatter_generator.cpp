@@ -26,9 +26,9 @@
 #include <sge/renderer/scalar.hpp>
 #include <sge/renderer/vector3.hpp>
 #include <mizuiro/color/channel/alpha.hpp>
+#include <fcppt/cref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/cref.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/chrono/duration.hpp>
@@ -154,7 +154,7 @@ fruitapp::splatter_generator::fruit_was_cut(
 			mizuiro::color::channel::alpha(),
 			alpha_rng_());
 
-		point_sprite::splatter::linear_velocity::value_type distortion(
+		fruitapp::point_sprite::splatter::linear_velocity::value_type distortion(
 			distortion_rng_(),
 			distortion_rng_(),
 			distortion_rng_());

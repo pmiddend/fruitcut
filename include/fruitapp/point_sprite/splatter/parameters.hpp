@@ -8,12 +8,12 @@
 #include <fruitapp/point_sprite/splatter/linear_velocity.hpp>
 #include <fruitapp/point_sprite/splatter/position.hpp>
 #include <fruitapp/point_sprite/splatter/size.hpp>
+#include <sge/camera/base_fwd.hpp>
+#include <sge/renderer/target/base_fwd.hpp>
 #include <sge/texture/const_optional_part_ref.hpp>
 #include <fcppt/nonassignable.hpp>
-#include <sge/renderer/target/base_fwd.hpp>
 #include <fcppt/preprocessor/pure.hpp>
 #include <fcppt/preprocessor/warn_unused_result.hpp>
-#include <sge/camera/base_fwd.hpp>
 
 
 namespace fruitapp

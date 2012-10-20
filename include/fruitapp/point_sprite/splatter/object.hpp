@@ -6,11 +6,11 @@
 #include <fruitapp/point_sprite/object.hpp>
 #include <fruitapp/point_sprite/splatter/acceleration.hpp>
 #include <fruitapp/point_sprite/splatter/linear_velocity.hpp>
-#include <fruitapp/point_sprite/splatter/position.hpp>
 #include <fruitapp/point_sprite/splatter/parameters_fwd.hpp>
+#include <fruitapp/point_sprite/splatter/position.hpp>
+#include <sge/camera/base_fwd.hpp>
 #include <sge/renderer/target/base_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <sge/camera/base_fwd.hpp>
 
 
 namespace fruitapp

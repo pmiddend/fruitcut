@@ -3,10 +3,11 @@
 #include <fruitapp/highscore/provider/object_base.hpp>
 #include <fruitlib/media_path.hpp>
 #include <sge/cegui/to_cegui_string.hpp>
-#include <fcppt/ref.hpp>
 #include <fcppt/cref.hpp>
+#include <fcppt/ref.hpp>
 #include <fcppt/to_std_string.hpp>
 #include <fcppt/tr1/functional.hpp>
+
 
 fruitapp::gui::ce::dialogs::highscore::highscore(
 	fruitapp::gui::ce::system &_system,

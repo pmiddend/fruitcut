@@ -1,7 +1,7 @@
+#include <fruitapp/gui/ce/system.hpp>
 #include <fruitapp/gui/ce/dialogs/name_chooser.hpp>
 #include <fruitlib/media_path.hpp>
 #include <sge/cegui/from_cegui_string.hpp>
-#include <fruitapp/gui/ce/system.hpp>
 #include <sge/cegui/to_cegui_string.hpp>
 #include <fcppt/insert_to_fcppt_string.hpp>
 #include <fcppt/text.hpp>

@@ -6,11 +6,11 @@
 #include <fruitapp/gui/dialogs/name_chooser.hpp>
 #include <fruitapp/highscore/score.hpp>
 #include <fruitlib/scenic/adaptors/gui_system.hpp>
-#include <sge/charconv/system_fwd.hpp>
 #include <sge/cegui/default_cursor.hpp>
 #include <sge/cegui/default_keyboard.hpp>
 #include <sge/cegui/toolbox/scoped_gui_sheet.hpp>
 #include <sge/cegui/toolbox/scoped_layout.hpp>
+#include <sge/charconv/system_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 
 
