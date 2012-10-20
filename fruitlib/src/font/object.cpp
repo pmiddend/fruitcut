@@ -217,7 +217,7 @@ fruitlib::font::object::rebuild_text_object()
 		text_object_->pos(
 			sge::font::vector(
 				text_object_->pos().x(),
-				bounding_box_.size().w() -
+				bounding_box_.size().h() -
 				text_object_->rect().size().h()));
 		break;
 	}
