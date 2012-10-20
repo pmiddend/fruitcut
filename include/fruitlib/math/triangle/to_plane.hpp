@@ -14,18 +14,18 @@ namespace math
 {
 namespace triangle
 {
-template<typename T>
-plane::basic<T> const
+template<typename T,typename Data>
+fruitlib::math::plane::basic<T,3> const
 to_plane(
-	basic<T,3> const &t)
+	fruitlib::math::triangle::basic<T,3,Data> const &t)
 {
-	typename basic<T,3>::vector normal =
+	typename fruitlib::math::triangle::basic<T,3,Data>::vector normal =
 		fcppt::math::vector::normalize(
 			fcppt::math::vector::cross(
 				t.points[1] - t.points[0],
 				t.points[2] - t.points[0]));
 	return
-		plane::basic<T>(
+		fruitlib::math::plane::basic<T,3>(
 			normal,
 			fcppt::math::vector::dot(
 				normal,

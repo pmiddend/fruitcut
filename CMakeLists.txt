@@ -164,8 +164,6 @@ add_subdirectory(
 set(
 	FRUITLIB_FILES
 	include/fruitlib/animation/basic.hpp
-	include/fruitlib/animation/interpolate/linear.hpp
-	include/fruitlib/animation/interpolate/trigonometric.hpp
 	include/fruitlib/animation/keyframe.hpp
 	include/fruitlib/audio/group/buffer.hpp
 	include/fruitlib/audio/group/buffer_fwd.hpp
@@ -199,18 +197,15 @@ set(
 	include/fruitlib/font/object_parameters.hpp
 	include/fruitlib/font/object_parameters_fwd.hpp
 	include/fruitlib/font/scale.hpp
-	include/fruitlib/font/scale_animation.hpp
 	include/fruitlib/font/scene_node.hpp
 	include/fruitlib/geometry_traits/box.hpp
 	include/fruitlib/geometry_traits/vector.hpp
 	include/fruitlib/grid/collect_points.hpp
 	include/fruitlib/grid/convolve_ignore_borders.hpp
-	include/fruitlib/grid/from_image.hpp
 	include/fruitlib/grid/map.hpp
 	include/fruitlib/grid/sobel_ignore_borders.hpp
 	include/fruitlib/grid/to_ppm.hpp
 	include/fruitlib/grid/zip_with.hpp
-	include/fruitlib/json/parse_animation.hpp
 	include/fruitlib/json/parse_color.hpp
 	include/fruitlib/json/parse_projection.hpp
 	include/fruitlib/json/parse_random_float_distribution.hpp
@@ -374,7 +369,6 @@ set(
 	include/fruitlib/time_format/domain.hpp
 	include/fruitlib/time_format/duration_to_string.hpp
 	include/fruitlib/time_format/find_and_convert_duration.hpp
-	include/fruitlib/time_format/formatter.hpp
 	include/fruitlib/time_format/formatter_fwd.hpp
 	include/fruitlib/time_format/grammar.hpp
 	include/fruitlib/time_format/milliseconds.hpp

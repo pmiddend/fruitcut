@@ -29,10 +29,7 @@ public:
 	NodeType
 	node_type;
 
-	explicit
 	object()
-	:
-		container_()
 	{
 	}
 

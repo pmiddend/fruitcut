@@ -46,7 +46,7 @@ public:
 	float_type;
 
 	typedef
-	animation::keyframe<value_type,clock>
+	fruitlib::animation::keyframe<value_type,clock>
 	keyframe;
 
 	typedef

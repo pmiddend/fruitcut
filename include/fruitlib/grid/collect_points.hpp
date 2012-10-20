@@ -4,10 +4,8 @@
 #include <fcppt/container/grid/object.hpp>
 #include <fcppt/container/grid/size_type.hpp>
 #include <fcppt/math/dim/object_impl.hpp>
-#include <fcppt/tr1/type_traits.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <boost/static_assert.hpp>
-#include <fcppt/config/external_end.hpp>
+#include <boost/type_traits/is_same.hpp>
+#include <fcppt/static_assert_statement.hpp>
 
 
 namespace fruitlib
@@ -27,8 +25,8 @@ collect_points(
 	fcppt::container::grid::object<T,N> const &g,
 	UnaryFunctor const &test)
 {
-	BOOST_STATIC_ASSERT((
-		std::tr1::is_same
+	FCPPT_STATIC_ASSERT_STATEMENT((
+		boost::is_same
 		<
 			typename DestContainer::value_type,
 			typename fcppt::container::grid::object<T,N>::dim

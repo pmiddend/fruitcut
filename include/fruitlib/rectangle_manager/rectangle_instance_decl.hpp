@@ -4,6 +4,7 @@
 #include <fruitlib/rectangle_manager/object_fwd.hpp>
 #include <fcppt/nonassignable.hpp>
 #include <fcppt/math/box/object_impl.hpp>
+#include <fcppt/math/box/rect.hpp>
 #include <fcppt/math/vector/object_impl.hpp>
 
 

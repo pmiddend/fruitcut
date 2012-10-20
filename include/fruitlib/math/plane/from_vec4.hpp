@@ -13,13 +13,13 @@ namespace math
 namespace plane
 {
 template<typename T>
-basic<T> const
+fruitlib::math::plane::basic<T,3> const
 from_vec4(
 	typename fcppt::math::vector::static_<T,4>::type const &v)
 {
 	return
-		basic<T>(
-			typename basic<T>::vector(
+		fruitlib::math::plane::basic<T,3>(
+			typename fruitlib::math::plane::basic<T,3>::vector(
 				v[0],
 				v[1],
 				v[2]),
