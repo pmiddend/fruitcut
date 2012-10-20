@@ -1,4 +1,3 @@
-#if 0
 #include <fruitapp/splatter_generator.hpp>
 #include <fruitapp/fruit/cut_context.hpp>
 #include <fruitapp/fruit/mesh.hpp>
@@ -29,6 +28,7 @@
 #include <mizuiro/color/channel/alpha.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/cref.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/chrono/duration.hpp>
@@ -39,7 +39,7 @@
 fruitapp::splatter_generator::splatter_generator(
 	sge::parse::json::object const &config_file,
 	sge::parse::json::config::user_config_variable<fruit::area::value_type> &_splatter_count_to_area_factor,
-	point_sprite::system_node &_point_sprites,
+	fruitapp::point_sprite::system_node &_point_sprites,
 	fruitlib::random_generator &_random_generator,
 	point_sprite::splatter::acceleration const &_acceleration,
 	fruitapp::ingame_clock const &_clock)
@@ -84,11 +84,11 @@ fruitapp::splatter_generator::splatter_generator(
 		random_generator_,
 		alpha_rng::distribution(
 			alpha_rng::distribution::min(
-				static_cast<point_sprite::color_format::channel_type>(
+				static_cast<fruitapp::point_sprite::color_format::channel_type>(
 					0u)),
 			alpha_rng::distribution::max(
-				static_cast<point_sprite::color_format::channel_type>(
-					std::numeric_limits<point_sprite::color_format::channel_type>::max()/2)))),
+				static_cast<fruitapp::point_sprite::color_format::channel_type>(
+					std::numeric_limits<fruitapp::point_sprite::color_format::channel_type>::max()/2)))),
 	lifetime_millis_rng_(
 		random_generator_,
 		fruitlib::json::parse_random_int_distribution<boost::chrono::milliseconds::rep>(
@@ -103,7 +103,7 @@ fruitapp::splatter_generator::splatter_generator(
 
 void
 fruitapp::splatter_generator::fruit_was_cut(
-	fruit::cut_context const &cut_info)
+	fruitapp::fruit::cut_context const &cut_info)
 {
 	if(cut_info.cross_section().triangles().empty())
 		return;
@@ -131,7 +131,6 @@ fruitapp::splatter_generator::fruit_was_cut(
 				0.0f),
 			triangle_point_rng_type::distribution::sup(
 				1.0f)));
-
 	for(
 		unsigned
 			i =
@@ -147,8 +146,8 @@ fruitapp::splatter_generator::fruit_was_cut(
 				triangle_rng.value(),
 				triangle_point_rng);
 
-		point_sprite::color splatter_color =
-			sge::image::color::any::convert<point_sprite::color::format>(
+		fruitapp::point_sprite::color splatter_color =
+			sge::image::color::any::convert<fruitapp::point_sprite::color::format>(
 				cut_info.old().prototype().splatter_color());
 
 		splatter_color.set(
@@ -161,37 +160,39 @@ fruitapp::splatter_generator::fruit_was_cut(
 			distortion_rng_());
 
 		point_sprites_.push_back(
-			point_sprite::unique_base_ptr(
-				fcppt::make_unique_ptr<point_sprite::splatter::object>(
-					point_sprite::splatter::parameters(
-						point_sprites_.connection(),
-						point_sprite::splatter::position(
-							cut_info.old().position() +
-							fruitlib::math::multiply_matrix4_vector3(
-								cut_info.old().world_transform(),
-								position)),
-						point_sprite::splatter::linear_velocity(
-							distortion + ((cut_direction_rng_()
-							?
-								cut_info.cut_direction()
-							:
-								(-cut_info.cut_direction())) * speed_rng_())),
-						point_sprite::splatter::acceleration(
-							acceleration_),
-						point_sprite::splatter::size(
-							size_rng_()),
-						splatter_color,
-						point_sprites_.lookup_texture(
-							fruitlib::resource_tree::path(
-								FCPPT_TEXT("spray"))),
-						boost::chrono::duration_cast<fruitapp::ingame_clock::duration>(
-							boost::chrono::milliseconds(
-								lifetime_millis_rng_())),
-						clock_))));
+			fruitapp::point_sprite::unique_base_ptr(
+				fcppt::make_unique_ptr<fruitapp::point_sprite::splatter::object>(
+					fcppt::cref(
+						fruitapp::point_sprite::splatter::parameters(
+							point_sprites_.camera(),
+							point_sprites_.target(),
+							point_sprites_.connection(),
+							fruitapp::point_sprite::splatter::position(
+								cut_info.old().position() +
+								fruitlib::math::multiply_matrix4_vector3(
+									cut_info.old().world_transform(),
+									position)),
+							fruitapp::point_sprite::splatter::linear_velocity(
+								distortion + ((cut_direction_rng_()
+								?
+									cut_info.cut_direction()
+								:
+									(-cut_info.cut_direction())) * speed_rng_())),
+							fruitapp::point_sprite::splatter::acceleration(
+								acceleration_),
+							fruitapp::point_sprite::splatter::size(
+								size_rng_()),
+							splatter_color,
+							point_sprites_.lookup_texture(
+								fruitlib::resource_tree::path(
+									FCPPT_TEXT("spray"))),
+							boost::chrono::duration_cast<fruitapp::ingame_clock::duration>(
+								boost::chrono::milliseconds(
+									lifetime_millis_rng_())),
+							clock_)))));
 	}
 }
 
 fruitapp::splatter_generator::~splatter_generator()
 {
 }
-#endif

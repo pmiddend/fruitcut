@@ -1,6 +1,11 @@
-#if 0
 #include <fruitapp/exception.hpp>
+#include <sge/renderer/target/onscreen.hpp>
+#include <sge/texture/part_shared_ptr.hpp>
+#include <sge/renderer/context/ffp.hpp>
 #include <fruitapp/point_sprite/system_node.hpp>
+#include <sge/renderer/device/ffp.hpp>
+#include <fruitapp/point_sprite/state_parameters.hpp>
+#include <sge/image2d/view/const_object.hpp>
 #include <fruitlib/media_path.hpp>
 #include <fruitlib/resource_tree/from_directory_tree.hpp>
 #include <fruitlib/resource_tree/navigate_to_path.hpp>
@@ -11,40 +16,20 @@
 #include <sge/image/color/format.hpp>
 #include <sge/image2d/file.hpp>
 #include <sge/image2d/system.hpp>
-#include <sge/renderer/device_fwd.hpp>
+#include <sge/renderer/device/ffp_fwd.hpp>
 #include <sge/renderer/dim2.hpp>
 #include <sge/renderer/matrix4.hpp>
-#include <sge/renderer/resource_flags_none.hpp>
-#include <sge/renderer/glsl/scoped_program.hpp>
-#include <sge/renderer/state/depth_func.hpp>
-#include <sge/renderer/state/list.hpp>
-#include <sge/renderer/state/scoped.hpp>
-#include <sge/renderer/state/trampoline.hpp>
 #include <sge/renderer/texture/planar_shared_ptr.hpp>
 #include <sge/renderer/texture/mipmap/off.hpp>
-#include <sge/shader/activate_bare.hpp>
-#include <sge/shader/matrix.hpp>
-#include <sge/shader/matrix_flags.hpp>
-#include <sge/shader/object_parameters.hpp>
-#include <sge/shader/sampler.hpp>
-#include <sge/shader/sampler_sequence.hpp>
-#include <sge/shader/scoped.hpp>
-#include <sge/shader/variable.hpp>
-#include <sge/shader/variable_sequence.hpp>
-#include <sge/shader/variable_type.hpp>
-#include <sge/shader/vertex_format_string.hpp>
 #include <sge/sprite/buffers/option.hpp>
 #include <sge/sprite/buffers/single_impl.hpp>
 #include <sge/sprite/buffers/with_declaration_impl.hpp>
 #include <sge/sprite/compare/default.hpp>
 #include <sge/sprite/intrusive/collection_impl.hpp>
 #include <sge/sprite/process/all.hpp>
-#include <sge/texture/add_image.hpp>
+#include <sge/texture/rect_fragmented.hpp>
 #include <sge/texture/fragmented_unique_ptr.hpp>
 #include <sge/texture/manager_fwd.hpp>
-#include <sge/texture/no_fragmented.hpp>
-#include <sge/texture/part_raw.hpp>
-#include <sge/texture/rect_fragmented.hpp>
 #include <fcppt/move.hpp>
 #include <fcppt/ref.hpp>
 #include <fcppt/text.hpp>
@@ -56,6 +41,7 @@
 #include <boost/filesystem/operations.hpp>
 #include <boost/filesystem/path.hpp>
 #include <boost/spirit/home/phoenix/object.hpp>
+#include <boost/spirit/home/phoenix/core/argument.hpp>
 #include <cstddef>
 #include <iostream>
 #include <iterator>
@@ -100,10 +86,9 @@ create_part_from_file(
 {
 	return
 		sge::texture::part_shared_ptr(
-			sge::texture::add_image(
-				texture_manager,
-				*image_loader.load(
-					p)));
+			texture_manager.add(
+				image_loader.load(
+					p)->view()));
 }
 }
 
@@ -112,7 +97,7 @@ fruitapp::point_sprite::system_node::system_node(
 	fruitlib::scenic::optional_parent const &_parent,
 	boost::filesystem::path const &_base_path,
 	fruitlib::random_generator &_random_generator,
-	sge::renderer::device &_renderer,
+	sge::renderer::device::ffp &_renderer,
 	sge::image2d::system &_image_loader,
 	sge::camera::base const &_camera)
 :
@@ -124,15 +109,21 @@ fruitapp::point_sprite::system_node::system_node(
 		_camera),
 	texture_manager_(
 		boost::phoenix::construct<sge::texture::fragmented_unique_ptr>(
-			boost::phoenix::new_<sge::texture::no_fragmented>(
+			boost::phoenix::new_<sge::texture::rect_fragmented>(
 				fcppt::ref(
 					_renderer),
-				sge::image::color::format::rgba8,
-				sge::renderer::texture::mipmap::off()))),
+				boost::phoenix::arg_names::arg1,
+				sge::renderer::texture::mipmap::off(),
+				sge::renderer::dim2(
+					1024,
+					1024)))),
 	buffers_(
 		renderer_,
 		sge::sprite::buffers::option::dynamic),
 	collection_(),
+	states_(
+		renderer_,
+		fruitapp::point_sprite::state_parameters()),
 	children_(),
 	textures_(
 		fruitlib::resource_tree::from_directory_tree<resource_tree_type>(
@@ -148,30 +139,7 @@ fruitapp::point_sprite::system_node::system_node(
 				&create_random_from_directory,
 				fcppt::ref(
 					_random_generator),
-				std::tr1::placeholders::_1))),
-	shader_(
-		sge::shader::object_parameters(
-			renderer_,
-			buffers_.parameters().vertex_declaration(),
-			sge::shader::vertex_format_string(
-				""),
-			fcppt::assign::make_container<sge::shader::variable_sequence>
-				(sge::shader::variable(
-					"mvp",
-					sge::shader::variable_type::uniform,
-					sge::shader::matrix(
-						sge::renderer::matrix4(),
-						sge::shader::matrix_flags::projection))),
-			fcppt::assign::make_container<sge::shader::sampler_sequence>
-				(sge::shader::sampler(
-					"tex",
-					sge::renderer::texture::planar_shared_ptr())))
-				.name(
-					FCPPT_TEXT("point sprite"))
-				.vertex_shader(
-					fruitlib::media_path()/FCPPT_TEXT("shaders")/FCPPT_TEXT("point_sprite")/FCPPT_TEXT("vertex.glsl"))
-				.fragment_shader(
-					fruitlib::media_path()/FCPPT_TEXT("shaders")/FCPPT_TEXT("point_sprite")/FCPPT_TEXT("fragment.glsl")))
+				std::tr1::placeholders::_1)))
 {
 }
 
@@ -191,7 +159,7 @@ fruitapp::point_sprite::system_node::connection()
 	return collection_.connection();
 }
 
-sge::texture::part_shared_ptr const
+sge::texture::const_optional_part_ref const
 fruitapp::point_sprite::system_node::lookup_texture(
 	fruitlib::resource_tree::path const &target_path)
 {
@@ -202,7 +170,8 @@ fruitapp::point_sprite::system_node::lookup_texture(
 
 	if(target_tree.value().is_leaf())
 		return
-			target_tree.value().leaf_value();
+			sge::texture::const_optional_part_ref(
+				*target_tree.value().leaf_value());
 
 	resource_tree_type &target_file =
 		*boost::next(
@@ -211,10 +180,14 @@ fruitapp::point_sprite::system_node::lookup_texture(
 				(*target_tree.value().node_value())()));
 
 	if(!target_file.value().is_leaf())
-		throw fruitapp::exception(FCPPT_TEXT("The argument to lookup_texture() must be either a file or a directory containing just files!\nThat was not the case for: ")+target_path.string());
+		throw
+			fruitapp::exception(
+				FCPPT_TEXT("The argument to lookup_texture() must be either a file or a directory containing just files!\nThat was not the case for: ")+
+				target_path.string());
 
 	return
-		target_file.value().leaf_value();
+		sge::texture::const_optional_part_ref(
+			*target_file.value().leaf_value());
 }
 
 fruitapp::point_sprite::system_node::~system_node()
@@ -239,28 +212,26 @@ fruitapp::point_sprite::system_node::react(
 
 void
 fruitapp::point_sprite::system_node::react(
-	fruitlib::scenic::events::render const &)
+	fruitlib::scenic::events::render const &_render_event)
 {
-	sge::shader::scoped scoped_shader(
-		shader_,
-		sge::shader::activate_bare());
-
-	shader_.update_uniform(
-		"mvp",
-		sge::shader::matrix(
-			sge::camera::matrix_conversion::world_projection(
-				camera_.coordinate_system(),
-				camera_.projection_matrix()),
-			sge::shader::matrix_flags::projection));
-
-	sge::renderer::state::scoped scoped_state(
-		renderer_,
-		sge::renderer::state::list
-			(sge::renderer::state::depth_func::off));
-
 	sge::sprite::process::all(
+		_render_event.context(),
 		collection_.range(),
 		buffers_,
-		sge::sprite::compare::default_());
+		sge::sprite::compare::default_(),
+		states_);
 }
-#endif
+
+sge::camera::base const &
+fruitapp::point_sprite::system_node::camera() const
+{
+	return
+		camera_;
+}
+
+sge::renderer::target::base const &
+fruitapp::point_sprite::system_node::target() const
+{
+	return
+		renderer_.onscreen_target();
+}

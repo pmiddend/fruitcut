@@ -1,15 +1,16 @@
 #ifndef FRUITAPP_POINT_SPRITE_SPLATTER_OBJECT_HPP_INCLUDED
 #define FRUITAPP_POINT_SPRITE_SPLATTER_OBJECT_HPP_INCLUDED
 
-#if 0
 #include <fruitapp/ingame_timer.hpp>
 #include <fruitapp/point_sprite/base.hpp>
 #include <fruitapp/point_sprite/object.hpp>
 #include <fruitapp/point_sprite/splatter/acceleration.hpp>
 #include <fruitapp/point_sprite/splatter/linear_velocity.hpp>
+#include <fruitapp/point_sprite/splatter/position.hpp>
 #include <fruitapp/point_sprite/splatter/parameters_fwd.hpp>
+#include <sge/renderer/target/base_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#endif
+#include <sge/camera/base_fwd.hpp>
 
 
 namespace fruitapp
@@ -18,17 +19,16 @@ namespace point_sprite
 {
 namespace splatter
 {
-#if 0
 class object
 :
-	public point_sprite::base
+	public fruitapp::point_sprite::base
 {
 FCPPT_NONCOPYABLE(
 	object);
 public:
 	explicit
 	object(
-		parameters const &);
+		fruitapp::point_sprite::splatter::parameters const &);
 
 	~object();
 private:
@@ -38,15 +38,18 @@ private:
 	bool
 	dead() const;
 
-	point_sprite::object object_;
-	splatter::linear_velocity::value_type linear_velocity_;
-	splatter::acceleration::value_type acceleration_;
+	sge::camera::base const &camera_;
+	sge::renderer::target::base const &target_;
+	fruitapp::point_sprite::splatter::position position_;
+	fruitapp::point_sprite::splatter::linear_velocity linear_velocity_;
+	fruitapp::point_sprite::splatter::acceleration acceleration_;
+	fruitapp::point_sprite::object object_;
 	fruitapp::ingame_timer life_timer_;
 	fruitapp::ingame_timer second_timer_;
+
+	fruitapp::point_sprite::object::vector const
+	determine_center() const;
 };
-#else
-class splatter {};
-#endif
 }
 }
 }

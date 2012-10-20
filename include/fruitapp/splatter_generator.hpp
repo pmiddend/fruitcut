@@ -1,7 +1,6 @@
 #ifndef FRUITAPP_SPLATTER_GENERATOR_HPP_INCLUDED
 #define FRUITAPP_SPLATTER_GENERATOR_HPP_INCLUDED
 
-#if 0
 #include <fruitapp/ingame_clock.hpp>
 #include <fruitapp/fruit/area.hpp>
 #include <fruitapp/fruit/cut_context_fwd.hpp>
@@ -20,12 +19,10 @@
 #include <fcppt/config/external_begin.hpp>
 #include <boost/chrono/duration.hpp>
 #include <fcppt/config/external_end.hpp>
-#endif
 
 
 namespace fruitapp
 {
-#if 0
 class splatter_generator
 {
 FCPPT_NONCOPYABLE(
@@ -34,14 +31,14 @@ public:
 	splatter_generator(
 		sge::parse::json::object const &,
 		sge::parse::json::config::user_config_variable<fruit::area::value_type> &_splatter_count_to_area_factor,
-		point_sprite::system_node &,
+		fruitapp::point_sprite::system_node &,
 		fruitlib::random_generator &,
-		point_sprite::splatter::acceleration const &,
+		fruitapp::point_sprite::splatter::acceleration const &,
 		fruitapp::ingame_clock const &);
 
 	void
 	fruit_was_cut(
-		fruit::cut_context const &);
+		fruitapp::fruit::cut_context const &);
 
 	~splatter_generator();
 private:
@@ -50,28 +47,28 @@ private:
 	cut_direction_rng;
 
 	typedef
-	fruitlib::uniform_real_random<point_sprite::splatter::linear_velocity::value_type::value_type>::type
+	fruitlib::uniform_real_random<fruitapp::point_sprite::splatter::linear_velocity::value_type::value_type>::type
 	speed_rng;
 
 	typedef
-	fruitlib::uniform_real_random<point_sprite::splatter::linear_velocity::value_type::value_type>::type
+	fruitlib::uniform_real_random<fruitapp::point_sprite::splatter::linear_velocity::value_type::value_type>::type
 	distortion_rng;
 
 	typedef
-	fruitlib::uniform_real_random<point_sprite::splatter::size::value_type>::type
+	fruitlib::uniform_real_random<fruitapp::point_sprite::splatter::size::value_type>::type
 	size_rng;
 
 	typedef
-	fruitlib::uniform_int_random<point_sprite::color_format::channel_type>::type
+	fruitlib::uniform_int_random<fruitapp::point_sprite::color_format::channel_type>::type
 	alpha_rng;
 
 	typedef
 	fruitlib::uniform_int_random<boost::chrono::milliseconds::rep>::type
 	lifetime_millis_rng;
 
-	point_sprite::system_node &point_sprites_;
+	fruitapp::point_sprite::system_node &point_sprites_;
 	fruitlib::random_generator &random_generator_;
-	point_sprite::splatter::acceleration::value_type acceleration_;
+	fruitapp::point_sprite::splatter::acceleration::value_type acceleration_;
 	fruitapp::ingame_clock const &clock_;
 	cut_direction_rng cut_direction_rng_;
 	speed_rng speed_rng_;
@@ -79,11 +76,8 @@ private:
 	size_rng size_rng_;
 	alpha_rng alpha_rng_;
 	lifetime_millis_rng lifetime_millis_rng_;
-	sge::parse::json::config::user_config_variable<fruit::area::value_type> &splatter_count_to_area_factor_;
+	sge::parse::json::config::user_config_variable<fruitapp::fruit::area::value_type> &splatter_count_to_area_factor_;
 };
-#else
-class splatter_generator {};
-#endif
 }
 
 #endif

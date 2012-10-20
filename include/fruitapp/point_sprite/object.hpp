@@ -10,7 +10,7 @@ namespace fruitapp
 namespace point_sprite
 {
 typedef
-sge::sprite::object<choices>
+sge::sprite::object<fruitapp::point_sprite::choices>
 object;
 }
 }

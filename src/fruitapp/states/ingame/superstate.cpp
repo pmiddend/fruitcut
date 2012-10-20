@@ -154,15 +154,14 @@ fruitapp::states::ingame::superstate::superstate(
 				this,
 				std::tr1::placeholders::_1))),
 	splatter_generator_(
-		/*
-		context<machine>().config_file(),
-		context<machine>().config_variables().splatter_count_to_area_factor(),
-		context<machine>().point_sprites(),
-		context<machine>().random_generator(),
-		point_sprite::splatter::acceleration(
-			fcppt::math::vector::structure_cast<point_sprite::splatter::acceleration::value_type>(
+		context<fruitapp::machine>().config_file(),
+		context<fruitapp::machine>().config_variables().splatter_count_to_area_factor(),
+		context<fruitapp::machine>().point_sprites(),
+		context<fruitapp::machine>().random_generator(),
+		fruitapp::point_sprite::splatter::acceleration(
+			fcppt::math::vector::structure_cast<fruitapp::point_sprite::splatter::acceleration::value_type>(
 				physics_world_.gravity())),
-				context<machine>().ingame_clock()*/),
+				context<fruitapp::machine>().ingame_clock()),
 	background_group_(
 		physics_world_),
 	background_physics_(
@@ -280,8 +279,6 @@ fruitapp::states::ingame::superstate::fruit_was_cut(
 		fruitlib::resource_tree::path(
 			FCPPT_TEXT("fruit_was_cut")));
 
-	/*
 	splatter_generator_.fruit_was_cut(
 		ccontext);
-	*/
 }

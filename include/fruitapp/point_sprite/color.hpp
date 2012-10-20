@@ -10,7 +10,7 @@ namespace fruitapp
 namespace point_sprite
 {
 typedef
-mizuiro::color::object<color_format>
+mizuiro::color::object<fruitapp::point_sprite::color_format>
 color;
 }
 }

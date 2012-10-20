@@ -1,29 +1,34 @@
-#if 0
 #include <fruitapp/point_sprite/splatter/parameters.hpp>
 #include <sge/texture/part_shared_ptr.hpp>
 
 
 fruitapp::point_sprite::splatter::parameters::parameters(
-	point_sprite::connection &_connection,
-	point_sprite::splatter::position const &_position,
-	point_sprite::splatter::linear_velocity const &_linear_velocity,
-	point_sprite::splatter::acceleration const &_acceleration,
-	point_sprite::splatter::size const &_size,
-	point_sprite::color const &_color,
-	sge::texture::part_shared_ptr const _texture,
+	sge::camera::base const &_camera,
+	sge::renderer::target::base const &_target,
+	fruitapp::point_sprite::connection &_connection,
+	fruitapp::point_sprite::splatter::position const &_position,
+	fruitapp::point_sprite::splatter::linear_velocity const &_linear_velocity,
+	fruitapp::point_sprite::splatter::acceleration const &_acceleration,
+	fruitapp::point_sprite::splatter::size const &_size,
+	fruitapp::point_sprite::color const &_color,
+	sge::texture::const_optional_part_ref const &_texture,
 	fruitapp::ingame_clock::duration const &_life_time,
 	fruitapp::ingame_clock const &_clock)
 :
+	camera_(
+		_camera),
+	target_(
+		_target),
 	connection_(
 		_connection),
 	position_(
-		_position.get()),
+		_position),
 	linear_velocity_(
-		_linear_velocity.get()),
+		_linear_velocity),
 	acceleration_(
-		_acceleration.get()),
+		_acceleration),
 	size_(
-		_size.get()),
+		_size),
 	color_(
 		_color),
 	texture_(
@@ -35,31 +40,43 @@ fruitapp::point_sprite::splatter::parameters::parameters(
 {
 }
 
+sge::camera::base const &
+fruitapp::point_sprite::splatter::parameters::camera() const
+{
+	return camera_;
+}
+
+sge::renderer::target::base const &
+fruitapp::point_sprite::splatter::parameters::target() const
+{
+	return target_;
+}
+
 fruitapp::point_sprite::connection &
 fruitapp::point_sprite::splatter::parameters::connection() const
 {
 	return connection_;
 }
 
-fruitapp::point_sprite::splatter::position::value_type const &
+fruitapp::point_sprite::splatter::position const &
 fruitapp::point_sprite::splatter::parameters::position() const
 {
 	return position_;
 }
 
-fruitapp::point_sprite::splatter::linear_velocity::value_type const &
+fruitapp::point_sprite::splatter::linear_velocity const &
 fruitapp::point_sprite::splatter::parameters::linear_velocity() const
 {
 	return linear_velocity_;
 }
 
-fruitapp::point_sprite::splatter::acceleration::value_type const &
+fruitapp::point_sprite::splatter::acceleration const &
 fruitapp::point_sprite::splatter::parameters::acceleration() const
 {
 	return acceleration_;
 }
 
-fruitapp::point_sprite::splatter::size::value_type const &
+fruitapp::point_sprite::splatter::size const &
 fruitapp::point_sprite::splatter::parameters::size() const
 {
 	return size_;
@@ -71,7 +88,7 @@ fruitapp::point_sprite::splatter::parameters::color() const
 	return color_;
 }
 
-sge::texture::part_shared_ptr const
+sge::texture::const_optional_part_ref const &
 fruitapp::point_sprite::splatter::parameters::texture() const
 {
 	return texture_;
@@ -92,4 +109,3 @@ fruitapp::point_sprite::splatter::parameters::clock() const
 fruitapp::point_sprite::splatter::parameters::~parameters()
 {
 }
-#endif

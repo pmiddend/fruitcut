@@ -385,7 +385,6 @@ fruitapp::machine_impl::machine_impl(
 		// Something invalid so you get the error (if there is one)
 		31337),
 	point_sprites_(
-		/*
 		fruitlib::scenic::optional_parent(
 			fruitlib::scenic::parent(
 				scene_node(),
@@ -393,9 +392,9 @@ fruitapp::machine_impl::machine_impl(
 					depths::scene::splatter))),
 		fruitlib::media_path()/FCPPT_TEXT("point_sprites"),
 		random_generator_,
-		systems_.renderer(),
+		systems_.renderer_ffp(),
 		systems_.image_system(),
-		camera_*/),
+		camera_),
 	screen_shooter_(
 		systems_.keyboard_collector(),
 		systems_.renderer_core(),

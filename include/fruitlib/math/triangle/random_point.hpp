@@ -24,9 +24,11 @@ random_point(
 	Triangle const &t,
 	Rng &r)
 {
+	/*
 	typedef typename
 	triangle::vector_type<Triangle>::type
 	vector;
+	*/
 
 	typedef typename
 	triangle::scalar_type<Triangle>::type

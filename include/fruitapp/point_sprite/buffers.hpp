@@ -15,7 +15,7 @@ sge::sprite::buffers::with_declaration
 <
 	sge::sprite::buffers::single
 	<
-		choices
+		fruitapp::point_sprite::choices
 	>
 >
 buffers;

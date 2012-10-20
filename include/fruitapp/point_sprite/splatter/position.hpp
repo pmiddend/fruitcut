@@ -12,7 +12,7 @@ namespace point_sprite
 namespace splatter
 {
 FCPPT_MAKE_STRONG_TYPEDEF(
-	vector,
+	fruitapp::point_sprite::vector,
 	position);
 }
 }

@@ -10,7 +10,7 @@ namespace fruitapp
 namespace point_sprite
 {
 typedef
-sge::sprite::intrusive::collection<choices>
+sge::sprite::intrusive::collection<fruitapp::point_sprite::choices>
 collection;
 }
 }
