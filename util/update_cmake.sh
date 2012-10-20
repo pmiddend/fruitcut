@@ -18,19 +18,19 @@ function update_cmake_file()
 }
 
 update_cmake_file \
-	CMakeLists.txt \
+	fruitlib/CMakeLists.txt \
 	FRUITLIB_FILES \
-	src/fruitlib \
-	include/fruitlib
+	fruitlib/src \
+	fruitlib/include
 
 update_cmake_file \
-	CMakeLists.txt \
-	APP_FILES \
-	src/fruitapp \
-	include/fruitapp
+	fruitapp/CMakeLists.txt \
+	FRUITAPP_FILES \
+	fruitapp/src \
+	fruitapp/include
 
 update_cmake_file \
-	CMakeLists.txt \
-	SERVER_FILES \
-	src/fruitserver \
-	include/fruitserver
+	fruitserver/CMakeLists.txt \
+	FRUITSERVER_FILES \
+	fruitserver/src \
+	fruitserver/include

@@ -1,0 +1,49 @@
+<?xml version="1.0" ?>
+<GUIScheme Name="Fruitcut">
+    <Imageset Filename="fruitcut.imageset" />
+    <Font Filename="small.font" />
+    <Font Filename="normal.font" />
+    <Font Filename="big.font" />
+    <Font Filename="huge.font" />
+    <LookNFeel Filename="fruitcut.looknfeel" />
+    <WindowRendererSet Filename="CEGUIFalagardWRBase" />
+    <FalagardMapping WindowType="Fruitcut/Button"               TargetType="CEGUI/PushButton"       Renderer="Falagard/Button"              LookNFeel="Fruitcut/PushButton" />
+    <FalagardMapping WindowType="Fruitcut/Titlebar"             TargetType="CEGUI/Titlebar"         Renderer="Falagard/Titlebar"            LookNFeel="Fruitcut/Titlebar" />
+    <FalagardMapping WindowType="Fruitcut/FrameWindow"          TargetType="CEGUI/FrameWindow"      Renderer="Falagard/FrameWindow"         LookNFeel="Fruitcut/FrameWindow" />
+    <FalagardMapping WindowType="Fruitcut/Thumb"                TargetType="CEGUI/Thumb"            Renderer="Falagard/Button"              LookNFeel="Fruitcut/Thumb" />
+    <FalagardMapping WindowType="Fruitcut/VerticalScrollbar"    TargetType="CEGUI/Scrollbar"        Renderer="Falagard/Scrollbar"           LookNFeel="Fruitcut/VerticalScrollbar" />
+    <FalagardMapping WindowType="Fruitcut/HorizontalScrollbar"  TargetType="CEGUI/Scrollbar"        Renderer="Falagard/Scrollbar"           LookNFeel="Fruitcut/HorizontalScrollbar" />
+    <FalagardMapping WindowType="Fruitcut/StaticText"           TargetType="DefaultWindow"          Renderer="Falagard/StaticText"          LookNFeel="Fruitcut/StaticText" />
+    <FalagardMapping WindowType="Fruitcut/Title"                TargetType="DefaultWindow"          Renderer="Falagard/Default"             LookNFeel="Fruitcut/MiniTray" />
+    <FalagardMapping WindowType="Fruitcut/CaptionedStaticText"  TargetType="DefaultWindow"          Renderer="Falagard/StaticText"          LookNFeel="Fruitcut/CaptionedStaticText" />
+    <FalagardMapping WindowType="Fruitcut/ProgressBar"          TargetType="CEGUI/ProgressBar"      Renderer="Falagard/ProgressBar"         LookNFeel="Fruitcut/ProgressBar" />
+    <FalagardMapping WindowType="Fruitcut/Editbox"              TargetType="CEGUI/Editbox"          Renderer="Falagard/Editbox"             LookNFeel="Fruitcut/Editbox" />
+    <FalagardMapping WindowType="Fruitcut/MultiLineEditbox"     TargetType="CEGUI/MultiLineEditbox" Renderer="Falagard/MultiLineEditbox"    LookNFeel="Fruitcut/MultiLineEditbox" />
+    <FalagardMapping WindowType="Fruitcut/Listbox"              TargetType="CEGUI/Listbox"          Renderer="Falagard/Listbox"             LookNFeel="Fruitcut/Listbox" />
+    <FalagardMapping WindowType="Fruitcut/ComboDropList"        TargetType="CEGUI/ComboDropList"    Renderer="Falagard/Listbox"             LookNFeel="Fruitcut/Listbox" />
+    <FalagardMapping WindowType="Fruitcut/Combobox"             TargetType="CEGUI/Combobox"         Renderer="Falagard/Default"             LookNFeel="Fruitcut/Combobox" />
+    <FalagardMapping WindowType="Fruitcut/DropDownMenu"         TargetType="CEGUI/Combobox"         Renderer="Falagard/Default"             LookNFeel="Fruitcut/DropDownMenu" />
+    <FalagardMapping WindowType="Fruitcut/Group"                TargetType="DefaultWindow"          Renderer="Falagard/Default"             LookNFeel="Fruitcut/Group" />
+    <FalagardMapping WindowType="Fruitcut/Checkbox"             TargetType="CEGUI/Checkbox"         Renderer="Falagard/ToggleButton"        LookNFeel="Fruitcut/Checkbox" />
+    <FalagardMapping WindowType="Fruitcut/RadioButton"          TargetType="CEGUI/RadioButton"      Renderer="Falagard/ToggleButton"        LookNFeel="Fruitcut/RadioButton" />
+    <FalagardMapping WindowType="Fruitcut/Slider"               TargetType="CEGUI/Slider"           Renderer="Falagard/Slider"              LookNFeel="Fruitcut/Slider" />
+    <FalagardMapping WindowType="Fruitcut/StaticImage"          TargetType="DefaultWindow"          Renderer="Falagard/StaticImage"         LookNFeel="Fruitcut/StaticImage" />
+    <FalagardMapping WindowType="Fruitcut/AltStaticImage"       TargetType="DefaultWindow"          Renderer="Falagard/Default"             LookNFeel="Fruitcut/AltStaticImage" />
+    <FalagardMapping WindowType="Fruitcut/Tooltip"              TargetType="CEGUI/Tooltip"          Renderer="Falagard/Tooltip"             LookNFeel="Fruitcut/Tooltip" />
+    <FalagardMapping WindowType="Fruitcut/ItemListbox"          TargetType="CEGUI/ItemListbox"      Renderer="Falagard/ItemListbox"         LookNFeel="Fruitcut/ItemListbox" />
+    <FalagardMapping WindowType="Fruitcut/ListboxItem"          TargetType="CEGUI/ItemEntry"        Renderer="Falagard/ItemEntry"           LookNFeel="Fruitcut/ListboxItem" />
+    <FalagardMapping WindowType="Fruitcut/Spinner"              TargetType="CEGUI/Spinner"          Renderer="Falagard/Default"             LookNFeel="Fruitcut/Spinner" /> 
+    <FalagardMapping WindowType="Fruitcut/ScrollablePane"       TargetType="CEGUI/ScrollablePane"   Renderer="Falagard/ScrollablePane"      LookNFeel="Fruitcut/ScrollablePane" />  
+    <FalagardMapping WindowType="Fruitcut/ListHeaderSegment"    TargetType="CEGUI/ListHeaderSegment" Renderer="Falagard/ListHeaderSegment"  LookNFeel="Fruitcut/ListHeaderSegment" />
+    <FalagardMapping WindowType="Fruitcut/ListHeader"           TargetType="CEGUI/ListHeader"       Renderer="Falagard/ListHeader"          LookNFeel="Fruitcut/ListHeader" />
+    <FalagardMapping WindowType="Fruitcut/MultiColumnList"      TargetType="CEGUI/MultiColumnList"  Renderer="Falagard/MultiColumnList"     LookNFeel="Fruitcut/MultiColumnList" />
+    <FalagardMapping WindowType="Fruitcut/MenuItem"             TargetType="CEGUI/MenuItem"         Renderer="Falagard/MenuItem"            LookNFeel="Fruitcut/MenuItem" />
+    <FalagardMapping WindowType="Fruitcut/Menubar"              TargetType="CEGUI/Menubar"          Renderer="Falagard/Menubar"             LookNFeel="Fruitcut/Menubar" />
+    <FalagardMapping WindowType="Fruitcut/PopupMenu"            TargetType="CEGUI/PopupMenu"        Renderer="Falagard/PopupMenu"           LookNFeel="Fruitcut/PopupMenu" />
+    <FalagardMapping WindowType="Fruitcut/TabButton"            TargetType="CEGUI/TabButton"        Renderer="Falagard/TabButton"           LookNFeel="Fruitcut/TabButton" />
+    <FalagardMapping WindowType="Fruitcut/TabButtonPane"        TargetType="DefaultWindow"          Renderer="Falagard/Default"             LookNFeel="Fruitcut/TabButtonPane" />
+    <FalagardMapping WindowType="Fruitcut/TabContentPane"       TargetType="DefaultWindow"          Renderer="Falagard/Default"             LookNFeel="Fruitcut/TabContentPane" />
+    <FalagardMapping WindowType="Fruitcut/TabControl"           TargetType="CEGUI/TabControl"       Renderer="Falagard/TabControl"          LookNFeel="Fruitcut/TabControl" />
+
+    <FalagardMapping WindowType="Fruitcut/BG" TargetType="DefaultWindow" Renderer="Falagard/Default" LookNFeel="Fruitcut/BGTest" />
+</GUIScheme>

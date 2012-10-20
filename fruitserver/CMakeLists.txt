@@ -1,0 +1,109 @@
+include_directories(
+	${CMAKE_SOURCE_DIR}/fruitserver/include)
+
+# this has to be defined here so update_cmake recognizes it
+set(
+	FRUITSERVER_FILES
+	fruitserver/include/fruitserver/ascii/char.hpp
+	fruitserver/include/fruitserver/ascii/char_traits.hpp
+	fruitserver/include/fruitserver/ascii/from_byte_sequence.hpp
+	fruitserver/include/fruitserver/ascii/from_native.hpp
+	fruitserver/include/fruitserver/ascii/from_native_char.hpp
+	fruitserver/include/fruitserver/ascii/is_digit.hpp
+	fruitserver/include/fruitserver/ascii/is_letter.hpp
+	fruitserver/include/fruitserver/ascii/string.hpp
+	fruitserver/include/fruitserver/ascii/to_byte_sequence.hpp
+	fruitserver/include/fruitserver/ascii/to_native.hpp
+	fruitserver/include/fruitserver/ascii/to_native_char.hpp
+	fruitserver/include/fruitserver/ascii/to_native_translation.hpp
+	fruitserver/include/fruitserver/byte_sequence.hpp
+	fruitserver/include/fruitserver/command.hpp
+	fruitserver/include/fruitserver/command_processor.hpp
+	fruitserver/include/fruitserver/command_processor_fwd.hpp
+	fruitserver/include/fruitserver/controller.hpp
+	fruitserver/include/fruitserver/current_datetime.hpp
+	fruitserver/include/fruitserver/format_output_size.hpp
+	fruitserver/include/fruitserver/generate_datetime.hpp
+	fruitserver/include/fruitserver/highscore_entry.hpp
+	fruitserver/include/fruitserver/highscore_from_plain_file.hpp
+	fruitserver/include/fruitserver/highscore_sequence.hpp
+	fruitserver/include/fruitserver/highscore_to_json.hpp
+	fruitserver/include/fruitserver/highscore_to_plain_file.hpp
+	fruitserver/include/fruitserver/lexical_cast.hpp
+	fruitserver/include/fruitserver/listener/base.hpp
+	fruitserver/include/fruitserver/listener/base_fwd.hpp
+	fruitserver/include/fruitserver/listener/callbacks/connect.hpp
+	fruitserver/include/fruitserver/listener/callbacks/connect_fn.hpp
+	fruitserver/include/fruitserver/listener/callbacks/disconnect.hpp
+	fruitserver/include/fruitserver/listener/callbacks/disconnect_fn.hpp
+	fruitserver/include/fruitserver/listener/callbacks/receive_data.hpp
+	fruitserver/include/fruitserver/listener/callbacks/receive_data_fn.hpp
+	fruitserver/include/fruitserver/listener/posix_select.hpp
+	fruitserver/include/fruitserver/logger.hpp
+	fruitserver/include/fruitserver/output_tm.hpp
+	fruitserver/include/fruitserver/parse_command.hpp
+	fruitserver/include/fruitserver/path.hpp
+	fruitserver/include/fruitserver/program_options/command_line_parameters.hpp
+	fruitserver/include/fruitserver/program_options/detail/bad_cast.hpp
+	fruitserver/include/fruitserver/program_options/detail/holder_get.hpp
+	fruitserver/include/fruitserver/program_options/detail/option_base.hpp
+	fruitserver/include/fruitserver/program_options/detail/option_holder.hpp
+	fruitserver/include/fruitserver/program_options/detail/option_holder_base.hpp
+	fruitserver/include/fruitserver/program_options/detail/option_holder_base_fwd.hpp
+	fruitserver/include/fruitserver/program_options/detail/option_holder_base_ptr.hpp
+	fruitserver/include/fruitserver/program_options/detail/type_info.hpp
+	fruitserver/include/fruitserver/program_options/help_was_needed.hpp
+	fruitserver/include/fruitserver/program_options/make_command_line_parameters.hpp
+	fruitserver/include/fruitserver/program_options/object.hpp
+	fruitserver/include/fruitserver/program_options/option.hpp
+	fruitserver/include/fruitserver/program_options/option_sequence.hpp
+	fruitserver/include/fruitserver/score.hpp
+	fruitserver/include/fruitserver/separator.hpp
+	fruitserver/include/fruitserver/std_error_string.hpp
+	fruitserver/src/ascii/from_ascii_char.cpp
+	fruitserver/src/ascii/from_byte_sequence.cpp
+	fruitserver/src/ascii/from_native.cpp
+	fruitserver/src/ascii/is_digit.cpp
+	fruitserver/src/ascii/is_letter.cpp
+	fruitserver/src/ascii/to_byte_sequence.cpp
+	fruitserver/src/ascii/to_native.cpp
+	fruitserver/src/ascii/to_native_char.cpp
+	fruitserver/src/ascii/to_native_translation.cpp
+	fruitserver/src/command_processor.cpp
+	fruitserver/src/controller.cpp
+	fruitserver/src/current_datetime.cpp
+	fruitserver/src/generate_datetime.cpp
+	fruitserver/src/highscore_entry.cpp
+	fruitserver/src/highscore_from_plain_file.cpp
+	fruitserver/src/highscore_to_json.cpp
+	fruitserver/src/highscore_to_plain_file.cpp
+	fruitserver/src/listener/base.cpp
+	fruitserver/src/listener/posix_select.cpp
+	fruitserver/src/output_tm.cpp
+	fruitserver/src/parse_command.cpp
+	fruitserver/src/program_options/detail/bad_cast.cpp
+	fruitserver/src/program_options/detail/option_base.cpp
+	fruitserver/src/program_options/detail/option_holder_base.cpp
+	fruitserver/src/program_options/detail/type_info.cpp
+	fruitserver/src/program_options/help_was_needed.cpp
+	fruitserver/src/program_options/make_command_line_parameters.cpp
+	fruitserver/src/program_options/object.cpp
+	fruitserver/src/program_options/option_sequence.cpp
+	fruitserver/src/separator.cpp
+	fruitserver/src/server.cpp
+	fruitserver/src/std_error_string.cpp
+)
+
+fcppt_utils_append_source_dir_and_make_groups(
+	"${FRUITSERVER_FILES}"
+	FRUITSERVER_FILES_ABS)
+
+add_executable(
+	fruitserver
+	${FRUITSERVER_FILES_ABS})
+
+install(
+	TARGETS
+	fruitserver
+	DESTINATION
+	${INSTALL_BINARY_DIR})

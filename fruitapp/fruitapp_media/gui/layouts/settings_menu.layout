@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<GUILayout >
+    <Window Type="Fruitcut/CaptionedStaticText" Name="SettingsMenu" >
+        <Property Name="CaptionFont" Value="big" />
+        <Property Name="CaptionText" Value="Settings" />
+        <Property Name="UnifiedAreaRect" Value="{{0.283203,0},{0.195312,0},{0.74707,0},{0.800781,0}}" />
+        <AutoWindow NameSuffix="__auto_caption__" >
+            <Property Name="Font" Value="big" />
+            <Property Name="Text" Value="Settings" />
+        </AutoWindow>
+        <AutoWindow NameSuffix="__auto_hscrollbar__" >
+            <AutoWindow NameSuffix="__auto_incbtn__" >
+                <Property Name="Visible" Value="False" />
+            </AutoWindow>
+            <AutoWindow NameSuffix="__auto_decbtn__" >
+                <Property Name="Visible" Value="False" />
+            </AutoWindow>
+            <AutoWindow NameSuffix="__auto_thumb__" />
+        </AutoWindow>
+        <AutoWindow NameSuffix="__auto_vscrollbar__" >
+            <AutoWindow NameSuffix="__auto_incbtn__" >
+                <Property Name="Visible" Value="False" />
+            </AutoWindow>
+            <AutoWindow NameSuffix="__auto_decbtn__" >
+                <Property Name="Visible" Value="False" />
+            </AutoWindow>
+            <AutoWindow NameSuffix="__auto_thumb__" />
+        </AutoWindow>
+        <Window Type="Fruitcut/Button" Name="SettingsMenu/Return" >
+            <Property Name="Font" Value="normal" />
+            <Property Name="Text" Value="Return to main menu" />
+            <Property Name="UnifiedAreaRect" Value="{{0.189474,0},{0.787097,0},{0.8,0},{0.87043,0}}" />
+        </Window>
+        <Window Type="Fruitcut/StaticText" Name="SettingsMenu/StaticText" >
+            <Property Name="Font" Value="normal" />
+            <Property Name="Text" Value="Music volume" />
+            <Property Name="UnifiedAreaRect" Value="{{0.0421053,0},{0.182796,0},{0.0421053,168},{0.182796,48}}" />
+            <AutoWindow NameSuffix="__auto_hscrollbar__" >
+                <AutoWindow NameSuffix="__auto_incbtn__" >
+                    <Property Name="Visible" Value="False" />
+                </AutoWindow>
+                <AutoWindow NameSuffix="__auto_decbtn__" >
+                    <Property Name="Visible" Value="False" />
+                </AutoWindow>
+                <AutoWindow NameSuffix="__auto_thumb__" />
+            </AutoWindow>
+            <AutoWindow NameSuffix="__auto_vscrollbar__" >
+                <AutoWindow NameSuffix="__auto_incbtn__" >
+                    <Property Name="Visible" Value="False" />
+                </AutoWindow>
+                <AutoWindow NameSuffix="__auto_decbtn__" >
+                    <Property Name="Visible" Value="False" />
+                </AutoWindow>
+                <AutoWindow NameSuffix="__auto_thumb__" />
+            </AutoWindow>
+        </Window>
+        <Window Type="Fruitcut/Button" Name="SettingsMenu/MusicVolumeDecrease" >
+            <Property Name="Text" Value="-" />
+            <Property Name="UnifiedAreaRect" Value="{{0.421053,0},{0.193548,0},{0.494737,0},{0.268817,0}}" />
+        </Window>
+        <Window Type="Fruitcut/ProgressBar" Name="SettingsMenu/MusicVolumeProgress" >
+            <Property Name="StepSize" Value="0.01" />
+            <Property Name="CurrentProgress" Value="0" />
+            <Property Name="UnifiedAreaRect" Value="{{0.51579,0},{0.193548,0},{0.831579,0},{0.268817,0}}" />
+        </Window>
+        <Window Type="Fruitcut/Button" Name="SettingsMenu/MusicVolumeIncrease" >
+            <Property Name="Text" Value="+" />
+            <Property Name="UnifiedAreaRect" Value="{{0.852631,0},{0.193548,0},{0.926316,0},{0.268817,0}}" />
+        </Window>
+        <Window Type="Fruitcut/StaticText" Name="SettingsMenu/StaticText2" >
+            <Property Name="Font" Value="normal" />
+            <Property Name="Text" Value="Effects volume" />
+            <Property Name="UnifiedAreaRect" Value="{{0.0421053,0},{0.365592,0},{0.0421053,168},{0.365592,48}}" />
+            <AutoWindow NameSuffix="__auto_hscrollbar__" >
+                <AutoWindow NameSuffix="__auto_incbtn__" >
+                    <Property Name="Visible" Value="False" />
+                </AutoWindow>
+                <AutoWindow NameSuffix="__auto_decbtn__" >
+                    <Property Name="Visible" Value="False" />
+                </AutoWindow>
+                <AutoWindow NameSuffix="__auto_thumb__" />
+            </AutoWindow>
+            <AutoWindow NameSuffix="__auto_vscrollbar__" >
+                <AutoWindow NameSuffix="__auto_incbtn__" >
+                    <Property Name="Visible" Value="False" />
+                </AutoWindow>
+                <AutoWindow NameSuffix="__auto_decbtn__" >
+                    <Property Name="Visible" Value="False" />
+                </AutoWindow>
+                <AutoWindow NameSuffix="__auto_thumb__" />
+            </AutoWindow>
+        </Window>
+        <Window Type="Fruitcut/Button" Name="SettingsMenu/EffectsVolumeDecrease" >
+            <Property Name="Text" Value="-" />
+            <Property Name="UnifiedAreaRect" Value="{{0.421053,0},{0.376344,0},{0.494737,0},{0.451613,0}}" />
+        </Window>
+        <Window Type="Fruitcut/ProgressBar" Name="SettingsMenu/EffectsVolumeProgress" >
+            <Property Name="StepSize" Value="0.01" />
+            <Property Name="CurrentProgress" Value="0" />
+            <Property Name="UnifiedAreaRect" Value="{{0.51579,0},{0.376344,0},{0.831579,0},{0.451613,0}}" />
+        </Window>
+        <Window Type="Fruitcut/Button" Name="SettingsMenu/EffectsVolumeIncrease" >
+            <Property Name="Text" Value="+" />
+            <Property Name="UnifiedAreaRect" Value="{{0.852631,0},{0.376344,0},{0.926316,0},{0.451613,0}}" />
+        </Window>
+        <Window Type="Fruitcut/StaticText" Name="SettingsMenu/StaticText22" >
+            <Property Name="Font" Value="normal" />
+            <Property Name="Text" Value="Particle density" />
+            <Property Name="UnifiedAreaRect" Value="{{0.0421053,0},{0.55914,0},{0.0421053,168},{0.55914,48}}" />
+            <AutoWindow NameSuffix="__auto_hscrollbar__" >
+                <AutoWindow NameSuffix="__auto_incbtn__" >
+                    <Property Name="Visible" Value="False" />
+                </AutoWindow>
+                <AutoWindow NameSuffix="__auto_decbtn__" >
+                    <Property Name="Visible" Value="False" />
+                </AutoWindow>
+                <AutoWindow NameSuffix="__auto_thumb__" />
+            </AutoWindow>
+            <AutoWindow NameSuffix="__auto_vscrollbar__" >
+                <AutoWindow NameSuffix="__auto_incbtn__" >
+                    <Property Name="Visible" Value="False" />
+                </AutoWindow>
+                <AutoWindow NameSuffix="__auto_decbtn__" >
+                    <Property Name="Visible" Value="False" />
+                </AutoWindow>
+                <AutoWindow NameSuffix="__auto_thumb__" />
+            </AutoWindow>
+        </Window>
+        <Window Type="Fruitcut/Button" Name="SettingsMenu/ParticleDensityDecrease" >
+            <Property Name="Text" Value="-" />
+            <Property Name="UnifiedAreaRect" Value="{{0.421053,0},{0.569892,0},{0.494737,0},{0.645161,0}}" />
+        </Window>
+        <Window Type="Fruitcut/ProgressBar" Name="SettingsMenu/ParticleDensityProgress" >
+            <Property Name="StepSize" Value="0.01" />
+            <Property Name="CurrentProgress" Value="0" />
+            <Property Name="UnifiedAreaRect" Value="{{0.51579,0},{0.569892,0},{0.831579,0},{0.645161,0}}" />
+        </Window>
+        <Window Type="Fruitcut/Button" Name="SettingsMenu/ParticleDensityIncrease" >
+            <Property Name="Text" Value="+" />
+            <Property Name="UnifiedAreaRect" Value="{{0.852631,0},{0.569892,0},{0.926316,0},{0.645161,0}}" />
+        </Window>
+    </Window>
+</GUILayout>
