@@ -93,7 +93,7 @@ fruitapp::shadow_map::texture()
 {
 	return
 		fruitapp::shadow_map_texture(
-			texture_);
+			*texture_);
 }
 
 fruitapp::shadow_mvp const
@@ -113,6 +113,10 @@ void
 fruitapp::shadow_map::react(
 	fruitlib::scenic::events::update const &)
 {
+	sge::renderer::context::scoped_ffp scoped_context(
+		renderer_,
+		*target_);
+
 	target_->clear(
 		sge::renderer::clear::parameters()
 			.back_buffer(
@@ -121,10 +125,6 @@ fruitapp::shadow_map::react(
 			.depth_buffer(
 				sge::renderer::clear::depth_buffer_value(
 					1.0f)));
-
-	sge::renderer::context::scoped_ffp scoped_context(
-		renderer_,
-		*target_);
 
 	sge::renderer::state::core::depth_stencil::scoped scoped_depth_stencil(
 		scoped_context.get(),

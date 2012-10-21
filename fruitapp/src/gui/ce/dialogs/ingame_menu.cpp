@@ -25,19 +25,19 @@ fruitapp::gui::ce::dialogs::ingame_menu::ingame_menu(
 			/ FCPPT_TEXT("ingame_menu.layout")),
 	gui_sheet_(
 		_system.gui_system(),
-		*layout_.window().getChild("MainMenu")),
+		layout_.window()),
 	continue_button_(
 		_system.sound_controller(),
 		*layout_.window().getChild(
-			"IngameMenu/Continue")),
+			"Continue")),
 	main_menu_button_(
 		_system.sound_controller(),
 		*layout_.window().getChild(
-			"IngameMenu/MainMenu")),
+			"MainMenu")),
 	quit_button_(
 		_system.sound_controller(),
 		*layout_.window().getChild(
-			"IngameMenu/Quit"))
+			"Quit"))
 {
 }
 

@@ -43,6 +43,7 @@ fruitapp::gui::ce::system::system(
 		charconv_system_,
 		_viewport_manager,
 		sge::cegui::cursor_visibility::invisible),
+//		sge::cegui::cursor_visibility::visible),
 	gui_syringe_(
 		gui_system_),
 	standard_clock_callback_(

@@ -114,6 +114,7 @@ public:
 	music_controller() const
 	FCPPT_PP_CONST;
 
+	/*
 	fruitapp::background &
 	background()
 	FCPPT_PP_CONST;
@@ -121,6 +122,7 @@ public:
 	fruitapp::background const &
 	background() const
 	FCPPT_PP_CONST;
+	*/
 
 	fruitapp::directional_light_source const &
 	main_light_source()
@@ -244,9 +246,8 @@ private:
 	sge::shader::context shader_context_;
 	sge::model::md3::loader_scoped_ptr md3_loader_;
 	fruitapp::viewport::manager viewport_manager_;
-	fruitapp::renderable renderable_;
-	fruitlib::log::scoped_sequence_ptr activated_loggers_;
 	fruitlib::font::cache font_cache_;
+	fruitlib::log::scoped_sequence_ptr activated_loggers_;
 	sge::timer::basic<sge::timer::clocks::standard> second_timer_;
 	fruitapp::ingame_clock ingame_clock_;
 	fruitlib::scenic::delta::duration ingame_clock_delta_;
@@ -255,20 +256,21 @@ private:
 	fcppt::signal::scoped_connection effects_volume_change_connection_;
 	fruitlib::audio::music_controller music_controller_;
 	fcppt::signal::scoped_connection music_volume_change_connection_;
-	fruitapp::quick_log quick_log_;
 	sge::camera::first_person::object camera_;
 	fruitlib::scenic::adaptors::camera camera_node_;
-	fruitapp::projection_manager::object projection_manager_;
 	fcppt::signal::scoped_connection toggle_camera_connection_;
+	fruitapp::projection_manager::object projection_manager_;
+	fruitapp::renderable renderable_;
+	fruitapp::gui::system_unique_ptr const gui_system_;
+	fruitapp::quick_log quick_log_;
 	fruitapp::directional_light_source main_light_source_;
 	fruitapp::shadow_map shadow_map_;
-	fruitapp::background background_;
+	//fruitapp::background background_;
 	unsigned desired_fps_;
-	fruitapp::gui::system_unique_ptr const gui_system_;
-	highscore::score::value_type last_game_score_;
-	point_sprite::system_node point_sprites_;
+	fruitapp::highscore::score::value_type last_game_score_;
+	fruitapp::point_sprite::system_node point_sprites_;
 	fruitapp::screen_shooter screen_shooter_;
-	fruit::prototype_sequence fruit_prototypes_;
+	fruitapp::fruit::prototype_sequence fruit_prototypes_;
 
 	void
 	toggle_camera();

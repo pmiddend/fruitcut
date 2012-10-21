@@ -1,4 +1,5 @@
 #include <fruitapp/depths/overlay.hpp>
+#include <fcppt/insert_to_std_wstring.hpp>
 #include <fruitapp/fruit/cut_context.hpp>
 #include <fruitapp/fruit/manager.hpp>
 #include <fruitapp/game_logic/object.hpp>
@@ -48,6 +49,7 @@
 #include <fcppt/config/external_begin.hpp>
 #include <boost/cstdint.hpp>
 #include <boost/chrono/duration.hpp>
+#include <boost/format.hpp>
 #include <iostream>
 #include <fcppt/config/external_end.hpp>
 
@@ -278,11 +280,32 @@ fruitapp::game_logic::object::react(
 						(mizuiro::color::init::value() %= 1.0)
 						(mizuiro::color::init::alpha() %= 1.0)))));
 	}
+	unsigned const seconds_remaining =
+		static_cast<unsigned>(
+			sge::timer::remaining<boost::chrono::seconds>(
+				round_timer_).count());
+
+	unsigned const minutes_remaining =
+		seconds_remaining / 60u;
+
+	sge::font::string const timer_text(
+		minutes_remaining
+		?
+			(boost::wformat(
+				SGE_FONT_LIT("%02d:%02d")) % minutes_remaining % (seconds_remaining % 60u)).str()
+		:
+			(boost::wformat(
+				SGE_FONT_LIT("%02d")) % seconds_remaining % 60u).str());
+
+	timer_font_node_.object().text(
+		timer_text);
+	/*
 	timer_font_node_.object().text(
 		fruitlib::time_format::duration_to_string<sge::font::string>(
 			sge::timer::remaining<fruitapp::ingame_clock::duration>(
 				round_timer_),
 			fruitlib::time_format::seconds));
+	*/
 
 	if(sge::timer::reset_when_expired(score_increase_timer_))
 	{

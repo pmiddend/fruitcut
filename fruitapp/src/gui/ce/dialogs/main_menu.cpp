@@ -11,6 +11,12 @@ fruitapp::gui::ce::dialogs::main_menu::main_menu(
 			_system.overlay_node()),
 		_system.gui_system(),
 		_system.standard_clock_callback()),
+	gui_keyboard_(
+		_system.gui_syringe(),
+		_system.keyboard()),
+	gui_cursor_(
+		_system.gui_syringe(),
+		_system.cursor()),
 	layout_(
 		_system.gui_system(),
 		fruitapp::media_path()
@@ -19,23 +25,23 @@ fruitapp::gui::ce::dialogs::main_menu::main_menu(
 			/ FCPPT_TEXT("main_menu.layout")),
 	gui_sheet_(
 		_system.gui_system(),
-		*layout_.window().getChild("MainMenu")),
+		layout_.window()),
 	settings_button_(
 		_system.sound_controller(),
 		*layout_.window().getChild(
-			"MainMenu/Settings")),
+			"Settings")),
 	highscore_button_(
 		_system.sound_controller(),
 		*layout_.window().getChild(
-			"MainMenu/Highscores")),
+			"Highscores")),
 	quit_button_(
 		_system.sound_controller(),
 		*layout_.window().getChild(
-			"MainMenu/Quit")),
+			"Quit")),
 	start_button_(
 		_system.sound_controller(),
 		*layout_.window().getChild(
-			"MainMenu/StartGame"))
+			"StartGame"))
 {
 }
 

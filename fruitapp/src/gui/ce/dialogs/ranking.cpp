@@ -31,19 +31,19 @@ fruitapp::gui::ce::dialogs::ranking::ranking(
 			/ FCPPT_TEXT("ranking.layout")),
 	gui_sheet_(
 		_system.gui_system(),
-		*layout_.window().getChild("Ranking")),
+		layout_.window()),
 	highscore_button_(
 		_system.sound_controller(),
 		*layout_.window().getChild(
-			"Ranking/Highscores")),
+			"Highscores")),
 	main_menu_button_(
 		_system.sound_controller(),
 		*layout_.window().getChild(
-			"Ranking/MainMenu")),
+			"MainMenu")),
 	quit_button_(
 		_system.sound_controller(),
 		*layout_.window().getChild(
-			"Ranking/Quit"))/*,
+			"Quit"))/*,
 
 	providers_(
 		_providers) ,
@@ -52,7 +52,7 @@ fruitapp::gui::ce::dialogs::ranking::ranking(
 	table_view_(
 		_system.charconv_system(),
 		*layout_.window().getChild(
-			"Ranking/List"),
+			"List"),
 			post_model_)*/
 {
 	/*
@@ -99,7 +99,7 @@ fruitapp::gui::ce::dialogs::ranking::append_log(
 {
 	CEGUI::Window &w =
 		*layout_.window().getChild(
-			"Ranking/MessageLog");
+			"MessageLog");
 
 	w.setText(
 		w.getText()+

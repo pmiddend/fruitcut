@@ -68,6 +68,7 @@ private:
 	fruitapp::gui::dialogs::highscore_unique_ptr highscore_;
 	fcppt::signal::scoped_connection main_menu_button_connection_;
 	fcppt::signal::scoped_connection quit_button_connection_;
+	fcppt::signal::scoped_connection switch_provider_connection_;
 	fruitapp::highscore::provider::connection_base_ptr connection_;
 	fcppt::signal::shared_connection message_connection_;
 	fcppt::signal::shared_connection error_connection_;

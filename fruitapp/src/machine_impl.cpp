@@ -183,23 +183,6 @@ fruitapp::machine_impl::machine_impl(
 		sge::model::md3::create()),
 	viewport_manager_(
 		systems_.viewport_manager()),
-	renderable_(
-		fruitlib::scenic::optional_parent(
-			fruitlib::scenic::parent(
-				root_node(),
-				fruitlib::scenic::depth(
-					depths::root::scene))),
-		this->shader_context(),
-		config_file_,
-		viewport_manager_),
-	activated_loggers_(
-		fruitlib::log::scoped_sequence_from_json(
-			sge::log::global_context(),
-			sge::parse::json::find_and_convert_member<sge::parse::json::array>(
-				config_file_,
-				sge::parse::json::path(
-					FCPPT_TEXT("loggers"))
-					/ FCPPT_TEXT("sge")))),
 	font_cache_(
 		systems_.font_system(),
 		systems_.image_system(),
@@ -209,6 +192,14 @@ fruitapp::machine_impl::machine_impl(
 				FCPPT_TEXT("fonts"))),
 		fruitlib::font::base_path(
 			fruitapp::media_path())),
+	activated_loggers_(
+		fruitlib::log::scoped_sequence_from_json(
+			sge::log::global_context(),
+			sge::parse::json::find_and_convert_member<sge::parse::json::array>(
+				config_file_,
+				sge::parse::json::path(
+					FCPPT_TEXT("loggers"))
+					/ FCPPT_TEXT("sge")))),
 	second_timer_(
 		sge::timer::parameters<sge::timer::clocks::standard>(
 			boost::chrono::seconds(
@@ -266,17 +257,6 @@ fruitapp::machine_impl::machine_impl(
 					&fruitlib::audio::music_controller::gain),
 				&music_controller_,
 				std::tr1::placeholders::_1))),
-	quick_log_(
-		fruitlib::scenic::optional_parent(
-			fruitlib::scenic::parent(
-				overlay_node(),
-				fruitlib::scenic::depth(
-					depths::overlay::dont_care))),
-		this->systems().renderer_ffp(),
-		config_file_,
-		font_cache_,
-		viewport_manager_,
-		sound_controller_),
 	camera_(
 		sge::camera::first_person::parameters(
 			systems_.keyboard_collector(),
@@ -319,6 +299,13 @@ fruitapp::machine_impl::machine_impl(
 					depths::root::dont_care))),
 		camera_,
 		standard_clock_callback()),
+	toggle_camera_connection_(
+		systems_.keyboard_collector().key_callback(
+			sge::input::keyboard::action(
+				sge::input::keyboard::key_code::f2,
+				std::tr1::bind(
+					&machine_impl::toggle_camera,
+					this)))),
 	projection_manager_(
 		sge::parse::json::find_and_convert_member<sge::parse::json::object>(
 			config_file_,
@@ -327,13 +314,40 @@ fruitapp::machine_impl::machine_impl(
 				/ FCPPT_TEXT("projection")),
 		viewport_manager_,
 		camera_),
-	toggle_camera_connection_(
-		systems_.keyboard_collector().key_callback(
-			sge::input::keyboard::action(
-				sge::input::keyboard::key_code::f2,
-				std::tr1::bind(
-					&machine_impl::toggle_camera,
-					this)))),
+	renderable_(
+		fruitlib::scenic::optional_parent(
+			fruitlib::scenic::parent(
+				this->root_node(),
+				fruitlib::scenic::depth(
+					depths::root::scene))),
+		this->shader_context(),
+		config_file_,
+		viewport_manager_),
+	gui_system_(
+		fruitapp::gui::create_system(
+			fruitlib::scenic::parent(
+				this->overlay_node(),
+				fruitlib::scenic::depth(
+					depths::overlay::dont_care)),
+			systems_.renderer_ffp(),
+			systems_.image_system(),
+			systems_.viewport_manager(),
+			systems_.charconv_system(),
+			this->standard_clock_callback(),
+			systems_.keyboard_collector(),
+			systems_.cursor_demuxer(),
+			this->sound_controller())),
+	quick_log_(
+		fruitlib::scenic::optional_parent(
+			fruitlib::scenic::parent(
+				overlay_node(),
+				fruitlib::scenic::depth(
+					depths::overlay::dont_care))),
+		this->systems().renderer_ffp(),
+		config_file_,
+		font_cache_,
+		viewport_manager_,
+		sound_controller_),
 	main_light_source_(
 		fruitapp::light_source_from_json(
 			sge::parse::json::find_and_convert_member<sge::parse::json::object>(
@@ -343,7 +357,7 @@ fruitapp::machine_impl::machine_impl(
 	shadow_map_(
 		fruitlib::scenic::optional_parent(
 			fruitlib::scenic::parent(
-				root_node(),
+				this->root_node(),
 				fruitlib::scenic::depth(
 					depths::root::shadow_map))),
 		config_file_,
@@ -367,20 +381,6 @@ fruitapp::machine_impl::machine_impl(
 			config_file(),
 			sge::parse::json::path(FCPPT_TEXT("graphics"))
 				/ FCPPT_TEXT("desired-fps"))),
-	gui_system_(
-		fruitapp::gui::create_system(
-			fruitlib::scenic::parent(
-				this->overlay_node(),
-				fruitlib::scenic::depth(
-					depths::overlay::dont_care)),
-			systems_.renderer_ffp(),
-			systems_.image_system(),
-			systems_.viewport_manager(),
-			systems_.charconv_system(),
-			this->standard_clock_callback(),
-			systems_.keyboard_collector(),
-			systems_.cursor_demuxer(),
-			this->sound_controller())),
 	last_game_score_(
 		// Something invalid so you get the error (if there is one)
 		31337),
@@ -488,6 +488,7 @@ void
 fruitapp::machine_impl::quit(
 	awl::main::exit_code const _exit_code)
 {
+	std::cerr << "Got a quit event\n";
 	systems_.window_system().quit(
 		_exit_code);
 }

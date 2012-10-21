@@ -33,10 +33,10 @@ fruitapp::gui::ce::dialogs::name_chooser::name_chooser(
 	continue_button_(
 		_system.sound_controller(),
 		*layout_.window().getChild(
-			"NameChooser/Continue"))
+			"Continue"))
 {
 	layout_.window().getChild(
-		"NameChooser/Score")->setText(
+		"Score")->setText(
 		sge::cegui::to_cegui_string(
 			fcppt::insert_to_fcppt_string(
 				_score.get()),
@@ -58,7 +58,7 @@ fruitapp::gui::ce::dialogs::name_chooser::name() const
 	return
 		sge::cegui::from_cegui_string(
 			layout_.window().getChild(
-				"NameChooser/Name")->getText(),
+				"Name")->getText(),
 			charconv_system_);
 }
 

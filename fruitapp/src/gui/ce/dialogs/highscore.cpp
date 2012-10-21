@@ -35,25 +35,25 @@ fruitapp::gui::ce::dialogs::highscore::highscore(
 			/ FCPPT_TEXT("new_highscore.layout")),
 	gui_sheet_(
 		_system.gui_system(),
-		*layout_.window().getChild("Highscores")),
+		layout_.window()),
 	main_menu_button_(
 		_system.sound_controller(),
 		*layout_.window().getChild(
-			"Highscores/MainMenu")),
+			"MainMenu")),
 	quit_button_(
 		_system.sound_controller(),
 		*layout_.window().getChild(
-			"Highscores/Quit")),
+			"Quit")),
 	providers_(
 		_providers),
 	source_box_(
 		*layout_.window().getChild(
-			"Highscores/Source")),
+			"Source")),
 	table_model_(),
 	table_view_(
 		_system.charconv_system(),
 		*layout_.window().getChild(
-			"Highscores/List"),
+			"List"),
 		table_model_)
 {
 	for(
@@ -101,9 +101,7 @@ fruitapp::gui::ce::dialogs::highscore::register_switch_provider_callback(
 void
 fruitapp::gui::ce::dialogs::highscore::clear_log()
 {
-	layout_.window().getChild(
-		"Highscores/MessageLog")->setText(
-		"");
+	layout_.window().getChild("CaptionedStaticText")->getChild("MessageLog")->setText("");
 }
 
 void
@@ -111,8 +109,7 @@ fruitapp::gui::ce::dialogs::highscore::append_log(
 	fcppt::string const &_string)
 {
 	CEGUI::Window &w =
-		*layout_.window().getChild(
-			"Highscores/MessageLog");
+		*(layout_.window().getChild("CaptionedStaticText")->getChild("MessageLog"));
 
 	w.setText(
 		w.getText()+

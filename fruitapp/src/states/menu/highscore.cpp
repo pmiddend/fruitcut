@@ -33,16 +33,9 @@ fruitapp::states::menu::highscore::highscore(
 					depths::root::dont_care)))),
 	providers_(),
 	highscore_(),
-	main_menu_button_connection_(
-		highscore_->register_back_callback(
-			FRUITAPP_EVENTS_RETURN_POST_TRANSITION_FUNCTOR(
-				menu::main))),
-	quit_button_connection_(
-		highscore_->register_quit_callback(
-			std::tr1::bind(
-				&fruitapp::machine::quit,
-				&context<fruitapp::machine>(),
-				awl::main::exit_success()))),
+	main_menu_button_connection_(),
+	quit_button_connection_(),
+	switch_provider_connection_(),
 	connection_(),
 	message_connection_(),
 	error_connection_(),
@@ -56,6 +49,25 @@ fruitapp::states::menu::highscore::highscore(
 	highscore_ =
 		context<fruitapp::machine>().gui_system().create_highscore(
 			providers_);
+
+	main_menu_button_connection_.take(
+		highscore_->register_back_callback(
+			FRUITAPP_EVENTS_RETURN_POST_TRANSITION_FUNCTOR(
+				menu::main)));
+
+	quit_button_connection_.take(
+		highscore_->register_quit_callback(
+			std::tr1::bind(
+				&fruitapp::machine::quit,
+				&context<fruitapp::machine>(),
+				awl::main::exit_success())));
+
+	switch_provider_connection_.take(
+		highscore_->register_switch_provider_callback(
+			std::tr1::bind(
+				&fruitapp::states::menu::highscore::switch_provider,
+				this,
+				std::tr1::placeholders::_1)));
 }
 
 FRUITAPP_EVENTS_DEFINE_TRANSITION_REACTION(

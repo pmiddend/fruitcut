@@ -1,4 +1,5 @@
 #include <fruitapp/fruit/mesh.hpp>
+#include <fruitlib/json/parse_rgba8_color.hpp>
 #include <fruitapp/fruit/model_to_mesh.hpp>
 #include <fruitapp/fruit/prototype.hpp>
 #include <fruitapp/fruit/prototype_from_json.hpp>
@@ -83,6 +84,13 @@ fruitapp::fruit::prototype_from_json(
 						o,
 						sge::parse::json::path(
 							FCPPT_TEXT("material"))))),
+			fruitapp::fruit::splatter_color(
+				sge::image::color::any::object(
+					fruitlib::json::parse_rgba8_color(
+						sge::parse::json::find_and_convert_member<sge::parse::json::value>(
+							o,
+							sge::parse::json::path(
+								FCPPT_TEXT("splatter-color")))))),
 			fcppt::cref(
 				fcppt::algorithm::map<fruit::tag_set>(
 					sge::parse::json::find_and_convert_member<sge::parse::json::array>(

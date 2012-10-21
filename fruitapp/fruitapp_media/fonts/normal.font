@@ -1,9 +1,1 @@
-<?xml version="1.0"  encoding="UTF-8" ?>
-<Font 
-	Name="normal" 
-	Filename="default.ttf" 
-	Type="FreeType" 
-	Size="16" 
-	NativeHorzRes="800" 
-	NativeVertRes="600" 
-	AutoScaled="false"/>
+<Font autoScaled="false" filename="default.ttf" name="normal" nativeHorzRes="800" nativeVertRes="600" size="16" type="FreeType" version="3" />

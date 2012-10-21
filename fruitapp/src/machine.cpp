@@ -79,8 +79,10 @@ fruitapp::machine::run()
 			queued_event_list::const_iterator current_event = queued_events_.begin();
 			current_event != queued_events_.end();
 			++current_event)
+		{
 			base::process_event(
 				**current_event);
+		}
 		queued_events_.clear();
 	}
 

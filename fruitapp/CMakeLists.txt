@@ -412,11 +412,11 @@ include(
 sge_config_add_custom_path(
 	fruitapp
 	fruitapp_media
-	${CMAKE_SOURCE_DIR}/fruitlib/fruitapp_media
+	${CMAKE_SOURCE_DIR}/fruitapp/fruitapp_media
 	${INSTALL_MEDIA_DIR})
 
 install(
 	DIRECTORY
-	${CMAKE_SOURCE_DIR}/fruitlib/fruitapp_media/
+	${CMAKE_SOURCE_DIR}/fruitapp/fruitapp_media/
 	DESTINATION
 	${INSTALL_MEDIA_DIR})

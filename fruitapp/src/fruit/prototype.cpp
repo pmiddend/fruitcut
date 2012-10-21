@@ -21,14 +21,15 @@
 fruitapp::fruit::prototype::prototype(
 	fruitapp::fruit::mesh_unique_ptr _mesh,
 	sge::renderer::texture::planar_shared_ptr const _texture,
-	material::object const &_material,
-	fruit::tag_set const &_tags)
+	fruitapp::fruit::material::object const &_material,
+	fruitapp::fruit::splatter_color const &_splatter_color,
+	fruitapp::fruit::tag_set const &_tags)
 :
 	mesh_(
 		fcppt::move(
 			_mesh)),
 	bounding_box_(
-		boost::geometry::return_envelope<box3>(
+		boost::geometry::return_envelope<fruitapp::fruit::box3>(
 			mesh_to_point_cloud(
 				*mesh_))),
 	mass_(
@@ -36,19 +37,7 @@ fruitapp::fruit::prototype::prototype(
 	texture_(
 		_texture),
 	splatter_color_(
-		fruitlib::average_colors(
-			sge::image2d::view::to_const(
-				sge::image2d::view::sub(
-					sge::renderer::texture::scoped_planar_lock(
-						*_texture,
-						sge::renderer::lock_mode::readwrite).value(),
-					sge::image2d::rect(
-						sge::image2d::rect::vector(
-							_texture->size().w()/2,
-							0),
-						sge::image2d::dim(
-							_texture->size().w()/2,
-							_texture->size().h())))))),
+		_splatter_color.get()),
 	material_(
 		_material),
 	tags_(

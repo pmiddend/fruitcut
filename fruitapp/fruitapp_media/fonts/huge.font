@@ -1,9 +1,1 @@
-<?xml version="1.0"  encoding="UTF-8" ?>
-<Font 
-	Name="huge" 
-	Filename="default.ttf" 
-	Type="FreeType" 
-	Size="48" 
-	NativeHorzRes="800" 
-	NativeVertRes="600" 
-	AutoScaled="false"/>
+<Font autoScaled="false" filename="default.ttf" name="huge" nativeHorzRes="800" nativeVertRes="600" size="48" type="FreeType" version="3" />

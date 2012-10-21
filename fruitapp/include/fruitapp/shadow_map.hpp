@@ -11,7 +11,7 @@
 #include <sge/renderer/device/ffp_fwd.hpp>
 #include <sge/renderer/state/core/depth_stencil/object_scoped_ptr.hpp>
 #include <sge/renderer/target/offscreen_scoped_ptr.hpp>
-#include <sge/renderer/texture/planar_shared_ptr.hpp>
+#include <sge/renderer/texture/planar_scoped_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/math/matrix/object_impl.hpp>
 #include <fcppt/preprocessor/pure.hpp>
@@ -70,7 +70,7 @@ public:
 private:
 	sge::renderer::device::ffp &renderer_;
 	sge::renderer::state::core::depth_stencil::object_scoped_ptr const depth_stencil_state_;
-	sge::renderer::texture::planar_shared_ptr const texture_;
+	sge::renderer::texture::planar_scoped_ptr const texture_;
 	sge::renderer::target::offscreen_scoped_ptr const target_;
 	sge::renderer::matrix4 mvp_;
 };

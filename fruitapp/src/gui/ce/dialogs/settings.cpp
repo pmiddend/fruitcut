@@ -27,15 +27,15 @@ fruitapp::gui::ce::dialogs::settings::settings(
 			/ FCPPT_TEXT("settings_menu.layout")),
 	gui_sheet_(
 		_system.gui_system(),
-		*layout_.window().getChild("SettingsMenu")),
+		layout_.window()),
 	main_menu_button_(
 		_system.sound_controller(),
 		*layout_.window().getChild(
-			"SettingsMenu/Return")),
+			"Return")),
 	music_volume_slider_(
 		_system.sound_controller(),
 		layout_.window(),
-		"SettingsMenu/MusicVolume",
+		"MusicVolume",
 		static_cast<fruitapp::gui::ce::progress_slider::value_type>(
 			_initial_music_volume.get().get()) / 100.0f),
 	music_volume_connection_(
@@ -48,7 +48,7 @@ fruitapp::gui::ce::dialogs::settings::settings(
 	effects_volume_slider_(
 		_system.sound_controller(),
 		layout_.window(),
-		"SettingsMenu/EffectsVolume",
+		"EffectsVolume",
 		static_cast<fruitapp::gui::ce::progress_slider::value_type>(
 			_initial_effects_volume.get().get()) / 100.0f),
 	effects_volume_connection_(

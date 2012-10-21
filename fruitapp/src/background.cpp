@@ -181,7 +181,7 @@ fruitapp::background::background(
 		shader_,
 		_shader_context.renderer(),
 		sge::shader::parameter::planar_texture::optional_value(
-			*_shadow_map_texture.get())),
+			_shadow_map_texture.get())),
 	depth_stencil_state_(
 		_shader_context.renderer().create_depth_stencil_state(
 			sge::renderer::state::core::depth_stencil::parameters(
