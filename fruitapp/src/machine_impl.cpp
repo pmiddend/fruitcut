@@ -117,6 +117,26 @@ fruitapp::machine_impl::machine_impl(
 :
 	node_base(
 		fruitlib::scenic::no_parent()),
+#ifdef FCPPT_CONFIG_WINDOWS_PLATFORM
+	error_redirection_(
+		std::cerr,
+		"error.txt"),
+	log_redirection_(
+		std::clog,
+		"log.txt"),
+	output_redirection_(
+		std::cout,
+		"output.txt"),
+	werror_redirection_(
+		std::wcerr,
+		"werror.txt"),
+	wlog_redirection_(
+		std::wclog,
+		"wlog.txt"),
+	woutput_redirection_(
+		std::wcout,
+		"woutput.txt"),
+#endif
 	random_generator_(
 		fcppt::random::generator::seed_from_chrono<fruitlib::random_generator::seed>()),
 	charconv_system_(
@@ -336,6 +356,7 @@ fruitapp::machine_impl::machine_impl(
 			this->standard_clock_callback(),
 			systems_.keyboard_collector(),
 			systems_.cursor_demuxer(),
+			systems_.mouse_collector(),
 			this->sound_controller())),
 	quick_log_(
 		fruitlib::scenic::optional_parent(
@@ -488,7 +509,6 @@ void
 fruitapp::machine_impl::quit(
 	awl::main::exit_code const _exit_code)
 {
-	std::cerr << "Got a quit event\n";
 	systems_.window_system().quit(
 		_exit_code);
 }

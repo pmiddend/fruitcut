@@ -21,6 +21,7 @@ fruitapp::gui::ce::system::system(
 	fruitlib::scenic::delta::callback const &_standard_clock_callback,
 	sge::input::keyboard::device &_keyboard,
 	sge::input::cursor::object &_cursor,
+	sge::input::mouse::device &_mouse,
 	fruitlib::audio::sound_controller &_sound_controller)
 :
 	charconv_system_(
@@ -29,6 +30,8 @@ fruitapp::gui::ce::system::system(
 		_keyboard),
 	cursor_(
 		_cursor),
+	mouse_(
+		_mouse),
 	sound_controller_(
 		_sound_controller),
 	overlay_node_(
@@ -170,6 +173,13 @@ fruitapp::gui::ce::system::cursor() const
 {
 	return
 		cursor_;
+}
+
+sge::input::mouse::device &
+fruitapp::gui::ce::system::mouse() const
+{
+	return
+		mouse_;
 }
 
 fruitlib::audio::sound_controller &

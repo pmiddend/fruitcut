@@ -2,12 +2,13 @@
 #include <fruitapp/main.hpp>
 #include <fruitapp/states/loading.hpp>
 #include <fruitlib/signal_stack_printer/object.hpp>
+#include <fruitlib/message_box.hpp>
 #include <awl/main/exit_code.hpp>
 #include <awl/main/exit_failure.hpp>
 #include <awl/main/function_context.hpp>
 #include <fcppt/exception.hpp>
+#include <fcppt/from_std_string.hpp>
 #include <fcppt/scoped_state_machine.hpp>
-#include <fcppt/io/cerr.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <iostream>
 #include <fcppt/config/external_end.hpp>
@@ -32,17 +33,16 @@ try
 }
 catch (fcppt::exception const &e)
 {
-	fcppt::io::cerr()
-		<< FCPPT_TEXT("fcppt::exception: ")
-		<< e.string()
-		<< FCPPT_TEXT("\n");
+	fruitlib::message_box(
+		FCPPT_TEXT("fcppt::exception: ")+
+		e.string());
 	return awl::main::exit_failure();
 }
 catch (std::exception const &e)
 {
-	std::cerr
-		<< "std::exception: "
-		<< e.what()
-		<< "\n";
+	fruitlib::message_box(
+		"std::exception: "+
+		fcppt::from_std_string(
+			e.what()));
 	return awl::main::exit_failure();
 }

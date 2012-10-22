@@ -79,6 +79,7 @@ SET(
 	fruitapp/include/fruitapp/fruit/shadow_render_node.hpp
 	fruitapp/include/fruitapp/fruit/spawn_callback_fn.hpp
 	fruitapp/include/fruitapp/fruit/spawner.hpp
+	fruitapp/include/fruitapp/fruit/splatter_color.hpp
 	fruitapp/include/fruitapp/fruit/tag.hpp
 	fruitapp/include/fruitapp/fruit/tag_set.hpp
 	fruitapp/include/fruitapp/fruit/triangle.hpp

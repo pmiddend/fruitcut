@@ -19,6 +19,9 @@ set(
 	fruitlib/include/fruitlib/audio/sound_controller.hpp
 	fruitlib/include/fruitlib/audio/sound_controller_fwd.hpp
 	fruitlib/include/fruitlib/average_colors.hpp
+	fruitlib/include/fruitlib/basic_scoped_ostream_file_redirection_decl.hpp
+	fruitlib/include/fruitlib/basic_scoped_ostream_file_redirection_fwd.hpp
+	fruitlib/include/fruitlib/basic_scoped_ostream_file_redirection_impl.hpp
 	fruitlib/include/fruitlib/command_line_parameters.hpp
 	fruitlib/include/fruitlib/counted_reference.hpp
 	fruitlib/include/fruitlib/counted_reference_decl.hpp
@@ -82,6 +85,7 @@ set(
 	fruitlib/include/fruitlib/math/view_plane_distance.hpp
 	fruitlib/include/fruitlib/math/view_plane_rect.hpp
 	fruitlib/include/fruitlib/media_path.hpp
+	fruitlib/include/fruitlib/message_box.hpp
 	fruitlib/include/fruitlib/optional_perspective_projection_information.hpp
 	fruitlib/include/fruitlib/performance_timer.hpp
 	fruitlib/include/fruitlib/perspective_projection_information.hpp
@@ -203,6 +207,8 @@ set(
 	fruitlib/include/fruitlib/scenic/parent.hpp
 	fruitlib/include/fruitlib/scenic/parent_fwd.hpp
 	fruitlib/include/fruitlib/scoped_frame_limiter.hpp
+	fruitlib/include/fruitlib/scoped_ostream_file_redirection.hpp
+	fruitlib/include/fruitlib/scoped_wostream_file_redirection.hpp
 	fruitlib/include/fruitlib/signal_stack_printer/object.hpp
 	fruitlib/include/fruitlib/signal_stack_printer/object_fwd.hpp
 	fruitlib/include/fruitlib/time_format/context.hpp
@@ -250,6 +256,7 @@ set(
 	fruitlib/src/math/view_plane_distance.cpp
 	fruitlib/src/math/view_plane_rect.cpp
 	fruitlib/src/media_path.cpp
+	fruitlib/src/message_box.cpp
 	fruitlib/src/performance_timer.cpp
 	fruitlib/src/perspective_projection_information.cpp
 	fruitlib/src/perspective_projection_information_to_matrix.cpp
@@ -302,6 +309,13 @@ set(
 	fruitlib/src/utf8_file_to_fcppt_string.cpp
 	fruitlib/src/utf8_file_to_fcppt_string_exn.cpp
 )
+
+# This is for message_box.cpp which uses windows.h
+if(MSVC)
+	add_definitions(
+		-DUNICODE=1
+		-D_UNICODE=1)
+endif()
 
 fcppt_utils_append_source_dir_and_make_groups(
 	"${FRUITLIB_FILES}"

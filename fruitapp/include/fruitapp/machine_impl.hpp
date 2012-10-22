@@ -1,8 +1,11 @@
 #ifndef FRUITAPP_MACHINE_IMPL_HPP_INCLUDED
 #define FRUITAPP_MACHINE_IMPL_HPP_INCLUDED
 
+#include <fruitlib/scoped_ostream_file_redirection.hpp>
+#include <fruitlib/scoped_wostream_file_redirection.hpp>
 #include <fruitapp/background.hpp>
 #include <fruitapp/config_variables.hpp>
+#include <fcppt/config/platform.hpp>
 #include <fruitapp/directional_light_source.hpp>
 #include <fruitapp/ingame_clock.hpp>
 #include <fruitapp/quick_log.hpp>
@@ -114,7 +117,6 @@ public:
 	music_controller() const
 	FCPPT_PP_CONST;
 
-	/*
 	fruitapp::background &
 	background()
 	FCPPT_PP_CONST;
@@ -122,7 +124,6 @@ public:
 	fruitapp::background const &
 	background() const
 	FCPPT_PP_CONST;
-	*/
 
 	fruitapp::directional_light_source const &
 	main_light_source()
@@ -237,6 +238,14 @@ public:
 
 	~machine_impl();
 private:
+#ifdef FCPPT_CONFIG_WINDOWS_PLATFORM
+	fruitlib::scoped_ostream_file_redirection error_redirection_;
+	fruitlib::scoped_ostream_file_redirection log_redirection_;
+	fruitlib::scoped_ostream_file_redirection output_redirection_;
+	fruitlib::scoped_wostream_file_redirection werror_redirection_;
+	fruitlib::scoped_wostream_file_redirection wlog_redirection_;
+	fruitlib::scoped_wostream_file_redirection woutput_redirection_;
+#endif
 	fruitlib::random_generator random_generator_;
 	sge::charconv::system_scoped_ptr const charconv_system_;
 	sge::parse::json::object user_config_file_;
@@ -265,7 +274,7 @@ private:
 	fruitapp::quick_log quick_log_;
 	fruitapp::directional_light_source main_light_source_;
 	fruitapp::shadow_map shadow_map_;
-	//fruitapp::background background_;
+	fruitapp::background background_;
 	unsigned desired_fps_;
 	fruitapp::highscore::score::value_type last_game_score_;
 	fruitapp::point_sprite::system_node point_sprites_;

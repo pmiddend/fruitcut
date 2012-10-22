@@ -26,7 +26,8 @@ fruitapp::gui::ce::dialogs::highscore::highscore(
 		_system.keyboard()),
 	gui_cursor_(
 		_system.gui_syringe(),
-		_system.cursor()),
+		_system.cursor(),
+		_system.mouse()),
 	layout_(
 		_system.gui_system(),
 		fruitapp::media_path()

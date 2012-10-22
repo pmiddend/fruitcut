@@ -428,6 +428,9 @@ fruitapp::highscore::provider::net::connection::handle_read_content(
 		return;
 	}
 
+	message_received_(
+		FCPPT_TEXT("Done."));
+
 	continue_here(
 		result.object());
 }

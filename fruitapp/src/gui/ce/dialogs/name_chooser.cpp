@@ -23,7 +23,8 @@ fruitapp::gui::ce::dialogs::name_chooser::name_chooser(
 		_system.keyboard()),
 	gui_cursor_(
 		_system.gui_syringe(),
-		_system.cursor()),
+		_system.cursor(),
+		_system.mouse()),
 	layout_(
 		_system.gui_system(),
 		fruitapp::media_path()/FCPPT_TEXT("gui")/FCPPT_TEXT("layouts")/FCPPT_TEXT("name_chooser.layout")),
