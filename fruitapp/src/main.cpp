@@ -41,7 +41,7 @@ catch (fcppt::exception const &e)
 catch (std::exception const &e)
 {
 	fruitlib::message_box(
-		"std::exception: "+
+		FCPPT_TEXT("std::exception: ")+
 		fcppt::from_std_string(
 			e.what()));
 	return awl::main::exit_failure();

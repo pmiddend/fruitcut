@@ -3,6 +3,7 @@
 
 #include <fruitlib/scoped_ostream_file_redirection.hpp>
 #include <fruitlib/scoped_wostream_file_redirection.hpp>
+#include <fruitlib/basic_scoped_ostream_file_redirection_impl.hpp>
 #include <fruitapp/background.hpp>
 #include <fruitapp/config_variables.hpp>
 #include <fcppt/config/platform.hpp>

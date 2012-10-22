@@ -98,7 +98,13 @@ FIND_PACKAGE(
 	systems
 	texture
 	viewport
-	window)
+	window
+	# Transitive
+	renderercg
+	plugin
+	audio
+	media
+)
 
 include_directories(
   ${SGE_INCLUDE_DIRS})
