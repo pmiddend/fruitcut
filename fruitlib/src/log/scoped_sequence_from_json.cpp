@@ -54,7 +54,7 @@ fruitlib::log::scoped_sequence_from_json(
 							current_pair.elements[1]))));
 		}
 	}
-	catch(sge::parse::json::invalid_get const &e)
+	catch(sge::parse::json::invalid_get const &)
 	{
 		throw exception(
 			FCPPT_TEXT("The loggers have to be stored in an array of pairs [name,level], this was not the case with at least one logger pair"));

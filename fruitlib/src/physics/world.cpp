@@ -31,21 +31,30 @@ namespace
 {
 fruitlib::physics::rigid_body::user_data const
 void_ptr_to_body(
+	btCollisionObject const *p)
+{
+	FCPPT_ASSERT_ERROR(
+		p);
+
+	FCPPT_ASSERT_ERROR(
+		p->getUserPointer());
+
+	return
+		static_cast<fruitlib::physics::rigid_body::object *>(
+			p->getUserPointer())->user_data();
+}
+
+fruitlib::physics::rigid_body::user_data const
+void_ptr_to_body(
 	void *p)
 {
 	FCPPT_ASSERT_ERROR(
 		p);
 
-	btCollisionObject *co =
-		static_cast<btCollisionObject *>(
-			p);
-
-	FCPPT_ASSERT_ERROR(
-		co->getUserPointer());
-
 	return
-		static_cast<fruitlib::physics::rigid_body::object *>(
-			co->getUserPointer())->user_data();
+		void_ptr_to_body(
+			static_cast<btCollisionObject *>(
+				p));
 }
 }
 
