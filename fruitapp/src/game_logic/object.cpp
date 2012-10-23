@@ -295,7 +295,7 @@ fruitapp::game_logic::object::react(
 				SGE_FONT_LIT("%02d:%02d")) % minutes_remaining % (seconds_remaining % 60u)).str()
 		:
 			(boost::wformat(
-				SGE_FONT_LIT("%02d")) % seconds_remaining % 60u).str());
+				SGE_FONT_LIT("%02d")) % seconds_remaining).str());
 
 	timer_font_node_.object().text(
 		timer_text);
