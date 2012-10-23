@@ -15,7 +15,6 @@ fruitapp::gui::create_system(
 	fruitlib::scenic::delta::callback const &_standard_clock_callback,
 	sge::input::keyboard::device &_keyboard,
 	sge::input::cursor::object &_cursor,
-	sge::input::mouse::device &_mouse,
 	fruitlib::audio::sound_controller &_sound_controller)
 {
 	return
@@ -37,8 +36,6 @@ fruitapp::gui::create_system(
 					_keyboard),
 				fcppt::ref(
 					_cursor),
-				fcppt::ref(
-					_mouse),
 				fcppt::ref(
 					_sound_controller))
 			/*

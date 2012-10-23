@@ -12,7 +12,6 @@
 #include <sge/charconv/system_fwd.hpp>
 #include <sge/image2d/system_fwd.hpp>
 #include <sge/input/cursor/object_fwd.hpp>
-#include <sge/input/mouse/device_fwd.hpp>
 #include <sge/input/keyboard/device_fwd.hpp>
 #include <sge/renderer/device/ffp_fwd.hpp>
 #include <sge/viewport/manager_fwd.hpp>
@@ -41,7 +40,6 @@ public:
 		fruitlib::scenic::delta::callback const &,
 		sge::input::keyboard::device &,
 		sge::input::cursor::object &,
-		sge::input::mouse::device &,
 		fruitlib::audio::sound_controller &);
 
 	fruitapp::gui::dialogs::highscore_unique_ptr
@@ -89,9 +87,6 @@ public:
 	sge::input::cursor::object &
 	cursor() const;
 
-	sge::input::mouse::device &
-	mouse() const;
-
 	fruitlib::audio::sound_controller &
 	sound_controller() const;
 
@@ -100,7 +95,6 @@ private:
 	sge::charconv::system &charconv_system_;
 	sge::input::keyboard::device &keyboard_;
 	sge::input::cursor::object &cursor_;
-	sge::input::mouse::device &mouse_;
 	fruitlib::audio::sound_controller &sound_controller_;
 	fruitlib::scenic::parent overlay_node_;
 	sge::cegui::system gui_system_;

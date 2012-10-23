@@ -356,7 +356,6 @@ fruitapp::machine_impl::machine_impl(
 			this->standard_clock_callback(),
 			systems_.keyboard_collector(),
 			systems_.cursor_demuxer(),
-			systems_.mouse_collector(),
 			this->sound_controller())),
 	quick_log_(
 		fruitlib::scenic::optional_parent(

@@ -22,8 +22,7 @@ fruitapp::gui::ce::dialogs::ranking::ranking(
 		_system.keyboard()),
 	gui_cursor_(
 		_system.gui_syringe(),
-		_system.cursor(),
-		_system.mouse()),
+		_system.cursor()),
 	layout_(
 		_system.gui_system(),
 		fruitapp::media_path()
