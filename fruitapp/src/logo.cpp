@@ -1,6 +1,6 @@
 #include <fruitapp/logo.hpp>
-#include <fruitapp/viewport/manager.hpp>
 #include <fruitapp/media_path.hpp>
+#include <fruitapp/viewport/manager.hpp>
 #include <fruitlib/scenic/events/render.hpp>
 #include <sge/image2d/system_fwd.hpp>
 #include <sge/parse/json/find_and_convert_member.hpp>

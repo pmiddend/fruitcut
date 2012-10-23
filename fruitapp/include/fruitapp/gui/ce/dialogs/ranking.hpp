@@ -2,10 +2,12 @@
 #define FRUITAPP_GUI_CE_DIALOGS_RANKING_HPP_INCLUDED
 
 #include <fruitapp/gui/ce/button.hpp>
+#include <fruitapp/gui/ce/post_model.hpp>
 #include <fruitapp/gui/ce/system_fwd.hpp>
 #include <fruitapp/gui/ce/table/view.hpp>
 #include <fruitapp/gui/dialogs/ranking.hpp>
-#include <fruitapp/highscore/post_model.hpp>
+#include <fruitapp/highscore/name.hpp>
+#include <fruitapp/highscore/score.hpp>
 #include <fruitlib/scenic/adaptors/gui_system.hpp>
 #include <sge/cegui/default_cursor.hpp>
 #include <sge/cegui/default_keyboard.hpp>
@@ -32,8 +34,8 @@ FCPPT_NONCOPYABLE(
 	ranking);
 public:
 	ranking(
-		fruitapp::gui::ce::system &/*,
-		                             fruitapp::highscore::provider_sequence &*/);
+		fruitapp::gui::ce::system &,
+		fruitapp::highscore::provider_sequence &);
 
 	fcppt::signal::auto_connection
 	register_highscore_callback(
@@ -51,6 +53,11 @@ public:
 	append_log(
 		fcppt::string const &);
 
+	void
+	post(
+		fruitapp::highscore::name const &,
+		fruitapp::highscore::score const &);
+
 	~ranking();
 private:
 	sge::charconv::system &charconv_system_;
@@ -62,9 +69,9 @@ private:
 	fruitapp::gui::ce::button highscore_button_;
 	fruitapp::gui::ce::button main_menu_button_;
 	fruitapp::gui::ce::button quit_button_;
-//	fruitapp::highscore::provider_sequence &providers_;
-//fruitapp::highscore::post_model post_model_;
-//	fruitapp::gui::ce::table::view table_view_;
+	fruitapp::highscore::provider_sequence &providers_;
+	fruitapp::gui::ce::post_model post_model_;
+	fruitapp::gui::ce::table::view table_view_;
 };
 }
 }

@@ -1,11 +1,13 @@
 #ifndef FRUITLIB_GRID_COLLECT_POINTS_HPP_INCLUDED
 #define FRUITLIB_GRID_COLLECT_POINTS_HPP_INCLUDED
 
+#include <fcppt/static_assert_statement.hpp>
 #include <fcppt/container/grid/object.hpp>
 #include <fcppt/container/grid/size_type.hpp>
 #include <fcppt/math/dim/object_impl.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <boost/type_traits/is_same.hpp>
-#include <fcppt/static_assert_statement.hpp>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace fruitlib

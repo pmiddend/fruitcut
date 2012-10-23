@@ -1,10 +1,10 @@
+#include <fruitapp/media_path.hpp>
 #include <fruitapp/fruit/mesh.hpp>
-#include <fruitlib/json/parse_rgba8_color.hpp>
 #include <fruitapp/fruit/model_to_mesh.hpp>
 #include <fruitapp/fruit/prototype.hpp>
 #include <fruitapp/fruit/prototype_from_json.hpp>
 #include <fruitapp/fruit/material/from_json.hpp>
-#include <fruitapp/media_path.hpp>
+#include <fruitlib/json/parse_rgba8_color.hpp>
 #include <sge/image2d/system_fwd.hpp>
 #include <sge/model/md3/loader.hpp>
 #include <sge/model/md3/object.hpp>

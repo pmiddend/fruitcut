@@ -1,5 +1,4 @@
 #include <fruitapp/depths/overlay.hpp>
-#include <fcppt/insert_to_std_wstring.hpp>
 #include <fruitapp/fruit/cut_context.hpp>
 #include <fruitapp/fruit/manager.hpp>
 #include <fruitapp/game_logic/object.hpp>
@@ -38,6 +37,7 @@
 #include <mizuiro/color/convert_static/converter.hpp>
 #include <mizuiro/color/layout/hsva.hpp>
 #include <fcppt/format.hpp>
+#include <fcppt/insert_to_std_wstring.hpp>
 #include <fcppt/insert_to_string.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
@@ -48,8 +48,8 @@
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/cstdint.hpp>
-#include <boost/chrono/duration.hpp>
 #include <boost/format.hpp>
+#include <boost/chrono/duration.hpp>
 #include <iostream>
 #include <fcppt/config/external_end.hpp>
 

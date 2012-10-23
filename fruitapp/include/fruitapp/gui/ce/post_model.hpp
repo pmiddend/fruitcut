@@ -1,5 +1,5 @@
-#ifndef FRUITAPP_HIGHSCORE_POST_MODEL_HPP_INCLUDED
-#define FRUITAPP_HIGHSCORE_POST_MODEL_HPP_INCLUDED
+#ifndef FRUITAPP_GUI_CE_POST_MODEL_HPP_INCLUDED
+#define FRUITAPP_GUI_CE_POST_MODEL_HPP_INCLUDED
 
 #include <fruitapp/gui/ce/table/column_sequence.hpp>
 #include <fruitapp/gui/ce/table/model.hpp>
@@ -28,10 +28,11 @@
 #include <boost/ptr_container/ptr_vector.hpp>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace fruitapp
 {
-namespace highscore
+namespace gui
+{
+namespace ce
 {
 class post_model
 :
@@ -123,6 +124,7 @@ private:
 		fruitapp::gui::ce::table::row_index::value_type,
 		fruitapp::highscore::rank const &);
 };
+}
 }
 }
 

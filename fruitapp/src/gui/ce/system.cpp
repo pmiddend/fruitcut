@@ -1,3 +1,4 @@
+#include <fruitapp/media_path.hpp>
 #include <fruitapp/gui/ce/system.hpp>
 #include <fruitapp/gui/ce/dialogs/highscore.hpp>
 #include <fruitapp/gui/ce/dialogs/ingame_menu.hpp>
@@ -5,7 +6,6 @@
 #include <fruitapp/gui/ce/dialogs/name_chooser.hpp>
 #include <fruitapp/gui/ce/dialogs/ranking.hpp>
 #include <fruitapp/gui/ce/dialogs/settings.hpp>
-#include <fruitapp/media_path.hpp>
 #include <sge/cegui/load_context.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/ref.hpp>
@@ -43,7 +43,6 @@ fruitapp::gui::ce::system::system(
 		charconv_system_,
 		_viewport_manager,
 		sge::cegui::cursor_visibility::invisible),
-//		sge::cegui::cursor_visibility::visible),
 	gui_syringe_(
 		gui_system_),
 	standard_clock_callback_(
@@ -66,15 +65,15 @@ fruitapp::gui::ce::system::create_highscore(
 
 fruitapp::gui::dialogs::ranking_unique_ptr
 fruitapp::gui::ce::system::create_ranking(
-	/*fruitapp::highscore::provider_sequence &_providers*/)
+	fruitapp::highscore::provider_sequence &_providers)
 {
 	return
 		fruitapp::gui::dialogs::ranking_unique_ptr(
 			fcppt::make_unique_ptr<fruitapp::gui::ce::dialogs::ranking>(
 				fcppt::ref(
-					*this)/*,
+					*this),
 				fcppt::ref(
-				_providers)*/));
+					_providers)));
 }
 
 fruitapp::gui::dialogs::main_menu_unique_ptr

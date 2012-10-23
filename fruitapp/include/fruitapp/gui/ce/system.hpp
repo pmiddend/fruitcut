@@ -48,8 +48,7 @@ public:
 
 	fruitapp::gui::dialogs::ranking_unique_ptr
 	create_ranking(
-		/*
-		  fruitapp::highscore::provider_sequence &*/);
+		fruitapp::highscore::provider_sequence &);
 
 	fruitapp::gui::dialogs::main_menu_unique_ptr
 	create_main_menu();

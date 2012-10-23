@@ -1,6 +1,6 @@
+#include <fruitapp/media_path.hpp>
 #include <fruitapp/gui/ce/system.hpp>
 #include <fruitapp/gui/ce/dialogs/main_menu.hpp>
-#include <fruitapp/media_path.hpp>
 
 
 fruitapp::gui::ce::dialogs::main_menu::main_menu(

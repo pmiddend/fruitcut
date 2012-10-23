@@ -26,8 +26,40 @@ update_cmake_file \
 update_cmake_file \
 	fruitapp/CMakeLists.txt \
 	FRUITAPP_FILES \
+	-n \
 	fruitapp/src \
-	fruitapp/include
+	fruitapp/src/gui \
+	fruitapp/include/fruitapp \
+	fruitapp/include/fruitapp/gui \
+	-r \
+	fruitapp/src/bonsu \
+	fruitapp/src/depths \
+	fruitapp/src/fruit \
+	fruitapp/src/game_logic \
+	fruitapp/src/highscore \
+	fruitapp/src/point_sprite \
+	fruitapp/src/projection_manager \
+	fruitapp/src/states \
+	fruitapp/src/viewport \
+	fruitapp/src/gui/dialogs \
+	fruitapp/src/gui/dummy \
+	fruitapp/include/fruitapp/bonsu \
+	fruitapp/include/fruitapp/depths \
+	fruitapp/include/fruitapp/fruit \
+	fruitapp/include/fruitapp/game_logic \
+	fruitapp/include/fruitapp/highscore \
+	fruitapp/include/fruitapp/point_sprite \
+	fruitapp/include/fruitapp/projection_manager \
+	fruitapp/include/fruitapp/states \
+	fruitapp/include/fruitapp/viewport \
+	fruitapp/include/fruitapp/gui/dialogs \
+	fruitapp/include/fruitapp/gui/dummy
+
+update_cmake_file \
+	fruitapp/CMakeLists.txt \
+	FRUITAPP_CEGUI_FILES \
+	fruitapp/src/gui/ce \
+	fruitapp/include/fruitapp/gui/ce
 
 update_cmake_file \
 	fruitserver/CMakeLists.txt \

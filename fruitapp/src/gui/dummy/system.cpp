@@ -26,7 +26,8 @@ fruitapp::gui::dummy::system::create_highscore(
 }
 
 fruitapp::gui::dialogs::ranking_unique_ptr
-fruitapp::gui::dummy::system::create_ranking()
+fruitapp::gui::dummy::system::create_ranking(
+	fruitapp::highscore::provider_sequence &)
 {
 	return
 		fruitapp::gui::dialogs::ranking_unique_ptr(

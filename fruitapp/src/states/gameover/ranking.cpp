@@ -33,7 +33,8 @@ fruitapp::states::gameover::ranking::ranking(
 					depths::root::dont_care)))),
 	providers_(),
 	ranking_(
-		context<fruitapp::machine>().gui_system().create_ranking()),
+		context<fruitapp::machine>().gui_system().create_ranking(
+			providers_)),
 	main_menu_button_connection_(
 		ranking_->register_main_menu_callback(
 			FRUITAPP_EVENTS_RETURN_POST_TRANSITION_FUNCTOR(
@@ -47,42 +48,18 @@ fruitapp::states::gameover::ranking::ranking(
 			std::tr1::bind(
 				&fruitapp::machine::quit,
 				&context<fruitapp::machine>(),
-				awl::main::exit_success())))/*,
-	post_model_(
-		providers_),
-	table_view_(
-		context<fruitapp::machine>().systems().charconv_system(),
-		*layout_.window().getChild(
-			"Ranking/List"),
-		post_model_),
-	message_received_connection_(
-		post_model_.message_received(
-			std::tr1::bind(
-				&ranking::message_received,
-				this,
-				std::tr1::placeholders::_1))),
-	error_received_connection_(
-		post_model_.error_received(
-			std::tr1::bind(
-				&ranking::error_received,
-				this,
-				std::tr1::placeholders::_1)))
-	            */
+				awl::main::exit_success())))
 {
 	fruitapp::highscore::providers_from_json(
 		context<fruitapp::machine>().systems().charconv_system(),
 		context<fruitapp::machine>().config_file(),
 		providers_);
 
-	/*
-	post_model_.post(
-		highscore::name(
-			sge::cegui::from_cegui_string(
-				context<superstate>().name(),
-				context<machine>().systems().charconv_system())),
-		highscore::score(
-			context<machine>().last_game_score()));
-	*/
+	ranking_->post(
+		fruitapp::highscore::name(
+			context<fruitapp::states::gameover::superstate>().name()),
+		fruitapp::highscore::score(
+			context<fruitapp::machine>().last_game_score()));
 }
 
 FRUITAPP_EVENTS_DEFINE_TRANSITION_REACTION(

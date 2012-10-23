@@ -1,5 +1,5 @@
 #include <fruitapp/gui/ce/table/column.hpp>
-#include <fruitapp/highscore/get_model.hpp>
+#include <fruitapp/gui/ce/get_model.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/insert_to_fcppt_string.hpp>
 #include <fcppt/text.hpp>
@@ -12,7 +12,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-fruitapp::highscore::get_model::get_model()
+fruitapp::gui::ce::get_model::get_model()
 :
 	row_added_(),
 	row_removed_(),
@@ -21,7 +21,7 @@ fruitapp::highscore::get_model::get_model()
 }
 
 fruitapp::gui::ce::table::column_sequence const
-fruitapp::highscore::get_model::columns() const
+fruitapp::gui::ce::get_model::columns() const
 {
 	return
 		fcppt::assign::make_container<fruitapp::gui::ce::table::column_sequence>
@@ -44,7 +44,7 @@ fruitapp::highscore::get_model::columns() const
 }
 
 fcppt::signal::auto_connection
-fruitapp::highscore::get_model::row_added(
+fruitapp::gui::ce::get_model::row_added(
 	fruitapp::gui::ce::table::row_added const &f)
 {
 	return
@@ -53,7 +53,7 @@ fruitapp::highscore::get_model::row_added(
 }
 
 fcppt::signal::auto_connection
-fruitapp::highscore::get_model::row_removed(
+fruitapp::gui::ce::get_model::row_removed(
 	fruitapp::gui::ce::table::row_removed const &f)
 {
 	return
@@ -62,7 +62,7 @@ fruitapp::highscore::get_model::row_removed(
 }
 
 void
-fruitapp::highscore::get_model::reset(
+fruitapp::gui::ce::get_model::reset(
 	highscore::entry_set const &entries)
 {
 	for(
@@ -116,6 +116,6 @@ fruitapp::highscore::get_model::reset(
 	}
 }
 
-fruitapp::highscore::get_model::~get_model()
+fruitapp::gui::ce::get_model::~get_model()
 {
 }

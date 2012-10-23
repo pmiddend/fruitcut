@@ -1,6 +1,6 @@
+#include <fruitapp/media_path.hpp>
 #include <fruitapp/gui/ce/system.hpp>
 #include <fruitapp/gui/ce/dialogs/settings.hpp>
-#include <fruitapp/media_path.hpp>
 
 
 fruitapp::gui::ce::dialogs::settings::settings(

@@ -5,6 +5,8 @@
 #include <fcppt/string.hpp>
 #include <fcppt/function/object.hpp>
 #include <fcppt/signal/auto_connection.hpp>
+#include <fruitapp/highscore/name.hpp>
+#include <fruitapp/highscore/score.hpp>
 
 
 namespace fruitapp
@@ -45,6 +47,11 @@ public:
 	virtual void
 	append_log(
 		fcppt::string const &) = 0;
+
+	virtual void
+	post(
+		fruitapp::highscore::name const &,
+		fruitapp::highscore::score const &) = 0;
 
 	virtual
 	~ranking() = 0;

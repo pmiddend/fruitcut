@@ -43,6 +43,11 @@ public:
 	append_log(
 		fcppt::string const &);
 
+	void
+	post(
+		fruitapp::highscore::name const &,
+		fruitapp::highscore::score const &);
+
 	~ranking();
 private:
 	fcppt::signal::object<void ()> quit_;

@@ -1,5 +1,5 @@
-#include <fruitapp/sword_trail.hpp>
 #include <fruitapp/media_path.hpp>
+#include <fruitapp/sword_trail.hpp>
 #include <fruitlib/time_format/find_and_convert_duration.hpp>
 #include <sge/image2d/system_fwd.hpp>
 #include <sge/input/cursor/object.hpp>

@@ -1,12 +1,8 @@
 #ifndef FRUITAPP_MACHINE_IMPL_HPP_INCLUDED
 #define FRUITAPP_MACHINE_IMPL_HPP_INCLUDED
 
-#include <fruitlib/scoped_ostream_file_redirection.hpp>
-#include <fruitlib/scoped_wostream_file_redirection.hpp>
-#include <fruitlib/basic_scoped_ostream_file_redirection_impl.hpp>
 #include <fruitapp/background.hpp>
 #include <fruitapp/config_variables.hpp>
-#include <fcppt/config/platform.hpp>
 #include <fruitapp/directional_light_source.hpp>
 #include <fruitapp/ingame_clock.hpp>
 #include <fruitapp/quick_log.hpp>
@@ -20,7 +16,10 @@
 #include <fruitapp/point_sprite/system_node.hpp>
 #include <fruitapp/projection_manager/object.hpp>
 #include <fruitapp/viewport/manager.hpp>
+#include <fruitlib/basic_scoped_ostream_file_redirection_impl.hpp>
 #include <fruitlib/random_generator.hpp>
+#include <fruitlib/scoped_ostream_file_redirection.hpp>
+#include <fruitlib/scoped_wostream_file_redirection.hpp>
 #include <fruitlib/audio/music_controller.hpp>
 #include <fruitlib/audio/sound_controller.hpp>
 #include <fruitlib/font/cache.hpp>
@@ -41,6 +40,7 @@
 #include <sge/timer/basic.hpp>
 #include <sge/timer/clocks/standard.hpp>
 #include <awl/main/exit_code.hpp>
+#include <fcppt/config/platform.hpp>
 #include <fcppt/preprocessor/const.hpp>
 #include <fcppt/preprocessor/warn_unused_result.hpp>
 #include <fcppt/signal/scoped_connection.hpp>

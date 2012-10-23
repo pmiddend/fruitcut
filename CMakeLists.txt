@@ -71,12 +71,27 @@ add_definitions(
 	${Cg_DEFINITIONS})
 # cg end
 
+OPTION(
+  USE_CEGUI
+  "Use CEGUI for the gui instead of the dummy console gui (recommended)"
+  ON)
+
+set(
+  sge_find_package_use_cegui
+  "")
+
+if(USE_CEGUI)
+	set(
+	  sge_find_package_use_cegui
+	  "cegui")
+endif()
+
 # sge begin
 FIND_PACKAGE(
 	SGE REQUIRED COMPONENTS
 	audio
 	camera
-	cegui
+	${sge_find_package_use_cegui}
 	charconv
 	cg
 	config
@@ -113,14 +128,16 @@ add_definitions(
 # sge end
 
 # cegui begin
-find_package(
-	CEGUI REQUIRED)
+if(USE_CEGUI)
+	find_package(
+		CEGUI REQUIRED)
 
-link_directories(
-	"${CEGUI_LIBRARY_DIRS}")
+	link_directories(
+		"${CEGUI_LIBRARY_DIRS}")
 
-include_directories(
-  ${CEGUI_INCLUDE_DIRS})
+	include_directories(
+	  ${CEGUI_INCLUDE_DIRS})
+endif()
 # cegui end
 
 # get rid of a pretty useless warning

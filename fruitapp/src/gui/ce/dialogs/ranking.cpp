@@ -1,14 +1,14 @@
+#include <fruitapp/media_path.hpp>
 #include <fruitapp/gui/ce/system.hpp>
 #include <fruitapp/gui/ce/dialogs/ranking.hpp>
-#include <fruitapp/media_path.hpp>
 #include <sge/cegui/from_cegui_string.hpp>
 #include <sge/cegui/to_cegui_string.hpp>
 #include <fcppt/text.hpp>
 
 
 fruitapp::gui::ce::dialogs::ranking::ranking(
-	fruitapp::gui::ce::system &_system/*,
-	                                    fruitapp::highscore::provider_sequence &_providers*/)
+	fruitapp::gui::ce::system &_system,
+	fruitapp::highscore::provider_sequence &_providers)
 :
 	charconv_system_(
 		_system.charconv_system()),
@@ -43,8 +43,7 @@ fruitapp::gui::ce::dialogs::ranking::ranking(
 	quit_button_(
 		_system.sound_controller(),
 		*layout_.window().getChild(
-			"Quit"))/*,
-
+			"Quit")),
 	providers_(
 		_providers) ,
 	post_model_(
@@ -53,17 +52,8 @@ fruitapp::gui::ce::dialogs::ranking::ranking(
 		_system.charconv_system(),
 		*layout_.window().getChild(
 			"List"),
-			post_model_)*/
+			post_model_)
 {
-	/*
-	post_model_.post(
-		fruitapp::highscore::name(
-			sge::cegui::from_cegui_string(
-				context<superstate>().name(),
-				context<machine>().systems().charconv_system())),
-		highscore::score(
-			context<machine>().last_game_score()));
-	*/
 }
 
 fcppt::signal::auto_connection
@@ -106,6 +96,16 @@ fruitapp::gui::ce::dialogs::ranking::append_log(
 		sge::cegui::to_cegui_string(
 			s,
 			charconv_system_));
+}
+
+void
+fruitapp::gui::ce::dialogs::ranking::post(
+	fruitapp::highscore::name const &_name,
+	fruitapp::highscore::score const &_score)
+{
+	post_model_.post(
+		_name,
+		_score);
 }
 
 fruitapp::gui::ce::dialogs::ranking::~ranking()

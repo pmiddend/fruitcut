@@ -1,5 +1,5 @@
-#ifndef FRUITAPP_HIGHSCORE_GET_MODEL_HPP_INCLUDED
-#define FRUITAPP_HIGHSCORE_GET_MODEL_HPP_INCLUDED
+#ifndef FRUITAPP_GUI_CE_GET_MODEL_HPP_INCLUDED
+#define FRUITAPP_GUI_CE_GET_MODEL_HPP_INCLUDED
 
 #include <fruitapp/gui/ce/table/column_sequence.hpp>
 #include <fruitapp/gui/ce/table/model.hpp>
@@ -12,10 +12,11 @@
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/object.hpp>
 
-
 namespace fruitapp
 {
-namespace highscore
+namespace gui
+{
+namespace ce
 {
 class get_model
 :
@@ -47,6 +48,7 @@ private:
 	fcppt::signal::object<fruitapp::gui::ce::table::row_removed_fn> row_removed_;
 	fruitapp::highscore::entry_set current_entry_set_;
 };
+}
 }
 }
 

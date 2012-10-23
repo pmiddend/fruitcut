@@ -3,11 +3,11 @@
 
 #include <fruitapp/gui/ce/button.hpp>
 #include <fruitapp/gui/ce/combobox.hpp>
+#include <fruitapp/gui/ce/get_model.hpp>
 #include <fruitapp/gui/ce/system_fwd.hpp>
 #include <fruitapp/gui/ce/table/view.hpp>
 #include <fruitapp/gui/dialogs/highscore.hpp>
 #include <fruitapp/highscore/entry_set.hpp>
-#include <fruitapp/highscore/get_model.hpp>
 #include <fruitapp/highscore/provider_sequence.hpp>
 #include <fruitapp/highscore/provider/object_base_fwd.hpp>
 #include <fruitlib/scenic/adaptors/gui_system.hpp>
@@ -78,7 +78,7 @@ private:
 	fruitapp::gui::ce::button quit_button_;
 	fruitapp::highscore::provider_sequence &providers_;
 	fruitapp::gui::ce::combobox source_box_;
-	fruitapp::highscore::get_model table_model_;
+	fruitapp::gui::ce::get_model table_model_;
 	fruitapp::gui::ce::table::view table_view_;
 };
 }

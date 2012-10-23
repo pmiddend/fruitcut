@@ -1,8 +1,8 @@
 #include <fruitapp/machine.hpp>
 #include <fruitapp/main.hpp>
 #include <fruitapp/states/loading.hpp>
-#include <fruitlib/signal_stack_printer/object.hpp>
 #include <fruitlib/message_box.hpp>
+#include <fruitlib/signal_stack_printer/object.hpp>
 #include <awl/main/exit_code.hpp>
 #include <awl/main/exit_failure.hpp>
 #include <awl/main/function_context.hpp>

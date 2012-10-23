@@ -1,8 +1,8 @@
 #include <fruitapp/directional_light_source.hpp>
+#include <fruitapp/media_path.hpp>
 #include <fruitapp/fruit/default_render_node.hpp>
 #include <fruitapp/fruit/manager.hpp>
 #include <fruitapp/fruit/model_vf/format.hpp>
-#include <fruitapp/media_path.hpp>
 #include <fruitlib/scenic/events/render.hpp>
 #include <sge/camera/base.hpp>
 #include <sge/camera/coordinate_system/object.hpp>

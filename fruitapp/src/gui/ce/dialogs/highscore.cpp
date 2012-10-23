@@ -1,7 +1,7 @@
+#include <fruitapp/media_path.hpp>
 #include <fruitapp/gui/ce/system.hpp>
 #include <fruitapp/gui/ce/dialogs/highscore.hpp>
 #include <fruitapp/highscore/provider/object_base.hpp>
-#include <fruitapp/media_path.hpp>
 #include <sge/cegui/to_cegui_string.hpp>
 #include <fcppt/cref.hpp>
 #include <fcppt/ref.hpp>

@@ -1,4 +1,47 @@
-SET(
+set(
+	FRUITAPP_CEGUI_FILES
+	fruitapp/include/fruitapp/gui/ce/button.hpp
+	fruitapp/include/fruitapp/gui/ce/combobox.hpp
+	fruitapp/include/fruitapp/gui/ce/dialogs/highscore.hpp
+	fruitapp/include/fruitapp/gui/ce/dialogs/ingame_menu.hpp
+	fruitapp/include/fruitapp/gui/ce/dialogs/main_menu.hpp
+	fruitapp/include/fruitapp/gui/ce/dialogs/name_chooser.hpp
+	fruitapp/include/fruitapp/gui/ce/dialogs/ranking.hpp
+	fruitapp/include/fruitapp/gui/ce/dialogs/settings.hpp
+	fruitapp/include/fruitapp/gui/ce/get_model.hpp
+	fruitapp/include/fruitapp/gui/ce/post_model.hpp
+	fruitapp/include/fruitapp/gui/ce/progress_slider.hpp
+	fruitapp/include/fruitapp/gui/ce/system.hpp
+	fruitapp/include/fruitapp/gui/ce/system_fwd.hpp
+	fruitapp/include/fruitapp/gui/ce/table/column.hpp
+	fruitapp/include/fruitapp/gui/ce/table/column_sequence.hpp
+	fruitapp/include/fruitapp/gui/ce/table/model.hpp
+	fruitapp/include/fruitapp/gui/ce/table/model_fwd.hpp
+	fruitapp/include/fruitapp/gui/ce/table/row.hpp
+	fruitapp/include/fruitapp/gui/ce/table/row_added.hpp
+	fruitapp/include/fruitapp/gui/ce/table/row_added_fn.hpp
+	fruitapp/include/fruitapp/gui/ce/table/row_index.hpp
+	fruitapp/include/fruitapp/gui/ce/table/row_removed.hpp
+	fruitapp/include/fruitapp/gui/ce/table/row_removed_fn.hpp
+	fruitapp/include/fruitapp/gui/ce/table/view.hpp
+	fruitapp/src/gui/ce/button.cpp
+	fruitapp/src/gui/ce/combobox.cpp
+	fruitapp/src/gui/ce/dialogs/highscore.cpp
+	fruitapp/src/gui/ce/dialogs/ingame_menu.cpp
+	fruitapp/src/gui/ce/dialogs/main_menu.cpp
+	fruitapp/src/gui/ce/dialogs/name_chooser.cpp
+	fruitapp/src/gui/ce/dialogs/ranking.cpp
+	fruitapp/src/gui/ce/dialogs/settings.cpp
+	fruitapp/src/gui/ce/get_model.cpp
+	fruitapp/src/gui/ce/post_model.cpp
+	fruitapp/src/gui/ce/progress_slider.cpp
+	fruitapp/src/gui/ce/system.cpp
+	fruitapp/src/gui/ce/table/column.cpp
+	fruitapp/src/gui/ce/table/model.cpp
+	fruitapp/src/gui/ce/table/view.cpp
+)
+
+set(
 	FRUITAPP_FILES
 	fruitapp/include/fruitapp/ambient_intensity.hpp
 	fruitapp/include/fruitapp/background.hpp
@@ -14,12 +57,6 @@ SET(
 	fruitapp/include/fruitapp/depths/scene.hpp
 	fruitapp/include/fruitapp/directional_light_source.hpp
 	fruitapp/include/fruitapp/directional_light_source_fwd.hpp
-	fruitapp/include/fruitapp/events/declare_transition_reaction.hpp
-	fruitapp/include/fruitapp/events/declare_transition_type.hpp
-	fruitapp/include/fruitapp/events/define_transition_reaction.hpp
-	fruitapp/include/fruitapp/events/generic_transition.hpp
-	fruitapp/include/fruitapp/events/post_transition.hpp
-	fruitapp/include/fruitapp/events/return_post_transition_functor.hpp
 	fruitapp/include/fruitapp/exception.hpp
 	fruitapp/include/fruitapp/fruit/area.hpp
 	fruitapp/include/fruitapp/fruit/box3.hpp
@@ -85,28 +122,6 @@ SET(
 	fruitapp/include/fruitapp/fruit/triangle.hpp
 	fruitapp/include/fruitapp/fruit/triangle_traits.hpp
 	fruitapp/include/fruitapp/game_logic/object.hpp
-	fruitapp/include/fruitapp/gui/ce/button.hpp
-	fruitapp/include/fruitapp/gui/ce/combobox.hpp
-	fruitapp/include/fruitapp/gui/ce/dialogs/highscore.hpp
-	fruitapp/include/fruitapp/gui/ce/dialogs/ingame_menu.hpp
-	fruitapp/include/fruitapp/gui/ce/dialogs/main_menu.hpp
-	fruitapp/include/fruitapp/gui/ce/dialogs/name_chooser.hpp
-	fruitapp/include/fruitapp/gui/ce/dialogs/ranking.hpp
-	fruitapp/include/fruitapp/gui/ce/dialogs/settings.hpp
-	fruitapp/include/fruitapp/gui/ce/progress_slider.hpp
-	fruitapp/include/fruitapp/gui/ce/system.hpp
-	fruitapp/include/fruitapp/gui/ce/system_fwd.hpp
-	fruitapp/include/fruitapp/gui/ce/table/column.hpp
-	fruitapp/include/fruitapp/gui/ce/table/column_sequence.hpp
-	fruitapp/include/fruitapp/gui/ce/table/model.hpp
-	fruitapp/include/fruitapp/gui/ce/table/model_fwd.hpp
-	fruitapp/include/fruitapp/gui/ce/table/row.hpp
-	fruitapp/include/fruitapp/gui/ce/table/row_added.hpp
-	fruitapp/include/fruitapp/gui/ce/table/row_added_fn.hpp
-	fruitapp/include/fruitapp/gui/ce/table/row_index.hpp
-	fruitapp/include/fruitapp/gui/ce/table/row_removed.hpp
-	fruitapp/include/fruitapp/gui/ce/table/row_removed_fn.hpp
-	fruitapp/include/fruitapp/gui/ce/table/view.hpp
 	fruitapp/include/fruitapp/gui/create_system.hpp
 	fruitapp/include/fruitapp/gui/dialogs/highscore.hpp
 	fruitapp/include/fruitapp/gui/dialogs/highscore_fwd.hpp
@@ -148,10 +163,8 @@ SET(
 	fruitapp/include/fruitapp/highscore/entry.hpp
 	fruitapp/include/fruitapp/highscore/entry_set.hpp
 	fruitapp/include/fruitapp/highscore/entry_set_to_json.hpp
-	fruitapp/include/fruitapp/highscore/get_model.hpp
 	fruitapp/include/fruitapp/highscore/json_to_entry_set.hpp
 	fruitapp/include/fruitapp/highscore/name.hpp
-	fruitapp/include/fruitapp/highscore/post_model.hpp
 	fruitapp/include/fruitapp/highscore/provider/connection_base.hpp
 	fruitapp/include/fruitapp/highscore/provider/connection_base_fwd.hpp
 	fruitapp/include/fruitapp/highscore/provider/connection_base_ptr.hpp
@@ -288,19 +301,6 @@ SET(
 	fruitapp/src/fruit/shadow_render_node.cpp
 	fruitapp/src/fruit/spawner.cpp
 	fruitapp/src/game_logic/object.cpp
-	fruitapp/src/gui/ce/button.cpp
-	fruitapp/src/gui/ce/combobox.cpp
-	fruitapp/src/gui/ce/dialogs/highscore.cpp
-	fruitapp/src/gui/ce/dialogs/ingame_menu.cpp
-	fruitapp/src/gui/ce/dialogs/main_menu.cpp
-	fruitapp/src/gui/ce/dialogs/name_chooser.cpp
-	fruitapp/src/gui/ce/dialogs/ranking.cpp
-	fruitapp/src/gui/ce/dialogs/settings.cpp
-	fruitapp/src/gui/ce/progress_slider.cpp
-	fruitapp/src/gui/ce/system.cpp
-	fruitapp/src/gui/ce/table/column.cpp
-	fruitapp/src/gui/ce/table/model.cpp
-	fruitapp/src/gui/ce/table/view.cpp
 	fruitapp/src/gui/create_system.cpp
 	fruitapp/src/gui/dialogs/highscore.cpp
 	fruitapp/src/gui/dialogs/ingame_menu.cpp
@@ -316,9 +316,7 @@ SET(
 	fruitapp/src/gui/system.cpp
 	fruitapp/src/highscore/entry.cpp
 	fruitapp/src/highscore/entry_set_to_json.cpp
-	fruitapp/src/highscore/get_model.cpp
 	fruitapp/src/highscore/json_to_entry_set.cpp
-	fruitapp/src/highscore/post_model.cpp
 	fruitapp/src/highscore/provider/connection_base.cpp
 	fruitapp/src/highscore/provider/file/connection.cpp
 	fruitapp/src/highscore/provider/file/object.cpp
@@ -369,17 +367,45 @@ fcppt_utils_append_source_dir_and_make_groups(
 	"${FRUITAPP_FILES}"
 	FRUITAPP_FILES_ABS)
 
+fcppt_utils_append_source_dir_and_make_groups(
+	"${FRUITAPP_CEGUI_FILES}"
+	FRUITAPP_CEGUI_FILES_ABS)
+
+
+if(
+	USE_CEGUI)
+
+	set(
+		FRUITAPP_USE_CEGUI
+		true)
+
+	set(
+		FRUITAPP_USE_CEGUI_FILES
+		${FRUITAPP_CEGUI_FILES_ABS})
+else()
+	set(
+		FRUITAPP_USE_CEGUI_FILES)
+endif()
+
+configure_file(
+	${CMAKE_SOURCE_DIR}/fruitapp/src/config.hpp.in
+	${CMAKE_BINARY_DIR}/include/fruitapp/config.hpp)
+
 # app begin
 awl_utils_add_portable_executable(
 	fruitcut
 	"fruitapp::main"
-	${FRUITAPP_FILES_ABS})
+	${FRUITAPP_FILES_ABS}
+	${FRUITAPP_USE_CEGUI_FILES})
 
 include_directories(
 	${CMAKE_SOURCE_DIR}/fruitlib/include)
 
 include_directories(
 	${CMAKE_SOURCE_DIR}/fruitapp/include)
+
+include_directories(
+	${CMAKE_BINARY_DIR}/include)
 
 target_link_libraries(
 	fruitcut

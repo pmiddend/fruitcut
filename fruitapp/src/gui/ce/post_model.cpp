@@ -1,7 +1,7 @@
+#include <fruitapp/gui/ce/post_model.hpp>
 #include <fruitapp/gui/ce/table/column.hpp>
 #include <fruitapp/gui/ce/table/row.hpp>
 #include <fruitapp/gui/ce/table/row_index.hpp>
-#include <fruitapp/highscore/post_model.hpp>
 #include <fruitapp/highscore/provider/connection_base.hpp>
 #include <fruitapp/highscore/provider/object_base.hpp>
 #include <fcppt/cref.hpp>
@@ -22,7 +22,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-fruitapp::highscore::post_model::connection_wrapper::connection_wrapper(
+fruitapp::gui::ce::post_model::connection_wrapper::connection_wrapper(
 	fruitapp::highscore::provider::connection_base_ptr &_connection,
 	fcppt::signal::shared_connection const _message_received,
 	fcppt::signal::shared_connection const _error_received,
@@ -41,17 +41,17 @@ fruitapp::highscore::post_model::connection_wrapper::connection_wrapper(
 }
 
 fruitapp::highscore::provider::connection_base &
-fruitapp::highscore::post_model::connection_wrapper::connection()
+fruitapp::gui::ce::post_model::connection_wrapper::connection()
 {
 	return
 		*connection_;
 }
 
-fruitapp::highscore::post_model::connection_wrapper::~connection_wrapper()
+fruitapp::gui::ce::post_model::connection_wrapper::~connection_wrapper()
 {
 }
 
-fruitapp::highscore::post_model::post_model(
+fruitapp::gui::ce::post_model::post_model(
 	fruitapp::highscore::provider_sequence &_providers)
 :
 	providers_(
@@ -65,7 +65,7 @@ fruitapp::highscore::post_model::post_model(
 }
 
 fcppt::signal::auto_connection
-fruitapp::highscore::post_model::message_received(
+fruitapp::gui::ce::post_model::message_received(
 	fruitapp::highscore::callbacks::message_received const &f)
 {
 	return
@@ -74,7 +74,7 @@ fruitapp::highscore::post_model::message_received(
 }
 
 fcppt::signal::auto_connection
-fruitapp::highscore::post_model::error_received(
+fruitapp::gui::ce::post_model::error_received(
 	fruitapp::highscore::callbacks::error_received const &f)
 {
 	return
@@ -83,7 +83,7 @@ fruitapp::highscore::post_model::error_received(
 }
 
 void
-fruitapp::highscore::post_model::post(
+fruitapp::gui::ce::post_model::post(
 	fruitapp::highscore::name const &_name,
 	fruitapp::highscore::score const &_score)
 {
@@ -101,7 +101,7 @@ fruitapp::highscore::post_model::post(
 		i != providers_.end();
 		++i)
 	{
-		provider::connection_base_ptr new_connection(
+		fruitapp::highscore::provider::connection_base_ptr new_connection(
 			i->create_connection());
 
 		FCPPT_ASSERT_PRE(
@@ -161,7 +161,7 @@ fruitapp::highscore::post_model::post(
 }
 
 void
-fruitapp::highscore::post_model::update()
+fruitapp::gui::ce::post_model::update()
 {
 	for(
 		connection_sequence::iterator i =
@@ -172,7 +172,7 @@ fruitapp::highscore::post_model::update()
 }
 
 fruitapp::gui::ce::table::column_sequence const
-fruitapp::highscore::post_model::columns() const
+fruitapp::gui::ce::post_model::columns() const
 {
 	return
 		fcppt::assign::make_container<fruitapp::gui::ce::table::column_sequence>
@@ -187,7 +187,7 @@ fruitapp::highscore::post_model::columns() const
 }
 
 fcppt::signal::auto_connection
-fruitapp::highscore::post_model::row_added(
+fruitapp::gui::ce::post_model::row_added(
 	fruitapp::gui::ce::table::row_added const &f)
 {
 	return
@@ -196,7 +196,7 @@ fruitapp::highscore::post_model::row_added(
 }
 
 fcppt::signal::auto_connection
-fruitapp::highscore::post_model::row_removed(
+fruitapp::gui::ce::post_model::row_removed(
 	fruitapp::gui::ce::table::row_removed const &f)
 {
 	return
@@ -204,13 +204,13 @@ fruitapp::highscore::post_model::row_removed(
 			f);
 }
 
-fruitapp::highscore::post_model::~post_model()
+fruitapp::gui::ce::post_model::~post_model()
 {
 }
 
 void
-fruitapp::highscore::post_model::message_received_internal(
-	provider::object_base const &_provider,
+fruitapp::gui::ce::post_model::message_received_internal(
+	fruitapp::highscore::provider::object_base const &_provider,
 	fcppt::string const &_message)
 {
 	message_received_(
@@ -218,8 +218,8 @@ fruitapp::highscore::post_model::message_received_internal(
 }
 
 void
-fruitapp::highscore::post_model::error_received_internal(
-	provider::object_base const &_provider,
+fruitapp::gui::ce::post_model::error_received_internal(
+	fruitapp::highscore::provider::object_base const &_provider,
 	fcppt::string const &_message)
 {
 	error_received_(
@@ -227,10 +227,10 @@ fruitapp::highscore::post_model::error_received_internal(
 }
 
 void
-fruitapp::highscore::post_model::rank_received_internal(
-	provider::object_base const &_provider,
+fruitapp::gui::ce::post_model::rank_received_internal(
+	fruitapp::highscore::provider::object_base const &_provider,
 	fruitapp::gui::ce::table::row_index::value_type const _row_index,
-	highscore::rank const &_rank)
+	fruitapp::highscore::rank const &_rank)
 {
 	row_removed_(
 		_row_index);

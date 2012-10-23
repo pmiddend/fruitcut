@@ -9,6 +9,7 @@
 #include <fruitapp/gui/dialogs/name_chooser_unique_ptr.hpp>
 #include <fruitapp/gui/dialogs/ranking_unique_ptr.hpp>
 #include <fruitapp/gui/dialogs/settings_unique_ptr.hpp>
+#include <fruitapp/highscore/name.hpp>
 #include <fruitapp/highscore/provider_sequence.hpp>
 #include <fruitapp/highscore/score.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -29,7 +30,7 @@ public:
 
 	virtual fruitapp::gui::dialogs::ranking_unique_ptr
 	create_ranking(
-		/*fruitapp::highscore::provider_sequence &*/) = 0;
+		fruitapp::highscore::provider_sequence &) = 0;
 
 	virtual fruitapp::gui::dialogs::main_menu_unique_ptr
 	create_main_menu() = 0;

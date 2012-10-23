@@ -58,6 +58,13 @@ fruitapp::gui::dummy::dialogs::ranking::append_log(
 {
 }
 
+void
+fruitapp::gui::dummy::dialogs::ranking::post(
+	fruitapp::highscore::name const &,
+	fruitapp::highscore::score const &)
+{
+}
+
 fruitapp::gui::dummy::dialogs::ranking::~ranking()
 {
 }

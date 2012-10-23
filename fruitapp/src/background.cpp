@@ -1,6 +1,6 @@
 #include <fruitapp/background.hpp>
-#include <fruitapp/projection_manager/object.hpp>
 #include <fruitapp/media_path.hpp>
+#include <fruitapp/projection_manager/object.hpp>
 #include <fruitlib/math/view_plane_rect.hpp>
 #include <fruitlib/scenic/events/render.hpp>
 #include <sge/camera/base.hpp>

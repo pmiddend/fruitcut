@@ -1,4 +1,5 @@
 #include <fruitapp/exception.hpp>
+#include <fruitapp/media_path.hpp>
 #include <fruitapp/fruit/box3.hpp>
 #include <fruitapp/fruit/cut_context_unique_ptr.hpp>
 #include <fruitapp/fruit/cut_mesh.hpp>
@@ -8,7 +9,6 @@
 #include <fruitapp/fruit/plane.hpp>
 #include <fruitapp/fruit/prototype_from_json.hpp>
 #include <fruitapp/fruit/model_vf/format.hpp>
-#include <fruitapp/media_path.hpp>
 #include <fruitlib/math/box_radius.hpp>
 #include <fruitlib/math/multiply_matrix4_vector3.hpp>
 #include <fruitlib/math/plane/basic.hpp>
