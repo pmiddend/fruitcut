@@ -11,6 +11,17 @@
 #include <iterator>
 #include <fcppt/config/external_end.hpp>
 
+namespace
+{
+fcppt::string const
+to_human_readable_string(
+	boost::posix_time::time_duration const &_duration)
+{
+	return
+		fcppt::insert_to_fcppt_string(
+			_duration.total_seconds());
+}
+}
 
 fruitapp::gui::ce::get_model::get_model()
 :
@@ -106,10 +117,10 @@ fruitapp::gui::ce::get_model::reset(
 			fcppt::insert_to_fcppt_string(
 				i->score()));
 		new_row.push_back(
-			fcppt::from_std_string(
-				boost::posix_time::to_simple_string(
-					local_adjuster::utc_to_local(
-						i->date_time()))));
+			to_human_readable_string(
+				boost::posix_time::second_clock::local_time() -
+				local_adjuster::utc_to_local(
+					i->date_time())));
 		row_added_(
 			index,
 			new_row);
