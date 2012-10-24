@@ -78,39 +78,5 @@ void
 fruitapp::states::gameover::ranking::react(
 	fruitlib::scenic::events::update const &)
 {
-	/*
-	post_model_.update();
-	*/
+	ranking_->update();
 }
-
-/*
-void
-fruitapp::states::gameover::ranking::message_received(
-	fcppt::string const &s)
-{
-	CEGUI::Window &w =
-		*layout_.window().getChild(
-			"Ranking/MessageLog");
-
-	w.setText(
-		w.getText()+
-		sge::cegui::to_cegui_string(
-			s,
-			context<fruitapp::machine>().systems().charconv_system()));
-}
-
-void
-fruitapp::states::gameover::ranking::error_received(
-	fcppt::string const &s)
-{
-	CEGUI::Window &w =
-		*layout_.window().getChild(
-			"Ranking/MessageLog");
-
-	w.setText(
-		w.getText()+
-		sge::cegui::to_cegui_string(
-			s,
-			context<fruitapp::machine>().systems().charconv_system()));
-}
-*/

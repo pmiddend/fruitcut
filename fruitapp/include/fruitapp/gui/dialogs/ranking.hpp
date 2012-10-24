@@ -53,6 +53,9 @@ public:
 		fruitapp::highscore::name const &,
 		fruitapp::highscore::score const &) = 0;
 
+	virtual void
+	update();
+
 	virtual
 	~ranking() = 0;
 protected:

@@ -58,6 +58,9 @@ public:
 		fruitapp::highscore::name const &,
 		fruitapp::highscore::score const &);
 
+	void
+	update();
+
 	~ranking();
 private:
 	sge::charconv::system &charconv_system_;
@@ -72,6 +75,8 @@ private:
 	fruitapp::highscore::provider_sequence &providers_;
 	fruitapp::gui::ce::post_model post_model_;
 	fruitapp::gui::ce::table::view table_view_;
+	fcppt::signal::scoped_connection message_received_connection_;
+	fcppt::signal::scoped_connection error_received_connection_;
 };
 }
 }

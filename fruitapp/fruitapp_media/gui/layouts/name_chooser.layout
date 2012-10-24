@@ -69,7 +69,9 @@
             <Property name="MaxTextLength" value="4294967295" />
             <Property name="Area" value="{{0.376289,-1},{0.534095,0},{0.953608,-1},{0.637629,0}}" />
             <Property name="TextParsingEnabled" value="False" />
-            <Property name="ValidationString" value="[^&quot; ]+" />
+            <!--
+            <Property name="ValidationString" value="[^ ]+" />
+            -->
         </Window>
         <Window name="Continue" type="Fruitcut/Button">
             <Property name="Font" value="normal" />

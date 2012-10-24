@@ -4,6 +4,7 @@
 #include <sge/cegui/from_cegui_string.hpp>
 #include <sge/cegui/to_cegui_string.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/tr1/functional.hpp>
 
 
 fruitapp::gui::ce::dialogs::ranking::ranking(
@@ -45,14 +46,26 @@ fruitapp::gui::ce::dialogs::ranking::ranking(
 		*layout_.window().getChild(
 			"Quit")),
 	providers_(
-		_providers) ,
+		_providers),
 	post_model_(
 		providers_),
 	table_view_(
 		_system.charconv_system(),
 		*layout_.window().getChild(
 			"List"),
-			post_model_)
+			post_model_),
+	message_received_connection_(
+		post_model_.message_received(
+			std::tr1::bind(
+				&ranking::append_log,
+				this,
+				std::tr1::placeholders::_1))),
+	error_received_connection_(
+		post_model_.error_received(
+			std::tr1::bind(
+				&ranking::append_log,
+				this,
+				std::tr1::placeholders::_1)))
 {
 }
 
@@ -88,8 +101,7 @@ fruitapp::gui::ce::dialogs::ranking::append_log(
 	fcppt::string const &s)
 {
 	CEGUI::Window &w =
-		*layout_.window().getChild(
-			"MessageLog");
+		*layout_.window().getChild("CaptionedStaticText")->getChild("MessageLog");
 
 	w.setText(
 		w.getText()+
@@ -106,6 +118,12 @@ fruitapp::gui::ce::dialogs::ranking::post(
 	post_model_.post(
 		_name,
 		_score);
+}
+
+void
+fruitapp::gui::ce::dialogs::ranking::update()
+{
+	post_model_.update();
 }
 
 fruitapp::gui::ce::dialogs::ranking::~ranking()
