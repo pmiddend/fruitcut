@@ -35,8 +35,7 @@ fruitapp::gui::ce::dialogs::name_chooser::name_chooser(
 		*layout_.window().getChild(
 			"Continue"))
 {
-	layout_.window().getChild(
-		"Score")->setText(
+	layout_.window().getChild("ScoreFrame")->getChild("Score")->setText(
 		sge::cegui::to_cegui_string(
 			fcppt::insert_to_fcppt_string(
 				_score.get()),
