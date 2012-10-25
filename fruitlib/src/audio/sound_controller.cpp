@@ -14,6 +14,7 @@
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/ref.hpp>
 #include <fcppt/string.hpp>
+#include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -61,11 +62,22 @@ create_buffer_from_path(
 	sge::audio::player &player,
 	boost::filesystem::path const &file)
 {
+	sge::audio::file_unique_ptr const audio_file(
+		loader.load(
+			file));
+
+	if(!audio_file)
+		throw
+			fruitlib::exception(
+				FCPPT_TEXT("Couldn't load file \"")+
+				fcppt::filesystem::path_to_string(
+					file)+
+				FCPPT_TEXT("\""));
+
 	return
 		sge::audio::buffer_shared_ptr(
 			player.create_buffer(
-				*loader.load(
-					file)));
+				*audio_file));
 }
 }
 
