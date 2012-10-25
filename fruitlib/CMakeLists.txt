@@ -1,5 +1,5 @@
 include_directories(
-	${CMAKE_SOURCE_DIR}/fruitlib/include)
+	${CMAKE_CURRENT_SOURCE_DIR}/include)
 
 set(
 	FRUITLIB_FILES
@@ -49,6 +49,7 @@ set(
 	fruitlib/include/fruitlib/grid/sobel_ignore_borders.hpp
 	fruitlib/include/fruitlib/grid/to_ppm.hpp
 	fruitlib/include/fruitlib/grid/zip_with.hpp
+	fruitlib/include/fruitlib/human_readable_time_difference.hpp
 	fruitlib/include/fruitlib/json/parse_color.hpp
 	fruitlib/include/fruitlib/json/parse_projection.hpp
 	fruitlib/include/fruitlib/json/parse_random_float_distribution.hpp
@@ -248,6 +249,7 @@ set(
 	fruitlib/src/font/object.cpp
 	fruitlib/src/font/object_parameters.cpp
 	fruitlib/src/font/scene_node.cpp
+	fruitlib/src/human_readable_time_difference.cpp
 	fruitlib/src/json/parse_projection.cpp
 	fruitlib/src/json/parse_rgba8_color.cpp
 	fruitlib/src/log/scoped.cpp

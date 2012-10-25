@@ -1,5 +1,6 @@
-#include <fruitapp/gui/ce/table/column.hpp>
 #include <fruitapp/gui/ce/get_model.hpp>
+#include <fruitapp/gui/ce/table/column.hpp>
+#include <fruitlib/human_readable_time_difference.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/insert_to_fcppt_string.hpp>
 #include <fcppt/text.hpp>
@@ -11,17 +12,6 @@
 #include <iterator>
 #include <fcppt/config/external_end.hpp>
 
-namespace
-{
-fcppt::string const
-to_human_readable_string(
-	boost::posix_time::time_duration const &_duration)
-{
-	return
-		fcppt::insert_to_fcppt_string(
-			_duration.total_seconds());
-}
-}
 
 fruitapp::gui::ce::get_model::get_model()
 :
@@ -74,13 +64,13 @@ fruitapp::gui::ce::get_model::row_removed(
 
 void
 fruitapp::gui::ce::get_model::reset(
-	highscore::entry_set const &entries)
+	fruitapp::highscore::entry_set const &entries)
 {
 	for(
-		highscore::entry_set::size_type i =
-			static_cast<highscore::entry_set::size_type>(
+		fruitapp::highscore::entry_set::size_type i =
+			static_cast<fruitapp::highscore::entry_set::size_type>(
 				current_entry_set_.size()-1);
-		i != static_cast<highscore::entry_set::size_type>(-1);
+		i != static_cast<fruitapp::highscore::entry_set::size_type>(-1);
 		--i)
 	{
 		row_removed_(
@@ -92,7 +82,7 @@ fruitapp::gui::ce::get_model::reset(
 		entries;
 
 	for(
-		highscore::entry_set::const_iterator i =
+		fruitapp::highscore::entry_set::const_iterator i =
 			current_entry_set_.begin();
 		i != current_entry_set_.end();
 		++i)
@@ -117,10 +107,12 @@ fruitapp::gui::ce::get_model::reset(
 			fcppt::insert_to_fcppt_string(
 				i->score()));
 		new_row.push_back(
-			to_human_readable_string(
-				boost::posix_time::second_clock::local_time() -
-				local_adjuster::utc_to_local(
-					i->date_time())));
+			fruitlib::human_readable_time_difference(
+				boost::chrono::seconds(
+					static_cast<boost::chrono::seconds::rep>(
+						(boost::posix_time::second_clock::local_time() -
+						local_adjuster::utc_to_local(
+							i->date_time())).total_seconds()))));
 		row_added_(
 			index,
 			new_row);

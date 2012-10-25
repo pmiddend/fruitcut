@@ -1,12 +1,12 @@
 #ifndef FRUITAPP_GUI_DIALOGS_RANKING_HPP_INCLUDED
 #define FRUITAPP_GUI_DIALOGS_RANKING_HPP_INCLUDED
 
+#include <fruitapp/highscore/name.hpp>
+#include <fruitapp/highscore/score.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/function/object.hpp>
 #include <fcppt/signal/auto_connection.hpp>
-#include <fruitapp/highscore/name.hpp>
-#include <fruitapp/highscore/score.hpp>
 
 
 namespace fruitapp
