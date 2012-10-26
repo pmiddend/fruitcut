@@ -71,13 +71,17 @@ public:
 		sge::audio::player &,
 		sge::audio::scalar initial_gain);
 
+	sge::audio::sound::base_unique_ptr
+	create(
+		fruitlib::resource_tree::path const &);
+
 	void
 	play(
-		resource_tree::path const &);
+		fruitlib::resource_tree::path const &);
 
 	void
 	play_positional(
-		resource_tree::path const &,
+		fruitlib::resource_tree::path const &,
 		sge::audio::sound::positional_parameters const &);
 
 	sge::audio::scalar

@@ -18,6 +18,7 @@
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/container/ptr/replace_unique_ptr.hpp>
 #include <fcppt/math/dim/object_impl.hpp>
+#include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <iostream>
 #include <fcppt/config/external_end.hpp>
@@ -38,7 +39,8 @@ fruitlib::pp::filter::blur::blur(
 	iterations_(
 		_iterations),
 	shaders_(),
-	planar_textures_()
+	planar_textures_(),
+	texture_sizes_()
 {
 	FCPPT_ASSERT_PRE(
 		iterations_.get());
@@ -83,6 +85,16 @@ fruitlib::pp::filter::blur::blur(
 				fcppt::ref(
 					_filter_manager.renderer()),
 				sge::shader::parameter::planar_texture::optional_value()));
+
+		fcppt::container::ptr::replace_unique_ptr(
+			texture_sizes_,
+			i,
+			fcppt::make_unique_ptr<vec2_parameter>(
+				fcppt::ref(
+					shaders_[i].pixel_program()),
+				sge::shader::parameter::name(
+					"texture_size"),
+				sge::renderer::vector2()));
 	}
 }
 
@@ -118,6 +130,14 @@ fruitlib::pp::filter::blur::apply(
 	planar_textures_[1u].set(
 		sge::shader::parameter::planar_texture::optional_value(
 			*(instances[0]->texture())));
+
+	texture_sizes_[0u].set(
+		fcppt::math::dim::structure_cast<sge::renderer::vector2>(
+			input->texture()->size()));
+
+	texture_sizes_[1u].set(
+		fcppt::math::dim::structure_cast<sge::renderer::vector2>(
+			instances[0]->texture()->size()));
 
 	this->render(
 		instances,

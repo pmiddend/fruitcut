@@ -61,6 +61,14 @@ private:
 	boost::ptr_array<sge::shader::parameter::planar_texture,2u>
 	planar_texture_array;
 
+	typedef
+	sge::shader::parameter::vector<sge::renderer::scalar,2u>
+	vec2_parameter;
+
+	typedef
+	boost::ptr_array<vec2_parameter,2u>
+	texture_sizes_array;
+
 	fruitlib::pp::filter::manager &filter_manager_;
 	fruitlib::pp::texture::manager &texture_manager_;
 	fruitlib::pp::filter::texture_size const texture_size_;
@@ -68,6 +76,7 @@ private:
 
 	shader_array shaders_;
 	planar_texture_array planar_textures_;
+	texture_sizes_array texture_sizes_;
 
 	void
 	render(

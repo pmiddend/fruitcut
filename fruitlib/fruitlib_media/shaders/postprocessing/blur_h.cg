@@ -22,6 +22,7 @@ vertex_main(
 float4
 pixel_main(
 	vertex_outputs vertex_data,
+	uniform float2 texture_size,
 	uniform sampler2D input_texture)
 	: COLOR
 {
@@ -31,11 +32,6 @@ pixel_main(
 	for(int i = 0; i < NEIGHBORHOOD_SIZE; ++i)
 	{
 		float2
-			texture_size =
-				tex2Dsize(
-					input_texture,
-					// LOD
-					0).xy,
 			current_absolute_texcoord =
 				texture_size * vertex_data.texture_coordinate,
 			current_texcoord =

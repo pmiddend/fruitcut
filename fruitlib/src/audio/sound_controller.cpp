@@ -116,6 +116,12 @@ fruitlib::audio::sound_controller::sound_controller(
 {
 }
 
+sge::audio::sound::base_unique_ptr
+fruitlib::audio::sound_controller::create(
+	fruitlib::resource_tree::path const &_path)
+{
+}
+
 void
 fruitlib::audio::sound_controller::play(
 	resource_tree::path const &target_path)
@@ -123,7 +129,7 @@ fruitlib::audio::sound_controller::play(
 	resource_tree_type &target_tree =
 		resource_tree::navigate_to_path(
 			*sounds_,
-			target_path);
+		target_path);
 
 	if(target_tree.value().is_leaf())
 	{
