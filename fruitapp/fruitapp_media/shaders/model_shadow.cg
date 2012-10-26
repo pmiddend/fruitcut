@@ -28,8 +28,12 @@ pixel_main(
 	float moment2 = depth * depth;
 
 	// Adjusting moments (this is sort of bias per pixel) using partial derivative
+	/*
 	float dx = ddx(depth);
 	float dy = ddy(depth);
+	*/
+	float dx = depth;
+	float dy = depth;
 	moment2 += 0.25*(dx*dx+dy*dy);
 
 	return

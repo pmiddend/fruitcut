@@ -2,7 +2,7 @@
 	"highscore-providers" : 
 	[
 		{
-			"url" : "file:///$CACHE_PATH/highscore.json"
+			"url" : "file://$CACHE_PATH/highscore.json"
 		},
 		{
 			"url" : "fruitcut://highscore.fruitcut.com:1337"
@@ -128,7 +128,7 @@
 			"movement-speed" : 10.0,
 			"initial-position" : [0.0,0.0,-15.0]
 		},
-		"round-time" : "100s",
+		"round-time" : "30s",
 		"score-increase-timer" : "20ms",
 		"multiplier-timer" : "1s",
 		"penalty-timer" : "3s",
