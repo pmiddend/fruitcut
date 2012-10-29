@@ -1,5 +1,5 @@
 #include <fruitapp/overlay.hpp>
-#include <fruitapp/postprocessing.hpp>
+#include <fruitapp/postprocessing/subsystems/main.hpp>
 #include <fruitlib/scenic/events/render.hpp>
 #include <sge/image/colors.hpp>
 #include <sge/renderer/clear/parameters.hpp>
@@ -7,13 +7,14 @@
 #include <sge/renderer/context/scoped_ffp.hpp>
 #include <sge/renderer/device/ffp.hpp>
 #include <sge/renderer/target/onscreen.hpp>
+#include <fcppt/math/box/object_impl.hpp>
 #include <fcppt/math/dim/object_impl.hpp>
 
 
 fruitapp::overlay::overlay(
 	fruitlib::scenic::optional_parent const &_parent,
 	sge::renderer::device::ffp &_renderer,
-	fruitapp::postprocessing &_postprocessing)
+	fruitapp::postprocessing::subsystems::main &_postprocessing)
 :
 	node_base(
 		_parent),

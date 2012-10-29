@@ -1,4 +1,3 @@
-#include <fruitapp/postprocessing.hpp>
 #include <fruitapp/quick_log.hpp>
 #include <fruitapp/renderer_dim2.hpp>
 #include <fruitapp/renderer_rect.hpp>
@@ -159,8 +158,6 @@ fruitapp::states::ingame::running::running(
 			fruitapp::viewport::trigger_early(
 				true)))
 {
-	context<fruitapp::machine>().postprocessing().active(
-		true);
 }
 
 FRUITAPP_EVENTS_DEFINE_TRANSITION_REACTION(

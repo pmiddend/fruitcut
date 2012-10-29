@@ -14,8 +14,8 @@
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/ref.hpp>
 #include <fcppt/string.hpp>
-#include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/operations.hpp>

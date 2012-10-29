@@ -2,13 +2,12 @@
 #define FRUITAPP_RENDERABLE_HPP_INCLUDED
 
 #include <fruitapp/overlay.hpp>
-#include <fruitapp/postprocessing.hpp>
 #include <fruitapp/scene.hpp>
-#include <fruitapp/viewport/manager_fwd.hpp>
+#include <fruitapp/postprocessing/system_fwd.hpp>
+#include <fruitapp/postprocessing/subsystems/main_scoped_ptr.hpp>
 #include <fruitlib/scenic/node.hpp>
 #include <fruitlib/scenic/optional_parent.hpp>
-#include <sge/parse/json/object_fwd.hpp>
-#include <sge/shader/context_fwd.hpp>
+#include <sge/renderer/device/ffp_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 
 
@@ -47,9 +46,8 @@ FCPPT_NONCOPYABLE(
 public:
 	renderable(
 		fruitlib::scenic::optional_parent const &,
-		sge::shader::context &,
-		sge::parse::json::object const &,
-		fruitapp::viewport::manager &);
+		sge::renderer::device::ffp &,
+		fruitapp::postprocessing::system &);
 
 	fruitapp::scene &
 	scene();
@@ -63,16 +61,13 @@ public:
 	fruitapp::overlay const &
 	overlay() const;
 
-	fruitapp::postprocessing &
-	postprocessing();
-
-	fruitapp::postprocessing const &
-	postprocessing() const;
+	fruitapp::postprocessing::subsystems::main &
+	postprocessing_main();
 
 	~renderable();
 private:
 	fruitapp::scene scene_;
-	fruitapp::postprocessing postprocessing_;
+	fruitapp::postprocessing::subsystems::main_scoped_ptr const postprocessing_;
 	fruitapp::overlay overlay_;
 };
 }

@@ -8,6 +8,8 @@
 #include <fruitapp/depths/scene.hpp>
 #include <fruitapp/gui/create_system.hpp>
 #include <fruitapp/gui/system.hpp>
+#include <fruitapp/postprocessing/create_system.hpp>
+#include <fruitapp/postprocessing/system.hpp>
 #include <fruitlib/create_command_line_parameters.hpp>
 #include <fruitlib/random_generator.hpp>
 #include <fruitlib/scoped_frame_limiter.hpp>
@@ -203,6 +205,11 @@ fruitapp::machine_impl::machine_impl(
 		sge::model::md3::create()),
 	viewport_manager_(
 		systems_.viewport_manager()),
+	postprocessing_system_(
+		fruitapp::postprocessing::create_system(
+			shader_context_,
+			viewport_manager_,
+			config_file_)),
 	font_cache_(
 		systems_.font_system(),
 		systems_.image_system(),
@@ -340,9 +347,8 @@ fruitapp::machine_impl::machine_impl(
 				this->root_node(),
 				fruitlib::scenic::depth(
 					depths::root::scene))),
-		this->shader_context(),
-		config_file_,
-		viewport_manager_),
+		systems_.renderer_ffp(),
+		*postprocessing_system_),
 	gui_system_(
 		fruitapp::gui::create_system(
 			fruitlib::scenic::parent(
@@ -466,12 +472,6 @@ fruitapp::machine_impl::config_variables() const
 	return config_variables_;
 }
 
-fruitapp::postprocessing &
-fruitapp::machine_impl::postprocessing()
-{
-	return renderable_.postprocessing();
-}
-
 bool
 fruitapp::machine_impl::run_once()
 {
@@ -517,6 +517,20 @@ fruitapp::machine_impl::exit_code() const
 {
 	return
 		systems_.window_system().exit_code();
+}
+
+fruitapp::postprocessing::system &
+fruitapp::machine_impl::postprocessing_system()
+{
+	return
+		*postprocessing_system_;
+}
+
+fruitapp::postprocessing::subsystems::main &
+fruitapp::machine_impl::postprocessing_main()
+{
+	return
+		renderable_.postprocessing_main();
 }
 
 fruitapp::ingame_clock const &

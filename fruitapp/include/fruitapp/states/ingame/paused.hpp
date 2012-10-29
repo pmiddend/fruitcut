@@ -1,26 +1,21 @@
 #ifndef FRUITAPP_STATES_INGAME_PAUSED_HPP_INCLUDED
 #define FRUITAPP_STATES_INGAME_PAUSED_HPP_INCLUDED
 
-#include <fruitapp/scoped_pp_activation.hpp>
 #include <fruitapp/scoped_scene_activation.hpp>
 #include <fruitapp/scoped_time_factor.hpp>
 #include <fruitapp/events/declare_transition_reaction.hpp>
 #include <fruitapp/events/declare_transition_type.hpp>
 #include <fruitapp/gui/dialogs/ingame_menu_unique_ptr.hpp>
+#include <fruitapp/postprocessing/subsystems/paused_scoped_ptr.hpp>
 #include <fruitapp/states/ingame/running_fwd.hpp>
 #include <fruitapp/states/ingame/superstate.hpp>
 #include <fruitapp/states/menu/main_fwd.hpp>
-#include <fruitlib/pp/system.hpp>
-#include <fruitlib/pp/filter/blur.hpp>
-#include <fruitlib/pp/filter/inject_texture.hpp>
-#include <fruitlib/scenic/node.hpp>
 #include <sge/renderer/texture/planar_shared_ptr.hpp>
 #include <sge/timer/basic.hpp>
 #include <sge/timer/clocks/standard.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/vector/vector10.hpp>
 #include <boost/statechart/state.hpp>
 #include <fcppt/config/external_end.hpp>
 
@@ -68,8 +63,7 @@ namespace ingame
 class paused
 :
 	// The second argument has to be a complete type
-	public boost::statechart::state<paused,superstate>,
-	public fruitlib::scenic::node<paused>
+	public boost::statechart::state<paused,superstate>
 {
 FCPPT_NONCOPYABLE(
 	paused);
@@ -84,10 +78,6 @@ public:
 	>
 	reactions;
 
-	typedef
-	boost::mpl::vector2<fruitlib::scenic::events::render,fruitlib::scenic::events::update>
-	scene_reactions;
-
 	explicit
 	paused(
 		my_context);
@@ -99,25 +89,10 @@ public:
 		menu::main);
 
 	~paused();
-
-	void
-	react(
-		fruitlib::scenic::events::render const &);
-
-	void
-	react(
-		fruitlib::scenic::events::update const &);
 private:
 	fruitapp::scoped_time_factor time_factor_;
 	fruitapp::scoped_scene_activation scene_deactivation_;
-	fruitapp::scoped_pp_activation pp_deactivation_;
-	fruitlib::pp::system system_;
-	fruitlib::pp::filter::inject_texture inject_texture_;
-	fruitlib::pp::filter::blur blur_;
-	sge::renderer::texture::planar_shared_ptr current_texture_;
-	fruitlib::pp::filter::iterations blur_iterations_;
-	fruitlib::pp::filter::iterations const max_blur_iterations_;
-	sge::timer::basic<sge::timer::clocks::standard> blur_timer_;
+	fruitapp::postprocessing::subsystems::paused_scoped_ptr const paused_postprocessing_;
 	fcppt::signal::scoped_connection transit_to_running_connection_;
 	fruitapp::gui::dialogs::ingame_menu_unique_ptr ingame_menu_;
 	fcppt::signal::scoped_connection continue_connection_;

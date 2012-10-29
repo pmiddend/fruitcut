@@ -64,10 +64,16 @@ fruitapp::machine::config_variables() const
 	return impl_->config_variables();
 }
 
-fruitapp::postprocessing &
-fruitapp::machine::postprocessing()
+fruitapp::postprocessing::system &
+fruitapp::machine::postprocessing_system()
 {
-	return impl_->postprocessing();
+	return impl_->postprocessing_system();
+}
+
+fruitapp::postprocessing::subsystems::main &
+fruitapp::machine::postprocessing_main()
+{
+	return impl_->postprocessing_main();
 }
 
 awl::main::exit_code const

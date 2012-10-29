@@ -39,6 +39,7 @@ update_cmake_file \
 	fruitapp/src/highscore \
 	fruitapp/src/point_sprite \
 	fruitapp/src/projection_manager \
+	fruitapp/src/postprocessing \
 	fruitapp/src/states \
 	fruitapp/src/viewport \
 	fruitapp/src/gui/dialogs \
@@ -47,6 +48,7 @@ update_cmake_file \
 	fruitapp/include/fruitapp/depths \
 	fruitapp/include/fruitapp/fruit \
 	fruitapp/include/fruitapp/game_logic \
+	fruitapp/include/fruitapp/postprocessing \
 	fruitapp/include/fruitapp/highscore \
 	fruitapp/include/fruitapp/point_sprite \
 	fruitapp/include/fruitapp/projection_manager \

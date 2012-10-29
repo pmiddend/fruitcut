@@ -219,8 +219,32 @@ set(
 	fruitapp/include/fruitapp/point_sprite/type_choices.hpp
 	fruitapp/include/fruitapp/point_sprite/unique_base_ptr.hpp
 	fruitapp/include/fruitapp/point_sprite/vector.hpp
-	fruitapp/include/fruitapp/postprocessing.hpp
-	fruitapp/include/fruitapp/postprocessing_fwd.hpp
+	fruitapp/include/fruitapp/postprocessing/cg/subsystems/main.hpp
+	fruitapp/include/fruitapp/postprocessing/cg/subsystems/main_fwd.hpp
+	fruitapp/include/fruitapp/postprocessing/cg/subsystems/paused.hpp
+	fruitapp/include/fruitapp/postprocessing/cg/subsystems/paused_fwd.hpp
+	fruitapp/include/fruitapp/postprocessing/cg/system.hpp
+	fruitapp/include/fruitapp/postprocessing/cg/system_fwd.hpp
+	fruitapp/include/fruitapp/postprocessing/create_system.hpp
+	fruitapp/include/fruitapp/postprocessing/dummy/subsystems/main.hpp
+	fruitapp/include/fruitapp/postprocessing/dummy/subsystems/main_fwd.hpp
+	fruitapp/include/fruitapp/postprocessing/dummy/subsystems/paused.hpp
+	fruitapp/include/fruitapp/postprocessing/dummy/subsystems/paused_fwd.hpp
+	fruitapp/include/fruitapp/postprocessing/dummy/system.hpp
+	fruitapp/include/fruitapp/postprocessing/dummy/system_fwd.hpp
+	fruitapp/include/fruitapp/postprocessing/render_callback.hpp
+	fruitapp/include/fruitapp/postprocessing/subsystems/main.hpp
+	fruitapp/include/fruitapp/postprocessing/subsystems/main_fwd.hpp
+	fruitapp/include/fruitapp/postprocessing/subsystems/main_scoped_ptr.hpp
+	fruitapp/include/fruitapp/postprocessing/subsystems/main_unique_ptr.hpp
+	fruitapp/include/fruitapp/postprocessing/subsystems/paused.hpp
+	fruitapp/include/fruitapp/postprocessing/subsystems/paused_fwd.hpp
+	fruitapp/include/fruitapp/postprocessing/subsystems/paused_scoped_ptr.hpp
+	fruitapp/include/fruitapp/postprocessing/subsystems/paused_unique_ptr.hpp
+	fruitapp/include/fruitapp/postprocessing/system.hpp
+	fruitapp/include/fruitapp/postprocessing/system_fwd.hpp
+	fruitapp/include/fruitapp/postprocessing/system_scoped_ptr.hpp
+	fruitapp/include/fruitapp/postprocessing/system_unique_ptr.hpp
 	fruitapp/include/fruitapp/projection_manager/object.hpp
 	fruitapp/include/fruitapp/projection_manager/object_fwd.hpp
 	fruitapp/include/fruitapp/projection_manager/projection_change_callback.hpp
@@ -233,7 +257,6 @@ set(
 	fruitapp/include/fruitapp/renderer_rect.hpp
 	fruitapp/include/fruitapp/scene.hpp
 	fruitapp/include/fruitapp/scene_fwd.hpp
-	fruitapp/include/fruitapp/scoped_pp_activation.hpp
 	fruitapp/include/fruitapp/scoped_scene_activation.hpp
 	fruitapp/include/fruitapp/scoped_time_factor.hpp
 	fruitapp/include/fruitapp/screen_shooter.hpp
@@ -337,12 +360,18 @@ set(
 	fruitapp/src/point_sprite/splatter/object.cpp
 	fruitapp/src/point_sprite/splatter/parameters.cpp
 	fruitapp/src/point_sprite/system_node.cpp
-	fruitapp/src/postprocessing.cpp
+	fruitapp/src/postprocessing/cg/subsystems/main.cpp
+	fruitapp/src/postprocessing/cg/subsystems/paused.cpp
+	fruitapp/src/postprocessing/cg/system.cpp
+	fruitapp/src/postprocessing/create_system.cpp
+	fruitapp/src/postprocessing/dummy.cpp
+	fruitapp/src/postprocessing/subsystems/main.cpp
+	fruitapp/src/postprocessing/subsystems/paused.cpp
+	fruitapp/src/postprocessing/system.cpp
 	fruitapp/src/projection_manager/object.cpp
 	fruitapp/src/quick_log.cpp
 	fruitapp/src/renderable.cpp
 	fruitapp/src/scene.cpp
-	fruitapp/src/scoped_pp_activation.cpp
 	fruitapp/src/scoped_scene_activation.cpp
 	fruitapp/src/scoped_time_factor.cpp
 	fruitapp/src/screen_shooter.cpp

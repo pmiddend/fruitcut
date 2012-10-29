@@ -1,7 +1,7 @@
 #ifndef FRUITAPP_OVERLAY_HPP_INCLUDED
 #define FRUITAPP_OVERLAY_HPP_INCLUDED
 
-#include <fruitapp/postprocessing_fwd.hpp>
+#include <fruitapp/postprocessing/subsystems/main_fwd.hpp>
 #include <fruitlib/scenic/node.hpp>
 #include <fruitlib/scenic/optional_parent.hpp>
 #include <fruitlib/scenic/events/base.hpp>
@@ -29,7 +29,7 @@ public:
 	overlay(
 		fruitlib::scenic::optional_parent const &,
 		sge::renderer::device::ffp &,
-		fruitapp::postprocessing &);
+		fruitapp::postprocessing::subsystems::main &);
 
 	~overlay();
 
@@ -38,7 +38,7 @@ public:
 		fruitlib::scenic::events::update const &);
 private:
 	sge::renderer::device::ffp &renderer_;
-	fruitapp::postprocessing &postprocessing_;
+	fruitapp::postprocessing::subsystems::main &postprocessing_;
 };
 }
 

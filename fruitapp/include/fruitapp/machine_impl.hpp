@@ -14,6 +14,8 @@
 #include <fruitapp/gui/system_unique_ptr.hpp>
 #include <fruitapp/highscore/score.hpp>
 #include <fruitapp/point_sprite/system_node.hpp>
+#include <fruitapp/postprocessing/system_scoped_ptr.hpp>
+#include <fruitapp/postprocessing/subsystems/main_fwd.hpp>
 #include <fruitapp/projection_manager/object.hpp>
 #include <fruitapp/viewport/manager.hpp>
 #include <fruitlib/basic_scoped_ostream_file_redirection_impl.hpp>
@@ -94,8 +96,12 @@ public:
 	exit_code() const
 	FCPPT_PP_CONST;
 
-	fruitapp::postprocessing &
-	postprocessing()
+	fruitapp::postprocessing::system &
+	postprocessing_system()
+	FCPPT_PP_CONST;
+
+	fruitapp::postprocessing::subsystems::main &
+	postprocessing_main()
 	FCPPT_PP_CONST;
 
 	fruitapp::ingame_clock const &
@@ -256,6 +262,7 @@ private:
 	sge::shader::context shader_context_;
 	sge::model::md3::loader_scoped_ptr md3_loader_;
 	fruitapp::viewport::manager viewport_manager_;
+	fruitapp::postprocessing::system_scoped_ptr const postprocessing_system_;
 	fruitlib::font::cache font_cache_;
 	fruitlib::log::scoped_sequence_ptr activated_loggers_;
 	sge::timer::basic<sge::timer::clocks::standard> second_timer_;

@@ -7,7 +7,6 @@
 #include <fruitapp/ingame_clock.hpp>
 #include <fruitapp/machine_impl_fwd.hpp>
 #include <fruitapp/overlay.hpp>
-#include <fruitapp/postprocessing_fwd.hpp>
 #include <fruitapp/quick_log_fwd.hpp>
 #include <fruitapp/scene_fwd.hpp>
 #include <fruitapp/shadow_map_fwd.hpp>
@@ -16,6 +15,8 @@
 #include <fruitapp/gui/system_fwd.hpp>
 #include <fruitapp/highscore/score.hpp>
 #include <fruitapp/point_sprite/system_node_fwd.hpp>
+#include <fruitapp/postprocessing/system_fwd.hpp>
+#include <fruitapp/postprocessing/subsystems/main_fwd.hpp>
 #include <fruitapp/projection_manager/object_fwd.hpp>
 #include <fruitapp/states/loading_fwd.hpp>
 #include <fruitapp/viewport/manager_fwd.hpp>
@@ -85,8 +86,12 @@ public:
 	run()
 	FCPPT_PP_WARN_UNUSED_RESULT;
 
-	fruitapp::postprocessing &
-	postprocessing()
+	fruitapp::postprocessing::system &
+	postprocessing_system()
+	FCPPT_PP_CONST;
+
+	fruitapp::postprocessing::subsystems::main &
+	postprocessing_main()
 	FCPPT_PP_CONST;
 
 	fruitapp::ingame_clock const &

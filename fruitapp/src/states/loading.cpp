@@ -1,9 +1,9 @@
-#include <fruitapp/postprocessing.hpp>
 #include <fruitapp/depths/overlay.hpp>
 #include <fruitapp/depths/root.hpp>
 #include <fruitapp/events/define_transition_reaction.hpp>
 #include <fruitapp/events/post_transition.hpp>
 #include <fruitapp/fruit/prototype_from_json.hpp>
+#include <fruitapp/postprocessing/subsystems/main.hpp>
 #include <fruitapp/states/loading.hpp>
 #include <fruitapp/states/menu/main.hpp>
 #include <fruitapp/viewport/manager.hpp>
@@ -86,10 +86,9 @@ fruitapp::states::loading::loading(
 			fruitapp::viewport::trigger_early(
 				true)))
 {
-	context<fruitapp::machine>().postprocessing().desaturate_filter().scaling(
-		fruitlib::pp::filter::desaturate::scaling_factor(
-			static_cast<sge::renderer::scalar>(
-				0)));
+	context<fruitapp::machine>().postprocessing_main().loading_progress(
+		static_cast<sge::renderer::scalar>(
+			0));
 }
 
 FRUITAPP_EVENTS_DEFINE_TRANSITION_REACTION(
@@ -130,14 +129,13 @@ fruitapp::states::loading::react(
 			fruit_array_.size())+
 		SGE_FONT_LIT(" fruits"));
 
-	context<fruitapp::machine>().postprocessing().desaturate_filter().scaling(
-		fruitlib::pp::filter::desaturate::scaling_factor(
-			static_cast<sge::renderer::scalar>(
-				std::distance(
-					fruit_array_.begin(),
-					current_fruit_)) /
-				static_cast<sge::renderer::scalar>(
-					fruit_array_.size())));
+	context<fruitapp::machine>().postprocessing_main().loading_progress(
+		static_cast<sge::renderer::scalar>(
+			std::distance(
+				fruit_array_.begin(),
+				current_fruit_)) /
+		static_cast<sge::renderer::scalar>(
+			fruit_array_.size()));
 }
 
 void
