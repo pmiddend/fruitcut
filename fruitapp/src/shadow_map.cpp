@@ -58,8 +58,7 @@ fruitapp::shadow_map::shadow_map(
 				sge::parse::json::find_and_convert_member<sge::renderer::dim2>(
 					_config,
 					sge::parse::json::path(
-						FCPPT_TEXT("shadow-map"))
-						/ FCPPT_TEXT("size")),
+						FCPPT_TEXT("size"))),
 				sge::image::color::format::rgb32f,
 				sge::renderer::texture::mipmap::off(),
 				sge::renderer::resource_flags_field::null(),
@@ -72,11 +71,10 @@ fruitapp::shadow_map::shadow_map(
 	mvp_(
 		fruitlib::perspective_projection_information_to_matrix(
 			fruitlib::json::parse_projection(
-				sge::parse::json::find_and_convert_member<sge::parse::json::object>(
+				sge::parse::json::find_and_convert_member<sge::parse::json::object const>(
 					_config,
 					sge::parse::json::path(
-						FCPPT_TEXT("shadow-map"))
-						/ FCPPT_TEXT("projection")),
+						FCPPT_TEXT("projection"))),
 				fcppt::optional<sge::renderer::scalar>())) *
 		_modelview)
 {

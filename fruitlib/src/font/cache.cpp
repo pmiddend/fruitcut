@@ -65,11 +65,11 @@ fruitlib::font::cache::cache(
 				name.substr(
 					4));
 
-			sge::font::ttf_size const font_size(
+			sge::font::ttf_size const font_size =
 				sge::parse::json::find_and_convert_member<sge::font::ttf_size>(
 					current_font,
 					sge::parse::json::path(
-						FCPPT_TEXT("size"))));
+						FCPPT_TEXT("size")));
 
 			fcppt::container::ptr::push_back_unique_ptr(
 				objects_,

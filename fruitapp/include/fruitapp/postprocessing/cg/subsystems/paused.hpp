@@ -13,6 +13,7 @@
 #include <sge/renderer/texture/planar_shared_ptr.hpp>
 #include <sge/timer/basic.hpp>
 #include <sge/timer/clocks/standard.hpp>
+#include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -31,6 +32,8 @@ class paused
 	public fruitapp::postprocessing::subsystems::paused,
 	public fruitlib::scenic::node<paused>
 {
+FCPPT_NONCOPYABLE(
+	paused);
 public:
 	typedef
 	boost::mpl::vector2

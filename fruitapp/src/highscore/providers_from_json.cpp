@@ -32,7 +32,7 @@ fruitapp::highscore::providers_from_json(
 	highscore::provider_sequence &result)
 {
 	sge::parse::json::array const &providers =
-		sge::parse::json::find_and_convert_member<sge::parse::json::array>(
+		sge::parse::json::find_and_convert_member<sge::parse::json::array const>(
 			config_file,
 			sge::parse::json::path(
 				FCPPT_TEXT("highscore-providers")));
@@ -45,7 +45,7 @@ fruitapp::highscore::providers_from_json(
 	{
 		fcppt::string const uri =
 			sge::parse::json::find_and_convert_member<fcppt::string>(
-				sge::parse::json::convert_from<sge::parse::json::object>(
+				sge::parse::json::convert_from<sge::parse::json::object const>(
 					*current_element),
 				sge::parse::json::path(
 					FCPPT_TEXT("url")));

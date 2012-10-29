@@ -129,7 +129,10 @@ fruitapp::states::ingame::superstate::superstate(
 					depths::root::dont_care))),
 		fruit_manager_,
 		context<machine>().random_generator(),
-		context<machine>().config_file(),
+		sge::parse::json::find_and_convert_member<sge::parse::json::object const>(
+			context<machine>().config_file(),
+			sge::parse::json::path(
+				FCPPT_TEXT("fruit-spawner"))),
 		context<machine>().camera(),
 		context<machine>().ingame_clock(),
 		context<machine>().projection_manager()),
@@ -154,7 +157,10 @@ fruitapp::states::ingame::superstate::superstate(
 				this,
 				std::tr1::placeholders::_1))),
 	splatter_generator_(
-		context<fruitapp::machine>().config_file(),
+		sge::parse::json::find_and_convert_member<sge::parse::json::object const>(
+			context<machine>().config_file(),
+			sge::parse::json::path(
+				FCPPT_TEXT("splatter-generator"))),
 		context<fruitapp::machine>().config_variables().splatter_count_to_area_factor(),
 		context<fruitapp::machine>().point_sprites(),
 		context<fruitapp::machine>().random_generator(),

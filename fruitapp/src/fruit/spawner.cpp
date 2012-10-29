@@ -52,18 +52,16 @@ fruitapp::fruit::spawner::spawner(
 		uniform_float_variate::distribution(
 			uniform_float_variate::distribution::min(
 				sge::parse::json::convert_from<uniform_float_variate::distribution::float_type>(
-					sge::parse::json::find_and_convert_member<sge::parse::json::array>(
+					sge::parse::json::find_and_convert_member<sge::parse::json::array const>(
 						_config_file,
 						sge::parse::json::path(
-							FCPPT_TEXT("fruit-spawner"))
-							/ FCPPT_TEXT("spawn-range-seconds")).elements[0])),
+							FCPPT_TEXT("spawn-range-seconds"))).elements[0])),
 			uniform_float_variate::distribution::sup(
 				sge::parse::json::convert_from<uniform_float_variate::distribution::float_type>(
-					sge::parse::json::find_and_convert_member<sge::parse::json::array>(
+					sge::parse::json::find_and_convert_member<sge::parse::json::array const>(
 						_config_file,
 						sge::parse::json::path(
-							FCPPT_TEXT("fruit-spawner"))
-							/ FCPPT_TEXT("spawn-range-seconds")).elements[1])))),
+							FCPPT_TEXT("spawn-range-seconds"))).elements[1])))),
 	random_prototype_(
 		_random_generator,
 		manager_.prototypes()),
@@ -79,35 +77,31 @@ fruitapp::fruit::spawner::spawner(
 		uniform_physics_variate::distribution(
 			uniform_physics_variate::distribution::min(
 				sge::parse::json::convert_from<uniform_physics_variate::distribution::float_type>(
-					sge::parse::json::find_and_convert_member<sge::parse::json::array>(
+					sge::parse::json::find_and_convert_member<sge::parse::json::array const>(
 						_config_file,
 						sge::parse::json::path(
-							FCPPT_TEXT("fruit-spawner"))
-							/ FCPPT_TEXT("linear-velocity-range")).elements[0])),
+							FCPPT_TEXT("linear-velocity-range"))).elements[0])),
 			uniform_physics_variate::distribution::sup(
 				sge::parse::json::convert_from<uniform_physics_variate::distribution::float_type>(
-					sge::parse::json::find_and_convert_member<sge::parse::json::array>(
+					sge::parse::json::find_and_convert_member<sge::parse::json::array const>(
 						_config_file,
 						sge::parse::json::path(
-							FCPPT_TEXT("fruit-spawner"))
-							/ FCPPT_TEXT("linear-velocity-range")).elements[1])))),
+							FCPPT_TEXT("linear-velocity-range"))).elements[1])))),
 	angular_velocity_rng_(
 		_random_generator,
 		uniform_physics_variate::distribution(
 			uniform_physics_variate::distribution::min(
 				sge::parse::json::convert_from<uniform_physics_variate::distribution::float_type>(
-					sge::parse::json::find_and_convert_member<sge::parse::json::array>(
+					sge::parse::json::find_and_convert_member<sge::parse::json::array const>(
 						_config_file,
 						sge::parse::json::path(
-							FCPPT_TEXT("fruit-spawner"))
-							/ FCPPT_TEXT("angular-velocity-range")).elements[0])),
+							FCPPT_TEXT("angular-velocity-range"))).elements[0])),
 			uniform_physics_variate::distribution::sup(
 				sge::parse::json::convert_from<uniform_physics_variate::distribution::float_type>(
-					sge::parse::json::find_and_convert_member<sge::parse::json::array>(
+					sge::parse::json::find_and_convert_member<sge::parse::json::array const>(
 						_config_file,
 						sge::parse::json::path(
-							FCPPT_TEXT("fruit-spawner"))
-							/ FCPPT_TEXT("angular-velocity-range")).elements[1])))),
+							FCPPT_TEXT("angular-velocity-range"))).elements[1])))),
 	angle_rng_(
 		_random_generator,
 		uniform_physics_variate::distribution(

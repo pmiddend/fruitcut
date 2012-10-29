@@ -365,6 +365,9 @@ set(
 	fruitapp/src/postprocessing/cg/system.cpp
 	fruitapp/src/postprocessing/create_system.cpp
 	fruitapp/src/postprocessing/dummy.cpp
+	fruitapp/src/postprocessing/dummy/subsystems/main.cpp
+	fruitapp/src/postprocessing/dummy/subsystems/paused.cpp
+	fruitapp/src/postprocessing/dummy/system.cpp
 	fruitapp/src/postprocessing/subsystems/main.cpp
 	fruitapp/src/postprocessing/subsystems/paused.cpp
 	fruitapp/src/postprocessing/system.cpp

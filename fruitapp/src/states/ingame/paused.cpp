@@ -31,9 +31,11 @@ fruitapp::states::ingame::paused::paused(
 	time_factor_(
 		context<fruitapp::machine>(),
 		0.0f),
+/*
 	scene_deactivation_(
 		context<fruitapp::machine>().scene_node(),
 		false),
+*/
 	paused_postprocessing_(
 		context<fruitapp::machine>().postprocessing_system().create_paused_subsystem(
 			fruitlib::scenic::optional_parent(

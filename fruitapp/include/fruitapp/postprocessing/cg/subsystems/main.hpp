@@ -14,6 +14,7 @@
 #include <fruitlib/scenic/node.hpp>
 #include <fruitlib/scenic/events/update.hpp>
 #include <sge/renderer/context/core_fwd.hpp>
+#include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -32,6 +33,8 @@ class main
 	public fruitapp::postprocessing::subsystems::main,
 	public fruitlib::scenic::node<main>
 {
+FCPPT_NONCOPYABLE(
+	main);
 public:
 	typedef
 	boost::mpl::vector1<fruitlib::scenic::events::update>

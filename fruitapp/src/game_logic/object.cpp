@@ -129,7 +129,7 @@ fruitapp::game_logic::object::object(
 			sge::font::flags_field::null(),
 			sge::image::color::any::object(
 				fruitlib::json::parse_rgba8_color(
-					sge::parse::json::find_and_convert_member<sge::parse::json::value>(
+					sge::parse::json::find_and_convert_member<sge::parse::json::value const>(
 						_config_file,
 						sge::parse::json::path(
 							FCPPT_TEXT("ingame"))
@@ -154,7 +154,7 @@ fruitapp::game_logic::object::object(
 			sge::font::flags_field::null(),
 			sge::image::color::any::object(
 				fruitlib::json::parse_rgba8_color(
-					sge::parse::json::find_and_convert_member<sge::parse::json::value>(
+					sge::parse::json::find_and_convert_member<sge::parse::json::value const>(
 						_config_file,
 						sge::parse::json::path(
 							FCPPT_TEXT("ingame"))

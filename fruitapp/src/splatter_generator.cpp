@@ -62,24 +62,23 @@ fruitapp::splatter_generator::splatter_generator(
 	speed_rng_(
 		random_generator_,
 		fruitlib::json::parse_random_float_distribution<sge::renderer::scalar>(
-			sge::parse::json::find_and_convert_member<sge::parse::json::array>(
+			sge::parse::json::find_and_convert_member<sge::parse::json::array const>(
 				config_file,
-				sge::parse::json::path(FCPPT_TEXT("splatter-generator"))
-					/ FCPPT_TEXT("speed-range")))),
+				sge::parse::json::path(
+					FCPPT_TEXT("speed-range"))))),
 	distortion_rng_(
 		random_generator_,
 		fruitlib::json::parse_random_float_distribution<sge::renderer::scalar>(
-			sge::parse::json::find_and_convert_member<sge::parse::json::array>(
+			sge::parse::json::find_and_convert_member<sge::parse::json::array const>(
 				config_file,
-				sge::parse::json::path(FCPPT_TEXT("splatter-generator"))
-					/ FCPPT_TEXT("speed-distortion-range")))),
+				sge::parse::json::path(
+					FCPPT_TEXT("speed-distortion-range"))))),
 	size_rng_(
 		random_generator_,
 		fruitlib::json::parse_random_float_distribution<sge::renderer::scalar>(
-			sge::parse::json::find_and_convert_member<sge::parse::json::array>(
+			sge::parse::json::find_and_convert_member<sge::parse::json::array const>(
 				config_file,
-				sge::parse::json::path(FCPPT_TEXT("splatter-generator"))
-					/ FCPPT_TEXT("size-range")))),
+				sge::parse::json::path(FCPPT_TEXT("size-range"))))),
 	alpha_rng_(
 		random_generator_,
 		alpha_rng::distribution(
@@ -92,10 +91,9 @@ fruitapp::splatter_generator::splatter_generator(
 	lifetime_millis_rng_(
 		random_generator_,
 		fruitlib::json::parse_random_int_distribution<boost::chrono::milliseconds::rep>(
-			sge::parse::json::find_and_convert_member<sge::parse::json::array>(
+			sge::parse::json::find_and_convert_member<sge::parse::json::array const>(
 				config_file,
-				sge::parse::json::path(FCPPT_TEXT("splatter-generator"))
-					/ FCPPT_TEXT("lifetime-millis-range")))),
+				sge::parse::json::path(FCPPT_TEXT("lifetime-millis-range"))))),
 	splatter_count_to_area_factor_(
 		_splatter_count_to_area_factor)
 {

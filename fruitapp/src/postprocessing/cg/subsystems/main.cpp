@@ -43,12 +43,12 @@ fruitapp::postprocessing::cg::subsystems::main::main(
 			sge::parse::json::find_and_convert_member<sge::renderer::dim2>(
 				_parent_system.configuration_,
 				sge::parse::json::string_to_path(
-					FCPPT_TEXT("pp/bloom-size")))),
+					FCPPT_TEXT("bloom-size")))),
 		fruitlib::pp::filter::highlight::threshold_factor(
 			sge::parse::json::find_and_convert_member<sge::renderer::scalar>(
 				_parent_system.configuration_,
 				sge::parse::json::string_to_path(
-					FCPPT_TEXT("pp/highlight-threshold"))))),
+					FCPPT_TEXT("highlight-threshold"))))),
 	blur_filter_(
 		_parent_system.filter_manager_,
 		_parent_system.texture_manager_,
@@ -56,12 +56,12 @@ fruitapp::postprocessing::cg::subsystems::main::main(
 			sge::parse::json::find_and_convert_member<sge::renderer::dim2>(
 				_parent_system.configuration_,
 				sge::parse::json::string_to_path(
-					FCPPT_TEXT("pp/bloom-size")))),
+					FCPPT_TEXT("bloom-size")))),
 		fruitlib::pp::filter::iterations(
 			sge::parse::json::find_and_convert_member<fruitlib::pp::filter::iterations::value_type>(
 				_parent_system.configuration_,
 				sge::parse::json::string_to_path(
-					FCPPT_TEXT("pp/bloom-iterations"))))),
+					FCPPT_TEXT("bloom-iterations"))))),
 	add_filter_(
 		_parent_system.filter_manager_,
 		_parent_system.texture_manager_,

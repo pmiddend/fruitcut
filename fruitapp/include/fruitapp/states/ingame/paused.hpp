@@ -91,7 +91,7 @@ public:
 	~paused();
 private:
 	fruitapp::scoped_time_factor time_factor_;
-	fruitapp::scoped_scene_activation scene_deactivation_;
+	//fruitapp::scoped_scene_activation scene_deactivation_;
 	fruitapp::postprocessing::subsystems::paused_scoped_ptr const paused_postprocessing_;
 	fcppt::signal::scoped_connection transit_to_running_connection_;
 	fruitapp::gui::dialogs::ingame_menu_unique_ptr ingame_menu_;

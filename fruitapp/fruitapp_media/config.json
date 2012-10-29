@@ -68,13 +68,19 @@
 	"graphics" :
 	{
 		"window-size" : [1024,768],
-		"desired-fps" : 60
+		"desired-fps" : 60,
+		"use-postprocessing" : true
 	},
 	"pp" : 
 	{
 		"bloom-size" : [512,512],
 		"highlight-threshold" : 0.7,
-		"bloom-iterations" : 2
+		"bloom-iterations" : 2,
+		"paused" :
+		{
+			"max-blur-iterations" : 10,
+			"blur-frequency-time" : "500ms"
+		}
 	},
 	"music" : 
 	{  
@@ -109,11 +115,6 @@
 	"loading" :
 	{
 		"font-color" : [1.0,1.0,1.0,1.0]
-	},
-	"paused" :
-	{
-		"max-blur-iterations" : 10,
-		"blur-frequency-time" : "500ms"
 	},
 	"ingame" :
 	{

@@ -57,7 +57,7 @@ public:
 	react(
 		fruitlib::scenic::events::update const &);
 private:
-	sge::parse::json::element_vector const fruit_array_;
+	sge::parse::json::element_vector const &fruit_array_;
 	sge::parse::json::element_vector::const_iterator current_fruit_;
 	fruitlib::font::scene_node font_node_;
 	fcppt::signal::scoped_connection viewport_change_connection_;

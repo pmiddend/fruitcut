@@ -213,7 +213,7 @@ fruitapp::machine_impl::machine_impl(
 	font_cache_(
 		systems_.font_system(),
 		systems_.image_system(),
-		sge::parse::json::find_and_convert_member<sge::parse::json::object>(
+		sge::parse::json::find_and_convert_member<sge::parse::json::object const>(
 			config_file_,
 			sge::parse::json::path(
 				FCPPT_TEXT("fonts"))),
@@ -222,7 +222,7 @@ fruitapp::machine_impl::machine_impl(
 	activated_loggers_(
 		fruitlib::log::scoped_sequence_from_json(
 			sge::log::global_context(),
-			sge::parse::json::find_and_convert_member<sge::parse::json::array>(
+			sge::parse::json::find_and_convert_member<sge::parse::json::array const>(
 				config_file_,
 				sge::parse::json::path(
 					FCPPT_TEXT("loggers"))
@@ -334,7 +334,7 @@ fruitapp::machine_impl::machine_impl(
 					&machine_impl::toggle_camera,
 					this)))),
 	projection_manager_(
-		sge::parse::json::find_and_convert_member<sge::parse::json::object>(
+		sge::parse::json::find_and_convert_member<sge::parse::json::object const>(
 			config_file_,
 			sge::parse::json::path(FCPPT_TEXT("ingame"))
 				/ FCPPT_TEXT("camera")
@@ -370,13 +370,16 @@ fruitapp::machine_impl::machine_impl(
 				fruitlib::scenic::depth(
 					depths::overlay::dont_care))),
 		this->systems().renderer_ffp(),
-		config_file_,
+		sge::parse::json::find_and_convert_member<sge::parse::json::object const>(
+			config_file_,
+			sge::parse::json::path(
+				FCPPT_TEXT("quick-log"))),
 		font_cache_,
 		viewport_manager_,
 		sound_controller_),
 	main_light_source_(
 		fruitapp::light_source_from_json(
-			sge::parse::json::find_and_convert_member<sge::parse::json::object>(
+			sge::parse::json::find_and_convert_member<sge::parse::json::object const>(
 				config_file_,
 				sge::parse::json::path(
 					FCPPT_TEXT("main-light-source"))))),
@@ -386,7 +389,10 @@ fruitapp::machine_impl::machine_impl(
 				this->root_node(),
 				fruitlib::scenic::depth(
 					depths::root::shadow_map))),
-		config_file_,
+		sge::parse::json::find_and_convert_member<sge::parse::json::object const>(
+				config_file_,
+				sge::parse::json::path(
+					FCPPT_TEXT("shadow-map"))),
 		systems_.renderer_ffp(),
 		main_light_source_.model_view()),
 	background_(
