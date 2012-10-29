@@ -52,6 +52,7 @@ chebyshev_upper_bound(
 float4
 pixel_main(
 	vertex_outputs vertex_data,
+	uniform float use_shadow_map,
 	uniform sampler2D input_texture,
 	uniform sampler2D shadow_texture)
 	: COLOR
@@ -60,6 +61,7 @@ pixel_main(
 		vertex_data.shadow_texture_coordinates / vertex_data.shadow_texture_coordinates.w * 0.5 + 0.5;
 
 	float shadow =
+		use_shadow_map *
 		chebyshev_upper_bound(
 			real_shadow_coord,
 			shadow_texture);

@@ -44,8 +44,21 @@ set(
 set(
 	FRUITAPP_FILES
 	fruitapp/include/fruitapp/ambient_intensity.hpp
-	fruitapp/include/fruitapp/background.hpp
-	fruitapp/include/fruitapp/background_fwd.hpp
+	fruitapp/include/fruitapp/background/base.hpp
+	fruitapp/include/fruitapp/background/base_fwd.hpp
+	fruitapp/include/fruitapp/background/base_scoped_ptr.hpp
+	fruitapp/include/fruitapp/background/base_unique_ptr.hpp
+	fruitapp/include/fruitapp/background/cg.hpp
+	fruitapp/include/fruitapp/background/cg_fwd.hpp
+	fruitapp/include/fruitapp/background/ffp.hpp
+	fruitapp/include/fruitapp/background/ffp_fwd.hpp
+	fruitapp/include/fruitapp/background/node.hpp
+	fruitapp/include/fruitapp/background/repetitions.hpp
+	fruitapp/include/fruitapp/background/vf/format.hpp
+	fruitapp/include/fruitapp/background/vf/part.hpp
+	fruitapp/include/fruitapp/background/vf/position.hpp
+	fruitapp/include/fruitapp/background/vf/texcoord.hpp
+	fruitapp/include/fruitapp/background/vf/vertex_view.hpp
 	fruitapp/include/fruitapp/config_variables.hpp
 	fruitapp/include/fruitapp/config_variables_fwd.hpp
 	fruitapp/include/fruitapp/current_commit.hpp
@@ -260,10 +273,12 @@ set(
 	fruitapp/include/fruitapp/scoped_scene_activation.hpp
 	fruitapp/include/fruitapp/scoped_time_factor.hpp
 	fruitapp/include/fruitapp/screen_shooter.hpp
-	fruitapp/include/fruitapp/shadow_map.hpp
-	fruitapp/include/fruitapp/shadow_map_fwd.hpp
-	fruitapp/include/fruitapp/shadow_map_texture.hpp
-	fruitapp/include/fruitapp/shadow_mvp.hpp
+	fruitapp/include/fruitapp/shadow_map/mvp.hpp
+	fruitapp/include/fruitapp/shadow_map/object.hpp
+	fruitapp/include/fruitapp/shadow_map/object_fwd.hpp
+	fruitapp/include/fruitapp/shadow_map/object_scoped_ptr.hpp
+	fruitapp/include/fruitapp/shadow_map/object_unique_ptr.hpp
+	fruitapp/include/fruitapp/shadow_map/optional_object_ref.hpp
 	fruitapp/include/fruitapp/splatter_generator.hpp
 	fruitapp/include/fruitapp/states/gameover/choose_name.hpp
 	fruitapp/include/fruitapp/states/gameover/choose_name_fwd.hpp
@@ -296,7 +311,10 @@ set(
 	fruitapp/include/fruitapp/viewport/optional.hpp
 	fruitapp/include/fruitapp/viewport/trigger_early.hpp
 	fruitapp/src/asio_implementation.cpp
-	fruitapp/src/background.cpp
+	fruitapp/src/background/base.cpp
+	fruitapp/src/background/cg.cpp
+	fruitapp/src/background/ffp.cpp
+	fruitapp/src/background/node.cpp
 	fruitapp/src/config_variables.cpp
 	fruitapp/src/current_commit.cpp
 	fruitapp/src/cursor_sound.cpp
@@ -378,7 +396,7 @@ set(
 	fruitapp/src/scoped_scene_activation.cpp
 	fruitapp/src/scoped_time_factor.cpp
 	fruitapp/src/screen_shooter.cpp
-	fruitapp/src/shadow_map.cpp
+	fruitapp/src/shadow_map/object.cpp
 	fruitapp/src/splatter_generator.cpp
 	fruitapp/src/states/gameover/choose_name.cpp
 	fruitapp/src/states/gameover/ranking.cpp

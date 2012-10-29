@@ -59,7 +59,7 @@
 			"size" : 24
 		}
 	},
-	"background-repeat" : 1.5,
+	"background-repetitions" : 1.5,
 	"mouse" : 
 	{
 		"trail-update-rate" : "50ms",
@@ -69,7 +69,9 @@
 	{
 		"window-size" : [1024,768],
 		"desired-fps" : 60,
-		"use-postprocessing" : true
+		"use-postprocessing" : true,
+		"use-ffp-background" : false,
+		"use-shadow-map" : true
 	},
 	"pp" : 
 	{

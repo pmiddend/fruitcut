@@ -1,4 +1,4 @@
-#include <fruitapp/shadow_map.hpp>
+#include <fruitapp/shadow_map/object.hpp>
 #include <fruitlib/perspective_projection_information_to_matrix.hpp>
 #include <fruitlib/json/parse_projection.hpp>
 #include <fruitlib/scenic/events/render.hpp>
@@ -34,11 +34,11 @@
 #include <fcppt/math/matrix/arithmetic.hpp>
 
 
-fruitapp::shadow_map::shadow_map(
+fruitapp::shadow_map::object::object(
 	fruitlib::scenic::optional_parent const &_parent,
 	sge::parse::json::object const &_config,
 	sge::renderer::device::ffp &_renderer,
-	sge::renderer::matrix4 const &_modelview)
+	fruitapp::shadow_map::mvp const &_modelview)
 :
 	node_base(
 		_parent),
@@ -76,7 +76,7 @@ fruitapp::shadow_map::shadow_map(
 					sge::parse::json::path(
 						FCPPT_TEXT("projection"))),
 				fcppt::optional<sge::renderer::scalar>())) *
-		_modelview)
+		_modelview.get())
 {
 	// Do an initial clear of the texture to prevent race conditions
 	// (the shadow map might be rendered before its first update)
@@ -86,29 +86,27 @@ fruitapp::shadow_map::shadow_map(
 		event);
 }
 
-fruitapp::shadow_map_texture const
-fruitapp::shadow_map::texture()
+sge::renderer::texture::planar &
+fruitapp::shadow_map::object::texture()
 {
 	return
-		fruitapp::shadow_map_texture(
-			*texture_);
+		*texture_;
 }
 
-fruitapp::shadow_mvp const
-fruitapp::shadow_map::mvp() const
+fruitapp::shadow_map::mvp const
+fruitapp::shadow_map::object::mvp() const
 {
 	return
-		fruitapp::shadow_mvp(
-			mvp_);
+		mvp_;
 }
 
-fruitapp::shadow_map::~shadow_map()
+fruitapp::shadow_map::object::~object()
 {
 }
 
 
 void
-fruitapp::shadow_map::react(
+fruitapp::shadow_map::object::react(
 	fruitlib::scenic::events::update const &)
 {
 	sge::renderer::context::scoped_ffp scoped_context(

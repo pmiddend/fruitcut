@@ -1,14 +1,14 @@
 #ifndef FRUITAPP_MACHINE_IMPL_HPP_INCLUDED
 #define FRUITAPP_MACHINE_IMPL_HPP_INCLUDED
 
-#include <fruitapp/background.hpp>
+#include <fruitapp/background/node.hpp>
 #include <fruitapp/config_variables.hpp>
 #include <fruitapp/directional_light_source.hpp>
 #include <fruitapp/ingame_clock.hpp>
 #include <fruitapp/quick_log.hpp>
 #include <fruitapp/renderable.hpp>
 #include <fruitapp/screen_shooter.hpp>
-#include <fruitapp/shadow_map.hpp>
+#include <fruitapp/shadow_map/object_scoped_ptr.hpp>
 #include <fruitapp/systems.hpp>
 #include <fruitapp/fruit/prototype_sequence.hpp>
 #include <fruitapp/gui/system_unique_ptr.hpp>
@@ -124,6 +124,7 @@ public:
 	music_controller() const
 	FCPPT_PP_CONST;
 
+	/*
 	fruitapp::background &
 	background()
 	FCPPT_PP_CONST;
@@ -131,17 +132,14 @@ public:
 	fruitapp::background const &
 	background() const
 	FCPPT_PP_CONST;
+	*/
 
 	fruitapp::directional_light_source const &
 	main_light_source()
 	FCPPT_PP_CONST;
 
-	fruitapp::shadow_map &
+	fruitapp::shadow_map::optional_object_ref const
 	shadow_map()
-	FCPPT_PP_CONST;
-
-	fruitapp::shadow_map const &
-	shadow_map() const
 	FCPPT_PP_CONST;
 
 	sge::camera::first_person::object &
@@ -281,8 +279,8 @@ private:
 	fruitapp::gui::system_unique_ptr const gui_system_;
 	fruitapp::quick_log quick_log_;
 	fruitapp::directional_light_source main_light_source_;
-	fruitapp::shadow_map shadow_map_;
-	fruitapp::background background_;
+	fruitapp::shadow_map::object_scoped_ptr shadow_map_;
+	fruitapp::background::node background_;
 	unsigned desired_fps_;
 	fruitapp::highscore::score::value_type last_game_score_;
 	fruitapp::point_sprite::system_node point_sprites_;

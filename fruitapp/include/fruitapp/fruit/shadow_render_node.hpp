@@ -1,7 +1,7 @@
 #ifndef FRUITAPP_FRUIT_SHADOW_RENDER_NODE_HPP_INCLUDED
 #define FRUITAPP_FRUIT_SHADOW_RENDER_NODE_HPP_INCLUDED
 
-#include <fruitapp/shadow_mvp.hpp>
+#include <fruitapp/shadow_map/mvp.hpp>
 #include <fruitapp/fruit/manager_fwd.hpp>
 #include <fruitlib/scenic/node.hpp>
 #include <fruitlib/scenic/optional_parent.hpp>
@@ -38,7 +38,7 @@ public:
 		fruitlib::scenic::optional_parent const &,
 		sge::shader::context &,
 		fruitapp::fruit::manager const &,
-		fruitapp::shadow_mvp const &);
+		fruitapp::shadow_map::mvp const &);
 
 	~shadow_render_node();
 
@@ -49,7 +49,7 @@ private:
 	fruitapp::fruit::manager const &manager_;
 	sge::shader::pair shader_;
 	sge::shader::parameter::matrix<sge::renderer::scalar,4,4> mvp_parameter_;
-	fruitapp::shadow_mvp mvp_;
+	fruitapp::shadow_map::mvp const mvp_;
 	sge::renderer::state::core::depth_stencil::object_scoped_ptr const depth_stencil_state_;
 };
 }

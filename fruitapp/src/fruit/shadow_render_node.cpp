@@ -30,7 +30,7 @@ fruitapp::fruit::shadow_render_node::shadow_render_node(
 	fruitlib::scenic::optional_parent const &_parent,
 	sge::shader::context &_shader_context,
 	fruitapp::fruit::manager const &_manager,
-	fruitapp::shadow_mvp const &_mvp)
+	fruitapp::shadow_map::mvp const &_mvp)
 :
 	node_base(
 		_parent),

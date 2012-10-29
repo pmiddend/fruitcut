@@ -1,7 +1,6 @@
 #ifndef FRUITAPP_MACHINE_HPP_INCLUDED
 #define FRUITAPP_MACHINE_HPP_INCLUDED
 
-#include <fruitapp/background_fwd.hpp>
 #include <fruitapp/config_variables_fwd.hpp>
 #include <fruitapp/directional_light_source_fwd.hpp>
 #include <fruitapp/ingame_clock.hpp>
@@ -9,7 +8,7 @@
 #include <fruitapp/overlay.hpp>
 #include <fruitapp/quick_log_fwd.hpp>
 #include <fruitapp/scene_fwd.hpp>
-#include <fruitapp/shadow_map_fwd.hpp>
+#include <fruitapp/shadow_map/optional_object_ref.hpp>
 #include <fruitapp/systems.hpp>
 #include <fruitapp/fruit/prototype_sequence.hpp>
 #include <fruitapp/gui/system_fwd.hpp>
@@ -114,24 +113,12 @@ public:
 	music_controller() const
 	FCPPT_PP_CONST;
 
-	fruitapp::background &
-	background()
-	FCPPT_PP_CONST;
-
-	fruitapp::background const &
-	background() const
-	FCPPT_PP_CONST;
-
 	fruitapp::directional_light_source const &
 	main_light_source()
 	FCPPT_PP_CONST;
 
-	fruitapp::shadow_map &
+	fruitapp::shadow_map::optional_object_ref const
 	shadow_map()
-	FCPPT_PP_CONST;
-
-	fruitapp::shadow_map const &
-	shadow_map() const
 	FCPPT_PP_CONST;
 
 	sge::camera::first_person::object &

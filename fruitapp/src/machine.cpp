@@ -125,32 +125,14 @@ fruitapp::machine::music_controller() const
 	return impl_->music_controller();
 }
 
-fruitapp::background &
-fruitapp::machine::background()
-{
-	return impl_->background();
-}
-
-fruitapp::background const &
-fruitapp::machine::background() const
-{
-	return impl_->background();
-}
-
 fruitapp::directional_light_source const &
 fruitapp::machine::main_light_source()
 {
 	return impl_->main_light_source();
 }
 
-fruitapp::shadow_map &
+fruitapp::shadow_map::optional_object_ref const
 fruitapp::machine::shadow_map()
-{
-	return impl_->shadow_map();
-}
-
-fruitapp::shadow_map const &
-fruitapp::machine::shadow_map() const
 {
 	return impl_->shadow_map();
 }

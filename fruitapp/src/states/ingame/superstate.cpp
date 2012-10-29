@@ -1,6 +1,7 @@
 #include <fruitapp/config_variables.hpp>
+#include <fruitapp/fruit/shadow_render_node.hpp>
+#include <fruitapp/shadow_map/object.hpp>
 #include <fruitapp/scene.hpp>
-#include <fruitapp/shadow_map.hpp>
 #include <fruitapp/depths/overlay.hpp>
 #include <fruitapp/depths/root.hpp>
 #include <fruitapp/depths/scene.hpp>
@@ -33,6 +34,7 @@
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/ref.hpp>
+#include <fcppt/cref.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/math/box/object_impl.hpp>
@@ -113,14 +115,21 @@ fruitapp::states::ingame::superstate::superstate(
 				sge::parse::json::path(
 					FCPPT_TEXT("ambient-intensity"))))),
 	fruit_shadow_render_node_(
-		fruitlib::scenic::optional_parent(
-			fruitlib::scenic::parent(
-				context<fruitapp::machine>().shadow_map(),
-				fruitlib::scenic::depth(
-					0))),
-		context<machine>().shader_context(),
-		fruit_manager_,
-		context<machine>().shadow_map().mvp()),
+		context<fruitapp::machine>().shadow_map()
+		?
+			fcppt::make_unique_ptr<fruitapp::fruit::shadow_render_node>(
+				fruitlib::scenic::optional_parent(
+					fruitlib::scenic::parent(
+						*context<fruitapp::machine>().shadow_map(),
+						fruitlib::scenic::depth(
+							0))),
+				fcppt::ref(
+					context<fruitapp::machine>().shader_context()),
+				fcppt::cref(
+					fruit_manager_),
+				context<fruitapp::machine>().shadow_map()->mvp())
+		:
+			fcppt::unique_ptr<fruitapp::fruit::shadow_render_node>()),
 	fruit_spawner_(
 		fruitlib::scenic::optional_parent(
 			fruitlib::scenic::parent(

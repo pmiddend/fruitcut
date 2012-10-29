@@ -7,7 +7,7 @@
 #include <fruitapp/fruit/default_render_node.hpp>
 #include <fruitapp/fruit/manager.hpp>
 #include <fruitapp/fruit/object_fwd.hpp>
-#include <fruitapp/fruit/shadow_render_node.hpp>
+#include <fruitapp/fruit/shadow_render_node_fwd.hpp>
 #include <fruitapp/fruit/spawner.hpp>
 #include <fruitapp/game_logic/object.hpp>
 #include <fruitapp/states/ingame/running_fwd.hpp>
@@ -79,10 +79,10 @@ private:
 	fruitlib::physics::debugger physics_debugger_;
 	fruitlib::physics::nodes::debugger physics_debugger_node_;
 	fcppt::signal::scoped_connection physics_debugger_connection_;
-	fruit::manager fruit_manager_;
-	fruit::default_render_node fruit_default_render_node_;
-	fruit::shadow_render_node fruit_shadow_render_node_;
-	fruit::spawner fruit_spawner_;
+	fruitapp::fruit::manager fruit_manager_;
+	fruitapp::fruit::default_render_node fruit_default_render_node_;
+	fcppt::scoped_ptr<fruit::shadow_render_node> const fruit_shadow_render_node_;
+	fruitapp::fruit::spawner fruit_spawner_;
 	fruitapp::game_logic::object game_logic_;
 	fcppt::signal::scoped_connection cut_connection_;
 	fruitapp::splatter_generator splatter_generator_;
@@ -95,7 +95,7 @@ private:
 
 	void
 	fruit_was_cut(
-		fruit::cut_context const &);
+		fruitapp::fruit::cut_context const &);
 };
 }
 }

@@ -34,7 +34,9 @@ update_cmake_file \
 	-r \
 	fruitapp/src/bonsu \
 	fruitapp/src/depths \
+	fruitapp/src/background \
 	fruitapp/src/fruit \
+	fruitapp/src/shadow_map \
 	fruitapp/src/game_logic \
 	fruitapp/src/highscore \
 	fruitapp/src/point_sprite \
@@ -47,7 +49,9 @@ update_cmake_file \
 	fruitapp/include/fruitapp/bonsu \
 	fruitapp/include/fruitapp/depths \
 	fruitapp/include/fruitapp/fruit \
+	fruitapp/include/fruitapp/background \
 	fruitapp/include/fruitapp/game_logic \
+	fruitapp/include/fruitapp/shadow_map \
 	fruitapp/include/fruitapp/postprocessing \
 	fruitapp/include/fruitapp/highscore \
 	fruitapp/include/fruitapp/point_sprite \

@@ -1,4 +1,7 @@
 #include <fruitapp/light_source_from_json.hpp>
+#include <fruitapp/shadow_map/object.hpp>
+#include <sge/parse/json/string_to_path.hpp>
+#include <fruitapp/shadow_map/object_unique_ptr.hpp>
 #include <fruitapp/load_user_config.hpp>
 #include <fruitapp/machine_impl.hpp>
 #include <fruitapp/media_path.hpp>
@@ -53,6 +56,7 @@
 #include <sge/systems/audio_loader.hpp>
 #include <sge/systems/audio_player_default.hpp>
 #include <sge/systems/charconv.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <sge/systems/cursor_option_field.hpp>
 #include <sge/systems/font.hpp>
 #include <sge/systems/image2d.hpp>
@@ -76,6 +80,8 @@
 #include <fcppt/nonassignable.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/ref.hpp>
+#include <fcppt/cref.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/container/bitfield/object_impl.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
@@ -384,17 +390,28 @@ fruitapp::machine_impl::machine_impl(
 				sge::parse::json::path(
 					FCPPT_TEXT("main-light-source"))))),
 	shadow_map_(
-		fruitlib::scenic::optional_parent(
-			fruitlib::scenic::parent(
-				this->root_node(),
-				fruitlib::scenic::depth(
-					depths::root::shadow_map))),
-		sge::parse::json::find_and_convert_member<sge::parse::json::object const>(
+		sge::parse::json::find_and_convert_member<bool>(
 				config_file_,
-				sge::parse::json::path(
-					FCPPT_TEXT("shadow-map"))),
-		systems_.renderer_ffp(),
-		main_light_source_.model_view()),
+				sge::parse::json::string_to_path(
+					FCPPT_TEXT("graphics/use-shadow-map")))
+		?
+			fcppt::make_unique_ptr<fruitapp::shadow_map::object>(
+				fruitlib::scenic::optional_parent(
+					fruitlib::scenic::parent(
+						this->root_node(),
+						fruitlib::scenic::depth(
+							depths::root::shadow_map))),
+				fcppt::cref(
+					sge::parse::json::find_and_convert_member<sge::parse::json::object const>(
+						config_file_,
+						sge::parse::json::path(
+							FCPPT_TEXT("shadow-map")))),
+				fcppt::ref(
+					systems_.renderer_ffp()),
+				fruitapp::shadow_map::mvp(
+					main_light_source_.model_view()))
+		:
+			fruitapp::shadow_map::object_unique_ptr()),
 	background_(
 		fruitlib::scenic::optional_parent(
 			fruitlib::scenic::parent(
@@ -402,12 +419,13 @@ fruitapp::machine_impl::machine_impl(
 				fruitlib::scenic::depth(
 					depths::scene::background))),
 		systems_.image_system(),
-		this->shader_context(),
-		shadow_map_.mvp(),
-		shadow_map_.texture(),
+		systems_.renderer_core(),
 		config_file_,
 		camera_,
-		this->projection_manager()),
+		this->projection_manager(),
+		sge::shader::optional_context_ref(
+			this->shader_context()),
+		this->shadow_map()),
 	desired_fps_(
 		sge::parse::json::find_and_convert_member<unsigned>(
 			config_file(),
@@ -570,34 +588,22 @@ fruitapp::machine_impl::music_controller() const
 	return music_controller_;
 }
 
-fruitapp::background &
-fruitapp::machine_impl::background()
-{
-	return background_;
-}
-
-fruitapp::background const &
-fruitapp::machine_impl::background() const
-{
-	return background_;
-}
-
 fruitapp::directional_light_source const &
 fruitapp::machine_impl::main_light_source()
 {
 	return main_light_source_;
 }
 
-fruitapp::shadow_map &
+fruitapp::shadow_map::optional_object_ref const
 fruitapp::machine_impl::shadow_map()
 {
-	return shadow_map_;
-}
-
-fruitapp::shadow_map const &
-fruitapp::machine_impl::shadow_map() const
-{
-	return shadow_map_;
+	return
+		shadow_map_
+		?
+			fruitapp::shadow_map::optional_object_ref(
+				*shadow_map_)
+		:
+			fruitapp::shadow_map::optional_object_ref();
 }
 
 sge::camera::first_person::object &

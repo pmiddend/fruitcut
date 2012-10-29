@@ -1,8 +1,7 @@
-#ifndef FRUITAPP_SHADOW_MAP_HPP_INCLUDED
-#define FRUITAPP_SHADOW_MAP_HPP_INCLUDED
+#ifndef FRUITAPP_SHADOW_MAP_OBJECT_HPP_INCLUDED
+#define FRUITAPP_SHADOW_MAP_OBJECT_HPP_INCLUDED
 
-#include <fruitapp/shadow_map_texture.hpp>
-#include <fruitapp/shadow_mvp.hpp>
+#include <fruitapp/shadow_map/mvp.hpp>
 #include <fruitlib/scenic/node.hpp>
 #include <fruitlib/scenic/optional_parent.hpp>
 #include <fruitlib/scenic/events/update.hpp>
@@ -20,49 +19,34 @@
 #include <boost/mpl/vector/vector10.hpp>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace fruitapp
 {
-/**
-	A better way than this:
-
-	The shadow map class should be
-
-	- a container for the shadow map texture
-	- a container for the mvp
-	- a container for all the scene graph nodes which should be rendered to the shadow map
-
-	So instead of hard-coding the fruit manager here, the fruit manager
-	should have its own scene graph node below this one.
- */
-class shadow_map
+namespace shadow_map
+{
+class object
 :
-	public fruitlib::scenic::node<shadow_map>
+	public fruitlib::scenic::node<object>
 {
 FCPPT_NONCOPYABLE(
-	shadow_map);
+	object);
 public:
 	typedef
 	boost::mpl::vector1<fruitlib::scenic::events::update>
 	scene_reactions;
 
-	shadow_map(
+	object(
 		fruitlib::scenic::optional_parent const &,
 		sge::parse::json::object const &,
 		sge::renderer::device::ffp &,
-		sge::renderer::matrix4 const &);
+		fruitapp::shadow_map::mvp const &);
 
-	fruitapp::shadow_map_texture const
-	texture()
-	FCPPT_PP_WARN_UNUSED_RESULT
-	FCPPT_PP_PURE;
+	sge::renderer::texture::planar &
+	texture();
 
-	fruitapp::shadow_mvp const
-	mvp() const
-	FCPPT_PP_WARN_UNUSED_RESULT
-	FCPPT_PP_PURE;
+	fruitapp::shadow_map::mvp const
+	mvp() const;
 
-	~shadow_map();
+	~object();
 
 	void
 	react(
@@ -72,8 +56,9 @@ private:
 	sge::renderer::state::core::depth_stencil::object_scoped_ptr const depth_stencil_state_;
 	sge::renderer::texture::planar_scoped_ptr const texture_;
 	sge::renderer::target::offscreen_scoped_ptr const target_;
-	sge::renderer::matrix4 mvp_;
+	fruitapp::shadow_map::mvp const mvp_;
 };
+}
 }
 
 #endif
