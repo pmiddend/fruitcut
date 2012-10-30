@@ -3,8 +3,11 @@
 
 #include <fruitapp/background/vf/position.hpp>
 #include <fruitapp/background/vf/texcoord.hpp>
-#include <boost/mpl/vector/vector10.hpp>
 #include <sge/renderer/vf/part.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/mpl/vector/vector10.hpp>
+#include <fcppt/config/external_end.hpp>
+
 
 namespace fruitapp
 {

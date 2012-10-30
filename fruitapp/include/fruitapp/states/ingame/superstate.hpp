@@ -4,10 +4,10 @@
 #include <fruitapp/machine.hpp>
 #include <fruitapp/splatter_generator.hpp>
 #include <fruitapp/fruit/cut_context_fwd.hpp>
-#include <fruitapp/fruit/default_render_node.hpp>
+#include <fruitapp/fruit/rendering/draw_node.hpp>
+#include <fruitapp/fruit/rendering/shadow_node.hpp>
 #include <fruitapp/fruit/manager.hpp>
 #include <fruitapp/fruit/object_fwd.hpp>
-#include <fruitapp/fruit/shadow_render_node_fwd.hpp>
 #include <fruitapp/fruit/spawner.hpp>
 #include <fruitapp/game_logic/object.hpp>
 #include <fruitapp/states/ingame/running_fwd.hpp>
@@ -50,16 +50,16 @@ public:
 	fruitlib::physics::world const &
 	physics_world() const;
 
-	fruit::manager &
+	fruitapp::fruit::manager &
 	fruit_manager();
 
-	fruit::manager const &
+	fruitapp::fruit::manager const &
 	fruit_manager() const;
 
-	fruit::spawner &
+	fruitapp::fruit::spawner &
 	fruit_spawner();
 
-	fruit::spawner const &
+	fruitapp::fruit::spawner const &
 	fruit_spawner() const;
 
 	fruitlib::physics::debugger &
@@ -80,8 +80,8 @@ private:
 	fruitlib::physics::nodes::debugger physics_debugger_node_;
 	fcppt::signal::scoped_connection physics_debugger_connection_;
 	fruitapp::fruit::manager fruit_manager_;
-	fruitapp::fruit::default_render_node fruit_default_render_node_;
-	fcppt::scoped_ptr<fruit::shadow_render_node> const fruit_shadow_render_node_;
+	fruitapp::fruit::rendering::draw_node fruit_default_render_node_;
+	fcppt::scoped_ptr<fruitapp::fruit::rendering::shadow_node> const fruit_shadow_render_node_;
 	fruitapp::fruit::spawner fruit_spawner_;
 	fruitapp::game_logic::object game_logic_;
 	fcppt::signal::scoped_connection cut_connection_;

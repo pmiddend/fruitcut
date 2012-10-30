@@ -1,8 +1,9 @@
 #ifndef FRUITAPP_BACKGROUND_VF_VERTEX_VIEW_HPP_INCLUDED
 #define FRUITAPP_BACKGROUND_VF_VERTEX_VIEW_HPP_INCLUDED
 
-#include <sge/renderer/vf/view.hpp>
 #include <fruitapp/background/vf/part.hpp>
+#include <sge/renderer/vf/view.hpp>
+
 
 namespace fruitapp
 {

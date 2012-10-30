@@ -2,16 +2,17 @@
 #define FRUITAPP_BACKGROUND_CG_HPP_INCLUDED
 
 #include <fruitapp/background/base.hpp>
+#include <fruitapp/shadow_map/optional_object_ref.hpp>
 #include <sge/image2d/system_fwd.hpp>
-#include <sge/shader/context_fwd.hpp>
+#include <sge/parse/json/object_fwd.hpp>
 #include <sge/renderer/texture/planar_scoped_ptr.hpp>
+#include <sge/shader/context_fwd.hpp>
 #include <sge/shader/pair.hpp>
 #include <sge/shader/parameter/matrix.hpp>
-#include <sge/shader/parameter/scalar.hpp>
 #include <sge/shader/parameter/planar_texture.hpp>
-#include <fruitapp/shadow_map/optional_object_ref.hpp>
-#include <sge/parse/json/object_fwd.hpp>
+#include <sge/shader/parameter/scalar.hpp>
 #include <fcppt/noncopyable.hpp>
+
 
 namespace fruitapp
 {

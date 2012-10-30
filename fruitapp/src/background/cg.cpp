@@ -1,18 +1,19 @@
 #include <fruitapp/media_path.hpp>
-#include <sge/camera/coordinate_system/object.hpp>
-#include <sge/renderer/texture/planar.hpp>
-#include <sge/camera/base.hpp>
-#include <fruitapp/shadow_map/object.hpp>
 #include <fruitapp/background/cg.hpp>
+#include <fruitapp/shadow_map/object.hpp>
+#include <sge/camera/base.hpp>
+#include <sge/camera/coordinate_system/object.hpp>
 #include <sge/camera/matrix_conversion/world_projection.hpp>
-#include <sge/renderer/texture/create_planar_from_path.hpp>
-#include <fcppt/text.hpp>
 #include <sge/parse/json/find_and_convert_member.hpp>
 #include <sge/parse/json/path.hpp>
-#include <sge/shader/context.hpp>
+#include <sge/renderer/texture/create_planar_from_path.hpp>
+#include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/mipmap/off.hpp>
-#include <fcppt/container/bitfield/object_impl.hpp>
+#include <sge/shader/context.hpp>
 #include <sge/shader/scoped_pair.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/container/bitfield/object_impl.hpp>
+
 
 fruitapp::background::cg::cg(
 	sge::image2d::system &_image_loader,

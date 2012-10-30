@@ -85,7 +85,6 @@ set(
 	fruitapp/include/fruitapp/fruit/cut_mesh.hpp
 	fruitapp/include/fruitapp/fruit/cut_mesh_result.hpp
 	fruitapp/include/fruitapp/fruit/cut_mesh_result_fwd.hpp
-	fruitapp/include/fruitapp/fruit/default_render_node.hpp
 	fruitapp/include/fruitapp/fruit/hull/intersection_pair.hpp
 	fruitapp/include/fruitapp/fruit/hull/projected.hpp
 	fruitapp/include/fruitapp/fruit/hull/ring.hpp
@@ -126,7 +125,20 @@ set(
 	fruitapp/include/fruitapp/fruit/prototype_fwd.hpp
 	fruitapp/include/fruitapp/fruit/prototype_sequence.hpp
 	fruitapp/include/fruitapp/fruit/prototype_unique_ptr.hpp
-	fruitapp/include/fruitapp/fruit/shadow_render_node.hpp
+	fruitapp/include/fruitapp/fruit/rendering/base.hpp
+	fruitapp/include/fruitapp/fruit/rendering/base_fwd.hpp
+	fruitapp/include/fruitapp/fruit/rendering/base_scoped_ptr.hpp
+	fruitapp/include/fruitapp/fruit/rendering/base_unique_ptr.hpp
+	fruitapp/include/fruitapp/fruit/rendering/cg.hpp
+	fruitapp/include/fruitapp/fruit/rendering/cg_fwd.hpp
+	fruitapp/include/fruitapp/fruit/rendering/draw_node.hpp
+	fruitapp/include/fruitapp/fruit/rendering/draw_node_fwd.hpp
+	fruitapp/include/fruitapp/fruit/rendering/ffp.hpp
+	fruitapp/include/fruitapp/fruit/rendering/ffp_fwd.hpp
+	fruitapp/include/fruitapp/fruit/rendering/shadow.hpp
+	fruitapp/include/fruitapp/fruit/rendering/shadow_fwd.hpp
+	fruitapp/include/fruitapp/fruit/rendering/shadow_node.hpp
+	fruitapp/include/fruitapp/fruit/rendering/shadow_node_fwd.hpp
 	fruitapp/include/fruitapp/fruit/spawn_callback_fn.hpp
 	fruitapp/include/fruitapp/fruit/spawner.hpp
 	fruitapp/include/fruitapp/fruit/splatter_color.hpp
@@ -324,7 +336,6 @@ set(
 	fruitapp/src/fruit/cut_context.cpp
 	fruitapp/src/fruit/cut_mesh.cpp
 	fruitapp/src/fruit/cut_mesh_result.cpp
-	fruitapp/src/fruit/default_render_node.cpp
 	fruitapp/src/fruit/hull/projected.cpp
 	fruitapp/src/fruit/hull/trail_intersection.cpp
 	fruitapp/src/fruit/manager.cpp
@@ -339,7 +350,12 @@ set(
 	fruitapp/src/fruit/object_from_prototype.cpp
 	fruitapp/src/fruit/prototype.cpp
 	fruitapp/src/fruit/prototype_from_json.cpp
-	fruitapp/src/fruit/shadow_render_node.cpp
+	fruitapp/src/fruit/rendering/base.cpp
+	fruitapp/src/fruit/rendering/cg.cpp
+	fruitapp/src/fruit/rendering/draw_node.cpp
+	fruitapp/src/fruit/rendering/ffp.cpp
+	fruitapp/src/fruit/rendering/shadow.cpp
+	fruitapp/src/fruit/rendering/shadow_node.cpp
 	fruitapp/src/fruit/spawner.cpp
 	fruitapp/src/game_logic/object.cpp
 	fruitapp/src/gui/create_system.cpp

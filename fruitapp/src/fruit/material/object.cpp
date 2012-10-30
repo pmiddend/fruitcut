@@ -2,11 +2,11 @@
 
 
 fruitapp::fruit::material::object::object(
-	material::diffuse_color const &_diffuse_color,
-	material::diffuse_coefficient const &_diffuse_coefficient,
-	material::specular_color const &_specular_color,
-	material::specular_coefficient const &_specular_coefficient,
-	material::specular_shininess const &_specular_shininess)
+	fruitapp::fruit::material::diffuse_color const &_diffuse_color,
+	fruitapp::fruit::material::diffuse_coefficient const &_diffuse_coefficient,
+	fruitapp::fruit::material::specular_color const &_specular_color,
+	fruitapp::fruit::material::specular_coefficient const &_specular_coefficient,
+	fruitapp::fruit::material::specular_shininess const &_specular_shininess)
 :
 	diffuse_color_(
 		_diffuse_color.get()),

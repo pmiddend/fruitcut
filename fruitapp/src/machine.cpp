@@ -40,7 +40,7 @@ fruitapp::machine::systems() const
 	return impl_->systems();
 }
 
-sge::shader::context &
+sge::shader::optional_context_ref const
 fruitapp::machine::shader_context() const
 {
 	return impl_->shader_context();

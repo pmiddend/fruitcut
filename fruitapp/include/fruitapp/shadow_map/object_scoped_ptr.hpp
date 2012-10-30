@@ -1,8 +1,9 @@
 #ifndef FRUITAPP_SHADOW_MAP_OBJECT_SCOPED_PTR_HPP_INCLUDED
 #define FRUITAPP_SHADOW_MAP_OBJECT_SCOPED_PTR_HPP_INCLUDED
 
-#include <fcppt/scoped_ptr.hpp>
 #include <fruitapp/shadow_map/object_fwd.hpp>
+#include <fcppt/scoped_ptr.hpp>
+
 
 namespace fruitapp
 {

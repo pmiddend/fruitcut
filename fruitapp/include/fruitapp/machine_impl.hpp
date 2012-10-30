@@ -1,15 +1,14 @@
 #ifndef FRUITAPP_MACHINE_IMPL_HPP_INCLUDED
 #define FRUITAPP_MACHINE_IMPL_HPP_INCLUDED
 
-#include <fruitapp/background/node.hpp>
 #include <fruitapp/config_variables.hpp>
 #include <fruitapp/directional_light_source.hpp>
 #include <fruitapp/ingame_clock.hpp>
 #include <fruitapp/quick_log.hpp>
 #include <fruitapp/renderable.hpp>
 #include <fruitapp/screen_shooter.hpp>
-#include <fruitapp/shadow_map/object_scoped_ptr.hpp>
 #include <fruitapp/systems.hpp>
+#include <fruitapp/background/node.hpp>
 #include <fruitapp/fruit/prototype_sequence.hpp>
 #include <fruitapp/gui/system_unique_ptr.hpp>
 #include <fruitapp/highscore/score.hpp>
@@ -17,6 +16,7 @@
 #include <fruitapp/postprocessing/system_scoped_ptr.hpp>
 #include <fruitapp/postprocessing/subsystems/main_fwd.hpp>
 #include <fruitapp/projection_manager/object.hpp>
+#include <fruitapp/shadow_map/object_scoped_ptr.hpp>
 #include <fruitapp/viewport/manager.hpp>
 #include <fruitlib/basic_scoped_ostream_file_redirection_impl.hpp>
 #include <fruitlib/random_generator.hpp>
@@ -37,7 +37,7 @@
 #include <sge/model/md3/loader_fwd.hpp>
 #include <sge/model/md3/loader_scoped_ptr.hpp>
 #include <sge/parse/json/object.hpp>
-#include <sge/shader/context.hpp>
+#include <sge/shader/optional_context_ref.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/timer/basic.hpp>
 #include <sge/timer/clocks/standard.hpp>
@@ -69,7 +69,7 @@ public:
 	systems() const
 	FCPPT_PP_CONST;
 
-	sge::shader::context &
+	sge::shader::optional_context_ref const
 	shader_context();
 
 	sge::model::md3::loader &
@@ -257,7 +257,7 @@ private:
 	sge::parse::json::object const config_file_;
 	fruitapp::config_variables config_variables_;
 	fruitapp::systems const systems_;
-	sge::shader::context shader_context_;
+	fcppt::scoped_ptr<sge::shader::context> const shader_context_;
 	sge::model::md3::loader_scoped_ptr md3_loader_;
 	fruitapp::viewport::manager viewport_manager_;
 	fruitapp::postprocessing::system_scoped_ptr const postprocessing_system_;

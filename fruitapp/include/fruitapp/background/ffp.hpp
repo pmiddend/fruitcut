@@ -3,12 +3,13 @@
 
 #include <fruitapp/background/base.hpp>
 #include <sge/image2d/system_fwd.hpp>
-#include <sge/renderer/texture/planar_scoped_ptr.hpp>
 #include <sge/parse/json/object_fwd.hpp>
-#include <sge/renderer/state/core/sampler/object_scoped_ptr.hpp>
-#include <sge/renderer/state/core/sampler/const_object_ref_map.hpp>
-#include <fcppt/noncopyable.hpp>
 #include <sge/renderer/device/ffp_fwd.hpp>
+#include <sge/renderer/state/core/sampler/const_object_ref_map.hpp>
+#include <sge/renderer/state/core/sampler/object_scoped_ptr.hpp>
+#include <sge/renderer/texture/planar_scoped_ptr.hpp>
+#include <fcppt/noncopyable.hpp>
+
 
 namespace fruitapp
 {

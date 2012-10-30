@@ -1,12 +1,10 @@
-#ifndef FRUITAPP_FRUIT_DEFAULT_RENDER_NODE_HPP_INCLUDED
-#define FRUITAPP_FRUIT_DEFAULT_RENDER_NODE_HPP_INCLUDED
+#ifndef FRUITAPP_FRUIT_RENDERING_CG_HPP_INCLUDED
+#define FRUITAPP_FRUIT_RENDERING_CG_HPP_INCLUDED
 
 #include <fruitapp/ambient_intensity.hpp>
 #include <fruitapp/directional_light_source_fwd.hpp>
 #include <fruitapp/fruit/manager_fwd.hpp>
-#include <fruitlib/scenic/node.hpp>
-#include <fruitlib/scenic/parent_fwd.hpp>
-#include <fruitlib/scenic/events/render.hpp>
+#include <fruitapp/fruit/rendering/base.hpp>
 #include <sge/camera/base_fwd.hpp>
 #include <sge/renderer/scalar.hpp>
 #include <sge/renderer/state/core/depth_stencil/object_scoped_ptr.hpp>
@@ -16,39 +14,33 @@
 #include <sge/shader/parameter/scalar.hpp>
 #include <sge/shader/parameter/vector.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/vector/vector10.hpp>
-#include <fcppt/config/external_end.hpp>
 
 
 namespace fruitapp
 {
 namespace fruit
 {
-class default_render_node
+namespace rendering
+{
+class cg
 :
-	public fruitlib::scenic::node<default_render_node>
+	public fruitapp::fruit::rendering::base
 {
 FCPPT_NONCOPYABLE(
-	default_render_node);
+	cg);
 public:
-	typedef
-	boost::mpl::vector1<fruitlib::scenic::events::render>
-	scene_reactions;
-
-	default_render_node(
-		fruitlib::scenic::optional_parent const &,
-		sge::shader::context &_shader_context,
+	cg(
+		sge::shader::context &,
 		fruitapp::fruit::manager const &,
 		sge::camera::base const &,
 		fruitapp::directional_light_source const &,
 		fruitapp::ambient_intensity const &);
 
-	~default_render_node();
-
 	void
-	react(
-		fruitlib::scenic::events::render const &);
+	render(
+		sge::renderer::context::core &);
+
+	~cg();
 private:
 	fruitapp::fruit::manager const &manager_;
 	sge::camera::base const &camera_;
@@ -66,6 +58,7 @@ private:
 	sge::shader::parameter::planar_texture texture_parameter_;
 	sge::renderer::state::core::depth_stencil::object_scoped_ptr const depth_stencil_state_;
 };
+}
 }
 }
 

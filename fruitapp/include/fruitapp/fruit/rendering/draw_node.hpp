@@ -1,17 +1,15 @@
-#ifndef FRUITAPP_BACKGROUND_NODE_HPP_INCLUDED
-#define FRUITAPP_BACKGROUND_NODE_HPP_INCLUDED
+#ifndef FRUITAPP_FRUIT_RENDERING_DRAW_NODE_HPP_INCLUDED
+#define FRUITAPP_FRUIT_RENDERING_DRAW_NODE_HPP_INCLUDED
 
-#include <fruitapp/background/base_scoped_ptr.hpp>
-#include <fruitapp/projection_manager/object_fwd.hpp>
-#include <fruitapp/shadow_map/optional_object_ref.hpp>
+#include <fruitapp/ambient_intensity.hpp>
+#include <fruitapp/directional_light_source_fwd.hpp>
+#include <fruitapp/fruit/manager_fwd.hpp>
+#include <fruitapp/fruit/rendering/base_scoped_ptr.hpp>
 #include <fruitlib/scenic/node.hpp>
-#include <fruitlib/scenic/optional_parent.hpp>
 #include <fruitlib/scenic/events/render.hpp>
 #include <sge/camera/base_fwd.hpp>
-#include <sge/image2d/system_fwd.hpp>
 #include <sge/parse/json/object_fwd.hpp>
 #include <sge/renderer/device/core_fwd.hpp>
-#include <sge/shader/optional_context_ref.hpp>
 #include <sge/shader/optional_context_ref.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
@@ -20,11 +18,13 @@
 
 namespace fruitapp
 {
-namespace background
+namespace fruit
 {
-class node
+namespace rendering
+{
+class draw_node
 :
-	public fruitlib::scenic::node<node>
+	public fruitlib::scenic::node<draw_node>
 {
 public:
 	typedef
@@ -34,24 +34,25 @@ public:
 	>
 	scene_reactions;
 
-	node(
+	draw_node(
 		fruitlib::scenic::optional_parent const &,
-		sge::image2d::system &,
 		sge::renderer::device::core &,
 		sge::parse::json::object const &,
-		sge::camera::base const &,
-		fruitapp::projection_manager::object &,
 		sge::shader::optional_context_ref const &,
-		fruitapp::shadow_map::optional_object_ref const &);
+		fruitapp::fruit::manager const &,
+		sge::camera::base const &,
+		fruitapp::directional_light_source const &,
+		fruitapp::ambient_intensity const &);
 
 	void
 	react(
 		fruitlib::scenic::events::render const &);
 
-	~node();
+	~draw_node();
 private:
-	fruitapp::background::base_scoped_ptr const background_;
+	fruitapp::fruit::rendering::base_scoped_ptr const implementation_;
 };
+}
 }
 }
 

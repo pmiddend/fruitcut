@@ -11,11 +11,12 @@
 
 fruitapp::postprocessing::system_unique_ptr
 fruitapp::postprocessing::create_system(
-	sge::shader::context &_shader_context,
+	sge::shader::optional_context_ref const &_shader_context,
 	fruitapp::viewport::manager &_viewport_manager,
 	sge::parse::json::object const &_object)
 {
 	return
+		_shader_context.has_value() &&
 		sge::parse::json::find_and_convert_member<bool>(
 			_object,
 			sge::parse::json::string_to_path(
@@ -24,7 +25,7 @@ fruitapp::postprocessing::create_system(
 			fruitapp::postprocessing::system_unique_ptr(
 				fcppt::make_unique_ptr<fruitapp::postprocessing::cg::system>(
 					fcppt::ref(
-						_shader_context),
+						*_shader_context),
 					fcppt::ref(
 						_viewport_manager),
 					fcppt::cref(

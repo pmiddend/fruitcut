@@ -1,9 +1,7 @@
 #include <fruitapp/light_source_from_json.hpp>
-#include <fruitapp/shadow_map/object.hpp>
-#include <sge/parse/json/string_to_path.hpp>
-#include <fruitapp/shadow_map/object_unique_ptr.hpp>
 #include <fruitapp/load_user_config.hpp>
 #include <fruitapp/machine_impl.hpp>
+#include <sge/shader/context.hpp>
 #include <fruitapp/media_path.hpp>
 #include <fruitapp/name.hpp>
 #include <fruitapp/depths/overlay.hpp>
@@ -13,6 +11,8 @@
 #include <fruitapp/gui/system.hpp>
 #include <fruitapp/postprocessing/create_system.hpp>
 #include <fruitapp/postprocessing/system.hpp>
+#include <fruitapp/shadow_map/object.hpp>
+#include <fruitapp/shadow_map/object_unique_ptr.hpp>
 #include <fruitlib/create_command_line_parameters.hpp>
 #include <fruitlib/random_generator.hpp>
 #include <fruitlib/scoped_frame_limiter.hpp>
@@ -48,6 +48,7 @@
 #include <sge/parse/json/find_and_convert_member.hpp>
 #include <sge/parse/json/object.hpp>
 #include <sge/parse/json/parse_string_exn.hpp>
+#include <sge/parse/json/string_to_path.hpp>
 #include <sge/parse/json/config/merge_command_line_parameters.hpp>
 #include <sge/parse/json/config/merge_trees.hpp>
 #include <sge/renderer/parameters/object.hpp>
@@ -56,7 +57,6 @@
 #include <sge/systems/audio_loader.hpp>
 #include <sge/systems/audio_player_default.hpp>
 #include <sge/systems/charconv.hpp>
-#include <fcppt/make_unique_ptr.hpp>
 #include <sge/systems/cursor_option_field.hpp>
 #include <sge/systems/font.hpp>
 #include <sge/systems/image2d.hpp>
@@ -76,12 +76,13 @@
 #include <sge/window/system.hpp>
 #include <sge/window/title.hpp>
 #include <awl/main/exit_code.hpp>
+#include <fcppt/cref.hpp>
 #include <fcppt/make_shared_ptr.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/nonassignable.hpp>
+#include <fcppt/ref.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/ref.hpp>
-#include <fcppt/cref.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/container/bitfield/object_impl.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
@@ -206,14 +207,24 @@ fruitapp::machine_impl::machine_impl(
 			(sge::systems::input(
 				sge::systems::cursor_option_field::null()))),
 	shader_context_(
-		systems_.renderer_core()),
+		sge::parse::json::find_and_convert_member<bool>(
+			config_file_,
+			sge::parse::json::path(
+				FCPPT_TEXT("graphics"))
+				/ FCPPT_TEXT("use-shaders"))
+		?
+			fcppt::make_unique_ptr<sge::shader::context>(
+				fcppt::ref(
+					systems_.renderer_core()))
+		:
+			fcppt::unique_ptr<sge::shader::context>()),
 	md3_loader_(
 		sge::model::md3::create()),
 	viewport_manager_(
 		systems_.viewport_manager()),
 	postprocessing_system_(
 		fruitapp::postprocessing::create_system(
-			shader_context_,
+			this->shader_context(),
 			viewport_manager_,
 			config_file_)),
 	font_cache_(
@@ -390,6 +401,7 @@ fruitapp::machine_impl::machine_impl(
 				sge::parse::json::path(
 					FCPPT_TEXT("main-light-source"))))),
 	shadow_map_(
+		this->shader_context().has_value() &&
 		sge::parse::json::find_and_convert_member<bool>(
 				config_file_,
 				sge::parse::json::string_to_path(
@@ -471,11 +483,16 @@ fruitapp::machine_impl::systems() const
 	return systems_;
 }
 
-sge::shader::context &
+sge::shader::optional_context_ref const
 fruitapp::machine_impl::shader_context()
 {
 	return
-		shader_context_;
+		shader_context_
+		?
+			sge::shader::optional_context_ref(
+				*shader_context_)
+		:
+			sge::shader::optional_context_ref();
 }
 
 sge::model::md3::loader &

@@ -1,9 +1,7 @@
 #include <fruitapp/directional_light_source.hpp>
 #include <fruitapp/media_path.hpp>
-#include <fruitapp/fruit/default_render_node.hpp>
 #include <fruitapp/fruit/manager.hpp>
-#include <fruitapp/fruit/model_vf/format.hpp>
-#include <fruitlib/scenic/events/render.hpp>
+#include <fruitapp/fruit/rendering/cg.hpp>
 #include <sge/camera/base.hpp>
 #include <sge/camera/coordinate_system/object.hpp>
 #include <sge/camera/matrix_conversion/world.hpp>
@@ -40,16 +38,13 @@
 #include <fcppt/math/matrix/transpose.hpp>
 
 
-fruitapp::fruit::default_render_node::default_render_node(
-	fruitlib::scenic::optional_parent const &_parent,
+fruitapp::fruit::rendering::cg::cg(
 	sge::shader::context &_shader_context,
-	fruit::manager const &_manager,
+	fruitapp::fruit::manager const &_manager,
 	sge::camera::base const &_camera,
 	fruitapp::directional_light_source const &light,
 	fruitapp::ambient_intensity const &_ambient_intensity)
 :
-	node_base(
-		_parent),
 	manager_(
 		_manager),
 	camera_(
@@ -139,20 +134,20 @@ fruitapp::fruit::default_render_node::default_render_node(
 {
 }
 
-fruitapp::fruit::default_render_node::~default_render_node()
+fruitapp::fruit::rendering::cg::~cg()
 {
 }
 
 void
-fruitapp::fruit::default_render_node::react(
-	fruitlib::scenic::events::render const &_render_event)
+fruitapp::fruit::rendering::cg::render(
+	sge::renderer::context::core &_context)
 {
 	sge::renderer::state::core::depth_stencil::scoped scoped_depth_stencil(
-		_render_event.context(),
+		_context,
 		*depth_stencil_state_);
 
 	sge::shader::scoped_pair scoped_shader(
-		_render_event.context(),
+		_context,
 		shader_);
 
 	world_parameter_.set(
@@ -160,7 +155,7 @@ fruitapp::fruit::default_render_node::react(
 			camera_.coordinate_system()));
 
 	sge::renderer::scoped_vertex_declaration scoped_vd(
-		_render_event.context(),
+		_context,
 		manager_.vertex_declaration());
 
 	for(
@@ -170,7 +165,7 @@ fruitapp::fruit::default_render_node::react(
 		++i)
 	{
 		sge::renderer::scoped_vertex_buffer scoped_vb(
-			_render_event.context(),
+			_context,
 			i->vb());
 
 		texture_parameter_.set(
@@ -209,7 +204,7 @@ fruitapp::fruit::default_render_node::react(
 		specular_shininess_parameter_.set(
 			i->prototype().material().specular_shininess());
 
-		_render_event.context().render_nonindexed(
+		_context.render_nonindexed(
 			sge::renderer::first_vertex(
 				static_cast<sge::renderer::size_type>(
 					0)),

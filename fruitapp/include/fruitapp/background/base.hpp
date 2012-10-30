@@ -1,18 +1,18 @@
 #ifndef FRUITAPP_BACKGROUND_BASE_HPP_INCLUDED
 #define FRUITAPP_BACKGROUND_BASE_HPP_INCLUDED
 
+#include <fruitapp/background/repetitions.hpp>
+#include <fruitapp/projection_manager/object_fwd.hpp>
+#include <fruitlib/perspective_projection_information.hpp>
+#include <sge/camera/base_fwd.hpp>
+#include <sge/renderer/vertex_buffer_scoped_ptr.hpp>
+#include <sge/renderer/vertex_declaration_scoped_ptr.hpp>
 #include <sge/renderer/context/core_fwd.hpp>
 #include <sge/renderer/device/core_fwd.hpp>
-#include <sge/renderer/vertex_declaration_scoped_ptr.hpp>
-#include <sge/renderer/vertex_buffer_scoped_ptr.hpp>
-#include <fruitapp/background/repetitions.hpp>
-#include <fruitlib/perspective_projection_information.hpp>
 #include <sge/renderer/state/core/depth_stencil/object_scoped_ptr.hpp>
-#include <fruitapp/projection_manager/object_fwd.hpp>
-#include <fcppt/signal/scoped_connection.hpp>
-#include <sge/camera/base_fwd.hpp>
-#include <sge/renderer/context/core_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/signal/scoped_connection.hpp>
+
 
 namespace fruitapp
 {

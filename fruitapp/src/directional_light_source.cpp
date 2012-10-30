@@ -45,6 +45,13 @@ fruitapp::directional_light_source::transformation(
 		_transformation;
 }
 
+sge::renderer::matrix4 const
+fruitapp::directional_light_source::transformation() const
+{
+	return
+		transformation_;
+}
+
 fruitapp::directional_light_source::~directional_light_source()
 {
 }

@@ -33,6 +33,9 @@ public:
 	transformation(
 		sge::renderer::matrix4 const &);
 
+	sge::renderer::matrix4 const
+	transformation() const;
+
 	~directional_light_source();
 private:
 	sge::renderer::vector3 position_;

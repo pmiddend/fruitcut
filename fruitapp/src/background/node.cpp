@@ -1,14 +1,15 @@
-#include <fruitapp/background/node.hpp>
-#include <sge/renderer/context/ffp.hpp>
 #include <fruitapp/background/base_unique_ptr.hpp>
 #include <fruitapp/background/cg.hpp>
 #include <fruitapp/background/ffp.hpp>
+#include <fruitapp/background/node.hpp>
 #include <sge/parse/json/find_and_convert_member.hpp>
 #include <sge/parse/json/string_to_path.hpp>
+#include <sge/renderer/context/ffp.hpp>
 #include <sge/renderer/device/ffp.hpp>
-#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/cref.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/ref.hpp>
+
 
 fruitapp::background::node::node(
 	fruitlib::scenic::optional_parent const &_parent,

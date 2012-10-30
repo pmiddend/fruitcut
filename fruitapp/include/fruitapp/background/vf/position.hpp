@@ -1,8 +1,9 @@
 #ifndef FRUITAPP_BACKGROUND_VF_POSITION_HPP_INCLUDED
 #define FRUITAPP_BACKGROUND_VF_POSITION_HPP_INCLUDED
 
-#include <sge/renderer/vf/pos.hpp>
 #include <sge/renderer/scalar.hpp>
+#include <sge/renderer/vf/pos.hpp>
+
 
 namespace fruitapp
 {

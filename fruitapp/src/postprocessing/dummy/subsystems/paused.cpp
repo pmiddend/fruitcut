@@ -1,8 +1,11 @@
 #include <fruitapp/postprocessing/dummy/system.hpp>
-#include <sge/renderer/context/ffp.hpp>
 #include <fruitapp/postprocessing/dummy/subsystems/paused.hpp>
+#include <sge/renderer/context/ffp.hpp>
 #include <fcppt/ref.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <iostream>
+#include <fcppt/config/external_end.hpp>
+
 
 fruitapp::postprocessing::dummy::subsystems::paused::paused(
 	fruitapp::postprocessing::dummy::system &_parent_system,

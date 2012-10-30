@@ -1,11 +1,10 @@
 #include <fruitapp/config_variables.hpp>
-#include <fruitapp/fruit/shadow_render_node.hpp>
-#include <fruitapp/shadow_map/object.hpp>
 #include <fruitapp/scene.hpp>
 #include <fruitapp/depths/overlay.hpp>
 #include <fruitapp/depths/root.hpp>
 #include <fruitapp/depths/scene.hpp>
 #include <fruitapp/point_sprite/system_node.hpp>
+#include <fruitapp/shadow_map/object.hpp>
 #include <fruitapp/states/ingame/running.hpp>
 #include <fruitapp/states/ingame/superstate.hpp>
 #include <fruitlib/audio/music_controller.hpp>
@@ -31,10 +30,10 @@
 #include <sge/renderer/scalar.hpp>
 #include <sge/renderer/device/ffp.hpp>
 #include <sge/systems/instance.hpp>
+#include <fcppt/cref.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/ref.hpp>
-#include <fcppt/cref.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/math/box/object_impl.hpp>
@@ -105,6 +104,8 @@ fruitapp::states::ingame::superstate::superstate(
 				context<fruitapp::machine>().scene_node(),
 				fruitlib::scenic::depth(
 					depths::scene::fruits))),
+		context<machine>().systems().renderer_core(),
+		context<machine>().config_file(),
 		context<machine>().shader_context(),
 		fruit_manager_,
 		context<machine>().camera(),
@@ -117,19 +118,19 @@ fruitapp::states::ingame::superstate::superstate(
 	fruit_shadow_render_node_(
 		context<fruitapp::machine>().shadow_map()
 		?
-			fcppt::make_unique_ptr<fruitapp::fruit::shadow_render_node>(
+			fcppt::make_unique_ptr<fruitapp::fruit::rendering::shadow_node>(
 				fruitlib::scenic::optional_parent(
 					fruitlib::scenic::parent(
 						*context<fruitapp::machine>().shadow_map(),
 						fruitlib::scenic::depth(
 							0))),
 				fcppt::ref(
-					context<fruitapp::machine>().shader_context()),
+					*context<fruitapp::machine>().shader_context()),
 				fcppt::cref(
 					fruit_manager_),
 				context<fruitapp::machine>().shadow_map()->mvp())
 		:
-			fcppt::unique_ptr<fruitapp::fruit::shadow_render_node>()),
+			fcppt::unique_ptr<fruitapp::fruit::rendering::shadow_node>()),
 	fruit_spawner_(
 		fruitlib::scenic::optional_parent(
 			fruitlib::scenic::parent(
