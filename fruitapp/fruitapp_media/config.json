@@ -74,7 +74,7 @@
 		"use-ffp-background" : false,
 		"use-shadow-map" : true,
 		"fruits-use-ffp" : false,
-		"use-srgb" : true
+		"use-srgb" : false
 	},
 	"pp" : 
 	{

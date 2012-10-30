@@ -21,7 +21,8 @@ fruitapp::gui::ce::system::system(
 	fruitlib::scenic::delta::callback const &_standard_clock_callback,
 	sge::input::keyboard::device &_keyboard,
 	sge::input::cursor::object &_cursor,
-	fruitlib::audio::sound_controller &_sound_controller)
+	fruitlib::audio::sound_controller &_sound_controller,
+	sge::renderer::texture::emulate_srgb::type const _emulate_srgb)
 :
 	charconv_system_(
 		_charconv_system),
@@ -42,7 +43,8 @@ fruitapp::gui::ce::system::system(
 		_image_system,
 		charconv_system_,
 		_viewport_manager,
-		sge::cegui::cursor_visibility::invisible),
+		sge::cegui::cursor_visibility::invisible,
+		_emulate_srgb),
 	gui_syringe_(
 		gui_system_),
 	standard_clock_callback_(

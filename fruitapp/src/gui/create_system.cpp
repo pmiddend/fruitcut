@@ -20,7 +20,8 @@ fruitapp::gui::create_system(
 	fruitlib::scenic::delta::callback const &_standard_clock_callback,
 	sge::input::keyboard::device &_keyboard,
 	sge::input::cursor::object &_cursor,
-	fruitlib::audio::sound_controller &_sound_controller
+	fruitlib::audio::sound_controller &_sound_controller,
+	sge::renderer::texture::emulate_srgb::type const _emulate_srgb
 #else
 	fruitlib::scenic::parent const &,
 	sge::renderer::device::ffp &,
@@ -55,7 +56,8 @@ fruitapp::gui::create_system(
 				fcppt::ref(
 					_cursor),
 				fcppt::ref(
-					_sound_controller))
+					_sound_controller),
+				_emulate_srgb)
 #else
 			fcppt::make_unique_ptr<fruitapp::gui::dummy::system>(
 				fcppt::ref(

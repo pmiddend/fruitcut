@@ -392,7 +392,8 @@ fruitapp::machine_impl::machine_impl(
 			this->standard_clock_callback(),
 			systems_.keyboard_collector(),
 			systems_.cursor_demuxer(),
-			this->sound_controller())),
+			this->sound_controller(),
+			this->emulate_srgb())),
 	quick_log_(
 		fruitlib::scenic::optional_parent(
 			fruitlib::scenic::parent(
