@@ -5,6 +5,7 @@
 #include <fruitlib/font/identifier.hpp>
 #include <fruitlib/font/object_parameters_fwd.hpp>
 #include <fruitlib/font/scale.hpp>
+#include <sge/renderer/texture/emulate_srgb.hpp>
 #include <sge/font/align_h.hpp>
 #include <sge/font/flags_field.hpp>
 #include <sge/font/object_fwd.hpp>
@@ -92,6 +93,7 @@ public:
 	~object();
 private:
 	sge::renderer::device::ffp &renderer_;
+	sge::renderer::texture::emulate_srgb::type const emulate_srgb_;
 	sge::font::object &font_object_;
 	sge::font::string text_;
 	sge::font::rect bounding_box_;

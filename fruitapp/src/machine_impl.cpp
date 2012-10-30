@@ -407,7 +407,8 @@ fruitapp::machine_impl::machine_impl(
 				FCPPT_TEXT("quick-log"))),
 		font_cache_,
 		viewport_manager_,
-		sound_controller_),
+		sound_controller_,
+		this->emulate_srgb()),
 	main_light_source_(
 		fruitapp::light_source_from_json(
 			sge::parse::json::find_and_convert_member<sge::parse::json::object const>(

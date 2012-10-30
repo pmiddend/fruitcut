@@ -36,7 +36,8 @@ fruitapp::quick_log::quick_log(
 	sge::parse::json::object const &_config_file,
 	fruitlib::font::cache &_font_cache,
 	fruitapp::viewport::manager &_viewport_manager,
-	fruitlib::audio::sound_controller &_sound_controller)
+	fruitlib::audio::sound_controller &_sound_controller,
+	sge::renderer::texture::emulate_srgb::type const _emulate_srgb)
 :
 	node_base(
 		_parent),
@@ -65,7 +66,8 @@ fruitapp::quick_log::quick_log(
 						sge::parse::json::path(
 							FCPPT_TEXT("font-color"))))),
 			fruitlib::font::scale(
-				1.f))),
+				1.f),
+			_emulate_srgb)),
 	fractional_size_(
 		sge::parse::json::find_and_convert_member<fractional_dimension>(
 			_config_file,

@@ -6,6 +6,7 @@
 #include <fruitapp/overlay.hpp>
 #include <fruitapp/fruit/area.hpp>
 #include <fruitapp/fruit/cut_context_fwd.hpp>
+#include <sge/renderer/texture/emulate_srgb.hpp>
 #include <fruitapp/fruit/manager_fwd.hpp>
 #include <fruitapp/fruit/object_fwd.hpp>
 #include <fruitapp/highscore/score.hpp>
@@ -45,6 +46,7 @@ public:
 	object(
 		fruitlib::scenic::optional_parent const &,
 		sge::renderer::device::ffp &,
+		sge::renderer::texture::emulate_srgb::type,
 		fruitapp::ingame_clock const &,
 		// to get round seconds and stuff
 		sge::parse::json::object const &,

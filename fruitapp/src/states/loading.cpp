@@ -76,7 +76,8 @@ fruitapp::states::loading::loading(
 							FCPPT_TEXT("loading"))
 							/ FCPPT_TEXT("font-color")))),
 			fruitlib::font::scale(
-				1.f))),
+				1.f),
+			context<fruitapp::machine>().emulate_srgb())),
 	viewport_change_connection_(
 		context<fruitapp::machine>().viewport_manager().change_callback(
 			std::tr1::bind(

@@ -13,6 +13,7 @@
 #include <sge/renderer/scalar.hpp>
 #include <sge/renderer/device/ffp_fwd.hpp>
 #include <sge/renderer/target/viewport.hpp>
+#include <sge/renderer/texture/emulate_srgb.hpp>
 #include <sge/timer/basic.hpp>
 #include <sge/timer/clocks/standard.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -45,7 +46,8 @@ public:
 		sge::parse::json::object const &,
 		fruitlib::font::cache &,
 		fruitapp::viewport::manager &,
-		fruitlib::audio::sound_controller &);
+		fruitlib::audio::sound_controller &,
+		sge::renderer::texture::emulate_srgb::type);
 
 	// Take fcppt::string instead of font::text::string here for
 	// convenience

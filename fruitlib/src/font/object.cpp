@@ -17,6 +17,8 @@ fruitlib::font::object::object(
 :
 	renderer_(
 		p.renderer()),
+	emulate_srgb_(
+		p.emulate_srgb()),
 	font_object_(
 		p.font_object()),
 	text_(
@@ -199,7 +201,8 @@ fruitlib::font::object::rebuild_text_object()
 				.max_width(
 					bounding_box_.w()),
 			bounding_box_.pos(),
-			color_));
+			color_,
+			emulate_srgb_));
 
 	switch(alignment_v_)
 	{

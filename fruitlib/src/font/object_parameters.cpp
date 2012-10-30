@@ -10,7 +10,8 @@ fruitlib::font::object_parameters::object_parameters(
 	fruitlib::font::align_v::type const _alignment_v,
 	sge::font::flags_field const &_flags,
 	sge::image::color::any::object const &_color,
-	fruitlib::font::scale const &_scale)
+	fruitlib::font::scale const &_scale,
+	sge::renderer::texture::emulate_srgb::type const _emulate_srgb)
 :
 	renderer_(
 		_renderer),
@@ -29,7 +30,9 @@ fruitlib::font::object_parameters::object_parameters(
 	color_(
 		_color),
 	scale_(
-		_scale)
+		_scale),
+	emulate_srgb_(
+		_emulate_srgb)
 {
 }
 
@@ -94,4 +97,11 @@ fruitlib::font::object_parameters::scale() const
 {
 	return
 		scale_;
+}
+
+sge::renderer::texture::emulate_srgb::type
+fruitlib::font::object_parameters::emulate_srgb() const
+{
+	return
+		emulate_srgb_;
 }

@@ -8,6 +8,7 @@
 #include <sge/font/align_h.hpp>
 #include <sge/font/flags_field.hpp>
 #include <sge/font/object_fwd.hpp>
+#include <sge/renderer/texture/emulate_srgb.hpp>
 #include <sge/font/rect.hpp>
 #include <sge/font/string.hpp>
 #include <sge/image/color/any/object.hpp>
@@ -35,7 +36,8 @@ public:
 		fruitlib::font::align_v::type,
 		sge::font::flags_field const &,
 		sge::image::color::any::object const &,
-		fruitlib::font::scale const &);
+		fruitlib::font::scale const &,
+		sge::renderer::texture::emulate_srgb::type);
 
 	sge::renderer::device::ffp &
 	renderer() const;
@@ -63,6 +65,9 @@ public:
 
 	fruitlib::font::scale const &
 	scale() const;
+
+	sge::renderer::texture::emulate_srgb::type
+	emulate_srgb() const;
 private:
 	sge::renderer::device::ffp &renderer_;
 	sge::font::object &font_object_;
@@ -73,6 +78,7 @@ private:
 	sge::font::flags_field flags_;
 	sge::image::color::any::object color_;
 	fruitlib::font::scale scale_;
+	sge::renderer::texture::emulate_srgb::type emulate_srgb_;
 };
 }
 }

@@ -17,6 +17,7 @@
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <fcppt/config/external_end.hpp>
+#include <fcppt/noncopyable.hpp>
 
 
 namespace fruitapp
@@ -27,6 +28,8 @@ class node
 :
 	public fruitlib::scenic::node<node>
 {
+FCPPT_NONCOPYABLE(
+	node);
 public:
 	typedef
 	boost::mpl::vector1

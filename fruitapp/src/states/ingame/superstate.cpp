@@ -153,6 +153,7 @@ fruitapp::states::ingame::superstate::superstate(
 				fruitlib::scenic::depth(
 					depths::root::dont_care))),
 		context<fruitapp::machine>().systems().renderer_ffp(),
+		context<fruitapp::machine>().emulate_srgb(),
 		context<fruitapp::machine>().ingame_clock(),
 		context<fruitapp::machine>().config_file(),
 		context<fruitapp::machine>().sound_controller(),
