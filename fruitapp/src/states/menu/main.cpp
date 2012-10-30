@@ -27,10 +27,11 @@ fruitapp::states::menu::main::main(
 				context<fruitapp::machine>().overlay_node(),
 				fruitlib::scenic::depth(
 					depths::overlay::dont_care))),
-		context<machine>().systems().renderer_ffp(),
-		context<machine>().systems().image_system(),
-		context<machine>().config_file(),
-		context<machine>().viewport_manager()),
+		context<fruitapp::machine>().systems().renderer_ffp(),
+		context<fruitapp::machine>().systems().image_system(),
+		context<fruitapp::machine>().config_file(),
+		context<fruitapp::machine>().viewport_manager(),
+		context<fruitapp::machine>().emulate_srgb()),
 	main_menu_(
 		context<fruitapp::machine>().gui_system().create_main_menu()),
 	settings_button_connection_(

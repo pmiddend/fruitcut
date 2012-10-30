@@ -5,6 +5,7 @@
 #include <sge/camera/matrix_conversion/world.hpp>
 #include <sge/parse/json/find_and_convert_member.hpp>
 #include <sge/parse/json/path.hpp>
+#include <sge/parse/json/string_to_path.hpp>
 #include <sge/renderer/context/ffp.hpp>
 #include <sge/renderer/device/ffp.hpp>
 #include <sge/renderer/state/core/sampler/object.hpp>
@@ -33,7 +34,8 @@ fruitapp::background::ffp::ffp(
 	sge::renderer::device::ffp &_renderer,
 	sge::parse::json::object const &_config,
 	sge::camera::base const &_camera,
-	fruitapp::projection_manager::object &_projection_manager)
+	fruitapp::projection_manager::object &_projection_manager,
+	sge::renderer::texture::emulate_srgb::type const &_emulate_srgb)
 :
 	fruitapp::background::base(
 		_renderer,
@@ -62,7 +64,8 @@ fruitapp::background::ffp::ffp(
 			_renderer,
 			_image_loader,
 			sge::renderer::texture::mipmap::off(),
-			sge::renderer::resource_flags_field::null())),
+			sge::renderer::resource_flags_field::null(),
+			_emulate_srgb)),
 	background_sampler_(
 		_renderer.create_sampler_state(
 			sge::renderer::state::core::sampler::parameters(

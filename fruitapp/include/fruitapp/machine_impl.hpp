@@ -33,6 +33,7 @@
 #include <fruitlib/scenic/events/render.hpp>
 #include <fruitlib/scenic/events/update.hpp>
 #include <sge/camera/first_person/object.hpp>
+#include <sge/renderer/texture/emulate_srgb.hpp>
 #include <sge/charconv/system_scoped_ptr.hpp>
 #include <sge/model/md3/loader_fwd.hpp>
 #include <sge/model/md3/loader_scoped_ptr.hpp>
@@ -124,16 +125,6 @@ public:
 	music_controller() const
 	FCPPT_PP_CONST;
 
-	/*
-	fruitapp::background &
-	background()
-	FCPPT_PP_CONST;
-
-	fruitapp::background const &
-	background() const
-	FCPPT_PP_CONST;
-	*/
-
 	fruitapp::directional_light_source const &
 	main_light_source()
 	FCPPT_PP_CONST;
@@ -217,6 +208,9 @@ public:
 	time_factor() const
 	FCPPT_PP_CONST;
 
+	sge::renderer::texture::emulate_srgb::type
+	emulate_srgb() const;
+
 	void
 	time_factor(
 		fruitapp::ingame_clock::float_type);
@@ -255,6 +249,7 @@ private:
 	sge::charconv::system_scoped_ptr const charconv_system_;
 	sge::parse::json::object user_config_file_;
 	sge::parse::json::object const config_file_;
+	sge::renderer::texture::emulate_srgb::type const emulate_srgb_;
 	fruitapp::config_variables config_variables_;
 	fruitapp::systems const systems_;
 	fcppt::scoped_ptr<sge::shader::context> const shader_context_;

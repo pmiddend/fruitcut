@@ -1,4 +1,5 @@
 #include <fruitapp/shadow_map/object.hpp>
+#include <sge/renderer/texture/color_format.hpp>
 #include <fruitlib/perspective_projection_information_to_matrix.hpp>
 #include <fruitlib/json/parse_projection.hpp>
 #include <fruitlib/scenic/events/render.hpp>
@@ -59,7 +60,9 @@ fruitapp::shadow_map::object::object(
 					_config,
 					sge::parse::json::path(
 						FCPPT_TEXT("size"))),
-				sge::image::color::format::rgb32f,
+				sge::renderer::texture::color_format(
+					sge::image::color::format::rgb32f,
+					sge::renderer::texture::emulate_srgb::no),
 				sge::renderer::texture::mipmap::off(),
 				sge::renderer::resource_flags_field::null(),
 				sge::renderer::texture::capabilities_field(

@@ -164,6 +164,15 @@ fruitapp::machine_impl::machine_impl(
 			fruitlib::create_command_line_parameters(
 				argc,
 				argv))),
+	emulate_srgb_(
+		sge::parse::json::find_and_convert_member<bool>(
+			config_file_,
+			sge::parse::json::string_to_path(
+				FCPPT_TEXT("graphics/use-srgb")))
+		?
+			sge::renderer::texture::emulate_srgb::no
+		:
+			sge::renderer::texture::emulate_srgb::yes),
 	config_variables_(
 		config_file_,
 		user_config_file_),
@@ -175,7 +184,11 @@ fruitapp::machine_impl::machine_impl(
 						sge::renderer::pixel_format::color::depth32,
 						sge::renderer::pixel_format::depth_stencil::d24,
 						sge::renderer::pixel_format::optional_multi_samples(),
-						sge::renderer::pixel_format::srgb::yes),
+						emulate_srgb_ == sge::renderer::texture::emulate_srgb::yes
+						?
+							sge::renderer::pixel_format::srgb::no
+						:
+							sge::renderer::pixel_format::srgb::yes),
 					sge::renderer::parameters::vsync::on,
 					sge::renderer::display_mode::optional_object()),
 				sge::viewport::fill_on_resize()))
@@ -437,7 +450,8 @@ fruitapp::machine_impl::machine_impl(
 		this->projection_manager(),
 		sge::shader::optional_context_ref(
 			this->shader_context()),
-		this->shadow_map()),
+		this->shadow_map(),
+		emulate_srgb_),
 	desired_fps_(
 		sge::parse::json::find_and_convert_member<unsigned>(
 			config_file(),
@@ -456,7 +470,8 @@ fruitapp::machine_impl::machine_impl(
 		random_generator_,
 		systems_.renderer_ffp(),
 		systems_.image_system(),
-		camera_),
+		camera_,
+		emulate_srgb_),
 	screen_shooter_(
 		systems_.keyboard_collector(),
 		systems_.renderer_core(),
@@ -741,6 +756,13 @@ fruitapp::ingame_clock::float_type
 fruitapp::machine_impl::time_factor() const
 {
 	return ingame_clock_.factor();
+}
+
+sge::renderer::texture::emulate_srgb::type
+fruitapp::machine_impl::emulate_srgb() const
+{
+	return
+		emulate_srgb_;
 }
 
 void

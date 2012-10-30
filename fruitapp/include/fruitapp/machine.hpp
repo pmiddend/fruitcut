@@ -13,6 +13,7 @@
 #include <fruitapp/gui/system_fwd.hpp>
 #include <fruitapp/highscore/score.hpp>
 #include <fruitapp/point_sprite/system_node_fwd.hpp>
+#include <sge/renderer/texture/emulate_srgb.hpp>
 #include <fruitapp/postprocessing/system_fwd.hpp>
 #include <fruitapp/postprocessing/subsystems/main_fwd.hpp>
 #include <fruitapp/projection_manager/object_fwd.hpp>
@@ -185,6 +186,9 @@ public:
 	fruitapp::ingame_clock::float_type
 	time_factor() const
 	FCPPT_PP_CONST;
+
+	sge::renderer::texture::emulate_srgb::type
+	emulate_srgb() const;
 
 	void
 	time_factor(

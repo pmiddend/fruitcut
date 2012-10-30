@@ -44,7 +44,8 @@ fruitapp::fruit::prototype_from_json(
 	sge::parse::json::value const &v,
 	sge::model::md3::loader &model_loader,
 	sge::image2d::system &image_loader,
-	sge::renderer::device::core &renderer)
+	sge::renderer::device::core &renderer,
+	sge::renderer::texture::emulate_srgb::type const _emulate_srgb)
 {
 	sge::parse::json::object const &o =
 		sge::parse::json::get<sge::parse::json::object>(
@@ -77,7 +78,8 @@ fruitapp::fruit::prototype_from_json(
 					sge::renderer::texture::mipmap::all_levels(
 						sge::renderer::texture::mipmap::auto_generate::yes),
 					sge::renderer::resource_flags_field(
-						sge::renderer::resource_flags::readable))),
+						sge::renderer::resource_flags::readable),
+					_emulate_srgb)),
 			fcppt::cref(
 				fruitapp::fruit::material::from_json(
 					sge::parse::json::find_and_convert_member<sge::parse::json::object const>(

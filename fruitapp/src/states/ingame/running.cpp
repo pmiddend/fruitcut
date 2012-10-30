@@ -148,7 +148,8 @@ fruitapp::states::ingame::running::running(
 		context<fruitapp::machine>().systems().image_system(),
 		context<fruitapp::machine>().systems().cursor_demuxer(),
 		context<fruitapp::machine>().ingame_clock(),
-		context<fruitapp::machine>().config_file()),
+		context<fruitapp::machine>().config_file(),
+		context<fruitapp::machine>().emulate_srgb()),
 	viewport_change_connection_(
 		context<fruitapp::machine>().viewport_manager().change_callback(
 			std::tr1::bind(

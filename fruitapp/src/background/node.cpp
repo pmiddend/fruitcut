@@ -19,7 +19,8 @@ fruitapp::background::node::node(
 	sge::camera::base const &_camera,
 	fruitapp::projection_manager::object &_projection_manager,
 	sge::shader::optional_context_ref const &_shader_context,
-	fruitapp::shadow_map::optional_object_ref const &_shadow_map)
+	fruitapp::shadow_map::optional_object_ref const &_shadow_map,
+	sge::renderer::texture::emulate_srgb::type const _emulate_srgb)
 :
 	node_base(
 		_parent),
@@ -42,7 +43,8 @@ fruitapp::background::node::node(
 					fcppt::cref(
 						_camera),
 					fcppt::ref(
-						_projection_manager)))
+						_projection_manager),
+					_emulate_srgb))
 		:
 			fruitapp::background::base_unique_ptr(
 				fcppt::make_unique_ptr<fruitapp::background::cg>(
@@ -56,7 +58,8 @@ fruitapp::background::node::node(
 					fcppt::cref(
 						_camera),
 					fcppt::ref(
-						_projection_manager))))
+						_projection_manager),
+					_emulate_srgb)))
 {
 }
 

@@ -3,6 +3,7 @@
 
 #include <fruitapp/background/base.hpp>
 #include <sge/image2d/system_fwd.hpp>
+#include <sge/renderer/texture/emulate_srgb.hpp>
 #include <sge/parse/json/object_fwd.hpp>
 #include <sge/renderer/device/ffp_fwd.hpp>
 #include <sge/renderer/state/core/sampler/const_object_ref_map.hpp>
@@ -27,7 +28,8 @@ public:
 		sge::renderer::device::ffp &,
 		sge::parse::json::object const &,
 		sge::camera::base const &,
-		fruitapp::projection_manager::object &);
+		fruitapp::projection_manager::object &,
+		sge::renderer::texture::emulate_srgb::type const &);
 
 	void
 	render(

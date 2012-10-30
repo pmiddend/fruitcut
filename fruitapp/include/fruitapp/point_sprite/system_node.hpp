@@ -22,6 +22,7 @@
 #include <sge/sprite/buffers/with_declaration_decl.hpp>
 #include <sge/sprite/intrusive/collection_decl.hpp>
 #include <sge/texture/const_optional_part_ref.hpp>
+#include <sge/renderer/texture/emulate_srgb.hpp>
 #include <sge/texture/manager.hpp>
 #include <sge/texture/part_shared_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -60,7 +61,8 @@ public:
 		fruitlib::random_generator &,
 		sge::renderer::device::ffp &,
 		sge::image2d::system &,
-		sge::camera::base const &);
+		sge::camera::base const &,
+		sge::renderer::texture::emulate_srgb::type);
 
 	void
 	push_back(

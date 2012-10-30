@@ -66,7 +66,8 @@ fruitapp::sword_trail::sword_trail(
 	sge::image2d::system &_image_loader,
 	sge::input::cursor::object &_cursor,
 	fruitapp::ingame_clock const &_clock,
-	sge::parse::json::object const &_config_file)
+	sge::parse::json::object const &_config_file,
+	sge::renderer::texture::emulate_srgb::type const _emulate_srgb)
 :
 	node_base(
 		_parent),
@@ -91,7 +92,8 @@ fruitapp::sword_trail::sword_trail(
 				_renderer,
 				_image_loader,
 				sge::renderer::texture::mipmap::off(),
-				sge::renderer::resource_flags_field::null()))),
+				sge::renderer::resource_flags_field::null(),
+				_emulate_srgb))),
 	sprite_buffers_(
 		_renderer,
 		sge::sprite::buffers::option::dynamic),

@@ -149,7 +149,9 @@ fruitlib::pp::texture::manager::query_internal(
 		renderer_.create_planar_texture(
 			sge::renderer::texture::planar_parameters(
 				d.size(),
-				d.image_format(),
+				sge::renderer::texture::color_format(
+					d.image_format(),
+					sge::renderer::texture::emulate_srgb::no),
 				sge::renderer::texture::mipmap::off(),
 				sge::renderer::resource_flags_field::null(),
 				sge::renderer::texture::capabilities_field(

@@ -5,6 +5,7 @@
 #include <fruitapp/ingame_timer.hpp>
 #include <fruitlib/scenic/node.hpp>
 #include <fruitlib/scenic/optional_parent.hpp>
+#include <sge/renderer/texture/emulate_srgb.hpp>
 #include <fruitlib/scenic/events/render.hpp>
 #include <fruitlib/scenic/events/update.hpp>
 #include <sge/image/color/rgba8_format.hpp>
@@ -65,7 +66,8 @@ public:
 		sge::image2d::system &,
 		sge::input::cursor::object &,
 		fruitapp::ingame_clock const &,
-		sge::parse::json::object const &);
+		sge::parse::json::object const &,
+		sge::renderer::texture::emulate_srgb::type);
 
 	~sword_trail();
 

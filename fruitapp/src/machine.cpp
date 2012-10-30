@@ -238,6 +238,12 @@ fruitapp::machine::time_factor() const
 	return impl_->time_factor();
 }
 
+sge::renderer::texture::emulate_srgb::type
+fruitapp::machine::emulate_srgb() const
+{
+	return impl_->emulate_srgb();
+}
+
 void
 fruitapp::machine::time_factor(
 	fruitapp::ingame_clock::float_type const _time_factor)

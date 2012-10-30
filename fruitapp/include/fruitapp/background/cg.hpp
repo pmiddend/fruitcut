@@ -6,6 +6,7 @@
 #include <sge/image2d/system_fwd.hpp>
 #include <sge/parse/json/object_fwd.hpp>
 #include <sge/renderer/texture/planar_scoped_ptr.hpp>
+#include <sge/renderer/texture/emulate_srgb.hpp>
 #include <sge/shader/context_fwd.hpp>
 #include <sge/shader/pair.hpp>
 #include <sge/shader/parameter/matrix.hpp>
@@ -31,7 +32,8 @@ public:
 		fruitapp::shadow_map::optional_object_ref const &,
 		sge::parse::json::object const &,
 		sge::camera::base const &,
-		fruitapp::projection_manager::object &);
+		fruitapp::projection_manager::object &,
+		sge::renderer::texture::emulate_srgb::type const &);
 
 	void
 	render(

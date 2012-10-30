@@ -36,7 +36,8 @@ fruitapp::logo::logo(
 	sge::renderer::device::ffp &_renderer,
 	sge::image2d::system &_image_loader,
 	sge::parse::json::object const &_config_file,
-	fruitapp::viewport::manager &_viewport_manager)
+	fruitapp::viewport::manager &_viewport_manager,
+	sge::renderer::texture::emulate_srgb::type const _emulate_srgb)
 :
 	node_base(
 		_parent),
@@ -60,7 +61,8 @@ fruitapp::logo::logo(
 				_renderer,
 				_image_loader,
 				sge::renderer::texture::mipmap::off(),
-				sge::renderer::resource_flags_field::null()))),
+				sge::renderer::resource_flags_field::null(),
+				_emulate_srgb))),
 	sprite_object_(
 		sge::sprite::default_parameters<sprite_choices>()
 			.texture(

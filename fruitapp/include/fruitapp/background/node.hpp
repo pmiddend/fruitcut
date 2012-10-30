@@ -7,6 +7,7 @@
 #include <fruitlib/scenic/node.hpp>
 #include <fruitlib/scenic/optional_parent.hpp>
 #include <fruitlib/scenic/events/render.hpp>
+#include <sge/renderer/texture/emulate_srgb.hpp>
 #include <sge/camera/base_fwd.hpp>
 #include <sge/image2d/system_fwd.hpp>
 #include <sge/parse/json/object_fwd.hpp>
@@ -42,7 +43,8 @@ public:
 		sge::camera::base const &,
 		fruitapp::projection_manager::object &,
 		sge::shader::optional_context_ref const &,
-		fruitapp::shadow_map::optional_object_ref const &);
+		fruitapp::shadow_map::optional_object_ref const &,
+		sge::renderer::texture::emulate_srgb::type);
 
 	void
 	react(

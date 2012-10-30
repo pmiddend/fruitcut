@@ -34,6 +34,7 @@
 #include <fcppt/text.hpp>
 #include <fcppt/algorithm/map.hpp>
 #include <fcppt/assign/make_container.hpp>
+#include <sge/renderer/texture/color_format.hpp>
 #include <fcppt/container/ptr/push_back_unique_ptr.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/next_prior.hpp>
@@ -98,7 +99,8 @@ fruitapp::point_sprite::system_node::system_node(
 	fruitlib::random_generator &_random_generator,
 	sge::renderer::device::ffp &_renderer,
 	sge::image2d::system &_image_loader,
-	sge::camera::base const &_camera)
+	sge::camera::base const &_camera,
+	sge::renderer::texture::emulate_srgb::type const _emulate_srgb)
 :
 	node_base(
 		_parent),
@@ -111,7 +113,9 @@ fruitapp::point_sprite::system_node::system_node(
 			boost::phoenix::new_<sge::texture::rect_fragmented>(
 				fcppt::ref(
 					_renderer),
-				boost::phoenix::arg_names::arg1,
+				boost::phoenix::construct<sge::renderer::texture::color_format>(
+					boost::phoenix::arg_names::arg1,
+					_emulate_srgb),
 				sge::renderer::texture::mipmap::off(),
 				sge::renderer::dim2(
 					1024,

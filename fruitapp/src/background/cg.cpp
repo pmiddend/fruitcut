@@ -6,6 +6,7 @@
 #include <sge/camera/matrix_conversion/world_projection.hpp>
 #include <sge/parse/json/find_and_convert_member.hpp>
 #include <sge/parse/json/path.hpp>
+#include <sge/parse/json/string_to_path.hpp>
 #include <sge/renderer/texture/create_planar_from_path.hpp>
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/mipmap/off.hpp>
@@ -21,7 +22,8 @@ fruitapp::background::cg::cg(
 	fruitapp::shadow_map::optional_object_ref const &_shadow_map,
 	sge::parse::json::object const &_config,
 	sge::camera::base const &_camera,
-	fruitapp::projection_manager::object &_projection_manager)
+	fruitapp::projection_manager::object &_projection_manager,
+	sge::renderer::texture::emulate_srgb::type const &_emulate_srgb)
 :
 	fruitapp::background::base(
 		_shader_context.renderer(),
@@ -48,7 +50,8 @@ fruitapp::background::cg::cg(
 			_shader_context.renderer(),
 			_image_loader,
 			sge::renderer::texture::mipmap::off(),
-			sge::renderer::resource_flags_field::null())),
+			sge::renderer::resource_flags_field::null(),
+			_emulate_srgb)),
 	shader_(
 		_shader_context,
 		*vertex_declaration_,
