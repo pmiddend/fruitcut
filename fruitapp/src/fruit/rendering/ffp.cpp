@@ -131,10 +131,18 @@ fruitapp::fruit::rendering::ffp::ffp(
 			sge::renderer::state::ffp::lighting::parameters(
 				sge::renderer::state::ffp::lighting::enabled(
 					sge::renderer::state::ffp::lighting::ambient_color(
-						sge::image::colors::black()
-						/*
+						//sge::image::colors::black()
 						vector4_to_any_color(
-						)*/))))),
+							sge::renderer::vector4(
+								1.0f,
+								1.0f,
+								1.0f,
+								/*
+								ambient_intensity_.get(),
+								ambient_intensity_.get(),
+								ambient_intensity_.get(),
+								*/
+								1.0f))))))),
 	light_(
 		renderer_.create_light_state(
 			ffp_light_from_directional_light_source(

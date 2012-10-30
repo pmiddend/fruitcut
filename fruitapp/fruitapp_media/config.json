@@ -69,7 +69,7 @@
 	{
 		"window-size" : [1024,768],
 		"desired-fps" : 60,
-		"use-shaders" : true,
+		"use-shaders" : false,
 		"use-postprocessing" : true,
 		"use-ffp-background" : false,
 		"use-shadow-map" : true,
