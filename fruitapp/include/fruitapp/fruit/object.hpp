@@ -40,9 +40,8 @@ FCPPT_NONCOPYABLE(
 	object);
 public:
 	// Create from prototype
-	explicit
 	object(
-		fruit::prototype const &,
+		fruitapp::fruit::prototype const &,
 		fruitlib::physics::world &_world,
 		sge::renderer::device::core &_renderer,
 		sge::renderer::vertex_declaration &_vertex_declaration,
@@ -62,7 +61,7 @@ public:
 	sge::renderer::vertex_buffer const &
 	vb() const;
 
-	fruit::prototype const &
+	fruitapp::fruit::prototype const &
 	prototype() const;
 
 	sge::renderer::matrix4 const
@@ -77,7 +76,7 @@ public:
 	sge::renderer::vector3 const
 	position() const;
 
-	fruit::box3 const &
+	fruitapp::fruit::box3 const &
 	bounding_box() const;
 
 	fruitapp::fruit::mesh const &
@@ -90,7 +89,7 @@ public:
 private:
 	fruit::prototype const &prototype_;
 	fruitapp::fruit::mesh_scoped_ptr mesh_;
-	box3 bounding_box_;
+	fruitapp::fruit::box3 bounding_box_;
 	fruitlib::physics::rigid_body::object body_;
 	fruitlib::physics::rigid_body::scoped body_scope_;
 	sge::renderer::vertex_buffer_scoped_ptr vb_;

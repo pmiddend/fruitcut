@@ -65,7 +65,8 @@ vector4_to_any_color(
 
 sge::renderer::state::ffp::lighting::material::parameters const
 fruit_material_to_ffp_material(
-	fruitapp::fruit::material::object const &_material)
+	fruitapp::fruit::material::object const &_material,
+	fruitapp::ambient_intensity const &_ambient_intensity)
 {
 	return
 		sge::renderer::state::ffp::lighting::material::parameters(
@@ -73,7 +74,12 @@ fruit_material_to_ffp_material(
 				vector4_to_any_color(
 					_material.diffuse_color())),
 			sge::renderer::state::ffp::lighting::ambient_color(
-				sge::image::colors::black()),
+				vector4_to_any_color(
+					sge::renderer::vector4(
+						_ambient_intensity.get(),
+						_ambient_intensity.get(),
+						_ambient_intensity.get(),
+						_ambient_intensity.get()))),
 			sge::renderer::state::ffp::lighting::specular_color(
 				vector4_to_any_color(
 					_material.specular_color())),
@@ -131,18 +137,7 @@ fruitapp::fruit::rendering::ffp::ffp(
 			sge::renderer::state::ffp::lighting::parameters(
 				sge::renderer::state::ffp::lighting::enabled(
 					sge::renderer::state::ffp::lighting::ambient_color(
-						//sge::image::colors::black()
-						vector4_to_any_color(
-							sge::renderer::vector4(
-								1.0f,
-								1.0f,
-								1.0f,
-								/*
-								ambient_intensity_.get(),
-								ambient_intensity_.get(),
-								ambient_intensity_.get(),
-								*/
-								1.0f))))))),
+						sge::image::colors::white()))))),
 	light_(
 		renderer_.create_light_state(
 			ffp_light_from_directional_light_source(
@@ -190,6 +185,10 @@ fruitapp::fruit::rendering::ffp::render(
 		ffp_context,
 		manager_.vertex_declaration());
 
+	typedef
+	std::vector<fruitapp::fruit::object *>
+	fruit_pointer_sequence;
+
 	for(
 		fruitapp::fruit::object_sequence::const_iterator i =
 			manager_.fruits().begin();
@@ -221,7 +220,8 @@ fruitapp::fruit::rendering::ffp::render(
 		sge::renderer::state::ffp::lighting::material::object_scoped_ptr const material_state(
 			renderer_.create_material_state(
 				fruit_material_to_ffp_material(
-					i->prototype().material())));
+					i->prototype().material(),
+					ambient_intensity_)));
 
 		sge::renderer::state::ffp::lighting::material::scoped const scoped_material(
 			ffp_context,
