@@ -4,6 +4,8 @@
 #include <sge/charconv/fcppt_string_to_utf8.hpp>
 #include <sge/charconv/system_fwd.hpp>
 #include <sge/charconv/utf8_string_to_fcppt.hpp>
+#include <sge/parse/result_code.hpp>
+#include <sge/parse/result.hpp>
 #include <sge/parse/json/array.hpp>
 #include <sge/parse/json/find_and_convert_member.hpp>
 #include <sge/parse/json/find_member.hpp>
@@ -398,7 +400,14 @@ fruitapp::highscore::provider::net::connection::handle_read_content(
 		content_converted.begin();
 
 	sge::parse::json::start result;
-	if(!sge::parse::json::parse_range(current,content_converted.end(),result))
+
+	sge::parse::result const ret(
+		sge::parse::json::parse_range(
+			current,
+			content_converted.end(),
+			result));
+	if(
+		ret.result_code() != sge::parse::result_code::ok)
 	{
 		fcppt::io::cerr()
 			<< FCPPT_TEXT("The application crashed, the content was ")

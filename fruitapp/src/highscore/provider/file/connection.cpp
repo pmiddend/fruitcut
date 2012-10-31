@@ -5,6 +5,8 @@
 #include <fruitlib/fcppt_string_to_utf8_file.hpp>
 #include <fruitlib/utf8_file_to_fcppt_string.hpp>
 #include <sge/charconv/system_fwd.hpp>
+#include <sge/parse/result_code.hpp>
+#include <sge/parse/result.hpp>
 #include <sge/parse/json/array.hpp>
 #include <sge/parse/json/object.hpp>
 #include <sge/parse/json/parse_file.hpp>
@@ -73,7 +75,15 @@ fruitapp::highscore::provider::file::connection::post_rank(
 		// If the file exists, it has to be valid. It won't be
 		// overridden because it's invalid (we might want to inspect
 		// _why_ it's invalid instead of creating a new file).
-		if(!sge::parse::json::parse_range(current_position,converted_file->end(),result))
+		sge::parse::result const ret(
+			sge::parse::json::parse_range(
+				current_position,
+				converted_file->end(),
+				result));
+
+		if(
+			ret.result_code() != sge::parse::result_code::ok
+		)
 		{
 			error_received_(
 				FCPPT_TEXT("Couldn't parse file \"")+
