@@ -1,6 +1,7 @@
 #include <fruitapp/name.hpp>
 #include <fruitapp/quick_log.hpp>
 #include <fruitapp/screen_shooter.hpp>
+#include <sge/config/app_name.hpp>
 #include <sge/config/cache_path.hpp>
 #include <sge/image2d/system_fwd.hpp>
 #include <sge/input/keyboard/action.hpp>
@@ -63,7 +64,8 @@ fruitapp::screen_shooter::callback(
 
 	boost::filesystem::path const target_dir =
 		sge::config::cache_path(
-			fruitapp::name())
+			sge::config::app_name(
+				fruitapp::name()))
 			/ FCPPT_TEXT("screenshots");
 
 	if(!boost::filesystem::exists(target_dir))

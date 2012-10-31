@@ -3,6 +3,7 @@
 #include <fruitapp/highscore/providers_from_json.hpp>
 #include <fruitapp/highscore/provider/file/object.hpp>
 #include <fruitapp/highscore/provider/net/object.hpp>
+#include <sge/config/app_name.hpp>
 #include <sge/config/cache_path.hpp>
 #include <sge/parse/json/array.hpp>
 #include <sge/parse/json/convert_from.hpp>
@@ -87,7 +88,8 @@ fruitapp::highscore::providers_from_json(
 					FCPPT_TEXT("$CACHE_PATH"),
 					fcppt::filesystem::path_to_string(
 						sge::config::cache_path(
-							fruitapp::name())));
+							sge::config::app_name(
+								fruitapp::name()))));
 
 		if(protocol == FCPPT_TEXT("file"))
 		{
