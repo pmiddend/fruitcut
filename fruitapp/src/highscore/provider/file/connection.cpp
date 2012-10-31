@@ -1,4 +1,5 @@
 #include <fruitapp/highscore/entry_set_to_json.hpp>
+#include <sge/parse/result.hpp>
 #include <fruitapp/highscore/json_to_entry_set.hpp>
 #include <fruitapp/highscore/provider/file/connection.hpp>
 #include <fruitlib/fcppt_string_to_utf8_file.hpp>
@@ -129,20 +130,27 @@ void
 fruitapp::highscore::provider::file::connection::retrieve_list()
 {
 	sge::parse::json::start result;
-	if(!sge::parse::json::parse_file(path_,result))
+
+	sge::parse::result const parse_result(
+		sge::parse::json::parse_file(
+			path_,
+			result));
+
+	if(parse_result.result_code() != sge::parse::result_code::ok)
 	{
-		if(!boost::filesystem::exists(path_))
+		if(parse_result.error_string().has_value())
 			error_received_(
-				FCPPT_TEXT("File \"")+
+				FCPPT_TEXT("Couldn't parse file \"")+
 				fcppt::filesystem::path_to_string(
 					path_)+
-				FCPPT_TEXT("\" doesn't exist (yet)."));
+				FCPPT_TEXT("\": ")+
+				((*parse_result.error_string()).get()));
 		else
 			error_received_(
 				FCPPT_TEXT("Couldn't parse file \"")+
 				fcppt::filesystem::path_to_string(
 					path_)+
-				FCPPT_TEXT("\""));
+				FCPPT_TEXT("\": Unknown reason"));
 		return;
 	}
 
