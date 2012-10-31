@@ -135,10 +135,12 @@ set(
 	fruitapp/include/fruitapp/fruit/rendering/draw_node_fwd.hpp
 	fruitapp/include/fruitapp/fruit/rendering/ffp.hpp
 	fruitapp/include/fruitapp/fruit/rendering/ffp_fwd.hpp
+	fruitapp/include/fruitapp/fruit/rendering/fruit_pointer_sequence.hpp
 	fruitapp/include/fruitapp/fruit/rendering/shadow.hpp
 	fruitapp/include/fruitapp/fruit/rendering/shadow_fwd.hpp
 	fruitapp/include/fruitapp/fruit/rendering/shadow_node.hpp
 	fruitapp/include/fruitapp/fruit/rendering/shadow_node_fwd.hpp
+	fruitapp/include/fruitapp/fruit/rendering/sort_fruits.hpp
 	fruitapp/include/fruitapp/fruit/spawn_callback_fn.hpp
 	fruitapp/include/fruitapp/fruit/spawner.hpp
 	fruitapp/include/fruitapp/fruit/splatter_color.hpp
@@ -356,6 +358,7 @@ set(
 	fruitapp/src/fruit/rendering/ffp.cpp
 	fruitapp/src/fruit/rendering/shadow.cpp
 	fruitapp/src/fruit/rendering/shadow_node.cpp
+	fruitapp/src/fruit/rendering/sort_fruits.cpp
 	fruitapp/src/fruit/spawner.cpp
 	fruitapp/src/game_logic/object.cpp
 	fruitapp/src/gui/create_system.cpp

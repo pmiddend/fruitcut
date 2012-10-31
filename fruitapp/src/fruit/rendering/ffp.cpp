@@ -1,4 +1,5 @@
 #include <fruitapp/directional_light_source.hpp>
+#include <fruitapp/fruit/rendering/sort_fruits.hpp>
 #include <fruitapp/media_path.hpp>
 #include <fruitapp/fruit/manager.hpp>
 #include <fruitapp/fruit/rendering/ffp.hpp>
@@ -33,13 +34,11 @@
 #include <sge/renderer/state/ffp/lighting/material/object.hpp>
 #include <sge/renderer/state/ffp/lighting/material/object_scoped_ptr.hpp>
 #include <sge/renderer/state/ffp/lighting/material/parameters.hpp>
-#include <sge/renderer/state/ffp/lighting/material/scoped.hpp>
 #include <sge/renderer/state/ffp/transform/object.hpp>
 #include <sge/renderer/state/ffp/transform/object_scoped_ptr.hpp>
 #include <sge/renderer/state/ffp/transform/parameters.hpp>
 #include <sge/renderer/state/ffp/transform/scoped.hpp>
 #include <sge/renderer/texture/planar.hpp>
-#include <sge/renderer/texture/scoped.hpp>
 #include <fcppt/cref.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assign/make_container.hpp>
@@ -185,54 +184,74 @@ fruitapp::fruit::rendering::ffp::render(
 		ffp_context,
 		manager_.vertex_declaration());
 
-	typedef
-	std::vector<fruitapp::fruit::object *>
-	fruit_pointer_sequence;
+	fruitapp::fruit::rendering::fruit_pointer_sequence fruit_pointers;
+	fruitapp::fruit::rendering::sort_fruits(
+		manager_.fruits(),
+		fruit_pointers);
+
+	fruitapp::fruit::prototype const *previous_prototype =
+		0;
+
+	sge::renderer::state::ffp::lighting::material::object_scoped_ptr previous_material_state;
 
 	for(
-		fruitapp::fruit::object_sequence::const_iterator i =
-			manager_.fruits().begin();
-		i != manager_.fruits().end();
+		fruitapp::fruit::rendering::fruit_pointer_sequence::const_iterator i =
+			fruit_pointers.begin();
+		i != fruit_pointers.end();
 		++i)
 	{
 		sge::renderer::scoped_vertex_buffer scoped_vb(
 			_context,
-			i->vb());
+			(*i)->vb());
 
 		sge::renderer::state::ffp::transform::object_scoped_ptr const world_state(
 			renderer_.create_transform_state(
 				sge::renderer::state::ffp::transform::parameters(
 					sge::camera::matrix_conversion::world(
 						camera_.coordinate_system()) *
-					i->world_transform())));
+					(*i)->world_transform())));
 
 		sge::renderer::state::ffp::transform::scoped const world_transform(
 			ffp_context,
 			sge::renderer::state::ffp::transform::mode::world,
 			*world_state);
 
-		sge::renderer::texture::scoped const scoped_texture(
-			ffp_context,
-			*i->prototype().texture(),
-			sge::renderer::texture::stage(
-				0u));
+		if(&((*i)->prototype()) != previous_prototype)
+		{
+			ffp_context.texture(
+				sge::renderer::texture::const_optional_base_ref(
+					*(*i)->prototype().texture()),
+				sge::renderer::texture::stage(
+					0u));
 
-		sge::renderer::state::ffp::lighting::material::object_scoped_ptr const material_state(
-			renderer_.create_material_state(
-				fruit_material_to_ffp_material(
-					i->prototype().material(),
-					ambient_intensity_)));
+			previous_material_state.take(
+				renderer_.create_material_state(
+					fruit_material_to_ffp_material(
+						(*i)->prototype().material(),
+						ambient_intensity_)));
 
-		sge::renderer::state::ffp::lighting::material::scoped const scoped_material(
-			ffp_context,
-			*material_state);
+			ffp_context.material_state(
+				sge::renderer::state::ffp::lighting::material::const_optional_object_ref(
+					*previous_material_state));
+
+			previous_prototype =
+				&((*i)->prototype());
+		}
 
 		ffp_context.render_nonindexed(
 			sge::renderer::first_vertex(
 				static_cast<sge::renderer::size_type>(
 					0)),
 			sge::renderer::vertex_count(
-				i->vb().size()),
+				(*i)->vb().size()),
 			sge::renderer::primitive_type::triangle_list);
 	}
+
+	ffp_context.texture(
+		sge::renderer::texture::const_optional_base_ref(),
+		sge::renderer::texture::stage(
+			0u));
+
+	ffp_context.material_state(
+		sge::renderer::state::ffp::lighting::material::const_optional_object_ref());
 }

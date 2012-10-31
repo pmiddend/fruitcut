@@ -1,4 +1,5 @@
 #include <fruitapp/directional_light_source.hpp>
+#include <fruitapp/fruit/rendering/sort_fruits.hpp>
 #include <fruitapp/media_path.hpp>
 #include <fruitapp/fruit/manager.hpp>
 #include <fruitapp/fruit/rendering/cg.hpp>
@@ -158,58 +159,72 @@ fruitapp::fruit::rendering::cg::render(
 		_context,
 		manager_.vertex_declaration());
 
+	fruitapp::fruit::rendering::fruit_pointer_sequence fruit_pointers;
+	fruitapp::fruit::rendering::sort_fruits(
+		manager_.fruits(),
+		fruit_pointers);
+
+	fruitapp::fruit::prototype const *previous_prototype =
+		0;
+
 	for(
-		object_sequence::const_iterator i =
-			manager_.fruits().begin();
-		i != manager_.fruits().end();
+		fruitapp::fruit::rendering::fruit_pointer_sequence::const_iterator i =
+			fruit_pointers.begin();
+		i != fruit_pointers.end();
 		++i)
 	{
 		sge::renderer::scoped_vertex_buffer scoped_vb(
 			_context,
-			i->vb());
+			(*i)->vb());
 
-		texture_parameter_.set(
-			sge::shader::parameter::planar_texture::optional_value(
-				*i->prototype().texture()));
+		if(&((*i)->prototype()) != previous_prototype)
+		{
+			texture_parameter_.set(
+				sge::shader::parameter::planar_texture::optional_value(
+					*(*i)->prototype().texture()));
+
+			// Material shit
+			diffuse_color_parameter_.set(
+				(*i)->prototype().material().diffuse_color());
+
+			specular_color_parameter_.set(
+				(*i)->prototype().material().specular_color());
+
+			diffuse_coefficient_parameter_.set(
+				(*i)->prototype().material().diffuse_coefficient());
+
+			specular_coefficient_parameter_.set(
+				(*i)->prototype().material().specular_coefficient());
+
+			specular_shininess_parameter_.set(
+				(*i)->prototype().material().specular_shininess());
+
+			previous_prototype =
+				&((*i)->prototype());
+		}
 
 		mvp_parameter_.set(
 			sge::camera::matrix_conversion::world_projection(
 				camera_.coordinate_system(),
 				camera_.projection_matrix()) *
-			i->world_transform());
+			(*i)->world_transform());
 
 		sge::renderer::matrix4 const world_transformation_matrix(
 			sge::camera::matrix_conversion::world(
 				camera_.coordinate_system()) *
-			i->world_transform());
+			(*i)->world_transform());
 
 		mv_it_parameter_.set(
 			fcppt::math::matrix::transpose(
 				fcppt::math::matrix::inverse(
 					world_transformation_matrix)));
 
-		// Material shit
-		diffuse_color_parameter_.set(
-			i->prototype().material().diffuse_color());
-
-		specular_color_parameter_.set(
-			i->prototype().material().specular_color());
-
-		diffuse_coefficient_parameter_.set(
-			i->prototype().material().diffuse_coefficient());
-
-		specular_coefficient_parameter_.set(
-			i->prototype().material().specular_coefficient());
-
-		specular_shininess_parameter_.set(
-			i->prototype().material().specular_shininess());
-
 		_context.render_nonindexed(
 			sge::renderer::first_vertex(
 				static_cast<sge::renderer::size_type>(
 					0)),
 			sge::renderer::vertex_count(
-				i->vb().size()),
+				(*i)->vb().size()),
 			sge::renderer::primitive_type::triangle_list);
 	}
 }
