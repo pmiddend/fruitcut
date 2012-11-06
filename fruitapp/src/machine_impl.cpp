@@ -1,4 +1,4 @@
-#include <fruitapp/light_source_from_json.hpp>
+#include <fruitapp/directional_light_source_from_json.hpp>
 #include <fruitapp/load_user_config.hpp>
 #include <fruitapp/machine_impl.hpp>
 #include <sge/shader/context.hpp>
@@ -318,7 +318,7 @@ fruitapp::machine_impl::machine_impl(
 		sge::camera::first_person::parameters(
 			systems_.keyboard_collector(),
 			systems_.mouse_collector(),
-			sge::camera::first_person::is_active(
+			sge::camera::is_active(
 				false),
 			sge::camera::first_person::movement_speed(
 				sge::parse::json::find_and_convert_member<sge::renderer::scalar>(
@@ -410,7 +410,7 @@ fruitapp::machine_impl::machine_impl(
 		sound_controller_,
 		this->emulate_srgb()),
 	main_light_source_(
-		fruitapp::light_source_from_json(
+		fruitapp::directional_light_source_from_json(
 			sge::parse::json::find_and_convert_member<sge::parse::json::object const>(
 				config_file_,
 				sge::parse::json::path(

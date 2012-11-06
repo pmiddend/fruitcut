@@ -7,8 +7,8 @@
 
 namespace fruitapp
 {
-directional_light_source const
-light_source_from_json(
+fruitapp::directional_light_source const
+directional_light_source_from_json(
 	sge::parse::json::object const &);
 }
 

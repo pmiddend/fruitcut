@@ -69,6 +69,7 @@ set(
 	fruitapp/include/fruitapp/depths/root.hpp
 	fruitapp/include/fruitapp/depths/scene.hpp
 	fruitapp/include/fruitapp/directional_light_source.hpp
+	fruitapp/include/fruitapp/directional_light_source_from_json.hpp
 	fruitapp/include/fruitapp/directional_light_source_fwd.hpp
 	fruitapp/include/fruitapp/exception.hpp
 	fruitapp/include/fruitapp/fruit/area.hpp
@@ -210,7 +211,6 @@ set(
 	fruitapp/include/fruitapp/highscore/score.hpp
 	fruitapp/include/fruitapp/ingame_clock.hpp
 	fruitapp/include/fruitapp/ingame_timer.hpp
-	fruitapp/include/fruitapp/light_source_from_json.hpp
 	fruitapp/include/fruitapp/load_user_config.hpp
 	fruitapp/include/fruitapp/logo.hpp
 	fruitapp/include/fruitapp/machine.hpp
@@ -334,6 +334,7 @@ set(
 	fruitapp/src/cursor_sound.cpp
 	fruitapp/src/cursor_trail.cpp
 	fruitapp/src/directional_light_source.cpp
+	fruitapp/src/directional_light_source_from_json.cpp
 	fruitapp/src/exception.cpp
 	fruitapp/src/fruit/cut_context.cpp
 	fruitapp/src/fruit/cut_mesh.cpp
@@ -384,7 +385,6 @@ set(
 	fruitapp/src/highscore/provider/net/object.cpp
 	fruitapp/src/highscore/provider/object_base.cpp
 	fruitapp/src/highscore/providers_from_json.cpp
-	fruitapp/src/light_source_from_json.cpp
 	fruitapp/src/load_user_config.cpp
 	fruitapp/src/logo.cpp
 	fruitapp/src/machine.cpp

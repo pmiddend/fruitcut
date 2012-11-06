@@ -1,4 +1,4 @@
-#include <fruitapp/light_source_from_json.hpp>
+#include <fruitapp/directional_light_source_from_json.hpp>
 #include <sge/parse/json/find_and_convert_member.hpp>
 #include <sge/parse/json/object_fwd.hpp>
 #include <sge/renderer/matrix4.hpp>
@@ -8,7 +8,7 @@
 
 
 fruitapp::directional_light_source const
-fruitapp::light_source_from_json(
+fruitapp::directional_light_source_from_json(
 	sge::parse::json::object const &o)
 {
 	fruitapp::directional_light_source result;
