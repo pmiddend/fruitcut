@@ -4,6 +4,7 @@
 #include <fruitlib/physics/group/object.hpp>
 #include <fruitlib/physics/rigid_body/collision_data.hpp>
 #include <fruitlib/physics/rigid_body/object.hpp>
+#include <fcppt/static_assert_statement.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/error.hpp>
 #include <fcppt/math/box/object_impl.hpp>
@@ -18,13 +19,12 @@
 #include <BulletCollision/CollisionDispatch/btDefaultCollisionConfiguration.h>
 #include <BulletDynamics/ConstraintSolver/btSequentialImpulseConstraintSolver.h>
 #include <BulletDynamics/Dynamics/btDiscreteDynamicsWorld.h>
-#include <boost/static_assert.hpp>
 #include <iostream>
 #include <limits>
 #include <fcppt/config/external_end.hpp>
 
 
-BOOST_STATIC_ASSERT((
+FCPPT_STATIC_ASSERT_STATEMENT((
 	boost::is_same<btScalar,float>::value));
 
 namespace
