@@ -2,8 +2,7 @@
 #define FRUITAPP_BACKGROUND_FFP_HPP_INCLUDED
 
 #include <fruitapp/background/base.hpp>
-#include <sge/image2d/system_fwd.hpp>
-#include <sge/renderer/texture/emulate_srgb.hpp>
+#include <fruitlib/texture_manager_fwd.hpp>
 #include <sge/parse/json/object_fwd.hpp>
 #include <sge/renderer/device/ffp_fwd.hpp>
 #include <sge/renderer/state/core/sampler/const_object_ref_map.hpp>
@@ -24,12 +23,11 @@ FCPPT_NONCOPYABLE(
 	ffp);
 public:
 	ffp(
-		sge::image2d::system &,
+		fruitlib::texture_manager &,
 		sge::renderer::device::ffp &,
 		sge::parse::json::object const &,
 		sge::camera::base const &,
-		fruitapp::projection_manager::object &,
-		sge::renderer::texture::emulate_srgb::type const &);
+		fruitapp::projection_manager::object &);
 
 	void
 	render(

@@ -128,7 +128,7 @@ fruitlib::font::cache::get(
 	FCPPT_ASSERT_PRE_MESSAGE(
 		i != to_object_.end(),
 		FCPPT_TEXT("Font called ")+
-		_identifier+
+		_identifier.get()+
 		FCPPT_TEXT(" not found!"));
 
 	return

@@ -60,10 +60,12 @@ fruitapp::states::loading::loading(
 				fruitlib::scenic::depth(
 					depths::overlay::dont_care))),
 		fruitlib::font::object_parameters(
-			context<fruitapp::machine>().systems().renderer_ffp(),
-			context<fruitapp::machine>().font_cache().get(
-				FCPPT_TEXT("score")),
-			SGE_FONT_LIT("0"),
+			context<fruitapp::machine>().font_manager(),
+			fruitlib::font::identifier(
+				fcppt::string(
+					FCPPT_TEXT("score"))),
+			sge::font::string(
+				SGE_FONT_LIT("0")),
 			sge::font::rect::null(),
 			sge::font::align_h::center,
 			fruitlib::font::align_v::top,
@@ -76,8 +78,7 @@ fruitapp::states::loading::loading(
 							FCPPT_TEXT("loading"))
 							/ FCPPT_TEXT("font-color")))),
 			fruitlib::font::scale(
-				1.f),
-			context<fruitapp::machine>().emulate_srgb())),
+				1.f))),
 	viewport_change_connection_(
 		context<fruitapp::machine>().viewport_manager().change_callback(
 			std::tr1::bind(

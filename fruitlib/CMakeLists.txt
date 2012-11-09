@@ -36,6 +36,8 @@ set(
 	fruitlib/include/fruitlib/font/cache.hpp
 	fruitlib/include/fruitlib/font/cache_fwd.hpp
 	fruitlib/include/fruitlib/font/identifier.hpp
+	fruitlib/include/fruitlib/font/manager.hpp
+	fruitlib/include/fruitlib/font/manager_fwd.hpp
 	fruitlib/include/fruitlib/font/object.hpp
 	fruitlib/include/fruitlib/font/object_parameters.hpp
 	fruitlib/include/fruitlib/font/object_parameters_fwd.hpp
@@ -212,6 +214,8 @@ set(
 	fruitlib/include/fruitlib/scoped_wostream_file_redirection.hpp
 	fruitlib/include/fruitlib/signal_stack_printer/object.hpp
 	fruitlib/include/fruitlib/signal_stack_printer/object_fwd.hpp
+	fruitlib/include/fruitlib/texture_manager.hpp
+	fruitlib/include/fruitlib/texture_manager_fwd.hpp
 	fruitlib/include/fruitlib/time_format/context.hpp
 	fruitlib/include/fruitlib/time_format/domain.hpp
 	fruitlib/include/fruitlib/time_format/duration_to_string.hpp
@@ -246,6 +250,7 @@ set(
 	fruitlib/src/exception.cpp
 	fruitlib/src/fcppt_string_to_utf8_file.cpp
 	fruitlib/src/font/cache.cpp
+	fruitlib/src/font/manager.cpp
 	fruitlib/src/font/object.cpp
 	fruitlib/src/font/object_parameters.cpp
 	fruitlib/src/font/scene_node.cpp
@@ -305,6 +310,7 @@ set(
 	fruitlib/src/scenic/parent.cpp
 	fruitlib/src/scoped_frame_limiter.cpp
 	fruitlib/src/signal_stack_printer/object.cpp
+	fruitlib/src/texture_manager.cpp
 	fruitlib/src/time_format/milliseconds.cpp
 	fruitlib/src/time_format/minutes.cpp
 	fruitlib/src/time_format/seconds.cpp

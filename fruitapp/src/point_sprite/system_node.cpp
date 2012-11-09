@@ -17,6 +17,7 @@
 #include <sge/renderer/device/ffp.hpp>
 #include <sge/renderer/device/ffp_fwd.hpp>
 #include <sge/renderer/target/onscreen.hpp>
+#include <sge/renderer/texture/color_format.hpp>
 #include <sge/renderer/texture/planar_shared_ptr.hpp>
 #include <sge/renderer/texture/mipmap/off.hpp>
 #include <sge/sprite/buffers/option.hpp>
@@ -34,7 +35,6 @@
 #include <fcppt/text.hpp>
 #include <fcppt/algorithm/map.hpp>
 #include <fcppt/assign/make_container.hpp>
-#include <sge/renderer/texture/color_format.hpp>
 #include <fcppt/container/ptr/push_back_unique_ptr.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/next_prior.hpp>

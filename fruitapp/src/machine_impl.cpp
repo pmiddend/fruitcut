@@ -1,7 +1,6 @@
 #include <fruitapp/directional_light_source_from_json.hpp>
 #include <fruitapp/load_user_config.hpp>
 #include <fruitapp/machine_impl.hpp>
-#include <sge/shader/context.hpp>
 #include <fruitapp/media_path.hpp>
 #include <fruitapp/name.hpp>
 #include <fruitapp/depths/overlay.hpp>
@@ -53,6 +52,7 @@
 #include <sge/parse/json/config/merge_trees.hpp>
 #include <sge/renderer/parameters/object.hpp>
 #include <sge/renderer/pixel_format/object.hpp>
+#include <sge/shader/context.hpp>
 #include <sge/sprite/parameters.hpp>
 #include <sge/systems/audio_loader.hpp>
 #include <sge/systems/audio_player_default.hpp>
@@ -219,6 +219,10 @@ fruitapp::machine_impl::machine_impl(
 						(sge::media::extension(FCPPT_TEXT("png"))))))
 			(sge::systems::input(
 				sge::systems::cursor_option_field::null()))),
+	texture_manager_(
+		systems_.renderer_core(),
+		systems_.image_system(),
+		emulate_srgb_),
 	shader_context_(
 		sge::parse::json::find_and_convert_member<bool>(
 			config_file_,
@@ -240,9 +244,11 @@ fruitapp::machine_impl::machine_impl(
 			this->shader_context(),
 			viewport_manager_,
 			config_file_)),
-	font_cache_(
+	font_manager_(
+		systems_.renderer_ffp(),
+		emulate_srgb_,
 		systems_.font_system(),
-		systems_.image_system(),
+		texture_manager_,
 		sge::parse::json::find_and_convert_member<sge::parse::json::object const>(
 			config_file_,
 			sge::parse::json::path(
@@ -400,15 +406,13 @@ fruitapp::machine_impl::machine_impl(
 				overlay_node(),
 				fruitlib::scenic::depth(
 					depths::overlay::dont_care))),
-		this->systems().renderer_ffp(),
 		sge::parse::json::find_and_convert_member<sge::parse::json::object const>(
 			config_file_,
 			sge::parse::json::path(
 				FCPPT_TEXT("quick-log"))),
-		font_cache_,
+		font_manager_,
 		viewport_manager_,
-		sound_controller_,
-		this->emulate_srgb()),
+		sound_controller_),
 	main_light_source_(
 		fruitapp::directional_light_source_from_json(
 			sge::parse::json::find_and_convert_member<sge::parse::json::object const>(
@@ -445,15 +449,14 @@ fruitapp::machine_impl::machine_impl(
 				scene_node(),
 				fruitlib::scenic::depth(
 					depths::scene::background))),
-		systems_.image_system(),
+		this->texture_manager(),
 		systems_.renderer_core(),
 		config_file_,
 		camera_,
 		this->projection_manager(),
 		sge::shader::optional_context_ref(
 			this->shader_context()),
-		this->shadow_map(),
-		emulate_srgb_),
+		this->shadow_map()),
 	desired_fps_(
 		sge::parse::json::find_and_convert_member<unsigned>(
 			config_file(),
@@ -498,6 +501,13 @@ fruitapp::systems const &
 fruitapp::machine_impl::systems() const
 {
 	return systems_;
+}
+
+fruitlib::texture_manager &
+fruitapp::machine_impl::texture_manager()
+{
+	return
+		texture_manager_;
 }
 
 sge::shader::optional_context_ref const
@@ -652,16 +662,16 @@ fruitapp::machine_impl::camera() const
 	return camera_;
 }
 
-fruitlib::font::cache &
-fruitapp::machine_impl::font_cache()
+fruitlib::font::manager &
+fruitapp::machine_impl::font_manager()
 {
-	return font_cache_;
+	return font_manager_;
 }
 
-fruitlib::font::cache const &
-fruitapp::machine_impl::font_cache() const
+fruitlib::font::manager const &
+fruitapp::machine_impl::font_manager() const
 {
-	return font_cache_;
+	return font_manager_;
 }
 
 fruitapp::gui::system &

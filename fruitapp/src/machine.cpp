@@ -40,6 +40,12 @@ fruitapp::machine::systems() const
 	return impl_->systems();
 }
 
+fruitlib::texture_manager &
+fruitapp::machine::texture_manager()
+{
+	return impl_->texture_manager();
+}
+
 sge::shader::optional_context_ref const
 fruitapp::machine::shader_context() const
 {
@@ -149,16 +155,10 @@ fruitapp::machine::camera() const
 	return impl_->camera();
 }
 
-fruitlib::font::cache &
-fruitapp::machine::font_cache()
+fruitlib::font::manager &
+fruitapp::machine::font_manager()
 {
-	return impl_->font_cache();
-}
-
-fruitlib::font::cache const &
-fruitapp::machine::font_cache() const
-{
-	return impl_->font_cache();
+	return impl_->font_manager();
 }
 
 fruitapp::gui::system &

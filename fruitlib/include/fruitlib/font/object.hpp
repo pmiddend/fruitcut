@@ -3,9 +3,9 @@
 
 #include <fruitlib/font/align_v.hpp>
 #include <fruitlib/font/identifier.hpp>
+#include <fruitlib/font/manager_fwd.hpp>
 #include <fruitlib/font/object_parameters_fwd.hpp>
 #include <fruitlib/font/scale.hpp>
-#include <sge/renderer/texture/emulate_srgb.hpp>
 #include <sge/font/align_h.hpp>
 #include <sge/font/flags_field.hpp>
 #include <sge/font/object_fwd.hpp>
@@ -14,7 +14,6 @@
 #include <sge/font/draw/static_text_fwd.hpp>
 #include <sge/image/color/any/object.hpp>
 #include <sge/renderer/context/ffp_fwd.hpp>
-#include <sge/renderer/device/ffp_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/scoped_ptr.hpp>
 #include <fcppt/container/bitfield/object_impl.hpp>
@@ -92,8 +91,7 @@ public:
 
 	~object();
 private:
-	sge::renderer::device::ffp &renderer_;
-	sge::renderer::texture::emulate_srgb::type const emulate_srgb_;
+	fruitlib::font::manager &manager_;
 	sge::font::object &font_object_;
 	sge::font::string text_;
 	sge::font::rect bounding_box_;

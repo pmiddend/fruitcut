@@ -152,13 +152,11 @@ fruitapp::states::ingame::superstate::superstate(
 				context<fruitapp::machine>().root_node(),
 				fruitlib::scenic::depth(
 					depths::root::dont_care))),
-		context<fruitapp::machine>().systems().renderer_ffp(),
-		context<fruitapp::machine>().emulate_srgb(),
 		context<fruitapp::machine>().ingame_clock(),
 		context<fruitapp::machine>().config_file(),
 		context<fruitapp::machine>().sound_controller(),
 		fruit_manager_,
-		context<fruitapp::machine>().font_cache(),
+		context<fruitapp::machine>().font_manager(),
 		context<fruitapp::machine>().overlay_node(),
 		context<fruitapp::machine>().viewport_manager()),
 	cut_connection_(

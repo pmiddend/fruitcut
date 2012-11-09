@@ -8,8 +8,8 @@
 #include <sge/image2d/system_fwd.hpp>
 #include <sge/parse/json/object_fwd.hpp>
 #include <sge/renderer/device/ffp_fwd.hpp>
-#include <sge/renderer/texture/emulate_srgb.hpp>
 #include <sge/renderer/target/viewport.hpp>
+#include <sge/renderer/texture/emulate_srgb.hpp>
 #include <sge/sprite/object_decl.hpp>
 #include <sge/sprite/parameters_fwd.hpp>
 #include <sge/sprite/buffers/single_decl.hpp>

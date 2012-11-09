@@ -1,5 +1,6 @@
 #include <fruitapp/media_path.hpp>
 #include <fruitapp/background/ffp.hpp>
+#include <fruitlib/texture_manager.hpp>
 #include <sge/camera/base.hpp>
 #include <sge/camera/coordinate_system/object.hpp>
 #include <sge/camera/matrix_conversion/world.hpp>
@@ -17,7 +18,6 @@
 #include <sge/renderer/state/ffp/transform/object_scoped_ptr.hpp>
 #include <sge/renderer/state/ffp/transform/parameters.hpp>
 #include <sge/renderer/state/ffp/transform/scoped.hpp>
-#include <sge/renderer/texture/create_planar_from_path.hpp>
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/scoped.hpp>
 #include <sge/renderer/texture/mipmap/off.hpp>
@@ -30,12 +30,11 @@
 
 
 fruitapp::background::ffp::ffp(
-	sge::image2d::system &_image_loader,
+	fruitlib::texture_manager &_texture_manager,
 	sge::renderer::device::ffp &_renderer,
 	sge::parse::json::object const &_config,
 	sge::camera::base const &_camera,
-	fruitapp::projection_manager::object &_projection_manager,
-	sge::renderer::texture::emulate_srgb::type const &_emulate_srgb)
+	fruitapp::projection_manager::object &_projection_manager)
 :
 	fruitapp::background::base(
 		_renderer,
@@ -51,7 +50,7 @@ fruitapp::background::ffp::ffp(
 	camera_(
 		_camera),
 	texture_(
-		sge::renderer::texture::create_planar_from_path(
+		_texture_manager.create_planar_from_path(
 			fruitapp::media_path()
 				/
 					FCPPT_TEXT("textures")
@@ -61,11 +60,8 @@ fruitapp::background::ffp::ffp(
 						sge::parse::json::path(
 							FCPPT_TEXT("textures"))/
 							FCPPT_TEXT("background")),
-			_renderer,
-			_image_loader,
 			sge::renderer::texture::mipmap::off(),
-			sge::renderer::resource_flags_field::null(),
-			_emulate_srgb)),
+			sge::renderer::resource_flags_field::null())),
 	background_sampler_(
 		_renderer.create_sampler_state(
 			sge::renderer::state::core::sampler::parameters(

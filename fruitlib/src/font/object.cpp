@@ -1,3 +1,4 @@
+#include <fruitlib/font/manager.hpp>
 #include <fruitlib/font/object.hpp>
 #include <fruitlib/font/object_parameters.hpp>
 #include <sge/font/text_parameters.hpp>
@@ -15,10 +16,8 @@
 fruitlib::font::object::object(
 	fruitlib::font::object_parameters const &p)
 :
-	renderer_(
-		p.renderer()),
-	emulate_srgb_(
-		p.emulate_srgb()),
+	manager_(
+		p.manager()),
 	font_object_(
 		p.font_object()),
 	text_(
@@ -190,7 +189,7 @@ fruitlib::font::object::rebuild_text_object()
 	text_object_.take(
 		fcppt::make_unique_ptr<sge::font::draw::static_text>(
 			fcppt::ref(
-				renderer_),
+				manager_.renderer()),
 			fcppt::ref(
 				font_object_),
 			text_,
@@ -202,7 +201,7 @@ fruitlib::font::object::rebuild_text_object()
 					bounding_box_.w()),
 			bounding_box_.pos(),
 			color_,
-			emulate_srgb_));
+			manager_.emulate_srgb()));
 
 	switch(alignment_v_)
 	{

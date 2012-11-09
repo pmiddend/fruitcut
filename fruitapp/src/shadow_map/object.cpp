@@ -1,5 +1,4 @@
 #include <fruitapp/shadow_map/object.hpp>
-#include <sge/renderer/texture/color_format.hpp>
 #include <fruitlib/perspective_projection_information_to_matrix.hpp>
 #include <fruitlib/json/parse_projection.hpp>
 #include <fruitlib/scenic/events/render.hpp>
@@ -25,6 +24,7 @@
 #include <sge/renderer/target/offscreen.hpp>
 #include <sge/renderer/texture/capabilities.hpp>
 #include <sge/renderer/texture/capabilities_field.hpp>
+#include <sge/renderer/texture/color_format.hpp>
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/planar_parameters.hpp>
 #include <sge/renderer/texture/mipmap/off.hpp>

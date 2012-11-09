@@ -32,12 +32,10 @@
 
 fruitapp::quick_log::quick_log(
 	fruitlib::scenic::optional_parent const &_parent,
-	sge::renderer::device::ffp &_renderer,
 	sge::parse::json::object const &_config_file,
-	fruitlib::font::cache &_font_cache,
+	fruitlib::font::manager &_font_manager,
 	fruitapp::viewport::manager &_viewport_manager,
-	fruitlib::audio::sound_controller &_sound_controller,
-	sge::renderer::texture::emulate_srgb::type const _emulate_srgb)
+	fruitlib::audio::sound_controller &_sound_controller)
 :
 	node_base(
 		_parent),
@@ -50,11 +48,12 @@ fruitapp::quick_log::quick_log(
 				fruitlib::scenic::depth(
 					0))),
 		fruitlib::font::object_parameters(
-			_renderer,
-			_font_cache.get(
-				FCPPT_TEXT("quick-log")),
-			sge::font::string(),
+			_font_manager,
+			fruitlib::font::identifier(
+				fcppt::string(
+					FCPPT_TEXT("quick-log"))),
 			// Can't define a box yet, we might have no viewport
+			sge::font::string(),
 			sge::font::rect::null(),
 			sge::font::align_h::left,
 			fruitlib::font::align_v::top,
@@ -66,8 +65,7 @@ fruitapp::quick_log::quick_log(
 						sge::parse::json::path(
 							FCPPT_TEXT("font-color"))))),
 			fruitlib::font::scale(
-				1.f),
-			_emulate_srgb)),
+				1.f))),
 	fractional_size_(
 		sge::parse::json::find_and_convert_member<fractional_dimension>(
 			_config_file,

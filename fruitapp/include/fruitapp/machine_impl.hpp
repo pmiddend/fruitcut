@@ -22,9 +22,10 @@
 #include <fruitlib/random_generator.hpp>
 #include <fruitlib/scoped_ostream_file_redirection.hpp>
 #include <fruitlib/scoped_wostream_file_redirection.hpp>
+#include <fruitlib/texture_manager.hpp>
 #include <fruitlib/audio/music_controller.hpp>
 #include <fruitlib/audio/sound_controller.hpp>
-#include <fruitlib/font/cache.hpp>
+#include <fruitlib/font/manager.hpp>
 #include <fruitlib/log/scoped_sequence_ptr.hpp>
 #include <fruitlib/scenic/node.hpp>
 #include <fruitlib/scenic/adaptors/camera.hpp>
@@ -33,11 +34,11 @@
 #include <fruitlib/scenic/events/render.hpp>
 #include <fruitlib/scenic/events/update.hpp>
 #include <sge/camera/first_person/object.hpp>
-#include <sge/renderer/texture/emulate_srgb.hpp>
 #include <sge/charconv/system_scoped_ptr.hpp>
 #include <sge/model/md3/loader_fwd.hpp>
 #include <sge/model/md3/loader_scoped_ptr.hpp>
 #include <sge/parse/json/object.hpp>
+#include <sge/renderer/texture/emulate_srgb.hpp>
 #include <sge/shader/optional_context_ref.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/timer/basic.hpp>
@@ -68,6 +69,10 @@ public:
 
 	fruitapp::systems const &
 	systems() const
+	FCPPT_PP_CONST;
+
+	fruitlib::texture_manager &
+	texture_manager()
 	FCPPT_PP_CONST;
 
 	sge::shader::optional_context_ref const
@@ -141,12 +146,12 @@ public:
 	camera() const
 	FCPPT_PP_CONST;
 
-	fruitlib::font::cache &
-	font_cache()
+	fruitlib::font::manager &
+	font_manager()
 	FCPPT_PP_CONST;
 
-	fruitlib::font::cache const &
-	font_cache() const
+	fruitlib::font::manager const &
+	font_manager() const
 	FCPPT_PP_CONST;
 
 	fruitapp::gui::system &
@@ -252,11 +257,12 @@ private:
 	sge::renderer::texture::emulate_srgb::type const emulate_srgb_;
 	fruitapp::config_variables config_variables_;
 	fruitapp::systems const systems_;
+	fruitlib::texture_manager texture_manager_;
 	fcppt::scoped_ptr<sge::shader::context> const shader_context_;
 	sge::model::md3::loader_scoped_ptr md3_loader_;
 	fruitapp::viewport::manager viewport_manager_;
 	fruitapp::postprocessing::system_scoped_ptr const postprocessing_system_;
-	fruitlib::font::cache font_cache_;
+	fruitlib::font::manager font_manager_;
 	fruitlib::log::scoped_sequence_ptr activated_loggers_;
 	sge::timer::basic<sge::timer::clocks::standard> second_timer_;
 	fruitapp::ingame_clock ingame_clock_;

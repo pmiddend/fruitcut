@@ -13,14 +13,13 @@
 
 fruitapp::background::node::node(
 	fruitlib::scenic::optional_parent const &_parent,
-	sge::image2d::system &_image_system,
+	fruitlib::texture_manager &_texture_manager,
 	sge::renderer::device::core &_renderer,
 	sge::parse::json::object const &_configuration,
 	sge::camera::base const &_camera,
 	fruitapp::projection_manager::object &_projection_manager,
 	sge::shader::optional_context_ref const &_shader_context,
-	fruitapp::shadow_map::optional_object_ref const &_shadow_map,
-	sge::renderer::texture::emulate_srgb::type const _emulate_srgb)
+	fruitapp::shadow_map::optional_object_ref const &_shadow_map)
 :
 	node_base(
 		_parent),
@@ -34,7 +33,7 @@ fruitapp::background::node::node(
 			fruitapp::background::base_unique_ptr(
 				fcppt::make_unique_ptr<fruitapp::background::ffp>(
 					fcppt::ref(
-						_image_system),
+						_texture_manager),
 					fcppt::ref(
 						dynamic_cast<sge::renderer::device::ffp &>(
 							_renderer)),
@@ -43,13 +42,12 @@ fruitapp::background::node::node(
 					fcppt::cref(
 						_camera),
 					fcppt::ref(
-						_projection_manager),
-					_emulate_srgb))
+						_projection_manager)))
 		:
 			fruitapp::background::base_unique_ptr(
 				fcppt::make_unique_ptr<fruitapp::background::cg>(
 					fcppt::ref(
-						_image_system),
+						_texture_manager),
 					fcppt::ref(
 						*_shader_context),
 					_shadow_map,
@@ -58,8 +56,7 @@ fruitapp::background::node::node(
 					fcppt::cref(
 						_camera),
 					fcppt::ref(
-						_projection_manager),
-					_emulate_srgb)))
+						_projection_manager))))
 {
 }
 

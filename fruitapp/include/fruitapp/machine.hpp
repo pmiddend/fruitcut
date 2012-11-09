@@ -13,7 +13,6 @@
 #include <fruitapp/gui/system_fwd.hpp>
 #include <fruitapp/highscore/score.hpp>
 #include <fruitapp/point_sprite/system_node_fwd.hpp>
-#include <sge/renderer/texture/emulate_srgb.hpp>
 #include <fruitapp/postprocessing/system_fwd.hpp>
 #include <fruitapp/postprocessing/subsystems/main_fwd.hpp>
 #include <fruitapp/projection_manager/object_fwd.hpp>
@@ -21,14 +20,16 @@
 #include <fruitapp/states/loading_fwd.hpp>
 #include <fruitapp/viewport/manager_fwd.hpp>
 #include <fruitlib/random_generator_fwd.hpp>
+#include <fruitlib/texture_manager_fwd.hpp>
 #include <fruitlib/audio/music_controller_fwd.hpp>
 #include <fruitlib/audio/sound_controller_fwd.hpp>
-#include <fruitlib/font/cache_fwd.hpp>
+#include <fruitlib/font/manager_fwd.hpp>
 #include <fruitlib/scenic/base_fwd.hpp>
 #include <fruitlib/scenic/delta/callback.hpp>
 #include <sge/camera/first_person/object_fwd.hpp>
 #include <sge/model/md3/loader_fwd.hpp>
 #include <sge/parse/json/object_fwd.hpp>
+#include <sge/renderer/texture/emulate_srgb.hpp>
 #include <sge/shader/optional_context_ref.hpp>
 #include <awl/main/exit_code.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -65,6 +66,10 @@ public:
 
 	fruitapp::systems const &
 	systems() const
+	FCPPT_PP_CONST;
+
+	fruitlib::texture_manager &
+	texture_manager()
 	FCPPT_PP_CONST;
 
 	sge::shader::optional_context_ref const
@@ -130,17 +135,12 @@ public:
 	camera() const
 	FCPPT_PP_CONST;
 
-	fruitlib::font::cache &
-	font_cache()
-	FCPPT_PP_CONST;
-
-	fruitlib::font::cache const &
-	font_cache() const
+	fruitlib::font::manager &
+	font_manager()
 	FCPPT_PP_CONST;
 
 	fruitapp::gui::system &
 	gui_system();
-
 
 	fruitlib::random_generator &
 	random_generator()

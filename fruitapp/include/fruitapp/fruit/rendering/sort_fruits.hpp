@@ -1,8 +1,9 @@
 #ifndef FRUITAPP_FRUIT_RENDERING_SORT_FRUITS_HPP_INCLUDED
 #define FRUITAPP_FRUIT_RENDERING_SORT_FRUITS_HPP_INCLUDED
 
-#include <fruitapp/fruit/rendering/fruit_pointer_sequence.hpp>
 #include <fruitapp/fruit/object_sequence.hpp>
+#include <fruitapp/fruit/rendering/fruit_pointer_sequence.hpp>
+
 
 namespace fruitapp
 {

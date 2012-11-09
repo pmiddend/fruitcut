@@ -3,10 +3,9 @@
 
 #include <fruitapp/background/base.hpp>
 #include <fruitapp/shadow_map/optional_object_ref.hpp>
-#include <sge/image2d/system_fwd.hpp>
+#include <fruitlib/texture_manager_fwd.hpp>
 #include <sge/parse/json/object_fwd.hpp>
 #include <sge/renderer/texture/planar_scoped_ptr.hpp>
-#include <sge/renderer/texture/emulate_srgb.hpp>
 #include <sge/shader/context_fwd.hpp>
 #include <sge/shader/pair.hpp>
 #include <sge/shader/parameter/matrix.hpp>
@@ -27,13 +26,12 @@ FCPPT_NONCOPYABLE(
 	cg);
 public:
 	cg(
-		sge::image2d::system &,
+		fruitlib::texture_manager &,
 		sge::shader::context &,
 		fruitapp::shadow_map::optional_object_ref const &,
 		sge::parse::json::object const &,
 		sge::camera::base const &,
-		fruitapp::projection_manager::object &,
-		sge::renderer::texture::emulate_srgb::type const &);
+		fruitapp::projection_manager::object &);
 
 	void
 	render(

@@ -1,13 +1,13 @@
 #include <fruitapp/media_path.hpp>
 #include <fruitapp/background/cg.hpp>
 #include <fruitapp/shadow_map/object.hpp>
+#include <fruitlib/texture_manager.hpp>
 #include <sge/camera/base.hpp>
 #include <sge/camera/coordinate_system/object.hpp>
 #include <sge/camera/matrix_conversion/world_projection.hpp>
 #include <sge/parse/json/find_and_convert_member.hpp>
 #include <sge/parse/json/path.hpp>
 #include <sge/parse/json/string_to_path.hpp>
-#include <sge/renderer/texture/create_planar_from_path.hpp>
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/mipmap/off.hpp>
 #include <sge/shader/context.hpp>
@@ -17,13 +17,12 @@
 
 
 fruitapp::background::cg::cg(
-	sge::image2d::system &_image_loader,
+	fruitlib::texture_manager &_texture_manager,
 	sge::shader::context &_shader_context,
 	fruitapp::shadow_map::optional_object_ref const &_shadow_map,
 	sge::parse::json::object const &_config,
 	sge::camera::base const &_camera,
-	fruitapp::projection_manager::object &_projection_manager,
-	sge::renderer::texture::emulate_srgb::type const &_emulate_srgb)
+	fruitapp::projection_manager::object &_projection_manager)
 :
 	fruitapp::background::base(
 		_shader_context.renderer(),
@@ -37,7 +36,7 @@ fruitapp::background::cg::cg(
 	camera_(
 		_camera),
 	texture_(
-		sge::renderer::texture::create_planar_from_path(
+		_texture_manager.create_planar_from_path(
 			fruitapp::media_path()
 				/
 					FCPPT_TEXT("textures")
@@ -47,11 +46,8 @@ fruitapp::background::cg::cg(
 						sge::parse::json::path(
 							FCPPT_TEXT("textures"))/
 							FCPPT_TEXT("background")),
-			_shader_context.renderer(),
-			_image_loader,
 			sge::renderer::texture::mipmap::off(),
-			sge::renderer::resource_flags_field::null(),
-			_emulate_srgb)),
+			sge::renderer::resource_flags_field::null())),
 	shader_(
 		_shader_context,
 		*vertex_declaration_,

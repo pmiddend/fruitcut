@@ -1,8 +1,8 @@
 #include <fruitapp/directional_light_source.hpp>
-#include <fruitapp/fruit/rendering/sort_fruits.hpp>
 #include <fruitapp/media_path.hpp>
 #include <fruitapp/fruit/manager.hpp>
 #include <fruitapp/fruit/rendering/cg.hpp>
+#include <fruitapp/fruit/rendering/sort_fruits.hpp>
 #include <sge/camera/base.hpp>
 #include <sge/camera/coordinate_system/object.hpp>
 #include <sge/camera/matrix_conversion/world.hpp>

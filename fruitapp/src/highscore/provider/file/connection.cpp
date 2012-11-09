@@ -1,12 +1,11 @@
 #include <fruitapp/highscore/entry_set_to_json.hpp>
-#include <sge/parse/result.hpp>
 #include <fruitapp/highscore/json_to_entry_set.hpp>
 #include <fruitapp/highscore/provider/file/connection.hpp>
 #include <fruitlib/fcppt_string_to_utf8_file.hpp>
 #include <fruitlib/utf8_file_to_fcppt_string.hpp>
 #include <sge/charconv/system_fwd.hpp>
-#include <sge/parse/result_code.hpp>
 #include <sge/parse/result.hpp>
+#include <sge/parse/result_code.hpp>
 #include <sge/parse/json/array.hpp>
 #include <sge/parse/json/object.hpp>
 #include <sge/parse/json/parse_file.hpp>

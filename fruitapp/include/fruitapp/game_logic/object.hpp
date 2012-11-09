@@ -6,20 +6,18 @@
 #include <fruitapp/overlay.hpp>
 #include <fruitapp/fruit/area.hpp>
 #include <fruitapp/fruit/cut_context_fwd.hpp>
-#include <sge/renderer/texture/emulate_srgb.hpp>
 #include <fruitapp/fruit/manager_fwd.hpp>
 #include <fruitapp/fruit/object_fwd.hpp>
 #include <fruitapp/highscore/score.hpp>
 #include <fruitapp/viewport/manager_fwd.hpp>
 #include <fruitlib/audio/sound_controller.hpp>
-#include <fruitlib/font/cache_fwd.hpp>
+#include <fruitlib/font/manager_fwd.hpp>
 #include <fruitlib/font/scene_node.hpp>
 #include <fruitlib/scenic/node.hpp>
 #include <fruitlib/scenic/parent_fwd.hpp>
 #include <fruitlib/scenic/events/update.hpp>
 #include <sge/parse/json/object_fwd.hpp>
 #include <sge/renderer/scalar.hpp>
-#include <sge/renderer/device/ffp_fwd.hpp>
 #include <sge/renderer/target/viewport.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
@@ -45,8 +43,6 @@ public:
 
 	object(
 		fruitlib::scenic::optional_parent const &,
-		sge::renderer::device::ffp &,
-		sge::renderer::texture::emulate_srgb::type,
 		fruitapp::ingame_clock const &,
 		// to get round seconds and stuff
 		sge::parse::json::object const &,
@@ -56,7 +52,7 @@ public:
 		// - "fruit was added" (we could consult the spawner for that, but that's not The Right Thing)
 		fruitlib::audio::sound_controller &,
 		fruitapp::fruit::manager &,
-		fruitlib::font::cache &,
+		fruitlib::font::manager &,
 		fruitapp::overlay &,
 		fruitapp::viewport::manager &);
 

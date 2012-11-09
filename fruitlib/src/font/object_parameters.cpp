@@ -1,22 +1,24 @@
+#include <fruitlib/font/cache.hpp>
+#include <fruitlib/font/manager.hpp>
 #include <fruitlib/font/object_parameters.hpp>
 
 
 fruitlib::font::object_parameters::object_parameters(
-	sge::renderer::device::ffp &_renderer,
-	sge::font::object &_font_object,
+	fruitlib::font::manager &_manager,
+	fruitlib::font::identifier const &_identifier,
 	sge::font::string const &_text,
 	sge::font::rect const &_bounding_box,
 	sge::font::align_h::type const _alignment_h,
 	fruitlib::font::align_v::type const _alignment_v,
 	sge::font::flags_field const &_flags,
 	sge::image::color::any::object const &_color,
-	fruitlib::font::scale const &_scale,
-	sge::renderer::texture::emulate_srgb::type const _emulate_srgb)
+	fruitlib::font::scale const &_scale)
 :
-	renderer_(
-		_renderer),
+	manager_(
+		_manager),
 	font_object_(
-		_font_object),
+		_manager.cache().get(
+			_identifier)),
 	text_(
 		_text),
 	bounding_box_(
@@ -30,17 +32,15 @@ fruitlib::font::object_parameters::object_parameters(
 	color_(
 		_color),
 	scale_(
-		_scale),
-	emulate_srgb_(
-		_emulate_srgb)
+		_scale)
 {
 }
 
-sge::renderer::device::ffp &
-fruitlib::font::object_parameters::renderer() const
+fruitlib::font::manager &
+fruitlib::font::object_parameters::manager() const
 {
 	return
-		renderer_;
+		manager_;
 }
 
 sge::font::object &
@@ -97,11 +97,4 @@ fruitlib::font::object_parameters::scale() const
 {
 	return
 		scale_;
-}
-
-sge::renderer::texture::emulate_srgb::type
-fruitlib::font::object_parameters::emulate_srgb() const
-{
-	return
-		emulate_srgb_;
 }

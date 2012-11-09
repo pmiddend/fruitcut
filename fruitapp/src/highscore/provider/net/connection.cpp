@@ -4,8 +4,8 @@
 #include <sge/charconv/fcppt_string_to_utf8.hpp>
 #include <sge/charconv/system_fwd.hpp>
 #include <sge/charconv/utf8_string_to_fcppt.hpp>
-#include <sge/parse/result_code.hpp>
 #include <sge/parse/result.hpp>
+#include <sge/parse/result_code.hpp>
 #include <sge/parse/json/array.hpp>
 #include <sge/parse/json/find_and_convert_member.hpp>
 #include <sge/parse/json/find_member.hpp>

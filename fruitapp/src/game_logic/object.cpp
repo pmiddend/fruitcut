@@ -56,8 +56,6 @@
 
 fruitapp::game_logic::object::object(
 	fruitlib::scenic::optional_parent const &_parent,
-	sge::renderer::device::ffp &_renderer,
-	sge::renderer::texture::emulate_srgb::type const _emulate_srgb,
 	fruitapp::ingame_clock const &_clock,
 	// to get round seconds and stuff
 	sge::parse::json::object const &_config_file,
@@ -67,7 +65,7 @@ fruitapp::game_logic::object::object(
 	// - "fruit was added" (we could consult the spawner for that, but that's not The Right Thing)
 	fruitlib::audio::sound_controller &_sound_controller,
 	fruitapp::fruit::manager &_fruit_manager,
-	fruitlib::font::cache &_font_cache,
+	fruitlib::font::manager &_font_manager,
 	fruitapp::overlay &_overlay,
 	fruitapp::viewport::manager &_viewport_manager)
 :
@@ -119,9 +117,10 @@ fruitapp::game_logic::object::object(
 				fruitlib::scenic::depth(
 					depths::overlay::dont_care))),
 		fruitlib::font::object_parameters(
-			_renderer,
-			_font_cache.get(
-				FCPPT_TEXT("score")),
+			_font_manager,
+			fruitlib::font::identifier(
+				fcppt::string(
+					FCPPT_TEXT("score"))),
 			sge::font::string(
 				SGE_FONT_LIT("0")),
 			sge::font::rect::null(),
@@ -136,8 +135,7 @@ fruitapp::game_logic::object::object(
 							FCPPT_TEXT("ingame"))
 								/FCPPT_TEXT("score-font-color")))),
 			fruitlib::font::scale(
-				1.f),
-			_emulate_srgb)),
+				1.f))),
 	timer_font_node_(
 		fruitlib::scenic::optional_parent(
 			fruitlib::scenic::parent(
@@ -145,9 +143,10 @@ fruitapp::game_logic::object::object(
 				fruitlib::scenic::depth(
 					depths::overlay::dont_care))),
 		fruitlib::font::object_parameters(
-			_renderer,
-			_font_cache.get(
-				FCPPT_TEXT("score")),
+			_font_manager,
+			fruitlib::font::identifier(
+				fcppt::string(
+					FCPPT_TEXT("score"))),
 			sge::font::string(
 				SGE_FONT_LIT("0")),
 			sge::font::rect::null(),
@@ -162,8 +161,7 @@ fruitapp::game_logic::object::object(
 							FCPPT_TEXT("ingame"))
 							/ FCPPT_TEXT("timer-font-color")))),
 			fruitlib::font::scale(
-				1.0f),
-			_emulate_srgb)),
+				1.0f))),
 	multiplier_font_node_(
 		fruitlib::scenic::optional_parent(
 			fruitlib::scenic::parent(
@@ -171,9 +169,10 @@ fruitapp::game_logic::object::object(
 				fruitlib::scenic::depth(
 					depths::overlay::dont_care))),
 		fruitlib::font::object_parameters(
-			_renderer,
-			_font_cache.get(
-				FCPPT_TEXT("score")),
+			_font_manager,
+			fruitlib::font::identifier(
+				fcppt::string(
+					FCPPT_TEXT("score"))),
 			sge::font::string(
 				SGE_FONT_LIT("")),
 			sge::font::rect::null(),
@@ -182,8 +181,7 @@ fruitapp::game_logic::object::object(
 			sge::font::flags_field::null(),
 			sge::image::colors::white(),
 			fruitlib::font::scale(
-				1.f),
-			_emulate_srgb)),
+				1.f))),
 	score_increase_timer_(
 		fruitapp::ingame_timer::parameters(
 			_clock,

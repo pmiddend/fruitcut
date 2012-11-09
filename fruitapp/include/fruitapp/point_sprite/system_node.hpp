@@ -18,11 +18,11 @@
 #include <sge/image2d/system_fwd.hpp>
 #include <sge/renderer/device/ffp_fwd.hpp>
 #include <sge/renderer/target/base_fwd.hpp>
+#include <sge/renderer/texture/emulate_srgb.hpp>
 #include <sge/sprite/buffers/single_decl.hpp>
 #include <sge/sprite/buffers/with_declaration_decl.hpp>
 #include <sge/sprite/intrusive/collection_decl.hpp>
 #include <sge/texture/const_optional_part_ref.hpp>
-#include <sge/renderer/texture/emulate_srgb.hpp>
 #include <sge/texture/manager.hpp>
 #include <sge/texture/part_shared_ptr.hpp>
 #include <fcppt/noncopyable.hpp>

@@ -1,8 +1,11 @@
+#include <fruitapp/fruit/object.hpp>
 #include <fruitapp/fruit/rendering/sort_fruits.hpp>
 #include <fcppt/assert/pre.hpp>
-#include <fruitapp/fruit/object.hpp>
-#include <iterator>
+#include <fcppt/config/external_begin.hpp>
 #include <algorithm>
+#include <iterator>
+#include <fcppt/config/external_end.hpp>
+
 
 namespace
 {

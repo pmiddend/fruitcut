@@ -4,11 +4,11 @@
 #include <fruitapp/machine.hpp>
 #include <fruitapp/splatter_generator.hpp>
 #include <fruitapp/fruit/cut_context_fwd.hpp>
-#include <fruitapp/fruit/rendering/draw_node.hpp>
-#include <fruitapp/fruit/rendering/shadow_node.hpp>
 #include <fruitapp/fruit/manager.hpp>
 #include <fruitapp/fruit/object_fwd.hpp>
 #include <fruitapp/fruit/spawner.hpp>
+#include <fruitapp/fruit/rendering/draw_node.hpp>
+#include <fruitapp/fruit/rendering/shadow_node.hpp>
 #include <fruitapp/game_logic/object.hpp>
 #include <fruitapp/states/ingame/running_fwd.hpp>
 #include <fruitlib/physics/debugger.hpp>

@@ -3,7 +3,7 @@
 
 #include <fruitapp/viewport/manager_fwd.hpp>
 #include <fruitlib/audio/sound_controller_fwd.hpp>
-#include <fruitlib/font/cache_fwd.hpp>
+#include <fruitlib/font/manager_fwd.hpp>
 #include <fruitlib/font/scene_node.hpp>
 #include <fruitlib/scenic/node.hpp>
 #include <fruitlib/scenic/optional_parent.hpp>
@@ -11,9 +11,7 @@
 #include <sge/font/string.hpp>
 #include <sge/parse/json/object_fwd.hpp>
 #include <sge/renderer/scalar.hpp>
-#include <sge/renderer/device/ffp_fwd.hpp>
 #include <sge/renderer/target/viewport.hpp>
-#include <sge/renderer/texture/emulate_srgb.hpp>
 #include <sge/timer/basic.hpp>
 #include <sge/timer/clocks/standard.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -42,12 +40,10 @@ public:
 
 	quick_log(
 		fruitlib::scenic::optional_parent const &,
-		sge::renderer::device::ffp &,
 		sge::parse::json::object const &,
-		fruitlib::font::cache &,
+		fruitlib::font::manager &,
 		fruitapp::viewport::manager &,
-		fruitlib::audio::sound_controller &,
-		sge::renderer::texture::emulate_srgb::type);
+		fruitlib::audio::sound_controller &);
 
 	// Take fcppt::string instead of font::text::string here for
 	// convenience
