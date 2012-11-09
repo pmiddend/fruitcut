@@ -1,7 +1,7 @@
 #include <fruitapp/media_path.hpp>
+#include <fruitlib/texture_manager.hpp>
 #include <fruitapp/sword_trail.hpp>
 #include <fruitlib/time_format/find_and_convert_duration.hpp>
-#include <sge/image2d/system_fwd.hpp>
 #include <sge/input/cursor/object.hpp>
 #include <sge/input/cursor/position.hpp>
 #include <sge/input/cursor/position_unit.hpp>
@@ -63,11 +63,10 @@ fruitapp::sword_trail::sword_trail(
 	fruitlib::scenic::optional_parent const &_parent,
 	sge::renderer::device::ffp &_renderer,
 	sge::renderer::target::base &_target,
-	sge::image2d::system &_image_loader,
+	fruitlib::texture_manager &_texture_manager,
 	sge::input::cursor::object &_cursor,
 	fruitapp::ingame_clock const &_clock,
-	sge::parse::json::object const &_config_file,
-	sge::renderer::texture::emulate_srgb::type const _emulate_srgb)
+	sge::parse::json::object const &_config_file)
 :
 	node_base(
 		_parent),
@@ -87,13 +86,10 @@ fruitapp::sword_trail::sword_trail(
 			sge::parse::json::path(FCPPT_TEXT("sword-mouse-trail")) / FCPPT_TEXT("sword-width"))),
 	texture_(
 		fcppt::make_unique_ptr<sge::texture::part_raw_ptr>(
-			sge::renderer::texture::create_planar_from_path(
+			_texture_manager.create_planar_from_path(
 				fruitapp::media_path() / FCPPT_TEXT("textures") / FCPPT_TEXT("sword_particle.png"),
-				_renderer,
-				_image_loader,
 				sge::renderer::texture::mipmap::off(),
-				sge::renderer::resource_flags_field::null(),
-				_emulate_srgb))),
+				sge::renderer::resource_flags_field::null()))),
 	sprite_buffers_(
 		_renderer,
 		sge::sprite::buffers::option::dynamic),

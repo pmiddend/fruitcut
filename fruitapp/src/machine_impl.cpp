@@ -474,9 +474,8 @@ fruitapp::machine_impl::machine_impl(
 		fruitapp::media_path()/FCPPT_TEXT("point_sprites"),
 		random_generator_,
 		systems_.renderer_ffp(),
-		systems_.image_system(),
-		camera_,
-		emulate_srgb_),
+		texture_manager_,
+		camera_),
 	screen_shooter_(
 		systems_.keyboard_collector(),
 		systems_.renderer_core(),

@@ -15,10 +15,9 @@
 #include <fruitlib/scenic/events/render.hpp>
 #include <fruitlib/scenic/events/update.hpp>
 #include <sge/camera/base_fwd.hpp>
-#include <sge/image2d/system_fwd.hpp>
+#include <fruitlib/texture_manager_fwd.hpp>
 #include <sge/renderer/device/ffp_fwd.hpp>
 #include <sge/renderer/target/base_fwd.hpp>
-#include <sge/renderer/texture/emulate_srgb.hpp>
 #include <sge/sprite/buffers/single_decl.hpp>
 #include <sge/sprite/buffers/with_declaration_decl.hpp>
 #include <sge/sprite/intrusive/collection_decl.hpp>
@@ -60,9 +59,8 @@ public:
 		boost::filesystem::path const &,
 		fruitlib::random_generator &,
 		sge::renderer::device::ffp &,
-		sge::image2d::system &,
-		sge::camera::base const &,
-		sge::renderer::texture::emulate_srgb::type);
+		fruitlib::texture_manager &,
+		sge::camera::base const &);
 
 	void
 	push_back(

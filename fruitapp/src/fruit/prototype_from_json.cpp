@@ -1,4 +1,5 @@
 #include <fruitapp/media_path.hpp>
+#include <fruitlib/texture_manager.hpp>
 #include <fruitapp/fruit/mesh.hpp>
 #include <fruitapp/fruit/model_to_mesh.hpp>
 #include <fruitapp/fruit/prototype.hpp>
@@ -14,8 +15,6 @@
 #include <sge/parse/json/object.hpp>
 #include <sge/parse/json/value.hpp>
 #include <sge/renderer/resource_flags.hpp>
-#include <sge/renderer/device/core.hpp>
-#include <sge/renderer/texture/create_planar_from_path.hpp>
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/mipmap/all_levels.hpp>
 #include <sge/renderer/texture/mipmap/auto_generate.hpp>
@@ -43,9 +42,7 @@ fruitapp::fruit::prototype_unique_ptr
 fruitapp::fruit::prototype_from_json(
 	sge::parse::json::value const &v,
 	sge::model::md3::loader &model_loader,
-	sge::image2d::system &image_loader,
-	sge::renderer::device::core &renderer,
-	sge::renderer::texture::emulate_srgb::type const _emulate_srgb)
+	fruitlib::texture_manager &_texture_manager)
 {
 	sge::parse::json::object const &o =
 		sge::parse::json::get<sge::parse::json::object>(
@@ -64,7 +61,7 @@ fruitapp::fruit::prototype_from_json(
 								sge::parse::json::path(
 									FCPPT_TEXT("model"))))),
 			sge::renderer::texture::planar_shared_ptr(
-				sge::renderer::texture::create_planar_from_path(
+				_texture_manager.create_planar_from_path(
 					fruitapp::media_path()
 						/ FCPPT_TEXT("textures")
 						/ FCPPT_TEXT("fruits")
@@ -73,13 +70,10 @@ fruitapp::fruit::prototype_from_json(
 								o,
 								sge::parse::json::path(
 									FCPPT_TEXT("texture"))),
-					renderer,
-					image_loader,
 					sge::renderer::texture::mipmap::all_levels(
 						sge::renderer::texture::mipmap::auto_generate::yes),
 					sge::renderer::resource_flags_field(
-						sge::renderer::resource_flags::readable),
-					_emulate_srgb)),
+						sge::renderer::resource_flags::readable))),
 			fcppt::cref(
 				fruitapp::fruit::material::from_json(
 					sge::parse::json::find_and_convert_member<sge::parse::json::object const>(

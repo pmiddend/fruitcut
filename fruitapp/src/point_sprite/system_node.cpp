@@ -1,4 +1,7 @@
 #include <fruitapp/exception.hpp>
+#include <fruitlib/texture_manager.hpp>
+#include <sge/texture/fragmented.hpp>
+#include <fcppt/tr1/functional.hpp>
 #include <fruitapp/point_sprite/state_parameters.hpp>
 #include <fruitapp/point_sprite/system_node.hpp>
 #include <fruitlib/resource_tree/from_directory_tree.hpp>
@@ -40,8 +43,6 @@
 #include <boost/next_prior.hpp>
 #include <boost/filesystem/operations.hpp>
 #include <boost/filesystem/path.hpp>
-#include <boost/spirit/home/phoenix/object.hpp>
-#include <boost/spirit/home/phoenix/core/argument.hpp>
 #include <cstddef>
 #include <iostream>
 #include <iterator>
@@ -80,14 +81,14 @@ create_random_from_directory(
 
 sge::texture::part_shared_ptr const
 create_part_from_file(
-	sge::image2d::system &image_loader,
+	fruitlib::texture_manager &_fruitlib_texture_manager,
 	sge::texture::manager &texture_manager,
 	boost::filesystem::path const &p)
 {
 	return
 		sge::texture::part_shared_ptr(
 			texture_manager.add(
-				image_loader.load(
+				_fruitlib_texture_manager.create_image_from_path(
 					p)->view()));
 }
 }
@@ -98,9 +99,8 @@ fruitapp::point_sprite::system_node::system_node(
 	boost::filesystem::path const &_base_path,
 	fruitlib::random_generator &_random_generator,
 	sge::renderer::device::ffp &_renderer,
-	sge::image2d::system &_image_loader,
-	sge::camera::base const &_camera,
-	sge::renderer::texture::emulate_srgb::type const _emulate_srgb)
+	fruitlib::texture_manager &_texture_manager,
+	sge::camera::base const &_camera)
 :
 	node_base(
 		_parent),
@@ -109,17 +109,14 @@ fruitapp::point_sprite::system_node::system_node(
 	camera_(
 		_camera),
 	texture_manager_(
-		boost::phoenix::construct<sge::texture::fragmented_unique_ptr>(
-			boost::phoenix::new_<sge::texture::rect_fragmented>(
-				fcppt::ref(
-					_renderer),
-				boost::phoenix::construct<sge::renderer::texture::color_format>(
-					boost::phoenix::arg_names::arg1,
-					_emulate_srgb),
-				sge::renderer::texture::mipmap::off(),
-				sge::renderer::dim2(
-					1024,
-					1024)))),
+		std::tr1::bind(
+			&fruitlib::texture_manager::create_rect_fragmented,
+			&_texture_manager,
+			sge::renderer::texture::mipmap::off(),
+			std::tr1::placeholders::_1,
+			sge::renderer::dim2(
+				1024,
+				1024))),
 	buffers_(
 		renderer_,
 		sge::sprite::buffers::option::dynamic),
@@ -134,7 +131,7 @@ fruitapp::point_sprite::system_node::system_node(
 			std::tr1::bind(
 				&create_part_from_file,
 				fcppt::ref(
-					_image_loader),
+					_texture_manager),
 				fcppt::ref(
 					texture_manager_),
 				std::tr1::placeholders::_1),

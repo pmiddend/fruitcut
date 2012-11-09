@@ -3,17 +3,16 @@
 
 #include <fruitapp/ingame_clock.hpp>
 #include <fruitapp/ingame_timer.hpp>
+#include <fruitlib/texture_manager_fwd.hpp>
 #include <fruitlib/scenic/node.hpp>
 #include <fruitlib/scenic/optional_parent.hpp>
 #include <fruitlib/scenic/events/render.hpp>
 #include <fruitlib/scenic/events/update.hpp>
 #include <sge/image/color/rgba8_format.hpp>
-#include <sge/image2d/system_fwd.hpp>
 #include <sge/input/cursor/object_fwd.hpp>
 #include <sge/parse/json/object.hpp>
 #include <sge/renderer/device/ffp_fwd.hpp>
 #include <sge/renderer/target/base_fwd.hpp>
-#include <sge/renderer/texture/emulate_srgb.hpp>
 #include <sge/renderer/texture/planar_shared_ptr.hpp>
 #include <sge/sprite/object_decl.hpp>
 #include <sge/sprite/parameters_fwd.hpp>
@@ -63,11 +62,10 @@ public:
 		fruitlib::scenic::optional_parent const &,
 		sge::renderer::device::ffp &,
 		sge::renderer::target::base &,
-		sge::image2d::system &,
+		fruitlib::texture_manager &,
 		sge::input::cursor::object &,
 		fruitapp::ingame_clock const &,
-		sge::parse::json::object const &,
-		sge::renderer::texture::emulate_srgb::type);
+		sge::parse::json::object const &);
 
 	~sword_trail();
 

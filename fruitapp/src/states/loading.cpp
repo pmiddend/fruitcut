@@ -117,9 +117,7 @@ fruitapp::states::loading::react(
 		fruitapp::fruit::prototype_from_json(
 			*current_fruit_++,
 			context<fruitapp::machine>().md3_loader(),
-			context<fruitapp::machine>().systems().image_system(),
-			context<fruitapp::machine>().systems().renderer_core(),
-			context<fruitapp::machine>().emulate_srgb()));
+			context<fruitapp::machine>().texture_manager()));
 
 	font_node_.object().text(
 		SGE_FONT_LIT("Loaded ")+

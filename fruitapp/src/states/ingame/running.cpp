@@ -145,11 +145,10 @@ fruitapp::states::ingame::running::running(
 					depths::scene::sword_trail))),
 		context<fruitapp::machine>().systems().renderer_ffp(),
 		context<fruitapp::machine>().systems().renderer_core().onscreen_target(),
-		context<fruitapp::machine>().systems().image_system(),
+		context<fruitapp::machine>().texture_manager(),
 		context<fruitapp::machine>().systems().cursor_demuxer(),
 		context<fruitapp::machine>().ingame_clock(),
-		context<fruitapp::machine>().config_file(),
-		context<fruitapp::machine>().emulate_srgb()),
+		context<fruitapp::machine>().config_file()),
 	viewport_change_connection_(
 		context<fruitapp::machine>().viewport_manager().change_callback(
 			std::tr1::bind(

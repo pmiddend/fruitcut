@@ -1,4 +1,11 @@
 #include <fruitlib/texture_manager.hpp>
+#include <sge/image2d/system.hpp>
+#include <sge/image2d/file.hpp>
+#include <sge/renderer/texture/color_format.hpp>
+#include <sge/texture/rect_fragmented.hpp>
+#include <fcppt/ref.hpp>
+#include <fcppt/cref.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <sge/renderer/texture/create_planar_from_path.hpp>
 #include <sge/renderer/texture/create_planar_from_view.hpp>
 #include <sge/renderer/texture/planar.hpp>
@@ -47,6 +54,35 @@ fruitlib::texture_manager::create_planar_from_view(
 			_mipmap,
 			_resource_flags,
 			emulate_srgb_);
+}
+
+sge::texture::fragmented_unique_ptr
+fruitlib::texture_manager::create_rect_fragmented(
+	sge::renderer::texture::mipmap::object const &_mipmap,
+	sge::image::color::format::type const _color_format,
+	sge::renderer::dim2 const &_size)
+{
+	return
+		sge::texture::fragmented_unique_ptr(
+			fcppt::make_unique_ptr<sge::texture::rect_fragmented>(
+				fcppt::ref(
+					renderer_),
+				sge::renderer::texture::color_format(
+					_color_format,
+					emulate_srgb_),
+				fcppt::cref(
+					_mipmap),
+				fcppt::cref(
+					_size)));
+}
+
+sge::image2d::file_unique_ptr
+fruitlib::texture_manager::create_image_from_path(
+	boost::filesystem::path const &_path)
+{
+	return
+		image_system_.load(
+			_path);
 }
 
 sge::renderer::device::core &

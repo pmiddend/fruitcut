@@ -9,7 +9,6 @@
 #include <sge/parse/json/object_fwd.hpp>
 #include <sge/renderer/device/ffp_fwd.hpp>
 #include <sge/renderer/target/viewport.hpp>
-#include <sge/renderer/texture/emulate_srgb.hpp>
 #include <sge/sprite/object_decl.hpp>
 #include <sge/sprite/parameters_fwd.hpp>
 #include <sge/sprite/buffers/single_decl.hpp>
@@ -26,6 +25,7 @@
 #include <sge/sprite/state/object.hpp>
 #include <sge/sprite/state/parameters.hpp>
 #include <sge/texture/const_part_scoped_ptr.hpp>
+#include <fruitlib/texture_manager_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -49,10 +49,9 @@ public:
 	logo(
 		fruitlib::scenic::optional_parent const &,
 		sge::renderer::device::ffp &,
-		sge::image2d::system &,
+		fruitlib::texture_manager &,
 		sge::parse::json::object const &,
-		fruitapp::viewport::manager &,
-		sge::renderer::texture::emulate_srgb::type);
+		fruitapp::viewport::manager &);
 
 	~logo();
 
