@@ -3,8 +3,6 @@
 #include <fruitapp/viewport/manager.hpp>
 #include <fruitlib/scenic/events/render.hpp>
 #include <fruitlib/texture_manager.hpp>
-#include <sge/parse/json/find_and_convert_member.hpp>
-#include <sge/parse/json/object.hpp>
 #include <sge/renderer/resource_flags.hpp>
 #include <sge/renderer/screen_size.hpp>
 #include <sge/renderer/context/ffp.hpp>
@@ -35,7 +33,6 @@ fruitapp::logo::logo(
 	fruitlib::scenic::optional_parent const &_parent,
 	sge::renderer::device::ffp &_renderer,
 	fruitlib::texture_manager &_texture_manager,
-	sge::parse::json::object const &_config_file,
 	fruitapp::viewport::manager &_viewport_manager)
 :
 	node_base(
@@ -50,13 +47,10 @@ fruitapp::logo::logo(
 		fcppt::make_unique_ptr<sge::texture::part_raw_ptr>(
 			_texture_manager.create_planar_from_path(
 				fruitapp::media_path()
-					/ FCPPT_TEXT("textures")
 					/
-						sge::parse::json::find_and_convert_member<fcppt::string>(
-							_config_file,
-							sge::parse::json::path(
-								FCPPT_TEXT("textures"))
-								/ FCPPT_TEXT("logo")),
+						FCPPT_TEXT("textures")
+					/
+						FCPPT_TEXT("logo.png"),
 				sge::renderer::texture::mipmap::off(),
 				sge::renderer::resource_flags_field::null()))),
 	sprite_object_(

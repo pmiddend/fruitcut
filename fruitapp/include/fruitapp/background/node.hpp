@@ -2,6 +2,8 @@
 #define FRUITAPP_BACKGROUND_NODE_HPP_INCLUDED
 
 #include <fruitapp/background/base_scoped_ptr.hpp>
+#include <fruitapp/background/repetitions.hpp>
+#include <fruitapp/background/use_ffp.hpp>
 #include <fruitapp/projection_manager/object_fwd.hpp>
 #include <fruitapp/shadow_map/optional_object_ref.hpp>
 #include <fruitlib/texture_manager_fwd.hpp>
@@ -41,7 +43,8 @@ public:
 		fruitlib::scenic::optional_parent const &,
 		fruitlib::texture_manager &,
 		sge::renderer::device::core &,
-		sge::parse::json::object const &,
+		fruitapp::background::use_ffp const &,
+		fruitapp::background::repetitions const &,
 		sge::camera::base const &,
 		fruitapp::projection_manager::object &,
 		sge::shader::optional_context_ref const &,

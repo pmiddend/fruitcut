@@ -5,9 +5,6 @@
 #include <sge/camera/base.hpp>
 #include <sge/camera/coordinate_system/object.hpp>
 #include <sge/camera/matrix_conversion/world_projection.hpp>
-#include <sge/parse/json/find_and_convert_member.hpp>
-#include <sge/parse/json/path.hpp>
-#include <sge/parse/json/string_to_path.hpp>
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/mipmap/off.hpp>
 #include <sge/shader/context.hpp>
@@ -20,7 +17,7 @@ fruitapp::background::cg::cg(
 	fruitlib::texture_manager &_texture_manager,
 	sge::shader::context &_shader_context,
 	fruitapp::shadow_map::optional_object_ref const &_shadow_map,
-	sge::parse::json::object const &_config,
+	fruitapp::background::repetitions const &_repetitions,
 	sge::camera::base const &_camera,
 	fruitapp::projection_manager::object &_projection_manager)
 :
@@ -28,11 +25,7 @@ fruitapp::background::cg::cg(
 		_shader_context.renderer(),
 		_camera,
 		_projection_manager,
-		fruitapp::background::repetitions(
-			sge::parse::json::find_and_convert_member<sge::renderer::scalar>(
-				_config,
-				sge::parse::json::path(
-					FCPPT_TEXT("background-repetitions"))))),
+		_repetitions),
 	camera_(
 		_camera),
 	texture_(
@@ -41,11 +34,7 @@ fruitapp::background::cg::cg(
 				/
 					FCPPT_TEXT("textures")
 				/
-					sge::parse::json::find_and_convert_member<fcppt::string>(
-						_config,
-						sge::parse::json::path(
-							FCPPT_TEXT("textures"))/
-							FCPPT_TEXT("background")),
+					FCPPT_TEXT("background.png"),
 			sge::renderer::texture::mipmap::off(),
 			sge::renderer::resource_flags_field::null())),
 	shader_(

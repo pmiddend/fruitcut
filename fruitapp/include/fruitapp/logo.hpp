@@ -6,7 +6,6 @@
 #include <fruitlib/scenic/optional_parent.hpp>
 #include <fruitlib/scenic/events/render.hpp>
 #include <sge/image2d/system_fwd.hpp>
-#include <sge/parse/json/object_fwd.hpp>
 #include <sge/renderer/device/ffp_fwd.hpp>
 #include <sge/renderer/target/viewport.hpp>
 #include <sge/sprite/object_decl.hpp>
@@ -50,7 +49,6 @@ public:
 		fruitlib::scenic::optional_parent const &,
 		sge::renderer::device::ffp &,
 		fruitlib::texture_manager &,
-		sge::parse::json::object const &,
 		fruitapp::viewport::manager &);
 
 	~logo();

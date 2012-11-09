@@ -1,4 +1,5 @@
 #include <fruitapp/depths/overlay.hpp>
+#include <fruitapp/media_path.hpp>
 #include <fruitapp/depths/root.hpp>
 #include <fruitapp/events/define_transition_reaction.hpp>
 #include <fruitapp/events/post_transition.hpp>
@@ -18,6 +19,8 @@
 #include <sge/image/color/convert.hpp>
 #include <sge/parse/json/array.hpp>
 #include <sge/parse/json/find_and_convert_member.hpp>
+#include <sge/parse/json/parse_file_exn.hpp>
+#include <sge/parse/json/start.hpp>
 #include <sge/parse/json/value.hpp>
 #include <sge/renderer/scalar.hpp>
 #include <sge/systems/instance.hpp>
@@ -46,11 +49,11 @@ fruitapp::states::loading::loading(
 				context<fruitapp::machine>().root_node(),
 				fruitlib::scenic::depth(
 					depths::root::dont_care)))),
+	fruits_(
+		sge::parse::json::parse_file_exn(
+			fruitapp::media_path() / FCPPT_TEXT("fruits.json"))),
 	fruit_array_(
-		sge::parse::json::find_and_convert_member<sge::parse::json::array const>(
-			context<fruitapp::machine>().config_file(),
-			sge::parse::json::path(
-				FCPPT_TEXT("fruits"))).elements),
+		fruits_.array().elements),
 	current_fruit_(
 		fruit_array_.begin()),
 	font_node_(

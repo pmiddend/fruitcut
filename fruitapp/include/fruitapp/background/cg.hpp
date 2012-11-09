@@ -2,9 +2,9 @@
 #define FRUITAPP_BACKGROUND_CG_HPP_INCLUDED
 
 #include <fruitapp/background/base.hpp>
+#include <fruitapp/background/repetitions.hpp>
 #include <fruitapp/shadow_map/optional_object_ref.hpp>
 #include <fruitlib/texture_manager_fwd.hpp>
-#include <sge/parse/json/object_fwd.hpp>
 #include <sge/renderer/texture/planar_scoped_ptr.hpp>
 #include <sge/shader/context_fwd.hpp>
 #include <sge/shader/pair.hpp>
@@ -29,7 +29,7 @@ public:
 		fruitlib::texture_manager &,
 		sge::shader::context &,
 		fruitapp::shadow_map::optional_object_ref const &,
-		sge::parse::json::object const &,
+		fruitapp::background::repetitions const &,
 		sge::camera::base const &,
 		fruitapp::projection_manager::object &);
 

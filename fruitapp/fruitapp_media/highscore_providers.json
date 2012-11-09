@@ -1,0 +1,8 @@
+[
+	{
+		"url" : "file://$CACHE_PATH/highscore.json"
+	},
+	{
+		"url" : "fruitcut://highscore.fruitcut.com:1337"
+	}
+]

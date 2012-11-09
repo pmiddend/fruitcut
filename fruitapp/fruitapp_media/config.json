@@ -1,13 +1,4 @@
 {
-	"highscore-providers" : 
-	[
-		{
-			"url" : "file://$CACHE_PATH/highscore.json"
-		},
-		{
-			"url" : "fruitcut://highscore.fruitcut.com:1337"
-		}
-	],
 	"quick-log" : 
 	{
 		"screen-percentage" : [0.2,0.1],
@@ -59,6 +50,11 @@
 			"size" : 24
 		}
 	},
+	"background" :
+	{
+		"repetitions" : 1.5,
+		"use-ffp" : false
+	},
 	"background-repetitions" : 1.5,
 	"mouse" : 
 	{
@@ -71,7 +67,6 @@
 		"desired-fps" : 60,
 		"use-shaders" : true,
 		"use-postprocessing" : true,
-		"use-ffp-background" : false,
 		"use-shadow-map" : true,
 		"fruits-use-ffp" : false,
 		"use-srgb" : false
@@ -91,18 +86,6 @@
 	{  
 		"volume" : 1.0,
 		"crossfade-time" : "3s"
-	},
-	"textures" : 
-	{
-		"background" : "wood.png",
-		"logo" : "logo.png"
-	},
-	"console" :
-	{
-		"font" : "default.ttf",
-		"font-size" : 16,
-		"background-texture" : "console_back.png",
-		"line-limit" : 1000
 	},
 	"audio-volume" : 1.0,
 	"menu" : 
@@ -144,107 +127,6 @@
 		"draw-mouse-trail" : false,
 		"draw-bbs" : false
 	},
-	"fruits" : 
-	[
-		{
-			"model" : "coconut.md3",
-			"texture" : "coconut.png",
-			"splatter-color" : [0.62,0.64,0.67,1.0],
-			"material" : 
-			{
-				"diffuse-color" : [1.0,1.0,1.0,1.0],
-				"diffuse-coefficient" : 0.8,
-				"specular-color" : [1.0,1.0,1.0,1.0],
-				"specular-coefficient" : 0.2,
-				"specular-shininess" : 10.0
-			},
-			"tags" : []
-		},
-		{
-			"model" : "melon.md3",
-			"texture" : "melon.png",
-			"splatter-color" : [0.62,0.18,0.11,1.0],
-			"material" : 
-			{
-				"diffuse-color" : [1.0,1.0,1.0,1.0],
-				"diffuse-coefficient" : 0.8,
-				"specular-color" : [1.0,1.0,1.0,1.0],
-				"specular-coefficient" : 1.0,
-				"specular-shininess" : 40.0
-			},
-			"tags" : []
-		},
-		{
-			"model" : "kiwi.md3",
-			"texture" : "kiwi.png",
-			"splatter-color" : [0.64,0.65,0.28,1.0],
-			"material" : 
-			{
-				"diffuse-color" : [1.0,1.0,1.0,1.0],
-				"diffuse-coefficient" : 0.8,
-				"specular-color" : [1.0,1.0,1.0,1.0],
-				"specular-coefficient" : 0.2,
-				"specular-shininess" : 10.0
-			},
-			"tags" : []
-		},
-		{
-			"model" : "orange.md3",
-			"texture" : "orange.png",
-			"splatter-color" : [0.98,0.72,0.11,1.0],
-			"material" : 
-			{
-				"diffuse-color" : [1.0,1.0,1.0,1.0],
-				"diffuse-coefficient" : 0.8,
-				"specular-color" : [1.0,1.0,1.0,1.0],
-				"specular-coefficient" : 1.0,
-				"specular-shininess" : 40.0
-			},
-			"tags" : []
-		},
-		{
-			"model" : "pineapple.md3",
-			"texture" : "pineapple.png",
-			"splatter-color" : [0.95,0.86,0.25,1.0],
-			"material" : 
-			{
-				"diffuse-color" : [1.0,1.0,1.0,1.0],
-				"diffuse-coefficient" : 0.8,
-				"specular-color" : [1.0,1.0,1.0,1.0],
-				"specular-coefficient" : 1.0,
-				"specular-shininess" : 40.0
-			},
-			"tags" : []
-		},
-		{
-			"model" : "papaya.md3",
-			"texture" : "papaya.png",
-			"splatter-color" : [0.8,0.42,0.23,1.0],
-			"material" : 
-			{
-				"diffuse-color" : [1.0,1.0,1.0,1.0],
-				"diffuse-coefficient" : 0.8,
-				"specular-color" : [1.0,1.0,1.0,1.0],
-				"specular-coefficient" : 0.8,
-				"specular-shininess" : 40.0
-			},
-			"tags" : []
-		},
-		{
-			"model" : "steak.md3",
-			"texture" : "steak.png",
-			"splatter-color" : [0.69,0.22,0.15,1.0],
-			"material" : 
-			{
-				"diffuse-color" : [1.0,1.0,1.0,1.0],
-				"diffuse-coefficient" : 0.8,
-				"specular-color" : [1.0,1.0,1.0,1.0],
-				"specular-coefficient" : 0.2,
-				"specular-shininess" : 10.0
-			},
-			"tags" : ["meat"]
-		}
-	],
 	"physics" : 
 	{
 		"default-gravity" : [0.0,-10.0,0.0]

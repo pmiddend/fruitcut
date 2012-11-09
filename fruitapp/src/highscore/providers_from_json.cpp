@@ -29,19 +29,13 @@
 void
 fruitapp::highscore::providers_from_json(
 	sge::charconv::system &charconv_system,
-	sge::parse::json::object const &config_file,
+	sge::parse::json::array const &_json_providers,
 	highscore::provider_sequence &result)
 {
-	sge::parse::json::array const &providers =
-		sge::parse::json::find_and_convert_member<sge::parse::json::array const>(
-			config_file,
-			sge::parse::json::path(
-				FCPPT_TEXT("highscore-providers")));
-
 	for(
 		sge::parse::json::element_vector::const_iterator current_element =
-			providers.elements.begin();
-		current_element != providers.elements.end();
+			_json_providers.elements.begin();
+		current_element != _json_providers.elements.end();
 		++current_element)
 	{
 		fcppt::string const uri =

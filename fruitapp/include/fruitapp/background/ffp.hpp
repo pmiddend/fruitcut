@@ -3,7 +3,6 @@
 
 #include <fruitapp/background/base.hpp>
 #include <fruitlib/texture_manager_fwd.hpp>
-#include <sge/parse/json/object_fwd.hpp>
 #include <sge/renderer/device/ffp_fwd.hpp>
 #include <sge/renderer/state/core/sampler/const_object_ref_map.hpp>
 #include <sge/renderer/state/core/sampler/object_scoped_ptr.hpp>
@@ -25,7 +24,7 @@ public:
 	ffp(
 		fruitlib::texture_manager &,
 		sge::renderer::device::ffp &,
-		sge::parse::json::object const &,
+		fruitapp::background::repetitions const &,
 		sge::camera::base const &,
 		fruitapp::projection_manager::object &);
 

@@ -1,4 +1,7 @@
 #include <fruitapp/depths/root.hpp>
+#include <sge/parse/json/parse_file_exn.hpp>
+#include <fruitapp/media_path.hpp>
+#include <sge/parse/json/start.hpp>
 #include <fruitapp/events/define_transition_reaction.hpp>
 #include <fruitapp/events/return_post_transition_functor.hpp>
 #include <fruitapp/gui/system.hpp>
@@ -43,7 +46,8 @@ fruitapp::states::menu::highscore::highscore(
 {
 	fruitapp::highscore::providers_from_json(
 		context<fruitapp::machine>().systems().charconv_system(),
-		context<fruitapp::machine>().config_file(),
+		sge::parse::json::parse_file_exn(
+			fruitapp::media_path() / FCPPT_TEXT("highscore_providers.json")).array(),
 		providers_);
 
 	highscore_ =

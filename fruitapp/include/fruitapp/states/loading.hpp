@@ -9,6 +9,7 @@
 #include <fruitlib/scenic/node.hpp>
 #include <fruitlib/scenic/events/update.hpp>
 #include <sge/parse/json/element_vector.hpp>
+#include <sge/parse/json/start.hpp>
 #include <sge/renderer/target/viewport.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
@@ -57,6 +58,7 @@ public:
 	react(
 		fruitlib::scenic::events::update const &);
 private:
+	sge::parse::json::start const fruits_;
 	sge::parse::json::element_vector const &fruit_array_;
 	sge::parse::json::element_vector::const_iterator current_fruit_;
 	fruitlib::font::scene_node font_node_;

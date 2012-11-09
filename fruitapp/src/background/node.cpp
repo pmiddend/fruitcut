@@ -2,8 +2,6 @@
 #include <fruitapp/background/cg.hpp>
 #include <fruitapp/background/ffp.hpp>
 #include <fruitapp/background/node.hpp>
-#include <sge/parse/json/find_and_convert_member.hpp>
-#include <sge/parse/json/string_to_path.hpp>
 #include <sge/renderer/context/ffp.hpp>
 #include <sge/renderer/device/ffp.hpp>
 #include <fcppt/cref.hpp>
@@ -15,7 +13,8 @@ fruitapp::background::node::node(
 	fruitlib::scenic::optional_parent const &_parent,
 	fruitlib::texture_manager &_texture_manager,
 	sge::renderer::device::core &_renderer,
-	sge::parse::json::object const &_configuration,
+	fruitapp::background::use_ffp const &_use_ffp,
+	fruitapp::background::repetitions const &_repetitions,
 	sge::camera::base const &_camera,
 	fruitapp::projection_manager::object &_projection_manager,
 	sge::shader::optional_context_ref const &_shader_context,
@@ -25,10 +24,7 @@ fruitapp::background::node::node(
 		_parent),
 	background_(
 		!_shader_context.has_value() ||
-		sge::parse::json::find_and_convert_member<bool>(
-			_configuration,
-			sge::parse::json::string_to_path(
-				FCPPT_TEXT("graphics/use-ffp-background")))
+		_use_ffp.get()
 		?
 			fruitapp::background::base_unique_ptr(
 				fcppt::make_unique_ptr<fruitapp::background::ffp>(
@@ -37,8 +33,7 @@ fruitapp::background::node::node(
 					fcppt::ref(
 						dynamic_cast<sge::renderer::device::ffp &>(
 							_renderer)),
-					fcppt::cref(
-						_configuration),
+					_repetitions,
 					fcppt::cref(
 						_camera),
 					fcppt::ref(
@@ -51,8 +46,7 @@ fruitapp::background::node::node(
 					fcppt::ref(
 						*_shader_context),
 					_shadow_map,
-					fcppt::cref(
-						_configuration),
+					_repetitions,
 					fcppt::cref(
 						_camera),
 					fcppt::ref(

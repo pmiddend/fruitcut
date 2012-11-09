@@ -451,7 +451,18 @@ fruitapp::machine_impl::machine_impl(
 					depths::scene::background))),
 		this->texture_manager(),
 		systems_.renderer_core(),
-		config_file_,
+		fruitapp::background::use_ffp(
+			sge::parse::json::find_and_convert_member<bool>(
+				config_file_,
+				sge::parse::json::string_to_path(
+					fcppt::string(
+						FCPPT_TEXT("background/use-ffp"))))),
+		fruitapp::background::repetitions(
+			sge::parse::json::find_and_convert_member<fruitapp::background::repetitions::value_type>(
+				config_file_,
+				sge::parse::json::string_to_path(
+					fcppt::string(
+						FCPPT_TEXT("background/repetitions"))))),
 		camera_,
 		this->projection_manager(),
 		sge::shader::optional_context_ref(
