@@ -2,12 +2,12 @@
 #define FRUITAPP_MACHINE_IMPL_HPP_INCLUDED
 
 #include <fruitapp/config_variables.hpp>
-#include <fruitapp/directional_light_source.hpp>
 #include <fruitapp/ingame_clock.hpp>
 #include <fruitapp/quick_log.hpp>
 #include <fruitapp/renderable.hpp>
 #include <fruitapp/screen_shooter.hpp>
 #include <fruitapp/systems.hpp>
+#include <fruitapp/light/manager.hpp>
 #include <fruitapp/background/node.hpp>
 #include <fruitapp/fruit/prototype_sequence.hpp>
 #include <fruitapp/gui/system_unique_ptr.hpp>
@@ -130,8 +130,8 @@ public:
 	music_controller() const
 	FCPPT_PP_CONST;
 
-	fruitapp::directional_light_source const &
-	main_light_source()
+	fruitapp::light::manager &
+	light_manager()
 	FCPPT_PP_CONST;
 
 	fruitapp::shadow_map::optional_object_ref const
@@ -279,7 +279,7 @@ private:
 	fruitapp::renderable renderable_;
 	fruitapp::gui::system_unique_ptr const gui_system_;
 	fruitapp::quick_log quick_log_;
-	fruitapp::directional_light_source main_light_source_;
+	fruitapp::light::manager light_manager_;
 	fruitapp::shadow_map::object_scoped_ptr shadow_map_;
 	fruitapp::background::node background_;
 	unsigned desired_fps_;

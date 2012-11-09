@@ -1,4 +1,5 @@
 #include <fruitapp/fruit/rendering/base.hpp>
+#include <fruitapp/light/manager.hpp>
 #include <fruitapp/fruit/rendering/base_unique_ptr.hpp>
 #include <fruitapp/fruit/rendering/cg.hpp>
 #include <fruitapp/fruit/rendering/draw_node.hpp>
@@ -20,8 +21,7 @@ fruitapp::fruit::rendering::draw_node::draw_node(
 	sge::shader::optional_context_ref const &_shader_context,
 	fruitapp::fruit::manager const &_fruit_manager,
 	sge::camera::base const &_camera,
-	fruitapp::directional_light_source const &_light,
-	fruitapp::ambient_intensity const &_ambient_intensity)
+	fruitapp::light::manager const &_light_manager)
 :
 	node_base(
 		_parent),
@@ -42,8 +42,7 @@ fruitapp::fruit::rendering::draw_node::draw_node(
 					fcppt::cref(
 						_camera),
 					fcppt::cref(
-						_light),
-					_ambient_intensity))
+						_light_manager)))
 		:
 			fruitapp::fruit::rendering::base_unique_ptr(
 				fcppt::make_unique_ptr<fruitapp::fruit::rendering::cg>(
@@ -54,8 +53,7 @@ fruitapp::fruit::rendering::draw_node::draw_node(
 					fcppt::cref(
 						_camera),
 					fcppt::cref(
-						_light),
-					_ambient_intensity)))
+						_light_manager))))
 {
 }
 

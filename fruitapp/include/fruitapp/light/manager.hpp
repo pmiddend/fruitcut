@@ -1,0 +1,37 @@
+#ifndef FRUITAPP_LIGHT_MANAGER_HPP_INCLUDED
+#define FRUITAPP_LIGHT_MANAGER_HPP_INCLUDED
+
+#include <fcppt/noncopyable.hpp>
+#include <fruitapp/light/directional_light_source_fwd.hpp>
+#include <fruitapp/light/ambient_intensity.hpp>
+#include <fcppt/scoped_ptr.hpp>
+#include <sge/parse/json/object_fwd.hpp>
+
+namespace fruitapp
+{
+namespace light
+{
+class manager
+{
+FCPPT_NONCOPYABLE(
+	manager);
+public:
+	explicit
+	manager(
+		sge::parse::json::object const &);
+
+	fruitapp::light::directional_light_source const &
+	directional_source() const;
+
+	fruitapp::light::ambient_intensity const &
+	ambient_intensity() const;
+
+	~manager();
+private:
+	fcppt::scoped_ptr<fruitapp::light::directional_light_source> directional_source_;
+	fruitapp::light::ambient_intensity const ambient_intensity_;
+};
+}
+}
+
+#endif

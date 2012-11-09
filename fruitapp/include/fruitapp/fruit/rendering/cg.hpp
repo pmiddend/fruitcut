@@ -1,8 +1,7 @@
 #ifndef FRUITAPP_FRUIT_RENDERING_CG_HPP_INCLUDED
 #define FRUITAPP_FRUIT_RENDERING_CG_HPP_INCLUDED
 
-#include <fruitapp/ambient_intensity.hpp>
-#include <fruitapp/directional_light_source_fwd.hpp>
+#include <fruitapp/light/manager_fwd.hpp>
 #include <fruitapp/fruit/manager_fwd.hpp>
 #include <fruitapp/fruit/rendering/base.hpp>
 #include <sge/camera/base_fwd.hpp>
@@ -33,8 +32,7 @@ public:
 		sge::shader::context &,
 		fruitapp::fruit::manager const &,
 		sge::camera::base const &,
-		fruitapp::directional_light_source const &,
-		fruitapp::ambient_intensity const &);
+		fruitapp::light::manager const &);
 
 	void
 	render(

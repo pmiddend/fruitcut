@@ -2,6 +2,7 @@
 #define FRUITAPP_SHADOW_MAP_OBJECT_HPP_INCLUDED
 
 #include <fruitapp/shadow_map/mvp.hpp>
+#include <fruitapp/light/manager_fwd.hpp>
 #include <fruitlib/scenic/node.hpp>
 #include <fruitlib/scenic/optional_parent.hpp>
 #include <fruitlib/scenic/events/update.hpp>
@@ -38,7 +39,7 @@ public:
 		fruitlib::scenic::optional_parent const &,
 		sge::parse::json::object const &,
 		sge::renderer::device::ffp &,
-		fruitapp::shadow_map::mvp const &);
+		fruitapp::light::manager const &);
 
 	sge::renderer::texture::planar &
 	texture();

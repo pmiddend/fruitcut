@@ -109,12 +109,7 @@ fruitapp::states::ingame::superstate::superstate(
 		context<machine>().shader_context(),
 		fruit_manager_,
 		context<machine>().camera(),
-		context<machine>().main_light_source(),
-		fruitapp::ambient_intensity(
-			sge::parse::json::find_and_convert_member<sge::renderer::scalar>(
-				context<machine>().config_file(),
-				sge::parse::json::path(
-					FCPPT_TEXT("ambient-intensity"))))),
+		context<machine>().light_manager()),
 	fruit_shadow_render_node_(
 		context<fruitapp::machine>().shadow_map()
 		?

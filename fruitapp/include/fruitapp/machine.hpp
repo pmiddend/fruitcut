@@ -2,7 +2,7 @@
 #define FRUITAPP_MACHINE_HPP_INCLUDED
 
 #include <fruitapp/config_variables_fwd.hpp>
-#include <fruitapp/directional_light_source_fwd.hpp>
+#include <fruitapp/light/manager_fwd.hpp>
 #include <fruitapp/ingame_clock.hpp>
 #include <fruitapp/machine_impl_fwd.hpp>
 #include <fruitapp/overlay.hpp>
@@ -119,8 +119,8 @@ public:
 	music_controller() const
 	FCPPT_PP_CONST;
 
-	fruitapp::directional_light_source const &
-	main_light_source()
+	fruitapp::light::manager &
+	light_manager()
 	FCPPT_PP_CONST;
 
 	fruitapp::shadow_map::optional_object_ref const

@@ -1,4 +1,6 @@
 #include <fruitapp/shadow_map/object.hpp>
+#include <fruitapp/light/manager.hpp>
+#include <fruitapp/light/directional_light_source.hpp>
 #include <fruitlib/perspective_projection_information_to_matrix.hpp>
 #include <fruitlib/json/parse_projection.hpp>
 #include <fruitlib/scenic/events/render.hpp>
@@ -39,7 +41,7 @@ fruitapp::shadow_map::object::object(
 	fruitlib::scenic::optional_parent const &_parent,
 	sge::parse::json::object const &_config,
 	sge::renderer::device::ffp &_renderer,
-	fruitapp::shadow_map::mvp const &_modelview)
+	fruitapp::light::manager const &_light_manager)
 :
 	node_base(
 		_parent),
@@ -79,7 +81,7 @@ fruitapp::shadow_map::object::object(
 					sge::parse::json::path(
 						FCPPT_TEXT("projection"))),
 				fcppt::optional<sge::renderer::scalar>())) *
-		_modelview.get())
+		_light_manager.directional_source().model_view())
 {
 	// Do an initial clear of the texture to prevent race conditions
 	// (the shadow map might be rendered before its first update)

@@ -1,4 +1,4 @@
-#include <fruitapp/directional_light_source.hpp>
+#include <fruitapp/light/directional_light_source.hpp>
 #include <sge/renderer/matrix4.hpp>
 #include <sge/renderer/vector3.hpp>
 #include <fcppt/math/matrix/arithmetic.hpp>
@@ -6,7 +6,7 @@
 #include <fcppt/math/vector/arithmetic.hpp>
 
 
-fruitapp::directional_light_source::directional_light_source()
+fruitapp::light::directional_light_source::directional_light_source()
 :
 	position_(),
 	transformation_()
@@ -14,14 +14,14 @@ fruitapp::directional_light_source::directional_light_source()
 }
 
 sge::renderer::vector3 const &
-fruitapp::directional_light_source::position() const
+fruitapp::light::directional_light_source::position() const
 {
 	return
 		position_;
 }
 
 void
-fruitapp::directional_light_source::position(
+fruitapp::light::directional_light_source::position(
 	sge::renderer::vector3 const &_position)
 {
 	position_ =
@@ -29,7 +29,7 @@ fruitapp::directional_light_source::position(
 }
 
 sge::renderer::matrix4 const
-fruitapp::directional_light_source::model_view() const
+fruitapp::light::directional_light_source::model_view() const
 {
 	return
 		transformation_ *
@@ -38,7 +38,7 @@ fruitapp::directional_light_source::model_view() const
 }
 
 void
-fruitapp::directional_light_source::transformation(
+fruitapp::light::directional_light_source::transformation(
 	sge::renderer::matrix4 const &_transformation)
 {
 	transformation_ =
@@ -46,12 +46,12 @@ fruitapp::directional_light_source::transformation(
 }
 
 sge::renderer::matrix4 const
-fruitapp::directional_light_source::transformation() const
+fruitapp::light::directional_light_source::transformation() const
 {
 	return
 		transformation_;
 }
 
-fruitapp::directional_light_source::~directional_light_source()
+fruitapp::light::directional_light_source::~directional_light_source()
 {
 }

@@ -131,10 +131,10 @@ fruitapp::machine::music_controller() const
 	return impl_->music_controller();
 }
 
-fruitapp::directional_light_source const &
-fruitapp::machine::main_light_source()
+fruitapp::light::manager &
+fruitapp::machine::light_manager()
 {
-	return impl_->main_light_source();
+	return impl_->light_manager();
 }
 
 fruitapp::shadow_map::optional_object_ref const

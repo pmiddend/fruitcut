@@ -1,4 +1,5 @@
-#include <fruitapp/directional_light_source.hpp>
+#include <fruitapp/light/directional_light_source.hpp>
+#include <fruitapp/light/manager.hpp>
 #include <fruitapp/media_path.hpp>
 #include <fruitapp/fruit/manager.hpp>
 #include <fruitapp/fruit/rendering/cg.hpp>
@@ -43,8 +44,7 @@ fruitapp::fruit::rendering::cg::cg(
 	sge::shader::context &_shader_context,
 	fruitapp::fruit::manager const &_manager,
 	sge::camera::base const &_camera,
-	fruitapp::directional_light_source const &light,
-	fruitapp::ambient_intensity const &_ambient_intensity)
+	fruitapp::light::manager const &_light_manager)
 :
 	manager_(
 		_manager),
@@ -86,12 +86,12 @@ fruitapp::fruit::rendering::cg::cg(
 		shader_.vertex_program(),
 		sge::shader::parameter::name(
 			"light_position"),
-		light.position()),
+		_light_manager.directional_source().position()),
 	ambient_intensity_parameter_(
 		shader_.pixel_program(),
 		sge::shader::parameter::name(
 			"ambient_intensity"),
-		_ambient_intensity.get()),
+		_light_manager.ambient_intensity().get()),
 	diffuse_color_parameter_(
 		shader_.pixel_program(),
 		sge::shader::parameter::name(

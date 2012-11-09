@@ -1,0 +1,19 @@
+{
+	"score" : 
+	{
+		"name" : "tweaked.json"
+	},
+	"loading" : 
+	{
+		"name" : "tweaked.json"
+	},
+	"timer" : 
+	{
+		"name" : "tweaked.json"
+	},
+	"quick-log" : 
+	{
+		"name" : "ttf:sans",
+		"size" : 24
+	}
+}

@@ -1,4 +1,5 @@
-#include <fruitapp/directional_light_source_from_json.hpp>
+#include <sge/parse/json/parse_file_exn.hpp>
+#include <sge/parse/json/start.hpp>
 #include <fruitapp/load_user_config.hpp>
 #include <fruitapp/machine_impl.hpp>
 #include <fruitapp/media_path.hpp>
@@ -249,10 +250,8 @@ fruitapp::machine_impl::machine_impl(
 		emulate_srgb_,
 		systems_.font_system(),
 		texture_manager_,
-		sge::parse::json::find_and_convert_member<sge::parse::json::object const>(
-			config_file_,
-			sge::parse::json::path(
-				FCPPT_TEXT("fonts"))),
+		sge::parse::json::parse_file_exn(
+			fruitapp::media_path() / FCPPT_TEXT("fonts.json")).object(),
 		fruitlib::font::base_path(
 			fruitapp::media_path())),
 	activated_loggers_(
@@ -413,12 +412,9 @@ fruitapp::machine_impl::machine_impl(
 		font_manager_,
 		viewport_manager_,
 		sound_controller_),
-	main_light_source_(
-		fruitapp::directional_light_source_from_json(
-			sge::parse::json::find_and_convert_member<sge::parse::json::object const>(
-				config_file_,
-				sge::parse::json::path(
-					FCPPT_TEXT("main-light-source"))))),
+	light_manager_(
+		sge::parse::json::parse_file_exn(
+			fruitapp::media_path() / FCPPT_TEXT("light.json")).object()),
 	shadow_map_(
 		this->shader_context().has_value() &&
 		sge::parse::json::find_and_convert_member<bool>(
@@ -439,8 +435,8 @@ fruitapp::machine_impl::machine_impl(
 							FCPPT_TEXT("shadow-map")))),
 				fcppt::ref(
 					systems_.renderer_ffp()),
-				fruitapp::shadow_map::mvp(
-					main_light_source_.model_view()))
+				fcppt::cref(
+					light_manager_))
 		:
 			fruitapp::shadow_map::object_unique_ptr()),
 	background_(
@@ -642,10 +638,10 @@ fruitapp::machine_impl::music_controller() const
 	return music_controller_;
 }
 
-fruitapp::directional_light_source const &
-fruitapp::machine_impl::main_light_source()
+fruitapp::light::manager &
+fruitapp::machine_impl::light_manager()
 {
-	return main_light_source_;
+	return light_manager_;
 }
 
 fruitapp::shadow_map::optional_object_ref const

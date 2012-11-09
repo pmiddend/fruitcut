@@ -1,4 +1,5 @@
-#include <fruitapp/directional_light_source.hpp>
+#include <fruitapp/light/directional_light_source.hpp>
+#include <fruitapp/light/manager.hpp>
 #include <fruitapp/media_path.hpp>
 #include <fruitapp/fruit/manager.hpp>
 #include <fruitapp/fruit/rendering/ffp.hpp>
@@ -65,7 +66,7 @@ vector4_to_any_color(
 sge::renderer::state::ffp::lighting::material::parameters const
 fruit_material_to_ffp_material(
 	fruitapp::fruit::material::object const &_material,
-	fruitapp::ambient_intensity const &_ambient_intensity)
+	fruitapp::light::ambient_intensity const &_ambient_intensity)
 {
 	return
 		sge::renderer::state::ffp::lighting::material::parameters(
@@ -90,7 +91,7 @@ fruit_material_to_ffp_material(
 
 sge::renderer::state::ffp::lighting::light::parameters const
 ffp_light_from_directional_light_source(
-	fruitapp::directional_light_source const &_light)
+	fruitapp::light::directional_light_source const &_light)
 {
 	return
 		sge::renderer::state::ffp::lighting::light::parameters(
@@ -112,8 +113,7 @@ fruitapp::fruit::rendering::ffp::ffp(
 	sge::renderer::device::ffp &_renderer,
 	fruitapp::fruit::manager const &_manager,
 	sge::camera::base const &_camera,
-	fruitapp::directional_light_source const &_light,
-	fruitapp::ambient_intensity const &_ambient_intensity)
+	fruitapp::light::manager const &_light_manager)
 :
 	renderer_(
 		_renderer),
@@ -122,7 +122,7 @@ fruitapp::fruit::rendering::ffp::ffp(
 	camera_(
 		_camera),
 	ambient_intensity_(
-		_ambient_intensity),
+		_light_manager.ambient_intensity()),
 	depth_stencil_state_(
 		renderer_.create_depth_stencil_state(
 			sge::renderer::state::core::depth_stencil::parameters(
@@ -140,7 +140,7 @@ fruitapp::fruit::rendering::ffp::ffp(
 	light_(
 		renderer_.create_light_state(
 			ffp_light_from_directional_light_source(
-				_light)))
+				_light_manager.directional_source())))
 {
 }
 

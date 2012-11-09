@@ -1,8 +1,7 @@
 #ifndef FRUITAPP_FRUIT_RENDERING_DRAW_NODE_HPP_INCLUDED
 #define FRUITAPP_FRUIT_RENDERING_DRAW_NODE_HPP_INCLUDED
 
-#include <fruitapp/ambient_intensity.hpp>
-#include <fruitapp/directional_light_source_fwd.hpp>
+#include <fruitapp/light/manager_fwd.hpp>
 #include <fruitapp/fruit/manager_fwd.hpp>
 #include <fruitapp/fruit/rendering/base_scoped_ptr.hpp>
 #include <fruitlib/scenic/node.hpp>
@@ -41,8 +40,7 @@ public:
 		sge::shader::optional_context_ref const &,
 		fruitapp::fruit::manager const &,
 		sge::camera::base const &,
-		fruitapp::directional_light_source const &,
-		fruitapp::ambient_intensity const &);
+		fruitapp::light::manager const &);
 
 	void
 	react(

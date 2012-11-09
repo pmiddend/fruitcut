@@ -1,5 +1,5 @@
-#ifndef FRUITAPP_DIRECTIONAL_LIGHT_SOURCE_HPP_INCLUDED
-#define FRUITAPP_DIRECTIONAL_LIGHT_SOURCE_HPP_INCLUDED
+#ifndef FRUITAPP_LIGHT_DIRECTIONAL_LIGHT_SOURCE_HPP_INCLUDED
+#define FRUITAPP_LIGHT_DIRECTIONAL_LIGHT_SOURCE_HPP_INCLUDED
 
 #include <sge/renderer/matrix4.hpp>
 #include <sge/renderer/vector3.hpp>
@@ -9,11 +9,12 @@
 
 namespace fruitapp
 {
+namespace light
+{
 // One of the few copyable classes
 class directional_light_source
 {
 public:
-	explicit
 	directional_light_source();
 
 	// We store the position separate because the diffuse/specular
@@ -41,6 +42,7 @@ private:
 	sge::renderer::vector3 position_;
 	sge::renderer::matrix4 transformation_;
 };
+}
 }
 
 #endif
