@@ -34,10 +34,14 @@ fruitapp::gui::ce::dialogs::settings::settings(
 			"Return")),
 	music_volume_slider_(
 		_system.sound_controller(),
-		layout_.window(),
-		"MusicVolume",
-		static_cast<fruitapp::gui::ce::progress_slider::value_type>(
-			_initial_music_volume.get().get()) / 100.0f),
+		*(layout_.window().getChild(
+			  "MusicVolume")),
+		fruitapp::gui::ce::slider::range(
+			0.0f,
+			100.0f),
+		fruitapp::gui::ce::slider::current_value(
+			static_cast<fruitapp::gui::ce::slider::scalar>(
+				_initial_music_volume.get().get()))),
 	music_volume_connection_(
 		music_volume_slider_.value_changed(
 			std::tr1::bind(
@@ -47,10 +51,14 @@ fruitapp::gui::ce::dialogs::settings::settings(
 	music_volume_change_(),
 	effects_volume_slider_(
 		_system.sound_controller(),
-		layout_.window(),
-		"EffectsVolume",
-		static_cast<fruitapp::gui::ce::progress_slider::value_type>(
-			_initial_effects_volume.get().get()) / 100.0f),
+		*(layout_.window().getChild(
+			  "EffectsVolume")),
+		fruitapp::gui::ce::slider::range(
+			0.0f,
+			100.0f),
+		fruitapp::gui::ce::slider::current_value(
+			static_cast<fruitapp::gui::ce::slider::scalar>(
+				_initial_effects_volume.get().get()))),
 	effects_volume_connection_(
 		effects_volume_slider_.value_changed(
 			std::tr1::bind(
@@ -94,20 +102,20 @@ fruitapp::gui::ce::dialogs::settings::~settings()
 
 void
 fruitapp::gui::ce::dialogs::settings::music_volume_callback(
-	fruitapp::gui::ce::progress_slider::value_type const _value)
+	fruitapp::gui::ce::slider::scalar const _value)
 {
 	music_volume_change_(
 		fruitapp::gui::sound_volume(
 			static_cast<fruitapp::gui::sound_volume::value_type>(
-				_value * 100.0f)));
+				_value)));
 }
 
 void
 fruitapp::gui::ce::dialogs::settings::effects_volume_callback(
-	fruitapp::gui::ce::progress_slider::value_type const _value)
+	fruitapp::gui::ce::slider::scalar const _value)
 {
 	effects_volume_change_(
 		fruitapp::gui::sound_volume(
 			static_cast<fruitapp::gui::sound_volume::value_type>(
-				_value * 100.0f)));
+				_value)));
 }

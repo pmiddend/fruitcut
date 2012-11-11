@@ -5,13 +5,13 @@
 #include <fruitapp/postprocessing/cg/system_fwd.hpp>
 #include <fruitapp/postprocessing/subsystems/main.hpp>
 #include <fruitlib/pp/system.hpp>
-#include <fruitlib/pp/texture/counted_instance.hpp>
 #include <fruitlib/pp/filter/add.hpp>
 #include <fruitlib/pp/filter/blur.hpp>
 #include <fruitlib/pp/filter/desaturate.hpp>
 #include <fruitlib/pp/filter/highlight.hpp>
 #include <fruitlib/pp/filter/manager.hpp>
 #include <fruitlib/pp/filter/render_to_texture.hpp>
+#include <fruitlib/pp/texture/counted_instance.hpp>
 #include <fruitlib/scenic/node.hpp>
 #include <fruitlib/scenic/events/update.hpp>
 #include <sge/renderer/context/core_fwd.hpp>

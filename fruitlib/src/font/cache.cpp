@@ -1,7 +1,4 @@
 #include <fruitlib/font/cache.hpp>
-#include <sge/renderer/display_mode/to_dpi.hpp>
-#include <sge/renderer/display_mode/object.hpp>
-#include <sge/renderer/device/core.hpp>
 #include <sge/font/object.hpp>
 #include <sge/font/parameters.hpp>
 #include <sge/font/system.hpp>
@@ -14,6 +11,9 @@
 #include <sge/parse/json/object.hpp>
 #include <sge/parse/json/path.hpp>
 #include <sge/parse/json/string.hpp>
+#include <sge/renderer/device/core.hpp>
+#include <sge/renderer/display_mode/object.hpp>
+#include <sge/renderer/display_mode/to_dpi.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>

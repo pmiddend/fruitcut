@@ -1,15 +1,11 @@
+#include <fruitapp/media_path.hpp>
 #include <fruitapp/background/base.hpp>
-#include <sge/renderer/vector2.hpp>
-#include <sge/renderer/target/onscreen.hpp>
-#include <fcppt/container/bitfield/object_impl.hpp>
-#include <fruitlib/texture_manager.hpp>
-#include <sge/renderer/texture/mipmap/off.hpp>
-#include <sge/renderer/texture/planar.hpp>
 #include <fruitapp/background/vf/format.hpp>
 #include <fruitapp/background/vf/position.hpp>
 #include <fruitapp/background/vf/texcoord.hpp>
 #include <fruitapp/background/vf/vertex_view.hpp>
 #include <fruitapp/projection_manager/object.hpp>
+#include <fruitlib/texture_manager.hpp>
 #include <fruitlib/math/view_plane_rect.hpp>
 #include <sge/camera/base.hpp>
 #include <sge/camera/coordinate_system/object.hpp>
@@ -17,6 +13,7 @@
 #include <sge/renderer/scoped_vertex_buffer.hpp>
 #include <sge/renderer/scoped_vertex_declaration.hpp>
 #include <sge/renderer/scoped_vertex_lock.hpp>
+#include <sge/renderer/vector2.hpp>
 #include <sge/renderer/vertex_buffer.hpp>
 #include <sge/renderer/vertex_declaration.hpp>
 #include <sge/renderer/context/core.hpp>
@@ -24,14 +21,16 @@
 #include <sge/renderer/state/core/depth_stencil/object.hpp>
 #include <sge/renderer/state/core/depth_stencil/parameters.hpp>
 #include <sge/renderer/state/core/depth_stencil/scoped.hpp>
+#include <sge/renderer/target/onscreen.hpp>
+#include <sge/renderer/texture/planar.hpp>
+#include <sge/renderer/texture/mipmap/off.hpp>
 #include <sge/renderer/vf/iterator.hpp>
 #include <sge/renderer/vf/vertex.hpp>
 #include <sge/renderer/vf/dynamic/make_format.hpp>
 #include <fcppt/cref.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/container/bitfield/object_impl.hpp>
 #include <fcppt/math/box/object.hpp>
-#include <fcppt/text.hpp>
-#include <fruitapp/media_path.hpp>
 #include <fcppt/tr1/functional.hpp>
 
 

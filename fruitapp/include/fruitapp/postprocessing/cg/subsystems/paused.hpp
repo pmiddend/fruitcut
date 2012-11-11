@@ -4,10 +4,10 @@
 #include <fruitapp/postprocessing/cg/system_fwd.hpp>
 #include <fruitapp/postprocessing/subsystems/paused.hpp>
 #include <fruitlib/pp/system.hpp>
-#include <fruitlib/pp/texture/counted_instance.hpp>
 #include <fruitlib/pp/filter/blur.hpp>
 #include <fruitlib/pp/filter/inject_texture.hpp>
 #include <fruitlib/pp/filter/iterations.hpp>
+#include <fruitlib/pp/texture/counted_instance.hpp>
 #include <fruitlib/scenic/node.hpp>
 #include <fruitlib/scenic/events/render.hpp>
 #include <fruitlib/scenic/events/update.hpp>

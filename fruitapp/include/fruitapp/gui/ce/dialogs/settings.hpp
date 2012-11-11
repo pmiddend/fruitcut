@@ -4,7 +4,7 @@
 #include <fruitapp/gui/initial_effects_volume.hpp>
 #include <fruitapp/gui/initial_music_volume.hpp>
 #include <fruitapp/gui/ce/button.hpp>
-#include <fruitapp/gui/ce/progress_slider.hpp>
+#include <fruitapp/gui/ce/slider/object.hpp>
 #include <fruitapp/gui/ce/system_fwd.hpp>
 #include <fruitapp/gui/dialogs/settings.hpp>
 #include <fruitlib/scenic/adaptors/gui_system.hpp>
@@ -59,20 +59,20 @@ private:
 	sge::cegui::toolbox::scoped_layout layout_;
 	sge::cegui::toolbox::scoped_gui_sheet gui_sheet_;
 	fruitapp::gui::ce::button main_menu_button_;
-	fruitapp::gui::ce::progress_slider music_volume_slider_;
+	fruitapp::gui::ce::slider::object music_volume_slider_;
 	fcppt::signal::scoped_connection music_volume_connection_;
 	volume_change_signal music_volume_change_;
-	fruitapp::gui::ce::progress_slider effects_volume_slider_;
+	fruitapp::gui::ce::slider::object effects_volume_slider_;
 	fcppt::signal::scoped_connection effects_volume_connection_;
 	volume_change_signal effects_volume_change_;
 
 	void
 	music_volume_callback(
-		fruitapp::gui::ce::progress_slider::value_type);
+		fruitapp::gui::ce::slider::scalar);
 
 	void
 	effects_volume_callback(
-		fruitapp::gui::ce::progress_slider::value_type);
+		fruitapp::gui::ce::slider::scalar);
 };
 }
 }

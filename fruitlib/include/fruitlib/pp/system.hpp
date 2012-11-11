@@ -5,9 +5,9 @@
 #include <fruitlib/pp/filter/base_fwd.hpp>
 #include <fruitlib/pp/filter/manager_fwd.hpp>
 #include <fruitlib/pp/filter/wrapper.hpp>
+#include <fruitlib/pp/texture/counted_instance.hpp>
 #include <sge/renderer/context/core_fwd.hpp>
 #include <sge/shader/pair.hpp>
-#include <fruitlib/pp/texture/counted_instance.hpp>
 #include <sge/shader/parameter/planar_texture.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/optional.hpp>

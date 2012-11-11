@@ -71,6 +71,8 @@ set(
 	fruitlib/include/fruitlib/math/plane/distance_to_point.hpp
 	fruitlib/include/fruitlib/math/plane/from_vec4.hpp
 	fruitlib/include/fruitlib/math/plane/normalize.hpp
+	fruitlib/include/fruitlib/math/transform_direction.hpp
+	fruitlib/include/fruitlib/math/transform_point.hpp
 	fruitlib/include/fruitlib/math/triangle/area.hpp
 	fruitlib/include/fruitlib/math/triangle/basic.hpp
 	fruitlib/include/fruitlib/math/triangle/create_from_interpolation.hpp

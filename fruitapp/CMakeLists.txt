@@ -10,7 +10,14 @@ set(
 	fruitapp/include/fruitapp/gui/ce/dialogs/settings.hpp
 	fruitapp/include/fruitapp/gui/ce/get_model.hpp
 	fruitapp/include/fruitapp/gui/ce/post_model.hpp
-	fruitapp/include/fruitapp/gui/ce/progress_slider.hpp
+	fruitapp/include/fruitapp/gui/ce/slider/current_value.hpp
+	fruitapp/include/fruitapp/gui/ce/slider/object.hpp
+	fruitapp/include/fruitapp/gui/ce/slider/object_fwd.hpp
+	fruitapp/include/fruitapp/gui/ce/slider/range.hpp
+	fruitapp/include/fruitapp/gui/ce/slider/range_fwd.hpp
+	fruitapp/include/fruitapp/gui/ce/slider/scalar.hpp
+	fruitapp/include/fruitapp/gui/ce/slider/value_changed_fn.hpp
+	fruitapp/include/fruitapp/gui/ce/slider/value_changed_function.hpp
 	fruitapp/include/fruitapp/gui/ce/system.hpp
 	fruitapp/include/fruitapp/gui/ce/system_fwd.hpp
 	fruitapp/include/fruitapp/gui/ce/table/column.hpp
@@ -34,7 +41,8 @@ set(
 	fruitapp/src/gui/ce/dialogs/settings.cpp
 	fruitapp/src/gui/ce/get_model.cpp
 	fruitapp/src/gui/ce/post_model.cpp
-	fruitapp/src/gui/ce/progress_slider.cpp
+	fruitapp/src/gui/ce/slider/object.cpp
+	fruitapp/src/gui/ce/slider/range.cpp
 	fruitapp/src/gui/ce/system.cpp
 	fruitapp/src/gui/ce/table/column.cpp
 	fruitapp/src/gui/ce/table/model.cpp

@@ -1,5 +1,4 @@
 #include <fruitapp/media_path.hpp>
-#include <sge/renderer/texture/planar.hpp>
 #include <fruitapp/background/ffp.hpp>
 #include <sge/camera/base.hpp>
 #include <sge/camera/coordinate_system/object.hpp>
@@ -15,6 +14,7 @@
 #include <sge/renderer/state/ffp/transform/object_scoped_ptr.hpp>
 #include <sge/renderer/state/ffp/transform/parameters.hpp>
 #include <sge/renderer/state/ffp/transform/scoped.hpp>
+#include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/scoped.hpp>
 #include <sge/shader/context.hpp>
 #include <sge/shader/scoped_pair.hpp>
