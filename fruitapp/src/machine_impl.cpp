@@ -242,7 +242,8 @@ fruitapp::machine_impl::machine_impl(
 	md3_loader_(
 		sge::model::md3::create()),
 	viewport_manager_(
-		systems_.viewport_manager()),
+		systems_.viewport_manager(),
+		systems_.renderer_core().onscreen_target()),
 	postprocessing_system_(
 		fruitapp::postprocessing::create_system(
 			this->shader_context(),
@@ -484,8 +485,8 @@ fruitapp::machine_impl::machine_impl(
 		fruitapp::media_path()/FCPPT_TEXT("point_sprites"),
 		random_generator_,
 		systems_.renderer_ffp(),
-		texture_manager_,
-		camera_),
+		projection_manager_,
+		texture_manager_),
 	screen_shooter_(
 		systems_.keyboard_collector(),
 		systems_.renderer_core(),

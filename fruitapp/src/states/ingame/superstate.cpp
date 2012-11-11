@@ -147,6 +147,7 @@ fruitapp::states::ingame::superstate::superstate(
 				context<fruitapp::machine>().root_node(),
 				fruitlib::scenic::depth(
 					depths::root::dont_care))),
+		context<fruitapp::machine>().projection_manager(),
 		context<fruitapp::machine>().ingame_clock(),
 		context<fruitapp::machine>().config_file(),
 		context<fruitapp::machine>().sound_controller(),

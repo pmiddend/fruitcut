@@ -1,4 +1,5 @@
 #include <fruitapp/depths/overlay.hpp>
+#include <fruitapp/projection_manager/object.hpp>
 #include <fruitapp/fruit/cut_context.hpp>
 #include <fruitapp/fruit/manager.hpp>
 #include <fruitapp/game_logic/object.hpp>
@@ -45,6 +46,7 @@
 #include <fcppt/math/clamp.hpp>
 #include <fcppt/math/box/object_impl.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
+#include <fcppt/math/dim/arithmetic.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/cstdint.hpp>
@@ -54,8 +56,51 @@
 #include <fcppt/config/external_end.hpp>
 
 
+#include <sge/font/object.hpp>
+#include <sge/font/text.hpp>
+#include <sge/font/text_parameters.hpp>
+#include <fruitlib/font/object.hpp>
+#include <fcppt/math/box/output.hpp>
+
+namespace
+{
+void
+reset_text_and_center(
+	sge::font::string const &_string,
+	sge::renderer::vector2 const &_position,
+	fruitlib::font::object &_object)
+{
+	sge::font::rect const calculated_rect(
+		_object.font_object().create_text(
+			_string,
+			sge::font::text_parameters(
+				sge::font::align_h::left))->rect());
+
+	_object.text(
+		_string);
+
+	_object.bounding_box(
+		sge::font::rect(
+			sge::font::rect::vector(
+				static_cast<sge::font::unit>(
+					_position.x() -
+					static_cast<sge::renderer::scalar>(
+						calculated_rect.size().w()/2) +
+					static_cast<sge::renderer::scalar>(
+						calculated_rect.pos().x())),
+				static_cast<sge::font::unit>(
+					_position.y() -
+					static_cast<sge::renderer::scalar>(
+						calculated_rect.size().h()/2) +
+					static_cast<sge::renderer::scalar>(
+						calculated_rect.pos().y()))),
+			2*calculated_rect.size()));
+}
+}
+
 fruitapp::game_logic::object::object(
 	fruitlib::scenic::optional_parent const &_parent,
+	fruitapp::projection_manager::object const &_projection_manager,
 	fruitapp::ingame_clock const &_clock,
 	// to get round seconds and stuff
 	sge::parse::json::object const &_config_file,
@@ -72,6 +117,8 @@ fruitapp::game_logic::object::object(
 	node_base(
 		fruitlib::scenic::optional_parent(
 			_parent)),
+	projection_manager_(
+		_projection_manager),
 	area_score_factor_(
 		sge::parse::json::find_and_convert_member<fruitapp::fruit::area::value_type>(
 			_config_file,
@@ -178,6 +225,26 @@ fruitapp::game_logic::object::object(
 			sge::font::rect::null(),
 			sge::font::align_h::center,
 			fruitlib::font::align_v::bottom,
+			sge::font::flags_field::null(),
+			sge::image::colors::white(),
+			fruitlib::font::scale(
+				1.f))),
+	score_increase_node_(
+		fruitlib::scenic::optional_parent(
+			fruitlib::scenic::parent(
+				_overlay,
+				fruitlib::scenic::depth(
+					depths::overlay::dont_care))),
+		fruitlib::font::object_parameters(
+			_font_manager,
+			fruitlib::font::identifier(
+				fcppt::string(
+					FCPPT_TEXT("score"))),
+			sge::font::string(
+				SGE_FONT_LIT("")),
+			sge::font::rect::null(),
+			sge::font::align_h::left,
+			fruitlib::font::align_v::top,
 			sge::font::flags_field::null(),
 			sge::image::colors::white(),
 			fruitlib::font::scale(
@@ -315,8 +382,10 @@ fruitapp::game_logic::object::react(
 			score_ - iterating_score_);
 		if (score_diff.get() > 0)
 		{
+			/*
 			sound_controller_.play(
 				fruitlib::resource_tree::path(FCPPT_TEXT("score_increased")));
+			*/
 			iterating_score_ +=
 				(score_diff)/fruitapp::highscore::score(10u) + fruitapp::highscore::score(1u);
 		}
@@ -376,9 +445,9 @@ fruitapp::game_logic::object::fruit_removed(
 
 void
 fruitapp::game_logic::object::fruit_cut(
-	fruit::cut_context const &context)
+	fruitapp::fruit::cut_context const &context)
 {
-	fruit::tag_set ts = context.old().prototype().tags();
+	fruitapp::fruit::tag_set ts = context.old().prototype().tags();
 	if(ts.find(FCPPT_TEXT("meat")) != ts.end())
 	{
 		sound_controller_.play(
@@ -399,13 +468,22 @@ fruitapp::game_logic::object::fruit_cut(
 	}
 	else
 	{
+		fruitapp::highscore::score const increment(
+			static_cast<fruitapp::highscore::score::value_type>(
+				static_cast<fruitapp::fruit::area::value_type>(
+					multiplier_) *
+				context.area().get() *
+				area_score_factor_));
+
+		reset_text_and_center(
+			fcppt::insert_to_std_wstring(
+				increment.get()),
+			projection_manager_.project_point(
+				context.old().position()),
+			score_increase_node_.object());
+
 		this->increase_score(
-			fruitapp::highscore::score(
-				static_cast<fruitapp::highscore::score::value_type>(
-					static_cast<fruitapp::fruit::area::value_type>(
-						multiplier_) *
-					context.area().get() *
-					area_score_factor_)));
+			increment);
 	}
 
 	if (!multiplier_timer_.expired())

@@ -5,9 +5,6 @@
 #include <fruitlib/resource_tree/from_directory_tree.hpp>
 #include <fruitlib/resource_tree/navigate_to_path.hpp>
 #include <fruitlib/resource_tree/path.hpp>
-#include <sge/camera/base.hpp>
-#include <sge/camera/coordinate_system/object.hpp>
-#include <sge/camera/matrix_conversion/world_projection.hpp>
 #include <sge/image/color/format.hpp>
 #include <sge/image2d/file.hpp>
 #include <sge/image2d/system.hpp>
@@ -17,7 +14,6 @@
 #include <sge/renderer/context/ffp.hpp>
 #include <sge/renderer/device/ffp.hpp>
 #include <sge/renderer/device/ffp_fwd.hpp>
-#include <sge/renderer/target/onscreen.hpp>
 #include <sge/renderer/texture/color_format.hpp>
 #include <sge/renderer/texture/planar_shared_ptr.hpp>
 #include <sge/renderer/texture/mipmap/off.hpp>
@@ -99,15 +95,15 @@ fruitapp::point_sprite::system_node::system_node(
 	boost::filesystem::path const &_base_path,
 	fruitlib::random_generator &_random_generator,
 	sge::renderer::device::ffp &_renderer,
-	fruitlib::texture_manager &_texture_manager,
-	sge::camera::base const &_camera)
+	fruitapp::projection_manager::object const &_projection_manager,
+	fruitlib::texture_manager &_texture_manager)
 :
 	node_base(
 		_parent),
 	renderer_(
 		_renderer),
-	camera_(
-		_camera),
+	projection_manager_(
+		_projection_manager),
 	texture_manager_(
 		std::tr1::bind(
 			&fruitlib::texture_manager::create_rect_fragmented,
@@ -222,16 +218,9 @@ fruitapp::point_sprite::system_node::react(
 		states_);
 }
 
-sge::camera::base const &
-fruitapp::point_sprite::system_node::camera() const
+fruitapp::projection_manager::object const &
+fruitapp::point_sprite::system_node::projection_manager() const
 {
 	return
-		camera_;
-}
-
-sge::renderer::target::base const &
-fruitapp::point_sprite::system_node::target() const
-{
-	return
-		renderer_.onscreen_target();
+		projection_manager_;
 }

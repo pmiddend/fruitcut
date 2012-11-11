@@ -8,8 +8,7 @@
 #include <fruitapp/point_sprite/splatter/linear_velocity.hpp>
 #include <fruitapp/point_sprite/splatter/position.hpp>
 #include <fruitapp/point_sprite/splatter/size.hpp>
-#include <sge/camera/base_fwd.hpp>
-#include <sge/renderer/target/base_fwd.hpp>
+#include <fruitapp/projection_manager/object_fwd.hpp>
 #include <sge/texture/const_optional_part_ref.hpp>
 #include <fcppt/nonassignable.hpp>
 #include <fcppt/preprocessor/pure.hpp>
@@ -28,8 +27,7 @@ FCPPT_NONASSIGNABLE(
 	parameters);
 public:
 	parameters(
-		sge::camera::base const &,
-		sge::renderer::target::base const &,
+		fruitapp::projection_manager::object const &,
 		fruitapp::point_sprite::connection &,
 		fruitapp::point_sprite::splatter::position const &,
 		fruitapp::point_sprite::splatter::linear_velocity const &,
@@ -40,13 +38,8 @@ public:
 		fruitapp::ingame_clock::duration const &,
 		fruitapp::ingame_clock const &);
 
-	sge::camera::base const &
-	camera() const
-	FCPPT_PP_WARN_UNUSED_RESULT
-	FCPPT_PP_PURE;
-
-	sge::renderer::target::base const &
-	target() const
+	fruitapp::projection_manager::object const &
+	projection_manager() const
 	FCPPT_PP_WARN_UNUSED_RESULT
 	FCPPT_PP_PURE;
 
@@ -97,8 +90,7 @@ public:
 
 	~parameters();
 private:
-	sge::camera::base const &camera_;
-	sge::renderer::target::base const &target_;
+	fruitapp::projection_manager::object const &projection_manager_;
 	fruitapp::point_sprite::connection &connection_;
 	fruitapp::point_sprite::splatter::position const position_;
 	fruitapp::point_sprite::splatter::linear_velocity const linear_velocity_;

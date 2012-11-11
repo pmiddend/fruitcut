@@ -20,6 +20,7 @@
 #include <sge/renderer/scalar.hpp>
 #include <sge/renderer/target/viewport.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fruitapp/projection_manager/object_fwd.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
@@ -43,6 +44,7 @@ public:
 
 	object(
 		fruitlib::scenic::optional_parent const &,
+		fruitapp::projection_manager::object const &,
 		fruitapp::ingame_clock const &,
 		// to get round seconds and stuff
 		sge::parse::json::object const &,
@@ -66,6 +68,7 @@ public:
 	react(
 		fruitlib::scenic::events::update const &);
 private:
+	fruitapp::projection_manager::object const &projection_manager_;
 	fruitapp::fruit::area::value_type const area_score_factor_;
 	fruitapp::highscore::score score_,iterating_score_;
 	fruitapp::ingame_timer round_timer_;
@@ -76,6 +79,7 @@ private:
 	fruitlib::font::scene_node score_font_node_;
 	fruitlib::font::scene_node timer_font_node_;
 	fruitlib::font::scene_node multiplier_font_node_;
+	fruitlib::font::scene_node score_increase_node_;
 	fruitapp::ingame_timer score_increase_timer_;
 	fruitapp::ingame_timer multiplier_timer_;
 	fruitapp::ingame_timer penalty_timer_;

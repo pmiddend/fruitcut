@@ -3,6 +3,7 @@
 
 #include <fruitapp/viewport/change_callback.hpp>
 #include <fruitapp/viewport/change_callback_fn.hpp>
+#include <sge/renderer/target/base_fwd.hpp>
 #include <fruitapp/viewport/optional.hpp>
 #include <fruitapp/viewport/trigger_early.hpp>
 #include <sge/viewport/manager_fwd.hpp>
@@ -23,9 +24,9 @@ class manager
 FCPPT_NONCOPYABLE(
 	manager);
 public:
-	explicit
 	manager(
-		sge::viewport::manager &);
+		sge::viewport::manager &,
+		sge::renderer::target::base const &);
 
 	fruitapp::viewport::optional const &
 	current_viewport() const;
@@ -35,8 +36,12 @@ public:
 		fruitapp::viewport::change_callback const &,
 		fruitapp::viewport::trigger_early const &);
 
+	sge::renderer::target::base const &
+	target() const;
+
 	~manager();
 private:
+	sge::renderer::target::base const &target_;
 	fcppt::signal::object<fruitapp::viewport::change_callback_fn> change_signal_;
 	fcppt::signal::scoped_connection viewport_connection_;
 	fruitapp::viewport::optional current_viewport_;

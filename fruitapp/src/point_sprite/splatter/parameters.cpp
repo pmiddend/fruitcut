@@ -3,8 +3,7 @@
 
 
 fruitapp::point_sprite::splatter::parameters::parameters(
-	sge::camera::base const &_camera,
-	sge::renderer::target::base const &_target,
+	fruitapp::projection_manager::object const &_projection_manager,
 	fruitapp::point_sprite::connection &_connection,
 	fruitapp::point_sprite::splatter::position const &_position,
 	fruitapp::point_sprite::splatter::linear_velocity const &_linear_velocity,
@@ -15,10 +14,8 @@ fruitapp::point_sprite::splatter::parameters::parameters(
 	fruitapp::ingame_clock::duration const &_life_time,
 	fruitapp::ingame_clock const &_clock)
 :
-	camera_(
-		_camera),
-	target_(
-		_target),
+	projection_manager_(
+		_projection_manager),
 	connection_(
 		_connection),
 	position_(
@@ -40,16 +37,10 @@ fruitapp::point_sprite::splatter::parameters::parameters(
 {
 }
 
-sge::camera::base const &
-fruitapp::point_sprite::splatter::parameters::camera() const
+fruitapp::projection_manager::object const &
+fruitapp::point_sprite::splatter::parameters::projection_manager() const
 {
-	return camera_;
-}
-
-sge::renderer::target::base const &
-fruitapp::point_sprite::splatter::parameters::target() const
-{
-	return target_;
+	return projection_manager_;
 }
 
 fruitapp::point_sprite::connection &

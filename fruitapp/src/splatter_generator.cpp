@@ -165,8 +165,7 @@ fruitapp::splatter_generator::fruit_was_cut(
 				fcppt::make_unique_ptr<fruitapp::point_sprite::splatter::object>(
 					fcppt::cref(
 						fruitapp::point_sprite::splatter::parameters(
-							point_sprites_.camera(),
-							point_sprites_.target(),
+							point_sprites_.projection_manager(),
 							point_sprites_.connection(),
 							fruitapp::point_sprite::splatter::position(
 								cut_info.old().position() +

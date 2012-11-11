@@ -3,6 +3,7 @@
 
 #include <fruitapp/point_sprite/base.hpp>
 #include <fruitapp/point_sprite/buffers.hpp>
+#include <fruitapp/projection_manager/object_fwd.hpp>
 #include <fruitapp/point_sprite/collection.hpp>
 #include <fruitapp/point_sprite/connection.hpp>
 #include <fruitapp/point_sprite/state_object.hpp>
@@ -15,9 +16,7 @@
 #include <fruitlib/scenic/optional_parent.hpp>
 #include <fruitlib/scenic/events/render.hpp>
 #include <fruitlib/scenic/events/update.hpp>
-#include <sge/camera/base_fwd.hpp>
 #include <sge/renderer/device/ffp_fwd.hpp>
-#include <sge/renderer/target/base_fwd.hpp>
 #include <sge/sprite/buffers/single_decl.hpp>
 #include <sge/sprite/buffers/with_declaration_decl.hpp>
 #include <sge/sprite/intrusive/collection_decl.hpp>
@@ -59,8 +58,8 @@ public:
 		boost::filesystem::path const &,
 		fruitlib::random_generator &,
 		sge::renderer::device::ffp &,
-		fruitlib::texture_manager &,
-		sge::camera::base const &);
+		fruitapp::projection_manager::object const &,
+		fruitlib::texture_manager &);
 
 	void
 	push_back(
@@ -83,11 +82,8 @@ public:
 	react(
 		fruitlib::scenic::events::render const &);
 
-	sge::camera::base const &
-	camera() const;
-
-	sge::renderer::target::base const &
-	target() const;
+	fruitapp::projection_manager::object const &
+	projection_manager() const;
 private:
 	typedef
 	boost::ptr_list<fruitapp::point_sprite::base>
@@ -110,7 +106,7 @@ private:
 	resource_tree_ptr;
 
 	sge::renderer::device::ffp &renderer_;
-	sge::camera::base const &camera_;
+	fruitapp::projection_manager::object const &projection_manager_;
 	sge::texture::manager texture_manager_;
 	fruitapp::point_sprite::buffers buffers_;
 	fruitapp::point_sprite::collection collection_;

@@ -1,4 +1,8 @@
 #include <fruitapp/projection_manager/object.hpp>
+#include <sge/renderer/target/base.hpp>
+#include <sge/camera/matrix_conversion/world_projection.hpp>
+#include <sge/camera/coordinate_system/object.hpp>
+#include <sge/renderer/vector4.hpp>
 #include <fruitapp/viewport/manager.hpp>
 #include <fruitlib/perspective_projection_information.hpp>
 #include <fruitlib/scenic/base.hpp>
@@ -9,6 +13,9 @@
 #include <sge/viewport/manager.hpp>
 #include <fcppt/move.hpp>
 #include <fcppt/math/deg_to_rad.hpp>
+#include <fcppt/math/vector/arithmetic.hpp>
+#include <fcppt/math/vector/construct.hpp>
+#include <fcppt/math/matrix/vector.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/signal/connection.hpp>
 #include <fcppt/tr1/functional.hpp>
@@ -19,6 +26,8 @@ fruitapp::projection_manager::object::object(
 	fruitapp::viewport::manager &_viewport_manager,
 	sge::camera::has_mutable_projection &_camera)
 :
+	target_(
+		_viewport_manager.target()),
 	projection_change_signal_(),
 	camera_(
 		_camera),
@@ -82,6 +91,41 @@ fruitapp::projection_manager::object::projection_change_callback(
 	return
 		fcppt::move(
 			result);
+}
+
+sge::renderer::vector2 const
+fruitapp::projection_manager::object::project_point(
+	sge::renderer::vector3 const &_point) const
+{
+	sge::renderer::pixel_rect const viewport_rect(
+		target_.viewport().get());
+
+	sge::renderer::vector4 const result(
+		sge::camera::matrix_conversion::world_projection(
+			camera_.coordinate_system(),
+			camera_.projection_matrix()) *
+		fcppt::math::vector::construct(
+			_point,
+			static_cast<sge::renderer::scalar>(
+				1.0f)));
+
+	sge::renderer::vector2 const
+		result_2d(
+			result.x() / result.w(),
+			result.y() / result.w()),
+		result_2d_noninverted(
+			(result_2d + sge::renderer::vector2(1.0f,1.0f)) /
+			sge::renderer::vector2(2.0f,2.0f));
+
+	return
+		sge::renderer::vector2(
+			result_2d_noninverted.x(),
+			1.0f - result_2d_noninverted.y()) *
+		sge::renderer::vector2(
+			static_cast<sge::renderer::scalar>(
+				viewport_rect.w()),
+			static_cast<sge::renderer::scalar>(
+				viewport_rect.h()));
 }
 
 fruitapp::projection_manager::object::~object()

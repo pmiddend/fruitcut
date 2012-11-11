@@ -5,8 +5,11 @@
 
 
 fruitapp::viewport::manager::manager(
-	sge::viewport::manager &_viewport_manager)
+	sge::viewport::manager &_viewport_manager,
+	sge::renderer::target::base const &_target)
 :
+	target_(
+		_target),
 	change_signal_(),
 	viewport_connection_(
 		_viewport_manager.manage_callback(
@@ -41,6 +44,13 @@ fruitapp::viewport::manager::change_callback(
 	return
 		fcppt::move(
 			result);
+}
+
+sge::renderer::target::base const &
+fruitapp::viewport::manager::target() const
+{
+	return
+		target_;
 }
 
 fruitapp::viewport::manager::~manager()
