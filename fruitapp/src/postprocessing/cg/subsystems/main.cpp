@@ -139,7 +139,7 @@ fruitapp::postprocessing::cg::subsystems::main::toggle_active()
 		!active_;
 }
 
-sge::renderer::texture::planar_shared_ptr
+fruitlib::pp::texture::counted_instance const
 fruitapp::postprocessing::cg::subsystems::main::result_texture()
 {
 	return

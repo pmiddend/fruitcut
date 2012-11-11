@@ -5,6 +5,7 @@
 #include <fruitapp/postprocessing/cg/system_fwd.hpp>
 #include <fruitapp/postprocessing/subsystems/main.hpp>
 #include <fruitlib/pp/system.hpp>
+#include <fruitlib/pp/texture/counted_instance.hpp>
 #include <fruitlib/pp/filter/add.hpp>
 #include <fruitlib/pp/filter/blur.hpp>
 #include <fruitlib/pp/filter/desaturate.hpp>
@@ -60,7 +61,7 @@ public:
 	void
 	toggle_active();
 
-	sge::renderer::texture::planar_shared_ptr
+	fruitlib::pp::texture::counted_instance const
 	result_texture();
 
 	~main();

@@ -6,6 +6,7 @@
 #include <fruitapp/postprocessing/cg/subsystems/paused_fwd.hpp>
 #include <fruitapp/viewport/manager_fwd.hpp>
 #include <fruitlib/pp/filter/manager.hpp>
+#include <fruitlib/pp/texture/counted_instance.hpp>
 #include <fruitlib/pp/texture/manager.hpp>
 #include <sge/parse/json/object_fwd.hpp>
 #include <sge/renderer/target/viewport_fwd.hpp>
@@ -69,7 +70,7 @@ private:
 	void
 	paused_destroyed();
 
-	sge::renderer::texture::planar_shared_ptr
+	fruitlib::pp::texture::counted_instance const
 	main_result_texture();
 };
 }

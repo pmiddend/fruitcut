@@ -105,7 +105,7 @@ fruitlib::pp::texture::manager::clear_screen_textures()
 		it = next)
 	{
 		++next;
-		if(it->first.size() == onscreen_dim)
+		if(it->first.size() == onscreen_dim && !it->second->locked())
 			textures_.erase(
 				it);
 	}

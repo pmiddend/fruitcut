@@ -75,11 +75,8 @@ fruitlib::pp::system::update()
 		current_vertex != sorted.end();
 		++current_vertex)
 	{
-		texture::counted_instance const result =
-			vertex_to_filter_[*current_vertex].filter().dispatch();
-
 		result_texture_ =
-			result->texture();
+			vertex_to_filter_[*current_vertex].filter().dispatch();
 
 		for(
 			std::pair<out_edge_iterator,out_edge_iterator> out_edge_pair =
@@ -90,12 +87,12 @@ fruitlib::pp::system::update()
 			++out_edge_pair.first)
 		{
 			vertex_to_filter_[boost::target(*out_edge_pair.first,graph_)].filter().enqueue(
-				result);
+				result_texture_);
 		}
 	}
 }
 
-sge::renderer::texture::planar_shared_ptr const
+fruitlib::pp::texture::counted_instance const
 fruitlib::pp::system::result_texture()
 {
 	return
@@ -108,7 +105,7 @@ fruitlib::pp::system::render_result(
 {
 	texture_parameter_.set(
 		sge::shader::parameter::planar_texture::optional_value(
-			*result_texture_));
+			*(result_texture_->texture())));
 
 	sge::shader::scoped_pair scoped_shader(
 		_context,

@@ -4,13 +4,13 @@
 #include <fruitapp/postprocessing/cg/system_fwd.hpp>
 #include <fruitapp/postprocessing/subsystems/paused.hpp>
 #include <fruitlib/pp/system.hpp>
+#include <fruitlib/pp/texture/counted_instance.hpp>
 #include <fruitlib/pp/filter/blur.hpp>
 #include <fruitlib/pp/filter/inject_texture.hpp>
 #include <fruitlib/pp/filter/iterations.hpp>
 #include <fruitlib/scenic/node.hpp>
 #include <fruitlib/scenic/events/render.hpp>
 #include <fruitlib/scenic/events/update.hpp>
-#include <sge/renderer/texture/planar_shared_ptr.hpp>
 #include <sge/timer/basic.hpp>
 #include <sge/timer/clocks/standard.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -61,7 +61,7 @@ private:
 	fruitlib::pp::system system_;
 	fruitlib::pp::filter::inject_texture inject_texture_;
 	fruitlib::pp::filter::blur blur_;
-	sge::renderer::texture::planar_shared_ptr current_texture_;
+	fruitlib::pp::texture::counted_instance current_texture_;
 	fruitlib::pp::filter::iterations blur_iterations_;
 	fruitlib::pp::filter::iterations const max_blur_iterations_;
 	sge::timer::basic<sge::timer::clocks::standard> blur_timer_;

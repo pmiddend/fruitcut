@@ -118,7 +118,7 @@ fruitapp::postprocessing::cg::system::paused_destroyed()
 	main_system_->toggle_active();
 }
 
-sge::renderer::texture::planar_shared_ptr
+fruitlib::pp::texture::counted_instance const
 fruitapp::postprocessing::cg::system::main_result_texture()
 {
 	FCPPT_ASSERT_PRE(

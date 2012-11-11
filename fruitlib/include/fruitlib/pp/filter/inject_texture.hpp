@@ -4,8 +4,8 @@
 #include <fruitlib/pp/filter/nullary.hpp>
 #include <fruitlib/pp/texture/counted_instance.hpp>
 #include <fruitlib/pp/texture/manager_fwd.hpp>
-#include <sge/renderer/texture/planar_shared_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/scoped_ptr.hpp>
 
 
 namespace fruitlib
@@ -27,7 +27,7 @@ public:
 
 	void
 	texture(
-		sge::renderer::texture::planar_shared_ptr);
+		fruitlib::pp::texture::counted_instance const &);
 
 	fruitlib::pp::texture::counted_instance const
 	apply();
@@ -35,7 +35,7 @@ public:
 	~inject_texture();
 private:
 	fruitlib::pp::texture::manager &texture_manager_;
-	sge::renderer::texture::planar_shared_ptr texture_;
+	fruitlib::pp::texture::counted_instance texture_counted_;
 };
 }
 }

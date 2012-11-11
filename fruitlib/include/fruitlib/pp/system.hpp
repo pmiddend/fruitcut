@@ -6,8 +6,8 @@
 #include <fruitlib/pp/filter/manager_fwd.hpp>
 #include <fruitlib/pp/filter/wrapper.hpp>
 #include <sge/renderer/context/core_fwd.hpp>
-#include <sge/renderer/texture/planar_shared_ptr.hpp>
 #include <sge/shader/pair.hpp>
+#include <fruitlib/pp/texture/counted_instance.hpp>
 #include <sge/shader/parameter/planar_texture.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/optional.hpp>
@@ -80,8 +80,7 @@ public:
 	void
 	update();
 
-	// _ptr on purpose!
-	sge::renderer::texture::planar_shared_ptr const
+	fruitlib::pp::texture::counted_instance const
 	result_texture();
 
 	void
@@ -148,7 +147,7 @@ private:
 	name_to_vertex name_to_vertex_;
 	sge::shader::pair shader_;
 	sge::shader::parameter::planar_texture texture_parameter_;
-	sge::renderer::texture::planar_shared_ptr result_texture_;
+	fruitlib::pp::texture::counted_instance result_texture_;
 };
 }
 }
