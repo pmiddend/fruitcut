@@ -2,7 +2,7 @@
 
 <GUILayout version="4" >
     <Window type="Fruitcut/CaptionedStaticText" name="SettingsMenu" >
-        <Property name="Area" value="{{0.283203,-1},{0.195312,0},{0.74707,-1},{0.800781,-55}}" />
+        <Property name="Area" value="{{0.283203,0},{0.195312,0},{0.74707,0},{0.800781,0}}" />
         <Property name="MaxSize" value="{{1,0},{1,0}}" />
         <Property name="CaptionFont" value="big" />
         <Property name="CaptionText" value="Settings" />
@@ -27,18 +27,18 @@
             </AutoWindow>
         </AutoWindow>
         <Window type="Fruitcut/Button" name="Return" >
-            <Property name="Area" value="{{0.189474,5},{0.787097,-5},{0.8,5},{0.87043,11}}" />
+            <Property name="Area" value="{{0.189474,0},{0.787097,0},{0.8,0},{0.87043,0}}" />
             <Property name="Font" value="normal" />
             <Property name="Text" value="Return to main menu" />
         </Window>
         <Window type="Fruitcut/StaticText" name="MusicVolumeText" >
-            <Property name="Area" value="{{0.0421053,0},{0.25,0},{0.0421053,168},{0.25,48}}" />
+            <Property name="Area" value="{{0.0421053,0},{0.23,0},{0.392105,0},{0.35,0}}" />
             <Property name="Font" value="normal" />
-            <Property name="Text" value="Music volume" />
+            <Property name="Text" value="Music volume:" />
             <Property name="MaxSize" value="{{1,0},{1,0}}" />
-            <Property name="HorzScrollPageSize" value="142" />
-            <Property name="VertScrollPageSize" value="22" />
-            <Property name="HorzScrollDocumentSize" value="123" />
+            <Property name="HorzScrollPageSize" value="182" />
+            <Property name="VertScrollPageSize" value="48" />
+            <Property name="HorzScrollDocumentSize" value="127" />
             <Property name="VertScrollDocumentSize" value="25.04" />
             <AutoWindow namePath="__auto_hscrollbar__" >
                 <AutoWindow namePath="__auto_incbtn__" >
@@ -58,13 +58,13 @@
             </AutoWindow>
         </Window>
         <Window type="Fruitcut/StaticText" name="EffectsVolumeText" >
-            <Property name="Area" value="{{0.0421053,0},{0.475,0},{0.0421053,168},{0.475,48}}" />
+            <Property name="Area" value="{{0.0421053,0},{0.46,0},{0.392105,0},{0.58,0}}" />
             <Property name="Font" value="normal" />
-            <Property name="Text" value="Effects volume" />
+            <Property name="Text" value="Effects volume:" />
             <Property name="MaxSize" value="{{1,0},{1,0}}" />
-            <Property name="HorzScrollPageSize" value="142" />
-            <Property name="VertScrollPageSize" value="22" />
-            <Property name="HorzScrollDocumentSize" value="134" />
+            <Property name="HorzScrollPageSize" value="182" />
+            <Property name="VertScrollPageSize" value="48" />
+            <Property name="HorzScrollDocumentSize" value="138" />
             <Property name="VertScrollDocumentSize" value="25.04" />
             <AutoWindow namePath="__auto_hscrollbar__" >
                 <AutoWindow namePath="__auto_incbtn__" >
@@ -84,7 +84,7 @@
             </AutoWindow>
         </Window>
         <Window type="Fruitcut/Slider" name="MusicVolume" >
-            <Property name="Area" value="{{0.37,0},{0.265,0},{0.37,331},{0.265,39}}" />
+            <Property name="Area" value="{{0.5,0},{0.26,0},{0.93,0},{0.33,0}}" />
             <AutoWindow namePath="__auto_incbtn__" >
                 <Property name="Visible" value="False" />
             </AutoWindow>
@@ -93,7 +93,7 @@
             </AutoWindow>
         </Window>
         <Window type="Fruitcut/Slider" name="EffectsVolume" >
-            <Property name="Area" value="{{0.37,0},{0.485,0},{0.37,331},{0.485,39}}" />
+            <Property name="Area" value="{{0.5,0},{0.485,0},{0.93,0},{0.555,0}}" />
             <AutoWindow namePath="__auto_incbtn__" >
                 <Property name="Visible" value="False" />
             </AutoWindow>
