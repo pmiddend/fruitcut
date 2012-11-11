@@ -2,13 +2,12 @@
 #define FRUITAPP_FRUIT_CUT_CONTEXT_HPP_INCLUDED
 
 #include <fruitapp/fruit/area.hpp>
+#include <fruitapp/fruit/cut_geometry.hpp>
 #include <fruitapp/fruit/mesh.hpp>
 #include <fruitapp/fruit/mesh_scoped_ptr.hpp>
 #include <fruitapp/fruit/mesh_unique_ptr.hpp>
 #include <fruitapp/fruit/object_fwd.hpp>
-#include <fruitlib/physics/vector3.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/reference_wrapper.hpp>
 #include <fcppt/container/array.hpp>
 #include <fcppt/preprocessor/const.hpp>
 #include <fcppt/preprocessor/pure.hpp>
@@ -19,9 +18,11 @@ namespace fruitapp
 namespace fruit
 {
 /**
-	Note that there is cut_context and cut_mesh_result. The latter is
-	more "low-level", dealing with a single cut operation whereas
-	cut_context deals with the fruit being cut at _both_ planes.
+\brief Represents a three-dimensional cut of a fruit into two halves
+
+Note that there is cut_context and cut_mesh_result. The latter is more
+"low-level", dealing with a single cut operation whereas cut_context
+deals with the fruit being cut at _both_ planes.
  */
 class cut_context
 {
@@ -36,15 +37,14 @@ public:
 	fcppt::container::array<fruit_ptr,2>
 	new_fruit_array;
 
-	explicit
 	cut_context(
-		fruit::object const &_old,
+		fruitapp::fruit::object const &_old,
 		new_fruit_array const &,
-		fruit::area const &,
-		fruitlib::physics::vector3 const &cut_direction,
-		fruit::mesh_unique_ptr);
+		fruitapp::fruit::area const &,
+		fruitapp::fruit::cut_geometry const &,
+		fruitapp::fruit::mesh_unique_ptr);
 
-	fruit::object const &
+	fruitapp::fruit::object const &
 	old() const
 	FCPPT_PP_CONST;
 
@@ -52,25 +52,25 @@ public:
 	new_fruits() const
 	FCPPT_PP_CONST;
 
-	fruit::area::value_type
+	fruitapp::fruit::area const
 	area() const
 	FCPPT_PP_PURE;
 
-	fruitlib::physics::vector3 const &
-	cut_direction() const
+	fruitapp::fruit::cut_geometry const &
+	cut_geometry() const
 	FCPPT_PP_CONST;
 
-	fruit::mesh const &
+	fruitapp::fruit::mesh const &
 	cross_section() const
 	FCPPT_PP_CONST;
 
 	~cut_context();
 private:
-	fruit::object const &old_;
+	fruitapp::fruit::object const &old_;
 	new_fruit_array new_;
-	fruit::area::value_type area_;
-	fruitlib::physics::vector3 cut_direction_;
-	fruit::mesh_scoped_ptr cross_section_;
+	fruitapp::fruit::area const area_;
+	fruitapp::fruit::cut_geometry const cut_geometry_;
+	fruitapp::fruit::mesh_scoped_ptr const cross_section_;
 };
 }
 }

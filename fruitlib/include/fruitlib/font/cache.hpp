@@ -7,6 +7,7 @@
 #include <sge/font/system_fwd.hpp>
 #include <sge/image2d/system_fwd.hpp>
 #include <sge/parse/json/object_fwd.hpp>
+#include <sge/renderer/device/core_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -28,6 +29,7 @@ public:
 	cache(
 		sge::font::system &,
 		sge::image2d::system &,
+		sge::renderer::device::core const &,
 		sge::parse::json::object const &,
 		fruitlib::font::base_path const &);
 

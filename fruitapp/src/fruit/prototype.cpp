@@ -59,7 +59,7 @@ fruitapp::fruit::prototype::bounding_box() const
 		bounding_box_;
 }
 
-fruitlib::physics::rigid_body::mass::value_type
+fruitlib::physics::rigid_body::mass const
 fruitapp::fruit::prototype::mass() const
 {
 	return

@@ -93,7 +93,7 @@
 	},
 	"splatter-generator" :
 	{
-		"splatter-count-to-area-factor" : 1.0,
+		"cut-area-multiplier" : 10.0,
 		"speed-range" : [50.0,550.0],
 		"speed-distortion-range" : [-1.5,1.5],
 		"size-range" : [50.0,120.0],

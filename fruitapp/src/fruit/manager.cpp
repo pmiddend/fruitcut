@@ -1,8 +1,10 @@
 #include <fruitapp/exception.hpp>
 #include <fruitapp/media_path.hpp>
-#include <fcppt/math/matrix/inverse.hpp>
 #include <fruitapp/fruit/box3.hpp>
+#include <fruitapp/fruit/calculate_cut_geometry.hpp>
+#include <fruitapp/fruit/calculate_new_linear_velocity.hpp>
 #include <fruitapp/fruit/cut_context_unique_ptr.hpp>
+#include <fruitapp/fruit/cut_geometry.hpp>
 #include <fruitapp/fruit/cut_mesh.hpp>
 #include <fruitapp/fruit/manager.hpp>
 #include <fruitapp/fruit/mesh.hpp>
@@ -11,6 +13,7 @@
 #include <fruitapp/fruit/prototype_from_json.hpp>
 #include <fruitapp/fruit/model_vf/format.hpp>
 #include <fruitlib/math/box_radius.hpp>
+#include <fruitlib/math/transform_direction.hpp>
 #include <fruitlib/math/unproject.hpp>
 #include <fruitlib/math/plane/basic.hpp>
 #include <fruitlib/math/plane/distance_to_point.hpp>
@@ -21,7 +24,6 @@
 #include <sge/camera/coordinate_system/object.hpp>
 #include <sge/camera/matrix_conversion/world_projection.hpp>
 #include <sge/parse/json/array.hpp>
-#include <sge/renderer/target/base.hpp>
 #include <sge/parse/json/object.hpp>
 #include <sge/renderer/matrix4.hpp>
 #include <sge/renderer/scalar.hpp>
@@ -29,6 +31,7 @@
 #include <sge/renderer/vector4.hpp>
 #include <sge/renderer/vertex_declaration.hpp>
 #include <sge/renderer/device/core.hpp>
+#include <sge/renderer/target/base.hpp>
 #include <sge/renderer/vf/dynamic/make_format.hpp>
 #include <fcppt/cref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
@@ -41,45 +44,18 @@
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/container/array.hpp>
 #include <fcppt/container/ptr/push_back_unique_ptr.hpp>
+#include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/math/matrix/object_impl.hpp>
-#include <fcppt/math/matrix/multiply_matrix4_vector3.hpp>
 #include <fcppt/math/matrix/transpose.hpp>
-#include <fcppt/math/vector/length.hpp>
 #include <fcppt/math/vector/normalize.hpp>
-#include <fcppt/math/vector/cross.hpp>
-#include <fcppt/math/vector/dot.hpp>
 #include <fcppt/math/vector/object_impl.hpp>
 #include <fcppt/math/vector/structure_cast.hpp>
-#include <fcppt/math/dim/structure_cast.hpp>
-#include <fruitapp/renderer_rect.hpp>
-#include <fruitapp/renderer_dim2.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <iostream>
 #include <fcppt/config/external_end.hpp>
 
-
-namespace
-{
-fruitlib::physics::vector3 const
-calculate_new_linear_velocity(
-	fruitlib::physics::vector3 const &old_velocity,
-	fruitlib::physics::vector3 const &normal_velocity)
-{
-	fruitlib::physics::scalar const old_to_new_velocity_factor =
-		static_cast<fruitlib::physics::scalar>(
-			0.5);
-
-	return
-		old_to_new_velocity_factor * old_velocity +
-			(1 - old_to_new_velocity_factor) *
-				fcppt::math::vector::length(
-					old_velocity) *
-					normal_velocity;
-
-}
-}
 
 fruitapp::fruit::manager::manager(
 	fruitlib::scenic::optional_parent const &_parent,
@@ -121,115 +97,39 @@ fruitapp::fruit::manager::manager(
 void
 fruitapp::fruit::manager::cut(
 	fruitapp::fruit::object const &_current_fruit,
-	fruitapp::fruit::hull::intersection_pair const &_intersection,
+	fruitapp::fruit::hull::optional_intersection_pair const &_intersection,
 	fruitapp::fruit::ban_duration const &_ban_duration,
 	sge::renderer::target::base const &_target)
 {
 	if(!_intersection || _current_fruit.locked())
 		return;
 
-	sge::renderer::matrix4 const inverse_mvp =
-		fcppt::math::matrix::inverse(
-			sge::camera::matrix_conversion::world_projection(
-				camera_.coordinate_system(),
-				camera_.projection_matrix()));
-
-	sge::renderer::vector3 const
-		// Convert the points to 3D and to renderer::scalar
-		point1(
-			static_cast<sge::renderer::scalar>(
-				_intersection->first[0]),
-			static_cast<sge::renderer::scalar>(
-				_intersection->first[1]),
-			static_cast<sge::renderer::scalar>(
-				0)),
-		point2(
-			static_cast<sge::renderer::scalar>(
-				_intersection->second[0]),
-			static_cast<sge::renderer::scalar>(
-				_intersection->second[1]),
-			static_cast<sge::renderer::scalar>(
-				0)),
-		// unproject 'em
-		point1_unprojected =
-			fruitlib::math::unproject(
-				point1,
-				inverse_mvp,
-				// The points are already "un-viewported", but they are in
-				// screenspace, so use the screen rect here
-				fruitapp::renderer_rect(
-					sge::renderer::vector2::null(),
-					fcppt::math::dim::structure_cast<fruitapp::renderer_dim2>(
-						_target.viewport().get().size()))),
-		point2_unprojected =
-			fruitlib::math::unproject(
-				point2,
-				inverse_mvp,
-				// The points are already "un-viewported", but they are in
-				// screenspace, so use the screen rect here
-				fruitapp::renderer_rect(
-					sge::renderer::vector2::null(),
-					fcppt::math::dim::structure_cast<fruitapp::renderer_dim2>(
-						_target.viewport().get().size()))),
-		point3_unprojected =
-			fruitlib::math::unproject(
-				sge::renderer::vector3(
-					point1.x(),
-					point1.y(),
-					static_cast<sge::renderer::scalar>(
-						0.5)),
-				inverse_mvp,
-				fruitapp::renderer_rect(
-					sge::renderer::vector2::null(),
-					fcppt::math::dim::structure_cast<fruitapp::renderer_dim2>(
-						_target.viewport().get().size()))),
-		first_plane_vector =
-			point2_unprojected - point1_unprojected,
-		second_plane_vector =
-			point3_unprojected - point1_unprojected,
-		// NOTE: For rotation matrices M and vectors a,b the following holds:
-		// cross(M*a,M*b) = M*cross(a,b)
-		plane_normal =
-		fcppt::math::matrix::multiply_matrix4_vector3(
-				fcppt::math::matrix::transpose(
-					_current_fruit.rotation()),
-				fcppt::math::vector::cross(
-					first_plane_vector,
-					second_plane_vector));
-
-	sge::renderer::scalar const plane_scalar =
-		fcppt::math::vector::dot(
-			fcppt::math::matrix::multiply_matrix4_vector3(
-				fcppt::math::matrix::transpose(
-					_current_fruit.rotation()),
-				point1_unprojected - _current_fruit.position()),
-			plane_normal);
-
-	fruitapp::fruit::plane const original_plane(
-		plane_normal,
-		plane_scalar);
-
-	sge::renderer::vector3 const cut_direction(
-		first_plane_vector);
+	fruitapp::fruit::cut_geometry const cut_geometry(
+		fruitapp::fruit::calculate_cut_geometry(
+			*_intersection,
+			_target,
+			camera_,
+			_current_fruit));
 
 	typedef
-	fcppt::container::array<fruitapp::fruit::plane,2>
+	fcppt::container::array<fruitapp::fruit::plane,2u>
 	plane_array;
 
-	plane_array planes =
+	plane_array const planes =
 		{{
-			original_plane,
-			plane(
-				-original_plane.normal(),
-				-original_plane.lambda())
+			cut_geometry.cut_plane().get(),
+			fruitapp::fruit::plane(
+				-cut_geometry.cut_plane().get().normal(),
+				-cut_geometry.cut_plane().get().lambda())
 		}};
 
 	// We have to check if we split the fruit into one or two parts. If
 	// it's just one, we leave it as is (still costs a bit of performance)
 	fruitapp::fruit::object_sequence::implementation_sequence fruit_cache;
-	fruitapp::fruit::area::value_type cumulated_area = 0;
+	fruitapp::fruit::area cumulated_area(
+		0.0f);
 	fruitapp::fruit::mesh_unique_ptr cross_section(
-		fcppt::make_unique_ptr<fruit::mesh>(
+		fcppt::make_unique_ptr<fruitapp::fruit::mesh>(
 			fruitapp::fruit::mesh::triangle_sequence()));
 
 	for(
@@ -244,7 +144,7 @@ fruitapp::fruit::manager::cut(
 				*p));
 
 		cumulated_area +=
-			cut_result->area().get();
+			cut_result->area();
 
 		// Note the return here. If this condition is true, we only split
 		// to one fruit, so we didn't split at all!
@@ -271,21 +171,24 @@ fruitapp::fruit::manager::cut(
 				cut_result->release_mesh(),
 				fcppt::ref(
 					fruit_group_),
-				static_cast<fruitlib::physics::rigid_body::mass::value_type>(
-					cut_result->bounding_box().size().content()),
-				_current_fruit.position() +
-					fcppt::math::matrix::multiply_matrix4_vector3(
-						_current_fruit.body().transformation(),
+				fruitlib::physics::rigid_body::mass(
+					static_cast<fruitlib::physics::scalar>(
+						cut_result->bounding_box().size().content())),
+				fruitlib::physics::rigid_body::position(
+					_current_fruit.position() +
+					fruitlib::math::transform_direction(
+						_current_fruit.body().transformation().get(),
 						fcppt::math::vector::structure_cast<fruitlib::physics::vector3>(
-							cut_result->barycenter())),
+							cut_result->barycenter()))),
 				_current_fruit.body().transformation(),
-				calculate_new_linear_velocity(
+				fruitapp::fruit::calculate_new_linear_velocity(
 					_current_fruit.body().linear_velocity(),
-					fcppt::math::matrix::multiply_matrix4_vector3(
-						_current_fruit.body().transformation(),
-						fcppt::math::vector::structure_cast<fruitlib::physics::vector3>(
-							fcppt::math::vector::normalize(
-								p->normal())))),
+					fruitlib::physics::rigid_body::linear_velocity(
+						fruitlib::math::transform_direction(
+							_current_fruit.body().transformation().get(),
+							fcppt::math::vector::structure_cast<fruitlib::physics::vector3>(
+								fcppt::math::vector::normalize(
+									p->normal()))))),
 				_current_fruit.body().angular_velocity(),
 				_ban_duration,
 				fcppt::cref(
@@ -296,15 +199,15 @@ fruitapp::fruit::manager::cut(
 		fruit_cache.size() == 2);
 
 	fruit::cut_context_unique_ptr cut_context(
-		fcppt::make_unique_ptr<fruit::cut_context>(
+		fcppt::make_unique_ptr<fruitapp::fruit::cut_context>(
 			fcppt::cref(
 				_current_fruit),
 			fcppt::assign::make_array<fruit::object const *>
 				(&(*fruit_cache.begin()))
 				(&(*(--fruit_cache.end()))),
-			fruit::area(
-				cumulated_area),
-			cut_direction,
+			cumulated_area,
+			fcppt::cref(
+				cut_geometry),
 			fcppt::move(
 				cross_section)));
 
@@ -322,10 +225,10 @@ fruitapp::fruit::manager::cut(
 void
 fruitapp::fruit::manager::spawn(
 	prototype const &proto,
-	fruitlib::physics::scalar const mass,
-	fruitlib::physics::vector3 const &position,
-	fruitlib::physics::vector3 const &linear_velocity,
-	fruitlib::physics::vector3 const &angular_velocity)
+	fruitlib::physics::rigid_body::mass const &mass,
+	fruitlib::physics::rigid_body::position const &position,
+	fruitlib::physics::rigid_body::linear_velocity const &linear_velocity,
+	fruitlib::physics::rigid_body::angular_velocity const &angular_velocity)
 {
 	fruits_.push_back(
 		fruit::object_from_prototype(
@@ -337,7 +240,8 @@ fruitapp::fruit::manager::spawn(
 			mass,
 			position,
 			// I don't see any sense in specifying that here
-			fruitlib::physics::matrix4::identity(),
+			fruitlib::physics::rigid_body::transformation(
+				fruitlib::physics::matrix4::identity()),
 			linear_velocity,
 			angular_velocity,
 			fcppt::cref(

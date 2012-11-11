@@ -1,12 +1,13 @@
 #include <fruitapp/cursor/instance.hpp>
-#include <sge/camera/base.hpp>
 #include <fruitapp/cursor/manager.hpp>
 #include <fruitapp/cursor/sampler.hpp>
 #include <fruitapp/cursor/sound.hpp>
 #include <fruitapp/cursor/sword_trail.hpp>
+#include <fruitapp/fruit/hull/intersection_pair.hpp>
 #include <fruitapp/fruit/hull/projected.hpp>
 #include <fruitapp/fruit/hull/trail_intersection.hpp>
 #include <fruitlib/time_format/find_and_convert_duration.hpp>
+#include <sge/camera/base.hpp>
 #include <sge/camera/coordinate_system/object.hpp>
 #include <sge/camera/matrix_conversion/world_projection.hpp>
 #include <sge/image/colors.hpp>
@@ -15,6 +16,7 @@
 #include <sge/parse/json/path.hpp>
 #include <fcppt/cref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/optional_impl.hpp>
 #include <fcppt/ref.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/math/vector/object_impl.hpp>
@@ -116,7 +118,7 @@ fruitapp::cursor::instance::draw_trail(
 				sge::image::colors::red()));
 }
 
-fruitapp::fruit::hull::intersection_pair const
+fruitapp::fruit::hull::optional_intersection_pair const
 fruitapp::cursor::instance::calculate_fruit_intersection(
 	fruitapp::fruit::object const &_fruit) const
 {

@@ -30,11 +30,11 @@ fruitapp::fruit::object::object(
 	sge::renderer::vertex_declaration &_vertex_declaration,
 	fruitapp::fruit::mesh_unique_ptr _mesh,
 	fruitlib::physics::group::object &_fruit_group,
-	fruitlib::physics::scalar const _mass,
-	fruitlib::physics::vector3 const &_position,
-	fruitlib::physics::matrix4 const &_transformation,
-	fruitlib::physics::vector3 const &_linear_velocity,
-	fruitlib::physics::vector3 const &_angular_velocity,
+	fruitlib::physics::rigid_body::mass const &_mass,
+	fruitlib::physics::rigid_body::position const &_position,
+	fruitlib::physics::rigid_body::transformation const &_transformation,
+	fruitlib::physics::rigid_body::linear_velocity const &_linear_velocity,
+	fruitlib::physics::rigid_body::angular_velocity const &_angular_velocity,
 	fruitapp::fruit::ban_duration const &_lock_duration,
 	fruitapp::ingame_clock const &_clock)
 :
@@ -49,20 +49,15 @@ fruitapp::fruit::object::object(
 				*mesh_))),
 	body_(
 		fruitlib::physics::rigid_body::parameters(
-			fruitlib::physics::rigid_body::position(
-				_position),
-			fruitlib::physics::rigid_body::transformation(
-				_transformation),
-			fruitlib::physics::rigid_body::linear_velocity(
-				_linear_velocity),
-			fruitlib::physics::rigid_body::angular_velocity(
-				_angular_velocity),
+			_position,
+			_transformation,
+			_linear_velocity,
+			_angular_velocity,
 			fruitapp::fruit::mesh_to_shape(
 				*mesh_),
 			fruitlib::physics::rigid_body::solidity::solid,
 			fruitlib::physics::rigid_body::optional_mass(
-				fruitlib::physics::rigid_body::mass(
-					_mass)),
+				_mass),
 			fruitlib::physics::rigid_body::user_data())),
 	body_scope_(
 		_physics_world,
@@ -106,7 +101,7 @@ fruitapp::fruit::object::world_transform() const
 {
 	return
 		fcppt::math::matrix::structure_cast<sge::renderer::matrix4>(
-			body_.world_transform());
+			body_.world_transform().get());
 }
 
 fruitlib::physics::rigid_body::object const &
@@ -121,7 +116,7 @@ fruitapp::fruit::object::rotation() const
 {
 	return
 		fcppt::math::matrix::structure_cast<sge::renderer::matrix4>(
-			body_.transformation());
+			body_.transformation().get());
 }
 
 sge::renderer::vector3 const
@@ -129,7 +124,7 @@ fruitapp::fruit::object::position() const
 {
 	return
 		fcppt::math::vector::structure_cast<sge::renderer::vector3>(
-			body_.position());
+			body_.position().get());
 }
 
 fruitapp::fruit::box3 const &

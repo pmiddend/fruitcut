@@ -15,14 +15,13 @@
 #include <fruitlib/uniform_random_range_element.hpp>
 #include <fruitlib/json/parse_random_float_distribution.hpp>
 #include <fruitlib/json/parse_random_int_distribution.hpp>
-#include <fcppt/math/matrix/multiply_matrix4_vector3.hpp>
+#include <fruitlib/math/transform_direction.hpp>
 #include <fruitlib/math/triangle/random_point.hpp>
 #include <fruitlib/resource_tree/path.hpp>
 #include <sge/image/color/any/convert.hpp>
 #include <sge/parse/json/array.hpp>
 #include <sge/parse/json/find_and_convert_member.hpp>
 #include <sge/parse/json/object.hpp>
-#include <sge/parse/json/config/user_config_variable.hpp>
 #include <sge/renderer/scalar.hpp>
 #include <sge/renderer/vector3.hpp>
 #include <mizuiro/color/channel/alpha.hpp>
@@ -38,7 +37,6 @@
 
 fruitapp::splatter_generator::splatter_generator(
 	sge::parse::json::object const &config_file,
-	sge::parse::json::config::user_config_variable<fruit::area::value_type> &_splatter_count_to_area_factor,
 	fruitapp::point_sprite::system_node &_point_sprites,
 	fruitlib::random_generator &_random_generator,
 	point_sprite::splatter::acceleration const &_acceleration,
@@ -93,9 +91,13 @@ fruitapp::splatter_generator::splatter_generator(
 		fruitlib::json::parse_random_int_distribution<boost::chrono::milliseconds::rep>(
 			sge::parse::json::find_and_convert_member<sge::parse::json::array const>(
 				config_file,
-				sge::parse::json::path(FCPPT_TEXT("lifetime-millis-range"))))),
-	splatter_count_to_area_factor_(
-		_splatter_count_to_area_factor)
+				sge::parse::json::path(
+					FCPPT_TEXT("lifetime-millis-range"))))),
+	cut_area_multiplier_(
+		sge::parse::json::find_and_convert_member<fruitapp::fruit::area::value_type>(
+			config_file,
+			sge::parse::json::path(
+				FCPPT_TEXT("cut-area-multiplier"))))
 {
 }
 
@@ -129,24 +131,25 @@ fruitapp::splatter_generator::fruit_was_cut(
 				0.0f),
 			triangle_point_rng_type::distribution::sup(
 				1.0f)));
+
 	for(
 		unsigned
 			i =
 				0,
 			number_of_points =
 				static_cast<unsigned>(
-					cut_info.area() * splatter_count_to_area_factor_.value() * 200.0f);
+					(cut_info.area() * cut_area_multiplier_).get());
 		i < number_of_points;
 		++i)
 	{
-		sge::renderer::vector3 const position =
+		sge::renderer::vector3 const position(
 			fruitlib::math::triangle::random_point(
 				triangle_rng.value(),
-				triangle_point_rng);
+				triangle_point_rng));
 
-		fruitapp::point_sprite::color splatter_color =
+		fruitapp::point_sprite::color splatter_color(
 			sge::image::color::any::convert<fruitapp::point_sprite::color::format>(
-				cut_info.old().prototype().splatter_color());
+				cut_info.old().prototype().splatter_color()));
 
 		splatter_color.set(
 			mizuiro::color::channel::alpha(),
@@ -167,15 +170,15 @@ fruitapp::splatter_generator::fruit_was_cut(
 							point_sprites_.connection(),
 							fruitapp::point_sprite::splatter::position(
 								cut_info.old().position() +
-								fcppt::math::matrix::multiply_matrix4_vector3(
+								fruitlib::math::transform_direction(
 									cut_info.old().world_transform(),
 									position)),
 							fruitapp::point_sprite::splatter::linear_velocity(
 								distortion + ((cut_direction_rng_()
 								?
-									cut_info.cut_direction()
+									cut_info.cut_geometry().cut_direction().get()
 								:
-									(-cut_info.cut_direction())) * speed_rng_())),
+								(-cut_info.cut_geometry().cut_direction().get())) * speed_rng_())),
 							fruitapp::point_sprite::splatter::acceleration(
 								acceleration_),
 							fruitapp::point_sprite::splatter::size(

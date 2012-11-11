@@ -3,8 +3,8 @@
 
 #include <fruitapp/ingame_clock.hpp>
 #include <fruitapp/cursor/instance_fwd.hpp>
-#include <fruitapp/viewport/manager_fwd.hpp>
 #include <fruitapp/cursor/instance_sequence_unique_ptr.hpp>
+#include <fruitapp/viewport/manager_fwd.hpp>
 #include <fruitlib/texture_manager_fwd.hpp>
 #include <fruitlib/audio/sound_controller_fwd.hpp>
 #include <fruitlib/scenic/optional_parent.hpp>
@@ -28,6 +28,9 @@ namespace fruitapp
 {
 namespace cursor
 {
+/**
+\brief Takes care of cursor discover/remove events even if we're not ingame
+*/
 class manager
 {
 FCPPT_NONCOPYABLE(

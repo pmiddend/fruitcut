@@ -68,13 +68,7 @@ fruitapp::config_variables::config_variables(
 		global_config,
 		user_config,
 		sge::parse::json::path(
-			FCPPT_TEXT("effects-volume"))),
-	splatter_count_to_area_factor_(
-		global_config,
-		user_config,
-		sge::parse::json::path(
-			FCPPT_TEXT("splatter-generator"))
-			/ FCPPT_TEXT("splatter-count-to-area-factor"))
+			FCPPT_TEXT("effects-volume")))
 {
 }
 
@@ -88,12 +82,6 @@ fruitapp::config_variables::audio_variable &
 fruitapp::config_variables::effects_volume()
 {
 	return effects_volume_;
-}
-
-fruitapp::config_variables::splatter_factor_variable &
-fruitapp::config_variables::splatter_count_to_area_factor()
-{
-	return splatter_count_to_area_factor_;
 }
 
 fruitapp::config_variables::~config_variables()

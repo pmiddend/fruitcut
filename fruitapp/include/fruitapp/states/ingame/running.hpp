@@ -1,8 +1,8 @@
 #ifndef FRUITAPP_STATES_INGAME_RUNNING_HPP_INCLUDED
 #define FRUITAPP_STATES_INGAME_RUNNING_HPP_INCLUDED
 
-#include <fruitapp/cursor/instance_sequence_scoped_ptr.hpp>
 #include <fruitapp/cursor/instance_fwd.hpp>
+#include <fruitapp/cursor/instance_sequence_scoped_ptr.hpp>
 #include <fruitapp/events/declare_transition_reaction.hpp>
 #include <fruitapp/events/declare_transition_type.hpp>
 #include <fruitapp/fruit/object_fwd.hpp>

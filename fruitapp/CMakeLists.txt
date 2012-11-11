@@ -68,7 +68,10 @@ set(
 	fruitapp/include/fruitapp/depths/scene.hpp
 	fruitapp/include/fruitapp/exception.hpp
 	fruitapp/include/fruitapp/fruit/area.hpp
+	fruitapp/include/fruitapp/fruit/ban_duration.hpp
 	fruitapp/include/fruitapp/fruit/box3.hpp
+	fruitapp/include/fruitapp/fruit/calculate_cut_geometry.hpp
+	fruitapp/include/fruitapp/fruit/calculate_new_linear_velocity.hpp
 	fruitapp/include/fruitapp/fruit/callbacks/cut.hpp
 	fruitapp/include/fruitapp/fruit/callbacks/cut_fn.hpp
 	fruitapp/include/fruitapp/fruit/callbacks/remove.hpp
@@ -78,10 +81,15 @@ set(
 	fruitapp/include/fruitapp/fruit/cut_context.hpp
 	fruitapp/include/fruitapp/fruit/cut_context_fwd.hpp
 	fruitapp/include/fruitapp/fruit/cut_context_unique_ptr.hpp
+	fruitapp/include/fruitapp/fruit/cut_direction.hpp
+	fruitapp/include/fruitapp/fruit/cut_geometry.hpp
+	fruitapp/include/fruitapp/fruit/cut_geometry_fwd.hpp
 	fruitapp/include/fruitapp/fruit/cut_mesh.hpp
 	fruitapp/include/fruitapp/fruit/cut_mesh_result.hpp
 	fruitapp/include/fruitapp/fruit/cut_mesh_result_fwd.hpp
+	fruitapp/include/fruitapp/fruit/cut_plane.hpp
 	fruitapp/include/fruitapp/fruit/hull/intersection_pair.hpp
+	fruitapp/include/fruitapp/fruit/hull/optional_intersection_pair.hpp
 	fruitapp/include/fruitapp/fruit/hull/projected.hpp
 	fruitapp/include/fruitapp/fruit/hull/ring.hpp
 	fruitapp/include/fruitapp/fruit/hull/trail_intersection.hpp
@@ -332,7 +340,10 @@ set(
 	fruitapp/src/cursor/sound.cpp
 	fruitapp/src/cursor/sword_trail.cpp
 	fruitapp/src/exception.cpp
+	fruitapp/src/fruit/calculate_cut_geometry.cpp
+	fruitapp/src/fruit/calculate_new_linear_velocity.cpp
 	fruitapp/src/fruit/cut_context.cpp
+	fruitapp/src/fruit/cut_geometry.cpp
 	fruitapp/src/fruit/cut_mesh.cpp
 	fruitapp/src/fruit/cut_mesh_result.cpp
 	fruitapp/src/fruit/hull/projected.cpp

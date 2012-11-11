@@ -2,9 +2,8 @@
 #define FRUITAPP_FRUIT_MANAGER_HPP_INCLUDED
 
 #include <fruitapp/ingame_clock.hpp>
-#include <fruitapp/fruit/object_fwd.hpp>
-#include <sge/renderer/target/base_fwd.hpp>
 #include <fruitapp/fruit/ban_duration.hpp>
+#include <fruitapp/fruit/object_fwd.hpp>
 #include <fruitapp/fruit/object_sequence.hpp>
 #include <fruitapp/fruit/plane.hpp>
 #include <fruitapp/fruit/prototype.hpp>
@@ -13,11 +12,15 @@
 #include <fruitapp/fruit/callbacks/cut_fn.hpp>
 #include <fruitapp/fruit/callbacks/remove.hpp>
 #include <fruitapp/fruit/callbacks/remove_fn.hpp>
-#include <fruitapp/fruit/hull/intersection_pair.hpp>
 #include <fruitapp/fruit/callbacks/spawn.hpp>
 #include <fruitapp/fruit/callbacks/spawn_fn.hpp>
+#include <fruitapp/fruit/hull/optional_intersection_pair.hpp>
 #include <fruitlib/physics/world_fwd.hpp>
 #include <fruitlib/physics/group/object.hpp>
+#include <fruitlib/physics/rigid_body/angular_velocity.hpp>
+#include <fruitlib/physics/rigid_body/linear_velocity.hpp>
+#include <fruitlib/physics/rigid_body/mass.hpp>
+#include <fruitlib/physics/rigid_body/position.hpp>
 #include <fruitlib/scenic/node.hpp>
 #include <fruitlib/scenic/optional_parent.hpp>
 #include <fruitlib/scenic/events/render.hpp>
@@ -26,6 +29,7 @@
 #include <sge/parse/json/array_fwd.hpp>
 #include <sge/renderer/vertex_declaration_scoped_ptr.hpp>
 #include <sge/renderer/device/core_fwd.hpp>
+#include <sge/renderer/target/base_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/object.hpp>
@@ -77,17 +81,17 @@ public:
 	void
 	cut(
 		fruitapp::fruit::object const &,
-		fruitapp::fruit::hull::intersection_pair const &,
+		fruitapp::fruit::hull::optional_intersection_pair const &,
 		fruitapp::fruit::ban_duration const &,
 		sge::renderer::target::base const &);
 
 	void
 	spawn(
 		fruitapp::fruit::prototype const &proto,
-		fruitlib::physics::scalar const mass,
-		fruitlib::physics::vector3 const &position,
-		fruitlib::physics::vector3 const &linear_velocity,
-		fruitlib::physics::vector3 const &angular_velocity);
+		fruitlib::physics::rigid_body::mass const &mass,
+		fruitlib::physics::rigid_body::position const &position,
+		fruitlib::physics::rigid_body::linear_velocity const &linear_velocity,
+		fruitlib::physics::rigid_body::angular_velocity const &angular_velocity);
 
 	fruitapp::fruit::object_sequence const &
 	fruits() const;

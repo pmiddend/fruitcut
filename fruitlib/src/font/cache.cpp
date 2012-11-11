@@ -1,4 +1,7 @@
 #include <fruitlib/font/cache.hpp>
+#include <sge/renderer/display_mode/to_dpi.hpp>
+#include <sge/renderer/display_mode/object.hpp>
+#include <sge/renderer/device/core.hpp>
 #include <sge/font/object.hpp>
 #include <sge/font/parameters.hpp>
 #include <sge/font/system.hpp>
@@ -29,6 +32,7 @@
 fruitlib::font::cache::cache(
 	sge::font::system &_font_system,
 	sge::image2d::system &_image_loader,
+	sge::renderer::device::core const &_renderer,
 	sge::parse::json::object const &_fonts,
 	fruitlib::font::base_path const &_base_path)
 :
@@ -78,7 +82,10 @@ fruitlib::font::cache::cache(
 						.family(
 							real_name)
 						.ttf_size(
-							font_size)));
+							font_size)
+						.dpi(
+							sge::renderer::display_mode::to_dpi(
+								_renderer.display_mode()))));
 
 			to_object_.insert(
 				std::make_pair(

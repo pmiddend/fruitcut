@@ -1,8 +1,9 @@
 #ifndef FRUITAPP_FRUIT_BAN_DURATION_HPP_INCLUDED
 #define FRUITAPP_FRUIT_BAN_DURATION_HPP_INCLUDED
 
-#include <fcppt/strong_typedef.hpp>
 #include <fruitapp/ingame_clock.hpp>
+#include <fcppt/strong_typedef.hpp>
+
 
 namespace fruitapp
 {

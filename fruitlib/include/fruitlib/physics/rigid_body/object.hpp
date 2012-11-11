@@ -29,34 +29,34 @@ FCPPT_NONCOPYABLE(
 public:
 	explicit
 	object(
-		rigid_body::parameters const &);
+		fruitlib::physics::rigid_body::parameters const &);
 
-	rigid_body::transformation::value_type const
+	fruitlib::physics::rigid_body::transformation const
 	world_transform() const;
 
-	rigid_body::transformation::value_type const
+	fruitlib::physics::rigid_body::transformation const
 	transformation() const;
 
-	rigid_body::linear_velocity::value_type const
+	fruitlib::physics::rigid_body::linear_velocity const
 	linear_velocity() const;
 
-	rigid_body::angular_velocity::value_type const
+	fruitlib::physics::rigid_body::angular_velocity const
 	angular_velocity() const;
 
-	rigid_body::position::value_type const
+	fruitlib::physics::rigid_body::position const
 	position() const;
 
-	rigid_body::user_data const &
+	fruitlib::physics::rigid_body::user_data const &
 	user_data() const;
 
 	~object();
 private:
 	friend class physics::world;
 
-	physics::shared_shape_ptr shape_;
+	fruitlib::physics::shared_shape_ptr shape_;
 	fcppt::scoped_ptr<btDefaultMotionState> motion_state_;
 	fcppt::scoped_ptr<btRigidBody> body_;
-	rigid_body::user_data user_data_;
+	fruitlib::physics::rigid_body::user_data user_data_;
 };
 }
 }

@@ -82,58 +82,63 @@ fruitlib::physics::rigid_body::object::object(
 		DISABLE_DEACTIVATION);
 }
 
-fruitlib::physics::rigid_body::transformation::value_type const
+fruitlib::physics::rigid_body::transformation const
 fruitlib::physics::rigid_body::object::world_transform() const
 {
 	btTransform deftr;
 	motion_state_->getWorldTransform(
 		deftr);
 	return
-		fcppt::math::matrix::translation(
-			structure_cast<vector3>(
-			 	deftr.getOrigin())) *
-		matrix3_to_matrix4<scalar>(
-			structure_cast<matrix3>(
-				deftr.getBasis()));
+		fruitlib::physics::rigid_body::transformation(
+			fcppt::math::matrix::translation(
+				structure_cast<vector3>(
+					deftr.getOrigin())) *
+			matrix3_to_matrix4<scalar>(
+				structure_cast<matrix3>(
+					deftr.getBasis())));
 }
 
-fruitlib::physics::rigid_body::transformation::value_type const
+fruitlib::physics::rigid_body::transformation const
 fruitlib::physics::rigid_body::object::transformation() const
 {
 	btTransform deftr;
 	motion_state_->getWorldTransform(
 		deftr);
 	return
-		matrix3_to_matrix4<scalar>(
-			structure_cast<matrix3>(
-				deftr.getBasis()));
+		fruitlib::physics::rigid_body::transformation(
+			matrix3_to_matrix4<scalar>(
+				structure_cast<matrix3>(
+					deftr.getBasis())));
 }
 
-fruitlib::physics::rigid_body::linear_velocity::value_type const
+fruitlib::physics::rigid_body::linear_velocity const
 fruitlib::physics::rigid_body::object::linear_velocity() const
 {
 	return
-		structure_cast<vector3>(
-			body_->getLinearVelocity());
+		fruitlib::physics::rigid_body::linear_velocity(
+			structure_cast<vector3>(
+				body_->getLinearVelocity()));
 }
 
-fruitlib::physics::rigid_body::angular_velocity::value_type const
+fruitlib::physics::rigid_body::angular_velocity const
 fruitlib::physics::rigid_body::object::angular_velocity() const
 {
 	return
-		structure_cast<vector3>(
-			body_->getAngularVelocity());
+		fruitlib::physics::rigid_body::angular_velocity(
+			structure_cast<vector3>(
+				body_->getAngularVelocity()));
 }
 
-fruitlib::physics::rigid_body::position::value_type const
+fruitlib::physics::rigid_body::position const
 fruitlib::physics::rigid_body::object::position() const
 {
 	btTransform deftr;
 	motion_state_->getWorldTransform(
 		deftr);
 	return
-		structure_cast<vector3>(
-			deftr.getOrigin());
+		fruitlib::physics::rigid_body::position(
+			structure_cast<vector3>(
+				deftr.getOrigin()));
 }
 
 fruitlib::physics::rigid_body::user_data const &

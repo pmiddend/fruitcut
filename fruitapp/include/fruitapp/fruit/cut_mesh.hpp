@@ -5,16 +5,18 @@
 #include <fruitapp/fruit/mesh_fwd.hpp>
 #include <fruitapp/fruit/plane.hpp>
 #include <fcppt/unique_ptr.hpp>
-
+#include <fcppt/preprocessor/pure.hpp>
 
 namespace fruitapp
 {
 namespace fruit
 {
-fcppt::unique_ptr<fruit::cut_mesh_result>
+/// Cuts a mesh along a plane
+fcppt::unique_ptr<fruitapp::fruit::cut_mesh_result>
 cut_mesh(
-	fruit::mesh const &,
-	fruit::plane const &);
+	fruitapp::fruit::mesh const &,
+	fruitapp::fruit::plane const &)
+FCPPT_PP_PURE;
 }
 }
 

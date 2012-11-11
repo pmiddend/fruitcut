@@ -67,7 +67,6 @@ set(
 	fruitlib/include/fruitlib/math/line/basic.hpp
 	fruitlib/include/fruitlib/math/line/distance_to_point.hpp
 	fruitlib/include/fruitlib/math/line_plane_intersection.hpp
-	fruitlib/include/fruitlib/math/multiply_matrix4_vector3.hpp
 	fruitlib/include/fruitlib/math/plane/basic.hpp
 	fruitlib/include/fruitlib/math/plane/distance_to_point.hpp
 	fruitlib/include/fruitlib/math/plane/from_vec4.hpp

@@ -3,19 +3,24 @@
 
 #include <fruitapp/ingame_clock.hpp>
 #include <fruitapp/ingame_timer.hpp>
+#include <fruitapp/fruit/ban_duration.hpp>
 #include <fruitapp/fruit/box3.hpp>
 #include <fruitapp/fruit/mesh.hpp>
 #include <fruitapp/fruit/mesh_scoped_ptr.hpp>
 #include <fruitapp/fruit/mesh_unique_ptr.hpp>
 #include <fruitapp/fruit/prototype_fwd.hpp>
-#include <fruitapp/fruit/ban_duration.hpp>
 #include <fruitlib/physics/matrix4.hpp>
 #include <fruitlib/physics/scalar.hpp>
 #include <fruitlib/physics/vector3.hpp>
 #include <fruitlib/physics/world_fwd.hpp>
 #include <fruitlib/physics/group/object_fwd.hpp>
+#include <fruitlib/physics/rigid_body/angular_velocity.hpp>
+#include <fruitlib/physics/rigid_body/linear_velocity.hpp>
+#include <fruitlib/physics/rigid_body/mass.hpp>
 #include <fruitlib/physics/rigid_body/object.hpp>
+#include <fruitlib/physics/rigid_body/position.hpp>
 #include <fruitlib/physics/rigid_body/scoped.hpp>
+#include <fruitlib/physics/rigid_body/transformation.hpp>
 #include <sge/renderer/matrix4.hpp>
 #include <sge/renderer/vector3.hpp>
 #include <sge/renderer/vertex_buffer_scoped_ptr.hpp>
@@ -47,11 +52,11 @@ public:
 		sge::renderer::vertex_declaration &_vertex_declaration,
 		fruitapp::fruit::mesh_unique_ptr _mesh,
 		fruitlib::physics::group::object &_fruit_group,
-		fruitlib::physics::scalar const _mass,
-		fruitlib::physics::vector3 const &_position,
-		fruitlib::physics::matrix4 const &_transformation,
-		fruitlib::physics::vector3 const &_linear_velocity,
-		fruitlib::physics::vector3 const &_angular_velocity,
+		fruitlib::physics::rigid_body::mass const &_mass,
+		fruitlib::physics::rigid_body::position const &_position,
+		fruitlib::physics::rigid_body::transformation const &_transformation,
+		fruitlib::physics::rigid_body::linear_velocity const &_linear_velocity,
+		fruitlib::physics::rigid_body::angular_velocity const &_angular_velocity,
 		fruitapp::fruit::ban_duration const &,
 		fruitapp::ingame_clock const &);
 

@@ -6,9 +6,9 @@
 #include <fruitapp/machine_impl_fwd.hpp>
 #include <fruitapp/overlay.hpp>
 #include <fruitapp/quick_log_fwd.hpp>
-#include <fruitapp/cursor/manager_fwd.hpp>
 #include <fruitapp/scene_fwd.hpp>
 #include <fruitapp/systems.hpp>
+#include <fruitapp/cursor/manager_fwd.hpp>
 #include <fruitapp/fruit/prototype_sequence.hpp>
 #include <fruitapp/gui/system_fwd.hpp>
 #include <fruitapp/highscore/score.hpp>
@@ -151,13 +151,13 @@ public:
 	random_generator()
 	FCPPT_PP_CONST;
 
-	highscore::score::value_type
+	fruitapp::highscore::score const
 	last_game_score() const
 	FCPPT_PP_CONST;
 
 	void
 	last_game_score(
-		highscore::score::value_type const &);
+		fruitapp::highscore::score const &);
 
 	void
 	quit(

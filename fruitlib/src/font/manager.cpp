@@ -1,6 +1,7 @@
 #include <fruitlib/texture_manager.hpp>
 #include <fruitlib/font/cache.hpp>
 #include <fruitlib/font/manager.hpp>
+#include <sge/renderer/device/ffp.hpp>
 #include <fcppt/cref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/ref.hpp>
@@ -24,6 +25,8 @@ fruitlib::font::manager::manager(
 				_font_system),
 			fcppt::ref(
 				_texture_manager.image_system()),
+			fcppt::cref(
+				_renderer),
 			fcppt::cref(
 				_json),
 				_base_path))

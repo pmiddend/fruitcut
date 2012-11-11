@@ -165,7 +165,6 @@ fruitapp::states::ingame::superstate::superstate(
 			context<machine>().config_file(),
 			sge::parse::json::path(
 				FCPPT_TEXT("splatter-generator"))),
-		context<fruitapp::machine>().config_variables().splatter_count_to_area_factor(),
 		context<fruitapp::machine>().point_sprites(),
 		context<fruitapp::machine>().random_generator(),
 		fruitapp::point_sprite::splatter::acceleration(

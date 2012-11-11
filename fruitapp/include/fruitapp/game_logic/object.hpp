@@ -59,7 +59,7 @@ public:
 	bool
 	finished() const;
 
-	fruitapp::highscore::score::value_type
+	fruitapp::highscore::score const
 	score() const;
 
 	void
@@ -67,7 +67,7 @@ public:
 		fruitlib::scenic::events::update const &);
 private:
 	fruitapp::fruit::area::value_type const area_score_factor_;
-	fruitapp::highscore::score::value_type score_,iterating_score_;
+	fruitapp::highscore::score score_,iterating_score_;
 	fruitapp::ingame_timer round_timer_;
 	fruitlib::audio::sound_controller &sound_controller_;
 	fcppt::signal::scoped_connection fruit_added_connection_;
@@ -97,7 +97,7 @@ private:
 
 	void
 	increase_score(
-		fruitapp::highscore::score::value_type const &);
+		fruitapp::highscore::score const &);
 
 	void
 	viewport_change(

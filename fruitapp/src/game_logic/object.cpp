@@ -79,7 +79,7 @@ fruitapp::game_logic::object::object(
 				FCPPT_TEXT("ingame"))
 				/ FCPPT_TEXT("area-score-factor"))),
 	score_(
-		0),
+		0u),
 	iterating_score_(
 		score_),
 	round_timer_(
@@ -226,7 +226,7 @@ fruitapp::game_logic::object::finished() const
 		round_timer_.expired();
 }
 
-fruitapp::highscore::score::value_type
+fruitapp::highscore::score const
 fruitapp::game_logic::object::score() const
 {
 	return
@@ -311,17 +311,18 @@ fruitapp::game_logic::object::react(
 
 	if(sge::timer::reset_when_expired(score_increase_timer_))
 	{
-		highscore::score::value_type score_diff = score_ - iterating_score_;
-		if (score_diff > 0)
+		fruitapp::highscore::score score_diff(
+			score_ - iterating_score_);
+		if (score_diff.get() > 0)
 		{
 			sound_controller_.play(
 				fruitlib::resource_tree::path(FCPPT_TEXT("score_increased")));
 			iterating_score_ +=
-				(score_diff)/10 + 1;
+				(score_diff)/fruitapp::highscore::score(10u) + fruitapp::highscore::score(1u);
 		}
 		score_font_node_.object().text(
 			fcppt::insert_to_string<sge::font::string>(
-				iterating_score_));
+				iterating_score_.get()));
 	}
 }
 
@@ -395,12 +396,16 @@ fruitapp::game_logic::object::fruit_cut(
 			sge::image::colors::gray());
 	}
 	else
-		increase_score(
-			static_cast<highscore::score::value_type>(
-				static_cast<fruit::area::value_type>(
-					multiplier_) *
-				context.area() *
-				area_score_factor_));
+	{
+		this->increase_score(
+			fruitapp::highscore::score(
+				static_cast<fruitapp::highscore::score::value_type>(
+					static_cast<fruitapp::fruit::area::value_type>(
+						multiplier_) *
+					context.area().get() *
+					area_score_factor_)));
+	}
+
 	if (!multiplier_timer_.expired())
 	{
 		++multi_count_;
@@ -424,7 +429,7 @@ fruitapp::game_logic::object::fruit_cut(
 
 void
 fruitapp::game_logic::object::increase_score(
-	highscore::score::value_type const &s)
+	fruitapp::highscore::score const &s)
 {
 	score_ +=
 		s;

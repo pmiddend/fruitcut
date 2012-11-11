@@ -13,11 +13,11 @@ fruitapp::fruit::object_from_prototype(
 	fruitlib::physics::group::object &_fruit_group,
 	sge::renderer::device::core &_renderer,
 	sge::renderer::vertex_declaration &_vertex_declaration,
-	fruitlib::physics::scalar const _mass,
-	fruitlib::physics::vector3 const &_position,
-	fruitlib::physics::matrix4 const &_transformation,
-	fruitlib::physics::vector3 const &_linear_velocity,
-	fruitlib::physics::vector3 const &_angular_velocity,
+	fruitlib::physics::rigid_body::mass const _mass,
+	fruitlib::physics::rigid_body::position const &_position,
+	fruitlib::physics::rigid_body::transformation const &_transformation,
+	fruitlib::physics::rigid_body::linear_velocity const &_linear_velocity,
+	fruitlib::physics::rigid_body::angular_velocity const &_angular_velocity,
 	fruitapp::ingame_clock const &_clock)
 {
 	return

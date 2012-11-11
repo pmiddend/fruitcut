@@ -2,6 +2,7 @@
 #include <fruitapp/fruit/hull/trail_intersection.hpp>
 #include <fcppt/homogenous_pair.hpp>
 #include <fcppt/optional.hpp>
+#include <fcppt/optional_impl.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
 #include <fcppt/math/vector/length.hpp>
 #include <fcppt/math/vector/object_impl.hpp>
@@ -12,7 +13,8 @@
 #include <iostream>
 #include <fcppt/config/external_end.hpp>
 
-fruitapp::fruit::hull::intersection_pair const
+
+fruitapp::fruit::hull::optional_intersection_pair const
 fruitapp::fruit::hull::trail_intersection(
 	fruitapp::fruit::hull::ring const &hull,
 	fruitapp::cursor::sampler::position_buffer const &positions)
@@ -50,15 +52,15 @@ fruitapp::fruit::hull::trail_intersection(
 
 	if (result.size() < static_cast<result_points::size_type>(2))
 		return
-			fruitapp::fruit::hull::intersection_pair();
+			fruitapp::fruit::hull::optional_intersection_pair();
 
 	if(fcppt::math::vector::length(result[0] - result[1]) < 0.1f)
 		return
-			fruitapp::fruit::hull::intersection_pair();
+			fruitapp::fruit::hull::optional_intersection_pair();
 
 	return
-		fruitapp::fruit::hull::intersection_pair(
-			fruitapp::fruit::hull::intersection_pair::value_type(
+		fruitapp::fruit::hull::optional_intersection_pair(
+			fruitapp::fruit::hull::intersection_pair(
 				result[0],
 				result[1]));
 }

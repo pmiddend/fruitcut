@@ -162,8 +162,7 @@ fruitapp::fruit::spawner::react(
 				camera_.projection_matrix()),
 			*perspective_projection_information_));
 
-
-	prototype const &chosen_prototype =
+	fruitapp::fruit::prototype const &chosen_prototype =
 		random_prototype_.value();
 
 	fruitlib::physics::scalar const x(
@@ -175,10 +174,11 @@ fruitapp::fruit::spawner::react(
 		fruitlib::math::box_radius(
 			chosen_prototype.bounding_box());
 
-	fruitlib::physics::vector3 const position(
-		zero_plane.left() + x * zero_plane.size().w(),
-		zero_plane.pos().y() - bounding_box_radius,
-		-bounding_box_radius);
+	fruitlib::physics::rigid_body::position const position(
+		fruitlib::physics::vector3(
+			zero_plane.left() + x * zero_plane.size().w(),
+			zero_plane.pos().y() - bounding_box_radius,
+			-bounding_box_radius));
 
 	fruitlib::physics::scalar const magnitude =
 		linear_velocity_rng_();
@@ -196,20 +196,21 @@ fruitapp::fruit::spawner::react(
 				min_phi +
 				fcppt::math::pi<float>() * 0.5f);
 
-	fruitlib::physics::vector3 const linear_velocity(
-		magnitude * std::cos(phi),
-		magnitude * std::sin(phi),
-		0.f
-		);
+	fruitlib::physics::rigid_body::linear_velocity const linear_velocity(
+		fruitlib::physics::vector3(
+			magnitude * std::cos(phi),
+			magnitude * std::sin(phi),
+			0.f));
 
 	// Could be generated as well, not for now though
-	fruitlib::physics::vector3 const angular_velocity(
-		angular_velocity_rng_(),
-		angular_velocity_rng_(),
-		angular_velocity_rng_());
+	fruitlib::physics::rigid_body::angular_velocity const angular_velocity(
+		fruitlib::physics::vector3(
+			angular_velocity_rng_(),
+			angular_velocity_rng_(),
+			angular_velocity_rng_()));
 
-	fruitlib::physics::scalar const mass =
-		chosen_prototype.mass();
+	fruitlib::physics::rigid_body::mass const mass(
+		chosen_prototype.mass());
 
 	manager_.spawn(
 		chosen_prototype,

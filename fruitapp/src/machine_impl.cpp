@@ -1,11 +1,8 @@
 #include <fruitapp/load_user_config.hpp>
-#include <sge/renderer/target/onscreen.hpp>
-#include <sge/renderer/device/ffp.hpp>
-#include <sge/renderer/target/onscreen.hpp>
-#include <fruitapp/cursor/manager.hpp>
 #include <fruitapp/machine_impl.hpp>
 #include <fruitapp/media_path.hpp>
 #include <fruitapp/name.hpp>
+#include <fruitapp/cursor/manager.hpp>
 #include <fruitapp/depths/overlay.hpp>
 #include <fruitapp/depths/root.hpp>
 #include <fruitapp/depths/scene.hpp>
@@ -55,8 +52,10 @@
 #include <sge/parse/json/string_to_path.hpp>
 #include <sge/parse/json/config/merge_command_line_parameters.hpp>
 #include <sge/parse/json/config/merge_trees.hpp>
+#include <sge/renderer/device/ffp.hpp>
 #include <sge/renderer/parameters/object.hpp>
 #include <sge/renderer/pixel_format/object.hpp>
+#include <sge/renderer/target/onscreen.hpp>
 #include <sge/shader/context.hpp>
 #include <sge/sprite/parameters.hpp>
 #include <sge/systems/audio_loader.hpp>
@@ -475,7 +474,7 @@ fruitapp::machine_impl::machine_impl(
 				/ FCPPT_TEXT("desired-fps"))),
 	last_game_score_(
 		// Something invalid so you get the error (if there is one)
-		31337),
+		31337u),
 	point_sprites_(
 		fruitlib::scenic::optional_parent(
 			fruitlib::scenic::parent(
@@ -709,7 +708,7 @@ fruitapp::machine_impl::random_generator()
 	return random_generator_;
 }
 
-fruitapp::highscore::score::value_type
+fruitapp::highscore::score const
 fruitapp::machine_impl::last_game_score() const
 {
 	return last_game_score_;
@@ -717,7 +716,7 @@ fruitapp::machine_impl::last_game_score() const
 
 void
 fruitapp::machine_impl::last_game_score(
-	highscore::score::value_type const &_last_game_score)
+	fruitapp::highscore::score const &_last_game_score)
 {
 	last_game_score_ = _last_game_score;
 }

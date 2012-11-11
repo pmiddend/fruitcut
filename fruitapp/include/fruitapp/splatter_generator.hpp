@@ -13,7 +13,6 @@
 #include <fruitlib/uniform_int_random.hpp>
 #include <fruitlib/uniform_real_random.hpp>
 #include <sge/parse/json/object_fwd.hpp>
-#include <sge/parse/json/config/user_config_variable.hpp>
 #include <sge/renderer/scalar.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -30,7 +29,6 @@ FCPPT_NONCOPYABLE(
 public:
 	splatter_generator(
 		sge::parse::json::object const &,
-		sge::parse::json::config::user_config_variable<fruit::area::value_type> &_splatter_count_to_area_factor,
 		fruitapp::point_sprite::system_node &,
 		fruitlib::random_generator &,
 		fruitapp::point_sprite::splatter::acceleration const &,
@@ -76,7 +74,7 @@ private:
 	size_rng size_rng_;
 	alpha_rng alpha_rng_;
 	lifetime_millis_rng lifetime_millis_rng_;
-	sge::parse::json::config::user_config_variable<fruitapp::fruit::area::value_type> &splatter_count_to_area_factor_;
+	fruitapp::fruit::area const cut_area_multiplier_;
 };
 }
 

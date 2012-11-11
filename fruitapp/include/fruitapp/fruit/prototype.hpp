@@ -41,7 +41,7 @@ public:
 	bounding_box() const
 	FCPPT_PP_CONST;
 
-	fruitlib::physics::rigid_body::mass::value_type
+	fruitlib::physics::rigid_body::mass const
 	mass() const
 	FCPPT_PP_PURE;
 
@@ -67,7 +67,7 @@ private:
 	// Storing the bounding box is not neccessary, but I don't want to
 	// recalculate the bounding box each time in the spawner, so ...
 	fruitapp::fruit::box3 bounding_box_;
-	fruitlib::physics::rigid_body::mass::value_type mass_;
+	fruitlib::physics::rigid_body::mass mass_;
 	sge::renderer::texture::planar_shared_ptr texture_;
 	sge::image::color::any::object splatter_color_;
 	fruitapp::fruit::material::object material_;

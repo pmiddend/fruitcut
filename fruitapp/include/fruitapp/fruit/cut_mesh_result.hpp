@@ -23,39 +23,39 @@ FCPPT_NONCOPYABLE(
 public:
 	cut_mesh_result();
 
-	fruit::mesh const &
+	fruitapp::fruit::mesh const &
 	mesh() const
 	FCPPT_PP_CONST;
 
-	fruit::mesh &
+	fruitapp::fruit::mesh &
 	mesh()
 	FCPPT_PP_CONST;
 
-	fruit::mesh_unique_ptr
+	fruitapp::fruit::mesh_unique_ptr
 	release_mesh()
 	FCPPT_PP_WARN_UNUSED_RESULT;
 
-	fruit::mesh const &
+	fruitapp::fruit::mesh const &
 	cross_section() const
 	FCPPT_PP_CONST;
 
-	fruit::mesh &
+	fruitapp::fruit::mesh &
 	cross_section()
 	FCPPT_PP_CONST;
 
-	fruit::box3 const &
+	fruitapp::fruit::box3 const &
 	bounding_box() const
 	FCPPT_PP_CONST;
 
-	fruit::box3 &
+	fruitapp::fruit::box3 &
 	bounding_box()
 	FCPPT_PP_CONST;
 
-	fruit::area &
+	fruitapp::fruit::area &
 	area()
 	FCPPT_PP_CONST;
 
-	fruit::area const &
+	fruitapp::fruit::area const &
 	area() const
 	FCPPT_PP_CONST;
 

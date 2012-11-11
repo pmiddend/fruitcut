@@ -5,10 +5,10 @@
 #include <fruitapp/ingame_clock.hpp>
 #include <fruitapp/quick_log.hpp>
 #include <fruitapp/renderable.hpp>
-#include <fruitapp/cursor/manager.hpp>
 #include <fruitapp/screen_shooter.hpp>
 #include <fruitapp/systems.hpp>
 #include <fruitapp/background/node.hpp>
+#include <fruitapp/cursor/manager.hpp>
 #include <fruitapp/fruit/prototype_sequence.hpp>
 #include <fruitapp/gui/system_unique_ptr.hpp>
 #include <fruitapp/highscore/score.hpp>
@@ -162,13 +162,13 @@ public:
 	random_generator()
 	FCPPT_PP_CONST;
 
-	highscore::score::value_type
+	fruitapp::highscore::score const
 	last_game_score() const
 	FCPPT_PP_CONST;
 
 	void
 	last_game_score(
-		highscore::score::value_type const &);
+		fruitapp::highscore::score const &);
 
 	fruitlib::scenic::base &
 	root_node()
@@ -284,7 +284,7 @@ private:
 	fruitapp::shadow_map::object_scoped_ptr shadow_map_;
 	fruitapp::background::node background_;
 	unsigned desired_fps_;
-	fruitapp::highscore::score::value_type last_game_score_;
+	fruitapp::highscore::score last_game_score_;
 	fruitapp::point_sprite::system_node point_sprites_;
 	fruitapp::screen_shooter screen_shooter_;
 	fruitapp::fruit::prototype_sequence fruit_prototypes_;

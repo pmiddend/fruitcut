@@ -180,7 +180,7 @@ fruitapp::machine::random_generator()
 	return impl_->random_generator();
 }
 
-fruitapp::highscore::score::value_type
+fruitapp::highscore::score const
 fruitapp::machine::last_game_score() const
 {
 	return impl_->last_game_score();
@@ -188,7 +188,7 @@ fruitapp::machine::last_game_score() const
 
 void
 fruitapp::machine::last_game_score(
-	highscore::score::value_type const &_last_game_score)
+	fruitapp::highscore::score const &_last_game_score)
 {
 	impl_->last_game_score(
 		_last_game_score);
