@@ -1,9 +1,9 @@
 #ifndef FRUITAPP_FRUIT_RENDERING_CG_HPP_INCLUDED
 #define FRUITAPP_FRUIT_RENDERING_CG_HPP_INCLUDED
 
-#include <fruitapp/light/manager_fwd.hpp>
 #include <fruitapp/fruit/manager_fwd.hpp>
 #include <fruitapp/fruit/rendering/base.hpp>
+#include <fruitapp/light/manager_fwd.hpp>
 #include <sge/camera/base_fwd.hpp>
 #include <sge/renderer/scalar.hpp>
 #include <sge/renderer/state/core/depth_stencil/object_scoped_ptr.hpp>

@@ -1,8 +1,8 @@
 #include <fruitapp/logo.hpp>
 #include <fruitapp/media_path.hpp>
 #include <fruitapp/viewport/manager.hpp>
-#include <fruitlib/scenic/events/render.hpp>
 #include <fruitlib/texture_manager.hpp>
+#include <fruitlib/scenic/events/render.hpp>
 #include <sge/renderer/resource_flags.hpp>
 #include <sge/renderer/screen_size.hpp>
 #include <sge/renderer/context/ffp.hpp>

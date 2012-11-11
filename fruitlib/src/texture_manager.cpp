@@ -1,14 +1,14 @@
 #include <fruitlib/texture_manager.hpp>
-#include <sge/image2d/system.hpp>
 #include <sge/image2d/file.hpp>
+#include <sge/image2d/system.hpp>
 #include <sge/renderer/texture/color_format.hpp>
-#include <sge/texture/rect_fragmented.hpp>
-#include <fcppt/ref.hpp>
-#include <fcppt/cref.hpp>
-#include <fcppt/make_unique_ptr.hpp>
 #include <sge/renderer/texture/create_planar_from_path.hpp>
 #include <sge/renderer/texture/create_planar_from_view.hpp>
 #include <sge/renderer/texture/planar.hpp>
+#include <sge/texture/rect_fragmented.hpp>
+#include <fcppt/cref.hpp>
+#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/ref.hpp>
 
 
 fruitlib::texture_manager::texture_manager(

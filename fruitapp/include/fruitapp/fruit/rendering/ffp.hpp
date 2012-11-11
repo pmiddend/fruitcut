@@ -1,10 +1,10 @@
 #ifndef FRUITAPP_FRUIT_RENDERING_FFP_HPP_INCLUDED
 #define FRUITAPP_FRUIT_RENDERING_FFP_HPP_INCLUDED
 
-#include <fruitapp/light/manager_fwd.hpp>
-#include <fruitapp/light/ambient_intensity.hpp>
 #include <fruitapp/fruit/manager_fwd.hpp>
 #include <fruitapp/fruit/rendering/base.hpp>
+#include <fruitapp/light/ambient_intensity.hpp>
+#include <fruitapp/light/manager_fwd.hpp>
 #include <sge/camera/base_fwd.hpp>
 #include <sge/renderer/scalar.hpp>
 #include <sge/renderer/device/ffp_fwd.hpp>

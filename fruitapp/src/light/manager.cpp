@@ -1,11 +1,12 @@
-#include <fruitapp/light/manager.hpp>
 #include <fruitapp/light/directional_light_source_from_json.hpp>
+#include <fruitapp/light/manager.hpp>
 #include <sge/parse/json/find_and_convert_member.hpp>
 #include <sge/parse/json/path.hpp>
+#include <fcppt/cref.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/cref.hpp>
+
 
 fruitapp::light::manager::manager(
 	sge::parse::json::object const &_json)

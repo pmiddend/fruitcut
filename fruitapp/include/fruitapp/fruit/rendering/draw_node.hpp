@@ -1,9 +1,9 @@
 #ifndef FRUITAPP_FRUIT_RENDERING_DRAW_NODE_HPP_INCLUDED
 #define FRUITAPP_FRUIT_RENDERING_DRAW_NODE_HPP_INCLUDED
 
-#include <fruitapp/light/manager_fwd.hpp>
 #include <fruitapp/fruit/manager_fwd.hpp>
 #include <fruitapp/fruit/rendering/base_scoped_ptr.hpp>
+#include <fruitapp/light/manager_fwd.hpp>
 #include <fruitlib/scenic/node.hpp>
 #include <fruitlib/scenic/events/render.hpp>
 #include <sge/camera/base_fwd.hpp>

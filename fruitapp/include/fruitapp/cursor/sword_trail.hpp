@@ -1,5 +1,5 @@
-#ifndef FRUITAPP_SWORD_TRAIL_HPP_INCLUDED
-#define FRUITAPP_SWORD_TRAIL_HPP_INCLUDED
+#ifndef FRUITAPP_CURSOR_SWORD_TRAIL_HPP_INCLUDED
+#define FRUITAPP_CURSOR_SWORD_TRAIL_HPP_INCLUDED
 
 #include <fruitapp/ingame_clock.hpp>
 #include <fruitapp/ingame_timer.hpp>
@@ -43,6 +43,8 @@
 
 namespace fruitapp
 {
+namespace cursor
+{
 class sword_trail
 :
 	public fruitlib::scenic::node<sword_trail>
@@ -60,11 +62,11 @@ public:
 
 	sword_trail(
 		fruitlib::scenic::optional_parent const &,
-		sge::renderer::device::ffp &,
-		sge::renderer::target::base &,
-		fruitlib::texture_manager &,
 		sge::input::cursor::object &,
 		fruitapp::ingame_clock const &,
+		sge::renderer::device::ffp &,
+		sge::renderer::target::base const &,
+		fruitlib::texture_manager &,
 		sge::parse::json::object const &);
 
 	~sword_trail();
@@ -165,7 +167,7 @@ private:
 	timer_buffer;
 
 	sge::input::cursor::object &cursor_;
-	sge::renderer::target::base &target_;
+	sge::renderer::target::base const &target_;
 	fruitapp::ingame_clock const &clock_;
 	fruitapp::ingame_clock::duration const element_lifetime_;
 	sprite_object::unit const max_width_;
@@ -178,6 +180,7 @@ private:
 	fruitapp::ingame_timer update_timer_;
 
 };
+}
 }
 
 #endif

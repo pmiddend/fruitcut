@@ -1,7 +1,7 @@
 #ifndef FRUITLIB_GRID_COLLECT_POINTS_HPP_INCLUDED
 #define FRUITLIB_GRID_COLLECT_POINTS_HPP_INCLUDED
 
-#include <fcppt/static_assert_statement.hpp>
+#include <fcppt/static_assert_expression.hpp>
 #include <fcppt/container/grid/object.hpp>
 #include <fcppt/container/grid/size_type.hpp>
 #include <fcppt/math/dim/object_impl.hpp>
@@ -27,7 +27,7 @@ collect_points(
 	fcppt::container::grid::object<T,N> const &g,
 	UnaryFunctor const &test)
 {
-	FCPPT_STATIC_ASSERT_STATEMENT((
+	FCPPT_STATIC_ASSERT_EXPRESSION((
 		boost::is_same
 		<
 			typename DestContainer::value_type,

@@ -36,6 +36,7 @@ update_cmake_file \
 	fruitapp/src/depths \
 	fruitapp/src/background \
 	fruitapp/src/light \
+	fruitapp/src/cursor \
 	fruitapp/src/fruit \
 	fruitapp/src/shadow_map \
 	fruitapp/src/game_logic \

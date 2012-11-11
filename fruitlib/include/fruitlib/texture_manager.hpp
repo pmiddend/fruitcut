@@ -1,17 +1,17 @@
 #ifndef FRUITLIB_TEXTURE_MANAGER_HPP_INCLUDED
 #define FRUITLIB_TEXTURE_MANAGER_HPP_INCLUDED
 
+#include <sge/image/color/format.hpp>
 #include <sge/image2d/file_unique_ptr.hpp>
 #include <sge/image2d/system_fwd.hpp>
 #include <sge/image2d/view/const_object_fwd.hpp>
+#include <sge/renderer/dim2.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/device/core_fwd.hpp>
 #include <sge/renderer/texture/emulate_srgb.hpp>
-#include <sge/texture/fragmented_unique_ptr.hpp>
 #include <sge/renderer/texture/planar_unique_ptr.hpp>
-#include <sge/image/color/format.hpp>
-#include <sge/renderer/dim2.hpp>
 #include <sge/renderer/texture/mipmap/object_fwd.hpp>
+#include <sge/texture/fragmented_unique_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>

@@ -1,5 +1,6 @@
 #include <fruitapp/exception.hpp>
 #include <fruitapp/media_path.hpp>
+#include <fcppt/math/matrix/inverse.hpp>
 #include <fruitapp/fruit/box3.hpp>
 #include <fruitapp/fruit/cut_context_unique_ptr.hpp>
 #include <fruitapp/fruit/cut_mesh.hpp>
@@ -10,7 +11,7 @@
 #include <fruitapp/fruit/prototype_from_json.hpp>
 #include <fruitapp/fruit/model_vf/format.hpp>
 #include <fruitlib/math/box_radius.hpp>
-#include <fruitlib/math/multiply_matrix4_vector3.hpp>
+#include <fruitlib/math/unproject.hpp>
 #include <fruitlib/math/plane/basic.hpp>
 #include <fruitlib/math/plane/distance_to_point.hpp>
 #include <fruitlib/math/plane/normalize.hpp>
@@ -20,6 +21,7 @@
 #include <sge/camera/coordinate_system/object.hpp>
 #include <sge/camera/matrix_conversion/world_projection.hpp>
 #include <sge/parse/json/array.hpp>
+#include <sge/renderer/target/base.hpp>
 #include <sge/parse/json/object.hpp>
 #include <sge/renderer/matrix4.hpp>
 #include <sge/renderer/scalar.hpp>
@@ -40,10 +42,17 @@
 #include <fcppt/container/array.hpp>
 #include <fcppt/container/ptr/push_back_unique_ptr.hpp>
 #include <fcppt/math/matrix/object_impl.hpp>
+#include <fcppt/math/matrix/multiply_matrix4_vector3.hpp>
+#include <fcppt/math/matrix/transpose.hpp>
 #include <fcppt/math/vector/length.hpp>
 #include <fcppt/math/vector/normalize.hpp>
+#include <fcppt/math/vector/cross.hpp>
+#include <fcppt/math/vector/dot.hpp>
 #include <fcppt/math/vector/object_impl.hpp>
 #include <fcppt/math/vector/structure_cast.hpp>
+#include <fcppt/math/dim/structure_cast.hpp>
+#include <fruitapp/renderer_rect.hpp>
+#include <fruitapp/renderer_dim2.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -111,13 +120,97 @@ fruitapp::fruit::manager::manager(
 
 void
 fruitapp::fruit::manager::cut(
-	fruitapp::fruit::object const &current_fruit,
-	fruitapp::fruit::plane const &original_plane,
-	fruitlib::physics::vector3 const &cut_direction,
-	fruitapp::ingame_clock::duration const &lock_duration)
+	fruitapp::fruit::object const &_current_fruit,
+	fruitapp::fruit::hull::intersection_pair const &_intersection,
+	fruitapp::fruit::ban_duration const &_ban_duration,
+	sge::renderer::target::base const &_target)
 {
-	if(current_fruit.locked())
+	if(!_intersection || _current_fruit.locked())
 		return;
+
+	sge::renderer::matrix4 const inverse_mvp =
+		fcppt::math::matrix::inverse(
+			sge::camera::matrix_conversion::world_projection(
+				camera_.coordinate_system(),
+				camera_.projection_matrix()));
+
+	sge::renderer::vector3 const
+		// Convert the points to 3D and to renderer::scalar
+		point1(
+			static_cast<sge::renderer::scalar>(
+				_intersection->first[0]),
+			static_cast<sge::renderer::scalar>(
+				_intersection->first[1]),
+			static_cast<sge::renderer::scalar>(
+				0)),
+		point2(
+			static_cast<sge::renderer::scalar>(
+				_intersection->second[0]),
+			static_cast<sge::renderer::scalar>(
+				_intersection->second[1]),
+			static_cast<sge::renderer::scalar>(
+				0)),
+		// unproject 'em
+		point1_unprojected =
+			fruitlib::math::unproject(
+				point1,
+				inverse_mvp,
+				// The points are already "un-viewported", but they are in
+				// screenspace, so use the screen rect here
+				fruitapp::renderer_rect(
+					sge::renderer::vector2::null(),
+					fcppt::math::dim::structure_cast<fruitapp::renderer_dim2>(
+						_target.viewport().get().size()))),
+		point2_unprojected =
+			fruitlib::math::unproject(
+				point2,
+				inverse_mvp,
+				// The points are already "un-viewported", but they are in
+				// screenspace, so use the screen rect here
+				fruitapp::renderer_rect(
+					sge::renderer::vector2::null(),
+					fcppt::math::dim::structure_cast<fruitapp::renderer_dim2>(
+						_target.viewport().get().size()))),
+		point3_unprojected =
+			fruitlib::math::unproject(
+				sge::renderer::vector3(
+					point1.x(),
+					point1.y(),
+					static_cast<sge::renderer::scalar>(
+						0.5)),
+				inverse_mvp,
+				fruitapp::renderer_rect(
+					sge::renderer::vector2::null(),
+					fcppt::math::dim::structure_cast<fruitapp::renderer_dim2>(
+						_target.viewport().get().size()))),
+		first_plane_vector =
+			point2_unprojected - point1_unprojected,
+		second_plane_vector =
+			point3_unprojected - point1_unprojected,
+		// NOTE: For rotation matrices M and vectors a,b the following holds:
+		// cross(M*a,M*b) = M*cross(a,b)
+		plane_normal =
+		fcppt::math::matrix::multiply_matrix4_vector3(
+				fcppt::math::matrix::transpose(
+					_current_fruit.rotation()),
+				fcppt::math::vector::cross(
+					first_plane_vector,
+					second_plane_vector));
+
+	sge::renderer::scalar const plane_scalar =
+		fcppt::math::vector::dot(
+			fcppt::math::matrix::multiply_matrix4_vector3(
+				fcppt::math::matrix::transpose(
+					_current_fruit.rotation()),
+				point1_unprojected - _current_fruit.position()),
+			plane_normal);
+
+	fruitapp::fruit::plane const original_plane(
+		plane_normal,
+		plane_scalar);
+
+	sge::renderer::vector3 const cut_direction(
+		first_plane_vector);
 
 	typedef
 	fcppt::container::array<fruitapp::fruit::plane,2>
@@ -145,9 +238,9 @@ fruitapp::fruit::manager::cut(
 		p != planes.end();
 		++p)
 	{
-		fcppt::unique_ptr<fruit::cut_mesh_result> cut_result(
-			fruit::cut_mesh(
-				current_fruit.mesh(),
+		fcppt::unique_ptr<fruitapp::fruit::cut_mesh_result> cut_result(
+			fruitapp::fruit::cut_mesh(
+				_current_fruit.mesh(),
 				*p));
 
 		cumulated_area +=
@@ -166,9 +259,9 @@ fruitapp::fruit::manager::cut(
 
 		fcppt::container::ptr::push_back_unique_ptr(
 			fruit_cache,
-			fcppt::make_unique_ptr<fruit::object>(
+			fcppt::make_unique_ptr<fruitapp::fruit::object>(
 				fcppt::cref(
-					current_fruit.prototype()),
+					_current_fruit.prototype()),
 				fcppt::ref(
 					physics_world_),
 				fcppt::ref(
@@ -180,21 +273,21 @@ fruitapp::fruit::manager::cut(
 					fruit_group_),
 				static_cast<fruitlib::physics::rigid_body::mass::value_type>(
 					cut_result->bounding_box().size().content()),
-				current_fruit.position() +
-					fruitlib::math::multiply_matrix4_vector3(
-						current_fruit.body().transformation(),
+				_current_fruit.position() +
+					fcppt::math::matrix::multiply_matrix4_vector3(
+						_current_fruit.body().transformation(),
 						fcppt::math::vector::structure_cast<fruitlib::physics::vector3>(
 							cut_result->barycenter())),
-				current_fruit.body().transformation(),
+				_current_fruit.body().transformation(),
 				calculate_new_linear_velocity(
-					current_fruit.body().linear_velocity(),
-					fruitlib::math::multiply_matrix4_vector3(
-						current_fruit.body().transformation(),
+					_current_fruit.body().linear_velocity(),
+					fcppt::math::matrix::multiply_matrix4_vector3(
+						_current_fruit.body().transformation(),
 						fcppt::math::vector::structure_cast<fruitlib::physics::vector3>(
 							fcppt::math::vector::normalize(
 								p->normal())))),
-				current_fruit.body().angular_velocity(),
-				lock_duration,
+				_current_fruit.body().angular_velocity(),
+				_ban_duration,
 				fcppt::cref(
 					clock_)));
 	}
@@ -205,7 +298,7 @@ fruitapp::fruit::manager::cut(
 	fruit::cut_context_unique_ptr cut_context(
 		fcppt::make_unique_ptr<fruit::cut_context>(
 			fcppt::cref(
-				current_fruit),
+				_current_fruit),
 			fcppt::assign::make_array<fruit::object const *>
 				(&(*fruit_cache.begin()))
 				(&(*(--fruit_cache.end()))),
@@ -223,7 +316,7 @@ fruitapp::fruit::manager::cut(
 		fruit_cache);
 
 	fruits_.erase(
-		current_fruit);
+		_current_fruit);
 }
 
 void

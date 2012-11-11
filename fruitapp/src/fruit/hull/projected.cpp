@@ -37,7 +37,7 @@
 fruitapp::fruit::hull::ring const
 fruitapp::fruit::hull::projected(
 	fruitapp::fruit::object const &f,
-	sge::renderer::target::base &target,
+	sge::renderer::target::base const &target,
 	sge::renderer::matrix4 const &mvp)
 {
 	typedef

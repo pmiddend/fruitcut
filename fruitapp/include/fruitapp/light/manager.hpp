@@ -1,11 +1,12 @@
 #ifndef FRUITAPP_LIGHT_MANAGER_HPP_INCLUDED
 #define FRUITAPP_LIGHT_MANAGER_HPP_INCLUDED
 
-#include <fcppt/noncopyable.hpp>
-#include <fruitapp/light/directional_light_source_fwd.hpp>
 #include <fruitapp/light/ambient_intensity.hpp>
-#include <fcppt/scoped_ptr.hpp>
+#include <fruitapp/light/directional_light_source_fwd.hpp>
 #include <sge/parse/json/object_fwd.hpp>
+#include <fcppt/noncopyable.hpp>
+#include <fcppt/scoped_ptr.hpp>
+
 
 namespace fruitapp
 {

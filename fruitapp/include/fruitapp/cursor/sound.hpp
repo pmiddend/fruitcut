@@ -13,26 +13,27 @@
 
 namespace fruitapp
 {
-class cursor_sound
+namespace cursor
+{
+class sound
 :
-	public fruitlib::scenic::node<cursor_sound>
+	public fruitlib::scenic::node<sound>
 {
 FCPPT_NONCOPYABLE(
-	cursor_sound);
+	sound);
 public:
 	typedef
 	boost::mpl::vector1<fruitlib::scenic::events::update>
 	scene_reactions;
 
-	explicit
-	cursor_sound(
+	sound(
 		fruitlib::scenic::optional_parent const &,
 		sge::input::cursor::object &,
 		fruitapp::ingame_clock const &,
-		fruitapp::viewport::manager const &,
+		fruitapp::viewport::manager &,
 		fruitlib::audio::sound_controller &);
 
-	~cursor_sound();
+	~sound();
 
 	void
 	react(
@@ -41,11 +42,12 @@ private:
 	sge::input::cursor::object &cursor_;
 	fruitapp::ingame_timer update_timer_;
 	fruitapp::ingame_timer cooldown_timer_;
-	fruitapp::viewport::manager const &viewport_manager_;
+	fruitapp::viewport::manager &viewport_manager_;
 	fruitlib::audio::sound_controller &sound_controller_;
 	sge::input::cursor::position last_pos_;
 
 };
+}
 }
 
 #endif

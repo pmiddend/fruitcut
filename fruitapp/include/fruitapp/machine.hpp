@@ -2,16 +2,17 @@
 #define FRUITAPP_MACHINE_HPP_INCLUDED
 
 #include <fruitapp/config_variables_fwd.hpp>
-#include <fruitapp/light/manager_fwd.hpp>
 #include <fruitapp/ingame_clock.hpp>
 #include <fruitapp/machine_impl_fwd.hpp>
 #include <fruitapp/overlay.hpp>
 #include <fruitapp/quick_log_fwd.hpp>
+#include <fruitapp/cursor/manager_fwd.hpp>
 #include <fruitapp/scene_fwd.hpp>
 #include <fruitapp/systems.hpp>
 #include <fruitapp/fruit/prototype_sequence.hpp>
 #include <fruitapp/gui/system_fwd.hpp>
 #include <fruitapp/highscore/score.hpp>
+#include <fruitapp/light/manager_fwd.hpp>
 #include <fruitapp/point_sprite/system_node_fwd.hpp>
 #include <fruitapp/postprocessing/system_fwd.hpp>
 #include <fruitapp/postprocessing/subsystems/main_fwd.hpp>
@@ -137,6 +138,10 @@ public:
 
 	fruitlib::font::manager &
 	font_manager()
+	FCPPT_PP_CONST;
+
+	fruitapp::cursor::manager &
+	cursor_manager()
 	FCPPT_PP_CONST;
 
 	fruitapp::gui::system &

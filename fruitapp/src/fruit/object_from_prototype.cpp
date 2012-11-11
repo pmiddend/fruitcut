@@ -40,7 +40,8 @@ fruitapp::fruit::object_from_prototype(
 			_transformation,
 			_linear_velocity,
 			_angular_velocity,
-			fruitapp::ingame_clock::duration(),
+			fruitapp::fruit::ban_duration(
+				fruitapp::ingame_clock::duration()),
 			fcppt::cref(
 				_clock));
 }

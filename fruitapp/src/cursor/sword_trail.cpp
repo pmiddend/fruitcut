@@ -1,6 +1,6 @@
 #include <fruitapp/media_path.hpp>
+#include <fruitapp/cursor/sword_trail.hpp>
 #include <fruitlib/texture_manager.hpp>
-#include <fruitapp/sword_trail.hpp>
 #include <fruitlib/time_format/find_and_convert_duration.hpp>
 #include <sge/input/cursor/object.hpp>
 #include <sge/input/cursor/position.hpp>
@@ -59,13 +59,13 @@ transform_position(
 }
 }
 
-fruitapp::sword_trail::sword_trail(
+fruitapp::cursor::sword_trail::sword_trail(
 	fruitlib::scenic::optional_parent const &_parent,
-	sge::renderer::device::ffp &_renderer,
-	sge::renderer::target::base &_target,
-	fruitlib::texture_manager &_texture_manager,
 	sge::input::cursor::object &_cursor,
 	fruitapp::ingame_clock const &_clock,
+	sge::renderer::device::ffp &_renderer,
+	sge::renderer::target::base const &_target,
+	fruitlib::texture_manager &_texture_manager,
 	sge::parse::json::object const &_config_file)
 :
 	node_base(
@@ -115,12 +115,12 @@ fruitapp::sword_trail::sword_trail(
 {
 }
 
-fruitapp::sword_trail::~sword_trail()
+fruitapp::cursor::sword_trail::~sword_trail()
 {
 }
 
 void
-fruitapp::sword_trail::react(
+fruitapp::cursor::sword_trail::react(
 	fruitlib::scenic::events::update const &)
 {
 	for(timer_buffer::size_type i = 0; i < timers_.size(); ++i)
@@ -190,7 +190,7 @@ fruitapp::sword_trail::react(
 }
 
 void
-fruitapp::sword_trail::react(
+fruitapp::cursor::sword_trail::react(
 	fruitlib::scenic::events::render const &_render_event)
 {
 	sge::sprite::process::all(

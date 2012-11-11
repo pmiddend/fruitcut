@@ -1,8 +1,8 @@
 #ifndef FRUITAPP_SHADOW_MAP_OBJECT_HPP_INCLUDED
 #define FRUITAPP_SHADOW_MAP_OBJECT_HPP_INCLUDED
 
-#include <fruitapp/shadow_map/mvp.hpp>
 #include <fruitapp/light/manager_fwd.hpp>
+#include <fruitapp/shadow_map/mvp.hpp>
 #include <fruitlib/scenic/node.hpp>
 #include <fruitlib/scenic/optional_parent.hpp>
 #include <fruitlib/scenic/events/update.hpp>
@@ -19,6 +19,7 @@
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <fcppt/config/external_end.hpp>
+
 
 namespace fruitapp
 {

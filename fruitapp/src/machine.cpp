@@ -161,6 +161,12 @@ fruitapp::machine::font_manager()
 	return impl_->font_manager();
 }
 
+fruitapp::cursor::manager &
+fruitapp::machine::cursor_manager()
+{
+	return impl_->cursor_manager();
+}
+
 fruitapp::gui::system &
 fruitapp::machine::gui_system()
 {

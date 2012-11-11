@@ -3,6 +3,8 @@
 
 #include <fruitapp/ingame_clock.hpp>
 #include <fruitapp/fruit/object_fwd.hpp>
+#include <sge/renderer/target/base_fwd.hpp>
+#include <fruitapp/fruit/ban_duration.hpp>
 #include <fruitapp/fruit/object_sequence.hpp>
 #include <fruitapp/fruit/plane.hpp>
 #include <fruitapp/fruit/prototype.hpp>
@@ -11,6 +13,7 @@
 #include <fruitapp/fruit/callbacks/cut_fn.hpp>
 #include <fruitapp/fruit/callbacks/remove.hpp>
 #include <fruitapp/fruit/callbacks/remove_fn.hpp>
+#include <fruitapp/fruit/hull/intersection_pair.hpp>
 #include <fruitapp/fruit/callbacks/spawn.hpp>
 #include <fruitapp/fruit/callbacks/spawn_fn.hpp>
 #include <fruitlib/physics/world_fwd.hpp>
@@ -63,12 +66,20 @@ public:
 	// cut_fruit gets a duration indicating how long the new fruits are
 	// to be banned from further cutting (which would result in paper
 	// thin fruit slices)
+	/*
 	void
 	cut(
 		fruitapp::fruit::object const &,
 		fruitapp::fruit::plane const &,
 		fruitlib::physics::vector3 const &,
 		fruitapp::ingame_clock::duration const &);
+	*/
+	void
+	cut(
+		fruitapp::fruit::object const &,
+		fruitapp::fruit::hull::intersection_pair const &,
+		fruitapp::fruit::ban_duration const &,
+		sge::renderer::target::base const &);
 
 	void
 	spawn(

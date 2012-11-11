@@ -1,13 +1,11 @@
+#include <fruitapp/media_path.hpp>
 #include <fruitapp/depths/root.hpp>
 #include <fruitapp/events/define_transition_reaction.hpp>
-#include <fruitapp/media_path.hpp>
 #include <fruitapp/events/return_post_transition_functor.hpp>
 #include <fruitapp/gui/system.hpp>
 #include <fruitapp/gui/dialogs/ranking.hpp>
 #include <fruitapp/highscore/name.hpp>
 #include <fruitapp/highscore/providers_from_json.hpp>
-#include <sge/parse/json/parse_file_exn.hpp>
-#include <sge/parse/json/start.hpp>
 #include <fruitapp/highscore/score.hpp>
 #include <fruitapp/states/gameover/ranking.hpp>
 #include <fruitapp/states/menu/highscore.hpp>
@@ -16,6 +14,8 @@
 #include <sge/cegui/from_cegui_string.hpp>
 #include <sge/cegui/system.hpp>
 #include <sge/cegui/to_cegui_string.hpp>
+#include <sge/parse/json/parse_file_exn.hpp>
+#include <sge/parse/json/start.hpp>
 #include <sge/systems/instance.hpp>
 #include <awl/main/exit_success.hpp>
 #include <fcppt/string.hpp>

@@ -1,6 +1,8 @@
-#include <sge/parse/json/parse_file_exn.hpp>
-#include <sge/parse/json/start.hpp>
 #include <fruitapp/load_user_config.hpp>
+#include <sge/renderer/target/onscreen.hpp>
+#include <sge/renderer/device/ffp.hpp>
+#include <sge/renderer/target/onscreen.hpp>
+#include <fruitapp/cursor/manager.hpp>
 #include <fruitapp/machine_impl.hpp>
 #include <fruitapp/media_path.hpp>
 #include <fruitapp/name.hpp>
@@ -47,7 +49,9 @@
 #include <sge/parse/json/array.hpp>
 #include <sge/parse/json/find_and_convert_member.hpp>
 #include <sge/parse/json/object.hpp>
+#include <sge/parse/json/parse_file_exn.hpp>
 #include <sge/parse/json/parse_string_exn.hpp>
+#include <sge/parse/json/start.hpp>
 #include <sge/parse/json/string_to_path.hpp>
 #include <sge/parse/json/config/merge_command_line_parameters.hpp>
 #include <sge/parse/json/config/merge_trees.hpp>
@@ -488,7 +492,18 @@ fruitapp::machine_impl::machine_impl(
 		systems_.renderer_core(),
 		systems_.image_system(),
 		quick_log_),
-	fruit_prototypes_()
+	fruit_prototypes_(),
+	cursor_manager_(
+		systems_.input_processor(),
+		systems_.renderer_ffp(),
+		systems_.renderer_ffp().onscreen_target(),
+		camera_,
+		texture_manager_,
+		viewport_manager_,
+		sound_controller_,
+		ingame_clock_,
+		sge::parse::json::parse_file_exn(
+			fruitapp::media_path() / FCPPT_TEXT("cursor.json")).object())
 {
 	systems_.audio_player().gain(
 		sge::parse::json::find_and_convert_member<sge::audio::scalar>(
@@ -674,11 +689,12 @@ fruitapp::machine_impl::font_manager()
 	return font_manager_;
 }
 
-fruitlib::font::manager const &
-fruitapp::machine_impl::font_manager() const
+fruitapp::cursor::manager &
+fruitapp::machine_impl::cursor_manager()
 {
-	return font_manager_;
+	return cursor_manager_;
 }
+
 
 fruitapp::gui::system &
 fruitapp::machine_impl::gui_system()

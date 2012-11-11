@@ -1,6 +1,6 @@
-#include <fruitapp/shadow_map/object.hpp>
-#include <fruitapp/light/manager.hpp>
 #include <fruitapp/light/directional_light_source.hpp>
+#include <fruitapp/light/manager.hpp>
+#include <fruitapp/shadow_map/object.hpp>
 #include <fruitlib/perspective_projection_information_to_matrix.hpp>
 #include <fruitlib/json/parse_projection.hpp>
 #include <fruitlib/scenic/events/render.hpp>

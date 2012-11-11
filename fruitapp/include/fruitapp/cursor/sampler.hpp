@@ -1,5 +1,5 @@
-#ifndef FRUITCUT_APP_CURSOR_TRAIL_HPP_INCLUDED
-#define FRUITCUT_APP_CURSOR_TRAIL_HPP_INCLUDED
+#ifndef FRUITAPP_CURSOR_SAMPLER_HPP_INCLUDED
+#define FRUITAPP_CURSOR_SAMPLER_HPP_INCLUDED
 
 #include <fruitapp/ingame_clock.hpp>
 #include <fruitapp/ingame_timer.hpp>
@@ -10,6 +10,7 @@
 #include <sge/input/cursor/position.hpp>
 #include <sge/renderer/target/base_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/strong_typedef.hpp>
 #include <fcppt/math/vector/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
@@ -20,12 +21,14 @@
 
 namespace fruitapp
 {
-class cursor_trail
+namespace cursor
+{
+class sampler
 :
-	public fruitlib::scenic::node<cursor_trail>
+	public fruitlib::scenic::node<sampler>
 {
 FCPPT_NONCOPYABLE(
-	cursor_trail);
+	sampler);
 public:
 	typedef
 	boost::mpl::vector1<fruitlib::scenic::events::update>
@@ -39,13 +42,17 @@ public:
 	position_buffer::size_type
 	size_type;
 
-	cursor_trail(
+	FCPPT_MAKE_STRONG_TYPEDEF(
+		size_type,
+		sample_count);
+
+	sampler(
 		fruitlib::scenic::optional_parent const &,
 		sge::input::cursor::object &,
 		fruitapp::ingame_clock const &,
-		fruitapp::ingame_clock::duration const &update_duration,
-		size_type sample_count,
-		sge::renderer::target::base &);
+		fruitapp::ingame_clock::duration const &,
+		sample_count const &,
+		sge::renderer::target::base const &);
 
 	position_buffer const &
 	positions() const;
@@ -59,19 +66,20 @@ public:
 	fruitapp::ingame_clock::duration const
 	total_expiry_duration() const;
 
-	~cursor_trail();
+	~sampler();
 
 	void
 	react(
 		fruitlib::scenic::events::update const &);
 private:
 	sge::input::cursor::object &cursor_;
-	sge::renderer::target::base &target_;
+	sge::renderer::target::base const &target_;
 	position_buffer positions_;
 	fruitapp::ingame_timer update_timer_;
-	size_type sample_count_;
+	sample_count const sample_count_;
 
 };
+}
 }
 
 #endif

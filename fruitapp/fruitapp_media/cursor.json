@@ -1,0 +1,11 @@
+{
+	"trail-update-rate" : "50ms",
+	"trail-samples" : 5,
+	"sword-mouse-trail" :
+	{
+		"position-storage-size" : 8,
+		"update-interval" : "50ms",
+		"element-lifetime" : "500ms",
+		"sword-width" : 10.0
+	}
+}

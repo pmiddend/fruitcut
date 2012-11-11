@@ -1,4 +1,4 @@
-#include <fruitapp/cursor_trail.hpp>
+#include <fruitapp/cursor/sampler.hpp>
 #include <sge/input/cursor/object.hpp>
 #include <sge/input/cursor/position.hpp>
 #include <sge/input/cursor/position_unit.hpp>
@@ -32,13 +32,13 @@ transform_position(
 }
 }
 
-fruitapp::cursor_trail::cursor_trail(
+fruitapp::cursor::sampler::sampler(
 	fruitlib::scenic::optional_parent const &_parent,
 	sge::input::cursor::object &_cursor,
 	fruitapp::ingame_clock const &_clock,
 	fruitapp::ingame_clock::duration const &_update_frequency,
-	size_type const _sample_count,
-	sge::renderer::target::base &_target)
+	sample_count const &_sample_count,
+	sge::renderer::target::base const &_target)
 :
 	node_base(
 		_parent),
@@ -56,33 +56,33 @@ fruitapp::cursor_trail::cursor_trail(
 {
 }
 
-fruitapp::cursor_trail::position_buffer const &
-fruitapp::cursor_trail::positions() const
+fruitapp::cursor::sampler::position_buffer const &
+fruitapp::cursor::sampler::positions() const
 {
 	return positions_;
 }
 
 void
-fruitapp::cursor_trail::clear()
+fruitapp::cursor::sampler::clear()
 {
 	positions_.clear();
 }
 
 fruitapp::ingame_clock::duration const
-fruitapp::cursor_trail::total_expiry_duration() const
+fruitapp::cursor::sampler::total_expiry_duration() const
 {
 	return
 		static_cast<fruitapp::ingame_clock::duration::rep>(
-			sample_count_) *
+			sample_count_.get()) *
 		update_timer_.interval<fruitapp::ingame_clock::duration>();
 }
 
-fruitapp::cursor_trail::~cursor_trail()
+fruitapp::cursor::sampler::~sampler()
 {
 }
 
 void
-fruitapp::cursor_trail::react(
+fruitapp::cursor::sampler::react(
 	fruitlib::scenic::events::update const &)
 {
 	if(
@@ -99,6 +99,6 @@ fruitapp::cursor_trail::react(
 			*cursor_.position(),
 			target_.viewport().get()));
 
-	if(positions_.size() > sample_count_)
+	if(positions_.size() > sample_count_.get())
 		positions_.pop_front();
 }

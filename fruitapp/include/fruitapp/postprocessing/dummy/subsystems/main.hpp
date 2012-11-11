@@ -4,7 +4,9 @@
 #include <fruitapp/postprocessing/render_callback.hpp>
 #include <fruitapp/postprocessing/dummy/system_fwd.hpp>
 #include <fruitapp/postprocessing/subsystems/main.hpp>
+#include <fruitlib/scenic/optional_parent.hpp>
 #include <fcppt/noncopyable.hpp>
+
 
 namespace fruitapp
 {

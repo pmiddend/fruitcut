@@ -7,6 +7,7 @@
 #include <fruitapp/point_sprite/connection.hpp>
 #include <fruitapp/point_sprite/state_object.hpp>
 #include <fruitapp/point_sprite/unique_base_ptr.hpp>
+#include <fruitlib/texture_manager_fwd.hpp>
 #include <fruitlib/uniform_int_random.hpp>
 #include <fruitlib/resource_tree/make_type.hpp>
 #include <fruitlib/resource_tree/path.hpp>
@@ -15,7 +16,6 @@
 #include <fruitlib/scenic/events/render.hpp>
 #include <fruitlib/scenic/events/update.hpp>
 #include <sge/camera/base_fwd.hpp>
-#include <fruitlib/texture_manager_fwd.hpp>
 #include <sge/renderer/device/ffp_fwd.hpp>
 #include <sge/renderer/target/base_fwd.hpp>
 #include <sge/sprite/buffers/single_decl.hpp>

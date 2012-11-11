@@ -1,7 +1,5 @@
-#include <fruitapp/depths/root.hpp>
-#include <sge/parse/json/parse_file_exn.hpp>
 #include <fruitapp/media_path.hpp>
-#include <sge/parse/json/start.hpp>
+#include <fruitapp/depths/root.hpp>
 #include <fruitapp/events/define_transition_reaction.hpp>
 #include <fruitapp/events/return_post_transition_functor.hpp>
 #include <fruitapp/gui/system.hpp>
@@ -13,6 +11,8 @@
 #include <fruitapp/states/menu/main.hpp>
 #include <fruitlib/scenic/depth.hpp>
 #include <fruitlib/scenic/parent.hpp>
+#include <sge/parse/json/parse_file_exn.hpp>
+#include <sge/parse/json/start.hpp>
 #include <sge/systems/instance.hpp>
 #include <awl/main/exit_success.hpp>
 #include <fcppt/string.hpp>

@@ -23,11 +23,6 @@
 		"repetitions" : 1.5,
 		"use-ffp" : false
 	},
-	"mouse" : 
-	{
-		"trail-update-rate" : "50ms",
-		"trail-samples" : 5
-	},
 	"graphics" :
 	{
 		"window-size" : [1024,768],
@@ -103,12 +98,5 @@
 		"speed-distortion-range" : [-1.5,1.5],
 		"size-range" : [50.0,120.0],
 		"lifetime-millis-range" : [100,1500]
-	},
-	"sword-mouse-trail" : 
-	{
-		"position-storage-size" : 8,
-		"update-interval" : "50ms",
-		"element-lifetime" : "500ms",
-		"sword-width" : 10.0
 	}
 }

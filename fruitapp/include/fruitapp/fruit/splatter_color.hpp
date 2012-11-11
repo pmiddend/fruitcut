@@ -2,6 +2,7 @@
 #define FRUITAPP_FRUIT_SPLATTER_COLOR_HPP_INCLUDED
 
 #include <sge/image/color/any/object_fwd.hpp>
+#include <fcppt/strong_typedef.hpp>
 
 namespace fruitapp
 {

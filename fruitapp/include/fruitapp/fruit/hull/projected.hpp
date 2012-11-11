@@ -16,7 +16,7 @@ namespace hull
 fruitapp::fruit::hull::ring const
 projected(
 	fruitapp::fruit::object const &,
-	sge::renderer::target::base &,
+	sge::renderer::target::base const &,
 	sge::renderer::matrix4 const &);
 }
 }

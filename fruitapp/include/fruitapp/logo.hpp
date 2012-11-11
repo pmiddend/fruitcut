@@ -2,6 +2,7 @@
 #define FRUITAPP_LOGO_HPP_INCLUDED
 
 #include <fruitapp/viewport/manager_fwd.hpp>
+#include <fruitlib/texture_manager_fwd.hpp>
 #include <fruitlib/scenic/node.hpp>
 #include <fruitlib/scenic/optional_parent.hpp>
 #include <fruitlib/scenic/events/render.hpp>
@@ -24,7 +25,6 @@
 #include <sge/sprite/state/object.hpp>
 #include <sge/sprite/state/parameters.hpp>
 #include <sge/texture/const_part_scoped_ptr.hpp>
-#include <fruitlib/texture_manager_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/config/external_begin.hpp>

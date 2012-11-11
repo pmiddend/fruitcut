@@ -35,7 +35,7 @@ fruitapp::fruit::object::object(
 	fruitlib::physics::matrix4 const &_transformation,
 	fruitlib::physics::vector3 const &_linear_velocity,
 	fruitlib::physics::vector3 const &_angular_velocity,
-	fruitapp::ingame_clock::duration const &_lock_duration,
+	fruitapp::fruit::ban_duration const &_lock_duration,
 	fruitapp::ingame_clock const &_clock)
 :
 	prototype_(
@@ -79,7 +79,7 @@ fruitapp::fruit::object::object(
 	lock_timer_(
 		fruitapp::ingame_timer::parameters(
 			_clock,
-			_lock_duration))
+			_lock_duration.get()))
 {
 }
 

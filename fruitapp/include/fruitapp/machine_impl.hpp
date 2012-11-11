@@ -5,13 +5,14 @@
 #include <fruitapp/ingame_clock.hpp>
 #include <fruitapp/quick_log.hpp>
 #include <fruitapp/renderable.hpp>
+#include <fruitapp/cursor/manager.hpp>
 #include <fruitapp/screen_shooter.hpp>
 #include <fruitapp/systems.hpp>
-#include <fruitapp/light/manager.hpp>
 #include <fruitapp/background/node.hpp>
 #include <fruitapp/fruit/prototype_sequence.hpp>
 #include <fruitapp/gui/system_unique_ptr.hpp>
 #include <fruitapp/highscore/score.hpp>
+#include <fruitapp/light/manager.hpp>
 #include <fruitapp/point_sprite/system_node.hpp>
 #include <fruitapp/postprocessing/system_scoped_ptr.hpp>
 #include <fruitapp/postprocessing/subsystems/main_fwd.hpp>
@@ -150,8 +151,8 @@ public:
 	font_manager()
 	FCPPT_PP_CONST;
 
-	fruitlib::font::manager const &
-	font_manager() const
+	fruitapp::cursor::manager &
+	cursor_manager()
 	FCPPT_PP_CONST;
 
 	fruitapp::gui::system &
@@ -287,6 +288,7 @@ private:
 	fruitapp::point_sprite::system_node point_sprites_;
 	fruitapp::screen_shooter screen_shooter_;
 	fruitapp::fruit::prototype_sequence fruit_prototypes_;
+	fruitapp::cursor::manager cursor_manager_;
 
 	void
 	toggle_camera();

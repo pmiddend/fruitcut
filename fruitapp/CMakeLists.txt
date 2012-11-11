@@ -62,8 +62,6 @@ set(
 	fruitapp/include/fruitapp/config_variables.hpp
 	fruitapp/include/fruitapp/config_variables_fwd.hpp
 	fruitapp/include/fruitapp/current_commit.hpp
-	fruitapp/include/fruitapp/cursor_sound.hpp
-	fruitapp/include/fruitapp/cursor_trail.hpp
 	fruitapp/include/fruitapp/cut_context_fwd.hpp
 	fruitapp/include/fruitapp/depths/overlay.hpp
 	fruitapp/include/fruitapp/depths/root.hpp
@@ -313,7 +311,6 @@ set(
 	fruitapp/include/fruitapp/states/menu/settings_fwd.hpp
 	fruitapp/include/fruitapp/states/menu/superstate.hpp
 	fruitapp/include/fruitapp/states/menu/superstate_fwd.hpp
-	fruitapp/include/fruitapp/sword_trail.hpp
 	fruitapp/include/fruitapp/systems.hpp
 	fruitapp/include/fruitapp/viewport/change_callback.hpp
 	fruitapp/include/fruitapp/viewport/change_callback_fn.hpp
@@ -328,8 +325,12 @@ set(
 	fruitapp/src/background/node.cpp
 	fruitapp/src/config_variables.cpp
 	fruitapp/src/current_commit.cpp
-	fruitapp/src/cursor_sound.cpp
-	fruitapp/src/cursor_trail.cpp
+	fruitapp/src/cursor/instance.cpp
+	fruitapp/src/cursor/instance_sequence.cpp
+	fruitapp/src/cursor/manager.cpp
+	fruitapp/src/cursor/sampler.cpp
+	fruitapp/src/cursor/sound.cpp
+	fruitapp/src/cursor/sword_trail.cpp
 	fruitapp/src/exception.cpp
 	fruitapp/src/fruit/cut_context.cpp
 	fruitapp/src/fruit/cut_mesh.cpp
@@ -426,7 +427,6 @@ set(
 	fruitapp/src/states/menu/main.cpp
 	fruitapp/src/states/menu/settings.cpp
 	fruitapp/src/states/menu/superstate.cpp
-	fruitapp/src/sword_trail.cpp
 	fruitapp/src/viewport/manager.cpp
 )
 

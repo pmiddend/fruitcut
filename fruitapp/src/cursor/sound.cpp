@@ -1,6 +1,6 @@
-#include <fruitapp/cursor_sound.hpp>
 #include <fruitapp/ingame_clock.hpp>
 #include <fruitapp/ingame_timer.hpp>
+#include <fruitapp/cursor/sound.hpp>
 #include <fruitapp/viewport/manager.hpp>
 #include <fruitlib/audio/sound_controller.hpp>
 #include <fruitlib/scenic/events/update.hpp>
@@ -18,11 +18,11 @@
 #include <fcppt/config/external_end.hpp>
 
 
-fruitapp::cursor_sound::cursor_sound(
+fruitapp::cursor::sound::sound(
 	fruitlib::scenic::optional_parent const &_parent,
 	sge::input::cursor::object &_cursor,
 	fruitapp::ingame_clock const &_clock,
-	fruitapp::viewport::manager const &_viewport_manager,
+	fruitapp::viewport::manager &_viewport_manager,
 	fruitlib::audio::sound_controller &_sound_controller)
 :
 	node_base(
@@ -45,12 +45,12 @@ fruitapp::cursor_sound::cursor_sound(
 {
 }
 
-fruitapp::cursor_sound::~cursor_sound()
+fruitapp::cursor::sound::~sound()
 {
 }
 
 void
-fruitapp::cursor_sound::react(
+fruitapp::cursor::sound::react(
 	fruitlib::scenic::events::update const &)
 {
 	if(

@@ -1,9 +1,7 @@
 #include <fruitapp/exception.hpp>
-#include <fruitlib/texture_manager.hpp>
-#include <sge/texture/fragmented.hpp>
-#include <fcppt/tr1/functional.hpp>
 #include <fruitapp/point_sprite/state_parameters.hpp>
 #include <fruitapp/point_sprite/system_node.hpp>
+#include <fruitlib/texture_manager.hpp>
 #include <fruitlib/resource_tree/from_directory_tree.hpp>
 #include <fruitlib/resource_tree/navigate_to_path.hpp>
 #include <fruitlib/resource_tree/path.hpp>
@@ -29,6 +27,7 @@
 #include <sge/sprite/compare/default.hpp>
 #include <sge/sprite/intrusive/collection_impl.hpp>
 #include <sge/sprite/process/all.hpp>
+#include <sge/texture/fragmented.hpp>
 #include <sge/texture/fragmented_unique_ptr.hpp>
 #include <sge/texture/manager_fwd.hpp>
 #include <sge/texture/part_shared_ptr.hpp>
@@ -39,6 +38,7 @@
 #include <fcppt/algorithm/map.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/container/ptr/push_back_unique_ptr.hpp>
+#include <fcppt/tr1/functional.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/next_prior.hpp>
 #include <boost/filesystem/operations.hpp>
