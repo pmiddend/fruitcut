@@ -1,16 +1,12 @@
 #include <fruitapp/media_path.hpp>
 #include <fruitapp/background/cg.hpp>
 #include <fruitapp/shadow_map/object.hpp>
-#include <fruitlib/texture_manager.hpp>
 #include <sge/camera/base.hpp>
 #include <sge/camera/coordinate_system/object.hpp>
 #include <sge/camera/matrix_conversion/world_projection.hpp>
-#include <sge/renderer/texture/planar.hpp>
-#include <sge/renderer/texture/mipmap/off.hpp>
 #include <sge/shader/context.hpp>
 #include <sge/shader/scoped_pair.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/container/bitfield/object_impl.hpp>
 
 
 fruitapp::background::cg::cg(
@@ -23,20 +19,12 @@ fruitapp::background::cg::cg(
 :
 	fruitapp::background::base(
 		_shader_context.renderer(),
+		_texture_manager,
 		_camera,
 		_projection_manager,
 		_repetitions),
 	camera_(
 		_camera),
-	texture_(
-		_texture_manager.create_planar_from_path(
-			fruitapp::media_path()
-				/
-					FCPPT_TEXT("textures")
-				/
-					FCPPT_TEXT("background.png"),
-			sge::renderer::texture::mipmap::off(),
-			sge::renderer::resource_flags_field::null())),
 	shader_(
 		_shader_context,
 		*vertex_declaration_,
@@ -81,7 +69,7 @@ fruitapp::background::cg::cg(
 		shader_,
 		_shader_context.renderer(),
 		sge::shader::parameter::planar_texture::optional_value(
-			*texture_)),
+			fruitapp::background::base::texture())),
 	shadow_map_parameter_(
 		shader_.pixel_program(),
 		sge::shader::parameter::name(

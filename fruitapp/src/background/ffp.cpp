@@ -1,6 +1,6 @@
 #include <fruitapp/media_path.hpp>
+#include <sge/renderer/texture/planar.hpp>
 #include <fruitapp/background/ffp.hpp>
-#include <fruitlib/texture_manager.hpp>
 #include <sge/camera/base.hpp>
 #include <sge/camera/coordinate_system/object.hpp>
 #include <sge/camera/matrix_conversion/world.hpp>
@@ -15,26 +15,24 @@
 #include <sge/renderer/state/ffp/transform/object_scoped_ptr.hpp>
 #include <sge/renderer/state/ffp/transform/parameters.hpp>
 #include <sge/renderer/state/ffp/transform/scoped.hpp>
-#include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/scoped.hpp>
-#include <sge/renderer/texture/mipmap/off.hpp>
 #include <sge/shader/context.hpp>
 #include <sge/shader/scoped_pair.hpp>
 #include <fcppt/cref.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assign/make_map.hpp>
-#include <fcppt/container/bitfield/object_impl.hpp>
 
 
 fruitapp::background::ffp::ffp(
-	fruitlib::texture_manager &_texture_manager,
 	sge::renderer::device::ffp &_renderer,
+	fruitlib::texture_manager &_texture_manager,
 	fruitapp::background::repetitions const &_repetitions,
 	sge::camera::base const &_camera,
 	fruitapp::projection_manager::object &_projection_manager)
 :
 	fruitapp::background::base(
 		_renderer,
+		_texture_manager,
 		_camera,
 		_projection_manager,
 		_repetitions),
@@ -42,15 +40,6 @@ fruitapp::background::ffp::ffp(
 		_renderer),
 	camera_(
 		_camera),
-	texture_(
-		_texture_manager.create_planar_from_path(
-			fruitapp::media_path()
-				/
-					FCPPT_TEXT("textures")
-				/
-					FCPPT_TEXT("background.png"),
-			sge::renderer::texture::mipmap::off(),
-			sge::renderer::resource_flags_field::null())),
 	background_sampler_(
 		_renderer.create_sampler_state(
 			sge::renderer::state::core::sampler::parameters(
@@ -80,7 +69,7 @@ fruitapp::background::ffp::render(
 
 	sge::renderer::texture::scoped const scoped_texture(
 		_context,
-		*texture_,
+		fruitapp::background::base::texture(),
 		sge::renderer::texture::stage(
 			0u));
 

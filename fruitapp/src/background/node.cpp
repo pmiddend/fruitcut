@@ -29,10 +29,10 @@ fruitapp::background::node::node(
 			fruitapp::background::base_unique_ptr(
 				fcppt::make_unique_ptr<fruitapp::background::ffp>(
 					fcppt::ref(
-						_texture_manager),
-					fcppt::ref(
 						dynamic_cast<sge::renderer::device::ffp &>(
 							_renderer)),
+					fcppt::ref(
+						_texture_manager),
 					_repetitions,
 					fcppt::cref(
 						_camera),

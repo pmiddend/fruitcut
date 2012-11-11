@@ -5,7 +5,6 @@
 #include <fruitapp/background/repetitions.hpp>
 #include <fruitapp/shadow_map/optional_object_ref.hpp>
 #include <fruitlib/texture_manager_fwd.hpp>
-#include <sge/renderer/texture/planar_scoped_ptr.hpp>
 #include <sge/shader/context_fwd.hpp>
 #include <sge/shader/pair.hpp>
 #include <sge/shader/parameter/matrix.hpp>
@@ -26,7 +25,7 @@ FCPPT_NONCOPYABLE(
 	cg);
 public:
 	cg(
-		fruitlib::texture_manager &,
+		fruitlib::texture_manager &_texture_manager,
 		sge::shader::context &,
 		fruitapp::shadow_map::optional_object_ref const &,
 		fruitapp::background::repetitions const &,
@@ -40,7 +39,6 @@ public:
 	~cg();
 private:
 	sge::camera::base const &camera_;
-	sge::renderer::texture::planar_scoped_ptr const texture_;
 	sge::shader::pair shader_;
 	sge::shader::parameter::scalar<sge::renderer::scalar> use_shadow_map_parameter_;
 	sge::shader::parameter::matrix<sge::renderer::scalar,4,4> mvp_parameter_;

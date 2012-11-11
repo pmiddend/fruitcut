@@ -1,4 +1,10 @@
 #include <fruitapp/background/base.hpp>
+#include <sge/renderer/vector2.hpp>
+#include <sge/renderer/target/onscreen.hpp>
+#include <fcppt/container/bitfield/object_impl.hpp>
+#include <fruitlib/texture_manager.hpp>
+#include <sge/renderer/texture/mipmap/off.hpp>
+#include <sge/renderer/texture/planar.hpp>
 #include <fruitapp/background/vf/format.hpp>
 #include <fruitapp/background/vf/position.hpp>
 #include <fruitapp/background/vf/texcoord.hpp>
@@ -24,6 +30,8 @@
 #include <fcppt/cref.hpp>
 #include <fcppt/container/bitfield/object_impl.hpp>
 #include <fcppt/math/box/object.hpp>
+#include <fcppt/text.hpp>
+#include <fruitapp/media_path.hpp>
 #include <fcppt/tr1/functional.hpp>
 
 
@@ -33,10 +41,13 @@ fruitapp::background::base::~base()
 
 fruitapp::background::base::base(
 	sge::renderer::device::core &_renderer,
+	fruitlib::texture_manager &_texture_manager,
 	sge::camera::base const &_camera,
 	fruitapp::projection_manager::object &_projection_manager,
 	fruitapp::background::repetitions const &_repetitions)
 :
+	target_(
+		_renderer.onscreen_target()),
 	vertex_declaration_(
 		_renderer.create_vertex_declaration(
 			sge::renderer::vf::dynamic::make_format<fruitapp::background::vf::format>())),
@@ -47,6 +58,15 @@ fruitapp::background::base::base(
 				0u),
 			sge::renderer::vertex_count(
 				6u),
+			sge::renderer::resource_flags_field::null())),
+	texture_(
+		_texture_manager.create_planar_from_path(
+			fruitapp::media_path()
+				/
+					FCPPT_TEXT("textures")
+				/
+					FCPPT_TEXT("background.png"),
+			sge::renderer::texture::mipmap::off(),
 			sge::renderer::resource_flags_field::null())),
 	projection_change_connection_(
 		_projection_manager.projection_change_callback(
@@ -94,10 +114,17 @@ fruitapp::background::base::do_render(
 		sge::renderer::primitive_type::triangle_list);
 }
 
+sge::renderer::texture::planar &
+fruitapp::background::base::texture()
+{
+	return
+		*texture_;
+}
+
 void
 fruitapp::background::base::projection_change(
 	sge::camera::base const &_camera,
-	fruitapp::background::repetitions const &_repetitions,
+	fruitapp::background::repetitions const &,
 	fruitlib::perspective_projection_information const &_perspective_projection_information)
 {
 	typedef
@@ -122,6 +149,16 @@ fruitapp::background::base::projection_change(
 	fruitapp::background::vf::vertex_view::iterator vb_it(
 		vertices.begin());
 
+	sge::renderer::vector2 const repetitions(
+		static_cast<sge::renderer::scalar>(
+			target_.viewport().get().w()) /
+		static_cast<sge::renderer::scalar>(
+			texture_->size().w()),
+		static_cast<sge::renderer::scalar>(
+			target_.viewport().get().h()) /
+		static_cast<sge::renderer::scalar>(
+			texture_->size().h()));
+
 	// Left top
 	(vb_it)->set<fruitapp::background::vf::position>(
 		fruitapp::background::vf::position::packed_type(
@@ -137,7 +174,7 @@ fruitapp::background::base::projection_change(
 	(vb_it++)->set<fruitapp::background::vf::texcoord>(
 		fruitapp::background::vf::texcoord::packed_type(
 			0,
-			_repetitions.get()));
+			repetitions.y()));
 
 	// Right top
 	(vb_it)->set<fruitapp::background::vf::position>(
@@ -145,7 +182,7 @@ fruitapp::background::base::projection_change(
 			zero_plane.right(),zero_plane.top()));
 	(vb_it++)->set<fruitapp::background::vf::texcoord>(
 		fruitapp::background::vf::texcoord::packed_type(
-			_repetitions.get(),0));
+			repetitions.x(),0));
 
 	// Right top
 	(vb_it)->set<fruitapp::background::vf::position>(
@@ -153,7 +190,7 @@ fruitapp::background::base::projection_change(
 			zero_plane.right(),zero_plane.top()));
 	(vb_it++)->set<fruitapp::background::vf::texcoord>(
 		fruitapp::background::vf::texcoord::packed_type(
-			_repetitions.get(),0));
+			repetitions.x(),0));
 
 	// Left bottom
 	(vb_it)->set<fruitapp::background::vf::position>(
@@ -161,7 +198,7 @@ fruitapp::background::base::projection_change(
 			zero_plane.left(),zero_plane.bottom()));
 	(vb_it++)->set<fruitapp::background::vf::texcoord>(
 		fruitapp::background::vf::texcoord::packed_type(
-			0,_repetitions.get()));
+			0,repetitions.y()));
 
 	// Right bottom
 	(vb_it)->set<fruitapp::background::vf::position>(
@@ -169,5 +206,5 @@ fruitapp::background::base::projection_change(
 			zero_plane.right(),zero_plane.bottom()));
 	(vb_it++)->set<fruitapp::background::vf::texcoord>(
 		fruitapp::background::vf::texcoord::packed_type(
-			_repetitions.get(),_repetitions.get()));
+			repetitions.x(),repetitions.y()));
 }
