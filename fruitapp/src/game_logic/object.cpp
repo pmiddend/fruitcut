@@ -381,6 +381,8 @@ fruitapp::game_logic::object::fruit_cut(
 	fruit::tag_set ts = context.old().prototype().tags();
 	if(ts.find(FCPPT_TEXT("meat")) != ts.end())
 	{
+		sound_controller_.play(
+			fruitlib::resource_tree::path(FCPPT_TEXT("penalty")));
 		penalty_timer_.active(
 			true);
 		penalty_timer_.reset();
