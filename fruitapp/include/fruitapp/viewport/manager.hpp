@@ -3,9 +3,9 @@
 
 #include <fruitapp/viewport/change_callback.hpp>
 #include <fruitapp/viewport/change_callback_fn.hpp>
-#include <sge/renderer/target/base_fwd.hpp>
 #include <fruitapp/viewport/optional.hpp>
 #include <fruitapp/viewport/trigger_early.hpp>
+#include <sge/renderer/target/base_fwd.hpp>
 #include <sge/viewport/manager_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/optional_impl.hpp>

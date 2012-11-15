@@ -34,6 +34,7 @@ update_cmake_file \
 	-r \
 	fruitapp/src/bonsu \
 	fruitapp/src/depths \
+	fruitapp/src/font_particle \
 	fruitapp/src/background \
 	fruitapp/src/light \
 	fruitapp/src/cursor \
@@ -55,6 +56,7 @@ update_cmake_file \
 	fruitapp/include/fruitapp/game_logic \
 	fruitapp/include/fruitapp/shadow_map \
 	fruitapp/include/fruitapp/postprocessing \
+	fruitapp/include/fruitapp/font_particle \
 	fruitapp/include/fruitapp/highscore \
 	fruitapp/include/fruitapp/point_sprite \
 	fruitapp/include/fruitapp/projection_manager \

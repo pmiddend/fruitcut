@@ -3,12 +3,14 @@
 
 #include <fruitapp/ingame_clock.hpp>
 #include <fruitapp/ingame_timer.hpp>
+#include <fruitapp/font_particle/manager.hpp>
 #include <fruitapp/overlay.hpp>
 #include <fruitapp/fruit/area.hpp>
 #include <fruitapp/fruit/cut_context_fwd.hpp>
 #include <fruitapp/fruit/manager_fwd.hpp>
 #include <fruitapp/fruit/object_fwd.hpp>
 #include <fruitapp/highscore/score.hpp>
+#include <fruitapp/projection_manager/object_fwd.hpp>
 #include <fruitapp/viewport/manager_fwd.hpp>
 #include <fruitlib/audio/sound_controller.hpp>
 #include <fruitlib/font/manager_fwd.hpp>
@@ -20,7 +22,6 @@
 #include <sge/renderer/scalar.hpp>
 #include <sge/renderer/target/viewport.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fruitapp/projection_manager/object_fwd.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
@@ -44,7 +45,7 @@ public:
 
 	object(
 		fruitlib::scenic::optional_parent const &,
-		fruitapp::projection_manager::object const &,
+		fruitapp::projection_manager::object &,
 		fruitapp::ingame_clock const &,
 		// to get round seconds and stuff
 		sge::parse::json::object const &,
@@ -73,13 +74,13 @@ private:
 	fruitapp::highscore::score score_,iterating_score_;
 	fruitapp::ingame_timer round_timer_;
 	fruitlib::audio::sound_controller &sound_controller_;
-	fcppt::signal::scoped_connection fruit_added_connection_;
-	fcppt::signal::scoped_connection fruit_cut_connection_;
-	fcppt::signal::scoped_connection fruit_removed_connection_;
+	fcppt::signal::scoped_connection const fruit_added_connection_;
+	fcppt::signal::scoped_connection const fruit_cut_connection_;
+	fcppt::signal::scoped_connection const fruit_removed_connection_;
+	fruitapp::font_particle::manager font_particles_;
 	fruitlib::font::scene_node score_font_node_;
 	fruitlib::font::scene_node timer_font_node_;
 	fruitlib::font::scene_node multiplier_font_node_;
-	fruitlib::font::scene_node score_increase_node_;
 	fruitapp::ingame_timer score_increase_timer_;
 	fruitapp::ingame_timer multiplier_timer_;
 	fruitapp::ingame_timer penalty_timer_;

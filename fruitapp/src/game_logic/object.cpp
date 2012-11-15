@@ -1,10 +1,11 @@
 #include <fruitapp/depths/overlay.hpp>
-#include <fruitapp/projection_manager/object.hpp>
 #include <fruitapp/fruit/cut_context.hpp>
 #include <fruitapp/fruit/manager.hpp>
 #include <fruitapp/game_logic/object.hpp>
+#include <fruitapp/projection_manager/object.hpp>
 #include <fruitapp/viewport/manager.hpp>
 #include <fruitlib/font/cache.hpp>
+#include <fruitlib/font/object.hpp>
 #include <fruitlib/font/object_parameters.hpp>
 #include <fruitlib/json/parse_rgba8_color.hpp>
 #include <fruitlib/resource_tree/path.hpp>
@@ -14,6 +15,11 @@
 #include <fruitlib/time_format/seconds.hpp>
 #include <sge/font/dim.hpp>
 #include <sge/font/lit.hpp>
+#include <sge/font/object.hpp>
+/*
+#include <sge/font/text.hpp>
+#include <sge/font/text_parameters.hpp>
+*/
 #include <sge/font/vector.hpp>
 #include <sge/image/colors.hpp>
 #include <sge/image/color/init.hpp>
@@ -45,8 +51,9 @@
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/math/clamp.hpp>
 #include <fcppt/math/box/object_impl.hpp>
-#include <fcppt/math/dim/structure_cast.hpp>
+#include <fcppt/math/box/output.hpp>
 #include <fcppt/math/dim/arithmetic.hpp>
+#include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/cstdint.hpp>
@@ -56,12 +63,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-#include <sge/font/object.hpp>
-#include <sge/font/text.hpp>
-#include <sge/font/text_parameters.hpp>
-#include <fruitlib/font/object.hpp>
-#include <fcppt/math/box/output.hpp>
-
+/*
 namespace
 {
 void
@@ -97,10 +99,11 @@ reset_text_and_center(
 			2*calculated_rect.size()));
 }
 }
+*/
 
 fruitapp::game_logic::object::object(
 	fruitlib::scenic::optional_parent const &_parent,
-	fruitapp::projection_manager::object const &_projection_manager,
+	fruitapp::projection_manager::object &_projection_manager,
 	fruitapp::ingame_clock const &_clock,
 	// to get round seconds and stuff
 	sge::parse::json::object const &_config_file,
@@ -157,6 +160,15 @@ fruitapp::game_logic::object::object(
 				&object::fruit_removed,
 				this,
 				std::tr1::placeholders::_1))),
+	font_particles_(
+		fruitlib::scenic::optional_parent(
+			fruitlib::scenic::parent(
+				_overlay,
+				fruitlib::scenic::depth(
+					depths::overlay::dont_care))),
+		_projection_manager,
+		_clock,
+		_font_manager),
 	score_font_node_(
 		fruitlib::scenic::optional_parent(
 			fruitlib::scenic::parent(
@@ -229,26 +241,6 @@ fruitapp::game_logic::object::object(
 			sge::image::colors::white(),
 			fruitlib::font::scale(
 				1.f))),
-	score_increase_node_(
-		fruitlib::scenic::optional_parent(
-			fruitlib::scenic::parent(
-				_overlay,
-				fruitlib::scenic::depth(
-					depths::overlay::dont_care))),
-		fruitlib::font::object_parameters(
-			_font_manager,
-			fruitlib::font::identifier(
-				fcppt::string(
-					FCPPT_TEXT("score"))),
-			sge::font::string(
-				SGE_FONT_LIT("")),
-			sge::font::rect::null(),
-			sge::font::align_h::left,
-			fruitlib::font::align_v::top,
-			sge::font::flags_field::null(),
-			sge::image::colors::white(),
-			fruitlib::font::scale(
-				1.f))),
 	score_increase_timer_(
 		fruitapp::ingame_timer::parameters(
 			_clock,
@@ -304,6 +296,8 @@ void
 fruitapp::game_logic::object::react(
 	fruitlib::scenic::events::update const &)
 {
+	font_particles_.update();
+
 	if (penalty_timer_.active() && penalty_timer_.expired())
 	{
 		penalty_timer_.reset();
@@ -475,12 +469,27 @@ fruitapp::game_logic::object::fruit_cut(
 				context.area().get() *
 				area_score_factor_));
 
+		font_particles_.add_particle(
+			fruitapp::font_particle::text(
+				fcppt::insert_to_std_wstring(
+					increment.get())),
+			fruitlib::font::identifier(
+				fcppt::string(
+					FCPPT_TEXT("score"))),
+			fruitapp::font_particle::position(
+				projection_manager_.project_point(
+					context.old().position())),
+			fruitapp::font_particle::lifetime(
+				2.0f),
+			sge::image::colors::white());
+		/*
 		reset_text_and_center(
 			fcppt::insert_to_std_wstring(
 				increment.get()),
 			projection_manager_.project_point(
 				context.old().position()),
 			score_increase_node_.object());
+		*/
 
 		this->increase_score(
 			increment);

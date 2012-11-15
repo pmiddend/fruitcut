@@ -1,7 +1,7 @@
 #include <fruitapp/gui/ce/slider/object.hpp>
 #include <fruitlib/audio/sound_controller.hpp>
-#include <fcppt/text.hpp>
 #include <fruitlib/resource_tree/path.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <CEGUI/Window.h>
