@@ -455,37 +455,33 @@ fruitapp::game_logic::object::fruit_cut(
 	cut_fruits_container::iterator old_fruit =
 		cut_fruits_.end();
 
-	if (
-		(
-			old_fruit =
-		 	cut_fruits_.find(
-				&_context.old()
-			)
-		)
-		!=
-		cut_fruits_.end()
-	)
-	{
-		for (
-			fruitapp::fruit::cut_context::new_fruit_array::const_iterator it =
-				_context.new_fruits().cbegin();
-			it !=
-				_context.new_fruits().cend();
-			++it)
-		{
-			cut_fruits_.insert(
-				cut_fruits_container::value_type(
-					*it,
-					old_fruit->second + 1
-					)
-			);
-		}
+	unsigned parent =
+		((old_fruit = cut_fruits_.find( &_context.old())) != cut_fruits_.end())
+		?
+			old_fruit->second
+		:
+			0
+	;
 
-		quick_log_.add_message(
-			FCPPT_TEXT("number of cut fruits: ")
-			+ fcppt::insert_to_fcppt_string(
-				cut_fruits_.size()));
+	for (
+		fruitapp::fruit::cut_context::new_fruit_array::const_iterator it =
+			_context.new_fruits().cbegin();
+		it !=
+			_context.new_fruits().cend();
+		++it)
+	{
+		cut_fruits_.insert(
+			cut_fruits_container::value_type(
+				*it,
+				parent + 1
+				)
+		);
 	}
+
+	quick_log_.add_message(
+		FCPPT_TEXT("number of cut fruits: ")
+		+ fcppt::insert_to_fcppt_string(
+			cut_fruits_.size()));
 
 	fruitapp::fruit::tag_set ts = _context.old().prototype().tags();
 
@@ -525,7 +521,7 @@ fruitapp::game_logic::object::fruit_cut(
 					FCPPT_TEXT("score"))),
 			fruitapp::font_particle::position(
 				projection_manager_.project_point(
-					context.old().position())),
+					_context.old().position())),
 			fruitapp::font_particle::lifetime(
 				2.0f),
 			sge::image::colors::white());
