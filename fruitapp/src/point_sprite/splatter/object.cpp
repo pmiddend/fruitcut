@@ -1,7 +1,7 @@
 #include <fruitapp/point_sprite/parameters.hpp>
-#include <fruitapp/projection_manager/object.hpp>
 #include <fruitapp/point_sprite/splatter/object.hpp>
 #include <fruitapp/point_sprite/splatter/parameters.hpp>
+#include <fruitapp/projection_manager/object.hpp>
 #include <sge/renderer/vector2.hpp>
 #include <sge/renderer/vector4.hpp>
 #include <sge/renderer/target/base.hpp>

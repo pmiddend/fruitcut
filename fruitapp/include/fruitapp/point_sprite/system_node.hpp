@@ -3,11 +3,11 @@
 
 #include <fruitapp/point_sprite/base.hpp>
 #include <fruitapp/point_sprite/buffers.hpp>
-#include <fruitapp/projection_manager/object_fwd.hpp>
 #include <fruitapp/point_sprite/collection.hpp>
 #include <fruitapp/point_sprite/connection.hpp>
 #include <fruitapp/point_sprite/state_object.hpp>
 #include <fruitapp/point_sprite/unique_base_ptr.hpp>
+#include <fruitapp/projection_manager/object_fwd.hpp>
 #include <fruitlib/texture_manager_fwd.hpp>
 #include <fruitlib/uniform_int_random.hpp>
 #include <fruitlib/resource_tree/make_type.hpp>

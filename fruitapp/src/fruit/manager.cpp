@@ -211,6 +211,10 @@ fruitapp::fruit::manager::cut(
 			fcppt::move(
 				cross_section)));
 
+	remove_signal_(
+		fcppt::cref(
+			_current_fruit));
+
 	cut_signal_(
 		fcppt::cref(
 			*cut_context));

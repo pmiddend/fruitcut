@@ -75,6 +75,13 @@ set(
 	fruitapp/include/fruitapp/depths/root.hpp
 	fruitapp/include/fruitapp/depths/scene.hpp
 	fruitapp/include/fruitapp/exception.hpp
+	fruitapp/include/fruitapp/font_particle/lifetime.hpp
+	fruitapp/include/fruitapp/font_particle/manager.hpp
+	fruitapp/include/fruitapp/font_particle/manager_fwd.hpp
+	fruitapp/include/fruitapp/font_particle/object.hpp
+	fruitapp/include/fruitapp/font_particle/object_fwd.hpp
+	fruitapp/include/fruitapp/font_particle/position.hpp
+	fruitapp/include/fruitapp/font_particle/text.hpp
 	fruitapp/include/fruitapp/fruit/area.hpp
 	fruitapp/include/fruitapp/fruit/ban_duration.hpp
 	fruitapp/include/fruitapp/fruit/box3.hpp
@@ -348,6 +355,8 @@ set(
 	fruitapp/src/cursor/sound.cpp
 	fruitapp/src/cursor/sword_trail.cpp
 	fruitapp/src/exception.cpp
+	fruitapp/src/font_particle/manager.cpp
+	fruitapp/src/font_particle/object.cpp
 	fruitapp/src/fruit/calculate_cut_geometry.cpp
 	fruitapp/src/fruit/calculate_new_linear_velocity.cpp
 	fruitapp/src/fruit/cut_context.cpp

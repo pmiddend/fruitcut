@@ -1,4 +1,6 @@
 #include <fruitapp/states/gameover/superstate.hpp>
+#include <fruitapp/config_variables.hpp>
+#include <fcppt/assert/pre.hpp>
 #include <fcppt/text.hpp>
 
 
@@ -16,6 +18,10 @@ void
 fruitapp::states::gameover::superstate::name(
 	fcppt::string const &_name)
 {
+	FCPPT_ASSERT_PRE(
+		!_name.empty());
+	context<fruitapp::machine>().config_variables().last_user_name().value(
+		_name);
 	name_ =
 		_name;
 }

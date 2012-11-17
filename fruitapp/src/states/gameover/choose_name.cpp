@@ -1,4 +1,8 @@
 #include <fruitapp/events/define_transition_reaction.hpp>
+#include <fruitapp/config_variables.hpp>
+#include <fruitapp/states/ingame/running.hpp>
+#include <sge/config/user_name.hpp>
+#include <fruitapp/events/return_post_transition_functor.hpp>
 #include <fruitapp/events/post_transition.hpp>
 #include <fruitapp/gui/system.hpp>
 #include <fruitapp/gui/dialogs/name_chooser.hpp>
@@ -23,16 +27,38 @@ fruitapp::states::gameover::choose_name::choose_name(
 		context<fruitapp::machine>().gui_system().create_name_chooser(
 			fruitapp::highscore::score(
 				context<fruitapp::machine>().last_game_score()))),
-	continue_button_connection_(
-		name_chooser_->register_continue_callback(
+	submit_button_connection_(
+		name_chooser_->register_submit_callback(
 			std::tr1::bind(
-				&choose_name::continue_button_pushed,
-				this)))
+				&choose_name::submit_button_pushed,
+				this))),
+	main_menu_button_connection_(
+		name_chooser_->register_main_menu_callback(
+			FRUITAPP_EVENTS_RETURN_POST_TRANSITION_FUNCTOR(
+				menu::main))),
+	restart_button_connection_(
+		name_chooser_->register_restart_callback(
+			FRUITAPP_EVENTS_RETURN_POST_TRANSITION_FUNCTOR(
+				ingame::superstate)))
 {
+	if(context<fruitapp::machine>().config_variables().last_user_name().value() == FCPPT_TEXT("$SYSTEM_USER_NAME"))
+		name_chooser_->name(
+			sge::config::user_name());
+	else
+		name_chooser_->name(
+			context<fruitapp::machine>().config_variables().last_user_name().value());
 }
 
 FRUITAPP_EVENTS_DEFINE_TRANSITION_REACTION(
 	gameover::ranking,
+	gameover::choose_name)
+
+FRUITAPP_EVENTS_DEFINE_TRANSITION_REACTION(
+	ingame::superstate,
+	gameover::choose_name)
+
+FRUITAPP_EVENTS_DEFINE_TRANSITION_REACTION(
+	menu::main,
 	gameover::choose_name)
 
 fruitapp::states::gameover::choose_name::~choose_name()
@@ -40,7 +66,7 @@ fruitapp::states::gameover::choose_name::~choose_name()
 }
 
 void
-fruitapp::states::gameover::choose_name::continue_button_pushed()
+fruitapp::states::gameover::choose_name::submit_button_pushed()
 {
 	if(name_chooser_->name().empty())
 	{

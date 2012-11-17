@@ -43,10 +43,6 @@ public:
 		fruitapp::gui::dialogs::highscore::back_callback const &);
 
 	fcppt::signal::auto_connection
-	register_quit_callback(
-		fruitapp::gui::dialogs::highscore::quit_callback const &);
-
-	fcppt::signal::auto_connection
 	register_switch_provider_callback(
 		fruitapp::gui::dialogs::highscore::switch_provider_callback const &);
 
@@ -74,8 +70,7 @@ private:
 	sge::cegui::default_cursor gui_cursor_;
 	sge::cegui::toolbox::scoped_layout layout_;
 	sge::cegui::toolbox::scoped_gui_sheet gui_sheet_;
-	fruitapp::gui::ce::button main_menu_button_;
-	fruitapp::gui::ce::button quit_button_;
+	fruitapp::gui::ce::button back_button_;
 	fruitapp::highscore::provider_sequence &providers_;
 	fruitapp::gui::ce::combobox source_box_;
 	fruitapp::gui::ce::get_model table_model_;

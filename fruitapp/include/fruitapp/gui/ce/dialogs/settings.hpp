@@ -4,8 +4,8 @@
 #include <fruitapp/gui/initial_effects_volume.hpp>
 #include <fruitapp/gui/initial_music_volume.hpp>
 #include <fruitapp/gui/ce/button.hpp>
-#include <fruitapp/gui/ce/slider/object.hpp>
 #include <fruitapp/gui/ce/system_fwd.hpp>
+#include <fruitapp/gui/ce/slider/object.hpp>
 #include <fruitapp/gui/dialogs/settings.hpp>
 #include <fruitlib/scenic/adaptors/gui_system.hpp>
 #include <sge/cegui/default_cursor.hpp>

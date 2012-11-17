@@ -28,15 +28,29 @@ public:
 		sge::input::keyboard::device &);
 
 	fcppt::signal::auto_connection
-	register_continue_callback(
-		fruitapp::gui::dialogs::name_chooser::continue_callback const &);
+	register_submit_callback(
+		fruitapp::gui::dialogs::name_chooser::submit_callback const &);
+
+	fcppt::signal::auto_connection
+	register_main_menu_callback(
+		fruitapp::gui::dialogs::name_chooser::main_menu_callback const &);
+
+	fcppt::signal::auto_connection
+	register_restart_callback(
+		fruitapp::gui::dialogs::name_chooser::restart_callback const &);
 
 	fcppt::string const
 	name() const;
 
+	void
+	name(
+		fcppt::string const &);
+
 	~name_chooser();
 private:
-	fcppt::signal::object<void ()> continue_;
+	fcppt::signal::object<void ()> submit_;
+	fcppt::signal::object<void ()> main_menu_;
+	fcppt::signal::object<void ()> restart_;
 	fcppt::signal::scoped_connection key_connection_;
 
 	void

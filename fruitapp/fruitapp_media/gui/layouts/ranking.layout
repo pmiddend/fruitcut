@@ -1,133 +1,125 @@
-<GUILayout version="4">
-    <Window name="Ranking" type="Fruitcut/FrameWindow">
+<?xml version="1.0" encoding="UTF-8"?>
+
+<GUILayout version="4" >
+    <Window type="Fruitcut/FrameWindow" name="Ranking" >
+        <Property name="Area" value="{{0.185547,0},{0.0455729,0},{0.839844,0},{0.94401,0}}" />
         <Property name="Font" value="normal" />
         <Property name="Text" value="Ranking" />
         <Property name="CaptionFont" value="big" />
-        <Property name="TitlebarEnabled" value="True" />
-        <Property name="Area" value="{{0.185547,0},{0.0455729,0},{0.839844,0},{0.94401,0}}" />
-        <AutoWindow namePath="__auto_titlebar__">
+        <AutoWindow namePath="__auto_titlebar__" >
             <Property name="Font" value="big" />
-            <Property name="Text" value="Ranking" />
         </AutoWindow>
-        <AutoWindow namePath="__auto_closebutton__">
+        <AutoWindow namePath="__auto_closebutton__" >
             <Property name="NonClient" value="True" />
         </AutoWindow>
-        <Window name="List" type="Fruitcut/MultiColumnList">
-            <Property name="Font" value="normal" />
+        <Window type="Fruitcut/MultiColumnList" name="List" >
             <Property name="Area" value="{{0.0801527,-1},{0.167502,-1},{0.919847,-1},{0.600433,1}}" />
+            <Property name="Font" value="normal" />
             <Property name="SortSettingEnabled" value="False" />
-            <AutoWindow namePath="__auto_listheader__">
+            <AutoWindow namePath="__auto_listheader__" >
                 <Property name="SortSettingEnabled" value="False" />
             </AutoWindow>
-            <AutoWindow namePath="__auto_hscrollbar__">
-                <AutoWindow namePath="__auto_incbtn__">
+            <AutoWindow namePath="__auto_hscrollbar__" >
+                <AutoWindow namePath="__auto_incbtn__" >
                     <Property name="Visible" value="False" />
                 </AutoWindow>
-                <AutoWindow namePath="__auto_decbtn__">
+                <AutoWindow namePath="__auto_decbtn__" >
                     <Property name="Visible" value="False" />
                 </AutoWindow>
-                <AutoWindow namePath="__auto_thumb__" />
             </AutoWindow>
-            <AutoWindow namePath="__auto_vscrollbar__">
-                <AutoWindow namePath="__auto_incbtn__">
+            <AutoWindow namePath="__auto_vscrollbar__" >
+                <AutoWindow namePath="__auto_incbtn__" >
                     <Property name="Visible" value="False" />
                 </AutoWindow>
-                <AutoWindow namePath="__auto_decbtn__">
+                <AutoWindow namePath="__auto_decbtn__" >
                     <Property name="Visible" value="False" />
                 </AutoWindow>
-                <AutoWindow namePath="__auto_thumb__" />
             </AutoWindow>
         </Window>
-        <Window name="StaticText" type="Fruitcut/StaticText">
+        <Window type="Fruitcut/StaticText" name="StaticText" >
+            <Property name="Area" value="{{0.0801527,0},{-0.0023066,0},{0.854386,-1},{0.145992,0}}" />
             <Property name="Font" value="normal" />
             <Property name="Text" value="You ranked the following in the highscore lists:" />
-            <Property name="Area" value="{{0.0954198,0},{0.0338763,0},{0.896947,-1},{0.140767,0}}" />
-            <AutoWindow namePath="__auto_hscrollbar__">
-                <AutoWindow namePath="__auto_incbtn__">
+            <Property name="MaxSize" value="{{1,0},{1,0}}" />
+            <Property name="HorzScrollPageSize" value="366" />
+            <Property name="VertScrollPageSize" value="46" />
+            <Property name="HorzScrollDocumentSize" value="279" />
+            <Property name="VertScrollDocumentSize" value="50.0801" />
+            <AutoWindow namePath="__auto_hscrollbar__" >
+                <AutoWindow namePath="__auto_incbtn__" >
                     <Property name="Visible" value="False" />
                 </AutoWindow>
-                <AutoWindow namePath="__auto_decbtn__">
+                <AutoWindow namePath="__auto_decbtn__" >
                     <Property name="Visible" value="False" />
                 </AutoWindow>
-                <AutoWindow namePath="__auto_thumb__" />
             </AutoWindow>
-            <AutoWindow namePath="__auto_vscrollbar__">
-                <AutoWindow namePath="__auto_incbtn__">
+            <AutoWindow namePath="__auto_vscrollbar__" >
+                <AutoWindow namePath="__auto_incbtn__" >
                     <Property name="Visible" value="False" />
                 </AutoWindow>
-                <AutoWindow namePath="__auto_decbtn__">
+                <AutoWindow namePath="__auto_decbtn__" >
                     <Property name="Visible" value="False" />
                 </AutoWindow>
-                <AutoWindow namePath="__auto_thumb__" />
             </AutoWindow>
         </Window>
-        <Window name="MainMenu" type="Fruitcut/Button">
+        <Window type="Fruitcut/Button" name="MainMenu" >
+            <Property name="Area" value="{{0.634351,-1},{0.888327,0},{0.855725,0},{0.97055,0}}" />
             <Property name="Font" value="normal" />
             <Property name="Text" value="Main Menu" />
-            <Property name="Area" value="{{0.0801527,-1},{0.872554,0},{0.301527,0},{0.954777,0}}" />
         </Window>
-        <Window name="Highscores" type="Fruitcut/Button">
+        <Window type="Fruitcut/Button" name="Highscores" >
+            <Property name="Area" value="{{0.107634,0},{0.88675,0},{0.515267,0},{0.968973,0}}" />
             <Property name="Font" value="normal" />
-            <Property name="Text" value="Highscores" />
-            <Property name="Area" value="{{0.377863,0},{0.872554,0},{0.60687,0},{0.954777,0}}" />
+            <Property name="Text" value="Show highscore lists" />
         </Window>
-        <Window name="Quit" type="Fruitcut/Button">
+        <Window type="Fruitcut/CaptionedStaticText" name="CaptionedStaticText" >
+            <Property name="Area" value="{{0.0801527,-1},{0.616964,0},{0.919847,-1},{0.861792,0}}" />
             <Property name="Font" value="normal" />
-            <Property name="Text" value="Quit" />
-            <Property name="Area" value="{{0.675573,-1},{0.872554,0},{0.912213,-1},{0.954777,0}}" />
-        </Window>
-        <Window name="CaptionedStaticText" type="Fruitcut/CaptionedStaticText">
-            <Property name="Font" value="normal" />
-            <Property name="CaptionFont" value="normal" />
+            <Property name="MaxSize" value="{{1,0},{1,0}}" />
             <Property name="CaptionText" value="Message Log:" />
-            <Property name="Area" value="{{0.0877863,-1},{0.616964,0},{0.912214,-1},{0.861792,0}}" />
-            <AutoWindow namePath="__auto_caption__">
+            <AutoWindow namePath="__auto_caption__" >
                 <Property name="Font" value="normal" />
                 <Property name="Text" value="Message Log:" />
             </AutoWindow>
-            <AutoWindow namePath="__auto_hscrollbar__">
-                <AutoWindow namePath="__auto_incbtn__">
+            <AutoWindow namePath="__auto_hscrollbar__" >
+                <AutoWindow namePath="__auto_incbtn__" >
                     <Property name="Visible" value="False" />
                 </AutoWindow>
-                <AutoWindow namePath="__auto_decbtn__">
+                <AutoWindow namePath="__auto_decbtn__" >
                     <Property name="Visible" value="False" />
                 </AutoWindow>
-                <AutoWindow namePath="__auto_thumb__" />
             </AutoWindow>
-            <AutoWindow namePath="__auto_vscrollbar__">
-                <AutoWindow namePath="__auto_incbtn__">
+            <AutoWindow namePath="__auto_vscrollbar__" >
+                <AutoWindow namePath="__auto_incbtn__" >
                     <Property name="Visible" value="False" />
                 </AutoWindow>
-                <AutoWindow namePath="__auto_decbtn__">
+                <AutoWindow namePath="__auto_decbtn__" >
                     <Property name="Visible" value="False" />
                 </AutoWindow>
-                <AutoWindow namePath="__auto_thumb__" />
             </AutoWindow>
-            <Window name="MessageLog" type="Fruitcut/MultiLineEditbox">
+            <Window type="Fruitcut/MultiLineEditbox" name="MessageLog" >
+                <Property name="Area" value="{{0.0185185,0},{0.304949,0},{0.981481,0},{0.931034,0}}" />
                 <Property name="Font" value="small" />
-                <Property name="Text">
+                <Property name="Text" >
 </Property>
                 <Property name="ReadOnly" value="True" />
+                <Property name="AlwaysOnTop" value="True" />
                 <Property name="MaxTextLength" value="4294967295" />
-                <Property name="Area" value="{{0.0185185,0},{0.275862,0},{0.981481,0},{0.931034,0}}" />
-                <Property name="TextParsingEnabled" value="False" />
-                <AutoWindow namePath="__auto_hscrollbar__">
-                    <AutoWindow namePath="__auto_incbtn__">
+                <AutoWindow namePath="__auto_hscrollbar__" >
+                    <AutoWindow namePath="__auto_incbtn__" >
                         <Property name="Visible" value="False" />
                     </AutoWindow>
-                    <AutoWindow namePath="__auto_decbtn__">
+                    <AutoWindow namePath="__auto_decbtn__" >
                         <Property name="Visible" value="False" />
                     </AutoWindow>
-                    <AutoWindow namePath="__auto_thumb__" />
                 </AutoWindow>
-                <AutoWindow namePath="__auto_vscrollbar__">
-                    <AutoWindow namePath="__auto_incbtn__">
+                <AutoWindow namePath="__auto_vscrollbar__" >
+                    <AutoWindow namePath="__auto_incbtn__" >
                         <Property name="Visible" value="False" />
                     </AutoWindow>
-                    <AutoWindow namePath="__auto_decbtn__">
+                    <AutoWindow namePath="__auto_decbtn__" >
                         <Property name="Visible" value="False" />
                     </AutoWindow>
-                    <AutoWindow namePath="__auto_thumb__" />
                 </AutoWindow>
             </Window>
         </Window>

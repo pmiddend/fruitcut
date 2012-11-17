@@ -45,10 +45,6 @@ public:
 	register_main_menu_callback(
 		fruitapp::gui::dialogs::ranking::main_menu_callback const &);
 
-	fcppt::signal::auto_connection
-	register_quit_callback(
-		fruitapp::gui::dialogs::ranking::quit_callback const &);
-
 	void
 	append_log(
 		fcppt::string const &);
@@ -71,7 +67,6 @@ private:
 	sge::cegui::toolbox::scoped_gui_sheet gui_sheet_;
 	fruitapp::gui::ce::button highscore_button_;
 	fruitapp::gui::ce::button main_menu_button_;
-	fruitapp::gui::ce::button quit_button_;
 	fruitapp::highscore::provider_sequence &providers_;
 	fruitapp::gui::ce::post_model post_model_;
 	fruitapp::gui::ce::table::view table_view_;

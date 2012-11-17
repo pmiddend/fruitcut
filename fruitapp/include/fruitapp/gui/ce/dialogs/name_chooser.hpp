@@ -34,11 +34,23 @@ public:
 		fruitapp::highscore::score const &);
 
 	fcppt::signal::auto_connection
-	register_continue_callback(
-		fruitapp::gui::dialogs::name_chooser::continue_callback const &);
+	register_submit_callback(
+		fruitapp::gui::dialogs::name_chooser::submit_callback const &);
+
+	fcppt::signal::auto_connection
+	register_main_menu_callback(
+		fruitapp::gui::dialogs::name_chooser::main_menu_callback const &);
+
+	fcppt::signal::auto_connection
+	register_restart_callback(
+		fruitapp::gui::dialogs::name_chooser::restart_callback const &);
 
 	fcppt::string const
 	name() const;
+
+	void
+	name(
+		fcppt::string const &);
 
 	~name_chooser();
 private:
@@ -48,7 +60,9 @@ private:
 	sge::cegui::default_cursor gui_cursor_;
 	sge::cegui::toolbox::scoped_layout layout_;
 	sge::cegui::toolbox::scoped_gui_sheet gui_sheet_;
-	fruitapp::gui::ce::button continue_button_;
+	fruitapp::gui::ce::button submit_button_;
+	fruitapp::gui::ce::button main_menu_button_;
+	fruitapp::gui::ce::button restart_button_;
 };
 }
 }

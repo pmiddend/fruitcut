@@ -64,10 +64,9 @@ public:
 		fruitlib::scenic::events::update const &);
 private:
 	fruitapp::highscore::provider_sequence providers_;
-	fruitapp::gui::dialogs::ranking_unique_ptr ranking_;
-	fcppt::signal::scoped_connection main_menu_button_connection_;
-	fcppt::signal::scoped_connection highscore_button_connection_;
-	fcppt::signal::scoped_connection quit_button_connection_;
+	fruitapp::gui::dialogs::ranking_unique_ptr const ranking_;
+	fcppt::signal::scoped_connection const main_menu_button_connection_;
+	fcppt::signal::scoped_connection const highscore_button_connection_;
 	/*
 	highscore::post_model post_model_;
 	gui::table::view table_view_;

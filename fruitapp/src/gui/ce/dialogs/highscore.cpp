@@ -36,14 +36,10 @@ fruitapp::gui::ce::dialogs::highscore::highscore(
 	gui_sheet_(
 		_system.gui_system(),
 		layout_.window()),
-	main_menu_button_(
+	back_button_(
 		_system.sound_controller(),
 		*layout_.window().getChild(
-			"MainMenu")),
-	quit_button_(
-		_system.sound_controller(),
-		*layout_.window().getChild(
-			"Quit")),
+			"Back")),
 	providers_(
 		_providers),
 	source_box_(
@@ -76,16 +72,7 @@ fruitapp::gui::ce::dialogs::highscore::register_back_callback(
 	fruitapp::gui::dialogs::highscore::back_callback const &_f)
 {
 	return
-		main_menu_button_.push_callback(
-			_f);
-}
-
-fcppt::signal::auto_connection
-fruitapp::gui::ce::dialogs::highscore::register_quit_callback(
-	fruitapp::gui::dialogs::highscore::quit_callback const &_f)
-{
-	return
-		quit_button_.push_callback(
+		back_button_.push_callback(
 			_f);
 }
 

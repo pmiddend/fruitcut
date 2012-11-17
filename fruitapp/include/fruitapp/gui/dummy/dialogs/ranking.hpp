@@ -35,10 +35,6 @@ public:
 	register_main_menu_callback(
 		fruitapp::gui::dialogs::ranking::main_menu_callback const &);
 
-	fcppt::signal::auto_connection
-	register_quit_callback(
-		fruitapp::gui::dialogs::ranking::quit_callback const &);
-
 	void
 	append_log(
 		fcppt::string const &);
@@ -50,7 +46,6 @@ public:
 
 	~ranking();
 private:
-	fcppt::signal::object<void ()> quit_;
 	fcppt::signal::object<void ()> highscore_;
 	fcppt::signal::object<void ()> main_menu_;
 	fcppt::signal::scoped_connection key_connection_;

@@ -13,14 +13,14 @@
             <Property name="NonClient" value="True" />
         </AutoWindow>
         <Window type="Fruitcut/StaticText" name="StaticText" >
-            <Property name="Area" value="{{0.0135135,0},{0.000912015,0},{0.105405,0},{0.0768883,0}}" />
+            <Property name="Area" value="{{0.0135135,0},{0.000912015,0},{0.105405,0},{0.0557496,0}}" />
             <Property name="Font" value="normal" />
             <Property name="Text" value="Source:" />
             <Property name="MaxSize" value="{{1,0},{1,0}}" />
             <Property name="FrameEnabled" value="False" />
             <Property name="BackgroundEnabled" value="False" />
-            <Property name="HorzScrollPageSize" value="107" />
-            <Property name="VertScrollPageSize" value="47" />
+            <Property name="HorzScrollPageSize" value="66" />
+            <Property name="VertScrollPageSize" value="28" />
             <Property name="HorzScrollDocumentSize" value="65" />
             <Property name="VertScrollDocumentSize" value="25.04" />
             <AutoWindow namePath="__auto_hscrollbar__" >
@@ -41,7 +41,7 @@
             </AutoWindow>
         </Window>
         <Window type="Fruitcut/DropDownMenu" name="Source" >
-            <Property name="Area" value="{{0.0891892,0},{0.0161073,0},{0.791892,0},{0.516107,0}}" />
+            <Property name="Area" value="{{0.112372,0},{0.000912015,0},{0.815075,0},{0.500912,0}}" />
             <Property name="MaxTextLength" value="4294967295" />
             <AutoWindow namePath="__auto_editbox__" >
                 <Property name="Font" value="normal" />
@@ -78,7 +78,7 @@
             </AutoWindow>
         </Window>
         <Window type="Fruitcut/MultiColumnList" name="List" >
-            <Property name="Area" value="{{0.015,0},{0.11,0},{0.982567,0},{0.679822,-27.7055}}" />
+            <Property name="Area" value="{{0.015,0},{0.12,0},{0.982567,0},{0.689822,-27.7055}}" />
             <Property name="Font" value="normal" />
             <Property name="SortSettingEnabled" value="False" />
             <AutoWindow namePath="__auto_listheader__" >
@@ -102,7 +102,7 @@
             </AutoWindow>
         </Window>
         <Window type="Fruitcut/CaptionedStaticText" name="CaptionedStaticText" >
-            <Property name="Area" value="{{0.015,0},{0.64671,0},{0.982567,0},{0.912627,0}}" />
+            <Property name="Area" value="{{0.015,0},{0.66,0},{0.982567,0},{0.925917,0}}" />
             <Property name="Font" value="normal" />
             <Property name="MaxSize" value="{{1,0},{1,0}}" />
             <Property name="CaptionText" value="Message log" />
@@ -151,15 +151,10 @@
                 </AutoWindow>
             </Window>
         </Window>
-        <Window type="Fruitcut/Button" name="MainMenu" >
-            <Property name="Area" value="{{0.22973,0},{0.927822,0},{0.413513,0},{0.988603,0}}" />
+        <Window type="Fruitcut/Button" name="Back" >
+            <Property name="Area" value="{{0.015,0},{0.933885,0},{0.198783,0},{0.994666,0}}" />
             <Property name="Font" value="normal" />
-            <Property name="Text" value="Main Menu" />
-        </Window>
-        <Window type="Fruitcut/Button" name="Quit" >
-            <Property name="Area" value="{{0.6,0},{0.927822,0},{0.783784,0},{0.988603,0}}" />
-            <Property name="Font" value="normal" />
-            <Property name="Text" value="Quit" />
+            <Property name="Text" value="Back..." />
         </Window>
     </Window>
 </GUILayout>

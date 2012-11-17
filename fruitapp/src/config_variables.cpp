@@ -53,35 +53,49 @@ fruitapp::config_variables::destructor_write_hack::~destructor_write_hack()
 }
 
 fruitapp::config_variables::config_variables(
-	sge::parse::json::object const &global_config,
-	sge::parse::json::object &user_config)
+	sge::parse::json::object const &_global_config,
+	sge::parse::json::object &_user_config)
 :
 	write_hack_(
-		user_config),
+		_user_config),
 	music_volume_(
-		global_config,
-		user_config,
+		_global_config,
+		_user_config,
 		sge::parse::json::path(
 			FCPPT_TEXT("music"))
 			/ FCPPT_TEXT("volume")),
 	effects_volume_(
-		global_config,
-		user_config,
+		_global_config,
+		_user_config,
 		sge::parse::json::path(
-			FCPPT_TEXT("effects-volume")))
+			FCPPT_TEXT("effects-volume"))),
+	last_user_name_(
+		_global_config,
+		_user_config,
+		sge::parse::json::path(
+			FCPPT_TEXT("last-user-name")))
 {
 }
 
 fruitapp::config_variables::audio_variable &
 fruitapp::config_variables::music_volume()
 {
-	return music_volume_;
+	return
+		music_volume_;
 }
 
 fruitapp::config_variables::audio_variable &
 fruitapp::config_variables::effects_volume()
 {
-	return effects_volume_;
+	return
+		effects_volume_;
+}
+
+fruitapp::config_variables::string_variable &
+fruitapp::config_variables::last_user_name()
+{
+	return
+		last_user_name_;
 }
 
 fruitapp::config_variables::~config_variables()

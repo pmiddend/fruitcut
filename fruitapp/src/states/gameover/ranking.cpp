@@ -45,13 +45,7 @@ fruitapp::states::gameover::ranking::ranking(
 	highscore_button_connection_(
 		ranking_->register_highscore_callback(
 			FRUITAPP_EVENTS_RETURN_POST_TRANSITION_FUNCTOR(
-				menu::highscore))),
-	quit_button_connection_(
-		ranking_->register_quit_callback(
-			std::tr1::bind(
-				&fruitapp::machine::quit,
-				&context<fruitapp::machine>(),
-				awl::main::exit_success())))
+				menu::highscore)))
 {
 	fruitapp::highscore::providers_from_json(
 		context<fruitapp::machine>().systems().charconv_system(),
