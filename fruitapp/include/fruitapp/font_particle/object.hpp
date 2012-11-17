@@ -5,6 +5,7 @@
 #include <fruitapp/ingame_timer.hpp>
 #include <fruitapp/font_particle/lifetime.hpp>
 #include <fruitapp/font_particle/position.hpp>
+#include <fruitapp/font_particle/velocity.hpp>
 #include <fruitapp/font_particle/text.hpp>
 #include <fruitlib/font/identifier.hpp>
 #include <fruitlib/font/manager_fwd.hpp>
@@ -43,6 +44,8 @@ public:
 private:
 	fruitlib::font::scene_node node_;
 	fruitapp::ingame_timer lifetimer_;
+	fruitapp::font_particle::position position_;
+	fruitapp::font_particle::velocity velocity_;
 };
 }
 }

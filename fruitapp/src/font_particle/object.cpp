@@ -6,7 +6,16 @@
 #include <fruitlib/font/object_parameters.hpp>
 #include <sge/font/text_parameters.hpp>
 #include <fcppt/math/box/object_impl.hpp>
+#include <fcppt/math/vector/arithmetic.hpp>
+#include <sge/renderer/vector2.hpp>
 
+#include <sge/font/align_h.hpp>
+#include <sge/font/flags_field.hpp>
+#include <sge/font/rect.hpp>
+#include <sge/font/unit.hpp>
+#include <sge/image/color/any/object.hpp>
+#include <sge/renderer/scalar.hpp>
+#include <sge/renderer/vector2.hpp>
 
 namespace
 {
@@ -66,11 +75,15 @@ fruitapp::font_particle::object::object(
 	lifetimer_(
 		fruitapp::ingame_timer::parameters(
 			_clock,
-			_lifetime))
+			_lifetime)),
+	position_(
+		_position),
+	velocity_(
+		sge::renderer::vector2(0.f,3.f))
 {
 	node_.object().bounding_box(
 		calculate_bounding_box(
-			_position.get(),
+			position_.get(),
 			node_.object()));
 }
 
@@ -84,6 +97,17 @@ fruitapp::font_particle::object::dead() const
 void
 fruitapp::font_particle::object::update()
 {
+	position_ =
+		fruitapp::font_particle::position(
+			position_.get() + velocity_.get());
+	velocity_ +=
+		fruitapp::font_particle::velocity(
+			sge::renderer::vector2(0.f, -0.5f));
+
+	node_.object().bounding_box(
+		calculate_bounding_box(
+			position_.get(),
+			node_.object()));
 }
 
 fruitapp::font_particle::object::~object()
