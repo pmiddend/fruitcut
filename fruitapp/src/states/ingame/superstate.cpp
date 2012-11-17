@@ -4,6 +4,7 @@
 #include <fruitapp/depths/root.hpp>
 #include <fruitapp/depths/scene.hpp>
 #include <fruitapp/point_sprite/system_node.hpp>
+#include <fruitapp/quick_log.hpp>
 #include <fruitapp/shadow_map/object.hpp>
 #include <fruitapp/states/ingame/running.hpp>
 #include <fruitapp/states/ingame/superstate.hpp>
@@ -154,7 +155,8 @@ fruitapp::states::ingame::superstate::superstate(
 		fruit_manager_,
 		context<fruitapp::machine>().font_manager(),
 		context<fruitapp::machine>().overlay_node(),
-		context<fruitapp::machine>().viewport_manager()),
+		context<fruitapp::machine>().viewport_manager(),
+		context<fruitapp::machine>().quick_log()),
 	cut_connection_(
 		fruit_manager_.cut_callback(
 			std::tr1::bind(

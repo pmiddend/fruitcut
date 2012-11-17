@@ -9,6 +9,7 @@
 #include <fruitapp/fruit/manager_fwd.hpp>
 #include <fruitapp/fruit/object_fwd.hpp>
 #include <fruitapp/highscore/score.hpp>
+#include <fruitapp/quick_log.hpp>
 #include <fruitapp/viewport/manager_fwd.hpp>
 #include <fruitlib/audio/sound_controller.hpp>
 #include <fruitlib/font/manager_fwd.hpp>
@@ -56,7 +57,8 @@ public:
 		fruitapp::fruit::manager &,
 		fruitlib::font::manager &,
 		fruitapp::overlay &,
-		fruitapp::viewport::manager &);
+		fruitapp::viewport::manager &,
+		fruitapp::quick_log &_log);
 
 	bool
 	finished() const;
@@ -86,6 +88,9 @@ private:
 	int multiplier_;
 	unsigned multi_count_;
 	fcppt::signal::scoped_connection viewport_change_connection_;
+	typedef std::map<fruit::object const *, unsigned> cut_fruits_container;
+	cut_fruits_container cut_fruits_;
+	fruitapp::quick_log &quick_log_;
 
 	void
 	fruit_added(

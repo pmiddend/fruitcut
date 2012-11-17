@@ -3,6 +3,7 @@
 #include <fruitapp/fruit/cut_context.hpp>
 #include <fruitapp/fruit/manager.hpp>
 #include <fruitapp/game_logic/object.hpp>
+#include <fruitapp/quick_log.hpp>
 #include <fruitapp/viewport/manager.hpp>
 #include <fruitlib/font/cache.hpp>
 #include <fruitlib/font/object_parameters.hpp>
@@ -112,7 +113,8 @@ fruitapp::game_logic::object::object(
 	fruitapp::fruit::manager &_fruit_manager,
 	fruitlib::font::manager &_font_manager,
 	fruitapp::overlay &_overlay,
-	fruitapp::viewport::manager &_viewport_manager)
+	fruitapp::viewport::manager &_viewport_manager,
+	fruitapp::quick_log &_log)
 :
 	node_base(
 		fruitlib::scenic::optional_parent(
@@ -282,7 +284,10 @@ fruitapp::game_logic::object::object(
 				this,
 				std::tr1::placeholders::_1),
 			fruitapp::viewport::trigger_early(
-				true)))
+				true))),
+	cut_fruits_(),
+	quick_log_(
+		_log)
 {
 }
 
@@ -439,15 +444,57 @@ fruitapp::game_logic::object::fruit_added(
 
 void
 fruitapp::game_logic::object::fruit_removed(
-	fruit::object const &)
+	fruit::object const &_fruit)
 {
+	if (cut_fruits_.erase(
+		&_fruit))
+		quick_log_.add_message(
+			FCPPT_TEXT("number of cut fruits: ")
+			+ fcppt::insert_to_fcppt_string(
+				cut_fruits_.size()));
 }
 
 void
 fruitapp::game_logic::object::fruit_cut(
-	fruitapp::fruit::cut_context const &context)
+	fruitapp::fruit::cut_context const &_context)
 {
-	fruitapp::fruit::tag_set ts = context.old().prototype().tags();
+	cut_fruits_container::iterator old_fruit =
+		cut_fruits_.end();
+
+	if (
+		(
+			old_fruit =
+		 	cut_fruits_.find(
+				&_context.old()
+			)
+		)
+		!=
+		cut_fruits_.end()
+	)
+	{
+		for (
+			fruitapp::fruit::cut_context::new_fruit_array::const_iterator it =
+				_context.new_fruits().cbegin();
+			it !=
+				_context.new_fruits().cend();
+			++it)
+		{
+			cut_fruits_.insert(
+				cut_fruits_container::value_type(
+					*it,
+					old_fruit->second + 1
+					)
+			);
+		}
+
+		quick_log_.add_message(
+			FCPPT_TEXT("number of cut fruits: ")
+			+ fcppt::insert_to_fcppt_string(
+				cut_fruits_.size()));
+	}
+
+	fruitapp::fruit::tag_set ts = _context.old().prototype().tags();
+
 	if(ts.find(FCPPT_TEXT("meat")) != ts.end())
 	{
 		sound_controller_.play(
@@ -472,14 +519,14 @@ fruitapp::game_logic::object::fruit_cut(
 			static_cast<fruitapp::highscore::score::value_type>(
 				static_cast<fruitapp::fruit::area::value_type>(
 					multiplier_) *
-				context.area().get() *
+				_context.area().get() *
 				area_score_factor_));
 
 		reset_text_and_center(
 			fcppt::insert_to_std_wstring(
 				increment.get()),
 			projection_manager_.project_point(
-				context.old().position()),
+				_context.old().position()),
 			score_increase_node_.object());
 
 		this->increase_score(
