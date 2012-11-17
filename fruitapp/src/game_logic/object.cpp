@@ -440,12 +440,8 @@ void
 fruitapp::game_logic::object::fruit_removed(
 	fruit::object const &_fruit)
 {
-	if (cut_fruits_.erase(
-		&_fruit))
-		quick_log_.add_message(
-			FCPPT_TEXT("number of cut fruits: ")
-			+ fcppt::insert_to_fcppt_string(
-				cut_fruits_.size()));
+	cut_fruits_.erase(
+		&_fruit);
 }
 
 void
@@ -477,11 +473,6 @@ fruitapp::game_logic::object::fruit_cut(
 				)
 		);
 	}
-
-	quick_log_.add_message(
-		FCPPT_TEXT("number of cut fruits: ")
-		+ fcppt::insert_to_fcppt_string(
-			cut_fruits_.size()));
 
 	fruitapp::fruit::tag_set ts = _context.old().prototype().tags();
 
