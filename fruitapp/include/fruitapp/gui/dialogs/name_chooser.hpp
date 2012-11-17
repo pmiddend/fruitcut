@@ -20,18 +20,38 @@ FCPPT_NONCOPYABLE(
 public:
 	typedef
 	fcppt::function::object<void ()>
-	continue_callback;
+	submit_callback;
+
+	typedef
+	fcppt::function::object<void ()>
+	main_menu_callback;
+
+	typedef
+	fcppt::function::object<void ()>
+	restart_callback;
 
 	typedef
 	fcppt::function::object<void (fcppt::string const &)>
 	name_callback;
 
 	virtual fcppt::signal::auto_connection
-	register_continue_callback(
-		continue_callback const &) = 0;
+	register_submit_callback(
+		submit_callback const &) = 0;
+
+	virtual fcppt::signal::auto_connection
+	register_main_menu_callback(
+		main_menu_callback const &) = 0;
+
+	virtual fcppt::signal::auto_connection
+	register_restart_callback(
+		restart_callback const &) = 0;
 
 	virtual fcppt::string const
 	name() const = 0;
+
+	virtual void
+	name(
+		fcppt::string const &) = 0;
 
 	virtual
 	~name_chooser() = 0;

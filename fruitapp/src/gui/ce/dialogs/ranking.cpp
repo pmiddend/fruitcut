@@ -41,10 +41,6 @@ fruitapp::gui::ce::dialogs::ranking::ranking(
 		_system.sound_controller(),
 		*layout_.window().getChild(
 			"MainMenu")),
-	quit_button_(
-		_system.sound_controller(),
-		*layout_.window().getChild(
-			"Quit")),
 	providers_(
 		_providers),
 	post_model_(
@@ -84,15 +80,6 @@ fruitapp::gui::ce::dialogs::ranking::register_main_menu_callback(
 {
 	return
 		main_menu_button_.push_callback(
-			_f);
-}
-
-fcppt::signal::auto_connection
-fruitapp::gui::ce::dialogs::ranking::register_quit_callback(
-	fruitapp::gui::dialogs::ranking::quit_callback const &_f)
-{
-	return
-		quit_button_.push_callback(
 			_f);
 }
 

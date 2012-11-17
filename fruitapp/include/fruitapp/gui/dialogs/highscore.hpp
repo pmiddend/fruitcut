@@ -25,10 +25,6 @@ public:
 	back_callback;
 
 	typedef
-	fcppt::function::object<void ()>
-	quit_callback;
-
-	typedef
 	void
 	switch_provider_function(
 		fruitapp::highscore::provider::object_base &);
@@ -40,10 +36,6 @@ public:
 	virtual fcppt::signal::auto_connection
 	register_back_callback(
 		back_callback const &) = 0;
-
-	virtual fcppt::signal::auto_connection
-	register_quit_callback(
-		quit_callback const &) = 0;
 
 	virtual fcppt::signal::auto_connection
 	register_switch_provider_callback(

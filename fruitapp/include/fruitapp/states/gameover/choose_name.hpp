@@ -6,6 +6,8 @@
 #include <fruitapp/gui/dialogs/name_chooser_unique_ptr.hpp>
 #include <fruitapp/states/gameover/ranking_fwd.hpp>
 #include <fruitapp/states/gameover/superstate.hpp>
+#include <fruitapp/states/ingame/superstate.hpp>
+#include <fruitapp/states/menu/main.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -29,10 +31,14 @@ FCPPT_NONCOPYABLE(
 	choose_name);
 public:
 	typedef
-	boost::mpl::vector1
+	boost::mpl::vector3
 	<
 		FRUITAPP_EVENTS_DECLARE_TRANSITION_TYPE(
-			fruitapp::states::gameover::ranking)
+			fruitapp::states::gameover::ranking),
+		FRUITAPP_EVENTS_DECLARE_TRANSITION_TYPE(
+			fruitapp::states::ingame::superstate),
+		FRUITAPP_EVENTS_DECLARE_TRANSITION_TYPE(
+			fruitapp::states::menu::main)
 	>
 	reactions;
 
@@ -43,13 +49,21 @@ public:
 	FRUITAPP_EVENTS_DECLARE_TRANSITION_REACTION(
 		gameover::ranking);
 
+	FRUITAPP_EVENTS_DECLARE_TRANSITION_REACTION(
+		ingame::superstate);
+
+	FRUITAPP_EVENTS_DECLARE_TRANSITION_REACTION(
+		menu::main);
+
 	virtual ~choose_name();
 private:
-	fruitapp::gui::dialogs::name_chooser_unique_ptr name_chooser_;
-	fcppt::signal::scoped_connection continue_button_connection_;
+	fruitapp::gui::dialogs::name_chooser_unique_ptr const name_chooser_;
+	fcppt::signal::scoped_connection const submit_button_connection_;
+	fcppt::signal::scoped_connection const main_menu_button_connection_;
+	fcppt::signal::scoped_connection const restart_button_connection_;
 
 	void
-	continue_button_pushed();
+	submit_button_pushed();
 };
 }
 }

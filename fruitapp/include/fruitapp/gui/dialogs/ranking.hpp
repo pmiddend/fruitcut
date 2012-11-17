@@ -28,10 +28,6 @@ public:
 	fcppt::function::object<void ()>
 	main_menu_callback;
 
-	typedef
-	fcppt::function::object<void ()>
-	quit_callback;
-
 	virtual fcppt::signal::auto_connection
 	register_highscore_callback(
 		highscore_callback const &) = 0;
@@ -39,10 +35,6 @@ public:
 	virtual fcppt::signal::auto_connection
 	register_main_menu_callback(
 		main_menu_callback const &) = 0;
-
-	virtual fcppt::signal::auto_connection
-	register_quit_callback(
-		quit_callback const &) = 0;
 
 	virtual void
 	append_log(

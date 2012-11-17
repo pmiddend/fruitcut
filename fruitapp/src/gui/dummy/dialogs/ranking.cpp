@@ -10,7 +10,6 @@
 fruitapp::gui::dummy::dialogs::ranking::ranking(
 	sge::input::keyboard::device &_keyboard)
 :
-	quit_(),
 	highscore_(),
 	main_menu_(),
 	key_connection_(
@@ -21,8 +20,7 @@ fruitapp::gui::dummy::dialogs::ranking::ranking(
 				std::tr1::placeholders::_1)))
 {
 	std::cout << "In ranking menu, press 'h' to return to highscore,\n";
-	std::cout << "                 press 'm' to return to main menu,\n";
-	std::cout << "                 press 'q' to quit.\n";
+	std::cout << "                 press 'm' to return to main menu.\n";
 }
 
 fcppt::signal::auto_connection
@@ -40,15 +38,6 @@ fruitapp::gui::dummy::dialogs::ranking::register_main_menu_callback(
 {
 	return
 		main_menu_.connect(
-			_f);
-}
-
-fcppt::signal::auto_connection
-fruitapp::gui::dummy::dialogs::ranking::register_quit_callback(
-	fruitapp::gui::dialogs::ranking::quit_callback const &_f)
-{
-	return
-		quit_.connect(
 			_f);
 }
 
@@ -80,9 +69,6 @@ fruitapp::gui::dummy::dialogs::ranking::key_callback(
 	{
 	case sge::input::keyboard::key_code::h:
 		highscore_();
-		break;
-	case sge::input::keyboard::key_code::q:
-		quit_();
 		break;
 	case sge::input::keyboard::key_code::m:
 		main_menu_();

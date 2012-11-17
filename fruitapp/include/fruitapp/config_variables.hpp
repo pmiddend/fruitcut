@@ -3,6 +3,7 @@
 
 #include <fruitapp/fruit/area.hpp>
 #include <sge/audio/scalar.hpp>
+#include <fcppt/string.hpp>
 #include <sge/parse/json/object_fwd.hpp>
 #include <sge/parse/json/config/user_config_variable.hpp>
 
@@ -18,6 +19,10 @@ public:
 	sge::parse::json::config::user_config_variable<sge::audio::scalar>
 	audio_variable;
 
+	typedef
+	sge::parse::json::config::user_config_variable<fcppt::string>
+	string_variable;
+
 	config_variables(
 		sge::parse::json::object const &global_config,
 		sge::parse::json::object &user_config);
@@ -27,6 +32,9 @@ public:
 
 	audio_variable &
 	effects_volume();
+
+	string_variable &
+	last_user_name();
 
 	~config_variables();
 private:
@@ -51,6 +59,7 @@ private:
 	destructor_write_hack write_hack_;
 	audio_variable music_volume_;
 	audio_variable effects_volume_;
+	string_variable last_user_name_;
 };
 }
 

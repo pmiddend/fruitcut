@@ -30,10 +30,18 @@ fruitapp::gui::ce::dialogs::name_chooser::name_chooser(
 	gui_sheet_(
 		_system.gui_system(),
 		layout_.window()),
-	continue_button_(
+	submit_button_(
 		_system.sound_controller(),
 		*layout_.window().getChild(
-			"Continue"))
+			"Submit")),
+	main_menu_button_(
+		_system.sound_controller(),
+		*layout_.window().getChild(
+			"MainMenu")),
+	restart_button_(
+		_system.sound_controller(),
+		*layout_.window().getChild(
+			"Restart"))
 {
 	layout_.window().getChild("ScoreFrame")->getChild("Score")->setText(
 		sge::cegui::to_cegui_string(
@@ -43,12 +51,30 @@ fruitapp::gui::ce::dialogs::name_chooser::name_chooser(
 }
 
 fcppt::signal::auto_connection
-fruitapp::gui::ce::dialogs::name_chooser::register_continue_callback(
-	fruitapp::gui::dialogs::name_chooser::continue_callback const &_continue)
+fruitapp::gui::ce::dialogs::name_chooser::register_submit_callback(
+	fruitapp::gui::dialogs::name_chooser::submit_callback const &_submit)
 {
 	return
-		continue_button_.push_callback(
-			_continue);
+		submit_button_.push_callback(
+			_submit);
+}
+
+fcppt::signal::auto_connection
+fruitapp::gui::ce::dialogs::name_chooser::register_main_menu_callback(
+	fruitapp::gui::dialogs::name_chooser::main_menu_callback const &_main_menu)
+{
+	return
+		main_menu_button_.push_callback(
+			_main_menu);
+}
+
+fcppt::signal::auto_connection
+fruitapp::gui::ce::dialogs::name_chooser::register_restart_callback(
+	fruitapp::gui::dialogs::name_chooser::restart_callback const &_restart)
+{
+	return
+		restart_button_.push_callback(
+			_restart);
 }
 
 fcppt::string const
@@ -59,6 +85,17 @@ fruitapp::gui::ce::dialogs::name_chooser::name() const
 			layout_.window().getChild(
 				"Name")->getText(),
 			charconv_system_);
+}
+
+void
+fruitapp::gui::ce::dialogs::name_chooser::name(
+	fcppt::string const &_name)
+{
+	layout_.window().getChild(
+		"Name")->setText(
+			sge::cegui::to_cegui_string(
+				_name,
+				charconv_system_));
 }
 
 fruitapp::gui::ce::dialogs::name_chooser::~name_chooser()
