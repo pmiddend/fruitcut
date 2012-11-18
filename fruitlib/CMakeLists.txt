@@ -337,10 +337,10 @@ add_library(
 
 target_link_libraries(
 	fruitlib
-	${Fcppt_core_LIBRARIES}
-	${Fcppt_filesystem_LIBRARIES}
+	${fcppt_core_TARGET}
+	${fcppt_filesystem_TARGET}
 	${CEGUI_LIBRARIES}
-	${SGE_LIBRARIES}
+	${sge_TARGETS}
 	${Cg_LIBRARIES}
 	${BULLET_LIBRARIES}
 	${Boost_LIBRARIES})

@@ -32,29 +32,29 @@ add_definitions(
 
 # fcppt begin
 find_package(
-  Fcppt REQUIRED)
+  fcppt REQUIRED)
 include_directories(
-  ${Fcppt_INCLUDE_DIRS})
+  ${fcppt_INCLUDE_DIRS})
 ADD_DEFINITIONS(
-  ${Fcppt_DEFINITIONS})
+  ${fcppt_DEFINITIONS})
 # fcppt end
 
 # awl begin
 find_package(
-  Awl REQUIRED)
+  awl REQUIRED)
 include_directories(
-  ${Awl_INCLUDE_DIR})
+  ${awl_INCLUDE_DIR})
 add_definitions(
-  ${Awl_DEFINITIONS})
+  ${awl_DEFINITIONS})
 # awl end
 
 # mizuiro begin
 find_package(
-  Mizuiro REQUIRED)
+  mizuiro REQUIRED)
 include_directories(
-  ${Mizuiro_INCLUDE_DIR})
+  ${mizuiro_INCLUDE_DIR})
 add_definitions(
-  ${Mizuiro_DEFINITIONS})
+  ${mizuiro_DEFINITIONS})
 # mizuiro end
 
 # bullet begin
@@ -79,22 +79,22 @@ OPTION(
   ON)
 
 set(
-  sge_find_package_use_cegui
-  "")
+	sge_find_package_use_cegui
+	"")
 
 if(USE_CEGUI)
 	set(
-	  sge_find_package_use_cegui
-	  "cegui")
+		sge_find_package_use_cegui
+		"cegui")
 endif()
 
 # sge begin
 FIND_PACKAGE(
-	SGE REQUIRED COMPONENTS
+	sge REQUIRED
 	audio
 	camera
-	${sge_find_package_use_cegui}
 	charconv
+	${sge_find_package_use_cegui}
 	cg
 	config
 	console
@@ -124,9 +124,9 @@ FIND_PACKAGE(
 )
 
 include_directories(
-  ${SGE_INCLUDE_DIRS})
+  ${sge_INCLUDE_DIRS})
 add_definitions(
-  ${SGE_DEFINITIONS})
+  ${sge_DEFINITIONS})
 # sge end
 
 # cegui begin
@@ -138,7 +138,7 @@ if(USE_CEGUI)
 		"${CEGUI_LIBRARY_DIRS}")
 
 	include_directories(
-	  ${CEGUI_INCLUDE_DIRS})
+		${CEGUI_INCLUDE_DIRS})
 endif()
 # cegui end
 

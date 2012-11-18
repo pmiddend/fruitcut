@@ -506,14 +506,14 @@ target_link_libraries(
 	fruitcut
 	fruitlib
 
-	${SGE_LIBRARIES}
+	${sge_TARGETS}
 	${Cg_LIBRARIES}
 
 	${FcpptThreads_LIBRARIES}
 
-	${Fcppt_core_LIBRARIES}
-	${Fcppt_filesystem_LIBRARIES}
-	${Awl_LIBRARIES}
+	${fcppt_core_TARGET}
+	${fcppt_filesystem_TARGET}
+	${awl_TARGET}
 	${CEGUI_LIBRARIES}
 	${BULLET_LIBRARIES}
 	${Boost_LIBRARIES})
