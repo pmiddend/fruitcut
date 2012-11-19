@@ -3,9 +3,9 @@
 
 #include <fruitapp/fruit/area.hpp>
 #include <sge/audio/scalar.hpp>
-#include <fcppt/string.hpp>
 #include <sge/parse/json/object_fwd.hpp>
 #include <sge/parse/json/config/user_config_variable.hpp>
+#include <fcppt/string.hpp>
 
 
 namespace fruitapp
@@ -36,6 +36,9 @@ public:
 	string_variable &
 	last_user_name();
 
+	string_variable &
+	graphics_preset();
+
 	~config_variables();
 private:
 	// This fixes a subtlety: The json::user_config_variables sync
@@ -60,6 +63,7 @@ private:
 	audio_variable music_volume_;
 	audio_variable effects_volume_;
 	string_variable last_user_name_;
+	string_variable graphics_preset_;
 };
 }
 

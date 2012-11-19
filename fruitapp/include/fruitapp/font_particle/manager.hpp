@@ -2,18 +2,18 @@
 #define FRUITAPP_FONT_PARTICLE_MANAGER_HPP_INCLUDED
 
 #include <fruitapp/ingame_clock.hpp>
-#include <fruitlib/font/identifier.hpp>
 #include <fruitapp/font_particle/lifetime.hpp>
 #include <fruitapp/font_particle/object_fwd.hpp>
 #include <fruitapp/font_particle/position.hpp>
-#include <fcppt/signal/scoped_connection.hpp>
 #include <fruitapp/font_particle/text.hpp>
 #include <fruitapp/projection_manager/object_fwd.hpp>
 #include <fruitlib/perspective_projection_information_fwd.hpp>
+#include <fruitlib/font/identifier.hpp>
 #include <fruitlib/font/manager_fwd.hpp>
 #include <fruitlib/scenic/optional_parent.hpp>
 #include <sge/image/color/any/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/ptr_container/ptr_vector.hpp>
 #include <fcppt/config/external_end.hpp>

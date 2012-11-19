@@ -1,0 +1,42 @@
+{
+	"compatibility" :
+	{
+		"use-shaders" : false,
+		"use-postprocessing" : false,
+		"use-shadow-map" : false,
+		"fruits-use-ffp" : true,
+		"use-srgb" : false
+	},
+	"low" :
+	{
+		"use-shaders" : false,
+		"use-postprocessing" : false,
+		"use-shadow-map" : false,
+		"fruits-use-ffp" : true,
+		"use-srgb" : false
+	},
+	"medium" :
+	{
+		"use-shaders" : true,
+		"use-postprocessing" : false,
+		"use-shadow-map" : false,
+		"fruits-use-ffp" : false,
+		"use-srgb" : false
+	},
+	"high" :
+	{
+		"use-shaders" : true,
+		"use-postprocessing" : true,
+		"use-shadow-map" : true,
+		"fruits-use-ffp" : false,
+		"use-srgb" : true
+	},
+	"ultra" :
+	{
+		"use-shaders" : true,
+		"use-postprocessing" : true,
+		"use-shadow-map" : true,
+		"fruits-use-ffp" : false,
+		"use-srgb" : true
+	}
+}

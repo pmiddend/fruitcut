@@ -1,7 +1,7 @@
-#include <fruitapp/states/gameover/superstate.hpp>
 #include <fruitapp/config_variables.hpp>
-#include <fcppt/assert/pre.hpp>
+#include <fruitapp/states/gameover/superstate.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/assert/pre.hpp>
 
 
 fruitapp::states::gameover::superstate::superstate(

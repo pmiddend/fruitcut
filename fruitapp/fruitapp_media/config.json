@@ -24,16 +24,9 @@
 		"repetitions" : 1.5,
 		"use-ffp" : false
 	},
-	"graphics" :
-	{
-		"window-size" : [1024,768],
-		"desired-fps" : 60,
-		"use-shaders" : true,
-		"use-postprocessing" : true,
-		"use-shadow-map" : true,
-		"fruits-use-ffp" : false,
-		"use-srgb" : false
-	},
+	"graphics-preset" : "ultra",
+	"window-size" : [1024,768],
+	"desired-fps" : 60,
 	"pp" : 
 	{
 		"bloom-size" : [512,512],
@@ -68,7 +61,7 @@
 			"movement-speed" : 10.0,
 			"initial-position" : [0.0,0.0,-15.0]
 		},
-		"round-time" : "1s",
+		"round-time" : "100s",
 		"score-increase-timer" : "20ms",
 		"multiplier-timer" : "1s",
 		"penalty-timer" : "3s",

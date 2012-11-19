@@ -1,4 +1,5 @@
 #include <fruitapp/fruit/rendering/base.hpp>
+#include <fruitapp/graphics_settings/object.hpp>
 #include <fruitapp/fruit/rendering/base_unique_ptr.hpp>
 #include <fruitapp/fruit/rendering/cg.hpp>
 #include <fruitapp/fruit/rendering/draw_node.hpp>
@@ -17,7 +18,7 @@
 fruitapp::fruit::rendering::draw_node::draw_node(
 	fruitlib::scenic::optional_parent const &_parent,
 	sge::renderer::device::core &_renderer,
-	sge::parse::json::object const &_configuration,
+	fruitapp::graphics_settings::object const &_graphics_settings,
 	sge::shader::optional_context_ref const &_shader_context,
 	fruitapp::fruit::manager const &_fruit_manager,
 	sge::camera::base const &_camera,
@@ -27,9 +28,9 @@ fruitapp::fruit::rendering::draw_node::draw_node(
 		_parent),
 	implementation_(
 		sge::parse::json::find_and_convert_member<bool>(
-			_configuration,
+			_graphics_settings.current(),
 			sge::parse::json::string_to_path(
-				FCPPT_TEXT("graphics/fruits-use-ffp"))) ||
+				FCPPT_TEXT("fruits-use-ffp"))) ||
 		!_shader_context.has_value()
 		?
 			fruitapp::fruit::rendering::base_unique_ptr(

@@ -40,7 +40,8 @@ public:
 	fruitapp::gui::dialogs::settings_unique_ptr
 	create_settings(
 		fruitapp::gui::initial_effects_volume const &,
-		fruitapp::gui::initial_music_volume const &);
+		fruitapp::gui::initial_music_volume const &,
+		fruitapp::graphics_settings::object &);
 
 	fruitapp::gui::dialogs::name_chooser_unique_ptr
 	create_name_chooser(

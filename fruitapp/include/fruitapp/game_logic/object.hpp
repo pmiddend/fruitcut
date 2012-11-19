@@ -3,14 +3,14 @@
 
 #include <fruitapp/ingame_clock.hpp>
 #include <fruitapp/ingame_timer.hpp>
-#include <fruitapp/font_particle/manager.hpp>
 #include <fruitapp/overlay.hpp>
+#include <fruitapp/quick_log.hpp>
+#include <fruitapp/font_particle/manager.hpp>
 #include <fruitapp/fruit/area.hpp>
 #include <fruitapp/fruit/cut_context_fwd.hpp>
 #include <fruitapp/fruit/manager_fwd.hpp>
 #include <fruitapp/fruit/object_fwd.hpp>
 #include <fruitapp/highscore/score.hpp>
-#include <fruitapp/quick_log.hpp>
 #include <fruitapp/projection_manager/object_fwd.hpp>
 #include <fruitapp/viewport/manager_fwd.hpp>
 #include <fruitlib/audio/sound_controller.hpp>

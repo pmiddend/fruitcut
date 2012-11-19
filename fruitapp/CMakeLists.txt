@@ -82,6 +82,7 @@ set(
 	fruitapp/include/fruitapp/font_particle/object_fwd.hpp
 	fruitapp/include/fruitapp/font_particle/position.hpp
 	fruitapp/include/fruitapp/font_particle/text.hpp
+	fruitapp/include/fruitapp/font_particle/velocity.hpp
 	fruitapp/include/fruitapp/fruit/area.hpp
 	fruitapp/include/fruitapp/fruit/ban_duration.hpp
 	fruitapp/include/fruitapp/fruit/box3.hpp
@@ -386,6 +387,7 @@ set(
 	fruitapp/src/fruit/rendering/sort_fruits.cpp
 	fruitapp/src/fruit/spawner.cpp
 	fruitapp/src/game_logic/object.cpp
+	fruitapp/src/graphics_settings/object.cpp
 	fruitapp/src/gui/create_system.cpp
 	fruitapp/src/gui/dialogs/highscore.cpp
 	fruitapp/src/gui/dialogs/ingame_menu.cpp

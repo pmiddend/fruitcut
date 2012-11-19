@@ -1,12 +1,17 @@
 #include <fruitapp/media_path.hpp>
+#include <fruitapp/graphics_settings/object.hpp>
 #include <fruitapp/gui/ce/system.hpp>
 #include <fruitapp/gui/ce/dialogs/settings.hpp>
+#include <fcppt/ref.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/tr1/functional.hpp>
 
 
 fruitapp::gui::ce::dialogs::settings::settings(
 	fruitapp::gui::ce::system &_system,
 	fruitapp::gui::initial_effects_volume const &_initial_effects_volume,
-	fruitapp::gui::initial_music_volume const &_initial_music_volume)
+	fruitapp::gui::initial_music_volume const &_initial_music_volume,
+	fruitapp::graphics_settings::object &_graphics_settings)
 :
 	gui_node_(
 		fruitlib::scenic::optional_parent(
@@ -65,8 +70,26 @@ fruitapp::gui::ce::dialogs::settings::settings(
 				&settings::effects_volume_callback,
 				this,
 				std::tr1::placeholders::_1))),
-	effects_volume_change_()
+	effects_volume_change_(),
+	quality_change_(),
+	quality_dropdown_(
+		*layout_.window().getChild(
+			"QualityDropDown"))
 {
+	fruitapp::graphics_settings::preset_name_set const preset_names(
+		_graphics_settings.preset_names());
+
+	for(
+		fruitapp::graphics_settings::preset_name_set::const_iterator it =
+			preset_names.begin();
+		it != preset_names.end();
+		++it)
+		quality_dropdown_.add(
+			it->get(),
+			std::tr1::bind(
+				std::tr1::ref(
+					quality_change_),
+				*it));
 }
 
 fcppt::signal::auto_connection
@@ -84,6 +107,15 @@ fruitapp::gui::ce::dialogs::settings::register_music_volume_change_callback(
 {
 	return
 		music_volume_change_.connect(
+			_f);
+}
+
+fcppt::signal::auto_connection
+fruitapp::gui::ce::dialogs::settings::register_quality_change_callback(
+	fruitapp::gui::dialogs::settings::quality_change_callback const &_f)
+{
+	return
+		quality_change_.connect(
 			_f);
 }
 

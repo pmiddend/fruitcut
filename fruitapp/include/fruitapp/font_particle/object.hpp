@@ -5,8 +5,8 @@
 #include <fruitapp/ingame_timer.hpp>
 #include <fruitapp/font_particle/lifetime.hpp>
 #include <fruitapp/font_particle/position.hpp>
-#include <fruitapp/font_particle/velocity.hpp>
 #include <fruitapp/font_particle/text.hpp>
+#include <fruitapp/font_particle/velocity.hpp>
 #include <fruitlib/font/identifier.hpp>
 #include <fruitlib/font/manager_fwd.hpp>
 #include <fruitlib/font/scene_node.hpp>

@@ -1,6 +1,7 @@
 #ifndef FRUITAPP_GUI_SYSTEM_HPP_INCLUDED
 #define FRUITAPP_GUI_SYSTEM_HPP_INCLUDED
 
+#include <fruitapp/graphics_settings/object_fwd.hpp>
 #include <fruitapp/gui/initial_effects_volume.hpp>
 #include <fruitapp/gui/initial_music_volume.hpp>
 #include <fruitapp/gui/dialogs/highscore_unique_ptr.hpp>
@@ -45,7 +46,8 @@ public:
 	virtual fruitapp::gui::dialogs::settings_unique_ptr
 	create_settings(
 		fruitapp::gui::initial_effects_volume const &,
-		fruitapp::gui::initial_music_volume const &) = 0;
+		fruitapp::gui::initial_music_volume const &,
+		fruitapp::graphics_settings::object &) = 0;
 
 	virtual
 	~system() = 0;

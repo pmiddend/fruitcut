@@ -1,21 +1,21 @@
 #include <fruitapp/font_particle/object.hpp>
-#include <sge/font/text.hpp>
-#include <fcppt/math/dim/arithmetic.hpp>
-#include <sge/font/object.hpp>
 #include <fruitlib/font/object.hpp>
 #include <fruitlib/font/object_parameters.hpp>
-#include <sge/font/text_parameters.hpp>
-#include <fcppt/math/box/object_impl.hpp>
-#include <fcppt/math/vector/arithmetic.hpp>
-#include <sge/renderer/vector2.hpp>
-
 #include <sge/font/align_h.hpp>
 #include <sge/font/flags_field.hpp>
+#include <sge/font/object.hpp>
 #include <sge/font/rect.hpp>
+#include <sge/font/text.hpp>
+#include <sge/font/text_parameters.hpp>
 #include <sge/font/unit.hpp>
 #include <sge/image/color/any/object.hpp>
 #include <sge/renderer/scalar.hpp>
 #include <sge/renderer/vector2.hpp>
+#include <sge/renderer/vector2.hpp>
+#include <fcppt/math/box/object_impl.hpp>
+#include <fcppt/math/dim/arithmetic.hpp>
+#include <fcppt/math/vector/arithmetic.hpp>
+
 
 namespace
 {

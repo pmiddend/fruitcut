@@ -10,6 +10,7 @@
 #include <fruitapp/systems.hpp>
 #include <fruitapp/cursor/manager_fwd.hpp>
 #include <fruitapp/fruit/prototype_sequence.hpp>
+#include <fruitapp/graphics_settings/object_fwd.hpp>
 #include <fruitapp/gui/system_fwd.hpp>
 #include <fruitapp/highscore/score.hpp>
 #include <fruitapp/light/manager_fwd.hpp>
@@ -73,6 +74,10 @@ public:
 	texture_manager()
 	FCPPT_PP_CONST;
 
+	fruitapp::graphics_settings::object &
+	graphics_settings()
+	FCPPT_PP_CONST;
+
 	sge::shader::optional_context_ref const
 	shader_context() const;
 
@@ -82,10 +87,6 @@ public:
 
 	fruitapp::config_variables &
 	config_variables()
-	FCPPT_PP_CONST;
-
-	fruitapp::config_variables const &
-	config_variables() const
 	FCPPT_PP_CONST;
 
 	awl::main::exit_code const

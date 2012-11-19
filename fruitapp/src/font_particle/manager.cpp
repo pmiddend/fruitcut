@@ -1,11 +1,11 @@
 #include <fruitapp/font_particle/manager.hpp>
-#include <fruitapp/projection_manager/object.hpp>
 #include <fruitapp/font_particle/object.hpp>
+#include <fruitapp/projection_manager/object.hpp>
 #include <fcppt/cref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/tr1/functional.hpp>
 #include <fcppt/ref.hpp>
 #include <fcppt/container/ptr/push_back_unique_ptr.hpp>
+#include <fcppt/tr1/functional.hpp>
 
 
 fruitapp::font_particle::manager::manager(

@@ -28,7 +28,8 @@ fruitapp::states::menu::settings::settings(
 			fruitapp::gui::initial_music_volume(
 				fruitapp::gui::sound_volume(
 					static_cast<fruitapp::gui::sound_volume::value_type>(
-					context<fruitapp::machine>().config_variables().music_volume().value() * 100.0f))))),
+						context<fruitapp::machine>().config_variables().music_volume().value() * 100.0f))),
+			context<fruitapp::machine>().graphics_settings())),
 	main_menu_button_connection_(
 		settings_->register_back_callback(
 			FRUITAPP_EVENTS_RETURN_POST_TRANSITION_FUNCTOR(
@@ -43,6 +44,12 @@ fruitapp::states::menu::settings::settings(
 		settings_->register_effects_volume_change_callback(
 			std::tr1::bind(
 				&settings::effects_volume_callback,
+				this,
+				std::tr1::placeholders::_1))),
+	quality_connection_(
+		settings_->register_quality_change_callback(
+			std::tr1::bind(
+				&settings::quality_callback,
 				this,
 				std::tr1::placeholders::_1)))
 {
@@ -60,7 +67,7 @@ void
 fruitapp::states::menu::settings::music_volume_callback(
 	fruitapp::gui::sound_volume const &v)
 {
-	context<machine>().config_variables().music_volume().value(
+	context<fruitapp::machine>().config_variables().music_volume().value(
 		static_cast<sge::audio::scalar>(
 			v.get()) / 100.0f);
 }
@@ -69,7 +76,15 @@ void
 fruitapp::states::menu::settings::effects_volume_callback(
 	fruitapp::gui::sound_volume const &v)
 {
-	context<machine>().config_variables().effects_volume().value(
+	context<fruitapp::machine>().config_variables().effects_volume().value(
 		static_cast<sge::audio::scalar>(
 			v.get()) / 100.0f);
+}
+
+void
+fruitapp::states::menu::settings::quality_callback(
+	fruitapp::graphics_settings::preset_identifier const &v)
+{
+	context<fruitapp::machine>().config_variables().graphics_preset().value(
+		v.get());
 }

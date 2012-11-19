@@ -120,6 +120,8 @@ sge::audio::sound::base_unique_ptr
 fruitlib::audio::sound_controller::create(
 	fruitlib::resource_tree::path const &_path)
 {
+	return
+		sge::audio::sound::base_unique_ptr();
 }
 
 void

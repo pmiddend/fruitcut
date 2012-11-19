@@ -1,6 +1,7 @@
 #ifndef FRUITAPP_GUI_DIALOGS_SETTINGS_HPP_INCLUDED
 #define FRUITAPP_GUI_DIALOGS_SETTINGS_HPP_INCLUDED
 
+#include <fruitapp/graphics_settings/preset_identifier.hpp>
 #include <fruitapp/gui/sound_volume.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/function/object.hpp>
@@ -31,6 +32,15 @@ public:
 	fcppt::function::object<void ()>
 	back_callback;
 
+	typedef
+	void
+	quality_change_function(
+		fruitapp::graphics_settings::preset_identifier const &);
+
+	typedef
+	fcppt::function::object<quality_change_function>
+	quality_change_callback;
+
 	virtual fcppt::signal::auto_connection
 	register_effects_volume_change_callback(
 		volume_change_callback const &) = 0;
@@ -38,6 +48,10 @@ public:
 	virtual fcppt::signal::auto_connection
 	register_music_volume_change_callback(
 		volume_change_callback const &) = 0;
+
+	virtual fcppt::signal::auto_connection
+	register_quality_change_callback(
+		quality_change_callback const &) = 0;
 
 	virtual fcppt::signal::auto_connection
 	register_back_callback(

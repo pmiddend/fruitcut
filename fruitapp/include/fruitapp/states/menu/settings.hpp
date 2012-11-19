@@ -3,6 +3,7 @@
 
 #include <fruitapp/events/declare_transition_reaction.hpp>
 #include <fruitapp/events/declare_transition_type.hpp>
+#include <fruitapp/graphics_settings/preset_identifier.hpp>
 #include <fruitapp/gui/sound_volume.hpp>
 #include <fruitapp/gui/dialogs/settings_unique_ptr.hpp>
 #include <fruitapp/states/menu/main_fwd.hpp>
@@ -46,10 +47,11 @@ public:
 
 	virtual ~settings();
 private:
-	fruitapp::gui::dialogs::settings_unique_ptr settings_;
-	fcppt::signal::scoped_connection main_menu_button_connection_;
-	fcppt::signal::scoped_connection music_volume_connection_;
-	fcppt::signal::scoped_connection effects_volume_connection_;
+	fruitapp::gui::dialogs::settings_unique_ptr const settings_;
+	fcppt::signal::scoped_connection const main_menu_button_connection_;
+	fcppt::signal::scoped_connection const music_volume_connection_;
+	fcppt::signal::scoped_connection const effects_volume_connection_;
+	fcppt::signal::scoped_connection const quality_connection_;
 
 	void
 	music_volume_callback(
@@ -58,6 +60,10 @@ private:
 	void
 	effects_volume_callback(
 		fruitapp::gui::sound_volume const &);
+
+	void
+	quality_callback(
+		fruitapp::graphics_settings::preset_identifier const &);
 };
 }
 }

@@ -28,59 +28,48 @@ fruitapp::machine::machine(
 {
 }
 
-sge::parse::json::object const &
-fruitapp::machine::config_file() const
-{
-	return impl_->config_file();
-}
+#define FRUITAPP_MACHINE_NONCONST_MEMBER_FUNCTION(return_type,name) return_type fruitapp::machine::name() { return impl_->name(); }
+#define FRUITAPP_MACHINE_CONST_MEMBER_FUNCTION(return_type,name) return_type fruitapp::machine::name() const { return impl_->name(); }
 
-fruitapp::systems const &
-fruitapp::machine::systems() const
-{
-	return impl_->systems();
-}
-
-fruitlib::texture_manager &
-fruitapp::machine::texture_manager()
-{
-	return impl_->texture_manager();
-}
-
-sge::shader::optional_context_ref const
-fruitapp::machine::shader_context() const
-{
-	return impl_->shader_context();
-}
-
-sge::model::md3::loader &
-fruitapp::machine::md3_loader()
-{
-	return impl_->md3_loader();
-}
-
-fruitapp::config_variables &
-fruitapp::machine::config_variables()
-{
-	return impl_->config_variables();
-}
-
-fruitapp::config_variables const &
-fruitapp::machine::config_variables() const
-{
-	return impl_->config_variables();
-}
-
-fruitapp::postprocessing::system &
-fruitapp::machine::postprocessing_system()
-{
-	return impl_->postprocessing_system();
-}
-
-fruitapp::postprocessing::subsystems::main &
-fruitapp::machine::postprocessing_main()
-{
-	return impl_->postprocessing_main();
-}
+FRUITAPP_MACHINE_CONST_MEMBER_FUNCTION(sge::parse::json::object const &,config_file)
+FRUITAPP_MACHINE_CONST_MEMBER_FUNCTION(fruitapp::systems const &,systems)
+FRUITAPP_MACHINE_CONST_MEMBER_FUNCTION(sge::shader::optional_context_ref const,shader_context)
+FRUITAPP_MACHINE_NONCONST_MEMBER_FUNCTION(fruitlib::texture_manager &,texture_manager)
+FRUITAPP_MACHINE_NONCONST_MEMBER_FUNCTION(fruitapp::graphics_settings::object &,graphics_settings)
+FRUITAPP_MACHINE_NONCONST_MEMBER_FUNCTION(sge::model::md3::loader &,md3_loader)
+FRUITAPP_MACHINE_NONCONST_MEMBER_FUNCTION(fruitapp::config_variables &,config_variables)
+FRUITAPP_MACHINE_NONCONST_MEMBER_FUNCTION(fruitapp::postprocessing::system &,postprocessing_system)
+FRUITAPP_MACHINE_NONCONST_MEMBER_FUNCTION(fruitapp::postprocessing::subsystems::main &,postprocessing_main)
+FRUITAPP_MACHINE_CONST_MEMBER_FUNCTION(fruitapp::ingame_clock const &,ingame_clock)
+FRUITAPP_MACHINE_NONCONST_MEMBER_FUNCTION(fruitlib::audio::sound_controller &,sound_controller)
+FRUITAPP_MACHINE_CONST_MEMBER_FUNCTION(fruitlib::audio::sound_controller const &,sound_controller)
+FRUITAPP_MACHINE_NONCONST_MEMBER_FUNCTION(fruitlib::audio::music_controller &,music_controller)
+FRUITAPP_MACHINE_CONST_MEMBER_FUNCTION(fruitlib::audio::music_controller const &,music_controller)
+FRUITAPP_MACHINE_NONCONST_MEMBER_FUNCTION(fruitapp::light::manager &,light_manager)
+FRUITAPP_MACHINE_NONCONST_MEMBER_FUNCTION(fruitapp::shadow_map::optional_object_ref const,shadow_map)
+FRUITAPP_MACHINE_NONCONST_MEMBER_FUNCTION(sge::camera::first_person::object &,camera)
+FRUITAPP_MACHINE_CONST_MEMBER_FUNCTION(sge::camera::first_person::object const &,camera)
+FRUITAPP_MACHINE_NONCONST_MEMBER_FUNCTION(fruitlib::font::manager &,font_manager)
+FRUITAPP_MACHINE_NONCONST_MEMBER_FUNCTION(fruitapp::cursor::manager &,cursor_manager)
+FRUITAPP_MACHINE_NONCONST_MEMBER_FUNCTION(fruitapp::gui::system &,gui_system)
+FRUITAPP_MACHINE_NONCONST_MEMBER_FUNCTION(fruitlib::random_generator &,random_generator)
+FRUITAPP_MACHINE_CONST_MEMBER_FUNCTION(fruitapp::highscore::score const,last_game_score)
+FRUITAPP_MACHINE_NONCONST_MEMBER_FUNCTION(fruitapp::scene &,scene_node)
+FRUITAPP_MACHINE_CONST_MEMBER_FUNCTION(fruitapp::scene const &,scene_node)
+FRUITAPP_MACHINE_NONCONST_MEMBER_FUNCTION(fruitapp::overlay &,overlay_node)
+FRUITAPP_MACHINE_CONST_MEMBER_FUNCTION(fruitapp::overlay const &,overlay_node)
+FRUITAPP_MACHINE_NONCONST_MEMBER_FUNCTION(fruitapp::point_sprite::system_node &,point_sprites)
+FRUITAPP_MACHINE_CONST_MEMBER_FUNCTION(fruitapp::point_sprite::system_node const &,point_sprites)
+FRUITAPP_MACHINE_CONST_MEMBER_FUNCTION(fruitapp::ingame_clock::float_type,time_factor)
+FRUITAPP_MACHINE_CONST_MEMBER_FUNCTION(sge::renderer::texture::emulate_srgb::type,emulate_srgb)
+FRUITAPP_MACHINE_NONCONST_MEMBER_FUNCTION(fruitlib::scenic::base &,root_node)
+FRUITAPP_MACHINE_CONST_MEMBER_FUNCTION(fruitlib::scenic::delta::callback const,ingame_clock_callback)
+FRUITAPP_MACHINE_CONST_MEMBER_FUNCTION(fruitlib::scenic::delta::callback const,standard_clock_callback)
+FRUITAPP_MACHINE_CONST_MEMBER_FUNCTION(fruitapp::fruit::prototype_sequence const &,fruit_prototypes)
+FRUITAPP_MACHINE_NONCONST_MEMBER_FUNCTION(fruitapp::fruit::prototype_sequence &,fruit_prototypes)
+FRUITAPP_MACHINE_NONCONST_MEMBER_FUNCTION(fruitapp::quick_log &,quick_log)
+FRUITAPP_MACHINE_NONCONST_MEMBER_FUNCTION(fruitapp::viewport::manager &,viewport_manager)
+FRUITAPP_MACHINE_NONCONST_MEMBER_FUNCTION(fruitapp::projection_manager::object &,projection_manager)
 
 awl::main::exit_code const
 fruitapp::machine::run()
@@ -101,91 +90,6 @@ fruitapp::machine::run()
 	return impl_->exit_code();
 }
 
-fruitapp::ingame_clock const &
-fruitapp::machine::ingame_clock() const
-{
-	return impl_->ingame_clock();
-}
-
-fruitlib::audio::sound_controller &
-fruitapp::machine::sound_controller()
-{
-	return impl_->sound_controller();
-}
-
-fruitlib::audio::sound_controller const &
-fruitapp::machine::sound_controller() const
-{
-	return impl_->sound_controller();
-}
-
-fruitlib::audio::music_controller &
-fruitapp::machine::music_controller()
-{
-	return impl_->music_controller();
-}
-
-fruitlib::audio::music_controller const &
-fruitapp::machine::music_controller() const
-{
-	return impl_->music_controller();
-}
-
-fruitapp::light::manager &
-fruitapp::machine::light_manager()
-{
-	return impl_->light_manager();
-}
-
-fruitapp::shadow_map::optional_object_ref const
-fruitapp::machine::shadow_map()
-{
-	return impl_->shadow_map();
-}
-
-sge::camera::first_person::object &
-fruitapp::machine::camera()
-{
-	return impl_->camera();
-}
-
-sge::camera::first_person::object const &
-fruitapp::machine::camera() const
-{
-	return impl_->camera();
-}
-
-fruitlib::font::manager &
-fruitapp::machine::font_manager()
-{
-	return impl_->font_manager();
-}
-
-fruitapp::cursor::manager &
-fruitapp::machine::cursor_manager()
-{
-	return impl_->cursor_manager();
-}
-
-fruitapp::gui::system &
-fruitapp::machine::gui_system()
-{
-	return
-		impl_->gui_system();
-}
-
-fruitlib::random_generator &
-fruitapp::machine::random_generator()
-{
-	return impl_->random_generator();
-}
-
-fruitapp::highscore::score const
-fruitapp::machine::last_game_score() const
-{
-	return impl_->last_game_score();
-}
-
 void
 fruitapp::machine::last_game_score(
 	fruitapp::highscore::score const &_last_game_score)
@@ -202,53 +106,6 @@ fruitapp::machine::quit(
 		_exit_code);
 }
 
-fruitapp::scene &
-fruitapp::machine::scene_node()
-{
-	return impl_->scene_node();
-}
-
-fruitapp::scene const &
-fruitapp::machine::scene_node() const
-{
-	return impl_->scene_node();
-}
-
-fruitapp::overlay &
-fruitapp::machine::overlay_node()
-{
-	return impl_->overlay_node();
-}
-
-fruitapp::overlay const &
-fruitapp::machine::overlay_node() const
-{
-	return impl_->overlay_node();
-}
-
-fruitapp::point_sprite::system_node &
-fruitapp::machine::point_sprites()
-{
-	return impl_->point_sprites();
-}
-
-fruitapp::point_sprite::system_node const &
-fruitapp::machine::point_sprites() const
-{
-	return impl_->point_sprites();
-}
-
-fruitapp::ingame_clock::float_type
-fruitapp::machine::time_factor() const
-{
-	return impl_->time_factor();
-}
-
-sge::renderer::texture::emulate_srgb::type
-fruitapp::machine::emulate_srgb() const
-{
-	return impl_->emulate_srgb();
-}
 
 void
 fruitapp::machine::time_factor(
@@ -256,24 +113,6 @@ fruitapp::machine::time_factor(
 {
 	impl_->time_factor(
 		_time_factor);
-}
-
-fruitlib::scenic::base &
-fruitapp::machine::root_node()
-{
-	return impl_->root_node();
-}
-
-fruitlib::scenic::delta::callback const
-fruitapp::machine::ingame_clock_callback() const
-{
-	return impl_->ingame_clock_callback();
-}
-
-fruitlib::scenic::delta::callback const
-fruitapp::machine::standard_clock_callback() const
-{
-	return impl_->standard_clock_callback();
 }
 
 fruitapp::machine::~machine()
@@ -300,32 +139,3 @@ fruitapp::machine::post_event(
 		e.intrusive_from_this());
 }
 
-fruitapp::fruit::prototype_sequence const &
-fruitapp::machine::fruit_prototypes() const
-{
-	return impl_->fruit_prototypes();
-}
-
-fruitapp::fruit::prototype_sequence &
-fruitapp::machine::fruit_prototypes()
-{
-	return impl_->fruit_prototypes();
-}
-
-fruitapp::quick_log &
-fruitapp::machine::quick_log()
-{
-	return impl_->quick_log();
-}
-
-fruitapp::viewport::manager &
-fruitapp::machine::viewport_manager()
-{
-	return impl_->viewport_manager();
-}
-
-fruitapp::projection_manager::object &
-fruitapp::machine::projection_manager()
-{
-	return impl_->projection_manager();
-}

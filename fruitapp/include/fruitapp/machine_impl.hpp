@@ -10,6 +10,7 @@
 #include <fruitapp/background/node.hpp>
 #include <fruitapp/cursor/manager.hpp>
 #include <fruitapp/fruit/prototype_sequence.hpp>
+#include <fruitapp/graphics_settings/object.hpp>
 #include <fruitapp/gui/system_unique_ptr.hpp>
 #include <fruitapp/highscore/score.hpp>
 #include <fruitapp/light/manager.hpp>
@@ -74,6 +75,10 @@ public:
 
 	fruitlib::texture_manager &
 	texture_manager()
+	FCPPT_PP_CONST;
+
+	fruitapp::graphics_settings::object &
+	graphics_settings()
 	FCPPT_PP_CONST;
 
 	sge::shader::optional_context_ref const
@@ -255,6 +260,7 @@ private:
 	sge::charconv::system_scoped_ptr const charconv_system_;
 	sge::parse::json::object user_config_file_;
 	sge::parse::json::object const config_file_;
+	fruitapp::graphics_settings::object graphics_settings_;
 	sge::renderer::texture::emulate_srgb::type const emulate_srgb_;
 	fruitapp::config_variables config_variables_;
 	fruitapp::systems const systems_;

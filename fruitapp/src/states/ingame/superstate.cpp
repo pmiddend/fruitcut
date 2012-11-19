@@ -1,10 +1,10 @@
 #include <fruitapp/config_variables.hpp>
+#include <fruitapp/quick_log.hpp>
 #include <fruitapp/scene.hpp>
 #include <fruitapp/depths/overlay.hpp>
 #include <fruitapp/depths/root.hpp>
 #include <fruitapp/depths/scene.hpp>
 #include <fruitapp/point_sprite/system_node.hpp>
-#include <fruitapp/quick_log.hpp>
 #include <fruitapp/shadow_map/object.hpp>
 #include <fruitapp/states/ingame/running.hpp>
 #include <fruitapp/states/ingame/superstate.hpp>
@@ -58,7 +58,7 @@ fruitapp::states::ingame::superstate::superstate(
 		// The box is ignored for now
 		fruitlib::physics::box(),
 		sge::parse::json::find_and_convert_member<fruitlib::physics::vector3>(
-			context<machine>().config_file(),
+			this->context<fruitapp::machine>().config_file(),
 			sge::parse::json::path(
 				FCPPT_TEXT("physics"))
 				/ FCPPT_TEXT("default-gravity"))),
@@ -72,8 +72,8 @@ fruitapp::states::ingame::superstate::superstate(
 		physics_world_),
 	physics_debugger_(
 		physics_world_,
-		context<machine>().systems().renderer_ffp(),
-		context<machine>().camera()),
+		this->context<fruitapp::machine>().systems().renderer_ffp(),
+		this->context<fruitapp::machine>().camera()),
 	physics_debugger_node_(
 		fruitlib::scenic::optional_parent(
 			fruitlib::scenic::parent(
@@ -82,7 +82,7 @@ fruitapp::states::ingame::superstate::superstate(
 					depths::overlay::dont_care))),
 		physics_debugger_),
 	physics_debugger_connection_(
-		context<machine>().systems().keyboard_collector().key_callback(
+		this->context<fruitapp::machine>().systems().keyboard_collector().key_callback(
 			sge::input::keyboard::action(
 				sge::input::keyboard::key_code::f3,
 				std::tr1::bind(
@@ -94,10 +94,10 @@ fruitapp::states::ingame::superstate::superstate(
 				context<fruitapp::machine>().root_node(),
 				fruitlib::scenic::depth(
 					depths::root::dont_care))),
-		context<machine>().fruit_prototypes(),
-		context<machine>().systems().renderer_ffp(),
+		this->context<fruitapp::machine>().fruit_prototypes(),
+		this->context<fruitapp::machine>().systems().renderer_ffp(),
 		physics_world_,
-		context<machine>().camera(),
+		this->context<fruitapp::machine>().camera(),
 		context<fruitapp::machine>().ingame_clock()),
 	fruit_default_render_node_(
 		fruitlib::scenic::optional_parent(
@@ -105,12 +105,12 @@ fruitapp::states::ingame::superstate::superstate(
 				context<fruitapp::machine>().scene_node(),
 				fruitlib::scenic::depth(
 					depths::scene::fruits))),
-		context<machine>().systems().renderer_core(),
-		context<machine>().config_file(),
-		context<machine>().shader_context(),
+		this->context<fruitapp::machine>().systems().renderer_core(),
+		this->context<fruitapp::machine>().graphics_settings(),
+		this->context<fruitapp::machine>().shader_context(),
 		fruit_manager_,
-		context<machine>().camera(),
-		context<machine>().light_manager()),
+		this->context<fruitapp::machine>().camera(),
+		this->context<fruitapp::machine>().light_manager()),
 	fruit_shadow_render_node_(
 		context<fruitapp::machine>().shadow_map()
 		?
@@ -134,14 +134,14 @@ fruitapp::states::ingame::superstate::superstate(
 				fruitlib::scenic::depth(
 					depths::root::dont_care))),
 		fruit_manager_,
-		context<machine>().random_generator(),
+		this->context<fruitapp::machine>().random_generator(),
 		sge::parse::json::find_and_convert_member<sge::parse::json::object const>(
-			context<machine>().config_file(),
+			this->context<fruitapp::machine>().config_file(),
 			sge::parse::json::path(
 				FCPPT_TEXT("fruit-spawner"))),
-		context<machine>().camera(),
-		context<machine>().ingame_clock(),
-		context<machine>().projection_manager()),
+		this->context<fruitapp::machine>().camera(),
+		this->context<fruitapp::machine>().ingame_clock(),
+		this->context<fruitapp::machine>().projection_manager()),
 	game_logic_(
 		fruitlib::scenic::optional_parent(
 			fruitlib::scenic::parent(
@@ -165,7 +165,7 @@ fruitapp::states::ingame::superstate::superstate(
 				std::tr1::placeholders::_1))),
 	splatter_generator_(
 		sge::parse::json::find_and_convert_member<sge::parse::json::object const>(
-			context<machine>().config_file(),
+			this->context<fruitapp::machine>().config_file(),
 			sge::parse::json::path(
 				FCPPT_TEXT("splatter-generator"))),
 		context<fruitapp::machine>().point_sprites(),
@@ -198,7 +198,7 @@ fruitapp::states::ingame::superstate::superstate(
 	background_body_scope_()
 {
 	// scene
-	context<machine>().music_controller().play(
+	this->context<fruitapp::machine>().music_controller().play(
 		fruitlib::resource_tree::path(
 			FCPPT_TEXT("random")));
 
@@ -287,7 +287,7 @@ void
 fruitapp::states::ingame::superstate::fruit_was_cut(
 	fruit::cut_context const &ccontext)
 {
-	context<machine>().sound_controller().play(
+	this->context<fruitapp::machine>().sound_controller().play(
 		fruitlib::resource_tree::path(
 			FCPPT_TEXT("fruit_was_cut")));
 

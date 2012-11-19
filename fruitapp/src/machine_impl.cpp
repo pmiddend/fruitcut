@@ -168,11 +168,13 @@ fruitapp::machine_impl::machine_impl(
 			fruitlib::create_command_line_parameters(
 				argc,
 				argv))),
+	graphics_settings_(
+		config_file_),
 	emulate_srgb_(
 		sge::parse::json::find_and_convert_member<bool>(
-			config_file_,
+			graphics_settings_.current(),
 			sge::parse::json::string_to_path(
-				FCPPT_TEXT("graphics/use-srgb")))
+				FCPPT_TEXT("use-srgb")))
 		?
 			sge::renderer::texture::emulate_srgb::no
 		:
@@ -203,8 +205,7 @@ fruitapp::machine_impl::machine_impl(
 					sge::parse::json::find_and_convert_member<sge::window::dim>(
 						config_file_,
 						sge::parse::json::path(
-							FCPPT_TEXT("graphics"))
-							/ FCPPT_TEXT("window-size")))))
+							FCPPT_TEXT("window-size"))))))
 			(sge::systems::charconv(
 				*charconv_system_))
 			(sge::systems::font())
@@ -229,10 +230,9 @@ fruitapp::machine_impl::machine_impl(
 		emulate_srgb_),
 	shader_context_(
 		sge::parse::json::find_and_convert_member<bool>(
-			config_file_,
+			graphics_settings_.current(),
 			sge::parse::json::path(
-				FCPPT_TEXT("graphics"))
-				/ FCPPT_TEXT("use-shaders"))
+				FCPPT_TEXT("use-shaders")))
 		?
 			fcppt::make_unique_ptr<sge::shader::context>(
 				fcppt::ref(
@@ -248,6 +248,7 @@ fruitapp::machine_impl::machine_impl(
 		fruitapp::postprocessing::create_system(
 			this->shader_context(),
 			viewport_manager_,
+			graphics_settings_,
 			config_file_)),
 	font_manager_(
 		systems_.renderer_ffp(),
@@ -422,9 +423,9 @@ fruitapp::machine_impl::machine_impl(
 	shadow_map_(
 		this->shader_context().has_value() &&
 		sge::parse::json::find_and_convert_member<bool>(
-				config_file_,
-				sge::parse::json::string_to_path(
-					FCPPT_TEXT("graphics/use-shadow-map")))
+			graphics_settings_.current(),
+			sge::parse::json::path(
+				FCPPT_TEXT("use-shadow-map")))
 		?
 			fcppt::make_unique_ptr<fruitapp::shadow_map::object>(
 				fruitlib::scenic::optional_parent(
@@ -471,8 +472,7 @@ fruitapp::machine_impl::machine_impl(
 	desired_fps_(
 		sge::parse::json::find_and_convert_member<unsigned>(
 			config_file(),
-			sge::parse::json::path(FCPPT_TEXT("graphics"))
-				/ FCPPT_TEXT("desired-fps"))),
+			sge::parse::json::path(FCPPT_TEXT("desired-fps")))),
 	last_game_score_(
 		// Something invalid so you get the error (if there is one)
 		31337u),
@@ -529,6 +529,13 @@ fruitapp::machine_impl::texture_manager()
 {
 	return
 		texture_manager_;
+}
+
+fruitapp::graphics_settings::object &
+fruitapp::machine_impl::graphics_settings()
+{
+	return
+		graphics_settings_;
 }
 
 sge::shader::optional_context_ref const

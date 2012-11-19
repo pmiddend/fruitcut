@@ -59,7 +59,8 @@ fruitapp::gui::dummy::system::create_ingame_menu()
 fruitapp::gui::dialogs::settings_unique_ptr
 fruitapp::gui::dummy::system::create_settings(
 	fruitapp::gui::initial_effects_volume const &,
-	fruitapp::gui::initial_music_volume const &)
+	fruitapp::gui::initial_music_volume const &,
+	fruitapp::graphics_settings::object &)
 {
 	return
 		fruitapp::gui::dialogs::settings_unique_ptr();

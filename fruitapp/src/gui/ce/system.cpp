@@ -101,7 +101,8 @@ fruitapp::gui::ce::system::create_ingame_menu()
 fruitapp::gui::dialogs::settings_unique_ptr
 fruitapp::gui::ce::system::create_settings(
 	fruitapp::gui::initial_effects_volume const &_initial_effects_volume,
-	fruitapp::gui::initial_music_volume const &_initial_music_volume)
+	fruitapp::gui::initial_music_volume const &_initial_music_volume,
+	fruitapp::graphics_settings::object &_graphics_settings)
 {
 	return
 		fruitapp::gui::dialogs::settings_unique_ptr(
@@ -109,7 +110,9 @@ fruitapp::gui::ce::system::create_settings(
 				fcppt::ref(
 					*this),
 				_initial_effects_volume,
-				_initial_music_volume));
+				_initial_music_volume,
+				fcppt::ref(
+					_graphics_settings)));
 }
 
 fruitapp::gui::dialogs::name_chooser_unique_ptr

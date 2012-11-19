@@ -73,7 +73,12 @@ fruitapp::config_variables::config_variables(
 		_global_config,
 		_user_config,
 		sge::parse::json::path(
-			FCPPT_TEXT("last-user-name")))
+			FCPPT_TEXT("last-user-name"))),
+	graphics_preset_(
+		_global_config,
+		_user_config,
+		sge::parse::json::path(
+			FCPPT_TEXT("graphics-preset")))
 {
 }
 
@@ -96,6 +101,13 @@ fruitapp::config_variables::last_user_name()
 {
 	return
 		last_user_name_;
+}
+
+fruitapp::config_variables::string_variable &
+fruitapp::config_variables::graphics_preset()
+{
+	return
+		graphics_preset_;
 }
 
 fruitapp::config_variables::~config_variables()
