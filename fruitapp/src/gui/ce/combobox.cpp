@@ -31,12 +31,24 @@ fruitapp::gui::ce::combobox::combobox(
 void
 fruitapp::gui::ce::combobox::add(
 	std::string const &text,
-	choose_callback const &callback)
+	choose_callback const &callback,
+	selected const &_selected)
 {
-	impl_.addItem(
+	CEGUI::ListboxItem * const new_item =
 		new CEGUI::ListboxTextItem(
 			CEGUI::String(
-				text)));
+				text));
+
+	impl_.addItem(
+		new_item);
+
+	if(_selected.get())
+	{
+		impl_.setItemSelectState(
+			new_item,
+			true);
+		impl_.handleUpdatedListItemData();
+	}
 
 	callbacks_.push_back(
 		callback);

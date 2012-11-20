@@ -1,4 +1,4 @@
-#include <fruitapp/config_variables.hpp>
+#include <fruitapp/config_variables/object.hpp>
 #include <fruitapp/quick_log.hpp>
 #include <fruitapp/scene.hpp>
 #include <fruitapp/depths/overlay.hpp>
@@ -285,7 +285,7 @@ fruitapp::states::ingame::superstate::toggle_physics_debugger()
 
 void
 fruitapp::states::ingame::superstate::fruit_was_cut(
-	fruit::cut_context const &ccontext)
+	fruitapp::fruit::cut_context const &ccontext)
 {
 	this->context<fruitapp::machine>().sound_controller().play(
 		fruitlib::resource_tree::path(

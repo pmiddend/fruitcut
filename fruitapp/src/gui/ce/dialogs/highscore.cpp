@@ -64,7 +64,9 @@ fruitapp::gui::ce::dialogs::highscore::highscore(
 				std::tr1::ref(
 					switch_provider_),
 				fcppt::ref(
-					*i)));
+					*i)),
+			fruitapp::gui::ce::combobox::selected(
+				false));
 }
 
 fcppt::signal::auto_connection

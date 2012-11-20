@@ -1,7 +1,7 @@
 #ifndef FRUITAPP_MACHINE_HPP_INCLUDED
 #define FRUITAPP_MACHINE_HPP_INCLUDED
 
-#include <fruitapp/config_variables_fwd.hpp>
+#include <fruitapp/config_variables/object_fwd.hpp>
 #include <fruitapp/ingame_clock.hpp>
 #include <fruitapp/machine_impl_fwd.hpp>
 #include <fruitapp/overlay.hpp>
@@ -85,7 +85,7 @@ public:
 	md3_loader()
 	FCPPT_PP_CONST;
 
-	fruitapp::config_variables &
+	fruitapp::config_variables::object &
 	config_variables()
 	FCPPT_PP_CONST;
 

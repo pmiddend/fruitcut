@@ -1,4 +1,5 @@
 #include <fruitapp/media_path.hpp>
+#include <sge/parse/json/config/user_config_variable_impl.hpp>
 #include <fruitapp/graphics_settings/object.hpp>
 #include <fruitapp/gui/ce/system.hpp>
 #include <fruitapp/gui/ce/dialogs/settings.hpp>
@@ -89,7 +90,9 @@ fruitapp::gui::ce::dialogs::settings::settings(
 			std::tr1::bind(
 				std::tr1::ref(
 					quality_change_),
-				*it));
+				*it),
+			fruitapp::gui::ce::combobox::selected(
+				it->get() == _graphics_settings.current_preset().value()));
 }
 
 fcppt::signal::auto_connection

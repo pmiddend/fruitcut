@@ -2,6 +2,7 @@
 #define FRUITAPP_GUI_CE_COMBOBOX_HPP_INCLUDED
 
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/strong_typedef.hpp>
 #include <fcppt/function/object.hpp>
 #include <fcppt/signal/shared_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -34,6 +35,10 @@ public:
 	fcppt::function::object<void()>
 	choose_callback;
 
+	FCPPT_MAKE_STRONG_TYPEDEF(
+		bool,
+		selected);
+
 	explicit
 	combobox(
 		CEGUI::Window &);
@@ -41,7 +46,8 @@ public:
 	void
 	add(
 		std::string const &,
-		choose_callback const &);
+		choose_callback const &,
+		selected const &);
 
 	 ~combobox();
 private:

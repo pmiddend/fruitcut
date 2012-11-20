@@ -1,4 +1,4 @@
-#include <fruitapp/config_variables.hpp>
+#include <fruitapp/config_variables/object.hpp>
 #include <fruitapp/events/define_transition_reaction.hpp>
 #include <fruitapp/events/post_transition.hpp>
 #include <fruitapp/events/return_post_transition_functor.hpp>

@@ -37,7 +37,7 @@ FRUITAPP_MACHINE_CONST_MEMBER_FUNCTION(sge::shader::optional_context_ref const,s
 FRUITAPP_MACHINE_NONCONST_MEMBER_FUNCTION(fruitlib::texture_manager &,texture_manager)
 FRUITAPP_MACHINE_NONCONST_MEMBER_FUNCTION(fruitapp::graphics_settings::object &,graphics_settings)
 FRUITAPP_MACHINE_NONCONST_MEMBER_FUNCTION(sge::model::md3::loader &,md3_loader)
-FRUITAPP_MACHINE_NONCONST_MEMBER_FUNCTION(fruitapp::config_variables &,config_variables)
+FRUITAPP_MACHINE_NONCONST_MEMBER_FUNCTION(fruitapp::config_variables::object &,config_variables)
 FRUITAPP_MACHINE_NONCONST_MEMBER_FUNCTION(fruitapp::postprocessing::system &,postprocessing_system)
 FRUITAPP_MACHINE_NONCONST_MEMBER_FUNCTION(fruitapp::postprocessing::subsystems::main &,postprocessing_main)
 FRUITAPP_MACHINE_CONST_MEMBER_FUNCTION(fruitapp::ingame_clock const &,ingame_clock)

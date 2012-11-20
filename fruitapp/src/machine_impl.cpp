@@ -168,8 +168,14 @@ fruitapp::machine_impl::machine_impl(
 			fruitlib::create_command_line_parameters(
 				argc,
 				argv))),
+	config_variables_(
+		fruitapp::config_variables::global_config_ref(
+			config_file_),
+		fruitapp::config_variables::user_config_ref(
+			user_config_file_)),
 	graphics_settings_(
-		config_file_),
+		config_file_,
+		config_variables_.graphics_preset()),
 	emulate_srgb_(
 		sge::parse::json::find_and_convert_member<bool>(
 			graphics_settings_.current(),
@@ -179,9 +185,6 @@ fruitapp::machine_impl::machine_impl(
 			sge::renderer::texture::emulate_srgb::no
 		:
 			sge::renderer::texture::emulate_srgb::yes),
-	config_variables_(
-		config_file_,
-		user_config_file_),
 	systems_(
 		sge::systems::make_list
 			(sge::systems::renderer(
@@ -556,13 +559,13 @@ fruitapp::machine_impl::md3_loader()
 	return *md3_loader_;
 }
 
-fruitapp::config_variables &
+fruitapp::config_variables::object &
 fruitapp::machine_impl::config_variables()
 {
 	return config_variables_;
 }
 
-fruitapp::config_variables const &
+fruitapp::config_variables::object const &
 fruitapp::machine_impl::config_variables() const
 {
 	return config_variables_;

@@ -1,4 +1,4 @@
-#include <fruitapp/config_variables.hpp>
+#include <fruitapp/config_variables/object.hpp>
 #include <fruitapp/name.hpp>
 #include <sge/config/app_name.hpp>
 #include <sge/config/config_path.hpp>
@@ -15,7 +15,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-fruitapp::config_variables::destructor_write_hack::destructor_write_hack(
+fruitapp::config_variables::object::destructor_write_hack::destructor_write_hack(
 	sge::parse::json::object &_user_config_file)
 :
 	user_config_file_(
@@ -23,7 +23,7 @@ fruitapp::config_variables::destructor_write_hack::destructor_write_hack(
 {
 }
 
-fruitapp::config_variables::destructor_write_hack::~destructor_write_hack()
+fruitapp::config_variables::object::destructor_write_hack::~destructor_write_hack()
 {
 	fcppt::io::ofstream file(
 		sge::config::config_path(
@@ -52,64 +52,64 @@ fruitapp::config_variables::destructor_write_hack::~destructor_write_hack()
 				user_config_file_));
 }
 
-fruitapp::config_variables::config_variables(
-	sge::parse::json::object const &_global_config,
-	sge::parse::json::object &_user_config)
+fruitapp::config_variables::object::object(
+	fruitapp::config_variables::global_config_ref const &_global_config,
+	fruitapp::config_variables::user_config_ref const &_user_config)
 :
 	write_hack_(
-		_user_config),
+		_user_config.get()),
 	music_volume_(
-		_global_config,
-		_user_config,
+		_global_config.get(),
+		_user_config.get(),
 		sge::parse::json::path(
 			FCPPT_TEXT("music"))
 			/ FCPPT_TEXT("volume")),
 	effects_volume_(
-		_global_config,
-		_user_config,
+		_global_config.get(),
+		_user_config.get(),
 		sge::parse::json::path(
 			FCPPT_TEXT("effects-volume"))),
 	last_user_name_(
-		_global_config,
-		_user_config,
+		_global_config.get(),
+		_user_config.get(),
 		sge::parse::json::path(
 			FCPPT_TEXT("last-user-name"))),
 	graphics_preset_(
-		_global_config,
-		_user_config,
+		_global_config.get(),
+		_user_config.get(),
 		sge::parse::json::path(
 			FCPPT_TEXT("graphics-preset")))
 {
 }
 
 fruitapp::config_variables::audio_variable &
-fruitapp::config_variables::music_volume()
+fruitapp::config_variables::object::music_volume()
 {
 	return
 		music_volume_;
 }
 
 fruitapp::config_variables::audio_variable &
-fruitapp::config_variables::effects_volume()
+fruitapp::config_variables::object::effects_volume()
 {
 	return
 		effects_volume_;
 }
 
 fruitapp::config_variables::string_variable &
-fruitapp::config_variables::last_user_name()
+fruitapp::config_variables::object::last_user_name()
 {
 	return
 		last_user_name_;
 }
 
 fruitapp::config_variables::string_variable &
-fruitapp::config_variables::graphics_preset()
+fruitapp::config_variables::object::graphics_preset()
 {
 	return
 		graphics_preset_;
 }
 
-fruitapp::config_variables::~config_variables()
+fruitapp::config_variables::object::~object()
 {
 }

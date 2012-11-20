@@ -47,7 +47,8 @@ create_current(
 }
 
 fruitapp::graphics_settings::object::object(
-	sge::parse::json::object const &_configuration)
+	sge::parse::json::object const &_configuration,
+	fruitapp::config_variables::string_variable &_current_preset)
 :
 	presets_(
 		sge::parse::json::parse_file_exn(
@@ -55,7 +56,9 @@ fruitapp::graphics_settings::object::object(
 	current_(
 		create_current(
 			presets_,
-			_configuration))
+			_configuration)),
+	current_preset_(
+		_current_preset)
 {
 }
 
@@ -84,7 +87,20 @@ fruitapp::graphics_settings::object::current() const
 		current_;
 }
 
+fruitapp::config_variables::string_variable const &
+fruitapp::graphics_settings::object::current_preset() const
+{
+	return
+		current_preset_;
+}
+
+fruitapp::config_variables::string_variable &
+fruitapp::graphics_settings::object::current_preset()
+{
+	return
+		current_preset_;
+}
+
 fruitapp::graphics_settings::object::~object()
 {
-
 }

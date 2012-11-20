@@ -67,8 +67,12 @@ set(
 	fruitapp/include/fruitapp/background/vf/position.hpp
 	fruitapp/include/fruitapp/background/vf/texcoord.hpp
 	fruitapp/include/fruitapp/background/vf/vertex_view.hpp
-	fruitapp/include/fruitapp/config_variables.hpp
-	fruitapp/include/fruitapp/config_variables_fwd.hpp
+	fruitapp/include/fruitapp/config_variables/audio_variable.hpp
+	fruitapp/include/fruitapp/config_variables/global_config_ref.hpp
+	fruitapp/include/fruitapp/config_variables/object.hpp
+	fruitapp/include/fruitapp/config_variables/object_fwd.hpp
+	fruitapp/include/fruitapp/config_variables/string_variable.hpp
+	fruitapp/include/fruitapp/config_variables/user_config_ref.hpp
 	fruitapp/include/fruitapp/current_commit.hpp
 	fruitapp/include/fruitapp/cut_context_fwd.hpp
 	fruitapp/include/fruitapp/depths/overlay.hpp
@@ -169,6 +173,10 @@ set(
 	fruitapp/include/fruitapp/fruit/triangle.hpp
 	fruitapp/include/fruitapp/fruit/triangle_traits.hpp
 	fruitapp/include/fruitapp/game_logic/object.hpp
+	fruitapp/include/fruitapp/graphics_settings/object.hpp
+	fruitapp/include/fruitapp/graphics_settings/object_fwd.hpp
+	fruitapp/include/fruitapp/graphics_settings/preset_identifier.hpp
+	fruitapp/include/fruitapp/graphics_settings/preset_name_set.hpp
 	fruitapp/include/fruitapp/gui/create_system.hpp
 	fruitapp/include/fruitapp/gui/dialogs/highscore.hpp
 	fruitapp/include/fruitapp/gui/dialogs/highscore_fwd.hpp
@@ -347,7 +355,7 @@ set(
 	fruitapp/src/background/cg.cpp
 	fruitapp/src/background/ffp.cpp
 	fruitapp/src/background/node.cpp
-	fruitapp/src/config_variables.cpp
+	fruitapp/src/config_variables/object.cpp
 	fruitapp/src/current_commit.cpp
 	fruitapp/src/cursor/instance.cpp
 	fruitapp/src/cursor/instance_sequence.cpp
