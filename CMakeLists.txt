@@ -116,11 +116,6 @@ FIND_PACKAGE(
 	texture
 	viewport
 	window
-	# Transitive
-	renderercg
-	plugin
-	audio
-	media
 )
 
 include_directories(
