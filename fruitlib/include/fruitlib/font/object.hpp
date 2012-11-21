@@ -102,8 +102,11 @@ private:
 	fruitlib::font::scale scale_;
 	fcppt::scoped_ptr<sge::font::draw::static_text> text_object_;
 
-	void
+	bool
 	rebuild_text_object();
+
+	void
+	regenerate_text_object();
 };
 }
 }

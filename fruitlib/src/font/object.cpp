@@ -36,7 +36,7 @@ fruitlib::font::object::object(
 		p.scale()),
 	text_object_()
 {
-	this->rebuild_text_object();
+	this->regenerate_text_object();
 }
 
 void
@@ -69,7 +69,7 @@ fruitlib::font::object::text(
 	text_ =
 		_text;
 
-	this->rebuild_text_object();
+	this->regenerate_text_object();
 }
 
 sge::font::rect const &
@@ -86,7 +86,15 @@ fruitlib::font::object::bounding_box(
 	bounding_box_ =
 		_bounding_box;
 
-	this->rebuild_text_object();
+	if(_bounding_box.size() == bounding_box_.size())
+	{
+		if(!this->rebuild_text_object())
+			if(text_object_)
+				text_object_->pos(
+					bounding_box_.pos());
+	}
+	else
+		this->regenerate_text_object();
 }
 
 sge::font::align_h::type
@@ -103,7 +111,7 @@ fruitlib::font::object::alignment_h(
 	alignment_h_ =
 		_alignment_h;
 
-	this->rebuild_text_object();
+	this->regenerate_text_object();
 }
 
 fruitlib::font::align_v::type
@@ -120,7 +128,7 @@ fruitlib::font::object::alignment_v(
 	alignment_v_ =
 		_alignment_v;
 
-	this->rebuild_text_object();
+	this->regenerate_text_object();
 }
 
 sge::font::flags_field const &
@@ -136,7 +144,7 @@ fruitlib::font::object::flags(
 	flags_ =
 		_flags;
 
-	this->rebuild_text_object();
+	this->regenerate_text_object();
 }
 
 sge::image::color::any::object const &
@@ -152,6 +160,8 @@ fruitlib::font::object::color(
 {
 	color_ =
 		_color;
+
+	this->rebuild_text_object();
 
 	if(text_object_)
 		text_object_->color(
@@ -177,14 +187,32 @@ fruitlib::font::object::~object()
 {
 }
 
-void
+bool
 fruitlib::font::object::rebuild_text_object()
 {
 	if(!bounding_box_.content() || text_.empty())
 	{
+		if(text_object_)
+		{
+			text_object_.reset();
+			return true;
+		}
 		text_object_.reset();
-		return;
+		return false;
 	}
+
+	if(text_object_)
+		return false;
+
+	this->regenerate_text_object();
+	return true;
+}
+
+void
+fruitlib::font::object::regenerate_text_object()
+{
+	if(!bounding_box_.content() || text_.empty())
+		return;
 
 	text_object_.take(
 		fcppt::make_unique_ptr<sge::font::draw::static_text>(
