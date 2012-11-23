@@ -6,6 +6,10 @@
 #include <fcppt/ref.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/tr1/functional.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/phoenix/bind.hpp>
+#include <boost/phoenix/core/reference.hpp>
+#include <fcppt/config/external_end.hpp>
 
 
 fruitapp::gui::ce::dialogs::settings::settings(
@@ -87,8 +91,8 @@ fruitapp::gui::ce::dialogs::settings::settings(
 		++it)
 		quality_dropdown_.add(
 			it->get(),
-			std::tr1::bind(
-				std::tr1::ref(
+			boost::phoenix::bind(
+				boost::phoenix::ref(
 					quality_change_),
 				*it),
 			fruitapp::gui::ce::combobox::selected(
