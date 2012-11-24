@@ -59,8 +59,7 @@ fruitapp::gui::ce::dialogs::highscore::highscore(
 		i != providers_.end();
 		++i)
 		source_box_.add(
-			fcppt::to_std_string(
-				i->identifier()),
+			i->identifier(),
 			std::tr1::bind(
 				std::tr1::ref(
 					switch_provider_),
