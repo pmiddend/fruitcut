@@ -43,6 +43,7 @@ fruitapp::gui::ce::dialogs::highscore::highscore(
 	providers_(
 		_providers),
 	source_box_(
+		charconv_system_,
 		*layout_.window().getChild(
 			"Source")),
 	table_model_(),

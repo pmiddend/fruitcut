@@ -4,10 +4,11 @@
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/strong_typedef.hpp>
 #include <fcppt/function/object.hpp>
+#include <sge/charconv/system_fwd.hpp>
+#include <fcppt/string.hpp>
 #include <fcppt/signal/shared_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <CEGUI/Event.h>
-#include <string>
 #include <vector>
 #include <fcppt/config/external_end.hpp>
 
@@ -39,13 +40,13 @@ public:
 		bool,
 		selected);
 
-	explicit
 	combobox(
+		sge::charconv::system &,
 		CEGUI::Window &);
 
 	void
 	add(
-		std::string const &,
+		fcppt::string const &,
 		choose_callback const &,
 		selected const &);
 
@@ -55,6 +56,7 @@ private:
 	std::vector<choose_callback>
 	callback_sequence;
 
+	sge::charconv::system &charconv_system_;
 	CEGUI::Combobox &impl_;
 	callback_sequence callbacks_;
 	CEGUI::Event::ScopedConnection selection_changed_connection_;

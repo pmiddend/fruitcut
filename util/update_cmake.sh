@@ -32,7 +32,6 @@ update_cmake_file \
 	fruitapp/include/fruitapp \
 	fruitapp/include/fruitapp/gui \
 	-r \
-	fruitapp/src/bonsu \
 	fruitapp/src/depths \
 	fruitapp/src/config_variables \
 	fruitapp/src/font_particle \
@@ -51,7 +50,6 @@ update_cmake_file \
 	fruitapp/src/viewport \
 	fruitapp/src/gui/dialogs \
 	fruitapp/src/gui/dummy \
-	fruitapp/include/fruitapp/bonsu \
 	fruitapp/include/fruitapp/depths \
 	fruitapp/include/fruitapp/fruit \
 	fruitapp/include/fruitapp/background \

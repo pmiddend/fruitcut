@@ -1,4 +1,5 @@
 #include <fruitapp/gui/ce/combobox.hpp>
+#include <sge/cegui/to_cegui_string.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/container/ptr/push_back_unique_ptr.hpp>
 #include <fcppt/tr1/functional.hpp>
@@ -10,8 +11,11 @@
 
 
 fruitapp::gui::ce::combobox::combobox(
+	sge::charconv::system &_charconv_system,
 	CEGUI::Window &_impl)
 :
+	charconv_system_(
+		_charconv_system),
 	impl_(
 		dynamic_cast<CEGUI::Combobox &>(
 			_impl)),
@@ -30,14 +34,15 @@ fruitapp::gui::ce::combobox::combobox(
 
 void
 fruitapp::gui::ce::combobox::add(
-	std::string const &text,
-	choose_callback const &callback,
+	fcppt::string const &_text,
+	choose_callback const &_callback,
 	selected const &_selected)
 {
 	CEGUI::ListboxItem * const new_item =
 		new CEGUI::ListboxTextItem(
-			CEGUI::String(
-				text));
+			sge::cegui::to_cegui_string(
+				_text,
+				charconv_system_));
 
 	impl_.addItem(
 		new_item);
@@ -51,7 +56,7 @@ fruitapp::gui::ce::combobox::add(
 	}
 
 	callbacks_.push_back(
-		callback);
+		_callback);
 }
 
 fruitapp::gui::ce::combobox::~combobox()

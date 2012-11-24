@@ -78,6 +78,7 @@ fruitapp::gui::ce::dialogs::settings::settings(
 	effects_volume_change_(),
 	quality_change_(),
 	quality_dropdown_(
+		_system.charconv_system(),
 		*layout_.window().getChild(
 			"QualityDropDown"))
 {
