@@ -15,7 +15,7 @@
 #include <fruitlib/uniform_random_range_element.hpp>
 #include <fruitlib/json/parse_random_float_distribution.hpp>
 #include <fruitlib/json/parse_random_int_distribution.hpp>
-#include <fruitlib/math/transform_direction.hpp>
+#include <fcppt/math/matrix/transform_direction.hpp>
 #include <fruitlib/math/triangle/random_point.hpp>
 #include <fruitlib/resource_tree/path.hpp>
 #include <sge/image/color/any/convert.hpp>
@@ -169,7 +169,7 @@ fruitapp::splatter_generator::fruit_was_cut(
 							point_sprites_.connection(),
 							fruitapp::point_sprite::splatter::position(
 								cut_info.old().position() +
-								fruitlib::math::transform_direction(
+								fcppt::math::matrix::transform_direction(
 									cut_info.old().world_transform(),
 									position)),
 							fruitapp::point_sprite::splatter::linear_velocity(

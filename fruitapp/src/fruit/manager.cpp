@@ -13,7 +13,7 @@
 #include <fruitapp/fruit/prototype_from_json.hpp>
 #include <fruitapp/fruit/model_vf/format.hpp>
 #include <fruitlib/math/box_radius.hpp>
-#include <fruitlib/math/transform_direction.hpp>
+#include <fcppt/math/matrix/transform_direction.hpp>
 #include <fruitlib/math/unproject.hpp>
 #include <fruitlib/math/plane/basic.hpp>
 #include <fruitlib/math/plane/distance_to_point.hpp>
@@ -176,7 +176,7 @@ fruitapp::fruit::manager::cut(
 						cut_result->bounding_box().size().content())),
 				fruitlib::physics::rigid_body::position(
 					_current_fruit.position() +
-					fruitlib::math::transform_direction(
+					fcppt::math::matrix::transform_direction(
 						_current_fruit.body().transformation().get(),
 						fcppt::math::vector::structure_cast<fruitlib::physics::vector3>(
 							cut_result->barycenter()))),
@@ -184,7 +184,7 @@ fruitapp::fruit::manager::cut(
 				fruitapp::fruit::calculate_new_linear_velocity(
 					_current_fruit.body().linear_velocity(),
 					fruitlib::physics::rigid_body::linear_velocity(
-						fruitlib::math::transform_direction(
+						fcppt::math::matrix::transform_direction(
 							_current_fruit.body().transformation().get(),
 							fcppt::math::vector::structure_cast<fruitlib::physics::vector3>(
 								fcppt::math::vector::normalize(

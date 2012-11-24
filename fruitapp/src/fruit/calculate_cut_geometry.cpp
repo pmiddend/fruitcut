@@ -3,7 +3,7 @@
 #include <fruitapp/fruit/calculate_cut_geometry.hpp>
 #include <fruitapp/fruit/cut_geometry.hpp>
 #include <fruitapp/fruit/object.hpp>
-#include <fruitlib/math/transform_direction.hpp>
+#include <fcppt/math/matrix/transform_direction.hpp>
 #include <fruitlib/math/unproject.hpp>
 #include <sge/camera/base.hpp>
 #include <sge/camera/coordinate_system/object.hpp>
@@ -85,7 +85,7 @@ fruitapp::fruit::calculate_cut_geometry(
 		// NOTE: For rotation matrices M and vectors a,b the following holds:
 		// cross(M*a,M*b) = M*cross(a,b)
 		plane_normal(
-			fruitlib::math::transform_direction(
+			fcppt::math::matrix::transform_direction(
 				transposed_rotation,
 				fcppt::math::vector::cross(
 					first_plane_vector,
@@ -93,7 +93,7 @@ fruitapp::fruit::calculate_cut_geometry(
 
 	sge::renderer::scalar const plane_scalar =
 		fcppt::math::vector::dot(
-			fruitlib::math::transform_direction(
+			fcppt::math::matrix::transform_direction(
 				transposed_rotation,
 				point1_unprojected - _current_fruit.position()),
 			plane_normal);
