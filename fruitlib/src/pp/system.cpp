@@ -11,6 +11,7 @@
 #include <sge/renderer/vector2.hpp>
 #include <sge/renderer/texture/planar_shared_ptr.hpp>
 #include <sge/shader/scoped_pair.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/assert/pre.hpp>
 #include <fcppt/assert/pre_message.hpp>
@@ -20,9 +21,40 @@
 #include <boost/graph/topological_sort.hpp>
 #include <iostream>
 #include <iterator>
+#include <sstream>
 #include <list>
 #include <fcppt/config/external_end.hpp>
 
+namespace
+{
+char const pp_to_screen_source[] =
+	"struct vertex_outputs\n"
+	"{\n"
+	"	float4 position : POSITION;\n"
+	"	float2 texture_coordinate : TEXCOORD0;\n"
+	"};\n"
+	"vertex_outputs\n"
+	"vertex_main(\n"
+	"	in float2 position : POSITION)\n"
+	"{\n"
+	"	vertex_outputs outs;\n"
+	"	outs.position = float4(position.xy,0.0,1.0);\n"
+	"	outs.texture_coordinate = (position.xy + float2(1.0,1.0))/2.0;\n"
+	"	return\n"
+	"		outs;\n"
+	"}\n"
+	"float4\n"
+	"pixel_main(\n"
+	"	vertex_outputs vertex_data,\n"
+	"	uniform sampler2D input_texture)\n"
+	"	: COLOR\n"
+	"{\n"
+	"	return\n"
+	"		tex2D(\n"
+	"			  input_texture,\n"
+	"			  vertex_data.texture_coordinate);\n"
+	"}\n";
+}
 
 fruitlib::pp::system::system(
 	fruitlib::pp::filter::manager &_filter_manager)
@@ -35,10 +67,14 @@ fruitlib::pp::system::system(
 	shader_(
 		_filter_manager.shader_context(),
 		_filter_manager.quad().vertex_declaration(),
-		sge::shader::vertex_program_path(
-			_filter_manager.base_path().get() / FCPPT_TEXT("pp_to_screen.cg")),
-		sge::shader::pixel_program_path(
-			_filter_manager.base_path().get() / FCPPT_TEXT("pp_to_screen.cg")),
+		sge::shader::vertex_program_stream(
+			*fcppt::make_unique_ptr<std::istringstream>(
+				std::string(
+					pp_to_screen_source))),
+		sge::shader::pixel_program_stream(
+			*fcppt::make_unique_ptr<std::istringstream>(
+				std::string(
+					pp_to_screen_source))),
 		_filter_manager.shader_cflags()),
 	texture_parameter_(
 		shader_.pixel_program(),

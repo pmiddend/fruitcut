@@ -86,7 +86,6 @@ set(
 	fruitlib/include/fruitlib/math/unproject.hpp
 	fruitlib/include/fruitlib/math/view_plane_distance.hpp
 	fruitlib/include/fruitlib/math/view_plane_rect.hpp
-	fruitlib/include/fruitlib/media_path.hpp
 	fruitlib/include/fruitlib/message_box.hpp
 	fruitlib/include/fruitlib/optional_perspective_projection_information.hpp
 	fruitlib/include/fruitlib/performance_timer.hpp
@@ -134,7 +133,6 @@ set(
 	fruitlib/include/fruitlib/pp/filter/add.hpp
 	fruitlib/include/fruitlib/pp/filter/base.hpp
 	fruitlib/include/fruitlib/pp/filter/base_fwd.hpp
-	fruitlib/include/fruitlib/pp/filter/base_path.hpp
 	fruitlib/include/fruitlib/pp/filter/binary.hpp
 	fruitlib/include/fruitlib/pp/filter/blur.hpp
 	fruitlib/include/fruitlib/pp/filter/desaturate.hpp
@@ -146,7 +144,6 @@ set(
 	fruitlib/include/fruitlib/pp/filter/manager_fwd.hpp
 	fruitlib/include/fruitlib/pp/filter/nullary.hpp
 	fruitlib/include/fruitlib/pp/filter/render_to_texture.hpp
-	fruitlib/include/fruitlib/pp/filter/ssaa.hpp
 	fruitlib/include/fruitlib/pp/filter/texture_size.hpp
 	fruitlib/include/fruitlib/pp/filter/unary.hpp
 	fruitlib/include/fruitlib/pp/filter/wrapper.hpp
@@ -261,7 +258,6 @@ set(
 	fruitlib/src/log/string_to_location.cpp
 	fruitlib/src/math/view_plane_distance.cpp
 	fruitlib/src/math/view_plane_rect.cpp
-	fruitlib/src/media_path.cpp
 	fruitlib/src/message_box.cpp
 	fruitlib/src/performance_timer.cpp
 	fruitlib/src/perspective_projection_information.cpp
@@ -286,7 +282,6 @@ set(
 	fruitlib/src/pp/filter/manager.cpp
 	fruitlib/src/pp/filter/nullary.cpp
 	fruitlib/src/pp/filter/render_to_texture.cpp
-	fruitlib/src/pp/filter/ssaa.cpp
 	fruitlib/src/pp/filter/unary.cpp
 	fruitlib/src/pp/filter/wrapper.cpp
 	fruitlib/src/pp/screen_vf/quad.cpp
@@ -342,22 +337,3 @@ target_link_libraries(
 	${Cg_LIBRARIES}
 	${BULLET_LIBRARIES}
 	${Boost_LIBRARIES})
-
-set(
-	INSTALL_MEDIA_DIR
-	${INSTALL_DATA_DIR}/fruitlib_media)
-
-include(
-	SGECustomPath)
-
-sge_config_add_custom_path(
-	fruitlib
-	fruitlib_media
-	${CMAKE_SOURCE_DIR}/fruitlib/fruitlib_media
-	${INSTALL_MEDIA_DIR})
-
-install(
-	DIRECTORY
-	${CMAKE_SOURCE_DIR}/fruitlib/fruitlib_media/
-	DESTINATION
-	${INSTALL_MEDIA_DIR})

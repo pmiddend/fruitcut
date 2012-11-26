@@ -10,12 +10,67 @@
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/shader/scoped_pair.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/math/dim/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <iostream>
+#include <sstream>
 #include <fcppt/config/external_end.hpp>
 
+namespace
+{
+char const desaturate_source[] =
+	"struct vertex_outputs\n"
+	"{\n"
+	"	float4 position : POSITION;\n"
+	"	float2 texture_coordinate : TEXCOORD0;\n"
+	"};\n"
+	"vertex_outputs\n"
+	"vertex_main(\n"
+	"	in float2 position : POSITION)\n"
+	"{\n"
+	"	vertex_outputs outs;\n"
+	"	outs.position = float4(position.xy,0.0,1.0);\n"
+	"	outs.texture_coordinate = (position.xy + float2(1.0,1.0))/2.0;\n"
+	"	return\n"
+	"		outs;\n"
+	"}\n"
+	"float\n"
+	"luminance(\n"
+	"	float3 color)\n"
+	"{\n"
+	"	return\n"
+	"		dot(\n"
+	"			color,\n"
+	"			float3(\n"
+	"				0.212,\n"
+	"				0.716,\n"
+	"				0.072));\n"
+	"}\n"
+	"float4\n"
+	"pixel_main(\n"
+	"	vertex_outputs vertex_data,\n"
+	"	uniform float scaling,\n"
+	"	uniform sampler2D input_texture)\n"
+	"	: COLOR\n"
+	"{\n"
+	"	float4 texture_value =\n"
+	"		tex2D(\n"
+	"			  input_texture,\n"
+	"			  vertex_data.texture_coordinate);\n"
+	"	float gray =\n"
+	"		luminance(\n"
+	"			texture_value.xyz);\n"
+	"	return\n"
+	"		float4(\n"
+	"		   lerp(\n"
+	"				gray.xxx,\n"
+	"				texture_value.xyz,\n"
+	"				scaling),\n"
+	"			1.0);\n"
+	"}\n";
+}
 
 fruitlib::pp::filter::desaturate::desaturate(
 	fruitlib::pp::filter::manager &_filter_manager,
@@ -32,10 +87,14 @@ fruitlib::pp::filter::desaturate::desaturate(
 	shader_(
 		_filter_manager.shader_context(),
 		_filter_manager.quad().vertex_declaration(),
-		sge::shader::vertex_program_path(
-			_filter_manager.base_path().get() / FCPPT_TEXT("desaturate.cg")),
-		sge::shader::pixel_program_path(
-			_filter_manager.base_path().get() / FCPPT_TEXT("desaturate.cg")),
+		sge::shader::vertex_program_stream(
+			*fcppt::make_unique_ptr<std::istringstream>(
+				std::string(
+					desaturate_source))),
+		sge::shader::pixel_program_stream(
+			*fcppt::make_unique_ptr<std::istringstream>(
+				std::string(
+					desaturate_source))),
 		_filter_manager.shader_cflags()),
 	scaling_(
 		shader_.pixel_program(),

@@ -2,13 +2,10 @@
 #include <sge/shader/context.hpp>
 
 fruitlib::pp::filter::manager::manager(
-	sge::shader::context &_shader_context,
-	fruitlib::pp::filter::base_path const &_base_path)
+	sge::shader::context &_shader_context)
 :
 	shader_context_(
 		_shader_context),
-	base_path_(
-		_base_path),
 	quad_(
 		this->renderer())
 {
@@ -50,11 +47,4 @@ fruitlib::pp::filter::manager::shader_cflags() const
 {
 	return
 		sge::shader::optional_cflags();
-}
-
-fruitlib::pp::filter::base_path const &
-fruitlib::pp::filter::manager::base_path() const
-{
-	return
-		base_path_;
 }

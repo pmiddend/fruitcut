@@ -12,10 +12,46 @@
 #include <sge/shader/scoped_pair.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/math/dim/output.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <iostream>
+#include <sstream>
 #include <fcppt/config/external_end.hpp>
 
+namespace
+{
+char const add_filter_source[] =
+	"struct vertex_outputs\n"
+	"{\n"
+	"	float4 position : POSITION;\n"
+	"	float2 texture_coordinate : TEXCOORD0;\n"
+	"};\n"
+	"vertex_outputs\n"
+	"vertex_main(\n"
+	"	in float2 position : POSITION)\n"
+	"{\n"
+	"	vertex_outputs outs;\n"
+	"	outs.position = float4(position.xy,0.0,1.0);\n"
+	"	outs.texture_coordinate = (position.xy + float2(1.0,1.0))/2.0;\n"
+	"	return\n"
+	"		outs;\n"
+	"}\n"
+	"float4\n"
+	"pixel_main(\n"
+	"	vertex_outputs vertex_data,\n"
+	"	uniform sampler2D input_texture1,\n"
+	"	uniform sampler2D input_texture2)\n"
+	"	: COLOR\n"
+	"{\n"
+	"	return\n"
+	"		tex2D(\n"
+	"			  input_texture1,\n"
+	"			  vertex_data.texture_coordinate)+\n"
+	"		tex2D(\n"
+	"			  input_texture2,\n"
+	"			  vertex_data.texture_coordinate);\n"
+	"}\n";
+}
 
 fruitlib::pp::filter::add::add(
 	fruitlib::pp::filter::manager &_filter_manager,
@@ -31,10 +67,14 @@ fruitlib::pp::filter::add::add(
 	shader_(
 		_filter_manager.shader_context(),
 		_filter_manager.quad().vertex_declaration(),
-		sge::shader::vertex_program_path(
-			_filter_manager.base_path().get() / FCPPT_TEXT("add.cg")),
-		sge::shader::pixel_program_path(
-			_filter_manager.base_path().get() / FCPPT_TEXT("add.cg")),
+		sge::shader::vertex_program_stream(
+			*fcppt::make_unique_ptr<std::istringstream>(
+				std::string(
+					add_filter_source))),
+		sge::shader::pixel_program_stream(
+			*fcppt::make_unique_ptr<std::istringstream>(
+				std::string(
+					add_filter_source))),
 		_filter_manager.shader_cflags()),
 	texture1_(
 		shader_.pixel_program(),

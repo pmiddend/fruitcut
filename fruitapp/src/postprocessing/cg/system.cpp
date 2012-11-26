@@ -2,7 +2,6 @@
 #include <fruitapp/postprocessing/cg/subsystems/main.hpp>
 #include <fruitapp/postprocessing/cg/subsystems/paused.hpp>
 #include <fruitapp/viewport/manager.hpp>
-#include <fruitlib/media_path.hpp>
 #include <sge/shader/context.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/move.hpp>
@@ -22,9 +21,7 @@ fruitapp::postprocessing::cg::system::system(
 	texture_manager_(
 		_shader_context.renderer()),
 	filter_manager_(
-		_shader_context,
-		fruitlib::pp::filter::base_path(
-			fruitlib::media_path() / FCPPT_TEXT("shaders") / FCPPT_TEXT("postprocessing"))),
+		_shader_context),
 	viewport_change_connection_(
 		_viewport_manager.change_callback(
 			std::tr1::bind(

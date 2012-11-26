@@ -13,6 +13,7 @@
 #include <sge/shader/scoped_pair.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/ref.hpp>
+#include <fcppt/cref.hpp>
 #include <fcppt/assert/pre.hpp>
 #include <fcppt/assign/make_array.hpp>
 #include <fcppt/assign/make_container.hpp>
@@ -23,6 +24,98 @@
 #include <iostream>
 #include <fcppt/config/external_end.hpp>
 
+namespace
+{
+char const blur_h_source_code[] =
+	"struct vertex_outputs\n"
+	"{\n"
+	"	float4 position : POSITION;\n"
+	"	float2 texture_coordinate : TEXCOORD0;\n"
+	"};\n"
+	"#define NEIGHBORHOOD_SIZE 5\n"
+	"float distributions[NEIGHBORHOOD_SIZE] = { 0.0280412,0.233924,0.474425,0.233924,0.0280412 };\n"
+	"vertex_outputs\n"
+	"vertex_main(\n"
+	"	in float2 position : POSITION)\n"
+	"{\n"
+	"	vertex_outputs outs;\n"
+	"	outs.position = float4(position.xy,0.0,1.0);\n"
+	"	outs.texture_coordinate = (position.xy + float2(1.0,1.0))/2.0;\n"
+	"	return\n"
+	"		outs;\n"
+	"}\n"
+	"float4\n"
+	"pixel_main(\n"
+	"	vertex_outputs vertex_data,\n"
+	"	uniform float2 texture_size,\n"
+	"	uniform sampler2D input_texture)\n"
+	"	: COLOR\n"
+	"{\n"
+	"	float4 sum =\n"
+	"		0.0;\n"
+	"	for(int i = 0; i < NEIGHBORHOOD_SIZE; ++i)\n"
+	"	{\n"
+	"		float2\n"
+	"			current_absolute_texcoord =\n"
+	"				texture_size * vertex_data.texture_coordinate,\n"
+	"			current_texcoord =\n"
+	"				(current_absolute_texcoord - float2((float)(i - 2),0.0)) /\n"
+	"				texture_size;\n"
+	"		sum +=\n"
+	"			distributions[i] *\n"
+	"			tex2D(\n"
+	"				input_texture,\n"
+	"				current_texcoord);\n"
+	"	}\n"
+	"	return\n"
+	"		sum;\n"
+	"}\n";
+
+char const blur_v_source_code[] =
+	"struct vertex_outputs\n"
+	"{\n"
+	"	float4 position : POSITION;\n"
+	"	float2 texture_coordinate : TEXCOORD0;\n"
+	"};\n"
+	"#define NEIGHBORHOOD_SIZE 5\n"
+	"float distributions[NEIGHBORHOOD_SIZE] = { 0.0280412,0.233924,0.474425,0.233924,0.0280412 };\n"
+	"vertex_outputs\n"
+	"vertex_main(\n"
+	"	in float2 position : POSITION)\n"
+	"{\n"
+	"	vertex_outputs outs;\n"
+	"	outs.position = float4(position.xy,0.0,1.0);\n"
+	"	outs.texture_coordinate = (position.xy + float2(1.0,1.0))/2.0;\n"
+	"	return\n"
+	"		outs;\n"
+	"}\n"
+	"float4\n"
+	"pixel_main(\n"
+	"	vertex_outputs vertex_data,\n"
+	"	uniform float2 texture_size,\n"
+	"	uniform sampler2D input_texture)\n"
+	"	: COLOR\n"
+	"{\n"
+	"	float4 sum =\n"
+	"		0.0;\n"
+	"	for(int i = 0; i < NEIGHBORHOOD_SIZE; ++i)\n"
+	"	{\n"
+	"		float2\n"
+	"			current_absolute_texcoord =\n"
+	"				texture_size * vertex_data.texture_coordinate,\n"
+	"			current_texcoord =\n"
+	"				(current_absolute_texcoord - float2(0.0,(float)(i - 2))) /\n"
+	"				texture_size;\n"
+	"		sum +=\n"
+	"			distributions[i] *\n"
+	"			tex2D(\n"
+	"				input_texture,\n"
+	"				current_texcoord);\n"
+	"	}\n"
+	"	return\n"
+	"		sum;\n"
+	"}\n";
+}
 
 fruitlib::pp::filter::blur::blur(
 	fruitlib::pp::filter::manager &_filter_manager,
@@ -45,12 +138,10 @@ fruitlib::pp::filter::blur::blur(
 	FCPPT_ASSERT_PRE(
 		iterations_.get());
 
-	fcppt::container::array<boost::filesystem::path,2> filenames =
+	fcppt::container::array<char const *,2> sources =
 		{{
-				boost::filesystem::path(
-					FCPPT_TEXT("blur_h.cg")),
-				boost::filesystem::path(
-					FCPPT_TEXT("blur_v.cg")),
+				blur_h_source_code,
+				blur_v_source_code
 		}};
 
 	for(
@@ -66,10 +157,16 @@ fruitlib::pp::filter::blur::blur(
 					_filter_manager.shader_context()),
 				fcppt::ref(
 					_filter_manager.quad().vertex_declaration()),
-				sge::shader::vertex_program_path(
-					_filter_manager.base_path().get() / filenames[i]),
-				sge::shader::pixel_program_path(
-					_filter_manager.base_path().get() / filenames[i]),
+				fcppt::cref(
+					sge::shader::vertex_program_stream(
+						*fcppt::make_unique_ptr<std::istringstream>(
+							std::string(
+								sources[i])))),
+				fcppt::cref(
+					sge::shader::pixel_program_stream(
+						*fcppt::make_unique_ptr<std::istringstream>(
+							std::string(
+								sources[i])))),
 				_filter_manager.shader_cflags()));
 
 		fcppt::container::ptr::replace_unique_ptr(
