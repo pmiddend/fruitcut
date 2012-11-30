@@ -102,7 +102,7 @@ FIND_PACKAGE(
 	fontdraw
 	fontbitmap
 	font
-	image
+	imagecolor
 	image2d
 	input
 	line_drawer

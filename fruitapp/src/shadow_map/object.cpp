@@ -4,7 +4,7 @@
 #include <fruitlib/perspective_projection_information_to_matrix.hpp>
 #include <fruitlib/json/parse_projection.hpp>
 #include <fruitlib/scenic/events/render.hpp>
-#include <sge/image/colors.hpp>
+#include <sge/image/color/predef.hpp>
 #include <sge/image/color/format.hpp>
 #include <sge/parse/json/find_and_convert_member.hpp>
 #include <sge/parse/json/object.hpp>
@@ -122,7 +122,7 @@ fruitapp::shadow_map::object::react(
 		sge::renderer::clear::parameters()
 			.back_buffer(
 				sge::renderer::clear::back_buffer_value(
-					sge::image::colors::black()))
+					sge::image::color::predef::black()))
 			.depth_buffer(
 				sge::renderer::clear::depth_buffer_value(
 					1.0f)));

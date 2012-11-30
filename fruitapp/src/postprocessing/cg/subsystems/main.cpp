@@ -1,7 +1,7 @@
 #include <fruitapp/postprocessing/cg/system.hpp>
 #include <fruitapp/postprocessing/cg/subsystems/main.hpp>
 #include <fruitlib/pp/texture/use_screen_size.hpp>
-#include <sge/image/colors.hpp>
+#include <sge/image/color/predef.hpp>
 #include <sge/parse/json/find_and_convert_member.hpp>
 #include <sge/parse/json/string_to_path.hpp>
 #include <sge/renderer/clear/parameters.hpp>
@@ -30,7 +30,7 @@ fruitapp::postprocessing::cg::subsystems::main::main(
 		sge::renderer::clear::parameters()
 			.back_buffer(
 				sge::renderer::clear::back_buffer_value(
-					sge::image::colors::black()))
+					sge::image::color::predef::black()))
 			.depth_buffer(
 				sge::renderer::clear::depth_buffer_value(
 					1.0f)),

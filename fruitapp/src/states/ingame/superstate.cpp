@@ -19,9 +19,6 @@
 #include <fruitlib/scenic/parent.hpp>
 #include <fruitlib/scenic/events/render.hpp>
 #include <sge/camera/first_person/object.hpp>
-#include <sge/image/colors.hpp>
-#include <sge/image/color/convert.hpp>
-#include <sge/image/color/rgba8.hpp>
 #include <sge/input/keyboard/action.hpp>
 #include <sge/input/keyboard/device.hpp>
 #include <sge/input/keyboard/key_code.hpp>

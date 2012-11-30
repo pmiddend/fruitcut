@@ -15,8 +15,6 @@
 #include <fruitlib/scenic/depth.hpp>
 #include <fruitlib/scenic/parent.hpp>
 #include <sge/font/lit.hpp>
-#include <sge/image/colors.hpp>
-#include <sge/image/color/convert.hpp>
 #include <sge/parse/json/array.hpp>
 #include <sge/parse/json/find_and_convert_member.hpp>
 #include <sge/parse/json/parse_file_exn.hpp>

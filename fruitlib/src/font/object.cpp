@@ -3,7 +3,6 @@
 #include <fruitlib/font/object_parameters.hpp>
 #include <sge/font/text_parameters.hpp>
 #include <sge/font/draw/static_text.hpp>
-#include <sge/image/colors.hpp>
 #include <sge/image/color/any/object.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/ref.hpp>

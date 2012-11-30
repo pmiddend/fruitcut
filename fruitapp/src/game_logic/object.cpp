@@ -22,7 +22,7 @@
 #include <sge/font/text_parameters.hpp>
 */
 #include <sge/font/vector.hpp>
-#include <sge/image/colors.hpp>
+#include <sge/image/color/predef.hpp>
 #include <sge/image/color/init.hpp>
 #include <sge/image/color/rgba8.hpp>
 #include <sge/image/color/rgba8_format.hpp>
@@ -240,7 +240,7 @@ fruitapp::game_logic::object::object(
 			sge::font::align_h::center,
 			fruitlib::font::align_v::bottom,
 			sge::font::flags_field::null(),
-			sge::image::colors::white(),
+			sge::image::color::predef::white(),
 			fruitlib::font::scale(
 				1.f))),
 	score_increase_timer_(
@@ -492,7 +492,7 @@ fruitapp::game_logic::object::fruit_cut(
 			fruitlib::font::scale(
 				2.0f));
 		multiplier_font_node_.object().color(
-			sge::image::colors::gray());
+			sge::image::color::predef::gray());
 	}
 	else
 	{
@@ -515,7 +515,7 @@ fruitapp::game_logic::object::fruit_cut(
 					_context.old().position())),
 			fruitapp::font_particle::lifetime(
 				2.0f),
-			sge::image::colors::white());
+			sge::image::color::predef::white());
 		/*
 		reset_text_and_center(
 			fcppt::insert_to_std_wstring(

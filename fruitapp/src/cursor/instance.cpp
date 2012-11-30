@@ -10,7 +10,7 @@
 #include <sge/camera/base.hpp>
 #include <sge/camera/coordinate_system/object.hpp>
 #include <sge/camera/matrix_conversion/world_projection.hpp>
-#include <sge/image/colors.hpp>
+#include <sge/image/color/predef.hpp>
 #include <sge/line_drawer/line.hpp>
 #include <sge/parse/json/find_and_convert_member.hpp>
 #include <sge/parse/json/path.hpp>
@@ -114,8 +114,8 @@ fruitapp::cursor::instance::draw_trail(
 						boost::next(i)->y()),
 					static_cast<sge::renderer::scalar>(
 						0)),
-				sge::image::colors::red(),
-				sge::image::colors::red()));
+				sge::image::color::predef::red(),
+				sge::image::color::predef::red()));
 }
 
 fruitapp::fruit::hull::optional_intersection_pair const

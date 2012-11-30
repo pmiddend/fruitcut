@@ -1,9 +1,7 @@
 #include <fruitapp/fruit/mesh.hpp>
 #include <fruitapp/fruit/mesh_to_point_cloud.hpp>
 #include <fruitapp/fruit/prototype.hpp>
-#include <fruitlib/average_colors.hpp>
 #include <fruitlib/geometry_traits/box.hpp>
-#include <sge/image/colors.hpp>
 #include <sge/image/color/any/object_fwd.hpp>
 #include <sge/image2d/dim.hpp>
 #include <sge/image2d/rect.hpp>

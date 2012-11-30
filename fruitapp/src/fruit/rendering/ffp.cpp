@@ -7,7 +7,7 @@
 #include <sge/camera/base.hpp>
 #include <sge/camera/coordinate_system/object.hpp>
 #include <sge/camera/matrix_conversion/world.hpp>
-#include <sge/image/colors.hpp>
+#include <sge/image/color/predef.hpp>
 #include <sge/image/color/init.hpp>
 #include <sge/image/color/rgba32f.hpp>
 #include <sge/image/color/any/object.hpp>
@@ -84,7 +84,7 @@ fruit_material_to_ffp_material(
 				vector4_to_any_color(
 					_material.specular_color())),
 			sge::renderer::state::ffp::lighting::material::emissive_color(
-				sge::image::colors::black()),
+				sge::image::color::predef::black()),
 			sge::renderer::state::ffp::lighting::material::shininess(
 				_material.specular_shininess()));
 }
@@ -96,11 +96,11 @@ ffp_light_from_directional_light_source(
 	return
 		sge::renderer::state::ffp::lighting::light::parameters(
 			sge::renderer::state::ffp::lighting::diffuse_color(
-				sge::image::colors::white()),
+				sge::image::color::predef::white()),
 			sge::renderer::state::ffp::lighting::specular_color(
-				sge::image::colors::white()),
+				sge::image::color::predef::white()),
 			sge::renderer::state::ffp::lighting::ambient_color(
-				sge::image::colors::white()),
+				sge::image::color::predef::white()),
 			sge::renderer::state::ffp::lighting::light::variant(
 				sge::renderer::state::ffp::lighting::light::directional(
 					sge::renderer::state::ffp::lighting::light::direction(
@@ -136,7 +136,7 @@ fruitapp::fruit::rendering::ffp::ffp(
 			sge::renderer::state::ffp::lighting::parameters(
 				sge::renderer::state::ffp::lighting::enabled(
 					sge::renderer::state::ffp::lighting::ambient_color(
-						sge::image::colors::white()))))),
+						sge::image::color::predef::white()))))),
 	light_(
 		renderer_.create_light_state(
 			ffp_light_from_directional_light_source(
