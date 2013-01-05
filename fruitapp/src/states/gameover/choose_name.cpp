@@ -15,7 +15,9 @@
 #include <sge/systems/instance.hpp>
 #include <fcppt/insert_to_fcppt_string.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/tr1/functional.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <functional>
+#include <fcppt/config/external_end.hpp>
 
 
 fruitapp::states::gameover::choose_name::choose_name(
@@ -29,7 +31,7 @@ fruitapp::states::gameover::choose_name::choose_name(
 				context<fruitapp::machine>().last_game_score()))),
 	submit_button_connection_(
 		name_chooser_->register_submit_callback(
-			std::tr1::bind(
+			std::bind(
 				&choose_name::submit_button_pushed,
 				this))),
 	main_menu_button_connection_(

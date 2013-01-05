@@ -9,12 +9,12 @@
 #include <sge/renderer/vector2.hpp>
 #include <sge/renderer/vector3.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/move.hpp>
 #include <fcppt/assert/pre_message.hpp>
 #include <fcppt/math/vector/object_impl.hpp>
 #include <fcppt/math/vector/structure_cast.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/next_prior.hpp>
+#include <utility>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -112,6 +112,6 @@ fruitapp::fruit::model_to_mesh(
 	}
 
 	return
-		fcppt::move(
+		std::move(
 			result);
 }

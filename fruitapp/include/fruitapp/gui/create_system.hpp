@@ -10,7 +10,7 @@
 #include <sge/input/cursor/object_fwd.hpp>
 #include <sge/input/keyboard/device_fwd.hpp>
 #include <sge/renderer/device/ffp_fwd.hpp>
-#include <sge/renderer/texture/emulate_srgb.hpp>
+#include <sge/renderer/texture/emulate_srgb_fwd.hpp>
 #include <sge/viewport/manager_fwd.hpp>
 
 
@@ -29,7 +29,7 @@ create_system(
 	sge::input::keyboard::device &,
 	sge::input::cursor::object &,
 	fruitlib::audio::sound_controller &,
-	sge::renderer::texture::emulate_srgb::type);
+	sge::renderer::texture::emulate_srgb);
 }
 }
 

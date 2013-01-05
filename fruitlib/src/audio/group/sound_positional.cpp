@@ -1,6 +1,11 @@
 #include <fruitlib/audio/group/buffer.hpp>
 #include <fruitlib/audio/group/sound_positional.hpp>
 #include <sge/audio/buffer.hpp>
+#include <sge/audio/sound/play_status.hpp>
+#include <sge/audio/sound/repeat.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
 fruitlib::audio::group::sound_positional::sound_positional(
@@ -32,7 +37,7 @@ fruitlib::audio::group::sound_positional::sound_positional(
 	group::sound_base(
 		_player,
 		sge::audio::sound::base_unique_ptr(
-			fcppt::move(
+			std::move(
 				_impl)),
 		_global_gain,
 		_global_pitch),
@@ -45,7 +50,7 @@ fruitlib::audio::group::sound_positional::sound_positional(
 
 void
 fruitlib::audio::group::sound_positional::play(
-	sge::audio::sound::repeat::type const _repeat)
+	sge::audio::sound::repeat const _repeat)
 {
 	return
 		sound_base::play(
@@ -59,7 +64,7 @@ fruitlib::audio::group::sound_positional::toggle_pause()
 		sound_base::toggle_pause();
 }
 
-sge::audio::sound::play_status::type
+sge::audio::sound::play_status
 fruitlib::audio::group::sound_positional::status() const
 {
 	return

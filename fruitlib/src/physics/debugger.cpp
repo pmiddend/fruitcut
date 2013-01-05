@@ -15,7 +15,6 @@
 #include <sge/renderer/state/ffp/transform/parameters.hpp>
 #include <sge/renderer/state/ffp/transform/scoped.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/ref.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/pre_message.hpp>
 #include <fcppt/math/vector/object_impl.hpp>
@@ -56,8 +55,7 @@ fruitlib::physics::debugger::update()
 {
 	scoped_lock_.take(
 		fcppt::make_unique_ptr<sge::line_drawer::scoped_lock>(
-			fcppt::ref(
-				line_drawer_)));
+			line_drawer_));
 
 	scoped_lock_->value().clear();
 

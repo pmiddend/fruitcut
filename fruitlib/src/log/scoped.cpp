@@ -14,7 +14,7 @@
 fruitlib::log::scoped::scoped(
 	fcppt::log::context &_context,
 	fcppt::log::location const &_location,
-	fcppt::log::level::type const &_new_level)
+	fcppt::log::level const &_new_level)
 :
 	object_(
 		_context.find(

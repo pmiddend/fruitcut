@@ -27,7 +27,8 @@
 #include <fruitlib/scenic/events/update.hpp>
 #include <sge/camera/base_fwd.hpp>
 #include <sge/parse/json/array_fwd.hpp>
-#include <sge/renderer/vertex_declaration_scoped_ptr.hpp>
+#include <sge/renderer/vertex/declaration_fwd.hpp>
+#include <sge/renderer/vertex/declaration_scoped_ptr.hpp>
 #include <sge/renderer/device/core_fwd.hpp>
 #include <sge/renderer/target/base_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -117,7 +118,7 @@ public:
 	fruitlib::physics::group::object const &
 	fruit_group() const;
 
-	sge::renderer::vertex_declaration const &
+	sge::renderer::vertex::declaration const &
 	vertex_declaration() const;
 
 	~manager();
@@ -129,7 +130,7 @@ private:
 	fruitapp::fruit::prototype_sequence const &prototypes_;
 	sge::renderer::device::core &renderer_;
 	sge::camera::base const &camera_;
-	sge::renderer::vertex_declaration_scoped_ptr vertex_declaration_;
+	sge::renderer::vertex::declaration_scoped_ptr vertex_declaration_;
 	fruitlib::physics::world &physics_world_;
 	fruitlib::physics::group::object fruit_group_;
 	fruitapp::fruit::object_sequence fruits_;

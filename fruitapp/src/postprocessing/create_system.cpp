@@ -4,9 +4,7 @@
 #include <fruitapp/postprocessing/dummy/system.hpp>
 #include <sge/parse/json/find_and_convert_member.hpp>
 #include <sge/parse/json/path.hpp>
-#include <fcppt/cref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/ref.hpp>
 #include <fcppt/text.hpp>
 
 
@@ -26,15 +24,12 @@ fruitapp::postprocessing::create_system(
 		?
 			fruitapp::postprocessing::system_unique_ptr(
 				fcppt::make_unique_ptr<fruitapp::postprocessing::cg::system>(
-					fcppt::ref(
-						*_shader_context),
-					fcppt::ref(
-						_viewport_manager),
-					fcppt::cref(
-						sge::parse::json::find_and_convert_member<sge::parse::json::object const>(
-							_object,
-							sge::parse::json::path(
-								FCPPT_TEXT("pp"))))))
+					*_shader_context,
+					_viewport_manager,
+					sge::parse::json::find_and_convert_member<sge::parse::json::object const>(
+						_object,
+						sge::parse::json::path(
+							FCPPT_TEXT("pp")))))
 		:
 			fruitapp::postprocessing::system_unique_ptr(
 				fcppt::make_unique_ptr<fruitapp::postprocessing::dummy::system>());

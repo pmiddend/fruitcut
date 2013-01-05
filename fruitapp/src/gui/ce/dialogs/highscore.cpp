@@ -3,10 +3,10 @@
 #include <fruitapp/gui/ce/dialogs/highscore.hpp>
 #include <fruitapp/highscore/provider/object_base.hpp>
 #include <sge/cegui/to_cegui_string.hpp>
-#include <fcppt/cref.hpp>
-#include <fcppt/ref.hpp>
 #include <fcppt/to_std_string.hpp>
-#include <fcppt/tr1/functional.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <functional>
+#include <fcppt/config/external_end.hpp>
 
 
 fruitapp::gui::ce::dialogs::highscore::highscore(
@@ -60,10 +60,10 @@ fruitapp::gui::ce::dialogs::highscore::highscore(
 		++i)
 		source_box_.add(
 			i->identifier(),
-			std::tr1::bind(
-				std::tr1::ref(
+			std::bind(
+				std::ref(
 					switch_provider_),
-				fcppt::ref(
+				std::ref(
 					*i)),
 			fruitapp::gui::ce::combobox::selected(
 				false));

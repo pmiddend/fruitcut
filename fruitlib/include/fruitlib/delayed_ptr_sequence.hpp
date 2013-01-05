@@ -1,14 +1,13 @@
 #ifndef FRUITLIB_DELAYED_PTR_SEQUENCE_HPP_INCLUDED
 #define FRUITLIB_DELAYED_PTR_SEQUENCE_HPP_INCLUDED
 
-#include <fcppt/move.hpp>
-#include <fcppt/unique_ptr.hpp>
 #include <fcppt/algorithm/ptr_container_erase.hpp>
 #include <fcppt/assert/error.hpp>
 #include <fcppt/container/ptr/push_back_unique_ptr.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/ptr_container/clone_allocator.hpp>
 #include <memory>
+#include <utility>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -51,7 +50,7 @@ public:
 	const_reference;
 
 	typedef
-	fcppt::unique_ptr<T>
+	std::unique_ptr<T>
 	unique_value_ptr;
 
 	delayed_ptr_sequence()
@@ -128,7 +127,7 @@ public:
 	{
 		fcppt::container::ptr::push_back_unique_ptr(
 			new_values_,
-			fcppt::move(
+			std::move(
 				new_value));
 	}
 

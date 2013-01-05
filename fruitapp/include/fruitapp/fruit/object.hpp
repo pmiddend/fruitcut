@@ -23,16 +23,12 @@
 #include <fruitlib/physics/rigid_body/transformation.hpp>
 #include <sge/renderer/matrix4.hpp>
 #include <sge/renderer/vector3.hpp>
-#include <sge/renderer/vertex_buffer_scoped_ptr.hpp>
-#include <sge/renderer/vertex_declaration_fwd.hpp>
+#include <sge/renderer/vertex/buffer_fwd.hpp>
+#include <sge/renderer/vertex/buffer_scoped_ptr.hpp>
+#include <sge/renderer/vertex/declaration_fwd.hpp>
 #include <sge/renderer/device/core_fwd.hpp>
 #include <fcppt/nonassignable.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/math/box/object_impl.hpp>
-#include <fcppt/math/matrix/object_impl.hpp>
-#include <fcppt/math/vector/object_impl.hpp>
-#include <fcppt/variant/object.hpp>
-#include <fcppt/variant/object.hpp>
 
 
 namespace fruitapp
@@ -49,7 +45,7 @@ public:
 		fruitapp::fruit::prototype const &,
 		fruitlib::physics::world &_world,
 		sge::renderer::device::core &_renderer,
-		sge::renderer::vertex_declaration &_vertex_declaration,
+		sge::renderer::vertex::declaration &_vertex_declaration,
 		fruitapp::fruit::mesh_unique_ptr _mesh,
 		fruitlib::physics::group::object &_fruit_group,
 		fruitlib::physics::rigid_body::mass const &_mass,
@@ -60,10 +56,10 @@ public:
 		fruitapp::fruit::ban_duration const &,
 		fruitapp::ingame_clock const &);
 
-	sge::renderer::vertex_buffer &
+	sge::renderer::vertex::buffer &
 	vb();
 
-	sge::renderer::vertex_buffer const &
+	sge::renderer::vertex::buffer const &
 	vb() const;
 
 	fruitapp::fruit::prototype const &
@@ -97,7 +93,7 @@ private:
 	fruitapp::fruit::box3 bounding_box_;
 	fruitlib::physics::rigid_body::object body_;
 	fruitlib::physics::rigid_body::scoped body_scope_;
-	sge::renderer::vertex_buffer_scoped_ptr vb_;
+	sge::renderer::vertex::buffer_scoped_ptr vb_;
 	fruitapp::ingame_timer lock_timer_;
 };
 }

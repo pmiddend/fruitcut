@@ -1,8 +1,10 @@
 #include <fruitlib/audio/pool.hpp>
 #include <sge/audio/sound/base.hpp>
 #include <sge/audio/sound/play_status.hpp>
-#include <fcppt/move.hpp>
 #include <fcppt/container/ptr/push_back_unique_ptr.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
 fruitlib::audio::pool::pool()
@@ -35,7 +37,7 @@ fruitlib::audio::pool::insert(
 {
 	fcppt::container::ptr::push_back_unique_ptr(
 		sounds_,
-		fcppt::move(
+		std::move(
 			_new));
 }
 

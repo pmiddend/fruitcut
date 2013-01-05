@@ -6,6 +6,7 @@
 #include <sge/systems/instance_fwd.hpp>
 #include <sge/systems/keyboard_collector.hpp>
 #include <sge/systems/mouse_collector.hpp>
+#include <sge/systems/renderer_caps.hpp>
 #include <sge/systems/with_audio_loader.hpp>
 #include <sge/systems/with_audio_player.hpp>
 #include <sge/systems/with_charconv.hpp>

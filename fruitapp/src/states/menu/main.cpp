@@ -13,7 +13,9 @@
 #include <sge/systems/instance.hpp>
 #include <awl/main/exit_success.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/tr1/functional.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <functional>
+#include <fcppt/config/external_end.hpp>
 
 
 fruitapp::states::menu::main::main(
@@ -42,7 +44,7 @@ fruitapp::states::menu::main::main(
 				menu::highscore))),
 	quit_button_connection_(
 		main_menu_->register_quit_callback(
-			std::tr1::bind(
+			std::bind(
 				&fruitapp::machine::quit,
 				&context<fruitapp::machine>(),
 				awl::main::exit_success()))),

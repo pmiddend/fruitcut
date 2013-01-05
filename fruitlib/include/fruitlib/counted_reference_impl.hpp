@@ -75,6 +75,12 @@ fruitlib::counted_reference<T>::operator->() const
 }
 
 template<typename T>
+fruitlib::counted_reference<T>::operator bool() const
+{
+	return ptr_ != nullptr;
+}
+
+template<typename T>
 void
 fruitlib::counted_reference<T>::dispose()
 {
@@ -87,13 +93,6 @@ fruitlib::counted_reference<T>::dispose()
 		}
 		delete count_;
 	}
-}
-
-template<typename T>
-bool
-fruitlib::counted_reference<T>::boolean_test() const
-{
-	return ptr_ != 0;
 }
 
 #endif

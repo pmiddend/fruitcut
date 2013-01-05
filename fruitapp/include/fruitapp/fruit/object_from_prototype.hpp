@@ -14,8 +14,8 @@
 #include <fruitlib/physics/rigid_body/mass.hpp>
 #include <fruitlib/physics/rigid_body/position.hpp>
 #include <fruitlib/physics/rigid_body/transformation.hpp>
-#include <sge/renderer/vertex_declaration_fwd.hpp>
 #include <sge/renderer/device/core_fwd.hpp>
+#include <sge/renderer/vertex/declaration_fwd.hpp>
 
 
 namespace fruitapp
@@ -28,7 +28,7 @@ object_from_prototype(
 	fruitlib::physics::world &_world,
 	fruitlib::physics::group::object &_fruit_group,
 	sge::renderer::device::core &_renderer,
-	sge::renderer::vertex_declaration &_vertex_declaration,
+	sge::renderer::vertex::declaration &_vertex_declaration,
 	fruitlib::physics::rigid_body::mass const _mass,
 	fruitlib::physics::rigid_body::position const &_position,
 	fruitlib::physics::rigid_body::transformation const &_transformation,

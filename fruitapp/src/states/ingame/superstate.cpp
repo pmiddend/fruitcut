@@ -28,21 +28,20 @@
 #include <sge/renderer/scalar.hpp>
 #include <sge/renderer/device/ffp.hpp>
 #include <sge/systems/instance.hpp>
-#include <fcppt/cref.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/ref.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/math/box/object_impl.hpp>
 #include <fcppt/math/dim/object_impl.hpp>
 #include <fcppt/math/vector/object_impl.hpp>
 #include <fcppt/math/vector/structure_cast.hpp>
-#include <fcppt/tr1/functional.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <BulletCollision/CollisionShapes/btStaticPlaneShape.h>
 #include <boost/statechart/event_base.hpp>
-#include <iostream>
+#include <functional>
+#include <memory>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -82,7 +81,7 @@ fruitapp::states::ingame::superstate::superstate(
 		this->context<fruitapp::machine>().systems().keyboard_collector().key_callback(
 			sge::input::keyboard::action(
 				sge::input::keyboard::key_code::f3,
-				std::tr1::bind(
+				std::bind(
 					&superstate::toggle_physics_debugger,
 					this)))),
 	fruit_manager_(
@@ -117,13 +116,11 @@ fruitapp::states::ingame::superstate::superstate(
 						*context<fruitapp::machine>().shadow_map(),
 						fruitlib::scenic::depth(
 							0))),
-				fcppt::ref(
-					*context<fruitapp::machine>().shader_context()),
-				fcppt::cref(
-					fruit_manager_),
+				*context<fruitapp::machine>().shader_context(),
+				fruit_manager_,
 				context<fruitapp::machine>().shadow_map()->mvp())
 		:
-			fcppt::unique_ptr<fruitapp::fruit::rendering::shadow_node>()),
+			std::unique_ptr<fruitapp::fruit::rendering::shadow_node>()),
 	fruit_spawner_(
 		fruitlib::scenic::optional_parent(
 			fruitlib::scenic::parent(
@@ -156,10 +153,10 @@ fruitapp::states::ingame::superstate::superstate(
 		context<fruitapp::machine>().quick_log()),
 	cut_connection_(
 		fruit_manager_.cut_callback(
-			std::tr1::bind(
+			std::bind(
 				&superstate::fruit_was_cut,
 				this,
-				std::tr1::placeholders::_1))),
+				std::placeholders::_1))),
 	splatter_generator_(
 		sge::parse::json::find_and_convert_member<sge::parse::json::object const>(
 			this->context<fruitapp::machine>().config_file(),
@@ -205,12 +202,10 @@ fruitapp::states::ingame::superstate::superstate(
 
 	background_body_scope_.take(
 		fcppt::make_unique_ptr<fruitlib::physics::rigid_body::scoped>(
-			fcppt::ref(
-				physics_world_),
-			fcppt::ref(
-				background_physics_),
+			physics_world_,
+			background_physics_,
 			fcppt::assign::make_container<fruitlib::physics::group::sequence>(
-				fcppt::ref(
+				fcppt::make_ref(
 					background_group_))));
 }
 

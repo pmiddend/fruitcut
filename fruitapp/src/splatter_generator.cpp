@@ -25,7 +25,6 @@
 #include <sge/renderer/scalar.hpp>
 #include <sge/renderer/vector3.hpp>
 #include <mizuiro/color/channel/alpha.hpp>
-#include <fcppt/cref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
@@ -163,33 +162,32 @@ fruitapp::splatter_generator::fruit_was_cut(
 		point_sprites_.push_back(
 			fruitapp::point_sprite::unique_base_ptr(
 				fcppt::make_unique_ptr<fruitapp::point_sprite::splatter::object>(
-					fcppt::cref(
-						fruitapp::point_sprite::splatter::parameters(
-							point_sprites_.projection_manager(),
-							point_sprites_.connection(),
-							fruitapp::point_sprite::splatter::position(
-								cut_info.old().position() +
-								fcppt::math::matrix::transform_direction(
-									cut_info.old().world_transform(),
-									position)),
-							fruitapp::point_sprite::splatter::linear_velocity(
-								distortion + ((cut_direction_rng_()
-								?
-									cut_info.cut_geometry().cut_direction().get()
-								:
-								(-cut_info.cut_geometry().cut_direction().get())) * speed_rng_())),
-							fruitapp::point_sprite::splatter::acceleration(
-								acceleration_),
-							fruitapp::point_sprite::splatter::size(
-								size_rng_()),
-							splatter_color,
-							point_sprites_.lookup_texture(
-								fruitlib::resource_tree::path(
-									FCPPT_TEXT("spray"))),
-							boost::chrono::duration_cast<fruitapp::ingame_clock::duration>(
-								boost::chrono::milliseconds(
-									lifetime_millis_rng_())),
-							clock_)))));
+					fruitapp::point_sprite::splatter::parameters(
+						point_sprites_.projection_manager(),
+						point_sprites_.connection(),
+						fruitapp::point_sprite::splatter::position(
+							cut_info.old().position() +
+							fcppt::math::matrix::transform_direction(
+								cut_info.old().world_transform(),
+								position)),
+						fruitapp::point_sprite::splatter::linear_velocity(
+							distortion + ((cut_direction_rng_()
+							?
+								cut_info.cut_geometry().cut_direction().get()
+							:
+							(-cut_info.cut_geometry().cut_direction().get())) * speed_rng_())),
+						fruitapp::point_sprite::splatter::acceleration(
+							acceleration_),
+						fruitapp::point_sprite::splatter::size(
+							size_rng_()),
+						splatter_color,
+						point_sprites_.lookup_texture(
+							fruitlib::resource_tree::path(
+								FCPPT_TEXT("spray"))),
+						boost::chrono::duration_cast<fruitapp::ingame_clock::duration>(
+							boost::chrono::milliseconds(
+								lifetime_millis_rng_())),
+						clock_))));
 	}
 }
 

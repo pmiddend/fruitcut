@@ -18,7 +18,7 @@
 #include <sge/renderer/texture/scoped.hpp>
 #include <sge/shader/context.hpp>
 #include <sge/shader/scoped_pair.hpp>
-#include <fcppt/cref.hpp>
+#include <fcppt/make_cref.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assign/make_map.hpp>
 
@@ -50,7 +50,7 @@ fruitapp::background::ffp::ffp(
 		fcppt::assign::make_map<sge::renderer::state::core::sampler::const_object_ref_map>
 			(sge::renderer::texture::stage(
 				0u),
-			fcppt::cref(
+			fcppt::make_cref(
 				*background_sampler_)))
 {
 }

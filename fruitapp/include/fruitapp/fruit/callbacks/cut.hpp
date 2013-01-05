@@ -2,7 +2,9 @@
 #define FRUITAPP_FRUIT_CALLBACKS_CUT_HPP_INCLUDED
 
 #include <fruitapp/fruit/callbacks/cut_fn.hpp>
-#include <fcppt/function/object.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <functional>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace fruitapp
@@ -12,7 +14,7 @@ namespace fruit
 namespace callbacks
 {
 typedef
-fcppt::function::object<cut_fn>
+std::function<cut_fn>
 cut;
 }
 }

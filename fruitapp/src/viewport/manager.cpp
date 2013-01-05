@@ -1,7 +1,9 @@
 #include <fruitapp/viewport/manager.hpp>
 #include <sge/viewport/manager.hpp>
-#include <fcppt/move.hpp>
-#include <fcppt/tr1/functional.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <functional>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
 fruitapp::viewport::manager::manager(
@@ -13,10 +15,10 @@ fruitapp::viewport::manager::manager(
 	change_signal_(),
 	viewport_connection_(
 		_viewport_manager.manage_callback(
-			std::tr1::bind(
+			std::bind(
 				&manager::internal_change_callback,
 				this,
-				std::tr1::placeholders::_1))),
+				std::placeholders::_1))),
 	current_viewport_()
 {
 }
@@ -42,7 +44,7 @@ fruitapp::viewport::manager::change_callback(
 			*current_viewport_);
 
 	return
-		fcppt::move(
+		std::move(
 			result);
 }
 

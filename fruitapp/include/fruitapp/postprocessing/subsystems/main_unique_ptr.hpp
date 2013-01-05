@@ -2,7 +2,9 @@
 #define FRUITAPP_POSTPROCESSING_SUBSYSTEMS_MAIN_UNIQUE_PTR_HPP_INCLUDED
 
 #include <fruitapp/postprocessing/subsystems/main_fwd.hpp>
-#include <fcppt/unique_ptr.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <memory>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace fruitapp
@@ -12,7 +14,7 @@ namespace postprocessing
 namespace subsystems
 {
 typedef
-fcppt::unique_ptr
+std::unique_ptr
 <
 	fruitapp::postprocessing::subsystems::main
 >

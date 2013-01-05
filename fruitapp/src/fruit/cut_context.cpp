@@ -1,5 +1,8 @@
 #include <fruitapp/fruit/cut_context.hpp>
-#include <fcppt/move.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
+
 
 fruitapp::fruit::cut_context::cut_context(
 	fruitapp::fruit::object const &_old,
@@ -17,7 +20,7 @@ fruitapp::fruit::cut_context::cut_context(
 	cut_geometry_(
 		_cut_geometry),
 	cross_section_(
-		fcppt::move(
+		std::move(
 			_cross_section))
 {
 }

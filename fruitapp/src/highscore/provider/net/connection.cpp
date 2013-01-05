@@ -21,8 +21,8 @@
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/io/istringstream.hpp>
 #include <fcppt/signal/auto_connection.hpp>
-#include <fcppt/tr1/functional.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <functional>
 #include <iomanip>
 #include <string>
 #include <fcppt/config/external_end.hpp>
@@ -105,19 +105,19 @@ fruitapp::highscore::provider::net::connection::post_rank(
 
 	resolver_.async_resolve(
 		query_,
-		std::tr1::bind(
+		std::bind(
 			&connection::handle_resolve,
 			this,
 			// error
-			std::tr1::placeholders::_1,
+			std::placeholders::_1,
 			// iterator
-			std::tr1::placeholders::_2,
+			std::placeholders::_2,
 			// Why is this neccessary? :(
 			json_handler(
-				std::tr1::bind(
+				std::bind(
 					&connection::handle_rank_received,
 					this,
-					std::tr1::placeholders::_1))));
+					std::placeholders::_1))));
 }
 
 void
@@ -148,19 +148,19 @@ fruitapp::highscore::provider::net::connection::retrieve_list()
 
 	resolver_.async_resolve(
 		query_,
-		std::tr1::bind(
+		std::bind(
 			&connection::handle_resolve,
 			this,
 			// error
-			std::tr1::placeholders::_1,
+			std::placeholders::_1,
 			// iterator
-			std::tr1::placeholders::_2,
+			std::placeholders::_2,
 			// Why is this neccessary? :(
 			json_handler(
-				std::tr1::bind(
+				std::bind(
 					&connection::handle_list_received,
 					this,
-					std::tr1::placeholders::_1))));
+					std::placeholders::_1))));
 }
 
 void
@@ -234,10 +234,10 @@ fruitapp::highscore::provider::net::connection::handle_resolve(
 
 	socket_.async_connect(
 		endpoint,
-		std::tr1::bind(
+		std::bind(
 			&connection::handle_connect,
 			this,
-			std::tr1::placeholders::_1,
+			std::placeholders::_1,
 			++it,
 			continue_here));
 }
@@ -258,10 +258,10 @@ fruitapp::highscore::provider::net::connection::handle_connect(
 			boost::asio::buffer(
 				&request_[0],
 				request_.size()),
-			std::tr1::bind(
+			std::bind(
 				&connection::handle_write_request,
 				this,
-				std::tr1::placeholders::_1,
+				std::placeholders::_1,
 				continue_here));
 	}
 	else if (it != boost::asio::ip::tcp::resolver::iterator())
@@ -275,10 +275,10 @@ fruitapp::highscore::provider::net::connection::handle_connect(
 			*it;
 		socket_.async_connect(
 			endpoint,
-			std::tr1::bind(
+			std::bind(
 				&connection::handle_connect,
 				this,
-				std::tr1::placeholders::_1,
+				std::placeholders::_1,
 				++it,
 				continue_here));
 	}
@@ -314,10 +314,10 @@ fruitapp::highscore::provider::net::connection::handle_write_request(
 		boost::asio::buffer(
 			&content_[0],
 			content_.size()),
-		std::tr1::bind(
+		std::bind(
 			&connection::handle_read_size,
 			this,
-			std::tr1::placeholders::_1,
+			std::placeholders::_1,
 			continue_here));
 }
 
@@ -365,10 +365,10 @@ fruitapp::highscore::provider::net::connection::handle_read_size(
 		boost::asio::buffer(
 			&content_[0],
 			content_.size()),
-		std::tr1::bind(
+		std::bind(
 			&connection::handle_read_content,
 			this,
-			std::tr1::placeholders::_1,
+			std::placeholders::_1,
 			continue_here));
 }
 

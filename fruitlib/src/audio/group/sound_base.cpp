@@ -1,8 +1,10 @@
 #include <fruitlib/audio/group/buffer.hpp>
 #include <fruitlib/audio/group/player.hpp>
 #include <fruitlib/audio/group/sound_base.hpp>
+#include <sge/audio/sound/play_status.hpp>
+#include <sge/audio/sound/repeat.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <iostream>
+#include <utility>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -46,7 +48,7 @@ fruitlib::audio::group::sound_base::sound_base(
 	buffer_(
 		0),
 	impl_(
-		fcppt::move(
+		std::move(
 			_impl)),
 	global_gain_(
 		_global_gain),
@@ -67,7 +69,7 @@ fruitlib::audio::group::sound_base::sound_base(
 
 void
 fruitlib::audio::group::sound_base::play(
-	sge::audio::sound::repeat::type const _repeat)
+	sge::audio::sound::repeat const _repeat)
 {
 	return
 		impl_->play(
@@ -81,7 +83,7 @@ fruitlib::audio::group::sound_base::toggle_pause()
 		impl_->toggle_pause();
 }
 
-sge::audio::sound::play_status::type
+sge::audio::sound::play_status
 fruitlib::audio::group::sound_base::status() const
 {
 	return
@@ -166,7 +168,7 @@ fruitlib::audio::group::sound_base::sound_base(
 	buffer_(
 		&_buffer),
 	impl_(
-		fcppt::move(
+		std::move(
 			_impl)),
 	global_gain_(
 		_global_gain),

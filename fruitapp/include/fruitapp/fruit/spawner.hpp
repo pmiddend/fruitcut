@@ -19,13 +19,13 @@
 #include <sge/parse/json/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/optional.hpp>
-#include <fcppt/function/object.hpp>
 #include <fcppt/preprocessor/warn_unused_result.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/object.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
+#include <functional>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -53,7 +53,7 @@ public:
 	void spawn_callback_fn();
 
 	typedef
-	fcppt::function::object<spawn_callback_fn>
+	std::function<spawn_callback_fn>
 	spawn_callback_function;
 
 	explicit

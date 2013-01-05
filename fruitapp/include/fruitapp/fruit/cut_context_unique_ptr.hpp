@@ -2,14 +2,17 @@
 #define FRUITAPP_FRUIT_CUT_CONTEXT_UNIQUE_PTR_HPP_INCLUDED
 
 #include <fruitapp/fruit/cut_context_fwd.hpp>
-#include <fcppt/unique_ptr.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <memory>
+#include <fcppt/config/external_end.hpp>
+
 
 namespace fruitapp
 {
 namespace fruit
 {
 typedef
-fcppt::unique_ptr<fruit::cut_context>
+std::unique_ptr<fruit::cut_context>
 cut_context_unique_ptr;
 }
 }

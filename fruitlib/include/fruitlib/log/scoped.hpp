@@ -5,7 +5,7 @@
 #include <fcppt/container/array.hpp>
 #include <fcppt/log/context_fwd.hpp>
 #include <fcppt/log/enabled_level_array.hpp>
-#include <fcppt/log/level.hpp>
+#include <fcppt/log/level_fwd.hpp>
 #include <fcppt/log/location.hpp>
 #include <fcppt/log/optional_object.hpp>
 
@@ -19,11 +19,10 @@ class scoped
 FCPPT_NONCOPYABLE(
 	scoped);
 public:
-	explicit
 	scoped(
 		fcppt::log::context &,
 		fcppt::log::location const &,
-		fcppt::log::level::type const &);
+		fcppt::log::level const &);
 
 	~scoped();
 private:

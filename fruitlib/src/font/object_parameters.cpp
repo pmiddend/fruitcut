@@ -8,7 +8,7 @@ fruitlib::font::object_parameters::object_parameters(
 	fruitlib::font::identifier const &_identifier,
 	sge::font::string const &_text,
 	sge::font::rect const &_bounding_box,
-	sge::font::align_h::type const _alignment_h,
+	sge::font::align_h const _alignment_h,
 	fruitlib::font::align_v::type const _alignment_v,
 	sge::font::flags_field const &_flags,
 	sge::image::color::any::object const &_color,
@@ -64,7 +64,7 @@ fruitlib::font::object_parameters::bounding_box() const
 		bounding_box_;
 }
 
-sge::font::align_h::type
+sge::font::align_h
 fruitlib::font::object_parameters::alignment_h() const
 {
 	return

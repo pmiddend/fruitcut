@@ -10,9 +10,9 @@
 #include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/scoped_planar_lock.hpp>
-#include <fcppt/move.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/geometry/geometry.hpp>
+#include <utility>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -24,7 +24,7 @@ fruitapp::fruit::prototype::prototype(
 	fruitapp::fruit::tag_set const &_tags)
 :
 	mesh_(
-		fcppt::move(
+		std::move(
 			_mesh)),
 	bounding_box_(
 		boost::geometry::return_envelope<fruitapp::fruit::box3>(

@@ -7,6 +7,8 @@
 #include <sge/audio/sound/base_scoped_ptr.hpp>
 #include <sge/audio/sound/base_unique_ptr.hpp>
 #include <sge/audio/sound/nonpositional_parameters_fwd.hpp>
+#include <sge/audio/sound/play_status_fwd.hpp>
+#include <sge/audio/sound/repeat_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 
 
@@ -23,14 +25,12 @@ class sound_base
 FCPPT_NONCOPYABLE(
 	sound_base);
 public:
-	explicit
 	sound_base(
 		group::buffer &,
 		sge::audio::sound::nonpositional_parameters const &,
 		sge::audio::scalar global_gain,
 		sge::audio::scalar global_pitch);
 
-	explicit
 	sound_base(
 		group::player &,
 		sge::audio::sound::base_unique_ptr,
@@ -39,12 +39,12 @@ public:
 
 	void
 	play(
-		sge::audio::sound::repeat::type);
+		sge::audio::sound::repeat);
 
 	void
 	toggle_pause();
 
-	sge::audio::sound::play_status::type
+	sge::audio::sound::play_status
 	status() const;
 
 	void

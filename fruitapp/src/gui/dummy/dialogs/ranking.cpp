@@ -1,8 +1,8 @@
 #include <fruitapp/gui/dummy/dialogs/ranking.hpp>
 #include <sge/input/keyboard/device.hpp>
 #include <sge/input/keyboard/key_event.hpp>
-#include <fcppt/tr1/functional.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <functional>
 #include <iostream>
 #include <fcppt/config/external_end.hpp>
 
@@ -14,10 +14,10 @@ fruitapp::gui::dummy::dialogs::ranking::ranking(
 	main_menu_(),
 	key_connection_(
 		_keyboard.key_callback(
-			std::tr1::bind(
+			std::bind(
 				&ranking::key_callback,
 				this,
-				std::tr1::placeholders::_1)))
+				std::placeholders::_1)))
 {
 	std::cout << "In ranking menu, press 'h' to return to highscore,\n";
 	std::cout << "                 press 'm' to return to main menu.\n";

@@ -11,15 +11,15 @@
 #include <fruitlib/physics/rigid_body/parameters.hpp>
 #include <sge/renderer/matrix4.hpp>
 #include <sge/renderer/vector3.hpp>
-#include <sge/renderer/vertex_buffer.hpp>
+#include <sge/renderer/vertex/buffer.hpp>
 #include <sge/timer/parameters.hpp>
-#include <fcppt/move.hpp>
-#include <fcppt/ref.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/math/matrix/structure_cast.hpp>
 #include <fcppt/math/vector/structure_cast.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/geometry/geometry.hpp>
+#include <utility>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -27,7 +27,7 @@ fruitapp::fruit::object::object(
 	fruitapp::fruit::prototype const &_prototype,
 	fruitlib::physics::world &_physics_world,
 	sge::renderer::device::core &_renderer,
-	sge::renderer::vertex_declaration &_vertex_declaration,
+	sge::renderer::vertex::declaration &_vertex_declaration,
 	fruitapp::fruit::mesh_unique_ptr _mesh,
 	fruitlib::physics::group::object &_fruit_group,
 	fruitlib::physics::rigid_body::mass const &_mass,
@@ -41,7 +41,7 @@ fruitapp::fruit::object::object(
 	prototype_(
 		_prototype),
 	mesh_(
-		fcppt::move(
+		std::move(
 			_mesh)),
 	bounding_box_(
 		boost::geometry::return_envelope<fruitapp::fruit::box3>(
@@ -63,7 +63,7 @@ fruitapp::fruit::object::object(
 		_physics_world,
 		body_,
 		fcppt::assign::make_container<fruitlib::physics::group::sequence>(
-			fcppt::ref(
+			fcppt::make_ref(
 				_fruit_group))),
 	vb_(
 		fruitapp::fruit::mesh_to_vertex_buffer(
@@ -78,13 +78,13 @@ fruitapp::fruit::object::object(
 {
 }
 
-sge::renderer::vertex_buffer &
+sge::renderer::vertex::buffer &
 fruitapp::fruit::object::vb()
 {
 	return *vb_;
 }
 
-sge::renderer::vertex_buffer const &
+sge::renderer::vertex::buffer const &
 fruitapp::fruit::object::vb() const
 {
 	return *vb_;

@@ -4,7 +4,9 @@
 #include <sge/cegui/from_cegui_string.hpp>
 #include <sge/cegui/to_cegui_string.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/tr1/functional.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <functional>
+#include <fcppt/config/external_end.hpp>
 
 
 fruitapp::gui::ce::dialogs::ranking::ranking(
@@ -52,16 +54,16 @@ fruitapp::gui::ce::dialogs::ranking::ranking(
 			post_model_),
 	message_received_connection_(
 		post_model_.message_received(
-			std::tr1::bind(
+			std::bind(
 				&ranking::append_log,
 				this,
-				std::tr1::placeholders::_1))),
+				std::placeholders::_1))),
 	error_received_connection_(
 		post_model_.error_received(
-			std::tr1::bind(
+			std::bind(
 				&ranking::append_log,
 				this,
-				std::tr1::placeholders::_1)))
+				std::placeholders::_1)))
 {
 }
 

@@ -35,10 +35,9 @@
 #include <sge/renderer/target/onscreen.hpp>
 #include <sge/systems/instance.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/tr1/functional.hpp>
 #include <fcppt/config/external_begin.hpp>
 //#include <boost/next_prior.hpp>
-#include <iostream>
+#include <functional>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -73,7 +72,7 @@ fruitapp::states::ingame::running::running(
 						depths::scene::sword_trail))))),
 	fruit_spawned_connection_(
 		context<superstate>().fruit_spawner().spawn_callback(
-			std::tr1::bind(
+			std::bind(
 				&fruitlib::audio::sound_controller::play,
 				&context<fruitapp::machine>().sound_controller(),
 				fruitlib::resource_tree::path(

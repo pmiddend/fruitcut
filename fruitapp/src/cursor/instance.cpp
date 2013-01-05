@@ -14,10 +14,8 @@
 #include <sge/line_drawer/line.hpp>
 #include <sge/parse/json/find_and_convert_member.hpp>
 #include <sge/parse/json/path.hpp>
-#include <fcppt/cref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/optional_impl.hpp>
-#include <fcppt/ref.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/math/vector/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -38,24 +36,16 @@ fruitapp::cursor::instance::instance(
 		_manager.camera_),
 	sound_(
 		fcppt::make_unique_ptr<fruitapp::cursor::sound>(
-			fcppt::cref(
-				_parent),
-			fcppt::ref(
-				_cursor_object),
-			fcppt::cref(
-				_manager.ingame_clock_),
-			fcppt::ref(
-				_manager.viewport_manager_),
-			fcppt::ref(
-				_manager.sound_controller_))),
+			_parent,
+			_cursor_object,
+			_manager.ingame_clock_,
+			_manager.viewport_manager_,
+			_manager.sound_controller_)),
 	sampler_(
 		fcppt::make_unique_ptr<fruitapp::cursor::sampler>(
-			fcppt::cref(
-				_parent),
-			fcppt::ref(
-				_cursor_object),
-			fcppt::cref(
-				_manager.ingame_clock_),
+			_parent,
+			_cursor_object,
+			_manager.ingame_clock_,
 			fruitlib::time_format::find_and_convert_duration<fruitapp::ingame_clock::duration>(
 				_manager.configuration_,
 				sge::parse::json::path(
@@ -65,24 +55,16 @@ fruitapp::cursor::instance::instance(
 					_manager.configuration_,
 					sge::parse::json::path(
 						FCPPT_TEXT("trail-samples")))),
-			fcppt::cref(
-				_manager.target_))),
+			_manager.target_)),
 	sword_trail_(
 		fcppt::make_unique_ptr<fruitapp::cursor::sword_trail>(
-			fcppt::cref(
-				_parent),
-			fcppt::ref(
-				_cursor_object),
-			fcppt::cref(
-				_manager.ingame_clock_),
-			fcppt::ref(
-				_manager.renderer_),
-			fcppt::cref(
-				_manager.target_),
-			fcppt::ref(
-				_manager.texture_manager_),
-			fcppt::cref(
-				_manager.configuration_)))
+			_parent,
+			_cursor_object,
+			_manager.ingame_clock_,
+			_manager.renderer_,
+			_manager.target_,
+			_manager.texture_manager_,
+			_manager.configuration_))
 {
 }
 

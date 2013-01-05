@@ -10,12 +10,9 @@
 #include <sge/camera/base.hpp>
 #include <sge/camera/coordinate_system/object.hpp>
 #include <sge/camera/matrix_conversion/world_projection.hpp>
-#include <sge/renderer/scoped_vertex_buffer.hpp>
-#include <sge/renderer/scoped_vertex_declaration.hpp>
-#include <sge/renderer/scoped_vertex_lock.hpp>
+#include <sge/renderer/lock_mode.hpp>
+#include <sge/renderer/primitive_type.hpp>
 #include <sge/renderer/vector2.hpp>
-#include <sge/renderer/vertex_buffer.hpp>
-#include <sge/renderer/vertex_declaration.hpp>
 #include <sge/renderer/context/core.hpp>
 #include <sge/renderer/device/core.hpp>
 #include <sge/renderer/state/core/depth_stencil/object.hpp>
@@ -24,14 +21,24 @@
 #include <sge/renderer/target/onscreen.hpp>
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/mipmap/off.hpp>
+#include <sge/renderer/vertex/buffer.hpp>
+#include <sge/renderer/vertex/buffer_parameters.hpp>
+#include <sge/renderer/vertex/count.hpp>
+#include <sge/renderer/vertex/declaration.hpp>
+#include <sge/renderer/vertex/declaration_parameters.hpp>
+#include <sge/renderer/vertex/first.hpp>
+#include <sge/renderer/vertex/scoped_buffer.hpp>
+#include <sge/renderer/vertex/scoped_declaration.hpp>
+#include <sge/renderer/vertex/scoped_lock.hpp>
 #include <sge/renderer/vf/iterator.hpp>
 #include <sge/renderer/vf/vertex.hpp>
 #include <sge/renderer/vf/dynamic/make_format.hpp>
-#include <fcppt/cref.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/container/bitfield/object_impl.hpp>
 #include <fcppt/math/box/object.hpp>
-#include <fcppt/tr1/functional.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <functional>
+#include <fcppt/config/external_end.hpp>
 
 
 fruitapp::background::base::~base()
@@ -49,15 +56,17 @@ fruitapp::background::base::base(
 		_renderer.onscreen_target()),
 	vertex_declaration_(
 		_renderer.create_vertex_declaration(
-			sge::renderer::vf::dynamic::make_format<fruitapp::background::vf::format>())),
+			sge::renderer::vertex::declaration_parameters(
+				sge::renderer::vf::dynamic::make_format<fruitapp::background::vf::format>()))),
 	vb_(
 		_renderer.create_vertex_buffer(
-			*vertex_declaration_,
-			sge::renderer::vf::dynamic::part_index(
-				0u),
-			sge::renderer::vertex_count(
-				6u),
-			sge::renderer::resource_flags_field::null())),
+			sge::renderer::vertex::buffer_parameters(
+				*vertex_declaration_,
+				sge::renderer::vf::dynamic::part_index(
+					0u),
+				sge::renderer::vertex::count(
+					6u),
+				sge::renderer::resource_flags_field::null()))),
 	texture_(
 		_texture_manager.create_planar_from_path(
 			fruitapp::media_path()
@@ -69,13 +78,13 @@ fruitapp::background::base::base(
 			sge::renderer::resource_flags_field::null())),
 	projection_change_connection_(
 		_projection_manager.projection_change_callback(
-			std::tr1::bind(
+			std::bind(
 				&base::projection_change,
 				this,
-				fcppt::cref(
+				std::cref(
 					_camera),
 				_repetitions,
-				std::tr1::placeholders::_1),
+				std::placeholders::_1),
 			fruitapp::projection_manager::trigger_early(
 				true))),
 	depth_stencil_state_(
@@ -93,11 +102,11 @@ void
 fruitapp::background::base::do_render(
 	sge::renderer::context::core &_context)
 {
-	sge::renderer::scoped_vertex_declaration scoped_vertex_declaration(
+	sge::renderer::vertex::scoped_declaration scoped_vertex_declaration(
 		_context,
 		*vertex_declaration_);
 
-	sge::renderer::scoped_vertex_buffer scoped_vb(
+	sge::renderer::vertex::scoped_buffer scoped_vb(
 		_context,
 		*vb_);
 
@@ -106,9 +115,9 @@ fruitapp::background::base::do_render(
 		*depth_stencil_state_);
 
 	_context.render_nonindexed(
-		sge::renderer::first_vertex(
+		sge::renderer::vertex::first(
 			0u),
-		sge::renderer::vertex_count(
+		sge::renderer::vertex::count(
 			6u),
 		sge::renderer::primitive_type::triangle_list);
 }
@@ -138,7 +147,7 @@ fruitapp::background::base::projection_change(
 				_camera.projection_matrix()),
 			_perspective_projection_information));
 
-	sge::renderer::scoped_vertex_lock const vblock(
+	sge::renderer::vertex::scoped_lock const vblock(
 		*vb_,
 		sge::renderer::lock_mode::writeonly);
 

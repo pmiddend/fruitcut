@@ -23,7 +23,7 @@
 #include <fcppt/string.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/object.hpp>
-#include <fcppt/signal/shared_connection.hpp>
+#include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/ptr_container/ptr_vector.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -79,12 +79,11 @@ private:
 	FCPPT_NONCOPYABLE(
 		connection_wrapper);
 	public:
-		explicit
 		connection_wrapper(
-			fruitapp::highscore::provider::connection_base_ptr &,
-			fcppt::signal::shared_connection,
-			fcppt::signal::shared_connection,
-			fcppt::signal::shared_connection);
+			fruitapp::highscore::provider::connection_base_ptr &&,
+			fcppt::signal::auto_connection &&,
+			fcppt::signal::auto_connection &&,
+			fcppt::signal::auto_connection &&);
 
 		fruitapp::highscore::provider::connection_base &
 		connection();
@@ -92,9 +91,9 @@ private:
 		~connection_wrapper();
 	private:
 		fruitapp::highscore::provider::connection_base_ptr connection_;
-		fcppt::signal::shared_connection const message_received_;
-		fcppt::signal::shared_connection const error_received_;
-		fcppt::signal::shared_connection const rank_received_;
+		fcppt::signal::scoped_connection const message_received_;
+		fcppt::signal::scoped_connection const error_received_;
+		fcppt::signal::scoped_connection const rank_received_;
 	};
 
 	typedef

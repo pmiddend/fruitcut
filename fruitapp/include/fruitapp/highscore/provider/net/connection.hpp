@@ -18,11 +18,11 @@
 #include <sge/charconv/utf8_string.hpp>
 #include <sge/parse/json/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/function/object.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/object.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/asio.hpp>
+#include <functional>
 #include <string>
 #include <fcppt/config/external_end.hpp>
 
@@ -90,7 +90,7 @@ private:
 	sge::charconv::utf8_string content_;
 
 	typedef
-	fcppt::function::object<void(sge::parse::json::object const &)>
+	std::function<void(sge::parse::json::object const &)>
 	json_handler;
 
 	void

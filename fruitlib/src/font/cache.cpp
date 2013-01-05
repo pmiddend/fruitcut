@@ -19,11 +19,9 @@
 #include <fcppt/text.hpp>
 #include <fcppt/assert/pre_message.hpp>
 #include <fcppt/container/ptr/push_back_unique_ptr.hpp>
-#include <fcppt/tr1/type_traits.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/next_prior.hpp>
 #include <boost/filesystem/path.hpp>
-#include <iostream>
 #include <map>
 #include <utility>
 #include <fcppt/config/external_end.hpp>

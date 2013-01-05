@@ -20,7 +20,6 @@
 #include <awl/main/exit_success.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/tr1/functional.hpp>
 
 
 fruitapp::states::gameover::ranking::ranking(

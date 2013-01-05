@@ -16,17 +16,15 @@
 #include <sge/timer/parameters.hpp>
 #include <sge/timer/reset_when_expired.hpp>
 #include <sge/timer/clocks/standard.hpp>
-#include <fcppt/cref.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/math/box/object_impl.hpp>
 #include <fcppt/math/dim/arithmetic.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/math/vector/object_impl.hpp>
-#include <fcppt/tr1/functional.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/algorithm/string/join.hpp>
-#include <iostream>
+#include <functional>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -82,10 +80,10 @@ fruitapp::quick_log::quick_log(
 	messages_(),
 	viewport_change_connection_(
 		_viewport_manager.change_callback(
-			std::tr1::bind(
+			std::bind(
 				&quick_log::viewport_change,
 				this,
-				std::tr1::placeholders::_1),
+				std::placeholders::_1),
 			fruitapp::viewport::trigger_early(
 				true)))
 {

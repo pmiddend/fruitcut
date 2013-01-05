@@ -3,9 +3,9 @@
 
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/optional.hpp>
-#include <fcppt/function/object.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/chrono/system_clocks.hpp>
+#include <functional>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -25,10 +25,9 @@ public:
 	optional_threshold;
 
 	typedef
-	fcppt::function::object<void(clock::duration const &)>
+	std::function<void(clock::duration const &)>
 	optional_callback;
 
-	explicit
 	performance_timer(
 		optional_threshold const &threshold,
 		optional_callback const &);

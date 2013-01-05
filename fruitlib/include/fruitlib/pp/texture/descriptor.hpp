@@ -21,16 +21,15 @@ namespace texture
 class descriptor
 {
 public:
-	explicit
 	descriptor(
 		sge::renderer::dim2 const &,
-		sge::image::color::format::type,
+		sge::image::color::format,
 		depth_stencil_format::type);
 
 	sge::renderer::dim2 const &
 	size() const;
 
-	sge::image::color::format::type
+	sge::image::color::format
 	image_format() const;
 
 	depth_stencil_format::type
@@ -44,7 +43,7 @@ private:
 	boost::fusion::tuple
 	<
 		sge::renderer::dim2,
-		sge::image::color::format::type,
+		sge::image::color::format,
 		depth_stencil_format::type
 	>
 	tuple_type;

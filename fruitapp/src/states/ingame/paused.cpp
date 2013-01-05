@@ -20,7 +20,9 @@
 #include <sge/systems/instance.hpp>
 #include <awl/main/exit_success.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/tr1/functional.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <functional>
+#include <fcppt/config/external_end.hpp>
 
 
 fruitapp::states::ingame::paused::paused(
@@ -47,7 +49,7 @@ fruitapp::states::ingame::paused::paused(
 		context<fruitapp::machine>().systems().keyboard_collector().key_callback(
 			sge::input::keyboard::action(
 				sge::input::keyboard::key_code::escape,
-				std::tr1::bind(
+				std::bind(
 					// Note that using post_event does something unexpected. If
 					// you use that, you get a tick event first and _then_ the
 					// toggle_pause event, which is not the desired behaviour
@@ -68,7 +70,7 @@ fruitapp::states::ingame::paused::paused(
 				menu::main))),
 	quit_connection_(
 		ingame_menu_->register_quit_callback(
-			std::tr1::bind(
+			std::bind(
 				&fruitapp::machine::quit,
 				&context<fruitapp::machine>(),
 				awl::main::exit_success())))

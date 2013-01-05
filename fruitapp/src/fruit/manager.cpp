@@ -29,19 +29,15 @@
 #include <sge/renderer/scalar.hpp>
 #include <sge/renderer/vector3.hpp>
 #include <sge/renderer/vector4.hpp>
-#include <sge/renderer/vertex_declaration.hpp>
 #include <sge/renderer/device/core.hpp>
 #include <sge/renderer/target/base.hpp>
+#include <sge/renderer/vertex/declaration.hpp>
+#include <sge/renderer/vertex/declaration_parameters.hpp>
 #include <sge/renderer/vf/dynamic/make_format.hpp>
-#include <fcppt/cref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/ref.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/unique_ptr.hpp>
 #include <fcppt/assert/error.hpp>
-#include <fcppt/assign/make_array.hpp>
-#include <fcppt/assign/make_container.hpp>
 #include <fcppt/container/array.hpp>
 #include <fcppt/container/ptr/push_back_unique_ptr.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
@@ -51,9 +47,9 @@
 #include <fcppt/math/vector/object_impl.hpp>
 #include <fcppt/math/vector/structure_cast.hpp>
 #include <fcppt/signal/auto_connection.hpp>
-#include <fcppt/tr1/functional.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <iostream>
+#include <memory>
+#include <utility>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -75,7 +71,8 @@ fruitapp::fruit::manager::manager(
 		_camera),
 	vertex_declaration_(
 		renderer_.create_vertex_declaration(
-			sge::renderer::vf::dynamic::make_format<fruitapp::fruit::model_vf::format>())),
+			sge::renderer::vertex::declaration_parameters(
+				sge::renderer::vf::dynamic::make_format<fruitapp::fruit::model_vf::format>()))),
 	physics_world_(
 		physics_world),
 	fruit_group_(
@@ -138,7 +135,7 @@ fruitapp::fruit::manager::cut(
 		p != planes.end();
 		++p)
 	{
-		fcppt::unique_ptr<fruitapp::fruit::cut_mesh_result> cut_result(
+		std::unique_ptr<fruitapp::fruit::cut_mesh_result> cut_result(
 			fruitapp::fruit::cut_mesh(
 				_current_fruit.mesh(),
 				*p));
@@ -160,17 +157,12 @@ fruitapp::fruit::manager::cut(
 		fcppt::container::ptr::push_back_unique_ptr(
 			fruit_cache,
 			fcppt::make_unique_ptr<fruitapp::fruit::object>(
-				fcppt::cref(
-					_current_fruit.prototype()),
-				fcppt::ref(
-					physics_world_),
-				fcppt::ref(
-					renderer_),
-				fcppt::ref(
-					*vertex_declaration_),
+				_current_fruit.prototype(),
+				physics_world_,
+				renderer_,
+				*vertex_declaration_,
 				cut_result->release_mesh(),
-				fcppt::ref(
-					fruit_group_),
+				fruit_group_,
 				fruitlib::physics::rigid_body::mass(
 					static_cast<fruitlib::physics::scalar>(
 						cut_result->bounding_box().size().content())),
@@ -191,8 +183,7 @@ fruitapp::fruit::manager::cut(
 									p->normal()))))),
 				_current_fruit.body().angular_velocity(),
 				_ban_duration,
-				fcppt::cref(
-					clock_)));
+				clock_));
 	}
 
 	FCPPT_ASSERT_ERROR(
@@ -200,24 +191,21 @@ fruitapp::fruit::manager::cut(
 
 	fruit::cut_context_unique_ptr cut_context(
 		fcppt::make_unique_ptr<fruitapp::fruit::cut_context>(
-			fcppt::cref(
-				_current_fruit),
-			fcppt::assign::make_array<fruit::object const *>
-				(&(*fruit_cache.begin()))
-				(&(*(--fruit_cache.end()))),
+			_current_fruit,
+			fruitapp::fruit::cut_context::new_fruit_array
+			{{
+				&(*fruit_cache.begin()),
+				&(*(--fruit_cache.end()))}},
 			cumulated_area,
-			fcppt::cref(
-				cut_geometry),
-			fcppt::move(
+			cut_geometry,
+			std::move(
 				cross_section)));
 
 	remove_signal_(
-		fcppt::cref(
-			_current_fruit));
+		_current_fruit);
 
 	cut_signal_(
-		fcppt::cref(
-			*cut_context));
+		*cut_context);
 
 	fruits_.transfer_from(
 		fruit_cache);
@@ -248,8 +236,7 @@ fruitapp::fruit::manager::spawn(
 				fruitlib::physics::matrix4::identity()),
 			linear_velocity,
 			angular_velocity,
-			fcppt::cref(
-				clock_)));
+			clock_));
 
 	spawn_signal_(
 		*fruits_.cend());
@@ -306,7 +293,7 @@ fruitapp::fruit::manager::fruit_group() const
 	return fruit_group_;
 }
 
-sge::renderer::vertex_declaration const &
+sge::renderer::vertex::declaration const &
 fruitapp::fruit::manager::vertex_declaration() const
 {
 	return *vertex_declaration_;

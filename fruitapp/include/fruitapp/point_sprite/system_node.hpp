@@ -25,12 +25,12 @@
 #include <sge/texture/part_shared_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/shared_ptr.hpp>
-#include <fcppt/unique_ptr.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <boost/ptr_container/ptr_list.hpp>
 #include <cstddef>
+#include <memory>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -102,7 +102,7 @@ private:
 	resource_tree_type;
 
 	typedef
-	fcppt::unique_ptr<resource_tree_type>
+	std::unique_ptr<resource_tree_type>
 	resource_tree_ptr;
 
 	sge::renderer::device::ffp &renderer_;

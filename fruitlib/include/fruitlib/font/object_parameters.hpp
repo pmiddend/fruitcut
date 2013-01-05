@@ -31,7 +31,7 @@ public:
 		fruitlib::font::identifier const &,
 		sge::font::string const &,
 		sge::font::rect const &,
-		sge::font::align_h::type,
+		sge::font::align_h,
 		fruitlib::font::align_v::type,
 		sge::font::flags_field const &,
 		sge::image::color::any::object const &,
@@ -49,7 +49,7 @@ public:
 	sge::font::rect const &
 	bounding_box() const;
 
-	sge::font::align_h::type
+	sge::font::align_h
 	alignment_h() const;
 
 	fruitlib::font::align_v::type
@@ -68,7 +68,7 @@ private:
 	sge::font::object &font_object_;
 	sge::font::string text_;
 	sge::font::rect bounding_box_;
-	sge::font::align_h::type alignment_h_;
+	sge::font::align_h alignment_h_;
 	fruitlib::font::align_v::type alignment_v_;
 	sge::font::flags_field flags_;
 	sge::image::color::any::object color_;

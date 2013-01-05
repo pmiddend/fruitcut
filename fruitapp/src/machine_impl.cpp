@@ -80,21 +80,20 @@
 #include <sge/window/system.hpp>
 #include <sge/window/title.hpp>
 #include <awl/main/exit_code.hpp>
-#include <fcppt/cref.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/nonassignable.hpp>
-#include <fcppt/ref.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/container/bitfield/object_impl.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
 #include <fcppt/random/generator/seed_from_chrono.hpp>
-#include <fcppt/tr1/functional.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/chrono/duration.hpp>
 #include <boost/spirit/home/phoenix/core.hpp>
+#include <functional>
+#include <memory>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -238,10 +237,9 @@ fruitapp::machine_impl::machine_impl(
 				FCPPT_TEXT("use-shaders")))
 		?
 			fcppt::make_unique_ptr<sge::shader::context>(
-				fcppt::ref(
-					systems_.renderer_core()))
+				systems_.renderer_core())
 		:
-			fcppt::unique_ptr<sge::shader::context>()),
+			std::unique_ptr<sge::shader::context>()),
 	md3_loader_(
 		sge::model::md3::create()),
 	viewport_manager_(
@@ -294,11 +292,11 @@ fruitapp::machine_impl::machine_impl(
 					FCPPT_TEXT("effects-volume"))))),
 	effects_volume_change_connection_(
 		config_variables_.effects_volume().change_callback(
-			std::tr1::bind(
+			std::bind(
 				static_cast<void(fruitlib::audio::sound_controller::*)(sge::audio::scalar)>(
 					&fruitlib::audio::sound_controller::gain),
 				&sound_controller_,
-				std::tr1::placeholders::_1))),
+				std::placeholders::_1))),
 	music_controller_(
 		fruitlib::scenic::optional_parent(
 			fruitlib::scenic::parent(
@@ -322,11 +320,11 @@ fruitapp::machine_impl::machine_impl(
 				/ FCPPT_TEXT("volume"))),
 	music_volume_change_connection_(
 		config_variables_.music_volume().change_callback(
-			std::tr1::bind(
+			std::bind(
 				static_cast<void(fruitlib::audio::music_controller::*)(sge::audio::scalar)>(
 					&fruitlib::audio::music_controller::gain),
 				&music_controller_,
-				std::tr1::placeholders::_1))),
+				std::placeholders::_1))),
 	camera_(
 		sge::camera::first_person::parameters(
 			systems_.keyboard_collector(),
@@ -373,7 +371,7 @@ fruitapp::machine_impl::machine_impl(
 		systems_.keyboard_collector().key_callback(
 			sge::input::keyboard::action(
 				sge::input::keyboard::key_code::f2,
-				std::tr1::bind(
+				std::bind(
 					&machine_impl::toggle_camera,
 					this)))),
 	projection_manager_(
@@ -436,15 +434,12 @@ fruitapp::machine_impl::machine_impl(
 						this->root_node(),
 						fruitlib::scenic::depth(
 							depths::root::shadow_map))),
-				fcppt::cref(
-					sge::parse::json::find_and_convert_member<sge::parse::json::object const>(
-						config_file_,
-						sge::parse::json::path(
-							FCPPT_TEXT("shadow-map")))),
-				fcppt::ref(
-					systems_.renderer_ffp()),
-				fcppt::cref(
-					light_manager_))
+				sge::parse::json::find_and_convert_member<sge::parse::json::object const>(
+					config_file_,
+					sge::parse::json::path(
+						FCPPT_TEXT("shadow-map"))),
+				systems_.renderer_ffp(),
+				light_manager_)
 		:
 			fruitapp::shadow_map::object_unique_ptr()),
 	background_(
@@ -802,7 +797,7 @@ fruitapp::machine_impl::time_factor() const
 	return ingame_clock_.factor();
 }
 
-sge::renderer::texture::emulate_srgb::type
+sge::renderer::texture::emulate_srgb
 fruitapp::machine_impl::emulate_srgb() const
 {
 	return

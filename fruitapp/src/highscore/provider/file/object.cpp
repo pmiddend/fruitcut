@@ -2,7 +2,6 @@
 #include <fruitapp/highscore/provider/file/object.hpp>
 #include <sge/charconv/system_fwd.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/ref.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/filesystem/stem.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -37,8 +36,7 @@ fruitapp::highscore::provider::file::object::create_connection()
 	return
 		fruitapp::highscore::provider::connection_base_ptr(
 			fcppt::make_unique_ptr<file::connection>(
-				fcppt::ref(
-					charconv_system_),
+				charconv_system_,
 				path_));
 }
 

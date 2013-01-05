@@ -4,39 +4,39 @@
 #include <fruitapp/gui/ce/table/row_index.hpp>
 #include <fruitapp/highscore/provider/connection_base.hpp>
 #include <fruitapp/highscore/provider/object_base.hpp>
-#include <fcppt/cref.hpp>
 #include <fcppt/insert_to_fcppt_string.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/move.hpp>
-#include <fcppt/ref.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/pre.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/container/ptr/push_back_unique_ptr.hpp>
 #include <fcppt/signal/auto_connection.hpp>
-#include <fcppt/signal/shared_connection.hpp>
-#include <fcppt/tr1/functional.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <functional>
 #include <iterator>
+#include <utility>
 #include <fcppt/config/external_end.hpp>
 
 
 fruitapp::gui::ce::post_model::connection_wrapper::connection_wrapper(
-	fruitapp::highscore::provider::connection_base_ptr &_connection,
-	fcppt::signal::shared_connection const _message_received,
-	fcppt::signal::shared_connection const _error_received,
-	fcppt::signal::shared_connection const _rank_received)
+	fruitapp::highscore::provider::connection_base_ptr &&_connection,
+	fcppt::signal::auto_connection &&_message_received,
+	fcppt::signal::auto_connection &&_error_received,
+	fcppt::signal::auto_connection &&_rank_received)
 :
 	connection_(
-		fcppt::move(
+		std::move(
 			_connection)),
 	message_received_(
-		_message_received),
+		std::move(
+			_message_received)),
 	error_received_(
-		_error_received),
+		std::move(
+			_error_received)),
 	rank_received_(
-		_rank_received)
+		std::move(
+			_rank_received))
 {
 }
 
@@ -123,36 +123,44 @@ fruitapp::gui::ce::post_model::post(
 			new_row_index,
 			new_row);
 
+		fcppt::signal::auto_connection con1(
+			new_connection->message_received(
+				std::bind(
+					&post_model::message_received_internal,
+					this,
+					std::cref(
+						*i),
+					std::placeholders::_1)));
+
+		fcppt::signal::auto_connection con2(
+			new_connection->error_received(
+				std::bind(
+					&post_model::error_received_internal,
+					this,
+					std::cref(
+						*i),
+					std::placeholders::_1)));
+
+		fcppt::signal::auto_connection con3(
+			new_connection->rank_received(
+				std::bind(
+					&post_model::rank_received_internal,
+					this,
+					std::cref(
+						*i),
+					new_row_index,
+					std::placeholders::_1)));
 		fcppt::container::ptr::push_back_unique_ptr(
 			connections_,
 			fcppt::make_unique_ptr<connection_wrapper>(
-				fcppt::ref(
+				std::move(
 					new_connection),
-				fcppt::signal::shared_connection(
-					new_connection->message_received(
-						std::tr1::bind(
-							&post_model::message_received_internal,
-							this,
-							fcppt::cref(
-								*i),
-							std::tr1::placeholders::_1))),
-				fcppt::signal::shared_connection(
-					new_connection->error_received(
-						std::tr1::bind(
-							&post_model::error_received_internal,
-							this,
-							fcppt::cref(
-								*i),
-							std::tr1::placeholders::_1))),
-				fcppt::signal::shared_connection(
-					new_connection->rank_received(
-						std::tr1::bind(
-							&post_model::rank_received_internal,
-							this,
-							fcppt::cref(
-								*i),
-							new_row_index,
-							std::tr1::placeholders::_1)))));
+				std::move(
+					con1),
+				std::move(
+					con2),
+				std::move(
+					con3)));
 
 		connections_.back().connection().post_rank(
 			_name,

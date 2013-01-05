@@ -29,8 +29,7 @@
 #include <boost/geometry/multi/multi.hpp>
 #include <boost/geometry/multi/algorithms/detail/for_each_range.hpp>
 #include <boost/geometry/multi/geometries/multi_point.hpp>
-#include <iostream>
-#include <vector>
+#include <array>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -50,7 +49,7 @@ fruitapp::fruit::hull::projected(
 	hull_point_cloud point_cloud;
 
 	typedef
-	fcppt::container::array<fruitapp::fruit::box3::vector,8>
+	std::array<fruitapp::fruit::box3::vector,8>
 	corner_point_array;
 
 	corner_point_array const corner_points =

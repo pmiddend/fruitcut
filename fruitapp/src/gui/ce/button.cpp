@@ -3,9 +3,9 @@
 #include <fruitlib/resource_tree/path.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/signal/auto_connection.hpp>
-#include <fcppt/tr1/functional.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <CEGUI/widgets/PushButton.h>
+#include <functional>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -19,18 +19,18 @@ fruitapp::gui::ce::button::button(
 		_window.subscribeEvent(
 			CEGUI::PushButton::EventClicked,
 			CEGUI::Event::Subscriber(
-				std::tr1::bind(
+				std::bind(
 					&button::internal_push_callback,
 					this,
-					std::tr1::placeholders::_1)))),
+					std::placeholders::_1)))),
 	hover_connection_(
 		_window.subscribeEvent(
 			CEGUI::PushButton::EventClicked,
 			CEGUI::Event::Subscriber(
-				std::tr1::bind(
+				std::bind(
 					&button::internal_hover_callback,
 					this,
-					std::tr1::placeholders::_1)))),
+					std::placeholders::_1)))),
 	push_signal_()
 {
 }

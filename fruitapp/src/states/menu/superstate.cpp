@@ -9,7 +9,10 @@
 #include <sge/systems/instance.hpp>
 #include <awl/main/exit_success.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/tr1/functional.hpp>
+#include <fcppt/signal/connection.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <functional>
+#include <fcppt/config/external_end.hpp>
 
 
 fruitapp::states::menu::superstate::superstate(
@@ -21,7 +24,7 @@ fruitapp::states::menu::superstate::superstate(
 		context<fruitapp::machine>().systems().keyboard_collector().key_callback(
 			sge::input::keyboard::action(
 				sge::input::keyboard::key_code::escape,
-				std::tr1::bind(
+				std::bind(
 					&fruitapp::machine::quit,
 					&context<fruitapp::machine>(),
 					awl::main::exit_success()))))

@@ -2,14 +2,12 @@
 #include <fruitlib/font/cache.hpp>
 #include <fruitlib/font/manager.hpp>
 #include <sge/renderer/device/ffp.hpp>
-#include <fcppt/cref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/ref.hpp>
 
 
 fruitlib::font::manager::manager(
 	sge::renderer::device::ffp &_renderer,
-	sge::renderer::texture::emulate_srgb::type const _emulate_srgb,
+	sge::renderer::texture::emulate_srgb const _emulate_srgb,
 	sge::font::system &_font_system,
 	fruitlib::texture_manager &_texture_manager,
 	sge::parse::json::object const &_json,
@@ -21,15 +19,11 @@ fruitlib::font::manager::manager(
 		_emulate_srgb),
 	cache_(
 		fcppt::make_unique_ptr<fruitlib::font::cache>(
-			fcppt::ref(
-				_font_system),
-			fcppt::ref(
-				_texture_manager.image_system()),
-			fcppt::cref(
-				_renderer),
-			fcppt::cref(
-				_json),
-				_base_path))
+			_font_system,
+			_texture_manager.image_system(),
+			_renderer,
+			_json,
+			_base_path))
 {
 }
 
@@ -40,7 +34,7 @@ fruitlib::font::manager::renderer() const
 		renderer_;
 }
 
-sge::renderer::texture::emulate_srgb::type
+sge::renderer::texture::emulate_srgb
 fruitlib::font::manager::emulate_srgb() const
 {
 	return

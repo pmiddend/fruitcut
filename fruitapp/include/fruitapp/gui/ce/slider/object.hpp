@@ -7,7 +7,6 @@
 #include <fruitapp/gui/ce/slider/value_changed_function.hpp>
 #include <fruitlib/audio/sound_controller_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/function/object.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/object.hpp>
 #include <fcppt/config/external_begin.hpp>

@@ -10,7 +10,6 @@
 #include <sge/renderer/screenshot.hpp>
 #include <sge/renderer/device/core_fwd.hpp>
 #include <fcppt/from_std_string.hpp>
-#include <fcppt/ref.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/filesystem/create_directory_exn.hpp>
@@ -18,12 +17,12 @@
 #include <fcppt/io/cout.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/connection.hpp>
-#include <fcppt/tr1/functional.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/date_time/c_local_time_adjustor.hpp>
 #include <boost/date_time/posix_time/posix_time.hpp>
 #include <boost/filesystem/operations.hpp>
 #include <boost/filesystem/path.hpp>
+#include <functional>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -41,10 +40,10 @@ fruitapp::screen_shooter::screen_shooter(
 		_keyboard.key_callback(
 			sge::input::keyboard::action(
 				sge::input::keyboard::key_code::f12,
-				std::tr1::bind(
+				std::bind(
 					&screen_shooter::callback,
 					this,
-					fcppt::ref(
+					std::ref(
 						_log)))))
 {
 }

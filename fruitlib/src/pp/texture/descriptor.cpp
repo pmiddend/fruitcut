@@ -4,7 +4,7 @@
 
 fruitlib::pp::texture::descriptor::descriptor(
 	sge::renderer::dim2 const &_size,
-	sge::image::color::format::type const _image_format,
+	sge::image::color::format const _image_format,
 	depth_stencil_format::type const _depth_stencil)
 :
 	tuple_(
@@ -22,7 +22,7 @@ fruitlib::pp::texture::descriptor::size() const
 			tuple_);
 }
 
-sge::image::color::format::type
+sge::image::color::format
 fruitlib::pp::texture::descriptor::image_format() const
 {
 	return

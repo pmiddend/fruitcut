@@ -5,8 +5,10 @@
 #include <fruitapp/highscore/score.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/string.hpp>
-#include <fcppt/function/object.hpp>
 #include <fcppt/signal/auto_connection.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <functional>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace fruitapp
@@ -21,11 +23,11 @@ FCPPT_NONCOPYABLE(
 	ranking);
 public:
 	typedef
-	fcppt::function::object<void ()>
+	std::function<void ()>
 	highscore_callback;
 
 	typedef
-	fcppt::function::object<void ()>
+	std::function<void ()>
 	main_menu_callback;
 
 	virtual fcppt::signal::auto_connection

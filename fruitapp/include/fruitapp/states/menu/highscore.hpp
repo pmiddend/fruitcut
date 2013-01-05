@@ -17,7 +17,6 @@
 #include <sge/cegui/toolbox/scoped_layout.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
-#include <fcppt/signal/shared_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <boost/statechart/state.hpp>
@@ -69,9 +68,9 @@ private:
 	fcppt::signal::scoped_connection main_menu_button_connection_;
 	fcppt::signal::scoped_connection switch_provider_connection_;
 	fruitapp::highscore::provider::connection_base_ptr connection_;
-	fcppt::signal::shared_connection message_connection_;
-	fcppt::signal::shared_connection error_connection_;
-	fcppt::signal::shared_connection list_connection_;
+	fcppt::signal::scoped_connection message_connection_;
+	fcppt::signal::scoped_connection error_connection_;
+	fcppt::signal::scoped_connection list_connection_;
 
 	void
 	switch_provider(

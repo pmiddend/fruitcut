@@ -8,17 +8,11 @@
 #include <sge/camera/coordinate_system/object.hpp>
 #include <sge/camera/matrix_conversion/world.hpp>
 #include <sge/camera/matrix_conversion/world_projection.hpp>
-#include <sge/renderer/first_vertex.hpp>
 #include <sge/renderer/matrix4.hpp>
 #include <sge/renderer/primitive_type.hpp>
 #include <sge/renderer/scalar.hpp>
-#include <sge/renderer/scoped_vertex_buffer.hpp>
-#include <sge/renderer/scoped_vertex_declaration.hpp>
 #include <sge/renderer/size_type.hpp>
 #include <sge/renderer/vector4.hpp>
-#include <sge/renderer/vertex_buffer.hpp>
-#include <sge/renderer/vertex_count.hpp>
-#include <sge/renderer/vertex_declaration.hpp>
 #include <sge/renderer/context/ffp.hpp>
 #include <sge/renderer/device/core.hpp>
 #include <sge/renderer/device/ffp.hpp>
@@ -31,6 +25,11 @@
 #include <sge/renderer/texture/planar_shared_ptr.hpp>
 #include <sge/renderer/texture/scoped.hpp>
 #include <sge/renderer/texture/stage.hpp>
+#include <sge/renderer/vertex/buffer.hpp>
+#include <sge/renderer/vertex/count.hpp>
+#include <sge/renderer/vertex/first.hpp>
+#include <sge/renderer/vertex/scoped_buffer.hpp>
+#include <sge/renderer/vertex/scoped_declaration.hpp>
 #include <sge/shader/context.hpp>
 #include <sge/shader/scoped_pair.hpp>
 #include <fcppt/text.hpp>
@@ -155,7 +154,7 @@ fruitapp::fruit::rendering::cg::render(
 		sge::camera::matrix_conversion::world(
 			camera_.coordinate_system()));
 
-	sge::renderer::scoped_vertex_declaration scoped_vd(
+	sge::renderer::vertex::scoped_declaration scoped_vd(
 		_context,
 		manager_.vertex_declaration());
 
@@ -173,7 +172,7 @@ fruitapp::fruit::rendering::cg::render(
 		i != fruit_pointers.end();
 		++i)
 	{
-		sge::renderer::scoped_vertex_buffer scoped_vb(
+		sge::renderer::vertex::scoped_buffer scoped_vb(
 			_context,
 			(*i)->vb());
 
@@ -220,10 +219,10 @@ fruitapp::fruit::rendering::cg::render(
 					world_transformation_matrix)));
 
 		_context.render_nonindexed(
-			sge::renderer::first_vertex(
+			sge::renderer::vertex::first(
 				static_cast<sge::renderer::size_type>(
 					0)),
-			sge::renderer::vertex_count(
+			sge::renderer::vertex::count(
 				(*i)->vb().size()),
 			sge::renderer::primitive_type::triangle_list);
 	}

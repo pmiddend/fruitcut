@@ -1,6 +1,5 @@
 #include <fruitapp/postprocessing/dummy/system.hpp>
 #include <fruitapp/postprocessing/dummy/subsystems/main.hpp>
-#include <fcppt/ref.hpp>
 
 
 fruitapp::postprocessing::dummy::subsystems::main::main(
@@ -20,8 +19,7 @@ fruitapp::postprocessing::dummy::subsystems::main::render_result(
 	sge::renderer::context::core &_context)
 {
 	render_callback_(
-		fcppt::ref(
-			_context));
+		_context);
 }
 
 void

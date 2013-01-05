@@ -23,7 +23,7 @@ FCPPT_NONCOPYABLE(
 public:
 	manager(
 		sge::renderer::device::ffp &,
-		sge::renderer::texture::emulate_srgb::type,
+		sge::renderer::texture::emulate_srgb,
 		sge::font::system &,
 		fruitlib::texture_manager &,
 		sge::parse::json::object const &,
@@ -32,7 +32,7 @@ public:
 	sge::renderer::device::ffp &
 	renderer() const;
 
-	sge::renderer::texture::emulate_srgb::type
+	sge::renderer::texture::emulate_srgb
 	emulate_srgb() const;
 
 	fruitlib::font::cache &
@@ -41,7 +41,7 @@ public:
 	~manager();
 private:
 	sge::renderer::device::ffp &renderer_;
-	sge::renderer::texture::emulate_srgb::type const emulate_srgb_;
+	sge::renderer::texture::emulate_srgb const emulate_srgb_;
 	// Pimpl
 	fcppt::scoped_ptr<fruitlib::font::cache> cache_;
 };

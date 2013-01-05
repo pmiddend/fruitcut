@@ -2,17 +2,16 @@
 #define FRUITLIB_COUNTED_REFERENCE_DECL_HPP_INCLUDED
 
 #include <fruitlib/counted_reference_fwd.hpp>
-#include <fcppt/safe_bool.hpp>
-#include <fcppt/function/object.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <functional>
+#include <fcppt/config/external_end.hpp>
+
 
 namespace fruitlib
 {
 template<typename T>
 class counted_reference
 {
-// NO SEMICOLON HERE!
-FCPPT_SAFE_BOOL(
-	counted_reference)
 public:
 	typedef
 	T
@@ -23,7 +22,7 @@ public:
 	pointer;
 
 	typedef
-	fcppt::function::object<void (T&)>
+	std::function<void (T&)>
 	deleter;
 
 	explicit
@@ -45,6 +44,10 @@ public:
 
 	pointer
 	operator->() const;
+
+	explicit
+	operator
+	bool() const;
 private:
 	typedef
 	unsigned long
@@ -56,9 +59,6 @@ private:
 
 	void
 	dispose();
-
-	bool
-	boolean_test() const;
 };
 }
 

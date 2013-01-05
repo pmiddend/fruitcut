@@ -28,20 +28,18 @@
 #include <sge/texture/manager_fwd.hpp>
 #include <sge/texture/part_shared_ptr.hpp>
 #include <sge/texture/rect_fragmented.hpp>
-#include <fcppt/move.hpp>
-#include <fcppt/ref.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/algorithm/map.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/container/ptr/push_back_unique_ptr.hpp>
-#include <fcppt/tr1/functional.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/next_prior.hpp>
 #include <boost/filesystem/operations.hpp>
 #include <boost/filesystem/path.hpp>
 #include <cstddef>
-#include <iostream>
+#include <functional>
 #include <iterator>
+#include <utility>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -61,8 +59,7 @@ create_random_from_directory(
 
 	return
 		fcppt::make_shared_ptr<random_variate>(
-			fcppt::ref(
-				_random_generator),
+			_random_generator,
 			random_variate::distribution(
 				random_variate::distribution::min(
 					static_cast<std::size_t>(
@@ -105,11 +102,11 @@ fruitapp::point_sprite::system_node::system_node(
 	projection_manager_(
 		_projection_manager),
 	texture_manager_(
-		std::tr1::bind(
+		std::bind(
 			&fruitlib::texture_manager::create_rect_fragmented,
 			&_texture_manager,
 			sge::renderer::texture::mipmap::off(),
-			std::tr1::placeholders::_1,
+			std::placeholders::_1,
 			sge::renderer::dim2(
 				1024,
 				1024))),
@@ -124,18 +121,18 @@ fruitapp::point_sprite::system_node::system_node(
 	textures_(
 		fruitlib::resource_tree::from_directory_tree<resource_tree_type>(
 			_base_path,
-			std::tr1::bind(
+			std::bind(
 				&create_part_from_file,
-				fcppt::ref(
+				std::ref(
 					_texture_manager),
-				fcppt::ref(
+				std::ref(
 					texture_manager_),
-				std::tr1::placeholders::_1),
-			std::tr1::bind(
+				std::placeholders::_1),
+			std::bind(
 				&create_random_from_directory,
-				fcppt::ref(
+				std::ref(
 					_random_generator),
-				std::tr1::placeholders::_1)))
+				std::placeholders::_1)))
 {
 }
 
@@ -145,7 +142,7 @@ fruitapp::point_sprite::system_node::push_back(
 {
 	fcppt::container::ptr::push_back_unique_ptr(
 		children_,
-		fcppt::move(
+		std::move(
 			n));
 }
 

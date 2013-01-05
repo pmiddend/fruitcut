@@ -1,8 +1,8 @@
 #include <fruitapp/gui/dummy/dialogs/main_menu.hpp>
 #include <sge/input/keyboard/device.hpp>
 #include <sge/input/keyboard/key_event.hpp>
-#include <fcppt/tr1/functional.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <functional>
 #include <iostream>
 #include <fcppt/config/external_end.hpp>
 
@@ -14,10 +14,10 @@ fruitapp::gui::dummy::dialogs::main_menu::main_menu(
 	start_(),
 	key_connection_(
 		_keyboard.key_callback(
-			std::tr1::bind(
+			std::bind(
 				&main_menu::key_callback,
 				this,
-				std::tr1::placeholders::_1)))
+				std::placeholders::_1)))
 {
 	std::cout << "Main menu, press 's' to start,\n";
 	std::cout << "           press 'q' to quit.\n";

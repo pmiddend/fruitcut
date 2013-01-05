@@ -4,9 +4,11 @@
 #include <fruitlib/audio/group/buffer_fwd.hpp>
 #include <fruitlib/audio/group/player_fwd.hpp>
 #include <fruitlib/audio/group/sound_base.hpp>
+#include <sge/audio/sound/play_status_fwd.hpp>
 #include <sge/audio/sound/positional.hpp>
 #include <sge/audio/sound/positional_parameters.hpp>
 #include <sge/audio/sound/positional_unique_ptr.hpp>
+#include <sge/audio/sound/repeat_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 
 
@@ -24,14 +26,12 @@ class sound_positional
 FCPPT_NONCOPYABLE(
 	sound_positional);
 public:
-	explicit
 	sound_positional(
 		group::buffer &,
 		sge::audio::sound::positional_parameters const &,
 		sge::audio::scalar gain,
 		sge::audio::scalar pitch);
 
-	explicit
 	sound_positional(
 		group::player &,
 		sge::audio::sound::positional_unique_ptr,
@@ -40,12 +40,12 @@ public:
 
 	void
 	play(
-		sge::audio::sound::repeat::type);
+		sge::audio::sound::repeat);
 
 	void
 	toggle_pause();
 
-	sge::audio::sound::play_status::type
+	sge::audio::sound::play_status
 	status() const;
 
 	void

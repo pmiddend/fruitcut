@@ -2,7 +2,6 @@
 #include <fruitapp/highscore/provider/net/object.hpp>
 #include <sge/charconv/system_fwd.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/ref.hpp>
 
 
 fruitapp::highscore::provider::net::object::object(
@@ -32,8 +31,7 @@ fruitapp::highscore::provider::net::object::create_connection()
 	return
 		fruitapp::highscore::provider::connection_base_ptr(
 			fcppt::make_unique_ptr<net::connection>(
-				fcppt::ref(
-					charconv_system_),
+				charconv_system_,
 				host_,
 				port_));
 }

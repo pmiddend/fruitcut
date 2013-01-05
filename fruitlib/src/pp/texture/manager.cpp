@@ -3,9 +3,10 @@
 #include <fruitlib/pp/texture/manager.hpp>
 #include <fruitlib/pp/texture/use_screen_size.hpp>
 #include <sge/image/color/format.hpp>
-#include <sge/renderer/depth_stencil_format.hpp>
-#include <sge/renderer/depth_stencil_surface.hpp>
+#include <sge/image/ds/format.hpp>
 #include <sge/renderer/dim2.hpp>
+#include <sge/renderer/depth_stencil_buffer/surface.hpp>
+#include <sge/renderer/depth_stencil_buffer/surface_parameters.hpp>
 #include <sge/renderer/device/core.hpp>
 #include <sge/renderer/target/base.hpp>
 #include <sge/renderer/target/from_texture.hpp>
@@ -27,10 +28,9 @@
 #include <fcppt/math/dim/comparison.hpp>
 #include <fcppt/math/dim/object_impl.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
-#include <fcppt/tr1/functional.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/range/iterator_range.hpp>
-#include <iostream>
+#include <functional>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 
@@ -74,10 +74,10 @@ fruitlib::pp::texture::manager::query(
 			return
 				counted_instance(
 					*(i->second),
-					std::tr1::bind(
+					std::bind(
 						static_cast<void (instance::*)(bool)>(
 							&instance::locked),
-						std::tr1::placeholders::_1,
+						std::placeholders::_1,
 						false));
 		}
 	}
@@ -138,10 +138,10 @@ fruitlib::pp::texture::manager::query_internal(
 		return
 			counted_instance(
 				*(i->second),
-				std::tr1::bind(
+				std::bind(
 					static_cast<void (instance::*)(bool)>(
 						&instance::locked),
-					std::tr1::placeholders::_1,
+					std::placeholders::_1,
 					false));
 	}
 
@@ -162,7 +162,7 @@ fruitlib::pp::texture::manager::query_internal(
 			renderer_,
 			*new_texture));
 
-	sge::renderer::depth_stencil_surface_unique_ptr new_target_depth_stencil;
+	sge::renderer::depth_stencil_buffer::surface_unique_ptr new_target_depth_stencil;
 
 	switch (d.depth_stencil())
 	{
@@ -171,26 +171,29 @@ fruitlib::pp::texture::manager::query_internal(
 		case depth_stencil_format::d16:
 			new_target_depth_stencil =
 				renderer_.create_depth_stencil_surface(
-					d.size(),
-					sge::renderer::depth_stencil_format::d16);
+					sge::renderer::depth_stencil_buffer::surface_parameters(
+						d.size(),
+						sge::image::ds::format::d16));
 			break;
 		case depth_stencil_format::d32:
 			new_target_depth_stencil =
 				renderer_.create_depth_stencil_surface(
-					d.size(),
-					sge::renderer::depth_stencil_format::d32);
+					sge::renderer::depth_stencil_buffer::surface_parameters(
+						d.size(),
+						sge::image::ds::format::d32));
 			break;
 		case depth_stencil_format::d24s8:
 			new_target_depth_stencil =
 				renderer_.create_depth_stencil_surface(
-					d.size(),
-					sge::renderer::depth_stencil_format::d24s8);
+					sge::renderer::depth_stencil_buffer::surface_parameters(
+						d.size(),
+						sge::image::ds::format::d24s8));
 			break;
 	}
 
 	if(new_target_depth_stencil)
 		new_target->depth_stencil_surface(
-			sge::renderer::optional_depth_stencil_surface_ref(
+			sge::renderer::depth_stencil_buffer::optional_surface_ref(
 				*new_target_depth_stencil));
 
 	// There are no matching textures? Gotta create a new one!
@@ -200,21 +203,21 @@ fruitlib::pp::texture::manager::query_internal(
 			d,
 			fcppt::make_unique_ptr<fruitlib::pp::texture::instance>(
 				d,
-				fcppt::move(
+				std::move(
 					new_texture),
-				fcppt::move(
+				std::move(
 					new_target),
 				// FIXME: Can we move a null unique_ptr?
-				fcppt::move(
+				std::move(
 					new_target_depth_stencil),
 				fruitlib::pp::texture::is_locked(
 					true)));
 	return
 		fruitlib::pp::texture::counted_instance(
 			*result->second,
-			std::tr1::bind(
+			std::bind(
 				static_cast<void (instance::*)(bool)>(
 					&instance::locked),
-				std::tr1::placeholders::_1,
+				std::placeholders::_1,
 				false));
 }

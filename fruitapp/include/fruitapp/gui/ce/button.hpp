@@ -3,12 +3,12 @@
 
 #include <fruitlib/audio/sound_controller_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/function/object.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/object.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <CEGUI/Event.h>
 #include <CEGUI/Window.h>
+#include <functional>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -28,7 +28,7 @@ public:
 	push_callback_type();
 
 	typedef
-	fcppt::function::object<push_callback_type>
+	std::function<push_callback_type>
 	push_callback_function;
 
 	button(

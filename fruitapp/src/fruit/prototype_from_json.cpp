@@ -8,6 +8,7 @@
 #include <fruitlib/json/parse_rgba8_color.hpp>
 #include <sge/image2d/system_fwd.hpp>
 #include <sge/model/md3/loader.hpp>
+#include <sge/model/md3/load_flags.hpp>
 #include <sge/model/md3/object.hpp>
 #include <sge/parse/json/array.hpp>
 #include <sge/parse/json/find_and_convert_member.hpp>
@@ -18,7 +19,6 @@
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/mipmap/all_levels.hpp>
 #include <sge/renderer/texture/mipmap/auto_generate.hpp>
-#include <fcppt/cref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
@@ -59,7 +59,8 @@ fruitapp::fruit::prototype_from_json(
 							sge::parse::json::find_and_convert_member<fcppt::string>(
 								o,
 								sge::parse::json::path(
-									FCPPT_TEXT("model"))))),
+									FCPPT_TEXT("model"))),
+					sge::model::md3::load_flags::none)),
 			sge::renderer::texture::planar_shared_ptr(
 				_texture_manager.create_planar_from_path(
 					fruitapp::media_path()
@@ -74,12 +75,11 @@ fruitapp::fruit::prototype_from_json(
 						sge::renderer::texture::mipmap::auto_generate::yes),
 					sge::renderer::resource_flags_field(
 						sge::renderer::resource_flags::readable))),
-			fcppt::cref(
-				fruitapp::fruit::material::from_json(
-					sge::parse::json::find_and_convert_member<sge::parse::json::object const>(
-						o,
-						sge::parse::json::path(
-							FCPPT_TEXT("material"))))),
+			fruitapp::fruit::material::from_json(
+				sge::parse::json::find_and_convert_member<sge::parse::json::object const>(
+					o,
+					sge::parse::json::path(
+						FCPPT_TEXT("material")))),
 			fruitapp::fruit::splatter_color(
 				sge::image::color::any::object(
 					fruitlib::json::parse_rgba8_color(
@@ -87,11 +87,10 @@ fruitapp::fruit::prototype_from_json(
 							o,
 							sge::parse::json::path(
 								FCPPT_TEXT("splatter-color")))))),
-			fcppt::cref(
-				fcppt::algorithm::map<fruit::tag_set>(
-					sge::parse::json::find_and_convert_member<sge::parse::json::array const>(
-						o,
-						sge::parse::json::path(
-							FCPPT_TEXT("tags"))).elements,
-					&json_to_tag)));
+			fcppt::algorithm::map<fruit::tag_set>(
+				sge::parse::json::find_and_convert_member<sge::parse::json::array const>(
+					o,
+					sge::parse::json::path(
+						FCPPT_TEXT("tags"))).elements,
+				&json_to_tag));
 }

@@ -11,7 +11,9 @@
 #include <sge/audio/scalar.hpp>
 #include <sge/systems/instance.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/tr1/functional.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <functional>
+#include <fcppt/config/external_end.hpp>
 
 
 fruitapp::states::menu::settings::settings(
@@ -36,22 +38,22 @@ fruitapp::states::menu::settings::settings(
 				menu::main))),
 	music_volume_connection_(
 		settings_->register_music_volume_change_callback(
-			std::tr1::bind(
+			std::bind(
 				&settings::music_volume_callback,
 				this,
-				std::tr1::placeholders::_1))),
+				std::placeholders::_1))),
 	effects_volume_connection_(
 		settings_->register_effects_volume_change_callback(
-			std::tr1::bind(
+			std::bind(
 				&settings::effects_volume_callback,
 				this,
-				std::tr1::placeholders::_1))),
+				std::placeholders::_1))),
 	quality_connection_(
 		settings_->register_quality_change_callback(
-			std::tr1::bind(
+			std::bind(
 				&settings::quality_callback,
 				this,
-				std::tr1::placeholders::_1)))
+				std::placeholders::_1)))
 {
 }
 

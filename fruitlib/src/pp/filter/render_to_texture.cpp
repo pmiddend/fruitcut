@@ -6,11 +6,6 @@
 #include <sge/image/color/format.hpp>
 #include <sge/renderer/context/scoped_core.hpp>
 #include <sge/renderer/target/offscreen.hpp>
-#include <fcppt/ref.hpp>
-#include <fcppt/io/cout.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <iostream>
-#include <fcppt/config/external_end.hpp>
 
 
 fruitlib::pp::filter::render_to_texture::render_to_texture(
@@ -54,8 +49,7 @@ fruitlib::pp::filter::render_to_texture::apply()
 		result->target());
 
 	callback_(
-		fcppt::ref(
-			scoped_context.get()));
+		scoped_context.get());
 
 	return result;
 }

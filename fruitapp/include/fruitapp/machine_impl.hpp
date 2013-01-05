@@ -219,7 +219,7 @@ public:
 	time_factor() const
 	FCPPT_PP_CONST;
 
-	sge::renderer::texture::emulate_srgb::type
+	sge::renderer::texture::emulate_srgb
 	emulate_srgb() const;
 
 	void
@@ -262,7 +262,7 @@ private:
 	sge::parse::json::object const config_file_;
 	fruitapp::config_variables::object config_variables_;
 	fruitapp::graphics_settings::object graphics_settings_;
-	sge::renderer::texture::emulate_srgb::type const emulate_srgb_;
+	sge::renderer::texture::emulate_srgb const emulate_srgb_;
 	fruitapp::systems const systems_;
 	fruitlib::texture_manager texture_manager_;
 	fcppt::scoped_ptr<sge::shader::context> const shader_context_;

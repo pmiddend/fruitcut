@@ -12,17 +12,16 @@
 #include <sge/audio/sound/positional.hpp>
 #include <sge/audio/sound/repeat.hpp>
 #include <fcppt/make_shared_ptr.hpp>
-#include <fcppt/ref.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
-#include <fcppt/tr1/functional.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/operations.hpp>
 #include <boost/filesystem/path.hpp>
 #include <cstddef>
-#include <iostream>
+#include <functional>
 #include <iterator>
+#include <utility>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -42,8 +41,7 @@ create_random_from_directory(
 
 	return
 		fcppt::make_shared_ptr<random_variate>(
-			fcppt::ref(
-				_random_generator),
+			_random_generator,
 			random_variate::distribution(
 				random_variate::distribution::min(
 					static_cast<std::size_t>(
@@ -100,18 +98,18 @@ fruitlib::audio::sound_controller::sound_controller(
 	sounds_(
 		fruitlib::resource_tree::from_directory_tree<resource_tree_type>(
 			_base_path,
-			std::tr1::bind(
+			std::bind(
 				&create_buffer_from_path,
-				fcppt::ref(
+				std::ref(
 					_loader),
-				fcppt::ref(
+				std::ref(
 					player_),
-				std::tr1::placeholders::_1),
-			std::tr1::bind(
+				std::placeholders::_1),
+			std::bind(
 				&create_random_from_directory,
-				fcppt::ref(
+				std::ref(
 					_random_generator),
-				std::tr1::placeholders::_1))),
+				std::placeholders::_1))),
 	pool_()
 {
 }
@@ -239,6 +237,6 @@ fruitlib::audio::sound_controller::do_play(
 		sge::audio::sound::repeat::once);
 
 	pool_.insert(
-		fcppt::move(
+		std::move(
 			b));
 }

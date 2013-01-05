@@ -2,14 +2,17 @@
 #define FRUITAPP_PROJECTION_MANAGER_PROJECTION_CHANGE_CALLBACK_HPP_INCLUDED
 
 #include <fruitapp/projection_manager/projection_change_callback_fn.hpp>
-#include <fcppt/function/object.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <functional>
+#include <fcppt/config/external_end.hpp>
+
 
 namespace fruitapp
 {
 namespace projection_manager
 {
 typedef
-fcppt::function::object<projection_manager::projection_change_callback_fn>
+std::function<projection_manager::projection_change_callback_fn>
 projection_change_callback;
 }
 }

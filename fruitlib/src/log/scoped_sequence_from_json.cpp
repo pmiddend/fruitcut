@@ -7,13 +7,14 @@
 #include <sge/parse/json/get.hpp>
 #include <sge/parse/json/object.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/move.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/container/ptr/push_back_unique_ptr.hpp>
 #include <fcppt/log/context.hpp>
 #include <fcppt/log/level_from_string.hpp>
-#include <fcppt/tr1/functional.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
 fruitlib::log::scoped_sequence_ptr
@@ -43,8 +44,7 @@ fruitlib::log::scoped_sequence_from_json(
 			fcppt::container::ptr::push_back_unique_ptr(
 				*result,
 				fcppt::make_unique_ptr<scoped>(
-					std::tr1::ref(
-						context),
+					context,
 					string_to_location(
 						FCPPT_TEXT("sge/")+sge::parse::json::get<fcppt::string>(
 							current_pair.elements[0]),
@@ -61,6 +61,6 @@ fruitlib::log::scoped_sequence_from_json(
 	}
 
 	return
-		fcppt::move(
+		std::move(
 			result);
 }

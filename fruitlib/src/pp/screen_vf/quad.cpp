@@ -1,17 +1,20 @@
 #include <fruitlib/pp/screen_vf/format.hpp>
 #include <fruitlib/pp/screen_vf/quad.hpp>
 #include <fruitlib/pp/screen_vf/vertex_view.hpp>
-#include <sge/renderer/first_vertex.hpp>
 #include <sge/renderer/lock_mode.hpp>
-#include <sge/renderer/scoped_vertex_buffer.hpp>
-#include <sge/renderer/scoped_vertex_declaration.hpp>
-#include <sge/renderer/scoped_vertex_lock.hpp>
+#include <sge/renderer/primitive_type.hpp>
 #include <sge/renderer/size_type.hpp>
-#include <sge/renderer/vertex_buffer.hpp>
-#include <sge/renderer/vertex_count.hpp>
-#include <sge/renderer/vertex_declaration.hpp>
 #include <sge/renderer/context/core.hpp>
 #include <sge/renderer/device/core.hpp>
+#include <sge/renderer/vertex/buffer.hpp>
+#include <sge/renderer/vertex/buffer_parameters.hpp>
+#include <sge/renderer/vertex/count.hpp>
+#include <sge/renderer/vertex/declaration.hpp>
+#include <sge/renderer/vertex/declaration_parameters.hpp>
+#include <sge/renderer/vertex/first.hpp>
+#include <sge/renderer/vertex/scoped_buffer.hpp>
+#include <sge/renderer/vertex/scoped_declaration.hpp>
+#include <sge/renderer/vertex/scoped_lock.hpp>
 #include <sge/renderer/vf/vertex.hpp>
 #include <sge/renderer/vf/dynamic/make_format.hpp>
 #include <sge/renderer/vf/dynamic/part_index.hpp>
@@ -26,17 +29,19 @@ fruitlib::pp::screen_vf::quad::quad(
 		_renderer),
 	declaration_(
 		renderer_.create_vertex_declaration(
-			sge::renderer::vf::dynamic::make_format<fruitlib::pp::screen_vf::format>())),
+			sge::renderer::vertex::declaration_parameters(
+				sge::renderer::vf::dynamic::make_format<fruitlib::pp::screen_vf::format>()))),
 	buffer_(
 		renderer_.create_vertex_buffer(
-			*declaration_,
-			sge::renderer::vf::dynamic::part_index(
-				0u),
-			sge::renderer::vertex_count(
-				6u),
-			sge::renderer::resource_flags_field::null()))
+			sge::renderer::vertex::buffer_parameters(
+				*declaration_,
+				sge::renderer::vf::dynamic::part_index(
+					0u),
+				sge::renderer::vertex::count(
+					6u),
+				sge::renderer::resource_flags_field::null())))
 {
-	sge::renderer::scoped_vertex_lock const vblock(
+	sge::renderer::vertex::scoped_lock const vblock(
 		*buffer_,
 		sge::renderer::lock_mode::writeonly);
 
@@ -81,23 +86,23 @@ void
 fruitlib::pp::screen_vf::quad::render(
 	sge::renderer::context::core &_context)
 {
-	sge::renderer::scoped_vertex_declaration const scoped_vd_(
+	sge::renderer::vertex::scoped_declaration const scoped_vd_(
 		_context,
 		*declaration_);
 
-	sge::renderer::scoped_vertex_buffer const scoped_vb_(
+	sge::renderer::vertex::scoped_buffer const scoped_vb_(
 		_context,
 		*buffer_);
 
 	_context.render_nonindexed(
-		sge::renderer::first_vertex(
+		sge::renderer::vertex::first(
 			0u),
-		sge::renderer::vertex_count(
+		sge::renderer::vertex::count(
 			buffer_->size()),
 		sge::renderer::primitive_type::triangle_list);
 }
 
-sge::renderer::vertex_declaration const &
+sge::renderer::vertex::declaration const &
 fruitlib::pp::screen_vf::quad::vertex_declaration() const
 {
 	return

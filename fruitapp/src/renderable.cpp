@@ -6,7 +6,9 @@
 #include <sge/renderer/device/ffp.hpp>
 #include <sge/systems/instance.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/tr1/functional.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <functional>
+#include <fcppt/config/external_end.hpp>
 
 
 fruitapp::renderable::renderable(
@@ -29,10 +31,10 @@ fruitapp::renderable::renderable(
 					*this,
 					fruitlib::scenic::depth(
 						1))),
-			std::tr1::bind(
+			std::bind(
 				&fruitapp::scene::render_children,
 				&scene_,
-				std::tr1::placeholders::_1))),
+				std::placeholders::_1))),
 	overlay_(
 		fruitlib::scenic::optional_parent(
 			fruitlib::scenic::parent(

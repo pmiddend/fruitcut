@@ -9,9 +9,7 @@
 #include <sge/parse/json/string_to_path.hpp>
 #include <sge/renderer/context/ffp.hpp>
 #include <sge/renderer/device/ffp.hpp>
-#include <fcppt/cref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/ref.hpp>
 #include <fcppt/text.hpp>
 
 
@@ -35,26 +33,18 @@ fruitapp::fruit::rendering::draw_node::draw_node(
 		?
 			fruitapp::fruit::rendering::base_unique_ptr(
 				fcppt::make_unique_ptr<fruitapp::fruit::rendering::ffp>(
-					fcppt::ref(
-						dynamic_cast<sge::renderer::device::ffp &>(
-							_renderer)),
-					fcppt::cref(
-						_fruit_manager),
-					fcppt::cref(
-						_camera),
-					fcppt::cref(
-						_light_manager)))
+					dynamic_cast<sge::renderer::device::ffp &>(
+						_renderer),
+					_fruit_manager,
+					_camera,
+					_light_manager))
 		:
 			fruitapp::fruit::rendering::base_unique_ptr(
 				fcppt::make_unique_ptr<fruitapp::fruit::rendering::cg>(
-					fcppt::ref(
-						*_shader_context),
-					fcppt::cref(
-						_fruit_manager),
-					fcppt::cref(
-						_camera),
-					fcppt::cref(
-						_light_manager))))
+					*_shader_context,
+					_fruit_manager,
+					_camera,
+					_light_manager)))
 {
 }
 

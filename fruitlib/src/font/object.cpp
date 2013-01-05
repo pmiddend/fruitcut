@@ -5,7 +5,6 @@
 #include <sge/font/draw/static_text.hpp>
 #include <sge/image/color/any/object.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/ref.hpp>
 #include <fcppt/math/box/output.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <iostream>
@@ -96,7 +95,7 @@ fruitlib::font::object::bounding_box(
 		this->regenerate_text_object();
 }
 
-sge::font::align_h::type
+sge::font::align_h
 fruitlib::font::object::alignment_h() const
 {
 	return
@@ -105,7 +104,7 @@ fruitlib::font::object::alignment_h() const
 
 void
 fruitlib::font::object::alignment_h(
-	sge::font::align_h::type const _alignment_h)
+	sge::font::align_h const _alignment_h)
 {
 	alignment_h_ =
 		_alignment_h;
@@ -215,10 +214,8 @@ fruitlib::font::object::regenerate_text_object()
 
 	text_object_.take(
 		fcppt::make_unique_ptr<sge::font::draw::static_text>(
-			fcppt::ref(
-				manager_.renderer()),
-			fcppt::ref(
-				font_object_),
+			manager_.renderer(),
+			font_object_,
 			text_,
 			sge::font::text_parameters(
 				alignment_h_)

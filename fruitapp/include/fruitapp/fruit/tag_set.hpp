@@ -2,7 +2,9 @@
 #define FRUITAPP_FRUIT_TAG_SET_HPP_INCLUDED
 
 #include <fruitapp/fruit/tag.hpp>
-#include <fcppt/tr1/unordered_set.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <unordered_set>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace fruitapp
@@ -10,7 +12,7 @@ namespace fruitapp
 namespace fruit
 {
 typedef
-std::tr1::unordered_set<fruit::tag>
+std::unordered_set<fruit::tag>
 tag_set;
 }
 }

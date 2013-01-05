@@ -7,12 +7,12 @@
 #include <fruitlib/pp/texture/counted_instance.hpp>
 #include <fruitlib/pp/texture/depth_stencil_format.hpp>
 #include <fruitlib/pp/texture/manager_fwd.hpp>
-#include <sge/renderer/dim2.hpp>
 #include <sge/renderer/clear/parameters.hpp>
 #include <sge/renderer/context/core_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/function/object.hpp>
-#include <fcppt/math/dim/object_impl.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <functional>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace fruitlib
@@ -29,7 +29,7 @@ FCPPT_NONCOPYABLE(
 	render_to_texture);
 public:
 	typedef
-	fcppt::function::object<void (sge::renderer::context::core &)>
+	std::function<void (sge::renderer::context::core &)>
 	callback;
 
 	render_to_texture(

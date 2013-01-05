@@ -12,16 +12,14 @@
 #include <sge/renderer/texture/planar_shared_ptr.hpp>
 #include <sge/shader/scoped_pair.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/ref.hpp>
-#include <fcppt/cref.hpp>
 #include <fcppt/assert/pre.hpp>
-#include <fcppt/assign/make_array.hpp>
-#include <fcppt/assign/make_container.hpp>
 #include <fcppt/container/ptr/replace_unique_ptr.hpp>
 #include <fcppt/math/dim/object_impl.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <iostream>
+#include <cstddef>
+#include <sstream>
+#include <string>
 #include <fcppt/config/external_end.hpp>
 
 namespace
@@ -153,42 +151,34 @@ fruitlib::pp::filter::blur::blur(
 			shaders_,
 			i,
 			fcppt::make_unique_ptr<sge::shader::pair>(
-				fcppt::ref(
-					_filter_manager.shader_context()),
-				fcppt::ref(
-					_filter_manager.quad().vertex_declaration()),
-				fcppt::cref(
-					sge::shader::vertex_program_stream(
-						*fcppt::make_unique_ptr<std::istringstream>(
-							std::string(
-								sources[i])))),
-				fcppt::cref(
-					sge::shader::pixel_program_stream(
-						*fcppt::make_unique_ptr<std::istringstream>(
-							std::string(
-								sources[i])))),
+				_filter_manager.shader_context(),
+				_filter_manager.quad().vertex_declaration(),
+				sge::shader::vertex_program_stream(
+					*fcppt::make_unique_ptr<std::istringstream>(
+						std::string(
+							sources[i]))),
+				sge::shader::pixel_program_stream(
+					*fcppt::make_unique_ptr<std::istringstream>(
+						std::string(
+							sources[i]))),
 				_filter_manager.shader_cflags()));
 
 		fcppt::container::ptr::replace_unique_ptr(
 			planar_textures_,
 			i,
 			fcppt::make_unique_ptr<sge::shader::parameter::planar_texture>(
-				fcppt::ref(
-					shaders_[i].pixel_program()),
+				shaders_[i].pixel_program(),
 				sge::shader::parameter::name(
 					"input_texture"),
-				fcppt::ref(
-					shaders_[i]),
-				fcppt::ref(
-					_filter_manager.renderer()),
+				shaders_[i],
+				_filter_manager.renderer(),
 				sge::shader::parameter::planar_texture::optional_value()));
 
 		fcppt::container::ptr::replace_unique_ptr(
 			texture_sizes_,
 			i,
 			fcppt::make_unique_ptr<vec2_parameter>(
-				fcppt::ref(
-					shaders_[i].pixel_program()),
+				shaders_[i].pixel_program(),
 				sge::shader::parameter::name(
 					"texture_size"),
 				sge::renderer::vector2()));

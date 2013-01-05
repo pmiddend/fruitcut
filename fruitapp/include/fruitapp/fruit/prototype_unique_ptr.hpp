@@ -2,14 +2,17 @@
 #define FRUITAPP_FRUIT_PROTOTYPE_UNIQUE_PTR_HPP_INCLUDED
 
 #include <fruitapp/fruit/prototype_fwd.hpp>
-#include <fcppt/unique_ptr.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <memory>
+#include <fcppt/config/external_end.hpp>
+
 
 namespace fruitapp
 {
 namespace fruit
 {
 typedef
-fcppt::unique_ptr<fruit::prototype>
+std::unique_ptr<fruit::prototype>
 prototype_unique_ptr;
 }
 }

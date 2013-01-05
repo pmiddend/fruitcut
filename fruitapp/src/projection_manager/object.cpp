@@ -11,14 +11,16 @@
 #include <sge/renderer/projection/perspective_af.hpp>
 #include <sge/renderer/target/base.hpp>
 #include <sge/viewport/manager.hpp>
-#include <fcppt/move.hpp>
 #include <fcppt/math/deg_to_rad.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/math/matrix/vector.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
 #include <fcppt/math/vector/construct.hpp>
 #include <fcppt/signal/connection.hpp>
-#include <fcppt/tr1/functional.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <functional>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
 fruitapp::projection_manager::object::object(
@@ -50,10 +52,10 @@ fruitapp::projection_manager::object::object(
 	aspect_(),
 	viewport_connection_(
 		_viewport_manager.change_callback(
-			std::tr1::bind(
+			std::bind(
 				&object::viewport_callback,
 				this,
-				std::tr1::placeholders::_1),
+				std::placeholders::_1),
 			fruitapp::viewport::trigger_early(
 				true)))
 {
@@ -89,7 +91,7 @@ fruitapp::projection_manager::object::projection_change_callback(
 			*this->perspective_projection_information());
 
 	return
-		fcppt::move(
+		std::move(
 			result);
 }
 

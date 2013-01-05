@@ -3,12 +3,11 @@
 
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/strong_typedef.hpp>
-#include <fcppt/function/object.hpp>
 #include <sge/charconv/system_fwd.hpp>
 #include <fcppt/string.hpp>
-#include <fcppt/signal/shared_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <CEGUI/Event.h>
+#include <functional>
 #include <vector>
 #include <fcppt/config/external_end.hpp>
 
@@ -33,7 +32,7 @@ FCPPT_NONCOPYABLE(
 	combobox);
 public:
 	typedef
-	fcppt::function::object<void()>
+	std::function<void()>
 	choose_callback;
 
 	FCPPT_MAKE_STRONG_TYPEDEF(

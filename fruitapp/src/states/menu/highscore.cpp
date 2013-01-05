@@ -17,9 +17,8 @@
 #include <awl/main/exit_success.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/tr1/functional.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <iostream>
+#include <functional>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -60,10 +59,10 @@ fruitapp::states::menu::highscore::highscore(
 
 	switch_provider_connection_.take(
 		highscore_->register_switch_provider_callback(
-			std::tr1::bind(
+			std::bind(
 				&fruitapp::states::menu::highscore::switch_provider,
 				this,
-				std::tr1::placeholders::_1)));
+				std::placeholders::_1)));
 }
 
 FRUITAPP_EVENTS_DEFINE_TRANSITION_REACTION(
@@ -91,26 +90,26 @@ fruitapp::states::menu::highscore::switch_provider(
 
 	highscore_->clear_log();
 
-	message_connection_ =
+	message_connection_.take(
 		connection_->message_received(
-			std::tr1::bind(
+			std::bind(
 				&highscore::text_received,
 				this,
-				std::tr1::placeholders::_1));
+				std::placeholders::_1)));
 
-	error_connection_ =
+	error_connection_.take(
 		connection_->error_received(
-			std::tr1::bind(
+			std::bind(
 				&highscore::text_received,
 				this,
-				std::tr1::placeholders::_1));
+				std::placeholders::_1)));
 
-	list_connection_ =
+	list_connection_.take(
 		connection_->list_received(
-			std::tr1::bind(
+			std::bind(
 				&highscore::list_received,
 				this,
-				std::tr1::placeholders::_1));
+				std::placeholders::_1)));
 
 	connection_->retrieve_list();
 }

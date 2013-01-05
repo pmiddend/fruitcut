@@ -3,12 +3,11 @@
 #include <fruitapp/graphics_settings/object.hpp>
 #include <fruitapp/gui/ce/system.hpp>
 #include <fruitapp/gui/ce/dialogs/settings.hpp>
-#include <fcppt/ref.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/tr1/functional.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/phoenix/bind.hpp>
 #include <boost/phoenix/core/reference.hpp>
+#include <functional>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -54,10 +53,10 @@ fruitapp::gui::ce::dialogs::settings::settings(
 				_initial_music_volume.get().get()))),
 	music_volume_connection_(
 		music_volume_slider_.value_changed(
-			std::tr1::bind(
+			std::bind(
 				&settings::music_volume_callback,
 				this,
-				std::tr1::placeholders::_1))),
+				std::placeholders::_1))),
 	music_volume_change_(),
 	effects_volume_slider_(
 		_system.sound_controller(),
@@ -71,10 +70,10 @@ fruitapp::gui::ce::dialogs::settings::settings(
 				_initial_effects_volume.get().get()))),
 	effects_volume_connection_(
 		effects_volume_slider_.value_changed(
-			std::tr1::bind(
+			std::bind(
 				&settings::effects_volume_callback,
 				this,
-				std::tr1::placeholders::_1))),
+				std::placeholders::_1))),
 	effects_volume_change_(),
 	quality_change_(),
 	quality_dropdown_(

@@ -4,11 +4,13 @@
 #include <fruitapp/viewport/manager.hpp>
 #include <sge/shader/context.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/move.hpp>
-#include <fcppt/ref.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/pre.hpp>
-#include <fcppt/tr1/functional.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <functional>
+#include <memory>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
 fruitapp::postprocessing::cg::system::system(
@@ -24,10 +26,10 @@ fruitapp::postprocessing::cg::system::system(
 		_shader_context),
 	viewport_change_connection_(
 		_viewport_manager.change_callback(
-			std::tr1::bind(
+			std::bind(
 				&system::viewport_change,
 				this,
-				std::tr1::placeholders::_1),
+				std::placeholders::_1),
 			fruitapp::viewport::trigger_early(
 				true))),
 	main_system_(),
@@ -44,10 +46,9 @@ fruitapp::postprocessing::cg::system::create_main_subsystem(
 	FCPPT_ASSERT_PRE(
 		!main_system_.has_value());
 
-	fcppt::unique_ptr<fruitapp::postprocessing::cg::subsystems::main> main_system(
+	std::unique_ptr<fruitapp::postprocessing::cg::subsystems::main> main_system(
 		fcppt::make_unique_ptr<fruitapp::postprocessing::cg::subsystems::main>(
-			fcppt::ref(
-				*this),
+			*this,
 			_parent,
 			_render_callback));
 
@@ -58,7 +59,7 @@ fruitapp::postprocessing::cg::system::create_main_subsystem(
 
 	return
 		fruitapp::postprocessing::subsystems::main_unique_ptr(
-			fcppt::move(
+			std::move(
 				main_system));
 }
 
@@ -80,8 +81,7 @@ fruitapp::postprocessing::cg::system::create_paused_subsystem(
 	return
 		fruitapp::postprocessing::subsystems::paused_unique_ptr(
 			fcppt::make_unique_ptr<fruitapp::postprocessing::cg::subsystems::paused>(
-				fcppt::ref(
-					*this),
+				*this,
 				_parent));
 }
 

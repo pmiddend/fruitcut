@@ -28,7 +28,9 @@
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/chrono/duration.hpp>
+#include <algorithm>
 #include <cmath>
+#include <functional>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -119,10 +121,10 @@ fruitapp::fruit::spawner::spawner(
 	perspective_projection_information_(),
 	projection_change_connection_(
 		_projection_manager.projection_change_callback(
-			std::tr1::bind(
+			std::bind(
 				&spawner::projection_change,
 				this,
-				std::tr1::placeholders::_1),
+				std::placeholders::_1),
 		fruitapp::projection_manager::trigger_early(
 			true)))
 {

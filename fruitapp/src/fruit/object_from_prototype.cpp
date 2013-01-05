@@ -1,9 +1,7 @@
 #include <fruitapp/fruit/object.hpp>
 #include <fruitapp/fruit/object_from_prototype.hpp>
 #include <fruitapp/fruit/prototype.hpp>
-#include <fcppt/cref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/ref.hpp>
 
 
 fruitapp::fruit::object_unique_ptr
@@ -12,7 +10,7 @@ fruitapp::fruit::object_from_prototype(
 	fruitlib::physics::world &_physics_world,
 	fruitlib::physics::group::object &_fruit_group,
 	sge::renderer::device::core &_renderer,
-	sge::renderer::vertex_declaration &_vertex_declaration,
+	sge::renderer::vertex::declaration &_vertex_declaration,
 	fruitlib::physics::rigid_body::mass const _mass,
 	fruitlib::physics::rigid_body::position const &_position,
 	fruitlib::physics::rigid_body::transformation const &_transformation,
@@ -22,19 +20,13 @@ fruitapp::fruit::object_from_prototype(
 {
 	return
 		fcppt::make_unique_ptr<fruitapp::fruit::object>(
-			fcppt::cref(
-				_prototype),
-			fcppt::ref(
-				_physics_world),
-			fcppt::ref(
-				_renderer),
-			fcppt::ref(
-				_vertex_declaration),
+			_prototype,
+			_physics_world,
+			_renderer,
+			_vertex_declaration,
 			fcppt::make_unique_ptr<fruitapp::fruit::mesh>(
-				fcppt::cref(
-					_prototype.mesh().triangles())),
-			fcppt::ref(
-				_fruit_group),
+				_prototype.mesh().triangles()),
+			_fruit_group,
 			_mass,
 			_position,
 			_transformation,
@@ -42,6 +34,5 @@ fruitapp::fruit::object_from_prototype(
 			_angular_velocity,
 			fruitapp::fruit::ban_duration(
 				fruitapp::ingame_clock::duration()),
-			fcppt::cref(
-				_clock));
+			_clock);
 }

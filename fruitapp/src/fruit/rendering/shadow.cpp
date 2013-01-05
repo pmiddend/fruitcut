@@ -2,10 +2,7 @@
 #include <fruitapp/fruit/manager.hpp>
 #include <fruitapp/fruit/rendering/shadow.hpp>
 #include <sge/renderer/matrix4.hpp>
-#include <sge/renderer/scoped_vertex_buffer.hpp>
-#include <sge/renderer/scoped_vertex_declaration.hpp>
-#include <sge/renderer/vertex_buffer.hpp>
-#include <sge/renderer/vertex_declaration.hpp>
+#include <sge/renderer/primitive_type.hpp>
 #include <sge/renderer/context/ffp.hpp>
 #include <sge/renderer/device/core.hpp>
 #include <sge/renderer/state/core/depth_stencil/object.hpp>
@@ -13,11 +10,16 @@
 #include <sge/renderer/state/core/depth_stencil/scoped.hpp>
 #include <sge/renderer/state/core/depth_stencil/depth/enabled.hpp>
 #include <sge/renderer/state/core/depth_stencil/stencil/off.hpp>
+#include <sge/renderer/vertex/buffer.hpp>
+#include <sge/renderer/vertex/count.hpp>
+#include <sge/renderer/vertex/declaration.hpp>
+#include <sge/renderer/vertex/first.hpp>
+#include <sge/renderer/vertex/scoped_buffer.hpp>
+#include <sge/renderer/vertex/scoped_declaration.hpp>
 #include <sge/shader/context.hpp>
 #include <sge/shader/scoped_pair.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/math/matrix/arithmetic.hpp>
-#include <fcppt/math/matrix/object_impl.hpp>
 
 
 fruitapp::fruit::rendering::shadow::shadow(
@@ -68,7 +70,7 @@ fruitapp::fruit::rendering::shadow::render(
 		_context,
 		*depth_stencil_state_);
 
-	sge::renderer::scoped_vertex_declaration scoped_vd(
+	sge::renderer::vertex::scoped_declaration scoped_vd(
 		_context,
 		manager_.vertex_declaration());
 
@@ -82,7 +84,7 @@ fruitapp::fruit::rendering::shadow::render(
 		i != manager_.fruits().end();
 		++i)
 	{
-		sge::renderer::scoped_vertex_buffer scoped_vb(
+		sge::renderer::vertex::scoped_buffer scoped_vb(
 			_context,
 			i->vb());
 
@@ -90,10 +92,10 @@ fruitapp::fruit::rendering::shadow::render(
 			mvp_.get() * i->world_transform());
 
 		_context.render_nonindexed(
-			sge::renderer::first_vertex(
+			sge::renderer::vertex::first(
 				static_cast<sge::renderer::size_type>(
 					0)),
-			sge::renderer::vertex_count(
+			sge::renderer::vertex::count(
 				i->vb().size()),
 			sge::renderer::primitive_type::triangle_list);
 	}

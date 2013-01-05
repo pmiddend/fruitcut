@@ -2,10 +2,10 @@
 #include <fruitlib/audio/sound_controller.hpp>
 #include <fruitlib/resource_tree/path.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/tr1/functional.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <CEGUI/Window.h>
 #include <CEGUI/widgets/Slider.h>
+#include <functional>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -22,18 +22,18 @@ fruitapp::gui::ce::slider::object::object(
 		_window.subscribeEvent(
 			CEGUI::Slider::EventValueChanged,
 			CEGUI::Event::Subscriber(
-				std::tr1::bind(
+				std::bind(
 					&fruitapp::gui::ce::slider::object::internal_value_changed_callback,
 					this,
-					std::tr1::placeholders::_1)))),
+					std::placeholders::_1)))),
 	value_change_complete_connection_(
 		_window.subscribeEvent(
 			CEGUI::Slider::EventThumbTrackEnded,
 			CEGUI::Event::Subscriber(
-				std::tr1::bind(
+				std::bind(
 					&fruitapp::gui::ce::slider::object::internal_value_change_complete_callback,
 					this,
-					std::tr1::placeholders::_1)))),
+					std::placeholders::_1)))),
 	range_(
 		_range)
 {

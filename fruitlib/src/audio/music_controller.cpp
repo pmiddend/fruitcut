@@ -15,16 +15,14 @@
 #include <sge/timer/parameters.hpp>
 #include <sge/timer/remaining_fractional.hpp>
 #include <fcppt/make_shared_ptr.hpp>
-#include <fcppt/ref.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/error.hpp>
-#include <fcppt/io/cout.hpp>
-#include <fcppt/tr1/functional.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/next_prior.hpp>
 #include <boost/filesystem/operations.hpp>
 #include <boost/filesystem/path.hpp>
-#include <iostream>
+#include <cstddef>
+#include <functional>
 #include <iterator>
 #include <fcppt/config/external_end.hpp>
 
@@ -45,8 +43,7 @@ create_random_from_directory(
 
 	return
 		fcppt::make_shared_ptr<random_variate>(
-			fcppt::ref(
-				_random_generator),
+			_random_generator,
 			random_variate::distribution(
 				random_variate::distribution::min(
 					static_cast<std::size_t>(
@@ -91,16 +88,16 @@ fruitlib::audio::music_controller::music_controller(
 	sounds_(
 		fruitlib::resource_tree::from_directory_tree<resource_tree_type>(
 			_base_path,
-			std::tr1::bind(
+			std::bind(
 				&load_shared,
-				fcppt::ref(
+				std::ref(
 					_audio_loader),
-				std::tr1::placeholders::_1),
-			std::tr1::bind(
+				std::placeholders::_1),
+			std::bind(
 				&create_random_from_directory,
-				fcppt::ref(
+				std::ref(
 					_random_generator),
-				std::tr1::placeholders::_1))),
+				std::placeholders::_1))),
 	clock_(
 		_time_callback),
 	crossfade_(

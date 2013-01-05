@@ -29,7 +29,7 @@ namespace math
 
 	@param window_coordinates Three-dimensional window-coordinates, so you can pass a depth which specifies the distance from the viewing plane (the unprojected point is, of course, not unique)
 	@param inverse_mvp The already-inverted model-view-projection matrix. This is a performance improvement over gluUnproject since you might only calculate this matrix once and then reuse it
-	@param The viewport, conveniently expressed as a rectangle.
+	@param viewport The viewport, conveniently expressed as a rectangle.
  */
 template<typename T,typename N,typename S1,typename M1,typename M2,typename S2>
 typename

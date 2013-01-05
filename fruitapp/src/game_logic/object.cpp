@@ -55,12 +55,12 @@
 #include <fcppt/math/box/output.hpp>
 #include <fcppt/math/dim/arithmetic.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
-#include <fcppt/tr1/functional.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/cstdint.hpp>
 #include <boost/format.hpp>
 #include <boost/chrono/duration.hpp>
-#include <iostream>
+#include <cmath>
+#include <functional>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -146,22 +146,22 @@ fruitapp::game_logic::object::object(
 		_sound_controller),
 	fruit_added_connection_(
 		_fruit_manager.spawn_callback(
-			std::tr1::bind(
+			std::bind(
 				&object::fruit_added,
 				this,
-				std::tr1::placeholders::_1))),
+				std::placeholders::_1))),
 	fruit_cut_connection_(
 		_fruit_manager.cut_callback(
-			std::tr1::bind(
+			std::bind(
 				&object::fruit_cut,
 				this,
-				std::tr1::placeholders::_1))),
+				std::placeholders::_1))),
 	fruit_removed_connection_(
 		_fruit_manager.remove_callback(
-			std::tr1::bind(
+			std::bind(
 				&object::fruit_removed,
 				this,
-				std::tr1::placeholders::_1))),
+				std::placeholders::_1))),
 	font_particles_(
 		fruitlib::scenic::optional_parent(
 			fruitlib::scenic::parent(
@@ -271,10 +271,10 @@ fruitapp::game_logic::object::object(
 	multi_count_(0),
 	viewport_change_connection_(
 		_viewport_manager.change_callback(
-			std::tr1::bind(
+			std::bind(
 				&game_logic::object::viewport_change,
 				this,
-				std::tr1::placeholders::_1),
+				std::placeholders::_1),
 			fruitapp::viewport::trigger_early(
 				true))),
 	cut_fruits_(),

@@ -27,8 +27,7 @@
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
 #include <cstddef>
-#include <map>
-#include <vector>
+#include <memory>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -47,7 +46,6 @@ public:
 	boost::mpl::vector1<scenic::events::update>
 	scene_reactions;
 
-	explicit
 	music_controller(
 		scenic::optional_parent const &,
 		scenic::delta::callback const &,
@@ -91,7 +89,7 @@ private:
 	resource_tree_type;
 
 	typedef
-	fcppt::unique_ptr<resource_tree_type>
+	std::unique_ptr<resource_tree_type>
 	resource_tree_ptr;
 
 	group::player player_;

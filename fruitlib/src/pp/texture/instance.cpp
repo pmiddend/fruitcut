@@ -1,28 +1,30 @@
 #include <fruitlib/pp/texture/instance.hpp>
-#include <sge/renderer/depth_stencil_surface.hpp>
+#include <sge/renderer/depth_stencil_buffer/surface.hpp>
 #include <sge/renderer/target/offscreen.hpp>
 #include <sge/renderer/texture/depth_stencil.hpp>
 #include <sge/renderer/texture/planar.hpp>
-#include <fcppt/move.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
 fruitlib::pp::texture::instance::instance(
 	fruitlib::pp::texture::descriptor const &_descriptor,
 	sge::renderer::texture::planar_unique_ptr _texture,
 	sge::renderer::target::offscreen_unique_ptr _target,
-	sge::renderer::depth_stencil_surface_unique_ptr _depth_stencil,
+	sge::renderer::depth_stencil_buffer::surface_unique_ptr _depth_stencil,
 	fruitlib::pp::texture::is_locked const &_locked)
 :
 	descriptor_(
 		_descriptor),
 	texture_(
-		fcppt::move(
+		std::move(
 			_texture)),
 	target_(
-		fcppt::move(
+		std::move(
 			_target)),
 	depth_stencil_(
-		fcppt::move(
+		std::move(
 			_depth_stencil)),
 	locked_(
 		_locked.get())

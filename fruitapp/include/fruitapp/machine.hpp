@@ -31,7 +31,7 @@
 #include <sge/camera/first_person/object_fwd.hpp>
 #include <sge/model/md3/loader_fwd.hpp>
 #include <sge/parse/json/object_fwd.hpp>
-#include <sge/renderer/texture/emulate_srgb.hpp>
+#include <sge/renderer/texture/emulate_srgb_fwd.hpp>
 #include <sge/shader/optional_context_ref.hpp>
 #include <awl/main/exit_code.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -193,7 +193,7 @@ public:
 	time_factor() const
 	FCPPT_PP_CONST;
 
-	sge::renderer::texture::emulate_srgb::type
+	sge::renderer::texture::emulate_srgb
 	emulate_srgb() const;
 
 	void

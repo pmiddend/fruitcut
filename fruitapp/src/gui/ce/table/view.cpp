@@ -5,11 +5,10 @@
 #include <fcppt/insert_to_fcppt_string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/pre_message.hpp>
-#include <fcppt/tr1/functional.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <CEGUI/widgets/ListboxTextItem.h>
 #include <CEGUI/widgets/MultiColumnList.h>
-#include <iostream>
+#include <functional>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -27,17 +26,17 @@ fruitapp::gui::ce::table::view::view(
 		_model),
 	row_added_connection_(
 		model_.row_added(
-			std::tr1::bind(
+			std::bind(
 				&view::row_added,
 				this,
-				std::tr1::placeholders::_1,
-				std::tr1::placeholders::_2))),
+				std::placeholders::_1,
+				std::placeholders::_2))),
 	row_removed_connection_(
 		model_.row_removed(
-			std::tr1::bind(
+			std::bind(
 				&view::row_removed,
 				this,
-				std::tr1::placeholders::_1)))
+				std::placeholders::_1)))
 {
 	// Make a copy to prevent the begin/end error
 	column_sequence const columns =

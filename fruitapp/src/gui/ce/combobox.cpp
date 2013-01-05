@@ -2,11 +2,10 @@
 #include <sge/cegui/to_cegui_string.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/container/ptr/push_back_unique_ptr.hpp>
-#include <fcppt/tr1/functional.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <CEGUI/widgets/Combobox.h>
 #include <CEGUI/widgets/ListboxTextItem.h>
-#include <iostream>
+#include <functional>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -25,10 +24,10 @@ fruitapp::gui::ce::combobox::combobox(
 			// CEGUI::Combobox::EventListSelectionChanged is wrong, this is
 			// called when the mouse hovers over an item while selecting
 			CEGUI::Combobox::EventListSelectionAccepted,
-			std::tr1::bind(
+			std::bind(
 				&combobox::selection_changed,
 				this,
-				std::tr1::placeholders::_1)))
+				std::placeholders::_1)))
 {
 }
 

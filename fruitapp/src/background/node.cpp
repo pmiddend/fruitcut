@@ -4,9 +4,7 @@
 #include <fruitapp/background/node.hpp>
 #include <sge/renderer/context/ffp.hpp>
 #include <sge/renderer/device/ffp.hpp>
-#include <fcppt/cref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/ref.hpp>
 
 
 fruitapp::background::node::node(
@@ -28,29 +26,21 @@ fruitapp::background::node::node(
 		?
 			fruitapp::background::base_unique_ptr(
 				fcppt::make_unique_ptr<fruitapp::background::ffp>(
-					fcppt::ref(
-						dynamic_cast<sge::renderer::device::ffp &>(
-							_renderer)),
-					fcppt::ref(
-						_texture_manager),
+					dynamic_cast<sge::renderer::device::ffp &>(
+						_renderer),
+					_texture_manager,
 					_repetitions,
-					fcppt::cref(
-						_camera),
-					fcppt::ref(
-						_projection_manager)))
+					_camera,
+					_projection_manager))
 		:
 			fruitapp::background::base_unique_ptr(
 				fcppt::make_unique_ptr<fruitapp::background::cg>(
-					fcppt::ref(
-						_texture_manager),
-					fcppt::ref(
-						*_shader_context),
+					_texture_manager,
+					*_shader_context,
 					_shadow_map,
 					_repetitions,
-					fcppt::cref(
-						_camera),
-					fcppt::ref(
-						_projection_manager))))
+					_camera,
+					_projection_manager)))
 {
 }
 

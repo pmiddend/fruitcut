@@ -2,14 +2,17 @@
 #define FRUITAPP_GUI_SYSTEM_UNIQUE_PTR_HPP_INCLUDED
 
 #include <fruitapp/gui/system_fwd.hpp>
-#include <fcppt/unique_ptr.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <memory>
+#include <fcppt/config/external_end.hpp>
+
 
 namespace fruitapp
 {
 namespace gui
 {
 typedef
-fcppt::unique_ptr<fruitapp::gui::system>
+std::unique_ptr<fruitapp::gui::system>
 system_unique_ptr;
 }
 }

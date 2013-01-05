@@ -30,8 +30,8 @@
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/math/matrix/object_impl.hpp>
 #include <fcppt/math/vector/object_impl.hpp>
-#include <fcppt/tr1/functional.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <functional>
 #include <iterator>
 #include <fcppt/config/external_end.hpp>
 
@@ -82,10 +82,10 @@ fruitapp::states::loading::loading(
 				1.f))),
 	viewport_change_connection_(
 		context<fruitapp::machine>().viewport_manager().change_callback(
-			std::tr1::bind(
+			std::bind(
 				&loading::viewport_change,
 				this,
-				std::tr1::placeholders::_1),
+				std::placeholders::_1),
 			fruitapp::viewport::trigger_early(
 				true)))
 {

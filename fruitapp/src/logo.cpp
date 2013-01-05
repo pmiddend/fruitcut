@@ -22,11 +22,12 @@
 #include <sge/texture/part_raw_ptr.hpp>
 #include <mizuiro/color/operators.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/ref.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/container/bitfield/object_impl.hpp>
-#include <fcppt/tr1/functional.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <functional>
+#include <fcppt/config/external_end.hpp>
 
 
 fruitapp::logo::logo(
@@ -61,10 +62,10 @@ fruitapp::logo::logo(
 			.texture_size()),
 	viewport_change_connection_(
 		_viewport_manager.change_callback(
-			std::tr1::bind(
+			std::bind(
 				&logo::viewport_change,
 				this,
-				std::tr1::placeholders::_1),
+				std::placeholders::_1),
 			fruitapp::viewport::trigger_early(
 				true)))
 {

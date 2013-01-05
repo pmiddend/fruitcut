@@ -6,7 +6,6 @@
 #include <fcppt/optional.hpp>
 #include <fcppt/assert/error.hpp>
 #include <fcppt/assert/pre.hpp>
-#include <fcppt/assign/make_array.hpp>
 #include <fcppt/container/array.hpp>
 #include <fcppt/math/range_compare.hpp>
 #include <fcppt/math/matrix/object_impl.hpp>
@@ -18,6 +17,7 @@
 #include <fcppt/math/vector/orthogonalize.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/identity.hpp>
+#include <iterator>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -79,7 +79,7 @@ make_coordinate_system(
 	// First step: Find the first point that is not equal to points[0]
 	// (so we can form the first axis)
 	const_iterator first_other_point =
-		boost::next(
+		std::next(
 			points.begin());
 
 	for(; first_other_point != points.end(); ++first_other_point)
@@ -102,7 +102,7 @@ make_coordinate_system(
 	// Second step: Find the first point that is not colinear to the
 	// first two points (to form the second axis).
 	const_iterator second_other_point =
-		boost::next(
+		std::next(
 			first_other_point);
 
 	for(; second_other_point != points.end(); ++second_other_point)
@@ -123,10 +123,9 @@ make_coordinate_system(
 	direction_vectors;
 
 	// Create the axes and orthonormalize them
-	direction_vectors directions(
-		fcppt::assign::make_array<vector>
-			((*first_other_point) - (*points.begin()))
-			((*second_other_point) - (*points.begin())));
+	direction_vectors directions{{
+		(*first_other_point) - (*points.begin()),
+		(*second_other_point) - (*points.begin())}};
 
 	fcppt::math::vector::orthogonalize(
 		directions.begin(),

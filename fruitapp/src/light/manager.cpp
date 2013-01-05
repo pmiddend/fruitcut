@@ -2,7 +2,6 @@
 #include <fruitapp/light/manager.hpp>
 #include <sge/parse/json/find_and_convert_member.hpp>
 #include <sge/parse/json/path.hpp>
-#include <fcppt/cref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
@@ -13,13 +12,12 @@ fruitapp::light::manager::manager(
 :
 	directional_source_(
 		fcppt::make_unique_ptr<fruitapp::light::directional_light_source>(
-			fcppt::cref(
-				fruitapp::light::directional_light_source_from_json(
-					sge::parse::json::find_and_convert_member<sge::parse::json::object const>(
-						_json,
-						sge::parse::json::path(
-							fcppt::string(
-								FCPPT_TEXT("directional-source")))))))),
+			fruitapp::light::directional_light_source_from_json(
+				sge::parse::json::find_and_convert_member<sge::parse::json::object const>(
+					_json,
+					sge::parse::json::path(
+						fcppt::string(
+							FCPPT_TEXT("directional-source"))))))),
 	ambient_intensity_(
 		sge::parse::json::find_and_convert_member<fruitapp::light::ambient_intensity::value_type>(
 			_json,

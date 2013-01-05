@@ -2,7 +2,9 @@
 #include <fruitapp/fruit/mesh.hpp>
 #include <sge/renderer/vector3.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/move.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
 fruitapp::fruit::cut_mesh_result::cut_mesh_result()
@@ -38,7 +40,7 @@ fruitapp::fruit::mesh_unique_ptr
 fruitapp::fruit::cut_mesh_result::release_mesh()
 {
 	return
-		fcppt::move(
+		std::move(
 			mesh_);
 }
 

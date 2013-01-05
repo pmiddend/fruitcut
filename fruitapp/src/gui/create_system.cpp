@@ -5,9 +5,9 @@
 #else
 #include <fruitapp/gui/dummy/system.hpp>
 #endif
+#include <sge/renderer/texture/emulate_srgb.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/ref.hpp>
-#include <fcppt/cref.hpp>
+
 
 fruitapp::gui::system_unique_ptr
 fruitapp::gui::create_system(
@@ -21,7 +21,7 @@ fruitapp::gui::create_system(
 	sge::input::keyboard::device &_keyboard,
 	sge::input::cursor::object &_cursor,
 	fruitlib::audio::sound_controller &_sound_controller,
-	sge::renderer::texture::emulate_srgb::type const _emulate_srgb
+	sge::renderer::texture::emulate_srgb const _emulate_srgb
 #else
 	fruitlib::scenic::parent const &,
 	sge::renderer::device::ffp &,
@@ -39,29 +39,19 @@ fruitapp::gui::create_system(
 		fruitapp::gui::system_unique_ptr(
 #ifdef FRUITAPP_USE_CEGUI
 			fcppt::make_unique_ptr<fruitapp::gui::ce::system>(
-				fcppt::cref(
-					_parent),
-				fcppt::ref(
-					_renderer),
-				fcppt::ref(
-					_image_system),
-				fcppt::ref(
-					_viewport_manager),
-				fcppt::ref(
-					_charconv_system),
-				fcppt::cref(
-					_standard_clock_callback),
-				fcppt::ref(
-					_keyboard),
-				fcppt::ref(
-					_cursor),
-				fcppt::ref(
-					_sound_controller),
+				_parent,
+				_renderer,
+				_image_system,
+				_viewport_manager,
+				_charconv_system,
+				_standard_clock_callback,
+				_keyboard,
+				_cursor,
+				_sound_controller,
 				_emulate_srgb)
 #else
 			fcppt::make_unique_ptr<fruitapp::gui::dummy::system>(
-				fcppt::ref(
-					_keyboard))
+				_keyboard)
 #endif
 			);
 }

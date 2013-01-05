@@ -1,9 +1,7 @@
 #include <fruitapp/cursor/instance.hpp>
 #include <fruitapp/cursor/instance_sequence.hpp>
 #include <fruitapp/cursor/manager.hpp>
-#include <fcppt/cref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/ref.hpp>
 #include <fcppt/container/ptr/push_back_unique_ptr.hpp>
 
 
@@ -26,12 +24,9 @@ fruitapp::cursor::instance_sequence::cursor_discover(
 	fcppt::container::ptr::push_back_unique_ptr(
 		instances_,
 		fcppt::make_unique_ptr<fruitapp::cursor::instance>(
-			fcppt::ref(
-				manager_),
-			fcppt::ref(
-				_new_cursor),
-			fcppt::cref(
-				parent_)));
+			manager_,
+			_new_cursor,
+			parent_));
 }
 
 void

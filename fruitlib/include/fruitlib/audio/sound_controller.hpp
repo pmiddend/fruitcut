@@ -21,6 +21,7 @@
 #include <boost/filesystem/path.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <cstddef>
+#include <memory>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -119,7 +120,7 @@ private:
 	resource_tree_type;
 
 	typedef
-	fcppt::unique_ptr<resource_tree_type>
+	std::unique_ptr<resource_tree_type>
 	resource_tree_ptr;
 
 	group::player player_;

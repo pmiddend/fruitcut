@@ -1,11 +1,11 @@
 #include <fruitapp/font_particle/manager.hpp>
 #include <fruitapp/font_particle/object.hpp>
 #include <fruitapp/projection_manager/object.hpp>
-#include <fcppt/cref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/ref.hpp>
 #include <fcppt/container/ptr/push_back_unique_ptr.hpp>
-#include <fcppt/tr1/functional.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <functional>
+#include <fcppt/config/external_end.hpp>
 
 
 fruitapp::font_particle::manager::manager(
@@ -23,10 +23,10 @@ fruitapp::font_particle::manager::manager(
 	objects_(),
 	projection_change_connection_(
 		_projection_manager.projection_change_callback(
-			std::tr1::bind(
+			std::bind(
 				&fruitapp::font_particle::manager::projection_change,
 				this,
-				std::tr1::placeholders::_1),
+				std::placeholders::_1),
 			fruitapp::projection_manager::trigger_early(
 				false)))
 {
@@ -43,15 +43,12 @@ fruitapp::font_particle::manager::add_particle(
 	fcppt::container::ptr::push_back_unique_ptr(
 		objects_,
 		fcppt::make_unique_ptr<fruitapp::font_particle::object>(
-			fcppt::cref(
-				parent_),
-			fcppt::ref(
-				font_manager_),
+			parent_,
+			font_manager_,
 			_identifier,
 			_text,
 			_position,
-			fcppt::cref(
-				ingame_clock_),
+			ingame_clock_,
 			_lifetime,
 			_color));
 }
