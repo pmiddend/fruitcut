@@ -11,7 +11,6 @@
 #include <fcppt/text.hpp>
 #include <fcppt/algorithm/shift_compare.hpp>
 #include <fcppt/assign/make_container.hpp>
-#include <fcppt/container/array.hpp>
 #include <fcppt/io/cout.hpp>
 #include <fcppt/io/ostream.hpp>
 #include <fcppt/math/range_compare.hpp>
@@ -32,6 +31,7 @@
 #include <boost/spirit/home/phoenix/function/function.hpp>
 #include <boost/test/unit_test.hpp>
 #include <algorithm>
+#include <array>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -67,7 +67,7 @@ public:
 	vector;
 
 	typedef
-	fcppt::container::array<vector,3>
+	std::array<vector,3>
 	array_type;
 
 	typedef

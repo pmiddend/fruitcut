@@ -1,13 +1,13 @@
 #ifndef FRUITLIB_MATH_TRIANGLE_BASIC_HPP_INCLUDED
 #define FRUITLIB_MATH_TRIANGLE_BASIC_HPP_INCLUDED
 
-#include <fcppt/container/array.hpp>
 #include <fcppt/io/ostream.hpp>
 #include <fcppt/math/size_type.hpp>
 #include <fcppt/math/vector/object_impl.hpp>
 #include <fcppt/math/vector/static.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <algorithm>
+#include <array>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -31,11 +31,11 @@ public:
 	vector;
 
 	typedef
-	fcppt::container::array<vector,3>
+	std::array<vector,3>
 	point_array;
 
 	typedef
-	fcppt::container::array<Data,3>
+	std::array<Data,3>
 	data_array;
 
 	basic(

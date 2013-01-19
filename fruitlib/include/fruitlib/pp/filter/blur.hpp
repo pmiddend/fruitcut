@@ -13,10 +13,11 @@
 #include <sge/shader/parameter/planar_texture.hpp>
 #include <sge/shader/parameter/vector.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/container/array.hpp>
 #include <fcppt/math/dim/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/ptr_container/ptr_array.hpp>
+#include <array>
+#include <cstddef>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -50,7 +51,7 @@ private:
 		instance_index);
 
 	typedef
-	fcppt::container::array<fruitlib::pp::texture::counted_instance,2>
+	std::array<fruitlib::pp::texture::counted_instance,2>
 	instance_array;
 
 	typedef

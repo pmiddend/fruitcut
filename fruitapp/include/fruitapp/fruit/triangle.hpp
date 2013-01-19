@@ -3,8 +3,10 @@
 
 #include <sge/renderer/vector2.hpp>
 #include <sge/renderer/vector3.hpp>
-#include <fcppt/container/array.hpp>
 #include <fcppt/math/vector/object_impl.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <array>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace fruitapp
@@ -23,15 +25,15 @@ public:
 	texcoord_type;
 
 	typedef
-	fcppt::container::array<vector,3>
+	std::array<vector,3>
 	vertex_array;
 
 	typedef
-	fcppt::container::array<vector,3>
+	std::array<vector,3>
 	normal_array;
 
 	typedef
-	fcppt::container::array<texcoord_type,3>
+	std::array<texcoord_type,3>
 	texcoord_array;
 
 	typedef

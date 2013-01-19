@@ -17,6 +17,7 @@
 #include <fcppt/math/dim/object_impl.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <array>
 #include <cstddef>
 #include <sstream>
 #include <string>
@@ -136,11 +137,11 @@ fruitlib::pp::filter::blur::blur(
 	FCPPT_ASSERT_PRE(
 		iterations_.get());
 
-	fcppt::container::array<char const *,2> sources =
-		{{
-				blur_h_source_code,
-				blur_v_source_code
-		}};
+	std::array<char const *,2> sources
+	{{
+		blur_h_source_code,
+		blur_v_source_code
+	}};
 
 	for(
 		std::size_t i = 0;

@@ -6,7 +6,6 @@
 #include <fcppt/optional.hpp>
 #include <fcppt/assert/error.hpp>
 #include <fcppt/assert/pre.hpp>
-#include <fcppt/container/array.hpp>
 #include <fcppt/math/range_compare.hpp>
 #include <fcppt/math/matrix/object_impl.hpp>
 #include <fcppt/math/matrix/static.hpp>
@@ -17,6 +16,7 @@
 #include <fcppt/math/vector/orthogonalize.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/identity.hpp>
+#include <array>
 #include <iterator>
 #include <fcppt/config/external_end.hpp>
 
@@ -119,7 +119,7 @@ make_coordinate_system(
 		return optional_matrix4();
 
 	typedef
-	fcppt::container::array<vector,2>
+	std::array<vector,2>
 	direction_vectors;
 
 	// Create the axes and orthonormalize them

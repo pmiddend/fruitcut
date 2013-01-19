@@ -8,9 +8,11 @@
 #include <fruitapp/fruit/mesh_unique_ptr.hpp>
 #include <fruitapp/fruit/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/container/array.hpp>
 #include <fcppt/preprocessor/const.hpp>
 #include <fcppt/preprocessor/pure.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <array>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace fruitapp
@@ -34,7 +36,7 @@ public:
 	fruit_ptr;
 
 	typedef
-	fcppt::container::array<fruit_ptr,2>
+	std::array<fruit_ptr,2>
 	new_fruit_array;
 
 	cut_context(

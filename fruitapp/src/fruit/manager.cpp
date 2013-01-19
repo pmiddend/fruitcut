@@ -38,7 +38,6 @@
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/error.hpp>
-#include <fcppt/container/array.hpp>
 #include <fcppt/container/ptr/push_back_unique_ptr.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/math/matrix/object_impl.hpp>
@@ -48,6 +47,7 @@
 #include <fcppt/math/vector/structure_cast.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <array>
 #include <memory>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
@@ -109,7 +109,7 @@ fruitapp::fruit::manager::cut(
 			_current_fruit));
 
 	typedef
-	fcppt::container::array<fruitapp::fruit::plane,2u>
+	std::array<fruitapp::fruit::plane,2u>
 	plane_array;
 
 	plane_array const planes =

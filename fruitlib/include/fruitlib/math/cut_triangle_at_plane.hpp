@@ -9,7 +9,6 @@
 #include <fruitlib/math/triangle/scalar_type.hpp>
 #include <fruitlib/math/triangle/vector_type.hpp>
 #include <fruitlib/math/triangle/vertex_access.hpp>
-#include <fcppt/container/array.hpp>
 #include <fcppt/io/cout.hpp>
 #include <fcppt/math/range_compare.hpp>
 #include <fcppt/math/size_type.hpp>
@@ -20,6 +19,7 @@
 #include <boost/spirit/home/phoenix/operator/comparison.hpp>
 #include <boost/spirit/home/phoenix/operator/if_else.hpp>
 #include <algorithm>
+#include <array>
 #include <type_traits>
 #include <vector>
 #include <fcppt/config/external_end.hpp>
@@ -62,7 +62,7 @@ cut_triangle_at_plane(
 	result_type;
 
 	typedef
-	fcppt::container::array<scalar,3>
+	std::array<scalar,3>
 	scalar_sequence;
 
 	typedef typename
@@ -74,7 +74,7 @@ cut_triangle_at_plane(
 
 	result_type result;
 
-	fcppt::container::array<vector,3> const points =
+	std::array<vector,3> const points
 	{{
 		triangle::vertex_access<triangle_type>::get(t,0),
 		triangle::vertex_access<triangle_type>::get(t,1),

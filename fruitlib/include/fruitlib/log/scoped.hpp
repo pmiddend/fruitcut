@@ -2,7 +2,6 @@
 #define FRUITLIB_LOG_SCOPED_HPP_INCLUDED
 
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/container/array.hpp>
 #include <fcppt/log/context_fwd.hpp>
 #include <fcppt/log/enabled_level_array.hpp>
 #include <fcppt/log/level_fwd.hpp>
