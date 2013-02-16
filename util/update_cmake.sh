@@ -1,29 +1,14 @@
-#!/bin/bash
+#!/bin/sh
 
-function die()
-{
-	exit -1
-}
+set -e -u
 
-function update_cmake_file()
-{
-	local cmakefile="$1"
-
-	update_cmake \
-		"${cmakefile}" \
-		"${@:2}" \
-		|| die
-
-	mv "${cmakefile}".new "${cmakefile}" || die
-}
-
-update_cmake_file \
+update_cmake \
 	fruitlib/CMakeLists.txt \
 	FRUITLIB_FILES \
 	fruitlib/src \
 	fruitlib/include
 
-update_cmake_file \
+update_cmake \
 	fruitapp/CMakeLists.txt \
 	FRUITAPP_FILES \
 	-n \
@@ -32,7 +17,6 @@ update_cmake_file \
 	fruitapp/include/fruitapp \
 	fruitapp/include/fruitapp/gui \
 	-r \
-	fruitapp/src/depths \
 	fruitapp/src/config_variables \
 	fruitapp/src/font_particle \
 	fruitapp/src/background \
@@ -67,13 +51,13 @@ update_cmake_file \
 	fruitapp/include/fruitapp/gui/dialogs \
 	fruitapp/include/fruitapp/gui/dummy
 
-update_cmake_file \
+update_cmake \
 	fruitapp/CMakeLists.txt \
 	FRUITAPP_CEGUI_FILES \
 	fruitapp/src/gui/ce \
 	fruitapp/include/fruitapp/gui/ce
 
-update_cmake_file \
+update_cmake \
 	fruitserver/CMakeLists.txt \
 	FRUITSERVER_FILES \
 	fruitserver/src \
