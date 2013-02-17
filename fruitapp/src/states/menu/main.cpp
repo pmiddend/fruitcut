@@ -9,7 +9,6 @@
 #include <fruitapp/states/menu/settings.hpp>
 #include <fruitlib/scenic/depth.hpp>
 #include <fruitlib/scenic/parent.hpp>
-#include <sge/cegui/system.hpp>
 #include <sge/systems/instance.hpp>
 #include <awl/main/exit_success.hpp>
 #include <fcppt/text.hpp>

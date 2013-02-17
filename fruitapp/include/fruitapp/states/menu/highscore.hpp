@@ -13,8 +13,6 @@
 #include <fruitlib/scenic/node.hpp>
 #include <fruitlib/scenic/parent_fwd.hpp>
 #include <fruitlib/scenic/events/update.hpp>
-#include <sge/cegui/toolbox/scoped_gui_sheet.hpp>
-#include <sge/cegui/toolbox/scoped_layout.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/config/external_begin.hpp>

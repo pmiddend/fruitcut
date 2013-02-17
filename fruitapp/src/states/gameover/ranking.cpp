@@ -11,9 +11,6 @@
 #include <fruitapp/states/menu/highscore.hpp>
 #include <fruitapp/states/menu/main.hpp>
 #include <fruitlib/scenic/parent.hpp>
-#include <sge/cegui/from_cegui_string.hpp>
-#include <sge/cegui/system.hpp>
-#include <sge/cegui/to_cegui_string.hpp>
 #include <sge/parse/json/parse_file_exn.hpp>
 #include <sge/parse/json/start.hpp>
 #include <sge/systems/instance.hpp>

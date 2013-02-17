@@ -9,8 +9,6 @@
 #include <fruitapp/states/ingame/running.hpp>
 #include <fruitlib/audio/sound_controller.hpp>
 #include <fruitlib/resource_tree/path.hpp>
-#include <sge/cegui/system.hpp>
-#include <sge/cegui/to_cegui_string.hpp>
 #include <sge/config/user_name.hpp>
 #include <sge/systems/instance.hpp>
 #include <fcppt/insert_to_fcppt_string.hpp>

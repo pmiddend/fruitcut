@@ -31,7 +31,8 @@ fruitapp::gui::create_system(
 	fruitlib::scenic::delta::callback const &,
 	sge::input::keyboard::device &_keyboard,
 	sge::input::cursor::object &,
-	fruitlib::audio::sound_controller &
+	fruitlib::audio::sound_controller &,
+	sge::renderer::texture::emulate_srgb
 #endif
 	)
 {

@@ -2,8 +2,6 @@
 #include <fruitapp/machine.hpp>
 #include <fruitapp/machine_impl.hpp>
 #include <sge/camera/first_person/object_fwd.hpp>
-#include <sge/cegui/syringe_fwd.hpp>
-#include <sge/cegui/system.hpp>
 #include <sge/model/md3/loader_fwd.hpp>
 #include <sge/parse/json/object_fwd.hpp>
 #include <sge/systems/instance.hpp>

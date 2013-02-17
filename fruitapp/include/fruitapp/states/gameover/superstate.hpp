@@ -3,7 +3,6 @@
 
 #include <fruitapp/machine.hpp>
 #include <fruitapp/states/gameover/choose_name_fwd.hpp>
-#include <fruitlib/scenic/adaptors/gui_system.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/config/external_begin.hpp>
