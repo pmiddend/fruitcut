@@ -1,8 +1,8 @@
 #include <fruitapp/highscore/entry_set_to_json.hpp>
 #include <fruitapp/highscore/json_to_entry_set.hpp>
 #include <fruitapp/highscore/provider/file/connection.hpp>
-#include <fruitlib/utf8_file_to_fcppt_string.hpp>
 #include <sge/charconv/fcppt_string_to_utf8_file.hpp>
+#include <sge/charconv/utf8_file_to_fcppt_string.hpp>
 #include <sge/parse/result.hpp>
 #include <sge/parse/result_code.hpp>
 #include <sge/parse/json/array.hpp>
@@ -10,6 +10,7 @@
 #include <sge/parse/json/parse_file.hpp>
 #include <sge/parse/json/parse_range.hpp>
 #include <sge/parse/json/output/tabbed_to_string.hpp>
+#include <fcppt/optional_string.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
@@ -50,8 +51,8 @@ fruitapp::highscore::provider::file::connection::post_rank(
 		directory_path);
 
 	// Try to open the file and read its contents.
-	fcppt::optional<fcppt::string> const converted_file(
-		fruitlib::utf8_file_to_fcppt_string(
+	fcppt::optional_string const converted_file(
+		sge::charconv::utf8_file_to_fcppt_string(
 			path_));
 
 	// ... and create highscore entries from it

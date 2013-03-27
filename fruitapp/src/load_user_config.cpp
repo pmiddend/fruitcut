@@ -1,19 +1,20 @@
 #include <fruitapp/load_user_config.hpp>
 #include <fruitapp/name.hpp>
-#include <fruitlib/utf8_file_to_fcppt_string.hpp>
+#include <sge/charconv/utf8_file_to_fcppt_string.hpp>
 #include <sge/config/app_name.hpp>
 #include <sge/config/config_path.hpp>
 #include <sge/parse/json/array.hpp>
 #include <sge/parse/json/object.hpp>
 #include <sge/parse/json/parse_string_exn.hpp>
+#include <fcppt/optional_string.hpp>
 #include <fcppt/text.hpp>
 
 
 sge::parse::json::object const
 fruitapp::load_user_config()
 {
-	fcppt::optional<fcppt::string> const optional_json_string =
-		fruitlib::utf8_file_to_fcppt_string(
+	fcppt::optional_string const optional_json_string =
+		sge::charconv::utf8_file_to_fcppt_string(
 			sge::config::config_path(
 				sge::config::app_name(
 					fruitapp::name())) /

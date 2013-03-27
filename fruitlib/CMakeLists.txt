@@ -231,8 +231,6 @@ set(
 	fruitlib/include/fruitlib/uniform_random_range_element_fwd.hpp
 	fruitlib/include/fruitlib/uniform_random_range_element_impl.hpp
 	fruitlib/include/fruitlib/uniform_real_random.hpp
-	fruitlib/include/fruitlib/utf8_file_to_fcppt_string.hpp
-	fruitlib/include/fruitlib/utf8_file_to_fcppt_string_exn.hpp
 	fruitlib/src/audio/group/buffer.cpp
 	fruitlib/src/audio/group/player.cpp
 	fruitlib/src/audio/group/sound_base.cpp
@@ -306,8 +304,6 @@ set(
 	fruitlib/src/time_format/milliseconds.cpp
 	fruitlib/src/time_format/minutes.cpp
 	fruitlib/src/time_format/seconds.cpp
-	fruitlib/src/utf8_file_to_fcppt_string.cpp
-	fruitlib/src/utf8_file_to_fcppt_string_exn.cpp
 )
 
 # This is for message_box.cpp which uses windows.h

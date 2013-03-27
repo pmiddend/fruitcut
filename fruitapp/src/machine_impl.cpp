@@ -15,7 +15,6 @@
 #include <fruitlib/create_command_line_parameters.hpp>
 #include <fruitlib/random_generator.hpp>
 #include <fruitlib/scoped_frame_limiter.hpp>
-#include <fruitlib/utf8_file_to_fcppt_string_exn.hpp>
 #include <fruitlib/json/parse_projection.hpp>
 #include <fruitlib/log/scoped_sequence_from_json.hpp>
 #include <fruitlib/scenic/depth.hpp>
@@ -29,6 +28,7 @@
 #include <sge/audio/scalar.hpp>
 #include <sge/camera/first_person/object.hpp>
 #include <sge/camera/first_person/parameters.hpp>
+#include <sge/charconv/utf8_file_to_fcppt_string_exn.hpp>
 #include <sge/font/system.hpp>
 #include <sge/image/capabilities_field.hpp>
 #include <sge/input/keyboard/action.hpp>
@@ -154,7 +154,7 @@ fruitapp::machine_impl::machine_impl(
 		sge::parse::json::config::merge_command_line_parameters(
 			sge::parse::json::config::merge_trees(
 				sge::parse::json::parse_string_exn(
-					fruitlib::utf8_file_to_fcppt_string_exn(
+					sge::charconv::utf8_file_to_fcppt_string_exn(
 						fruitapp::media_path()/FCPPT_TEXT("config.json"))).object(),
 				user_config_file_),
 			fruitlib::create_command_line_parameters(
