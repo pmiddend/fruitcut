@@ -1,7 +1,6 @@
 #include <fruitapp/gui/ce/table/model.hpp>
 #include <fruitapp/gui/ce/table/view.hpp>
 #include <sge/cegui/to_cegui_string.hpp>
-#include <sge/charconv/system_fwd.hpp>
 #include <fcppt/insert_to_fcppt_string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/pre_message.hpp>
@@ -13,12 +12,9 @@
 
 
 fruitapp::gui::ce::table::view::view(
-	sge::charconv::system &_charconv_system,
 	CEGUI::Window &_impl,
 	table::model &_model)
 :
-	charconv_system_(
-		_charconv_system),
 	impl_(
 		dynamic_cast<CEGUI::MultiColumnList &>(
 			_impl)),
@@ -49,8 +45,7 @@ fruitapp::gui::ce::table::view::view(
 		++i)
 		impl_.addColumn(
 			sge::cegui::to_cegui_string(
-				i->name(),
-				charconv_system_),
+				i->name()),
 			impl_.getColumnCount(),
 			CEGUI::UDim(
 				i->width(),
@@ -92,8 +87,7 @@ fruitapp::gui::ce::table::view::row_added(
 		impl_.setItem(
 			new CEGUI::ListboxTextItem(
 				sge::cegui::to_cegui_string(
-					_row[i],
-					charconv_system_)),
+					_row[i])),
 			static_cast<CEGUI::uint>(
 				i),
 			new_row_index);

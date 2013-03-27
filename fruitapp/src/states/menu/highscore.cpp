@@ -43,7 +43,6 @@ fruitapp::states::menu::highscore::highscore(
 	list_connection_()
 {
 	fruitapp::highscore::providers_from_json(
-		context<fruitapp::machine>().systems().charconv_system(),
 		sge::parse::json::parse_file_exn(
 			fruitapp::media_path() / FCPPT_TEXT("highscore_providers.json")).array(),
 		providers_);

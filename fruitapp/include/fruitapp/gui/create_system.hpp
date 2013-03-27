@@ -5,7 +5,6 @@
 #include <fruitlib/audio/sound_controller_fwd.hpp>
 #include <fruitlib/scenic/parent.hpp>
 #include <fruitlib/scenic/delta/callback.hpp>
-#include <sge/charconv/system_fwd.hpp>
 #include <sge/image2d/system_fwd.hpp>
 #include <sge/input/cursor/object_fwd.hpp>
 #include <sge/input/keyboard/device_fwd.hpp>
@@ -24,7 +23,6 @@ create_system(
 	sge::renderer::device::ffp &,
 	sge::image2d::system &,
 	sge::viewport::manager &,
-	sge::charconv::system &,
 	fruitlib::scenic::delta::callback const &,
 	sge::input::keyboard::device &,
 	sge::input::cursor::object &,

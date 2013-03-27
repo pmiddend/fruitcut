@@ -17,15 +17,12 @@ fruitapp::gui::ce::system::system(
 	sge::renderer::device::ffp &_renderer,
 	sge::image2d::system &_image_system,
 	sge::viewport::manager &_viewport_manager,
-	sge::charconv::system &_charconv_system,
 	fruitlib::scenic::delta::callback const &_standard_clock_callback,
 	sge::input::keyboard::device &_keyboard,
 	sge::input::cursor::object &_cursor,
 	fruitlib::audio::sound_controller &_sound_controller,
 	sge::renderer::texture::emulate_srgb const _emulate_srgb)
 :
-	charconv_system_(
-		_charconv_system),
 	keyboard_(
 		_keyboard),
 	cursor_(
@@ -41,7 +38,6 @@ fruitapp::gui::ce::system::system(
 				fruitapp::media_path()/FCPPT_TEXT("fonts")),
 		_renderer,
 		_image_system,
-		charconv_system_,
 		_viewport_manager,
 		sge::cegui::cursor_visibility::invisible,
 		_emulate_srgb),
@@ -137,13 +133,6 @@ fruitapp::gui::ce::system::gui_syringe()
 {
 	return
 		gui_syringe_;
-}
-
-sge::charconv::system &
-fruitapp::gui::ce::system::charconv_system() const
-{
-	return
-		charconv_system_;
 }
 
 fruitlib::scenic::delta::callback const &

@@ -9,12 +9,10 @@
 
 fcppt::string const
 fruitlib::utf8_file_to_fcppt_string_exn(
-	sge::charconv::system &charconv_system,
 	boost::filesystem::path const &path)
 {
 	fcppt::optional<fcppt::string> const optional_content =
 		fruitlib::utf8_file_to_fcppt_string(
-			charconv_system,
 			path);
 
 	if(!optional_content)

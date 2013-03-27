@@ -13,8 +13,6 @@ fruitapp::gui::ce::dialogs::highscore::highscore(
 	fruitapp::gui::ce::system &_system,
 	fruitapp::highscore::provider_sequence &_providers)
 :
-	charconv_system_(
-		_system.charconv_system()),
 	switch_provider_(),
 	gui_node_(
 		fruitlib::scenic::optional_parent(
@@ -43,12 +41,10 @@ fruitapp::gui::ce::dialogs::highscore::highscore(
 	providers_(
 		_providers),
 	source_box_(
-		charconv_system_,
 		*layout_.window().getChild(
 			"Source")),
 	table_model_(),
 	table_view_(
-		_system.charconv_system(),
 		*layout_.window().getChild(
 			"List"),
 		table_model_)
@@ -103,8 +99,7 @@ fruitapp::gui::ce::dialogs::highscore::append_log(
 	w.setText(
 		w.getText()+
 		sge::cegui::to_cegui_string(
-			_string,
-			charconv_system_));
+			_string));
 }
 
 void

@@ -26,7 +26,6 @@
 
 void
 fruitapp::highscore::providers_from_json(
-	sge::charconv::system &charconv_system,
 	sge::parse::json::array const &_json_providers,
 	highscore::provider_sequence &result)
 {
@@ -88,7 +87,6 @@ fruitapp::highscore::providers_from_json(
 			fcppt::container::ptr::push_back_unique_ptr(
 				result,
 				fcppt::make_unique_ptr<provider::file::object>(
-					charconv_system,
 					address));
 		}
 		else if(protocol == FCPPT_TEXT("fruitcut"))
@@ -96,7 +94,6 @@ fruitapp::highscore::providers_from_json(
 			fcppt::container::ptr::push_back_unique_ptr(
 				result,
 				fcppt::make_unique_ptr<provider::net::object>(
-					charconv_system,
 					provider::net::host(
 						address),
 					provider::net::port(

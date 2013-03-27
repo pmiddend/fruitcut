@@ -14,7 +14,6 @@
 #include <fruitapp/highscore/provider/connection_base.hpp>
 #include <fruitapp/highscore/provider/net/host.hpp>
 #include <fruitapp/highscore/provider/net/port.hpp>
-#include <sge/charconv/system_fwd.hpp>
 #include <sge/charconv/utf8_string.hpp>
 #include <sge/parse/json/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -43,7 +42,6 @@ FCPPT_NONCOPYABLE(
 	connection);
 public:
 	connection(
-		sge::charconv::system &,
 		net::host::value_type const &,
 		net::port::value_type const &);
 
@@ -76,7 +74,6 @@ public:
 
 	~connection();
 private:
-	sge::charconv::system &charconv_system_;
 	net::host::value_type const host_;
 	net::port::value_type const port_;
 	fcppt::signal::object<callbacks::message_received_fn> message_received_;

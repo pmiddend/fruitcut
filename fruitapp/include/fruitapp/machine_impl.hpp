@@ -36,7 +36,6 @@
 #include <fruitlib/scenic/events/render.hpp>
 #include <fruitlib/scenic/events/update.hpp>
 #include <sge/camera/first_person/object.hpp>
-#include <sge/charconv/system_scoped_ptr.hpp>
 #include <sge/model/md3/loader_fwd.hpp>
 #include <sge/model/md3/loader_scoped_ptr.hpp>
 #include <sge/parse/json/object.hpp>
@@ -257,7 +256,6 @@ private:
 	fruitlib::scoped_wostream_file_redirection woutput_redirection_;
 #endif
 	fruitlib::random_generator random_generator_;
-	sge::charconv::system_scoped_ptr const charconv_system_;
 	sge::parse::json::object user_config_file_;
 	sge::parse::json::object const config_file_;
 	fruitapp::config_variables::object config_variables_;

@@ -10,11 +10,8 @@
 
 
 fruitapp::gui::ce::combobox::combobox(
-	sge::charconv::system &_charconv_system,
 	CEGUI::Window &_impl)
 :
-	charconv_system_(
-		_charconv_system),
 	impl_(
 		dynamic_cast<CEGUI::Combobox &>(
 			_impl)),
@@ -40,8 +37,7 @@ fruitapp::gui::ce::combobox::add(
 	CEGUI::ListboxItem * const new_item =
 		new CEGUI::ListboxTextItem(
 			sge::cegui::to_cegui_string(
-				_text,
-				charconv_system_));
+				_text));
 
 	impl_.addItem(
 		new_item);

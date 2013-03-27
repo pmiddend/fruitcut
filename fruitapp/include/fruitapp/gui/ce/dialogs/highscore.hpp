@@ -15,7 +15,6 @@
 #include <sge/cegui/default_keyboard.hpp>
 #include <sge/cegui/toolbox/scoped_gui_sheet.hpp>
 #include <sge/cegui/toolbox/scoped_layout.hpp>
-#include <sge/charconv/system_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 
 
@@ -63,7 +62,6 @@ private:
 	fcppt::signal::object<fruitapp::gui::dialogs::highscore::switch_provider_function>
 	switch_provider_signal;
 
-	sge::charconv::system &charconv_system_;
 	switch_provider_signal switch_provider_;
 	fruitlib::scenic::adaptors::gui_system gui_node_;
 	sge::cegui::default_keyboard gui_keyboard_;

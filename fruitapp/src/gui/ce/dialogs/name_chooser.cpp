@@ -11,8 +11,6 @@ fruitapp::gui::ce::dialogs::name_chooser::name_chooser(
 	fruitapp::gui::ce::system &_system,
 	fruitapp::highscore::score const &_score)
 :
-	charconv_system_(
-		_system.charconv_system()),
 	gui_node_(
 		fruitlib::scenic::optional_parent(
 			_system.overlay_node()),
@@ -46,8 +44,7 @@ fruitapp::gui::ce::dialogs::name_chooser::name_chooser(
 	layout_.window().getChild("ScoreFrame")->getChild("Score")->setText(
 		sge::cegui::to_cegui_string(
 			fcppt::insert_to_fcppt_string(
-				_score.get()),
-		_system.charconv_system()));
+				_score.get())));
 }
 
 fcppt::signal::auto_connection
@@ -83,8 +80,7 @@ fruitapp::gui::ce::dialogs::name_chooser::name() const
 	return
 		sge::cegui::from_cegui_string(
 			layout_.window().getChild(
-				"Name")->getText(),
-			charconv_system_);
+				"Name")->getText());
 }
 
 void
@@ -94,8 +90,7 @@ fruitapp::gui::ce::dialogs::name_chooser::name(
 	layout_.window().getChild(
 		"Name")->setText(
 			sge::cegui::to_cegui_string(
-				_name,
-				charconv_system_));
+				_name));
 }
 
 fruitapp::gui::ce::dialogs::name_chooser::~name_chooser()

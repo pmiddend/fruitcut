@@ -29,8 +29,6 @@
 #include <sge/audio/scalar.hpp>
 #include <sge/camera/first_person/object.hpp>
 #include <sge/camera/first_person/parameters.hpp>
-#include <sge/charconv/create_system.hpp>
-#include <sge/charconv/system.hpp>
 #include <sge/font/system.hpp>
 #include <sge/image/capabilities_field.hpp>
 #include <sge/input/keyboard/action.hpp>
@@ -60,7 +58,6 @@
 #include <sge/sprite/parameters.hpp>
 #include <sge/systems/audio_loader.hpp>
 #include <sge/systems/audio_player_default.hpp>
-#include <sge/systems/charconv.hpp>
 #include <sge/systems/cursor_option_field.hpp>
 #include <sge/systems/font.hpp>
 #include <sge/systems/image2d.hpp>
@@ -151,17 +148,13 @@ fruitapp::machine_impl::machine_impl(
 #endif
 	random_generator_(
 		fcppt::random::generator::seed_from_chrono<fruitlib::random_generator::seed>()),
-	charconv_system_(
-		sge::charconv::create_system()),
 	user_config_file_(
-		fruitapp::load_user_config(
-			*charconv_system_)),
+		fruitapp::load_user_config()),
 	config_file_(
 		sge::parse::json::config::merge_command_line_parameters(
 			sge::parse::json::config::merge_trees(
 				sge::parse::json::parse_string_exn(
 					fruitlib::utf8_file_to_fcppt_string_exn(
-						*charconv_system_,
 						fruitapp::media_path()/FCPPT_TEXT("config.json"))).object(),
 				user_config_file_),
 			fruitlib::create_command_line_parameters(
@@ -208,8 +201,6 @@ fruitapp::machine_impl::machine_impl(
 						config_file_,
 						sge::parse::json::path(
 							FCPPT_TEXT("window-size"))))))
-			(sge::systems::charconv(
-				*charconv_system_))
 			(sge::systems::font())
 			(sge::systems::audio_player(
 				sge::audio::player_capabilities_field::null()))
@@ -399,7 +390,6 @@ fruitapp::machine_impl::machine_impl(
 			systems_.renderer_ffp(),
 			systems_.image_system(),
 			systems_.viewport_manager(),
-			systems_.charconv_system(),
 			this->standard_clock_callback(),
 			systems_.keyboard_collector(),
 			systems_.cursor_demuxer(),

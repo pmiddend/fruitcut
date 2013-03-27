@@ -3,7 +3,6 @@
 
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/strong_typedef.hpp>
-#include <sge/charconv/system_fwd.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <CEGUI/Event.h>
@@ -39,8 +38,8 @@ public:
 		bool,
 		selected);
 
+	explicit
 	combobox(
-		sge::charconv::system &,
 		CEGUI::Window &);
 
 	void
@@ -55,7 +54,6 @@ private:
 	std::vector<choose_callback>
 	callback_sequence;
 
-	sge::charconv::system &charconv_system_;
 	CEGUI::Combobox &impl_;
 	callback_sequence callbacks_;
 	CEGUI::Event::ScopedConnection selection_changed_connection_;

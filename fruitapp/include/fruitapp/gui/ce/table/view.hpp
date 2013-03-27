@@ -4,7 +4,6 @@
 #include <fruitapp/gui/ce/table/model_fwd.hpp>
 #include <fruitapp/gui/ce/table/row.hpp>
 #include <fruitapp/gui/ce/table/row_index.hpp>
-#include <sge/charconv/system_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 
@@ -29,13 +28,11 @@ FCPPT_NONCOPYABLE(
 	view);
 public:
 	view(
-		sge::charconv::system &,
 		CEGUI::Window &,
 		fruitapp::gui::ce::table::model &);
 
 	~view();
 private:
-	sge::charconv::system &charconv_system_;
 	CEGUI::MultiColumnList &impl_;
 	fruitapp::gui::ce::table::model &model_;
 	fcppt::signal::scoped_connection row_added_connection_;

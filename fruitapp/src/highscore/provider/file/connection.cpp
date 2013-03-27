@@ -1,9 +1,8 @@
 #include <fruitapp/highscore/entry_set_to_json.hpp>
 #include <fruitapp/highscore/json_to_entry_set.hpp>
 #include <fruitapp/highscore/provider/file/connection.hpp>
-#include <fruitlib/fcppt_string_to_utf8_file.hpp>
 #include <fruitlib/utf8_file_to_fcppt_string.hpp>
-#include <sge/charconv/system_fwd.hpp>
+#include <sge/charconv/fcppt_string_to_utf8_file.hpp>
 #include <sge/parse/result.hpp>
 #include <sge/parse/result_code.hpp>
 #include <sge/parse/json/array.hpp>
@@ -25,13 +24,10 @@
 
 
 fruitapp::highscore::provider::file::connection::connection(
-	sge::charconv::system &_charconv_system,
 	boost::filesystem::path const &_path)
 :
 	path_(
 		_path),
-	charconv_system_(
-		_charconv_system),
 	message_received_(),
 	error_received_(),
 	list_received_(),
@@ -56,7 +52,6 @@ fruitapp::highscore::provider::file::connection::post_rank(
 	// Try to open the file and read its contents.
 	fcppt::optional<fcppt::string> const converted_file(
 		fruitlib::utf8_file_to_fcppt_string(
-			charconv_system_,
 			path_));
 
 	// ... and create highscore entries from it
@@ -111,13 +106,12 @@ fruitapp::highscore::provider::file::connection::post_rank(
 			new_entry);
 
 	if(
-		!fruitlib::fcppt_string_to_utf8_file(
+		!sge::charconv::fcppt_string_to_utf8_file(
 			sge::parse::json::output::tabbed_to_string(
 				sge::parse::json::start(
 					highscore::entry_set_to_json(
 						entries))),
-			path_,
-			charconv_system_))
+			path_))
 	{
 		error_received_(
 			FCPPT_TEXT("Couldn't create the highscore file \"")+

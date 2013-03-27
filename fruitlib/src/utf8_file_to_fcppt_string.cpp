@@ -1,6 +1,5 @@
 #include <fruitlib/exception.hpp>
 #include <fruitlib/utf8_file_to_fcppt_string.hpp>
-#include <sge/charconv/system_fwd.hpp>
 #include <sge/charconv/utf8_string.hpp>
 #include <sge/charconv/utf8_string_to_fcppt.hpp>
 #include <fcppt/optional.hpp>
@@ -17,7 +16,6 @@
 
 fcppt::optional<fcppt::string> const
 fruitlib::utf8_file_to_fcppt_string(
-	sge::charconv::system &charconv_system,
 	boost::filesystem::path const &path)
 {
 	boost::filesystem::ifstream file_stream(
@@ -30,7 +28,6 @@ fruitlib::utf8_file_to_fcppt_string(
 	return
 		fcppt::optional<fcppt::string>(
 			sge::charconv::utf8_string_to_fcppt(
-				charconv_system,
 				sge::charconv::utf8_string(
 					std::istreambuf_iterator<char>(
 						file_stream),

@@ -13,8 +13,6 @@ fruitapp::gui::ce::dialogs::ranking::ranking(
 	fruitapp::gui::ce::system &_system,
 	fruitapp::highscore::provider_sequence &_providers)
 :
-	charconv_system_(
-		_system.charconv_system()),
 	gui_node_(
 		fruitlib::scenic::optional_parent(
 			_system.overlay_node()),
@@ -48,7 +46,6 @@ fruitapp::gui::ce::dialogs::ranking::ranking(
 	post_model_(
 		providers_),
 	table_view_(
-		_system.charconv_system(),
 		*layout_.window().getChild(
 			"List"),
 			post_model_),
@@ -95,8 +92,7 @@ fruitapp::gui::ce::dialogs::ranking::append_log(
 	w.setText(
 		w.getText()+
 		sge::cegui::to_cegui_string(
-			s,
-			charconv_system_));
+			s));
 }
 
 void

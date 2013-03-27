@@ -2,7 +2,6 @@
 #include <fruitapp/highscore/json_to_entry_set.hpp>
 #include <fruitapp/highscore/provider/net/connection.hpp>
 #include <sge/charconv/fcppt_string_to_utf8.hpp>
-#include <sge/charconv/system_fwd.hpp>
 #include <sge/charconv/utf8_string_to_fcppt.hpp>
 #include <sge/parse/result.hpp>
 #include <sge/parse/result_code.hpp>
@@ -46,12 +45,9 @@ parse_content_size(
 }
 
 fruitapp::highscore::provider::net::connection::connection(
-	sge::charconv::system &_charconv_system,
 	net::host::value_type const &_host,
 	net::port::value_type const &_port)
 :
-	charconv_system_(
-		_charconv_system),
 	host_(
 		_host),
 	port_(
@@ -79,7 +75,6 @@ fruitapp::highscore::provider::net::connection::post_rank(
 
 	request_ =
 		sge::charconv::fcppt_string_to_utf8(
-			charconv_system_,
 			FCPPT_TEXT("P ")+
 			fruitapp::current_commit()+
 			FCPPT_TEXT(" ")+
@@ -127,7 +122,6 @@ fruitapp::highscore::provider::net::connection::retrieve_list()
 
 	request_ =
 		sge::charconv::fcppt_string_to_utf8(
-			charconv_system_,
 			FCPPT_TEXT("G ")+
 			fruitapp::current_commit()+
 			FCPPT_TEXT("\n"));
@@ -337,7 +331,6 @@ fruitapp::highscore::provider::net::connection::handle_read_size(
 	fcppt::optional<std::string::size_type> const content_size =
 		parse_content_size(
 			sge::charconv::utf8_string_to_fcppt(
-				charconv_system_,
 				content_));
 
 	if(!content_size)
@@ -345,7 +338,6 @@ fruitapp::highscore::provider::net::connection::handle_read_size(
 		error_received_(
 			FCPPT_TEXT("Invalid content size: \"")+
 			sge::charconv::utf8_string_to_fcppt(
-				charconv_system_,
 				content_)+
 			FCPPT_TEXT("\""));
 		return;
@@ -393,7 +385,6 @@ fruitapp::highscore::provider::net::connection::handle_read_content(
 
 	fcppt::string const content_converted =
 		sge::charconv::utf8_string_to_fcppt(
-			charconv_system_,
 			content_);
 
 	fcppt::string::const_iterator current =

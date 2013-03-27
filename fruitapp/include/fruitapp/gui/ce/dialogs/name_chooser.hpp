@@ -10,7 +10,6 @@
 #include <sge/cegui/default_keyboard.hpp>
 #include <sge/cegui/toolbox/scoped_gui_sheet.hpp>
 #include <sge/cegui/toolbox/scoped_layout.hpp>
-#include <sge/charconv/system_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 
 
@@ -54,7 +53,6 @@ public:
 
 	~name_chooser();
 private:
-	sge::charconv::system &charconv_system_;
 	fruitlib::scenic::adaptors::gui_system gui_node_;
 	sge::cegui::default_keyboard gui_keyboard_;
 	sge::cegui::default_cursor gui_cursor_;

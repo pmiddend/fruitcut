@@ -9,7 +9,6 @@
 #include <sge/cegui/syringe_fwd.hpp>
 #include <sge/cegui/system.hpp>
 #include <sge/cegui/system_fwd.hpp>
-#include <sge/charconv/system_fwd.hpp>
 #include <sge/image2d/system_fwd.hpp>
 #include <sge/input/cursor/object_fwd.hpp>
 #include <sge/input/keyboard/device_fwd.hpp>
@@ -37,7 +36,6 @@ public:
 		sge::renderer::device::ffp &,
 		sge::image2d::system &,
 		sge::viewport::manager &,
-		sge::charconv::system &,
 		fruitlib::scenic::delta::callback const &,
 		sge::input::keyboard::device &,
 		sge::input::cursor::object &,
@@ -77,9 +75,6 @@ public:
 	sge::cegui::syringe &
 	gui_syringe();
 
-	sge::charconv::system &
-	charconv_system() const;
-
 	fruitlib::scenic::delta::callback const &
 	standard_clock_callback() const;
 
@@ -94,7 +89,6 @@ public:
 
 	~system();
 private:
-	sge::charconv::system &charconv_system_;
 	sge::input::keyboard::device &keyboard_;
 	sge::input::cursor::object &cursor_;
 	fruitlib::audio::sound_controller &sound_controller_;

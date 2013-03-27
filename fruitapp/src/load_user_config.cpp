@@ -1,7 +1,6 @@
 #include <fruitapp/load_user_config.hpp>
 #include <fruitapp/name.hpp>
 #include <fruitlib/utf8_file_to_fcppt_string.hpp>
-#include <sge/charconv/system_fwd.hpp>
 #include <sge/config/app_name.hpp>
 #include <sge/config/config_path.hpp>
 #include <sge/parse/json/array.hpp>
@@ -11,12 +10,10 @@
 
 
 sge::parse::json::object const
-fruitapp::load_user_config(
-	sge::charconv::system &charconv_system)
+fruitapp::load_user_config()
 {
 	fcppt::optional<fcppt::string> const optional_json_string =
 		fruitlib::utf8_file_to_fcppt_string(
-			charconv_system,
 			sge::config::config_path(
 				sge::config::app_name(
 					fruitapp::name())) /

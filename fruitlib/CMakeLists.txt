@@ -30,7 +30,6 @@ set(
 	fruitlib/include/fruitlib/create_command_line_parameters.hpp
 	fruitlib/include/fruitlib/delayed_ptr_sequence.hpp
 	fruitlib/include/fruitlib/exception.hpp
-	fruitlib/include/fruitlib/fcppt_string_to_utf8_file.hpp
 	fruitlib/include/fruitlib/font/align_v.hpp
 	fruitlib/include/fruitlib/font/base_path.hpp
 	fruitlib/include/fruitlib/font/cache.hpp
@@ -244,7 +243,6 @@ set(
 	fruitlib/src/average_colors.cpp
 	fruitlib/src/create_command_line_parameters.cpp
 	fruitlib/src/exception.cpp
-	fruitlib/src/fcppt_string_to_utf8_file.cpp
 	fruitlib/src/font/cache.cpp
 	fruitlib/src/font/manager.cpp
 	fruitlib/src/font/object.cpp
