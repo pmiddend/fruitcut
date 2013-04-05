@@ -52,9 +52,9 @@ fruitapp::splatter_generator::splatter_generator(
 	cut_direction_rng_(
 		random_generator_,
 		cut_direction_rng::distribution(
-			cut_direction_rng::distribution::min(
+			cut_direction_rng::distribution::param_type::min(
 				0u),
-			cut_direction_rng::distribution::max(
+			cut_direction_rng::distribution::param_type::max(
 				1u))),
 	speed_rng_(
 		random_generator_,
@@ -79,10 +79,10 @@ fruitapp::splatter_generator::splatter_generator(
 	alpha_rng_(
 		random_generator_,
 		alpha_rng::distribution(
-			alpha_rng::distribution::min(
+			alpha_rng::distribution::param_type::min(
 				static_cast<fruitapp::point_sprite::color_format::channel_type>(
 					0u)),
-			alpha_rng::distribution::max(
+			alpha_rng::distribution::param_type::max(
 				static_cast<fruitapp::point_sprite::color_format::channel_type>(
 					std::numeric_limits<fruitapp::point_sprite::color_format::channel_type>::max()/2)))),
 	lifetime_millis_rng_(
@@ -126,9 +126,9 @@ fruitapp::splatter_generator::fruit_was_cut(
 	triangle_point_rng_type triangle_point_rng(
 		random_generator_,
 		triangle_point_rng_type::distribution(
-			triangle_point_rng_type::distribution::min(
+			triangle_point_rng_type::distribution::param_type::min(
 				0.0f),
-			triangle_point_rng_type::distribution::sup(
+			triangle_point_rng_type::distribution::param_type::sup(
 				1.0f)));
 
 	for(

@@ -3,7 +3,8 @@
 
 #include <fruitlib/random_generator.hpp>
 #include <fcppt/random/variate.hpp>
-#include <fcppt/random/distribution/uniform_real.hpp>
+#include <fcppt/random/distribution/basic.hpp>
+#include <fcppt/random/distribution/parameters/uniform_real.hpp>
 
 
 // See random_generator for why this is here
@@ -15,8 +16,10 @@ struct uniform_real_random
 	typedef
 	fcppt::random::variate<
 		fruitlib::random_generator,
-		fcppt::random::distribution::uniform_real<
-			T
+		fcppt::random::distribution::basic<
+			fcppt::random::distribution::parameters::uniform_real<
+				T
+			>
 		>
 	>
 	type;

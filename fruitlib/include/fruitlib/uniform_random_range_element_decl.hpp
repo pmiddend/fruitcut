@@ -4,7 +4,8 @@
 #include <fruitlib/uniform_random_range_element_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/random/variate.hpp>
-#include <fcppt/random/distribution/uniform_int.hpp>
+#include <fcppt/random/distribution/basic.hpp>
+#include <fcppt/random/distribution/parameters/uniform_int.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/range/difference_type.hpp>
 #include <boost/range/iterator.hpp>
@@ -59,7 +60,13 @@ public:
 	~uniform_random_range_element();
 private:
 	typedef
-	fcppt::random::distribution::uniform_int<difference_type>
+	fcppt::random::distribution::basic
+	<
+		fcppt::random::distribution::parameters::uniform_int
+		<
+			difference_type
+		>
+	>
 	uniform_distribution_type;
 
 	typedef

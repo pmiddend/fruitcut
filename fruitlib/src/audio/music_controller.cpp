@@ -45,10 +45,10 @@ create_random_from_directory(
 		fcppt::make_shared_ptr<random_variate>(
 			_random_generator,
 			random_variate::distribution(
-				random_variate::distribution::min(
+				random_variate::distribution::param_type::min(
 					static_cast<std::size_t>(
 						0)),
-				random_variate::distribution::max(
+				random_variate::distribution::param_type::max(
 					static_cast<std::size_t>(
 						std::distance(
 							boost::filesystem::directory_iterator(

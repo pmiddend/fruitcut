@@ -24,9 +24,9 @@ fruitlib::uniform_random_range_element<Range,RandomGenerator>::uniform_random_ra
 	variate_(
 		_random_generator,
 		uniform_distribution_type(
-			typename uniform_distribution_type::min(
+			typename uniform_distribution_type::param_type::min(
 				0),
-			typename uniform_distribution_type::max(
+			typename uniform_distribution_type::param_type::max(
 				size_
 				?
 					static_cast<difference_type>(
