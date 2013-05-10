@@ -5,6 +5,7 @@
 #include <fruitlib/audio/sound_controller.hpp>
 #include <fruitlib/scenic/events/update.hpp>
 #include <sge/input/cursor/object.hpp>
+#include <sge/input/cursor/optional_position.hpp>
 #include <sge/input/cursor/position.hpp>
 #include <sge/input/cursor/position_unit.hpp>
 #include <sge/timer/basic.hpp>
@@ -41,7 +42,8 @@ fruitapp::cursor::sound::sound(
 		_viewport_manager),
 	sound_controller_(
 		_sound_controller),
-	last_pos_()
+	last_pos_(
+		cursor_.position())
 {
 }
 
@@ -67,15 +69,22 @@ fruitapp::cursor::sound::react(
 
 	typedef fcppt::math::vector::static_<float,2>::type vec2;
 
-	if(!cursor_.position())
+	sge::input::cursor::optional_position const saved_last_pos(
+		last_pos_);
+
+	last_pos_ = cursor_.position();
+
+	if(
+		!last_pos_
+		|| !saved_last_pos)
 		return;
 
-	sge::input::cursor::position new_pos =
-			*cursor_.position();
+	sge::input::cursor::position const new_pos =
+			*last_pos_;
 
 	float distance = fcppt::math::vector::length(
 		fcppt::math::vector::structure_cast<vec2>(new_pos) -
-		fcppt::math::vector::structure_cast<vec2>(last_pos_));
+		fcppt::math::vector::structure_cast<vec2>(*saved_last_pos));
 
 	float threshold = 0.3f * static_cast<float>(
 		viewport_manager_.current_viewport()->get().size().w());
@@ -86,7 +95,5 @@ fruitapp::cursor::sound::react(
 			fruitlib::resource_tree::path(FCPPT_TEXT("swing")));
 		cooldown_timer_.reset();
 	}
-
-	last_pos_ = new_pos;
 
 }

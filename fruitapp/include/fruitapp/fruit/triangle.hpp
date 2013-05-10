@@ -44,16 +44,6 @@ public:
 	texcoord_array texcoords;
 	normal_array normals;
 
-	explicit
-	triangle()
-	:
-		vertices(),
-		texcoords(),
-		normals()
-	{
-	}
-
-	explicit
 	triangle(
 		vertex_array const &_vertices,
 		texcoord_array const &_texcoords,

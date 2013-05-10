@@ -15,7 +15,9 @@ fruitapp::fruit::cut_mesh_result::cut_mesh_result()
 	cross_section_(
 		fcppt::make_unique_ptr<fruit::mesh>(
 			fruit::mesh::triangle_sequence())),
-	bounding_box_(),
+	bounding_box_(
+		fruit::box3::vector::null(),
+		fruit::box3::dim::null()),
 	area_(
 		0.f),
 	barycenter_()

@@ -54,17 +54,24 @@ struct create_from_interpolation<fruitapp::fruit::triangle>
 		fruitlib::math::triangle::interpolation_pair<fruitapp::fruit::triangle> const &b,
 		fruitlib::math::triangle::interpolation_pair<fruitapp::fruit::triangle> const &c)
 	{
-		fruitapp::fruit::triangle result;
-		result.vertices[0] = a.value() * input.vertices[a.index1()] + (1-a.value()) * input.vertices[a.index2()];
-		result.vertices[1] = b.value() * input.vertices[b.index1()] + (1-b.value()) * input.vertices[b.index2()];
-		result.vertices[2] = c.value() * input.vertices[c.index1()] + (1-c.value()) * input.vertices[c.index2()];
-		result.texcoords[0] = a.value() * input.texcoords[a.index1()] + (1-a.value()) * input.texcoords[a.index2()];
-		result.texcoords[1] = b.value() * input.texcoords[b.index1()] + (1-b.value()) * input.texcoords[b.index2()];
-		result.texcoords[2] = c.value() * input.texcoords[c.index1()] + (1-c.value()) * input.texcoords[c.index2()];
-		result.normals[0] = a.value() * input.normals[a.index1()] + (1-a.value()) * input.normals[a.index2()];
-		result.normals[1] = b.value() * input.normals[b.index1()] + (1-b.value()) * input.normals[b.index2()];
-		result.normals[2] = c.value() * input.normals[c.index1()] + (1-c.value()) * input.normals[c.index2()];
-		return result;
+		return
+			fruitapp::fruit::triangle(
+				fruitapp::fruit::triangle::vertex_array{{
+					a.value() * input.vertices[a.index1()] + (1-a.value()) * input.vertices[a.index2()],
+					b.value() * input.vertices[b.index1()] + (1-b.value()) * input.vertices[b.index2()],
+					c.value() * input.vertices[c.index1()] + (1-c.value()) * input.vertices[c.index2()]
+				}},
+				fruitapp::fruit::triangle::texcoord_array{{
+					a.value() * input.texcoords[a.index1()] + (1-a.value()) * input.texcoords[a.index2()],
+					b.value() * input.texcoords[b.index1()] + (1-b.value()) * input.texcoords[b.index2()],
+					c.value() * input.texcoords[c.index1()] + (1-c.value()) * input.texcoords[c.index2()]
+				}},
+				fruitapp::fruit::triangle::normal_array{{
+					a.value() * input.normals[a.index1()] + (1-a.value()) * input.normals[a.index2()],
+					b.value() * input.normals[b.index1()] + (1-b.value()) * input.normals[b.index2()],
+					c.value() * input.normals[c.index1()] + (1-c.value()) * input.normals[c.index2()]
+				}}
+			);
 	}
 };
 }

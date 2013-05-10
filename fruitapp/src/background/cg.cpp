@@ -49,7 +49,7 @@ fruitapp::background::cg::cg(
 		_shader_context.renderer(),
 		sge::shader::parameter::is_projection_matrix(
 			true),
-		sge::renderer::matrix4()),
+		sge::renderer::matrix4::identity()),
 	shadow_mvp_parameter_(
 		shader_.vertex_program(),
 		sge::shader::parameter::name(
@@ -61,7 +61,7 @@ fruitapp::background::cg::cg(
 		?
 			_shadow_map->mvp().get()
 		:
-			sge::renderer::matrix4()),
+			sge::renderer::matrix4::identity()),
 	texture_parameter_(
 		shader_.pixel_program(),
 		sge::shader::parameter::name(

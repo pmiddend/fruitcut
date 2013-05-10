@@ -182,7 +182,7 @@ fruitlib::pp::filter::blur::blur(
 				shaders_[i].pixel_program(),
 				sge::shader::parameter::name(
 					"texture_size"),
-				sge::renderer::vector2()));
+				sge::renderer::vector2::null()));
 	}
 }
 

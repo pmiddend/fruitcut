@@ -8,7 +8,8 @@
 #include <fruitlib/scenic/node.hpp>
 #include <fruitlib/scenic/optional_parent.hpp>
 #include <fruitlib/scenic/events/update.hpp>
-#include <sge/input/cursor/object.hpp>
+#include <sge/input/cursor/object_fwd.hpp>
+#include <sge/input/cursor/optional_position.hpp>
 
 
 namespace fruitapp
@@ -44,7 +45,7 @@ private:
 	fruitapp::ingame_timer cooldown_timer_;
 	fruitapp::viewport::manager &viewport_manager_;
 	fruitlib::audio::sound_controller &sound_controller_;
-	sge::input::cursor::position last_pos_;
+	sge::input::cursor::optional_position last_pos_;
 
 };
 }
