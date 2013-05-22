@@ -1,9 +1,8 @@
 #ifndef FRUITLIB_SCENIC_DETAIL_REACTION_CHOOSER_HPP_INCLUDED
 #define FRUITLIB_SCENIC_DETAIL_REACTION_CHOOSER_HPP_INCLUDED
 
-#include <fruitlib/scenic/events/base_fwd.hpp>
+#include <fruitlib/scenic/events/base.hpp>
 #include <fcppt/nonassignable.hpp>
-#include <fcppt/mpl/for_each.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <typeinfo>
 #include <fcppt/config/external_end.hpp>
@@ -21,7 +20,6 @@ struct reaction_chooser
 FCPPT_NONASSIGNABLE(
 	reaction_chooser);
 public:
-	explicit
 	reaction_chooser(
 		Derived &_derived,
 		events::base const &_event,
