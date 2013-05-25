@@ -1,9 +1,10 @@
 #include <fruitlib/signal_stack_printer/object.hpp>
-#include <fcppt/config.hpp>
+#include <fcppt/config/compiler.hpp>
 #include <fcppt/config/platform.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 
-#if defined(FCPPT_HAVE_BACKTRACE) && defined(FCPPT_CONFIG_POSIX_PLATFORM)
+// TODO: Add own check for this
+#if defined(FCPPT_CONFIG_POSIX_PLATFORM) && defined(FCPPT_CONFIG_GCC_COMPILER)
 #include <fcppt/backtrace/print_current_stack_frame.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <signal.h>
