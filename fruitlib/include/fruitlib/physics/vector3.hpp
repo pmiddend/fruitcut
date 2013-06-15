@@ -10,7 +10,7 @@ namespace fruitlib
 namespace physics
 {
 typedef
-fcppt::math::vector::static_<scalar,3>::type
+fcppt::math::vector::static_<scalar,3>
 vector3;
 }
 }

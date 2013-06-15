@@ -17,11 +17,11 @@ fruitlib::math::view_plane_distance(
 	plane_type;
 
 	typedef
-	fcppt::math::vector::static_<sge::renderer::scalar,4>::type
+	fcppt::math::vector::static_<sge::renderer::scalar,4>
 	vector4;
 
 	typedef
-	fcppt::math::vector::static_<sge::renderer::scalar,3>::type
+	fcppt::math::vector::static_<sge::renderer::scalar,3>
 	vector3;
 
 	vector4 const

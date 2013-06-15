@@ -41,13 +41,12 @@ namespace fruit
 template<typename Container>
 fcppt::optional
 <
-	typename
 	fcppt::math::matrix::static_
 	<
 		typename boost::mpl::identity<typename Container::value_type>::type::value_type,
 		4,
 		4
-	>::type
+	>
 > const
 make_coordinate_system(
 	Container const &points,
@@ -65,8 +64,8 @@ make_coordinate_system(
 	Container::const_iterator
 	const_iterator;
 
-	typedef typename
-	fcppt::math::matrix::static_<scalar,4,4>::type
+	typedef
+	fcppt::math::matrix::static_<scalar,4,4>
 	matrix4;
 
 	typedef

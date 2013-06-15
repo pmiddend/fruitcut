@@ -56,7 +56,7 @@ public:
 		fruitlib::scenic::events::update const &);
 private:
 	typedef
-	fcppt::math::dim::static_<sge::renderer::scalar,2>::type
+	fcppt::math::dim::static_<sge::renderer::scalar,2>
 	fractional_dimension;
 
 	// There's no _real_ reason for this being a deque, it's just cool

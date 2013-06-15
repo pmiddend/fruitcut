@@ -57,7 +57,7 @@ fruitlib::physics::rigid_body::object::object(
 		fcppt::make_unique_ptr<btDefaultMotionState>(
 			btTransform(
 				structure_cast(
-					matrix4_to_matrix3<scalar>(
+					matrix4_to_matrix3(
 						params.transformation())),
 				structure_cast(
 					params.position())))),

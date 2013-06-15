@@ -18,8 +18,8 @@ template<typename T,fcppt::math::size_type N>
 class basic
 {
 public:
-	typedef typename
-	fcppt::math::vector::static_<T,N>::type
+	typedef
+	fcppt::math::vector::static_<T,N>
 	vector;
 
 	explicit

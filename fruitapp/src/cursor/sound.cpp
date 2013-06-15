@@ -67,7 +67,7 @@ fruitapp::cursor::sound::react(
 	if(!viewport_manager_.current_viewport())
 		return;
 
-	typedef fcppt::math::vector::static_<float,2>::type vec2;
+	typedef fcppt::math::vector::static_<float,2> vec2;
 
 	sge::input::cursor::optional_position const saved_last_pos(
 		last_pos_);

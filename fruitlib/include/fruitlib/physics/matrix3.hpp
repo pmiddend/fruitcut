@@ -15,7 +15,7 @@ fcppt::math::matrix::static_
 	scalar,
 	3,
 	3
->::type
+>
 matrix3;
 }
 }

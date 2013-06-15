@@ -7,7 +7,7 @@
 namespace fruitapp
 {
 typedef
-fcppt::math::box::rect<sge::renderer::scalar>::type
+fcppt::math::box::rect<sge::renderer::scalar>
 renderer_rect;
 }
 

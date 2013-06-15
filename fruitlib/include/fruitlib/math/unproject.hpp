@@ -46,13 +46,13 @@ unproject(
 	fcppt::math::matrix::object<T,M1,M2,S2> const &inverse_mvp,
 	fcppt::math::box::object<T,static_cast<fcppt::math::size_type>(2)> const &viewport)
 {
-	typedef typename
+	typedef
 	fcppt::math::vector::static_
 	<
 		T,
 		static_cast<fcppt::math::size_type>(
 			N::value+1)
-	>::type
+	>
 	vector4;
 
 	// Copied from

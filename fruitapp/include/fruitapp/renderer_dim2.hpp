@@ -7,7 +7,7 @@
 namespace fruitapp
 {
 typedef
-fcppt::math::dim::static_<sge::renderer::scalar,2>::type
+fcppt::math::dim::static_<sge::renderer::scalar,2>
 renderer_dim2;
 }
 
