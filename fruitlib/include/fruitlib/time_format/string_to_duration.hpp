@@ -9,7 +9,15 @@
 #include <boost/fusion/include/at.hpp>
 #include <boost/fusion/include/at_c.hpp>
 #include <boost/fusion/include/zip_view.hpp>
-#include <boost/spirit/include/qi.hpp>
+#define BOOST_SPIRIT_USE_PHOENIX_V3
+#include <boost/spirit/include/qi_core.hpp>
+#include <boost/spirit/include/qi_int.hpp>
+#include <boost/spirit/include/qi_lit.hpp>
+#include <boost/spirit/include/qi_not_predicate.hpp>
+#include <boost/spirit/include/qi_operator.hpp>
+#include <boost/spirit/include/qi_optional.hpp>
+#include <boost/spirit/include/qi_parse.hpp>
+#undef BOOST_SPIRIT_USE_PHOENIX_V3
 #include <boost/type_traits/remove_cv.hpp>
 #include <boost/type_traits/remove_reference.hpp>
 #include <string>

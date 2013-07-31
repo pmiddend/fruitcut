@@ -88,37 +88,11 @@
 #include <fcppt/random/generator/seed_from_chrono.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/chrono/duration.hpp>
-#include <boost/spirit/home/phoenix/core.hpp>
+#include <boost/phoenix/core/reference.hpp>
 #include <functional>
 #include <memory>
 #include <fcppt/config/external_end.hpp>
 
-
-namespace
-{
-struct phoenix_ref_broken_hack
-{
-FCPPT_NONASSIGNABLE(
-	phoenix_ref_broken_hack);
-public:
-	explicit
-	phoenix_ref_broken_hack(
-		fruitlib::scenic::delta::duration const &_duration)
-	:
-		duration_(
-			_duration)
-	{
-	}
-
-	fruitlib::scenic::delta::duration const
-	operator()() const
-	{
-		return duration_;
-	}
-
-	fruitlib::scenic::delta::duration const &duration_;
-};
-}
 
 fruitapp::machine_impl::machine_impl(
 	int const argc,
@@ -757,7 +731,7 @@ fruitlib::scenic::delta::callback const
 fruitapp::machine_impl::ingame_clock_callback() const
 {
 	return
-		phoenix_ref_broken_hack(
+		boost::phoenix::ref(
 			ingame_clock_delta_);
 }
 
@@ -765,7 +739,7 @@ fruitlib::scenic::delta::callback const
 fruitapp::machine_impl::standard_clock_callback() const
 {
 	return
-		phoenix_ref_broken_hack(
+		boost::phoenix::ref(
 			standard_clock_delta_);
 }
 
