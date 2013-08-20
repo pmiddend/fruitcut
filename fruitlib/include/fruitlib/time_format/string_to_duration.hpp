@@ -4,7 +4,6 @@
 #include <fcppt/optional.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/optional.hpp>
-#include <boost/chrono/duration.hpp>
 #include <boost/fusion/container/vector/vector10.hpp>
 #include <boost/fusion/include/at.hpp>
 #include <boost/fusion/include/at_c.hpp>
@@ -20,6 +19,7 @@
 #undef BOOST_SPIRIT_USE_PHOENIX_V3
 #include <boost/type_traits/remove_cv.hpp>
 #include <boost/type_traits/remove_reference.hpp>
+#include <chrono>
 #include <string>
 #include <fcppt/config/external_end.hpp>
 
@@ -79,7 +79,7 @@ struct duration_fold_functor
 			rep
 			?
 				accumulated_duration +
-				boost::chrono::duration_cast<result_type>(
+				std::chrono::duration_cast<result_type>(
 					source_duration(
 						*rep))
 			:
@@ -157,12 +157,12 @@ string_to_duration(
 	typedef
 	boost::fusion::vector6
 	<
-		boost::chrono::hours,
-		boost::chrono::minutes,
-		boost::chrono::seconds,
-		boost::chrono::milliseconds,
-		boost::chrono::microseconds,
-		boost::chrono::nanoseconds
+		std::chrono::hours,
+		std::chrono::minutes,
+		std::chrono::seconds,
+		std::chrono::milliseconds,
+		std::chrono::microseconds,
+		std::chrono::nanoseconds
 	>
 	duration_types;
 

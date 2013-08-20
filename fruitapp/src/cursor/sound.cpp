@@ -15,7 +15,7 @@
 #include <fcppt/math/vector/length.hpp>
 #include <fcppt/math/vector/structure_cast.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/chrono/duration.hpp>
+#include <chrono>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -33,11 +33,11 @@ fruitapp::cursor::sound::sound(
 	update_timer_(
 		fruitapp::ingame_timer::parameters(
 			_clock,
-			boost::chrono::milliseconds(40))),
+			std::chrono::milliseconds(40))),
 	cooldown_timer_(
 		fruitapp::ingame_timer::parameters(
 			_clock,
-			boost::chrono::milliseconds(500))),
+			std::chrono::milliseconds(500))),
 	viewport_manager_(
 		_viewport_manager),
 	sound_controller_(

@@ -58,8 +58,8 @@
 #include <fcppt/config/external_begin.hpp>
 #include <boost/cstdint.hpp>
 #include <boost/format.hpp>
-#include <boost/chrono/duration.hpp>
 #include <cmath>
+#include <chrono>
 #include <functional>
 #include <fcppt/config/external_end.hpp>
 
@@ -350,7 +350,7 @@ fruitapp::game_logic::object::react(
 	}
 	unsigned const seconds_remaining =
 		static_cast<unsigned>(
-			sge::timer::remaining<boost::chrono::seconds>(
+			sge::timer::remaining<std::chrono::seconds>(
 				round_timer_).count());
 
 	unsigned const minutes_remaining =

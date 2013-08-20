@@ -4,7 +4,7 @@
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/optional.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/chrono/system_clocks.hpp>
+#include <chrono>
 #include <functional>
 #include <fcppt/config/external_end.hpp>
 
@@ -17,7 +17,7 @@ FCPPT_NONCOPYABLE(
 	performance_timer);
 public:
 	typedef
-	boost::chrono::high_resolution_clock
+	std::chrono::high_resolution_clock
 	clock;
 
 	typedef

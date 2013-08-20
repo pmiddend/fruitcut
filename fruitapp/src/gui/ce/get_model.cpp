@@ -9,6 +9,7 @@
 #include <fcppt/config/external_begin.hpp>
 #include <boost/date_time/c_local_time_adjustor.hpp>
 #include <boost/date_time/posix_time/posix_time.hpp>
+#include <chrono>
 #include <iterator>
 #include <fcppt/config/external_end.hpp>
 
@@ -108,8 +109,8 @@ fruitapp::gui::ce::get_model::reset(
 				i->score()));
 		new_row.push_back(
 			fruitlib::human_readable_time_difference(
-				boost::chrono::seconds(
-					static_cast<boost::chrono::seconds::rep>(
+				std::chrono::seconds(
+					static_cast<std::chrono::seconds::rep>(
 						(boost::posix_time::second_clock::local_time() -
 						local_adjuster::utc_to_local(
 							i->date_time())).total_seconds()))));

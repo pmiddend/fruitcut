@@ -87,8 +87,8 @@
 #include <fcppt/math/vector/arithmetic.hpp>
 #include <fcppt/random/generator/seed_from_chrono.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/chrono/duration.hpp>
 #include <boost/phoenix/core/reference.hpp>
+#include <chrono>
 #include <functional>
 #include <memory>
 #include <fcppt/config/external_end.hpp>
@@ -235,7 +235,7 @@ fruitapp::machine_impl::machine_impl(
 					/ FCPPT_TEXT("sge")))),
 	second_timer_(
 		sge::timer::parameters<sge::timer::clocks::standard>(
-			boost::chrono::seconds(
+			std::chrono::seconds(
 				1))),
 	ingame_clock_(),
 	ingame_clock_delta_(),
@@ -549,7 +549,7 @@ fruitapp::machine_impl::run_once()
 			static_cast<fruitapp::ingame_clock::duration::rep>(
 				ingame_clock_.factor() *
 				static_cast<fruitapp::ingame_clock::float_type>(
-					boost::chrono::duration_cast<fruitapp::ingame_clock::duration>(
+					std::chrono::duration_cast<fruitapp::ingame_clock::duration>(
 						standard_clock_delta_).count())));
 
 	ingame_clock_.update();

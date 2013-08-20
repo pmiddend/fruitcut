@@ -10,8 +10,8 @@
 #include <fcppt/math/dim/object_impl.hpp>
 #include <fcppt/math/vector/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/chrono/duration.hpp>
 #include <boost/ptr_container/ptr_list.hpp>
+#include <chrono>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -50,7 +50,7 @@ public:
 	instance;
 
 	typedef
-	boost::chrono::duration<value_type>
+	std::chrono::duration<value_type>
 	duration;
 
 	explicit

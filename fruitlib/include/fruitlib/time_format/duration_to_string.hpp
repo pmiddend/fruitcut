@@ -4,9 +4,9 @@
 #include <fruitlib/time_format/context.hpp>
 #include <fruitlib/time_format/grammar.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/chrono/duration.hpp>
 #include <boost/mpl/assert.hpp>
 #include <boost/proto/proto.hpp>
+#include <chrono>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -23,14 +23,14 @@ template
 >
 String const
 duration_to_string(
-	boost::chrono::duration<Rep,Period> const &d,
+	std::chrono::duration<Rep,Period> const &d,
 	ProtoExpression const &expression_tree)
 {
 	BOOST_MPL_ASSERT((boost::proto::matches<ProtoExpression, grammar>));
 	return
 		boost::proto::eval(
 			expression_tree,
-			context<boost::chrono::duration<Rep,Period>,String>(
+			context<std::chrono::duration<Rep,Period>,String>(
 				d));
 }
 }

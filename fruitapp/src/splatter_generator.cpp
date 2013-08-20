@@ -29,7 +29,7 @@
 #include <fcppt/text.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/chrono/duration.hpp>
+#include <chrono>
 #include <limits>
 #include <fcppt/config/external_end.hpp>
 
@@ -87,7 +87,7 @@ fruitapp::splatter_generator::splatter_generator(
 					std::numeric_limits<fruitapp::point_sprite::color_format::channel_type>::max()/2)))),
 	lifetime_millis_rng_(
 		random_generator_,
-		fruitlib::json::parse_random_int_distribution<boost::chrono::milliseconds::rep>(
+		fruitlib::json::parse_random_int_distribution<std::chrono::milliseconds::rep>(
 			sge::parse::json::find_and_convert_member<sge::parse::json::array const>(
 				config_file,
 				sge::parse::json::path(
@@ -184,8 +184,8 @@ fruitapp::splatter_generator::fruit_was_cut(
 						point_sprites_.lookup_texture(
 							fruitlib::resource_tree::path(
 								FCPPT_TEXT("spray"))),
-						boost::chrono::duration_cast<fruitapp::ingame_clock::duration>(
-							boost::chrono::milliseconds(
+						std::chrono::duration_cast<fruitapp::ingame_clock::duration>(
+							std::chrono::milliseconds(
 								lifetime_millis_rng_())),
 						clock_))));
 	}

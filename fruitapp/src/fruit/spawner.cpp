@@ -27,8 +27,8 @@
 #include <fcppt/math/vector/output.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/chrono/duration.hpp>
 #include <algorithm>
+#include <chrono>
 #include <cmath>
 #include <functional>
 #include <fcppt/config/external_end.hpp>
@@ -231,7 +231,7 @@ fruitapp::fruit::spawner::reset_timer()
 		timer_.active(
 			true);
 	timer_.interval(
-		boost::chrono::duration<fruitapp::ingame_clock::float_type>(
+		std::chrono::duration<fruitapp::ingame_clock::float_type>(
 			seconds_rng_()));
 }
 

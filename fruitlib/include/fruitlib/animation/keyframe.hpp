@@ -1,9 +1,6 @@
 #ifndef FRUITLIB_ANIMATION_KEYFRAME_HPP_INCLUDED
 #define FRUITLIB_ANIMATION_KEYFRAME_HPP_INCLUDED
 
-#include <fcppt/config/external_begin.hpp>
-#include <boost/chrono.hpp>
-#include <fcppt/config/external_end.hpp>
 
 namespace fruitlib
 {

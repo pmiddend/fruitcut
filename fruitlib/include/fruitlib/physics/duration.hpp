@@ -3,7 +3,7 @@
 
 #include <fruitlib/physics/scalar.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/chrono/duration.hpp>
+#include <chrono>
 #include <fcppt/config/external_end.hpp>
 
 namespace fruitlib
@@ -11,7 +11,7 @@ namespace fruitlib
 namespace physics
 {
 typedef
-boost::chrono::duration<fruitlib::physics::scalar>
+std::chrono::duration<fruitlib::physics::scalar>
 duration;
 }
 }

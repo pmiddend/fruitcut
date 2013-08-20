@@ -11,9 +11,9 @@
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/chrono/duration.hpp>
 #include <boost/proto/proto.hpp>
 #include <boost/type_traits/make_unsigned.hpp>
+#include <chrono>
 #include <iomanip>
 #include <sstream>
 #include <fcppt/config/external_end.hpp>
@@ -33,7 +33,7 @@ class context
 {
 private:
 	typedef
-	boost::chrono::milliseconds::rep
+	std::chrono::milliseconds::rep
 	rep;
 public:
 	typedef
@@ -60,8 +60,8 @@ public:
 		boost::make_unsigned<rep>::type
 		urep;
 
-		boost::chrono::milliseconds const d =
-			boost::chrono::duration_cast<boost::chrono::milliseconds>(
+		std::chrono::milliseconds const d =
+			std::chrono::duration_cast<std::chrono::milliseconds>(
 				_impl);
 
 		minutes_ =

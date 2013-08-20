@@ -1,13 +1,17 @@
 #include <fruitlib/human_readable_time_difference.hpp>
 #include <fcppt/insert_to_fcppt_string.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <chrono>
+#include <fcppt/config/external_end.hpp>
+
 
 fcppt::string const
 fruitlib::human_readable_time_difference(
-	boost::chrono::seconds const &_seconds)
+	std::chrono::seconds const &_seconds)
 {
 	typedef
-	boost::chrono::seconds::rep
+	std::chrono::seconds::rep
 	arithmetic_type;
 
 	arithmetic_type const seconds =

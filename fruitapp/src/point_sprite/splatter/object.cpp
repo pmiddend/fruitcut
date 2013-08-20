@@ -14,7 +14,7 @@
 #include <fcppt/math/vector/arithmetic.hpp>
 #include <fcppt/math/vector/output.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/chrono/duration.hpp>
+#include <chrono>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -51,7 +51,7 @@ fruitapp::point_sprite::splatter::object::object(
 	second_timer_(
 		fruitapp::ingame_timer::parameters(
 			p.clock(),
-			boost::chrono::seconds(
+			std::chrono::seconds(
 				1)))
 {
 
