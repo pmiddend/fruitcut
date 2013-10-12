@@ -8,7 +8,7 @@
 #include <awl/main/exit_code.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/type_name.hpp>
+#include <fcppt/type_name_from_info.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <typeinfo>
 #include <fcppt/config/external_end.hpp>
@@ -124,7 +124,7 @@ fruitapp::machine::unconsumed_event(
 	throw
 		fruitapp::exception(
 			FCPPT_TEXT("Got an unconsumed event of type \"")+
-			fcppt::type_name(
+			fcppt::type_name_from_info(
 				typeid(e))+
 			FCPPT_TEXT("\""));
 }
