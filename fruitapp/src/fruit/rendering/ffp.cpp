@@ -21,6 +21,7 @@
 #include <sge/renderer/state/core/depth_stencil/scoped.hpp>
 #include <sge/renderer/state/core/depth_stencil/depth/enabled.hpp>
 #include <sge/renderer/state/core/depth_stencil/stencil/off.hpp>
+#include <sge/renderer/state/ffp/lighting/diffuse_from_vertex.hpp>
 #include <sge/renderer/state/ffp/lighting/enabled.hpp>
 #include <sge/renderer/state/ffp/lighting/object.hpp>
 #include <sge/renderer/state/ffp/lighting/parameters.hpp>
@@ -139,7 +140,9 @@ fruitapp::fruit::rendering::ffp::ffp(
 			sge::renderer::state::ffp::lighting::parameters(
 				sge::renderer::state::ffp::lighting::enabled(
 					sge::renderer::state::ffp::lighting::ambient_color(
-						sge::image::color::predef::white()))))),
+						sge::image::color::predef::white()),
+					sge::renderer::state::ffp::lighting::diffuse_from_vertex(
+						false))))),
 	light_(
 		renderer_.create_light_state(
 			ffp_light_from_directional_light_source(
