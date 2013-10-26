@@ -1,5 +1,5 @@
 #ifndef FRUITLIB_MATH_PLANE_FROM_VEC4_HPP_INCLUDED
-#define FRUITLIB_PLANE_FROM_VEC4_HPP_INCLUDED
+#define FRUITLIB_MATH_PLANE_FROM_VEC4_HPP_INCLUDED
 
 #include <fruitlib/math/plane/basic.hpp>
 #include <fcppt/math/vector/object_impl.hpp>

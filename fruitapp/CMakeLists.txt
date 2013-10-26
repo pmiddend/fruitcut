@@ -154,7 +154,6 @@ set(
 	fruitapp/include/fruitapp/fruit/rendering/base_scoped_ptr.hpp
 	fruitapp/include/fruitapp/fruit/rendering/base_unique_ptr.hpp
 	fruitapp/include/fruitapp/fruit/rendering/cg.hpp
-	fruitapp/include/fruitapp/fruit/rendering/cg_fwd.hpp
 	fruitapp/include/fruitapp/fruit/rendering/draw_node.hpp
 	fruitapp/include/fruitapp/fruit/rendering/draw_node_fwd.hpp
 	fruitapp/include/fruitapp/fruit/rendering/ffp.hpp

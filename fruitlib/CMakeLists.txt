@@ -44,12 +44,6 @@ set(
 	fruitlib/include/fruitlib/font/scene_node.hpp
 	fruitlib/include/fruitlib/geometry_traits/box.hpp
 	fruitlib/include/fruitlib/geometry_traits/vector.hpp
-	fruitlib/include/fruitlib/grid/collect_points.hpp
-	fruitlib/include/fruitlib/grid/convolve_ignore_borders.hpp
-	fruitlib/include/fruitlib/grid/map.hpp
-	fruitlib/include/fruitlib/grid/sobel_ignore_borders.hpp
-	fruitlib/include/fruitlib/grid/to_ppm.hpp
-	fruitlib/include/fruitlib/grid/zip_with.hpp
 	fruitlib/include/fruitlib/human_readable_time_difference.hpp
 	fruitlib/include/fruitlib/json/parse_color.hpp
 	fruitlib/include/fruitlib/json/parse_projection.hpp
@@ -212,7 +206,6 @@ set(
 	fruitlib/include/fruitlib/texture_manager.hpp
 	fruitlib/include/fruitlib/texture_manager_fwd.hpp
 	fruitlib/include/fruitlib/time_format/context.hpp
-	fruitlib/include/fruitlib/time_format/domain.hpp
 	fruitlib/include/fruitlib/time_format/duration_to_string.hpp
 	fruitlib/include/fruitlib/time_format/find_and_convert_duration.hpp
 	fruitlib/include/fruitlib/time_format/formatter_fwd.hpp

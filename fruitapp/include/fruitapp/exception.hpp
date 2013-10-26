@@ -1,5 +1,5 @@
-#ifndef FRUITCUT_APP_EXCEPTION_HPP_INCLUDED
-#define FRUITCUT_APP_EXCEPTION_HPP_INCLUDED
+#ifndef FRUITAPP_EXCEPTION_HPP_INCLUDED
+#define FRUITAPP_EXCEPTION_HPP_INCLUDED
 
 #include <fcppt/exception.hpp>
 #include <fcppt/string.hpp>

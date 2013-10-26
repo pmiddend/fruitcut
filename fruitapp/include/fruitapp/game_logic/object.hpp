@@ -26,6 +26,7 @@
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
+#include <map>
 #include <fcppt/config/external_end.hpp>
 
 

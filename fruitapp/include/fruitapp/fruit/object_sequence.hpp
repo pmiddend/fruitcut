@@ -1,5 +1,5 @@
-#ifndef FRUITAPP_FRUIT_SEQUENCE_HPP_INCLUDED
-#define FRUITAPP_FRUIT_SEQUENCE_HPP_INCLUDED
+#ifndef FRUITAPP_FRUIT_OBJECT_SEQUENCE_HPP_INCLUDED
+#define FRUITAPP_FRUIT_OBJECT_SEQUENCE_HPP_INCLUDED
 
 #include <fruitapp/fruit/object.hpp>
 #include <fruitlib/delayed_ptr_sequence.hpp>
