@@ -5,7 +5,6 @@
 #include <fruitlib/audio/group/sound_base_fwd.hpp>
 #include <sge/audio/player.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/container/bitfield/object_impl.hpp>
 #include <fcppt/preprocessor/const.hpp>
 #include <fcppt/preprocessor/pure.hpp>
 #include <fcppt/preprocessor/warn_unused_result.hpp>
@@ -27,7 +26,6 @@ class player
 FCPPT_NONCOPYABLE(
 	player);
 public:
-	explicit
 	player(
 		sge::audio::player &,
 		sge::audio::scalar gain,
@@ -78,8 +76,8 @@ public:
 		sge::audio::sound::nonpositional_parameters const &)
 	FCPPT_PP_WARN_UNUSED_RESULT;
 
-	sge::audio::player_capabilities_field const
-	capabilities() const
+	bool
+	is_null() const
 	FCPPT_PP_PURE;
 
 	~player();

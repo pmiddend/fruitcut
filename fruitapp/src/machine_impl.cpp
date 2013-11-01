@@ -176,8 +176,7 @@ fruitapp::machine_impl::machine_impl(
 						sge::parse::json::path(
 							FCPPT_TEXT("window-size"))))))
 			(sge::systems::font())
-			(sge::systems::audio_player(
-				sge::audio::player_capabilities_field::null()))
+			(sge::systems::audio_player_default())
 			(sge::systems::audio_loader(
 				sge::audio::loader_capabilities_field::null(),
 				sge::media::optional_extension_set(

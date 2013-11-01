@@ -149,11 +149,11 @@ fruitlib::audio::group::player::create_nonpositional_stream(
 				pitch_));
 }
 
-sge::audio::player_capabilities_field const
-fruitlib::audio::group::player::capabilities() const
+bool
+fruitlib::audio::group::player::is_null() const
 {
 	return
-		impl_.capabilities();
+		impl_.is_null();
 }
 
 fruitlib::audio::group::player::~player()
