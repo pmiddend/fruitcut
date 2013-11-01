@@ -1,6 +1,7 @@
 #include <fruitlib/texture_manager.hpp>
 #include <sge/image2d/file.hpp>
-#include <sge/image2d/system.hpp>
+#include <sge/image2d/load_exn.hpp>
+#include <sge/image2d/system_fwd.hpp>
 #include <sge/renderer/texture/color_format.hpp>
 #include <sge/renderer/texture/create_planar_from_path.hpp>
 #include <sge/renderer/texture/create_planar_from_view.hpp>
@@ -76,7 +77,8 @@ fruitlib::texture_manager::create_image_from_path(
 	boost::filesystem::path const &_path)
 {
 	return
-		image_system_.load(
+		sge::image2d::load_exn(
+			image_system_,
 			_path);
 }
 

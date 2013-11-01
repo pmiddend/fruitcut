@@ -5,7 +5,8 @@
 #include <fruitlib/resource_tree/path.hpp>
 #include <sge/audio/buffer.hpp>
 #include <sge/audio/file.hpp>
-#include <sge/audio/loader.hpp>
+#include <sge/audio/load_exn.hpp>
+#include <sge/audio/loader_fwd.hpp>
 #include <sge/audio/player.hpp>
 #include <sge/audio/scalar.hpp>
 #include <sge/audio/sound/base.hpp>
@@ -63,7 +64,8 @@ load_shared(
 {
 	return
 		sge::audio::file_shared_ptr(
-			_audio_loader.load(
+			sge::audio::load_exn(
+				_audio_loader,
 				_path));
 }
 }
@@ -106,7 +108,8 @@ fruitlib::audio::music_controller::music_controller(
 			_crossfade)),
 	silence_buffer_(
 		player_.create_buffer(
-			*_audio_loader.load(
+			*sge::audio::load_exn(
+				_audio_loader,
 				_base_path/FCPPT_TEXT("silence.wav")))),
 	silence_source_(
 		silence_buffer_->create_nonpositional(
