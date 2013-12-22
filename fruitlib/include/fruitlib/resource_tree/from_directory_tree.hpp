@@ -2,7 +2,6 @@
 #define FRUITLIB_RESOURCE_TREE_FROM_DIRECTORY_TREE_HPP_INCLUDED
 
 #include <fruitlib/resource_tree/make_type.hpp>
-#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/filesystem/stem.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -19,7 +18,7 @@ namespace fruitlib
 namespace resource_tree
 {
 template<typename Tree>
-std::unique_ptr<Tree>
+Tree
 from_directory_tree(
 	boost::filesystem::path const &root,
 	std::function
@@ -44,7 +43,7 @@ from_directory_tree(
 	if(!boost::filesystem::is_directory(root))
 	{
 		return
-			fcppt::make_unique_ptr<tree_type>(
+			Tree(
 				node_type(
 					fcppt::filesystem::stem(
 						root),
@@ -52,13 +51,12 @@ from_directory_tree(
 						root)));
 	}
 
-	std::unique_ptr<tree_type> result(
-		fcppt::make_unique_ptr<tree_type>(
-			node_type(
-				fcppt::filesystem::stem(
-					root),
-				create_node(
-					root))));
+	tree_type result(
+		node_type(
+			fcppt::filesystem::stem(
+				root),
+			create_node(
+				root)));
 
 	for(
 		boost::filesystem::directory_iterator current_file(
@@ -66,7 +64,7 @@ from_directory_tree(
 		current_file != boost::filesystem::directory_iterator();
 		++current_file)
 	{
-		result->push_back(
+		result.push_back(
 			resource_tree::from_directory_tree<Tree>(
 				*current_file,
 				create_leaf,

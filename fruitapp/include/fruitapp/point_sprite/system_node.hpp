@@ -30,7 +30,6 @@
 #include <boost/mpl/vector/vector10.hpp>
 #include <boost/ptr_container/ptr_list.hpp>
 #include <cstddef>
-#include <memory>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -101,10 +100,6 @@ private:
 	>::type
 	resource_tree_type;
 
-	typedef
-	std::unique_ptr<resource_tree_type>
-	resource_tree_ptr;
-
 	sge::renderer::device::ffp &renderer_;
 	fruitapp::projection_manager::object const &projection_manager_;
 	sge::texture::manager texture_manager_;
@@ -112,7 +107,7 @@ private:
 	fruitapp::point_sprite::collection collection_;
 	fruitapp::point_sprite::state_object states_;
 	child_sequence children_;
-	resource_tree_ptr textures_;
+	resource_tree_type textures_;
 
 };
 }

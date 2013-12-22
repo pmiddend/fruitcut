@@ -158,7 +158,7 @@ fruitapp::point_sprite::system_node::lookup_texture(
 {
 	resource_tree_type &target_tree =
 		fruitlib::resource_tree::navigate_to_path(
-			*textures_,
+			textures_,
 			target_path);
 
 	if(target_tree.value().is_leaf())

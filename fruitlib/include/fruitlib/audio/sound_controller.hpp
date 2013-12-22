@@ -21,7 +21,6 @@
 #include <boost/filesystem/path.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <cstddef>
-#include <memory>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -63,7 +62,6 @@ public:
 	boost::mpl::vector1<scenic::events::update>
 	scene_reactions;
 
-	explicit
 	sound_controller(
 		scenic::optional_parent const &,
 		fruitlib::random_generator &,
@@ -119,12 +117,8 @@ private:
 	>::type
 	resource_tree_type;
 
-	typedef
-	std::unique_ptr<resource_tree_type>
-	resource_tree_ptr;
-
 	group::player player_;
-	resource_tree_ptr sounds_;
+	resource_tree_type sounds_;
 	audio::pool pool_;
 
 	void

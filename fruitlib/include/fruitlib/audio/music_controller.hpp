@@ -27,7 +27,6 @@
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
 #include <cstddef>
-#include <memory>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -88,12 +87,8 @@ private:
 	>::type
 	resource_tree_type;
 
-	typedef
-	std::unique_ptr<resource_tree_type>
-	resource_tree_ptr;
-
 	group::player player_;
-	resource_tree_ptr sounds_;
+	resource_tree_type sounds_;
 	scenic::delta::clock clock_;
 	scenic::delta::timer crossfade_;
 	sge::audio::buffer_scoped_ptr silence_buffer_;

@@ -126,7 +126,7 @@ fruitlib::audio::music_controller::play(
 {
 	resource_tree_type &target_tree =
 		resource_tree::navigate_to_path(
-			*sounds_,
+			sounds_,
 			target_path);
 
 	if(target_tree.value().is_leaf())
