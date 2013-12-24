@@ -73,8 +73,8 @@ fruitapp::fruit::prototype_from_json(
 									FCPPT_TEXT("texture"))),
 					sge::renderer::texture::mipmap::all_levels(
 						sge::renderer::texture::mipmap::auto_generate::yes),
-					sge::renderer::resource_flags_field(
-						sge::renderer::resource_flags::readable))),
+					sge::renderer::resource_flags_field{
+						sge::renderer::resource_flags::readable})),
 			fruitapp::fruit::material::from_json(
 				sge::parse::json::find_and_convert_member<sge::parse::json::object const>(
 					o,
