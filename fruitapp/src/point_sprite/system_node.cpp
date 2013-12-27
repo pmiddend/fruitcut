@@ -28,6 +28,7 @@
 #include <sge/texture/manager_fwd.hpp>
 #include <sge/texture/part_shared_ptr.hpp>
 #include <sge/texture/rect_fragmented.hpp>
+#include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/algorithm/map.hpp>
 #include <fcppt/assign/make_container.hpp>
