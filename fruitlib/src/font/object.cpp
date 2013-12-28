@@ -1,14 +1,17 @@
+#include <fruitlib/font/align_h.hpp>
 #include <fruitlib/font/manager.hpp>
 #include <fruitlib/font/object.hpp>
 #include <fruitlib/font/object_parameters.hpp>
 #include <sge/font/text_parameters.hpp>
+#include <sge/font/align_h/center.hpp>
+#include <sge/font/align_h/left.hpp>
+#include <sge/font/align_h/max_width.hpp>
+#include <sge/font/align_h/right.hpp>
+#include <sge/font/align_h/variant.hpp>
 #include <sge/font/draw/static_text.hpp>
 #include <sge/image/color/any/object.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/math/box/output.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <iostream>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/assert/unreachable.hpp>
 
 
 fruitlib::font::object::object(
@@ -95,7 +98,7 @@ fruitlib::font::object::bounding_box(
 		this->regenerate_text_object();
 }
 
-sge::font::align_h
+fruitlib::font::align_h
 fruitlib::font::object::alignment_h() const
 {
 	return
@@ -104,7 +107,7 @@ fruitlib::font::object::alignment_h() const
 
 void
 fruitlib::font::object::alignment_h(
-	sge::font::align_h const _alignment_h)
+	fruitlib::font::align_h const _alignment_h)
 {
 	alignment_h_ =
 		_alignment_h;
@@ -112,7 +115,7 @@ fruitlib::font::object::alignment_h(
 	this->regenerate_text_object();
 }
 
-fruitlib::font::align_v::type
+fruitlib::font::align_v
 fruitlib::font::object::alignment_v() const
 {
 	return
@@ -121,7 +124,7 @@ fruitlib::font::object::alignment_v() const
 
 void
 fruitlib::font::object::alignment_v(
-	fruitlib::font::align_v::type const _alignment_v)
+	fruitlib::font::align_v const _alignment_v)
 {
 	alignment_v_ =
 		_alignment_v;
@@ -212,17 +215,56 @@ fruitlib::font::object::regenerate_text_object()
 	if(!bounding_box_.content() || text_.empty())
 		return;
 
+	sge::font::align_h::max_width const max_width(
+		bounding_box_.w()
+	);
+
+	auto const convert_align_h(
+		[
+			max_width
+		](
+			fruitlib::font::align_h const _align
+		)
+		-> sge::font::align_h::variant
+		{
+			switch(
+				_align
+			)
+			{
+			case fruitlib::font::align_h::left:
+				return
+					sge::font::align_h::left(
+						max_width
+					);
+			case fruitlib::font::align_h::center:
+				return
+					sge::font::align_h::center(
+						max_width
+					);
+			case fruitlib::font::align_h::right:
+				return
+					sge::font::align_h::right(
+						max_width
+					);
+			}
+
+			FCPPT_ASSERT_UNREACHABLE;
+		}
+	);
+
 	text_object_.take(
 		fcppt::make_unique_ptr<sge::font::draw::static_text>(
 			manager_.renderer(),
 			font_object_,
 			text_,
 			sge::font::text_parameters(
-				alignment_h_)
-				.flags(
-					flags_)
-				.max_width(
-					bounding_box_.w()),
+				convert_align_h(
+					alignment_h_
+				)
+			)
+			.flags(
+				flags_
+			),
 			bounding_box_.pos(),
 			color_,
 			manager_.emulate_srgb()));

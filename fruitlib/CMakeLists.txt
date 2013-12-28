@@ -30,7 +30,10 @@ set(
 	fruitlib/include/fruitlib/create_command_line_parameters.hpp
 	fruitlib/include/fruitlib/delayed_ptr_sequence.hpp
 	fruitlib/include/fruitlib/exception.hpp
+	fruitlib/include/fruitlib/font/align_h.hpp
+	fruitlib/include/fruitlib/font/align_h_fwd.hpp
 	fruitlib/include/fruitlib/font/align_v.hpp
+	fruitlib/include/fruitlib/font/align_v_fwd.hpp
 	fruitlib/include/fruitlib/font/base_path.hpp
 	fruitlib/include/fruitlib/font/cache.hpp
 	fruitlib/include/fruitlib/font/cache_fwd.hpp

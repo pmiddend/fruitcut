@@ -1,13 +1,14 @@
 #include <fruitapp/font_particle/object.hpp>
+#include <fruitlib/font/align_h.hpp>
 #include <fruitlib/font/object.hpp>
 #include <fruitlib/font/object_parameters.hpp>
-#include <sge/font/align_h.hpp>
 #include <sge/font/flags_field.hpp>
 #include <sge/font/object.hpp>
 #include <sge/font/rect.hpp>
 #include <sge/font/text.hpp>
 #include <sge/font/text_parameters.hpp>
 #include <sge/font/unit.hpp>
+#include <sge/font/align_h/left.hpp>
 #include <sge/image/color/any/object.hpp>
 #include <sge/renderer/scalar.hpp>
 #include <sge/renderer/vector2.hpp>
@@ -28,7 +29,7 @@ calculate_bounding_box(
 		_object.font_object().create_text(
 			_object.text(),
 			sge::font::text_parameters(
-				sge::font::align_h::left))->rect());
+				sge::font::align_h::left()))->rect());
 
 	return
 		sge::font::rect(
@@ -66,7 +67,7 @@ fruitapp::font_particle::object::object(
 			_font_identifier,
 			_text.get(),
 			sge::font::rect::null(),
-			sge::font::align_h::right,
+			fruitlib::font::align_h::right,
 			fruitlib::font::align_v::top,
 			sge::font::flags_field::null(),
 			_color,

@@ -1,6 +1,7 @@
 #include <fruitapp/quick_log.hpp>
 #include <fruitapp/viewport/manager.hpp>
 #include <fruitlib/audio/sound_controller.hpp>
+#include <fruitlib/font/align_h.hpp>
 #include <fruitlib/font/cache.hpp>
 #include <fruitlib/font/object.hpp>
 #include <fruitlib/font/object_parameters.hpp>
@@ -53,7 +54,7 @@ fruitapp::quick_log::quick_log(
 			// Can't define a box yet, we might have no viewport
 			sge::font::string(),
 			sge::font::rect::null(),
-			sge::font::align_h::left,
+			fruitlib::font::align_h::left,
 			fruitlib::font::align_v::top,
 			sge::font::flags_field::null(),
 			sge::image::color::any::object(

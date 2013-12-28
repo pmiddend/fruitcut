@@ -1,19 +1,21 @@
 #ifndef FRUITLIB_FONT_ALIGN_V_HPP_INCLUDED
 #define FRUITLIB_FONT_ALIGN_V_HPP_INCLUDED
 
+#include <fruitlib/font/align_v_fwd.hpp>
+
+
 namespace fruitlib
 {
 namespace font
 {
-namespace align_v
-{
-enum type
+
+enum class align_v
 {
 	top,
 	middle,
 	bottom
 };
-}
+
 }
 }
 

@@ -1,12 +1,12 @@
 #ifndef FRUITLIB_FONT_OBJECT_HPP_INCLUDED
 #define FRUITLIB_FONT_OBJECT_HPP_INCLUDED
 
+#include <fruitlib/font/align_h.hpp>
 #include <fruitlib/font/align_v.hpp>
 #include <fruitlib/font/identifier.hpp>
 #include <fruitlib/font/manager_fwd.hpp>
 #include <fruitlib/font/object_parameters_fwd.hpp>
 #include <fruitlib/font/scale.hpp>
-#include <sge/font/align_h.hpp>
 #include <sge/font/flags_field.hpp>
 #include <sge/font/object_fwd.hpp>
 #include <sge/font/rect.hpp>
@@ -54,19 +54,19 @@ public:
 	bounding_box(
 		sge::font::rect const &);
 
-	sge::font::align_h
+	fruitlib::font::align_h
 	alignment_h() const;
 
 	void
 	alignment_h(
-		sge::font::align_h);
+		fruitlib::font::align_h);
 
-	fruitlib::font::align_v::type
+	fruitlib::font::align_v
 	alignment_v() const;
 
 	void
 	alignment_v(
-		fruitlib::font::align_v::type);
+		fruitlib::font::align_v);
 
 	sge::font::flags_field const &
 	flags() const;
@@ -95,8 +95,8 @@ private:
 	sge::font::object &font_object_;
 	sge::font::string text_;
 	sge::font::rect bounding_box_;
-	sge::font::align_h alignment_h_;
-	fruitlib::font::align_v::type alignment_v_;
+	fruitlib::font::align_h alignment_h_;
+	fruitlib::font::align_v alignment_v_;
 	sge::font::flags_field flags_;
 	sge::image::color::any::object color_;
 	fruitlib::font::scale scale_;

@@ -8,6 +8,7 @@
 #include <fruitapp/states/loading.hpp>
 #include <fruitapp/states/menu/main.hpp>
 #include <fruitapp/viewport/manager.hpp>
+#include <fruitlib/font/align_h.hpp>
 #include <fruitlib/font/cache.hpp>
 #include <fruitlib/font/object_parameters.hpp>
 #include <fruitlib/font/scale.hpp>
@@ -68,7 +69,7 @@ fruitapp::states::loading::loading(
 			sge::font::string(
 				SGE_FONT_LIT("0")),
 			sge::font::rect::null(),
-			sge::font::align_h::center,
+			fruitlib::font::align_h::center,
 			fruitlib::font::align_v::top,
 			sge::font::flags_field::null(),
 			sge::image::color::any::object(

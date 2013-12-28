@@ -5,6 +5,7 @@
 #include <fruitapp/quick_log.hpp>
 #include <fruitapp/projection_manager/object.hpp>
 #include <fruitapp/viewport/manager.hpp>
+#include <fruitlib/font/align_h.hpp>
 #include <fruitlib/font/cache.hpp>
 #include <fruitlib/font/object.hpp>
 #include <fruitlib/font/object_parameters.hpp>
@@ -185,7 +186,7 @@ fruitapp::game_logic::object::object(
 			sge::font::string(
 				SGE_FONT_LIT("0")),
 			sge::font::rect::null(),
-			sge::font::align_h::right,
+			fruitlib::font::align_h::right,
 			fruitlib::font::align_v::top,
 			sge::font::flags_field::null(),
 			sge::image::color::any::object(
@@ -211,7 +212,7 @@ fruitapp::game_logic::object::object(
 			sge::font::string(
 				SGE_FONT_LIT("0")),
 			sge::font::rect::null(),
-			sge::font::align_h::center,
+			fruitlib::font::align_h::center,
 			fruitlib::font::align_v::top,
 			sge::font::flags_field::null(),
 			sge::image::color::any::object(
@@ -237,7 +238,7 @@ fruitapp::game_logic::object::object(
 			sge::font::string(
 				SGE_FONT_LIT("")),
 			sge::font::rect::null(),
-			sge::font::align_h::center,
+			fruitlib::font::align_h::center,
 			fruitlib::font::align_v::bottom,
 			sge::font::flags_field::null(),
 			sge::image::color::predef::white(),
