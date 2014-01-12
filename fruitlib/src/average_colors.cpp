@@ -1,9 +1,9 @@
 #include <fruitlib/average_colors.hpp>
 #include <sge/image2d/view/const_object.hpp>
 #include <mizuiro/color/for_each_channel.hpp>
-#include <mizuiro/color/homogenous_static.hpp>
 #include <mizuiro/color/object.hpp>
 #include <mizuiro/color/output.hpp>
+#include <mizuiro/color/format/homogenous_static.hpp>
 #include <mizuiro/color/types/channel_value.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/nonassignable.hpp>
@@ -39,7 +39,7 @@ template<typename Input>
 struct promote_homogenous_channels
 {
 	typedef
-	mizuiro::color::homogenous_static
+	mizuiro::color::format::homogenous_static
 	<
 		typename boost::integral_promotion<typename Input::channel_type>::type,
 		typename Input::layout
@@ -72,8 +72,8 @@ public:
 	operator()(
 		Channel const &c) const
 	{
-		typedef typename
-		mizuiro::color::types::channel_value<typename Color::format,Channel>::type
+		typedef
+		mizuiro::color::types::channel_value<typename Color::format,Channel>
 		channel_value_type;
 
 		target_color_.set(
@@ -166,8 +166,8 @@ public:
 	operator()(
 		Channel const &c) const
 	{
-		typedef typename
-		mizuiro::color::types::channel_value<typename DestColor::format,Channel>::type
+		typedef
+		mizuiro::color::types::channel_value<typename DestColor::format,Channel>
 		destination_channel_type;
 
 		dest_.set(
