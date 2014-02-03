@@ -109,6 +109,7 @@ FIND_PACKAGE(
 	log
 	modelmd3
 	parse
+	parsejson
 	renderer
 	shader
 	sprite
