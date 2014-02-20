@@ -511,6 +511,9 @@ include_directories(
 include_directories(
 	${CMAKE_BINARY_DIR}/include)
 
+fcppt_utils_set_target_compiler_flags(
+	fruitcut)
+
 target_link_libraries(
 	fruitcut
 	fruitlib

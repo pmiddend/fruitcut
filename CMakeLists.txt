@@ -1,6 +1,6 @@
 cmake_minimum_required(
   VERSION
-  2.6)
+  2.8.12)
 
 project(
   fruitcut)
@@ -30,32 +30,14 @@ add_definitions(
         -D BOOST_ASIO_SEPARATE_COMPILATION)
 # boost end
 
-# fcppt begin
 find_package(
-  fcppt REQUIRED)
-include_directories(
-  ${fcppt_INCLUDE_DIRS})
-ADD_DEFINITIONS(
-  ${fcppt_DEFINITIONS})
-# fcppt end
+	fcppt REQUIRED)
 
-# awl begin
 find_package(
-  awl REQUIRED)
-include_directories(
-  ${awl_INCLUDE_DIR})
-add_definitions(
-  ${awl_DEFINITIONS})
-# awl end
+	awl REQUIRED)
 
-# mizuiro begin
 find_package(
-  mizuiro REQUIRED)
-include_directories(
-  ${mizuiro_INCLUDE_DIR})
-add_definitions(
-  ${mizuiro_DEFINITIONS})
-# mizuiro end
+	mizuiro REQUIRED)
 
 # bullet begin
 find_package(
@@ -88,7 +70,6 @@ if(USE_CEGUI)
 		"cegui")
 endif()
 
-# sge begin
 FIND_PACKAGE(
 	sge REQUIRED
 	audio
@@ -118,12 +99,6 @@ FIND_PACKAGE(
 	viewport
 	window
 )
-
-include_directories(
-  ${sge_INCLUDE_DIRS})
-add_definitions(
-  ${sge_DEFINITIONS})
-# sge end
 
 # cegui begin
 if(USE_CEGUI)

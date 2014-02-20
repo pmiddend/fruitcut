@@ -318,6 +318,9 @@ add_library(
 	STATIC
 	${FRUITLIB_FILES_ABS})
 
+fcppt_utils_set_target_compiler_flags(
+	fruitlib)
+
 target_link_libraries(
 	fruitlib
 	${fcppt_core_TARGET}
