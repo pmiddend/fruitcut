@@ -68,7 +68,7 @@ fruitapp::states::ingame::superstate::superstate(
 		physics_world_),
 	physics_debugger_(
 		physics_world_,
-		this->context<fruitapp::machine>().systems().renderer_ffp(),
+		this->context<fruitapp::machine>().systems().renderer_device_ffp(),
 		this->context<fruitapp::machine>().camera()),
 	physics_debugger_node_(
 		fruitlib::scenic::optional_parent(
@@ -91,7 +91,7 @@ fruitapp::states::ingame::superstate::superstate(
 				fruitlib::scenic::depth(
 					depths::root::dont_care))),
 		this->context<fruitapp::machine>().fruit_prototypes(),
-		this->context<fruitapp::machine>().systems().renderer_ffp(),
+		this->context<fruitapp::machine>().systems().renderer_device_ffp(),
 		physics_world_,
 		this->context<fruitapp::machine>().camera(),
 		context<fruitapp::machine>().ingame_clock()),
@@ -101,7 +101,7 @@ fruitapp::states::ingame::superstate::superstate(
 				context<fruitapp::machine>().scene_node(),
 				fruitlib::scenic::depth(
 					depths::scene::fruits))),
-		this->context<fruitapp::machine>().systems().renderer_core(),
+		this->context<fruitapp::machine>().systems().renderer_device_core(),
 		this->context<fruitapp::machine>().graphics_settings(),
 		this->context<fruitapp::machine>().shader_context(),
 		fruit_manager_,

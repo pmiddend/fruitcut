@@ -53,7 +53,7 @@ fruitapp::states::ingame::running::running(
 				fruitlib::scenic::depth(
 					depths::root::dont_care)))),
 	line_drawer_(
-		context<fruitapp::machine>().systems().renderer_core()),
+		context<fruitapp::machine>().systems().renderer_device_core()),
 	line_drawer_node_(
 		fruitlib::scenic::optional_parent(
 			fruitlib::scenic::parent(
@@ -62,7 +62,7 @@ fruitapp::states::ingame::running::running(
 					depths::overlay::dont_care))),
 		line_drawer_,
 		fruitlib::scenic::adaptors::line_drawer::optional_renderer(
-			context<fruitapp::machine>().systems().renderer_ffp())),
+			context<fruitapp::machine>().systems().renderer_device_ffp())),
 	cursor_sequence_(
 		context<fruitapp::machine>().cursor_manager().create_instances(
 			fruitlib::scenic::optional_parent(
@@ -160,7 +160,7 @@ fruitapp::states::ingame::running::draw_fruit_bbs(
 		fruitapp::fruit::hull::ring const hull =
 			fruitapp::fruit::hull::projected(
 				*i,
-				context<fruitapp::machine>().systems().renderer_core().onscreen_target(),
+				context<fruitapp::machine>().systems().renderer_device_core().onscreen_target(),
 				sge::camera::matrix_conversion::world_projection(
 					context<fruitapp::machine>().camera().coordinate_system(),
 					context<fruitapp::machine>().camera().projection_matrix()));
@@ -218,5 +218,5 @@ fruitapp::states::ingame::running::process_fruit(
 			_current_fruit),
 		fruitapp::fruit::ban_duration(
 			_current_cursor.total_expiry_duration()),
-		context<fruitapp::machine>().systems().renderer_core().onscreen_target());
+		context<fruitapp::machine>().systems().renderer_device_core().onscreen_target());
 }

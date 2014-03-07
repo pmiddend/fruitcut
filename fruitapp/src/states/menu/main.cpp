@@ -28,7 +28,7 @@ fruitapp::states::menu::main::main(
 				context<fruitapp::machine>().overlay_node(),
 				fruitlib::scenic::depth(
 					depths::overlay::dont_care))),
-		context<fruitapp::machine>().systems().renderer_ffp(),
+		context<fruitapp::machine>().systems().renderer_device_ffp(),
 		context<fruitapp::machine>().texture_manager(),
 		context<fruitapp::machine>().viewport_manager()),
 	main_menu_(

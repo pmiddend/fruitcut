@@ -51,7 +51,7 @@
 #include <sge/parse/json/config/merge_command_line_parameters.hpp>
 #include <sge/parse/json/config/merge_trees.hpp>
 #include <sge/renderer/device/ffp.hpp>
-#include <sge/renderer/parameters/object.hpp>
+#include <sge/renderer/display_mode/parameters.hpp>
 #include <sge/renderer/pixel_format/object.hpp>
 #include <sge/renderer/target/onscreen.hpp>
 #include <sge/shader/context.hpp>
@@ -154,17 +154,17 @@ fruitapp::machine_impl::machine_impl(
 	systems_(
 		sge::systems::make_list
 			(sge::systems::renderer(
-				sge::renderer::parameters::object(
-					sge::renderer::pixel_format::object(
-						sge::renderer::pixel_format::color::depth32,
-						sge::renderer::pixel_format::depth_stencil::d24,
-						sge::renderer::pixel_format::optional_multi_samples(),
-						emulate_srgb_ == sge::renderer::texture::emulate_srgb::yes
-						?
-							sge::renderer::pixel_format::srgb::no
-						:
-							sge::renderer::pixel_format::srgb::yes),
-					sge::renderer::parameters::vsync::on,
+				sge::renderer::pixel_format::object(
+					sge::renderer::pixel_format::color::depth32,
+					sge::renderer::pixel_format::depth_stencil::d24,
+					sge::renderer::pixel_format::optional_multi_samples(),
+					emulate_srgb_ == sge::renderer::texture::emulate_srgb::yes
+					?
+						sge::renderer::pixel_format::srgb::no
+					:
+						sge::renderer::pixel_format::srgb::yes),
+				sge::renderer::display_mode::parameters(
+					sge::renderer::display_mode::vsync::on,
 					sge::renderer::display_mode::optional_object()),
 				sge::viewport::fill_on_resize()))
 			(sge::systems::window(
@@ -191,7 +191,7 @@ fruitapp::machine_impl::machine_impl(
 			(sge::systems::input(
 				sge::systems::cursor_option_field::null()))),
 	texture_manager_(
-		systems_.renderer_core(),
+		systems_.renderer_device_core(),
 		systems_.image_system(),
 		emulate_srgb_),
 	shader_context_(
@@ -201,14 +201,14 @@ fruitapp::machine_impl::machine_impl(
 				FCPPT_TEXT("use-shaders")))
 		?
 			fcppt::make_unique_ptr<sge::shader::context>(
-				systems_.renderer_core())
+				systems_.renderer_device_core())
 		:
 			std::unique_ptr<sge::shader::context>()),
 	md3_loader_(
 		sge::model::md3::create()),
 	viewport_manager_(
 		systems_.viewport_manager(),
-		systems_.renderer_core().onscreen_target()),
+		systems_.renderer_device_core().onscreen_target()),
 	postprocessing_system_(
 		fruitapp::postprocessing::create_system(
 			this->shader_context(),
@@ -216,7 +216,7 @@ fruitapp::machine_impl::machine_impl(
 			graphics_settings_,
 			config_file_)),
 	font_manager_(
-		systems_.renderer_ffp(),
+		systems_.renderer_device_ffp(),
 		emulate_srgb_,
 		systems_.font_system(),
 		texture_manager_,
@@ -352,7 +352,7 @@ fruitapp::machine_impl::machine_impl(
 				this->root_node(),
 				fruitlib::scenic::depth(
 					depths::root::scene))),
-		systems_.renderer_ffp(),
+		systems_.renderer_device_ffp(),
 		*postprocessing_system_),
 	gui_system_(
 		fruitapp::gui::create_system(
@@ -360,7 +360,7 @@ fruitapp::machine_impl::machine_impl(
 				this->overlay_node(),
 				fruitlib::scenic::depth(
 					depths::overlay::dont_care)),
-			systems_.renderer_ffp(),
+			systems_.renderer_device_ffp(),
 			systems_.image_system(),
 			systems_.viewport_manager(),
 			this->standard_clock_callback(),
@@ -401,7 +401,7 @@ fruitapp::machine_impl::machine_impl(
 					config_file_,
 					sge::parse::json::path(
 						FCPPT_TEXT("shadow-map"))),
-				systems_.renderer_ffp(),
+				systems_.renderer_device_ffp(),
 				light_manager_)
 		:
 			fruitapp::shadow_map::object_unique_ptr()),
@@ -412,7 +412,7 @@ fruitapp::machine_impl::machine_impl(
 				fruitlib::scenic::depth(
 					depths::scene::background))),
 		this->texture_manager(),
-		systems_.renderer_core(),
+		systems_.renderer_device_core(),
 		fruitapp::background::use_ffp(
 			sge::parse::json::find_and_convert_member<bool>(
 				config_file_,
@@ -445,19 +445,19 @@ fruitapp::machine_impl::machine_impl(
 					depths::scene::splatter))),
 		fruitapp::media_path()/FCPPT_TEXT("point_sprites"),
 		random_generator_,
-		systems_.renderer_ffp(),
+		systems_.renderer_device_ffp(),
 		projection_manager_,
 		texture_manager_),
 	screen_shooter_(
 		systems_.keyboard_collector(),
-		systems_.renderer_core(),
+		systems_.renderer_device_core(),
 		systems_.image_system(),
 		quick_log_),
 	fruit_prototypes_(),
 	cursor_manager_(
 		systems_.input_processor(),
-		systems_.renderer_ffp(),
-		systems_.renderer_ffp().onscreen_target(),
+		systems_.renderer_device_ffp(),
+		systems_.renderer_device_ffp().onscreen_target(),
 		camera_,
 		texture_manager_,
 		viewport_manager_,
