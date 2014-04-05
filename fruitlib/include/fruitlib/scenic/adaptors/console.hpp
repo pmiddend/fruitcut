@@ -4,7 +4,7 @@
 #include <fruitlib/scenic/node.hpp>
 #include <fruitlib/scenic/optional_parent.hpp>
 #include <fruitlib/scenic/events/render.hpp>
-#include <sge/console/gfx_fwd.hpp>
+#include <sge/console/gfx/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
@@ -30,7 +30,7 @@ public:
 
 	console(
 		fruitlib::scenic::optional_parent const &parent,
-		sge::console::gfx &);
+		sge::console::gfx::object &);
 
 	~console();
 
@@ -38,7 +38,7 @@ public:
 	react(
 		fruitlib::scenic::events::render const &);
 private:
-	sge::console::gfx &gfx_;
+	sge::console::gfx::object &gfx_;
 };
 }
 }

@@ -1,11 +1,11 @@
 #include <fruitlib/scenic/adaptors/console.hpp>
 #include <fruitlib/scenic/events/render.hpp>
-#include <sge/console/gfx.hpp>
+#include <sge/console/gfx/object.hpp>
 
 
 fruitlib::scenic::adaptors::console::console(
 	fruitlib::scenic::optional_parent const &_parent,
-	sge::console::gfx &_gfx)
+	sge::console::gfx::object &_gfx)
 :
 	node_base(
 		_parent),

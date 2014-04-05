@@ -79,6 +79,7 @@ FIND_PACKAGE(
 	cg
 	config
 	console
+	consolegfx
 	core
 	fontdraw
 	fontbitmap
