@@ -179,7 +179,6 @@ set(
 	fruitlib/include/fruitlib/resource_tree/object.hpp
 	fruitlib/include/fruitlib/resource_tree/path.hpp
 	fruitlib/include/fruitlib/scenic/adaptors/camera.hpp
-	fruitlib/include/fruitlib/scenic/adaptors/console.hpp
 	fruitlib/include/fruitlib/scenic/adaptors/gui_system.hpp
 	fruitlib/include/fruitlib/scenic/adaptors/line_drawer.hpp
 	fruitlib/include/fruitlib/scenic/base.hpp
@@ -284,7 +283,6 @@ set(
 	fruitlib/src/pp/texture/use_screen_size.cpp
 	fruitlib/src/resource_tree/path.cpp
 	fruitlib/src/scenic/adaptors/camera.cpp
-	fruitlib/src/scenic/adaptors/console.cpp
 	fruitlib/src/scenic/adaptors/gui_system.cpp
 	fruitlib/src/scenic/adaptors/line_drawer.cpp
 	fruitlib/src/scenic/base.cpp

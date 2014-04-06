@@ -78,8 +78,6 @@ FIND_PACKAGE(
 	${sge_find_package_use_cegui}
 	cg
 	config
-	console
-	consolegfx
 	core
 	fontdraw
 	fontbitmap
