@@ -3,7 +3,7 @@
 
 #include <fruitapp/fruit/manager_fwd.hpp>
 #include <fruitapp/graphics_settings/object_fwd.hpp>
-#include <fruitapp/fruit/rendering/base_scoped_ptr.hpp>
+#include <fruitapp/fruit/rendering/base_unique_ptr.hpp>
 #include <fruitapp/light/manager_fwd.hpp>
 #include <fruitlib/scenic/node.hpp>
 #include <fruitlib/scenic/events/render.hpp>
@@ -51,7 +51,7 @@ public:
 
 	~draw_node();
 private:
-	fruitapp::fruit::rendering::base_scoped_ptr const implementation_;
+	fruitapp::fruit::rendering::base_unique_ptr const implementation_;
 };
 }
 }

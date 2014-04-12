@@ -14,7 +14,7 @@
 #include <fruitlib/scenic/parent_fwd.hpp>
 #include <fruitlib/scenic/events/update.hpp>
 #include <fcppt/string.hpp>
-#include <fcppt/signal/scoped_connection.hpp>
+#include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <boost/statechart/state.hpp>
@@ -63,12 +63,12 @@ public:
 private:
 	fruitapp::highscore::provider_sequence providers_;
 	fruitapp::gui::dialogs::highscore_unique_ptr highscore_;
-	fcppt::signal::scoped_connection main_menu_button_connection_;
-	fcppt::signal::scoped_connection switch_provider_connection_;
+	fcppt::signal::auto_connection main_menu_button_connection_;
+	fcppt::signal::auto_connection switch_provider_connection_;
 	fruitapp::highscore::provider::connection_base_ptr connection_;
-	fcppt::signal::scoped_connection message_connection_;
-	fcppt::signal::scoped_connection error_connection_;
-	fcppt::signal::scoped_connection list_connection_;
+	fcppt::signal::auto_connection message_connection_;
+	fcppt::signal::auto_connection error_connection_;
+	fcppt::signal::auto_connection list_connection_;
 
 	void
 	switch_provider(

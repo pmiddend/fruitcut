@@ -200,13 +200,13 @@ fruitapp::states::ingame::superstate::superstate(
 		background_group_,
 		fruit_manager_.fruit_group());
 
-	background_body_scope_.take(
+	background_body_scope_ =
 		fcppt::make_unique_ptr<fruitlib::physics::rigid_body::scoped>(
 			physics_world_,
 			background_physics_,
 			fcppt::assign::make_container<fruitlib::physics::group::sequence>(
 				fcppt::make_ref(
-					background_group_))));
+					background_group_)));
 }
 
 fruitlib::physics::world &

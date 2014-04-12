@@ -15,9 +15,11 @@
 #include <sge/image/color/any/object.hpp>
 #include <sge/renderer/context/ffp_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/scoped_ptr.hpp>
 #include <fcppt/container/bitfield/object_impl.hpp>
 #include <fcppt/math/box/object_impl.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <memory>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace fruitlib
@@ -100,7 +102,7 @@ private:
 	sge::font::flags_field flags_;
 	sge::image::color::any::object color_;
 	fruitlib::font::scale scale_;
-	fcppt::scoped_ptr<sge::font::draw::static_text> text_object_;
+	std::unique_ptr<sge::font::draw::static_text> text_object_;
 
 	bool
 	rebuild_text_object();

@@ -31,10 +31,10 @@
 #include <sge/renderer/state/ffp/lighting/light/parameters.hpp>
 #include <sge/renderer/state/ffp/lighting/light/scoped.hpp>
 #include <sge/renderer/state/ffp/lighting/material/object.hpp>
-#include <sge/renderer/state/ffp/lighting/material/object_scoped_ptr.hpp>
+#include <sge/renderer/state/ffp/lighting/material/object_unique_ptr.hpp>
 #include <sge/renderer/state/ffp/lighting/material/parameters.hpp>
 #include <sge/renderer/state/ffp/transform/object.hpp>
-#include <sge/renderer/state/ffp/transform/object_scoped_ptr.hpp>
+#include <sge/renderer/state/ffp/transform/object_unique_ptr.hpp>
 #include <sge/renderer/state/ffp/transform/parameters.hpp>
 #include <sge/renderer/state/ffp/transform/scoped.hpp>
 #include <sge/renderer/texture/planar.hpp>
@@ -176,7 +176,7 @@ fruitapp::fruit::rendering::ffp::render(
 		ffp_context,
 		*depth_stencil_state_);
 
-	sge::renderer::state::ffp::transform::object_scoped_ptr const projection_state(
+	sge::renderer::state::ffp::transform::object_unique_ptr const projection_state(
 		renderer_.create_transform_state(
 			sge::renderer::state::ffp::transform::parameters(
 				camera_.projection_matrix().get())));
@@ -198,7 +198,7 @@ fruitapp::fruit::rendering::ffp::render(
 	fruitapp::fruit::prototype const *previous_prototype =
 		0;
 
-	sge::renderer::state::ffp::lighting::material::object_scoped_ptr previous_material_state;
+	sge::renderer::state::ffp::lighting::material::object_unique_ptr previous_material_state;
 
 	for(
 		fruitapp::fruit::rendering::fruit_pointer_sequence::const_iterator i =
@@ -210,7 +210,7 @@ fruitapp::fruit::rendering::ffp::render(
 			_context,
 			(*i)->vb());
 
-		sge::renderer::state::ffp::transform::object_scoped_ptr const world_state(
+		sge::renderer::state::ffp::transform::object_unique_ptr const world_state(
 			renderer_.create_transform_state(
 				sge::renderer::state::ffp::transform::parameters(
 					sge::camera::matrix_conversion::world(
@@ -230,11 +230,11 @@ fruitapp::fruit::rendering::ffp::render(
 				sge::renderer::texture::stage(
 					0u));
 
-			previous_material_state.take(
+			previous_material_state =
 				renderer_.create_material_state(
 					fruit_material_to_ffp_material(
 						(*i)->prototype().material(),
-						ambient_intensity_)));
+						ambient_intensity_));
 
 			ffp_context.material_state(
 				sge::renderer::state::ffp::lighting::material::const_optional_object_ref(

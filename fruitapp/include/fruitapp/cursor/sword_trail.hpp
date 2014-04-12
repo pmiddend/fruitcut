@@ -31,7 +31,7 @@
 #include <sge/sprite/state/all_choices.hpp>
 #include <sge/sprite/state/object.hpp>
 #include <sge/sprite/state/parameters.hpp>
-#include <sge/texture/const_part_scoped_ptr.hpp>
+#include <sge/texture/const_part_unique_ptr.hpp>
 #include <sge/texture/part_shared_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/shared_ptr.hpp>
@@ -171,7 +171,7 @@ private:
 	fruitapp::ingame_clock const &clock_;
 	fruitapp::ingame_clock::duration const element_lifetime_;
 	sprite_object::unit const max_width_;
-	sge::texture::const_part_scoped_ptr const texture_;
+	sge::texture::const_part_unique_ptr const texture_;
 	sprite_buffers sprite_buffers_;
 	sprite_state_object sprite_states_;
 	position_buffer positions_;

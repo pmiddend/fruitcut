@@ -11,7 +11,7 @@
 #include <sge/renderer/projection/orthogonal.hpp>
 #include <sge/renderer/projection/rect.hpp>
 #include <sge/renderer/state/ffp/transform/object.hpp>
-#include <sge/renderer/state/ffp/transform/object_scoped_ptr.hpp>
+#include <sge/renderer/state/ffp/transform/object_unique_ptr.hpp>
 #include <sge/renderer/state/ffp/transform/parameters.hpp>
 #include <sge/renderer/state/ffp/transform/scoped.hpp>
 #include <sge/renderer/target/onscreen.hpp>
@@ -64,7 +64,7 @@ fruitlib::scenic::adaptors::line_drawer::react(
 {
 	if(renderer_)
 	{
-		sge::renderer::state::ffp::transform::object_scoped_ptr const world_state(
+		sge::renderer::state::ffp::transform::object_unique_ptr const world_state(
 			renderer_->create_transform_state(
 				sge::renderer::state::ffp::transform::parameters(
 					sge::renderer::matrix4::identity())));
@@ -74,7 +74,7 @@ fruitlib::scenic::adaptors::line_drawer::react(
 			sge::renderer::state::ffp::transform::mode::world,
 			*world_state);
 
-		sge::renderer::state::ffp::transform::object_scoped_ptr const projection_state(
+		sge::renderer::state::ffp::transform::object_unique_ptr const projection_state(
 			renderer_->create_transform_state(
 				sge::renderer::state::ffp::transform::parameters(
 					sge::renderer::projection::orthogonal(

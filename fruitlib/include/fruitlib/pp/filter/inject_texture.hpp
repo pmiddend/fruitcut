@@ -5,7 +5,6 @@
 #include <fruitlib/pp/texture/counted_instance.hpp>
 #include <fruitlib/pp/texture/manager_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/scoped_ptr.hpp>
 
 
 namespace fruitlib

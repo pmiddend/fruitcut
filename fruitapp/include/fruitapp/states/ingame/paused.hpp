@@ -6,7 +6,7 @@
 #include <fruitapp/events/declare_transition_reaction.hpp>
 #include <fruitapp/events/declare_transition_type.hpp>
 #include <fruitapp/gui/dialogs/ingame_menu_unique_ptr.hpp>
-#include <fruitapp/postprocessing/subsystems/paused_scoped_ptr.hpp>
+#include <fruitapp/postprocessing/subsystems/paused_unique_ptr.hpp>
 #include <fruitapp/states/ingame/running_fwd.hpp>
 #include <fruitapp/states/ingame/superstate.hpp>
 #include <fruitapp/states/menu/main_fwd.hpp>
@@ -92,7 +92,7 @@ public:
 private:
 	fruitapp::scoped_time_factor time_factor_;
 	//fruitapp::scoped_scene_activation scene_deactivation_;
-	fruitapp::postprocessing::subsystems::paused_scoped_ptr const paused_postprocessing_;
+	fruitapp::postprocessing::subsystems::paused_unique_ptr const paused_postprocessing_;
 	fcppt::signal::scoped_connection transit_to_running_connection_;
 	fruitapp::gui::dialogs::ingame_menu_unique_ptr ingame_menu_;
 	fcppt::signal::scoped_connection continue_connection_;

@@ -3,13 +3,11 @@
 
 #include <fruitlib/pp/texture/descriptor.hpp>
 #include <fruitlib/pp/texture/is_locked.hpp>
-#include <sge/renderer/depth_stencil_buffer/surface_scoped_ptr.hpp>
 #include <sge/renderer/depth_stencil_buffer/surface_unique_ptr.hpp>
-#include <sge/renderer/target/offscreen_scoped_ptr.hpp>
 #include <sge/renderer/target/offscreen_unique_ptr.hpp>
-#include <sge/renderer/texture/planar_scoped_ptr.hpp>
 #include <sge/renderer/texture/planar_shared_ptr.hpp>
 #include <sge/renderer/texture/planar_unique_ptr.hpp>
+#include <fcppt/noncopyable.hpp>
 
 
 namespace fruitlib
@@ -50,8 +48,8 @@ public:
 private:
 	fruitlib::pp::texture::descriptor descriptor_;
 	sge::renderer::texture::planar_shared_ptr const texture_;
-	sge::renderer::target::offscreen_scoped_ptr const target_;
-	sge::renderer::depth_stencil_buffer::surface_scoped_ptr const depth_stencil_;
+	sge::renderer::target::offscreen_unique_ptr const target_;
+	sge::renderer::depth_stencil_buffer::surface_unique_ptr const depth_stencil_;
 	bool locked_;
 };
 }

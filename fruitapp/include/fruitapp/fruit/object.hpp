@@ -6,7 +6,7 @@
 #include <fruitapp/fruit/ban_duration.hpp>
 #include <fruitapp/fruit/box3.hpp>
 #include <fruitapp/fruit/mesh.hpp>
-#include <fruitapp/fruit/mesh_scoped_ptr.hpp>
+#include <fruitapp/fruit/mesh_unique_ptr.hpp>
 #include <fruitapp/fruit/mesh_unique_ptr.hpp>
 #include <fruitapp/fruit/prototype_fwd.hpp>
 #include <fruitlib/physics/matrix4.hpp>
@@ -24,7 +24,7 @@
 #include <sge/renderer/matrix4.hpp>
 #include <sge/renderer/vector3.hpp>
 #include <sge/renderer/vertex/buffer_fwd.hpp>
-#include <sge/renderer/vertex/buffer_scoped_ptr.hpp>
+#include <sge/renderer/vertex/buffer_unique_ptr.hpp>
 #include <sge/renderer/vertex/declaration_fwd.hpp>
 #include <sge/renderer/device/core_fwd.hpp>
 #include <fcppt/nonassignable.hpp>
@@ -89,11 +89,11 @@ public:
 	~object();
 private:
 	fruit::prototype const &prototype_;
-	fruitapp::fruit::mesh_scoped_ptr mesh_;
+	fruitapp::fruit::mesh_unique_ptr const mesh_;
 	fruitapp::fruit::box3 bounding_box_;
 	fruitlib::physics::rigid_body::object body_;
 	fruitlib::physics::rigid_body::scoped body_scope_;
-	sge::renderer::vertex::buffer_scoped_ptr vb_;
+	sge::renderer::vertex::buffer_unique_ptr const vb_;
 	fruitapp::ingame_timer lock_timer_;
 };
 }

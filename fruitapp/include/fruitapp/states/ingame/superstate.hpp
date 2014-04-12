@@ -18,10 +18,10 @@
 #include <fruitlib/physics/nodes/world.hpp>
 #include <fruitlib/physics/rigid_body/scoped.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/scoped_ptr.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/statechart/state.hpp>
+#include <memory>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -81,14 +81,14 @@ private:
 	fcppt::signal::scoped_connection physics_debugger_connection_;
 	fruitapp::fruit::manager fruit_manager_;
 	fruitapp::fruit::rendering::draw_node fruit_default_render_node_;
-	fcppt::scoped_ptr<fruitapp::fruit::rendering::shadow_node> const fruit_shadow_render_node_;
+	std::unique_ptr<fruitapp::fruit::rendering::shadow_node> const fruit_shadow_render_node_;
 	fruitapp::fruit::spawner fruit_spawner_;
 	fruitapp::game_logic::object game_logic_;
 	fcppt::signal::scoped_connection cut_connection_;
 	fruitapp::splatter_generator splatter_generator_;
 	fruitlib::physics::group::object background_group_;
 	fruitlib::physics::rigid_body::object background_physics_;
-	fcppt::scoped_ptr<fruitlib::physics::rigid_body::scoped> background_body_scope_;
+	std::unique_ptr<fruitlib::physics::rigid_body::scoped> background_body_scope_;
 
 	void
 	toggle_physics_debugger();

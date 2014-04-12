@@ -53,7 +53,6 @@ set(
 	FRUITAPP_FILES
 	fruitapp/include/fruitapp/background/base.hpp
 	fruitapp/include/fruitapp/background/base_fwd.hpp
-	fruitapp/include/fruitapp/background/base_scoped_ptr.hpp
 	fruitapp/include/fruitapp/background/base_unique_ptr.hpp
 	fruitapp/include/fruitapp/background/cg.hpp
 	fruitapp/include/fruitapp/background/cg_fwd.hpp
@@ -125,7 +124,6 @@ set(
 	fruitapp/include/fruitapp/fruit/material/specular_shininess.hpp
 	fruitapp/include/fruitapp/fruit/mesh.hpp
 	fruitapp/include/fruitapp/fruit/mesh_fwd.hpp
-	fruitapp/include/fruitapp/fruit/mesh_scoped_ptr.hpp
 	fruitapp/include/fruitapp/fruit/mesh_to_point_cloud.hpp
 	fruitapp/include/fruitapp/fruit/mesh_to_shape.hpp
 	fruitapp/include/fruitapp/fruit/mesh_to_vertex_buffer.hpp
@@ -151,7 +149,6 @@ set(
 	fruitapp/include/fruitapp/fruit/prototype_unique_ptr.hpp
 	fruitapp/include/fruitapp/fruit/rendering/base.hpp
 	fruitapp/include/fruitapp/fruit/rendering/base_fwd.hpp
-	fruitapp/include/fruitapp/fruit/rendering/base_scoped_ptr.hpp
 	fruitapp/include/fruitapp/fruit/rendering/base_unique_ptr.hpp
 	fruitapp/include/fruitapp/fruit/rendering/cg.hpp
 	fruitapp/include/fruitapp/fruit/rendering/draw_node.hpp
@@ -288,15 +285,12 @@ set(
 	fruitapp/include/fruitapp/postprocessing/render_callback.hpp
 	fruitapp/include/fruitapp/postprocessing/subsystems/main.hpp
 	fruitapp/include/fruitapp/postprocessing/subsystems/main_fwd.hpp
-	fruitapp/include/fruitapp/postprocessing/subsystems/main_scoped_ptr.hpp
 	fruitapp/include/fruitapp/postprocessing/subsystems/main_unique_ptr.hpp
 	fruitapp/include/fruitapp/postprocessing/subsystems/paused.hpp
 	fruitapp/include/fruitapp/postprocessing/subsystems/paused_fwd.hpp
-	fruitapp/include/fruitapp/postprocessing/subsystems/paused_scoped_ptr.hpp
 	fruitapp/include/fruitapp/postprocessing/subsystems/paused_unique_ptr.hpp
 	fruitapp/include/fruitapp/postprocessing/system.hpp
 	fruitapp/include/fruitapp/postprocessing/system_fwd.hpp
-	fruitapp/include/fruitapp/postprocessing/system_scoped_ptr.hpp
 	fruitapp/include/fruitapp/postprocessing/system_unique_ptr.hpp
 	fruitapp/include/fruitapp/projection_manager/object.hpp
 	fruitapp/include/fruitapp/projection_manager/object_fwd.hpp

@@ -4,7 +4,7 @@
 #include <fruitapp/overlay.hpp>
 #include <fruitapp/scene.hpp>
 #include <fruitapp/postprocessing/system_fwd.hpp>
-#include <fruitapp/postprocessing/subsystems/main_scoped_ptr.hpp>
+#include <fruitapp/postprocessing/subsystems/main_unique_ptr.hpp>
 #include <fruitlib/scenic/node.hpp>
 #include <fruitlib/scenic/optional_parent.hpp>
 #include <sge/renderer/device/ffp_fwd.hpp>
@@ -67,7 +67,7 @@ public:
 	~renderable();
 private:
 	fruitapp::scene scene_;
-	fruitapp::postprocessing::subsystems::main_scoped_ptr const postprocessing_;
+	fruitapp::postprocessing::subsystems::main_unique_ptr const postprocessing_;
 	fruitapp::overlay overlay_;
 };
 }

@@ -51,17 +51,17 @@ fruitapp::states::menu::highscore::highscore(
 		context<fruitapp::machine>().gui_system().create_highscore(
 			providers_);
 
-	main_menu_button_connection_.take(
+	main_menu_button_connection_ =
 		highscore_->register_back_callback(
 			FRUITAPP_EVENTS_RETURN_POST_TRANSITION_FUNCTOR(
-				menu::main)));
+				menu::main));
 
-	switch_provider_connection_.take(
+	switch_provider_connection_ =
 		highscore_->register_switch_provider_callback(
 			std::bind(
 				&fruitapp::states::menu::highscore::switch_provider,
 				this,
-				std::placeholders::_1)));
+				std::placeholders::_1));
 }
 
 FRUITAPP_EVENTS_DEFINE_TRANSITION_REACTION(
@@ -89,26 +89,26 @@ fruitapp::states::menu::highscore::switch_provider(
 
 	highscore_->clear_log();
 
-	message_connection_.take(
+	message_connection_ =
 		connection_->message_received(
 			std::bind(
 				&highscore::text_received,
 				this,
-				std::placeholders::_1)));
+				std::placeholders::_1));
 
-	error_connection_.take(
+	error_connection_ =
 		connection_->error_received(
 			std::bind(
 				&highscore::text_received,
 				this,
-				std::placeholders::_1)));
+				std::placeholders::_1));
 
-	list_connection_.take(
+	list_connection_ =
 		connection_->list_received(
 			std::bind(
 				&highscore::list_received,
 				this,
-				std::placeholders::_1)));
+				std::placeholders::_1));
 
 	connection_->retrieve_list();
 }

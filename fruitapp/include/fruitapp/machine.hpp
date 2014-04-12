@@ -35,13 +35,13 @@
 #include <sge/shader/optional_context_ref.hpp>
 #include <awl/main/exit_code.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/scoped_ptr.hpp>
 #include <fcppt/preprocessor/const.hpp>
 #include <fcppt/preprocessor/warn_unused_result.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/statechart/event_base.hpp>
 #include <boost/statechart/state_machine.hpp>
+#include <memory>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -295,7 +295,7 @@ private:
 	>
 	queued_event_list;
 
-	fcppt::scoped_ptr<fruitapp::machine_impl> impl_;
+	std::unique_ptr<fruitapp::machine_impl> const impl_;
 	queued_event_list queued_events_;
 };
 }

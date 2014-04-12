@@ -2,7 +2,10 @@
 #define FRUITLIB_SIGNAL_STACK_PRINTER_OBJECT_HPP_INCLUDED
 
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/scoped_ptr.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <memory>
+#include <fcppt/config/external_end.hpp>
+
 
 namespace fruitlib
 {
@@ -19,7 +22,7 @@ public:
 
 	~object();
 private:
-	fcppt::scoped_ptr<signal_stack_printer::object_impl> impl_;
+	std::unique_ptr<signal_stack_printer::object_impl> const impl_;
 };
 }
 }

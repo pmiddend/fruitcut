@@ -6,7 +6,7 @@
 #include <fruitapp/light/manager_fwd.hpp>
 #include <sge/camera/base_fwd.hpp>
 #include <sge/renderer/scalar.hpp>
-#include <sge/renderer/state/core/depth_stencil/object_scoped_ptr.hpp>
+#include <sge/renderer/state/core/depth_stencil/object_unique_ptr.hpp>
 #include <sge/shader/pair.hpp>
 #include <sge/shader/parameter/matrix.hpp>
 #include <sge/shader/parameter/planar_texture.hpp>
@@ -54,7 +54,7 @@ private:
 	sge::shader::parameter::scalar<sge::renderer::scalar> specular_coefficient_parameter_;
 	sge::shader::parameter::scalar<sge::renderer::scalar> specular_shininess_parameter_;
 	sge::shader::parameter::planar_texture texture_parameter_;
-	sge::renderer::state::core::depth_stencil::object_scoped_ptr const depth_stencil_state_;
+	sge::renderer::state::core::depth_stencil::object_unique_ptr const depth_stencil_state_;
 };
 }
 }

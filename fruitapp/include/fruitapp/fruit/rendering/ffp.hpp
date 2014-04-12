@@ -8,9 +8,9 @@
 #include <sge/camera/base_fwd.hpp>
 #include <sge/renderer/scalar.hpp>
 #include <sge/renderer/device/ffp_fwd.hpp>
-#include <sge/renderer/state/core/depth_stencil/object_scoped_ptr.hpp>
-#include <sge/renderer/state/ffp/lighting/object_scoped_ptr.hpp>
-#include <sge/renderer/state/ffp/lighting/light/object_scoped_ptr.hpp>
+#include <sge/renderer/state/core/depth_stencil/object_unique_ptr.hpp>
+#include <sge/renderer/state/ffp/lighting/object_unique_ptr.hpp>
+#include <sge/renderer/state/ffp/lighting/light/object_unique_ptr.hpp>
 #include <sge/shader/pair.hpp>
 #include <sge/shader/parameter/matrix.hpp>
 #include <sge/shader/parameter/planar_texture.hpp>
@@ -48,9 +48,9 @@ private:
 	fruitapp::fruit::manager const &manager_;
 	sge::camera::base const &camera_;
 	fruitapp::light::ambient_intensity const ambient_intensity_;
-	sge::renderer::state::core::depth_stencil::object_scoped_ptr const depth_stencil_state_;
-	sge::renderer::state::ffp::lighting::object_scoped_ptr const lighting_;
-	sge::renderer::state::ffp::lighting::light::object_scoped_ptr const light_;
+	sge::renderer::state::core::depth_stencil::object_unique_ptr const depth_stencil_state_;
+	sge::renderer::state::ffp::lighting::object_unique_ptr const lighting_;
+	sge::renderer::state::ffp::lighting::light::object_unique_ptr const light_;
 };
 }
 }

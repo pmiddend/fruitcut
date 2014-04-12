@@ -12,9 +12,11 @@
 #include <fruitlib/physics/rigid_body/collision_callback_fn.hpp>
 #include <fruitlib/physics/rigid_body/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/scoped_ptr.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/object.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <memory>
+#include <fcppt/config/external_end.hpp>
 
 
 class btCollisionConfiguration;
@@ -75,11 +77,11 @@ public:
 private:
 	friend class group::object;
 
-	fcppt::scoped_ptr<btCollisionConfiguration> configuration_;
-	fcppt::scoped_ptr<btDispatcher> dispatcher_;
-	fcppt::scoped_ptr<btBroadphaseInterface> broadphase_;
-	fcppt::scoped_ptr<btConstraintSolver> constraint_solver_;
-	fcppt::scoped_ptr<btDiscreteDynamicsWorld> world_;
+	std::unique_ptr<btCollisionConfiguration> const configuration_;
+	std::unique_ptr<btDispatcher> const dispatcher_;
+	std::unique_ptr<btBroadphaseInterface> const broadphase_;
+	std::unique_ptr<btConstraintSolver> const constraint_solver_;
+	std::unique_ptr<btDiscreteDynamicsWorld> const world_;
 	group::id next_group_id_;
 	fcppt::signal::object<rigid_body::collision_callback_fn> rigid_body_collision_;
 

@@ -13,7 +13,7 @@
 #include <fruitlib/scenic/delta/duration.hpp>
 #include <fruitlib/scenic/delta/timer.hpp>
 #include <fruitlib/scenic/events/update.hpp>
-#include <sge/audio/buffer_scoped_ptr.hpp>
+#include <sge/audio/buffer_unique_ptr.hpp>
 #include <sge/audio/file_shared_ptr.hpp>
 #include <sge/audio/loader_fwd.hpp>
 #include <sge/audio/player_fwd.hpp>
@@ -91,7 +91,7 @@ private:
 	resource_tree_type sounds_;
 	scenic::delta::clock clock_;
 	scenic::delta::timer crossfade_;
-	sge::audio::buffer_scoped_ptr silence_buffer_;
+	sge::audio::buffer_unique_ptr const silence_buffer_;
 	sge::audio::sound::base_shared_ptr silence_source_;
 
 	sge::audio::sound::base_shared_ptr

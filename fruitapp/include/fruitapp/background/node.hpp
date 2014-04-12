@@ -1,7 +1,7 @@
 #ifndef FRUITAPP_BACKGROUND_NODE_HPP_INCLUDED
 #define FRUITAPP_BACKGROUND_NODE_HPP_INCLUDED
 
-#include <fruitapp/background/base_scoped_ptr.hpp>
+#include <fruitapp/background/base_unique_ptr.hpp>
 #include <fruitapp/background/repetitions.hpp>
 #include <fruitapp/background/use_ffp.hpp>
 #include <fruitapp/projection_manager/object_fwd.hpp>
@@ -56,7 +56,7 @@ public:
 
 	~node();
 private:
-	fruitapp::background::base_scoped_ptr const background_;
+	fruitapp::background::base_unique_ptr const background_;
 };
 }
 }

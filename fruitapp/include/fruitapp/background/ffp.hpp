@@ -5,7 +5,7 @@
 #include <fruitlib/texture_manager_fwd.hpp>
 #include <sge/renderer/device/ffp_fwd.hpp>
 #include <sge/renderer/state/core/sampler/const_object_ref_map.hpp>
-#include <sge/renderer/state/core/sampler/object_scoped_ptr.hpp>
+#include <sge/renderer/state/core/sampler/object_unique_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
 
 
@@ -35,7 +35,7 @@ public:
 private:
 	sge::renderer::device::ffp &renderer_;
 	sge::camera::base const &camera_;
-	sge::renderer::state::core::sampler::object_scoped_ptr const background_sampler_;
+	sge::renderer::state::core::sampler::object_unique_ptr const background_sampler_;
 	sge::renderer::state::core::sampler::const_object_ref_map const samplers_;
 };
 }

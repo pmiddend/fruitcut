@@ -11,7 +11,7 @@
 #include <sge/renderer/context/ffp.hpp>
 #include <sge/renderer/device/ffp.hpp>
 #include <sge/renderer/state/ffp/transform/object.hpp>
-#include <sge/renderer/state/ffp/transform/object_scoped_ptr.hpp>
+#include <sge/renderer/state/ffp/transform/object_unique_ptr.hpp>
 #include <sge/renderer/state/ffp/transform/parameters.hpp>
 #include <sge/renderer/state/ffp/transform/scoped.hpp>
 #include <fcppt/make_unique_ptr.hpp>
@@ -53,9 +53,9 @@ fruitlib::physics::debugger::debugger(
 void
 fruitlib::physics::debugger::update()
 {
-	scoped_lock_.take(
+	scoped_lock_ =
 		fcppt::make_unique_ptr<sge::line_drawer::scoped_lock>(
-			line_drawer_));
+			line_drawer_);
 
 	scoped_lock_->value().clear();
 
@@ -72,7 +72,7 @@ fruitlib::physics::debugger::render(
 	if (debug_mode_ == btIDebugDraw::DBG_NoDebug)
 		return;
 
-	sge::renderer::state::ffp::transform::object_scoped_ptr const world_state(
+	sge::renderer::state::ffp::transform::object_unique_ptr const world_state(
 		renderer_.create_transform_state(
 			sge::renderer::state::ffp::transform::parameters(
 				sge::camera::matrix_conversion::world_projection(
@@ -84,7 +84,7 @@ fruitlib::physics::debugger::render(
 		sge::renderer::state::ffp::transform::mode::world,
 		*world_state);
 
-	sge::renderer::state::ffp::transform::object_scoped_ptr const projection_state(
+	sge::renderer::state::ffp::transform::object_unique_ptr const projection_state(
 		renderer_.create_transform_state(
 			sge::renderer::state::ffp::transform::parameters(
 				sge::renderer::matrix4::identity())));

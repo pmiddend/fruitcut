@@ -5,7 +5,7 @@
 #include <fruitapp/shadow_map/mvp.hpp>
 #include <sge/camera/first_person/object_fwd.hpp>
 #include <sge/renderer/matrix4.hpp>
-#include <sge/renderer/state/core/depth_stencil/object_scoped_ptr.hpp>
+#include <sge/renderer/state/core/depth_stencil/object_unique_ptr.hpp>
 #include <sge/shader/context_fwd.hpp>
 #include <sge/shader/pair.hpp>
 #include <sge/shader/parameter/matrix.hpp>
@@ -41,7 +41,7 @@ private:
 	sge::shader::pair shader_;
 	sge::shader::parameter::matrix<sge::renderer::scalar,4,4> mvp_parameter_;
 	fruitapp::shadow_map::mvp const mvp_;
-	sge::renderer::state::core::depth_stencil::object_scoped_ptr const depth_stencil_state_;
+	sge::renderer::state::core::depth_stencil::object_unique_ptr const depth_stencil_state_;
 };
 }
 }

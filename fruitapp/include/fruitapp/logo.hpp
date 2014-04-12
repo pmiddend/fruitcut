@@ -24,7 +24,7 @@
 #include <sge/sprite/state/all_choices.hpp>
 #include <sge/sprite/state/object.hpp>
 #include <sge/sprite/state/parameters.hpp>
-#include <sge/texture/const_part_scoped_ptr.hpp>
+#include <sge/texture/const_part_unique_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -127,7 +127,7 @@ private:
 
 	sprite_state_object sprite_states_;
 	sprite_buffers sprite_buffers_;
-	sge::texture::const_part_scoped_ptr const texture_;
+	sge::texture::const_part_unique_ptr const texture_;
 	sprite_object sprite_object_;
 	fcppt::signal::scoped_connection viewport_change_connection_;
 

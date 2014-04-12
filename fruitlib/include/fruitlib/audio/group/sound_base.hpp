@@ -4,7 +4,7 @@
 #include <fruitlib/audio/group/buffer_fwd.hpp>
 #include <fruitlib/audio/group/player_fwd.hpp>
 #include <sge/audio/sound/base.hpp>
-#include <sge/audio/sound/base_scoped_ptr.hpp>
+#include <sge/audio/sound/base_unique_ptr.hpp>
 #include <sge/audio/sound/base_unique_ptr.hpp>
 #include <sge/audio/sound/nonpositional_parameters_fwd.hpp>
 #include <sge/audio/sound/play_status_fwd.hpp>
@@ -80,7 +80,7 @@ protected:
 protected:
 	group::player *player_;
 	group::buffer *buffer_;
-	sge::audio::sound::base_scoped_ptr impl_;
+	sge::audio::sound::base_unique_ptr const impl_;
 	sge::audio::scalar global_gain_;
 	sge::audio::scalar local_gain_;
 	sge::audio::scalar global_pitch_;

@@ -11,7 +11,7 @@
 #include <sge/renderer/state/core/sampler/address/mode_all.hpp>
 #include <sge/renderer/state/core/sampler/filter/default.hpp>
 #include <sge/renderer/state/ffp/transform/object.hpp>
-#include <sge/renderer/state/ffp/transform/object_scoped_ptr.hpp>
+#include <sge/renderer/state/ffp/transform/object_unique_ptr.hpp>
 #include <sge/renderer/state/ffp/transform/parameters.hpp>
 #include <sge/renderer/state/ffp/transform/scoped.hpp>
 #include <sge/renderer/texture/planar.hpp>
@@ -73,12 +73,12 @@ fruitapp::background::ffp::render(
 		sge::renderer::texture::stage(
 			0u));
 
-	sge::renderer::state::ffp::transform::object_scoped_ptr const projection_state(
+	sge::renderer::state::ffp::transform::object_unique_ptr const projection_state(
 		renderer_.create_transform_state(
 			sge::renderer::state::ffp::transform::parameters(
 				camera_.projection_matrix().get())));
 
-	sge::renderer::state::ffp::transform::object_scoped_ptr const world_state(
+	sge::renderer::state::ffp::transform::object_unique_ptr const world_state(
 		renderer_.create_transform_state(
 			sge::renderer::state::ffp::transform::parameters(
 				sge::camera::matrix_conversion::world(

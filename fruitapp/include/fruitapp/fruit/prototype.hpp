@@ -2,7 +2,7 @@
 #define FRUITAPP_FRUIT_PROTOTYPE_HPP_INCLUDED
 
 #include <fruitapp/fruit/box3.hpp>
-#include <fruitapp/fruit/mesh_scoped_ptr.hpp>
+#include <fruitapp/fruit/mesh_unique_ptr.hpp>
 #include <fruitapp/fruit/mesh_unique_ptr.hpp>
 #include <fruitapp/fruit/splatter_color.hpp>
 #include <fruitapp/fruit/tag_set.hpp>
@@ -63,7 +63,7 @@ public:
 
 	~prototype();
 private:
-	fruitapp::fruit::mesh_scoped_ptr mesh_;
+	fruitapp::fruit::mesh_unique_ptr const mesh_;
 	// Storing the bounding box is not neccessary, but I don't want to
 	// recalculate the bounding box each time in the spawner, so ...
 	fruitapp::fruit::box3 bounding_box_;

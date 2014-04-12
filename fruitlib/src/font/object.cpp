@@ -252,7 +252,7 @@ fruitlib::font::object::regenerate_text_object()
 		}
 	);
 
-	text_object_.take(
+	text_object_ =
 		fcppt::make_unique_ptr<sge::font::draw::static_text>(
 			manager_.renderer(),
 			font_object_,
@@ -267,7 +267,7 @@ fruitlib::font::object::regenerate_text_object()
 			),
 			bounding_box_.pos(),
 			color_,
-			manager_.emulate_srgb()));
+			manager_.emulate_srgb());
 
 	switch(alignment_v_)
 	{

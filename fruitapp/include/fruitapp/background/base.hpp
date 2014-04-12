@@ -8,11 +8,11 @@
 #include <sge/camera/base_fwd.hpp>
 #include <sge/renderer/context/core_fwd.hpp>
 #include <sge/renderer/device/core_fwd.hpp>
-#include <sge/renderer/state/core/depth_stencil/object_scoped_ptr.hpp>
+#include <sge/renderer/state/core/depth_stencil/object_unique_ptr.hpp>
 #include <sge/renderer/target/base_fwd.hpp>
-#include <sge/renderer/texture/planar_scoped_ptr.hpp>
-#include <sge/renderer/vertex/buffer_scoped_ptr.hpp>
-#include <sge/renderer/vertex/declaration_scoped_ptr.hpp>
+#include <sge/renderer/texture/planar_unique_ptr.hpp>
+#include <sge/renderer/vertex/buffer_unique_ptr.hpp>
+#include <sge/renderer/vertex/declaration_unique_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 
@@ -33,11 +33,11 @@ public:
 	virtual ~base() = 0;
 protected:
 	sge::renderer::target::base const &target_;
-	sge::renderer::vertex::declaration_scoped_ptr const vertex_declaration_;
-	sge::renderer::vertex::buffer_scoped_ptr const vb_;
-	sge::renderer::texture::planar_scoped_ptr const texture_;
+	sge::renderer::vertex::declaration_unique_ptr const vertex_declaration_;
+	sge::renderer::vertex::buffer_unique_ptr const vb_;
+	sge::renderer::texture::planar_unique_ptr const texture_;
 	fcppt::signal::scoped_connection const projection_change_connection_;
-	sge::renderer::state::core::depth_stencil::object_scoped_ptr const depth_stencil_state_;
+	sge::renderer::state::core::depth_stencil::object_unique_ptr const depth_stencil_state_;
 
 	base(
 		sge::renderer::device::core &,

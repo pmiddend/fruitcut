@@ -15,10 +15,10 @@
 #include <fruitapp/highscore/score.hpp>
 #include <fruitapp/light/manager.hpp>
 #include <fruitapp/point_sprite/system_node.hpp>
-#include <fruitapp/postprocessing/system_scoped_ptr.hpp>
+#include <fruitapp/postprocessing/system_unique_ptr.hpp>
 #include <fruitapp/postprocessing/subsystems/main_fwd.hpp>
 #include <fruitapp/projection_manager/object.hpp>
-#include <fruitapp/shadow_map/object_scoped_ptr.hpp>
+#include <fruitapp/shadow_map/object_unique_ptr.hpp>
 #include <fruitapp/viewport/manager.hpp>
 #include <fruitlib/basic_scoped_ostream_file_redirection_impl.hpp>
 #include <fruitlib/random_generator.hpp>
@@ -37,7 +37,7 @@
 #include <fruitlib/scenic/events/update.hpp>
 #include <sge/camera/first_person/object.hpp>
 #include <sge/model/md3/loader_fwd.hpp>
-#include <sge/model/md3/loader_scoped_ptr.hpp>
+#include <sge/model/md3/loader_unique_ptr.hpp>
 #include <sge/parse/json/object.hpp>
 #include <sge/renderer/texture/emulate_srgb.hpp>
 #include <sge/shader/optional_context_ref.hpp>
@@ -49,6 +49,9 @@
 #include <fcppt/preprocessor/const.hpp>
 #include <fcppt/preprocessor/warn_unused_result.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <memory>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace fruitapp
@@ -263,10 +266,10 @@ private:
 	sge::renderer::texture::emulate_srgb const emulate_srgb_;
 	fruitapp::systems const systems_;
 	fruitlib::texture_manager texture_manager_;
-	fcppt::scoped_ptr<sge::shader::context> const shader_context_;
-	sge::model::md3::loader_scoped_ptr md3_loader_;
+	std::unique_ptr<sge::shader::context> const shader_context_;
+	sge::model::md3::loader_unique_ptr md3_loader_;
 	fruitapp::viewport::manager viewport_manager_;
-	fruitapp::postprocessing::system_scoped_ptr const postprocessing_system_;
+	fruitapp::postprocessing::system_unique_ptr const postprocessing_system_;
 	fruitlib::font::manager font_manager_;
 	fruitlib::log::scoped_sequence_ptr activated_loggers_;
 	sge::timer::basic<sge::timer::clocks::standard> second_timer_;
@@ -285,7 +288,7 @@ private:
 	fruitapp::gui::system_unique_ptr const gui_system_;
 	fruitapp::quick_log quick_log_;
 	fruitapp::light::manager light_manager_;
-	fruitapp::shadow_map::object_scoped_ptr shadow_map_;
+	fruitapp::shadow_map::object_unique_ptr shadow_map_;
 	fruitapp::background::node background_;
 	unsigned desired_fps_;
 	fruitapp::highscore::score last_game_score_;
