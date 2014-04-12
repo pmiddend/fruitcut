@@ -310,7 +310,6 @@ set(
 	fruitapp/include/fruitapp/shadow_map/mvp.hpp
 	fruitapp/include/fruitapp/shadow_map/object.hpp
 	fruitapp/include/fruitapp/shadow_map/object_fwd.hpp
-	fruitapp/include/fruitapp/shadow_map/object_scoped_ptr.hpp
 	fruitapp/include/fruitapp/shadow_map/object_unique_ptr.hpp
 	fruitapp/include/fruitapp/shadow_map/optional_object_ref.hpp
 	fruitapp/include/fruitapp/splatter_generator.hpp
