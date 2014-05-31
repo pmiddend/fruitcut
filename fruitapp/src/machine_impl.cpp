@@ -23,14 +23,12 @@
 #include <fruitlib/scenic/events/render.hpp>
 #include <fruitlib/scenic/events/update.hpp>
 #include <fruitlib/time_format/find_and_convert_duration.hpp>
-#include <sge/audio/loader_capabilities_field.hpp>
 #include <sge/audio/player.hpp>
 #include <sge/audio/scalar.hpp>
 #include <sge/camera/first_person/object.hpp>
 #include <sge/camera/first_person/parameters.hpp>
 #include <sge/charconv/utf8_file_to_fcppt_string_exn.hpp>
 #include <sge/font/system.hpp>
-#include <sge/image/capabilities_field.hpp>
 #include <sge/input/keyboard/action.hpp>
 #include <sge/input/keyboard/device.hpp>
 #include <sge/input/keyboard/key_code.hpp>
@@ -178,13 +176,11 @@ fruitapp::machine_impl::machine_impl(
 			(sge::systems::font())
 			(sge::systems::audio_player_default())
 			(sge::systems::audio_loader(
-				sge::audio::loader_capabilities_field::null(),
 				sge::media::optional_extension_set(
 					fcppt::assign::make_container<sge::media::extension_set>
 						(sge::media::extension(FCPPT_TEXT("wav")))
 						(sge::media::extension(FCPPT_TEXT("ogg"))))))
 			(sge::systems::image2d(
-				sge::image::capabilities_field::null(),
 				sge::media::optional_extension_set(
 					fcppt::assign::make_container<sge::media::extension_set>
 						(sge::media::extension(FCPPT_TEXT("png"))))))

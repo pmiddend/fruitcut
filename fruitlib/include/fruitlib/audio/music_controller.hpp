@@ -14,7 +14,7 @@
 #include <fruitlib/scenic/delta/timer.hpp>
 #include <fruitlib/scenic/events/update.hpp>
 #include <sge/audio/buffer_unique_ptr.hpp>
-#include <sge/audio/file_shared_ptr.hpp>
+#include <sge/audio/file_fwd.hpp>
 #include <sge/audio/loader_fwd.hpp>
 #include <sge/audio/player_fwd.hpp>
 #include <sge/audio/scalar.hpp>
@@ -23,6 +23,7 @@
 #include <sge/timer/clocks/delta.hpp>
 #include <sge/timer/clocks/standard.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/shared_ptr.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
@@ -76,9 +77,15 @@ public:
 	~music_controller();
 private:
 	typedef
+	fcppt::shared_ptr<
+		sge::audio::file
+	>
+	file_shared_ptr;
+
+	typedef
 	resource_tree::make_type
 	<
-		sge::audio::file_shared_ptr,
+		file_shared_ptr,
 		// shared_ptr because of horrible unique_ptr semantics
 		fcppt::shared_ptr
 		<

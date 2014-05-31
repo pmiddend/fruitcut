@@ -57,17 +57,6 @@ create_random_from_directory(
 							boost::filesystem::directory_iterator())-1))));
 }
 
-sge::audio::file_shared_ptr
-load_shared(
-	sge::audio::loader &_audio_loader,
-	boost::filesystem::path const &_path)
-{
-	return
-		sge::audio::file_shared_ptr(
-			sge::audio::load_exn(
-				_audio_loader,
-				_path));
-}
 }
 
 fruitlib::audio::music_controller::music_controller(
@@ -90,11 +79,18 @@ fruitlib::audio::music_controller::music_controller(
 	sounds_(
 		fruitlib::resource_tree::from_directory_tree<resource_tree_type>(
 			_base_path,
-			std::bind(
-				&load_shared,
-				std::ref(
-					_audio_loader),
-				std::placeholders::_1),
+			[
+				&_audio_loader
+			](
+				boost::filesystem::path const &_path
+			)
+			{
+				return
+					file_shared_ptr(
+						sge::audio::load_exn(
+							_audio_loader,
+							_path));
+			},
 			std::bind(
 				&create_random_from_directory,
 				std::ref(

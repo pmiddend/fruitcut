@@ -6,7 +6,8 @@
 #include <sge/audio/buffer.hpp>
 #include <sge/audio/buffer_shared_ptr.hpp>
 #include <sge/audio/file.hpp>
-#include <sge/audio/loader.hpp>
+#include <sge/audio/load_exn.hpp>
+#include <sge/audio/loader_fwd.hpp>
 #include <sge/audio/player.hpp>
 #include <sge/audio/sound/nonpositional_parameters.hpp>
 #include <sge/audio/sound/positional.hpp>
@@ -60,22 +61,15 @@ create_buffer_from_path(
 	sge::audio::player &player,
 	boost::filesystem::path const &file)
 {
-	sge::audio::file_unique_ptr const audio_file(
-		loader.load(
-			file));
-
-	if(!audio_file)
-		throw
-			fruitlib::exception(
-				FCPPT_TEXT("Couldn't load file \"")+
-				fcppt::filesystem::path_to_string(
-					file)+
-				FCPPT_TEXT("\""));
-
 	return
 		sge::audio::buffer_shared_ptr(
 			player.create_buffer(
-				*audio_file));
+				*sge::audio::load_exn(
+					loader,
+					file
+				)
+			)
+		);
 }
 }
 
