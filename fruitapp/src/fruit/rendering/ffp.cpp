@@ -8,9 +8,12 @@
 #include <sge/camera/coordinate_system/object.hpp>
 #include <sge/camera/matrix_conversion/world.hpp>
 #include <sge/image/color/predef.hpp>
-#include <sge/image/color/init.hpp>
 #include <sge/image/color/rgba32f.hpp>
 #include <sge/image/color/any/object.hpp>
+#include <sge/image/color/init/alpha.hpp>
+#include <sge/image/color/init/blue.hpp>
+#include <sge/image/color/init/green.hpp>
+#include <sge/image/color/init/red.hpp>
 #include <sge/renderer/primitive_type.hpp>
 #include <sge/renderer/scalar.hpp>
 #include <sge/renderer/vector3.hpp>

@@ -1,6 +1,9 @@
 #include <fruitlib/exception.hpp>
 #include <fruitlib/json/parse_rgba8_color.hpp>
-#include <sge/image/color/init.hpp>
+#include <sge/image/color/init/alpha.hpp>
+#include <sge/image/color/init/blue.hpp>
+#include <sge/image/color/init/green.hpp>
+#include <sge/image/color/init/red.hpp>
 #include <sge/parse/json/array.hpp>
 #include <sge/parse/json/convert_from.hpp>
 #include <sge/parse/json/float_type.hpp>

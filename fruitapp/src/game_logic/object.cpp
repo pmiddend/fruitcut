@@ -24,7 +24,6 @@
 */
 #include <sge/font/vector.hpp>
 #include <sge/image/color/predef.hpp>
-#include <sge/image/color/init.hpp>
 #include <sge/image/color/rgba8.hpp>
 #include <sge/image/color/rgba8_format.hpp>
 #include <sge/image/color/any/convert.hpp>
@@ -40,10 +39,13 @@
 #include <sge/timer/remaining_fractional.hpp>
 #include <sge/timer/reset_when_expired.hpp>
 #include <mizuiro/color/convert.hpp>
-#include <mizuiro/color/init.hpp>
 #include <mizuiro/color/object.hpp>
 #include <mizuiro/color/convert_static/converter.hpp>
 #include <mizuiro/color/format/homogenous_static.hpp>
+#include <mizuiro/color/init/alpha.hpp>
+#include <mizuiro/color/init/hue.hpp>
+#include <mizuiro/color/init/saturation.hpp>
+#include <mizuiro/color/init/value.hpp>
 #include <mizuiro/color/layout/hsva.hpp>
 #include <fcppt/format.hpp>
 #include <fcppt/insert_to_std_wstring.hpp>

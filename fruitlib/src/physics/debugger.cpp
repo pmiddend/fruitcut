@@ -4,8 +4,10 @@
 #include <sge/camera/base.hpp>
 #include <sge/camera/coordinate_system/object.hpp>
 #include <sge/camera/matrix_conversion/world_projection.hpp>
-#include <sge/image/color/init.hpp>
 #include <sge/image/color/rgb8.hpp>
+#include <sge/image/color/init/blue.hpp>
+#include <sge/image/color/init/green.hpp>
+#include <sge/image/color/init/red.hpp>
 #include <sge/line_drawer/line.hpp>
 #include <sge/line_drawer/scoped_lock.hpp>
 #include <sge/renderer/context/ffp.hpp>
