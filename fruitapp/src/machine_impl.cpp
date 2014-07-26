@@ -63,6 +63,7 @@
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
 #include <sge/systems/make_list.hpp>
+#include <sge/systems/original_window.hpp>
 #include <sge/systems/renderer.hpp>
 #include <sge/systems/window.hpp>
 #include <sge/timer/elapsed_and_reset.hpp>
@@ -71,7 +72,6 @@
 #include <sge/viewport/fill_on_resize.hpp>
 #include <sge/viewport/manager.hpp>
 #include <sge/window/dim.hpp>
-#include <sge/window/parameters.hpp>
 #include <sge/window/system.hpp>
 #include <sge/window/title.hpp>
 #include <awl/main/exit_code.hpp>
@@ -166,7 +166,7 @@ fruitapp::machine_impl::machine_impl(
 					sge::renderer::display_mode::optional_object()),
 				sge::viewport::fill_on_resize()))
 			(sge::systems::window(
-				sge::window::parameters(
+				sge::systems::original_window(
 					sge::window::title(
 						fruitapp::name()),
 					sge::parse::json::find_and_convert_member<sge::window::dim>(
