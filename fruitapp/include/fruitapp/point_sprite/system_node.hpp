@@ -28,8 +28,9 @@
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
 #include <boost/mpl/vector/vector10.hpp>
-#include <boost/ptr_container/ptr_list.hpp>
 #include <cstddef>
+#include <list>
+#include <memory>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -85,7 +86,13 @@ public:
 	projection_manager() const;
 private:
 	typedef
-	boost::ptr_list<fruitapp::point_sprite::base>
+	std::list
+	<
+		std::unique_ptr
+		<
+			fruitapp::point_sprite::base
+		>
+	>
 	child_sequence;
 
 	typedef

@@ -4,7 +4,7 @@
 #include <sge/audio/sound/base_unique_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/ptr_container/ptr_vector.hpp>
+#include <vector>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -25,12 +25,15 @@ public:
 
 	void
 	insert(
-		sge::audio::sound::base_unique_ptr);
+		sge::audio::sound::base_unique_ptr &&);
 
 	~pool();
 private:
 	typedef
-	boost::ptr_vector<sge::audio::sound::base>
+	std::vector
+	<
+		sge::audio::sound::base_unique_ptr
+	>
 	sound_sequence;
 
 	sound_sequence sounds_;

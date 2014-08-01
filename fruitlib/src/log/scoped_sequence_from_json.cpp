@@ -9,7 +9,6 @@
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/container/ptr/push_back_unique_ptr.hpp>
 #include <fcppt/log/context.hpp>
 #include <fcppt/log/level_from_string.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -17,13 +16,12 @@
 #include <fcppt/config/external_end.hpp>
 
 
-fruitlib::log::scoped_sequence_ptr
+fruitlib::log::scoped_sequence
 fruitlib::log::scoped_sequence_from_json(
 	fcppt::log::context &context,
 	sge::parse::json::array const &a)
 {
-	scoped_sequence_ptr result(
-		fcppt::make_unique_ptr<scoped_sequence>());
+	scoped_sequence result;
 
 	try
 	{
@@ -41,8 +39,7 @@ fruitlib::log::scoped_sequence_from_json(
 				throw exception(
 					FCPPT_TEXT("The loggers have to be stored in an array of pairs [name,level], this was not the case with at least one logger pair"));
 
-			fcppt::container::ptr::push_back_unique_ptr(
-				*result,
+			result.push_back(
 				fcppt::make_unique_ptr<scoped>(
 					context,
 					string_to_location(

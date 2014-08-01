@@ -4,7 +4,6 @@
 #include <fruitlib/audio/group/sound_positional.hpp>
 #include <sge/audio/sound/positional_parameters.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/algorithm/ptr_container_erase.hpp>
 #include <fcppt/assert/error.hpp>
 
 
@@ -63,11 +62,11 @@ fruitlib::audio::group::buffer::global_gain(
 		_global_gain;
 
 	for(
-		sound_sequence::iterator i =
-			sounds_.begin();
-		i != sounds_.end();
-		++i)
-		i->global_gain(
+		auto const sound
+		:
+		sounds_
+	)
+		sound->global_gain(
 			_global_gain);
 }
 
@@ -79,11 +78,11 @@ fruitlib::audio::group::buffer::global_pitch(
 		_global_pitch;
 
 	for(
-		sound_sequence::iterator i =
-			sounds_.begin();
-		i != sounds_.end();
-		++i)
-		i->global_pitch(
+		auto const sound
+		:
+		sounds_
+	)
+		sound->global_pitch(
 			_global_pitch);
 }
 
@@ -97,16 +96,18 @@ void
 fruitlib::audio::group::buffer::add_sound(
 	group::sound_base &b)
 {
-	sounds_.push_back(
-		&b);
+	sounds_.insert(
+		&b
+	);
 }
 
 void
 fruitlib::audio::group::buffer::remove_sound(
 	group::sound_base &b)
 {
-	FCPPT_ASSERT_ERROR((
-		fcppt::algorithm::ptr_container_erase(
-			sounds_,
-			&b)));
+	FCPPT_ASSERT_ERROR(
+		sounds_.erase(
+			&b
+		)
+	);
 }

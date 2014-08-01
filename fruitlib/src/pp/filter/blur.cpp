@@ -13,7 +13,6 @@
 #include <sge/shader/scoped_pair.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/assert/pre.hpp>
-#include <fcppt/container/ptr/replace_unique_ptr.hpp>
 #include <fcppt/math/dim/object_impl.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -148,9 +147,9 @@ fruitlib::pp::filter::blur::blur(
 		i < 2;
 		++i)
 	{
-		fcppt::container::ptr::replace_unique_ptr(
-			shaders_,
-			i,
+		shaders_[
+			i
+		] =
 			fcppt::make_unique_ptr<sge::shader::pair>(
 				_filter_manager.shader_context(),
 				_filter_manager.quad().vertex_declaration(),
@@ -162,27 +161,27 @@ fruitlib::pp::filter::blur::blur(
 					*fcppt::make_unique_ptr<std::istringstream>(
 						std::string(
 							sources[i]))),
-				_filter_manager.shader_cflags()));
+				_filter_manager.shader_cflags());
 
-		fcppt::container::ptr::replace_unique_ptr(
-			planar_textures_,
-			i,
+		planar_textures_[
+			i
+		] =
 			fcppt::make_unique_ptr<sge::shader::parameter::planar_texture>(
-				shaders_[i].pixel_program(),
+				shaders_[i]->pixel_program(),
 				sge::shader::parameter::name(
 					"input_texture"),
-				shaders_[i],
+				*shaders_[i],
 				_filter_manager.renderer(),
-				sge::shader::parameter::planar_texture::optional_value()));
+				sge::shader::parameter::planar_texture::optional_value());
 
-		fcppt::container::ptr::replace_unique_ptr(
-			texture_sizes_,
-			i,
+		texture_sizes_[
+			i
+		] =
 			fcppt::make_unique_ptr<vec2_parameter>(
-				shaders_[i].pixel_program(),
+				shaders_[i]->pixel_program(),
 				sge::shader::parameter::name(
 					"texture_size"),
-				sge::renderer::vector2::null()));
+				sge::renderer::vector2::null());
 	}
 }
 
@@ -211,19 +210,19 @@ fruitlib::pp::filter::blur::apply(
 				fruitlib::pp::texture::depth_stencil_format::off))
 	}};
 
-	planar_textures_[0u].set(
+	planar_textures_[0u]->set(
 		sge::shader::parameter::planar_texture::optional_value(
 			*input->texture()));
 
-	planar_textures_[1u].set(
+	planar_textures_[1u]->set(
 		sge::shader::parameter::planar_texture::optional_value(
 			*(instances[0]->texture())));
 
-	texture_sizes_[0u].set(
+	texture_sizes_[0u]->set(
 		fcppt::math::dim::structure_cast<sge::renderer::vector2>(
 			input->texture()->size()));
 
-	texture_sizes_[1u].set(
+	texture_sizes_[1u]->set(
 		fcppt::math::dim::structure_cast<sge::renderer::vector2>(
 			instances[0]->texture()->size()));
 
@@ -232,7 +231,7 @@ fruitlib::pp::filter::blur::apply(
 		instance_index(
 			0u));
 
-	planar_textures_[0u].set(
+	planar_textures_[0u]->set(
 		sge::shader::parameter::planar_texture::optional_value(
 			*(instances[1]->texture())));
 
@@ -276,7 +275,7 @@ fruitlib::pp::filter::blur::render(
 
 	sge::shader::scoped_pair scoped_shader(
 		scoped_context.get(),
-		shaders_[_instance.get()]);
+		*shaders_[_instance.get()]);
 
 	filter_manager_.quad().render(
 		scoped_context.get());

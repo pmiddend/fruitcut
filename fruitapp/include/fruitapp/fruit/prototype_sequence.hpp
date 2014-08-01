@@ -3,7 +3,8 @@
 
 #include <fruitapp/fruit/prototype.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/ptr_container/ptr_vector.hpp>
+#include <memory>
+#include <vector>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -12,7 +13,13 @@ namespace fruitapp
 namespace fruit
 {
 typedef
-boost::ptr_vector<prototype>
+std::vector
+<
+	std::unique_ptr
+	<
+		prototype
+	>
+>
 prototype_sequence;
 }
 }

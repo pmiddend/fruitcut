@@ -9,7 +9,7 @@
 #include <fcppt/preprocessor/pure.hpp>
 #include <fcppt/preprocessor/warn_unused_result.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/ptr_container/ptr_vector.hpp>
+#include <unordered_set>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -86,11 +86,15 @@ private:
 	friend class group::sound_base;
 
 	typedef
-	boost::ptr_vector<group::buffer,boost::view_clone_allocator>
+	std::unordered_set<
+		group::buffer *
+	>
 	buffer_sequence;
 
 	typedef
-	boost::ptr_vector<group::sound_base,boost::view_clone_allocator>
+	std::unordered_set<
+		group::sound_base *
+	>
 	sound_sequence;
 
 	sge::audio::player &impl_;

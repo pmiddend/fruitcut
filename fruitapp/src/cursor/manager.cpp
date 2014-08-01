@@ -5,7 +5,6 @@
 #include <sge/input/cursor/remove_event.hpp>
 #include <sge/parse/json/value.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/algorithm/ptr_container_erase.hpp>
 #include <fcppt/signal/connection.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <functional>
@@ -69,16 +68,16 @@ fruitapp::cursor::manager::create_instances(
 	fruitapp::cursor::instance_sequence * const new_instance_ptr =
 		&*new_instance;
 
-	instance_sequences_.push_back(
+	instance_sequences_.insert(
 		new_instance_ptr);
 
 	for(
-		cursor_sequence::iterator it =
-			cursors_.begin();
-		it != cursors_.end();
-		++it)
+		auto const cursor
+		:
+		cursors_
+	)
 		new_instance->cursor_discover(
-			*it);
+			*cursor);
 
 	return
 		std::move(
@@ -96,15 +95,15 @@ fruitapp::cursor::manager::discover(
 	sge::input::cursor::object * const cptr =
 		&(_discover.get());
 
-	cursors_.push_back(
+	cursors_.insert(
 		cptr);
 
 	for(
-		instance_sequence_sequence::iterator it =
-			instance_sequences_.begin();
-		it != instance_sequences_.end();
-		++it)
-		it->cursor_discover(
+		auto const instance
+		:
+		instance_sequences_
+	)
+		instance->cursor_discover(
 			_discover.get());
 }
 
@@ -113,15 +112,14 @@ fruitapp::cursor::manager::remove(
 	sge::input::cursor::remove_event const &_remove)
 {
 	for(
-		instance_sequence_sequence::iterator it =
-			instance_sequences_.begin();
-		it != instance_sequences_.end();
-		++it)
-		it->cursor_remove(
+		auto const instance
+		:
+		instance_sequences_
+	)
+		instance->cursor_remove(
 			_remove.get());
 
-	fcppt::algorithm::ptr_container_erase(
-		cursors_,
+	cursors_.erase(
 		&(_remove.get()));
 }
 
@@ -129,7 +127,6 @@ void
 fruitapp::cursor::manager::instance_sequence_destroyed(
 	fruitapp::cursor::instance_sequence &_instance_sequence)
 {
-	fcppt::algorithm::ptr_container_erase(
-		instance_sequences_,
+	instance_sequences_.erase(
 		&_instance_sequence);
 }

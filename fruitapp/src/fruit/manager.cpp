@@ -38,7 +38,6 @@
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/error.hpp>
-#include <fcppt/container/ptr/push_back_unique_ptr.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/math/matrix/object_impl.hpp>
 #include <fcppt/math/matrix/transpose.hpp>
@@ -48,6 +47,7 @@
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <array>
+#include <iterator>
 #include <memory>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
@@ -154,8 +154,7 @@ fruitapp::fruit::manager::cut(
 			cut_result->cross_section().triangles().swap(
 				cross_section->triangles());
 
-		fcppt::container::ptr::push_back_unique_ptr(
-			fruit_cache,
+		fruit_cache.push_back(
 			fcppt::make_unique_ptr<fruitapp::fruit::object>(
 				_current_fruit.prototype(),
 				physics_world_,
@@ -194,8 +193,11 @@ fruitapp::fruit::manager::cut(
 			_current_fruit,
 			fruitapp::fruit::cut_context::new_fruit_array
 			{{
-				&(*fruit_cache.begin()),
-				&(*(--fruit_cache.end()))}},
+				fruit_cache.begin()->get(),
+				std::next(
+					fruit_cache.begin()
+				)->get()
+			}},
 			cumulated_area,
 			cut_geometry,
 			std::move(
@@ -239,7 +241,7 @@ fruitapp::fruit::manager::spawn(
 			clock_));
 
 	spawn_signal_(
-		*fruits_.cend());
+		**fruits_.cend());
 }
 
 fruitapp::fruit::object_sequence const &
@@ -346,19 +348,23 @@ fruitapp::fruit::manager::delete_distant_fruits()
 					plane_vec4[2]),
 				plane_vec4[3]));
 
-	for(object_sequence::iterator i = fruits_.begin(); i != fruits_.end(); ++i)
+	for(
+		auto const &fruit
+		:
+		fruits_
+	)
 	{
 		if(
-			fruitlib::math::plane::distance_to_point(bottom_plane,i->position()) >
+			fruitlib::math::plane::distance_to_point(bottom_plane,fruit->position()) >
 			// This 2 is important here. If it weren't there, we would delete fruits which were just spawned.
 			static_cast<sge::renderer::scalar>(2) *
 			fruitlib::math::box_radius(
-				i->bounding_box()))
+				fruit->bounding_box()))
 		{
 			remove_signal_(
-				*i);
+				*fruit);
 			fruits_.erase(
-				*i);
+				*fruit);
 		}
 	}
 	fruits_.update();

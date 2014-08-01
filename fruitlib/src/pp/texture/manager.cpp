@@ -23,7 +23,6 @@
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/unreachable_message.hpp>
-#include <fcppt/container/ptr/insert_unique_ptr_multimap.hpp>
 #include <fcppt/math/box/object_impl.hpp>
 #include <fcppt/math/dim/comparison.hpp>
 #include <fcppt/math/dim/object_impl.hpp>
@@ -197,21 +196,21 @@ fruitlib::pp::texture::manager::query_internal(
 				*new_target_depth_stencil));
 
 	// There are no matching textures? Gotta create a new one!
-	texture_map::iterator const result =
-		fcppt::container::ptr::insert_unique_ptr_multimap(
-			textures_,
-			d,
-			fcppt::make_unique_ptr<fruitlib::pp::texture::instance>(
+	texture_map::iterator const result(
+		textures_.insert(
+			std::make_pair(
 				d,
-				std::move(
-					new_texture),
-				std::move(
-					new_target),
-				// FIXME: Can we move a null unique_ptr?
-				std::move(
-					new_target_depth_stencil),
-				fruitlib::pp::texture::is_locked(
-					true)));
+				fcppt::make_unique_ptr<fruitlib::pp::texture::instance>(
+					d,
+					std::move(
+						new_texture),
+					std::move(
+						new_target),
+					// FIXME: Can we move a null unique_ptr?
+					std::move(
+						new_target_depth_stencil),
+					fruitlib::pp::texture::is_locked(
+						true)))));
 	return
 		fruitlib::pp::texture::counted_instance(
 			*result->second,

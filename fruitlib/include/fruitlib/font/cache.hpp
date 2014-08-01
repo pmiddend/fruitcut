@@ -4,6 +4,7 @@
 #include <fruitlib/font/base_path.hpp>
 #include <fruitlib/font/identifier.hpp>
 #include <sge/font/object_fwd.hpp>
+#include <sge/font/object_unique_ptr.hpp>
 #include <sge/font/system_fwd.hpp>
 #include <sge/image2d/system_fwd.hpp>
 #include <sge/parse/json/object_fwd.hpp>
@@ -12,7 +13,7 @@
 #include <fcppt/string.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
-#include <boost/ptr_container/ptr_list.hpp>
+#include <list>
 #include <map>
 #include <fcppt/config/external_end.hpp>
 
@@ -42,7 +43,7 @@ private:
 	// We push elements and use iterators to the elements, so a list is
 	// mandatory here!
 	typedef
-	boost::ptr_list<sge::font::object>
+	std::list<sge::font::object_unique_ptr>
 	object_sequence;
 
 	typedef

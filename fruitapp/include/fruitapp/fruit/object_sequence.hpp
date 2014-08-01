@@ -13,7 +13,7 @@ namespace fruitapp
 namespace fruit
 {
 typedef
-fruitlib::delayed_ptr_sequence<object,boost::ptr_list>
+fruitlib::delayed_ptr_sequence<object,std::list>
 object_sequence;
 }
 }

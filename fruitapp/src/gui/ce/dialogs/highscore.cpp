@@ -50,17 +50,17 @@ fruitapp::gui::ce::dialogs::highscore::highscore(
 		table_model_)
 {
 	for(
-		fruitapp::highscore::provider_sequence::iterator i =
-			providers_.begin();
-		i != providers_.end();
-		++i)
+		auto const &provider
+		:
+		providers_
+	)
 		source_box_.add(
-			i->identifier(),
+			provider->identifier(),
 			std::bind(
 				std::ref(
 					switch_provider_),
 				std::ref(
-					*i)),
+					*provider)),
 			fruitapp::gui::ce::combobox::selected(
 				false));
 }

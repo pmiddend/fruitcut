@@ -28,7 +28,7 @@
 #include <fruitlib/audio/music_controller.hpp>
 #include <fruitlib/audio/sound_controller.hpp>
 #include <fruitlib/font/manager.hpp>
-#include <fruitlib/log/scoped_sequence_ptr.hpp>
+#include <fruitlib/log/scoped_sequence.hpp>
 #include <fruitlib/scenic/node.hpp>
 #include <fruitlib/scenic/adaptors/camera.hpp>
 #include <fruitlib/scenic/delta/callback.hpp>
@@ -271,7 +271,7 @@ private:
 	fruitapp::viewport::manager viewport_manager_;
 	fruitapp::postprocessing::system_unique_ptr const postprocessing_system_;
 	fruitlib::font::manager font_manager_;
-	fruitlib::log::scoped_sequence_ptr activated_loggers_;
+	fruitlib::log::scoped_sequence activated_loggers_;
 	sge::timer::basic<sge::timer::clocks::standard> second_timer_;
 	fruitapp::ingame_clock ingame_clock_;
 	fruitlib::scenic::delta::duration ingame_clock_delta_;

@@ -79,24 +79,24 @@ fruitapp::fruit::rendering::shadow::render(
 		shader_);
 
 	for(
-		fruitapp::fruit::object_sequence::const_iterator i =
-			manager_.fruits().begin();
-		i != manager_.fruits().end();
-		++i)
+		auto const &fruit
+		:
+		manager_.fruits()
+	)
 	{
 		sge::renderer::vertex::scoped_buffer scoped_vb(
 			_context,
-			i->vb());
+			fruit->vb());
 
 		mvp_parameter_.set(
-			mvp_.get() * i->world_transform());
+			mvp_.get() * fruit->world_transform());
 
 		_context.render_nonindexed(
 			sge::renderer::vertex::first(
 				static_cast<sge::renderer::size_type>(
 					0)),
 			sge::renderer::vertex::count(
-				i->vb().size()),
+				fruit->vb().size()),
 			sge::renderer::primitive_type::triangle_list);
 	}
 }

@@ -165,7 +165,7 @@ fruitapp::fruit::spawner::react(
 			*perspective_projection_information_));
 
 	fruitapp::fruit::prototype const &chosen_prototype =
-		random_prototype_.value();
+		*random_prototype_.value();
 
 	fruitlib::physics::scalar const x(
 		0.25f +

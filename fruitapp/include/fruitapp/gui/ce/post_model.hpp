@@ -25,7 +25,8 @@
 #include <fcppt/signal/object.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/ptr_container/ptr_vector.hpp>
+#include <memory>
+#include <vector>
 #include <fcppt/config/external_end.hpp>
 
 namespace fruitapp
@@ -97,7 +98,11 @@ private:
 	};
 
 	typedef
-	boost::ptr_vector<connection_wrapper>
+	std::vector<
+		std::unique_ptr<
+			connection_wrapper
+		>
+	>
 	connection_sequence;
 
 	fruitapp::highscore::provider_sequence &providers_;

@@ -3,7 +3,8 @@
 
 #include <fruitapp/highscore/provider/object_base_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/ptr_container/ptr_vector.hpp>
+#include <memory>
+#include <vector>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -12,7 +13,13 @@ namespace fruitapp
 namespace highscore
 {
 typedef
-boost::ptr_vector<provider::object_base>
+std::vector
+<
+	std::unique_ptr
+	<
+		provider::object_base
+	>
+>
 provider_sequence;
 }
 }

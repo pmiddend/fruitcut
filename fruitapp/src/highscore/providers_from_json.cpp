@@ -13,7 +13,6 @@
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/container/ptr/push_back_unique_ptr.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/algorithm/string/replace.hpp>
@@ -84,15 +83,13 @@ fruitapp::highscore::providers_from_json(
 
 		if(protocol == FCPPT_TEXT("file"))
 		{
-			fcppt::container::ptr::push_back_unique_ptr(
-				result,
+			result.push_back(
 				fcppt::make_unique_ptr<provider::file::object>(
 					address));
 		}
 		else if(protocol == FCPPT_TEXT("fruitcut"))
 		{
-			fcppt::container::ptr::push_back_unique_ptr(
-				result,
+			result.push_back(
 				fcppt::make_unique_ptr<provider::net::object>(
 					provider::net::host(
 						address),

@@ -56,7 +56,6 @@ set(
 	fruitlib/include/fruitlib/log/scoped.hpp
 	fruitlib/include/fruitlib/log/scoped_sequence.hpp
 	fruitlib/include/fruitlib/log/scoped_sequence_from_json.hpp
-	fruitlib/include/fruitlib/log/scoped_sequence_ptr.hpp
 	fruitlib/include/fruitlib/log/string_to_location.hpp
 	fruitlib/include/fruitlib/math/box_radius.hpp
 	fruitlib/include/fruitlib/math/cut_triangle_at_plane.hpp

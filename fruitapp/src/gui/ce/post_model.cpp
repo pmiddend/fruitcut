@@ -10,7 +10,6 @@
 #include <fcppt/text.hpp>
 #include <fcppt/assert/pre.hpp>
 #include <fcppt/assign/make_container.hpp>
-#include <fcppt/container/ptr/push_back_unique_ptr.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <functional>
@@ -102,14 +101,14 @@ fruitapp::gui::ce::post_model::post(
 		++i)
 	{
 		fruitapp::highscore::provider::connection_base_ptr new_connection(
-			i->create_connection());
+			(*i)->create_connection());
 
 		FCPPT_ASSERT_PRE(
 			new_connection);
 
 		fruitapp::gui::ce::table::row new_row;
 		new_row.push_back(
-			i->identifier());
+			(*i)->identifier());
 		new_row.push_back(
 			FCPPT_TEXT(""));
 
@@ -129,7 +128,7 @@ fruitapp::gui::ce::post_model::post(
 					&post_model::message_received_internal,
 					this,
 					std::cref(
-						*i),
+						**i),
 					std::placeholders::_1)));
 
 		fcppt::signal::auto_connection con2(
@@ -138,7 +137,7 @@ fruitapp::gui::ce::post_model::post(
 					&post_model::error_received_internal,
 					this,
 					std::cref(
-						*i),
+						**i),
 					std::placeholders::_1)));
 
 		fcppt::signal::auto_connection con3(
@@ -147,11 +146,10 @@ fruitapp::gui::ce::post_model::post(
 					&post_model::rank_received_internal,
 					this,
 					std::cref(
-						*i),
+						**i),
 					new_row_index,
 					std::placeholders::_1)));
-		fcppt::container::ptr::push_back_unique_ptr(
-			connections_,
+		connections_.push_back(
 			fcppt::make_unique_ptr<connection_wrapper>(
 				std::move(
 					new_connection),
@@ -162,7 +160,7 @@ fruitapp::gui::ce::post_model::post(
 				std::move(
 					con3)));
 
-		connections_.back().connection().post_rank(
+		connections_.back()->connection().post_rank(
 			_name,
 			_score);
 	}
@@ -172,11 +170,11 @@ void
 fruitapp::gui::ce::post_model::update()
 {
 	for(
-		connection_sequence::iterator i =
-			connections_.begin();
-		i != connections_.end();
-		++i)
-		i->connection().update();
+		auto const &connection
+		:
+		connections_
+	)
+		connection->connection().update();
 }
 
 fruitapp::gui::ce::table::column_sequence const

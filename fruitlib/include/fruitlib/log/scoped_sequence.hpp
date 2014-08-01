@@ -3,7 +3,8 @@
 
 #include <fruitlib/log/scoped.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/ptr_container/ptr_vector.hpp>
+#include <memory>
+#include <vector>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -12,7 +13,11 @@ namespace fruitlib
 namespace log
 {
 typedef
-boost::ptr_vector<scoped>
+std::vector<
+	std::unique_ptr<
+		scoped
+	>
+>
 scoped_sequence;
 }
 }

@@ -32,7 +32,6 @@
 #include <fcppt/text.hpp>
 #include <fcppt/algorithm/map.hpp>
 #include <fcppt/assign/make_container.hpp>
-#include <fcppt/container/ptr/push_back_unique_ptr.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/next_prior.hpp>
 #include <boost/filesystem/operations.hpp>
@@ -141,8 +140,7 @@ void
 fruitapp::point_sprite::system_node::push_back(
 	unique_base_ptr n)
 {
-	fcppt::container::ptr::push_back_unique_ptr(
-		children_,
+	children_.push_back(
 		std::move(
 			n));
 }
@@ -194,8 +192,8 @@ fruitapp::point_sprite::system_node::react(
 {
 	for(child_sequence::iterator i = children_.begin(); i != children_.end();)
 	{
-		i->update();
-		if(i->dead())
+		(*i)->update();
+		if((*i)->dead())
 			i =
 				children_.erase(
 					i);

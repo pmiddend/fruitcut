@@ -15,9 +15,9 @@
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/math/dim/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/ptr_container/ptr_array.hpp>
 #include <array>
 #include <cstddef>
+#include <memory>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -55,11 +55,21 @@ private:
 	instance_array;
 
 	typedef
-	boost::ptr_array<sge::shader::pair,2u>
+	std::array<
+		std::unique_ptr<
+			sge::shader::pair
+		>,
+		2u
+	>
 	shader_array;
 
 	typedef
-	boost::ptr_array<sge::shader::parameter::planar_texture,2u>
+	std::array<
+		std::unique_ptr<
+			sge::shader::parameter::planar_texture
+		>,
+		2u
+	>
 	planar_texture_array;
 
 	typedef
@@ -67,7 +77,12 @@ private:
 	vec2_parameter;
 
 	typedef
-	boost::ptr_array<vec2_parameter,2u>
+	std::array<
+		std::unique_ptr<
+			vec2_parameter
+		>,
+		2u
+	>
 	texture_sizes_array;
 
 	fruitlib::pp::filter::manager &filter_manager_;

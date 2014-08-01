@@ -18,7 +18,6 @@
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/pre_message.hpp>
-#include <fcppt/container/ptr/push_back_unique_ptr.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/next_prior.hpp>
 #include <boost/filesystem/path.hpp>
@@ -73,8 +72,7 @@ fruitlib::font::cache::cache(
 					sge::parse::json::path(
 						FCPPT_TEXT("size")));
 
-			fcppt::container::ptr::push_back_unique_ptr(
-				objects_,
+			objects_.push_back(
 				_font_system.create_font(
 					sge::font::parameters()
 						.family(
@@ -100,8 +98,7 @@ fruitlib::font::cache::cache(
 
 			if(cached_value == bitmap_font_name_to_object_.end())
 			{
-				fcppt::container::ptr::push_back_unique_ptr(
-					objects_,
+				objects_.push_back(
 					sge::font::bitmap::create(
 						_base_path.get() / FCPPT_TEXT("fonts") / name,
 						_image_loader));
@@ -137,7 +134,7 @@ fruitlib::font::cache::get(
 		FCPPT_TEXT(" not found!"));
 
 	return
-		*(i->second);
+		**(i->second);
 }
 
 fruitlib::font::cache::~cache()

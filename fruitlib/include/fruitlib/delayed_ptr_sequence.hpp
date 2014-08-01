@@ -1,13 +1,13 @@
 #ifndef FRUITLIB_DELAYED_PTR_SEQUENCE_HPP_INCLUDED
 #define FRUITLIB_DELAYED_PTR_SEQUENCE_HPP_INCLUDED
 
-#include <fcppt/algorithm/ptr_container_erase.hpp>
+#include <fcppt/algorithm/remove_if.hpp>
 #include <fcppt/assert/error.hpp>
-#include <fcppt/container/ptr/push_back_unique_ptr.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/ptr_container/clone_allocator.hpp>
+#include <iterator>
 #include <memory>
 #include <utility>
+#include <vector>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -16,17 +16,22 @@ namespace fruitlib
 template
 <
 	typename T,
-	template<typename,typename,typename> class PtrContainer,
-	typename CloneAllocator = boost::heap_clone_allocator,
-	typename Allocator = std::allocator<void *>
+	template<typename,typename> class PtrContainer
 >
 class delayed_ptr_sequence
 {
 public:
+	typedef
+	std::unique_ptr<T>
+	unique_value_ptr;
+
 	// Those are just some of the types you'd have to define to get a
 	// full blown container, but I was lazy.
 	typedef
-	PtrContainer<T,CloneAllocator,Allocator>
+	PtrContainer<
+		unique_value_ptr,
+		std::allocator<T>
+	>
 	implementation_sequence;
 
 	typedef typename
@@ -48,10 +53,6 @@ public:
 	typedef typename
 	implementation_sequence::const_reference
 	const_reference;
-
-	typedef
-	std::unique_ptr<T>
-	unique_value_ptr;
 
 	delayed_ptr_sequence()
 	:
@@ -125,8 +126,7 @@ public:
 	push_back(
 		unique_value_ptr new_value)
 	{
-		fcppt::container::ptr::push_back_unique_ptr(
-			new_values_,
+		new_values_.push_back(
 			std::move(
 				new_value));
 	}
@@ -138,11 +138,14 @@ public:
 	transfer_from(
 		implementation_sequence &other_implementation)
 	{
-		new_values_.transfer(
+		new_values_.insert(
 			new_values_.end(),
-			other_implementation.begin(),
-			other_implementation.end(),
-			other_implementation);
+			std::make_move_iterator(
+				other_implementation.begin()),
+			std::make_move_iterator(
+				other_implementation.end()));
+
+		other_implementation.clear();
 	}
 
 	void
@@ -157,30 +160,44 @@ public:
 	void
 	update()
 	{
-		implementation_.transfer(
+		implementation_.insert(
 			implementation_.end(),
-			new_values_.begin(),
-			new_values_.end(),
-			new_values_);
+			std::make_move_iterator(
+				new_values_.begin()),
+			std::make_move_iterator(
+				new_values_.end()));
+
+		new_values_.clear();
 
 		FCPPT_ASSERT_ERROR(
 			new_values_.empty());
 
-		for(const_iterator i = old_values_.begin(); i != old_values_.end(); ++i)
-			fcppt::algorithm::ptr_container_erase(
+		for(
+			T *old
+			:
+			old_values_
+		)
+			fcppt::algorithm::remove_if(
 				implementation_,
-				&(*i));
+				[
+					old
+				](
+					unique_value_ptr const &_ptr
+				)
+				{
+					return
+						_ptr.get()
+						==
+						old;
+				}
+			);
+
 		old_values_.clear();
 	}
 private:
-	// Also because of lazyness, I used the same ptr_sequence here, but
-	// it could equally well be a vector<T*> or something.
 	typedef
-	PtrContainer
-	<
-		T,
-		boost::view_clone_allocator,
-		Allocator
+	std::vector<
+		T *
 	>
 	view_implementation_sequence;
 

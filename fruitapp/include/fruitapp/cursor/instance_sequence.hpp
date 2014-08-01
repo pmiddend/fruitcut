@@ -9,7 +9,8 @@
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/ptr_container/ptr_vector.hpp>
+#include <memory>
+#include <vector>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -26,7 +27,13 @@ FCPPT_NONCOPYABLE(
 	instance_sequence);
 public:
 	typedef
-	boost::ptr_vector<fruitapp::cursor::instance>
+	std::vector
+	<
+		std::unique_ptr
+		<
+			fruitapp::cursor::instance
+		>
+	>
 	cursor_instance_sequence;
 
 	instance_sequence(

@@ -31,12 +31,12 @@ fruitapp::fruit::rendering::sort_fruits(
 		_fruits.size());
 
 	for(
-		fruitapp::fruit::object_sequence::const_iterator it =
-			_fruits.begin();
-		it != _fruits.end();
-		++it)
+		auto const &fruit
+		:
+		_fruits
+	)
 		_fruit_pointers.push_back(
-			&(*it));
+			fruit.get());
 
 	std::sort(
 		_fruit_pointers.begin(),

@@ -8,7 +8,8 @@
 #include <sge/renderer/texture/planar_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/ptr_container/ptr_map.hpp>
+#include <map>
+#include <memory>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -56,10 +57,13 @@ public:
 	~manager();
 private:
 	typedef
-	boost::ptr_multimap
+	std::multimap
 	<
 		fruitlib::pp::texture::descriptor,
-		fruitlib::pp::texture::instance
+		std::unique_ptr
+		<
+			fruitlib::pp::texture::instance
+		>
 	>
 	texture_map;
 

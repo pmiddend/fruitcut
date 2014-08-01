@@ -10,7 +10,7 @@
 #include <sge/audio/scalar.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/ptr_container/ptr_vector.hpp>
+#include <unordered_set>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -56,7 +56,9 @@ private:
 	friend class group::sound_positional;
 
 	typedef
-	boost::ptr_vector<group::sound_base,boost::view_clone_allocator>
+	std::unordered_set<
+		group::sound_base *
+	>
 	sound_sequence;
 
 	group::player &player_;

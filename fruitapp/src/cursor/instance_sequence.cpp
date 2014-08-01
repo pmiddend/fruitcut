@@ -2,7 +2,6 @@
 #include <fruitapp/cursor/instance_sequence.hpp>
 #include <fruitapp/cursor/manager.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/container/ptr/push_back_unique_ptr.hpp>
 
 
 fruitapp::cursor::instance_sequence::instance_sequence(
@@ -21,8 +20,7 @@ void
 fruitapp::cursor::instance_sequence::cursor_discover(
 	sge::input::cursor::object &_new_cursor)
 {
-	fcppt::container::ptr::push_back_unique_ptr(
-		instances_,
+	instances_.push_back(
 		fcppt::make_unique_ptr<fruitapp::cursor::instance>(
 			manager_,
 			_new_cursor,
@@ -39,7 +37,7 @@ fruitapp::cursor::instance_sequence::cursor_remove(
 		it != instances_.end();
 		++it)
 	{
-		if(&(it->cursor_object()) == &_old_cursor)
+		if(&((*it)->cursor_object()) == &_old_cursor)
 		{
 			instances_.erase(
 				it);
@@ -60,11 +58,11 @@ fruitapp::cursor::instance_sequence::draw_trails(
 	sge::line_drawer::line_sequence &_lines) const
 {
 	for(
-		cursor_instance_sequence::const_iterator it =
-			instances_.begin();
-		it != instances_.end();
-		++it)
-		it->draw_trail(
+		auto const &instance
+		:
+		instances_
+	)
+		instance->draw_trail(
 			_lines);
 }
 

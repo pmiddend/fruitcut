@@ -20,7 +20,7 @@
 #include <fcppt/signal/object.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/ptr_container/ptr_vector.hpp>
+#include <unordered_set>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -57,11 +57,15 @@ private:
 	friend class fruitapp::cursor::instance_sequence;
 
 	typedef
-	boost::ptr_vector<sge::input::cursor::object,boost::view_clone_allocator>
+	std::unordered_set<
+		sge::input::cursor::object *
+	>
 	cursor_sequence;
 
 	typedef
-	boost::ptr_vector<fruitapp::cursor::instance_sequence,boost::view_clone_allocator>
+	std::unordered_set<
+		fruitapp::cursor::instance_sequence *
+	>
 	instance_sequence_sequence;
 
 	sge::renderer::device::ffp &renderer_;

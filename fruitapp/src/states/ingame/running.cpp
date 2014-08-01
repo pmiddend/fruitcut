@@ -130,12 +130,12 @@ fruitapp::states::ingame::running::react(
 	}
 
 	for(
-		fruitapp::fruit::object_sequence::const_iterator i =
-			context<fruitapp::states::ingame::superstate>().fruit_manager().fruits().begin();
-		i != context<fruitapp::states::ingame::superstate>().fruit_manager().fruits().end();
-		++i)
+		auto const &fruit
+		:
+		context<fruitapp::states::ingame::superstate>().fruit_manager().fruits()
+	)
 		this->process_fruit(
-			*i);
+			*fruit);
 
 	if(context<fruitapp::states::ingame::superstate>().game_logic().finished())
 	{
@@ -198,10 +198,10 @@ fruitapp::states::ingame::running::process_fruit(
 	fruitapp::fruit::object const &_current_fruit)
 {
 	for(
-		fruitapp::cursor::instance_sequence::cursor_instance_sequence::const_iterator current_cursor =
-			cursor_sequence_->cursors().begin();
-		current_cursor != cursor_sequence_->cursors().end();
-		++current_cursor)
+		auto const &current_cursor
+		:
+		cursor_sequence_->cursors()
+	)
 		this->process_fruit(
 			_current_fruit,
 			*current_cursor);
