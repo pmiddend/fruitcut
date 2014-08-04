@@ -32,7 +32,6 @@
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/assign/make_container.hpp>
 #include <fcppt/math/box/object_impl.hpp>
 #include <fcppt/math/dim/object_impl.hpp>
 #include <fcppt/math/vector/object_impl.hpp>
@@ -204,9 +203,9 @@ fruitapp::states::ingame::superstate::superstate(
 		fcppt::make_unique_ptr<fruitlib::physics::rigid_body::scoped>(
 			physics_world_,
 			background_physics_,
-			fcppt::assign::make_container<fruitlib::physics::group::sequence>(
+			fruitlib::physics::group::sequence{
 				fcppt::make_ref(
-					background_group_)));
+					background_group_)});
 }
 
 fruitlib::physics::world &

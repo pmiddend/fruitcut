@@ -14,7 +14,6 @@
 #include <sge/renderer/vertex/buffer.hpp>
 #include <sge/timer/parameters.hpp>
 #include <fcppt/make_ref.hpp>
-#include <fcppt/assign/make_container.hpp>
 #include <fcppt/math/matrix/structure_cast.hpp>
 #include <fcppt/math/vector/structure_cast.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -62,9 +61,9 @@ fruitapp::fruit::object::object(
 	body_scope_(
 		_physics_world,
 		body_,
-		fcppt::assign::make_container<fruitlib::physics::group::sequence>(
+		fruitlib::physics::group::sequence{
 			fcppt::make_ref(
-				_fruit_group))),
+				_fruit_group)}),
 	vb_(
 		fruitapp::fruit::mesh_to_vertex_buffer(
 			_renderer,

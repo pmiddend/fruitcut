@@ -49,7 +49,6 @@
 #include <sge/renderer/vertex/scoped_declaration.hpp>
 #include <fcppt/make_cref.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/assign/make_container.hpp>
 #include <fcppt/math/matrix/arithmetic.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
 #include <fcppt/math/vector/narrow_cast.hpp>
@@ -171,9 +170,9 @@ fruitapp::fruit::rendering::ffp::render(
 
 	sge::renderer::state::ffp::lighting::light::scoped const scoped_light(
 		ffp_context,
-		fcppt::assign::make_container<sge::renderer::state::ffp::lighting::light::const_object_ref_vector>
-			(fcppt::make_cref(
-				*light_)));
+		sge::renderer::state::ffp::lighting::light::const_object_ref_vector{
+			fcppt::make_cref(
+				*light_)});
 
 	sge::renderer::state::core::depth_stencil::scoped scoped_depth_stencil(
 		ffp_context,
