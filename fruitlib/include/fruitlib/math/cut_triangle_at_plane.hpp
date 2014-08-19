@@ -14,10 +14,11 @@
 #include <fcppt/math/size_type.hpp>
 #include <fcppt/math/vector/length.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/spirit/home/phoenix/bind.hpp>
-#include <boost/spirit/home/phoenix/core/argument.hpp>
-#include <boost/spirit/home/phoenix/operator/comparison.hpp>
-#include <boost/spirit/home/phoenix/operator/if_else.hpp>
+#include <boost/phoenix/bind.hpp>
+#include <boost/phoenix/core/argument.hpp>
+#include <boost/phoenix/core/value.hpp>
+#include <boost/phoenix/operator/comparison.hpp>
+#include <boost/phoenix/operator/if_else.hpp>
 #include <algorithm>
 #include <array>
 #include <type_traits>

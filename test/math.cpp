@@ -26,9 +26,9 @@
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/range/numeric.hpp>
-#include <boost/spirit/home/phoenix/bind.hpp>
-#include <boost/spirit/home/phoenix/core/argument.hpp>
-#include <boost/spirit/home/phoenix/function/function.hpp>
+#include <boost/phoenix/bind.hpp>
+#include <boost/phoenix/core/argument.hpp>
+#include <boost/phoenix/function/function.hpp>
 #include <boost/test/unit_test.hpp>
 #include <algorithm>
 #include <array>
