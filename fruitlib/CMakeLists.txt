@@ -322,6 +322,7 @@ target_link_libraries(
 	fruitlib
 	${fcppt_core_TARGET}
 	${fcppt_filesystem_TARGET}
+	${fcppt_log_TARGET}
 	${CEGUI_LIBRARIES}
 	${sge_TARGETS}
 	${Cg_LIBRARIES}
