@@ -168,7 +168,8 @@ fruitapp::machine_impl::machine_impl(
 			(sge::systems::window(
 				sge::systems::original_window(
 					sge::window::title(
-						fruitapp::name()),
+						fruitapp::name()))
+				.dim(
 					sge::parse::json::find_and_convert_member<sge::window::dim>(
 						config_file_,
 						sge::parse::json::path(
