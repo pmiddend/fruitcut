@@ -1,5 +1,5 @@
-#ifndef FRUITLIB_SCENIC_ADAPTORS_GUI_SYSTEM_HPP_INCLUDED
-#define FRUITLIB_SCENIC_ADAPTORS_GUI_SYSTEM_HPP_INCLUDED
+#ifndef FRUITLIB_SCENIC_ADAPTORS_CE_GUI_SYSTEM_HPP_INCLUDED
+#define FRUITLIB_SCENIC_ADAPTORS_CE_GUI_SYSTEM_HPP_INCLUDED
 
 #include <fruitlib/scenic/node.hpp>
 #include <fruitlib/scenic/optional_parent.hpp>
@@ -8,7 +8,7 @@
 #include <fruitlib/scenic/delta/timer.hpp>
 #include <fruitlib/scenic/events/render.hpp>
 #include <fruitlib/scenic/events/update.hpp>
-#include <sge/cegui/system.hpp>
+#include <sge/cegui/system_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
@@ -20,6 +20,8 @@ namespace fruitlib
 namespace scenic
 {
 namespace adaptors
+{
+namespace ce
 {
 class gui_system
 :
@@ -52,6 +54,7 @@ private:
 	scenic::delta::timer timer_;
 	sge::cegui::system &system_;
 };
+}
 }
 }
 }

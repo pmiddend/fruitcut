@@ -5,7 +5,7 @@
 #include <fruitapp/gui/ce/system_fwd.hpp>
 #include <fruitapp/gui/dialogs/name_chooser.hpp>
 #include <fruitapp/highscore/score.hpp>
-#include <fruitlib/scenic/adaptors/gui_system.hpp>
+#include <fruitlib/scenic/adaptors/ce/gui_system.hpp>
 #include <sge/cegui/default_cursor.hpp>
 #include <sge/cegui/default_keyboard.hpp>
 #include <sge/cegui/toolbox/scoped_gui_sheet.hpp>
@@ -53,7 +53,7 @@ public:
 
 	~name_chooser();
 private:
-	fruitlib::scenic::adaptors::gui_system gui_node_;
+	fruitlib::scenic::adaptors::ce::gui_system gui_node_;
 	sge::cegui::default_keyboard gui_keyboard_;
 	sge::cegui::default_cursor gui_cursor_;
 	sge::cegui::toolbox::scoped_layout layout_;

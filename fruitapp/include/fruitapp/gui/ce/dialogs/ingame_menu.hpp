@@ -4,7 +4,7 @@
 #include <fruitapp/gui/ce/button.hpp>
 #include <fruitapp/gui/ce/system_fwd.hpp>
 #include <fruitapp/gui/dialogs/ingame_menu.hpp>
-#include <fruitlib/scenic/adaptors/gui_system.hpp>
+#include <fruitlib/scenic/adaptors/ce/gui_system.hpp>
 #include <sge/cegui/default_cursor.hpp>
 #include <sge/cegui/default_keyboard.hpp>
 #include <sge/cegui/toolbox/scoped_gui_sheet.hpp>
@@ -46,7 +46,7 @@ public:
 
 	~ingame_menu();
 private:
-	fruitlib::scenic::adaptors::gui_system gui_node_;
+	fruitlib::scenic::adaptors::ce::gui_system gui_node_;
 	sge::cegui::default_keyboard gui_keyboard_;
 	sge::cegui::default_cursor gui_cursor_;
 	sge::cegui::toolbox::scoped_layout layout_;

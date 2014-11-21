@@ -1,4 +1,4 @@
-#include <fruitlib/scenic/adaptors/gui_system.hpp>
+#include <fruitlib/scenic/adaptors/ce/gui_system.hpp>
 #include <fruitlib/scenic/events/render.hpp>
 #include <fruitlib/scenic/events/update.hpp>
 #include <sge/cegui/duration.hpp>
@@ -10,7 +10,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-fruitlib::scenic::adaptors::gui_system::gui_system(
+fruitlib::scenic::adaptors::ce::gui_system::gui_system(
 	scenic::optional_parent const &_parent,
 	sge::cegui::system &_system,
 	scenic::delta::callback const &_callback)
@@ -28,12 +28,12 @@ fruitlib::scenic::adaptors::gui_system::gui_system(
 {
 }
 
-fruitlib::scenic::adaptors::gui_system::~gui_system()
+fruitlib::scenic::adaptors::ce::gui_system::~gui_system()
 {
 }
 
 void
-fruitlib::scenic::adaptors::gui_system::react(
+fruitlib::scenic::adaptors::ce::gui_system::react(
 	events::update const &)
 {
 	clock_.update();
@@ -43,7 +43,7 @@ fruitlib::scenic::adaptors::gui_system::react(
 }
 
 void
-fruitlib::scenic::adaptors::gui_system::react(
+fruitlib::scenic::adaptors::ce::gui_system::react(
 	fruitlib::scenic::events::render const &_render_event)
 {
 	system_.render(

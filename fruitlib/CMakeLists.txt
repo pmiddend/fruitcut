@@ -178,7 +178,6 @@ set(
 	fruitlib/include/fruitlib/resource_tree/object.hpp
 	fruitlib/include/fruitlib/resource_tree/path.hpp
 	fruitlib/include/fruitlib/scenic/adaptors/camera.hpp
-	fruitlib/include/fruitlib/scenic/adaptors/gui_system.hpp
 	fruitlib/include/fruitlib/scenic/adaptors/line_drawer.hpp
 	fruitlib/include/fruitlib/scenic/base.hpp
 	fruitlib/include/fruitlib/scenic/base_fwd.hpp
@@ -282,7 +281,6 @@ set(
 	fruitlib/src/pp/texture/use_screen_size.cpp
 	fruitlib/src/resource_tree/path.cpp
 	fruitlib/src/scenic/adaptors/camera.cpp
-	fruitlib/src/scenic/adaptors/gui_system.cpp
 	fruitlib/src/scenic/adaptors/line_drawer.cpp
 	fruitlib/src/scenic/base.cpp
 	fruitlib/src/scenic/delta/clock.cpp
@@ -298,6 +296,22 @@ set(
 	fruitlib/src/time_format/minutes.cpp
 	fruitlib/src/time_format/seconds.cpp
 )
+
+set(
+	FRUITLIB_CEGUI_FILES
+	fruitlib/include/fruitlib/scenic/adaptors/ce/gui_system.hpp
+	fruitlib/src/scenic/adaptors/ce/gui_system.cpp
+)
+
+if(
+	USE_CEGUI
+)
+	list(
+		APPEND
+		FRUITLIB_FILES
+		${FRUITLIB_CEGUI_FILES}
+	)
+endif()
 
 # This is for message_box.cpp which uses windows.h
 if(MSVC)

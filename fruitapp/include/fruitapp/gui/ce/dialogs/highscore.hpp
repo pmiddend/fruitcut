@@ -10,7 +10,7 @@
 #include <fruitapp/highscore/entry_set.hpp>
 #include <fruitapp/highscore/provider_sequence.hpp>
 #include <fruitapp/highscore/provider/object_base_fwd.hpp>
-#include <fruitlib/scenic/adaptors/gui_system.hpp>
+#include <fruitlib/scenic/adaptors/ce/gui_system.hpp>
 #include <sge/cegui/default_cursor.hpp>
 #include <sge/cegui/default_keyboard.hpp>
 #include <sge/cegui/toolbox/scoped_gui_sheet.hpp>
@@ -63,7 +63,7 @@ private:
 	switch_provider_signal;
 
 	switch_provider_signal switch_provider_;
-	fruitlib::scenic::adaptors::gui_system gui_node_;
+	fruitlib::scenic::adaptors::ce::gui_system gui_node_;
 	sge::cegui::default_keyboard gui_keyboard_;
 	sge::cegui::default_cursor gui_cursor_;
 	sge::cegui::toolbox::scoped_layout layout_;

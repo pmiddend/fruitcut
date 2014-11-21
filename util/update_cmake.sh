@@ -2,11 +2,40 @@
 
 set -e -u
 
+fruitlib_dir() {
+	echo "fruitlib/src/$1" "fruitlib/include/fruitlib/$1"
+}
+
 update_cmake \
 	fruitlib/CMakeLists.txt \
 	FRUITLIB_FILES \
+	-n \
 	fruitlib/src \
-	fruitlib/include
+	fruitlib/include/fruitlib \
+	$(fruitlib_dir scenic) \
+	$(fruitlib_dir scenic/adaptors) \
+	-r \
+	$(fruitlib_dir audio) \
+	$(fruitlib_dir font) \
+	$(fruitlib_dir json) \
+	$(fruitlib_dir log) \
+	$(fruitlib_dir math) \
+	$(fruitlib_dir physics) \
+	$(fruitlib_dir pp) \
+	$(fruitlib_dir resource_tree) \
+	$(fruitlib_dir scenic/delta) \
+	$(fruitlib_dir scenic/events) \
+	$(fruitlib_dir signal_stack_printer) \
+	$(fruitlib_dir time_format) \
+	fruitlib/include/fruitlib/animation \
+	fruitlib/include/fruitlib/geometry_traits \
+	fruitlib/include/fruitlib/rectangle_manager \
+	fruitlib/include/fruitlib/scenic/detail
+
+update_cmake \
+	fruitlib/CMakeLists.txt \
+	FRUITLIB_CEGUI_FILES \
+	$(fruitlib_dir scenic/adaptors/ce)
 
 update_cmake \
 	fruitapp/CMakeLists.txt \
