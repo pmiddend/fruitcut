@@ -7,9 +7,8 @@
 #include <fruitlib/resource_tree/path.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/next_prior.hpp>
-#include <boost/mpl/if.hpp>
-#include <boost/type_traits/is_const.hpp>
+#include <iterator>
+#include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -23,9 +22,9 @@ template<typename T>
 struct iterator_chooser
 {
 	typedef typename
-	boost::mpl::if_
+	std::conditional
 	<
-		boost::is_const<T>,
+		std::is_const<T>::value,
 		typename T::const_iterator,
 		typename T::iterator
 	>::type
@@ -34,12 +33,12 @@ struct iterator_chooser
 
 template<typename Tree>
 typename
-boost::enable_if_c
+std::enable_if
 <
 	resource_tree::is_resource_tree<Tree>::value,
-	typename boost::mpl::if_
+	typename std::conditional
 	<
-		boost::is_const<Tree>,
+		std::is_const<Tree>::value,
 		Tree const &,
 		Tree &
 	>::type
@@ -62,7 +61,7 @@ navigate_to_path(
 		if(i->value().name() != *current_it)
 			continue;
 
-		if(current_it == boost::prior(p.values().end()))
+		if(current_it == std::prev(p.values().end()))
 			return *i;
 
 		return
@@ -78,12 +77,12 @@ navigate_to_path(
 
 template<typename Tree>
 typename
-boost::enable_if_c
+std::enable_if
 <
 	resource_tree::is_resource_tree<Tree>::value,
-	typename boost::mpl::if_
+	typename std::conditional
 	<
-		boost::is_const<Tree>,
+		std::is_const<Tree>::value,
 		Tree const &,
 		Tree &
 	>::type

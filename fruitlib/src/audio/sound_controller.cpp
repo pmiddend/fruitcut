@@ -134,7 +134,7 @@ fruitlib::audio::sound_controller::play(
 	else
 	{
 		resource_tree_type &target_file =
-			*boost::next(
+			*std::next(
 				target_tree.begin(),
 				static_cast<std::iterator_traits<resource_tree_type::const_iterator>::difference_type>(
 					(*target_tree.value().node_value())()));
@@ -168,7 +168,7 @@ fruitlib::audio::sound_controller::play_positional(
 	else
 	{
 		resource_tree_type &target_file =
-			*boost::next(
+			*std::next(
 				target_tree.begin(),
 				static_cast<std::iterator_traits<resource_tree_type::const_iterator>::difference_type>(
 					(*target_tree.value().node_value())()));
