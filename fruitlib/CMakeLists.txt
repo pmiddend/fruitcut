@@ -160,16 +160,6 @@ set(
 	fruitlib/include/fruitlib/pp/texture/use_screen_size.hpp
 	fruitlib/include/fruitlib/random_generator.hpp
 	fruitlib/include/fruitlib/random_generator_fwd.hpp
-	fruitlib/include/fruitlib/rectangle_manager/duration.hpp
-	fruitlib/include/fruitlib/rectangle_manager/object.hpp
-	fruitlib/include/fruitlib/rectangle_manager/object_decl.hpp
-	fruitlib/include/fruitlib/rectangle_manager/object_fwd.hpp
-	fruitlib/include/fruitlib/rectangle_manager/object_impl.hpp
-	fruitlib/include/fruitlib/rectangle_manager/padding.hpp
-	fruitlib/include/fruitlib/rectangle_manager/rectangle_instance.hpp
-	fruitlib/include/fruitlib/rectangle_manager/rectangle_instance_decl.hpp
-	fruitlib/include/fruitlib/rectangle_manager/rectangle_instance_fwd.hpp
-	fruitlib/include/fruitlib/rectangle_manager/rectangle_instance_impl.hpp
 	fruitlib/include/fruitlib/resource_tree/from_directory_tree.hpp
 	fruitlib/include/fruitlib/resource_tree/is_resource_tree.hpp
 	fruitlib/include/fruitlib/resource_tree/make_type.hpp

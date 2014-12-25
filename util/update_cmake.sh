@@ -29,7 +29,6 @@ update_cmake \
 	$(fruitlib_dir time_format) \
 	fruitlib/include/fruitlib/animation \
 	fruitlib/include/fruitlib/geometry_traits \
-	fruitlib/include/fruitlib/rectangle_manager \
 	fruitlib/include/fruitlib/scenic/detail
 
 update_cmake \
