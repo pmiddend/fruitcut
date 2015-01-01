@@ -1,5 +1,6 @@
 #include <fruitlib/average_colors.hpp>
 #include <sge/image2d/view/const_object.hpp>
+#include <mizuiro/no_init.hpp>
 #include <mizuiro/color/for_each_channel.hpp>
 #include <mizuiro/color/object.hpp>
 #include <mizuiro/color/output.hpp>
@@ -88,7 +89,10 @@ template<typename Color>
 Color const
 zero_initialized()
 {
-	Color result;
+	Color result{
+		mizuiro::no_init{}
+	};
+
 	mizuiro::color::for_each_channel(
 		result,
 		set_to_zero_functor<Color>(
@@ -242,7 +246,10 @@ view_visitor::operator()(
 		++number_of_pixels;
 	}
 
-	input_color narrowed_result;
+	input_color narrowed_result{
+		mizuiro::no_init{}
+	};
+
 	mizuiro::color::for_each_channel(
 		result,
 		division_functor<promoted_color,input_color>(
