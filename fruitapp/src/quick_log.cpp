@@ -19,6 +19,8 @@
 #include <sge/timer/clocks/standard.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/cast/float_to_int_fun.hpp>
+#include <fcppt/cast/int_to_float_fun.hpp>
 #include <fcppt/math/box/object_impl.hpp>
 #include <fcppt/math/dim/arithmetic.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
@@ -141,8 +143,8 @@ fruitapp::quick_log::viewport_change(
 	font_node_.object().bounding_box(
 		sge::font::rect(
 			sge::font::rect::vector::null(),
-			fcppt::math::dim::structure_cast<sge::font::rect::dim>(
-				fcppt::math::dim::structure_cast<fractional_dimension>(
+			fcppt::math::dim::structure_cast<sge::font::rect::dim, fcppt::cast::float_to_int_fun>(
+				fcppt::math::dim::structure_cast<fractional_dimension, fcppt::cast::int_to_float_fun>(
 					viewport_size) *
 				fractional_size_)));
 }

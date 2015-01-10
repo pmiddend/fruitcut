@@ -9,7 +9,9 @@
 #include <sge/camera/coordinate_system/object.hpp>
 #include <sge/camera/matrix_conversion/world_projection.hpp>
 #include <sge/renderer/target/base.hpp>
+#include <fcppt/cast/size_fun.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
+#include <fcppt/math/dim/to_signed.hpp>
 #include <fcppt/math/matrix/inverse.hpp>
 #include <fcppt/math/matrix/transpose.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
@@ -34,8 +36,9 @@ fruitapp::fruit::calculate_cut_geometry(
 	fruitapp::renderer_rect const viewport_rect(
 		fruitapp::renderer_rect(
 			sge::renderer::vector2::null(),
-			fcppt::math::dim::structure_cast<fruitapp::renderer_dim2>(
-				_target.viewport().get().size())));
+			fcppt::math::dim::structure_cast<fruitapp::renderer_dim2, fcppt::cast::size_fun>(
+				fcppt::math::dim::to_signed(
+					_target.viewport().get().size()))));
 
 	sge::renderer::matrix4 const transposed_rotation(
 		fcppt::math::matrix::transpose(

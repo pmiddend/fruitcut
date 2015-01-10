@@ -9,11 +9,12 @@
 #include <sge/renderer/vector3.hpp>
 #include <sge/renderer/vector4.hpp>
 #include <sge/renderer/target/base.hpp>
+#include <fcppt/cast/int_to_float_fun.hpp>
 #include <fcppt/math/box/corner_points.hpp>
 #include <fcppt/math/box/object_impl.hpp>
 #include <fcppt/math/box/output.hpp>
 #include <fcppt/math/dim/output.hpp>
-#include <fcppt/math/dim/structure_cast.hpp>
+#include <fcppt/math/dim/to_vector.hpp>
 #include <fcppt/math/matrix/arithmetic.hpp>
 #include <fcppt/math/matrix/output.hpp>
 #include <fcppt/math/matrix/vector.hpp>
@@ -80,9 +81,10 @@ fruitapp::fruit::hull::projected(
 				sge::renderer::vector2(
 					static_cast<sge::renderer::scalar>(1),
 					static_cast<sge::renderer::scalar>(1)))
-				* (fcppt::math::dim::structure_cast<sge::renderer::vector2>(
-					// Fucking strong typedef shit
-					target.viewport().get().size()) / static_cast<sge::renderer::scalar>(2));
+				* (fcppt::math::vector::structure_cast<sge::renderer::vector2, fcppt::cast::int_to_float_fun>(
+					fcppt::math::dim::to_vector(
+						// Fucking strong typedef shit
+						target.viewport().get().size()) / static_cast<sge::renderer::scalar>(2)));
 
 		point_cloud.push_back(
 			window_coordinates);

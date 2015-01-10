@@ -13,8 +13,10 @@
 #include <sge/shader/scoped_pair.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/assert/pre.hpp>
+#include <fcppt/cast/int_to_float_fun.hpp>
 #include <fcppt/math/dim/object_impl.hpp>
-#include <fcppt/math/dim/structure_cast.hpp>
+#include <fcppt/math/dim/to_vector.hpp>
+#include <fcppt/math/vector/structure_cast.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <array>
 #include <cstddef>
@@ -219,12 +221,14 @@ fruitlib::pp::filter::blur::apply(
 			*(instances[0]->texture())));
 
 	texture_sizes_[0u]->set(
-		fcppt::math::dim::structure_cast<sge::renderer::vector2>(
-			input->texture()->size()));
+		fcppt::math::vector::structure_cast<sge::renderer::vector2, fcppt::cast::int_to_float_fun>(
+			fcppt::math::dim::to_vector(
+				input->texture()->size())));
 
 	texture_sizes_[1u]->set(
-		fcppt::math::dim::structure_cast<sge::renderer::vector2>(
-			instances[0]->texture()->size()));
+		fcppt::math::vector::structure_cast<sge::renderer::vector2, fcppt::cast::int_to_float_fun>(
+			fcppt::math::dim::to_vector(
+				instances[0]->texture()->size())));
 
 	this->render(
 		instances,

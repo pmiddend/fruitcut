@@ -30,6 +30,7 @@
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/cast/size_fun.hpp>
 #include <fcppt/math/dim/object_impl.hpp>
 #include <fcppt/math/vector/atan2.hpp>
 #include <fcppt/math/vector/length.hpp>
@@ -140,7 +141,7 @@ fruitapp::cursor::sword_trail::react(
 		return;
 
 	sprite_object::vector const new_vector =
-		fcppt::math::vector::structure_cast<sprite_object::vector>(
+		fcppt::math::vector::structure_cast<sprite_object::vector, fcppt::cast::size_fun>(
 			transform_position(
 				*cursor_.position(),
 				target_.viewport().get()));

@@ -32,6 +32,7 @@
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/cast/size_fun.hpp>
 #include <fcppt/math/box/object_impl.hpp>
 #include <fcppt/math/dim/object_impl.hpp>
 #include <fcppt/math/vector/object_impl.hpp>
@@ -164,7 +165,7 @@ fruitapp::states::ingame::superstate::superstate(
 		context<fruitapp::machine>().point_sprites(),
 		context<fruitapp::machine>().random_generator(),
 		fruitapp::point_sprite::splatter::acceleration(
-			fcppt::math::vector::structure_cast<fruitapp::point_sprite::splatter::acceleration::value_type>(
+			fcppt::math::vector::structure_cast<fruitapp::point_sprite::splatter::acceleration::value_type, fcppt::cast::size_fun>(
 				physics_world_.gravity())),
 				context<fruitapp::machine>().ingame_clock()),
 	background_group_(

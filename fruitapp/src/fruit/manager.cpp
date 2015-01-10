@@ -38,7 +38,7 @@
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/error.hpp>
-#include <fcppt/math/dim/structure_cast.hpp>
+#include <fcppt/cast/size_fun.hpp>
 #include <fcppt/math/matrix/object_impl.hpp>
 #include <fcppt/math/matrix/transpose.hpp>
 #include <fcppt/math/vector/normalize.hpp>
@@ -169,7 +169,7 @@ fruitapp::fruit::manager::cut(
 					_current_fruit.position() +
 					fcppt::math::matrix::transform_direction(
 						_current_fruit.body().transformation().get(),
-						fcppt::math::vector::structure_cast<fruitlib::physics::vector3>(
+						fcppt::math::vector::structure_cast<fruitlib::physics::vector3, fcppt::cast::size_fun>(
 							cut_result->barycenter()))),
 				_current_fruit.body().transformation(),
 				fruitapp::fruit::calculate_new_linear_velocity(
@@ -177,7 +177,7 @@ fruitapp::fruit::manager::cut(
 					fruitlib::physics::rigid_body::linear_velocity(
 						fcppt::math::matrix::transform_direction(
 							_current_fruit.body().transformation().get(),
-							fcppt::math::vector::structure_cast<fruitlib::physics::vector3>(
+							fcppt::math::vector::structure_cast<fruitlib::physics::vector3, fcppt::cast::size_fun>(
 								fcppt::math::vector::normalize(
 									p->normal()))))),
 				_current_fruit.body().angular_velocity(),

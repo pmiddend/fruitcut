@@ -14,6 +14,7 @@
 #include <sge/renderer/vertex/buffer.hpp>
 #include <sge/timer/parameters.hpp>
 #include <fcppt/make_ref.hpp>
+#include <fcppt/cast/size_fun.hpp>
 #include <fcppt/math/matrix/structure_cast.hpp>
 #include <fcppt/math/vector/structure_cast.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -99,7 +100,7 @@ sge::renderer::matrix4 const
 fruitapp::fruit::object::world_transform() const
 {
 	return
-		fcppt::math::matrix::structure_cast<sge::renderer::matrix4>(
+		fcppt::math::matrix::structure_cast<sge::renderer::matrix4, fcppt::cast::size_fun>(
 			body_.world_transform().get());
 }
 
@@ -114,7 +115,7 @@ sge::renderer::matrix4 const
 fruitapp::fruit::object::rotation() const
 {
 	return
-		fcppt::math::matrix::structure_cast<sge::renderer::matrix4>(
+		fcppt::math::matrix::structure_cast<sge::renderer::matrix4, fcppt::cast::size_fun>(
 			body_.transformation().get());
 }
 
@@ -122,7 +123,7 @@ sge::renderer::vector3 const
 fruitapp::fruit::object::position() const
 {
 	return
-		fcppt::math::vector::structure_cast<sge::renderer::vector3>(
+		fcppt::math::vector::structure_cast<sge::renderer::vector3, fcppt::cast::size_fun>(
 			body_.position().get());
 }
 

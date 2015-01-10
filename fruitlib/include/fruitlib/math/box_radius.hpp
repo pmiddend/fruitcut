@@ -4,7 +4,7 @@
 #include <fcppt/math/size_type.hpp>
 #include <fcppt/math/box/object_impl.hpp>
 #include <fcppt/math/dim/arithmetic.hpp>
-#include <fcppt/math/dim/structure_cast.hpp>
+#include <fcppt/math/dim/to_vector.hpp>
 #include <fcppt/math/vector/length.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/type_traits/is_floating_point.hpp>
@@ -28,7 +28,7 @@ box_radius(
 {
 	return
 		fcppt::math::vector::length(
-			fcppt::math::dim::structure_cast<typename fcppt::math::box::object<T,N>::vector>(
+			fcppt::math::dim::to_vector(
 				b.size()/static_cast<T>(2)));
 }
 }

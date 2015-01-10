@@ -25,6 +25,7 @@
 #include <sge/systems/instance.hpp>
 #include <fcppt/insert_to_string.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/cast/size_fun.hpp>
 #include <fcppt/math/box/object_impl.hpp>
 #include <fcppt/math/dim/object_impl.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
@@ -144,7 +145,7 @@ fruitapp::states::loading::viewport_change(
 	sge::renderer::target::viewport const &_viewport)
 {
 	sge::font::rect::dim const &viewport_dim =
-		fcppt::math::dim::structure_cast<sge::font::rect::dim>(
+		fcppt::math::dim::structure_cast<sge::font::rect::dim, fcppt::cast::size_fun>(
 				_viewport.get().size());
 
 	font_node_.object().bounding_box(

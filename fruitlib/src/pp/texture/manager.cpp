@@ -23,10 +23,12 @@
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/unreachable_message.hpp>
+#include <fcppt/cast/size_fun.hpp>
 #include <fcppt/math/box/object_impl.hpp>
 #include <fcppt/math/dim/comparison.hpp>
 #include <fcppt/math/dim/object_impl.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
+#include <fcppt/math/dim/to_unsigned.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/range/iterator_range.hpp>
 #include <functional>
@@ -52,8 +54,9 @@ fruitlib::pp::texture::manager::query(
 			fruitlib::pp::texture::descriptor(
 				d.size() == fruitlib::pp::texture::use_screen_size()
 				?
-					fcppt::math::dim::structure_cast<sge::renderer::dim2>(
-						renderer_.onscreen_target().viewport().get().size())
+					fcppt::math::dim::structure_cast<sge::renderer::dim2, fcppt::cast::size_fun>(
+						fcppt::math::dim::to_unsigned(
+							renderer_.onscreen_target().viewport().get().size()))
 				:
 					d.size(),
 				d.image_format(),
@@ -89,8 +92,9 @@ void
 fruitlib::pp::texture::manager::clear_screen_textures()
 {
 	sge::renderer::dim2 const onscreen_dim =
-		fcppt::math::dim::structure_cast<sge::renderer::dim2>(
-			renderer_.onscreen_target().viewport().get().size());
+		fcppt::math::dim::structure_cast<sge::renderer::dim2, fcppt::cast::size_fun>(
+			fcppt::math::dim::to_unsigned(
+				renderer_.onscreen_target().viewport().get().size()));
 
 	// From the standard about associative containers:
 	// "and the erase members shall invalidate only iterators and references to the erased elements."

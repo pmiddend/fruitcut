@@ -53,6 +53,7 @@
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assign/make_container.hpp>
+#include <fcppt/cast/size_fun.hpp>
 #include <fcppt/math/clamp.hpp>
 #include <fcppt/math/box/object_impl.hpp>
 #include <fcppt/math/box/output.hpp>
@@ -402,7 +403,7 @@ fruitapp::game_logic::object::viewport_change(
 	sge::renderer::target::viewport const &_viewport)
 {
 	sge::font::dim const &viewport_dim =
-		fcppt::math::dim::structure_cast<sge::font::dim>(
+		fcppt::math::dim::structure_cast<sge::font::dim, fcppt::cast::size_fun>(
 			_viewport.get().size());
 
 	score_font_node_.object().bounding_box(

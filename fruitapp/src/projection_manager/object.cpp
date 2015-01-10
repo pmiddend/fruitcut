@@ -11,8 +11,10 @@
 #include <sge/renderer/projection/perspective_af.hpp>
 #include <sge/renderer/target/base.hpp>
 #include <sge/viewport/manager.hpp>
+#include <fcppt/cast/size_fun.hpp>
 #include <fcppt/math/deg_to_rad.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
+#include <fcppt/math/dim/to_unsigned.hpp>
 #include <fcppt/math/matrix/vector.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
 #include <fcppt/math/vector/construct.hpp>
@@ -142,8 +144,9 @@ fruitapp::projection_manager::object::viewport_callback(
 		optional_aspect(
 			sge::renderer::projection::aspect(
 				sge::renderer::aspect(
-					fcppt::math::dim::structure_cast<sge::renderer::screen_size>(
-						_viewport.get().size()))));
+					fcppt::math::dim::structure_cast<sge::renderer::screen_size, fcppt::cast::size_fun>(
+						fcppt::math::dim::to_unsigned(
+							_viewport.get().size())))));
 
 	camera_.update_projection_matrix(
 		sge::camera::projection_matrix(

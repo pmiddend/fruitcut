@@ -10,6 +10,7 @@
 #include <sge/renderer/vector3.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/assert/pre_message.hpp>
+#include <fcppt/cast/size_fun.hpp>
 #include <fcppt/math/vector/object_impl.hpp>
 #include <fcppt/math/vector/structure_cast.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -78,21 +79,21 @@ fruitapp::fruit::model_to_mesh(
 		for (triangle::vertex_array::size_type i = 0; i < vt.size(); ++i)
 		{
 			vt[i] =
-				fcppt::math::vector::structure_cast<triangle::vector>(
+				fcppt::math::vector::structure_cast<triangle::vector, fcppt::cast::size_fun>(
 					vertices[
 						*boost::next(
 							index,
 							i)]);
 
 			ns[i] =
-				fcppt::math::vector::structure_cast<triangle::vector>(
+				fcppt::math::vector::structure_cast<triangle::vector, fcppt::cast::size_fun>(
 					normals[
 						*boost::next(
 							index,
 							i)]);
 
 			sge::renderer::vector2 const current_coord =
-				fcppt::math::vector::structure_cast<sge::renderer::vector2>(
+				fcppt::math::vector::structure_cast<sge::renderer::vector2, fcppt::cast::size_fun>(
 					texcoords[
 						*boost::next(
 							index,

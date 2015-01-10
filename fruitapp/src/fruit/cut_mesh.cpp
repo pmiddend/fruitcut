@@ -24,7 +24,7 @@
 #include <fcppt/math/matrix/inverse.hpp>
 #include <fcppt/math/matrix/vector.hpp>
 #include <fcppt/math/vector/length.hpp>
-#include <fcppt/math/vector/structure_cast.hpp>
+#include <fcppt/math/vector/to_dim.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/next_prior.hpp>
 #include <boost/geometry/geometry.hpp>
@@ -212,7 +212,7 @@ fruitapp::fruit::cut_mesh(
 	result->bounding_box() =
 		box3(
 			min_pos,
-			fcppt::math::vector::structure_cast<box3::dim>(
+			fcppt::math::vector::to_dim(
 				max_pos - min_pos));
 
 	result->barycenter() /=

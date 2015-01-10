@@ -10,6 +10,7 @@
 #include <sge/input/cursor/position_unit.hpp>
 #include <sge/timer/basic.hpp>
 #include <sge/timer/reset_when_expired.hpp>
+#include <fcppt/cast/int_to_float_fun.hpp>
 #include <fcppt/math/box/object_impl.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
 #include <fcppt/math/vector/length.hpp>
@@ -83,8 +84,8 @@ fruitapp::cursor::sound::react(
 			*last_pos_;
 
 	float distance = fcppt::math::vector::length(
-		fcppt::math::vector::structure_cast<vec2>(new_pos) -
-		fcppt::math::vector::structure_cast<vec2>(*saved_last_pos));
+		fcppt::math::vector::structure_cast<vec2, fcppt::cast::int_to_float_fun>(new_pos) -
+		fcppt::math::vector::structure_cast<vec2, fcppt::cast::int_to_float_fun>(*saved_last_pos));
 
 	float threshold = 0.3f * static_cast<float>(
 		viewport_manager_.current_viewport()->get().size().w());
