@@ -18,7 +18,6 @@ find_package(
 	Boost 1.49.0 REQUIRED COMPONENTS
 	chrono
 	date_time
-	thread
 	system)
 
 include_directories(
