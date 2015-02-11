@@ -84,7 +84,7 @@ fruitapp::fruit::hull::projected(
 				* (fcppt::math::vector::structure_cast<sge::renderer::vector2, fcppt::cast::int_to_float_fun>(
 					fcppt::math::dim::to_vector(
 						// Fucking strong typedef shit
-						target.viewport().get().size()) / static_cast<sge::renderer::scalar>(2)));
+						target.viewport().get().size())) / static_cast<sge::renderer::scalar>(2));
 
 		point_cloud.push_back(
 			window_coordinates);
