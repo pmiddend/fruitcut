@@ -2,13 +2,14 @@
 #include <fruitapp/media_path.hpp>
 #include <fruitapp/graphics_settings/object.hpp>
 #include <sge/parse/json/find_member_exn.hpp>
-#include <sge/parse/json/object.hpp>
 #include <sge/parse/json/get.hpp>
+#include <sge/parse/json/object.hpp>
 #include <sge/parse/json/parse_file_exn.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/type_name.hpp>
 #include <fcppt/variant/holds_type.hpp>
+
 
 namespace
 {

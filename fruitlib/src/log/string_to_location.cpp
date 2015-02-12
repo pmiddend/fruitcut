@@ -4,9 +4,9 @@
 #include <fcppt/log/location.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/algorithm/string/split.hpp>
-#include <boost/range/numeric.hpp>
 #include <boost/phoenix/core.hpp>
 #include <boost/phoenix/operator.hpp>
+#include <boost/range/numeric.hpp>
 #include <vector>
 #include <fcppt/config/external_end.hpp>
 

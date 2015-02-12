@@ -1,5 +1,5 @@
-#include <fruitapp/postprocessing/create_system.hpp>
 #include <fruitapp/graphics_settings/object.hpp>
+#include <fruitapp/postprocessing/create_system.hpp>
 #include <fruitapp/postprocessing/cg/system.hpp>
 #include <fruitapp/postprocessing/dummy/system.hpp>
 #include <sge/parse/json/find_and_convert_member.hpp>

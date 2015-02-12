@@ -10,13 +10,14 @@
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/planar_shared_ptr.hpp>
 #include <sge/shader/scoped_pair.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/math/dim/output.hpp>
-#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <iostream>
 #include <sstream>
 #include <fcppt/config/external_end.hpp>
+
 
 namespace
 {

@@ -9,14 +9,15 @@
 #include <sge/renderer/target/offscreen.hpp>
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/shader/scoped_pair.hpp>
-#include <fcppt/text.hpp>
 #include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/math/dim/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <iostream>
 #include <sstream>
 #include <fcppt/config/external_end.hpp>
+
 
 namespace
 {

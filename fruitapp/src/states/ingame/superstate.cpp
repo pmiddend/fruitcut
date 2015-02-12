@@ -1,6 +1,6 @@
-#include <fruitapp/config_variables/object.hpp>
 #include <fruitapp/quick_log.hpp>
 #include <fruitapp/scene.hpp>
+#include <fruitapp/config_variables/object.hpp>
 #include <fruitapp/depths/overlay.hpp>
 #include <fruitapp/depths/root.hpp>
 #include <fruitapp/depths/scene.hpp>

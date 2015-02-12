@@ -1,5 +1,5 @@
-#include <fruitapp/config_variables/object.hpp>
 #include <fruitapp/name.hpp>
+#include <fruitapp/config_variables/object.hpp>
 #include <sge/config/app_name.hpp>
 #include <sge/config/config_path.hpp>
 #include <sge/parse/json/object_fwd.hpp>

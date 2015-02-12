@@ -1,8 +1,8 @@
 #ifndef FRUITAPP_GRAPHICS_SETTINGS_OBJECT_HPP_INCLUDED
 #define FRUITAPP_GRAPHICS_SETTINGS_OBJECT_HPP_INCLUDED
 
-#include <fruitapp/graphics_settings/preset_name_set.hpp>
 #include <fruitapp/config_variables/string_variable.hpp>
+#include <fruitapp/graphics_settings/preset_name_set.hpp>
 #include <sge/parse/json/object.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/preprocessor/pure.hpp>

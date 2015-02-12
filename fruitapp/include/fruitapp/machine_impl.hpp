@@ -1,13 +1,13 @@
 #ifndef FRUITAPP_MACHINE_IMPL_HPP_INCLUDED
 #define FRUITAPP_MACHINE_IMPL_HPP_INCLUDED
 
-#include <fruitapp/config_variables/object.hpp>
 #include <fruitapp/ingame_clock.hpp>
 #include <fruitapp/quick_log.hpp>
 #include <fruitapp/renderable.hpp>
 #include <fruitapp/screen_shooter.hpp>
 #include <fruitapp/systems.hpp>
 #include <fruitapp/background/node.hpp>
+#include <fruitapp/config_variables/object.hpp>
 #include <fruitapp/cursor/manager.hpp>
 #include <fruitapp/fruit/prototype_sequence.hpp>
 #include <fruitapp/graphics_settings/object.hpp>

@@ -4,8 +4,8 @@
 #include <fruitlib/perspective_projection_information_to_matrix.hpp>
 #include <fruitlib/json/parse_projection.hpp>
 #include <fruitlib/scenic/events/render.hpp>
-#include <sge/image/color/predef.hpp>
 #include <sge/image/color/format.hpp>
+#include <sge/image/color/predef.hpp>
 #include <sge/parse/json/find_and_convert_member.hpp>
 #include <sge/parse/json/object.hpp>
 #include <sge/renderer/dim2.hpp>

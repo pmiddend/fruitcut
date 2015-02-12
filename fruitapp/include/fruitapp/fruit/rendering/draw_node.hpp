@@ -2,8 +2,8 @@
 #define FRUITAPP_FRUIT_RENDERING_DRAW_NODE_HPP_INCLUDED
 
 #include <fruitapp/fruit/manager_fwd.hpp>
-#include <fruitapp/graphics_settings/object_fwd.hpp>
 #include <fruitapp/fruit/rendering/base_unique_ptr.hpp>
+#include <fruitapp/graphics_settings/object_fwd.hpp>
 #include <fruitapp/light/manager_fwd.hpp>
 #include <fruitlib/scenic/node.hpp>
 #include <fruitlib/scenic/events/render.hpp>

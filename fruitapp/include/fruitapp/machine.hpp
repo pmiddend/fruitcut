@@ -1,13 +1,13 @@
 #ifndef FRUITAPP_MACHINE_HPP_INCLUDED
 #define FRUITAPP_MACHINE_HPP_INCLUDED
 
-#include <fruitapp/config_variables/object_fwd.hpp>
 #include <fruitapp/ingame_clock.hpp>
 #include <fruitapp/machine_impl_fwd.hpp>
 #include <fruitapp/overlay.hpp>
 #include <fruitapp/quick_log_fwd.hpp>
 #include <fruitapp/scene_fwd.hpp>
 #include <fruitapp/systems.hpp>
+#include <fruitapp/config_variables/object_fwd.hpp>
 #include <fruitapp/cursor/manager_fwd.hpp>
 #include <fruitapp/fruit/prototype_sequence.hpp>
 #include <fruitapp/graphics_settings/object_fwd.hpp>

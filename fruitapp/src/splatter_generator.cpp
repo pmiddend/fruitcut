@@ -15,7 +15,6 @@
 #include <fruitlib/uniform_random_range_element.hpp>
 #include <fruitlib/json/parse_random_float_distribution.hpp>
 #include <fruitlib/json/parse_random_int_distribution.hpp>
-#include <fcppt/math/matrix/transform_direction.hpp>
 #include <fruitlib/math/triangle/random_point.hpp>
 #include <fruitlib/resource_tree/path.hpp>
 #include <sge/image/color/any/convert.hpp>
@@ -27,6 +26,7 @@
 #include <mizuiro/color/channel/alpha.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/math/matrix/transform_direction.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <chrono>

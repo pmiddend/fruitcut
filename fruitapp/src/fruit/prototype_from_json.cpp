@@ -7,8 +7,8 @@
 #include <fruitlib/texture_manager.hpp>
 #include <fruitlib/json/parse_rgba8_color.hpp>
 #include <sge/image2d/system_fwd.hpp>
-#include <sge/model/md3/loader.hpp>
 #include <sge/model/md3/load_flags.hpp>
+#include <sge/model/md3/loader.hpp>
 #include <sge/model/md3/object.hpp>
 #include <sge/parse/json/array.hpp>
 #include <sge/parse/json/find_and_convert_member.hpp>

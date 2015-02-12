@@ -13,8 +13,6 @@
 #include <fcppt/config/external_begin.hpp>
 #include <LinearMath/btIDebugDraw.h>
 #include <LinearMath/btVector3.h>
-#include <fcppt/config/external_end.hpp>
-#include <fcppt/config/external_begin.hpp>
 #include <memory>
 #include <fcppt/config/external_end.hpp>
 

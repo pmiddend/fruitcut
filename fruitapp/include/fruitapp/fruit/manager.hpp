@@ -27,10 +27,10 @@
 #include <fruitlib/scenic/events/update.hpp>
 #include <sge/camera/base_fwd.hpp>
 #include <sge/parse/json/array_fwd.hpp>
-#include <sge/renderer/vertex/declaration_fwd.hpp>
-#include <sge/renderer/vertex/declaration_unique_ptr.hpp>
 #include <sge/renderer/device/core_fwd.hpp>
 #include <sge/renderer/target/base_fwd.hpp>
+#include <sge/renderer/vertex/declaration_fwd.hpp>
+#include <sge/renderer/vertex/declaration_unique_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/object.hpp>

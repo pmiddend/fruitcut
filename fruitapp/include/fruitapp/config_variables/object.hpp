@@ -2,11 +2,12 @@
 #define FRUITAPP_CONFIG_VARIABLES_OBJECT_HPP_INCLUDED
 
 #include <fruitapp/config_variables/audio_variable.hpp>
+#include <fruitapp/config_variables/global_config_ref.hpp>
 #include <fruitapp/config_variables/string_variable.hpp>
 #include <fruitapp/config_variables/user_config_ref.hpp>
-#include <fruitapp/config_variables/global_config_ref.hpp>
 #include <sge/parse/json/object_fwd.hpp>
 #include <sge/parse/json/config/user_config_variable_impl.hpp>
+
 
 namespace fruitapp
 {

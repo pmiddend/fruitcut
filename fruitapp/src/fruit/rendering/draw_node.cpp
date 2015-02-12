@@ -1,9 +1,9 @@
 #include <fruitapp/fruit/rendering/base.hpp>
-#include <fruitapp/graphics_settings/object.hpp>
 #include <fruitapp/fruit/rendering/base_unique_ptr.hpp>
 #include <fruitapp/fruit/rendering/cg.hpp>
 #include <fruitapp/fruit/rendering/draw_node.hpp>
 #include <fruitapp/fruit/rendering/ffp.hpp>
+#include <fruitapp/graphics_settings/object.hpp>
 #include <fruitapp/light/manager.hpp>
 #include <sge/parse/json/find_and_convert_member.hpp>
 #include <sge/parse/json/string_to_path.hpp>

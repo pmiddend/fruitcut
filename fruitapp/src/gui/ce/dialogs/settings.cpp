@@ -1,8 +1,8 @@
 #include <fruitapp/media_path.hpp>
-#include <sge/parse/json/config/user_config_variable_impl.hpp>
 #include <fruitapp/graphics_settings/object.hpp>
 #include <fruitapp/gui/ce/system.hpp>
 #include <fruitapp/gui/ce/dialogs/settings.hpp>
+#include <sge/parse/json/config/user_config_variable_impl.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/phoenix/bind.hpp>

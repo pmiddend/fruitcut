@@ -5,7 +5,6 @@
 #include <fruitlib/audio/group/player_fwd.hpp>
 #include <sge/audio/sound/base.hpp>
 #include <sge/audio/sound/base_unique_ptr.hpp>
-#include <sge/audio/sound/base_unique_ptr.hpp>
 #include <sge/audio/sound/nonpositional_parameters_fwd.hpp>
 #include <sge/audio/sound/play_status_fwd.hpp>
 #include <sge/audio/sound/repeat_fwd.hpp>

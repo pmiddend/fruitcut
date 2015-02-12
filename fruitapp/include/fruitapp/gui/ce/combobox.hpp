@@ -2,8 +2,8 @@
 #define FRUITAPP_GUI_CE_COMBOBOX_HPP_INCLUDED
 
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/strong_typedef.hpp>
 #include <fcppt/string.hpp>
+#include <fcppt/strong_typedef.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <CEGUI/Event.h>
 #include <functional>

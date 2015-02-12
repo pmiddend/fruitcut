@@ -7,7 +7,6 @@
 #include <fruitapp/fruit/box3.hpp>
 #include <fruitapp/fruit/mesh.hpp>
 #include <fruitapp/fruit/mesh_unique_ptr.hpp>
-#include <fruitapp/fruit/mesh_unique_ptr.hpp>
 #include <fruitapp/fruit/prototype_fwd.hpp>
 #include <fruitlib/physics/matrix4.hpp>
 #include <fruitlib/physics/scalar.hpp>
@@ -23,10 +22,10 @@
 #include <fruitlib/physics/rigid_body/transformation.hpp>
 #include <sge/renderer/matrix4.hpp>
 #include <sge/renderer/vector3.hpp>
+#include <sge/renderer/device/core_fwd.hpp>
 #include <sge/renderer/vertex/buffer_fwd.hpp>
 #include <sge/renderer/vertex/buffer_unique_ptr.hpp>
 #include <sge/renderer/vertex/declaration_fwd.hpp>
-#include <sge/renderer/device/core_fwd.hpp>
 #include <fcppt/nonassignable.hpp>
 #include <fcppt/noncopyable.hpp>
 

@@ -13,7 +13,6 @@
 #include <fruitapp/fruit/prototype_from_json.hpp>
 #include <fruitapp/fruit/model_vf/format.hpp>
 #include <fruitlib/math/box_radius.hpp>
-#include <fcppt/math/matrix/transform_direction.hpp>
 #include <fruitlib/math/unproject.hpp>
 #include <fruitlib/math/plane/basic.hpp>
 #include <fruitlib/math/plane/distance_to_point.hpp>
@@ -40,6 +39,7 @@
 #include <fcppt/assert/error.hpp>
 #include <fcppt/cast/size_fun.hpp>
 #include <fcppt/math/matrix/object_impl.hpp>
+#include <fcppt/math/matrix/transform_direction.hpp>
 #include <fcppt/math/matrix/transpose.hpp>
 #include <fcppt/math/vector/normalize.hpp>
 #include <fcppt/math/vector/object_impl.hpp>

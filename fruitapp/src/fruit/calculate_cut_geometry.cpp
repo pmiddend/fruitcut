@@ -3,7 +3,6 @@
 #include <fruitapp/fruit/calculate_cut_geometry.hpp>
 #include <fruitapp/fruit/cut_geometry.hpp>
 #include <fruitapp/fruit/object.hpp>
-#include <fcppt/math/matrix/transform_direction.hpp>
 #include <fruitlib/math/unproject.hpp>
 #include <sge/camera/base.hpp>
 #include <sge/camera/coordinate_system/object.hpp>
@@ -12,6 +11,7 @@
 #include <fcppt/cast/size_fun.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/math/matrix/inverse.hpp>
+#include <fcppt/math/matrix/transform_direction.hpp>
 #include <fcppt/math/matrix/transpose.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
 #include <fcppt/math/vector/construct.hpp>

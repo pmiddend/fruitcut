@@ -21,9 +21,10 @@
 #include <boost/graph/topological_sort.hpp>
 #include <iostream>
 #include <iterator>
-#include <sstream>
 #include <list>
+#include <sstream>
 #include <fcppt/config/external_end.hpp>
+
 
 namespace
 {
