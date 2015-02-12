@@ -188,7 +188,6 @@ set(
 	fruitlib/include/fruitlib/scenic/optional_parent.hpp
 	fruitlib/include/fruitlib/scenic/parent.hpp
 	fruitlib/include/fruitlib/scenic/parent_fwd.hpp
-	fruitlib/include/fruitlib/scoped_frame_limiter.hpp
 	fruitlib/include/fruitlib/scoped_ostream_file_redirection.hpp
 	fruitlib/include/fruitlib/scoped_wostream_file_redirection.hpp
 	fruitlib/include/fruitlib/signal_stack_printer/object.hpp
@@ -279,7 +278,6 @@ set(
 	fruitlib/src/scenic/events/update.cpp
 	fruitlib/src/scenic/no_parent.cpp
 	fruitlib/src/scenic/parent.cpp
-	fruitlib/src/scoped_frame_limiter.cpp
 	fruitlib/src/signal_stack_printer/object.cpp
 	fruitlib/src/texture_manager.cpp
 	fruitlib/src/time_format/milliseconds.cpp

@@ -14,7 +14,6 @@
 #include <fruitapp/shadow_map/object_unique_ptr.hpp>
 #include <fruitlib/create_command_line_parameters.hpp>
 #include <fruitlib/random_generator.hpp>
-#include <fruitlib/scoped_frame_limiter.hpp>
 #include <fruitlib/json/parse_projection.hpp>
 #include <fruitlib/log/scoped_sequence_from_json.hpp>
 #include <fruitlib/scenic/depth.hpp>
@@ -68,6 +67,7 @@
 #include <sge/systems/window.hpp>
 #include <sge/timer/elapsed_and_reset.hpp>
 #include <sge/timer/parameters.hpp>
+#include <sge/timer/scoped_frame_limiter.hpp>
 #include <sge/timer/clocks/standard.hpp>
 #include <sge/viewport/fill_on_resize.hpp>
 #include <sge/viewport/manager.hpp>
@@ -532,8 +532,8 @@ fruitapp::machine_impl::run_once()
 	if(!systems_.window_system().poll())
 		return false;
 
-	fruitlib::scoped_frame_limiter sfl(
-		static_cast<fruitlib::scoped_frame_limiter::fps_type>(
+	sge::timer::scoped_frame_limiter sfl(
+		static_cast<sge::timer::scoped_frame_limiter::ticks_per_second>(
 			desired_fps_));
 
 	standard_clock_delta_ =
