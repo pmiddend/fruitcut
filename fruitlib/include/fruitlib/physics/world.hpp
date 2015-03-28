@@ -1,6 +1,7 @@
 #ifndef FRUITLIB_PHYSICS_WORLD_HPP_INCLUDED
 #define FRUITLIB_PHYSICS_WORLD_HPP_INCLUDED
 
+#include <fruitlib/detail/symbol.hpp>
 #include <fruitlib/physics/box.hpp>
 #include <fruitlib/physics/duration.hpp>
 #include <fruitlib/physics/scalar.hpp>
@@ -35,6 +36,7 @@ class world
 FCPPT_NONCOPYABLE(
 	world);
 public:
+	FRUITLIB_DETAIL_SYMBOL
 	explicit
 	world(
 		box const &world_size,
@@ -44,6 +46,7 @@ public:
 	update(
 		physics::duration const &);
 
+	FRUITLIB_DETAIL_SYMBOL
 	vector3 const
 	gravity() const;
 
@@ -64,6 +67,7 @@ public:
 	remove_body(
 		rigid_body::object &);
 
+	FRUITLIB_DETAIL_SYMBOL
 	void
 	make_groups_collide(
 		group::object &,
@@ -73,6 +77,7 @@ public:
 	rigid_body_collision(
 		rigid_body::collision_callback const &);
 
+	FRUITLIB_DETAIL_SYMBOL
 	~world();
 private:
 	friend class group::object;

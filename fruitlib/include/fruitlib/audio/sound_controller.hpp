@@ -5,6 +5,7 @@
 #include <fruitlib/uniform_int_random.hpp>
 #include <fruitlib/audio/pool.hpp>
 #include <fruitlib/audio/group/player.hpp>
+#include <fruitlib/detail/symbol.hpp>
 #include <fruitlib/resource_tree/make_type.hpp>
 #include <fruitlib/resource_tree/path.hpp>
 #include <fruitlib/scenic/node.hpp>
@@ -62,6 +63,7 @@ public:
 	boost::mpl::vector1<scenic::events::update>
 	scene_reactions;
 
+	FRUITLIB_DETAIL_SYMBOL
 	sound_controller(
 		scenic::optional_parent const &,
 		fruitlib::random_generator &,
@@ -74,6 +76,7 @@ public:
 	create(
 		fruitlib::resource_tree::path const &);
 
+	FRUITLIB_DETAIL_SYMBOL
 	void
 	play(
 		fruitlib::resource_tree::path const &);
@@ -86,6 +89,7 @@ public:
 	sge::audio::scalar
 	gain() const;
 
+	FRUITLIB_DETAIL_SYMBOL
 	void
 	gain(
 		sge::audio::scalar);
@@ -103,6 +107,7 @@ public:
 	react(
 		scenic::events::update const &);
 
+	FRUITLIB_DETAIL_SYMBOL
 	~sound_controller();
 private:
 	typedef

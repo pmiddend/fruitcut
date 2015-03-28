@@ -1,6 +1,7 @@
 #ifndef FRUITLIB_PP_FILTER_ADD_HPP_INCLUDED
 #define FRUITLIB_PP_FILTER_ADD_HPP_INCLUDED
 
+#include <fruitlib/detail/symbol.hpp>
 #include <fruitlib/pp/filter/binary.hpp>
 #include <fruitlib/pp/filter/manager_fwd.hpp>
 #include <fruitlib/pp/filter/texture_size.hpp>
@@ -25,6 +26,7 @@ class add
 FCPPT_NONCOPYABLE(
 	add);
 public:
+	FRUITLIB_DETAIL_SYMBOL
 	add(
 		fruitlib::pp::filter::manager &,
 		fruitlib::pp::texture::manager &,
@@ -35,6 +37,7 @@ public:
 		fruitlib::pp::texture::counted_instance,
 		fruitlib::pp::texture::counted_instance);
 
+	FRUITLIB_DETAIL_SYMBOL
 	~add();
 private:
 	fruitlib::pp::filter::manager &filter_manager_;

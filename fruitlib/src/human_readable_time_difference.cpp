@@ -6,7 +6,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-fcppt::string const
+fcppt::string
 fruitlib::human_readable_time_difference(
 	std::chrono::seconds const &_seconds)
 {

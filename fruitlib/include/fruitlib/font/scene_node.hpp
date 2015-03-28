@@ -1,6 +1,7 @@
 #ifndef FRUITLIB_FONT_SCENE_NODE_HPP_INCLUDED
 #define FRUITLIB_FONT_SCENE_NODE_HPP_INCLUDED
 
+#include <fruitlib/detail/symbol.hpp>
 #include <fruitlib/font/object.hpp>
 #include <fruitlib/font/object_parameters_fwd.hpp>
 #include <fruitlib/font/scale.hpp>
@@ -28,16 +29,20 @@ public:
 	boost::mpl::vector1<fruitlib::scenic::events::render>
 	scene_reactions;
 
+	FRUITLIB_DETAIL_SYMBOL
 	scene_node(
 		fruitlib::scenic::optional_parent const &,
 		fruitlib::font::object_parameters const &);
 
+	FRUITLIB_DETAIL_SYMBOL
 	fruitlib::font::object &
 	object();
 
+	FRUITLIB_DETAIL_SYMBOL
 	fruitlib::font::object const &
 	object() const;
 
+	FRUITLIB_DETAIL_SYMBOL
 	void
 	react(
 		fruitlib::scenic::events::render const &);

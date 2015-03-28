@@ -1,6 +1,7 @@
 #ifndef FRUITLIB_PP_TEXTURE_MANAGER_HPP_INCLUDED
 #define FRUITLIB_PP_TEXTURE_MANAGER_HPP_INCLUDED
 
+#include <fruitlib/detail/symbol.hpp>
 #include <fruitlib/pp/texture/counted_instance.hpp>
 #include <fruitlib/pp/texture/descriptor.hpp>
 #include <fruitlib/pp/texture/instance.hpp>
@@ -24,6 +25,7 @@ class manager
 FCPPT_NONCOPYABLE(
 	manager);
 public:
+	FRUITLIB_DETAIL_SYMBOL
 	explicit
 	manager(
 		sge::renderer::device::core &);
@@ -51,9 +53,11 @@ public:
 	query(
 		sge::renderer::texture::planar &);
 
+	FRUITLIB_DETAIL_SYMBOL
 	void
 	clear_screen_textures();
 
+	FRUITLIB_DETAIL_SYMBOL
 	~manager();
 private:
 	typedef

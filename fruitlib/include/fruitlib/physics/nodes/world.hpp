@@ -1,6 +1,7 @@
 #ifndef FRUITLIB_PHYSICS_NODES_WORLD_HPP_INCLUDED
 #define FRUITLIB_PHYSICS_NODES_WORLD_HPP_INCLUDED
 
+#include <fruitlib/detail/symbol.hpp>
 #include <fruitlib/physics/world_fwd.hpp>
 #include <fruitlib/scenic/node.hpp>
 #include <fruitlib/scenic/optional_parent.hpp>
@@ -31,12 +32,14 @@ public:
 	boost::mpl::vector1<fruitlib::scenic::events::update>
 	scene_reactions;
 
+	FRUITLIB_DETAIL_SYMBOL
 	explicit
 	world(
 		fruitlib::scenic::optional_parent const &,
 		scenic::delta::callback const &,
 		physics::world &);
 
+	FRUITLIB_DETAIL_SYMBOL
 	~world();
 
 	void

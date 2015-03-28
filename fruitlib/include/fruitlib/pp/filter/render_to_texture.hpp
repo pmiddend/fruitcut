@@ -1,6 +1,7 @@
 #ifndef FRUITLIB_PP_FILTER_RENDER_TO_TEXTURE_HPP_INCLUDED
 #define FRUITLIB_PP_FILTER_RENDER_TO_TEXTURE_HPP_INCLUDED
 
+#include <fruitlib/detail/symbol.hpp>
 #include <fruitlib/pp/filter/manager_fwd.hpp>
 #include <fruitlib/pp/filter/nullary.hpp>
 #include <fruitlib/pp/filter/texture_size.hpp>
@@ -32,6 +33,7 @@ public:
 	std::function<void (sge::renderer::context::core &)>
 	callback;
 
+	FRUITLIB_DETAIL_SYMBOL
 	render_to_texture(
 		fruitlib::pp::filter::manager &,
 		fruitlib::pp::texture::manager &,
@@ -43,6 +45,7 @@ public:
 	fruitlib::pp::texture::counted_instance const
 	apply();
 
+	FRUITLIB_DETAIL_SYMBOL
 	~render_to_texture();
 private:
 	fruitlib::pp::filter::manager &filter_manager_;

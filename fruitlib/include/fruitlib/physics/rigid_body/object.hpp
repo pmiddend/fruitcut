@@ -1,6 +1,7 @@
 #ifndef FRUITLIB_PHYSICS_RIGID_BODY_OBJECT_HPP_INCLUDED
 #define FRUITLIB_PHYSICS_RIGID_BODY_OBJECT_HPP_INCLUDED
 
+#include <fruitlib/detail/symbol.hpp>
 #include <fruitlib/physics/shared_shape_ptr.hpp>
 #include <fruitlib/physics/world_fwd.hpp>
 #include <fruitlib/physics/rigid_body/angular_velocity.hpp>
@@ -29,28 +30,35 @@ class object
 FCPPT_NONCOPYABLE(
 	object);
 public:
+	FRUITLIB_DETAIL_SYMBOL
 	explicit
 	object(
 		fruitlib::physics::rigid_body::parameters const &);
 
+	FRUITLIB_DETAIL_SYMBOL
 	fruitlib::physics::rigid_body::transformation const
 	world_transform() const;
 
+	FRUITLIB_DETAIL_SYMBOL
 	fruitlib::physics::rigid_body::transformation const
 	transformation() const;
 
+	FRUITLIB_DETAIL_SYMBOL
 	fruitlib::physics::rigid_body::linear_velocity const
 	linear_velocity() const;
 
+	FRUITLIB_DETAIL_SYMBOL
 	fruitlib::physics::rigid_body::angular_velocity const
 	angular_velocity() const;
 
+	FRUITLIB_DETAIL_SYMBOL
 	fruitlib::physics::rigid_body::position const
 	position() const;
 
 	fruitlib::physics::rigid_body::user_data const &
 	user_data() const;
 
+	FRUITLIB_DETAIL_SYMBOL
 	~object();
 private:
 	friend class physics::world;

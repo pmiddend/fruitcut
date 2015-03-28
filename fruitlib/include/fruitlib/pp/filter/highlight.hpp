@@ -1,6 +1,7 @@
 #ifndef FRUITLIB_PP_FILTER_HIGHLIGHT_HPP_INCLUDED
 #define FRUITLIB_PP_FILTER_HIGHLIGHT_HPP_INCLUDED
 
+#include <fruitlib/detail/symbol.hpp>
 #include <fruitlib/pp/filter/manager_fwd.hpp>
 #include <fruitlib/pp/filter/texture_size.hpp>
 #include <fruitlib/pp/filter/unary.hpp>
@@ -30,6 +31,7 @@ public:
 		sge::renderer::scalar,
 		threshold_factor);
 
+	FRUITLIB_DETAIL_SYMBOL
 	highlight(
 		fruitlib::pp::filter::manager &,
 		fruitlib::pp::texture::manager &,
@@ -44,6 +46,7 @@ public:
 	apply(
 		fruitlib::pp::texture::counted_instance);
 
+	FRUITLIB_DETAIL_SYMBOL
 	~highlight();
 private:
 	fruitlib::pp::filter::manager &filter_manager_;

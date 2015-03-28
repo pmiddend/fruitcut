@@ -1,6 +1,7 @@
 #ifndef FRUITLIB_PP_FILTER_DESATURATE_HPP_INCLUDED
 #define FRUITLIB_PP_FILTER_DESATURATE_HPP_INCLUDED
 
+#include <fruitlib/detail/symbol.hpp>
 #include <fruitlib/pp/filter/manager_fwd.hpp>
 #include <fruitlib/pp/filter/texture_size.hpp>
 #include <fruitlib/pp/filter/unary.hpp>
@@ -30,12 +31,14 @@ public:
 		sge::renderer::scalar,
 		scaling_factor);
 
+	FRUITLIB_DETAIL_SYMBOL
 	desaturate(
 		fruitlib::pp::filter::manager &,
 		fruitlib::pp::texture::manager &,
 		fruitlib::pp::filter::texture_size const &,
 		scaling_factor const &);
 
+	FRUITLIB_DETAIL_SYMBOL
 	void
 	scaling(
 		scaling_factor const &);
@@ -44,6 +47,7 @@ public:
 	apply(
 		fruitlib::pp::texture::counted_instance);
 
+	FRUITLIB_DETAIL_SYMBOL
 	~desaturate();
 private:
 	fruitlib::pp::filter::manager &filter_manager_;

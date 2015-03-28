@@ -1,6 +1,7 @@
 #ifndef FRUITLIB_PHYSICS_DEBUGGER_HPP_INCLUDED
 #define FRUITLIB_PHYSICS_DEBUGGER_HPP_INCLUDED
 
+#include <fruitlib/detail/symbol.hpp>
 #include <fruitlib/physics/world_fwd.hpp>
 #include <sge/camera/base_fwd.hpp>
 #include <sge/line_drawer/object.hpp>
@@ -32,6 +33,7 @@ class debugger
 FCPPT_NONCOPYABLE(
 	debugger);
 public:
+	FRUITLIB_DETAIL_SYMBOL
 	debugger(
 		fruitlib::physics::world &,
 		sge::renderer::device::ffp &,
@@ -44,13 +46,16 @@ public:
 	render(
 		sge::renderer::context::ffp &);
 
+	FRUITLIB_DETAIL_SYMBOL
 	void
 	active(
 		bool);
 
+	FRUITLIB_DETAIL_SYMBOL
 	bool
 	active() const;
 
+	FRUITLIB_DETAIL_SYMBOL
 	~debugger();
 private:
 	// @override

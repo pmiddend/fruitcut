@@ -312,21 +312,85 @@ fcppt_utils_append_source_dir_and_make_groups(
 	"${FRUITLIB_FILES}"
 	FRUITLIB_FILES_ABS)
 
-add_library(
-	fruitlib
-	STATIC
-	${FRUITLIB_FILES_ABS})
+include(
+	FcpptSymbol)
 
-fcppt_utils_set_target_compiler_flags(
-	fruitlib)
+set(
+	FRUITLIB_STATIC_LINK_FLAG
+	"FRUITLIB_STATIC_LINK"
+)
 
-target_link_libraries(
-	fruitlib
-	${fcppt_core_TARGET}
-	${fcppt_filesystem_TARGET}
-	${fcppt_log_TARGET}
-	${CEGUI_LIBRARIES}
-	${sge_TARGETS}
-	${Cg_LIBRARIES}
-	${BULLET_LIBRARIES}
-	${Boost_LIBRARIES})
+fcppt_generate_symbol_header(
+	STATIC_LINK_FLAG
+		${FRUITLIB_STATIC_LINK_FLAG}
+	EXPORTS_NAME
+		fruitlib
+	SYMBOL_NAME
+		FRUITLIB_DETAIL
+)
+
+function(
+	make_fruitlib
+	TARGET
+	VARIANT
+)
+	add_library(
+		${TARGET}
+		${VARIANT}
+		${FRUITLIB_FILES_ABS})
+
+	fcppt_utils_interface_static_link(
+		${TARGET}
+		${VARIANT}
+		${FRUITLIB_STATIC_LINK_FLAG}
+	)
+
+	fcppt_utils_set_target_compiler_flags(
+		${TARGET})
+
+	target_include_directories(
+		${TARGET}
+		PRIVATE
+		${CMAKE_BINARY_DIR}/include)
+
+	target_link_libraries(
+		${TARGET}
+		PRIVATE
+		${fcppt_core_TARGET}
+		${fcppt_filesystem_TARGET}
+		${fcppt_log_TARGET}
+		${CEGUI_LIBRARIES}
+		${sge_TARGETS}
+		${Cg_LIBRARIES}
+		${BULLET_LIBRARIES}
+		${Boost_LIBRARIES})
+
+	install(
+		TARGETS
+		${TARGET}
+		DESTINATION
+		${INSTALL_LIBRARY_DIR})
+endfunction()
+
+if(
+	ENABLE_STATIC
+)
+	fcppt_utils_static_link_name(
+		fruitlib
+		STATIC_NAME
+	)
+
+	make_fruitlib(
+		${STATIC_NAME}
+		STATIC
+	)
+endif()
+
+if(
+	ENABLE_SHARED
+)
+	make_fruitlib(
+		fruitlib
+		SHARED
+	)
+endif()

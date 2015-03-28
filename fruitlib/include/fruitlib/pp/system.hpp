@@ -1,6 +1,7 @@
 #ifndef FRUITLIB_PP_SYSTEM_HPP_INCLUDED
 #define FRUITLIB_PP_SYSTEM_HPP_INCLUDED
 
+#include <fruitlib/detail/symbol.hpp>
 #include <fruitlib/pp/dependency_set.hpp>
 #include <fruitlib/pp/filter/base_fwd.hpp>
 #include <fruitlib/pp/filter/manager_fwd.hpp>
@@ -73,20 +74,25 @@ public:
 	boost::unordered_set<fcppt::string>
 	filter_name_set;
 
+	FRUITLIB_DETAIL_SYMBOL
 	explicit
 	system(
 		fruitlib::pp::filter::manager &);
 
+	FRUITLIB_DETAIL_SYMBOL
 	void
 	update();
 
+	FRUITLIB_DETAIL_SYMBOL
 	fruitlib::pp::texture::counted_instance const
 	result_texture();
 
+	FRUITLIB_DETAIL_SYMBOL
 	void
 	render_result(
 		sge::renderer::context::core &);
 
+	FRUITLIB_DETAIL_SYMBOL
 	void
 	add_filter(
 		fruitlib::pp::filter::base &,

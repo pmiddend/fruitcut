@@ -509,7 +509,7 @@ fcppt_utils_set_target_compiler_flags(
 
 target_link_libraries(
 	fruitcut
-	fruitlib
+	${fruitlib_TARGET}
 
 	${sge_TARGETS}
 	${Cg_LIBRARIES}

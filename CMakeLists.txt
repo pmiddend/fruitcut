@@ -120,6 +120,12 @@ elseif(MSVC)
 	add_definitions("/wd4355")
 endif()
 
+fcppt_utils_static_shared()
+
+fcppt_utils_link_target(
+	fruitlib
+)
+
 add_subdirectory(
   fruitlib)
 

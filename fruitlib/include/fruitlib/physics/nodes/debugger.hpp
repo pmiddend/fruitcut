@@ -1,6 +1,7 @@
 #ifndef FRUITLIB_PHYSICS_NODES_DEBUGGER_HPP_INCLUDED
 #define FRUITLIB_PHYSICS_NODES_DEBUGGER_HPP_INCLUDED
 
+#include <fruitlib/detail/symbol.hpp>
 #include <fruitlib/physics/debugger_fwd.hpp>
 #include <fruitlib/scenic/node.hpp>
 #include <fruitlib/scenic/optional_parent.hpp>
@@ -33,11 +34,13 @@ public:
 	>
 	scene_reactions;
 
+	FRUITLIB_DETAIL_SYMBOL
 	explicit
 	debugger(
 		fruitlib::scenic::optional_parent const &,
 		fruitlib::physics::debugger &);
 
+	FRUITLIB_DETAIL_SYMBOL
 	~debugger();
 
 	void

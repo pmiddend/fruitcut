@@ -1,6 +1,7 @@
 #ifndef FRUITLIB_SCENIC_PARENT_HPP_INCLUDED
 #define FRUITLIB_SCENIC_PARENT_HPP_INCLUDED
 
+#include <fruitlib/detail/symbol.hpp>
 #include <fruitlib/scenic/base_fwd.hpp>
 #include <fruitlib/scenic/depth.hpp>
 #include <fcppt/nonassignable.hpp>
@@ -15,6 +16,7 @@ class parent
 FCPPT_NONASSIGNABLE(
 	parent);
 public:
+	FRUITLIB_DETAIL_SYMBOL
 	explicit
 	parent(
 		scenic::base &,

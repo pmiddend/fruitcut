@@ -1,6 +1,7 @@
 #ifndef FRUITLIB_SCENIC_ADAPTORS_LINE_DRAWER_HPP_INCLUDED
 #define FRUITLIB_SCENIC_ADAPTORS_LINE_DRAWER_HPP_INCLUDED
 
+#include <fruitlib/detail/symbol.hpp>
 #include <fruitlib/scenic/node.hpp>
 #include <fruitlib/scenic/optional_parent.hpp>
 #include <fruitlib/scenic/events/render.hpp>
@@ -34,12 +35,14 @@ public:
 	fcppt::optional<sge::renderer::device::ffp &>
 	optional_renderer;
 
+	FRUITLIB_DETAIL_SYMBOL
 	explicit
 	line_drawer(
 		fruitlib::scenic::optional_parent const &,
 		sge::line_drawer::object &,
 		optional_renderer const &);
 
+	FRUITLIB_DETAIL_SYMBOL
 	~line_drawer();
 
 	void

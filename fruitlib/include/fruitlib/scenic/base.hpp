@@ -5,9 +5,11 @@
 #include <fruitlib/scenic/optional_parent.hpp>
 #include <fruitlib/scenic/events/base_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fruitlib/detail/symbol.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
+#include <fcppt/symbol/class.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/intrusive/list.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -21,7 +23,7 @@ FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
 FCPPT_PP_DISABLE_GCC_WARNING(-Wnon-virtual-dtor)
 
-class base
+class FCPPT_SYMBOL_CLASS base
 :
 	public
 		boost::intrusive::list_base_hook
@@ -57,6 +59,7 @@ public:
 	scenic::depth::value_type
 	depth() const;
 
+	FRUITLIB_DETAIL_SYMBOL
 	virtual ~base();
 protected:
 	explicit

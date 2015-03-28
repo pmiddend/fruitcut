@@ -1,6 +1,7 @@
 #ifndef FRUITLIB_PERSPECTIVE_PROJECTION_INFORMATION_HPP_INCLUDED
 #define FRUITLIB_PERSPECTIVE_PROJECTION_INFORMATION_HPP_INCLUDED
 
+#include <fruitlib/detail/symbol.hpp>
 #include <sge/renderer/projection/aspect.hpp>
 #include <sge/renderer/projection/far.hpp>
 #include <sge/renderer/projection/fov.hpp>
@@ -12,6 +13,7 @@ namespace fruitlib
 class perspective_projection_information
 {
 public:
+	FRUITLIB_DETAIL_SYMBOL
 	perspective_projection_information(
 		sge::renderer::projection::fov const &,
 		sge::renderer::projection::near const &,

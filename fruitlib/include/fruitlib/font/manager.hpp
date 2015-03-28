@@ -2,6 +2,7 @@
 #define FRUITLIB_FONT_MANAGER_HPP_INCLUDED
 
 #include <fruitlib/texture_manager_fwd.hpp>
+#include <fruitlib/detail/symbol.hpp>
 #include <fruitlib/font/base_path.hpp>
 #include <fruitlib/font/cache_fwd.hpp>
 #include <sge/font/system_fwd.hpp>
@@ -23,6 +24,7 @@ class manager
 FCPPT_NONCOPYABLE(
 	manager);
 public:
+	FRUITLIB_DETAIL_SYMBOL
 	manager(
 		sge::renderer::device::ffp &,
 		sge::renderer::texture::emulate_srgb,
@@ -40,6 +42,7 @@ public:
 	fruitlib::font::cache &
 	cache();
 
+	FRUITLIB_DETAIL_SYMBOL
 	~manager();
 private:
 	sge::renderer::device::ffp &renderer_;

@@ -1,6 +1,7 @@
 #ifndef FRUITLIB_PHYSICS_RIGID_BODY_PARAMETERS_HPP_INCLUDED
 #define FRUITLIB_PHYSICS_RIGID_BODY_PARAMETERS_HPP_INCLUDED
 
+#include <fruitlib/detail/symbol.hpp>
 #include <fruitlib/physics/matrix4.hpp>
 #include <fruitlib/physics/shared_shape_ptr.hpp>
 #include <fruitlib/physics/vector3.hpp>
@@ -23,6 +24,7 @@ namespace rigid_body
 class parameters
 {
 public:
+	FRUITLIB_DETAIL_SYMBOL
 	explicit
 	parameters(
 		rigid_body::position const &,
@@ -58,6 +60,7 @@ public:
 	rigid_body::user_data const &
 	user_data() const;
 
+	FRUITLIB_DETAIL_SYMBOL
 	~parameters();
 private:
 	rigid_body::position::value_type position_;

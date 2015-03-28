@@ -1,6 +1,7 @@
 #ifndef FRUITLIB_FONT_OBJECT_HPP_INCLUDED
 #define FRUITLIB_FONT_OBJECT_HPP_INCLUDED
 
+#include <fruitlib/detail/symbol.hpp>
 #include <fruitlib/font/align_h.hpp>
 #include <fruitlib/font/align_v.hpp>
 #include <fruitlib/font/identifier.hpp>
@@ -39,12 +40,15 @@ public:
 	render(
 		sge::renderer::context::ffp &);
 
+	FRUITLIB_DETAIL_SYMBOL
 	sge::font::object &
 	font_object() const;
 
+	FRUITLIB_DETAIL_SYMBOL
 	sge::font::string const &
 	text() const;
 
+	FRUITLIB_DETAIL_SYMBOL
 	void
 	text(
 		sge::font::string const &);
@@ -52,6 +56,7 @@ public:
 	sge::font::rect const &
 	bounding_box() const;
 
+	FRUITLIB_DETAIL_SYMBOL
 	void
 	bounding_box(
 		sge::font::rect const &);
@@ -80,6 +85,7 @@ public:
 	sge::image::color::any::object const &
 	color() const;
 
+	FRUITLIB_DETAIL_SYMBOL
 	void
 	color(
 		sge::image::color::any::object const &);
@@ -87,10 +93,12 @@ public:
 	fruitlib::font::scale const &
 	scale() const;
 
+	FRUITLIB_DETAIL_SYMBOL
 	void
 	scale(
 		fruitlib::font::scale const &);
 
+	FRUITLIB_DETAIL_SYMBOL
 	~object();
 private:
 	fruitlib::font::manager &manager_;

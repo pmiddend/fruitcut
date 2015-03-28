@@ -1,6 +1,7 @@
 #ifndef FRUITLIB_PP_FILTER_BLUR_HPP_INCLUDED
 #define FRUITLIB_PP_FILTER_BLUR_HPP_INCLUDED
 
+#include <fruitlib/detail/symbol.hpp>
 #include <fruitlib/pp/filter/iterations.hpp>
 #include <fruitlib/pp/filter/ivec2_parameter.hpp>
 #include <fruitlib/pp/filter/manager_fwd.hpp>
@@ -34,6 +35,7 @@ class blur
 FCPPT_NONCOPYABLE(
 	blur);
 public:
+	FRUITLIB_DETAIL_SYMBOL
 	blur(
 		fruitlib::pp::filter::manager &,
 		fruitlib::pp::texture::manager &,
@@ -44,6 +46,7 @@ public:
 	apply(
 		fruitlib::pp::texture::counted_instance);
 
+	FRUITLIB_DETAIL_SYMBOL
 	~blur();
 private:
 	FCPPT_MAKE_STRONG_TYPEDEF(

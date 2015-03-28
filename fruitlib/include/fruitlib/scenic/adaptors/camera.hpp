@@ -1,6 +1,7 @@
 #ifndef FRUITLIB_SCENIC_ADAPTORS_CAMERA_HPP_INCLUDED
 #define FRUITLIB_SCENIC_ADAPTORS_CAMERA_HPP_INCLUDED
 
+#include <fruitlib/detail/symbol.hpp>
 #include <fruitlib/scenic/node.hpp>
 #include <fruitlib/scenic/optional_parent.hpp>
 #include <fruitlib/scenic/delta/callback.hpp>
@@ -31,12 +32,14 @@ public:
 	boost::mpl::vector1<scenic::events::update>
 	scene_reactions;
 
+	FRUITLIB_DETAIL_SYMBOL
 	explicit
 	camera(
 		scenic::optional_parent const &parent,
 		sge::camera::is_dynamic &,
 		scenic::delta::callback const &);
 
+	FRUITLIB_DETAIL_SYMBOL
 	~camera();
 
 	void

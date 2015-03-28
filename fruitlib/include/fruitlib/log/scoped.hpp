@@ -1,6 +1,7 @@
 #ifndef FRUITLIB_LOG_SCOPED_HPP_INCLUDED
 #define FRUITLIB_LOG_SCOPED_HPP_INCLUDED
 
+#include <fruitlib/detail/symbol.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/log/context_fwd.hpp>
 #include <fcppt/log/enabled_level_array.hpp>
@@ -23,6 +24,7 @@ public:
 		fcppt::log::location const &,
 		fcppt::log::level const &);
 
+	FRUITLIB_DETAIL_SYMBOL
 	~scoped();
 private:
 	fcppt::log::optional_object object_;

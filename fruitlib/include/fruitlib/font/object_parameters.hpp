@@ -1,6 +1,7 @@
 #ifndef FRUITLIB_FONT_OBJECT_PARAMETERS_HPP_INCLUDED
 #define FRUITLIB_FONT_OBJECT_PARAMETERS_HPP_INCLUDED
 
+#include <fruitlib/detail/symbol.hpp>
 #include <fruitlib/font/align_h.hpp>
 #include <fruitlib/font/align_v.hpp>
 #include <fruitlib/font/identifier.hpp>
@@ -26,6 +27,7 @@ class object_parameters
 FCPPT_NONASSIGNABLE(
 	object_parameters);
 public:
+	FRUITLIB_DETAIL_SYMBOL
 	object_parameters(
 		fruitlib::font::manager &,
 		fruitlib::font::identifier const &,
