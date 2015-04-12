@@ -6,6 +6,7 @@
 #include <fruitapp/highscore/provider/object_base.hpp>
 #include <fcppt/insert_to_fcppt_string.hpp>
 #include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/maybe.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/pre.hpp>
@@ -236,7 +237,7 @@ void
 fruitapp::gui::ce::post_model::rank_received_internal(
 	fruitapp::highscore::provider::object_base const &_provider,
 	fruitapp::gui::ce::table::row_index::value_type const _row_index,
-	fruitapp::highscore::rank const &_rank)
+	fruitapp::highscore::rank const &_opt_rank)
 {
 	row_removed_(
 		_row_index);
@@ -245,13 +246,23 @@ fruitapp::gui::ce::post_model::rank_received_internal(
 	new_row.push_back(
 		_provider.identifier());
 	new_row.push_back(
-		_rank
-		?
-			fcppt::insert_to_fcppt_string(
-				*_rank)
-		:
-			fcppt::string(
-				FCPPT_TEXT("-")));
+		fcppt::maybe(
+			_opt_rank,
+			[]{
+				return
+					fcppt::string(
+						FCPPT_TEXT("-"));
+			},
+			[](
+				unsigned const _rank
+			)
+			{
+				return
+					fcppt::insert_to_fcppt_string(
+						_rank);
+			}
+		)
+	);
 
 	fruitapp::gui::ce::table::row_index::value_type const new_row_index =
 		static_cast<fruitapp::gui::ce::table::row_index::value_type>(

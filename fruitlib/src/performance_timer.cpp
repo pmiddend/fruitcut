@@ -1,4 +1,6 @@
 #include <fruitlib/performance_timer.hpp>
+#include <fcppt/const.hpp>
+#include <fcppt/maybe.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <chrono>
 #include <iostream>
@@ -27,7 +29,23 @@ fruitlib::performance_timer::~performance_timer()
 		std::chrono::duration_cast<std::chrono::milliseconds>(
 			diff).count();
 
-	if(!threshold_ || diff > (*threshold_))
+	if(
+		fcppt::maybe(
+			threshold_,
+			fcppt::const_(
+				true
+			),
+			[
+				diff
+			](
+				clock::duration const _threshold
+			)
+			{
+				return
+					diff > _threshold;
+			}
+		)
+	)
 	{
 		if(callback_)
 			callback_(

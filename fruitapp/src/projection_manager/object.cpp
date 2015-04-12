@@ -11,6 +11,7 @@
 #include <sge/renderer/projection/perspective_af.hpp>
 #include <sge/renderer/target/base.hpp>
 #include <sge/viewport/manager.hpp>
+#include <fcppt/optional_bind_construct.hpp>
 #include <fcppt/cast/size_fun.hpp>
 #include <fcppt/math/deg_to_rad.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
@@ -67,16 +68,23 @@ fruitlib::optional_perspective_projection_information const
 fruitapp::projection_manager::object::perspective_projection_information() const
 {
 	return
-		aspect_
-		?
-			fruitlib::optional_perspective_projection_information(
-				fruitlib::perspective_projection_information(
-					fov_,
-					near_,
-					far_,
-					*aspect_))
-		:
-			fruitlib::optional_perspective_projection_information();
+		fcppt::optional_bind_construct(
+			aspect_,
+			[
+				this
+			](
+				sge::renderer::projection::aspect const _aspect
+			)
+			{
+				return
+					fruitlib::perspective_projection_information(
+						fov_,
+						near_,
+						far_,
+						_aspect
+					);
+			}
+		);
 }
 
 fcppt::signal::auto_connection
@@ -88,9 +96,9 @@ fruitapp::projection_manager::object::projection_change_callback(
 		projection_change_signal_.connect(
 			_projection_change_callback));
 
-	if(_trigger_early.get() && aspect_)
+	if(_trigger_early.get() && aspect_.has_value())
 		projection_change_signal_(
-			*this->perspective_projection_information());
+			this->perspective_projection_information().get_unsafe()); // TODO
 
 	return
 		std::move(
@@ -151,7 +159,7 @@ fruitapp::projection_manager::object::viewport_callback(
 	camera_.update_projection_matrix(
 		sge::camera::projection_matrix(
 			sge::renderer::projection::perspective_af(
-				*aspect_,
+				aspect_.get_unsafe(), // TODO
 				fov_,
 				near_,
 				far_)));
@@ -161,5 +169,5 @@ fruitapp::projection_manager::object::viewport_callback(
 			fov_,
 			near_,
 			far_,
-			*aspect_));
+			aspect_.get_unsafe())); // TODO
 }

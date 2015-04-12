@@ -15,6 +15,7 @@
 #include <sge/renderer/state/ffp/transform/parameters.hpp>
 #include <sge/renderer/state/ffp/transform/scoped.hpp>
 #include <sge/renderer/target/onscreen.hpp>
+#include <fcppt/maybe.hpp>
 #include <fcppt/math/box/object_impl.hpp>
 #include <fcppt/math/matrix/object_impl.hpp>
 
@@ -62,38 +63,50 @@ void
 fruitlib::scenic::adaptors::line_drawer::react(
 	fruitlib::scenic::events::render const &_render_event)
 {
-	if(renderer_)
-	{
-		sge::renderer::state::ffp::transform::object_unique_ptr const world_state(
-			renderer_->create_transform_state(
-				sge::renderer::state::ffp::transform::parameters(
-					sge::renderer::matrix4::identity())));
+	fcppt::maybe(
+		renderer_,
+		[
+			this,
+			&_render_event
+		]{
+			object_.render(
+				_render_event.context());
+		},
+		[
+			this,
+			 &_render_event
+		](
+			sge::renderer::device::ffp &_renderer
+		)
+		{
+			sge::renderer::state::ffp::transform::object_unique_ptr const world_state(
+				_renderer.create_transform_state(
+					sge::renderer::state::ffp::transform::parameters(
+						sge::renderer::matrix4::identity())));
 
-		sge::renderer::state::ffp::transform::scoped const world_transform(
-			_render_event.context(),
-			sge::renderer::state::ffp::transform::mode::world,
-			*world_state);
+			sge::renderer::state::ffp::transform::scoped const world_transform(
+				_render_event.context(),
+				sge::renderer::state::ffp::transform::mode::world,
+				*world_state);
 
-		sge::renderer::state::ffp::transform::object_unique_ptr const projection_state(
-			renderer_->create_transform_state(
-				sge::renderer::state::ffp::transform::parameters(
-					sge::renderer::projection::orthogonal(
-						projection_rect_from_viewport(
-							renderer_->onscreen_target().viewport().get()),
-						sge::renderer::projection::near(
-							0.f),
-						sge::renderer::projection::far(
-							10.f)))));
+			sge::renderer::state::ffp::transform::object_unique_ptr const projection_state(
+				_renderer.create_transform_state(
+					sge::renderer::state::ffp::transform::parameters(
+						sge::renderer::projection::orthogonal(
+							projection_rect_from_viewport(
+								_renderer.onscreen_target().viewport().get()),
+							sge::renderer::projection::near(
+								0.f),
+							sge::renderer::projection::far(
+								10.f)))));
 
-		sge::renderer::state::ffp::transform::scoped const projection_transform(
-			_render_event.context(),
-			sge::renderer::state::ffp::transform::mode::projection,
-			*projection_state);
+			sge::renderer::state::ffp::transform::scoped const projection_transform(
+				_render_event.context(),
+				sge::renderer::state::ffp::transform::mode::projection,
+				*projection_state);
 
-		object_.render(
-			_render_event.context());
-	}
-	else
-		object_.render(
-			_render_event.context());
+			object_.render(
+				_render_event.context());
+		}
+	);
 }

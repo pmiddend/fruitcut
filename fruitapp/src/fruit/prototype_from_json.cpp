@@ -12,7 +12,7 @@
 #include <sge/model/md3/object.hpp>
 #include <sge/parse/json/array.hpp>
 #include <sge/parse/json/find_and_convert_member.hpp>
-#include <sge/parse/json/get.hpp>
+#include <sge/parse/json/get_exn.hpp>
 #include <sge/parse/json/object.hpp>
 #include <sge/parse/json/value.hpp>
 #include <sge/renderer/resource_flags.hpp>
@@ -33,7 +33,7 @@ json_to_tag(
 	sge::parse::json::value const &v)
 {
 	return
-		sge::parse::json::get<fcppt::string>(
+		sge::parse::json::get_exn<fcppt::string>(
 			v);
 }
 }
@@ -45,7 +45,7 @@ fruitapp::fruit::prototype_from_json(
 	fruitlib::texture_manager &_texture_manager)
 {
 	sge::parse::json::object const &o =
-		sge::parse::json::get<sge::parse::json::object>(
+		sge::parse::json::get_exn<sge::parse::json::object>(
 			v);
 
 	return

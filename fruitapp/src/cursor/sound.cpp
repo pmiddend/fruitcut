@@ -10,6 +10,8 @@
 #include <sge/input/cursor/position_unit.hpp>
 #include <sge/timer/basic.hpp>
 #include <sge/timer/reset_when_expired.hpp>
+#include <fcppt/maybe_void.hpp>
+#include <fcppt/maybe_void_multi.hpp>
 #include <fcppt/cast/int_to_float_fun.hpp>
 #include <fcppt/math/box/object_impl.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
@@ -65,36 +67,47 @@ fruitapp::cursor::sound::react(
 			update_timer_))
 		return;
 
-	if(!viewport_manager_.current_viewport())
-		return;
+	fcppt::maybe_void(
+		viewport_manager_.current_viewport(),
+		[
+			this
+		](
+			sge::renderer::target::viewport const &_viewport
+		)
+		{
+			typedef fcppt::math::vector::static_<float,2> vec2;
 
-	typedef fcppt::math::vector::static_<float,2> vec2;
+			sge::input::cursor::optional_position const saved_last_pos(
+				last_pos_);
 
-	sge::input::cursor::optional_position const saved_last_pos(
-		last_pos_);
+			last_pos_ = cursor_.position();
 
-	last_pos_ = cursor_.position();
+			fcppt::maybe_void_multi(
+				[
+					this,
+					&_viewport
+				](
+					sge::input::cursor::position const _last_pos,
+					sge::input::cursor::position const _saved_last_pos
+				)
+				{
+					float distance = fcppt::math::vector::length(
+						fcppt::math::vector::structure_cast<vec2, fcppt::cast::int_to_float_fun>(_last_pos) -
+						fcppt::math::vector::structure_cast<vec2, fcppt::cast::int_to_float_fun>(_saved_last_pos));
 
-	if(
-		!last_pos_
-		|| !saved_last_pos)
-		return;
+					float threshold = 0.3f * static_cast<float>(
+						_viewport.get().size().w());
 
-	sge::input::cursor::position const new_pos =
-			*last_pos_;
-
-	float distance = fcppt::math::vector::length(
-		fcppt::math::vector::structure_cast<vec2, fcppt::cast::int_to_float_fun>(new_pos) -
-		fcppt::math::vector::structure_cast<vec2, fcppt::cast::int_to_float_fun>(*saved_last_pos));
-
-	float threshold = 0.3f * static_cast<float>(
-		viewport_manager_.current_viewport()->get().size().w());
-
-	if (distance > threshold)
-	{
-		sound_controller_.play(
-			fruitlib::resource_tree::path(FCPPT_TEXT("swing")));
-		cooldown_timer_.reset();
-	}
-
+					if (distance > threshold)
+					{
+						sound_controller_.play(
+							fruitlib::resource_tree::path(FCPPT_TEXT("swing")));
+						cooldown_timer_.reset();
+					}
+				},
+				last_pos_,
+				saved_last_pos
+			);
+		}
+	);
 }

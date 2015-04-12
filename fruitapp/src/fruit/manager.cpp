@@ -98,12 +98,12 @@ fruitapp::fruit::manager::cut(
 	fruitapp::fruit::ban_duration const &_ban_duration,
 	sge::renderer::target::base const &_target)
 {
-	if(!_intersection || _current_fruit.locked())
+	if(!_intersection.has_value() || _current_fruit.locked())
 		return;
 
 	fruitapp::fruit::cut_geometry const cut_geometry(
 		fruitapp::fruit::calculate_cut_geometry(
-			*_intersection,
+			_intersection.get_unsafe(), // TODO
 			_target,
 			camera_,
 			_current_fruit));

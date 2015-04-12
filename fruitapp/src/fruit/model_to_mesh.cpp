@@ -9,6 +9,7 @@
 #include <sge/renderer/vector2.hpp>
 #include <sge/renderer/vector3.hpp>
 #include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/assert/optional_error.hpp>
 #include <fcppt/assert/pre_message.hpp>
 #include <fcppt/cast/size_fun.hpp>
 #include <fcppt/math/vector/object_impl.hpp>
@@ -38,23 +39,15 @@ fruitapp::fruit::model_to_mesh(
 		model.vertices(
 			part_name);
 
-	FCPPT_ASSERT_PRE_MESSAGE(
-		model.texcoords(
-			part_name),
-		FCPPT_TEXT("The model has no texture coordinates!"));
-
 	sge::model::md3::texcoord_sequence const texcoords =
-		*model.texcoords(
-			part_name);
-
-	FCPPT_ASSERT_PRE_MESSAGE(
-		model.normals(
-			part_name),
-		FCPPT_TEXT("The model has no normals!"));
+		FCPPT_ASSERT_OPTIONAL_ERROR(
+			model.texcoords(
+				part_name));
 
 	sge::model::md3::normal_sequence const normals =
-		*model.normals(
-			part_name);
+		FCPPT_ASSERT_OPTIONAL_ERROR(
+			model.normals(
+				part_name));
 
 	sge::model::md3::index_sequence const indices =
 		model.indices(

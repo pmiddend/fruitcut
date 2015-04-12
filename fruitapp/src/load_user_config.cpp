@@ -6,11 +6,12 @@
 #include <sge/parse/json/array.hpp>
 #include <sge/parse/json/object.hpp>
 #include <sge/parse/json/parse_string_exn.hpp>
+#include <fcppt/maybe.hpp>
 #include <fcppt/optional_string.hpp>
 #include <fcppt/text.hpp>
 
 
-sge::parse::json::object const
+sge::parse::json::object
 fruitapp::load_user_config()
 {
 	fcppt::optional_string const optional_json_string =
@@ -21,10 +22,20 @@ fruitapp::load_user_config()
 			FCPPT_TEXT("config.json"));
 
 	return
-		optional_json_string
-		?
-			sge::parse::json::parse_string_exn(
-				*optional_json_string).object()
-		:
-			sge::parse::json::object();
+		fcppt::maybe(
+			optional_json_string,
+			[]{
+				return
+					sge::parse::json::object();
+			},
+			[](
+				fcppt::string const &_json_string
+			)
+			{
+				return
+					sge::parse::json::parse_string_exn(
+						_json_string
+					).object();
+			}
+		);
 }

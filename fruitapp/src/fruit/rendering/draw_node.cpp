@@ -41,7 +41,7 @@ fruitapp::fruit::rendering::draw_node::draw_node(
 		:
 			fruitapp::fruit::rendering::base_unique_ptr(
 				fcppt::make_unique_ptr<fruitapp::fruit::rendering::cg>(
-					*_shader_context,
+					_shader_context.get_unsafe(), // TODO
 					_fruit_manager,
 					_camera,
 					_light_manager)))

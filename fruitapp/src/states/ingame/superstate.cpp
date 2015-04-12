@@ -31,6 +31,7 @@
 #include <fcppt/make_ref.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/maybe.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/cast/size_fun.hpp>
 #include <fcppt/math/box/object_impl.hpp>
@@ -108,19 +109,31 @@ fruitapp::states::ingame::superstate::superstate(
 		this->context<fruitapp::machine>().camera(),
 		this->context<fruitapp::machine>().light_manager()),
 	fruit_shadow_render_node_(
-		context<fruitapp::machine>().shadow_map()
-		?
-			fcppt::make_unique_ptr<fruitapp::fruit::rendering::shadow_node>(
-				fruitlib::scenic::optional_parent(
-					fruitlib::scenic::parent(
-						*context<fruitapp::machine>().shadow_map(),
-						fruitlib::scenic::depth(
-							0))),
-				*context<fruitapp::machine>().shader_context(),
-				fruit_manager_,
-				context<fruitapp::machine>().shadow_map()->mvp())
-		:
-			std::unique_ptr<fruitapp::fruit::rendering::shadow_node>()),
+		fcppt::maybe(
+			context<fruitapp::machine>().shadow_map(),
+			[]{
+				return
+					std::unique_ptr<fruitapp::fruit::rendering::shadow_node>();
+			},
+			[
+				this
+			](
+				fruitapp::shadow_map::object &_shadow_map
+			)
+			{
+				return
+					fcppt::make_unique_ptr<fruitapp::fruit::rendering::shadow_node>(
+						fruitlib::scenic::optional_parent(
+							fruitlib::scenic::parent(
+								_shadow_map,
+								fruitlib::scenic::depth(
+									0))),
+						context<fruitapp::machine>().shader_context().get_unsafe(), // TODO
+						fruit_manager_,
+						_shadow_map.mvp());
+			}
+		)
+	),
 	fruit_spawner_(
 		fruitlib::scenic::optional_parent(
 			fruitlib::scenic::parent(

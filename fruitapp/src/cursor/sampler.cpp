@@ -7,6 +7,7 @@
 #include <sge/renderer/target/base.hpp>
 #include <sge/timer/parameters.hpp>
 #include <sge/timer/reset_when_expired.hpp>
+#include <fcppt/maybe_void.hpp>
 #include <fcppt/assert/pre.hpp>
 #include <fcppt/math/box/object_impl.hpp>
 #include <fcppt/math/dim/object_impl.hpp>
@@ -90,15 +91,21 @@ fruitapp::cursor::sampler::react(
 			update_timer_))
 		return;
 
-	if(
-		!cursor_.position())
-		return;
+	fcppt::maybe_void(
+		cursor_.position(),
+		[
+			this
+		](
+			sge::input::cursor::position const _position
+		)
+		{
+			positions_.push_back(
+				transform_position(
+					_position,
+					target_.viewport().get()));
 
-	positions_.push_back(
-		transform_position(
-			*cursor_.position(),
-			target_.viewport().get()));
-
-	if(positions_.size() > sample_count_.get())
-		positions_.pop_front();
+			if(positions_.size() > sample_count_.get())
+				positions_.pop_front();
+		}
+	);
 }

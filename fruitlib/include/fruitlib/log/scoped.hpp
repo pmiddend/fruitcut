@@ -27,8 +27,8 @@ public:
 	FRUITLIB_DETAIL_SYMBOL
 	~scoped();
 private:
-	fcppt::log::optional_object object_;
-	fcppt::log::enabled_level_array old_levels_;
+	fcppt::log::object &object_;
+	fcppt::log::enabled_level_array const old_levels_;
 };
 }
 }

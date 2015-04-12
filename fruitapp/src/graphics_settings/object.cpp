@@ -2,7 +2,7 @@
 #include <fruitapp/media_path.hpp>
 #include <fruitapp/graphics_settings/object.hpp>
 #include <sge/parse/json/find_member_exn.hpp>
-#include <sge/parse/json/get.hpp>
+#include <sge/parse/json/get_exn.hpp>
 #include <sge/parse/json/object.hpp>
 #include <sge/parse/json/parse_file_exn.hpp>
 #include <fcppt/string.hpp>
@@ -42,7 +42,7 @@ create_current(
 				preset_name);
 
 	return
-		sge::parse::json::get<sge::parse::json::object>(
+		sge::parse::json::get_exn<sge::parse::json::object>(
 			preset_it->second);
 }
 }

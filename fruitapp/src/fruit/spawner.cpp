@@ -144,7 +144,7 @@ void
 fruitapp::fruit::spawner::react(
 	fruitlib::scenic::events::update const &)
 {
-	if(!perspective_projection_information_)
+	if(!perspective_projection_information_.has_value())
 		return;
 
 	if(!timer_.active() || !timer_.expired())
@@ -162,7 +162,7 @@ fruitapp::fruit::spawner::react(
 			sge::camera::matrix_conversion::world_projection(
 				camera_.coordinate_system(),
 				camera_.projection_matrix()),
-			*perspective_projection_information_));
+			perspective_projection_information_.get_unsafe())); // TODO
 
 	fruitapp::fruit::prototype const &chosen_prototype =
 		*random_prototype_.value();

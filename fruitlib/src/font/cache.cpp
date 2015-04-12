@@ -6,7 +6,7 @@
 #include <sge/image2d/system.hpp>
 #include <sge/parse/json/find_and_convert_member.hpp>
 #include <sge/parse/json/find_member_exn.hpp>
-#include <sge/parse/json/get.hpp>
+#include <sge/parse/json/get_exn.hpp>
 #include <sge/parse/json/member_map.hpp>
 #include <sge/parse/json/object.hpp>
 #include <sge/parse/json/path.hpp>
@@ -52,7 +52,7 @@ fruitlib::font::cache::cache(
 			current_font_raw->first);
 
 		sge::parse::json::object const &current_font =
-			sge::parse::json::get<sge::parse::json::object>(
+			sge::parse::json::get_exn<sge::parse::json::object>(
 				current_font_raw->second);
 
 		fcppt::string const name =

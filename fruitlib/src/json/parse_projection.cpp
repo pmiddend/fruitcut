@@ -4,6 +4,7 @@
 #include <sge/parse/json/object_fwd.hpp>
 #include <sge/parse/json/path.hpp>
 #include <sge/renderer/scalar.hpp>
+#include <fcppt/from_optional.hpp>
 #include <fcppt/optional.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
@@ -32,11 +33,18 @@ fruitlib::json::parse_projection(
 					o,
 					sge::parse::json::path(FCPPT_TEXT("far")))),
 			sge::renderer::projection::aspect(
-				aspect
-				?
-					*aspect
-				:
-					sge::parse::json::find_and_convert_member<sge::renderer::scalar>(
-						o,
-						sge::parse::json::path(FCPPT_TEXT("aspect")))));
+				fcppt::from_optional(
+					aspect,
+					[
+						&o
+					]{
+						return
+							sge::parse::json::find_and_convert_member<sge::renderer::scalar>(
+								o,
+								sge::parse::json::path(FCPPT_TEXT("aspect"))
+							);
+					}
+				)
+			)
+		);
 }

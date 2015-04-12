@@ -1,7 +1,7 @@
 #include <fruitlib/scenic/base.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <iostream>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/const.hpp>
+#include <fcppt/maybe.hpp>
+#include <fcppt/maybe_void.hpp>
 
 
 fruitlib::scenic::base::child_sequence const &
@@ -42,19 +42,37 @@ fruitlib::scenic::base::~base()
 }
 
 fruitlib::scenic::base::base(
-	scenic::optional_parent const &_parent)
+	scenic::optional_parent const &_opt_parent)
 :
 	children_(),
 	depth_(
-		_parent
-		?
-			_parent->depth()
-		:
-			0)
+		fcppt::maybe(
+			_opt_parent,
+			fcppt::const_(
+				0l
+			),
+			[](
+				scenic::parent const &_parent
+			)
+			{
+				return
+					_parent.depth();
+			}
+		)
+	)
 {
-	if(_parent)
-		_parent->object().add_child(
-			*this);
+	fcppt::maybe_void(
+		_opt_parent,
+		[
+			this
+		](
+			scenic::parent const &_parent
+		){
+			_parent.object().add_child(
+				*this
+			);
+		}
+	);
 }
 
 void

@@ -7,7 +7,7 @@
 #include <sge/parse/json/array.hpp>
 #include <sge/parse/json/convert_from.hpp>
 #include <sge/parse/json/float_type.hpp>
-#include <sge/parse/json/get.hpp>
+#include <sge/parse/json/get_exn.hpp>
 #include <sge/parse/json/object.hpp>
 #include <sge/parse/json/value.hpp>
 #include <fcppt/text.hpp>
@@ -23,7 +23,7 @@ fruitlib::json::parse_rgba8_color(
 	try
 	{
 		sge::parse::json::array const &a =
-			sge::parse::json::get<sge::parse::json::array const>(
+			sge::parse::json::get_exn<sge::parse::json::array const>(
 				v);
 
 		try

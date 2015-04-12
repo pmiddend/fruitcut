@@ -5,7 +5,7 @@
 
 namespace fruitapp
 {
-sge::parse::json::object const
+sge::parse::json::object
 load_user_config();
 }
 

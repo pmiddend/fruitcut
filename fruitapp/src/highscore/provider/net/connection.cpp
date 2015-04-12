@@ -14,6 +14,7 @@
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/insert_to_fcppt_string.hpp>
 #include <fcppt/insert_to_std_string.hpp>
+#include <fcppt/maybe.hpp>
 #include <fcppt/optional.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/to_std_string.hpp>
@@ -328,40 +329,49 @@ fruitapp::highscore::provider::net::connection::handle_read_size(
 		return;
 	}
 
-	fcppt::optional<std::string::size_type> const content_size =
+	fcppt::maybe(
 		parse_content_size(
 			sge::charconv::utf8_string_to_fcppt(
-				content_));
-
-	if(!content_size)
-	{
-		error_received_(
-			FCPPT_TEXT("Invalid content size: \"")+
-			sge::charconv::utf8_string_to_fcppt(
-				content_)+
-			FCPPT_TEXT("\""));
-		return;
-	}
-
-	message_received_(
-		FCPPT_TEXT("The server sent a projected size of ")+
-		fcppt::insert_to_fcppt_string(
-			*content_size)+
-		FCPPT_TEXT(" bytes, requesting those bytes..."));
-
-	content_.resize(
-		*content_size);
-
-	boost::asio::async_read(
-		socket_,
-		boost::asio::buffer(
-			&content_[0],
-			content_.size()),
-		std::bind(
-			&connection::handle_read_content,
+				content_
+			)
+		),
+		[
+			this
+		]{
+			error_received_(
+				FCPPT_TEXT("Invalid content size: \"")+
+				sge::charconv::utf8_string_to_fcppt(
+					content_)+
+				FCPPT_TEXT("\""));
+		},
+		[
 			this,
-			std::placeholders::_1,
-			continue_here));
+			&continue_here
+		](
+			std::string::size_type const _content_size
+		)
+		{
+			message_received_(
+				FCPPT_TEXT("The server sent a projected size of ")+
+				fcppt::insert_to_fcppt_string(
+					_content_size)+
+				FCPPT_TEXT(" bytes, requesting those bytes..."));
+
+			content_.resize(
+				_content_size);
+
+			boost::asio::async_read(
+				socket_,
+				boost::asio::buffer(
+					&content_[0],
+					content_.size()),
+				std::bind(
+					&connection::handle_read_content,
+					this,
+					std::placeholders::_1,
+					continue_here));
+		}
+	);
 }
 
 void
@@ -420,19 +430,30 @@ fruitapp::highscore::provider::net::connection::handle_read_content(
 			result.object().members,
 			FCPPT_TEXT("error")));
 
-	if(json_error)
-	{
-		error_received_(
-			FCPPT_TEXT("The server signaled an error: ")+
-			(*json_error));
-		return;
-	}
+	fcppt::maybe(
+		json_error,
+		[
+			this,
+			&result,
+			&continue_here
+		]{
+			message_received_(
+				FCPPT_TEXT("Done."));
 
-	message_received_(
-		FCPPT_TEXT("Done."));
-
-	continue_here(
-		result.object());
+			continue_here(
+				result.object());
+		},
+		[
+			this
+		](
+			fcppt::string const &_json_error
+		)
+		{
+			error_received_(
+				FCPPT_TEXT("The server signaled an error: ")+
+				_json_error);
+		}
+	);
 }
 
 void

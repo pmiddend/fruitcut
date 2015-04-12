@@ -29,6 +29,7 @@
 #include <sge/timer/reset_when_expired.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/maybe_void.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/cast/size_fun.hpp>
 #include <fcppt/math/dim/object_impl.hpp>
@@ -134,60 +135,67 @@ fruitapp::cursor::sword_trail::react(
 	if (!sge::timer::reset_when_expired(update_timer_))
 		return;
 
-	sprite_object::unit const epsilon =
-		0.0001f;
+	fcppt::maybe_void(
+		cursor_.position(),
+		[
+			this
+		](
+			sge::input::cursor::position const _position
+		)
+		{
+			sprite_object::vector const new_vector =
+				fcppt::math::vector::structure_cast<sprite_object::vector, fcppt::cast::size_fun>(
+					transform_position(
+						_position,
+						target_.viewport().get()));
 
-	if(!cursor_.position())
-		return;
+			sprite_object::unit const epsilon =
+				0.0001f;
 
-	sprite_object::vector const new_vector =
-		fcppt::math::vector::structure_cast<sprite_object::vector, fcppt::cast::size_fun>(
-			transform_position(
-				*cursor_.position(),
-				target_.viewport().get()));
+			if(!positions_.empty() && fcppt::math::vector::length(new_vector - positions_.back()) < epsilon)
+				return;
 
-	if(!positions_.empty() && fcppt::math::vector::length(new_vector - positions_.back()) < epsilon)
-		return;
+			positions_.push_back(
+				new_vector);
 
-	positions_.push_back(
-		new_vector);
+			if(positions_.size() == 1u)
+				return;
 
-	if(positions_.size() == 1u)
-		return;
+			sprite_object::vector const
+				diff =
+					(*boost::prior(positions_.end())) - (*boost::prior(positions_.end(),2)),
+				middle =
+					((*boost::prior(positions_.end())) + (*boost::prior(positions_.end(),2)))
+						/ static_cast<sprite_object::unit>(2);
 
-	sprite_object::vector const
-		diff =
-			(*boost::prior(positions_.end())) - (*boost::prior(positions_.end(),2)),
-		middle =
-			((*boost::prior(positions_.end())) + (*boost::prior(positions_.end(),2)))
-				/ static_cast<sprite_object::unit>(2);
+			sprite_object::unit const angle =
+				fcppt::math::vector::atan2(
+					diff);
 
-	sprite_object::unit const angle =
-		fcppt::math::vector::atan2(
-			diff);
+			sprites_.push_back(
+				sprite_object(
+					sprite_parameters()
+						.center(
+							middle)
+						.size(
+							sprite_object::dim(
+								fcppt::math::vector::length(
+									diff),
+								max_width_))
+						.texture(
+							sprite_object::texture_type(
+								*texture_))
+						.rotation(
+							angle)
+						));
 
-	sprites_.push_back(
-		sprite_object(
-			sprite_parameters()
-				.center(
-					middle)
-				.size(
-					sprite_object::dim(
-						fcppt::math::vector::length(
-							diff),
-						max_width_))
-				.texture(
-					sprite_object::texture_type(
-						*texture_))
-				.rotation(
-					angle)
-				));
-
-	timers_.push_back(
-		fcppt::make_shared_ptr<fruitapp::ingame_timer>(
-			fruitapp::ingame_timer::parameters(
-				clock_,
-				element_lifetime_)));
+			timers_.push_back(
+				fcppt::make_shared_ptr<fruitapp::ingame_timer>(
+					fruitapp::ingame_timer::parameters(
+						clock_,
+						element_lifetime_)));
+		}
+	);
 }
 
 void

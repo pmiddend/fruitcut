@@ -163,7 +163,7 @@ cut_triangle_at_plane(
 				epsilon);
 
 	// I have no clue when this is supposed to happen, but if it does, reject it!
-	if(!s_1 || !s_2)
+	if(!s_1.has_value() || !s_2.has_value()) // TODO
 		return result;
 
 	typedef
@@ -190,21 +190,21 @@ cut_triangle_at_plane(
 			v,
 			vprev,
 			fcppt::math::vector::length(
-				(*s_1)-points[vprev])/
+				s_1.get_unsafe()-points[vprev])/
 			fcppt::math::vector::length(
 				points[vprev]-points[v])),
 		s_2_pair(
 			v,
 			vnext,
 			fcppt::math::vector::length(
-				(*s_2)-points[vnext])/
+				s_2.get_unsafe()-points[vnext])/
 			fcppt::math::vector::length(
 				points[vnext]-points[v]));
 
 	result.push_back(
-		*s_1);
+		s_1.get_unsafe());
 	result.push_back(
-		*s_2);
+		s_2.get_unsafe());
 
 	if (culled_vertices == static_cast<size_type>(2))
 	{

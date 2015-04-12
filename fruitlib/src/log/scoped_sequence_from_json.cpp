@@ -4,7 +4,7 @@
 #include <fruitlib/log/string_to_location.hpp>
 #include <sge/parse/json/array.hpp>
 #include <sge/parse/json/element_vector.hpp>
-#include <sge/parse/json/get.hpp>
+#include <sge/parse/json/get_exn.hpp>
 #include <sge/parse/json/object.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/string.hpp>
@@ -32,7 +32,7 @@ fruitlib::log::scoped_sequence_from_json(
 			++r)
 		{
 			sge::parse::json::array const &current_pair =
-				sge::parse::json::get<sge::parse::json::array>(
+				sge::parse::json::get_exn<sge::parse::json::array>(
 					*r);
 
 			if(current_pair.elements.size() != 2)
@@ -43,11 +43,11 @@ fruitlib::log::scoped_sequence_from_json(
 				fcppt::make_unique_ptr<scoped>(
 					context,
 					string_to_location(
-						FCPPT_TEXT("sge/")+sge::parse::json::get<fcppt::string>(
+						FCPPT_TEXT("sge/")+sge::parse::json::get_exn<fcppt::string>(
 							current_pair.elements[0]),
 						FCPPT_TEXT('/')),
 					fcppt::log::level_from_string(
-						sge::parse::json::get<fcppt::string>(
+						sge::parse::json::get_exn<fcppt::string>(
 							current_pair.elements[1]))));
 		}
 	}

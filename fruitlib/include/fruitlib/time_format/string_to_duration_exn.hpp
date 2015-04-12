@@ -4,6 +4,7 @@
 #include <fruitlib/exception.hpp>
 #include <fruitlib/time_format/string_to_duration.hpp>
 #include <fcppt/optional.hpp>
+#include <fcppt/optional_to_exception.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <string>
@@ -24,14 +25,24 @@ TargetDuration const
 string_to_duration_exn(
 	std::basic_string<Char,Traits> const &input_string)
 {
-	fcppt::optional<TargetDuration> result =
-		time_format::string_to_duration<TargetDuration>(
-			input_string);
-
-	if(!result)
-		throw fruitlib::exception(FCPPT_TEXT("\"")+input_string+FCPPT_TEXT("\" is not a valid time string"));
-
-	return *result;
+	return
+		fcppt::optional_to_exception(
+			time_format::string_to_duration<TargetDuration>(
+				input_string
+			),
+			[
+				&input_string
+			]{
+				return
+					fruitlib::exception(
+						FCPPT_TEXT("\"")
+						+
+						input_string
+						+
+						FCPPT_TEXT("\" is not a valid time string")
+					);
+			}
+		);
 }
 }
 }

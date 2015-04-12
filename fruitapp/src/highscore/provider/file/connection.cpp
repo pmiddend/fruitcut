@@ -3,6 +3,7 @@
 #include <fruitapp/highscore/provider/file/connection.hpp>
 #include <sge/charconv/fcppt_string_to_utf8_file.hpp>
 #include <sge/charconv/utf8_file_to_fcppt_string.hpp>
+#include <sge/parse/make_error_string.hpp>
 #include <sge/parse/result.hpp>
 #include <sge/parse/result_code.hpp>
 #include <sge/parse/json/array.hpp>
@@ -60,10 +61,10 @@ fruitapp::highscore::provider::file::connection::post_rank(
 
 	// This branch is followed if we were able to read from the file. If
 	// the file doesn't exist, we don't follow this branch.
-	if(converted_file)
+	if(converted_file.has_value())
 	{
 		fcppt::string::const_iterator current_position =
-			converted_file->begin();
+			converted_file.get_unsafe().begin(); // TODO
 
 		sge::parse::json::start result;
 
@@ -73,7 +74,7 @@ fruitapp::highscore::provider::file::connection::post_rank(
 		sge::parse::result const ret(
 			sge::parse::json::parse_range(
 				current_position,
-				converted_file->end(),
+				converted_file.get_unsafe().end(), // TODO
 				result));
 
 		if(
@@ -148,7 +149,10 @@ fruitapp::highscore::provider::file::connection::retrieve_list()
 				fcppt::filesystem::path_to_string(
 					path_)+
 				FCPPT_TEXT("\": ")+
-				((*parse_result.error_string()).get()));
+				sge::parse::make_error_string(
+					parse_result
+				).get()
+			);
 		else
 			error_received_(
 				FCPPT_TEXT("Couldn't parse file \"")+

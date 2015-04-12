@@ -5,6 +5,7 @@
 #include <sge/shader/context.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/assert/optional_error.hpp>
 #include <fcppt/assert/pre.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <functional>
@@ -67,8 +68,6 @@ fruitapp::postprocessing::subsystems::paused_unique_ptr
 fruitapp::postprocessing::cg::system::create_paused_subsystem(
 	fruitlib::scenic::optional_parent const &_parent)
 {
-	FCPPT_ASSERT_PRE(
-		main_system_);
 
 	FCPPT_ASSERT_PRE(
 		!pause_active_);
@@ -76,7 +75,9 @@ fruitapp::postprocessing::cg::system::create_paused_subsystem(
 	pause_active_ =
 		true;
 
-	main_system_->toggle_active();
+	FCPPT_ASSERT_OPTIONAL_ERROR(
+		main_system_
+	).toggle_active();
 
 	return
 		fruitapp::postprocessing::subsystems::paused_unique_ptr(
@@ -106,21 +107,19 @@ fruitapp::postprocessing::cg::system::main_destroyed()
 void
 fruitapp::postprocessing::cg::system::paused_destroyed()
 {
-	FCPPT_ASSERT_PRE(
-		main_system_);
-
 	pause_active_ =
 		false;
 
-	main_system_->toggle_active();
+	FCPPT_ASSERT_OPTIONAL_ERROR(
+		main_system_
+	).toggle_active();
 }
 
 fruitlib::pp::texture::counted_instance const
 fruitapp::postprocessing::cg::system::main_result_texture()
 {
-	FCPPT_ASSERT_PRE(
-		main_system_);
-
 	return
-		main_system_->result_texture();
+		FCPPT_ASSERT_OPTIONAL_ERROR(
+			main_system_
+		).result_texture();
 }

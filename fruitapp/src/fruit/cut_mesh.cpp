@@ -244,17 +244,17 @@ fruitapp::fruit::cut_mesh(
 			border,
 			epsilon));
 
-	if(!cs)
+	if(!cs.has_value())
 		return
 			std::move(
 				result);
 
 	matrix4 const tcs =
-		*cs;
+		cs.get_unsafe(); // TODO
 
 	matrix4 const coordinate_transformation =
 		fcppt::math::matrix::inverse(
-			*cs);
+			tcs);
 
 	typedef
 	boost::geometry::model::multi_point<vector2>
@@ -352,21 +352,21 @@ fruitapp::fruit::cut_mesh(
 			fruit::triangle(
 				{{
 					vector_narrow<vector3>(
-						(*cs) *
+						tcs *
 						vector4(
 							convex_hull_result[0][0],
 							convex_hull_result[0][1],
 							0,
 							1)) - result->barycenter(),
 					vector_narrow<vector3>(
-						(*cs) *
+						tcs *
 						vector4(
 							convex_hull_result[current_vertex-1][0],
 							convex_hull_result[current_vertex-1][1],
 							0,
 							1)) - result->barycenter(),
 					vector_narrow<vector3>(
-						(*cs) *
+						tcs *
 						vector4(
 							convex_hull_result[current_vertex][0],
 							convex_hull_result[current_vertex][1],

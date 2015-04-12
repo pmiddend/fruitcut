@@ -6,13 +6,15 @@
 #include <sge/camera/matrix_conversion/world_projection.hpp>
 #include <sge/shader/context.hpp>
 #include <sge/shader/scoped_pair.hpp>
+#include <fcppt/maybe.hpp>
+#include <fcppt/optional_bind_construct.hpp>
 #include <fcppt/text.hpp>
 
 
 fruitapp::background::cg::cg(
 	fruitlib::texture_manager &_texture_manager,
 	sge::shader::context &_shader_context,
-	fruitapp::shadow_map::optional_object_ref const &_shadow_map,
+	fruitapp::shadow_map::optional_object_ref const &_opt_shadow_map,
 	fruitapp::background::repetitions const &_repetitions,
 	sge::camera::base const &_camera,
 	fruitapp::projection_manager::object &_projection_manager)
@@ -37,7 +39,7 @@ fruitapp::background::cg::cg(
 		shader_.pixel_program(),
 		sge::shader::parameter::name(
 			"use_shadow_map"),
-		_shadow_map
+		_opt_shadow_map.has_value()
 		?
 			1.0f
 		:
@@ -57,11 +59,21 @@ fruitapp::background::cg::cg(
 		_shader_context.renderer(),
 		sge::shader::parameter::is_projection_matrix(
 			true),
-		_shadow_map
-		?
-			_shadow_map->mvp().get()
-		:
-			sge::renderer::matrix4::identity()),
+		fcppt::maybe(
+			_opt_shadow_map,
+			[]{
+				return
+					sge::renderer::matrix4::identity();
+			},
+			[](
+				fruitapp::shadow_map::object const &_shadow_map
+			)
+			{
+				return
+					_shadow_map.mvp().get();
+			}
+		)
+	),
 	texture_parameter_(
 		shader_.pixel_program(),
 		sge::shader::parameter::name(
@@ -76,12 +88,18 @@ fruitapp::background::cg::cg(
 			"shadow_texture"),
 		shader_,
 		_shader_context.renderer(),
-		_shadow_map
-		?
-			sge::shader::parameter::planar_texture::optional_value(
-				_shadow_map->texture())
-		:
-			sge::shader::parameter::planar_texture::optional_value())
+		fcppt::optional_bind_construct(
+			_opt_shadow_map,
+			[](
+				fruitapp::shadow_map::object &_shadow_map
+			)
+			-> sge::renderer::texture::planar &
+			{
+				return
+					_shadow_map.texture();
+			}
+		)
+	)
 {
 }
 

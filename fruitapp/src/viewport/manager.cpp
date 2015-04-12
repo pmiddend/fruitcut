@@ -1,5 +1,6 @@
 #include <fruitapp/viewport/manager.hpp>
 #include <sge/viewport/manager.hpp>
+#include <fcppt/maybe_void.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <functional>
 #include <utility>
@@ -39,9 +40,20 @@ fruitapp::viewport::manager::change_callback(
 		change_signal_.connect(
 			_change_callback));
 
-	if(_trigger_early.get() && current_viewport_)
-		_change_callback(
-			*current_viewport_);
+	fcppt::maybe_void(
+		current_viewport_,
+		[
+			&_trigger_early,
+			&_change_callback
+		](
+			sge::renderer::target::viewport const &_viewport
+		)
+		{
+			if(_trigger_early.get())
+				_change_callback(
+					_viewport);
+		}
+	);
 
 	return
 		std::move(
@@ -64,8 +76,9 @@ fruitapp::viewport::manager::internal_change_callback(
 	sge::renderer::target::viewport const &_viewport)
 {
 	current_viewport_ =
-		_viewport;
+		fruitapp::viewport::optional(
+			_viewport);
 
 	change_signal_(
-		*current_viewport_);
+		_viewport);
 }

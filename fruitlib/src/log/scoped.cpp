@@ -1,5 +1,6 @@
 #include <fruitlib/exception.hpp>
 #include <fruitlib/log/scoped.hpp>
+#include <fcppt/optional_to_exception.hpp>
 #include <fcppt/log/activate_levels.hpp>
 #include <fcppt/log/context.hpp>
 #include <fcppt/log/enabled_level_array.hpp>
@@ -17,31 +18,39 @@ fruitlib::log::scoped::scoped(
 	fcppt::log::level const &_new_level)
 :
 	object_(
-		_context.find(
-			_location)),
-	old_levels_()
+		fcppt::optional_to_exception(
+			_context.find(
+				_location
+			),
+			[
+				&_location
+			]{
+				return
+					fruitlib::exception(
+						FCPPT_TEXT("The logger at location ")+
+						_location.string()+
+						FCPPT_TEXT(" was not found")
+					);
+			}
+		)
+	),
+	old_levels_(
+		object_.enabled_levels()
+	)
 {
-	if(!object_)
-		throw fruitlib::exception(
-			FCPPT_TEXT("The logger at location ")+
-			_location.string()+
-			FCPPT_TEXT(" was not found"));
-
-	old_levels_ =
-		object_->enabled_levels();
-
 	fcppt::log::activate_levels(
-		*object_,
+		object_,
 		_new_level);
 }
 
 fruitlib::log::scoped::~scoped()
 {
 	for(
-		fcppt::log::enabled_level_array::const_iterator r =
-			old_levels_.begin();
-		r != old_levels_.end();
-		++r)
-		object_->enable(
-			*r);
+		auto const level
+		:
+		old_levels_
+	)
+		object_.enable(
+			level
+		);
 }

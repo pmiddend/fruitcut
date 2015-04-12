@@ -3,6 +3,7 @@
 
 #include <fcppt/string.hpp>
 #include <fcppt/variant/apply_unary.hpp>
+#include <fcppt/variant/get_exn.hpp>
 #include <fcppt/variant/object.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
@@ -109,28 +110,44 @@ public:
 	leaf_value() const
 	{
 		return
-			value_.template get<leaf_type>();
+			fcppt::variant::get_exn<
+				leaf_type
+			>(
+				value_
+			);
 	}
 
 	leaf_type &
 	leaf_value()
 	{
 		return
-			value_.template get<leaf_type>();
+			fcppt::variant::get_exn<
+				leaf_type
+			>(
+				value_
+			);
 	}
 
 	node_type const &
 	node_value() const
 	{
 		return
-			value_.template get<node_type>();
+			fcppt::variant::get_exn<
+				node_type
+			>(
+				value_
+			);
 	}
 
 	node_type &
 	node_value()
 	{
 		return
-			value_.template get<node_type>();
+			fcppt::variant::get_exn<
+				node_type
+			>(
+				value_
+			);
 	}
 private:
 	fcppt::string name_;
