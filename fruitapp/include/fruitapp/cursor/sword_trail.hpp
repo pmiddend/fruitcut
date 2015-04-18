@@ -15,15 +15,17 @@
 #include <sge/renderer/target/base_fwd.hpp>
 #include <sge/renderer/texture/planar_shared_ptr.hpp>
 #include <sge/sprite/object_decl.hpp>
-#include <sge/sprite/parameters_fwd.hpp>
 #include <sge/sprite/buffers/single_decl.hpp>
 #include <sge/sprite/buffers/with_declaration_decl.hpp>
 #include <sge/sprite/config/choices.hpp>
 #include <sge/sprite/config/custom_center.hpp>
 #include <sge/sprite/config/float_type.hpp>
 #include <sge/sprite/config/normal_size.hpp>
+#include <sge/sprite/config/pos.hpp>
+#include <sge/sprite/config/pos_option.hpp>
 #include <sge/sprite/config/texture_coordinates.hpp>
 #include <sge/sprite/config/texture_level_count.hpp>
+#include <sge/sprite/config/texture_size_option.hpp>
 #include <sge/sprite/config/type_choices.hpp>
 #include <sge/sprite/config/unit_type.hpp>
 #include <sge/sprite/config/with_rotation.hpp>
@@ -98,7 +100,14 @@ private:
 				float_type
 			>
 		>,
-		sge::sprite::config::normal_size,
+		sge::sprite::config::pos
+		<
+			sge::sprite::config::pos_option::center
+		>,
+		sge::sprite::config::normal_size
+		<
+			sge::sprite::config::texture_size_option::never
+		>,
 		boost::mpl::vector2
 		<
 			sge::sprite::config::with_texture
@@ -134,10 +143,6 @@ private:
 	typedef
 	sge::sprite::object<sprite_choices>
 	sprite_object;
-
-	typedef
-	sge::sprite::parameters<sprite_choices>
-	sprite_parameters;
 
 	typedef
 	boost::circular_buffer<sprite_object>

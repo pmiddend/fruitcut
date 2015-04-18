@@ -10,14 +10,16 @@
 #include <sge/renderer/device/ffp_fwd.hpp>
 #include <sge/renderer/target/viewport.hpp>
 #include <sge/sprite/object_decl.hpp>
-#include <sge/sprite/parameters_fwd.hpp>
 #include <sge/sprite/buffers/single_decl.hpp>
 #include <sge/sprite/buffers/with_declaration_decl.hpp>
 #include <sge/sprite/config/choices.hpp>
 #include <sge/sprite/config/float_type.hpp>
 #include <sge/sprite/config/normal_size.hpp>
+#include <sge/sprite/config/pos.hpp>
+#include <sge/sprite/config/pos_option.hpp>
 #include <sge/sprite/config/texture_coordinates.hpp>
 #include <sge/sprite/config/texture_level_count.hpp>
+#include <sge/sprite/config/texture_size_option.hpp>
 #include <sge/sprite/config/type_choices.hpp>
 #include <sge/sprite/config/unit_type.hpp>
 #include <sge/sprite/config/with_texture.hpp>
@@ -90,7 +92,14 @@ private:
 	sge::sprite::config::choices
 	<
 		sprite_type_choices,
-		sge::sprite::config::normal_size,
+		sge::sprite::config::pos
+		<
+			sge::sprite::config::pos_option::center
+		>,
+		sge::sprite::config::normal_size
+		<
+			sge::sprite::config::texture_size_option::always
+		>,
 		sprite_elements
 	>
 	sprite_choices;
@@ -108,10 +117,6 @@ private:
 	typedef
 	sge::sprite::object<sprite_choices>
 	sprite_object;
-
-	typedef
-	sge::sprite::parameters<sprite_choices>
-	sprite_parameters;
 
 	typedef
 	sge::sprite::state::all_choices

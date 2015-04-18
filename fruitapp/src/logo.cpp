@@ -10,15 +10,13 @@
 #include <sge/renderer/target/base.hpp>
 #include <sge/renderer/texture/create_planar_from_path.hpp>
 #include <sge/renderer/texture/mipmap/off.hpp>
-#include <sge/sprite/center.hpp>
-#include <sge/sprite/default_parameters.hpp>
 #include <sge/sprite/object_impl.hpp>
-#include <sge/sprite/parameters.hpp>
 #include <sge/sprite/buffers/option.hpp>
 #include <sge/sprite/buffers/single_impl.hpp>
 #include <sge/sprite/buffers/with_declaration_impl.hpp>
-#include <sge/sprite/defaults/defaults.hpp>
 #include <sge/sprite/process/one.hpp>
+#include <sge/sprite/roles/center.hpp>
+#include <sge/sprite/roles/texture0.hpp>
 #include <sge/texture/part_raw_ptr.hpp>
 #include <mizuiro/color/operators.hpp>
 #include <fcppt/make_unique_ptr.hpp>
@@ -55,11 +53,13 @@ fruitapp::logo::logo(
 				sge::renderer::texture::mipmap::off(),
 				sge::renderer::resource_flags_field::null()))),
 	sprite_object_(
-		sge::sprite::default_parameters<sprite_choices>()
-			.texture(
-				sprite_object::texture_type(
-					*texture_))
-			.texture_size()),
+		sge::sprite::roles::center{} =
+			sprite_object::vector::null(),
+		sge::sprite::roles::texture0{} =
+			sprite_object::texture_type(
+				*texture_
+			)
+	),
 	viewport_change_connection_(
 		_viewport_manager.change_callback(
 			std::bind(
@@ -93,8 +93,7 @@ fruitapp::logo::viewport_change(
 	sge::renderer::pixel_rect::dim const viewport_size(
 		_viewport.get().size());
 
-	sge::sprite::center(
-		sprite_object_,
+	sprite_object_.center(
 		sprite_object::vector(
 			static_cast<sprite_object::vector::value_type>(
 				viewport_size.w()/2),

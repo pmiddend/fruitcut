@@ -52,7 +52,6 @@
 #include <sge/renderer/pixel_format/object.hpp>
 #include <sge/renderer/target/onscreen.hpp>
 #include <sge/shader/context.hpp>
-#include <sge/sprite/parameters.hpp>
 #include <sge/systems/audio_loader.hpp>
 #include <sge/systems/audio_player_default.hpp>
 #include <sge/systems/cursor_option_field.hpp>

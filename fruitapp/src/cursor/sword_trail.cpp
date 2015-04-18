@@ -16,13 +16,16 @@
 #include <sge/renderer/texture/create_planar_from_path.hpp>
 #include <sge/renderer/texture/mipmap/off.hpp>
 #include <sge/sprite/object_impl.hpp>
-#include <sge/sprite/parameters.hpp>
 #include <sge/sprite/buffers/option.hpp>
 #include <sge/sprite/buffers/single_impl.hpp>
 #include <sge/sprite/buffers/with_declaration_impl.hpp>
 #include <sge/sprite/compare/default.hpp>
 #include <sge/sprite/geometry/make_random_access_range.hpp>
 #include <sge/sprite/process/all.hpp>
+#include <sge/sprite/roles/center.hpp>
+#include <sge/sprite/roles/size.hpp>
+#include <sge/sprite/roles/rotation.hpp>
+#include <sge/sprite/roles/texture0.hpp>
 #include <sge/texture/part_raw_ptr.hpp>
 #include <sge/timer/elapsed_fractional.hpp>
 #include <sge/timer/parameters.hpp>
@@ -174,20 +177,23 @@ fruitapp::cursor::sword_trail::react(
 
 			sprites_.push_back(
 				sprite_object(
-					sprite_parameters()
-						.center(
-							middle)
-						.size(
-							sprite_object::dim(
-								fcppt::math::vector::length(
-									diff),
-								max_width_))
-						.texture(
-							sprite_object::texture_type(
-								*texture_))
-						.rotation(
-							angle)
-						));
+					sge::sprite::roles::center{} =
+						middle,
+					sge::sprite::roles::size{} =
+						sprite_object::dim(
+							fcppt::math::vector::length(
+								diff
+							),
+							max_width_
+						),
+					sge::sprite::roles::texture0{} =
+						sprite_object::texture_type(
+							*texture_
+						),
+					sge::sprite::roles::rotation{} =
+						angle
+				)
+			);
 
 			timers_.push_back(
 				fcppt::make_shared_ptr<fruitapp::ingame_timer>(

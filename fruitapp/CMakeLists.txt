@@ -253,7 +253,6 @@ set(
 	fruitapp/include/fruitapp/point_sprite/connection.hpp
 	fruitapp/include/fruitapp/point_sprite/elements.hpp
 	fruitapp/include/fruitapp/point_sprite/object.hpp
-	fruitapp/include/fruitapp/point_sprite/parameters.hpp
 	fruitapp/include/fruitapp/point_sprite/splatter/acceleration.hpp
 	fruitapp/include/fruitapp/point_sprite/splatter/linear_velocity.hpp
 	fruitapp/include/fruitapp/point_sprite/splatter/object.hpp

@@ -148,7 +148,7 @@ fruitapp::point_sprite::system_node::push_back(
 fruitapp::point_sprite::connection &
 fruitapp::point_sprite::system_node::connection()
 {
-	return collection_.connection();
+	return collection_.connection().get();
 }
 
 sge::texture::const_optional_part_ref const
