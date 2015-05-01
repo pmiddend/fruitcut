@@ -18,7 +18,6 @@
 #include <sge/sprite/buffers/single_decl.hpp>
 #include <sge/sprite/buffers/with_declaration_decl.hpp>
 #include <sge/sprite/config/choices.hpp>
-#include <sge/sprite/config/custom_center.hpp>
 #include <sge/sprite/config/float_type.hpp>
 #include <sge/sprite/config/normal_size.hpp>
 #include <sge/sprite/config/pos.hpp>
@@ -120,12 +119,6 @@ private:
 				sge::sprite::config::texture_ownership::reference
 			>,
 			sge::sprite::config::with_rotation
-			<
-				sge::sprite::config::custom_center
-				<
-					false
-				>
-			>
 		>
 	>
 	sprite_choices;
