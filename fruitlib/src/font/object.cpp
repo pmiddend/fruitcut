@@ -12,6 +12,7 @@
 #include <sge/image/color/any/object.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/assert/unreachable.hpp>
+#include <fcppt/math/dim/comparison.hpp>
 
 
 fruitlib::font::object::object(
