@@ -104,6 +104,11 @@ if(USE_CEGUI)
 	find_package(
 		CEGUI REQUIRED)
 
+	set(
+		sgecegui_USED_TARGET
+		${sgecegui_TARGET}
+	)
+
 	link_directories(
 		"${CEGUI_LIBRARY_DIRS}")
 

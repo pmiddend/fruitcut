@@ -357,8 +357,19 @@ function(
 		${TARGET}
 		PRIVATE
 		${sgeaudio_TARGET}
+		${sgecamera_TARGET}
+		${sgecegui_USED_TARGET}
+		${sgecg_TARGET}
+		${sgefont_TARGET}
+		${sgefontbitmap_TARGET}
+		${sgefontdraw_TARGET}
+		${sgeimagecolor_TARGET}
+		${sgeimage2d_TARGET}
 		${sgeline_drawer_TARGET}
+		${sgeparsejson_TARGET}
 		${sgerenderer_TARGET}
+		${sgeshader_TARGET}
+		${sgetexture_TARGET}
 		${fcppt_core_TARGET}
 		${fcppt_filesystem_TARGET}
 		${fcppt_log_TARGET}
