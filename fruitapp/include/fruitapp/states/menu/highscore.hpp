@@ -13,6 +13,7 @@
 #include <fruitlib/scenic/node.hpp>
 #include <fruitlib/scenic/parent_fwd.hpp>
 #include <fruitlib/scenic/events/update.hpp>
+#include <fcppt/optional_decl.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -61,14 +62,20 @@ public:
 	react(
 		fruitlib::scenic::events::update const &);
 private:
+	typedef
+	fcppt::optional<
+		fcppt::signal::auto_connection
+	>
+	optional_connection;
+
 	fruitapp::highscore::provider_sequence providers_;
 	fruitapp::gui::dialogs::highscore_unique_ptr highscore_;
-	fcppt::signal::auto_connection main_menu_button_connection_;
-	fcppt::signal::auto_connection switch_provider_connection_;
+	optional_connection main_menu_button_connection_;
+	optional_connection switch_provider_connection_;
 	fruitapp::highscore::provider::connection_base_ptr connection_;
-	fcppt::signal::auto_connection message_connection_;
-	fcppt::signal::auto_connection error_connection_;
-	fcppt::signal::auto_connection list_connection_;
+	optional_connection message_connection_;
+	optional_connection error_connection_;
+	optional_connection list_connection_;
 
 	void
 	switch_provider(

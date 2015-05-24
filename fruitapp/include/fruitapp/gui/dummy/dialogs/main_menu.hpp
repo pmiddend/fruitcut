@@ -46,7 +46,9 @@ public:
 	~main_menu();
 private:
 	fcppt::signal::object<void ()> quit_;
+	fcppt::signal::object<void ()> settings_;
 	fcppt::signal::object<void ()> start_;
+	fcppt::signal::object<void ()> highscore_;
 	fcppt::signal::scoped_connection key_connection_;
 
 	void

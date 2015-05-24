@@ -15,6 +15,7 @@
 #include <sge/parse/json/start.hpp>
 #include <sge/systems/instance.hpp>
 #include <awl/main/exit_success.hpp>
+#include <fcppt/optional_impl.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -52,16 +53,18 @@ fruitapp::states::menu::highscore::highscore(
 			providers_);
 
 	main_menu_button_connection_ =
-		highscore_->register_back_callback(
-			FRUITAPP_EVENTS_RETURN_POST_TRANSITION_FUNCTOR(
-				menu::main));
+		optional_connection(
+			highscore_->register_back_callback(
+				FRUITAPP_EVENTS_RETURN_POST_TRANSITION_FUNCTOR(
+					menu::main)));
 
 	switch_provider_connection_ =
-		highscore_->register_switch_provider_callback(
-			std::bind(
-				&fruitapp::states::menu::highscore::switch_provider,
-				this,
-				std::placeholders::_1));
+		optional_connection(
+			highscore_->register_switch_provider_callback(
+				std::bind(
+					&fruitapp::states::menu::highscore::switch_provider,
+					this,
+					std::placeholders::_1)));
 }
 
 FRUITAPP_EVENTS_DEFINE_TRANSITION_REACTION(
@@ -90,25 +93,28 @@ fruitapp::states::menu::highscore::switch_provider(
 	highscore_->clear_log();
 
 	message_connection_ =
-		connection_->message_received(
-			std::bind(
-				&highscore::text_received,
-				this,
-				std::placeholders::_1));
+		optional_connection(
+			connection_->message_received(
+				std::bind(
+					&highscore::text_received,
+					this,
+					std::placeholders::_1)));
 
 	error_connection_ =
-		connection_->error_received(
-			std::bind(
-				&highscore::text_received,
-				this,
-				std::placeholders::_1));
+		optional_connection(
+			connection_->error_received(
+				std::bind(
+					&highscore::text_received,
+					this,
+					std::placeholders::_1)));
 
 	list_connection_ =
-		connection_->list_received(
-			std::bind(
-				&highscore::list_received,
-				this,
-				std::placeholders::_1));
+		optional_connection(
+			connection_->list_received(
+				std::bind(
+					&highscore::list_received,
+					this,
+					std::placeholders::_1)));
 
 	connection_->retrieve_list();
 }

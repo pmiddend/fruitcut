@@ -1,6 +1,7 @@
 #include <fruitapp/gui/dummy/dialogs/main_menu.hpp>
 #include <sge/input/keyboard/device.hpp>
 #include <sge/input/keyboard/key_event.hpp>
+#include <fcppt/optional_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <functional>
 #include <iostream>
@@ -11,7 +12,9 @@ fruitapp::gui::dummy::dialogs::main_menu::main_menu(
 	sge::input::keyboard::device &_keyboard)
 :
 	quit_(),
+	settings_(),
 	start_(),
+	highscore_(),
 	key_connection_(
 		_keyboard.key_callback(
 			std::bind(
@@ -34,10 +37,11 @@ fruitapp::gui::dummy::dialogs::main_menu::register_quit_callback(
 
 fcppt::signal::auto_connection
 fruitapp::gui::dummy::dialogs::main_menu::register_settings_callback(
-	fruitapp::gui::dialogs::main_menu::settings_callback const &)
+	fruitapp::gui::dialogs::main_menu::settings_callback const &_settings_callback)
 {
 	return
-		fcppt::signal::auto_connection();
+		settings_.connect(
+			_settings_callback);
 }
 
 fcppt::signal::auto_connection
@@ -51,10 +55,11 @@ fruitapp::gui::dummy::dialogs::main_menu::register_start_callback(
 
 fcppt::signal::auto_connection
 fruitapp::gui::dummy::dialogs::main_menu::register_highscore_callback(
-	fruitapp::gui::dialogs::main_menu::highscore_callback const &)
+	fruitapp::gui::dialogs::main_menu::highscore_callback const &_highscore_callback)
 {
 	return
-		fcppt::signal::auto_connection();
+		highscore_.connect(
+			_highscore_callback);
 }
 
 fruitapp::gui::dummy::dialogs::main_menu::~main_menu()
