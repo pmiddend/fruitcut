@@ -3,7 +3,6 @@
 #include <fcppt/maybe_void.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <functional>
-#include <utility>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -56,8 +55,7 @@ fruitapp::viewport::manager::change_callback(
 	);
 
 	return
-		std::move(
-			result);
+		result;
 }
 
 sge::renderer::target::base const &

@@ -8,7 +8,6 @@
 #include <fcppt/signal/connection.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <functional>
-#include <utility>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -80,8 +79,7 @@ fruitapp::cursor::manager::create_instances(
 			*cursor);
 
 	return
-		std::move(
-			new_instance);
+		new_instance;
 }
 
 fruitapp::cursor::manager::~manager()

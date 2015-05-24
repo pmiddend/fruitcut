@@ -35,7 +35,6 @@
 #include <algorithm>
 #include <iterator>
 #include <memory>
-#include <utility>
 #include <vector>
 #include <fcppt/config/external_end.hpp>
 
@@ -175,8 +174,7 @@ fruitapp::fruit::cut_mesh(
 	// If there were no triangles, we can return
 	if(result->mesh().triangles().empty())
 		return
-			std::move(
-				result);
+			result;
 
 	// Step 2: Calculate the bounding box and the barycenter (we can do
 	// that in one pass, luckily)
@@ -236,8 +234,7 @@ fruitapp::fruit::cut_mesh(
 	// speak)
 	if(border.size() < static_cast<vector3_sequence::size_type>(3))
 		return
-			std::move(
-				result);
+			result;
 
 	fcppt::optional<matrix4> const cs(
 		make_coordinate_system(
@@ -246,8 +243,7 @@ fruitapp::fruit::cut_mesh(
 
 	if(!cs.has_value())
 		return
-			std::move(
-				result);
+			result;
 
 	matrix4 const tcs =
 		cs.get_unsafe(); // TODO
@@ -312,8 +308,7 @@ fruitapp::fruit::cut_mesh(
 
 	if(convex_hull_result.size() < static_cast<ring_2d::size_type>(3))
 		return
-			std::move(
-				result);
+			result;
 
 	box2 const envelope =
 		boost::geometry::return_envelope<box2>(
@@ -398,6 +393,5 @@ fruitapp::fruit::cut_mesh(
 	}
 
 	return
-		std::move(
-			result);
+		result;
 }

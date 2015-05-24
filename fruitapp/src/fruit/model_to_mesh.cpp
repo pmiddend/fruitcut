@@ -16,7 +16,6 @@
 #include <fcppt/math/vector/structure_cast.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/next_prior.hpp>
-#include <utility>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -106,6 +105,5 @@ fruitapp::fruit::model_to_mesh(
 	}
 
 	return
-		std::move(
-			result);
+		result;
 }

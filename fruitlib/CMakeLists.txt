@@ -356,11 +356,13 @@ function(
 	target_link_libraries(
 		${TARGET}
 		PRIVATE
+		${sgeaudio_TARGET}
+		${sgeline_drawer_TARGET}
+		${sgerenderer_TARGET}
 		${fcppt_core_TARGET}
 		${fcppt_filesystem_TARGET}
 		${fcppt_log_TARGET}
 		${CEGUI_LIBRARIES}
-		${sge_TARGETS}
 		${Cg_LIBRARIES}
 		${BULLET_LIBRARIES}
 		${Boost_LIBRARIES})

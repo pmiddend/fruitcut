@@ -22,7 +22,6 @@
 #include <fcppt/signal/connection.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <functional>
-#include <utility>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -101,8 +100,7 @@ fruitapp::projection_manager::object::projection_change_callback(
 			this->perspective_projection_information().get_unsafe()); // TODO
 
 	return
-		std::move(
-			result);
+		result;
 }
 
 sge::renderer::vector2 const

@@ -9,7 +9,6 @@
 #include <boost/filesystem/path.hpp>
 #include <functional>
 #include <memory>
-#include <utility>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -72,8 +71,7 @@ from_directory_tree(
 	}
 
 	return
-		std::move(
-			result);
+		result;
 }
 }
 }

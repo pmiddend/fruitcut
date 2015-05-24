@@ -20,9 +20,6 @@
 #include <sge/renderer/vf/vertex.hpp>
 #include <sge/renderer/vf/view.hpp>
 #include <sge/renderer/vf/dynamic/part_index.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <utility>
-#include <fcppt/config/external_end.hpp>
 
 
 sge::renderer::vertex::buffer_unique_ptr
@@ -79,6 +76,5 @@ fruitapp::fruit::mesh_to_vertex_buffer(
 	}
 
 	return
-		std::move(
-			vb);
+		vb;
 }
