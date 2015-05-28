@@ -15,6 +15,7 @@
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/operations.hpp>
@@ -108,13 +109,14 @@ fruitlib::audio::sound_controller::sound_controller(
 {
 }
 
+/*
 sge::audio::sound::base_unique_ptr
 fruitlib::audio::sound_controller::create(
 	fruitlib::resource_tree::path const &_path)
 {
 	return
 		sge::audio::sound::base_unique_ptr();
-}
+}*/
 
 void
 fruitlib::audio::sound_controller::play(
@@ -161,7 +163,9 @@ fruitlib::audio::sound_controller::play_positional(
 	if(target_tree.value().is_leaf())
 	{
 		do_play(
-			sge::audio::sound::base_unique_ptr(
+			fcppt::unique_ptr_to_base<
+				sge::audio::sound::base
+			>(
 				target_tree.value().leaf_value()->create_positional(
 					pp)));
 	}
@@ -177,7 +181,9 @@ fruitlib::audio::sound_controller::play_positional(
 			throw fruitlib::exception(FCPPT_TEXT("The argument to play() must be either a file or a directory containing just files!\nThat was not the case for: ")+target_path.string());
 
 		do_play(
-			sge::audio::sound::base_unique_ptr(
+			fcppt::unique_ptr_to_base<
+				sge::audio::sound::base
+			>(
 				target_file.value().leaf_value()->create_positional(
 					pp)));
 	}

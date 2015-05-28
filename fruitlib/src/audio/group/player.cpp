@@ -2,7 +2,11 @@
 #include <fruitlib/audio/group/buffer.hpp>
 #include <fruitlib/audio/group/player.hpp>
 #include <fruitlib/audio/group/sound_positional.hpp>
-#include <fcppt/make_unique_ptr.hpp>
+#include <sge/audio/buffer.hpp>
+#include <sge/audio/sound/base.hpp>
+#include <sge/audio/sound/positional.hpp>
+#include <fcppt/make_unique_ptr_fcppt.hpp>
+#include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/error.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -108,8 +112,10 @@ fruitlib::audio::group::player::create_buffer(
 	sge::audio::file &f)
 {
 	return
-		sge::audio::buffer_unique_ptr(
-			fcppt::make_unique_ptr<group::buffer>(
+		fcppt::unique_ptr_to_base<
+			sge::audio::buffer
+		>(
+			fcppt::make_unique_ptr_fcppt<group::buffer>(
 				*this,
 				f,
 				gain_,
@@ -122,8 +128,10 @@ fruitlib::audio::group::player::create_positional_stream(
 	sge::audio::sound::positional_parameters const &pp)
 {
 	return
-		sge::audio::sound::positional_unique_ptr(
-			fcppt::make_unique_ptr<group::sound_positional>(
+		fcppt::unique_ptr_to_base<
+			sge::audio::sound::positional
+		>(
+			fcppt::make_unique_ptr_fcppt<group::sound_positional>(
 				*this,
 				impl_.create_positional_stream(
 					f,
@@ -138,8 +146,10 @@ fruitlib::audio::group::player::create_nonpositional_stream(
 	sge::audio::sound::nonpositional_parameters const &p)
 {
 	return
-		sge::audio::sound::base_unique_ptr(
-			fcppt::make_unique_ptr<group::sound_base>(
+		fcppt::unique_ptr_to_base<
+			sge::audio::sound::base
+		>(
+			fcppt::make_unique_ptr_fcppt<group::sound_base>(
 				*this,
 				impl_.create_nonpositional_stream(
 					f,
