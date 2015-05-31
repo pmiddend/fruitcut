@@ -6,8 +6,10 @@
 #include <sge/renderer/texture/create_planar_from_path.hpp>
 #include <sge/renderer/texture/create_planar_from_view.hpp>
 #include <sge/renderer/texture/planar.hpp>
+#include <sge/texture/fragmented.hpp>
 #include <sge/texture/rect_fragmented.hpp>
-#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/make_unique_ptr_fcppt.hpp>
+#include <fcppt/unique_ptr_to_base.hpp>
 
 
 fruitlib::texture_manager::texture_manager(
@@ -62,8 +64,10 @@ fruitlib::texture_manager::create_rect_fragmented(
 	sge::renderer::dim2 const &_size)
 {
 	return
-		sge::texture::fragmented_unique_ptr(
-			fcppt::make_unique_ptr<sge::texture::rect_fragmented>(
+		fcppt::unique_ptr_to_base<
+			sge::texture::fragmented
+		>(
+			fcppt::make_unique_ptr_fcppt<sge::texture::rect_fragmented>(
 				renderer_,
 				sge::renderer::texture::color_format(
 					_color_format,

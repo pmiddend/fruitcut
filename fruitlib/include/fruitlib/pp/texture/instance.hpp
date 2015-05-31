@@ -3,7 +3,7 @@
 
 #include <fruitlib/pp/texture/descriptor.hpp>
 #include <fruitlib/pp/texture/is_locked.hpp>
-#include <sge/renderer/depth_stencil_buffer/surface_unique_ptr.hpp>
+#include <fruitlib/pp/texture/optional_depth_stencil_surface.hpp>
 #include <sge/renderer/target/offscreen_unique_ptr.hpp>
 #include <sge/renderer/texture/planar_shared_ptr.hpp>
 #include <sge/renderer/texture/planar_unique_ptr.hpp>
@@ -25,7 +25,7 @@ public:
 		fruitlib::pp::texture::descriptor const &,
 		sge::renderer::texture::planar_unique_ptr,
 		sge::renderer::target::offscreen_unique_ptr,
-		sge::renderer::depth_stencil_buffer::surface_unique_ptr,
+		fruitlib::pp::texture::optional_depth_stencil_surface,
 		fruitlib::pp::texture::is_locked const &locked);
 
 	sge::renderer::texture::planar_shared_ptr
@@ -49,7 +49,7 @@ private:
 	fruitlib::pp::texture::descriptor descriptor_;
 	sge::renderer::texture::planar_shared_ptr const texture_;
 	sge::renderer::target::offscreen_unique_ptr const target_;
-	sge::renderer::depth_stencil_buffer::surface_unique_ptr const depth_stencil_;
+	fruitlib::pp::texture::optional_depth_stencil_surface const depth_stencil_;
 	bool locked_;
 };
 }

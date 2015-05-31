@@ -1,6 +1,7 @@
 #include <fruitlib/pp/texture/counted_instance.hpp>
 #include <fruitlib/pp/texture/instance.hpp>
 #include <fruitlib/pp/texture/manager.hpp>
+#include <fruitlib/pp/texture/optional_depth_stencil_surface.hpp>
 #include <fruitlib/pp/texture/use_screen_size.hpp>
 #include <sge/image/color/format.hpp>
 #include <sge/image/ds/format.hpp>
@@ -20,6 +21,7 @@
 #include <sge/renderer/texture/planar_unique_ptr.hpp>
 #include <sge/renderer/texture/mipmap/off.hpp>
 #include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/maybe_void.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/unreachable_message.hpp>
@@ -165,7 +167,7 @@ fruitlib::pp::texture::manager::query_internal(
 			renderer_,
 			*new_texture));
 
-	sge::renderer::depth_stencil_buffer::surface_unique_ptr new_target_depth_stencil;
+	fruitlib::pp::texture::optional_depth_stencil_surface new_target_depth_stencil;
 
 	switch (d.depth_stencil())
 	{
@@ -173,31 +175,43 @@ fruitlib::pp::texture::manager::query_internal(
 			break;
 		case depth_stencil_format::d16:
 			new_target_depth_stencil =
-				renderer_.create_depth_stencil_surface(
-					sge::renderer::depth_stencil_buffer::surface_parameters(
-						d.size(),
-						sge::image::ds::format::d16));
+				fruitlib::pp::texture::optional_depth_stencil_surface(
+					renderer_.create_depth_stencil_surface(
+						sge::renderer::depth_stencil_buffer::surface_parameters(
+							d.size(),
+							sge::image::ds::format::d16)));
 			break;
 		case depth_stencil_format::d32:
 			new_target_depth_stencil =
-				renderer_.create_depth_stencil_surface(
-					sge::renderer::depth_stencil_buffer::surface_parameters(
-						d.size(),
-						sge::image::ds::format::d32));
+				fruitlib::pp::texture::optional_depth_stencil_surface(
+					renderer_.create_depth_stencil_surface(
+						sge::renderer::depth_stencil_buffer::surface_parameters(
+							d.size(),
+							sge::image::ds::format::d32)));
 			break;
 		case depth_stencil_format::d24s8:
 			new_target_depth_stencil =
-				renderer_.create_depth_stencil_surface(
-					sge::renderer::depth_stencil_buffer::surface_parameters(
-						d.size(),
-						sge::image::ds::format::d24s8));
+				fruitlib::pp::texture::optional_depth_stencil_surface(
+					renderer_.create_depth_stencil_surface(
+						sge::renderer::depth_stencil_buffer::surface_parameters(
+							d.size(),
+							sge::image::ds::format::d24s8)));
 			break;
 	}
 
-	if(new_target_depth_stencil)
-		new_target->depth_stencil_surface(
-			sge::renderer::depth_stencil_buffer::optional_surface_ref(
-				*new_target_depth_stencil));
+	fcppt::maybe_void(
+		new_target_depth_stencil,
+		[
+			&new_target
+		](
+			sge::renderer::depth_stencil_buffer::surface_unique_ptr const &_surface
+		)
+		{
+			new_target->depth_stencil_surface(
+				sge::renderer::depth_stencil_buffer::optional_surface_ref(
+					*_surface));
+		}
+	);
 
 	// There are no matching textures? Gotta create a new one!
 	texture_map::iterator const result(
@@ -210,7 +224,6 @@ fruitlib::pp::texture::manager::query_internal(
 						new_texture),
 					std::move(
 						new_target),
-					// FIXME: Can we move a null unique_ptr?
 					std::move(
 						new_target_depth_stencil),
 					fruitlib::pp::texture::is_locked(

@@ -48,6 +48,8 @@
 #include <sge/renderer/vertex/scoped_buffer.hpp>
 #include <sge/renderer/vertex/scoped_declaration.hpp>
 #include <fcppt/make_cref.hpp>
+#include <fcppt/optional.hpp>
+#include <fcppt/optional_assign.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/math/matrix/arithmetic.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
@@ -200,7 +202,10 @@ fruitapp::fruit::rendering::ffp::render(
 	fruitapp::fruit::prototype const *previous_prototype =
 		0;
 
-	sge::renderer::state::ffp::lighting::material::object_unique_ptr previous_material_state;
+	fcppt::optional<
+		sge::renderer::state::ffp::lighting::material::object_unique_ptr
+	>
+	previous_material_state;
 
 	for(
 		fruitapp::fruit::rendering::fruit_pointer_sequence::const_iterator i =
@@ -232,15 +237,17 @@ fruitapp::fruit::rendering::ffp::render(
 				sge::renderer::texture::stage(
 					0u));
 
-			previous_material_state =
-				renderer_.create_material_state(
-					fruit_material_to_ffp_material(
-						(*i)->prototype().material(),
-						ambient_intensity_));
+			sge::renderer::state::ffp::lighting::material::object_unique_ptr const &material_state(
+				fcppt::optional_assign(
+					previous_material_state,
+					renderer_.create_material_state(
+						fruit_material_to_ffp_material(
+							(*i)->prototype().material(),
+							ambient_intensity_))));
 
 			ffp_context.material_state(
 				sge::renderer::state::ffp::lighting::material::const_optional_object_ref(
-					*previous_material_state));
+					*material_state));
 
 			previous_prototype =
 				&((*i)->prototype());

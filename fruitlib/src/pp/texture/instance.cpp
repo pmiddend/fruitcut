@@ -1,4 +1,5 @@
 #include <fruitlib/pp/texture/instance.hpp>
+#include <fruitlib/pp/texture/optional_depth_stencil_surface.hpp>
 #include <sge/renderer/depth_stencil_buffer/surface.hpp>
 #include <sge/renderer/target/offscreen.hpp>
 #include <sge/renderer/texture/depth_stencil.hpp>
@@ -12,7 +13,7 @@ fruitlib::pp::texture::instance::instance(
 	fruitlib::pp::texture::descriptor const &_descriptor,
 	sge::renderer::texture::planar_unique_ptr _texture,
 	sge::renderer::target::offscreen_unique_ptr _target,
-	sge::renderer::depth_stencil_buffer::surface_unique_ptr _depth_stencil,
+	fruitlib::pp::texture::optional_depth_stencil_surface _depth_stencil,
 	fruitlib::pp::texture::is_locked const &_locked)
 :
 	descriptor_(

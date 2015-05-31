@@ -31,9 +31,11 @@
 #include <sge/timer/parameters.hpp>
 #include <sge/timer/reset_when_expired.hpp>
 #include <fcppt/make_shared_ptr.hpp>
-#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/make_unique_ptr_fcppt.hpp>
 #include <fcppt/maybe_void.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/unique_ptr_to_base.hpp>
+#include <fcppt/unique_ptr_to_const.hpp>
 #include <fcppt/cast/size_fun.hpp>
 #include <fcppt/math/dim/object_impl.hpp>
 #include <fcppt/math/vector/atan2.hpp>
@@ -90,11 +92,15 @@ fruitapp::cursor::sword_trail::sword_trail(
 			_config_file,
 			sge::parse::json::path(FCPPT_TEXT("sword-mouse-trail")) / FCPPT_TEXT("sword-width"))),
 	texture_(
-		fcppt::make_unique_ptr<sge::texture::part_raw_ptr>(
-			_texture_manager.create_planar_from_path(
-				fruitapp::media_path() / FCPPT_TEXT("textures") / FCPPT_TEXT("sword_particle.png"),
-				sge::renderer::texture::mipmap::off(),
-				sge::renderer::resource_flags_field::null()))),
+		fcppt::unique_ptr_to_const(
+			fcppt::unique_ptr_to_base<
+				sge::texture::part
+			>(
+				fcppt::make_unique_ptr_fcppt<sge::texture::part_raw_ptr>(
+					_texture_manager.create_planar_from_path(
+						fruitapp::media_path() / FCPPT_TEXT("textures") / FCPPT_TEXT("sword_particle.png"),
+						sge::renderer::texture::mipmap::off(),
+						sge::renderer::resource_flags_field::null()))))),
 	sprite_buffers_(
 		_renderer,
 		sge::sprite::buffers::option::dynamic),
