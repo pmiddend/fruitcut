@@ -74,7 +74,7 @@ void
 fruitapp::gui::dummy::dialogs::name_chooser::key_callback(
 	sge::input::keyboard::key_event const &_key_event)
 {
-	switch(_key_event.key_code())
+	switch(_key_event.key().code())
 	{
 	case sge::input::keyboard::key_code::s:
 		submit_();

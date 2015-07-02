@@ -65,7 +65,7 @@ fruitapp::gui::dummy::dialogs::ranking::key_callback(
 	if(!_key_event.pressed())
 		return;
 
-	switch(_key_event.key_code())
+	switch(_key_event.key().code())
 	{
 	case sge::input::keyboard::key_code::h:
 		highscore_();
