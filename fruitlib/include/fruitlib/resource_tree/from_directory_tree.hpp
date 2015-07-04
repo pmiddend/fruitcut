@@ -39,23 +39,40 @@ from_directory_tree(
 	tree_type::value_type
 	node_type;
 
+	typedef
+	typename
+	node_type::value_type
+	value_type;
+
 	if(!boost::filesystem::is_directory(root))
 	{
 		return
 			Tree(
 				node_type(
 					fcppt::filesystem::stem(
-						root),
-					create_leaf(
-						root)));
+						root
+					),
+					value_type(
+						create_leaf(
+							root
+						)
+					)
+				)
+			);
 	}
 
 	tree_type result(
 		node_type(
 			fcppt::filesystem::stem(
-				root),
-			create_node(
-				root)));
+				root
+			),
+			value_type(
+				create_node(
+					root
+				)
+			)
+		)
+	);
 
 	for(
 		boost::filesystem::directory_iterator current_file(

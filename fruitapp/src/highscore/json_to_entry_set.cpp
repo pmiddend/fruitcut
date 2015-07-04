@@ -4,6 +4,7 @@
 #include <sge/parse/json/find_and_convert_member.hpp>
 #include <sge/parse/json/object.hpp>
 #include <sge/parse/json/path.hpp>
+#include <sge/parse/json/value.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/to_std_string.hpp>
@@ -31,7 +32,8 @@ fruitapp::highscore::json_to_entry_set(
 
 	json_object_vector const json_objects(
 		(sge::parse::json::convert_from<json_object_vector>(
-			json_file)));
+			sge::parse::json::value(
+				json_file))));
 
 	for(
 		json_object_vector::const_iterator current_entry =

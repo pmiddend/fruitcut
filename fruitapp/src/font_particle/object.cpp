@@ -9,6 +9,7 @@
 #include <sge/font/text_parameters.hpp>
 #include <sge/font/unit.hpp>
 #include <sge/font/align_h/left.hpp>
+#include <sge/font/align_h/variant.hpp>
 #include <sge/image/color/any/object.hpp>
 #include <sge/renderer/scalar.hpp>
 #include <sge/renderer/vector2.hpp>
@@ -29,7 +30,12 @@ calculate_bounding_box(
 		_object.font_object().create_text(
 			_object.text(),
 			sge::font::text_parameters(
-				sge::font::align_h::left()))->rect());
+				sge::font::align_h::variant(
+					sge::font::align_h::left()
+				)
+			)
+		)->rect()
+	);
 
 	return
 		sge::font::rect(

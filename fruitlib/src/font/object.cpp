@@ -234,18 +234,24 @@ fruitlib::font::object::regenerate_text_object()
 			{
 			case fruitlib::font::align_h::left:
 				return
-					sge::font::align_h::left(
-						max_width
+					sge::font::align_h::variant(
+						sge::font::align_h::left(
+							max_width
+						)
 					);
 			case fruitlib::font::align_h::center:
 				return
-					sge::font::align_h::center(
-						max_width
+					sge::font::align_h::variant(
+						sge::font::align_h::center(
+							max_width
+						)
 					);
 			case fruitlib::font::align_h::right:
 				return
-					sge::font::align_h::right(
-						max_width
+					sge::font::align_h::variant(
+						sge::font::align_h::right(
+							max_width
+						)
 					);
 			}
 

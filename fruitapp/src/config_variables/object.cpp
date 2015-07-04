@@ -2,6 +2,7 @@
 #include <fruitapp/config_variables/object.hpp>
 #include <sge/config/app_name.hpp>
 #include <sge/config/config_path.hpp>
+#include <sge/parse/json/array_or_object.hpp>
 #include <sge/parse/json/object_fwd.hpp>
 #include <sge/parse/json/path.hpp>
 #include <sge/parse/json/start.hpp>
@@ -49,7 +50,8 @@ fruitapp::config_variables::object::destructor_write_hack::~destructor_write_hac
 	file <<
 		sge::parse::json::output::tabbed_to_string(
 			sge::parse::json::start(
-				user_config_file_));
+				sge::parse::json::array_or_object(
+					user_config_file_)));
 }
 
 fruitapp::config_variables::object::object(

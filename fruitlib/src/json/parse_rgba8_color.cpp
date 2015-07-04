@@ -30,7 +30,9 @@ fruitlib::json::parse_rgba8_color(
 		{
 			std::vector<sge::parse::json::float_type> const colors =
 				sge::parse::json::convert_from<std::vector<sge::parse::json::float_type> >(
-					a);
+					// TODO: This is probably wrong
+					sge::parse::json::value(
+						a));
 
 			return
 				sge::image::color::rgba8(

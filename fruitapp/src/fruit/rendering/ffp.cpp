@@ -134,19 +134,22 @@ fruitapp::fruit::rendering::ffp::ffp(
 	depth_stencil_state_(
 		renderer_.create_depth_stencil_state(
 			sge::renderer::state::core::depth_stencil::parameters(
-				sge::renderer::state::core::depth_stencil::depth::enabled(
-					sge::renderer::state::core::depth_stencil::depth::func::less,
-					sge::renderer::state::core::depth_stencil::depth::write_enable(
-						true)),
-				sge::renderer::state::core::depth_stencil::stencil::off()))),
+				sge::renderer::state::core::depth_stencil::depth::variant(
+					sge::renderer::state::core::depth_stencil::depth::enabled(
+						sge::renderer::state::core::depth_stencil::depth::func::less,
+						sge::renderer::state::core::depth_stencil::depth::write_enable(
+							true))),
+				sge::renderer::state::core::depth_stencil::stencil::variant(
+					sge::renderer::state::core::depth_stencil::stencil::off())))),
 	lighting_(
 		renderer_.create_lighting_state(
 			sge::renderer::state::ffp::lighting::parameters(
-				sge::renderer::state::ffp::lighting::enabled(
-					sge::renderer::state::ffp::lighting::ambient_color(
-						sge::image::color::predef::white()),
-					sge::renderer::state::ffp::lighting::diffuse_from_vertex(
-						false))))),
+				sge::renderer::state::ffp::lighting::variant(
+					sge::renderer::state::ffp::lighting::enabled(
+						sge::renderer::state::ffp::lighting::ambient_color(
+							sge::image::color::predef::white()),
+						sge::renderer::state::ffp::lighting::diffuse_from_vertex(
+							false)))))),
 	light_(
 		renderer_.create_light_state(
 			ffp_light_from_directional_light_source(

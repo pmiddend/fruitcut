@@ -126,11 +126,13 @@ fruitapp::fruit::rendering::cg::cg(
 	depth_stencil_state_(
 		_shader_context.renderer().create_depth_stencil_state(
 			sge::renderer::state::core::depth_stencil::parameters(
-				sge::renderer::state::core::depth_stencil::depth::enabled(
-					sge::renderer::state::core::depth_stencil::depth::func::less,
-					sge::renderer::state::core::depth_stencil::depth::write_enable(
-						true)),
-				sge::renderer::state::core::depth_stencil::stencil::off())))
+				sge::renderer::state::core::depth_stencil::depth::variant(
+					sge::renderer::state::core::depth_stencil::depth::enabled(
+						sge::renderer::state::core::depth_stencil::depth::func::less,
+						sge::renderer::state::core::depth_stencil::depth::write_enable(
+							true))),
+				sge::renderer::state::core::depth_stencil::stencil::variant(
+					sge::renderer::state::core::depth_stencil::stencil::off()))))
 {
 }
 

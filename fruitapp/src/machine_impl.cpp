@@ -64,6 +64,7 @@
 #include <sge/systems/original_window.hpp>
 #include <sge/systems/renderer.hpp>
 #include <sge/systems/window.hpp>
+#include <sge/systems/window_source.hpp>
 #include <sge/timer/elapsed_and_reset.hpp>
 #include <sge/timer/parameters.hpp>
 #include <sge/timer/scoped_frame_limiter.hpp>
@@ -165,14 +166,15 @@ fruitapp::machine_impl::machine_impl(
 					sge::renderer::display_mode::optional_object()),
 				sge::viewport::fill_on_resize()))
 			(sge::systems::window(
-				sge::systems::original_window(
-					sge::window::title(
-						fruitapp::name()))
-				.dim(
-					sge::parse::json::find_and_convert_member<sge::window::dim>(
-						config_file_,
-						sge::parse::json::path(
-							FCPPT_TEXT("window-size"))))))
+				sge::systems::window_source(
+					sge::systems::original_window(
+						sge::window::title(
+							fruitapp::name()))
+					.dim(
+						sge::parse::json::find_and_convert_member<sge::window::dim>(
+							config_file_,
+							sge::parse::json::path(
+								FCPPT_TEXT("window-size")))))))
 			(sge::systems::font())
 			(sge::systems::audio_player_default())
 			(sge::systems::audio_loader(

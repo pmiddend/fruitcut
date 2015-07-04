@@ -7,6 +7,7 @@
 #include <sge/parse/result.hpp>
 #include <sge/parse/result_code.hpp>
 #include <sge/parse/json/array.hpp>
+#include <sge/parse/json/array_or_object.hpp>
 #include <sge/parse/json/object.hpp>
 #include <sge/parse/json/parse_file.hpp>
 #include <sge/parse/json/parse_range.hpp>
@@ -111,8 +112,9 @@ fruitapp::highscore::provider::file::connection::post_rank(
 		!sge::charconv::fcppt_string_to_utf8_file(
 			sge::parse::json::output::tabbed_to_string(
 				sge::parse::json::start(
-					highscore::entry_set_to_json(
-						entries))),
+					sge::parse::json::array_or_object(
+						highscore::entry_set_to_json(
+							entries)))),
 			path_))
 	{
 		error_received_(
