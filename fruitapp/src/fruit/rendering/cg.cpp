@@ -64,7 +64,7 @@ fruitapp::fruit::rendering::cg::cg(
 		_shader_context.renderer(),
 		sge::shader::parameter::is_projection_matrix(
 			true),
-		sge::renderer::matrix4()),
+		sge::renderer::matrix4::identity()),
 	mv_it_parameter_(
 		shader_.vertex_program(),
 		sge::shader::parameter::name(
@@ -72,7 +72,7 @@ fruitapp::fruit::rendering::cg::cg(
 		_shader_context.renderer(),
 		sge::shader::parameter::is_projection_matrix(
 			false),
-		sge::renderer::matrix4()),
+		sge::renderer::matrix4::identity()),
 	world_parameter_(
 		shader_.vertex_program(),
 		sge::shader::parameter::name(
@@ -80,7 +80,7 @@ fruitapp::fruit::rendering::cg::cg(
 		_shader_context.renderer(),
 		sge::shader::parameter::is_projection_matrix(
 			false),
-		sge::renderer::matrix4()),
+		sge::renderer::matrix4::identity()),
 	light_position_parameter_(
 		shader_.vertex_program(),
 		sge::shader::parameter::name(

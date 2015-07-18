@@ -44,7 +44,7 @@ fruitapp::fruit::rendering::shadow::shadow(
 		_shader_context.renderer(),
 		sge::shader::parameter::is_projection_matrix(
 			true),
-		sge::renderer::matrix4()),
+		sge::renderer::matrix4::identity()),
 	mvp_(
 		_mvp),
 	depth_stencil_state_(

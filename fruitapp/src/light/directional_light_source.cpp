@@ -8,8 +8,12 @@
 
 fruitapp::light::directional_light_source::directional_light_source()
 :
-	position_(),
-	transformation_()
+	position_(
+		sge::renderer::vector3::null()
+	),
+	transformation_(
+		sge::renderer::matrix4::identity()
+	)
 {
 }
 
