@@ -71,7 +71,7 @@ fruitlib::pp::texture::manager::query(
 {
 	for (texture_map::iterator i = textures_.begin(); i != textures_.end(); ++i)
 	{
-		if (i->second->texture().get() == &t)
+		if (i->second->texture().get_pointer() == &t)
 		{
 			i->second->locked(
 				true);

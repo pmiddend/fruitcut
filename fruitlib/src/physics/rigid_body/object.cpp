@@ -87,7 +87,7 @@ fruitlib::physics::rigid_body::object::object(
 		fcppt::make_unique_ptr<btRigidBody>(
 			create_construction_info(
 				motion_state_.get(),
-				shape_.get(),
+				shape_.get_pointer(),
 				params.mass()))),
 	user_data_(
 		params.user_data())

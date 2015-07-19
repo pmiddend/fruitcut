@@ -24,6 +24,7 @@
 #include <sge/timer/clocks/delta.hpp>
 #include <sge/timer/clocks/standard.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/optional.hpp>
 #include <fcppt/shared_ptr.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -106,9 +107,15 @@ private:
 	sge::audio::buffer_unique_ptr const silence_buffer_;
 	sge::audio::sound::base_shared_ptr silence_source_;
 
-	sge::audio::sound::base_shared_ptr
-		current_source_,
-		new_source_;
+	sge::audio::sound::base_shared_ptr current_source_;
+
+	typedef
+	fcppt::optional<
+		sge::audio::sound::base_shared_ptr
+	>
+	optional_sound_shared_ptr;
+
+	optional_sound_shared_ptr new_source_;
 
 	void
 	do_play(

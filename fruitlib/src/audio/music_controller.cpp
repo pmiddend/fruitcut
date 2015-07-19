@@ -15,7 +15,9 @@
 #include <sge/timer/elapsed_fractional.hpp>
 #include <sge/timer/parameters.hpp>
 #include <sge/timer/remaining_fractional.hpp>
+#include <fcppt/const.hpp>
 #include <fcppt/make_shared_ptr.hpp>
+#include <fcppt/maybe.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/error.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -183,31 +185,47 @@ fruitlib::audio::music_controller::react(
 {
 	clock_.update();
 
-	if(current_source_)
-		current_source_->update();
+	current_source_->update();
 
-	if(!new_source_)
-		return;
+	if(
+		fcppt::maybe(
+			new_source_,
+			fcppt::const_(
+				false
+			),
+			[
+				this
+			](
+				sge::audio::sound::base_shared_ptr const &_new_source
+			)
+			{
+				if(crossfade_.expired())
+				{
+					current_source_->stop();
+					current_source_ = _new_source;
 
-	if(crossfade_.expired())
-	{
-		FCPPT_ASSERT_ERROR(
-			current_source_);
-		current_source_->stop();
-		current_source_ = new_source_;
-		new_source_.reset();
-	}
-	else
-	{
-		current_source_->gain(
-			sge::timer::remaining_fractional<sge::audio::scalar>(
-				crossfade_));
-		new_source_->gain(
-			sge::timer::elapsed_fractional<sge::audio::scalar>(
-				crossfade_));
+					return
+						true;
+				}
+				else
+				{
+					current_source_->gain(
+						sge::timer::remaining_fractional<sge::audio::scalar>(
+							crossfade_));
+					_new_source->gain(
+						sge::timer::elapsed_fractional<sge::audio::scalar>(
+							crossfade_));
 
-		new_source_->update();
-	}
+					_new_source->update();
+
+					return
+						false;
+				}
+			}
+		)
+	)
+		new_source_ =
+			optional_sound_shared_ptr();
 }
 
 fruitlib::audio::music_controller::~music_controller() {}
@@ -224,5 +242,8 @@ fruitlib::audio::music_controller::do_play(
 
 	crossfade_.reset();
 
-	new_source_ = b;
+	new_source_ =
+		optional_sound_shared_ptr(
+			b
+		);
 }
