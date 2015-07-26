@@ -3,6 +3,7 @@
 
 #include <fruitlib/scenic/events/base.hpp>
 #include <fcppt/nonassignable.hpp>
+#include <fcppt/tag.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <typeinfo>
 #include <fcppt/config/external_end.hpp>
@@ -36,7 +37,11 @@ public:
 
 	template<typename DerivedEvent>
 	void
-	operator()() const
+	operator()(
+		fcppt::tag<
+			DerivedEvent
+		>
+	) const
 	{
 		if(typeid(event_) != typeid(DerivedEvent))
 			return;
