@@ -9,7 +9,7 @@
 #include <fruitapp/point_sprite/splatter/position.hpp>
 #include <fruitapp/point_sprite/splatter/size.hpp>
 #include <fruitapp/projection_manager/object_fwd.hpp>
-#include <sge/texture/const_optional_part_ref.hpp>
+#include <sge/texture/const_part_ref.hpp>
 #include <fcppt/nonassignable.hpp>
 #include <fcppt/preprocessor/pure.hpp>
 #include <fcppt/preprocessor/warn_unused_result.hpp>
@@ -34,7 +34,7 @@ public:
 		fruitapp::point_sprite::splatter::acceleration const &,
 		fruitapp::point_sprite::splatter::size const &,
 		fruitapp::point_sprite::color const &,
-		sge::texture::const_optional_part_ref const &,
+		sge::texture::const_part_ref const &,
 		fruitapp::ingame_clock::duration const &,
 		fruitapp::ingame_clock const &);
 
@@ -73,7 +73,7 @@ public:
 	FCPPT_PP_WARN_UNUSED_RESULT
 	FCPPT_PP_PURE;
 
-	sge::texture::const_optional_part_ref const &
+	sge::texture::const_part_ref const &
 	texture() const
 	FCPPT_PP_WARN_UNUSED_RESULT
 	FCPPT_PP_PURE;
@@ -97,7 +97,7 @@ private:
 	fruitapp::point_sprite::splatter::acceleration const acceleration_;
 	fruitapp::point_sprite::splatter::size const size_;
 	fruitapp::point_sprite::color const color_;
-	sge::texture::const_optional_part_ref const texture_;
+	sge::texture::const_part_ref const texture_;
 	fruitapp::ingame_clock::duration const life_time_;
 	fruitapp::ingame_clock const &clock_;
 };

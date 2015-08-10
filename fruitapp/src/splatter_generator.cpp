@@ -23,8 +23,11 @@
 #include <sge/parse/json/object.hpp>
 #include <sge/renderer/scalar.hpp>
 #include <sge/renderer/vector3.hpp>
+#include <sge/texture/part_fwd.hpp>
 #include <mizuiro/color/channel/alpha.hpp>
+#include <fcppt/make_cref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/maybe_void.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/math/matrix/transform_direction.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
@@ -159,35 +162,59 @@ fruitapp::splatter_generator::fruit_was_cut(
 			distortion_rng_(),
 			distortion_rng_());
 
-		point_sprites_.push_back(
-			fruitapp::point_sprite::unique_base_ptr(
-				fcppt::make_unique_ptr<fruitapp::point_sprite::splatter::object>(
-					fruitapp::point_sprite::splatter::parameters(
-						point_sprites_.projection_manager(),
-						point_sprites_.connection(),
-						fruitapp::point_sprite::splatter::position(
-							cut_info.old().position() +
-							fcppt::math::matrix::transform_direction(
-								cut_info.old().world_transform(),
-								position)),
-						fruitapp::point_sprite::splatter::linear_velocity(
-							distortion + ((cut_direction_rng_()
-							?
-								cut_info.cut_geometry().cut_direction().get()
-							:
-							(-cut_info.cut_geometry().cut_direction().get())) * speed_rng_())),
-						fruitapp::point_sprite::splatter::acceleration(
-							acceleration_),
-						fruitapp::point_sprite::splatter::size(
-							size_rng_()),
-						splatter_color,
-						point_sprites_.lookup_texture(
-							fruitlib::resource_tree::path(
-								FCPPT_TEXT("spray"))),
-						std::chrono::duration_cast<fruitapp::ingame_clock::duration>(
-							std::chrono::milliseconds(
-								lifetime_millis_rng_())),
-						clock_))));
+		fcppt::maybe_void(
+			point_sprites_.lookup_texture(
+				fruitlib::resource_tree::path(
+					FCPPT_TEXT("spray")
+				)
+			),
+			[
+				&distortion,
+				&cut_info,
+				position,
+				splatter_color,
+				this
+			](
+				sge::texture::part const &_texture
+			)
+			{
+				point_sprites_.push_back(
+					fruitapp::point_sprite::unique_base_ptr(
+						fcppt::make_unique_ptr<
+							fruitapp::point_sprite::splatter::object
+						>(
+							fruitapp::point_sprite::splatter::parameters(
+								point_sprites_.projection_manager(),
+								point_sprites_.connection(),
+								fruitapp::point_sprite::splatter::position(
+									cut_info.old().position() +
+									fcppt::math::matrix::transform_direction(
+										cut_info.old().world_transform(),
+										position)),
+								fruitapp::point_sprite::splatter::linear_velocity(
+									distortion + ((cut_direction_rng_()
+									?
+										cut_info.cut_geometry().cut_direction().get()
+									:
+									(-cut_info.cut_geometry().cut_direction().get())) * speed_rng_())),
+								fruitapp::point_sprite::splatter::acceleration(
+									acceleration_),
+								fruitapp::point_sprite::splatter::size(
+									size_rng_()),
+								splatter_color,
+								fcppt::make_cref(
+									_texture
+								),
+								std::chrono::duration_cast<fruitapp::ingame_clock::duration>(
+									std::chrono::milliseconds(
+										lifetime_millis_rng_())),
+								clock_
+							)
+						)
+					)
+				);
+			}
+		);
 	}
 }
 

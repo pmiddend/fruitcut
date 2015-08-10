@@ -10,7 +10,7 @@ fruitapp::point_sprite::splatter::parameters::parameters(
 	fruitapp::point_sprite::splatter::acceleration const &_acceleration,
 	fruitapp::point_sprite::splatter::size const &_size,
 	fruitapp::point_sprite::color const &_color,
-	sge::texture::const_optional_part_ref const &_texture,
+	sge::texture::const_part_ref const &_texture,
 	fruitapp::ingame_clock::duration const &_life_time,
 	fruitapp::ingame_clock const &_clock)
 :
@@ -79,7 +79,7 @@ fruitapp::point_sprite::splatter::parameters::color() const
 	return color_;
 }
 
-sge::texture::const_optional_part_ref const &
+sge::texture::const_part_ref const &
 fruitapp::point_sprite::splatter::parameters::texture() const
 {
 	return texture_;
