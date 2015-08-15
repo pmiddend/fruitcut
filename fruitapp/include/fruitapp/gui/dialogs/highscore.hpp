@@ -3,12 +3,10 @@
 
 #include <fruitapp/highscore/entry_set.hpp>
 #include <fruitapp/highscore/provider/object_base_fwd.hpp>
+#include <fcppt/function_impl.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/signal/auto_connection.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <functional>
-#include <fcppt/config/external_end.hpp>
 
 
 namespace fruitapp
@@ -23,7 +21,7 @@ FCPPT_NONCOPYABLE(
 	highscore);
 public:
 	typedef
-	std::function<void ()>
+	fcppt::function<void ()>
 	back_callback;
 
 	typedef
@@ -32,7 +30,7 @@ public:
 		fruitapp::highscore::provider::object_base &);
 
 	typedef
-	std::function<switch_provider_function>
+	fcppt::function<switch_provider_function>
 	switch_provider_callback;
 
 	virtual fcppt::signal::auto_connection

@@ -7,6 +7,7 @@
 #include <fruitapp/postprocessing/subsystems/main.hpp>
 #include <fruitapp/states/loading.hpp>
 #include <fruitapp/states/menu/main.hpp>
+#include <fruitapp/viewport/change_callback.hpp>
 #include <fruitapp/viewport/manager.hpp>
 #include <fruitlib/font/align_h.hpp>
 #include <fruitlib/font/cache.hpp>
@@ -83,10 +84,13 @@ fruitapp::states::loading::loading(
 				1.f))),
 	viewport_change_connection_(
 		context<fruitapp::machine>().viewport_manager().change_callback(
-			std::bind(
-				&loading::viewport_change,
-				this,
-				std::placeholders::_1),
+			fruitapp::viewport::change_callback{
+				std::bind(
+					&loading::viewport_change,
+					this,
+					std::placeholders::_1
+				)
+			},
 			fruitapp::viewport::trigger_early(
 				true)))
 {

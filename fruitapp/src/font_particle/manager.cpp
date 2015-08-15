@@ -1,6 +1,7 @@
 #include <fruitapp/font_particle/manager.hpp>
 #include <fruitapp/font_particle/object.hpp>
 #include <fruitapp/projection_manager/object.hpp>
+#include <fruitapp/projection_manager/projection_change_callback.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <functional>
@@ -22,10 +23,13 @@ fruitapp::font_particle::manager::manager(
 	objects_(),
 	projection_change_connection_(
 		_projection_manager.projection_change_callback(
-			std::bind(
-				&fruitapp::font_particle::manager::projection_change,
-				this,
-				std::placeholders::_1),
+			fruitapp::projection_manager::projection_change_callback{
+				std::bind(
+					&fruitapp::font_particle::manager::projection_change,
+					this,
+					std::placeholders::_1
+				)
+			},
 			fruitapp::projection_manager::trigger_early(
 				false)))
 {

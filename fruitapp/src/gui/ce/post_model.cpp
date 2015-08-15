@@ -2,6 +2,9 @@
 #include <fruitapp/gui/ce/table/column.hpp>
 #include <fruitapp/gui/ce/table/row.hpp>
 #include <fruitapp/gui/ce/table/row_index.hpp>
+#include <fruitapp/highscore/callbacks/error_received.hpp>
+#include <fruitapp/highscore/callbacks/message_received.hpp>
+#include <fruitapp/highscore/callbacks/rank_received.hpp>
 #include <fruitapp/highscore/provider/connection_base.hpp>
 #include <fruitapp/highscore/provider/object_base.hpp>
 #include <fcppt/insert_to_fcppt_string.hpp>
@@ -125,31 +128,47 @@ fruitapp::gui::ce::post_model::post(
 
 		fcppt::signal::auto_connection con1(
 			new_connection->message_received(
-				std::bind(
-					&post_model::message_received_internal,
-					this,
-					std::cref(
-						**i),
-					std::placeholders::_1)));
+				fruitapp::highscore::callbacks::message_received{
+					std::bind(
+						&post_model::message_received_internal,
+						this,
+						std::cref(
+							**i),
+						std::placeholders::_1
+					)
+				}
+			)
+		);
 
 		fcppt::signal::auto_connection con2(
 			new_connection->error_received(
-				std::bind(
-					&post_model::error_received_internal,
-					this,
-					std::cref(
-						**i),
-					std::placeholders::_1)));
+				fruitapp::highscore::callbacks::error_received{
+					std::bind(
+						&post_model::error_received_internal,
+						this,
+						std::cref(
+							**i),
+						std::placeholders::_1
+					)
+				}
+			)
+		);
 
 		fcppt::signal::auto_connection con3(
 			new_connection->rank_received(
-				std::bind(
-					&post_model::rank_received_internal,
-					this,
-					std::cref(
-						**i),
-					new_row_index,
-					std::placeholders::_1)));
+				fruitapp::highscore::callbacks::rank_received{
+					std::bind(
+						&post_model::rank_received_internal,
+						this,
+						std::cref(
+							**i),
+						new_row_index,
+						std::placeholders::_1
+					)
+				}
+			)
+		);
+
 		connections_.push_back(
 			fcppt::make_unique_ptr<connection_wrapper>(
 				std::move(

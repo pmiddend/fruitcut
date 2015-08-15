@@ -1,9 +1,13 @@
 #include <fruitapp/depths/overlay.hpp>
 #include <fruitapp/fruit/cut_context.hpp>
 #include <fruitapp/fruit/manager.hpp>
+#include <fruitapp/fruit/callbacks/cut.hpp>
+#include <fruitapp/fruit/callbacks/remove.hpp>
+#include <fruitapp/fruit/callbacks/spawn.hpp>
 #include <fruitapp/game_logic/object.hpp>
 #include <fruitapp/quick_log.hpp>
 #include <fruitapp/projection_manager/object.hpp>
+#include <fruitapp/viewport/change_callback.hpp>
 #include <fruitapp/viewport/manager.hpp>
 #include <fruitlib/font/align_h.hpp>
 #include <fruitlib/font/cache.hpp>
@@ -150,22 +154,37 @@ fruitapp::game_logic::object::object(
 		_sound_controller),
 	fruit_added_connection_(
 		_fruit_manager.spawn_callback(
-			std::bind(
-				&object::fruit_added,
-				this,
-				std::placeholders::_1))),
+			fruitapp::fruit::callbacks::spawn{
+				std::bind(
+					&object::fruit_added,
+					this,
+					std::placeholders::_1
+				)
+			}
+		)
+	),
 	fruit_cut_connection_(
 		_fruit_manager.cut_callback(
-			std::bind(
-				&object::fruit_cut,
-				this,
-				std::placeholders::_1))),
+			fruitapp::fruit::callbacks::cut{
+				std::bind(
+					&object::fruit_cut,
+					this,
+					std::placeholders::_1
+				)
+			}
+		)
+	),
 	fruit_removed_connection_(
 		_fruit_manager.remove_callback(
-			std::bind(
-				&object::fruit_removed,
-				this,
-				std::placeholders::_1))),
+			fruitapp::fruit::callbacks::remove{
+				std::bind(
+					&object::fruit_removed,
+					this,
+					std::placeholders::_1
+				)
+			}
+		)
+	),
 	font_particles_(
 		fruitlib::scenic::optional_parent(
 			fruitlib::scenic::parent(
@@ -275,10 +294,13 @@ fruitapp::game_logic::object::object(
 	multi_count_(0),
 	viewport_change_connection_(
 		_viewport_manager.change_callback(
-			std::bind(
-				&game_logic::object::viewport_change,
-				this,
-				std::placeholders::_1),
+			fruitapp::viewport::change_callback{
+				std::bind(
+					&game_logic::object::viewport_change,
+					this,
+					std::placeholders::_1
+				)
+			},
 			fruitapp::viewport::trigger_early(
 				true))),
 	cut_fruits_(),

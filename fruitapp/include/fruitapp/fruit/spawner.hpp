@@ -17,6 +17,7 @@
 #include <fruitlib/scenic/events/update.hpp>
 #include <sge/camera/base_fwd.hpp>
 #include <sge/parse/json/object_fwd.hpp>
+#include <fcppt/function_impl.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/optional.hpp>
 #include <fcppt/preprocessor/warn_unused_result.hpp>
@@ -25,7 +26,6 @@
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
-#include <functional>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -53,7 +53,7 @@ public:
 	void spawn_callback_fn();
 
 	typedef
-	std::function<spawn_callback_fn>
+	fcppt::function<spawn_callback_fn>
 	spawn_callback_function;
 
 	explicit

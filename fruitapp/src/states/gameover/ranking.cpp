@@ -36,12 +36,22 @@ fruitapp::states::gameover::ranking::ranking(
 			providers_)),
 	main_menu_button_connection_(
 		ranking_->register_main_menu_callback(
-			FRUITAPP_EVENTS_RETURN_POST_TRANSITION_FUNCTOR(
-				menu::main))),
+			fruitapp::gui::dialogs::ranking::main_menu_callback{
+				FRUITAPP_EVENTS_RETURN_POST_TRANSITION_FUNCTOR(
+					menu::main
+				)
+			}
+		)
+	),
 	highscore_button_connection_(
 		ranking_->register_highscore_callback(
-			FRUITAPP_EVENTS_RETURN_POST_TRANSITION_FUNCTOR(
-				menu::highscore)))
+			fruitapp::gui::dialogs::ranking::highscore_callback{
+				FRUITAPP_EVENTS_RETURN_POST_TRANSITION_FUNCTOR(
+					menu::highscore
+				)
+			}
+		)
+	)
 {
 	fruitapp::highscore::providers_from_json(
 		sge::parse::json::parse_file_exn(

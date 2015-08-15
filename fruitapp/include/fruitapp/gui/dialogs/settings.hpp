@@ -3,11 +3,9 @@
 
 #include <fruitapp/graphics_settings/preset_identifier.hpp>
 #include <fruitapp/gui/sound_volume.hpp>
+#include <fcppt/function_impl.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/signal/auto_connection.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <functional>
-#include <fcppt/config/external_end.hpp>
 
 
 namespace fruitapp
@@ -27,11 +25,11 @@ public:
 		fruitapp::gui::sound_volume const &);
 
 	typedef
-	std::function<volume_change_function>
+	fcppt::function<volume_change_function>
 	volume_change_callback;
 
 	typedef
-	std::function<void ()>
+	fcppt::function<void ()>
 	back_callback;
 
 	typedef
@@ -40,7 +38,7 @@ public:
 		fruitapp::graphics_settings::preset_identifier const &);
 
 	typedef
-	std::function<quality_change_function>
+	fcppt::function<quality_change_function>
 	quality_change_callback;
 
 	virtual fcppt::signal::auto_connection

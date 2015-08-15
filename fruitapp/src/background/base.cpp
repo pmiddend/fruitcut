@@ -5,6 +5,7 @@
 #include <fruitapp/background/vf/texcoord.hpp>
 #include <fruitapp/background/vf/vertex_view.hpp>
 #include <fruitapp/projection_manager/object.hpp>
+#include <fruitapp/projection_manager/projection_change_callback.hpp>
 #include <fruitlib/texture_manager.hpp>
 #include <fruitlib/math/view_plane_rect.hpp>
 #include <sge/camera/base.hpp>
@@ -78,13 +79,16 @@ fruitapp::background::base::base(
 			sge::renderer::resource_flags_field::null())),
 	projection_change_connection_(
 		_projection_manager.projection_change_callback(
-			std::bind(
-				&base::projection_change,
-				this,
-				std::cref(
-					_camera),
-				_repetitions,
-				std::placeholders::_1),
+			fruitapp::projection_manager::projection_change_callback{
+				std::bind(
+					&base::projection_change,
+					this,
+					std::cref(
+						_camera),
+					_repetitions,
+					std::placeholders::_1
+				)
+			},
 			fruitapp::projection_manager::trigger_early(
 				true))),
 	depth_stencil_state_(

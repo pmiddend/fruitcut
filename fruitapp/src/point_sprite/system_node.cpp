@@ -26,6 +26,7 @@
 #include <sge/texture/fragmented.hpp>
 #include <sge/texture/fragmented_unique_ptr.hpp>
 #include <sge/texture/manager_fwd.hpp>
+#include <sge/texture/on_alloc_callback.hpp>
 #include <sge/texture/part_shared_ptr.hpp>
 #include <sge/texture/rect_fragmented.hpp>
 #include <fcppt/make_shared_ptr.hpp>
@@ -102,14 +103,19 @@ fruitapp::point_sprite::system_node::system_node(
 	projection_manager_(
 		_projection_manager),
 	texture_manager_(
-		std::bind(
-			&fruitlib::texture_manager::create_rect_fragmented,
-			&_texture_manager,
-			sge::renderer::texture::mipmap::off(),
-			std::placeholders::_1,
-			sge::renderer::dim2(
-				1024,
-				1024))),
+		sge::texture::on_alloc_callback{
+			std::bind(
+				&fruitlib::texture_manager::create_rect_fragmented,
+				&_texture_manager,
+				sge::renderer::texture::mipmap::off(),
+				std::placeholders::_1,
+				sge::renderer::dim2(
+					1024,
+					1024
+				)
+			)
+		}
+	),
 	buffers_(
 		renderer_,
 		sge::sprite::buffers::option::dynamic),

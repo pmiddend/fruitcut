@@ -1,5 +1,6 @@
 #include <fruitapp/gui/dummy/dialogs/name_chooser.hpp>
 #include <sge/input/keyboard/device.hpp>
+#include <sge/input/keyboard/key_callback.hpp>
 #include <sge/input/keyboard/key_event.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -16,10 +17,15 @@ fruitapp::gui::dummy::dialogs::name_chooser::name_chooser(
 	restart_(),
 	key_connection_(
 		_keyboard.key_callback(
-			std::bind(
-				&name_chooser::key_callback,
-				this,
-				std::placeholders::_1)))
+			sge::input::keyboard::key_callback{
+				std::bind(
+					&name_chooser::key_callback,
+					this,
+					std::placeholders::_1
+				)
+			}
+		)
+	)
 {
 	std::cout << "Main menu, press 's' to submit name,\n";
 	std::cout << "           press 'm' to go to the main menu.\n";

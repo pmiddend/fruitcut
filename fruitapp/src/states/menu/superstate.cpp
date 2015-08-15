@@ -4,6 +4,7 @@
 #include <fruitlib/audio/music_controller.hpp>
 #include <fruitlib/resource_tree/path.hpp>
 #include <sge/input/keyboard/action.hpp>
+#include <sge/input/keyboard/action_callback.hpp>
 #include <sge/input/keyboard/device.hpp>
 #include <sge/input/keyboard/key_code.hpp>
 #include <sge/systems/instance.hpp>
@@ -24,10 +25,16 @@ fruitapp::states::menu::superstate::superstate(
 		context<fruitapp::machine>().systems().keyboard_collector().key_callback(
 			sge::input::keyboard::action(
 				sge::input::keyboard::key_code::escape,
-				std::bind(
-					&fruitapp::machine::quit,
-					&context<fruitapp::machine>(),
-					awl::main::exit_success()))))
+				sge::input::keyboard::action_callback{
+					std::bind(
+						&fruitapp::machine::quit,
+						&context<fruitapp::machine>(),
+						awl::main::exit_success()
+					)
+				}
+			)
+		)
+	)
 {
 	context<machine>().music_controller().play(
 		fruitlib::resource_tree::path(

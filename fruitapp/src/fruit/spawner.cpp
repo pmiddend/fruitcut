@@ -1,6 +1,7 @@
 #include <fruitapp/fruit/manager.hpp>
 #include <fruitapp/fruit/spawner.hpp>
 #include <fruitapp/projection_manager/object.hpp>
+#include <fruitapp/projection_manager/projection_change_callback.hpp>
 #include <fruitlib/math/box_radius.hpp>
 #include <fruitlib/math/view_plane_rect.hpp>
 #include <fruitlib/math/plane/basic.hpp>
@@ -121,12 +122,18 @@ fruitapp::fruit::spawner::spawner(
 	perspective_projection_information_(),
 	projection_change_connection_(
 		_projection_manager.projection_change_callback(
-			std::bind(
-				&spawner::projection_change,
-				this,
-				std::placeholders::_1),
-		fruitapp::projection_manager::trigger_early(
-			true)))
+			fruitapp::projection_manager::projection_change_callback{
+				std::bind(
+					&spawner::projection_change,
+					this,
+					std::placeholders::_1
+				)
+			},
+			fruitapp::projection_manager::trigger_early(
+				true
+			)
+		)
+	)
 {
 	reset_timer();
 }

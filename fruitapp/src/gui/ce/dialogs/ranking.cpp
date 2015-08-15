@@ -1,6 +1,8 @@
 #include <fruitapp/media_path.hpp>
 #include <fruitapp/gui/ce/system.hpp>
 #include <fruitapp/gui/ce/dialogs/ranking.hpp>
+#include <fruitapp/highscore/callbacks/error_received.hpp>
+#include <fruitapp/highscore/callbacks/message_received.hpp>
 #include <sge/cegui/from_cegui_string.hpp>
 #include <sge/cegui/to_cegui_string.hpp>
 #include <fcppt/text.hpp>
@@ -51,16 +53,26 @@ fruitapp::gui::ce::dialogs::ranking::ranking(
 			post_model_),
 	message_received_connection_(
 		post_model_.message_received(
-			std::bind(
-				&ranking::append_log,
-				this,
-				std::placeholders::_1))),
+			fruitapp::highscore::callbacks::message_received{
+				std::bind(
+					&ranking::append_log,
+					this,
+					std::placeholders::_1
+				)
+			}
+		)
+	),
 	error_received_connection_(
 		post_model_.error_received(
-			std::bind(
-				&ranking::append_log,
-				this,
-				std::placeholders::_1)))
+			fruitapp::highscore::callbacks::error_received{
+				std::bind(
+					&ranking::append_log,
+					this,
+					std::placeholders::_1
+				)
+			}
+		)
+	)
 {
 }
 

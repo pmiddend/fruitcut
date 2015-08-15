@@ -1,4 +1,5 @@
 #include <fruitapp/projection_manager/object.hpp>
+#include <fruitapp/viewport/change_callback.hpp>
 #include <fruitapp/viewport/manager.hpp>
 #include <fruitlib/perspective_projection_information.hpp>
 #include <fruitlib/scenic/base.hpp>
@@ -54,10 +55,13 @@ fruitapp::projection_manager::object::object(
 	aspect_(),
 	viewport_connection_(
 		_viewport_manager.change_callback(
-			std::bind(
-				&object::viewport_callback,
-				this,
-				std::placeholders::_1),
+			fruitapp::viewport::change_callback{
+				std::bind(
+					&object::viewport_callback,
+					this,
+					std::placeholders::_1
+				)
+			},
 			fruitapp::viewport::trigger_early(
 				true)))
 {

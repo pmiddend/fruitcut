@@ -1,5 +1,6 @@
 #include <fruitapp/gui/dummy/dialogs/ingame_menu.hpp>
 #include <sge/input/keyboard/device.hpp>
+#include <sge/input/keyboard/key_callback.hpp>
 #include <sge/input/keyboard/key_event.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <functional>
@@ -15,10 +16,15 @@ fruitapp::gui::dummy::dialogs::ingame_menu::ingame_menu(
 	main_menu_(),
 	key_connection_(
 		_keyboard.key_callback(
-			std::bind(
-				&ingame_menu::key_callback,
-				this,
-				std::placeholders::_1)))
+			sge::input::keyboard::key_callback{
+				std::bind(
+					&ingame_menu::key_callback,
+					this,
+					std::placeholders::_1
+				)
+			}
+		)
+	)
 {
 	std::cout << "Ingame menu, press 'g' to return to game,\n";
 	std::cout << "             press 'm' to return to main menu,\n";

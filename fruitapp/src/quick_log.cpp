@@ -1,4 +1,5 @@
 #include <fruitapp/quick_log.hpp>
+#include <fruitapp/viewport/change_callback.hpp>
 #include <fruitapp/viewport/manager.hpp>
 #include <fruitlib/audio/sound_controller.hpp>
 #include <fruitlib/font/align_h.hpp>
@@ -83,10 +84,13 @@ fruitapp::quick_log::quick_log(
 	messages_(),
 	viewport_change_connection_(
 		_viewport_manager.change_callback(
-			std::bind(
-				&quick_log::viewport_change,
-				this,
-				std::placeholders::_1),
+			fruitapp::viewport::change_callback{
+				std::bind(
+					&quick_log::viewport_change,
+					this,
+					std::placeholders::_1
+				)
+			},
 			fruitapp::viewport::trigger_early(
 				true)))
 {

@@ -2,6 +2,7 @@
 #include <fruitapp/graphics_settings/object.hpp>
 #include <fruitapp/gui/ce/system.hpp>
 #include <fruitapp/gui/ce/dialogs/settings.hpp>
+#include <fruitapp/gui/ce/slider/value_changed_function.hpp>
 #include <sge/parse/json/config/user_config_variable_impl.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -53,10 +54,15 @@ fruitapp::gui::ce::dialogs::settings::settings(
 				_initial_music_volume.get().get()))),
 	music_volume_connection_(
 		music_volume_slider_.value_changed(
-			std::bind(
-				&settings::music_volume_callback,
-				this,
-				std::placeholders::_1))),
+			fruitapp::gui::ce::slider::value_changed_function{
+				std::bind(
+					&settings::music_volume_callback,
+					this,
+					std::placeholders::_1
+				)
+			}
+		)
+	),
 	music_volume_change_(),
 	effects_volume_slider_(
 		_system.sound_controller(),
@@ -70,10 +76,15 @@ fruitapp::gui::ce::dialogs::settings::settings(
 				_initial_effects_volume.get().get()))),
 	effects_volume_connection_(
 		effects_volume_slider_.value_changed(
-			std::bind(
-				&settings::effects_volume_callback,
-				this,
-				std::placeholders::_1))),
+			fruitapp::gui::ce::slider::value_changed_function{
+				std::bind(
+					&settings::effects_volume_callback,
+					this,
+					std::placeholders::_1
+				)
+			}
+		)
+	),
 	effects_volume_change_(),
 	quality_change_(),
 	quality_dropdown_(

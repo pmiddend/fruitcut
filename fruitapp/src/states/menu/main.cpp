@@ -35,22 +35,42 @@ fruitapp::states::menu::main::main(
 		context<fruitapp::machine>().gui_system().create_main_menu()),
 	settings_button_connection_(
 		main_menu_->register_settings_callback(
-			FRUITAPP_EVENTS_RETURN_POST_TRANSITION_FUNCTOR(
-				menu::settings))),
+			fruitapp::gui::dialogs::main_menu::settings_callback{
+				FRUITAPP_EVENTS_RETURN_POST_TRANSITION_FUNCTOR(
+					menu::settings
+				)
+			}
+		)
+	),
 	highscore_button_connection_(
 		main_menu_->register_highscore_callback(
-			FRUITAPP_EVENTS_RETURN_POST_TRANSITION_FUNCTOR(
-				menu::highscore))),
+			fruitapp::gui::dialogs::main_menu::highscore_callback{
+				FRUITAPP_EVENTS_RETURN_POST_TRANSITION_FUNCTOR(
+					menu::highscore
+				)
+			}
+		)
+	),
 	quit_button_connection_(
 		main_menu_->register_quit_callback(
-			std::bind(
-				&fruitapp::machine::quit,
-				&context<fruitapp::machine>(),
-				awl::main::exit_success()))),
+			fruitapp::gui::dialogs::main_menu::quit_callback{
+				std::bind(
+					&fruitapp::machine::quit,
+					&context<fruitapp::machine>(),
+					awl::main::exit_success()
+				)
+			}
+		)
+	),
 	start_button_connection_(
 		main_menu_->register_start_callback(
-			FRUITAPP_EVENTS_RETURN_POST_TRANSITION_FUNCTOR(
-				ingame::superstate)))
+			fruitapp::gui::dialogs::main_menu::start_callback{
+				FRUITAPP_EVENTS_RETURN_POST_TRANSITION_FUNCTOR(
+					ingame::superstate
+				)
+			}
+		)
+	)
 {
 }
 

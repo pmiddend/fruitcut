@@ -3,9 +3,7 @@
 
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/signal/auto_connection.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <functional>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/function_impl.hpp>
 
 
 namespace fruitapp
@@ -20,19 +18,19 @@ FCPPT_NONCOPYABLE(
 	main_menu);
 public:
 	typedef
-	std::function<void ()>
+	fcppt::function<void ()>
 	start_callback;
 
 	typedef
-	std::function<void ()>
+	fcppt::function<void ()>
 	settings_callback;
 
 	typedef
-	std::function<void ()>
+	fcppt::function<void ()>
 	highscore_callback;
 
 	typedef
-	std::function<void ()>
+	fcppt::function<void ()>
 	quit_callback;
 
 	virtual fcppt::signal::auto_connection

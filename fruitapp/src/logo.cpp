@@ -1,5 +1,6 @@
 #include <fruitapp/logo.hpp>
 #include <fruitapp/media_path.hpp>
+#include <fruitapp/viewport/change_callback.hpp>
 #include <fruitapp/viewport/manager.hpp>
 #include <fruitlib/texture_manager.hpp>
 #include <fruitlib/scenic/events/render.hpp>
@@ -68,10 +69,13 @@ fruitapp::logo::logo(
 	),
 	viewport_change_connection_(
 		_viewport_manager.change_callback(
-			std::bind(
-				&logo::viewport_change,
-				this,
-				std::placeholders::_1),
+			fruitapp::viewport::change_callback{
+				std::bind(
+					&logo::viewport_change,
+					this,
+					std::placeholders::_1
+				)
+			},
 			fruitapp::viewport::trigger_early(
 				true)))
 {

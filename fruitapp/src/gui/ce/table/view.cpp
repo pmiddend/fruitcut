@@ -1,4 +1,6 @@
 #include <fruitapp/gui/ce/table/model.hpp>
+#include <fruitapp/gui/ce/table/row_added.hpp>
+#include <fruitapp/gui/ce/table/row_removed.hpp>
 #include <fruitapp/gui/ce/table/view.hpp>
 #include <sge/cegui/to_cegui_string.hpp>
 #include <fcppt/insert_to_fcppt_string.hpp>
@@ -22,17 +24,27 @@ fruitapp::gui::ce::table::view::view(
 		_model),
 	row_added_connection_(
 		model_.row_added(
-			std::bind(
-				&view::row_added,
-				this,
-				std::placeholders::_1,
-				std::placeholders::_2))),
+			fruitapp::gui::ce::table::row_added{
+				std::bind(
+					&view::row_added,
+					this,
+					std::placeholders::_1,
+					std::placeholders::_2
+				)
+			}
+		)
+	),
 	row_removed_connection_(
 		model_.row_removed(
-			std::bind(
-				&view::row_removed,
-				this,
-				std::placeholders::_1)))
+			fruitapp::gui::ce::table::row_removed{
+				std::bind(
+					&view::row_removed,
+					this,
+					std::placeholders::_1
+				)
+			}
+		)
+	)
 {
 	// Make a copy to prevent the begin/end error
 	column_sequence const columns =

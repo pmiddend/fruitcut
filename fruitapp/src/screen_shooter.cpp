@@ -5,6 +5,7 @@
 #include <sge/config/cache_path.hpp>
 #include <sge/image2d/system_fwd.hpp>
 #include <sge/input/keyboard/action.hpp>
+#include <sge/input/keyboard/action_callback.hpp>
 #include <sge/input/keyboard/device.hpp>
 #include <sge/input/keyboard/key_code.hpp>
 #include <sge/renderer/screenshot.hpp>
@@ -40,11 +41,18 @@ fruitapp::screen_shooter::screen_shooter(
 		_keyboard.key_callback(
 			sge::input::keyboard::action(
 				sge::input::keyboard::key_code::f12,
-				std::bind(
-					&screen_shooter::callback,
-					this,
-					std::ref(
-						_log)))))
+				sge::input::keyboard::action_callback{
+					std::bind(
+						&screen_shooter::callback,
+						this,
+						std::ref(
+							_log
+						)
+					)
+				}
+			)
+		)
+	)
 {
 }
 

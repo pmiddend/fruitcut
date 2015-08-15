@@ -29,6 +29,7 @@
 #include <sge/charconv/utf8_file_to_fcppt_string_exn.hpp>
 #include <sge/font/system.hpp>
 #include <sge/input/keyboard/action.hpp>
+#include <sge/input/keyboard/action_callback.hpp>
 #include <sge/input/keyboard/device.hpp>
 #include <sge/input/keyboard/key_code.hpp>
 #include <sge/log/global_context.hpp>
@@ -70,7 +71,7 @@
 #include <sge/timer/scoped_frame_limiter.hpp>
 #include <sge/timer/clocks/standard.hpp>
 #include <sge/viewport/fill_on_resize.hpp>
-#include <sge/viewport/manager.hpp>
+#include <sge/viewport/optional_resize_callback.hpp>
 #include <sge/window/dim.hpp>
 #include <sge/window/system.hpp>
 #include <sge/window/title.hpp>
@@ -164,7 +165,8 @@ fruitapp::machine_impl::machine_impl(
 				sge::renderer::display_mode::parameters(
 					sge::renderer::display_mode::vsync::on,
 					sge::renderer::display_mode::optional_object()),
-				sge::viewport::fill_on_resize()))
+				sge::viewport::optional_resize_callback{
+					sge::viewport::fill_on_resize()}))
 			(sge::systems::window(
 				sge::systems::window_source(
 					sge::systems::original_window(
@@ -254,11 +256,16 @@ fruitapp::machine_impl::machine_impl(
 					FCPPT_TEXT("effects-volume"))))),
 	effects_volume_change_connection_(
 		config_variables_.effects_volume().change_callback(
-			std::bind(
-				static_cast<void(fruitlib::audio::sound_controller::*)(sge::audio::scalar)>(
-					&fruitlib::audio::sound_controller::gain),
-				&sound_controller_,
-				std::placeholders::_1))),
+			fruitapp::config_variables::audio_variable::callback{
+				std::bind(
+					static_cast<void(fruitlib::audio::sound_controller::*)(sge::audio::scalar)>(
+						&fruitlib::audio::sound_controller::gain),
+					&sound_controller_,
+					std::placeholders::_1
+				)
+			}
+		)
+	),
 	music_controller_(
 		fruitlib::scenic::optional_parent(
 			fruitlib::scenic::parent(
@@ -282,11 +289,16 @@ fruitapp::machine_impl::machine_impl(
 				/ FCPPT_TEXT("volume"))),
 	music_volume_change_connection_(
 		config_variables_.music_volume().change_callback(
-			std::bind(
-				static_cast<void(fruitlib::audio::music_controller::*)(sge::audio::scalar)>(
-					&fruitlib::audio::music_controller::gain),
-				&music_controller_,
-				std::placeholders::_1))),
+			fruitapp::config_variables::audio_variable::callback{
+				std::bind(
+					static_cast<void(fruitlib::audio::music_controller::*)(sge::audio::scalar)>(
+						&fruitlib::audio::music_controller::gain),
+					&music_controller_,
+					std::placeholders::_1
+				)
+			}
+		)
+	),
 	camera_(
 		sge::camera::first_person::parameters(
 			systems_.keyboard_collector(),
@@ -333,9 +345,15 @@ fruitapp::machine_impl::machine_impl(
 		systems_.keyboard_collector().key_callback(
 			sge::input::keyboard::action(
 				sge::input::keyboard::key_code::f2,
-				std::bind(
-					&machine_impl::toggle_camera,
-					this)))),
+				sge::input::keyboard::action_callback{
+					std::bind(
+						&machine_impl::toggle_camera,
+						this
+					)
+				}
+			)
+		)
+	),
 	projection_manager_(
 		sge::parse::json::find_and_convert_member<sge::parse::json::object const>(
 			config_file_,

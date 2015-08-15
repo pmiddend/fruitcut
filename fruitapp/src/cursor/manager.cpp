@@ -1,7 +1,9 @@
 #include <fruitapp/cursor/instance_sequence.hpp>
 #include <fruitapp/cursor/manager.hpp>
 #include <sge/input/processor.hpp>
+#include <sge/input/cursor/discover_callback.hpp>
 #include <sge/input/cursor/discover_event.hpp>
+#include <sge/input/cursor/remove_callback.hpp>
 #include <sge/input/cursor/remove_event.hpp>
 #include <sge/parse/json/value.hpp>
 #include <fcppt/make_unique_ptr.hpp>
@@ -40,16 +42,26 @@ fruitapp::cursor::manager::manager(
 		_configuration),
 	discover_connection_(
 		_input_processor.cursor_discover_callback(
-			std::bind(
-				&fruitapp::cursor::manager::discover,
-				this,
-				std::placeholders::_1))),
+			sge::input::cursor::discover_callback{
+				std::bind(
+					&fruitapp::cursor::manager::discover,
+					this,
+					std::placeholders::_1
+				)
+			}
+		)
+	),
 	remove_connection_(
 		_input_processor.cursor_remove_callback(
-			std::bind(
-				&fruitapp::cursor::manager::remove,
-				this,
-				std::placeholders::_1))),
+			sge::input::cursor::remove_callback{
+				std::bind(
+					&fruitapp::cursor::manager::remove,
+					this,
+					std::placeholders::_1
+				)
+			}
+		)
+	),
 	cursors_(),
 	instance_sequences_()
 {

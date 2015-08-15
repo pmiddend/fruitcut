@@ -4,6 +4,7 @@
 #include <fruitapp/depths/overlay.hpp>
 #include <fruitapp/depths/root.hpp>
 #include <fruitapp/depths/scene.hpp>
+#include <fruitapp/fruit/callbacks/cut.hpp>
 #include <fruitapp/point_sprite/system_node.hpp>
 #include <fruitapp/shadow_map/object.hpp>
 #include <fruitapp/states/ingame/running.hpp>
@@ -20,6 +21,7 @@
 #include <fruitlib/scenic/events/render.hpp>
 #include <sge/camera/first_person/object.hpp>
 #include <sge/input/keyboard/action.hpp>
+#include <sge/input/keyboard/action_callback.hpp>
 #include <sge/input/keyboard/device.hpp>
 #include <sge/input/keyboard/key_code.hpp>
 #include <sge/parse/json/array.hpp>
@@ -82,9 +84,15 @@ fruitapp::states::ingame::superstate::superstate(
 		this->context<fruitapp::machine>().systems().keyboard_collector().key_callback(
 			sge::input::keyboard::action(
 				sge::input::keyboard::key_code::f3,
-				std::bind(
-					&superstate::toggle_physics_debugger,
-					this)))),
+				sge::input::keyboard::action_callback{
+					std::bind(
+						&superstate::toggle_physics_debugger,
+						this
+					)
+				}
+			)
+		)
+	),
 	fruit_manager_(
 		fruitlib::scenic::optional_parent(
 			fruitlib::scenic::parent(
@@ -166,10 +174,15 @@ fruitapp::states::ingame::superstate::superstate(
 		context<fruitapp::machine>().quick_log()),
 	cut_connection_(
 		fruit_manager_.cut_callback(
-			std::bind(
-				&superstate::fruit_was_cut,
-				this,
-				std::placeholders::_1))),
+			fruitapp::fruit::callbacks::cut{
+				std::bind(
+					&superstate::fruit_was_cut,
+					this,
+					std::placeholders::_1
+				)
+			}
+		)
+	),
 	splatter_generator_(
 		sge::parse::json::find_and_convert_member<sge::parse::json::object const>(
 			this->context<fruitapp::machine>().config_file(),

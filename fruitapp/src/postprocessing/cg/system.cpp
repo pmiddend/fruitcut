@@ -1,6 +1,7 @@
 #include <fruitapp/postprocessing/cg/system.hpp>
 #include <fruitapp/postprocessing/cg/subsystems/main.hpp>
 #include <fruitapp/postprocessing/cg/subsystems/paused.hpp>
+#include <fruitapp/viewport/change_callback.hpp>
 #include <fruitapp/viewport/manager.hpp>
 #include <sge/shader/context.hpp>
 #include <fcppt/make_unique_ptr.hpp>
@@ -27,10 +28,13 @@ fruitapp::postprocessing::cg::system::system(
 		_shader_context),
 	viewport_change_connection_(
 		_viewport_manager.change_callback(
-			std::bind(
-				&system::viewport_change,
-				this,
-				std::placeholders::_1),
+			fruitapp::viewport::change_callback{
+				std::bind(
+					&system::viewport_change,
+					this,
+					std::placeholders::_1
+				)
+			},
 			fruitapp::viewport::trigger_early(
 				true))),
 	main_system_(),

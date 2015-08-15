@@ -5,6 +5,9 @@
 #include <fruitapp/gui/system.hpp>
 #include <fruitapp/gui/dialogs/highscore.hpp>
 #include <fruitapp/highscore/providers_from_json.hpp>
+#include <fruitapp/highscore/callbacks/error_received.hpp>
+#include <fruitapp/highscore/callbacks/list_received.hpp>
+#include <fruitapp/highscore/callbacks/message_received.hpp>
 #include <fruitapp/highscore/provider/connection_base.hpp>
 #include <fruitapp/highscore/provider/object_base.hpp>
 #include <fruitapp/states/menu/highscore.hpp>
@@ -55,16 +58,26 @@ fruitapp::states::menu::highscore::highscore(
 	main_menu_button_connection_ =
 		optional_connection(
 			highscore_->register_back_callback(
-				FRUITAPP_EVENTS_RETURN_POST_TRANSITION_FUNCTOR(
-					menu::main)));
+				fruitapp::gui::dialogs::highscore::back_callback{
+					FRUITAPP_EVENTS_RETURN_POST_TRANSITION_FUNCTOR(
+						menu::main
+					)
+				}
+			)
+		);
 
 	switch_provider_connection_ =
 		optional_connection(
 			highscore_->register_switch_provider_callback(
-				std::bind(
-					&fruitapp::states::menu::highscore::switch_provider,
-					this,
-					std::placeholders::_1)));
+				fruitapp::gui::dialogs::highscore::switch_provider_callback{
+					std::bind(
+						&fruitapp::states::menu::highscore::switch_provider,
+						this,
+						std::placeholders::_1
+					)
+				}
+			)
+		);
 }
 
 FRUITAPP_EVENTS_DEFINE_TRANSITION_REACTION(
@@ -95,26 +108,41 @@ fruitapp::states::menu::highscore::switch_provider(
 	message_connection_ =
 		optional_connection(
 			connection_->message_received(
-				std::bind(
-					&highscore::text_received,
-					this,
-					std::placeholders::_1)));
+				fruitapp::highscore::callbacks::message_received{
+					std::bind(
+						&highscore::text_received,
+						this,
+						std::placeholders::_1
+					)
+				}
+			)
+		);
 
 	error_connection_ =
 		optional_connection(
 			connection_->error_received(
-				std::bind(
-					&highscore::text_received,
-					this,
-					std::placeholders::_1)));
+				fruitapp::highscore::callbacks::error_received{
+					std::bind(
+						&highscore::text_received,
+						this,
+						std::placeholders::_1
+					)
+				}
+			)
+		);
 
 	list_connection_ =
 		optional_connection(
 			connection_->list_received(
-				std::bind(
-					&highscore::list_received,
-					this,
-					std::placeholders::_1)));
+				fruitapp::highscore::callbacks::list_received{
+					std::bind(
+						&highscore::list_received,
+						this,
+						std::placeholders::_1
+					)
+				}
+			)
+		);
 
 	connection_->retrieve_list();
 }

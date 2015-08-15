@@ -25,6 +25,7 @@
 //#include <sge/image/colors.hpp>
 #include <sge/input/cursor/position_unit.hpp>
 #include <sge/input/keyboard/action.hpp>
+#include <sge/input/keyboard/action_callback.hpp>
 #include <sge/input/keyboard/device.hpp>
 #include <sge/input/keyboard/key_code.hpp>
 //#include <sge/line_drawer/line.hpp>
@@ -72,11 +73,17 @@ fruitapp::states::ingame::running::running(
 						depths::scene::sword_trail))))),
 	fruit_spawned_connection_(
 		context<superstate>().fruit_spawner().spawn_callback(
-			std::bind(
-				&fruitlib::audio::sound_controller::play,
-				&context<fruitapp::machine>().sound_controller(),
-				fruitlib::resource_tree::path(
-					FCPPT_TEXT("fruit_was_spawned"))))),
+			fruitapp::fruit::spawner::spawn_callback_function{
+				std::bind(
+					&fruitlib::audio::sound_controller::play,
+					&context<fruitapp::machine>().sound_controller(),
+					fruitlib::resource_tree::path(
+						FCPPT_TEXT("fruit_was_spawned")
+					)
+				)
+			}
+		)
+	),
 	draw_mouse_trail_(
 		sge::parse::json::find_and_convert_member<bool>(
 			context<fruitapp::machine>().config_file(),
@@ -93,8 +100,14 @@ fruitapp::states::ingame::running::running(
 		context<fruitapp::machine>().systems().keyboard_collector().key_callback(
 			sge::input::keyboard::action(
 				sge::input::keyboard::key_code::escape,
-				FRUITAPP_EVENTS_RETURN_POST_TRANSITION_FUNCTOR(
-					ingame::paused))))
+				sge::input::keyboard::action_callback{
+					FRUITAPP_EVENTS_RETURN_POST_TRANSITION_FUNCTOR(
+						ingame::paused
+					)
+				}
+			)
+		)
+	)
 {
 }
 

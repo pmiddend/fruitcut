@@ -34,26 +34,46 @@ fruitapp::states::menu::settings::settings(
 			this->context<fruitapp::machine>().graphics_settings())),
 	main_menu_button_connection_(
 		settings_->register_back_callback(
-			FRUITAPP_EVENTS_RETURN_POST_TRANSITION_FUNCTOR(
-				menu::main))),
+			fruitapp::gui::dialogs::settings::back_callback{
+				FRUITAPP_EVENTS_RETURN_POST_TRANSITION_FUNCTOR(
+					menu::main
+				)
+			}
+		)
+	),
 	music_volume_connection_(
 		settings_->register_music_volume_change_callback(
-			std::bind(
-				&settings::music_volume_callback,
-				this,
-				std::placeholders::_1))),
+			fruitapp::gui::dialogs::settings::volume_change_callback{
+				std::bind(
+					&settings::music_volume_callback,
+					this,
+					std::placeholders::_1
+				)
+			}
+		)
+	),
 	effects_volume_connection_(
 		settings_->register_effects_volume_change_callback(
-			std::bind(
-				&settings::effects_volume_callback,
-				this,
-				std::placeholders::_1))),
+			fruitapp::gui::dialogs::settings::volume_change_callback{
+				std::bind(
+					&settings::effects_volume_callback,
+					this,
+					std::placeholders::_1
+				)
+			}
+		)
+	),
 	quality_connection_(
 		settings_->register_quality_change_callback(
-			std::bind(
-				&settings::quality_callback,
-				this,
-				std::placeholders::_1)))
+			fruitapp::gui::dialogs::settings::quality_change_callback{
+				std::bind(
+					&settings::quality_callback,
+					this,
+					std::placeholders::_1
+				)
+			}
+		)
+	)
 {
 }
 

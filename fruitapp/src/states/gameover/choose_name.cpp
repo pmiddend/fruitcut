@@ -29,17 +29,32 @@ fruitapp::states::gameover::choose_name::choose_name(
 				context<fruitapp::machine>().last_game_score()))),
 	submit_button_connection_(
 		name_chooser_->register_submit_callback(
-			std::bind(
-				&choose_name::submit_button_pushed,
-				this))),
+			fruitapp::gui::dialogs::name_chooser::submit_callback{
+				std::bind(
+					&choose_name::submit_button_pushed,
+					this
+				)
+			}
+		)
+	),
 	main_menu_button_connection_(
 		name_chooser_->register_main_menu_callback(
-			FRUITAPP_EVENTS_RETURN_POST_TRANSITION_FUNCTOR(
-				menu::main))),
+			fruitapp::gui::dialogs::name_chooser::main_menu_callback{
+				FRUITAPP_EVENTS_RETURN_POST_TRANSITION_FUNCTOR(
+					menu::main
+				)
+			}
+		)
+	),
 	restart_button_connection_(
 		name_chooser_->register_restart_callback(
-			FRUITAPP_EVENTS_RETURN_POST_TRANSITION_FUNCTOR(
-				ingame::superstate)))
+			fruitapp::gui::dialogs::name_chooser::restart_callback{
+				FRUITAPP_EVENTS_RETURN_POST_TRANSITION_FUNCTOR(
+					ingame::superstate
+				)
+			}
+		)
+	)
 {
 	if(context<fruitapp::machine>().config_variables().last_user_name().value() == FCPPT_TEXT("$SYSTEM_USER_NAME"))
 		name_chooser_->name(

@@ -1,4 +1,5 @@
 #include <fruitapp/viewport/manager.hpp>
+#include <sge/viewport/manage_callback.hpp>
 #include <sge/viewport/manager.hpp>
 #include <fcppt/maybe_void.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -15,10 +16,15 @@ fruitapp::viewport::manager::manager(
 	change_signal_(),
 	viewport_connection_(
 		_viewport_manager.manage_callback(
-			std::bind(
-				&manager::internal_change_callback,
-				this,
-				std::placeholders::_1))),
+			sge::viewport::manage_callback{
+				std::bind(
+					&manager::internal_change_callback,
+					this,
+					std::placeholders::_1
+				)
+			}
+		)
+	),
 	current_viewport_()
 {
 }
