@@ -273,7 +273,7 @@ fruitapp::fruit::cut_mesh(
 				(*i)[1],
 				(*i)[2],
 				// WATCH OUT: ONLY WORKS WITH THE 1 HERE!
-				1);
+				1.f);
 
 		reduced.push_back(
 			vector_narrow<vector2>(
@@ -351,22 +351,22 @@ fruitapp::fruit::cut_mesh(
 						vector4(
 							convex_hull_result[0][0],
 							convex_hull_result[0][1],
-							0,
-							1)) - result->barycenter(),
+							0.f,
+							1.f)) - result->barycenter(),
 					vector_narrow<vector3>(
 						tcs *
 						vector4(
 							convex_hull_result[current_vertex-1][0],
 							convex_hull_result[current_vertex-1][1],
-							0,
-							1)) - result->barycenter(),
+							0.f,
+							1.f)) - result->barycenter(),
 					vector_narrow<vector3>(
 						tcs *
 						vector4(
 							convex_hull_result[current_vertex][0],
 							convex_hull_result[current_vertex][1],
-							0,
-							1)) - result->barycenter()}},
+							0.f,
+							1.f)) - result->barycenter()}},
 				{{
 					transform_texcoord(
 						texcoords[

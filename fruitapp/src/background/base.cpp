@@ -179,7 +179,7 @@ fruitapp::background::base::projection_change(
 			zero_plane.left(), zero_plane.top()));
 	(vb_it++)->set<fruitapp::background::vf::texcoord>(
 		fruitapp::background::vf::texcoord::packed_type(
-			0,0));
+			0.f,0.f));
 
 	// Left bottom
 	(vb_it)->set<fruitapp::background::vf::position>(
@@ -187,7 +187,7 @@ fruitapp::background::base::projection_change(
 			zero_plane.left(),zero_plane.bottom()));
 	(vb_it++)->set<fruitapp::background::vf::texcoord>(
 		fruitapp::background::vf::texcoord::packed_type(
-			0,
+			0.f,
 			repetitions.y()));
 
 	// Right top
@@ -196,7 +196,7 @@ fruitapp::background::base::projection_change(
 			zero_plane.right(),zero_plane.top()));
 	(vb_it++)->set<fruitapp::background::vf::texcoord>(
 		fruitapp::background::vf::texcoord::packed_type(
-			repetitions.x(),0));
+			repetitions.x(),0.f));
 
 	// Right top
 	(vb_it)->set<fruitapp::background::vf::position>(
@@ -204,7 +204,7 @@ fruitapp::background::base::projection_change(
 			zero_plane.right(),zero_plane.top()));
 	(vb_it++)->set<fruitapp::background::vf::texcoord>(
 		fruitapp::background::vf::texcoord::packed_type(
-			repetitions.x(),0));
+			repetitions.x(),0.f));
 
 	// Left bottom
 	(vb_it)->set<fruitapp::background::vf::position>(
@@ -212,7 +212,7 @@ fruitapp::background::base::projection_change(
 			zero_plane.left(),zero_plane.bottom()));
 	(vb_it++)->set<fruitapp::background::vf::texcoord>(
 		fruitapp::background::vf::texcoord::packed_type(
-			0,repetitions.y()));
+			0.f,repetitions.y()));
 
 	// Right bottom
 	(vb_it)->set<fruitapp::background::vf::position>(

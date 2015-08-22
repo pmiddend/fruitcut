@@ -199,10 +199,7 @@ fruitapp::states::ingame::superstate::superstate(
 	background_physics_(
 		fruitlib::physics::rigid_body::parameters(
 			fruitlib::physics::rigid_body::position(
-				fruitlib::physics::vector3(
-					0,
-					0,
-					0)),
+				fruitlib::physics::vector3::null()),
 			fruitlib::physics::rigid_body::transformation(
 				fruitlib::physics::matrix4::identity()),
 			fruitlib::physics::rigid_body::linear_velocity(

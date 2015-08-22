@@ -110,8 +110,8 @@ fruitapp::point_sprite::system_node::system_node(
 				sge::renderer::texture::mipmap::off(),
 				std::placeholders::_1,
 				sge::renderer::dim2(
-					1024,
-					1024
+					1024u,
+					1024u
 				)
 			)
 		}
