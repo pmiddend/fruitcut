@@ -38,6 +38,8 @@
 #include <fcppt/text.hpp>
 #include <fcppt/assert/error.hpp>
 #include <fcppt/cast/size_fun.hpp>
+#include <fcppt/math/dim/contents.hpp>
+#include <fcppt/math/matrix/identity.hpp>
 #include <fcppt/math/matrix/object_impl.hpp>
 #include <fcppt/math/matrix/transform_direction.hpp>
 #include <fcppt/math/matrix/transpose.hpp>
@@ -164,7 +166,11 @@ fruitapp::fruit::manager::cut(
 				fruit_group_,
 				fruitlib::physics::rigid_body::mass(
 					static_cast<fruitlib::physics::scalar>(
-						cut_result->bounding_box().size().content())),
+						fcppt::math::dim::contents(
+							cut_result->bounding_box().size()
+						)
+					)
+				),
 				fruitlib::physics::rigid_body::position(
 					_current_fruit.position() +
 					fcppt::math::matrix::transform_direction(
@@ -235,7 +241,10 @@ fruitapp::fruit::manager::spawn(
 			position,
 			// I don't see any sense in specifying that here
 			fruitlib::physics::rigid_body::transformation(
-				fruitlib::physics::matrix4::identity()),
+				fcppt::math::matrix::identity<
+					fruitlib::physics::matrix4
+				>()
+			),
 			linear_velocity,
 			angular_velocity,
 			clock_));

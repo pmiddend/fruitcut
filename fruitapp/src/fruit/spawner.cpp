@@ -55,13 +55,13 @@ fruitapp::fruit::spawner::spawner(
 		uniform_float_variate::distribution(
 			uniform_float_variate::distribution::param_type::min(
 				sge::parse::json::convert_from<uniform_float_variate::distribution::result_type>(
-					sge::parse::json::find_and_convert_member<sge::parse::json::array const>(
+					sge::parse::json::find_and_convert_member<sge::parse::json::array>(
 						_config_file,
 						sge::parse::json::path(
 							FCPPT_TEXT("spawn-range-seconds"))).elements[0])),
 			uniform_float_variate::distribution::param_type::sup(
 				sge::parse::json::convert_from<uniform_float_variate::distribution::result_type>(
-					sge::parse::json::find_and_convert_member<sge::parse::json::array const>(
+					sge::parse::json::find_and_convert_member<sge::parse::json::array>(
 						_config_file,
 						sge::parse::json::path(
 							FCPPT_TEXT("spawn-range-seconds"))).elements[1])))),
@@ -80,13 +80,13 @@ fruitapp::fruit::spawner::spawner(
 		uniform_physics_variate::distribution(
 			uniform_physics_variate::distribution::param_type::min(
 				sge::parse::json::convert_from<uniform_physics_variate::distribution::result_type>(
-					sge::parse::json::find_and_convert_member<sge::parse::json::array const>(
+					sge::parse::json::find_and_convert_member<sge::parse::json::array>(
 						_config_file,
 						sge::parse::json::path(
 							FCPPT_TEXT("linear-velocity-range"))).elements[0])),
 			uniform_physics_variate::distribution::param_type::sup(
 				sge::parse::json::convert_from<uniform_physics_variate::distribution::result_type>(
-					sge::parse::json::find_and_convert_member<sge::parse::json::array const>(
+					sge::parse::json::find_and_convert_member<sge::parse::json::array>(
 						_config_file,
 						sge::parse::json::path(
 							FCPPT_TEXT("linear-velocity-range"))).elements[1])))),
@@ -95,13 +95,13 @@ fruitapp::fruit::spawner::spawner(
 		uniform_physics_variate::distribution(
 			uniform_physics_variate::distribution::param_type::min(
 				sge::parse::json::convert_from<uniform_physics_variate::distribution::result_type>(
-					sge::parse::json::find_and_convert_member<sge::parse::json::array const>(
+					sge::parse::json::find_and_convert_member<sge::parse::json::array>(
 						_config_file,
 						sge::parse::json::path(
 							FCPPT_TEXT("angular-velocity-range"))).elements[0])),
 			uniform_physics_variate::distribution::param_type::sup(
 				sge::parse::json::convert_from<uniform_physics_variate::distribution::result_type>(
-					sge::parse::json::find_and_convert_member<sge::parse::json::array const>(
+					sge::parse::json::find_and_convert_member<sge::parse::json::array>(
 						_config_file,
 						sge::parse::json::path(
 							FCPPT_TEXT("angular-velocity-range"))).elements[1])))),

@@ -20,6 +20,7 @@
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/pre_message.hpp>
+#include <fcppt/math/matrix/identity.hpp>
 #include <fcppt/math/vector/object_impl.hpp>
 #include <fcppt/math/vector/output.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -90,7 +91,12 @@ fruitlib::physics::debugger::render(
 	sge::renderer::state::ffp::transform::object_unique_ptr const projection_state(
 		renderer_.create_transform_state(
 			sge::renderer::state::ffp::transform::parameters(
-				sge::renderer::matrix4::identity())));
+				fcppt::math::matrix::identity<
+					sge::renderer::matrix4
+				>()
+			)
+		)
+	);
 
 	sge::renderer::state::ffp::transform::scoped const projection_transform(
 		_context,

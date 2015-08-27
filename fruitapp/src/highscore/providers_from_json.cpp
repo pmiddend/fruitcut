@@ -36,7 +36,7 @@ fruitapp::highscore::providers_from_json(
 	{
 		fcppt::string const uri =
 			sge::parse::json::find_and_convert_member<fcppt::string>(
-				sge::parse::json::convert_from<sge::parse::json::object const>(
+				sge::parse::json::convert_from<sge::parse::json::object>(
 					*current_element),
 				sge::parse::json::path(
 					FCPPT_TEXT("url")));

@@ -27,10 +27,12 @@
 #include <fcppt/insert_to_string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/cast/size_fun.hpp>
+#include <fcppt/math/box/null.hpp>
 #include <fcppt/math/box/object_impl.hpp>
 #include <fcppt/math/dim/object_impl.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/math/matrix/object_impl.hpp>
+#include <fcppt/math/vector/null.hpp>
 #include <fcppt/math/vector/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <functional>
@@ -69,13 +71,15 @@ fruitapp::states::loading::loading(
 					FCPPT_TEXT("score"))),
 			sge::font::string(
 				SGE_FONT_LIT("0")),
-			sge::font::rect::null(),
+			fcppt::math::box::null<
+				sge::font::rect
+			>(),
 			fruitlib::font::align_h::center,
 			fruitlib::font::align_v::top,
 			sge::font::flags_field::null(),
 			sge::image::color::any::object(
 				fruitlib::json::parse_rgba8_color(
-					sge::parse::json::find_and_convert_member<sge::parse::json::value const>(
+					sge::parse::json::find_and_convert_member<sge::parse::json::value>(
 						context<fruitapp::machine>().config_file(),
 						sge::parse::json::path(
 							FCPPT_TEXT("loading"))
@@ -154,7 +158,9 @@ fruitapp::states::loading::viewport_change(
 
 	font_node_.object().bounding_box(
 		sge::font::rect(
-			sge::font::rect::vector::null(),
+			fcppt::math::vector::null<
+				sge::font::rect::vector
+			>(),
 			viewport_dim));
 }
 

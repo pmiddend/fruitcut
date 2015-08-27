@@ -34,12 +34,13 @@ fruitapp::fruit::mesh_to_shape(
 			vec != t->vertices.end();
 			++vec)
 			for(
-				fruit::triangle::vector::const_iterator r =
-					vec->begin();
-				r != vec->end();
-				++r)
+				auto const &element
+				:
+				vec->storage()
+			)
 				points.push_back(
-					*r);
+					element
+				);
 
 	return
 		fcppt::make_shared_ptr<btConvexHullShape>(

@@ -2,6 +2,7 @@
 #define FRUITLIB_PHYSICS_MATRIX3_TO_MATRIX4_HPP_INCLUDED
 
 #include <fcppt/math/matrix/object_impl.hpp>
+#include <fcppt/math/matrix/row.hpp>
 #include <fcppt/math/matrix/static.hpp>
 
 
@@ -16,10 +17,19 @@ matrix3_to_matrix4(
 {
 	return
 		fcppt::math::matrix::static_<T,4,4>(
-			m[0][0],m[0][1],m[0][2],static_cast<T>(0),
-			m[1][0],m[1][1],m[1][2],static_cast<T>(0),
-			m[2][0],m[2][1],m[2][2],static_cast<T>(0),
-			static_cast<T>(0),static_cast<T>(0),static_cast<T>(0),static_cast<T>(1));
+			fcppt::math::matrix::row(
+				m[0][0],m[0][1],m[0][2],static_cast<T>(0)
+			),
+			fcppt::math::matrix::row(
+				m[1][0],m[1][1],m[1][2],static_cast<T>(0)
+			),
+			fcppt::math::matrix::row(
+				m[2][0],m[2][1],m[2][2],static_cast<T>(0)
+			),
+			fcppt::math::matrix::row(
+				static_cast<T>(0),static_cast<T>(0),static_cast<T>(0),static_cast<T>(1)
+			)
+		);
 }
 }
 }

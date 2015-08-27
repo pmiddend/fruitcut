@@ -38,6 +38,8 @@
 #include <fcppt/cast/size_fun.hpp>
 #include <fcppt/math/box/object_impl.hpp>
 #include <fcppt/math/dim/object_impl.hpp>
+#include <fcppt/math/matrix/identity.hpp>
+#include <fcppt/math/vector/null.hpp>
 #include <fcppt/math/vector/object_impl.hpp>
 #include <fcppt/math/vector/structure_cast.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -150,7 +152,7 @@ fruitapp::states::ingame::superstate::superstate(
 					depths::root::dont_care))),
 		fruit_manager_,
 		this->context<fruitapp::machine>().random_generator(),
-		sge::parse::json::find_and_convert_member<sge::parse::json::object const>(
+		sge::parse::json::find_and_convert_member<sge::parse::json::object>(
 			this->context<fruitapp::machine>().config_file(),
 			sge::parse::json::path(
 				FCPPT_TEXT("fruit-spawner"))),
@@ -184,7 +186,7 @@ fruitapp::states::ingame::superstate::superstate(
 		)
 	),
 	splatter_generator_(
-		sge::parse::json::find_and_convert_member<sge::parse::json::object const>(
+		sge::parse::json::find_and_convert_member<sge::parse::json::object>(
 			this->context<fruitapp::machine>().config_file(),
 			sge::parse::json::path(
 				FCPPT_TEXT("splatter-generator"))),
@@ -199,13 +201,25 @@ fruitapp::states::ingame::superstate::superstate(
 	background_physics_(
 		fruitlib::physics::rigid_body::parameters(
 			fruitlib::physics::rigid_body::position(
-				fruitlib::physics::vector3::null()),
+				fcppt::math::vector::null<
+					fruitlib::physics::vector3
+				>()
+			),
 			fruitlib::physics::rigid_body::transformation(
-				fruitlib::physics::matrix4::identity()),
+				fcppt::math::matrix::identity<
+					fruitlib::physics::matrix4
+				>()
+			),
 			fruitlib::physics::rigid_body::linear_velocity(
-				fruitlib::physics::vector3::null()),
+				fcppt::math::vector::null<
+					fruitlib::physics::vector3
+				>()
+			),
 			fruitlib::physics::rigid_body::angular_velocity(
-				fruitlib::physics::vector3::null()),
+				fcppt::math::vector::null<
+					fruitlib::physics::vector3
+				>()
+			),
 			fcppt::make_shared_ptr<btStaticPlaneShape>(
 				btVector3(0,0,-1),
 				0),

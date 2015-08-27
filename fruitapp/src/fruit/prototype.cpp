@@ -10,6 +10,7 @@
 #include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/scoped_planar_lock.hpp>
+#include <fcppt/math/dim/contents.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/geometry/geometry.hpp>
 #include <utility>
@@ -31,7 +32,10 @@ fruitapp::fruit::prototype::prototype(
 			mesh_to_point_cloud(
 				*mesh_))),
 	mass_(
-		bounding_box_.content()),
+		fcppt::math::dim::contents(
+			bounding_box_.size()
+		)
+	),
 	texture_(
 		_texture),
 	splatter_color_(

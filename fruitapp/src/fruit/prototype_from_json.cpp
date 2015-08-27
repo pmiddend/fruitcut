@@ -76,19 +76,19 @@ fruitapp::fruit::prototype_from_json(
 					sge::renderer::resource_flags_field{
 						sge::renderer::resource_flags::readable})),
 			fruitapp::fruit::material::from_json(
-				sge::parse::json::find_and_convert_member<sge::parse::json::object const>(
+				sge::parse::json::find_and_convert_member<sge::parse::json::object>(
 					o,
 					sge::parse::json::path(
 						FCPPT_TEXT("material")))),
 			fruitapp::fruit::splatter_color(
 				sge::image::color::any::object(
 					fruitlib::json::parse_rgba8_color(
-						sge::parse::json::find_and_convert_member<sge::parse::json::value const>(
+						sge::parse::json::find_and_convert_member<sge::parse::json::value>(
 							o,
 							sge::parse::json::path(
 								FCPPT_TEXT("splatter-color")))))),
 			fcppt::algorithm::map<fruit::tag_set>(
-				sge::parse::json::find_and_convert_member<sge::parse::json::array const>(
+				sge::parse::json::find_and_convert_member<sge::parse::json::array>(
 					o,
 					sge::parse::json::path(
 						FCPPT_TEXT("tags"))).elements,

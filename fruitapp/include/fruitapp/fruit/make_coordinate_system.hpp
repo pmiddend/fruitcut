@@ -3,13 +3,15 @@
 
 #include <fruitlib/math/line/basic.hpp>
 #include <fruitlib/math/line/distance_to_point.hpp>
+#include <fcppt/literal.hpp>
 #include <fcppt/optional.hpp>
 #include <fcppt/assert/error.hpp>
 #include <fcppt/assert/pre.hpp>
-#include <fcppt/math/range_compare.hpp>
+#include <fcppt/math/matrix/row.hpp>
 #include <fcppt/math/matrix/object_impl.hpp>
 #include <fcppt/math/matrix/static.hpp>
 #include <fcppt/math/vector/comparison.hpp>
+#include <fcppt/math/vector/componentwise_equal.hpp>
 #include <fcppt/math/vector/cross.hpp>
 #include <fcppt/math/vector/length.hpp>
 #include <fcppt/math/vector/normalize.hpp>
@@ -83,7 +85,7 @@ make_coordinate_system(
 
 	for(; first_other_point != points.end(); ++first_other_point)
 		if(
-			!fcppt::math::range_compare(
+			!fcppt::math::vector::componentwise_equal(
 				*points.begin(),
 				*first_other_point,
 				epsilon))
@@ -144,13 +146,39 @@ make_coordinate_system(
 			directions[0],
 			directions[1]);
 
+	auto const zero(
+		fcppt::literal<
+			scalar
+		>(
+			0
+		)
+	);
+
+	auto const one(
+		fcppt::literal<
+			scalar
+		>(
+			1
+		)
+	);
+
 	return
 		optional_matrix4(
 			matrix4(
-				directions[0][0],directions[1][0],crossed[0],(*points.begin())[0],
-				directions[0][1],directions[1][1],crossed[1],(*points.begin())[1],
-				directions[0][2],directions[1][2],crossed[2],(*points.begin())[2],
-				0,0,0,1));
+				fcppt::math::matrix::row(
+					directions[0][0],directions[1][0],crossed[0],(*points.begin())[0]
+				),
+				fcppt::math::matrix::row(
+					directions[0][1],directions[1][1],crossed[1],(*points.begin())[1]
+				),
+				fcppt::math::matrix::row(
+					directions[0][2],directions[1][2],crossed[2],(*points.begin())[2]
+				),
+				fcppt::math::matrix::row(
+					zero, zero, zero, one
+				)
+			)
+		);
 }
 }
 }

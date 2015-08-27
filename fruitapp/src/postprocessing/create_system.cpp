@@ -26,7 +26,7 @@ fruitapp::postprocessing::create_system(
 				fcppt::make_unique_ptr<fruitapp::postprocessing::cg::system>(
 					_shader_context.get_unsafe(), // TODO
 					_viewport_manager,
-					sge::parse::json::find_and_convert_member<sge::parse::json::object const>(
+					sge::parse::json::find_and_convert_member<sge::parse::json::object>(
 						_object,
 						sge::parse::json::path(
 							FCPPT_TEXT("pp")))))

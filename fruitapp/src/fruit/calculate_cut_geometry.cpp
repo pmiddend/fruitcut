@@ -17,6 +17,7 @@
 #include <fcppt/math/vector/construct.hpp>
 #include <fcppt/math/vector/cross.hpp>
 #include <fcppt/math/vector/dot.hpp>
+#include <fcppt/math/vector/null.hpp>
 
 
 fruitapp::fruit::cut_geometry const
@@ -34,7 +35,9 @@ fruitapp::fruit::calculate_cut_geometry(
 
 	fruitapp::renderer_rect const viewport_rect(
 		fruitapp::renderer_rect(
-			sge::renderer::vector2::null(),
+			fcppt::math::vector::null<
+				sge::renderer::vector2
+			>(),
 			fcppt::math::dim::structure_cast<fruitapp::renderer_dim2, fcppt::cast::size_fun>(
 				_target.viewport().get().size())));
 

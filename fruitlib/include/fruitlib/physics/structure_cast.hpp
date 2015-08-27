@@ -6,6 +6,7 @@
 #include <fcppt/math/dim/has_dim.hpp>
 #include <fcppt/math/dim/object_impl.hpp>
 #include <fcppt/math/matrix/has_dim.hpp>
+#include <fcppt/math/matrix/row.hpp>
 #include <fcppt/math/matrix/object_impl.hpp>
 #include <fcppt/math/vector/has_dim.hpp>
 #include <fcppt/math/vector/object_impl.hpp>
@@ -75,9 +76,16 @@ structure_cast(
 {
 	return
 		Container(
-			m[0].getX(),m[0].getY(),m[0].getZ(),
-			m[1].getX(),m[1].getY(),m[1].getZ(),
-			m[2].getX(),m[2].getY(),m[2].getZ());
+			fcppt::math::matrix::row(
+				m[0].getX(),m[0].getY(),m[0].getZ()
+			),
+			fcppt::math::matrix::row(
+				m[1].getX(),m[1].getY(),m[1].getZ()
+			),
+			fcppt::math::matrix::row(
+				m[2].getX(),m[2].getY(),m[2].getZ()
+			)
+		);
 }
 
 template<typename Container>

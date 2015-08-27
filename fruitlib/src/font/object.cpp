@@ -13,6 +13,7 @@
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/assert/unreachable.hpp>
 #include <fcppt/math/dim/comparison.hpp>
+#include <fcppt/math/dim/contents.hpp>
 
 
 fruitlib::font::object::object(
@@ -192,7 +193,13 @@ fruitlib::font::object::~object()
 bool
 fruitlib::font::object::rebuild_text_object()
 {
-	if(!bounding_box_.content() || text_.empty())
+	if(
+		fcppt::math::dim::contents(
+			bounding_box_.size()
+		)
+		== 0u
+		|| text_.empty()
+	)
 	{
 		if(text_object_)
 		{
@@ -213,7 +220,13 @@ fruitlib::font::object::rebuild_text_object()
 void
 fruitlib::font::object::regenerate_text_object()
 {
-	if(!bounding_box_.content() || text_.empty())
+	if(
+		fcppt::math::dim::contents(
+			bounding_box_.size()
+		)
+		== 0u
+		|| text_.empty()
+	)
 		return;
 
 	sge::font::align_h::max_width const max_width(

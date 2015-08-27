@@ -8,6 +8,7 @@
 #include <sge/renderer/device/ffp.hpp>
 #include <sge/renderer/target/onscreen.hpp>
 #include <fcppt/math/box/object_impl.hpp>
+#include <fcppt/math/dim/contents.hpp>
 #include <fcppt/math/dim/object_impl.hpp>
 
 
@@ -38,7 +39,13 @@ fruitapp::overlay::react(
 		e);
 
 	// Do we even have a viewport?
-	if(!renderer_.onscreen_target().viewport().get().content())
+	if(
+		fcppt::math::dim::contents(
+			renderer_.onscreen_target().viewport().get().size()
+		)
+		==
+		0u
+	)
 		return;
 
 	renderer_.onscreen_target().clear(

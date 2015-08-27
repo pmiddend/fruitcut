@@ -22,9 +22,11 @@
 #include <fcppt/text.hpp>
 #include <fcppt/cast/float_to_int_fun.hpp>
 #include <fcppt/cast/int_to_float_fun.hpp>
+#include <fcppt/math/box/null.hpp>
 #include <fcppt/math/box/object_impl.hpp>
 #include <fcppt/math/dim/arithmetic.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
+#include <fcppt/math/vector/null.hpp>
 #include <fcppt/math/vector/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/algorithm/string/join.hpp>
@@ -56,13 +58,15 @@ fruitapp::quick_log::quick_log(
 					FCPPT_TEXT("quick-log"))),
 			// Can't define a box yet, we might have no viewport
 			sge::font::string(),
-			sge::font::rect::null(),
+			fcppt::math::box::null<
+				sge::font::rect
+			>(),
 			fruitlib::font::align_h::left,
 			fruitlib::font::align_v::top,
 			sge::font::flags_field::null(),
 			sge::image::color::any::object(
 				fruitlib::json::parse_rgba8_color(
-					sge::parse::json::find_and_convert_member<sge::parse::json::value const>(
+					sge::parse::json::find_and_convert_member<sge::parse::json::value>(
 						_config_file,
 						sge::parse::json::path(
 							FCPPT_TEXT("font-color"))))),
@@ -146,7 +150,9 @@ fruitapp::quick_log::viewport_change(
 
 	font_node_.object().bounding_box(
 		sge::font::rect(
-			sge::font::rect::vector::null(),
+			fcppt::math::vector::null<
+				sge::font::rect::vector
+			>(),
 			fcppt::math::dim::structure_cast<sge::font::rect::dim, fcppt::cast::float_to_int_fun>(
 				fcppt::math::dim::structure_cast<fractional_dimension, fcppt::cast::int_to_float_fun>(
 					viewport_size) *

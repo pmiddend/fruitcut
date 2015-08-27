@@ -13,7 +13,7 @@ fruitapp::light::manager::manager(
 	directional_source_(
 		fcppt::make_unique_ptr<fruitapp::light::directional_light_source>(
 			fruitapp::light::directional_light_source_from_json(
-				sge::parse::json::find_and_convert_member<sge::parse::json::object const>(
+				sge::parse::json::find_and_convert_member<sge::parse::json::object>(
 					_json,
 					sge::parse::json::path(
 						fcppt::string(

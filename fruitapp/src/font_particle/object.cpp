@@ -14,6 +14,7 @@
 #include <sge/renderer/scalar.hpp>
 #include <sge/renderer/vector2.hpp>
 #include <sge/renderer/vector2.hpp>
+#include <fcppt/math/box/null.hpp>
 #include <fcppt/math/box/object_impl.hpp>
 #include <fcppt/math/dim/arithmetic.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
@@ -72,7 +73,9 @@ fruitapp::font_particle::object::object(
 			_font_manager,
 			_font_identifier,
 			_text.get(),
-			sge::font::rect::null(),
+			fcppt::math::box::null<
+				sge::font::rect
+			>(),
 			fruitlib::font::align_h::right,
 			fruitlib::font::align_v::top,
 			sge::font::flags_field::null(),

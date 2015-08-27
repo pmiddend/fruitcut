@@ -17,13 +17,14 @@
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/optional.hpp>
 #include <fcppt/assert/error.hpp>
-#include <fcppt/math/range_compare.hpp>
 #include <fcppt/math/box/object_impl.hpp>
 #include <fcppt/math/dim/object_impl.hpp>
 #include <fcppt/math/matrix/arithmetic.hpp>
 #include <fcppt/math/matrix/inverse.hpp>
 #include <fcppt/math/matrix/vector.hpp>
 #include <fcppt/math/vector/length.hpp>
+#include <fcppt/math/vector/narrow_cast.hpp>
+#include <fcppt/math/vector/null.hpp>
 #include <fcppt/math/vector/to_dim.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/next_prior.hpp>
@@ -53,19 +54,6 @@ transform_texcoord(
 			t.y());
 }
 
-
-template<typename Output,typename Input>
-Output const
-vector_narrow(
-	Input const &input)
-{
-	Output result = Output::null();
-	std::copy(
-		input.begin(),
-		input.begin() + result.size(),
-		result.begin());
-	return result;
-}
 }
 
 std::unique_ptr<fruitapp::fruit::cut_mesh_result>
@@ -178,7 +166,7 @@ fruitapp::fruit::cut_mesh(
 
 	// Step 2: Calculate the bounding box and the barycenter (we can do
 	// that in one pass, luckily)
-	result->barycenter() = vector3::null();
+	result->barycenter() = fcppt::math::vector::null<vector3>();
 
 	vector3
 		min_pos =
@@ -276,7 +264,7 @@ fruitapp::fruit::cut_mesh(
 				1.f);
 
 		reduced.push_back(
-			vector_narrow<vector2>(
+			fcppt::math::vector::narrow_cast<vector2>(
 				transformed));
 
 		FCPPT_ASSERT_ERROR(
@@ -346,21 +334,21 @@ fruitapp::fruit::cut_mesh(
 		result->cross_section().triangles().push_back(
 			fruit::triangle(
 				{{
-					vector_narrow<vector3>(
+					fcppt::math::vector::narrow_cast<vector3>(
 						tcs *
 						vector4(
 							convex_hull_result[0][0],
 							convex_hull_result[0][1],
 							0.f,
 							1.f)) - result->barycenter(),
-					vector_narrow<vector3>(
+					fcppt::math::vector::narrow_cast<vector3>(
 						tcs *
 						vector4(
 							convex_hull_result[current_vertex-1][0],
 							convex_hull_result[current_vertex-1][1],
 							0.f,
 							1.f)) - result->barycenter(),
-					vector_narrow<vector3>(
+					fcppt::math::vector::narrow_cast<vector3>(
 						tcs *
 						vector4(
 							convex_hull_result[current_vertex][0],

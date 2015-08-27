@@ -17,6 +17,7 @@
 #include <sge/renderer/target/onscreen.hpp>
 #include <fcppt/maybe.hpp>
 #include <fcppt/math/box/object_impl.hpp>
+#include <fcppt/math/matrix/identity.hpp>
 #include <fcppt/math/matrix/object_impl.hpp>
 
 
@@ -82,7 +83,12 @@ fruitlib::scenic::adaptors::line_drawer::react(
 			sge::renderer::state::ffp::transform::object_unique_ptr const world_state(
 				_renderer.create_transform_state(
 					sge::renderer::state::ffp::transform::parameters(
-						sge::renderer::matrix4::identity())));
+						fcppt::math::matrix::identity<
+							sge::renderer::matrix4
+						>()
+					)
+				)
+			);
 
 			sge::renderer::state::ffp::transform::scoped const world_transform(
 				_render_event.context(),

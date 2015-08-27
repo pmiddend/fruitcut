@@ -26,6 +26,7 @@
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/unique_ptr_to_const.hpp>
 #include <fcppt/container/bitfield/object_impl.hpp>
+#include <fcppt/math/vector/null.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <functional>
 #include <fcppt/config/external_end.hpp>
@@ -61,7 +62,9 @@ fruitapp::logo::logo(
 						sge::renderer::resource_flags_field::null()))))),
 	sprite_object_(
 		sge::sprite::roles::center{} =
-			sprite_object::vector::null(),
+			fcppt::math::vector::null<
+				sprite_object::vector
+			>(),
 		sge::sprite::roles::texture0{} =
 			sprite_object::texture_type(
 				*texture_

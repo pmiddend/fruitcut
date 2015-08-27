@@ -20,6 +20,7 @@
 #include <sge/shader/scoped_pair.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/math/matrix/arithmetic.hpp>
+#include <fcppt/math/matrix/identity.hpp>
 
 
 fruitapp::fruit::rendering::shadow::shadow(
@@ -44,7 +45,10 @@ fruitapp::fruit::rendering::shadow::shadow(
 		_shader_context.renderer(),
 		sge::shader::parameter::is_projection_matrix(
 			true),
-		sge::renderer::matrix4::identity()),
+		fcppt::math::matrix::identity<
+			sge::renderer::matrix4
+		>()
+	),
 	mvp_(
 		_mvp),
 	depth_stencil_state_(

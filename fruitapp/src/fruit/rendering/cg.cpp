@@ -35,6 +35,7 @@
 #include <fcppt/text.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/math/matrix/arithmetic.hpp>
+#include <fcppt/math/matrix/identity.hpp>
 #include <fcppt/math/matrix/inverse.hpp>
 #include <fcppt/math/matrix/transpose.hpp>
 
@@ -64,7 +65,10 @@ fruitapp::fruit::rendering::cg::cg(
 		_shader_context.renderer(),
 		sge::shader::parameter::is_projection_matrix(
 			true),
-		sge::renderer::matrix4::identity()),
+		fcppt::math::matrix::identity<
+			sge::renderer::matrix4
+		>()
+	),
 	mv_it_parameter_(
 		shader_.vertex_program(),
 		sge::shader::parameter::name(
@@ -72,7 +76,10 @@ fruitapp::fruit::rendering::cg::cg(
 		_shader_context.renderer(),
 		sge::shader::parameter::is_projection_matrix(
 			false),
-		sge::renderer::matrix4::identity()),
+		fcppt::math::matrix::identity<
+			sge::renderer::matrix4
+		>()
+	),
 	world_parameter_(
 		shader_.vertex_program(),
 		sge::shader::parameter::name(
@@ -80,7 +87,10 @@ fruitapp::fruit::rendering::cg::cg(
 		_shader_context.renderer(),
 		sge::shader::parameter::is_projection_matrix(
 			false),
-		sge::renderer::matrix4::identity()),
+		fcppt::math::matrix::identity<
+			sge::renderer::matrix4
+		>()
+	),
 	light_position_parameter_(
 		shader_.vertex_program(),
 		sge::shader::parameter::name(

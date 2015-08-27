@@ -2,6 +2,7 @@
 #include <fruitapp/fruit/mesh.hpp>
 #include <sge/renderer/vector3.hpp>
 #include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/math/box/null.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
@@ -16,8 +17,10 @@ fruitapp::fruit::cut_mesh_result::cut_mesh_result()
 		fcppt::make_unique_ptr<fruit::mesh>(
 			fruit::mesh::triangle_sequence())),
 	bounding_box_(
-		fruit::box3::vector::null(),
-		fruit::box3::dim::null()),
+		fcppt::math::box::null<
+			fruitapp::fruit::box3
+		>()
+	),
 	area_(
 		0.f),
 	barycenter_()

@@ -227,7 +227,7 @@ fruitapp::machine_impl::machine_impl(
 	activated_loggers_(
 		fruitlib::log::scoped_sequence_from_json(
 			sge::log::global_context(),
-			sge::parse::json::find_and_convert_member<sge::parse::json::array const>(
+			sge::parse::json::find_and_convert_member<sge::parse::json::array>(
 				config_file_,
 				sge::parse::json::path(
 					FCPPT_TEXT("loggers"))
@@ -355,7 +355,7 @@ fruitapp::machine_impl::machine_impl(
 		)
 	),
 	projection_manager_(
-		sge::parse::json::find_and_convert_member<sge::parse::json::object const>(
+		sge::parse::json::find_and_convert_member<sge::parse::json::object>(
 			config_file_,
 			sge::parse::json::path(FCPPT_TEXT("ingame"))
 				/ FCPPT_TEXT("camera")
@@ -390,7 +390,7 @@ fruitapp::machine_impl::machine_impl(
 				overlay_node(),
 				fruitlib::scenic::depth(
 					depths::overlay::dont_care))),
-		sge::parse::json::find_and_convert_member<sge::parse::json::object const>(
+		sge::parse::json::find_and_convert_member<sge::parse::json::object>(
 			config_file_,
 			sge::parse::json::path(
 				FCPPT_TEXT("quick-log"))),
@@ -413,7 +413,7 @@ fruitapp::machine_impl::machine_impl(
 						this->root_node(),
 						fruitlib::scenic::depth(
 							depths::root::shadow_map))),
-				sge::parse::json::find_and_convert_member<sge::parse::json::object const>(
+				sge::parse::json::find_and_convert_member<sge::parse::json::object>(
 					config_file_,
 					sge::parse::json::path(
 						FCPPT_TEXT("shadow-map"))),

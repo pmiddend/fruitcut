@@ -10,8 +10,8 @@
 #include <fruitlib/math/triangle/vector_type.hpp>
 #include <fruitlib/math/triangle/vertex_access.hpp>
 #include <fcppt/io/cout.hpp>
-#include <fcppt/math/range_compare.hpp>
 #include <fcppt/math/size_type.hpp>
+#include <fcppt/math/vector/componentwise_equal.hpp>
 #include <fcppt/math/vector/length.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/phoenix/bind.hpp>
@@ -139,7 +139,19 @@ cut_triangle_at_plane(
 	// line::basic constructor will fail. But then again, when that
 	// happens, we know that our triangle is extremely small, so we
 	// might as well cull it.
-	if(fcppt::math::range_compare(points[v],points[vprev],epsilon) || fcppt::math::range_compare(points[v],points[vnext],epsilon))
+	if(
+		fcppt::math::vector::componentwise_equal(
+			points[v],
+			points[vprev],
+			epsilon
+		)
+		||
+		fcppt::math::vector::componentwise_equal(
+			points[v],
+			points[vnext],
+			epsilon
+		)
+	)
 		return result;
 
 	typedef

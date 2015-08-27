@@ -9,6 +9,7 @@
 #include <fcppt/maybe.hpp>
 #include <fcppt/optional_bind_construct.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/math/matrix/identity.hpp>
 
 
 fruitapp::background::cg::cg(
@@ -51,7 +52,10 @@ fruitapp::background::cg::cg(
 		_shader_context.renderer(),
 		sge::shader::parameter::is_projection_matrix(
 			true),
-		sge::renderer::matrix4::identity()),
+		fcppt::math::matrix::identity<
+			sge::renderer::matrix4
+		>()
+	),
 	shadow_mvp_parameter_(
 		shader_.vertex_program(),
 		sge::shader::parameter::name(
@@ -63,7 +67,9 @@ fruitapp::background::cg::cg(
 			_opt_shadow_map,
 			[]{
 				return
-					sge::renderer::matrix4::identity();
+					fcppt::math::matrix::identity<
+						sge::renderer::matrix4
+					>();
 			},
 			[](
 				fruitapp::shadow_map::object const &_shadow_map

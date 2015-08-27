@@ -2,17 +2,23 @@
 #include <sge/renderer/matrix4.hpp>
 #include <sge/renderer/vector3.hpp>
 #include <fcppt/math/matrix/arithmetic.hpp>
+#include <fcppt/math/matrix/identity.hpp>
 #include <fcppt/math/matrix/translation.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
+#include <fcppt/math/vector/null.hpp>
 
 
 fruitapp::light::directional_light_source::directional_light_source()
 :
 	position_(
-		sge::renderer::vector3::null()
+		fcppt::math::vector::null<
+			sge::renderer::vector3
+		>()
 	),
 	transformation_(
-		sge::renderer::matrix4::identity()
+		fcppt::math::matrix::identity<
+			sge::renderer::matrix4
+		>()
 	)
 {
 }

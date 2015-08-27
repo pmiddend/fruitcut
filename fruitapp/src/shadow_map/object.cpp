@@ -78,7 +78,7 @@ fruitapp::shadow_map::object::object(
 	mvp_(
 		fruitlib::perspective_projection_information_to_matrix(
 			fruitlib::json::parse_projection(
-				sge::parse::json::find_and_convert_member<sge::parse::json::object const>(
+				sge::parse::json::find_and_convert_member<sge::parse::json::object>(
 					_config,
 					sge::parse::json::path(
 						FCPPT_TEXT("projection"))),
