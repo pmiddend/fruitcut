@@ -160,9 +160,9 @@ fruitlib::physics::debugger::drawLine(
 		return;
 	scoped_lock_->value().push_back(
 		sge::line_drawer::line(
-			structure_cast<sge::renderer::vector3>(
+			fruitlib::physics::structure_cast<sge::renderer::vector3>(
 				from),
-			structure_cast<sge::renderer::vector3>(
+			fruitlib::physics::structure_cast<sge::renderer::vector3>(
 				to),
 			sge::image::color::any::object(
 				sge::image::color::rgb8(

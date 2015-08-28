@@ -3,8 +3,6 @@
 
 #include <fruitlib/physics/scalar.hpp>
 #include <fcppt/math/size_type.hpp>
-#include <fcppt/math/dim/has_dim.hpp>
-#include <fcppt/math/dim/object_impl.hpp>
 #include <fcppt/math/matrix/has_dim.hpp>
 #include <fcppt/math/matrix/row.hpp>
 #include <fcppt/math/matrix/object_impl.hpp>
@@ -13,7 +11,6 @@
 #include <fcppt/config/external_begin.hpp>
 #include <LinearMath/btMatrix3x3.h>
 #include <LinearMath/btVector3.h>
-#include <boost/utility/enable_if.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -22,16 +19,18 @@ namespace fruitlib
 namespace physics
 {
 template<typename Container>
-typename
-boost::enable_if_c
-<
-	fcppt::math::vector::has_dim<Container,static_cast<fcppt::math::size_type>(3)>::value ||
-	fcppt::math::dim::has_dim<Container,static_cast<fcppt::math::size_type>(3)>::value,
-	Container
->::type
+Container
 structure_cast(
 	btVector3 const &s)
 {
+	static_assert(
+		fcppt::math::vector::has_dim<
+			Container,
+			3u
+		>::value,
+		""
+	);
+
 	return
 		Container(
 			static_cast<typename Container::value_type>(
@@ -42,16 +41,17 @@ structure_cast(
 				s[2]));
 }
 
-template<typename Container>
-typename
-boost::enable_if_c
-<
-	fcppt::math::vector::has_dim<Container,static_cast<fcppt::math::size_type>(3)>::value ||
-	fcppt::math::dim::has_dim<Container,static_cast<fcppt::math::size_type>(3)>::value,
-	btVector3
->::type
+template<
+	typename T,
+	typename S
+>
+btVector3
 structure_cast(
-	Container const &c)
+	fcppt::math::vector::object<
+		T,
+		3u,
+		S
+	> const &c)
 {
 	return
 		btVector3(
@@ -60,20 +60,20 @@ structure_cast(
 			static_cast<scalar>(c[2]));
 }
 
-
-
-
-
 template<typename Container>
-typename
-boost::enable_if_c
-<
-	fcppt::math::matrix::has_dim<Container,static_cast<fcppt::math::size_type>(3),static_cast<fcppt::math::size_type>(3)>::value,
-	Container
->::type
+Container
 structure_cast(
 	btMatrix3x3 const &m)
 {
+	static_assert(
+		fcppt::math::matrix::has_dim<
+			Container,
+			3u,
+			3u
+		>::value,
+		""
+	);
+
 	return
 		Container(
 			fcppt::math::matrix::row(
@@ -88,15 +88,18 @@ structure_cast(
 		);
 }
 
-template<typename Container>
-typename
-boost::enable_if_c
-<
-	fcppt::math::matrix::has_dim<Container,static_cast<fcppt::math::size_type>(3),static_cast<fcppt::math::size_type>(3)>::value,
-	btMatrix3x3
->::type
+template<
+	typename T,
+	typename S
+>
+btMatrix3x3
 structure_cast(
-	Container const &m)
+	fcppt::math::matrix::object<
+		T,
+		3,
+		3,
+		S
+	> const &m)
 {
 	return
 		btMatrix3x3(
@@ -104,6 +107,7 @@ structure_cast(
 			m[1][0],m[1][1],m[1][2],
 			m[2][0],m[2][1],m[2][2]);
 }
+
 }
 }
 

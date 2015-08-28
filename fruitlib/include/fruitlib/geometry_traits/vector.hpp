@@ -1,6 +1,8 @@
 #ifndef FRUITLIB_GEOMETRY_TRAITS_VECTOR_HPP_INCLUDED
 #define FRUITLIB_GEOMETRY_TRAITS_VECTOR_HPP_INCLUDED
 
+#include <fcppt/math/size_type.hpp>
+#include <fcppt/math/static_size.hpp>
 #include <fcppt/math/vector/object_impl.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
@@ -17,19 +19,19 @@ namespace geometry
 {
 namespace traits
 {
-template<typename T,typename N,typename S>
+template<typename T,fcppt::math::size_type N,typename S>
 struct tag<fcppt::math::vector::object<T,N,S> >
 {
 	typedef point_tag type;
 };
 
-template<typename T,typename N,typename S>
+template<typename T,fcppt::math::size_type N,typename S>
 struct coordinate_type<fcppt::math::vector::object<T,N,S> >
 {
 	typedef T type;
 };
 
-template<typename T,typename N,typename S>
+template<typename T,fcppt::math::size_type N,typename S>
 struct coordinate_system<fcppt::math::vector::object<T,N,S> >
 {
 	typedef boost::geometry::cs::cartesian type;
@@ -38,14 +40,17 @@ struct coordinate_system<fcppt::math::vector::object<T,N,S> >
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
 
-template<typename T,typename N,typename S>
+template<typename T,fcppt::math::size_type N,typename S>
 struct dimension<fcppt::math::vector::object<T,N,S> >
-	: N
+	:
+	fcppt::math::static_size<
+		N
+	>
 {};
 
 FCPPT_PP_POP_WARNING
 
-template<typename T,typename N,typename S,std::size_t Dim>
+template<typename T,fcppt::math::size_type N,typename S,std::size_t Dim>
 struct access<fcppt::math::vector::object<T,N,S>,Dim>
 {
 	static T

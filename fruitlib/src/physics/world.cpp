@@ -89,7 +89,7 @@ fruitlib::physics::world::world(
 {
 	// bullet sets some default value, so we better override this here
 	world_->setGravity(
-		structure_cast(
+		fruitlib::physics::structure_cast(
 			_gravity));
 	world_->setInternalTickCallback(
 		&internal_tick_callback_static,
@@ -114,7 +114,7 @@ fruitlib::physics::vector3 const
 fruitlib::physics::world::gravity() const
 {
 	return
-		structure_cast<vector3>(
+		fruitlib::physics::structure_cast<vector3>(
 			world_->getGravity());
 }
 
@@ -123,7 +123,7 @@ fruitlib::physics::world::gravity(
 	vector3 const &_gravity)
 {
 	world_->setGravity(
-		structure_cast(
+		fruitlib::physics::structure_cast(
 			_gravity));
 }
 
