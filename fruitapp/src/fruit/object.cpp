@@ -4,6 +4,7 @@
 #include <fruitapp/fruit/mesh_to_vertex_buffer.hpp>
 #include <fruitapp/fruit/object.hpp>
 #include <fruitapp/fruit/prototype.hpp>
+#include <fruitlib/def_ctor.hpp>
 #include <fruitlib/geometry_traits/box.hpp>
 #include <fruitlib/geometry_traits/vector.hpp>
 #include <fruitlib/physics/world_fwd.hpp>
@@ -44,9 +45,16 @@ fruitapp::fruit::object::object(
 		std::move(
 			_mesh)),
 	bounding_box_(
-		boost::geometry::return_envelope<fruitapp::fruit::box3>(
+		boost::geometry::return_envelope<
+			fruitlib::def_ctor<
+				fruitapp::fruit::box3
+			>
+		>(
 			fruitapp::fruit::mesh_to_point_cloud(
-				*mesh_))),
+				*mesh_
+			)
+		).base()
+	),
 	body_(
 		fruitlib::physics::rigid_body::parameters(
 			_position,

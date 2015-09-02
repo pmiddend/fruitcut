@@ -3,9 +3,7 @@
 
 #include <fruitlib/detail/symbol.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <memory>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/unique_ptr.hpp>
 
 
 namespace fruitlib
@@ -25,7 +23,7 @@ public:
 	FRUITLIB_DETAIL_SYMBOL
 	~object();
 private:
-	std::unique_ptr<signal_stack_printer::object_impl> const impl_;
+	fcppt::unique_ptr<signal_stack_printer::object_impl> const impl_;
 };
 }
 }

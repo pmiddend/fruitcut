@@ -1,4 +1,6 @@
 #include <fruitapp/gui/create_system.hpp>
+#include <fruitapp/gui/system.hpp>
+#include <fruitapp/gui/system_unique_ptr.hpp>
 #include <fruitapp/config.hpp>
 #ifdef FRUITAPP_USE_CEGUI
 #include <fruitapp/gui/ce/system.hpp>
@@ -6,7 +8,8 @@
 #include <fruitapp/gui/dummy/system.hpp>
 #endif
 #include <sge/renderer/texture/emulate_srgb.hpp>
-#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/make_unique_ptr_fcppt.hpp>
+#include <fcppt/unique_ptr_to_base.hpp>
 
 
 fruitapp::gui::system_unique_ptr
@@ -35,9 +38,11 @@ fruitapp::gui::create_system(
 	)
 {
 	return
-		fruitapp::gui::system_unique_ptr(
+		fcppt::unique_ptr_to_base<
+			fruitapp::gui::system
+		>(
 #ifdef FRUITAPP_USE_CEGUI
-			fcppt::make_unique_ptr<fruitapp::gui::ce::system>(
+			fcppt::make_unique_ptr_fcppt<fruitapp::gui::ce::system>(
 				_parent,
 				_renderer,
 				_image_system,
@@ -48,7 +53,7 @@ fruitapp::gui::create_system(
 				_sound_controller,
 				_emulate_srgb)
 #else
-			fcppt::make_unique_ptr<fruitapp::gui::dummy::system>(
+			fcppt::make_unique_ptr_fcppt<fruitapp::gui::dummy::system>(
 				_keyboard)
 #endif
 			);

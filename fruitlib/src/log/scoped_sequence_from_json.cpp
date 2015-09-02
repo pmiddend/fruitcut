@@ -6,7 +6,7 @@
 #include <sge/parse/json/element_vector.hpp>
 #include <sge/parse/json/get_exn.hpp>
 #include <sge/parse/json/object.hpp>
-#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/make_unique_ptr_fcppt.hpp>
 #include <fcppt/optional_to_exception.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
@@ -46,7 +46,7 @@ try
 						FCPPT_TEXT("The loggers have to be stored in an array of pairs [name,level], this was not the case with at least one logger pair"));
 
 				return
-					fcppt::make_unique_ptr<
+					fcppt::make_unique_ptr_fcppt<
 						fruitlib::log::scoped
 					>(
 						_context,

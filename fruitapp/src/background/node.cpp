@@ -1,10 +1,11 @@
-#include <fruitapp/background/base_unique_ptr.hpp>
+#include <fruitapp/background/base.hpp>
 #include <fruitapp/background/cg.hpp>
 #include <fruitapp/background/ffp.hpp>
 #include <fruitapp/background/node.hpp>
 #include <sge/renderer/context/ffp.hpp>
 #include <sge/renderer/device/ffp.hpp>
-#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/make_unique_ptr_fcppt.hpp>
+#include <fcppt/unique_ptr_to_base.hpp>
 
 
 fruitapp::background::node::node(
@@ -24,8 +25,10 @@ fruitapp::background::node::node(
 		!_shader_context.has_value() ||
 		_use_ffp.get()
 		?
-			fruitapp::background::base_unique_ptr(
-				fcppt::make_unique_ptr<fruitapp::background::ffp>(
+			fcppt::unique_ptr_to_base<
+				fruitapp::background::base
+			>(
+				fcppt::make_unique_ptr_fcppt<fruitapp::background::ffp>(
 					dynamic_cast<sge::renderer::device::ffp &>(
 						_renderer),
 					_texture_manager,
@@ -33,8 +36,10 @@ fruitapp::background::node::node(
 					_camera,
 					_projection_manager))
 		:
-			fruitapp::background::base_unique_ptr(
-				fcppt::make_unique_ptr<fruitapp::background::cg>(
+			fcppt::unique_ptr_to_base<
+				fruitapp::background::base
+			>(
+				fcppt::make_unique_ptr_fcppt<fruitapp::background::cg>(
 					_texture_manager,
 					_shader_context.get_unsafe(), // TODO
 					_shadow_map,

@@ -17,7 +17,9 @@
 #include <sge/renderer/state/ffp/transform/object_unique_ptr.hpp>
 #include <sge/renderer/state/ffp/transform/parameters.hpp>
 #include <sge/renderer/state/ffp/transform/scoped.hpp>
-#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/make_unique_ptr_fcppt.hpp>
+#include <fcppt/maybe_void.hpp>
+#include <fcppt/optional_assign.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/pre_message.hpp>
 #include <fcppt/math/matrix/identity.hpp>
@@ -57,16 +59,24 @@ fruitlib::physics::debugger::debugger(
 void
 fruitlib::physics::debugger::update()
 {
+	{
+		auto const &scoped_lock(
+			fcppt::optional_assign(
+				scoped_lock_,
+				fcppt::make_unique_ptr_fcppt<sge::line_drawer::scoped_lock>(
+					line_drawer_
+				)
+			)
+		);
+
+		scoped_lock->value().clear();
+
+		if (debug_mode_ != btIDebugDraw::DBG_NoDebug)
+			world_.handle().debugDrawWorld();
+	}
+
 	scoped_lock_ =
-		fcppt::make_unique_ptr<sge::line_drawer::scoped_lock>(
-			line_drawer_);
-
-	scoped_lock_->value().clear();
-
-	if (debug_mode_ != btIDebugDraw::DBG_NoDebug)
-		world_.handle().debugDrawWorld();
-
-	scoped_lock_.reset();
+		optional_scoped_lock();
 }
 
 void
@@ -156,24 +166,35 @@ fruitlib::physics::debugger::drawLine(
 	// This MIGHT happen, for example when you use the BvhMeshShape. A
 	// better solution than return; here would be to queue up those
 	// triangles. TODO
-	if(!scoped_lock_)
-		return;
-	scoped_lock_->value().push_back(
-		sge::line_drawer::line(
-			fruitlib::physics::structure_cast<sge::renderer::vector3>(
-				from),
-			fruitlib::physics::structure_cast<sge::renderer::vector3>(
-				to),
-			sge::image::color::any::object(
-				sge::image::color::rgb8(
-					(sge::image::color::init::red() %= from_color.getX())
-					(sge::image::color::init::green() %= from_color.getY())
-					(sge::image::color::init::blue() %= from_color.getZ()))),
-			sge::image::color::any::object(
-				sge::image::color::rgb8(
-					(sge::image::color::init::red() %= to_color.getX())
-					(sge::image::color::init::green() %= to_color.getY())
-					(sge::image::color::init::blue() %= to_color.getZ())))));
+	fcppt::maybe_void(
+		scoped_lock_,
+		[
+			&from,
+			&to,
+			&from_color,
+			&to_color
+		](
+			auto const &_scoped_lock
+		)
+		{
+			_scoped_lock->value().push_back(
+				sge::line_drawer::line(
+					fruitlib::physics::structure_cast<sge::renderer::vector3>(
+						from),
+					fruitlib::physics::structure_cast<sge::renderer::vector3>(
+						to),
+					sge::image::color::any::object(
+						sge::image::color::rgb8(
+							(sge::image::color::init::red() %= from_color.getX())
+							(sge::image::color::init::green() %= from_color.getY())
+							(sge::image::color::init::blue() %= from_color.getZ()))),
+					sge::image::color::any::object(
+						sge::image::color::rgb8(
+							(sge::image::color::init::red() %= to_color.getX())
+							(sge::image::color::init::green() %= to_color.getY())
+							(sge::image::color::init::blue() %= to_color.getZ())))));
+		}
+	);
 }
 
 // @override

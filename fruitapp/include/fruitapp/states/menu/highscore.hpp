@@ -72,7 +72,12 @@ private:
 	fruitapp::gui::dialogs::highscore_unique_ptr highscore_;
 	optional_connection main_menu_button_connection_;
 	optional_connection switch_provider_connection_;
-	fruitapp::highscore::provider::connection_base_ptr connection_;
+	typedef
+	fcppt::optional<
+		fruitapp::highscore::provider::connection_base_ptr
+	>
+	optional_provider_connection;
+	optional_provider_connection connection_;
 	optional_connection message_connection_;
 	optional_connection error_connection_;
 	optional_connection list_connection_;

@@ -1,6 +1,7 @@
 #include <fruitapp/highscore/provider/net/connection.hpp>
 #include <fruitapp/highscore/provider/net/object.hpp>
-#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/make_unique_ptr_fcppt.hpp>
+#include <fcppt/unique_ptr_to_base.hpp>
 
 
 fruitapp::highscore::provider::net::object::object(
@@ -25,8 +26,10 @@ fruitapp::highscore::provider::connection_base_ptr
 fruitapp::highscore::provider::net::object::create_connection()
 {
 	return
-		fruitapp::highscore::provider::connection_base_ptr(
-			fcppt::make_unique_ptr<net::connection>(
+		fcppt::unique_ptr_to_base<
+			fruitapp::highscore::provider::connection_base
+		>(
+			fcppt::make_unique_ptr_fcppt<net::connection>(
 				host_,
 				port_));
 }

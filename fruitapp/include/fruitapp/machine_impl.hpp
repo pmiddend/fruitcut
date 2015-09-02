@@ -45,13 +45,12 @@
 #include <sge/timer/basic.hpp>
 #include <sge/timer/clocks/standard.hpp>
 #include <awl/main/exit_code.hpp>
+#include <fcppt/optional.hpp>
+#include <fcppt/unique_ptr.hpp>
 #include <fcppt/config/platform.hpp>
 #include <fcppt/preprocessor/const.hpp>
 #include <fcppt/preprocessor/warn_unused_result.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <memory>
-#include <fcppt/config/external_end.hpp>
 
 
 namespace fruitapp
@@ -266,7 +265,14 @@ private:
 	sge::renderer::texture::emulate_srgb const emulate_srgb_;
 	fruitapp::systems const systems_;
 	fruitlib::texture_manager texture_manager_;
-	std::unique_ptr<sge::shader::context> const shader_context_;
+	typedef
+	fcppt::optional<
+		fcppt::unique_ptr<
+			sge::shader::context
+		>
+	>
+	optional_shader_context;
+	optional_shader_context const shader_context_;
 	sge::model::md3::loader_unique_ptr md3_loader_;
 	fruitapp::viewport::manager viewport_manager_;
 	fruitapp::postprocessing::system_unique_ptr const postprocessing_system_;
@@ -288,7 +294,12 @@ private:
 	fruitapp::gui::system_unique_ptr const gui_system_;
 	fruitapp::quick_log quick_log_;
 	fruitapp::light::manager light_manager_;
-	fruitapp::shadow_map::object_unique_ptr shadow_map_;
+	typedef
+	fcppt::optional<
+		fruitapp::shadow_map::object_unique_ptr
+	>
+	optional_shadow_map;
+	optional_shadow_map const shadow_map_;
 	fruitapp::background::node background_;
 	unsigned desired_fps_;
 	fruitapp::highscore::score last_game_score_;

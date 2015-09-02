@@ -32,10 +32,11 @@
 #include <sge/systems/instance.hpp>
 #include <fcppt/make_ref.hpp>
 #include <fcppt/make_shared_ptr.hpp>
-#include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/maybe.hpp>
+#include <fcppt/make_unique_ptr_fcppt.hpp>
+#include <fcppt/optional_bind_construct.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/cast/size_fun.hpp>
+#include <fcppt/math/box/null.hpp>
 #include <fcppt/math/box/object_impl.hpp>
 #include <fcppt/math/dim/object_impl.hpp>
 #include <fcppt/math/matrix/identity.hpp>
@@ -57,7 +58,9 @@ fruitapp::states::ingame::superstate::superstate(
 		ctx),
 	physics_world_(
 		// The box is ignored for now
-		fruitlib::physics::box(),
+		fcppt::math::box::null<
+			fruitlib::physics::box
+		>(),
 		sge::parse::json::find_and_convert_member<fruitlib::physics::vector3>(
 			this->context<fruitapp::machine>().config_file(),
 			sge::parse::json::path(
@@ -119,12 +122,8 @@ fruitapp::states::ingame::superstate::superstate(
 		this->context<fruitapp::machine>().camera(),
 		this->context<fruitapp::machine>().light_manager()),
 	fruit_shadow_render_node_(
-		fcppt::maybe(
+		fcppt::optional_bind_construct(
 			context<fruitapp::machine>().shadow_map(),
-			[]{
-				return
-					std::unique_ptr<fruitapp::fruit::rendering::shadow_node>();
-			},
 			[
 				this
 			](
@@ -132,7 +131,7 @@ fruitapp::states::ingame::superstate::superstate(
 			)
 			{
 				return
-					fcppt::make_unique_ptr<fruitapp::fruit::rendering::shadow_node>(
+					fcppt::make_unique_ptr_fcppt<fruitapp::fruit::rendering::shadow_node>(
 						fruitlib::scenic::optional_parent(
 							fruitlib::scenic::parent(
 								_shadow_map,
@@ -237,8 +236,9 @@ fruitapp::states::ingame::superstate::superstate(
 		background_group_,
 		fruit_manager_.fruit_group());
 
+	// TODO: initialize this directly
 	background_body_scope_ =
-		fcppt::make_unique_ptr<fruitlib::physics::rigid_body::scoped>(
+		std::make_unique<fruitlib::physics::rigid_body::scoped>(
 			physics_world_,
 			background_physics_,
 			fruitlib::physics::group::sequence{

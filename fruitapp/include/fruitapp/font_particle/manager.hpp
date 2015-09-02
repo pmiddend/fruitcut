@@ -13,9 +13,9 @@
 #include <fruitlib/scenic/optional_parent.hpp>
 #include <sge/image/color/any/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/unique_ptr.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <memory>
 #include <vector>
 #include <fcppt/config/external_end.hpp>
 
@@ -50,7 +50,7 @@ public:
 private:
 	typedef
 	std::vector<
-		std::unique_ptr<
+		fcppt::unique_ptr<
 			fruitapp::font_particle::object
 		>
 	>

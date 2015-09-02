@@ -2,6 +2,7 @@
 #define FRUITAPP_FRUIT_POINT_CLOUD_HPP_INCLUDED
 
 #include <fruitapp/fruit/triangle.hpp>
+#include <fruitlib/def_ctor.hpp>
 #include <fruitlib/geometry_traits/vector.hpp>
 #include <fcppt/math/vector/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -15,9 +16,15 @@ namespace fruitapp
 {
 namespace fruit
 {
+
 typedef
-boost::geometry::model::multi_point<triangle::vector>
+boost::geometry::model::multi_point<
+	fruitlib::def_ctor<
+		fruitapp::fruit::triangle::vector
+	>
+>
 point_cloud;
+
 }
 }
 

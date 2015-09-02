@@ -3,9 +3,10 @@
 #include <fruitapp/fruit/triangle.hpp>
 
 
-fruitapp::fruit::point_cloud const
+fruitapp::fruit::point_cloud
 fruitapp::fruit::mesh_to_point_cloud(
-	mesh const &m)
+	fruitapp::fruit::mesh const &m
+)
 {
 	point_cloud output;
 	output.reserve(
@@ -24,7 +25,10 @@ fruitapp::fruit::mesh_to_point_cloud(
 			r != t->vertices.end();
 			++r)
 			output.push_back(
-				*r);
+				point_cloud::value_type(
+					*r
+				)
+			);
 	}
 
 	return output;

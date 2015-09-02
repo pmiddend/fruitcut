@@ -18,6 +18,8 @@
 #include <sge/parse/json/start.hpp>
 #include <sge/systems/instance.hpp>
 #include <awl/main/exit_success.hpp>
+#include <fcppt/maybe_void.hpp>
+#include <fcppt/optional_assign.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
@@ -92,22 +94,33 @@ void
 fruitapp::states::menu::highscore::react(
 	fruitlib::scenic::events::update const &)
 {
-	if(connection_)
-		connection_->update();
+	fcppt::maybe_void(
+		connection_,
+		[](
+			fruitapp::highscore::provider::connection_base_ptr const &_connection
+		)
+		{
+			_connection->update();
+		}
+	);
 }
 
 void
 fruitapp::states::menu::highscore::switch_provider(
 	fruitapp::highscore::provider::object_base &new_provider)
 {
-	connection_ =
-		new_provider.create_connection();
+	fruitapp::highscore::provider::connection_base_ptr const &connection(
+		fcppt::optional_assign(
+			connection_,
+			new_provider.create_connection()
+		)
+	);
 
 	highscore_->clear_log();
 
 	message_connection_ =
 		optional_connection(
-			connection_->message_received(
+			connection->message_received(
 				fruitapp::highscore::callbacks::message_received{
 					std::bind(
 						&highscore::text_received,
@@ -120,7 +133,7 @@ fruitapp::states::menu::highscore::switch_provider(
 
 	error_connection_ =
 		optional_connection(
-			connection_->error_received(
+			connection->error_received(
 				fruitapp::highscore::callbacks::error_received{
 					std::bind(
 						&highscore::text_received,
@@ -133,7 +146,7 @@ fruitapp::states::menu::highscore::switch_provider(
 
 	list_connection_ =
 		optional_connection(
-			connection_->list_received(
+			connection->list_received(
 				fruitapp::highscore::callbacks::list_received{
 					std::bind(
 						&highscore::list_received,
@@ -144,7 +157,7 @@ fruitapp::states::menu::highscore::switch_provider(
 			)
 		);
 
-	connection_->retrieve_list();
+	connection->retrieve_list();
 }
 
 void

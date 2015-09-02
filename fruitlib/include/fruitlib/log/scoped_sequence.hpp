@@ -2,8 +2,8 @@
 #define FRUITLIB_LOG_SCOPED_SEQUENCE_HPP_INCLUDED
 
 #include <fruitlib/log/scoped.hpp>
+#include <fcppt/unique_ptr.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <memory>
 #include <vector>
 #include <fcppt/config/external_end.hpp>
 
@@ -14,7 +14,7 @@ namespace log
 {
 typedef
 std::vector<
-	std::unique_ptr<
+	fcppt::unique_ptr<
 		scoped
 	>
 >

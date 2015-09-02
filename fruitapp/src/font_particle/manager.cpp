@@ -2,7 +2,7 @@
 #include <fruitapp/font_particle/object.hpp>
 #include <fruitapp/projection_manager/object.hpp>
 #include <fruitapp/projection_manager/projection_change_callback.hpp>
-#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/make_unique_ptr_fcppt.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <functional>
 #include <fcppt/config/external_end.hpp>
@@ -44,7 +44,7 @@ fruitapp::font_particle::manager::add_particle(
 	sge::image::color::any::object const &_color)
 {
 	objects_.push_back(
-		fcppt::make_unique_ptr<fruitapp::font_particle::object>(
+		fcppt::make_unique_ptr_fcppt<fruitapp::font_particle::object>(
 			parent_,
 			font_manager_,
 			_identifier,

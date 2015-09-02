@@ -8,11 +8,10 @@
 #include <fruitapp/highscore/provider/connection_base.hpp>
 #include <fruitapp/highscore/provider/object_base.hpp>
 #include <fcppt/insert_to_fcppt_string.hpp>
-#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/make_unique_ptr_fcppt.hpp>
 #include <fcppt/maybe.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/assert/pre.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -107,9 +106,6 @@ fruitapp::gui::ce::post_model::post(
 		fruitapp::highscore::provider::connection_base_ptr new_connection(
 			(*i)->create_connection());
 
-		FCPPT_ASSERT_PRE(
-			new_connection);
-
 		fruitapp::gui::ce::table::row new_row;
 		new_row.push_back(
 			(*i)->identifier());
@@ -170,7 +166,7 @@ fruitapp::gui::ce::post_model::post(
 		);
 
 		connections_.push_back(
-			fcppt::make_unique_ptr<connection_wrapper>(
+			fcppt::make_unique_ptr_fcppt<connection_wrapper>(
 				std::move(
 					new_connection),
 				std::move(

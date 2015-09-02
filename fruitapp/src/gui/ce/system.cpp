@@ -8,8 +8,12 @@
 #include <fruitapp/gui/ce/dialogs/settings.hpp>
 #include <sge/cegui/cursor_visibility.hpp>
 #include <sge/cegui/load_context.hpp>
-#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/make_unique_ptr_fcppt.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/unique_ptr_to_base.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <memory>
+#include <fcppt/config/external_end.hpp>
 
 
 fruitapp::gui::ce::system::system(
@@ -54,7 +58,7 @@ fruitapp::gui::ce::system::create_highscore(
 {
 	return
 		fruitapp::gui::dialogs::highscore_unique_ptr(
-			fcppt::make_unique_ptr<fruitapp::gui::ce::dialogs::highscore>(
+			std::make_unique<fruitapp::gui::ce::dialogs::highscore>(
 				*this,
 				_providers));
 }
@@ -64,8 +68,10 @@ fruitapp::gui::ce::system::create_ranking(
 	fruitapp::highscore::provider_sequence &_providers)
 {
 	return
-		fruitapp::gui::dialogs::ranking_unique_ptr(
-			fcppt::make_unique_ptr<fruitapp::gui::ce::dialogs::ranking>(
+		fcppt::unique_ptr_to_base<
+			fruitapp::gui::dialogs::ranking
+		>(
+			fcppt::make_unique_ptr_fcppt<fruitapp::gui::ce::dialogs::ranking>(
 				*this,
 				_providers));
 }
@@ -74,8 +80,10 @@ fruitapp::gui::dialogs::main_menu_unique_ptr
 fruitapp::gui::ce::system::create_main_menu()
 {
 	return
-		fruitapp::gui::dialogs::main_menu_unique_ptr(
-			fcppt::make_unique_ptr<fruitapp::gui::ce::dialogs::main_menu>(
+		fcppt::unique_ptr_to_base<
+			fruitapp::gui::dialogs::main_menu
+		>(
+			fcppt::make_unique_ptr_fcppt<fruitapp::gui::ce::dialogs::main_menu>(
 				*this));
 }
 
@@ -83,8 +91,10 @@ fruitapp::gui::dialogs::ingame_menu_unique_ptr
 fruitapp::gui::ce::system::create_ingame_menu()
 {
 	return
-		fruitapp::gui::dialogs::ingame_menu_unique_ptr(
-			fcppt::make_unique_ptr<fruitapp::gui::ce::dialogs::ingame_menu>(
+		fcppt::unique_ptr_to_base<
+			fruitapp::gui::dialogs::ingame_menu
+		>(
+			fcppt::make_unique_ptr_fcppt<fruitapp::gui::ce::dialogs::ingame_menu>(
 				*this));
 }
 
@@ -96,7 +106,7 @@ fruitapp::gui::ce::system::create_settings(
 {
 	return
 		fruitapp::gui::dialogs::settings_unique_ptr(
-			fcppt::make_unique_ptr<fruitapp::gui::ce::dialogs::settings>(
+			std::make_unique<fruitapp::gui::ce::dialogs::settings>(
 				*this,
 				_initial_effects_volume,
 				_initial_music_volume,
@@ -108,8 +118,10 @@ fruitapp::gui::ce::system::create_name_chooser(
 	fruitapp::highscore::score const &_score)
 {
 	return
-		fruitapp::gui::dialogs::name_chooser_unique_ptr(
-			fcppt::make_unique_ptr<fruitapp::gui::ce::dialogs::name_chooser>(
+		fcppt::unique_ptr_to_base<
+			fruitapp::gui::dialogs::name_chooser
+		>(
+			fcppt::make_unique_ptr_fcppt<fruitapp::gui::ce::dialogs::name_chooser>(
 				*this,
 				_score));
 }

@@ -8,7 +8,8 @@
 #include <sge/model/md3/texcoord_sequence.hpp>
 #include <sge/renderer/vector2.hpp>
 #include <sge/renderer/vector3.hpp>
-#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/make_unique_ptr_fcppt.hpp>
+#include <fcppt/algorithm/array_fold.hpp>
 #include <fcppt/assert/optional_error.hpp>
 #include <fcppt/assert/pre_message.hpp>
 #include <fcppt/cast/size_fun.hpp>
@@ -16,6 +17,7 @@
 #include <fcppt/math/vector/structure_cast.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/next_prior.hpp>
+#include <cstddef>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -24,7 +26,7 @@ fruitapp::fruit::model_to_mesh(
 	sge::model::md3::object const &model)
 {
 	fruitapp::fruit::mesh_unique_ptr result(
-		fcppt::make_unique_ptr<fruitapp::fruit::mesh>(
+		fcppt::make_unique_ptr_fcppt<fruitapp::fruit::mesh>(
 			fruitapp::fruit::mesh::triangle_sequence()));
 
 	FCPPT_ASSERT_PRE_MESSAGE(
@@ -65,43 +67,82 @@ fruitapp::fruit::model_to_mesh(
 		index != indices.end();
 		index += 3)
 	{
-		triangle::vertex_array vt;
-		triangle::texcoord_array tc;
-		triangle::normal_array ns;
-		for (triangle::vertex_array::size_type i = 0; i < vt.size(); ++i)
-		{
-			vt[i] =
-				fcppt::math::vector::structure_cast<triangle::vector, fcppt::cast::size_fun>(
-					vertices[
-						*boost::next(
-							index,
-							i)]);
-
-			ns[i] =
-				fcppt::math::vector::structure_cast<triangle::vector, fcppt::cast::size_fun>(
-					normals[
-						*boost::next(
-							index,
-							i)]);
-
-			sge::renderer::vector2 const current_coord =
-				fcppt::math::vector::structure_cast<sge::renderer::vector2, fcppt::cast::size_fun>(
-					texcoords[
-						*boost::next(
-							index,
-							i)]);
-
-			tc[i] =
-				sge::renderer::vector2(
-					current_coord.x()/* / 2*/,
-					current_coord.y());
-		}
-
 		result->triangles().push_back(
-			triangle(
-				vt,
-				tc,
-				ns));
+			fruitapp::fruit::triangle(
+				fcppt::algorithm::array_fold<
+					fruitapp::fruit::triangle::vertex_array
+				>(
+					[
+						index,
+						&vertices
+					](
+						std::size_t const _array_index
+					)
+					{
+						return
+							fcppt::math::vector::structure_cast<
+								fruitapp::fruit::triangle::vector,
+								fcppt::cast::size_fun
+							>(
+								vertices[
+									*boost::next(
+										index,
+										_array_index
+									)
+								]
+							);
+					}
+				),
+				fcppt::algorithm::array_fold<
+					fruitapp::fruit::triangle::texcoord_array
+				>(
+					[
+						index,
+						&texcoords
+					](
+						std::size_t const _array_index
+					)
+					{
+						return
+							fcppt::math::vector::structure_cast<
+								sge::renderer::vector2,
+								fcppt::cast::size_fun
+							>(
+								texcoords[
+									*boost::next(
+										index,
+										_array_index
+									)
+								]
+							);
+					}
+				),
+				fcppt::algorithm::array_fold<
+					fruitapp::fruit::triangle::normal_array
+				>(
+					[
+						index,
+						&normals
+					](
+						std::size_t const _array_index
+					)
+					{
+						return
+							fcppt::math::vector::structure_cast<
+								fruitapp::fruit::triangle::vector,
+								fcppt::cast::size_fun
+							>(
+								normals[
+									*boost::next(
+										index,
+										_array_index
+									)
+								]
+							);
+					}
+				)
+			)
+		);
 	}
 
 	return

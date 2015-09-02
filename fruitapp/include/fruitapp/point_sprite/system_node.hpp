@@ -25,12 +25,12 @@
 #include <sge/texture/part_shared_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/shared_ptr.hpp>
+#include <fcppt/unique_ptr.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <cstddef>
 #include <list>
-#include <memory>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -88,7 +88,7 @@ private:
 	typedef
 	std::list
 	<
-		std::unique_ptr
+		fcppt::unique_ptr
 		<
 			fruitapp::point_sprite::base
 		>

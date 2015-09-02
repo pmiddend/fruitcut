@@ -8,9 +8,9 @@
 #include <sge/renderer/device/core_fwd.hpp>
 #include <sge/renderer/texture/planar_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/unique_ptr.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <map>
-#include <memory>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -64,7 +64,7 @@ private:
 	std::multimap
 	<
 		fruitlib::pp::texture::descriptor,
-		std::unique_ptr
+		fcppt::unique_ptr
 		<
 			fruitlib::pp::texture::instance
 		>

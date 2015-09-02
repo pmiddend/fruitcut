@@ -16,7 +16,7 @@ namespace fruit
 /**
 \brief Takes a two-dimensional intersection specification and turns it into a three-dimensional cut geometry
 */
-fruitapp::fruit::cut_geometry const
+fruitapp::fruit::cut_geometry
 calculate_cut_geometry(
 	fruitapp::fruit::hull::intersection_pair const &,
 	sge::renderer::target::base const &,

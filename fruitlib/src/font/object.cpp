@@ -10,10 +10,12 @@
 #include <sge/font/align_h/variant.hpp>
 #include <sge/font/draw/static_text.hpp>
 #include <sge/image/color/any/object.hpp>
-#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/assert/unreachable.hpp>
 #include <fcppt/math/dim/comparison.hpp>
 #include <fcppt/math/dim/contents.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <memory>
+#include <fcppt/config/external_end.hpp>
 
 
 fruitlib::font::object::object(
@@ -272,8 +274,9 @@ fruitlib::font::object::regenerate_text_object()
 		}
 	);
 
+	// TODO: Initialize this directly
 	text_object_ =
-		fcppt::make_unique_ptr<sge::font::draw::static_text>(
+		std::make_unique<sge::font::draw::static_text>(
 			manager_.renderer(),
 			font_object_,
 			text_,

@@ -4,8 +4,9 @@
 #include <fruitapp/postprocessing/dummy/system.hpp>
 #include <sge/parse/json/find_and_convert_member.hpp>
 #include <sge/parse/json/path.hpp>
-#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/make_unique_ptr_fcppt.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/unique_ptr_to_base.hpp>
 
 
 fruitapp::postprocessing::system_unique_ptr
@@ -22,8 +23,10 @@ fruitapp::postprocessing::create_system(
 			sge::parse::json::path(
 				FCPPT_TEXT("use-postprocessing")))
 		?
-			fruitapp::postprocessing::system_unique_ptr(
-				fcppt::make_unique_ptr<fruitapp::postprocessing::cg::system>(
+			fcppt::unique_ptr_to_base<
+				fruitapp::postprocessing::system
+			>(
+				fcppt::make_unique_ptr_fcppt<fruitapp::postprocessing::cg::system>(
 					_shader_context.get_unsafe(), // TODO
 					_viewport_manager,
 					sge::parse::json::find_and_convert_member<sge::parse::json::object>(
@@ -31,6 +34,8 @@ fruitapp::postprocessing::create_system(
 						sge::parse::json::path(
 							FCPPT_TEXT("pp")))))
 		:
-			fruitapp::postprocessing::system_unique_ptr(
-				fcppt::make_unique_ptr<fruitapp::postprocessing::dummy::system>());
+			fcppt::unique_ptr_to_base<
+				fruitapp::postprocessing::system
+			>(
+				fcppt::make_unique_ptr_fcppt<fruitapp::postprocessing::dummy::system>());
 }

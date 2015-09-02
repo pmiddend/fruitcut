@@ -2,8 +2,8 @@
 #define FRUITAPP_HIGHSCORE_PROVIDER_SEQUENCE_HPP_INCLUDED
 
 #include <fruitapp/highscore/provider/object_base_fwd.hpp>
+#include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <memory>
 #include <vector>
 #include <fcppt/config/external_end.hpp>
 
@@ -15,7 +15,7 @@ namespace highscore
 typedef
 std::vector
 <
-	std::unique_ptr
+	fcppt::unique_ptr
 	<
 		provider::object_base
 	>

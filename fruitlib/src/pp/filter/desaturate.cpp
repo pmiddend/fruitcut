@@ -9,7 +9,7 @@
 #include <sge/renderer/target/offscreen.hpp>
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/shader/scoped_pair.hpp>
-#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/make_unique_ptr_fcppt.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/math/dim/object_impl.hpp>
@@ -89,11 +89,11 @@ fruitlib::pp::filter::desaturate::desaturate(
 		_filter_manager.shader_context(),
 		_filter_manager.quad().vertex_declaration(),
 		sge::shader::vertex_program_stream(
-			*fcppt::make_unique_ptr<std::istringstream>(
+			*fcppt::make_unique_ptr_fcppt<std::istringstream>(
 				std::string(
 					desaturate_source))),
 		sge::shader::pixel_program_stream(
-			*fcppt::make_unique_ptr<std::istringstream>(
+			*fcppt::make_unique_ptr_fcppt<std::istringstream>(
 				std::string(
 					desaturate_source))),
 		_filter_manager.shader_cflags()),

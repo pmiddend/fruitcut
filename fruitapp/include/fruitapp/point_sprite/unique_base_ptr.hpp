@@ -2,9 +2,7 @@
 #define FRUITAPP_POINT_SPRITE_UNIQUE_BASE_PTR_HPP_INCLUDED
 
 #include <fruitapp/point_sprite/base.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <memory>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/unique_ptr.hpp>
 
 
 namespace fruitapp
@@ -12,7 +10,7 @@ namespace fruitapp
 namespace point_sprite
 {
 typedef
-std::unique_ptr<base>
+fcppt::unique_ptr<base>
 unique_base_ptr;
 }
 }

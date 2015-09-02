@@ -4,13 +4,14 @@
 #include <fruitapp/viewport/change_callback.hpp>
 #include <fruitapp/viewport/manager.hpp>
 #include <sge/shader/context.hpp>
-#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/make_unique_ptr_fcppt.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/unique_ptr.hpp>
+#include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/assert/optional_error.hpp>
 #include <fcppt/assert/pre.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <functional>
-#include <memory>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 
@@ -51,8 +52,8 @@ fruitapp::postprocessing::cg::system::create_main_subsystem(
 	FCPPT_ASSERT_PRE(
 		!main_system_.has_value());
 
-	std::unique_ptr<fruitapp::postprocessing::cg::subsystems::main> main_system(
-		fcppt::make_unique_ptr<fruitapp::postprocessing::cg::subsystems::main>(
+	fcppt::unique_ptr<fruitapp::postprocessing::cg::subsystems::main> main_system(
+		fcppt::make_unique_ptr_fcppt<fruitapp::postprocessing::cg::subsystems::main>(
 			*this,
 			_parent,
 			_render_callback));
@@ -63,7 +64,9 @@ fruitapp::postprocessing::cg::system::create_main_subsystem(
 			*main_system);
 
 	return
-		fruitapp::postprocessing::subsystems::main_unique_ptr(
+		fcppt::unique_ptr_to_base<
+			fruitapp::postprocessing::subsystems::main
+		>(
 			std::move(
 				main_system));
 }
@@ -84,8 +87,10 @@ fruitapp::postprocessing::cg::system::create_paused_subsystem(
 	).toggle_active();
 
 	return
-		fruitapp::postprocessing::subsystems::paused_unique_ptr(
-			fcppt::make_unique_ptr<fruitapp::postprocessing::cg::subsystems::paused>(
+		fcppt::unique_ptr_to_base<
+			fruitapp::postprocessing::subsystems::paused
+		>(
+			fcppt::make_unique_ptr_fcppt<fruitapp::postprocessing::cg::subsystems::paused>(
 				*this,
 				_parent));
 }

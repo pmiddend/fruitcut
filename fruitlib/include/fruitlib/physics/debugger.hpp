@@ -10,11 +10,12 @@
 #include <sge/renderer/context/ffp_fwd.hpp>
 #include <sge/renderer/device/ffp_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/optional.hpp>
+#include <fcppt/unique_ptr.hpp>
 #include <fcppt/math/vector/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <LinearMath/btIDebugDraw.h>
 #include <LinearMath/btVector3.h>
-#include <memory>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -124,7 +125,15 @@ private:
 	sge::camera::base const &camera_;
 	int debug_mode_;
 	sge::line_drawer::object line_drawer_;
-	std::unique_ptr<sge::line_drawer::scoped_lock> scoped_lock_;
+	typedef
+	fcppt::optional<
+		fcppt::unique_ptr<
+			sge::line_drawer::scoped_lock
+		>
+	>
+	optional_scoped_lock;
+
+	optional_scoped_lock scoped_lock_;
 };
 }
 }

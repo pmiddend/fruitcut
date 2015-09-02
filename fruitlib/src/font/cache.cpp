@@ -14,7 +14,6 @@
 #include <sge/renderer/device/core.hpp>
 #include <sge/renderer/display_mode/object.hpp>
 #include <sge/renderer/display_mode/to_dpi.hpp>
-#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/pre_message.hpp>

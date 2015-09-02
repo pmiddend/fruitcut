@@ -8,8 +8,8 @@
 #include <sge/line_drawer/line_sequence.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/optional_impl.hpp>
+#include <fcppt/unique_ptr.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <memory>
 #include <vector>
 #include <fcppt/config/external_end.hpp>
 
@@ -29,7 +29,7 @@ public:
 	typedef
 	std::vector
 	<
-		std::unique_ptr
+		fcppt::unique_ptr
 		<
 			fruitapp::cursor::instance
 		>

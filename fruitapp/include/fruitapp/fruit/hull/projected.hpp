@@ -13,7 +13,7 @@ namespace fruit
 {
 namespace hull
 {
-fruitapp::fruit::hull::ring const
+fruitapp::fruit::hull::ring
 projected(
 	fruitapp::fruit::object const &,
 	sge::renderer::target::base const &,

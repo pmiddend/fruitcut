@@ -5,14 +5,18 @@
 #include <fruitapp/fruit/point_cloud.hpp>
 #include <fcppt/preprocessor/const.hpp>
 
+
 namespace fruitapp
 {
 namespace fruit
 {
-point_cloud const
+
+fruitapp::fruit::point_cloud
 mesh_to_point_cloud(
-	mesh const &)
+	fruitapp::fruit::mesh const &
+)
 FCPPT_PP_CONST;
+
 }
 }
 

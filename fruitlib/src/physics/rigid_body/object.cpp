@@ -7,7 +7,7 @@
 #include <fruitlib/physics/vector3.hpp>
 #include <fruitlib/physics/rigid_body/object.hpp>
 #include <fruitlib/physics/rigid_body/parameters.hpp>
-#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/make_unique_ptr_fcppt.hpp>
 #include <fcppt/maybe.hpp>
 #include <fcppt/maybe_void.hpp>
 #include <fcppt/optional.hpp>
@@ -76,7 +76,7 @@ fruitlib::physics::rigid_body::object::object(
 	shape_(
 		params.shape()),
 	motion_state_(
-		fcppt::make_unique_ptr<btDefaultMotionState>(
+		fcppt::make_unique_ptr_fcppt<btDefaultMotionState>(
 			btTransform(
 				structure_cast(
 					matrix4_to_matrix3(
@@ -84,9 +84,9 @@ fruitlib::physics::rigid_body::object::object(
 				structure_cast(
 					params.position())))),
 	body_(
-		fcppt::make_unique_ptr<btRigidBody>(
+		fcppt::make_unique_ptr_fcppt<btRigidBody>(
 			create_construction_info(
-				motion_state_.get(),
+				motion_state_.get_pointer(),
 				shape_.get_pointer(),
 				params.mass()))),
 	user_data_(

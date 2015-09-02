@@ -10,9 +10,7 @@
 #include <sge/renderer/device/ffp_fwd.hpp>
 #include <sge/renderer/texture/emulate_srgb.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <memory>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/unique_ptr.hpp>
 
 
 namespace fruitlib
@@ -48,7 +46,7 @@ private:
 	sge::renderer::device::ffp &renderer_;
 	sge::renderer::texture::emulate_srgb const emulate_srgb_;
 	// Pimpl
-	std::unique_ptr<fruitlib::font::cache> const cache_;
+	fcppt::unique_ptr<fruitlib::font::cache> const cache_;
 };
 }
 }

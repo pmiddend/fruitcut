@@ -14,7 +14,7 @@
 #include <sge/line_drawer/line.hpp>
 #include <sge/parse/json/find_and_convert_member.hpp>
 #include <sge/parse/json/path.hpp>
-#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/make_unique_ptr_fcppt.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/math/vector/object_impl.hpp>
@@ -35,14 +35,14 @@ fruitapp::cursor::instance::instance(
 	camera_(
 		_manager.camera_),
 	sound_(
-		fcppt::make_unique_ptr<fruitapp::cursor::sound>(
+		fcppt::make_unique_ptr_fcppt<fruitapp::cursor::sound>(
 			_parent,
 			_cursor_object,
 			_manager.ingame_clock_,
 			_manager.viewport_manager_,
 			_manager.sound_controller_)),
 	sampler_(
-		fcppt::make_unique_ptr<fruitapp::cursor::sampler>(
+		fcppt::make_unique_ptr_fcppt<fruitapp::cursor::sampler>(
 			_parent,
 			_cursor_object,
 			_manager.ingame_clock_,
@@ -57,7 +57,7 @@ fruitapp::cursor::instance::instance(
 						FCPPT_TEXT("trail-samples")))),
 			_manager.target_)),
 	sword_trail_(
-		fcppt::make_unique_ptr<fruitapp::cursor::sword_trail>(
+		fcppt::make_unique_ptr_fcppt<fruitapp::cursor::sword_trail>(
 			_parent,
 			_cursor_object,
 			_manager.ingame_clock_,

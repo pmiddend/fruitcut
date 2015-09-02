@@ -1,11 +1,11 @@
 #ifndef FRUITLIB_DELAYED_PTR_SEQUENCE_HPP_INCLUDED
 #define FRUITLIB_DELAYED_PTR_SEQUENCE_HPP_INCLUDED
 
+#include <fcppt/unique_ptr.hpp>
 #include <fcppt/algorithm/remove_if.hpp>
 #include <fcppt/assert/error.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <iterator>
-#include <memory>
 #include <utility>
 #include <vector>
 #include <fcppt/config/external_end.hpp>
@@ -22,7 +22,7 @@ class delayed_ptr_sequence
 {
 public:
 	typedef
-	std::unique_ptr<T>
+	fcppt::unique_ptr<T>
 	unique_value_ptr;
 
 	// Those are just some of the types you'd have to define to get a
@@ -124,7 +124,7 @@ public:
 
 	void
 	push_back(
-		unique_value_ptr new_value)
+		unique_value_ptr &&new_value)
 	{
 		new_values_.push_back(
 			std::move(
@@ -186,7 +186,7 @@ public:
 				)
 				{
 					return
-						_ptr.get()
+						_ptr.get_pointer()
 						==
 						old;
 				}

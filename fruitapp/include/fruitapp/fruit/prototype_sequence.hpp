@@ -2,8 +2,8 @@
 #define FRUITAPP_FRUIT_PROTOTYPE_SEQUENCE_HPP_INCLUDED
 
 #include <fruitapp/fruit/prototype.hpp>
+#include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <memory>
 #include <vector>
 #include <fcppt/config/external_end.hpp>
 
@@ -15,7 +15,7 @@ namespace fruit
 typedef
 std::vector
 <
-	std::unique_ptr
+	fcppt::unique_ptr
 	<
 		prototype
 	>

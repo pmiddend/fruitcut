@@ -1,6 +1,7 @@
 #include <fruitapp/fruit/mesh.hpp>
 #include <fruitapp/fruit/mesh_to_point_cloud.hpp>
 #include <fruitapp/fruit/prototype.hpp>
+#include <fruitlib/def_ctor.hpp>
 #include <fruitlib/geometry_traits/box.hpp>
 #include <sge/image/color/any/object_fwd.hpp>
 #include <sge/image2d/dim.hpp>
@@ -28,9 +29,16 @@ fruitapp::fruit::prototype::prototype(
 		std::move(
 			_mesh)),
 	bounding_box_(
-		boost::geometry::return_envelope<fruitapp::fruit::box3>(
+		boost::geometry::return_envelope<
+			fruitlib::def_ctor<
+				fruitapp::fruit::box3
+			>
+		>(
 			mesh_to_point_cloud(
-				*mesh_))),
+				*mesh_
+			)
+		).base()
+	),
 	mass_(
 		fcppt::math::dim::contents(
 			bounding_box_.size()

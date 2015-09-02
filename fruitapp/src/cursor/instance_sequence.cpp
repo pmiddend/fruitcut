@@ -1,7 +1,7 @@
 #include <fruitapp/cursor/instance.hpp>
 #include <fruitapp/cursor/instance_sequence.hpp>
 #include <fruitapp/cursor/manager.hpp>
-#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/make_unique_ptr_fcppt.hpp>
 
 
 fruitapp::cursor::instance_sequence::instance_sequence(
@@ -21,7 +21,7 @@ fruitapp::cursor::instance_sequence::cursor_discover(
 	sge::input::cursor::object &_new_cursor)
 {
 	instances_.push_back(
-		fcppt::make_unique_ptr<fruitapp::cursor::instance>(
+		fcppt::make_unique_ptr_fcppt<fruitapp::cursor::instance>(
 			manager_,
 			_new_cursor,
 			parent_));

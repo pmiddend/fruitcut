@@ -11,9 +11,7 @@
 #include <fruitlib/physics/rigid_body/transformation.hpp>
 #include <fruitlib/physics/rigid_body/user_data.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <memory>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/unique_ptr.hpp>
 
 
 class btRigidBody;
@@ -64,8 +62,8 @@ private:
 	friend class physics::world;
 
 	fruitlib::physics::shared_shape_ptr shape_;
-	std::unique_ptr<btDefaultMotionState> const motion_state_;
-	std::unique_ptr<btRigidBody> const body_;
+	fcppt::unique_ptr<btDefaultMotionState> const motion_state_;
+	fcppt::unique_ptr<btRigidBody> const body_;
 	fruitlib::physics::rigid_body::user_data user_data_;
 };
 }

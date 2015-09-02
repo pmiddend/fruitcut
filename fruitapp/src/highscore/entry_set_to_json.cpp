@@ -3,6 +3,7 @@
 #include <sge/parse/json/object.hpp>
 #include <sge/parse/json/value.hpp>
 #include <fcppt/from_std_string.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/variant/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/date_time/posix_time/posix_time.hpp>

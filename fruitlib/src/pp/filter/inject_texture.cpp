@@ -1,6 +1,5 @@
 #include <fruitlib/pp/filter/inject_texture.hpp>
 #include <fruitlib/pp/texture/manager.hpp>
-#include <fcppt/make_unique_ptr.hpp>
 
 
 fruitlib::pp::filter::inject_texture::inject_texture(

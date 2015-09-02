@@ -1,7 +1,7 @@
 #include <fruitapp/fruit/object.hpp>
 #include <fruitapp/fruit/object_from_prototype.hpp>
 #include <fruitapp/fruit/prototype.hpp>
-#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/make_unique_ptr_fcppt.hpp>
 
 
 fruitapp::fruit::object_unique_ptr
@@ -19,12 +19,12 @@ fruitapp::fruit::object_from_prototype(
 	fruitapp::ingame_clock const &_clock)
 {
 	return
-		fcppt::make_unique_ptr<fruitapp::fruit::object>(
+		fcppt::make_unique_ptr_fcppt<fruitapp::fruit::object>(
 			_prototype,
 			_physics_world,
 			_renderer,
 			_vertex_declaration,
-			fcppt::make_unique_ptr<fruitapp::fruit::mesh>(
+			fcppt::make_unique_ptr_fcppt<fruitapp::fruit::mesh>(
 				_prototype.mesh().triangles()),
 			_fruit_group,
 			_mass,

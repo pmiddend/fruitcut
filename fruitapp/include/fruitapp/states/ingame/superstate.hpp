@@ -18,6 +18,8 @@
 #include <fruitlib/physics/nodes/world.hpp>
 #include <fruitlib/physics/rigid_body/scoped.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/optional.hpp>
+#include <fcppt/unique_ptr.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/statechart/state.hpp>
@@ -81,7 +83,14 @@ private:
 	fcppt::signal::scoped_connection physics_debugger_connection_;
 	fruitapp::fruit::manager fruit_manager_;
 	fruitapp::fruit::rendering::draw_node fruit_default_render_node_;
-	std::unique_ptr<fruitapp::fruit::rendering::shadow_node> const fruit_shadow_render_node_;
+	typedef
+	fcppt::optional<
+		fcppt::unique_ptr<
+			fruitapp::fruit::rendering::shadow_node
+		>
+	>
+	optional_fruit_shadow_render_node;
+	optional_fruit_shadow_render_node const fruit_shadow_render_node_;
 	fruitapp::fruit::spawner fruit_spawner_;
 	fruitapp::game_logic::object game_logic_;
 	fcppt::signal::scoped_connection cut_connection_;

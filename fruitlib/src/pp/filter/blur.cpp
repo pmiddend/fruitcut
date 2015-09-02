@@ -11,7 +11,7 @@
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/planar_shared_ptr.hpp>
 #include <sge/shader/scoped_pair.hpp>
-#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/make_unique_ptr_fcppt.hpp>
 #include <fcppt/assert/pre.hpp>
 #include <fcppt/cast/int_to_float_fun.hpp>
 #include <fcppt/math/dim/object_impl.hpp>
@@ -21,6 +21,7 @@
 #include <fcppt/config/external_begin.hpp>
 #include <array>
 #include <cstddef>
+#include <memory>
 #include <sstream>
 #include <string>
 #include <fcppt/config/external_end.hpp>
@@ -145,6 +146,7 @@ fruitlib::pp::filter::blur::blur(
 		blur_v_source_code
 	}};
 
+	// TODO: Initialize directly
 	for(
 		std::size_t i = 0;
 		i < 2;
@@ -153,15 +155,15 @@ fruitlib::pp::filter::blur::blur(
 		shaders_[
 			i
 		] =
-			fcppt::make_unique_ptr<sge::shader::pair>(
+			std::make_unique<sge::shader::pair>(
 				_filter_manager.shader_context(),
 				_filter_manager.quad().vertex_declaration(),
 				sge::shader::vertex_program_stream(
-					*fcppt::make_unique_ptr<std::istringstream>(
+					*fcppt::make_unique_ptr_fcppt<std::istringstream>(
 						std::string(
 							sources[i]))),
 				sge::shader::pixel_program_stream(
-					*fcppt::make_unique_ptr<std::istringstream>(
+					*fcppt::make_unique_ptr_fcppt<std::istringstream>(
 						std::string(
 							sources[i]))),
 				_filter_manager.shader_cflags());
@@ -169,7 +171,7 @@ fruitlib::pp::filter::blur::blur(
 		planar_textures_[
 			i
 		] =
-			fcppt::make_unique_ptr<sge::shader::parameter::planar_texture>(
+			std::make_unique<sge::shader::parameter::planar_texture>(
 				shaders_[i]->pixel_program(),
 				sge::shader::parameter::name(
 					"input_texture"),
@@ -180,7 +182,7 @@ fruitlib::pp::filter::blur::blur(
 		texture_sizes_[
 			i
 		] =
-			fcppt::make_unique_ptr<vec2_parameter>(
+			std::make_unique<vec2_parameter>(
 				shaders_[i]->pixel_program(),
 				sge::shader::parameter::name(
 					"texture_size"),

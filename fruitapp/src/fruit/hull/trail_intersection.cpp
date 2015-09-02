@@ -35,14 +35,22 @@ fruitapp::fruit::hull::trail_intersection(
 		static_cast<linestring_type::size_type>(
 			positions.size()));
 
+	// TODO: map
 	for(
 		fruitapp::cursor::sampler::position_buffer::const_iterator cursor_pos =
 			positions.begin();
 		cursor_pos != positions.end();
 		++cursor_pos)
 		cursor_lines.push_back(
-			fcppt::math::vector::structure_cast<ring::value_type, fcppt::cast::int_to_float_fun>(
-				*cursor_pos));
+			ring::value_type(
+				fcppt::math::vector::structure_cast<
+					ring::value_type::base_type,
+					fcppt::cast::int_to_float_fun
+				>(
+					*cursor_pos
+				)
+			)
+		);
 
 	result_points result;
 
@@ -55,7 +63,7 @@ fruitapp::fruit::hull::trail_intersection(
 		return
 			fruitapp::fruit::hull::optional_intersection_pair();
 
-	if(fcppt::math::vector::length(result[0] - result[1]) < 0.1f)
+	if(fcppt::math::vector::length(result[0].base() - result[1].base()) < 0.1f)
 		return
 			fruitapp::fruit::hull::optional_intersection_pair();
 

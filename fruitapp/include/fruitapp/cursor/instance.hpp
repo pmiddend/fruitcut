@@ -14,9 +14,7 @@
 #include <sge/line_drawer/line_sequence.hpp>
 #include <sge/renderer/target/base_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <memory>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/unique_ptr.hpp>
 
 
 namespace fruitapp
@@ -57,9 +55,9 @@ private:
 	sge::input::cursor::object const &cursor_object_;
 	sge::renderer::target::base const &target_;
 	sge::camera::base const &camera_;
-	std::unique_ptr<fruitapp::cursor::sound> const sound_;
-	std::unique_ptr<fruitapp::cursor::sampler> const sampler_;
-	std::unique_ptr<fruitapp::cursor::sword_trail> const sword_trail_;
+	fcppt::unique_ptr<fruitapp::cursor::sound> const sound_;
+	fcppt::unique_ptr<fruitapp::cursor::sampler> const sampler_;
+	fcppt::unique_ptr<fruitapp::cursor::sword_trail> const sword_trail_;
 };
 }
 }

@@ -27,6 +27,7 @@ fruitapp::fruit::rendering::sort_fruits(
 	FCPPT_ASSERT_PRE(
 		_fruit_pointers.empty());
 
+	// TODO: map
 	_fruit_pointers.reserve(
 		_fruits.size());
 
@@ -36,7 +37,7 @@ fruitapp::fruit::rendering::sort_fruits(
 		_fruits
 	)
 		_fruit_pointers.push_back(
-			fruit.get());
+			fruit.get_pointer());
 
 	std::sort(
 		_fruit_pointers.begin(),

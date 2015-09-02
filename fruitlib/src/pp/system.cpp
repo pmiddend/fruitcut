@@ -11,7 +11,7 @@
 #include <sge/renderer/vector2.hpp>
 #include <sge/renderer/texture/planar_shared_ptr.hpp>
 #include <sge/shader/scoped_pair.hpp>
-#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/make_unique_ptr_fcppt.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/assert/pre.hpp>
 #include <fcppt/assert/pre_message.hpp>
@@ -69,11 +69,11 @@ fruitlib::pp::system::system(
 		_filter_manager.shader_context(),
 		_filter_manager.quad().vertex_declaration(),
 		sge::shader::vertex_program_stream(
-			*fcppt::make_unique_ptr<std::istringstream>(
+			*fcppt::make_unique_ptr_fcppt<std::istringstream>(
 				std::string(
 					pp_to_screen_source))),
 		sge::shader::pixel_program_stream(
-			*fcppt::make_unique_ptr<std::istringstream>(
+			*fcppt::make_unique_ptr_fcppt<std::istringstream>(
 				std::string(
 					pp_to_screen_source))),
 		_filter_manager.shader_cflags()),

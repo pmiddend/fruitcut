@@ -20,7 +20,7 @@
 #include <fcppt/math/vector/null.hpp>
 
 
-fruitapp::fruit::cut_geometry const
+fruitapp::fruit::cut_geometry
 fruitapp::fruit::calculate_cut_geometry(
 	fruitapp::fruit::hull::intersection_pair const &_intersection,
 	sge::renderer::target::base const &_target,

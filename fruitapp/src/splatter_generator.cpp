@@ -4,9 +4,9 @@
 #include <fruitapp/fruit/object.hpp>
 #include <fruitapp/fruit/prototype.hpp>
 #include <fruitapp/fruit/triangle_traits.hpp>
+#include <fruitapp/point_sprite/base.hpp>
 #include <fruitapp/point_sprite/color.hpp>
 #include <fruitapp/point_sprite/system_node.hpp>
-#include <fruitapp/point_sprite/unique_base_ptr.hpp>
 #include <fruitapp/point_sprite/splatter/linear_velocity.hpp>
 #include <fruitapp/point_sprite/splatter/object.hpp>
 #include <fruitapp/point_sprite/splatter/parameters.hpp>
@@ -26,9 +26,10 @@
 #include <sge/texture/part_fwd.hpp>
 #include <mizuiro/color/channel/alpha.hpp>
 #include <fcppt/make_cref.hpp>
-#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/make_unique_ptr_fcppt.hpp>
 #include <fcppt/maybe_void.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/math/matrix/transform_direction.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -179,8 +180,10 @@ fruitapp::splatter_generator::fruit_was_cut(
 			)
 			{
 				point_sprites_.push_back(
-					fruitapp::point_sprite::unique_base_ptr(
-						fcppt::make_unique_ptr<
+					fcppt::unique_ptr_to_base<
+						fruitapp::point_sprite::base
+					>(
+						fcppt::make_unique_ptr_fcppt<
 							fruitapp::point_sprite::splatter::object
 						>(
 							fruitapp::point_sprite::splatter::parameters(

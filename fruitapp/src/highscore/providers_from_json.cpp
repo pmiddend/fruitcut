@@ -10,9 +10,10 @@
 #include <sge/parse/json/element_vector.hpp>
 #include <sge/parse/json/find_and_convert_member.hpp>
 #include <sge/parse/json/object.hpp>
-#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/make_unique_ptr_fcppt.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/algorithm/string/replace.hpp>
@@ -84,17 +85,30 @@ fruitapp::highscore::providers_from_json(
 		if(protocol == FCPPT_TEXT("file"))
 		{
 			result.push_back(
-				fcppt::make_unique_ptr<provider::file::object>(
-					address));
+				fcppt::unique_ptr_to_base<
+					provider::object_base
+				>(
+					fcppt::make_unique_ptr_fcppt<provider::file::object>(
+						address
+					)
+				)
+			);
 		}
 		else if(protocol == FCPPT_TEXT("fruitcut"))
 		{
 			result.push_back(
-				fcppt::make_unique_ptr<provider::net::object>(
-					provider::net::host(
-						address),
-					provider::net::port(
-						port)));
+				fcppt::unique_ptr_to_base<
+					provider::object_base
+				>(
+					fcppt::make_unique_ptr_fcppt<provider::net::object>(
+						provider::net::host(
+							address),
+						provider::net::port(
+							port
+						)
+					)
+				)
+			);
 		}
 		else
 			throw fruitapp::exception(FCPPT_TEXT("Unsupported highscore protocol \"")+protocol+FCPPT_TEXT("\""));

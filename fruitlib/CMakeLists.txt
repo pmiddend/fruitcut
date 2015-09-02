@@ -28,6 +28,7 @@ set(
 	fruitlib/include/fruitlib/counted_reference_fwd.hpp
 	fruitlib/include/fruitlib/counted_reference_impl.hpp
 	fruitlib/include/fruitlib/create_command_line_parameters.hpp
+	fruitlib/include/fruitlib/def_ctor.hpp
 	fruitlib/include/fruitlib/delayed_ptr_sequence.hpp
 	fruitlib/include/fruitlib/exception.hpp
 	fruitlib/include/fruitlib/font/align_h.hpp
@@ -157,6 +158,7 @@ set(
 	fruitlib/include/fruitlib/pp/texture/is_locked.hpp
 	fruitlib/include/fruitlib/pp/texture/manager.hpp
 	fruitlib/include/fruitlib/pp/texture/manager_fwd.hpp
+	fruitlib/include/fruitlib/pp/texture/optional_depth_stencil_surface.hpp
 	fruitlib/include/fruitlib/pp/texture/use_screen_size.hpp
 	fruitlib/include/fruitlib/random_generator.hpp
 	fruitlib/include/fruitlib/random_generator_fwd.hpp

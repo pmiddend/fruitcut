@@ -2,7 +2,7 @@
 #include <fruitlib/font/cache.hpp>
 #include <fruitlib/font/manager.hpp>
 #include <sge/renderer/device/ffp.hpp>
-#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/make_unique_ptr_fcppt.hpp>
 
 
 fruitlib::font::manager::manager(
@@ -18,7 +18,7 @@ fruitlib::font::manager::manager(
 	emulate_srgb_(
 		_emulate_srgb),
 	cache_(
-		fcppt::make_unique_ptr<fruitlib::font::cache>(
+		fcppt::make_unique_ptr_fcppt<fruitlib::font::cache>(
 			_font_system,
 			_texture_manager.image_system(),
 			_renderer,

@@ -154,7 +154,7 @@ fruitlib::physics::world::add_body(
 	}
 
 	world_->addRigidBody(
-		_body.body_.get(),
+		_body.body_.get_pointer(),
 		group,
 		mask);
 }
@@ -164,7 +164,7 @@ fruitlib::physics::world::remove_body(
 	rigid_body::object &_body)
 {
 	world_->removeRigidBody(
-		_body.body_.get());
+		_body.body_.get_pointer());
 }
 
 void

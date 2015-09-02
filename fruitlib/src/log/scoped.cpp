@@ -7,9 +7,7 @@
 #include <fcppt/log/level.hpp>
 #include <fcppt/log/location.hpp>
 #include <fcppt/log/object.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <iostream>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/text.hpp>
 
 
 fruitlib::log::scoped::scoped(

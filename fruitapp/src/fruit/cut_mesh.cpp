@@ -4,6 +4,7 @@
 #include <fruitapp/fruit/mesh.hpp>
 #include <fruitapp/fruit/triangle.hpp>
 #include <fruitapp/fruit/triangle_traits.hpp>
+#include <fruitlib/def_ctor.hpp>
 #include <fruitlib/geometry_traits/box.hpp>
 #include <fruitlib/geometry_traits/vector.hpp>
 #include <fruitlib/math/cut_triangle_at_plane.hpp>
@@ -14,8 +15,9 @@
 #include <sge/renderer/vector2.hpp>
 #include <sge/renderer/vector3.hpp>
 #include <sge/renderer/vector4.hpp>
-#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/make_unique_ptr_fcppt.hpp>
 #include <fcppt/optional.hpp>
+#include <fcppt/unique_ptr.hpp>
 #include <fcppt/assert/error.hpp>
 #include <fcppt/math/box/object_impl.hpp>
 #include <fcppt/math/dim/object_impl.hpp>
@@ -35,7 +37,6 @@
 #include <boost/range/algorithm/copy.hpp>
 #include <algorithm>
 #include <iterator>
-#include <memory>
 #include <vector>
 #include <fcppt/config/external_end.hpp>
 
@@ -56,7 +57,7 @@ transform_texcoord(
 
 }
 
-std::unique_ptr<fruitapp::fruit::cut_mesh_result>
+fcppt::unique_ptr<fruitapp::fruit::cut_mesh_result>
 fruitapp::fruit::cut_mesh(
 	fruit::mesh const &input_mesh,
 	fruit::plane const &input_plane)
@@ -74,6 +75,12 @@ fruitapp::fruit::cut_mesh(
 	vector3;
 
 	typedef
+	fruitlib::def_ctor<
+		vector2
+	>
+	geometry_vector2;
+
+	typedef
 	sge::renderer::vector4
 	vector4;
 
@@ -86,11 +93,17 @@ fruitapp::fruit::cut_mesh(
 	box2;
 
 	typedef
+	fruitlib::def_ctor<
+		box2
+	>
+	geometry_box2;
+
+	typedef
 	fcppt::math::box::object<scalar,3>
 	box3;
 
-	std::unique_ptr<fruit::cut_mesh_result> result =
-		fcppt::make_unique_ptr<fruit::cut_mesh_result>();
+	fcppt::unique_ptr<fruit::cut_mesh_result> result{
+		fcppt::make_unique_ptr_fcppt<fruit::cut_mesh_result>()};
 
 	scalar const epsilon =
 		static_cast<scalar>(
@@ -241,17 +254,23 @@ fruitapp::fruit::cut_mesh(
 			tcs);
 
 	typedef
-	boost::geometry::model::multi_point<vector2>
+	boost::geometry::model::multi_point<
+		geometry_vector2
+	>
 	point_cloud_2d;
 
 	typedef
-	boost::geometry::model::ring<vector2>
+	boost::geometry::model::ring<
+		geometry_vector2
+	>
 	ring_2d;
 
 	point_cloud_2d reduced;
+
 	reduced.reserve(
 		border.size());
 
+	// TODO: map
 	for(vector3_sequence::const_iterator i = border.begin(); i != border.end(); ++i)
 	{
 		vector4 const transformed =
@@ -264,8 +283,14 @@ fruitapp::fruit::cut_mesh(
 				1.f);
 
 		reduced.push_back(
-			fcppt::math::vector::narrow_cast<vector2>(
-				transformed));
+			geometry_vector2(
+				fcppt::math::vector::narrow_cast<
+					vector2
+				>(
+					transformed
+				)
+			)
+		);
 
 		FCPPT_ASSERT_ERROR(
 			transformed[2] < epsilon);
@@ -298,9 +323,13 @@ fruitapp::fruit::cut_mesh(
 		return
 			result;
 
-	box2 const envelope =
-		boost::geometry::return_envelope<box2>(
-			convex_hull_result);
+	geometry_box2 const envelope(
+		boost::geometry::return_envelope<
+			geometry_box2
+		>(
+			convex_hull_result
+		)
+	);
 
 	typedef
 	std::vector<vector2>
@@ -310,9 +339,13 @@ fruitapp::fruit::cut_mesh(
 	texcoords.reserve(
 		convex_hull_result.size());
 
-	for(ring_2d::const_iterator i = convex_hull_result.begin(); i != convex_hull_result.end(); ++i)
+	for(
+		auto const &element
+		:
+		convex_hull_result
+	)
 		texcoords.push_back(
-			((*i) - envelope.pos())/
+			(element.base() - envelope.pos())/
 			vector2(
 				envelope.w(),
 				envelope.h()));

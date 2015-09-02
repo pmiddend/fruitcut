@@ -77,8 +77,9 @@
 #include <sge/window/title.hpp>
 #include <awl/main/exit_code.hpp>
 #include <fcppt/make_shared_ptr.hpp>
-#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/make_unique_ptr_fcppt.hpp>
 #include <fcppt/nonassignable.hpp>
+#include <fcppt/optional_deref.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assign/make_container.hpp>
@@ -200,10 +201,14 @@ fruitapp::machine_impl::machine_impl(
 			sge::parse::json::path(
 				FCPPT_TEXT("use-shaders")))
 		?
-			fcppt::make_unique_ptr<sge::shader::context>(
-				systems_.renderer_device_core())
+			optional_shader_context(
+				fcppt::make_unique_ptr_fcppt<sge::shader::context>(
+					systems_.renderer_device_core()
+				)
+			)
 		:
-			std::unique_ptr<sge::shader::context>()),
+			optional_shader_context()
+	),
 	md3_loader_(
 		sge::model::md3::create()),
 	viewport_manager_(
@@ -407,20 +412,24 @@ fruitapp::machine_impl::machine_impl(
 			sge::parse::json::path(
 				FCPPT_TEXT("use-shadow-map")))
 		?
-			fcppt::make_unique_ptr<fruitapp::shadow_map::object>(
-				fruitlib::scenic::optional_parent(
-					fruitlib::scenic::parent(
-						this->root_node(),
-						fruitlib::scenic::depth(
-							depths::root::shadow_map))),
-				sge::parse::json::find_and_convert_member<sge::parse::json::object>(
-					config_file_,
-					sge::parse::json::path(
-						FCPPT_TEXT("shadow-map"))),
-				systems_.renderer_device_ffp(),
-				light_manager_)
+			optional_shadow_map(
+				fcppt::make_unique_ptr_fcppt<fruitapp::shadow_map::object>(
+					fruitlib::scenic::optional_parent(
+						fruitlib::scenic::parent(
+							this->root_node(),
+							fruitlib::scenic::depth(
+								depths::root::shadow_map))),
+					sge::parse::json::find_and_convert_member<sge::parse::json::object>(
+						config_file_,
+						sge::parse::json::path(
+							FCPPT_TEXT("shadow-map"))),
+					systems_.renderer_device_ffp(),
+					light_manager_
+				)
+			)
 		:
-			fruitapp::shadow_map::object_unique_ptr()),
+			optional_shadow_map()
+	),
 	background_(
 		fruitlib::scenic::optional_parent(
 			fruitlib::scenic::parent(
@@ -519,12 +528,9 @@ sge::shader::optional_context_ref const
 fruitapp::machine_impl::shader_context()
 {
 	return
-		shader_context_
-		?
-			sge::shader::optional_context_ref(
-				*shader_context_)
-		:
-			sge::shader::optional_context_ref();
+		fcppt::optional_deref(
+			shader_context_
+		);
 }
 
 sge::model::md3::loader &
@@ -647,12 +653,9 @@ fruitapp::shadow_map::optional_object_ref const
 fruitapp::machine_impl::shadow_map()
 {
 	return
-		shadow_map_
-		?
-			fruitapp::shadow_map::optional_object_ref(
-				*shadow_map_)
-		:
-			fruitapp::shadow_map::optional_object_ref();
+		fcppt::optional_deref(
+			shadow_map_
+		);
 }
 
 sge::camera::first_person::object &

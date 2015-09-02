@@ -33,7 +33,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-fruitapp::fruit::hull::ring const
+fruitapp::fruit::hull::ring
 fruitapp::fruit::hull::projected(
 	fruitapp::fruit::object const &f,
 	sge::renderer::target::base const &target,
@@ -87,7 +87,10 @@ fruitapp::fruit::hull::projected(
 						target.viewport().get().size())) / static_cast<sge::renderer::scalar>(2));
 
 		point_cloud.push_back(
-			window_coordinates);
+			fruitapp::fruit::hull::ring::value_type{
+				window_coordinates
+			}
+		);
 	}
 
 	ring result;

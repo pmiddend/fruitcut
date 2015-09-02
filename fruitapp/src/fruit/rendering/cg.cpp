@@ -38,6 +38,7 @@
 #include <fcppt/math/matrix/identity.hpp>
 #include <fcppt/math/matrix/inverse.hpp>
 #include <fcppt/math/matrix/transpose.hpp>
+#include <fcppt/math/vector/null.hpp>
 
 
 fruitapp::fruit::rendering::cg::cg(
@@ -105,12 +106,18 @@ fruitapp::fruit::rendering::cg::cg(
 		shader_.pixel_program(),
 		sge::shader::parameter::name(
 			"diffuse_color"),
-		sge::renderer::vector4()),
+		fcppt::math::vector::null<
+			sge::renderer::vector4
+		>()
+	),
 	specular_color_parameter_(
 		shader_.pixel_program(),
 		sge::shader::parameter::name(
 			"specular_color"),
-		sge::renderer::vector4()),
+		fcppt::math::vector::null<
+			sge::renderer::vector4
+		>()
+	),
 	diffuse_coefficient_parameter_(
 		shader_.pixel_program(),
 		sge::shader::parameter::name(

@@ -1,7 +1,7 @@
 #include <fruitlib/signal_stack_printer/object.hpp>
 #include <fcppt/config/compiler.hpp>
 #include <fcppt/config/platform.hpp>
-#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/make_unique_ptr_fcppt.hpp>
 
 // TODO: Add own check for this
 #if defined(FCPPT_CONFIG_POSIX_PLATFORM) && defined(FCPPT_CONFIG_GCC_COMPILER)
@@ -90,7 +90,7 @@ class object_impl
 fruitlib::signal_stack_printer::object::object()
 :
 	impl_(
-		fcppt::make_unique_ptr<fruitlib::signal_stack_printer::object_impl>())
+		fcppt::make_unique_ptr_fcppt<fruitlib::signal_stack_printer::object_impl>())
 {
 }
 

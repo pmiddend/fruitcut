@@ -1,12 +1,12 @@
 #ifndef FRUITAPP_FRUIT_HULL_RING_HPP_INCLUDED
 #define FRUITAPP_FRUIT_HULL_RING_HPP_INCLUDED
 
+#include <fruitlib/def_ctor.hpp>
 #include <fruitlib/geometry_traits/vector.hpp>
 #include <sge/renderer/vector2.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/geometry/geometry.hpp>
 #include <boost/geometry/geometries/linestring.hpp>
-#include <vector>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -22,8 +22,13 @@ typedef
 // The intersection algorithm doesn't like "ring x linestring"
 // intersections, so I use a string here.
 //boost::geometry::model::ring<sge::renderer::vector2>
-boost::geometry::model::linestring<sge::renderer::vector2>
+boost::geometry::model::linestring<
+	fruitlib::def_ctor<
+		sge::renderer::vector2
+	>
+>
 ring;
+
 }
 }
 }

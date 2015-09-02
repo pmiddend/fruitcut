@@ -21,11 +21,11 @@
 #include <fruitapp/highscore/provider/connection_base_ptr.hpp>
 #include <fruitapp/highscore/provider/object_base_fwd.hpp>
 #include <fcppt/string.hpp>
+#include <fcppt/unique_ptr.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/object.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <memory>
 #include <vector>
 #include <fcppt/config/external_end.hpp>
 
@@ -99,7 +99,7 @@ private:
 
 	typedef
 	std::vector<
-		std::unique_ptr<
+		fcppt::unique_ptr<
 			connection_wrapper
 		>
 	>
