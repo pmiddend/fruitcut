@@ -77,7 +77,6 @@ set(
 	fruitlib/include/fruitlib/math/triangle/to_plane.hpp
 	fruitlib/include/fruitlib/math/triangle/vector_type.hpp
 	fruitlib/include/fruitlib/math/triangle/vertex_access.hpp
-	fruitlib/include/fruitlib/math/triangle/weak_compare.hpp
 	fruitlib/include/fruitlib/math/triangle_plane_intersection.hpp
 	fruitlib/include/fruitlib/math/unproject.hpp
 	fruitlib/include/fruitlib/math/view_plane_distance.hpp
