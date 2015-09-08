@@ -35,8 +35,11 @@
 #include <sge/renderer/vf/vertex.hpp>
 #include <sge/renderer/vf/dynamic/make_format.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/cast/int_to_float_fun.hpp>
 #include <fcppt/container/bitfield/object_impl.hpp>
+#include <fcppt/math/dim/to_vector.hpp>
 #include <fcppt/math/box/object.hpp>
+#include <fcppt/math/vector/structure_cast.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <functional>
 #include <fcppt/config/external_end.hpp>
@@ -164,14 +167,24 @@ fruitapp::background::base::projection_change(
 		vertices.begin());
 
 	sge::renderer::vector2 const repetitions(
-		static_cast<sge::renderer::scalar>(
-			target_.viewport().get().w()) /
-		static_cast<sge::renderer::scalar>(
-			texture_->size().w()),
-		static_cast<sge::renderer::scalar>(
-			target_.viewport().get().h()) /
-		static_cast<sge::renderer::scalar>(
-			texture_->size().h()));
+		fcppt::math::vector::structure_cast<
+			sge::renderer::vector2,
+			fcppt::cast::int_to_float_fun
+		>(
+			fcppt::math::dim::to_vector(
+				target_.viewport().get().size()
+			)
+		)
+		/
+		fcppt::math::vector::structure_cast<
+			sge::renderer::vector2,
+			fcppt::cast::int_to_float_fun
+		>(
+			fcppt::math::dim::to_vector(
+				texture_->size()
+			)
+		)
+	);
 
 	// Left top
 	(vb_it)->set<fruitapp::background::vf::position>(

@@ -24,6 +24,7 @@
 #include <fcppt/math/matrix/arithmetic.hpp>
 #include <fcppt/math/matrix/inverse.hpp>
 #include <fcppt/math/matrix/vector.hpp>
+#include <fcppt/math/vector/dim.hpp>
 #include <fcppt/math/vector/length.hpp>
 #include <fcppt/math/vector/narrow_cast.hpp>
 #include <fcppt/math/vector/null.hpp>
@@ -345,10 +346,10 @@ fruitapp::fruit::cut_mesh(
 		convex_hull_result
 	)
 		texcoords.push_back(
-			(element.base() - envelope.pos())/
-			vector2(
-				envelope.w(),
-				envelope.h()));
+			(element.base() - envelope.pos())
+			/
+			envelope.size()
+		);
 
 	ring_2d::size_type const triangle_count =
 		static_cast<ring_2d::size_type>(

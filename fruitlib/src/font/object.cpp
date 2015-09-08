@@ -232,7 +232,7 @@ fruitlib::font::object::regenerate_text_object()
 		return;
 
 	sge::font::align_h::max_width const max_width(
-		bounding_box_.w()
+		bounding_box_.size().w()
 	);
 
 	auto const convert_align_h(

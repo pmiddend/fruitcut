@@ -13,13 +13,16 @@
 #include <sge/renderer/target/base.hpp>
 #include <sge/viewport/manager.hpp>
 #include <fcppt/optional_bind_construct.hpp>
+#include <fcppt/cast/int_to_float_fun.hpp>
 #include <fcppt/cast/size_fun.hpp>
 #include <fcppt/math/deg_to_rad.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/math/dim/to_unsigned.hpp>
+#include <fcppt/math/dim/to_vector.hpp>
 #include <fcppt/math/matrix/vector.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
 #include <fcppt/math/vector/construct.hpp>
+#include <fcppt/math/vector/structure_cast.hpp>
 #include <fcppt/signal/connection.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <functional>
@@ -134,12 +137,17 @@ fruitapp::projection_manager::object::project_point(
 	return
 		sge::renderer::vector2(
 			result_2d_noninverted.x(),
-			1.0f - result_2d_noninverted.y()) *
-		sge::renderer::vector2(
-			static_cast<sge::renderer::scalar>(
-				viewport_rect.w()),
-			static_cast<sge::renderer::scalar>(
-				viewport_rect.h()));
+			1.0f - result_2d_noninverted.y()
+		)
+		*
+		fcppt::math::vector::structure_cast<
+			sge::renderer::vector2,
+			fcppt::cast::int_to_float_fun
+		>(
+			fcppt::math::dim::to_vector(
+				viewport_rect.size()
+			)
+		);
 }
 
 fruitapp::projection_manager::object::~object()

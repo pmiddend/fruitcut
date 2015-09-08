@@ -5,7 +5,6 @@
 #include <fcppt/math/at_c.hpp>
 #include <fcppt/math/size_type.hpp>
 #include <fcppt/math/box/object_impl.hpp>
-#include <fcppt/math/dim/object_impl.hpp>
 #include <fcppt/math/vector/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/geometry/geometry.hpp>
@@ -107,55 +106,12 @@ struct indexed_access<
 		T const &_value
 	)
 	{
-		typename
-		fcppt::math::box::object<
-			T,
-			N
-		>::vector p{
+		fcppt::math::at_c<
+			Dimension
+		>(
 			_box.pos()
-		};
-
-		typename
-		fcppt::math::box::object<
-			T,
-			N
-		>::dim d{
-			_box.size()
-		};
-
-		fcppt::math::at_c<
-			Dimension
-		>(
-			d
-		) =
-			fcppt::math::at_c<
-				Dimension
-			>(
-				p
-			)
-			+
-			fcppt::math::at_c<
-				Dimension
-			>(
-				d
-			)
-			-
-			_value;
-
-		fcppt::math::at_c<
-			Dimension
-		>(
-			p
 		) =
 			_value;
-
-		_box.pos(
-			p
-		);
-
-		_box.size(
-			d
-		);
 	}
 };
 
@@ -190,9 +146,7 @@ struct indexed_access<
 			fcppt::math::at_c<
 				Dimension
 			>(
-				_box.pos()
-				+
-				_box.size()
+				_box.max()
 			);
 	}
 
@@ -208,30 +162,12 @@ struct indexed_access<
 		T const &_value
 	)
 	{
-		typename
-		fcppt::math::box::object<
-			T,
-			N
-		>::dim d{
-			_box.size()
-		};
-
 		fcppt::math::at_c<
 			Dimension
 		>(
-			d
+			_box.max()
 		) =
-			_value
-			-
-			fcppt::math::at_c<
-				Dimension
-			>(
-				_box.pos()
-			);
-
-		_box.size(
-			d
-		);
+			_value;
 	}
 };
 
