@@ -9,7 +9,7 @@
 #include <sge/renderer/vector2.hpp>
 #include <sge/renderer/vector3.hpp>
 #include <fcppt/make_unique_ptr_fcppt.hpp>
-#include <fcppt/algorithm/array_fold.hpp>
+#include <fcppt/algorithm/array_fold_static.hpp>
 #include <fcppt/assert/optional_error.hpp>
 #include <fcppt/assert/pre_message.hpp>
 #include <fcppt/cast/size_fun.hpp>
@@ -17,7 +17,6 @@
 #include <fcppt/math/vector/structure_cast.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/next_prior.hpp>
-#include <cstddef>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -69,14 +68,14 @@ fruitapp::fruit::model_to_mesh(
 	{
 		result->triangles().push_back(
 			fruitapp::fruit::triangle(
-				fcppt::algorithm::array_fold<
+				fcppt::algorithm::array_fold_static<
 					fruitapp::fruit::triangle::vertex_array
 				>(
 					[
 						index,
 						&vertices
 					](
-						std::size_t const _array_index
+						auto const _array_index
 					)
 					{
 						return
@@ -93,14 +92,14 @@ fruitapp::fruit::model_to_mesh(
 							);
 					}
 				),
-				fcppt::algorithm::array_fold<
+				fcppt::algorithm::array_fold_static<
 					fruitapp::fruit::triangle::texcoord_array
 				>(
 					[
 						index,
 						&texcoords
 					](
-						std::size_t const _array_index
+						auto const _array_index
 					)
 					{
 						return
@@ -117,14 +116,14 @@ fruitapp::fruit::model_to_mesh(
 							);
 					}
 				),
-				fcppt::algorithm::array_fold<
+				fcppt::algorithm::array_fold_static<
 					fruitapp::fruit::triangle::normal_array
 				>(
 					[
 						index,
 						&normals
 					](
-						std::size_t const _array_index
+						auto const _array_index
 					)
 					{
 						return
