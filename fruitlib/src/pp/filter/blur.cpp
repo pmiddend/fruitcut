@@ -11,7 +11,7 @@
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/planar_shared_ptr.hpp>
 #include <sge/shader/scoped_pair.hpp>
-#include <fcppt/make_unique_ptr_fcppt.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/assert/pre.hpp>
 #include <fcppt/cast/int_to_float_fun.hpp>
 #include <fcppt/math/dim/object_impl.hpp>
@@ -159,11 +159,11 @@ fruitlib::pp::filter::blur::blur(
 				_filter_manager.shader_context(),
 				_filter_manager.quad().vertex_declaration(),
 				sge::shader::vertex_program_stream(
-					*fcppt::make_unique_ptr_fcppt<std::istringstream>(
+					*fcppt::make_unique_ptr<std::istringstream>(
 						std::string(
 							sources[i]))),
 				sge::shader::pixel_program_stream(
-					*fcppt::make_unique_ptr_fcppt<std::istringstream>(
+					*fcppt::make_unique_ptr<std::istringstream>(
 						std::string(
 							sources[i]))),
 				_filter_manager.shader_cflags());

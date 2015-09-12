@@ -1,7 +1,7 @@
 #include <fruitapp/fruit/cut_mesh_result.hpp>
 #include <fruitapp/fruit/mesh.hpp>
 #include <sge/renderer/vector3.hpp>
-#include <fcppt/make_unique_ptr_fcppt.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/math/box/null.hpp>
 #include <fcppt/math/vector/null.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -12,10 +12,10 @@
 fruitapp::fruit::cut_mesh_result::cut_mesh_result()
 :
 	mesh_(
-		fcppt::make_unique_ptr_fcppt<fruit::mesh>(
+		fcppt::make_unique_ptr<fruit::mesh>(
 			fruit::mesh::triangle_sequence())),
 	cross_section_(
-		fcppt::make_unique_ptr_fcppt<fruit::mesh>(
+		fcppt::make_unique_ptr<fruit::mesh>(
 			fruit::mesh::triangle_sequence())),
 	bounding_box_(
 		fcppt::math::box::null<

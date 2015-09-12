@@ -20,7 +20,7 @@
 #include <sge/sprite/roles/texture0.hpp>
 #include <sge/texture/part_raw_ptr.hpp>
 #include <mizuiro/color/operators.hpp>
-#include <fcppt/make_unique_ptr_fcppt.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
@@ -51,7 +51,7 @@ fruitapp::logo::logo(
 			fcppt::unique_ptr_to_base<
 				sge::texture::part
 			>(
-				fcppt::make_unique_ptr_fcppt<sge::texture::part_raw_ptr>(
+				fcppt::make_unique_ptr<sge::texture::part_raw_ptr>(
 					_texture_manager.create_planar_from_path(
 						fruitapp::media_path()
 							/

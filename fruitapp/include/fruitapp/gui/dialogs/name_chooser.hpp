@@ -1,10 +1,10 @@
 #ifndef FRUITAPP_GUI_DIALOGS_NAME_CHOOSER_HPP_INCLUDED
 #define FRUITAPP_GUI_DIALOGS_NAME_CHOOSER_HPP_INCLUDED
 
+#include <fcppt/function_impl.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/signal/auto_connection.hpp>
-#include <fcppt/function_impl.hpp>
 
 
 namespace fruitapp

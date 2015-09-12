@@ -77,7 +77,7 @@
 #include <sge/window/title.hpp>
 #include <awl/main/exit_code.hpp>
 #include <fcppt/make_shared_ptr.hpp>
-#include <fcppt/make_unique_ptr_fcppt.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/nonassignable.hpp>
 #include <fcppt/optional_deref.hpp>
 #include <fcppt/string.hpp>
@@ -202,7 +202,7 @@ fruitapp::machine_impl::machine_impl(
 				FCPPT_TEXT("use-shaders")))
 		?
 			optional_shader_context(
-				fcppt::make_unique_ptr_fcppt<sge::shader::context>(
+				fcppt::make_unique_ptr<sge::shader::context>(
 					systems_.renderer_device_core()
 				)
 			)
@@ -413,7 +413,7 @@ fruitapp::machine_impl::machine_impl(
 				FCPPT_TEXT("use-shadow-map")))
 		?
 			optional_shadow_map(
-				fcppt::make_unique_ptr_fcppt<fruitapp::shadow_map::object>(
+				fcppt::make_unique_ptr<fruitapp::shadow_map::object>(
 					fruitlib::scenic::optional_parent(
 						fruitlib::scenic::parent(
 							this->root_node(),

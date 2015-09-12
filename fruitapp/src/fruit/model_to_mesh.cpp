@@ -8,7 +8,7 @@
 #include <sge/model/md3/texcoord_sequence.hpp>
 #include <sge/renderer/vector2.hpp>
 #include <sge/renderer/vector3.hpp>
-#include <fcppt/make_unique_ptr_fcppt.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/algorithm/array_fold_static.hpp>
 #include <fcppt/assert/optional_error.hpp>
 #include <fcppt/assert/pre_message.hpp>
@@ -25,7 +25,7 @@ fruitapp::fruit::model_to_mesh(
 	sge::model::md3::object const &model)
 {
 	fruitapp::fruit::mesh_unique_ptr result(
-		fcppt::make_unique_ptr_fcppt<fruitapp::fruit::mesh>(
+		fcppt::make_unique_ptr<fruitapp::fruit::mesh>(
 			fruitapp::fruit::mesh::triangle_sequence()));
 
 	FCPPT_ASSERT_PRE_MESSAGE(

@@ -1,6 +1,6 @@
 #include <fruitapp/highscore/provider/file/connection.hpp>
 #include <fruitapp/highscore/provider/file/object.hpp>
-#include <fcppt/make_unique_ptr_fcppt.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/filesystem/stem.hpp>
@@ -34,7 +34,7 @@ fruitapp::highscore::provider::file::object::create_connection()
 		fcppt::unique_ptr_to_base<
 			fruitapp::highscore::provider::connection_base
 		>(
-			fcppt::make_unique_ptr_fcppt<file::connection>(
+			fcppt::make_unique_ptr<file::connection>(
 				path_));
 }
 

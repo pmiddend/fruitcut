@@ -6,7 +6,7 @@
 #include <sge/input/cursor/remove_callback.hpp>
 #include <sge/input/cursor/remove_event.hpp>
 #include <sge/parse/json/value.hpp>
-#include <fcppt/make_unique_ptr_fcppt.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/signal/connection.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <functional>
@@ -72,7 +72,7 @@ fruitapp::cursor::manager::create_instances(
 	fruitlib::scenic::optional_parent const &_parent)
 {
 	fruitapp::cursor::instance_sequence_unique_ptr new_instance(
-		fcppt::make_unique_ptr_fcppt<fruitapp::cursor::instance_sequence>(
+		fcppt::make_unique_ptr<fruitapp::cursor::instance_sequence>(
 			*this,
 			_parent));
 

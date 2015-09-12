@@ -1,9 +1,9 @@
 #ifndef FRUITAPP_GUI_DIALOGS_MAIN_MENU_HPP_INCLUDED
 #define FRUITAPP_GUI_DIALOGS_MAIN_MENU_HPP_INCLUDED
 
+#include <fcppt/function_impl.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/signal/auto_connection.hpp>
-#include <fcppt/function_impl.hpp>
 
 
 namespace fruitapp

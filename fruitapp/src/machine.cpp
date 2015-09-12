@@ -6,7 +6,7 @@
 #include <sge/parse/json/object_fwd.hpp>
 #include <sge/systems/instance.hpp>
 #include <awl/main/exit_code.hpp>
-#include <fcppt/make_unique_ptr_fcppt.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/type_name_from_info.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -19,7 +19,7 @@ fruitapp::machine::machine(
 	char *argv[])
 :
 	impl_(
-		fcppt::make_unique_ptr_fcppt<fruitapp::machine_impl>(
+		fcppt::make_unique_ptr<fruitapp::machine_impl>(
 			argc,
 			argv)),
 	queued_events_()

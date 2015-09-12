@@ -19,7 +19,7 @@
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/mipmap/all_levels.hpp>
 #include <sge/renderer/texture/mipmap/auto_generate.hpp>
-#include <fcppt/make_unique_ptr_fcppt.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/algorithm/map.hpp>
@@ -49,7 +49,7 @@ fruitapp::fruit::prototype_from_json(
 			v);
 
 	return
-		fcppt::make_unique_ptr_fcppt<fruitapp::fruit::prototype>(
+		fcppt::make_unique_ptr<fruitapp::fruit::prototype>(
 			fruitapp::fruit::model_to_mesh(
 				*model_loader.load(
 					fruitapp::media_path()

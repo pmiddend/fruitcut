@@ -4,7 +4,7 @@
 #include <fruitapp/background/node.hpp>
 #include <sge/renderer/context/ffp.hpp>
 #include <sge/renderer/device/ffp.hpp>
-#include <fcppt/make_unique_ptr_fcppt.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
 
 
@@ -28,7 +28,7 @@ fruitapp::background::node::node(
 			fcppt::unique_ptr_to_base<
 				fruitapp::background::base
 			>(
-				fcppt::make_unique_ptr_fcppt<fruitapp::background::ffp>(
+				fcppt::make_unique_ptr<fruitapp::background::ffp>(
 					dynamic_cast<sge::renderer::device::ffp &>(
 						_renderer),
 					_texture_manager,
@@ -39,7 +39,7 @@ fruitapp::background::node::node(
 			fcppt::unique_ptr_to_base<
 				fruitapp::background::base
 			>(
-				fcppt::make_unique_ptr_fcppt<fruitapp::background::cg>(
+				fcppt::make_unique_ptr<fruitapp::background::cg>(
 					_texture_manager,
 					_shader_context.get_unsafe(), // TODO
 					_shadow_map,

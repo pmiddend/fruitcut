@@ -3,10 +3,10 @@
 
 #include <fruitapp/highscore/name.hpp>
 #include <fruitapp/highscore/score.hpp>
+#include <fcppt/function_impl.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/signal/auto_connection.hpp>
-#include <fcppt/function_impl.hpp>
 
 
 namespace fruitapp

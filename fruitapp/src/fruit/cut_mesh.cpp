@@ -15,7 +15,7 @@
 #include <sge/renderer/vector2.hpp>
 #include <sge/renderer/vector3.hpp>
 #include <sge/renderer/vector4.hpp>
-#include <fcppt/make_unique_ptr_fcppt.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/optional.hpp>
 #include <fcppt/unique_ptr.hpp>
 #include <fcppt/assert/error.hpp>
@@ -104,7 +104,7 @@ fruitapp::fruit::cut_mesh(
 	box3;
 
 	fcppt::unique_ptr<fruit::cut_mesh_result> result{
-		fcppt::make_unique_ptr_fcppt<fruit::cut_mesh_result>()};
+		fcppt::make_unique_ptr<fruit::cut_mesh_result>()};
 
 	scalar const epsilon =
 		static_cast<scalar>(

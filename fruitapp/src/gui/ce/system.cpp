@@ -8,7 +8,7 @@
 #include <fruitapp/gui/ce/dialogs/settings.hpp>
 #include <sge/cegui/cursor_visibility.hpp>
 #include <sge/cegui/load_context.hpp>
-#include <fcppt/make_unique_ptr_fcppt.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -71,7 +71,7 @@ fruitapp::gui::ce::system::create_ranking(
 		fcppt::unique_ptr_to_base<
 			fruitapp::gui::dialogs::ranking
 		>(
-			fcppt::make_unique_ptr_fcppt<fruitapp::gui::ce::dialogs::ranking>(
+			fcppt::make_unique_ptr<fruitapp::gui::ce::dialogs::ranking>(
 				*this,
 				_providers));
 }
@@ -83,7 +83,7 @@ fruitapp::gui::ce::system::create_main_menu()
 		fcppt::unique_ptr_to_base<
 			fruitapp::gui::dialogs::main_menu
 		>(
-			fcppt::make_unique_ptr_fcppt<fruitapp::gui::ce::dialogs::main_menu>(
+			fcppt::make_unique_ptr<fruitapp::gui::ce::dialogs::main_menu>(
 				*this));
 }
 
@@ -94,7 +94,7 @@ fruitapp::gui::ce::system::create_ingame_menu()
 		fcppt::unique_ptr_to_base<
 			fruitapp::gui::dialogs::ingame_menu
 		>(
-			fcppt::make_unique_ptr_fcppt<fruitapp::gui::ce::dialogs::ingame_menu>(
+			fcppt::make_unique_ptr<fruitapp::gui::ce::dialogs::ingame_menu>(
 				*this));
 }
 
@@ -121,7 +121,7 @@ fruitapp::gui::ce::system::create_name_chooser(
 		fcppt::unique_ptr_to_base<
 			fruitapp::gui::dialogs::name_chooser
 		>(
-			fcppt::make_unique_ptr_fcppt<fruitapp::gui::ce::dialogs::name_chooser>(
+			fcppt::make_unique_ptr<fruitapp::gui::ce::dialogs::name_chooser>(
 				*this,
 				_score));
 }

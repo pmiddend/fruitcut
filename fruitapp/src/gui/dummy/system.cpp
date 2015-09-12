@@ -5,7 +5,7 @@
 #include <fruitapp/gui/dummy/dialogs/main_menu.hpp>
 #include <fruitapp/gui/dummy/dialogs/name_chooser.hpp>
 #include <fruitapp/gui/dummy/dialogs/ranking.hpp>
-#include <fcppt/make_unique_ptr_fcppt.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
 
 
@@ -33,7 +33,7 @@ fruitapp::gui::dummy::system::create_ranking(
 		fcppt::unique_ptr_to_base<
 			fruitapp::gui::dialogs::ranking
 		>(
-			fcppt::make_unique_ptr_fcppt<fruitapp::gui::dummy::dialogs::ranking>(
+			fcppt::make_unique_ptr<fruitapp::gui::dummy::dialogs::ranking>(
 				keyboard_));
 }
 
@@ -44,7 +44,7 @@ fruitapp::gui::dummy::system::create_main_menu()
 		fcppt::unique_ptr_to_base<
 			fruitapp::gui::dialogs::main_menu
 		>(
-			fcppt::make_unique_ptr_fcppt<fruitapp::gui::dummy::dialogs::main_menu>(
+			fcppt::make_unique_ptr<fruitapp::gui::dummy::dialogs::main_menu>(
 				keyboard_));
 }
 
@@ -55,7 +55,7 @@ fruitapp::gui::dummy::system::create_ingame_menu()
 		fcppt::unique_ptr_to_base<
 			fruitapp::gui::dialogs::ingame_menu
 		>(
-			fcppt::make_unique_ptr_fcppt<fruitapp::gui::dummy::dialogs::ingame_menu>(
+			fcppt::make_unique_ptr<fruitapp::gui::dummy::dialogs::ingame_menu>(
 				keyboard_));
 }
 
@@ -77,7 +77,7 @@ fruitapp::gui::dummy::system::create_name_chooser(
 		fcppt::unique_ptr_to_base<
 			fruitapp::gui::dialogs::name_chooser
 		>(
-			fcppt::make_unique_ptr_fcppt<fruitapp::gui::dummy::dialogs::name_chooser>(
+			fcppt::make_unique_ptr<fruitapp::gui::dummy::dialogs::name_chooser>(
 				keyboard_));
 }
 

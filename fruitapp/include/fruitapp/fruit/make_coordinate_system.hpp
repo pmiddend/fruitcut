@@ -7,8 +7,8 @@
 #include <fcppt/optional.hpp>
 #include <fcppt/assert/error.hpp>
 #include <fcppt/assert/pre.hpp>
-#include <fcppt/math/matrix/row.hpp>
 #include <fcppt/math/matrix/object_impl.hpp>
+#include <fcppt/math/matrix/row.hpp>
 #include <fcppt/math/matrix/static.hpp>
 #include <fcppt/math/vector/comparison.hpp>
 #include <fcppt/math/vector/componentwise_equal.hpp>

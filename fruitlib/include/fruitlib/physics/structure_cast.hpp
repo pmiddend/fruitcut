@@ -4,8 +4,8 @@
 #include <fruitlib/physics/scalar.hpp>
 #include <fcppt/math/size_type.hpp>
 #include <fcppt/math/matrix/has_dim.hpp>
-#include <fcppt/math/matrix/row.hpp>
 #include <fcppt/math/matrix/object_impl.hpp>
+#include <fcppt/math/matrix/row.hpp>
 #include <fcppt/math/vector/has_dim.hpp>
 #include <fcppt/math/vector/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>

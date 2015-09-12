@@ -17,7 +17,7 @@
 #include <sge/renderer/state/ffp/transform/object_unique_ptr.hpp>
 #include <sge/renderer/state/ffp/transform/parameters.hpp>
 #include <sge/renderer/state/ffp/transform/scoped.hpp>
-#include <fcppt/make_unique_ptr_fcppt.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/maybe_void.hpp>
 #include <fcppt/optional_assign.hpp>
 #include <fcppt/text.hpp>
@@ -63,7 +63,7 @@ fruitlib::physics::debugger::update()
 		auto const &scoped_lock(
 			fcppt::optional_assign(
 				scoped_lock_,
-				fcppt::make_unique_ptr_fcppt<sge::line_drawer::scoped_lock>(
+				fcppt::make_unique_ptr<sge::line_drawer::scoped_lock>(
 					line_drawer_
 				)
 			)

@@ -37,8 +37,8 @@
 #include <fcppt/text.hpp>
 #include <fcppt/cast/int_to_float_fun.hpp>
 #include <fcppt/container/bitfield/object_impl.hpp>
-#include <fcppt/math/dim/to_vector.hpp>
 #include <fcppt/math/box/object.hpp>
+#include <fcppt/math/dim/to_vector.hpp>
 #include <fcppt/math/vector/structure_cast.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <functional>

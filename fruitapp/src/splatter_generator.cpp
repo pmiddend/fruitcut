@@ -26,7 +26,7 @@
 #include <sge/texture/part_fwd.hpp>
 #include <mizuiro/color/channel/alpha.hpp>
 #include <fcppt/make_cref.hpp>
-#include <fcppt/make_unique_ptr_fcppt.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/maybe_void.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
@@ -183,7 +183,7 @@ fruitapp::splatter_generator::fruit_was_cut(
 					fcppt::unique_ptr_to_base<
 						fruitapp::point_sprite::base
 					>(
-						fcppt::make_unique_ptr_fcppt<
+						fcppt::make_unique_ptr<
 							fruitapp::point_sprite::splatter::object
 						>(
 							fruitapp::point_sprite::splatter::parameters(

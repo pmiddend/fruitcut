@@ -8,7 +8,7 @@
 #include <sge/parse/json/string_to_path.hpp>
 #include <sge/renderer/context/ffp.hpp>
 #include <sge/renderer/device/ffp.hpp>
-#include <fcppt/make_unique_ptr_fcppt.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
 
@@ -34,7 +34,7 @@ fruitapp::fruit::rendering::draw_node::draw_node(
 			fcppt::unique_ptr_to_base<
 				fruitapp::fruit::rendering::base
 			>(
-				fcppt::make_unique_ptr_fcppt<fruitapp::fruit::rendering::ffp>(
+				fcppt::make_unique_ptr<fruitapp::fruit::rendering::ffp>(
 					dynamic_cast<sge::renderer::device::ffp &>(
 						_renderer),
 					_fruit_manager,
@@ -44,7 +44,7 @@ fruitapp::fruit::rendering::draw_node::draw_node(
 			fcppt::unique_ptr_to_base<
 				fruitapp::fruit::rendering::base
 			>(
-				fcppt::make_unique_ptr_fcppt<fruitapp::fruit::rendering::cg>(
+				fcppt::make_unique_ptr<fruitapp::fruit::rendering::cg>(
 					_shader_context.get_unsafe(), // TODO
 					_fruit_manager,
 					_camera,

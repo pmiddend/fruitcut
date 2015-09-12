@@ -1,11 +1,11 @@
 #ifndef FRUITLIB_SCENIC_BASE_HPP_INCLUDED
 #define FRUITLIB_SCENIC_BASE_HPP_INCLUDED
 
+#include <fruitlib/detail/symbol.hpp>
 #include <fruitlib/scenic/depth.hpp>
 #include <fruitlib/scenic/optional_parent.hpp>
 #include <fruitlib/scenic/events/base_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fruitlib/detail/symbol.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>

@@ -8,7 +8,7 @@
 #include <fruitapp/highscore/provider/connection_base.hpp>
 #include <fruitapp/highscore/provider/object_base.hpp>
 #include <fcppt/insert_to_fcppt_string.hpp>
-#include <fcppt/make_unique_ptr_fcppt.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/maybe.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
@@ -166,7 +166,7 @@ fruitapp::gui::ce::post_model::post(
 		);
 
 		connections_.push_back(
-			fcppt::make_unique_ptr_fcppt<connection_wrapper>(
+			fcppt::make_unique_ptr<connection_wrapper>(
 				std::move(
 					new_connection),
 				std::move(

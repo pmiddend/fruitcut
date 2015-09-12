@@ -20,7 +20,7 @@
 #include <sge/renderer/texture/planar_parameters.hpp>
 #include <sge/renderer/texture/planar_unique_ptr.hpp>
 #include <sge/renderer/texture/mipmap/off.hpp>
-#include <fcppt/make_unique_ptr_fcppt.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/maybe_void.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/text.hpp>
@@ -218,7 +218,7 @@ fruitlib::pp::texture::manager::query_internal(
 		textures_.insert(
 			std::make_pair(
 				d,
-				fcppt::make_unique_ptr_fcppt<fruitlib::pp::texture::instance>(
+				fcppt::make_unique_ptr<fruitlib::pp::texture::instance>(
 					d,
 					std::move(
 						new_texture),

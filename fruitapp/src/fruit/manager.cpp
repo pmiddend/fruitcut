@@ -33,7 +33,7 @@
 #include <sge/renderer/vertex/declaration.hpp>
 #include <sge/renderer/vertex/declaration_parameters.hpp>
 #include <sge/renderer/vf/dynamic/make_format.hpp>
-#include <fcppt/make_unique_ptr_fcppt.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr.hpp>
@@ -128,7 +128,7 @@ fruitapp::fruit::manager::cut(
 	fruitapp::fruit::area cumulated_area(
 		0.0f);
 	fruitapp::fruit::mesh_unique_ptr cross_section(
-		fcppt::make_unique_ptr_fcppt<fruitapp::fruit::mesh>(
+		fcppt::make_unique_ptr<fruitapp::fruit::mesh>(
 			fruitapp::fruit::mesh::triangle_sequence()));
 
 	for(
@@ -157,7 +157,7 @@ fruitapp::fruit::manager::cut(
 				cross_section->triangles());
 
 		fruit_cache.push_back(
-			fcppt::make_unique_ptr_fcppt<fruitapp::fruit::object>(
+			fcppt::make_unique_ptr<fruitapp::fruit::object>(
 				_current_fruit.prototype(),
 				physics_world_,
 				renderer_,
@@ -195,7 +195,7 @@ fruitapp::fruit::manager::cut(
 		fruit_cache.size() == 2);
 
 	fruit::cut_context_unique_ptr cut_context(
-		fcppt::make_unique_ptr_fcppt<fruitapp::fruit::cut_context>(
+		fcppt::make_unique_ptr<fruitapp::fruit::cut_context>(
 			_current_fruit,
 			fruitapp::fruit::cut_context::new_fruit_array
 			{{

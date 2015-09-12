@@ -32,7 +32,7 @@
 #include <sge/systems/instance.hpp>
 #include <fcppt/make_ref.hpp>
 #include <fcppt/make_shared_ptr.hpp>
-#include <fcppt/make_unique_ptr_fcppt.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/optional_bind_construct.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/cast/size_fun.hpp>
@@ -131,7 +131,7 @@ fruitapp::states::ingame::superstate::superstate(
 			)
 			{
 				return
-					fcppt::make_unique_ptr_fcppt<fruitapp::fruit::rendering::shadow_node>(
+					fcppt::make_unique_ptr<fruitapp::fruit::rendering::shadow_node>(
 						fruitlib::scenic::optional_parent(
 							fruitlib::scenic::parent(
 								_shadow_map,

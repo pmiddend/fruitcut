@@ -23,15 +23,15 @@
 #include <sge/sprite/geometry/make_random_access_range.hpp>
 #include <sge/sprite/process/all.hpp>
 #include <sge/sprite/roles/center.hpp>
-#include <sge/sprite/roles/size.hpp>
 #include <sge/sprite/roles/rotation.hpp>
+#include <sge/sprite/roles/size.hpp>
 #include <sge/sprite/roles/texture0.hpp>
 #include <sge/texture/part_raw_ptr.hpp>
 #include <sge/timer/elapsed_fractional.hpp>
 #include <sge/timer/parameters.hpp>
 #include <sge/timer/reset_when_expired.hpp>
 #include <fcppt/make_shared_ptr.hpp>
-#include <fcppt/make_unique_ptr_fcppt.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/maybe_void.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
@@ -96,7 +96,7 @@ fruitapp::cursor::sword_trail::sword_trail(
 			fcppt::unique_ptr_to_base<
 				sge::texture::part
 			>(
-				fcppt::make_unique_ptr_fcppt<sge::texture::part_raw_ptr>(
+				fcppt::make_unique_ptr<sge::texture::part_raw_ptr>(
 					_texture_manager.create_planar_from_path(
 						fruitapp::media_path() / FCPPT_TEXT("textures") / FCPPT_TEXT("sword_particle.png"),
 						sge::renderer::texture::mipmap::off(),

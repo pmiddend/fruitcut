@@ -10,7 +10,7 @@
 #include <sge/parse/json/element_vector.hpp>
 #include <sge/parse/json/find_and_convert_member.hpp>
 #include <sge/parse/json/object.hpp>
-#include <fcppt/make_unique_ptr_fcppt.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
@@ -88,7 +88,7 @@ fruitapp::highscore::providers_from_json(
 				fcppt::unique_ptr_to_base<
 					provider::object_base
 				>(
-					fcppt::make_unique_ptr_fcppt<provider::file::object>(
+					fcppt::make_unique_ptr<provider::file::object>(
 						address
 					)
 				)
@@ -100,7 +100,7 @@ fruitapp::highscore::providers_from_json(
 				fcppt::unique_ptr_to_base<
 					provider::object_base
 				>(
-					fcppt::make_unique_ptr_fcppt<provider::net::object>(
+					fcppt::make_unique_ptr<provider::net::object>(
 						provider::net::host(
 							address),
 						provider::net::port(
