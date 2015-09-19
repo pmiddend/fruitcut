@@ -18,7 +18,7 @@
 #include <sge/renderer/target/base_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/signal/object.hpp>
-#include <fcppt/signal/scoped_connection.hpp>
+#include <fcppt/signal/optional_auto_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <unordered_set>
 #include <fcppt/config/external_end.hpp>
@@ -76,8 +76,8 @@ private:
 	fruitlib::audio::sound_controller &sound_controller_;
 	fruitapp::ingame_clock const &ingame_clock_;
 	sge::parse::json::object const configuration_;
-	fcppt::signal::scoped_connection const discover_connection_;
-	fcppt::signal::scoped_connection const remove_connection_;
+	fcppt::signal::optional_auto_connection const discover_connection_;
+	fcppt::signal::optional_auto_connection const remove_connection_;
 	cursor_sequence cursors_;
 	instance_sequence_sequence instance_sequences_;
 
