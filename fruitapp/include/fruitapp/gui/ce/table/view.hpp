@@ -5,7 +5,7 @@
 #include <fruitapp/gui/ce/table/row.hpp>
 #include <fruitapp/gui/ce/table/row_index.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/signal/scoped_connection.hpp>
+#include <fcppt/signal/auto_connection.hpp>
 
 
 namespace CEGUI
@@ -35,8 +35,8 @@ public:
 private:
 	CEGUI::MultiColumnList &impl_;
 	fruitapp::gui::ce::table::model &model_;
-	fcppt::signal::scoped_connection row_added_connection_;
-	fcppt::signal::scoped_connection row_removed_connection_;
+	fcppt::signal::auto_connection row_added_connection_;
+	fcppt::signal::auto_connection row_removed_connection_;
 
 	void
 	row_added(

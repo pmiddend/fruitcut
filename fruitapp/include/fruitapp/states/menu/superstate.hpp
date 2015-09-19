@@ -4,7 +4,7 @@
 #include <fruitapp/machine.hpp>
 #include <fruitapp/states/menu/main_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/signal/scoped_connection.hpp>
+#include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/statechart/state.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -30,7 +30,7 @@ public:
 
 	virtual ~superstate();
 private:
-	fcppt::signal::scoped_connection escape_connection_;
+	fcppt::signal::auto_connection escape_connection_;
 };
 }
 }

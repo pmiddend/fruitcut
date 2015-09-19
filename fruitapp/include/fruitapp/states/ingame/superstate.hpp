@@ -20,7 +20,7 @@
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/optional.hpp>
 #include <fcppt/unique_ptr.hpp>
-#include <fcppt/signal/scoped_connection.hpp>
+#include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/statechart/state.hpp>
 #include <memory>
@@ -80,7 +80,7 @@ private:
 	fruitlib::physics::nodes::world physics_world_node_;
 	fruitlib::physics::debugger physics_debugger_;
 	fruitlib::physics::nodes::debugger physics_debugger_node_;
-	fcppt::signal::scoped_connection physics_debugger_connection_;
+	fcppt::signal::auto_connection physics_debugger_connection_;
 	fruitapp::fruit::manager fruit_manager_;
 	fruitapp::fruit::rendering::draw_node fruit_default_render_node_;
 	typedef
@@ -93,7 +93,7 @@ private:
 	optional_fruit_shadow_render_node const fruit_shadow_render_node_;
 	fruitapp::fruit::spawner fruit_spawner_;
 	fruitapp::game_logic::object game_logic_;
-	fcppt::signal::scoped_connection cut_connection_;
+	fcppt::signal::auto_connection cut_connection_;
 	fruitapp::splatter_generator splatter_generator_;
 	fruitlib::physics::group::object background_group_;
 	fruitlib::physics::rigid_body::object background_physics_;

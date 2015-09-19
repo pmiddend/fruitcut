@@ -13,7 +13,7 @@
 #include <sge/shader/context_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/optional.hpp>
-#include <fcppt/signal/scoped_connection.hpp>
+#include <fcppt/signal/auto_connection.hpp>
 
 
 namespace fruitapp

@@ -12,7 +12,7 @@
 #include <fcppt/math/box/object_impl.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/object.hpp>
-#include <fcppt/signal/scoped_connection.hpp>
+#include <fcppt/signal/auto_connection.hpp>
 
 
 namespace fruitapp
@@ -43,7 +43,7 @@ public:
 private:
 	sge::renderer::target::base const &target_;
 	fcppt::signal::object<fruitapp::viewport::change_callback_fn> change_signal_;
-	fcppt::signal::scoped_connection viewport_connection_;
+	fcppt::signal::auto_connection viewport_connection_;
 	fruitapp::viewport::optional current_viewport_;
 
 	void

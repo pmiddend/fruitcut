@@ -11,7 +11,7 @@
 #include <fruitlib/scenic/node.hpp>
 #include <fruitlib/scenic/events/update.hpp>
 #include <fcppt/string.hpp>
-#include <fcppt/signal/scoped_connection.hpp>
+#include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <boost/statechart/state.hpp>
@@ -65,13 +65,13 @@ public:
 private:
 	fruitapp::highscore::provider_sequence providers_;
 	fruitapp::gui::dialogs::ranking_unique_ptr const ranking_;
-	fcppt::signal::scoped_connection const main_menu_button_connection_;
-	fcppt::signal::scoped_connection const highscore_button_connection_;
+	fcppt::signal::auto_connection const main_menu_button_connection_;
+	fcppt::signal::auto_connection const highscore_button_connection_;
 	/*
 	highscore::post_model post_model_;
 	gui::table::view table_view_;
-	fcppt::signal::scoped_connection message_received_connection_;
-	fcppt::signal::scoped_connection error_received_connection_;
+	fcppt::signal::auto_connection message_received_connection_;
+	fcppt::signal::auto_connection error_received_connection_;
 
 	void
 	message_received(

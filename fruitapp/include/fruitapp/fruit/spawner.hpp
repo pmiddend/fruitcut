@@ -23,7 +23,7 @@
 #include <fcppt/preprocessor/warn_unused_result.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/object.hpp>
-#include <fcppt/signal/scoped_connection.hpp>
+#include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -96,7 +96,7 @@ private:
 	fruitapp::ingame_timer timer_;
 	fcppt::signal::object<spawn_callback_fn> spawn_signal_;
 	fruitlib::optional_perspective_projection_information perspective_projection_information_;
-	fcppt::signal::scoped_connection projection_change_connection_;
+	fcppt::signal::auto_connection projection_change_connection_;
 
 	void
 	reset_timer();

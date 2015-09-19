@@ -14,7 +14,7 @@
 #include <sge/cegui/toolbox/scoped_gui_sheet.hpp>
 #include <sge/cegui/toolbox/scoped_layout.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/signal/scoped_connection.hpp>
+#include <fcppt/signal/auto_connection.hpp>
 
 
 namespace fruitapp
@@ -68,8 +68,8 @@ private:
 	fruitapp::highscore::provider_sequence &providers_;
 	fruitapp::gui::ce::post_model post_model_;
 	fruitapp::gui::ce::table::view table_view_;
-	fcppt::signal::scoped_connection message_received_connection_;
-	fcppt::signal::scoped_connection error_received_connection_;
+	fcppt::signal::auto_connection message_received_connection_;
+	fcppt::signal::auto_connection error_received_connection_;
 };
 }
 }

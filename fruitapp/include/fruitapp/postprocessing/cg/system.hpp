@@ -14,7 +14,7 @@
 #include <sge/shader/context_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/optional.hpp>
-#include <fcppt/signal/scoped_connection.hpp>
+#include <fcppt/signal/auto_connection.hpp>
 
 
 namespace fruitapp
@@ -56,7 +56,7 @@ private:
 	sge::parse::json::object const &configuration_;
 	fruitlib::pp::texture::manager texture_manager_;
 	fruitlib::pp::filter::manager filter_manager_;
-	fcppt::signal::scoped_connection const viewport_change_connection_;
+	fcppt::signal::auto_connection const viewport_change_connection_;
 	optional_main_system main_system_;
 	bool pause_active_;
 

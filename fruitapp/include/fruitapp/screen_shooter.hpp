@@ -7,7 +7,7 @@
 #include <sge/renderer/device/core_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/string.hpp>
-#include <fcppt/signal/scoped_connection.hpp>
+#include <fcppt/signal/auto_connection.hpp>
 
 
 namespace fruitapp
@@ -27,7 +27,7 @@ public:
 private:
 	sge::renderer::device::core &renderer_;
 	sge::image2d::system &image_loader_;
-	fcppt::signal::scoped_connection callback_connection_;
+	fcppt::signal::auto_connection callback_connection_;
 
 	void
 	callback(

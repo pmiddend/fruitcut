@@ -23,7 +23,7 @@
 #include <fcppt/optional.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/object.hpp>
-#include <fcppt/signal/scoped_connection.hpp>
+#include <fcppt/signal/auto_connection.hpp>
 
 
 namespace fruitapp
@@ -65,7 +65,7 @@ private:
 	sge::renderer::projection::far const far_;
 	sge::renderer::projection::fov const fov_;
 	optional_aspect aspect_;
-	fcppt::signal::scoped_connection viewport_connection_;
+	fcppt::signal::auto_connection viewport_connection_;
 
 	void
 	viewport_callback(

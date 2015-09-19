@@ -38,7 +38,7 @@
 #include <fcppt/unique_ptr.hpp>
 #include <fcppt/preprocessor/const.hpp>
 #include <fcppt/preprocessor/warn_unused_result.hpp>
-#include <fcppt/signal/scoped_connection.hpp>
+#include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/statechart/event_base.hpp>
 #include <boost/statechart/state_machine.hpp>

@@ -71,10 +71,10 @@ private:
 	sge::cegui::toolbox::scoped_gui_sheet gui_sheet_;
 	fruitapp::gui::ce::button main_menu_button_;
 	fruitapp::gui::ce::slider::object music_volume_slider_;
-	fcppt::signal::scoped_connection music_volume_connection_;
+	fcppt::signal::auto_connection music_volume_connection_;
 	volume_change_signal music_volume_change_;
 	fruitapp::gui::ce::slider::object effects_volume_slider_;
-	fcppt::signal::scoped_connection effects_volume_connection_;
+	fcppt::signal::auto_connection effects_volume_connection_;
 	volume_change_signal effects_volume_change_;
 	quality_change_signal quality_change_;
 	fruitapp::gui::ce::combobox quality_dropdown_;

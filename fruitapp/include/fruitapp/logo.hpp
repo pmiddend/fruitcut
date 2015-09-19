@@ -28,7 +28,7 @@
 #include <sge/sprite/state/parameters.hpp>
 #include <sge/texture/const_part_unique_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/signal/scoped_connection.hpp>
+#include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -134,7 +134,7 @@ private:
 	sprite_buffers sprite_buffers_;
 	sge::texture::const_part_unique_ptr const texture_;
 	sprite_object sprite_object_;
-	fcppt::signal::scoped_connection viewport_change_connection_;
+	fcppt::signal::auto_connection viewport_change_connection_;
 
 	void
 	viewport_change(

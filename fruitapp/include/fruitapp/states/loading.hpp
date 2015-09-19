@@ -12,7 +12,7 @@
 #include <sge/parse/json/start.hpp>
 #include <sge/renderer/target/viewport.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/signal/scoped_connection.hpp>
+#include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <boost/statechart/custom_reaction.hpp>
@@ -62,7 +62,7 @@ private:
 	sge::parse::json::element_vector const &fruit_array_;
 	sge::parse::json::element_vector::const_iterator current_fruit_;
 	fruitlib::font::scene_node font_node_;
-	fcppt::signal::scoped_connection viewport_change_connection_;
+	fcppt::signal::auto_connection viewport_change_connection_;
 
 	void
 	viewport_change(

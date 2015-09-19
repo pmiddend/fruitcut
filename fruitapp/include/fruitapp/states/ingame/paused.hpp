@@ -14,7 +14,7 @@
 #include <sge/timer/basic.hpp>
 #include <sge/timer/clocks/standard.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/signal/scoped_connection.hpp>
+#include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/statechart/state.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -93,11 +93,11 @@ private:
 	fruitapp::scoped_time_factor time_factor_;
 	//fruitapp::scoped_scene_activation scene_deactivation_;
 	fruitapp::postprocessing::subsystems::paused_unique_ptr const paused_postprocessing_;
-	fcppt::signal::scoped_connection transit_to_running_connection_;
+	fcppt::signal::auto_connection transit_to_running_connection_;
 	fruitapp::gui::dialogs::ingame_menu_unique_ptr ingame_menu_;
-	fcppt::signal::scoped_connection continue_connection_;
-	fcppt::signal::scoped_connection main_menu_connection_;
-	fcppt::signal::scoped_connection quit_connection_;
+	fcppt::signal::auto_connection continue_connection_;
+	fcppt::signal::auto_connection main_menu_connection_;
+	fcppt::signal::auto_connection quit_connection_;
 };
 }
 }

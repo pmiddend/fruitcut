@@ -5,7 +5,7 @@
 #include <sge/input/keyboard/device_fwd.hpp>
 #include <sge/input/keyboard/key_event_fwd.hpp>
 #include <fcppt/signal/object.hpp>
-#include <fcppt/signal/scoped_connection.hpp>
+#include <fcppt/signal/auto_connection.hpp>
 
 
 namespace fruitapp
@@ -44,7 +44,7 @@ private:
 	fcppt::signal::object<void ()> quit_;
 	fcppt::signal::object<void ()> game_;
 	fcppt::signal::object<void ()> main_menu_;
-	fcppt::signal::scoped_connection key_connection_;
+	fcppt::signal::auto_connection key_connection_;
 
 	void
 	key_callback(

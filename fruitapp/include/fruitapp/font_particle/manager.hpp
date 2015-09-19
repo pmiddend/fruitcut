@@ -14,7 +14,7 @@
 #include <sge/image/color/any/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/unique_ptr.hpp>
-#include <fcppt/signal/scoped_connection.hpp>
+#include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <vector>
 #include <fcppt/config/external_end.hpp>
@@ -60,7 +60,7 @@ private:
 	fruitlib::font::manager &font_manager_;
 	fruitapp::ingame_clock const &ingame_clock_;
 	object_sequence objects_;
-	fcppt::signal::scoped_connection const projection_change_connection_;
+	fcppt::signal::auto_connection const projection_change_connection_;
 
 	void
 	projection_change(

@@ -18,7 +18,7 @@
 #include <fcppt/string.hpp>
 #include <fcppt/math/dim/object_impl.hpp>
 #include <fcppt/math/dim/static.hpp>
-#include <fcppt/signal/scoped_connection.hpp>
+#include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <deque>
@@ -70,7 +70,7 @@ private:
 	fractional_dimension fractional_size_;
 	sge::timer::basic<sge::timer::clocks::standard> message_delete_timer_;
 	message_sequence messages_;
-	fcppt::signal::scoped_connection viewport_change_connection_;
+	fcppt::signal::auto_connection viewport_change_connection_;
 
 	void
 	viewport_change(

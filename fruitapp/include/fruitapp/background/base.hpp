@@ -14,7 +14,7 @@
 #include <sge/renderer/vertex/buffer_unique_ptr.hpp>
 #include <sge/renderer/vertex/declaration_unique_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/signal/scoped_connection.hpp>
+#include <fcppt/signal/auto_connection.hpp>
 
 
 namespace fruitapp
@@ -36,7 +36,7 @@ protected:
 	sge::renderer::vertex::declaration_unique_ptr const vertex_declaration_;
 	sge::renderer::vertex::buffer_unique_ptr const vb_;
 	sge::renderer::texture::planar_unique_ptr const texture_;
-	fcppt::signal::scoped_connection const projection_change_connection_;
+	fcppt::signal::auto_connection const projection_change_connection_;
 	sge::renderer::state::core::depth_stencil::object_unique_ptr const depth_stencil_state_;
 
 	base(

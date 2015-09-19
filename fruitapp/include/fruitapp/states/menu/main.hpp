@@ -10,7 +10,7 @@
 #include <fruitapp/states/menu/settings_fwd.hpp>
 #include <fruitapp/states/menu/superstate.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/signal/scoped_connection.hpp>
+#include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <boost/statechart/state.hpp>
@@ -60,10 +60,10 @@ public:
 private:
 	fruitapp::logo logo_;
 	fruitapp::gui::dialogs::main_menu_unique_ptr main_menu_;
-	fcppt::signal::scoped_connection settings_button_connection_;
-	fcppt::signal::scoped_connection highscore_button_connection_;
-	fcppt::signal::scoped_connection quit_button_connection_;
-	fcppt::signal::scoped_connection start_button_connection_;
+	fcppt::signal::auto_connection settings_button_connection_;
+	fcppt::signal::auto_connection highscore_button_connection_;
+	fcppt::signal::auto_connection quit_button_connection_;
+	fcppt::signal::auto_connection start_button_connection_;
 };
 }
 }

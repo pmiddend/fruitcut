@@ -9,7 +9,7 @@
 #include <fruitapp/states/menu/main_fwd.hpp>
 #include <fruitapp/states/menu/superstate.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/signal/scoped_connection.hpp>
+#include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <boost/statechart/state.hpp>
@@ -48,10 +48,10 @@ public:
 	virtual ~settings();
 private:
 	fruitapp::gui::dialogs::settings_unique_ptr const settings_;
-	fcppt::signal::scoped_connection const main_menu_button_connection_;
-	fcppt::signal::scoped_connection const music_volume_connection_;
-	fcppt::signal::scoped_connection const effects_volume_connection_;
-	fcppt::signal::scoped_connection const quality_connection_;
+	fcppt::signal::auto_connection const main_menu_button_connection_;
+	fcppt::signal::auto_connection const music_volume_connection_;
+	fcppt::signal::auto_connection const effects_volume_connection_;
+	fcppt::signal::auto_connection const quality_connection_;
 
 	void
 	music_volume_callback(

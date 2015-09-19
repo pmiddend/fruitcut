@@ -15,7 +15,7 @@
 #include <sge/line_drawer/line_sequence.hpp>
 #include <sge/line_drawer/object.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/signal/scoped_connection.hpp>
+#include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <boost/statechart/state.hpp>
@@ -73,12 +73,12 @@ private:
 	sge::line_drawer::object line_drawer_;
 	fruitlib::scenic::adaptors::line_drawer line_drawer_node_;
 	fruitapp::cursor::instance_sequence_unique_ptr const cursor_sequence_;
-	fcppt::signal::scoped_connection fruit_spawned_connection_;
+	fcppt::signal::auto_connection fruit_spawned_connection_;
 	bool draw_mouse_trail_;
 /*
 	bool draw_bbs_;
 */
-	fcppt::signal::scoped_connection transit_to_paused_connection_;
+	fcppt::signal::auto_connection transit_to_paused_connection_;
 
 /*
 	void

@@ -50,7 +50,7 @@
 #include <fcppt/config/platform.hpp>
 #include <fcppt/preprocessor/const.hpp>
 #include <fcppt/preprocessor/warn_unused_result.hpp>
-#include <fcppt/signal/scoped_connection.hpp>
+#include <fcppt/signal/auto_connection.hpp>
 
 
 namespace fruitapp
@@ -283,12 +283,12 @@ private:
 	fruitlib::scenic::delta::duration ingame_clock_delta_;
 	fruitlib::scenic::delta::duration standard_clock_delta_;
 	fruitlib::audio::sound_controller sound_controller_;
-	fcppt::signal::scoped_connection effects_volume_change_connection_;
+	fcppt::signal::auto_connection effects_volume_change_connection_;
 	fruitlib::audio::music_controller music_controller_;
-	fcppt::signal::scoped_connection music_volume_change_connection_;
+	fcppt::signal::auto_connection music_volume_change_connection_;
 	sge::camera::first_person::object camera_;
 	fruitlib::scenic::adaptors::camera camera_node_;
-	fcppt::signal::scoped_connection toggle_camera_connection_;
+	fcppt::signal::auto_connection toggle_camera_connection_;
 	fruitapp::projection_manager::object projection_manager_;
 	fruitapp::renderable renderable_;
 	fruitapp::gui::system_unique_ptr const gui_system_;

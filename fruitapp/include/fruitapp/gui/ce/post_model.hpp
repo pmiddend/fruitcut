@@ -24,7 +24,7 @@
 #include <fcppt/unique_ptr.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/object.hpp>
-#include <fcppt/signal/scoped_connection.hpp>
+#include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <vector>
 #include <fcppt/config/external_end.hpp>
@@ -92,9 +92,9 @@ private:
 		~connection_wrapper();
 	private:
 		fruitapp::highscore::provider::connection_base_ptr connection_;
-		fcppt::signal::scoped_connection const message_received_;
-		fcppt::signal::scoped_connection const error_received_;
-		fcppt::signal::scoped_connection const rank_received_;
+		fcppt::signal::auto_connection const message_received_;
+		fcppt::signal::auto_connection const error_received_;
+		fcppt::signal::auto_connection const rank_received_;
 	};
 
 	typedef

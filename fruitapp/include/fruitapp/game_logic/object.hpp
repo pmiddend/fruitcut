@@ -23,7 +23,7 @@
 #include <sge/renderer/scalar.hpp>
 #include <sge/renderer/target/viewport.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/signal/scoped_connection.hpp>
+#include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <map>
@@ -77,9 +77,9 @@ private:
 	fruitapp::highscore::score score_,iterating_score_;
 	fruitapp::ingame_timer round_timer_;
 	fruitlib::audio::sound_controller &sound_controller_;
-	fcppt::signal::scoped_connection const fruit_added_connection_;
-	fcppt::signal::scoped_connection const fruit_cut_connection_;
-	fcppt::signal::scoped_connection const fruit_removed_connection_;
+	fcppt::signal::auto_connection const fruit_added_connection_;
+	fcppt::signal::auto_connection const fruit_cut_connection_;
+	fcppt::signal::auto_connection const fruit_removed_connection_;
 	fruitapp::font_particle::manager font_particles_;
 	fruitlib::font::scene_node score_font_node_;
 	fruitlib::font::scene_node timer_font_node_;
@@ -89,7 +89,7 @@ private:
 	fruitapp::ingame_timer penalty_timer_;
 	int multiplier_;
 	unsigned multi_count_;
-	fcppt::signal::scoped_connection viewport_change_connection_;
+	fcppt::signal::auto_connection viewport_change_connection_;
 	typedef std::map<fruit::object const *, unsigned> cut_fruits_container;
 	cut_fruits_container cut_fruits_;
 	fruitapp::quick_log &quick_log_;

@@ -9,7 +9,7 @@
 #include <fruitapp/states/ingame/superstate.hpp>
 #include <fruitapp/states/menu/main.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/signal/scoped_connection.hpp>
+#include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <boost/statechart/state.hpp>
@@ -58,9 +58,9 @@ public:
 	virtual ~choose_name();
 private:
 	fruitapp::gui::dialogs::name_chooser_unique_ptr const name_chooser_;
-	fcppt::signal::scoped_connection const submit_button_connection_;
-	fcppt::signal::scoped_connection const main_menu_button_connection_;
-	fcppt::signal::scoped_connection const restart_button_connection_;
+	fcppt::signal::auto_connection const submit_button_connection_;
+	fcppt::signal::auto_connection const main_menu_button_connection_;
+	fcppt::signal::auto_connection const restart_button_connection_;
 
 	void
 	submit_button_pushed();
