@@ -71,13 +71,13 @@ fruitapp::gui::dummy::dialogs::ingame_menu::key_callback(
 
 	switch(_key_event.key().code())
 	{
-	case sge::input::keyboard::key_code::g:
+	case sge::input::key::code::g:
 		game_();
 		break;
-	case sge::input::keyboard::key_code::q:
+	case sge::input::key::code::q:
 		quit_();
 		break;
-	case sge::input::keyboard::key_code::m:
+	case sge::input::key::code::m:
 		main_menu_();
 		break;
 	default:

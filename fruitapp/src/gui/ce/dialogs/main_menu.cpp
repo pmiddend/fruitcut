@@ -13,7 +13,7 @@ fruitapp::gui::ce::dialogs::main_menu::main_menu(
 		_system.standard_clock_callback()),
 	gui_keyboard_(
 		_system.gui_syringe(),
-		_system.keyboard()),
+		_system.focus()),
 	gui_cursor_(
 		_system.gui_syringe(),
 		_system.cursor()),

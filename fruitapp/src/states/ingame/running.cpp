@@ -24,10 +24,10 @@
 //#include <sge/camera/matrix_conversion/world_projection.hpp>
 //#include <sge/image/colors.hpp>
 #include <sge/input/cursor/position_unit.hpp>
+#include <sge/input/key/action_callback.hpp>
+#include <sge/input/key/code.hpp>
 #include <sge/input/keyboard/action.hpp>
-#include <sge/input/keyboard/action_callback.hpp>
 #include <sge/input/keyboard/device.hpp>
-#include <sge/input/keyboard/key_code.hpp>
 //#include <sge/line_drawer/line.hpp>
 #include <sge/line_drawer/line_sequence.hpp>
 #include <sge/line_drawer/scoped_lock.hpp>
@@ -99,8 +99,8 @@ fruitapp::states::ingame::running::running(
 	transit_to_paused_connection_(
 		context<fruitapp::machine>().systems().keyboard_collector().key_callback(
 			sge::input::keyboard::action(
-				sge::input::keyboard::key_code::escape,
-				sge::input::keyboard::action_callback{
+				sge::input::key::code::escape,
+				sge::input::key::action_callback{
 					FRUITAPP_EVENTS_RETURN_POST_TRANSITION_FUNCTOR(
 						ingame::paused
 					)

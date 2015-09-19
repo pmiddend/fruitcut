@@ -11,7 +11,7 @@
 #include <sge/cegui/system_fwd.hpp>
 #include <sge/image2d/system_fwd.hpp>
 #include <sge/input/cursor/object_fwd.hpp>
-#include <sge/input/keyboard/device_fwd.hpp>
+#include <sge/input/focus/object_fwd.hpp>
 #include <sge/renderer/device/ffp_fwd.hpp>
 #include <sge/renderer/texture/emulate_srgb_fwd.hpp>
 #include <sge/viewport/manager_fwd.hpp>
@@ -37,7 +37,7 @@ public:
 		sge::image2d::system &,
 		sge::viewport::manager &,
 		fruitlib::scenic::delta::callback const &,
-		sge::input::keyboard::device &,
+		sge::input::focus::object &,
 		sge::input::cursor::object &,
 		fruitlib::audio::sound_controller &,
 		sge::renderer::texture::emulate_srgb);
@@ -78,8 +78,8 @@ public:
 	fruitlib::scenic::delta::callback const &
 	standard_clock_callback() const;
 
-	sge::input::keyboard::device &
-	keyboard() const;
+	sge::input::focus::object &
+	focus() const;
 
 	sge::input::cursor::object &
 	cursor() const;
@@ -89,7 +89,7 @@ public:
 
 	~system();
 private:
-	sge::input::keyboard::device &keyboard_;
+	sge::input::focus::object &focus_;
 	sge::input::cursor::object &cursor_;
 	fruitlib::audio::sound_controller &sound_controller_;
 	fruitlib::scenic::parent overlay_node_;

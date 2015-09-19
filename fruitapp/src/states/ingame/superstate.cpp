@@ -20,10 +20,10 @@
 #include <fruitlib/scenic/parent.hpp>
 #include <fruitlib/scenic/events/render.hpp>
 #include <sge/camera/first_person/object.hpp>
+#include <sge/input/key/action_callback.hpp>
+#include <sge/input/key/code.hpp>
 #include <sge/input/keyboard/action.hpp>
-#include <sge/input/keyboard/action_callback.hpp>
 #include <sge/input/keyboard/device.hpp>
-#include <sge/input/keyboard/key_code.hpp>
 #include <sge/parse/json/array.hpp>
 #include <sge/parse/json/find_and_convert_member.hpp>
 #include <sge/parse/json/object.hpp>
@@ -88,8 +88,8 @@ fruitapp::states::ingame::superstate::superstate(
 	physics_debugger_connection_(
 		this->context<fruitapp::machine>().systems().keyboard_collector().key_callback(
 			sge::input::keyboard::action(
-				sge::input::keyboard::key_code::f3,
-				sge::input::keyboard::action_callback{
+				sge::input::key::code::f3,
+				sge::input::key::action_callback{
 					std::bind(
 						&superstate::toggle_physics_debugger,
 						this

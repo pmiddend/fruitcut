@@ -6,7 +6,7 @@
 #include <fruitapp/gui/dialogs/ingame_menu.hpp>
 #include <fruitlib/scenic/adaptors/ce/gui_system.hpp>
 #include <sge/cegui/default_cursor.hpp>
-#include <sge/cegui/default_keyboard.hpp>
+#include <sge/cegui/default_focus.hpp>
 #include <sge/cegui/toolbox/scoped_gui_sheet.hpp>
 #include <sge/cegui/toolbox/scoped_layout.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -47,7 +47,7 @@ public:
 	~ingame_menu();
 private:
 	fruitlib::scenic::adaptors::ce::gui_system gui_node_;
-	sge::cegui::default_keyboard gui_keyboard_;
+	sge::cegui::default_focus gui_keyboard_;
 	sge::cegui::default_cursor gui_cursor_;
 	sge::cegui::toolbox::scoped_layout layout_;
 	sge::cegui::toolbox::scoped_gui_sheet gui_sheet_;

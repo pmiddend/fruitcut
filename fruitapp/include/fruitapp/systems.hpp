@@ -3,6 +3,7 @@
 
 #include <sge/systems/cursor_demuxer.hpp>
 #include <sge/systems/cursor_option_field.hpp>
+#include <sge/systems/focus_collector.hpp>
 #include <sge/systems/instance_fwd.hpp>
 #include <sge/systems/keyboard_collector.hpp>
 #include <sge/systems/mouse_collector.hpp>
@@ -34,8 +35,9 @@ sge::systems::instance
 		sge::systems::with_image2d,
 		sge::systems::with_input
 		<
-			boost::mpl::vector3
+			boost::mpl::vector4
 			<
+				sge::systems::focus_collector,
 				sge::systems::keyboard_collector,
 				sge::systems::mouse_collector,
 				sge::systems::cursor_demuxer

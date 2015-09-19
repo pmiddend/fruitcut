@@ -20,7 +20,8 @@ fruitapp::gui::create_system(
 	sge::image2d::system &_image_system,
 	sge::viewport::manager &_viewport_manager,
 	fruitlib::scenic::delta::callback const &_standard_clock_callback,
-	sge::input::keyboard::device &_keyboard,
+	sge::input::focus::object &_focus,
+	sge::input::keyboard::device &,
 	sge::input::cursor::object &_cursor,
 	fruitlib::audio::sound_controller &_sound_controller,
 	sge::renderer::texture::emulate_srgb const _emulate_srgb
@@ -30,6 +31,7 @@ fruitapp::gui::create_system(
 	sge::image2d::system &,
 	sge::viewport::manager &,
 	fruitlib::scenic::delta::callback const &,
+	sge::input::focus::object &,
 	sge::input::keyboard::device &_keyboard,
 	sge::input::cursor::object &,
 	fruitlib::audio::sound_controller &,
@@ -48,7 +50,7 @@ fruitapp::gui::create_system(
 				_image_system,
 				_viewport_manager,
 				_standard_clock_callback,
-				_keyboard,
+				_focus,
 				_cursor,
 				_sound_controller,
 				_emulate_srgb)

@@ -81,10 +81,10 @@ fruitapp::gui::dummy::dialogs::main_menu::key_callback(
 
 	switch(_key_event.key().code())
 	{
-	case sge::input::keyboard::key_code::s:
+	case sge::input::key::code::s:
 		start_();
 		break;
-	case sge::input::keyboard::key_code::q:
+	case sge::input::key::code::q:
 		quit_();
 		break;
 	default:

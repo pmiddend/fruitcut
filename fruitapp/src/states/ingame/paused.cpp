@@ -12,10 +12,10 @@
 #include <fruitapp/states/ingame/running.hpp>
 #include <fruitapp/states/menu/main.hpp>
 #include <fruitlib/scenic/parent.hpp>
+#include <sge/input/key/action_callback.hpp>
+#include <sge/input/key/code.hpp>
 #include <sge/input/keyboard/action.hpp>
-#include <sge/input/keyboard/action_callback.hpp>
 #include <sge/input/keyboard/device.hpp>
-#include <sge/input/keyboard/key_code.hpp>
 #include <sge/renderer/context/ffp.hpp>
 #include <sge/renderer/device/ffp.hpp>
 #include <sge/systems/instance.hpp>
@@ -49,8 +49,8 @@ fruitapp::states::ingame::paused::paused(
 	transit_to_running_connection_(
 		context<fruitapp::machine>().systems().keyboard_collector().key_callback(
 			sge::input::keyboard::action(
-				sge::input::keyboard::key_code::escape,
-				sge::input::keyboard::action_callback{
+				sge::input::key::code::escape,
+				sge::input::key::action_callback{
 					std::bind(
 						// Note that using post_event does something unexpected. If
 						// you use that, you get a tick event first and _then_ the

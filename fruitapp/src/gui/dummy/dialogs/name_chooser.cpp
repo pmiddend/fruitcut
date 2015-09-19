@@ -82,13 +82,13 @@ fruitapp::gui::dummy::dialogs::name_chooser::key_callback(
 {
 	switch(_key_event.key().code())
 	{
-	case sge::input::keyboard::key_code::s:
+	case sge::input::key::code::s:
 		submit_();
 		break;
-	case sge::input::keyboard::key_code::m:
+	case sge::input::key::code::m:
 		main_menu_();
 		break;
-	case sge::input::keyboard::key_code::r:
+	case sge::input::key::code::r:
 		restart_();
 		break;
 	default:

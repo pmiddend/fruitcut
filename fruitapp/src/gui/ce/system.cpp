@@ -22,13 +22,13 @@ fruitapp::gui::ce::system::system(
 	sge::image2d::system &_image_system,
 	sge::viewport::manager &_viewport_manager,
 	fruitlib::scenic::delta::callback const &_standard_clock_callback,
-	sge::input::keyboard::device &_keyboard,
+	sge::input::focus::object &_focus,
 	sge::input::cursor::object &_cursor,
 	fruitlib::audio::sound_controller &_sound_controller,
 	sge::renderer::texture::emulate_srgb const _emulate_srgb)
 :
-	keyboard_(
-		_keyboard),
+	focus_(
+		_focus),
 	cursor_(
 		_cursor),
 	sound_controller_(
@@ -154,11 +154,11 @@ fruitapp::gui::ce::system::standard_clock_callback() const
 		standard_clock_callback_;
 }
 
-sge::input::keyboard::device &
-fruitapp::gui::ce::system::keyboard() const
+sge::input::focus::object &
+fruitapp::gui::ce::system::focus() const
 {
 	return
-		keyboard_;
+		focus_;
 }
 
 sge::input::cursor::object &

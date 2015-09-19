@@ -18,7 +18,7 @@ fruitapp::gui::ce::dialogs::name_chooser::name_chooser(
 		_system.standard_clock_callback()),
 	gui_keyboard_(
 		_system.gui_syringe(),
-		_system.keyboard()),
+		_system.focus()),
 	gui_cursor_(
 		_system.gui_syringe(),
 		_system.cursor()),

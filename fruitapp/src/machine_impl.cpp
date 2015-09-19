@@ -28,10 +28,10 @@
 #include <sge/camera/first_person/parameters.hpp>
 #include <sge/charconv/utf8_file_to_fcppt_string_exn.hpp>
 #include <sge/font/system.hpp>
+#include <sge/input/key/action_callback.hpp>
+#include <sge/input/key/code.hpp>
 #include <sge/input/keyboard/action.hpp>
-#include <sge/input/keyboard/action_callback.hpp>
 #include <sge/input/keyboard/device.hpp>
-#include <sge/input/keyboard/key_code.hpp>
 #include <sge/log/global_context.hpp>
 #include <sge/media/extension.hpp>
 #include <sge/media/extension_set.hpp>
@@ -349,8 +349,8 @@ fruitapp::machine_impl::machine_impl(
 	toggle_camera_connection_(
 		systems_.keyboard_collector().key_callback(
 			sge::input::keyboard::action(
-				sge::input::keyboard::key_code::f2,
-				sge::input::keyboard::action_callback{
+				sge::input::key::code::f2,
+				sge::input::key::action_callback{
 					std::bind(
 						&machine_impl::toggle_camera,
 						this
@@ -385,6 +385,7 @@ fruitapp::machine_impl::machine_impl(
 			systems_.image_system(),
 			systems_.viewport_manager(),
 			this->standard_clock_callback(),
+			systems_.focus_collector(),
 			systems_.keyboard_collector(),
 			systems_.cursor_demuxer(),
 			this->sound_controller(),

@@ -4,10 +4,10 @@
 #include <sge/config/app_name.hpp>
 #include <sge/config/cache_path.hpp>
 #include <sge/image2d/system_fwd.hpp>
+#include <sge/input/key/action_callback.hpp>
+#include <sge/input/key/code.hpp>
 #include <sge/input/keyboard/action.hpp>
-#include <sge/input/keyboard/action_callback.hpp>
 #include <sge/input/keyboard/device.hpp>
-#include <sge/input/keyboard/key_code.hpp>
 #include <sge/renderer/screenshot.hpp>
 #include <sge/renderer/device/core_fwd.hpp>
 #include <fcppt/from_std_string.hpp>
@@ -40,8 +40,8 @@ fruitapp::screen_shooter::screen_shooter(
 	callback_connection_(
 		_keyboard.key_callback(
 			sge::input::keyboard::action(
-				sge::input::keyboard::key_code::f12,
-				sge::input::keyboard::action_callback{
+				sge::input::key::code::f12,
+				sge::input::key::action_callback{
 					std::bind(
 						&screen_shooter::callback,
 						this,
