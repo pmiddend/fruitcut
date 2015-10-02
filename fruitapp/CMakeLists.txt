@@ -487,6 +487,24 @@ configure_file(
 	${CMAKE_SOURCE_DIR}/fruitapp/src/config.hpp.in
 	${CMAKE_BINARY_DIR}/include/fruitapp/config.hpp)
 
+fcppt_utils_install_data_dir(
+	INSTALL_DATA_DIR)
+
+set(
+	INSTALL_MEDIA_DIR
+	${INSTALL_DATA_DIR}/fruitapp_media)
+
+include(
+	SGECustomPath)
+
+sge_config_add_custom_path(
+	fruitapp
+	fruitapp_media
+	${CMAKE_SOURCE_DIR}/fruitapp/fruitapp_media
+	${INSTALL_MEDIA_DIR}
+	MEDIA_INCLUDE_DIRS
+)
+
 # app begin
 awl_utils_add_portable_executable(
 	fruitcut
@@ -494,20 +512,21 @@ awl_utils_add_portable_executable(
 	${FRUITAPP_FILES_ABS}
 	${FRUITAPP_USE_CEGUI_FILES})
 
-include_directories(
-	${CMAKE_SOURCE_DIR}/fruitlib/include)
-
-include_directories(
-	${CMAKE_CURRENT_SOURCE_DIR}/include)
-
-include_directories(
-	${CMAKE_BINARY_DIR}/include)
+target_include_directories(
+	fruitcut
+	PRIVATE
+	${CMAKE_SOURCE_DIR}/fruitlib/include
+	${CMAKE_CURRENT_SOURCE_DIR}/include
+	${CMAKE_BINARY_DIR}/include
+	${MEDIA_INCLUDE_DIRS}
+)
 
 fcppt_utils_set_target_compiler_flags(
 	fruitcut)
 
 target_link_libraries(
 	fruitcut
+	PRIVATE
 	${fruitlib_TARGET}
 
 	${sge_TARGETS}
@@ -527,22 +546,6 @@ install(
 	fruitcut
 	DESTINATION
 	${INSTALL_BINARY_DIR})
-
-fcppt_utils_install_data_dir(
-	INSTALL_DATA_DIR)
-
-set(
-	INSTALL_MEDIA_DIR
-	${INSTALL_DATA_DIR}/fruitapp_media)
-
-include(
-	SGECustomPath)
-
-sge_config_add_custom_path(
-	fruitapp
-	fruitapp_media
-	${CMAKE_SOURCE_DIR}/fruitapp/fruitapp_media
-	${INSTALL_MEDIA_DIR})
 
 install(
 	DIRECTORY
