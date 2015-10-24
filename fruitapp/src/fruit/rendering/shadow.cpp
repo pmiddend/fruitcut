@@ -102,7 +102,7 @@ fruitapp::fruit::rendering::shadow::render(
 				static_cast<sge::renderer::size_type>(
 					0)),
 			sge::renderer::vertex::count(
-				fruit->vb().size()),
+				fruit->vb().linear_size()),
 			sge::renderer::primitive_type::triangle_list);
 	}
 }

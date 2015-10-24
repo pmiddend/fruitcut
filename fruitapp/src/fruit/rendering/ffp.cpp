@@ -261,7 +261,7 @@ fruitapp::fruit::rendering::ffp::render(
 				static_cast<sge::renderer::size_type>(
 					0)),
 			sge::renderer::vertex::count(
-				(*i)->vb().size()),
+				(*i)->vb().linear_size()),
 			sge::renderer::primitive_type::triangle_list);
 	}
 

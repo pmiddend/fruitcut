@@ -98,7 +98,7 @@ fruitlib::pp::screen_vf::quad::render(
 		sge::renderer::vertex::first(
 			0u),
 		sge::renderer::vertex::count(
-			buffer_->size()),
+			buffer_->linear_size()),
 		sge::renderer::primitive_type::triangle_list);
 }
 
