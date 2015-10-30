@@ -7,7 +7,7 @@
 #include <fruitlib/texture_manager.hpp>
 #include <fruitlib/json/parse_rgba8_color.hpp>
 #include <sge/image2d/system_fwd.hpp>
-#include <sge/model/md3/load_flags.hpp>
+#include <sge/model/md3/load_flags_field.hpp>
 #include <sge/model/md3/loader.hpp>
 #include <sge/model/md3/object.hpp>
 #include <sge/parse/json/array.hpp>
@@ -60,7 +60,9 @@ fruitapp::fruit::prototype_from_json(
 								o,
 								sge::parse::json::path(
 									FCPPT_TEXT("model"))),
-					sge::model::md3::load_flags::none)),
+					sge::model::md3::load_flags_field::null()
+				)
+			),
 			sge::renderer::texture::planar_shared_ptr(
 				_texture_manager.create_planar_from_path(
 					fruitapp::media_path()
