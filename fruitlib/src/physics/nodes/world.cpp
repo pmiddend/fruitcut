@@ -35,7 +35,14 @@ fruitlib::physics::nodes::world::react(
 	scenic::events::update const &)
 {
 	clock_.update();
+
 	world_.update(
-		sge::timer::elapsed_and_reset<physics::duration>(
-			timer_));
+		std::chrono::duration_cast<
+			fruitlib::physics::duration
+		>(
+			sge::timer::elapsed_and_reset(
+				timer_
+			)
+		)
+	);
 }

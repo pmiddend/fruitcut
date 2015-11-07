@@ -563,8 +563,13 @@ fruitapp::machine_impl::run_once()
 			desired_fps_));
 
 	standard_clock_delta_ =
-		sge::timer::elapsed_and_reset<fruitlib::scenic::delta::duration>(
-			second_timer_);
+		std::chrono::duration_cast<
+			fruitlib::scenic::delta::duration
+		>(
+			sge::timer::elapsed_and_reset(
+				second_timer_
+			)
+		);
 
 	ingame_clock_delta_ =
 		fruitapp::ingame_clock::duration(

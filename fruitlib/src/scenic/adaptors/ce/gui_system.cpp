@@ -37,9 +37,16 @@ fruitlib::scenic::adaptors::ce::gui_system::react(
 	events::update const &)
 {
 	clock_.update();
+
 	system_.update(
-		sge::timer::elapsed_and_reset<sge::cegui::duration>(
-			timer_));
+		std::chrono::duration_cast<
+			sge::cegui::duration
+		>(
+			sge::timer::elapsed_and_reset(
+				timer_
+			)
+		)
+	);
 }
 
 void

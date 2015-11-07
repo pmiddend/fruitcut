@@ -36,7 +36,14 @@ fruitlib::scenic::adaptors::camera::react(
 	scenic::events::update const &)
 {
 	clock_.update();
+
 	camera_.update(
-		sge::timer::elapsed_and_reset<sge::camera::update_duration>(
-			timer_));
+		std::chrono::duration_cast<
+			sge::camera::update_duration
+		>(
+			sge::timer::elapsed_and_reset(
+				timer_
+			)
+		)
+	);
 }

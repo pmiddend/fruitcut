@@ -18,6 +18,9 @@
 #include <fcppt/math/box/object_impl.hpp>
 #include <fcppt/math/dim/arithmetic.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <chrono>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace
@@ -85,7 +88,13 @@ fruitapp::font_particle::object::object(
 	lifetimer_(
 		fruitapp::ingame_timer::parameters(
 			_clock,
-			_lifetime)),
+			std::chrono::duration_cast<
+				fruitapp::ingame_timer::duration
+			>(
+				_lifetime
+			)
+		)
+	),
 	position_(
 		_position),
 	velocity_(

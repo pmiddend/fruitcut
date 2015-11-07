@@ -384,8 +384,14 @@ fruitapp::game_logic::object::react(
 	}
 	unsigned const seconds_remaining =
 		static_cast<unsigned>(
-			sge::timer::remaining<std::chrono::seconds>(
-				round_timer_).count());
+			std::chrono::duration_cast<
+				std::chrono::seconds
+			>(
+				sge::timer::remaining(
+					round_timer_
+				)
+			).count()
+		);
 
 	unsigned const minutes_remaining =
 		seconds_remaining / 60u;

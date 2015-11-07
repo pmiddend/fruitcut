@@ -238,8 +238,16 @@ fruitapp::fruit::spawner::reset_timer()
 		timer_.active(
 			true);
 	timer_.interval(
-		std::chrono::duration<fruitapp::ingame_clock::float_type>(
-			seconds_rng_()));
+		std::chrono::duration_cast<
+			fruitapp::ingame_timer::duration
+		>(
+			std::chrono::duration<
+				fruitapp::ingame_clock::float_type
+			>(
+				seconds_rng_()
+			)
+		)
+	);
 }
 
 void

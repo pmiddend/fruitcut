@@ -75,7 +75,7 @@ fruitapp::cursor::sampler::total_expiry_duration() const
 	return
 		static_cast<fruitapp::ingame_clock::duration::rep>(
 			sample_count_.get()) *
-		update_timer_.interval<fruitapp::ingame_clock::duration>();
+		update_timer_.interval();
 }
 
 fruitapp::cursor::sampler::~sampler()
