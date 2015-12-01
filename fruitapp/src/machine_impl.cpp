@@ -76,6 +76,8 @@
 #include <sge/window/system.hpp>
 #include <sge/window/title.hpp>
 #include <awl/main/exit_code.hpp>
+#include <fcppt/make_cref.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/nonassignable.hpp>
@@ -136,9 +138,16 @@ fruitapp::machine_impl::machine_impl(
 				argv))),
 	config_variables_(
 		fruitapp::config_variables::global_config_ref(
-			config_file_),
+			fcppt::make_cref(
+				config_file_
+			)
+		),
 		fruitapp::config_variables::user_config_ref(
-			user_config_file_)),
+			fcppt::make_ref(
+				user_config_file_
+			)
+		)
+	),
 	graphics_settings_(
 		config_file_,
 		config_variables_.graphics_preset()),

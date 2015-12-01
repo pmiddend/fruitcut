@@ -9,6 +9,7 @@
 #include <sge/renderer/target/offscreen.hpp>
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/planar_shared_ptr.hpp>
+#include <sge/shader/istream_ref.hpp>
 #include <sge/shader/scoped_pair.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/assign/make_container.hpp>
@@ -69,13 +70,27 @@ fruitlib::pp::filter::add::add(
 		_filter_manager.shader_context(),
 		_filter_manager.quad().vertex_declaration(),
 		sge::shader::vertex_program_stream(
-			*fcppt::make_unique_ptr<std::istringstream>(
-				std::string(
-					add_filter_source))),
+			sge::shader::istream_ref(
+				*fcppt::make_unique_ptr<
+					std::istringstream
+				>(
+					std::string(
+						add_filter_source
+					)
+				)
+			)
+		),
 		sge::shader::pixel_program_stream(
-			*fcppt::make_unique_ptr<std::istringstream>(
-				std::string(
-					add_filter_source))),
+			sge::shader::istream_ref(
+				*fcppt::make_unique_ptr<
+					std::istringstream
+				>(
+					std::string(
+						add_filter_source
+					)
+				)
+			)
+		),
 		_filter_manager.shader_cflags()),
 	texture1_(
 		shader_.pixel_program(),

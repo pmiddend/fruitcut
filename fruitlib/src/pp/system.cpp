@@ -10,6 +10,7 @@
 #include <sge/image/color/format.hpp>
 #include <sge/renderer/vector2.hpp>
 #include <sge/renderer/texture/planar_shared_ptr.hpp>
+#include <sge/shader/istream_ref.hpp>
 #include <sge/shader/scoped_pair.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/string.hpp>
@@ -69,13 +70,27 @@ fruitlib::pp::system::system(
 		_filter_manager.shader_context(),
 		_filter_manager.quad().vertex_declaration(),
 		sge::shader::vertex_program_stream(
-			*fcppt::make_unique_ptr<std::istringstream>(
-				std::string(
-					pp_to_screen_source))),
+			sge::shader::istream_ref(
+				*fcppt::make_unique_ptr<
+					std::istringstream
+				>(
+					std::string(
+						pp_to_screen_source
+					)
+				)
+			)
+		),
 		sge::shader::pixel_program_stream(
-			*fcppt::make_unique_ptr<std::istringstream>(
-				std::string(
-					pp_to_screen_source))),
+			sge::shader::istream_ref(
+				*fcppt::make_unique_ptr<
+					std::istringstream
+				>(
+					std::string(
+						pp_to_screen_source
+					)
+				)
+			)
+		),
 		_filter_manager.shader_cflags()),
 	texture_parameter_(
 		shader_.pixel_program(),

@@ -59,26 +59,26 @@ fruitapp::config_variables::object::object(
 	fruitapp::config_variables::user_config_ref const &_user_config)
 :
 	write_hack_(
-		_user_config.get()),
+		_user_config.get().get()),
 	music_volume_(
-		_global_config.get(),
-		_user_config.get(),
+		_global_config.get().get(),
+		_user_config.get().get(),
 		sge::parse::json::path(
 			FCPPT_TEXT("music"))
 			/ FCPPT_TEXT("volume")),
 	effects_volume_(
-		_global_config.get(),
-		_user_config.get(),
+		_global_config.get().get(),
+		_user_config.get().get(),
 		sge::parse::json::path(
 			FCPPT_TEXT("effects-volume"))),
 	last_user_name_(
-		_global_config.get(),
-		_user_config.get(),
+		_global_config.get().get(),
+		_user_config.get().get(),
 		sge::parse::json::path(
 			FCPPT_TEXT("last-user-name"))),
 	graphics_preset_(
-		_global_config.get(),
-		_user_config.get(),
+		_global_config.get().get(),
+		_user_config.get().get(),
 		sge::parse::json::path(
 			FCPPT_TEXT("graphics-preset")))
 {
