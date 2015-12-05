@@ -7,6 +7,7 @@
 #include <fruitlib/math/triangle/size_type.hpp>
 #include <fruitlib/math/triangle/vector_type.hpp>
 #include <fruitlib/math/triangle/vertex_access.hpp>
+#include <fruitlib/math/vector/orthogonalize.hpp>
 #include <fcppt/optional.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/algorithm/shift_compare.hpp>
@@ -17,7 +18,6 @@
 #include <fcppt/math/size_type.hpp>
 #include <fcppt/math/vector/dot.hpp>
 #include <fcppt/math/vector/normalize.hpp>
-#include <fcppt/math/vector/orthogonalize.hpp>
 #include <fcppt/math/vector/output.hpp>
 #include <fcppt/math/vector/static.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
@@ -470,7 +470,7 @@ BOOST_AUTO_TEST_CASE(orthonorm)
 	container result =
 		wiki_example;
 
-	fcppt::math::vector::orthogonalize(
+	fruitlib::math::vector::orthogonalize(
 		result.begin(),
 		result.end());
 

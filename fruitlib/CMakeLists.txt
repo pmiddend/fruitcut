@@ -79,6 +79,8 @@ set(
 	fruitlib/include/fruitlib/math/triangle/vertex_access.hpp
 	fruitlib/include/fruitlib/math/triangle_plane_intersection.hpp
 	fruitlib/include/fruitlib/math/unproject.hpp
+	fruitlib/include/fruitlib/math/vector/orthogonalize.hpp
+	fruitlib/include/fruitlib/math/vector/project.hpp
 	fruitlib/include/fruitlib/math/view_plane_distance.hpp
 	fruitlib/include/fruitlib/math/view_plane_rect.hpp
 	fruitlib/include/fruitlib/message_box.hpp
