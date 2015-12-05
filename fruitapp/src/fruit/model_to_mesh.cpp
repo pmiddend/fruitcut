@@ -9,7 +9,7 @@
 #include <sge/renderer/vector2.hpp>
 #include <sge/renderer/vector3.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/algorithm/array_fold_static.hpp>
+#include <fcppt/algorithm/array_init.hpp>
 #include <fcppt/assert/optional_error.hpp>
 #include <fcppt/assert/pre_message.hpp>
 #include <fcppt/cast/size_fun.hpp>
@@ -68,7 +68,7 @@ fruitapp::fruit::model_to_mesh(
 	{
 		result->triangles().push_back(
 			fruitapp::fruit::triangle(
-				fcppt::algorithm::array_fold_static<
+				fcppt::algorithm::array_init<
 					fruitapp::fruit::triangle::vertex_array
 				>(
 					[
@@ -92,7 +92,7 @@ fruitapp::fruit::model_to_mesh(
 							);
 					}
 				),
-				fcppt::algorithm::array_fold_static<
+				fcppt::algorithm::array_init<
 					fruitapp::fruit::triangle::texcoord_array
 				>(
 					[
@@ -116,7 +116,7 @@ fruitapp::fruit::model_to_mesh(
 							);
 					}
 				),
-				fcppt::algorithm::array_fold_static<
+				fcppt::algorithm::array_init<
 					fruitapp::fruit::triangle::normal_array
 				>(
 					[
