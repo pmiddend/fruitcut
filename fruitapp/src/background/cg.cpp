@@ -7,7 +7,7 @@
 #include <sge/shader/context.hpp>
 #include <sge/shader/scoped_pair.hpp>
 #include <fcppt/maybe.hpp>
-#include <fcppt/optional_bind_construct.hpp>
+#include <fcppt/optional_map.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/math/matrix/identity.hpp>
 
@@ -94,7 +94,7 @@ fruitapp::background::cg::cg(
 			"shadow_texture"),
 		shader_,
 		_shader_context.renderer(),
-		fcppt::optional_bind_construct(
+		fcppt::optional_map(
 			_opt_shadow_map,
 			[](
 				fruitapp::shadow_map::object &_shadow_map
