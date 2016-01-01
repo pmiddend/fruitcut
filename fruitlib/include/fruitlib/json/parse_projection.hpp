@@ -5,7 +5,7 @@
 #include <fruitlib/detail/symbol.hpp>
 #include <sge/parse/json/object_fwd.hpp>
 #include <sge/renderer/scalar.hpp>
-#include <fcppt/optional.hpp>
+#include <fcppt/optional/object.hpp>
 
 
 namespace fruitlib
@@ -16,7 +16,7 @@ FRUITLIB_DETAIL_SYMBOL
 fruitlib::perspective_projection_information const
 parse_projection(
 	sge::parse::json::object const &,
-	fcppt::optional<sge::renderer::scalar> const &aspect);
+	fcppt::optional::object<sge::renderer::scalar> const &aspect);
 }
 }
 

@@ -1,6 +1,6 @@
 #include <fruitlib/performance_timer.hpp>
 #include <fcppt/const.hpp>
-#include <fcppt/maybe.hpp>
+#include <fcppt/optional/maybe.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <chrono>
 #include <iostream>
@@ -30,7 +30,7 @@ fruitlib::performance_timer::~performance_timer()
 			diff).count();
 
 	if(
-		fcppt::maybe(
+		fcppt::optional::maybe(
 			threshold_,
 			fcppt::const_(
 				true

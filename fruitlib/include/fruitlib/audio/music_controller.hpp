@@ -24,7 +24,7 @@
 #include <sge/timer/clocks/delta.hpp>
 #include <sge/timer/clocks/standard.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/optional.hpp>
+#include <fcppt/optional/object.hpp>
 #include <fcppt/shared_ptr.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -110,7 +110,7 @@ private:
 	sge::audio::sound::base_shared_ptr current_source_;
 
 	typedef
-	fcppt::optional<
+	fcppt::optional::object<
 		sge::audio::sound::base_shared_ptr
 	>
 	optional_sound_shared_ptr;

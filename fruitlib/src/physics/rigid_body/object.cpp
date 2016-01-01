@@ -8,9 +8,9 @@
 #include <fruitlib/physics/rigid_body/object.hpp>
 #include <fruitlib/physics/rigid_body/parameters.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/maybe.hpp>
-#include <fcppt/maybe_void.hpp>
-#include <fcppt/optional.hpp>
+#include <fcppt/optional/maybe.hpp>
+#include <fcppt/optional/maybe_void.hpp>
+#include <fcppt/optional/object.hpp>
 #include <fcppt/math/matrix/arithmetic.hpp>
 #include <fcppt/math/matrix/object_impl.hpp>
 #include <fcppt/math/matrix/translation.hpp>
@@ -33,7 +33,7 @@ create_construction_info(
 	fruitlib::physics::rigid_body::optional_mass const &mass)
 {
 	btVector3 inertia(0,0,0);
-	fcppt::maybe_void(
+	fcppt::optional::maybe_void(
 		mass,
 		[
 			shape,
@@ -50,7 +50,7 @@ create_construction_info(
 
 	return
 		btRigidBody::btRigidBodyConstructionInfo(
-			fcppt::maybe(
+			fcppt::optional::maybe(
 				mass,
 				[]{
 					return

@@ -14,8 +14,8 @@
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/insert_to_fcppt_string.hpp>
 #include <fcppt/insert_to_std_string.hpp>
-#include <fcppt/maybe.hpp>
-#include <fcppt/optional.hpp>
+#include <fcppt/optional/maybe.hpp>
+#include <fcppt/optional/object.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/to_std_string.hpp>
 #include <fcppt/io/cerr.hpp>
@@ -30,7 +30,7 @@
 
 namespace
 {
-fcppt::optional<std::string::size_type>
+fcppt::optional::object<std::string::size_type>
 parse_content_size(
 	fcppt::string const &s)
 {
@@ -38,9 +38,9 @@ parse_content_size(
 		s);
 	std::string::size_type result;
 	if (!(ss >> std::hex >> std::setfill(FCPPT_TEXT('0')) >> std::setw(8) >> result))
-		return fcppt::optional<std::string::size_type>();
+		return fcppt::optional::object<std::string::size_type>();
 	return
-		fcppt::optional<std::string::size_type>(
+		fcppt::optional::object<std::string::size_type>(
 			result);
 }
 }
@@ -329,7 +329,7 @@ fruitapp::highscore::provider::net::connection::handle_read_size(
 		return;
 	}
 
-	fcppt::maybe(
+	fcppt::optional::maybe(
 		parse_content_size(
 			sge::charconv::utf8_string_to_fcppt(
 				content_
@@ -421,7 +421,7 @@ fruitapp::highscore::provider::net::connection::handle_read_content(
 		return;
 	}
 
-	typedef fcppt::optional<
+	typedef fcppt::optional::object<
 		fcppt::string const &
 	> const_optional_string_ref;
 
@@ -430,7 +430,7 @@ fruitapp::highscore::provider::net::connection::handle_read_content(
 			result.object().members,
 			FCPPT_TEXT("error")));
 
-	fcppt::maybe(
+	fcppt::optional::maybe(
 		json_error,
 		[
 			this,

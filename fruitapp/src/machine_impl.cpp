@@ -81,7 +81,7 @@
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/nonassignable.hpp>
-#include <fcppt/optional_deref.hpp>
+#include <fcppt/optional/deref.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assign/make_container.hpp>
@@ -538,7 +538,7 @@ sge::shader::optional_context_ref const
 fruitapp::machine_impl::shader_context()
 {
 	return
-		fcppt::optional_deref(
+		fcppt::optional::deref(
 			shader_context_
 		);
 }
@@ -668,7 +668,7 @@ fruitapp::shadow_map::optional_object_ref const
 fruitapp::machine_impl::shadow_map()
 {
 	return
-		fcppt::optional_deref(
+		fcppt::optional::deref(
 			shadow_map_
 		);
 }

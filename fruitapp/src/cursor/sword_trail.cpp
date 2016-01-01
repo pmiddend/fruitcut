@@ -32,7 +32,7 @@
 #include <sge/timer/reset_when_expired.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/maybe_void.hpp>
+#include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/unique_ptr_to_const.hpp>
@@ -144,7 +144,7 @@ fruitapp::cursor::sword_trail::react(
 	if (!sge::timer::reset_when_expired(update_timer_))
 		return;
 
-	fcppt::maybe_void(
+	fcppt::optional::maybe_void(
 		cursor_.position(),
 		[
 			this

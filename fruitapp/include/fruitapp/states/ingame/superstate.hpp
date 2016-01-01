@@ -18,7 +18,7 @@
 #include <fruitlib/physics/nodes/world.hpp>
 #include <fruitlib/physics/rigid_body/scoped.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/optional.hpp>
+#include <fcppt/optional/object.hpp>
 #include <fcppt/unique_ptr.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -84,7 +84,7 @@ private:
 	fruitapp::fruit::manager fruit_manager_;
 	fruitapp::fruit::rendering::draw_node fruit_default_render_node_;
 	typedef
-	fcppt::optional<
+	fcppt::optional::object<
 		fcppt::unique_ptr<
 			fruitapp::fruit::rendering::shadow_node
 		>

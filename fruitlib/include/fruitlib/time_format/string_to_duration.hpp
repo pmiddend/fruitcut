@@ -1,7 +1,7 @@
 #ifndef FRUITLIB_TIME_FORMAT_STRING_TO_DURATION_HPP_INCLUDED
 #define FRUITLIB_TIME_FORMAT_STRING_TO_DURATION_HPP_INCLUDED
 
-#include <fcppt/optional.hpp>
+#include <fcppt/optional/object.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/optional.hpp>
 #include <boost/fusion/container/vector/vector10.hpp>
@@ -92,7 +92,7 @@ template
 	typename Char,
 	typename Traits
 >
-fcppt::optional<TargetDuration> const
+fcppt::optional::object<TargetDuration> const
 string_to_duration(
 	std::basic_string<Char,Traits> const &input_string)
 {
@@ -109,7 +109,7 @@ string_to_duration(
 	target_duration;
 
 	typedef
-	fcppt::optional<target_duration>
+	fcppt::optional::object<target_duration>
 	optional_duration;
 
 	// We store an optional for each duration we encounter

@@ -1,8 +1,8 @@
 #include <fruitapp/fruit/hull/intersection_pair.hpp>
 #include <fruitapp/fruit/hull/trail_intersection.hpp>
 #include <fcppt/homogenous_pair.hpp>
-#include <fcppt/optional.hpp>
-#include <fcppt/optional_impl.hpp>
+#include <fcppt/optional/object.hpp>
+#include <fcppt/optional/object_impl.hpp>
 #include <fcppt/cast/int_to_float_fun.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
 #include <fcppt/math/vector/length.hpp>

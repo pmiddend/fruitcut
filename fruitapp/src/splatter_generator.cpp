@@ -27,7 +27,7 @@
 #include <mizuiro/color/channel/alpha.hpp>
 #include <fcppt/make_cref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/maybe_void.hpp>
+#include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/math/matrix/transform_direction.hpp>
@@ -163,7 +163,7 @@ fruitapp::splatter_generator::fruit_was_cut(
 			distortion_rng_(),
 			distortion_rng_());
 
-		fcppt::maybe_void(
+		fcppt::optional::maybe_void(
 			point_sprites_.lookup_texture(
 				fruitlib::resource_tree::path(
 					FCPPT_TEXT("spray")

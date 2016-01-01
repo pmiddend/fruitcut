@@ -48,8 +48,8 @@
 #include <sge/renderer/vertex/scoped_buffer.hpp>
 #include <sge/renderer/vertex/scoped_declaration.hpp>
 #include <fcppt/make_cref.hpp>
-#include <fcppt/optional.hpp>
-#include <fcppt/optional_assign.hpp>
+#include <fcppt/optional/object.hpp>
+#include <fcppt/optional/assign.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/math/matrix/arithmetic.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
@@ -205,7 +205,7 @@ fruitapp::fruit::rendering::ffp::render(
 	fruitapp::fruit::prototype const *previous_prototype =
 		0;
 
-	fcppt::optional<
+	fcppt::optional::object<
 		sge::renderer::state::ffp::lighting::material::object_unique_ptr
 	>
 	previous_material_state;
@@ -241,7 +241,7 @@ fruitapp::fruit::rendering::ffp::render(
 					0u));
 
 			sge::renderer::state::ffp::lighting::material::object_unique_ptr const &material_state(
-				fcppt::optional_assign(
+				fcppt::optional::assign(
 					previous_material_state,
 					renderer_.create_material_state(
 						fruit_material_to_ffp_material(

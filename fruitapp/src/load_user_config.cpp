@@ -6,9 +6,9 @@
 #include <sge/parse/json/array.hpp>
 #include <sge/parse/json/object.hpp>
 #include <sge/parse/json/parse_string_exn.hpp>
-#include <fcppt/maybe.hpp>
 #include <fcppt/optional_string.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/optional/maybe.hpp>
 
 
 sge::parse::json::object
@@ -22,7 +22,7 @@ fruitapp::load_user_config()
 			FCPPT_TEXT("config.json"));
 
 	return
-		fcppt::maybe(
+		fcppt::optional::maybe(
 			optional_json_string,
 			[]{
 				return

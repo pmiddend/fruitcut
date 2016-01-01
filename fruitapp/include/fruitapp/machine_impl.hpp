@@ -45,7 +45,7 @@
 #include <sge/timer/basic.hpp>
 #include <sge/timer/clocks/standard.hpp>
 #include <awl/main/exit_code.hpp>
-#include <fcppt/optional.hpp>
+#include <fcppt/optional/object.hpp>
 #include <fcppt/unique_ptr.hpp>
 #include <fcppt/config/platform.hpp>
 #include <fcppt/preprocessor/const.hpp>
@@ -266,7 +266,7 @@ private:
 	fruitapp::systems const systems_;
 	fruitlib::texture_manager texture_manager_;
 	typedef
-	fcppt::optional<
+	fcppt::optional::object<
 		fcppt::unique_ptr<
 			sge::shader::context
 		>
@@ -295,7 +295,7 @@ private:
 	fruitapp::quick_log quick_log_;
 	fruitapp::light::manager light_manager_;
 	typedef
-	fcppt::optional<
+	fcppt::optional::object<
 		fruitapp::shadow_map::object_unique_ptr
 	>
 	optional_shadow_map;

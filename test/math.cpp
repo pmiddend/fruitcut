@@ -8,7 +8,7 @@
 #include <fruitlib/math/triangle/vector_type.hpp>
 #include <fruitlib/math/triangle/vertex_access.hpp>
 #include <fruitlib/math/vector/orthogonalize.hpp>
-#include <fcppt/optional.hpp>
+#include <fcppt/optional/object.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/algorithm/shift_compare.hpp>
 #include <fcppt/assign/make_container.hpp>
@@ -187,7 +187,7 @@ BOOST_AUTO_TEST_CASE(line_plane)
 
 	fcppt::io::cout() << FCPPT_TEXT("Checking intersection of a plane and a line\n");
 
-	fcppt::optional<vector3> const intersection =
+	fcppt::optional::object<vector3> const intersection =
 		fruitlib::math::line_plane_intersection<scalar,N>(
 			line3(
 				vector3(-4.5,1.5,0.0),
@@ -233,7 +233,7 @@ BOOST_AUTO_TEST_CASE(line_plane_no_intersection)
 
 	fcppt::io::cout() << FCPPT_TEXT("Checking intersection of a plane and a line which are parallel\n");
 
-	fcppt::optional<vector3> const intersection =
+	fcppt::optional::object<vector3> const intersection =
 		fruitlib::math::line_plane_intersection<scalar,N>(
 			line3(
 				vector3(-4.5,1.5,0.0),

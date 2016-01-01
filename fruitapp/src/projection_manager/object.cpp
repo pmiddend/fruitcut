@@ -12,7 +12,7 @@
 #include <sge/renderer/projection/perspective_af.hpp>
 #include <sge/renderer/target/base.hpp>
 #include <sge/viewport/manager.hpp>
-#include <fcppt/optional_map.hpp>
+#include <fcppt/optional/map.hpp>
 #include <fcppt/cast/int_to_float_fun.hpp>
 #include <fcppt/cast/size_fun.hpp>
 #include <fcppt/math/deg_to_rad.hpp>
@@ -74,7 +74,7 @@ fruitlib::optional_perspective_projection_information const
 fruitapp::projection_manager::object::perspective_projection_information() const
 {
 	return
-		fcppt::optional_map(
+		fcppt::optional::map(
 			aspect_,
 			[
 				this

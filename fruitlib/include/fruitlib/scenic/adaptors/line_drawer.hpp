@@ -8,7 +8,7 @@
 #include <sge/line_drawer/object_fwd.hpp>
 #include <sge/renderer/device/ffp_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/optional.hpp>
+#include <fcppt/optional/object.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -32,7 +32,7 @@ public:
 	scene_reactions;
 
 	typedef
-	fcppt::optional<sge::renderer::device::ffp &>
+	fcppt::optional::object<sge::renderer::device::ffp &>
 	optional_renderer;
 
 	FRUITLIB_DETAIL_SYMBOL

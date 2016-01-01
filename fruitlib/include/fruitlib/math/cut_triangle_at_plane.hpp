@@ -155,7 +155,7 @@ cut_triangle_at_plane(
 		return result;
 
 	typedef
-	fcppt::optional<vector>
+	fcppt::optional::object<vector>
 	optional_vector;
 
 	optional_vector const

@@ -1,5 +1,5 @@
 #include <fruitlib/time_format/string_to_duration.hpp>
-#include <fcppt/optional_impl.hpp>
+#include <fcppt/optional/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <chrono>
 #include <iostream>
@@ -9,7 +9,7 @@
 
 int main()
 {
-	fcppt::optional<std::chrono::seconds> const result =
+	fcppt::optional::object<std::chrono::seconds> const result =
 		fruitlib::time_format::string_to_duration<std::chrono::seconds>(
 			std::wstring(L"1h"));
 

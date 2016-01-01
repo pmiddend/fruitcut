@@ -21,8 +21,8 @@
 #include <sge/renderer/texture/planar_unique_ptr.hpp>
 #include <sge/renderer/texture/mipmap/off.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/maybe_void.hpp>
-#include <fcppt/optional_impl.hpp>
+#include <fcppt/optional/maybe_void.hpp>
+#include <fcppt/optional/object_impl.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/unreachable_message.hpp>
 #include <fcppt/cast/size_fun.hpp>
@@ -199,7 +199,7 @@ fruitlib::pp::texture::manager::query_internal(
 			break;
 	}
 
-	fcppt::maybe_void(
+	fcppt::optional::maybe_void(
 		new_target_depth_stencil,
 		[
 			&new_target

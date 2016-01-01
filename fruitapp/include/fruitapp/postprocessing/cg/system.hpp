@@ -13,7 +13,7 @@
 #include <sge/renderer/texture/planar_shared_ptr.hpp>
 #include <sge/shader/context_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/optional.hpp>
+#include <fcppt/optional/object.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 
 
@@ -50,7 +50,7 @@ private:
 	friend class fruitapp::postprocessing::cg::subsystems::paused;
 
 	typedef
-	fcppt::optional<fruitapp::postprocessing::cg::subsystems::main &>
+	fcppt::optional::object<fruitapp::postprocessing::cg::subsystems::main &>
 	optional_main_system;
 
 	sge::parse::json::object const &configuration_;

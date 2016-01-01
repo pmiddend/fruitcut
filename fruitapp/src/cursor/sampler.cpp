@@ -7,7 +7,7 @@
 #include <sge/renderer/target/base.hpp>
 #include <sge/timer/parameters.hpp>
 #include <sge/timer/reset_when_expired.hpp>
-#include <fcppt/maybe_void.hpp>
+#include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/assert/pre.hpp>
 #include <fcppt/math/box/object_impl.hpp>
 #include <fcppt/math/dim/object_impl.hpp>
@@ -91,7 +91,7 @@ fruitapp::cursor::sampler::react(
 			update_timer_))
 		return;
 
-	fcppt::maybe_void(
+	fcppt::optional::maybe_void(
 		cursor_.position(),
 		[
 			this

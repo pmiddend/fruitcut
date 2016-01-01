@@ -11,7 +11,7 @@
 #include <sge/shader/pair.hpp>
 #include <sge/shader/parameter/planar_texture.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/optional.hpp>
+#include <fcppt/optional/object.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/unordered_map.hpp>

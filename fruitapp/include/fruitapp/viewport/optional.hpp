@@ -2,7 +2,7 @@
 #define FRUITAPP_VIEWPORT_OPTIONAL_HPP_INCLUDED
 
 #include <sge/renderer/target/viewport.hpp>
-#include <fcppt/optional_fwd.hpp>
+#include <fcppt/optional/object_fwd.hpp>
 
 
 namespace fruitapp
@@ -10,7 +10,7 @@ namespace fruitapp
 namespace viewport
 {
 typedef
-fcppt::optional<sge::renderer::target::viewport>
+fcppt::optional::object<sge::renderer::target::viewport>
 optional;
 }
 }

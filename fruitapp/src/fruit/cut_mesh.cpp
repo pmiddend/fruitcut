@@ -16,7 +16,7 @@
 #include <sge/renderer/vector3.hpp>
 #include <sge/renderer/vector4.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/optional.hpp>
+#include <fcppt/optional/object.hpp>
 #include <fcppt/unique_ptr.hpp>
 #include <fcppt/assert/error.hpp>
 #include <fcppt/math/box/object_impl.hpp>
@@ -238,7 +238,7 @@ fruitapp::fruit::cut_mesh(
 		return
 			result;
 
-	fcppt::optional<matrix4> const cs(
+	fcppt::optional::object<matrix4> const cs(
 		make_coordinate_system(
 			border,
 			epsilon));

@@ -9,7 +9,7 @@
 #include <fruitapp/highscore/provider/object_base.hpp>
 #include <fcppt/insert_to_fcppt_string.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/maybe.hpp>
+#include <fcppt/optional/maybe.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assign/make_container.hpp>
@@ -261,7 +261,7 @@ fruitapp::gui::ce::post_model::rank_received_internal(
 	new_row.push_back(
 		_provider.identifier());
 	new_row.push_back(
-		fcppt::maybe(
+		fcppt::optional::maybe(
 			_opt_rank,
 			[]{
 				return

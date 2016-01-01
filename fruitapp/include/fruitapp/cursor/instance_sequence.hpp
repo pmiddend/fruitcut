@@ -7,7 +7,7 @@
 #include <sge/input/cursor/object_fwd.hpp>
 #include <sge/line_drawer/line_sequence.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/optional_impl.hpp>
+#include <fcppt/optional/object_impl.hpp>
 #include <fcppt/unique_ptr.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <vector>

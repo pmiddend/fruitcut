@@ -6,8 +6,8 @@
 #include <sge/camera/matrix_conversion/world_projection.hpp>
 #include <sge/shader/context.hpp>
 #include <sge/shader/scoped_pair.hpp>
-#include <fcppt/maybe.hpp>
-#include <fcppt/optional_map.hpp>
+#include <fcppt/optional/maybe.hpp>
+#include <fcppt/optional/map.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/math/matrix/identity.hpp>
 
@@ -63,7 +63,7 @@ fruitapp::background::cg::cg(
 		_shader_context.renderer(),
 		sge::shader::parameter::is_projection_matrix(
 			true),
-		fcppt::maybe(
+		fcppt::optional::maybe(
 			_opt_shadow_map,
 			[]{
 				return
@@ -94,7 +94,7 @@ fruitapp::background::cg::cg(
 			"shadow_texture"),
 		shader_,
 		_shader_context.renderer(),
-		fcppt::optional_map(
+		fcppt::optional::map(
 			_opt_shadow_map,
 			[](
 				fruitapp::shadow_map::object &_shadow_map

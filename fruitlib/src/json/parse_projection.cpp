@@ -4,8 +4,8 @@
 #include <sge/parse/json/object_fwd.hpp>
 #include <sge/parse/json/path.hpp>
 #include <sge/renderer/scalar.hpp>
-#include <fcppt/from_optional.hpp>
-#include <fcppt/optional.hpp>
+#include <fcppt/optional/from.hpp>
+#include <fcppt/optional/object.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/math/deg_to_rad.hpp>
@@ -15,7 +15,7 @@
 fruitlib::perspective_projection_information const
 fruitlib::json::parse_projection(
 	sge::parse::json::object const &o,
-	fcppt::optional<sge::renderer::scalar> const &aspect)
+	fcppt::optional::object<sge::renderer::scalar> const &aspect)
 {
 	return
 		fruitlib::perspective_projection_information(
@@ -33,7 +33,7 @@ fruitlib::json::parse_projection(
 					o,
 					sge::parse::json::path(FCPPT_TEXT("far")))),
 			sge::renderer::projection::aspect(
-				fcppt::from_optional(
+				fcppt::optional::from(
 					aspect,
 					[
 						&o

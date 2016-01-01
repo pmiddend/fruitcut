@@ -1,6 +1,6 @@
 #include <fruitlib/exception.hpp>
 #include <fruitlib/log/scoped.hpp>
-#include <fcppt/optional_to_exception.hpp>
+#include <fcppt/optional/to_exception.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/log/activate_levels.hpp>
 #include <fcppt/log/context.hpp>
@@ -16,7 +16,7 @@ fruitlib::log::scoped::scoped(
 	fcppt::log::level const &_new_level)
 :
 	object_(
-		fcppt::optional_to_exception(
+		fcppt::optional::to_exception(
 			_context.find(
 				_location
 			),

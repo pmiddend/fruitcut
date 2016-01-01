@@ -18,8 +18,8 @@
 #include <sge/renderer/state/ffp/transform/parameters.hpp>
 #include <sge/renderer/state/ffp/transform/scoped.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/maybe_void.hpp>
-#include <fcppt/optional_assign.hpp>
+#include <fcppt/optional/maybe_void.hpp>
+#include <fcppt/optional/assign.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/pre_message.hpp>
 #include <fcppt/math/matrix/identity.hpp>
@@ -61,7 +61,7 @@ fruitlib::physics::debugger::update()
 {
 	{
 		auto const &scoped_lock(
-			fcppt::optional_assign(
+			fcppt::optional::assign(
 				scoped_lock_,
 				fcppt::make_unique_ptr<sge::line_drawer::scoped_lock>(
 					line_drawer_
@@ -166,7 +166,7 @@ fruitlib::physics::debugger::drawLine(
 	// This MIGHT happen, for example when you use the BvhMeshShape. A
 	// better solution than return; here would be to queue up those
 	// triangles. TODO
-	fcppt::maybe_void(
+	fcppt::optional::maybe_void(
 		scoped_lock_,
 		[
 			&from,

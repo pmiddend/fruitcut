@@ -3,7 +3,7 @@
 
 #include <fruitlib/math/line/basic.hpp>
 #include <fruitlib/math/plane/basic.hpp>
-#include <fcppt/optional.hpp>
+#include <fcppt/optional/object.hpp>
 #include <fcppt/math/size_type.hpp>
 #include <fcppt/math/vector/dot.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -24,7 +24,7 @@ namespace math
 // dot(n,a + nu * b) = lambda
 // => nu = (lambda - dot(n,a))/dot(n,b)
 template<typename T,fcppt::math::size_type N>
-fcppt::optional<typename line::basic<T,N>::vector> const
+fcppt::optional::object<typename line::basic<T,N>::vector> const
 line_plane_intersection(
 	line::basic<T,N> const &l,
 	plane::basic<T,N> const &p,
@@ -33,10 +33,10 @@ line_plane_intersection(
 	// Normal of the plane and direction of the line are perpendicular:
 	// no intersection
 	if (std::abs(fcppt::math::vector::dot(p.normal(),l.direction())) < epsilon)
-		return fcppt::optional<typename line::basic<T,N>::vector>();
+		return fcppt::optional::object<typename line::basic<T,N>::vector>();
 
 	return
-		fcppt::optional<typename line::basic<T,N>::vector>(
+		fcppt::optional::object<typename line::basic<T,N>::vector>(
 			l.point()
 				+ (p.lambda() - fcppt::math::vector::dot(p.normal(),l.point()))
 				/ fcppt::math::vector::dot(p.normal(),l.direction())

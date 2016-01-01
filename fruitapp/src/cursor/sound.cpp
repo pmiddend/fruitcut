@@ -10,8 +10,8 @@
 #include <sge/input/cursor/position_unit.hpp>
 #include <sge/timer/basic.hpp>
 #include <sge/timer/reset_when_expired.hpp>
-#include <fcppt/maybe_void.hpp>
-#include <fcppt/maybe_void_multi.hpp>
+#include <fcppt/optional/maybe_void.hpp>
+#include <fcppt/optional/maybe_void_multi.hpp>
 #include <fcppt/cast/int_to_float_fun.hpp>
 #include <fcppt/math/box/object_impl.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
@@ -67,7 +67,7 @@ fruitapp::cursor::sound::react(
 			update_timer_))
 		return;
 
-	fcppt::maybe_void(
+	fcppt::optional::maybe_void(
 		viewport_manager_.current_viewport(),
 		[
 			this
@@ -82,7 +82,7 @@ fruitapp::cursor::sound::react(
 
 			last_pos_ = cursor_.position();
 
-			fcppt::maybe_void_multi(
+			fcppt::optional::maybe_void_multi(
 				[
 					this,
 					&_viewport

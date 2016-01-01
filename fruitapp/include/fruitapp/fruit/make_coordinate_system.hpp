@@ -5,7 +5,7 @@
 #include <fruitlib/math/line/distance_to_point.hpp>
 #include <fruitlib/math/vector/orthogonalize.hpp>
 #include <fcppt/literal.hpp>
-#include <fcppt/optional.hpp>
+#include <fcppt/optional/object.hpp>
 #include <fcppt/assert/error.hpp>
 #include <fcppt/assert/pre.hpp>
 #include <fcppt/math/matrix/object_impl.hpp>
@@ -41,10 +41,8 @@ namespace fruit
 	Precondition: !points.empty()
  */
 template<typename Container>
-fcppt::optional
-<
-	fcppt::math::matrix::static_
-	<
+fcppt::optional::object<
+	fcppt::math::matrix::static_<
 		typename boost::mpl::identity<typename Container::value_type>::type::value_type,
 		4,
 		4
@@ -71,7 +69,7 @@ make_coordinate_system(
 	matrix4;
 
 	typedef
-	fcppt::optional<matrix4>
+	fcppt::optional::object<matrix4>
 	optional_matrix4;
 
 	FCPPT_ASSERT_PRE(

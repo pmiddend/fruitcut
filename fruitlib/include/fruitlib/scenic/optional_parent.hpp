@@ -2,7 +2,7 @@
 #define FRUITLIB_SCENIC_OPTIONAL_PARENT_HPP_INCLUDED
 
 #include <fruitlib/scenic/parent.hpp>
-#include <fcppt/optional.hpp>
+#include <fcppt/optional/object.hpp>
 
 
 namespace fruitlib
@@ -10,7 +10,7 @@ namespace fruitlib
 namespace scenic
 {
 typedef
-fcppt::optional<scenic::parent>
+fcppt::optional::object<scenic::parent>
 optional_parent;
 }
 }

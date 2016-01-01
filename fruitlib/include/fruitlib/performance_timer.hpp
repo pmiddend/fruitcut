@@ -2,7 +2,7 @@
 #define FRUITLIB_PERFORMANCE_TIMER_HPP_INCLUDED
 
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/optional.hpp>
+#include <fcppt/optional/object.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <chrono>
 #include <functional>
@@ -21,7 +21,7 @@ public:
 	clock;
 
 	typedef
-	fcppt::optional<clock::duration>
+	fcppt::optional::object<clock::duration>
 	optional_threshold;
 
 	typedef

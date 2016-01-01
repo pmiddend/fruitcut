@@ -12,7 +12,7 @@
 #include <sge/renderer/texture/planar_shared_ptr.hpp>
 #include <sge/shader/context_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/optional.hpp>
+#include <fcppt/optional/object.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 
 

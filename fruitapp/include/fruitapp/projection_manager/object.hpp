@@ -20,7 +20,7 @@
 #include <sge/renderer/target/viewport.hpp>
 #include <sge/viewport/manager_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/optional.hpp>
+#include <fcppt/optional/object.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/object.hpp>
 #include <fcppt/signal/auto_connection.hpp>
@@ -55,7 +55,7 @@ public:
 	~object();
 private:
 	typedef
-	fcppt::optional<sge::renderer::projection::aspect>
+	fcppt::optional::object<sge::renderer::projection::aspect>
 	optional_aspect;
 
 	sge::renderer::target::base const &target_;

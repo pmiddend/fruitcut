@@ -3,8 +3,8 @@
 
 #include <fruitlib/exception.hpp>
 #include <fruitlib/time_format/string_to_duration.hpp>
-#include <fcppt/optional.hpp>
-#include <fcppt/optional_to_exception.hpp>
+#include <fcppt/optional/object.hpp>
+#include <fcppt/optional/to_exception.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <string>
@@ -26,7 +26,7 @@ string_to_duration_exn(
 	std::basic_string<Char,Traits> const &input_string)
 {
 	return
-		fcppt::optional_to_exception(
+		fcppt::optional::to_exception(
 			time_format::string_to_duration<TargetDuration>(
 				input_string
 			),

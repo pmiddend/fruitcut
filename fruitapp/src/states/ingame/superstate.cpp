@@ -33,7 +33,7 @@
 #include <fcppt/make_ref.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/optional_map.hpp>
+#include <fcppt/optional/map.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/cast/size_fun.hpp>
 #include <fcppt/math/box/null.hpp>
@@ -122,7 +122,7 @@ fruitapp::states::ingame::superstate::superstate(
 		this->context<fruitapp::machine>().camera(),
 		this->context<fruitapp::machine>().light_manager()),
 	fruit_shadow_render_node_(
-		fcppt::optional_map(
+		fcppt::optional::map(
 			context<fruitapp::machine>().shadow_map(),
 			[
 				this

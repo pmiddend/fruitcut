@@ -17,7 +17,7 @@
 #include <sge/timer/remaining_fractional.hpp>
 #include <fcppt/const.hpp>
 #include <fcppt/make_shared_ptr.hpp>
-#include <fcppt/maybe.hpp>
+#include <fcppt/optional/maybe.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/error.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -188,7 +188,7 @@ fruitlib::audio::music_controller::react(
 	current_source_->update();
 
 	if(
-		fcppt::maybe(
+		fcppt::optional::maybe(
 			new_source_,
 			fcppt::const_(
 				false

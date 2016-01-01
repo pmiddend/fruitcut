@@ -1,7 +1,7 @@
 #include <fruitapp/viewport/manager.hpp>
 #include <sge/viewport/manage_callback.hpp>
 #include <sge/viewport/manager.hpp>
-#include <fcppt/maybe_void.hpp>
+#include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <functional>
 #include <fcppt/config/external_end.hpp>
@@ -45,7 +45,7 @@ fruitapp::viewport::manager::change_callback(
 		change_signal_.connect(
 			_change_callback));
 
-	fcppt::maybe_void(
+	fcppt::optional::maybe_void(
 		current_viewport_,
 		[
 			&_trigger_early,

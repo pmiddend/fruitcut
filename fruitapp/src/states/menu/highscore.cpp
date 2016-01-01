@@ -18,9 +18,9 @@
 #include <sge/parse/json/start.hpp>
 #include <sge/systems/instance.hpp>
 #include <awl/main/exit_success.hpp>
-#include <fcppt/maybe_void.hpp>
-#include <fcppt/optional_assign.hpp>
-#include <fcppt/optional_impl.hpp>
+#include <fcppt/optional/maybe_void.hpp>
+#include <fcppt/optional/assign.hpp>
+#include <fcppt/optional/object_impl.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -94,7 +94,7 @@ void
 fruitapp::states::menu::highscore::react(
 	fruitlib::scenic::events::update const &)
 {
-	fcppt::maybe_void(
+	fcppt::optional::maybe_void(
 		connection_,
 		[](
 			fruitapp::highscore::provider::connection_base_ptr const &_connection
@@ -110,7 +110,7 @@ fruitapp::states::menu::highscore::switch_provider(
 	fruitapp::highscore::provider::object_base &new_provider)
 {
 	fruitapp::highscore::provider::connection_base_ptr const &connection(
-		fcppt::optional_assign(
+		fcppt::optional::assign(
 			connection_,
 			new_provider.create_connection()
 		)

@@ -5,7 +5,7 @@
 #include <fruitapp/fruit/hull/optional_intersection_pair.hpp>
 #include <fruitapp/fruit/hull/ring.hpp>
 #include <fcppt/homogenous_pair.hpp>
-#include <fcppt/optional.hpp>
+#include <fcppt/optional/object.hpp>
 
 
 namespace fruitapp

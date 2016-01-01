@@ -13,7 +13,7 @@
 #include <fruitlib/scenic/node.hpp>
 #include <fruitlib/scenic/parent_fwd.hpp>
 #include <fruitlib/scenic/events/update.hpp>
-#include <fcppt/optional_decl.hpp>
+#include <fcppt/optional/object_decl.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -63,7 +63,7 @@ public:
 		fruitlib::scenic::events::update const &);
 private:
 	typedef
-	fcppt::optional<
+	fcppt::optional::object<
 		fcppt::signal::auto_connection
 	>
 	optional_connection;
@@ -73,7 +73,7 @@ private:
 	optional_connection main_menu_button_connection_;
 	optional_connection switch_provider_connection_;
 	typedef
-	fcppt::optional<
+	fcppt::optional::object<
 		fruitapp::highscore::provider::connection_base_ptr
 	>
 	optional_provider_connection;

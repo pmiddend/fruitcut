@@ -30,7 +30,7 @@
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/planar_parameters.hpp>
 #include <sge/renderer/texture/mipmap/off.hpp>
-#include <fcppt/optional.hpp>
+#include <fcppt/optional/object.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/container/bitfield/object_impl.hpp>
 #include <fcppt/math/deg_to_rad.hpp>
@@ -82,7 +82,7 @@ fruitapp::shadow_map::object::object(
 					_config,
 					sge::parse::json::path(
 						FCPPT_TEXT("projection"))),
-				fcppt::optional<sge::renderer::scalar>())) *
+				fcppt::optional::object<sge::renderer::scalar>())) *
 		_light_manager.directional_source().model_view())
 {
 	// Do an initial clear of the texture to prevent race conditions
