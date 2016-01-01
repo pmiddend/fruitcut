@@ -16,7 +16,6 @@
 #include <sge/renderer/vector3.hpp>
 #include <sge/renderer/vector4.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/optional/object.hpp>
 #include <fcppt/unique_ptr.hpp>
 #include <fcppt/assert/error.hpp>
 #include <fcppt/math/box/object_impl.hpp>
@@ -29,6 +28,7 @@
 #include <fcppt/math/vector/narrow_cast.hpp>
 #include <fcppt/math/vector/null.hpp>
 #include <fcppt/math/vector/to_dim.hpp>
+#include <fcppt/optional/object.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/next_prior.hpp>
 #include <boost/geometry/geometry.hpp>

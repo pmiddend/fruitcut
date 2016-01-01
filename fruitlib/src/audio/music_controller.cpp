@@ -17,9 +17,9 @@
 #include <sge/timer/remaining_fractional.hpp>
 #include <fcppt/const.hpp>
 #include <fcppt/make_shared_ptr.hpp>
-#include <fcppt/optional/maybe.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/error.hpp>
+#include <fcppt/optional/maybe.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/next_prior.hpp>
 #include <boost/filesystem/operations.hpp>

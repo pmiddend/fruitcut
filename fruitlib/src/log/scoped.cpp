@@ -1,6 +1,5 @@
 #include <fruitlib/exception.hpp>
 #include <fruitlib/log/scoped.hpp>
-#include <fcppt/optional/to_exception.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/log/activate_levels.hpp>
 #include <fcppt/log/context.hpp>
@@ -8,6 +7,7 @@
 #include <fcppt/log/level.hpp>
 #include <fcppt/log/location.hpp>
 #include <fcppt/log/object.hpp>
+#include <fcppt/optional/to_exception.hpp>
 
 
 fruitlib::log::scoped::scoped(

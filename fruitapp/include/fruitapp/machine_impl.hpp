@@ -45,9 +45,9 @@
 #include <sge/timer/basic.hpp>
 #include <sge/timer/clocks/standard.hpp>
 #include <awl/main/exit_code.hpp>
-#include <fcppt/optional/object.hpp>
 #include <fcppt/unique_ptr.hpp>
 #include <fcppt/config/platform.hpp>
+#include <fcppt/optional/object.hpp>
 #include <fcppt/preprocessor/const.hpp>
 #include <fcppt/preprocessor/warn_unused_result.hpp>
 #include <fcppt/signal/auto_connection.hpp>

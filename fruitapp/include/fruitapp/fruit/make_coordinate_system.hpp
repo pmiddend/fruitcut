@@ -5,7 +5,6 @@
 #include <fruitlib/math/line/distance_to_point.hpp>
 #include <fruitlib/math/vector/orthogonalize.hpp>
 #include <fcppt/literal.hpp>
-#include <fcppt/optional/object.hpp>
 #include <fcppt/assert/error.hpp>
 #include <fcppt/assert/pre.hpp>
 #include <fcppt/math/matrix/object_impl.hpp>
@@ -16,6 +15,7 @@
 #include <fcppt/math/vector/cross.hpp>
 #include <fcppt/math/vector/length.hpp>
 #include <fcppt/math/vector/normalize.hpp>
+#include <fcppt/optional/object.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/identity.hpp>
 #include <array>

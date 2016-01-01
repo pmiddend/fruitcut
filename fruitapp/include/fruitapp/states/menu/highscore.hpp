@@ -13,8 +13,8 @@
 #include <fruitlib/scenic/node.hpp>
 #include <fruitlib/scenic/parent_fwd.hpp>
 #include <fruitlib/scenic/events/update.hpp>
-#include <fcppt/optional/object_decl.hpp>
 #include <fcppt/string.hpp>
+#include <fcppt/optional/object_decl.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>

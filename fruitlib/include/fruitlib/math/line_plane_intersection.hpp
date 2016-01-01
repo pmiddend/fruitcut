@@ -3,9 +3,9 @@
 
 #include <fruitlib/math/line/basic.hpp>
 #include <fruitlib/math/plane/basic.hpp>
-#include <fcppt/optional/object.hpp>
 #include <fcppt/math/size_type.hpp>
 #include <fcppt/math/vector/dot.hpp>
+#include <fcppt/optional/object.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <cmath>
 #include <fcppt/config/external_end.hpp>

@@ -3,9 +3,9 @@
 
 #include <fruitlib/exception.hpp>
 #include <fruitlib/time_format/string_to_duration.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/optional/object.hpp>
 #include <fcppt/optional/to_exception.hpp>
-#include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <string>
 #include <fcppt/config/external_end.hpp>

@@ -18,8 +18,8 @@
 #include <fruitlib/physics/nodes/world.hpp>
 #include <fruitlib/physics/rigid_body/scoped.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/optional/object.hpp>
 #include <fcppt/unique_ptr.hpp>
+#include <fcppt/optional/object.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/statechart/state.hpp>

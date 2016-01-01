@@ -4,11 +4,11 @@
 #include <sge/parse/json/object_fwd.hpp>
 #include <sge/parse/json/path.hpp>
 #include <sge/renderer/scalar.hpp>
-#include <fcppt/optional/from.hpp>
-#include <fcppt/optional/object.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/math/deg_to_rad.hpp>
+#include <fcppt/optional/from.hpp>
+#include <fcppt/optional/object.hpp>
 #include <fcppt/variant/object.hpp>
 
 

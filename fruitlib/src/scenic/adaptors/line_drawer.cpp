@@ -15,10 +15,10 @@
 #include <sge/renderer/state/ffp/transform/parameters.hpp>
 #include <sge/renderer/state/ffp/transform/scoped.hpp>
 #include <sge/renderer/target/onscreen.hpp>
-#include <fcppt/optional/maybe.hpp>
 #include <fcppt/math/box/object_impl.hpp>
 #include <fcppt/math/matrix/identity.hpp>
 #include <fcppt/math/matrix/object_impl.hpp>
+#include <fcppt/optional/maybe.hpp>
 
 
 namespace

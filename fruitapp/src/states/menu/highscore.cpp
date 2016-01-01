@@ -18,11 +18,11 @@
 #include <sge/parse/json/start.hpp>
 #include <sge/systems/instance.hpp>
 #include <awl/main/exit_success.hpp>
-#include <fcppt/optional/maybe_void.hpp>
-#include <fcppt/optional/assign.hpp>
-#include <fcppt/optional/object_impl.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/optional/assign.hpp>
+#include <fcppt/optional/maybe_void.hpp>
+#include <fcppt/optional/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <functional>
 #include <fcppt/config/external_end.hpp>

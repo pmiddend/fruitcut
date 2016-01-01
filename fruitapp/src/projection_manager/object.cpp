@@ -12,7 +12,6 @@
 #include <sge/renderer/projection/perspective_af.hpp>
 #include <sge/renderer/target/base.hpp>
 #include <sge/viewport/manager.hpp>
-#include <fcppt/optional/map.hpp>
 #include <fcppt/cast/int_to_float_fun.hpp>
 #include <fcppt/cast/size_fun.hpp>
 #include <fcppt/math/deg_to_rad.hpp>
@@ -23,6 +22,7 @@
 #include <fcppt/math/vector/arithmetic.hpp>
 #include <fcppt/math/vector/construct.hpp>
 #include <fcppt/math/vector/structure_cast.hpp>
+#include <fcppt/optional/map.hpp>
 #include <fcppt/signal/connection.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <functional>

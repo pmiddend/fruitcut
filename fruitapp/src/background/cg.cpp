@@ -6,10 +6,10 @@
 #include <sge/camera/matrix_conversion/world_projection.hpp>
 #include <sge/shader/context.hpp>
 #include <sge/shader/scoped_pair.hpp>
-#include <fcppt/optional/maybe.hpp>
-#include <fcppt/optional/map.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/math/matrix/identity.hpp>
+#include <fcppt/optional/map.hpp>
+#include <fcppt/optional/maybe.hpp>
 
 
 fruitapp::background::cg::cg(

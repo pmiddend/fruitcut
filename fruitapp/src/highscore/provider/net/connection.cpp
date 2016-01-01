@@ -14,12 +14,12 @@
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/insert_to_fcppt_string.hpp>
 #include <fcppt/insert_to_std_string.hpp>
-#include <fcppt/optional/maybe.hpp>
-#include <fcppt/optional/object.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/to_std_string.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/io/istringstream.hpp>
+#include <fcppt/optional/maybe.hpp>
+#include <fcppt/optional/object.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <functional>

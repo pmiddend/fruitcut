@@ -7,7 +7,6 @@
 #include <sge/renderer/target/base.hpp>
 #include <sge/timer/parameters.hpp>
 #include <sge/timer/reset_when_expired.hpp>
-#include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/assert/pre.hpp>
 #include <fcppt/math/box/object_impl.hpp>
 #include <fcppt/math/dim/object_impl.hpp>
@@ -15,6 +14,7 @@
 #include <fcppt/math/vector/object_impl.hpp>
 #include <fcppt/math/vector/output.hpp>
 #include <fcppt/math/vector/structure_cast.hpp>
+#include <fcppt/optional/maybe_void.hpp>
 
 
 namespace

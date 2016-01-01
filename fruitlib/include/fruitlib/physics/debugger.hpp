@@ -10,9 +10,9 @@
 #include <sge/renderer/context/ffp_fwd.hpp>
 #include <sge/renderer/device/ffp_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/optional/object.hpp>
 #include <fcppt/unique_ptr.hpp>
 #include <fcppt/math/vector/object_impl.hpp>
+#include <fcppt/optional/object.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <LinearMath/btIDebugDraw.h>
 #include <LinearMath/btVector3.h>

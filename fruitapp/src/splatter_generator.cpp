@@ -27,11 +27,11 @@
 #include <mizuiro/color/channel/alpha.hpp>
 #include <fcppt/make_cref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/math/matrix/transform_direction.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
+#include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <chrono>
 #include <limits>

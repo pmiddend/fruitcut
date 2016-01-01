@@ -10,13 +10,13 @@
 #include <sge/input/cursor/position_unit.hpp>
 #include <sge/timer/basic.hpp>
 #include <sge/timer/reset_when_expired.hpp>
-#include <fcppt/optional/maybe_void.hpp>
-#include <fcppt/optional/maybe_void_multi.hpp>
 #include <fcppt/cast/int_to_float_fun.hpp>
 #include <fcppt/math/box/object_impl.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
 #include <fcppt/math/vector/length.hpp>
 #include <fcppt/math/vector/structure_cast.hpp>
+#include <fcppt/optional/maybe_void.hpp>
+#include <fcppt/optional/maybe_void_multi.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <chrono>
 #include <fcppt/config/external_end.hpp>

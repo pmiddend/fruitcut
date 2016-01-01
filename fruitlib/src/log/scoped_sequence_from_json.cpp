@@ -7,12 +7,12 @@
 #include <sge/parse/json/get_exn.hpp>
 #include <sge/parse/json/object.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/optional/to_exception.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/algorithm/map.hpp>
 #include <fcppt/log/context.hpp>
 #include <fcppt/log/level_from_string.hpp>
+#include <fcppt/optional/to_exception.hpp>
 
 
 fruitlib::log::scoped_sequence

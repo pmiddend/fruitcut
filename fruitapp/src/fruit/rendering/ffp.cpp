@@ -48,12 +48,12 @@
 #include <sge/renderer/vertex/scoped_buffer.hpp>
 #include <sge/renderer/vertex/scoped_declaration.hpp>
 #include <fcppt/make_cref.hpp>
-#include <fcppt/optional/object.hpp>
-#include <fcppt/optional/assign.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/math/matrix/arithmetic.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
 #include <fcppt/math/vector/narrow_cast.hpp>
+#include <fcppt/optional/assign.hpp>
+#include <fcppt/optional/object.hpp>
 
 
 namespace

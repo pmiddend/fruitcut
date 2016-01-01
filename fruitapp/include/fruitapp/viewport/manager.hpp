@@ -8,11 +8,10 @@
 #include <sge/renderer/target/base_fwd.hpp>
 #include <sge/viewport/manager_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/optional/object_impl.hpp>
 #include <fcppt/math/box/object_impl.hpp>
+#include <fcppt/optional/object_impl.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/object.hpp>
-#include <fcppt/signal/auto_connection.hpp>
 
 
 namespace fruitapp
