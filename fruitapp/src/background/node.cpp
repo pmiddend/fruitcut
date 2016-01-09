@@ -41,7 +41,7 @@ fruitapp::background::node::node(
 			>(
 				fcppt::make_unique_ptr<fruitapp::background::cg>(
 					_texture_manager,
-					_shader_context.get_unsafe(), // TODO
+					_shader_context.get_unsafe().get(), // TODO
 					_shadow_map,
 					_repetitions,
 					_camera,

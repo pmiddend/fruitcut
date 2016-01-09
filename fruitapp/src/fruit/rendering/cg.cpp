@@ -32,6 +32,7 @@
 #include <sge/renderer/vertex/scoped_declaration.hpp>
 #include <sge/shader/context.hpp>
 #include <sge/shader/scoped_pair.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/math/matrix/arithmetic.hpp>
@@ -199,7 +200,8 @@ fruitapp::fruit::rendering::cg::render(
 		{
 			texture_parameter_.set(
 				sge::shader::parameter::planar_texture::optional_value(
-					*(*i)->prototype().texture()));
+					fcppt::make_ref(
+						*(*i)->prototype().texture())));
 
 			// Material shit
 			diffuse_color_parameter_.set(

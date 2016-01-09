@@ -10,6 +10,7 @@
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/shader/istream_ref.hpp>
 #include <sge/shader/scoped_pair.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assign/make_container.hpp>
@@ -141,7 +142,8 @@ fruitlib::pp::filter::desaturate::apply(
 {
 	texture_.set(
 		sge::shader::parameter::planar_texture::optional_value(
-			*(input->texture())));
+			fcppt::make_ref(
+				*(input->texture()))));
 
 	fruitlib::pp::texture::counted_instance const result =
 		texture_manager_.query(

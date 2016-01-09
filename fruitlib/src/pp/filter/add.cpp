@@ -11,6 +11,7 @@
 #include <sge/renderer/texture/planar_shared_ptr.hpp>
 #include <sge/shader/istream_ref.hpp>
 #include <sge/shader/scoped_pair.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/math/dim/output.hpp>
@@ -116,11 +117,13 @@ fruitlib::pp::filter::add::apply(
 {
 	texture1_.set(
 		sge::shader::parameter::planar_texture::optional_value(
-			*(input1->texture())));
+			fcppt::make_ref(
+				*(input1->texture()))));
 
 	texture2_.set(
 		sge::shader::parameter::planar_texture::optional_value(
-			*(input2->texture())));
+			fcppt::make_ref(
+				*(input2->texture()))));
 
 	fruitlib::pp::texture::counted_instance const result =
 		texture_manager_.query(

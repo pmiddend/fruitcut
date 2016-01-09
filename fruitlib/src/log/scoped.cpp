@@ -30,7 +30,7 @@ fruitlib::log::scoped::scoped(
 						FCPPT_TEXT(" was not found")
 					);
 			}
-		)
+		).get()
 	),
 	old_levels_(
 		object_.enabled_levels()

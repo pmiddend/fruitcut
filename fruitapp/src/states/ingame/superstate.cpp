@@ -33,6 +33,7 @@
 #include <fcppt/make_ref.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/reference_wrapper_impl.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/cast/size_fun.hpp>
 #include <fcppt/math/box/null.hpp>
@@ -127,19 +128,21 @@ fruitapp::states::ingame::superstate::superstate(
 			[
 				this
 			](
-				fruitapp::shadow_map::object &_shadow_map
+				fcppt::reference_wrapper<
+					fruitapp::shadow_map::object
+				> const _shadow_map
 			)
 			{
 				return
 					fcppt::make_unique_ptr<fruitapp::fruit::rendering::shadow_node>(
 						fruitlib::scenic::optional_parent(
 							fruitlib::scenic::parent(
-								_shadow_map,
+								_shadow_map.get(),
 								fruitlib::scenic::depth(
 									0))),
-						context<fruitapp::machine>().shader_context().get_unsafe(), // TODO
+						context<fruitapp::machine>().shader_context().get_unsafe().get(), // TODO
 						fruit_manager_,
-						_shadow_map.mvp());
+						_shadow_map.get().mvp());
 			}
 		)
 	),

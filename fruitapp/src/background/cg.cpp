@@ -6,6 +6,8 @@
 #include <sge/camera/matrix_conversion/world_projection.hpp>
 #include <sge/shader/context.hpp>
 #include <sge/shader/scoped_pair.hpp>
+#include <fcppt/make_ref.hpp>
+#include <fcppt/reference_wrapper_impl.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/math/matrix/identity.hpp>
 #include <fcppt/optional/map.hpp>
@@ -72,11 +74,13 @@ fruitapp::background::cg::cg(
 					>();
 			},
 			[](
-				fruitapp::shadow_map::object const &_shadow_map
+				fcppt::reference_wrapper<
+					fruitapp::shadow_map::object
+				> const _shadow_map
 			)
 			{
 				return
-					_shadow_map.mvp().get();
+					_shadow_map.get().mvp().get();
 			}
 		)
 	),
@@ -87,7 +91,8 @@ fruitapp::background::cg::cg(
 		shader_,
 		_shader_context.renderer(),
 		sge::shader::parameter::planar_texture::optional_value(
-			fruitapp::background::base::texture())),
+			fcppt::make_ref(
+				fruitapp::background::base::texture()))),
 	shadow_map_parameter_(
 		shader_.pixel_program(),
 		sge::shader::parameter::name(
@@ -97,12 +102,15 @@ fruitapp::background::cg::cg(
 		fcppt::optional::map(
 			_opt_shadow_map,
 			[](
-				fruitapp::shadow_map::object &_shadow_map
+				fcppt::reference_wrapper<
+					fruitapp::shadow_map::object
+				> const _shadow_map
 			)
-			-> sge::renderer::texture::planar &
 			{
 				return
-					_shadow_map.texture();
+					fcppt::make_ref(
+						_shadow_map.get().texture()
+					);
 			}
 		)
 	)

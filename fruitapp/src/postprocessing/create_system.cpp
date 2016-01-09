@@ -27,7 +27,7 @@ fruitapp::postprocessing::create_system(
 				fruitapp::postprocessing::system
 			>(
 				fcppt::make_unique_ptr<fruitapp::postprocessing::cg::system>(
-					_shader_context.get_unsafe(), // TODO
+					_shader_context.get_unsafe().get(), // TODO
 					_viewport_manager,
 					sge::parse::json::find_and_convert_member<sge::parse::json::object>(
 						_object,

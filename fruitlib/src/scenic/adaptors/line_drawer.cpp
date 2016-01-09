@@ -15,6 +15,7 @@
 #include <sge/renderer/state/ffp/transform/parameters.hpp>
 #include <sge/renderer/state/ffp/transform/scoped.hpp>
 #include <sge/renderer/target/onscreen.hpp>
+#include <fcppt/reference_wrapper_impl.hpp>
 #include <fcppt/math/box/object_impl.hpp>
 #include <fcppt/math/matrix/identity.hpp>
 #include <fcppt/math/matrix/object_impl.hpp>
@@ -77,11 +78,13 @@ fruitlib::scenic::adaptors::line_drawer::react(
 			this,
 			 &_render_event
 		](
-			sge::renderer::device::ffp &_renderer
+			fcppt::reference_wrapper<
+				sge::renderer::device::ffp
+			> const _renderer
 		)
 		{
 			sge::renderer::state::ffp::transform::object_unique_ptr const world_state(
-				_renderer.create_transform_state(
+				_renderer.get().create_transform_state(
 					sge::renderer::state::ffp::transform::parameters(
 						fcppt::math::matrix::identity<
 							sge::renderer::matrix4
@@ -96,11 +99,11 @@ fruitlib::scenic::adaptors::line_drawer::react(
 				*world_state);
 
 			sge::renderer::state::ffp::transform::object_unique_ptr const projection_state(
-				_renderer.create_transform_state(
+				_renderer.get().create_transform_state(
 					sge::renderer::state::ffp::transform::parameters(
 						sge::renderer::projection::orthogonal(
 							projection_rect_from_viewport(
-								_renderer.onscreen_target().viewport().get()),
+								_renderer.get().onscreen_target().viewport().get()),
 							sge::renderer::projection::near(
 								0.f),
 							sge::renderer::projection::far(

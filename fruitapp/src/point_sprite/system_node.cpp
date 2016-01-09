@@ -29,6 +29,7 @@
 #include <sge/texture/on_alloc_callback.hpp>
 #include <sge/texture/part_shared_ptr.hpp>
 #include <sge/texture/rect_fragmented.hpp>
+#include <fcppt/make_cref.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/algorithm/map.hpp>
@@ -169,7 +170,8 @@ fruitapp::point_sprite::system_node::lookup_texture(
 	if(target_tree.value().is_leaf())
 		return
 			sge::texture::const_optional_part_ref(
-				*target_tree.value().leaf_value());
+				fcppt::make_cref(
+					*target_tree.value().leaf_value()));
 
 	resource_tree_type &target_file =
 		*boost::next(
@@ -185,7 +187,8 @@ fruitapp::point_sprite::system_node::lookup_texture(
 
 	return
 		sge::texture::const_optional_part_ref(
-			*target_file.value().leaf_value());
+			fcppt::make_cref(
+				*target_file.value().leaf_value()));
 }
 
 fruitapp::point_sprite::system_node::~system_node()

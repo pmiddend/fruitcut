@@ -40,6 +40,7 @@
 #include <sge/renderer/state/ffp/transform/object_unique_ptr.hpp>
 #include <sge/renderer/state/ffp/transform/parameters.hpp>
 #include <sge/renderer/state/ffp/transform/scoped.hpp>
+#include <sge/renderer/texture/base.hpp>
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/vertex/buffer.hpp>
 #include <sge/renderer/vertex/count.hpp>
@@ -48,6 +49,7 @@
 #include <sge/renderer/vertex/scoped_buffer.hpp>
 #include <sge/renderer/vertex/scoped_declaration.hpp>
 #include <fcppt/make_cref.hpp>
+#include <fcppt/reference_wrapper_to_base.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/math/matrix/arithmetic.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
@@ -236,7 +238,11 @@ fruitapp::fruit::rendering::ffp::render(
 		{
 			ffp_context.texture(
 				sge::renderer::texture::const_optional_base_ref(
-					*(*i)->prototype().texture()),
+					fcppt::reference_wrapper_to_base<
+						sge::renderer::texture::base const
+					>(
+						fcppt::make_cref(
+							*(*i)->prototype().texture()))),
 				sge::renderer::texture::stage(
 					0u));
 
@@ -250,7 +256,8 @@ fruitapp::fruit::rendering::ffp::render(
 
 			ffp_context.material_state(
 				sge::renderer::state::ffp::lighting::material::const_optional_object_ref(
-					*material_state));
+					fcppt::make_cref(
+						*material_state)));
 
 			previous_prototype =
 				&((*i)->prototype());

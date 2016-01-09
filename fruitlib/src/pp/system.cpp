@@ -12,6 +12,7 @@
 #include <sge/renderer/texture/planar_shared_ptr.hpp>
 #include <sge/shader/istream_ref.hpp>
 #include <sge/shader/scoped_pair.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/assert/pre.hpp>
@@ -157,7 +158,8 @@ fruitlib::pp::system::render_result(
 {
 	texture_parameter_.set(
 		sge::shader::parameter::planar_texture::optional_value(
-			*(result_texture_->texture())));
+			fcppt::make_ref(
+				*(result_texture_->texture()))));
 
 	sge::shader::scoped_pair scoped_shader(
 		_context,

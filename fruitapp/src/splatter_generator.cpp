@@ -25,8 +25,8 @@
 #include <sge/renderer/vector3.hpp>
 #include <sge/texture/part_fwd.hpp>
 #include <mizuiro/color/channel/alpha.hpp>
-#include <fcppt/make_cref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/reference_wrapper_impl.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/math/matrix/transform_direction.hpp>
@@ -176,7 +176,9 @@ fruitapp::splatter_generator::fruit_was_cut(
 				splatter_color,
 				this
 			](
-				sge::texture::part const &_texture
+				fcppt::reference_wrapper<
+					sge::texture::part const
+				> const _texture
 			)
 			{
 				point_sprites_.push_back(
@@ -205,9 +207,7 @@ fruitapp::splatter_generator::fruit_was_cut(
 								fruitapp::point_sprite::splatter::size(
 									size_rng_()),
 								splatter_color,
-								fcppt::make_cref(
-									_texture
-								),
+								_texture,
 								std::chrono::duration_cast<fruitapp::ingame_clock::duration>(
 									std::chrono::milliseconds(
 										lifetime_millis_rng_())),

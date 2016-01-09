@@ -14,12 +14,13 @@
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/insert_to_fcppt_string.hpp>
 #include <fcppt/insert_to_std_string.hpp>
+#include <fcppt/reference_wrapper_impl.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/to_std_string.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/io/istringstream.hpp>
 #include <fcppt/optional/maybe.hpp>
-#include <fcppt/optional/object.hpp>
+#include <fcppt/optional/reference.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <functional>
@@ -421,11 +422,11 @@ fruitapp::highscore::provider::net::connection::handle_read_content(
 		return;
 	}
 
-	typedef fcppt::optional::object<
-		fcppt::string const &
-	> const_optional_string_ref;
+	typedef fcppt::optional::reference<
+		fcppt::string
+	> optional_string_ref;
 
-	const_optional_string_ref const json_error(
+	optional_string_ref const json_error(
 		sge::parse::json::find_member<fcppt::string>(
 			result.object().members,
 			FCPPT_TEXT("error")));
@@ -446,12 +447,14 @@ fruitapp::highscore::provider::net::connection::handle_read_content(
 		[
 			this
 		](
-			fcppt::string const &_json_error
+			fcppt::reference_wrapper<
+				fcppt::string
+			> const _json_error
 		)
 		{
 			error_received_(
 				FCPPT_TEXT("The server signaled an error: ")+
-				_json_error);
+				_json_error.get());
 		}
 	);
 }

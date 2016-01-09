@@ -20,6 +20,7 @@
 #include <sge/renderer/texture/planar_parameters.hpp>
 #include <sge/renderer/texture/planar_unique_ptr.hpp>
 #include <sge/renderer/texture/mipmap/off.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/unreachable_message.hpp>
@@ -209,7 +210,8 @@ fruitlib::pp::texture::manager::query_internal(
 		{
 			new_target->depth_stencil_surface(
 				sge::renderer::depth_stencil_buffer::optional_surface_ref(
-					*_surface));
+					fcppt::make_ref(
+						*_surface)));
 		}
 	);
 

@@ -35,6 +35,7 @@
 #include <sge/renderer/device/ffp.hpp>
 #include <sge/renderer/target/onscreen.hpp>
 #include <sge/systems/instance.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
 //#include <boost/next_prior.hpp>
@@ -63,7 +64,8 @@ fruitapp::states::ingame::running::running(
 					depths::overlay::dont_care))),
 		line_drawer_,
 		fruitlib::scenic::adaptors::line_drawer::optional_renderer(
-			context<fruitapp::machine>().systems().renderer_device_ffp())),
+			fcppt::make_ref(
+				context<fruitapp::machine>().systems().renderer_device_ffp()))),
 	cursor_sequence_(
 		context<fruitapp::machine>().cursor_manager().create_instances(
 			fruitlib::scenic::optional_parent(

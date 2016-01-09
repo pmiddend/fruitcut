@@ -12,6 +12,7 @@
 #include <sge/renderer/texture/planar_shared_ptr.hpp>
 #include <sge/shader/istream_ref.hpp>
 #include <sge/shader/scoped_pair.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/assert/pre.hpp>
 #include <fcppt/cast/int_to_float_fun.hpp>
@@ -235,11 +236,13 @@ fruitlib::pp::filter::blur::apply(
 
 	planar_textures_[0u]->set(
 		sge::shader::parameter::planar_texture::optional_value(
-			*input->texture()));
+			fcppt::make_ref(
+				*input->texture())));
 
 	planar_textures_[1u]->set(
 		sge::shader::parameter::planar_texture::optional_value(
-			*(instances[0]->texture())));
+			fcppt::make_ref(
+				*(instances[0]->texture()))));
 
 	texture_sizes_[0u]->set(
 		fcppt::math::vector::structure_cast<sge::renderer::vector2, fcppt::cast::int_to_float_fun>(
@@ -258,7 +261,8 @@ fruitlib::pp::filter::blur::apply(
 
 	planar_textures_[0u]->set(
 		sge::shader::parameter::planar_texture::optional_value(
-			*(instances[1]->texture())));
+			fcppt::make_ref(
+				*(instances[1]->texture()))));
 
 	this->render(
 		instances,

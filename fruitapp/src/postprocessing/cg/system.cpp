@@ -4,6 +4,7 @@
 #include <fruitapp/viewport/change_callback.hpp>
 #include <fruitapp/viewport/manager.hpp>
 #include <sge/shader/context.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr.hpp>
@@ -61,7 +62,8 @@ fruitapp::postprocessing::cg::system::create_main_subsystem(
 
 	main_system_ =
 		optional_main_system(
-			*main_system);
+			fcppt::make_ref(
+				*main_system));
 
 	return
 		fcppt::unique_ptr_to_base<
@@ -84,7 +86,7 @@ fruitapp::postprocessing::cg::system::create_paused_subsystem(
 
 	FCPPT_ASSERT_OPTIONAL_ERROR(
 		main_system_
-	).toggle_active();
+	).get().toggle_active();
 
 	return
 		fcppt::unique_ptr_to_base<
@@ -121,7 +123,7 @@ fruitapp::postprocessing::cg::system::paused_destroyed()
 
 	FCPPT_ASSERT_OPTIONAL_ERROR(
 		main_system_
-	).toggle_active();
+	).get().toggle_active();
 }
 
 fruitlib::pp::texture::counted_instance const
@@ -130,5 +132,5 @@ fruitapp::postprocessing::cg::system::main_result_texture()
 	return
 		FCPPT_ASSERT_OPTIONAL_ERROR(
 			main_system_
-		).result_texture();
+		).get().result_texture();
 }
