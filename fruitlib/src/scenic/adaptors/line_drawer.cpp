@@ -15,7 +15,7 @@
 #include <sge/renderer/state/ffp/transform/parameters.hpp>
 #include <sge/renderer/state/ffp/transform/scoped.hpp>
 #include <sge/renderer/target/onscreen.hpp>
-#include <fcppt/reference_wrapper_impl.hpp>
+#include <fcppt/reference_impl.hpp>
 #include <fcppt/math/box/object_impl.hpp>
 #include <fcppt/math/matrix/identity.hpp>
 #include <fcppt/math/matrix/object_impl.hpp>
@@ -78,7 +78,7 @@ fruitlib::scenic::adaptors::line_drawer::react(
 			this,
 			 &_render_event
 		](
-			fcppt::reference_wrapper<
+			fcppt::reference<
 				sge::renderer::device::ffp
 			> const _renderer
 		)

@@ -49,7 +49,7 @@
 #include <sge/renderer/vertex/scoped_buffer.hpp>
 #include <sge/renderer/vertex/scoped_declaration.hpp>
 #include <fcppt/make_cref.hpp>
-#include <fcppt/reference_wrapper_to_base.hpp>
+#include <fcppt/reference_to_base.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/math/matrix/arithmetic.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
@@ -238,7 +238,7 @@ fruitapp::fruit::rendering::ffp::render(
 		{
 			ffp_context.texture(
 				sge::renderer::texture::const_optional_base_ref(
-					fcppt::reference_wrapper_to_base<
+					fcppt::reference_to_base<
 						sge::renderer::texture::base const
 					>(
 						fcppt::make_cref(

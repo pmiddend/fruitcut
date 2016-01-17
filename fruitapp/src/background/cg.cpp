@@ -7,7 +7,7 @@
 #include <sge/shader/context.hpp>
 #include <sge/shader/scoped_pair.hpp>
 #include <fcppt/make_ref.hpp>
-#include <fcppt/reference_wrapper_impl.hpp>
+#include <fcppt/reference_impl.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/math/matrix/identity.hpp>
 #include <fcppt/optional/map.hpp>
@@ -74,7 +74,7 @@ fruitapp::background::cg::cg(
 					>();
 			},
 			[](
-				fcppt::reference_wrapper<
+				fcppt::reference<
 					fruitapp::shadow_map::object
 				> const _shadow_map
 			)
@@ -102,7 +102,7 @@ fruitapp::background::cg::cg(
 		fcppt::optional::map(
 			_opt_shadow_map,
 			[](
-				fcppt::reference_wrapper<
+				fcppt::reference<
 					fruitapp::shadow_map::object
 				> const _shadow_map
 			)

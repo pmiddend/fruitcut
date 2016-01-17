@@ -33,7 +33,7 @@
 #include <fcppt/make_ref.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/reference_wrapper_impl.hpp>
+#include <fcppt/reference_impl.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/cast/size_fun.hpp>
 #include <fcppt/math/box/null.hpp>
@@ -128,7 +128,7 @@ fruitapp::states::ingame::superstate::superstate(
 			[
 				this
 			](
-				fcppt::reference_wrapper<
+				fcppt::reference<
 					fruitapp::shadow_map::object
 				> const _shadow_map
 			)

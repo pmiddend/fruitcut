@@ -26,7 +26,7 @@
 #include <sge/texture/part_fwd.hpp>
 #include <mizuiro/color/channel/alpha.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/reference_wrapper_impl.hpp>
+#include <fcppt/reference_impl.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/math/matrix/transform_direction.hpp>
@@ -176,7 +176,7 @@ fruitapp::splatter_generator::fruit_was_cut(
 				splatter_color,
 				this
 			](
-				fcppt::reference_wrapper<
+				fcppt::reference<
 					sge::texture::part const
 				> const _texture
 			)

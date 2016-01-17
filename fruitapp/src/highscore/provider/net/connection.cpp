@@ -14,7 +14,7 @@
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/insert_to_fcppt_string.hpp>
 #include <fcppt/insert_to_std_string.hpp>
-#include <fcppt/reference_wrapper_impl.hpp>
+#include <fcppt/reference_impl.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/to_std_string.hpp>
 #include <fcppt/io/cerr.hpp>
@@ -447,7 +447,7 @@ fruitapp::highscore::provider::net::connection::handle_read_content(
 		[
 			this
 		](
-			fcppt::reference_wrapper<
+			fcppt::reference<
 				fcppt::string
 			> const _json_error
 		)
