@@ -32,11 +32,53 @@
 #include <boost/test/unit_test.hpp>
 #include <algorithm>
 #include <array>
+#include <functional>
 #include <fcppt/config/external_end.hpp>
 
 
 namespace
 {
+
+template
+<
+	typename Container1,
+	typename Container2,
+	typename Equality
+>
+bool
+shift_compare(
+	Container1 const &a,
+	Container2 b,
+	Equality const &is_equal)
+{
+	// Has to be an iterator so the mutating algorithm below works
+	typename Container2::iterator
+		first_in_second =
+			::std::find_if(
+				b.begin(),
+				b.end(),
+				::std::bind(
+					is_equal,
+					*a.begin(),
+					::std::placeholders::_1));
+
+	if (first_in_second == b.end())
+		return false;
+
+	::std::rotate(
+		b.begin(),
+		first_in_second,
+		b.end());
+
+	return
+		boost::inner_product(
+			a,
+			b,
+			true,
+			::std::logical_and<bool>(),
+			is_equal);
+}
+
 typedef
 double
 scalar;
@@ -397,7 +439,7 @@ BOOST_AUTO_TEST_CASE(cut_triangle_test)
 			<< FCPPT_TEXT("\n");
 
 		BOOST_CHECK(
-			fcppt::algorithm::shift_compare(
+			::shift_compare(
 				is.triangles()[0].points,
 				expected_triangle.points,
 				std::tr1::bind(
