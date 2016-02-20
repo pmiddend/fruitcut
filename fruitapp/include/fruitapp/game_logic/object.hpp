@@ -4,7 +4,6 @@
 #include <fruitapp/ingame_clock.hpp>
 #include <fruitapp/ingame_timer.hpp>
 #include <fruitapp/overlay.hpp>
-#include <fruitapp/quick_log.hpp>
 #include <fruitapp/font_particle/manager.hpp>
 #include <fruitapp/fruit/area.hpp>
 #include <fruitapp/fruit/cut_context_fwd.hpp>
@@ -59,8 +58,7 @@ public:
 		fruitapp::fruit::manager &,
 		fruitlib::font::manager &,
 		fruitapp::overlay &,
-		fruitapp::viewport::manager &,
-		fruitapp::quick_log &_log);
+		fruitapp::viewport::manager &);
 
 	bool
 	finished() const;
@@ -92,7 +90,6 @@ private:
 	fcppt::signal::auto_connection viewport_change_connection_;
 	typedef std::map<fruit::object const *, unsigned> cut_fruits_container;
 	cut_fruits_container cut_fruits_;
-	fruitapp::quick_log &quick_log_;
 
 	void
 	fruit_added(

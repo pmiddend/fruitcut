@@ -1,12 +1,8 @@
 #include <fruitlib/pp/filter/inject_texture.hpp>
-#include <fruitlib/pp/texture/manager.hpp>
 
 
-fruitlib::pp::filter::inject_texture::inject_texture(
-	fruitlib::pp::texture::manager &_texture_manager)
+fruitlib::pp::filter::inject_texture::inject_texture()
 :
-	texture_manager_(
-		_texture_manager),
 	texture_counted_()
 {
 }
@@ -23,10 +19,6 @@ fruitlib::pp::texture::counted_instance const
 fruitlib::pp::filter::inject_texture::apply()
 {
 	return
-		/*
-		texture_manager_.query(
-			*texture_);
-			*/
 		texture_counted_;
 }
 

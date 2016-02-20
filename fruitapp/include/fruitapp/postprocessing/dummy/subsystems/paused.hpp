@@ -1,8 +1,6 @@
 #ifndef FRUITAPP_POSTPROCESSING_DUMMY_SUBSYSTEMS_PAUSED_HPP_INCLUDED
 #define FRUITAPP_POSTPROCESSING_DUMMY_SUBSYSTEMS_PAUSED_HPP_INCLUDED
 
-#include <fruitapp/postprocessing/render_callback.hpp>
-#include <fruitapp/postprocessing/dummy/system_fwd.hpp>
 #include <fruitapp/postprocessing/subsystems/paused.hpp>
 #include <fruitlib/scenic/node.hpp>
 #include <fruitlib/scenic/events/render.hpp>
@@ -35,19 +33,15 @@ public:
 	>
 	scene_reactions;
 
+	explicit
 	paused(
-		fruitapp::postprocessing::dummy::system &,
-		fruitlib::scenic::optional_parent const &,
-		fruitapp::postprocessing::render_callback const &);
+		fruitlib::scenic::optional_parent const &);
 
 	void
 	react(
 		fruitlib::scenic::events::render const &);
 
 	~paused();
-private:
-	fruitapp::postprocessing::dummy::system &parent_system_;
-	fruitapp::postprocessing::render_callback const render_callback_;
 };
 }
 }

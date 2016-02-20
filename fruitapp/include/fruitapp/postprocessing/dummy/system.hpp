@@ -1,6 +1,7 @@
 #ifndef FRUITAPP_POSTPROCESSING_DUMMY_SYSTEM_HPP_INCLUDED
 #define FRUITAPP_POSTPROCESSING_DUMMY_SYSTEM_HPP_INCLUDED
 
+#include <fruitapp/postprocessing/render_callback.hpp>
 #include <fruitapp/postprocessing/system.hpp>
 #include <fruitapp/postprocessing/cg/subsystems/main_fwd.hpp>
 #include <fruitapp/postprocessing/cg/subsystems/paused_fwd.hpp>
@@ -34,15 +35,18 @@ public:
 	fruitapp::postprocessing::subsystems::main_unique_ptr
 	create_main_subsystem(
 		fruitlib::scenic::optional_parent const &,
-		fruitapp::postprocessing::render_callback const &);
+		fruitapp::postprocessing::render_callback const &
+	)
+	override;
 
 	fruitapp::postprocessing::subsystems::paused_unique_ptr
 	create_paused_subsystem(
-		fruitlib::scenic::optional_parent const &);
+		fruitlib::scenic::optional_parent const &
+	)
+	override;
 
-	~system();
-private:
-	fruitapp::postprocessing::render_callback main_render_callback_;
+	~system()
+	override;
 };
 }
 }

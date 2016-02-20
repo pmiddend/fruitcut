@@ -174,8 +174,7 @@ fruitapp::states::ingame::superstate::superstate(
 		fruit_manager_,
 		context<fruitapp::machine>().font_manager(),
 		context<fruitapp::machine>().overlay_node(),
-		context<fruitapp::machine>().viewport_manager(),
-		context<fruitapp::machine>().quick_log()),
+		context<fruitapp::machine>().viewport_manager()),
 	cut_connection_(
 		fruit_manager_.cut_callback(
 			fruitapp::fruit::callbacks::cut{

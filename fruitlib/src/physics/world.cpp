@@ -42,19 +42,6 @@ void_ptr_to_body(
 		static_cast<fruitlib::physics::rigid_body::object *>(
 			p->getUserPointer())->user_data();
 }
-
-fruitlib::physics::rigid_body::user_data const
-void_ptr_to_body(
-	void *p)
-{
-	FCPPT_ASSERT_ERROR(
-		p);
-
-	return
-		void_ptr_to_body(
-			static_cast<btCollisionObject *>(
-				p));
-}
 }
 
 fruitlib::physics::world::world(

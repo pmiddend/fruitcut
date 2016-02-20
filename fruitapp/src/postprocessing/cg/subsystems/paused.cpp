@@ -22,8 +22,7 @@ fruitapp::postprocessing::cg::subsystems::paused::paused(
 		_parent_system),
 	system_(
 		_parent_system.filter_manager_),
-	inject_texture_(
-		_parent_system.texture_manager_),
+	inject_texture_(),
 	blur_(
 		_parent_system.filter_manager_,
 		_parent_system.texture_manager_,

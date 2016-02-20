@@ -5,7 +5,6 @@
 #include <fruitapp/fruit/callbacks/remove.hpp>
 #include <fruitapp/fruit/callbacks/spawn.hpp>
 #include <fruitapp/game_logic/object.hpp>
-#include <fruitapp/quick_log.hpp>
 #include <fruitapp/projection_manager/object.hpp>
 #include <fruitapp/viewport/change_callback.hpp>
 #include <fruitapp/viewport/manager.hpp>
@@ -126,8 +125,7 @@ fruitapp::game_logic::object::object(
 	fruitapp::fruit::manager &_fruit_manager,
 	fruitlib::font::manager &_font_manager,
 	fruitapp::overlay &_overlay,
-	fruitapp::viewport::manager &_viewport_manager,
-	fruitapp::quick_log &_log)
+	fruitapp::viewport::manager &_viewport_manager)
 :
 	node_base(
 		fruitlib::scenic::optional_parent(
@@ -311,9 +309,7 @@ fruitapp::game_logic::object::object(
 			},
 			fruitapp::viewport::trigger_early(
 				true))),
-	cut_fruits_(),
-	quick_log_(
-		_log)
+	cut_fruits_()
 {
 }
 
