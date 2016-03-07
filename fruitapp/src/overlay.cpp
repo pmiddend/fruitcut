@@ -44,7 +44,7 @@ fruitapp::overlay::react(
 			renderer_.onscreen_target().viewport().get().size()
 		)
 		==
-		0u
+		0
 	)
 		return;
 

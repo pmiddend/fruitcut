@@ -199,7 +199,7 @@ fruitlib::font::object::rebuild_text_object()
 		fcppt::math::dim::contents(
 			bounding_box_.size()
 		)
-		== 0u
+		== 0
 		|| text_.empty()
 	)
 	{
@@ -226,7 +226,7 @@ fruitlib::font::object::regenerate_text_object()
 		fcppt::math::dim::contents(
 			bounding_box_.size()
 		)
-		== 0u
+		== 0
 		|| text_.empty()
 	)
 		return;
