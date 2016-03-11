@@ -20,7 +20,14 @@
 #include <boost/config/warning_disable.hpp>
 #include <boost/spirit/include/phoenix_core.hpp>
 #include <boost/spirit/include/phoenix_operator.hpp>
-#include <boost/spirit/include/qi.hpp>
+#include <boost/spirit/include/qi_action.hpp>
+#include <boost/spirit/include/qi_as.hpp>
+#include <boost/spirit/include/qi_char.hpp>
+#include <boost/spirit/include/qi_lit.hpp>
+#include <boost/spirit/include/qi_operator.hpp>
+#include <boost/spirit/include/qi_parse.hpp>
+#include <boost/spirit/include/qi_uint.hpp>
+#include <boost/spirit/include/support_standard_wide.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -30,15 +37,15 @@ fruitapp::highscore::providers_from_json(
 	highscore::provider_sequence &result)
 {
 	for(
-		sge::parse::json::element_vector::const_iterator current_element =
-			_json_providers.elements.begin();
-		current_element != _json_providers.elements.end();
-		++current_element)
+		sge::parse::json::element_vector::const_reference current_element
+		:
+		_json_providers.elements
+	)
 	{
 		fcppt::string const uri =
 			sge::parse::json::find_and_convert_member<fcppt::string>(
 				sge::parse::json::convert_from<sge::parse::json::object>(
-					*current_element),
+					current_element),
 				sge::parse::json::path(
 					FCPPT_TEXT("url")));
 
