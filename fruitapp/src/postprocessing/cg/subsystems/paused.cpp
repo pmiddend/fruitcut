@@ -9,7 +9,6 @@
 #include <sge/timer/parameters.hpp>
 #include <sge/timer/reset_when_expired.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/assign/make_container.hpp>
 
 
 fruitapp::postprocessing::cg::subsystems::paused::paused(
@@ -53,8 +52,10 @@ fruitapp::postprocessing::cg::subsystems::paused::paused(
 	system_.add_filter(
 		blur_,
 		FCPPT_TEXT("blur"),
-		fcppt::assign::make_container<fruitlib::pp::dependency_set>
-			(FCPPT_TEXT("inject_texture")));
+		fruitlib::pp::dependency_set{
+			FCPPT_TEXT("inject_texture")
+		}
+	);
 }
 
 void

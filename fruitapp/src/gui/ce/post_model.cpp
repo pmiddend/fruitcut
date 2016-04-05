@@ -11,7 +11,6 @@
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/assign/make_container.hpp>
 #include <fcppt/optional/maybe.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -193,19 +192,20 @@ fruitapp::gui::ce::post_model::update()
 		connection->connection().update();
 }
 
-fruitapp::gui::ce::table::column_sequence const
+fruitapp::gui::ce::table::column_sequence
 fruitapp::gui::ce::post_model::columns() const
 {
 	return
-		fcppt::assign::make_container<fruitapp::gui::ce::table::column_sequence>
-			(fruitapp::gui::ce::table::column(
+		fruitapp::gui::ce::table::column_sequence{
+			fruitapp::gui::ce::table::column(
 				FCPPT_TEXT("Provider"),
 				static_cast<fruitapp::gui::ce::table::column::width_type>(
-					0.9)))
-			(fruitapp::gui::ce::table::column(
+					0.9)),
+			fruitapp::gui::ce::table::column(
 				FCPPT_TEXT("Rank"),
 				static_cast<fruitapp::gui::ce::table::column::width_type>(
-					0.1)));
+					0.1))
+		};
 }
 
 fcppt::signal::auto_connection

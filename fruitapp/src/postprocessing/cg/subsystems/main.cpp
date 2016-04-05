@@ -6,7 +6,6 @@
 #include <sge/parse/json/string_to_path.hpp>
 #include <sge/renderer/clear/parameters.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/assign/make_container.hpp>
 
 
 fruitapp::postprocessing::cg::subsystems::main::main(
@@ -83,27 +82,35 @@ fruitapp::postprocessing::cg::subsystems::main::main(
 	system_.add_filter(
 		highlight_filter_,
 		FCPPT_TEXT("highlight"),
-		fcppt::assign::make_container<fruitlib::pp::dependency_set>
-			(FCPPT_TEXT("source")));
+		fruitlib::pp::dependency_set{
+			FCPPT_TEXT("source")
+		}
+	);
 
 	system_.add_filter(
 		blur_filter_,
 		FCPPT_TEXT("blur"),
-		fcppt::assign::make_container<fruitlib::pp::dependency_set>
-			(FCPPT_TEXT("highlight")));
+		fruitlib::pp::dependency_set{
+			FCPPT_TEXT("highlight")
+		}
+	);
 
 	system_.add_filter(
 		add_filter_,
 		FCPPT_TEXT("add"),
-		fcppt::assign::make_container<fruitlib::pp::dependency_set>
-			(FCPPT_TEXT("blur"))
-			(FCPPT_TEXT("source")));
+		fruitlib::pp::dependency_set{
+			FCPPT_TEXT("blur"),
+			FCPPT_TEXT("source")
+		}
+	);
 
 	system_.add_filter(
 		desaturate_filter_,
 		FCPPT_TEXT("desaturate"),
-		fcppt::assign::make_container<fruitlib::pp::dependency_set>
-			(FCPPT_TEXT("add")));
+		fruitlib::pp::dependency_set{
+			FCPPT_TEXT("add")
+		}
+	);
 }
 
 void

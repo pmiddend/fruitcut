@@ -83,7 +83,6 @@
 #include <fcppt/nonassignable.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/assign/make_container.hpp>
 #include <fcppt/container/bitfield/object_impl.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
 #include <fcppt/optional/deref.hpp>
@@ -189,15 +188,21 @@ fruitapp::machine_impl::machine_impl(
 								FCPPT_TEXT("window-size")))))))
 			(sge::systems::font())
 			(sge::systems::audio_player_default())
-			(sge::systems::audio_loader(
-				sge::media::optional_extension_set(
-					fcppt::assign::make_container<sge::media::extension_set>
-						(sge::media::extension(FCPPT_TEXT("wav")))
-						(sge::media::extension(FCPPT_TEXT("ogg"))))))
-			(sge::systems::image2d(
-				sge::media::optional_extension_set(
-					fcppt::assign::make_container<sge::media::extension_set>
-						(sge::media::extension(FCPPT_TEXT("png"))))))
+			(sge::systems::audio_loader{
+				sge::media::optional_extension_set{
+					sge::media::extension_set{
+						sge::media::extension{FCPPT_TEXT("wav")},
+						sge::media::extension{FCPPT_TEXT("ogg")}
+					}
+				}
+			})
+			(sge::systems::image2d{
+				sge::media::optional_extension_set{
+					sge::media::extension_set{
+						sge::media::extension{FCPPT_TEXT("png")}
+					}
+				}
+			})
 			(sge::systems::input(
 				sge::systems::cursor_option_field::null()))),
 	texture_manager_(

@@ -27,7 +27,7 @@ FCPPT_NONCOPYABLE(
 public:
 	get_model();
 
-	fruitapp::gui::ce::table::column_sequence const
+	fruitapp::gui::ce::table::column_sequence
 	columns() const;
 
 	fcppt::signal::auto_connection

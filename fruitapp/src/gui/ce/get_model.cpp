@@ -4,7 +4,6 @@
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/insert_to_fcppt_string.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/assign/make_container.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/date_time/c_local_time_adjustor.hpp>
@@ -22,27 +21,28 @@ fruitapp::gui::ce::get_model::get_model()
 {
 }
 
-fruitapp::gui::ce::table::column_sequence const
+fruitapp::gui::ce::table::column_sequence
 fruitapp::gui::ce::get_model::columns() const
 {
 	return
-		fcppt::assign::make_container<fruitapp::gui::ce::table::column_sequence>
-			(fruitapp::gui::ce::table::column(
+		fruitapp::gui::ce::table::column_sequence{
+			fruitapp::gui::ce::table::column(
 				FCPPT_TEXT("Nr."),
 				static_cast<fruitapp::gui::ce::table::column::width_type>(
-					0.1)))
-			(fruitapp::gui::ce::table::column(
+					0.1)),
+			fruitapp::gui::ce::table::column(
 				FCPPT_TEXT("Name"),
 				static_cast<fruitapp::gui::ce::table::column::width_type>(
-					0.5)))
-			(fruitapp::gui::ce::table::column(
+					0.5)),
+			fruitapp::gui::ce::table::column(
 				FCPPT_TEXT("Score"),
 				static_cast<fruitapp::gui::ce::table::column::width_type>(
-					0.2)))
-			(fruitapp::gui::ce::table::column(
+					0.2)),
+			fruitapp::gui::ce::table::column(
 				FCPPT_TEXT("Date"),
 				static_cast<fruitapp::gui::ce::table::column::width_type>(
-					0.2)));
+					0.2))
+		};
 }
 
 fcppt::signal::auto_connection
