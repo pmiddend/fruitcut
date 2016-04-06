@@ -5,7 +5,6 @@
 #include <fcppt/config/external_begin.hpp>
 #include <CEGUI/Window.h>
 #include <CEGUI/widgets/Slider.h>
-#include <functional>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -22,18 +21,44 @@ fruitapp::gui::ce::slider::object::object(
 		_window.subscribeEvent(
 			CEGUI::Slider::EventValueChanged,
 			CEGUI::Event::Subscriber(
-				std::bind(
-					&fruitapp::gui::ce::slider::object::internal_value_changed_callback,
-					this,
-					std::placeholders::_1)))),
+				[
+					this
+				](
+					CEGUI::EventArgs const &_args
+				)
+				-> bool
+				{
+					value_changed_signal_(
+						static_cast<CEGUI::Slider &>(
+							*static_cast<CEGUI::WindowEventArgs const &>(
+								_args).window).getCurrentValue() +
+						range_.min());
+					return
+						true;
+				}
+			)
+		)
+	),
 	value_change_complete_connection_(
 		_window.subscribeEvent(
 			CEGUI::Slider::EventThumbTrackEnded,
 			CEGUI::Event::Subscriber(
-				std::bind(
-					&fruitapp::gui::ce::slider::object::internal_value_change_complete_callback,
-					this,
-					std::placeholders::_1)))),
+				[
+					this
+				](
+					CEGUI::EventArgs const &
+				)
+				-> bool
+				{
+					sound_controller_.play(
+						fruitlib::resource_tree::path(
+							FCPPT_TEXT("button_clicked")));
+					return
+						true;
+				}
+			)
+		)
+	),
 	range_(
 		_range)
 {
@@ -57,28 +82,4 @@ fruitapp::gui::ce::slider::object::value_changed(
 
 fruitapp::gui::ce::slider::object::~object()
 {
-}
-
-bool
-fruitapp::gui::ce::slider::object::internal_value_changed_callback(
-	CEGUI::EventArgs const &_args)
-{
-	value_changed_signal_(
-		static_cast<CEGUI::Slider &>(
-			*static_cast<CEGUI::WindowEventArgs const &>(
-				_args).window).getCurrentValue() +
-		range_.min());
-	return
-		true;
-}
-
-bool
-fruitapp::gui::ce::slider::object::internal_value_change_complete_callback(
-	CEGUI::EventArgs const &)
-{
-	sound_controller_.play(
-		fruitlib::resource_tree::path(
-			FCPPT_TEXT("button_clicked")));
-	return
-		true;
 }

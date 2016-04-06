@@ -3,7 +3,6 @@
 #include <fcppt/config/external_begin.hpp>
 #include <CEGUI/widgets/Combobox.h>
 #include <CEGUI/widgets/ListboxTextItem.h>
-#include <functional>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -19,10 +18,26 @@ fruitapp::gui::ce::combobox::combobox(
 			// CEGUI::Combobox::EventListSelectionChanged is wrong, this is
 			// called when the mouse hovers over an item while selecting
 			CEGUI::Combobox::EventListSelectionAccepted,
-			std::bind(
-				&combobox::selection_changed,
-				this,
-				std::placeholders::_1)))
+			[
+				this
+			](
+				CEGUI::EventArgs const &
+			)
+			-> bool
+			{
+				CEGUI::ListboxItem const * const selected =
+					impl_.getSelectedItem();
+
+				if(selected)
+					callbacks_[
+						static_cast<callback_sequence::size_type>(
+							impl_.getItemIndex(
+								selected))]();
+				return
+					true;
+			}
+		)
+	)
 {
 }
 
@@ -54,20 +69,4 @@ fruitapp::gui::ce::combobox::add(
 
 fruitapp::gui::ce::combobox::~combobox()
 {
-}
-
-bool
-fruitapp::gui::ce::combobox::selection_changed(
-	CEGUI::EventArgs const &)
-{
-	CEGUI::ListboxItem const * const selected =
-		impl_.getSelectedItem();
-
-	if(selected)
-		callbacks_[
-			static_cast<callback_sequence::size_type>(
-				impl_.getItemIndex(
-					selected))]();
-	return
-		true;
 }

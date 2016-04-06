@@ -35,6 +35,8 @@ public:
 		fruitlib::audio::sound_controller &,
  		CEGUI::Window &);
 
+	~button();
+
 	fcppt::signal::auto_connection
 	push_callback(
 		push_callback_function const &);
@@ -43,14 +45,6 @@ private:
 	CEGUI::Event::ScopedConnection push_connection_;
 	CEGUI::Event::ScopedConnection hover_connection_;
 	fcppt::signal::object<push_callback_type> push_signal_;
-
-	bool
-	internal_push_callback(
-		CEGUI::EventArgs const &);
-
-	bool
-	internal_hover_callback(
-		CEGUI::EventArgs const &);
 };
 }
 }

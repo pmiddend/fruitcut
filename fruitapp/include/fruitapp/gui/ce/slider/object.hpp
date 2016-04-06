@@ -50,14 +50,6 @@ private:
 	CEGUI::Event::ScopedConnection const value_changed_connection_;
 	CEGUI::Event::ScopedConnection const value_change_complete_connection_;
 	fruitapp::gui::ce::slider::range const range_;
-
-	bool
-	internal_value_changed_callback(
-		CEGUI::EventArgs const &);
-
-	bool
-	internal_value_change_complete_callback(
-		CEGUI::EventArgs const &);
 };
 }
 }

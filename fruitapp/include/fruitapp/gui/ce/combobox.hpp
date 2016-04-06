@@ -57,10 +57,6 @@ private:
 	CEGUI::Combobox &impl_;
 	callback_sequence callbacks_;
 	CEGUI::Event::ScopedConnection selection_changed_connection_;
-
-	bool
-	selection_changed(
-		CEGUI::EventArgs const &);
 };
 }
 }
