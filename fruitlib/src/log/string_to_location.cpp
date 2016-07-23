@@ -1,17 +1,16 @@
 #include <fruitlib/log/string_to_location.hpp>
 #include <fcppt/char_type.hpp>
 #include <fcppt/string.hpp>
+#include <fcppt/algorithm/fold.hpp>
 #include <fcppt/log/location.hpp>
+#include <fcppt/log/name.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/algorithm/string/split.hpp>
-#include <boost/phoenix/core.hpp>
-#include <boost/phoenix/operator.hpp>
-#include <boost/range/numeric.hpp>
 #include <vector>
 #include <fcppt/config/external_end.hpp>
 
 
-fcppt::log::location const
+fcppt::log::location
 fruitlib::log::string_to_location(
 	fcppt::string const &input,
 	fcppt::char_type const delimiter)
@@ -23,11 +22,34 @@ fruitlib::log::string_to_location(
 	output_vector parts;
 
 	return
- 		boost::accumulate(
+		fcppt::algorithm::fold(
 			boost::algorithm::split(
 				parts,
 				input,
-				boost::phoenix::arg_names::arg1 == delimiter),
+				[
+					delimiter
+				](
+					fcppt::char_type const _ch
+				)
+				{
+					return
+						_ch
+						==
+						delimiter;
+				}
+			),
 			fcppt::log::location(),
-			boost::phoenix::arg_names::arg1 / boost::phoenix::arg_names::arg2);
+			[](
+				fcppt::string const &_cur,
+				fcppt::log::location &&_state
+			)
+			{
+				return
+					_state
+					/
+					fcppt::log::name{
+						_cur
+					};
+			}
+		);
 }

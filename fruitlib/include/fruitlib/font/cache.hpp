@@ -11,6 +11,7 @@
 #include <sge/renderer/device/core_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/string.hpp>
+#include <fcppt/log/context_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
 #include <list>
@@ -28,6 +29,7 @@ FCPPT_NONCOPYABLE(
 	cache);
 public:
 	cache(
+		fcppt::log::context &,
 		sge::font::system &,
 		sge::image2d::system &,
 		sge::renderer::device::core const &,

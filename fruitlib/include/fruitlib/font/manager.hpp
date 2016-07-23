@@ -11,6 +11,7 @@
 #include <sge/renderer/texture/emulate_srgb.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/unique_ptr.hpp>
+#include <fcppt/log/context_fwd.hpp>
 
 
 namespace fruitlib
@@ -24,6 +25,7 @@ FCPPT_NONCOPYABLE(
 public:
 	FRUITLIB_DETAIL_SYMBOL
 	manager(
+		fcppt::log::context &,
 		sge::renderer::device::ffp &,
 		sge::renderer::texture::emulate_srgb,
 		sge::font::system &,

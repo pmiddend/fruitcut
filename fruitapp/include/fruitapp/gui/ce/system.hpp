@@ -16,6 +16,7 @@
 #include <sge/renderer/texture/emulate_srgb_fwd.hpp>
 #include <sge/viewport/manager_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/log/context_fwd.hpp>
 
 
 namespace fruitapp
@@ -32,6 +33,7 @@ FCPPT_NONCOPYABLE(
 	system);
 public:
 	system(
+		fcppt::log::context &,
 		fruitlib::scenic::parent const &,
 		sge::renderer::device::ffp &,
 		sge::image2d::system &,

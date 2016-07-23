@@ -17,6 +17,7 @@
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/pre_message.hpp>
+#include <fcppt/log/context_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/next_prior.hpp>
 #include <boost/filesystem/path.hpp>
@@ -26,6 +27,7 @@
 
 
 fruitlib::font::cache::cache(
+	fcppt::log::context &_log_context,
 	sge::font::system &_font_system,
 	sge::image2d::system &_image_loader,
 	sge::renderer::device::core const &_renderer,
@@ -99,6 +101,7 @@ fruitlib::font::cache::cache(
 			{
 				objects_.push_back(
 					sge::font::bitmap::create(
+						_log_context,
 						_base_path.get() / FCPPT_TEXT("fonts") / name,
 						_image_loader));
 

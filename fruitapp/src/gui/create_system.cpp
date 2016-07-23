@@ -10,11 +10,13 @@
 #include <sge/renderer/texture/emulate_srgb.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
+#include <fcppt/log/context_fwd.hpp>
 
 
 fruitapp::gui::system_unique_ptr
 fruitapp::gui::create_system(
 #ifdef FRUITAPP_USE_CEGUI
+	fcppt::log::context &_log_context,
 	fruitlib::scenic::parent const &_parent,
 	sge::renderer::device::ffp &_renderer,
 	sge::image2d::system &_image_system,
@@ -26,6 +28,7 @@ fruitapp::gui::create_system(
 	fruitlib::audio::sound_controller &_sound_controller,
 	sge::renderer::texture::emulate_srgb const _emulate_srgb
 #else
+	fcppt::log::context &,
 	fruitlib::scenic::parent const &,
 	sge::renderer::device::ffp &,
 	sge::image2d::system &,
@@ -45,6 +48,7 @@ fruitapp::gui::create_system(
 		>(
 #ifdef FRUITAPP_USE_CEGUI
 			fcppt::make_unique_ptr<fruitapp::gui::ce::system>(
+				_log_context,
 				_parent,
 				_renderer,
 				_image_system,

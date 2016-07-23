@@ -10,7 +10,7 @@ namespace fruitlib
 {
 namespace log
 {
-fcppt::log::location const
+fcppt::log::location
 string_to_location(
 	fcppt::string const &,
 	fcppt::char_type delimiter);

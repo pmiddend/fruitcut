@@ -3,9 +3,11 @@
 #include <fruitlib/font/manager.hpp>
 #include <sge/renderer/device/ffp.hpp>
 #include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/log/context_fwd.hpp>
 
 
 fruitlib::font::manager::manager(
+	fcppt::log::context &_log_context,
 	sge::renderer::device::ffp &_renderer,
 	sge::renderer::texture::emulate_srgb const _emulate_srgb,
 	sge::font::system &_font_system,
@@ -19,6 +21,7 @@ fruitlib::font::manager::manager(
 		_emulate_srgb),
 	cache_(
 		fcppt::make_unique_ptr<fruitlib::font::cache>(
+			_log_context,
 			_font_system,
 			_texture_manager.image_system(),
 			_renderer,

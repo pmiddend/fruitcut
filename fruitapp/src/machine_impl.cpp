@@ -32,7 +32,6 @@
 #include <sge/input/key/code.hpp>
 #include <sge/input/keyboard/action.hpp>
 #include <sge/input/keyboard/device.hpp>
-#include <sge/log/global_context.hpp>
 #include <sge/media/extension.hpp>
 #include <sge/media/extension_set.hpp>
 #include <sge/media/optional_extension_set.hpp>
@@ -224,7 +223,10 @@ fruitapp::machine_impl::machine_impl(
 			optional_shader_context()
 	),
 	md3_loader_(
-		sge::model::md3::create()),
+		sge::model::md3::create(
+			systems_.log_context()
+		)
+	),
 	viewport_manager_(
 		systems_.viewport_manager(),
 		systems_.renderer_device_core().onscreen_target()),
@@ -235,6 +237,7 @@ fruitapp::machine_impl::machine_impl(
 			graphics_settings_,
 			config_file_)),
 	font_manager_(
+		systems_.log_context(),
 		systems_.renderer_device_ffp(),
 		emulate_srgb_,
 		systems_.font_system(),
@@ -245,7 +248,7 @@ fruitapp::machine_impl::machine_impl(
 			fruitapp::media_path())),
 	activated_loggers_(
 		fruitlib::log::scoped_sequence_from_json(
-			sge::log::global_context(),
+			systems_.log_context(),
 			sge::parse::json::find_and_convert_member<sge::parse::json::array>(
 				config_file_,
 				sge::parse::json::path(
@@ -391,6 +394,7 @@ fruitapp::machine_impl::machine_impl(
 		*postprocessing_system_),
 	gui_system_(
 		fruitapp::gui::create_system(
+			systems_.log_context(),
 			fruitlib::scenic::parent(
 				this->overlay_node(),
 				fruitlib::scenic::depth(

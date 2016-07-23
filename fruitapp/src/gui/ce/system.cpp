@@ -11,12 +11,14 @@
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
+#include <fcppt/log/context_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <memory>
 #include <fcppt/config/external_end.hpp>
 
 
 fruitapp::gui::ce::system::system(
+	fcppt::log::context &_log_context,
 	fruitlib::scenic::parent const &_overlay_node,
 	sge::renderer::device::ffp &_renderer,
 	sge::image2d::system &_image_system,
@@ -36,6 +38,7 @@ fruitapp::gui::ce::system::system(
 	overlay_node_(
 		_overlay_node),
 	gui_system_(
+		_log_context,
 		sge::cegui::load_context(
 			fruitapp::media_path()/FCPPT_TEXT("gui")/FCPPT_TEXT("fruitcut.scheme"))
 			.font_directory(
@@ -46,6 +49,7 @@ fruitapp::gui::ce::system::system(
 		sge::cegui::cursor_visibility::invisible,
 		_emulate_srgb),
 	gui_syringe_(
+		_log_context,
 		gui_system_),
 	standard_clock_callback_(
 		_standard_clock_callback)

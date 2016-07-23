@@ -12,6 +12,7 @@
 #include <sge/renderer/device/ffp_fwd.hpp>
 #include <sge/renderer/texture/emulate_srgb_fwd.hpp>
 #include <sge/viewport/manager_fwd.hpp>
+#include <fcppt/log/context_fwd.hpp>
 
 
 namespace fruitapp
@@ -20,6 +21,7 @@ namespace gui
 {
 fruitapp::gui::system_unique_ptr
 create_system(
+	fcppt::log::context &,
 	fruitlib::scenic::parent const &,
 	sge::renderer::device::ffp &,
 	sge::image2d::system &,
