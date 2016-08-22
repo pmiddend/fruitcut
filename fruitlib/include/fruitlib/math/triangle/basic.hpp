@@ -8,6 +8,7 @@
 #include <fcppt/config/external_begin.hpp>
 #include <algorithm>
 #include <array>
+#include <ostream>
 #include <fcppt/config/external_end.hpp>
 
 
