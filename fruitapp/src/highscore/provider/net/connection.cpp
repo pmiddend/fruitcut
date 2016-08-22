@@ -25,6 +25,7 @@
 #include <fcppt/config/external_begin.hpp>
 #include <functional>
 #include <iomanip>
+#include <sstream>
 #include <string>
 #include <fcppt/config/external_end.hpp>
 
@@ -38,7 +39,7 @@ parse_content_size(
 	fcppt::io::istringstream ss(
 		s);
 	std::string::size_type result;
-	if (!(ss >> std::hex >> std::setfill(FCPPT_TEXT('0')) >> std::setw(8) >> result))
+	if (!(ss >> std::hex >> std::setw(8) >> result))
 		return fcppt::optional::object<std::string::size_type>();
 	return
 		fcppt::optional::object<std::string::size_type>(

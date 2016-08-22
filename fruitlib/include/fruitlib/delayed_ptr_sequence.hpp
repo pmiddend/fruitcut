@@ -30,7 +30,9 @@ public:
 	typedef
 	PtrContainer<
 		unique_value_ptr,
-		std::allocator<T>
+		std::allocator<
+			unique_value_ptr
+		>
 	>
 	implementation_sequence;
 

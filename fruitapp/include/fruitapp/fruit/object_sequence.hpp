@@ -4,7 +4,7 @@
 #include <fruitapp/fruit/object.hpp>
 #include <fruitlib/delayed_ptr_sequence.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/ptr_container/ptr_list.hpp>
+#include <list>
 #include <fcppt/config/external_end.hpp>
 
 
