@@ -35,10 +35,13 @@ public:
 	fruitlib::pp::texture::counted_instance const
 	apply(
 		fruitlib::pp::texture::counted_instance,
-		fruitlib::pp::texture::counted_instance);
+		fruitlib::pp::texture::counted_instance
+	)
+	override;
 
 	FRUITLIB_DETAIL_SYMBOL
-	~add();
+	~add()
+	override;
 private:
 	fruitlib::pp::filter::manager &filter_manager_;
 	fruitlib::pp::texture::manager &texture_manager_;

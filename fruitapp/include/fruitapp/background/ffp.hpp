@@ -29,9 +29,12 @@ public:
 
 	void
 	render(
-		sge::renderer::context::core &);
+		sge::renderer::context::core &
+	)
+	override;
 
-	~ffp();
+	~ffp()
+	override;
 private:
 	sge::renderer::device::ffp &renderer_;
 	sge::camera::base const &camera_;

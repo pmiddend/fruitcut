@@ -39,24 +39,34 @@ public:
 
 	fcppt::signal::auto_connection
 	register_back_callback(
-		fruitapp::gui::dialogs::highscore::back_callback const &);
+		fruitapp::gui::dialogs::highscore::back_callback const &
+	)
+	override;
 
 	fcppt::signal::auto_connection
 	register_switch_provider_callback(
-		fruitapp::gui::dialogs::highscore::switch_provider_callback const &);
+		fruitapp::gui::dialogs::highscore::switch_provider_callback const &
+	)
+	override;
 
 	void
-	clear_log();
+	clear_log()
+	override;
 
 	void
 	append_log(
-		fcppt::string const &);
+		fcppt::string const &
+	)
+	override;
 
 	void
 	process_list(
-		fruitapp::highscore::entry_set const &);
+		fruitapp::highscore::entry_set const &
+	)
+	override;
 
-	~highscore();
+	~highscore()
+	override;
 private:
 	typedef
 	fcppt::signal::object<fruitapp::gui::dialogs::highscore::switch_provider_function>

@@ -28,21 +28,27 @@ public:
 	get_model();
 
 	fruitapp::gui::ce::table::column_sequence
-	columns() const;
+	columns() const
+	override;
 
 	fcppt::signal::auto_connection
 	row_added(
-		fruitapp::gui::ce::table::row_added const &);
+		fruitapp::gui::ce::table::row_added const &
+	)
+	override;
 
 	fcppt::signal::auto_connection
 	row_removed(
-		fruitapp::gui::ce::table::row_removed const &);
+		fruitapp::gui::ce::table::row_removed const &
+	)
+	override;
 
 	void
 	reset(
 		fruitapp::highscore::entry_set const &);
 
-	~get_model();
+	~get_model()
+	override;
 private:
 	fcppt::signal::object<fruitapp::gui::ce::table::row_added_fn> row_added_;
 	fcppt::signal::object<fruitapp::gui::ce::table::row_removed_fn> row_removed_;

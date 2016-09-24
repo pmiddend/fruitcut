@@ -29,10 +29,12 @@ public:
 		fruitlib::pp::texture::counted_instance const &);
 
 	fruitlib::pp::texture::counted_instance const
-	apply();
+	apply()
+	override;
 
 	FRUITLIB_DETAIL_SYMBOL
-	~inject_texture();
+	~inject_texture()
+	override;
 private:
 	fruitlib::pp::texture::counted_instance texture_counted_;
 };

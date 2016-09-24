@@ -138,7 +138,8 @@ fruitlib::physics::debugger::active() const
 fruitlib::physics::debugger::~debugger()
 {
 	world_.handle().setDebugDrawer(
-		0);
+		nullptr
+	);
 }
 
 // @override

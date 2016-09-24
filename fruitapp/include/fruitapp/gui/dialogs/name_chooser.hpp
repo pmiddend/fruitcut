@@ -46,7 +46,7 @@ public:
 	register_restart_callback(
 		restart_callback const &) = 0;
 
-	virtual fcppt::string const
+	virtual fcppt::string
 	name() const = 0;
 
 	virtual void

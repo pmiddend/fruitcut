@@ -40,21 +40,30 @@ public:
 
 	fcppt::signal::auto_connection
 	register_effects_volume_change_callback(
-		fruitapp::gui::dialogs::settings::volume_change_callback const &);
+		fruitapp::gui::dialogs::settings::volume_change_callback const &
+	)
+	override;
 
 	fcppt::signal::auto_connection
 	register_music_volume_change_callback(
-		fruitapp::gui::dialogs::settings::volume_change_callback const &);
+		fruitapp::gui::dialogs::settings::volume_change_callback const &
+	)
+	override;
 
 	fcppt::signal::auto_connection
 	register_quality_change_callback(
-		fruitapp::gui::dialogs::settings::quality_change_callback const &);
+		fruitapp::gui::dialogs::settings::quality_change_callback const &
+	)
+	override;
 
 	fcppt::signal::auto_connection
 	register_back_callback(
-		fruitapp::gui::dialogs::settings::back_callback const &);
+		fruitapp::gui::dialogs::settings::back_callback const &
+	)
+	override;
 
-	~settings();
+	~settings()
+	override;
 private:
 	typedef
 	fcppt::signal::object<fruitapp::gui::dialogs::settings::volume_change_function>

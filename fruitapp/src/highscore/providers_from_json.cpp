@@ -14,7 +14,11 @@
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
+#include <fcppt/config/compiler.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/algorithm/string/replace.hpp>
 #include <boost/config/warning_disable.hpp>
@@ -64,6 +68,11 @@ fruitapp::highscore::providers_from_json(
 		as_fcppt_string_type const as_fcppt_string =
 			as_fcppt_string_type();
 
+FCPPT_PP_PUSH_WARNING
+#if defined(FCPPT_CONFIG_GNU_GCC_COMPILER)
+FCPPT_PP_DISABLE_GCC_WARNING(-Wzero-as-null-pointer-constant)
+#endif
+
 		bool const parse_result =
 			qi::parse(
 				current_position,
@@ -73,6 +82,8 @@ fruitapp::highscore::providers_from_json(
 				(
 					((as_fcppt_string[+~qi::standard_wide::char_(FCPPT_TEXT(':'))])[boost::phoenix::ref(address) = qi::_1] >> qi::lit(FCPPT_TEXT(':')) >> qi::uint_[boost::phoenix::ref(port) = qi::_1]) |
 					(as_fcppt_string[+qi::standard_wide::char_])[boost::phoenix::ref(address) = qi::_1]));
+
+FCPPT_PP_POP_WARNING
 
 		if(!parse_result || current_position != uri.end())
 			throw

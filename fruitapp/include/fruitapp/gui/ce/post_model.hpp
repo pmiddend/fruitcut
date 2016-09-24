@@ -63,17 +63,23 @@ public:
 	update();
 
 	fruitapp::gui::ce::table::column_sequence
-	columns() const;
+	columns() const
+	override;
 
 	fcppt::signal::auto_connection
 	row_added(
-		fruitapp::gui::ce::table::row_added const &);
+		fruitapp::gui::ce::table::row_added const &
+	)
+	override;
 
 	fcppt::signal::auto_connection
 	row_removed(
-		fruitapp::gui::ce::table::row_removed const &);
+		fruitapp::gui::ce::table::row_removed const &
+	)
+	override;
 
-	~post_model();
+	~post_model()
+	override;
 private:
 	class connection_wrapper
 	{

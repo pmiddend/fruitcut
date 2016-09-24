@@ -43,10 +43,12 @@ public:
 		fruitlib::pp::texture::depth_stencil_format::type);
 
 	fruitlib::pp::texture::counted_instance const
-	apply();
+	apply()
+	override;
 
 	FRUITLIB_DETAIL_SYMBOL
-	~render_to_texture();
+	~render_to_texture()
+	override;
 private:
 	fruitlib::pp::filter::manager &filter_manager_;
 	texture::manager &texture_manager_;

@@ -26,5 +26,6 @@ fruitlib::physics::null_collision_filter::needBroadphaseCollision(
 fruitlib::physics::null_collision_filter::~null_collision_filter()
 {
 	world_.handle().getPairCache()->setOverlapFilterCallback(
-		0);
+		nullptr
+	);
 }

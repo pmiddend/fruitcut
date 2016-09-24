@@ -48,31 +48,44 @@ public:
 	void
 	post_rank(
 		highscore::name const &,
-		highscore::score const &);
+		highscore::score const &
+	)
+	override;
 
 	void
-	retrieve_list();
+	retrieve_list()
+	override;
 
 	void
-	update();
+	update()
+	override;
 
 	fcppt::signal::auto_connection
 	message_received(
-		callbacks::message_received const &);
+		callbacks::message_received const &
+	)
+	override;
 
 	fcppt::signal::auto_connection
 	error_received(
-		callbacks::error_received const &);
+		callbacks::error_received const &
+	)
+	override;
 
 	fcppt::signal::auto_connection
 	list_received(
-		callbacks::list_received const &);
+		callbacks::list_received const &
+	)
+	override;
 
 	fcppt::signal::auto_connection
 	rank_received(
-		callbacks::rank_received const &);
+		callbacks::rank_received const &
+	)
+	override;
 
-	~connection();
+	~connection()
+	override;
 private:
 	net::host::value_type const host_;
 	net::port::value_type const port_;

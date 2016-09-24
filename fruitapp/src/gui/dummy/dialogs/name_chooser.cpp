@@ -59,7 +59,7 @@ fruitapp::gui::dummy::dialogs::name_chooser::register_restart_callback(
 			_f);
 }
 
-fcppt::string const
+fcppt::string
 fruitapp::gui::dummy::dialogs::name_chooser::name() const
 {
 	return

@@ -38,25 +38,35 @@ public:
 
 	fcppt::signal::auto_connection
 	register_highscore_callback(
-		fruitapp::gui::dialogs::ranking::highscore_callback const &);
+		fruitapp::gui::dialogs::ranking::highscore_callback const &
+	)
+	override;
 
 	fcppt::signal::auto_connection
 	register_main_menu_callback(
-		fruitapp::gui::dialogs::ranking::main_menu_callback const &);
+		fruitapp::gui::dialogs::ranking::main_menu_callback const &
+	)
+	override;
 
 	void
 	append_log(
-		fcppt::string const &);
+		fcppt::string const &
+	)
+	override;
 
 	void
 	post(
 		fruitapp::highscore::name const &,
-		fruitapp::highscore::score const &);
+		fruitapp::highscore::score const &
+	)
+	override;
 
 	void
-	update();
+	update()
+	override;
 
-	~ranking();
+	~ranking()
+	override;
 private:
 	fruitlib::scenic::adaptors::ce::gui_system gui_node_;
 	sge::cegui::default_focus gui_keyboard_;

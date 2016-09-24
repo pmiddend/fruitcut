@@ -18,7 +18,7 @@ class object_base
 FCPPT_NONCOPYABLE(
 	object_base);
 public:
-	virtual provider::identifier::value_type const
+	virtual provider::identifier::value_type
 	identifier() const = 0;
 
 	virtual provider::connection_base_ptr

@@ -33,19 +33,26 @@ public:
 
 	sge::audio::listener &
 	listener()
+	override
 	FCPPT_PP_CONST;
 
 	void
 	speed_of_sound(
-		sge::audio::scalar);
+		sge::audio::scalar
+	)
+	override;
 
 	void
 	doppler_factor(
-		sge::audio::scalar);
+		sge::audio::scalar
+	)
+	override;
 
 	void
 	gain(
-		sge::audio::scalar);
+		sge::audio::scalar
+	)
+	override;
 
 	sge::audio::scalar
 	gain() const
@@ -53,7 +60,8 @@ public:
 
 	void
 	pitch(
-		sge::audio::scalar);
+		sge::audio::scalar
+	);
 
 	sge::audio::scalar
 	pitch() const
@@ -61,26 +69,34 @@ public:
 
 	sge::audio::buffer_unique_ptr
 	create_buffer(
-		sge::audio::file &)
+		sge::audio::file &
+	)
+	override
 	FCPPT_PP_WARN_UNUSED_RESULT;
 
 	sge::audio::sound::positional_unique_ptr
 	create_positional_stream(
 		sge::audio::file &,
-		sge::audio::sound::positional_parameters const &)
+		sge::audio::sound::positional_parameters const &
+	)
+	override
 	FCPPT_PP_WARN_UNUSED_RESULT;
 
 	sge::audio::sound::base_unique_ptr
 	create_nonpositional_stream(
 		sge::audio::file &,
-		sge::audio::sound::nonpositional_parameters const &)
+		sge::audio::sound::nonpositional_parameters const &
+	)
+	override
 	FCPPT_PP_WARN_UNUSED_RESULT;
 
 	bool
 	is_null() const
+	override
 	FCPPT_PP_PURE;
 
-	~player();
+	~player()
+	override;
 private:
 	friend class group::buffer;
 	friend class group::sound_base;

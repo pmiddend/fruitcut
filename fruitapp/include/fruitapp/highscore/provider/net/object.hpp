@@ -29,13 +29,16 @@ public:
 		net::host const &,
 		net::port const &);
 
-	provider::identifier::value_type const
-	identifier() const;
+	provider::identifier::value_type
+	identifier() const
+	override;
 
 	provider::connection_base_ptr
-	create_connection();
+	create_connection()
+	override;
 
-	~object();
+	~object()
+	override;
 private:
 	net::host::value_type const host_;
 	net::port::value_type const port_;

@@ -38,13 +38,18 @@ public:
 	fruitapp::postprocessing::subsystems::main_unique_ptr
 	create_main_subsystem(
 		fruitlib::scenic::optional_parent const &,
-		fruitapp::postprocessing::render_callback const &);
+		fruitapp::postprocessing::render_callback const &
+	)
+	override;
 
 	fruitapp::postprocessing::subsystems::paused_unique_ptr
 	create_paused_subsystem(
-		fruitlib::scenic::optional_parent const &);
+		fruitlib::scenic::optional_parent const &
+	)
+	override;
 
-	~system();
+	~system()
+	override;
 private:
 	friend class fruitapp::postprocessing::cg::subsystems::main;
 	friend class fruitapp::postprocessing::cg::subsystems::paused;

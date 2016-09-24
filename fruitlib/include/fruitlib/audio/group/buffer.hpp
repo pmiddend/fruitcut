@@ -27,7 +27,6 @@ class buffer
 FCPPT_NONCOPYABLE(
 	buffer);
 public:
-	explicit
 	buffer(
 		group::player &,
 		sge::audio::file &,
@@ -36,11 +35,15 @@ public:
 
 	sge::audio::sound::positional_unique_ptr
 	create_positional(
-		sge::audio::sound::positional_parameters const &);
+		sge::audio::sound::positional_parameters const &
+	)
+	override;
 
 	sge::audio::sound::base_unique_ptr
 	create_nonpositional(
-		sge::audio::sound::nonpositional_parameters const &);
+		sge::audio::sound::nonpositional_parameters const &
+	)
+	override;
 
 	void
 	global_gain(
@@ -50,7 +53,8 @@ public:
 	global_pitch(
 		sge::audio::scalar);
 
-	~buffer();
+	~buffer()
+	override;
 private:
 	friend class group::sound_base;
 	friend class group::sound_positional;

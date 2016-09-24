@@ -19,8 +19,8 @@ class binary
 FCPPT_NONCOPYABLE(
 	binary);
 public:
-	virtual
-	~binary();
+	~binary()
+	override;
 
 	virtual fruitlib::pp::texture::counted_instance const
 	apply(

@@ -28,37 +28,49 @@ public:
 		group::buffer &,
 		sge::audio::sound::nonpositional_parameters const &,
 		sge::audio::scalar global_gain,
-		sge::audio::scalar global_pitch);
+		sge::audio::scalar global_pitch
+	);
 
 	sound_base(
 		group::player &,
 		sge::audio::sound::base_unique_ptr,
 		sge::audio::scalar global_gain,
-		sge::audio::scalar global_pitch);
+		sge::audio::scalar global_pitch
+	);
 
 	void
 	play(
-		sge::audio::sound::repeat);
+		sge::audio::sound::repeat
+	)
+	override;
 
 	void
-	toggle_pause();
+	toggle_pause()
+	override;
 
 	sge::audio::sound::play_status
-	status() const;
+	status() const
+	override;
 
 	void
 	gain(
-		sge::audio::scalar);
+		sge::audio::scalar
+	)
+	override;
 
 	void
 	pitch(
-		sge::audio::scalar);
+		sge::audio::scalar
+	)
+	override;
 
 	void
-	stop();
+	stop()
+	override;
 
 	void
-	update();
+	update()
+	override;
 
 	void
 	global_gain(

@@ -184,7 +184,7 @@ fruitapp::fruit::rendering::cg::render(
 		fruit_pointers);
 
 	fruitapp::fruit::prototype const *previous_prototype =
-		0;
+		nullptr;
 
 	for(
 		fruitapp::fruit::rendering::fruit_pointer_sequence::const_iterator i =

@@ -1,7 +1,11 @@
 #ifndef FRUITLIB_TIME_FORMAT_STRING_TO_DURATION_HPP_INCLUDED
 #define FRUITLIB_TIME_FORMAT_STRING_TO_DURATION_HPP_INCLUDED
 
+#include <fcppt/config/compiler.hpp>
 #include <fcppt/optional/object.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/optional.hpp>
 #include <boost/fusion/container/vector/vector10.hpp>
@@ -136,6 +140,11 @@ string_to_duration(
 
 	parse_result_type parse_result;
 
+FCPPT_PP_PUSH_WARNING
+#if defined(FCPPT_CONFIG_GNU_GCC_COMPILER)
+FCPPT_PP_DISABLE_GCC_WARNING(-Wzero-as-null-pointer-constant)
+#endif
+
 	boost::spirit::qi::parse(
 		it,
 		input_string.end(),
@@ -148,6 +157,8 @@ string_to_duration(
 		-(boost::spirit::qi::long_ >> boost::spirit::qi::lit('u') >> boost::spirit::qi::lit('s')) >>
 		-(boost::spirit::qi::long_ >> boost::spirit::qi::lit('n') >> boost::spirit::qi::lit('s')),
 		parse_result);
+
+FCPPT_PP_POP_WARNING
 
 	if(it != input_string.end())
 		return optional_duration();

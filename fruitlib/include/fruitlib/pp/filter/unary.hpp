@@ -19,8 +19,8 @@ class unary
 FCPPT_NONCOPYABLE(
 		unary);
 public:
-	virtual
-	~unary();
+	~unary()
+	override;
 
 	virtual fruitlib::pp::texture::counted_instance const
 	apply(

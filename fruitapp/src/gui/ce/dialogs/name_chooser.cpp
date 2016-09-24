@@ -74,7 +74,7 @@ fruitapp::gui::ce::dialogs::name_chooser::register_restart_callback(
 			_restart);
 }
 
-fcppt::string const
+fcppt::string
 fruitapp::gui::ce::dialogs::name_chooser::name() const
 {
 	return

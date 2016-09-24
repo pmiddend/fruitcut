@@ -29,13 +29,16 @@ public:
 	object(
 		boost::filesystem::path const &);
 
-	provider::identifier::value_type const
-	identifier() const;
+	provider::identifier::value_type
+	identifier() const
+	override;
 
 	provider::connection_base_ptr
-	create_connection();
+	create_connection()
+	override;
 
-	~object();
+	~object()
+	override;
 private:
 	boost::filesystem::path const path_;
 };

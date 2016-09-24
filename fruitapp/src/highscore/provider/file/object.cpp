@@ -17,7 +17,7 @@ fruitapp::highscore::provider::file::object::object(
 {
 }
 
-fruitapp::highscore::provider::identifier::value_type const
+fruitapp::highscore::provider::identifier::value_type
 fruitapp::highscore::provider::file::object::identifier() const
 {
 	return

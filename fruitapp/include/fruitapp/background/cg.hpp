@@ -34,9 +34,12 @@ public:
 
 	void
 	render(
-		sge::renderer::context::core &);
+		sge::renderer::context::core &
+	)
+	override;
 
-	~cg();
+	~cg()
+	override;
 private:
 	sge::camera::base const &camera_;
 	sge::shader::pair shader_;

@@ -29,21 +29,30 @@ public:
 
 	fcppt::signal::auto_connection
 	register_quit_callback(
-		fruitapp::gui::dialogs::main_menu::quit_callback const &);
+		fruitapp::gui::dialogs::main_menu::quit_callback const &
+	)
+	override;
 
 	fcppt::signal::auto_connection
 	register_settings_callback(
-		fruitapp::gui::dialogs::main_menu::settings_callback const &);
+		fruitapp::gui::dialogs::main_menu::settings_callback const &
+	)
+	override;
 
 	fcppt::signal::auto_connection
 	register_start_callback(
-		fruitapp::gui::dialogs::main_menu::start_callback const &);
+		fruitapp::gui::dialogs::main_menu::start_callback const &
+	)
+	override;
 
 	fcppt::signal::auto_connection
 	register_highscore_callback(
-		fruitapp::gui::dialogs::main_menu::highscore_callback const &);
+		fruitapp::gui::dialogs::main_menu::highscore_callback const &
+	)
+	override;
 
-	~main_menu();
+	~main_menu()
+	override;
 private:
 	fcppt::signal::object<void ()> quit_;
 	fcppt::signal::object<void ()> settings_;

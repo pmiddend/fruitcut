@@ -29,22 +29,31 @@ public:
 
 	fcppt::signal::auto_connection
 	register_highscore_callback(
-		fruitapp::gui::dialogs::ranking::highscore_callback const &);
+		fruitapp::gui::dialogs::ranking::highscore_callback const &
+	)
+	override;
 
 	fcppt::signal::auto_connection
 	register_main_menu_callback(
-		fruitapp::gui::dialogs::ranking::main_menu_callback const &);
+		fruitapp::gui::dialogs::ranking::main_menu_callback const &
+	)
+	override;
 
 	void
 	append_log(
-		fcppt::string const &);
+		fcppt::string const &
+	)
+	override;
 
 	void
 	post(
 		fruitapp::highscore::name const &,
-		fruitapp::highscore::score const &);
+		fruitapp::highscore::score const &
+	)
+	override;
 
-	~ranking();
+	~ranking()
+	override;
 private:
 	fcppt::signal::object<void ()> highscore_;
 	fcppt::signal::object<void ()> main_menu_;

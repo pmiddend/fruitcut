@@ -29,13 +29,16 @@ public:
 	object(
 		fruitapp::point_sprite::splatter::parameters const &);
 
-	~object();
+	~object()
+	override;
 private:
 	void
-	update();
+	update()
+	override;
 
 	bool
-	dead() const;
+	dead() const
+	override;
 
 	fruitapp::projection_manager::object const &projection_manager_;
 	fruitapp::point_sprite::splatter::position position_;

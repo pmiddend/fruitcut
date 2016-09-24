@@ -26,9 +26,12 @@ public:
 	bool
 	needBroadphaseCollision(
 		btBroadphaseProxy *,
-		btBroadphaseProxy *) const;
+		btBroadphaseProxy *
+	) const
+	override;
 
-	~null_collision_filter();
+	~null_collision_filter()
+	override;
 private:
 	world &world_;
 };

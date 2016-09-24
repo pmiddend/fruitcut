@@ -34,17 +34,24 @@ public:
 
 	fcppt::signal::auto_connection
 	register_game_callback(
-		fruitapp::gui::dialogs::ingame_menu::game_callback const &);
+		fruitapp::gui::dialogs::ingame_menu::game_callback const &
+	)
+	override;
 
 	fcppt::signal::auto_connection
 	register_main_menu_callback(
-		fruitapp::gui::dialogs::ingame_menu::main_menu_callback const &);
+		fruitapp::gui::dialogs::ingame_menu::main_menu_callback const &
+	)
+	override;
 
 	fcppt::signal::auto_connection
 	register_quit_callback(
-		fruitapp::gui::dialogs::ingame_menu::quit_callback const &);
+		fruitapp::gui::dialogs::ingame_menu::quit_callback const &
+	)
+	override;
 
-	~ingame_menu();
+	~ingame_menu()
+	override;
 private:
 	fruitlib::scenic::adaptors::ce::gui_system gui_node_;
 	sge::cegui::default_focus gui_keyboard_;

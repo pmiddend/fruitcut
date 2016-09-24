@@ -36,9 +36,12 @@ public:
 
 	void
 	render(
-		sge::renderer::context::core &);
+		sge::renderer::context::core &
+	)
+	override;
 
-	~cg();
+	~cg()
+	override;
 private:
 	fruitapp::fruit::manager const &manager_;
 	sge::camera::base const &camera_;

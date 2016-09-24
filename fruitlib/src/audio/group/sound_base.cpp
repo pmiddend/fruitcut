@@ -46,7 +46,7 @@ fruitlib::audio::group::sound_base::sound_base(
 	player_(
 		&_player),
 	buffer_(
-		0),
+		nullptr),
 	impl_(
 		std::move(
 			_impl)),

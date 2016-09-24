@@ -7,7 +7,7 @@ template<typename T>
 fruitlib::counted_reference<T>::counted_reference()
 :
 	ptr_(
-		0),
+		nullptr),
 	count_(
 		new size_type(
 			1)),

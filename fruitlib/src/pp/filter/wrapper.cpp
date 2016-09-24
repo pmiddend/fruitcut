@@ -7,7 +7,8 @@
 fruitlib::pp::filter::wrapper::wrapper()
 :
 	filter_(
-		0),
+		nullptr
+	),
 	name_(
 		FCPPT_TEXT("WHAT HAPPEN!?")),
 	active_(

@@ -19,8 +19,8 @@ class nullary
 FCPPT_NONCOPYABLE(
 	nullary);
 public:
-	virtual
-	~nullary();
+	~nullary()
+	override;
 
 	virtual fruitlib::pp::texture::counted_instance const
 	apply() = 0;

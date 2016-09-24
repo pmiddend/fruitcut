@@ -205,7 +205,7 @@ fruitapp::fruit::rendering::ffp::render(
 		fruit_pointers);
 
 	fruitapp::fruit::prototype const *previous_prototype =
-		0;
+		nullptr;
 
 	fcppt::optional::object<
 		sge::renderer::state::ffp::lighting::material::object_unique_ptr

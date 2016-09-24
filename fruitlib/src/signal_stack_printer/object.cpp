@@ -54,7 +54,7 @@ public:
 			signal_type_,
 			&old_sigaction_,
 			// Old action pointer
-			0);
+			nullptr);
 	}
 private:
 int const signal_type_;

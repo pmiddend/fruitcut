@@ -44,10 +44,13 @@ public:
 
 	fruitlib::pp::texture::counted_instance const
 	apply(
-		fruitlib::pp::texture::counted_instance);
+		fruitlib::pp::texture::counted_instance
+	)
+	override;
 
 	FRUITLIB_DETAIL_SYMBOL
-	~blur();
+	~blur()
+	override;
 private:
 	FCPPT_MAKE_STRONG_TYPEDEF(
 		std::size_t,

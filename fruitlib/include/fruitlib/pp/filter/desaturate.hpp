@@ -45,10 +45,13 @@ public:
 
 	fruitlib::pp::texture::counted_instance const
 	apply(
-		fruitlib::pp::texture::counted_instance);
+		fruitlib::pp::texture::counted_instance
+	)
+	override;
 
 	FRUITLIB_DETAIL_SYMBOL
-	~desaturate();
+	~desaturate()
+	override;
 private:
 	fruitlib::pp::filter::manager &filter_manager_;
 	texture::manager &texture_manager_;

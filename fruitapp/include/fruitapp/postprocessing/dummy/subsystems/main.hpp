@@ -27,13 +27,18 @@ public:
 
 	void
 	render_result(
-		sge::renderer::context::core &);
+		sge::renderer::context::core &
+	)
+	override;
 
 	void
 	loading_progress(
-		sge::renderer::scalar);
+		sge::renderer::scalar
+	)
+	override;
 
-	~main();
+	~main()
+	override;
 private:
 	fruitapp::postprocessing::render_callback const render_callback_;
 };

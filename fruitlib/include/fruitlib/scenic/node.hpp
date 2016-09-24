@@ -43,7 +43,9 @@ public:
 
 	void
 	process(
-		events::base const &e)
+		events::base const &e
+	)
+	override
 	{
 		this->process_impl<Derived>(
 			e);

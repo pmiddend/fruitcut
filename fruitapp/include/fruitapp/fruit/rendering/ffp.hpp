@@ -40,9 +40,12 @@ public:
 
 	void
 	render(
-		sge::renderer::context::core &);
+		sge::renderer::context::core &
+	)
+	override;
 
-	~ffp();
+	~ffp()
+	override;
 private:
 	sge::renderer::device::ffp &renderer_;
 	fruitapp::fruit::manager const &manager_;

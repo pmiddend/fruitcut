@@ -48,11 +48,15 @@ public:
 
 	void
 	render_result(
-		sge::renderer::context::core &);
+		sge::renderer::context::core &
+	)
+	override;
 
 	void
 	loading_progress(
-		sge::renderer::scalar);
+		sge::renderer::scalar
+	)
+	override;
 
 	void
 	react(
@@ -64,7 +68,8 @@ public:
 	fruitlib::pp::texture::counted_instance const
 	result_texture();
 
-	~main();
+	~main()
+	override;
 private:
 	fruitapp::postprocessing::cg::system &parent_system_;
 	bool active_;
