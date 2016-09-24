@@ -6,7 +6,7 @@
 #include <fcppt/log/context_fwd.hpp>
 #include <fcppt/log/level_fwd.hpp>
 #include <fcppt/log/location.hpp>
-#include <fcppt/log/setting.hpp>
+#include <fcppt/log/optional_level.hpp>
 
 
 namespace fruitlib
@@ -34,7 +34,7 @@ private:
 
 	fcppt::log::location const location_;
 
-	fcppt::log::setting const old_setting_;
+	fcppt::log::optional_level const old_level_;
 };
 
 }

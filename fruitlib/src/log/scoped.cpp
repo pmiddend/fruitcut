@@ -1,9 +1,8 @@
 #include <fruitlib/log/scoped.hpp>
 #include <fcppt/log/context.hpp>
-#include <fcppt/log/enabled_levels.hpp>
 #include <fcppt/log/level.hpp>
 #include <fcppt/log/location.hpp>
-#include <fcppt/log/setting.hpp>
+#include <fcppt/log/optional_level.hpp>
 
 
 fruitlib::log::scoped::scoped(
@@ -18,7 +17,7 @@ fruitlib::log::scoped::scoped(
 	location_{
 		_location
 	},
-	old_setting_(
+	old_level_(
 		_context.get(
 			_location
 		)
@@ -26,10 +25,8 @@ fruitlib::log::scoped::scoped(
 {
 	context_.set(
 		location_,
-		fcppt::log::setting{
-			fcppt::log::enabled_levels(
-				_new_level
-			)
+		fcppt::log::optional_level{
+			_new_level
 		}
 	);
 }
@@ -38,6 +35,6 @@ fruitlib::log::scoped::~scoped()
 {
 	context_.set(
 		location_,
-		old_setting_
+		old_level_
 	);
 }
