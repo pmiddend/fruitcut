@@ -38,10 +38,6 @@ find_package(
 find_package(
 	mizuiro REQUIRED)
 
-# FIXME
-find_package(
-	majutsu REQUIRED)
-
 # bullet begin
 find_package(
   Bullet REQUIRED)
