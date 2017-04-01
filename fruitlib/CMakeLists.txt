@@ -385,7 +385,7 @@ function(
 		TARGETS
 		${TARGET}
 		DESTINATION
-		${INSTALL_LIBRARY_DIR})
+		${CMAKE_INSTALL_LIBDIR})
 endfunction()
 
 if(

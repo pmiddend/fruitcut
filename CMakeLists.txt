@@ -6,10 +6,19 @@ project(
   fruitcut)
 
 include(
+	GNUInstallDirs)
+
+find_package(
+	fcppt REQUIRED)
+
+include(
   FcpptCMakeUtils)
 
 include(
   FindFcpptThreads)
+
+find_package(
+	awl REQUIRED)
 
 include(
   AwlMainGenerator)
@@ -30,12 +39,6 @@ add_definitions(
 # boost end
 
 find_package(
-	fcppt REQUIRED)
-
-find_package(
-	awl REQUIRED)
-
-find_package(
 	mizuiro REQUIRED)
 
 # bullet begin
@@ -44,15 +47,6 @@ find_package(
 include_directories(
   ${BULLET_INCLUDE_DIRS})
 # bullet end
-
-# cg begin
-find_package(
-	Cg REQUIRED)
-include_directories(
-	${Cg_INCLUDE_DIR})
-add_definitions(
-	${Cg_DEFINITIONS})
-# cg end
 
 OPTION(
   USE_CEGUI
@@ -98,6 +92,15 @@ FIND_PACKAGE(
 	viewport
 	window
 )
+
+# cg begin
+find_package(
+	Cg REQUIRED)
+include_directories(
+	${Cg_INCLUDE_DIR})
+add_definitions(
+	${Cg_DEFINITIONS})
+# cg end
 
 # cegui begin
 if(USE_CEGUI)

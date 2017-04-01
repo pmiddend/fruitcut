@@ -487,12 +487,9 @@ configure_file(
 	${CMAKE_SOURCE_DIR}/fruitapp/src/config.hpp.in
 	${CMAKE_BINARY_DIR}/include/fruitapp/config.hpp)
 
-fcppt_utils_install_data_dir(
-	INSTALL_DATA_DIR)
-
 set(
 	INSTALL_MEDIA_DIR
-	${INSTALL_DATA_DIR}/fruitapp_media)
+	${FCPPT_UTILS_INSTALL_DATA_DIR}/fruitapp_media)
 
 include(
 	SGECustomPath)
@@ -501,7 +498,7 @@ sge_config_add_custom_path(
 	fruitapp
 	fruitapp_media
 	${CMAKE_SOURCE_DIR}/fruitapp/fruitapp_media
-	${INSTALL_MEDIA_DIR}
+	${CMAKE_INSTALL_PREFIX}/${INSTALL_MEDIA_DIR}
 	MEDIA_INCLUDE_DIRS
 )
 
@@ -545,7 +542,7 @@ install(
 	TARGETS
 	fruitcut
 	DESTINATION
-	${INSTALL_BINARY_DIR})
+	${CMAKE_INSTALL_BINDIR})
 
 install(
 	DIRECTORY
