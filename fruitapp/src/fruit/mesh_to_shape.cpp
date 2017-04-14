@@ -2,10 +2,9 @@
 #include <fruitapp/fruit/mesh_to_shape.hpp>
 #include <fruitlib/physics/shared_shape_ptr.hpp>
 #include <fcppt/make_shared_ptr.hpp>
-#include <fcppt/container/raw_vector.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <BulletCollision/CollisionShapes/btConvexHullShape.h>
-#include <iostream>
+#include <vector>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -14,7 +13,7 @@ fruitapp::fruit::mesh_to_shape(
 	mesh const &m)
 {
 	typedef
-	fcppt::container::raw_vector<btScalar>
+	std::vector<btScalar>
 	scalar_vector;
 
 	scalar_vector points;
