@@ -29,7 +29,7 @@
 #include <sge/image/color/predef.hpp>
 #include <sge/image/color/rgba8.hpp>
 #include <sge/image/color/rgba8_format.hpp>
-#include <sge/image/color/any/convert.hpp>
+#include <sge/image/color/any/object.hpp>
 #include <sge/parse/json/find_and_convert_member.hpp>
 #include <sge/parse/json/object_fwd.hpp>
 #include <sge/parse/json/value.hpp>
@@ -269,7 +269,9 @@ fruitapp::game_logic::object::object(
 			fruitlib::font::align_h::center,
 			fruitlib::font::align_v::bottom,
 			sge::font::flags_field::null(),
-			sge::image::color::predef::white(),
+			sge::image::color::any::object{
+				sge::image::color::predef::white()
+			},
 			fruitlib::font::scale(
 				1.f))),
 	score_increase_timer_(
@@ -534,7 +536,10 @@ fruitapp::game_logic::object::fruit_cut(
 			fruitlib::font::scale(
 				2.0f));
 		multiplier_font_node_.object().color(
-			sge::image::color::predef::gray());
+			sge::image::color::any::object{
+				sge::image::color::predef::gray()
+			}
+		);
 	}
 	else
 	{
@@ -557,7 +562,10 @@ fruitapp::game_logic::object::fruit_cut(
 					_context.old().position())),
 			fruitapp::font_particle::lifetime(
 				2.0f),
-			sge::image::color::predef::white());
+			sge::image::color::any::object{
+				sge::image::color::predef::white()
+			}
+		);
 		/*
 		reset_text_and_center(
 			fcppt::insert_to_std_wstring(

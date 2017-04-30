@@ -94,7 +94,10 @@ fruit_material_to_ffp_material(
 				vector4_to_any_color(
 					_material.specular_color())),
 			sge::renderer::state::ffp::lighting::material::emissive_color(
-				sge::image::color::predef::black()),
+				sge::image::color::any::object{
+					sge::image::color::predef::black()
+				}
+			),
 			sge::renderer::state::ffp::lighting::material::shininess(
 				_material.specular_shininess()));
 }
@@ -106,11 +109,20 @@ ffp_light_from_directional_light_source(
 	return
 		sge::renderer::state::ffp::lighting::light::parameters(
 			sge::renderer::state::ffp::lighting::diffuse_color(
-				sge::image::color::predef::white()),
+				sge::image::color::any::object{
+					sge::image::color::predef::white()
+				}
+			),
 			sge::renderer::state::ffp::lighting::specular_color(
-				sge::image::color::predef::white()),
+				sge::image::color::any::object{
+					sge::image::color::predef::white()
+				}
+			),
 			sge::renderer::state::ffp::lighting::ambient_color(
-				sge::image::color::predef::white()),
+				sge::image::color::any::object{
+					sge::image::color::predef::white()
+				}
+			),
 			sge::renderer::state::ffp::lighting::light::variant(
 				sge::renderer::state::ffp::lighting::light::directional(
 					sge::renderer::state::ffp::lighting::light::direction(
@@ -149,7 +161,10 @@ fruitapp::fruit::rendering::ffp::ffp(
 				sge::renderer::state::ffp::lighting::variant(
 					sge::renderer::state::ffp::lighting::enabled(
 						sge::renderer::state::ffp::lighting::ambient_color(
-							sge::image::color::predef::white()),
+							sge::image::color::any::object{
+								sge::image::color::predef::white()
+							}
+						),
 						sge::renderer::state::ffp::lighting::diffuse_from_vertex(
 							false)))))),
 	light_(

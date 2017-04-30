@@ -6,6 +6,7 @@
 #include <fruitlib/scenic/events/render.hpp>
 #include <sge/image/color/format.hpp>
 #include <sge/image/color/predef.hpp>
+#include <sge/image/color/any/object.hpp>
 #include <sge/parse/json/find_and_convert_member.hpp>
 #include <sge/parse/json/object.hpp>
 #include <sge/renderer/dim2.hpp>
@@ -124,7 +125,11 @@ fruitapp::shadow_map::object::react(
 		sge::renderer::clear::parameters()
 			.back_buffer(
 				sge::renderer::clear::back_buffer_value(
-					sge::image::color::predef::black()))
+					sge::image::color::any::object{
+						sge::image::color::predef::black()
+					}
+				)
+			)
 			.depth_buffer(
 				sge::renderer::clear::depth_buffer_value(
 					1.0f)));
