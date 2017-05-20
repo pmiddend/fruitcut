@@ -1,3 +1,4 @@
+#include <fruitapp/exception.hpp>
 #include <fruitapp/name.hpp>
 #include <fruitapp/quick_log.hpp>
 #include <fruitapp/screen_shooter.hpp>
@@ -13,7 +14,10 @@
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/filesystem/create_directory_exn.hpp>
+#include <fcppt/either/error_from_optional.hpp>
+#include <fcppt/either/to_exception.hpp>
+#include <fcppt/filesystem/create_directory.hpp>
+#include <fcppt/filesystem/create_directory_error.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/io/cout.hpp>
 #include <fcppt/signal/auto_connection.hpp>
@@ -21,8 +25,8 @@
 #include <fcppt/config/external_begin.hpp>
 #include <boost/date_time/c_local_time_adjustor.hpp>
 #include <boost/date_time/posix_time/posix_time.hpp>
-#include <boost/filesystem/operations.hpp>
 #include <boost/filesystem/path.hpp>
+#include <boost/system/error_code.hpp>
 #include <functional>
 #include <fcppt/config/external_end.hpp>
 
@@ -75,9 +79,27 @@ fruitapp::screen_shooter::callback(
 				fruitapp::name()))
 			/ FCPPT_TEXT("screenshots");
 
-	if(!boost::filesystem::exists(target_dir))
-		fcppt::filesystem::create_directory_exn(
-			target_dir);
+	fcppt::either::to_exception(
+		fcppt::either::error_from_optional(
+			fcppt::filesystem::create_directory(
+				target_dir
+			)
+		),
+		[
+			&target_dir
+		](
+			boost::system::error_code const _error
+		)
+		{
+			return
+				fruitapp::exception{
+					fcppt::filesystem::create_directory_error(
+						target_dir,
+						_error
+					)
+				};
+		}
+	);
 
 	boost::filesystem::path const dest_path =
 		target_dir/(time_string+FCPPT_TEXT(".png"));
