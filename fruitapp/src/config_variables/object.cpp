@@ -7,11 +7,12 @@
 #include <sge/parse/json/path.hpp>
 #include <sge/parse/json/start.hpp>
 #include <sge/parse/json/output/tabbed_to_string.hpp>
+#include <fcppt/char_type.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/filesystem/ofstream.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <boost/filesystem/fstream.hpp>
 #include <iostream>
 #include <fcppt/config/external_end.hpp>
 
@@ -26,11 +27,17 @@ fruitapp::config_variables::object::destructor_write_hack::destructor_write_hack
 
 fruitapp::config_variables::object::destructor_write_hack::~destructor_write_hack()
 {
-	fcppt::filesystem::ofstream file(
+	boost::filesystem::basic_ofstream<
+		fcppt::char_type
+	> file(
 		sge::config::config_path(
 			sge::config::app_name(
-				fruitapp::name()))/
-			FCPPT_TEXT("config.json"));
+				fruitapp::name()
+			)
+		)
+		/
+		FCPPT_TEXT("config.json")
+	);
 
 	if(!file.is_open())
 	{
