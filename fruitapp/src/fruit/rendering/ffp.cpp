@@ -52,6 +52,7 @@
 #include <fcppt/reference_to_base.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/math/matrix/arithmetic.hpp>
+#include <fcppt/math/matrix/at_c.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
 #include <fcppt/math/vector/narrow_cast.hpp>
 #include <fcppt/optional/assign.hpp>
@@ -67,10 +68,12 @@ vector4_to_any_color(
 	return
 		sge::image::color::any::object(
 			sge::image::color::rgba32f(
-				(sge::image::color::init::red() = _input[0])
-				(sge::image::color::init::green() = _input[1])
-				(sge::image::color::init::blue() = _input[2])
-				(sge::image::color::init::alpha() = _input[3])));
+				(sge::image::color::init::red() = _input.x())
+				(sge::image::color::init::green() = _input.y())
+				(sge::image::color::init::blue() = _input.z())
+				(sge::image::color::init::alpha() = _input.w())
+			)
+		);
 }
 
 sge::renderer::state::ffp::lighting::material::parameters const
@@ -127,7 +130,16 @@ ffp_light_from_directional_light_source(
 				sge::renderer::state::ffp::lighting::light::directional(
 					sge::renderer::state::ffp::lighting::light::direction(
 						-fcppt::math::vector::narrow_cast<sge::renderer::vector3>(
-							_light.transformation()[2])))));
+							fcppt::math::matrix::at_c<
+								2
+							>(
+								_light.transformation()
+							)
+						)
+					)
+				)
+			)
+		);
 }
 }
 

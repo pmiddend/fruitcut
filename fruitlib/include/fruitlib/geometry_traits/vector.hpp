@@ -2,9 +2,9 @@
 #define FRUITLIB_GEOMETRY_TRAITS_VECTOR_HPP_INCLUDED
 
 #include <fruitlib/def_ctor.hpp>
-#include <fcppt/math/at_c.hpp>
 #include <fcppt/math/size_type.hpp>
 #include <fcppt/math/static_size.hpp>
+#include <fcppt/math/vector/at_c.hpp>
 #include <fcppt/math/vector/static.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
@@ -119,7 +119,7 @@ struct access<
 	)
 	{
 		return
-			fcppt::math::at_c<
+			fcppt::math::vector::at_c<
 				Dim
 			>(
 				_vec.base()
@@ -138,7 +138,7 @@ struct access<
 		T const &_value
 	)
 	{
-		fcppt::math::at_c<
+		fcppt::math::vector::at_c<
 			Dim
 		>(
 			_vec.base()

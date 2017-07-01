@@ -203,8 +203,8 @@ fruitapp::fruit::cut_mesh(
 			result->barycenter() += *current_vertex;
 			for (vector3::size_type i = 0; i < 3; ++i)
 			{
-				min_pos[i] = std::min(min_pos[i],(*current_vertex)[i]);
-				max_pos[i] = std::max(max_pos[i],(*current_vertex)[i]);
+				min_pos.get_unsafe(i) = std::min(min_pos.get_unsafe(i),(*current_vertex).get_unsafe(i));
+				max_pos.get_unsafe(i) = std::max(max_pos.get_unsafe(i),(*current_vertex).get_unsafe(i));
 			}
 		}
 	}
@@ -277,9 +277,9 @@ fruitapp::fruit::cut_mesh(
 		vector4 const transformed =
 			coordinate_transformation *
 			vector4(
-				(*i)[0],
-				(*i)[1],
-				(*i)[2],
+				(*i).x(),
+				(*i).y(),
+				(*i).z(),
 				// WATCH OUT: ONLY WORKS WITH THE 1 HERE!
 				1.f);
 
@@ -294,7 +294,7 @@ fruitapp::fruit::cut_mesh(
 		);
 
 		FCPPT_ASSERT_ERROR(
-			transformed[2] < epsilon);
+			transformed.z() < epsilon);
 
 		/*
 		// Warning: Costly assert!
@@ -371,22 +371,22 @@ fruitapp::fruit::cut_mesh(
 					fcppt::math::vector::narrow_cast<vector3>(
 						tcs *
 						vector4(
-							convex_hull_result[0][0],
-							convex_hull_result[0][1],
+							convex_hull_result[0].x(),
+							convex_hull_result[0].y(),
 							0.f,
 							1.f)) - result->barycenter(),
 					fcppt::math::vector::narrow_cast<vector3>(
 						tcs *
 						vector4(
-							convex_hull_result[current_vertex-1][0],
-							convex_hull_result[current_vertex-1][1],
+							convex_hull_result[current_vertex-1].x(),
+							convex_hull_result[current_vertex-1].y(),
 							0.f,
 							1.f)) - result->barycenter(),
 					fcppt::math::vector::narrow_cast<vector3>(
 						tcs *
 						vector4(
-							convex_hull_result[current_vertex][0],
-							convex_hull_result[current_vertex][1],
+							convex_hull_result[current_vertex].x(),
+							convex_hull_result[current_vertex].y(),
 							0.f,
 							1.f)) - result->barycenter()}},
 				{{

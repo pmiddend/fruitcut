@@ -59,13 +59,13 @@ unproject(
 			static_cast<T>(
 				static_cast<T>(1)));
 
-	result[3] = static_cast<T>(1)/result[3];
+	result.w() = static_cast<T>(1)/result.w();
 
 	return
 		fcppt::math::vector::static_<T,3>(
-			static_cast<T>(result[3] * result[0]),
-			static_cast<T>(result[3] * result[1]),
-			static_cast<T>(result[3] * result[2]));
+			static_cast<T>(result.w() * result.x()),
+			static_cast<T>(result.w() * result.y()),
+			static_cast<T>(result.w() * result.z()));
 }
 }
 }

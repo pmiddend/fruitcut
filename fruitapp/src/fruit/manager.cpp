@@ -40,6 +40,7 @@
 #include <fcppt/assert/error.hpp>
 #include <fcppt/cast/size_fun.hpp>
 #include <fcppt/math/dim/contents.hpp>
+#include <fcppt/math/matrix/at_c.hpp>
 #include <fcppt/math/matrix/identity.hpp>
 #include <fcppt/math/matrix/object_impl.hpp>
 #include <fcppt/math/matrix/transform_direction.hpp>
@@ -336,15 +337,19 @@ fruitapp::fruit::manager::delete_distant_fruits()
 
 	sge::renderer::vector4 const
 		fourth_row(
-			mvp[3][0],
-			mvp[3][1],
-			mvp[3][2],
-			mvp[3][3]),
+			fcppt::math::matrix::at_c<
+				3
+			>(
+				mvp
+			)
+		),
 		second_row(
-			mvp[1][0],
-			mvp[1][1],
-			mvp[1][2],
-			mvp[1][3]),
+			fcppt::math::matrix::at_c<
+				1
+			>(
+				mvp
+			)
+		),
 		plane_vec4 =
 			fourth_row - second_row;
 
@@ -352,10 +357,13 @@ fruitapp::fruit::manager::delete_distant_fruits()
 		fruitlib::math::plane::normalize(
 			plane_type(
 				sge::renderer::vector3(
-					plane_vec4[0],
-					plane_vec4[1],
-					plane_vec4[2]),
-				plane_vec4[3]));
+					plane_vec4.x(),
+					plane_vec4.y(),
+					plane_vec4.z()
+				),
+				plane_vec4.w()
+			)
+		);
 
 	for(
 		auto const &fruit

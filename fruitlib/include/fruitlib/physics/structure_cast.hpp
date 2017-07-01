@@ -55,9 +55,9 @@ structure_cast(
 {
 	return
 		btVector3(
-			static_cast<scalar>(c[0]),
-			static_cast<scalar>(c[1]),
-			static_cast<scalar>(c[2]));
+			static_cast<scalar>(c.x()),
+			static_cast<scalar>(c.y()),
+			static_cast<scalar>(c.z()));
 }
 
 template<typename Container>
@@ -103,9 +103,9 @@ structure_cast(
 {
 	return
 		btMatrix3x3(
-			m[0][0],m[0][1],m[0][2],
-			m[1][0],m[1][1],m[1][2],
-			m[2][0],m[2][1],m[2][2]);
+			m.get_unsafe(0).get_unsafe(0),m.get_unsafe(0).get_unsafe(1),m.get_unsafe(0).get_unsafe(2),
+			m.get_unsafe(1).get_unsafe(0),m.get_unsafe(1).get_unsafe(1),m.get_unsafe(1).get_unsafe(2),
+			m.get_unsafe(2).get_unsafe(0),m.get_unsafe(2).get_unsafe(1),m.get_unsafe(2).get_unsafe(2));
 }
 
 }

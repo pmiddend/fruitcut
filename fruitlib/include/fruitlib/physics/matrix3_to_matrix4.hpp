@@ -11,20 +11,20 @@ namespace fruitlib
 namespace physics
 {
 template<typename T>
-fcppt::math::matrix::static_<T,4,4> const
+fcppt::math::matrix::static_<T,4,4>
 matrix3_to_matrix4(
 	fcppt::math::matrix::static_<T,3,3> const &m)
 {
 	return
 		fcppt::math::matrix::static_<T,4,4>(
 			fcppt::math::matrix::row(
-				m[0][0],m[0][1],m[0][2],static_cast<T>(0)
+				m.get_unsafe(0).get_unsafe(0),m.get_unsafe(0).get_unsafe(1),m.get_unsafe(0).get_unsafe(2),static_cast<T>(0)
 			),
 			fcppt::math::matrix::row(
-				m[1][0],m[1][1],m[1][2],static_cast<T>(0)
+				m.get_unsafe(1).get_unsafe(0),m.get_unsafe(1).get_unsafe(1),m.get_unsafe(1).get_unsafe(2),static_cast<T>(0)
 			),
 			fcppt::math::matrix::row(
-				m[2][0],m[2][1],m[2][2],static_cast<T>(0)
+				m.get_unsafe(2).get_unsafe(0),m.get_unsafe(2).get_unsafe(1),m.get_unsafe(2).get_unsafe(2),static_cast<T>(0)
 			),
 			fcppt::math::matrix::row(
 				static_cast<T>(0),static_cast<T>(0),static_cast<T>(0),static_cast<T>(1)

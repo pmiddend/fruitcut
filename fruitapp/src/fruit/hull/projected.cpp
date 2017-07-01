@@ -74,7 +74,7 @@ fruitapp::fruit::hull::projected(
 
 		sge::renderer::vector2 const divided =
 			fcppt::math::vector::narrow_cast<hull_point_cloud::value_type>(
-				projected / projected[3]);
+				projected / projected.w());
 
 		sge::renderer::vector2 const window_coordinates =
 			(divided +

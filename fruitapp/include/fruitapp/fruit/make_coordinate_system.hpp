@@ -164,13 +164,13 @@ make_coordinate_system(
 		optional_matrix4(
 			matrix4(
 				fcppt::math::matrix::row(
-					directions[0][0],directions[1][0],crossed[0],(*points.begin())[0]
+					directions[0].x(),directions[1].x(),crossed.x(),(*points.begin()).x()
 				),
 				fcppt::math::matrix::row(
-					directions[0][1],directions[1][1],crossed[1],(*points.begin())[1]
+					directions[0].y(),directions[1].y(),crossed.y(),(*points.begin()).y()
 				),
 				fcppt::math::matrix::row(
-					directions[0][2],directions[1][2],crossed[2],(*points.begin())[2]
+					directions[0].z(),directions[1].z(),crossed.z(),(*points.begin()).z()
 				),
 				fcppt::math::matrix::row(
 					zero, zero, zero, one
