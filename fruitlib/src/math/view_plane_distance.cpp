@@ -1,7 +1,7 @@
 #include <fruitlib/math/view_plane_distance.hpp>
 #include <fruitlib/math/plane/basic.hpp>
 #include <fruitlib/math/plane/normalize.hpp>
-#include <fcppt/math/matrix/at_c.hpp>
+#include <fcppt/math/matrix/at_r.hpp>
 #include <fcppt/math/matrix/object_impl.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
 #include <fcppt/math/vector/object_impl.hpp>
@@ -27,14 +27,14 @@ fruitlib::math::view_plane_distance(
 
 	vector4 const
 		fourth_row(
-			fcppt::math::matrix::at_c<
+			fcppt::math::matrix::at_r<
 				3
 			>(
 				m
 			)
 		),
 		third_row(
-			fcppt::math::matrix::at_c<
+			fcppt::math::matrix::at_r<
 				2
 			>(
 				m

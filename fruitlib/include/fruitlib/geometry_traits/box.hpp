@@ -4,7 +4,7 @@
 #include <fruitlib/def_ctor.hpp>
 #include <fcppt/math/size_type.hpp>
 #include <fcppt/math/box/object_impl.hpp>
-#include <fcppt/math/vector/at_c.hpp>
+#include <fcppt/math/vector/at.hpp>
 #include <fcppt/math/vector/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/geometry/geometry.hpp>
@@ -87,7 +87,7 @@ struct indexed_access<
 	)
 	{
 		return
-			fcppt::math::vector::at_c<
+			fcppt::math::vector::at<
 				Dimension
 			>(
 				_box.pos()
@@ -106,7 +106,7 @@ struct indexed_access<
 		T const &_value
 	)
 	{
-		fcppt::math::vector::at_c<
+		fcppt::math::vector::at<
 			Dimension
 		>(
 			_box.pos()
@@ -143,7 +143,7 @@ struct indexed_access<
 	)
 	{
 		return
-			fcppt::math::vector::at_c<
+			fcppt::math::vector::at<
 				Dimension
 			>(
 				_box.max()
@@ -162,7 +162,7 @@ struct indexed_access<
 		T const &_value
 	)
 	{
-		fcppt::math::vector::at_c<
+		fcppt::math::vector::at<
 			Dimension
 		>(
 			_box.max()

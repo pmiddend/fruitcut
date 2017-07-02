@@ -52,7 +52,7 @@
 #include <fcppt/reference_to_base.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/math/matrix/arithmetic.hpp>
-#include <fcppt/math/matrix/at_c.hpp>
+#include <fcppt/math/matrix/at_r.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
 #include <fcppt/math/vector/narrow_cast.hpp>
 #include <fcppt/optional/assign.hpp>
@@ -130,7 +130,7 @@ ffp_light_from_directional_light_source(
 				sge::renderer::state::ffp::lighting::light::directional(
 					sge::renderer::state::ffp::lighting::light::direction(
 						-fcppt::math::vector::narrow_cast<sge::renderer::vector3>(
-							fcppt::math::matrix::at_c<
+							fcppt::math::matrix::at_r<
 								2
 							>(
 								_light.transformation()

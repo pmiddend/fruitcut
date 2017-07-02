@@ -40,7 +40,7 @@
 #include <fcppt/assert/error.hpp>
 #include <fcppt/cast/size_fun.hpp>
 #include <fcppt/math/dim/contents.hpp>
-#include <fcppt/math/matrix/at_c.hpp>
+#include <fcppt/math/matrix/at_r.hpp>
 #include <fcppt/math/matrix/identity.hpp>
 #include <fcppt/math/matrix/object_impl.hpp>
 #include <fcppt/math/matrix/transform_direction.hpp>
@@ -337,14 +337,14 @@ fruitapp::fruit::manager::delete_distant_fruits()
 
 	sge::renderer::vector4 const
 		fourth_row(
-			fcppt::math::matrix::at_c<
+			fcppt::math::matrix::at_r<
 				3
 			>(
 				mvp
 			)
 		),
 		second_row(
-			fcppt::math::matrix::at_c<
+			fcppt::math::matrix::at_r<
 				1
 			>(
 				mvp
